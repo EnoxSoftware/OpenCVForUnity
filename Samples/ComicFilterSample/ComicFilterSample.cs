@@ -12,7 +12,9 @@ public class ComicFilterSample : MonoBehaviour
 
 		WebCamTexture webCamTexture;
 		Color32[] colors;
+	    #if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR
 		bool isFront = false;
+	    #endif
 		int width = 640;
 		int height = 480;
 //		Mat rgbaMat;
@@ -32,15 +34,19 @@ public class ComicFilterSample : MonoBehaviour
 				// Checks how many and which cameras are available on the device
 				for (int cameraIndex = 0; cameraIndex < WebCamTexture.devices.Length; cameraIndex++) {
 						
+						#if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR
 						if (WebCamTexture.devices [cameraIndex].isFrontFacing == isFront) {
+						#endif
 				
-								Debug.Log (cameraIndex + " name " + WebCamTexture.devices [cameraIndex].name + " isFrontFacing " + WebCamTexture.devices [cameraIndex].isFrontFacing);
+						Debug.Log (cameraIndex + " name " + WebCamTexture.devices [cameraIndex].name + " isFrontFacing " + WebCamTexture.devices [cameraIndex].isFrontFacing);
 
-								//Set the appropriate fps
-								webCamTexture = new WebCamTexture (WebCamTexture.devices [cameraIndex].name, width, height, 10);
-				
+						//Set the appropriate fps
+						webCamTexture = new WebCamTexture (WebCamTexture.devices [cameraIndex].name, width, height, 10);
+
+						#if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR
 								break;
 						}
+						#endif
 			
 				}
 		
@@ -90,7 +96,7 @@ public class ComicFilterSample : MonoBehaviour
 								gameObject.transform.eulerAngles = new Vector3 (0, 0, -90);
 								gameObject.transform.localScale = new Vector3 (webCamTexture.width, webCamTexture.height, 1);
 
-								gameObject.renderer.material.mainTexture = texture;
+								gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 
 								initDone = true;
 

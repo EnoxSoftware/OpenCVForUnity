@@ -20,15 +20,15 @@ namespace OpenCVForUnitySample
 						Mat imgMat = new Mat (imgTexture.height, imgTexture.width, CvType.CV_8UC4);
 
 						Utils.texture2DToMat (imgTexture, imgMat);
-			            Debug.Log ("imgMat dst ToString " + imgMat.ToString ());
+						Debug.Log ("imgMat dst ToString " + imgMat.ToString ());
 
 
-						Texture2D texture = new Texture2D (imgMat.cols (), imgMat.rows (), TextureFormat.BGRA32, false);
+						Texture2D texture = new Texture2D (imgMat.cols (), imgMat.rows (), TextureFormat.RGBA32, false);
 
 		
 						Utils.matToTexture2D (imgMat, texture);
 
-						gameObject.renderer.material.mainTexture = texture;
+						gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 
 				}
 	

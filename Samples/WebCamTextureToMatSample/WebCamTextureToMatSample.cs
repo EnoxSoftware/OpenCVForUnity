@@ -13,7 +13,9 @@ namespace OpenCVForUnitySample
 	
 				WebCamTexture webCamTexture;
 				Color32[] colors;
+		        #if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR
 				bool isFront = false;
+		        #endif
 				int width = 640;
 				int height = 480;
 				Mat rgbaMat;
@@ -27,15 +29,19 @@ namespace OpenCVForUnitySample
 						// Checks how many and which cameras are available on the device
 						for (int cameraIndex = 0; cameraIndex < WebCamTexture.devices.Length; cameraIndex++) {
 
+								#if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR
 								if (WebCamTexture.devices [cameraIndex].isFrontFacing == isFront) {
+								#endif
 				
-										Debug.Log (cameraIndex + " name " + WebCamTexture.devices [cameraIndex].name + " isFrontFacing " + WebCamTexture.devices [cameraIndex].isFrontFacing);
+								Debug.Log (cameraIndex + " name " + WebCamTexture.devices [cameraIndex].name + " isFrontFacing " + WebCamTexture.devices [cameraIndex].isFrontFacing);
 				
-										//Set the appropriate fps
-										webCamTexture = new WebCamTexture (WebCamTexture.devices [cameraIndex].name, width, height, 30);
-				
+								//Set the appropriate fps
+								webCamTexture = new WebCamTexture (WebCamTexture.devices [cameraIndex].name, width, height, 30);
+
+								#if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR
 										break;
 								}
+								#endif
 			
 						}
 		
@@ -71,7 +77,7 @@ namespace OpenCVForUnitySample
 										gameObject.transform.localScale = new Vector3 (webCamTexture.width, webCamTexture.height, 1);
 
 
-										gameObject.renderer.material.mainTexture = texture;
+										gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 					
 										initDone = true;
 					
@@ -95,7 +101,7 @@ namespace OpenCVForUnitySample
 		
 								Utils.matToTexture2D (rgbaMat, texture);
 		
-								gameObject.renderer.material.mainTexture = texture;
+								gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 
 
 						}

@@ -15,7 +15,9 @@ namespace OpenCVForUnitySample
 				void Start ()
 				{
 	
-						Mat imgMat = new Mat (500, 500, CvType.CV_8UC3);
+						Mat imgMat = new Mat (500, 500, CvType.CV_8UC3, new Scalar (0, 0, 0));
+						Debug.Log ("imgMat dst ToString " + imgMat.ToString ());
+
 
 						int rand_num = 50;
 						MatOfPoint pointsMat = new MatOfPoint ();
@@ -60,7 +62,7 @@ namespace OpenCVForUnitySample
 						Texture2D texture = new Texture2D (imgMat.cols (), imgMat.rows (), TextureFormat.RGBA32, false);
 						Utils.matToTexture2D (imgMat, texture);
 		
-						gameObject.renderer.material.mainTexture = texture;
+						gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 				}
 	
 				// Update is called once per frame

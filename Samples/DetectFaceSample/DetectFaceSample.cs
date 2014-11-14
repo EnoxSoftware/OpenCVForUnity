@@ -50,7 +50,7 @@ namespace OpenCVForUnitySample
 
 						Utils.matToTexture2D (imgMat, texture);
 
-						gameObject.renderer.material.mainTexture = texture;
+						gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 	
 
 				}

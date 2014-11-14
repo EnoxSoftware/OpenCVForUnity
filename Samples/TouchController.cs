@@ -8,11 +8,22 @@ public class TouchController : MonoBehaviour
 
 	public GameObject Cube;
 
-	public float Speed = 0.01f;
+	public float Speed = 0.1f;
 	
 	void Update()
 	{
+		//Mouse
+		if(Input.GetMouseButton(0)){
 
+			float xAngle = Input.GetAxis("Mouse Y") * Speed * 80;
+			float yAngle = -Input.GetAxis("Mouse X") * Speed * 80;
+			float zAngle = 0;
+
+			Cube.transform.Rotate(xAngle, yAngle, zAngle, Space.World);
+		}
+
+
+		//Touch
 		int touchCount = Input.touchCount;
 		
 		if (touchCount == 1)
@@ -24,8 +35,8 @@ public class TouchController : MonoBehaviour
 			case TouchPhase.Moved:
 				
 
-				float xAngle = t.deltaPosition.y * Speed * 10;
-				float yAngle = -t.deltaPosition.x * Speed * 10;
+				float xAngle = t.deltaPosition.y * Speed;
+				float yAngle = -t.deltaPosition.x * Speed;
 				float zAngle = 0;
 				
 
@@ -36,4 +47,5 @@ public class TouchController : MonoBehaviour
 			
 		}
 	}
+
 }

@@ -13,18 +13,16 @@ namespace OpenCVForUnitySample
 
 				WebCamTexture webCamTexture;
 				Color32[] colors;
+		        #if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR
 				bool isFront = false;
+		        #endif
 				int width = 640;
 				int height = 480;
 				Mat rgbaMat;
 				Mat grayMat;
-//				Texture2D texture;
+				Texture2D texture;
 				CascadeClassifier cascade;
 				MatOfRect faces;
-				Size minSize;
-				Size maxSize;
-				public GameObject[] facesQuad;
-				Texture2D faceTexture;
 				bool initDone = false;
 
 				// Use this for initialization
@@ -33,15 +31,19 @@ namespace OpenCVForUnitySample
 						// Checks how many and which cameras are available on the device
 						for (int cameraIndex = 0; cameraIndex < WebCamTexture.devices.Length; cameraIndex++) {
 							
+								#if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR
 								if (WebCamTexture.devices [cameraIndex].isFrontFacing == isFront) {
+								#endif
 				
-										Debug.Log (cameraIndex + " name " + WebCamTexture.devices [cameraIndex].name + " isFrontFacing " + WebCamTexture.devices [cameraIndex].isFrontFacing);
+								Debug.Log (cameraIndex + " name " + WebCamTexture.devices [cameraIndex].name + " isFrontFacing " + WebCamTexture.devices [cameraIndex].isFrontFacing);
 				
-										//Set the appropriate fps
-										webCamTexture = new WebCamTexture (WebCamTexture.devices [cameraIndex].name, width, height, 10);
+								//Set the appropriate fps
+								webCamTexture = new WebCamTexture (WebCamTexture.devices [cameraIndex].name, width, height, 3);
 	
+								#if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR
 										break;
 								}
+								#endif
 			
 						}
 
@@ -69,33 +71,16 @@ namespace OpenCVForUnitySample
 										rgbaMat = new Mat (webCamTexture.height, webCamTexture.width, CvType.CV_8UC4);
 										grayMat = new Mat (webCamTexture.height, webCamTexture.width, CvType.CV_8UC1);
 					
-//										texture = new Texture2D (webCamTexture.width, webCamTexture.height, TextureFormat.RGBA32, false);
+										texture = new Texture2D (webCamTexture.width, webCamTexture.height, TextureFormat.RGBA32, false);
 					
-//										gameObject.transform.eulerAngles = new Vector3 (0, 0, -90);
-//										gameObject.transform.localScale = new Vector3 (webCamTexture.width, webCamTexture.height, 1);
-										gameObject.transform.localPosition = new Vector3 (webCamTexture.width / 2, -webCamTexture.height / 2, 0);
-										gameObject.transform.eulerAngles = new Vector3 (0, 0, 0);
+										gameObject.transform.eulerAngles = new Vector3 (0, 0, -90);
 										gameObject.transform.localScale = new Vector3 (webCamTexture.width, webCamTexture.height, 1);
 					
 					
 										cascade = new CascadeClassifier (Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
 										faces = new MatOfRect ();
-										minSize = new Size (60, 60);
-										maxSize = new Size ();
 
-//										gameObject.renderer.material.mainTexture = texture;
-										gameObject.renderer.material.mainTexture = webCamTexture;
-
-
-										//make faceTexture
-										Mat faceMat = new Mat (100, 100, CvType.CV_8UC4, new Scalar (0, 0, 0, 0));
-										Core.rectangle (faceMat, new Point (1, 1), new Point (100 - 2, 100 - 2), new Scalar (255, 0, 0, 127), 3);
-										faceTexture = new Texture2D (faceMat.cols (), faceMat.rows (), TextureFormat.RGBA32, false);
-										Utils.matToTexture2D (faceMat, faceTexture);
-										for (int i = 0; i < facesQuad.Length; i++) {
-												facesQuad [i].renderer.material.mainTexture = faceTexture;
-										}
-
+										gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 					
 										initDone = true;
 					
@@ -123,29 +108,16 @@ namespace OpenCVForUnitySample
 
 								if (cascade != null)
 										cascade.detectMultiScale (grayMat, faces, 1.1, 2, 2, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
-			                         minSize, maxSize);
+			                          new Size (50, 50), new Size ());
 		
 								OpenCVForUnity.Rect[] rects = faces.toArray ();
-
-
-								for (int i = 0; i < facesQuad.Length; i++) {
-										facesQuad [i].SetActive (false);
-								}
-
-
 								for (int i = 0; i < rects.Length; i++) {
 										//				Debug.Log ("detect faces " + rects [i]);
 			
-//										Core.rectangle (rgbaMat, new Point (rects [i].x, rects [i].y), new Point (rects [i].x + rects [i].width, rects [i].y + rects [i].height), new Scalar (255, 0, 0, 255), 2);
-
-										if (i < facesQuad.Length) {
-												facesQuad [i].transform.localPosition = new Vector3 (rects [i].x + rects [i].width / 2, -(rects [i].y + rects [i].height / 2), -1);
-												facesQuad [i].transform.localScale = new Vector3 (rects [i].width, rects [i].height, 1);
-												facesQuad [i].SetActive (true);
-										}
+										Core.rectangle (rgbaMat, new Point (rects [i].x, rects [i].y), new Point (rects [i].x + rects [i].width, rects [i].y + rects [i].height), new Scalar (255, 0, 0, 255), 2);
 								}
 
-//								Utils.matToTexture2D (rgbaMat, texture);
+								Utils.matToTexture2D (rgbaMat, texture);
 
 
 						}
