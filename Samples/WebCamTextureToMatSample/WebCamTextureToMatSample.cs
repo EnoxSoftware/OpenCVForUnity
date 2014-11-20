@@ -99,7 +99,7 @@ namespace OpenCVForUnitySample
 								Utils.WebCamTextureToMat (webCamTexture, rgbaMat, colors);
 
 		
-								Utils.matToTexture2D (rgbaMat, texture);
+								Utils.matToTexture2D (rgbaMat, texture, colors);
 		
 								gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 

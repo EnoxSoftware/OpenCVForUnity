@@ -117,7 +117,7 @@ namespace OpenCVForUnitySample
 										Core.rectangle (rgbaMat, new Point (rects [i].x, rects [i].y), new Point (rects [i].x + rects [i].width, rects [i].y + rects [i].height), new Scalar (255, 0, 0, 255), 2);
 								}
 
-								Utils.matToTexture2D (rgbaMat, texture);
+								Utils.matToTexture2D (rgbaMat, texture, colors);
 
 
 						}

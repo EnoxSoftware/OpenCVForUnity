@@ -175,7 +175,7 @@ public class ComicFilterSample : MonoBehaviour
 //		Imgproc.cvtColor(dstMat,rgbaMat,Imgproc.COLOR_GRAY2RGBA);
 //				Utils.matToTexture2D (rgbaMat, texture);
 
-						Utils.matToTexture2D (dstMat, texture);
+						Utils.matToTexture2D (dstMat, texture, colors);
 		
 				
 
