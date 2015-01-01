@@ -78,7 +78,9 @@ namespace OpenCVForUnitySample
 
 
 										gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-					
+
+										Camera.main.orthographicSize = webCamTexture.width / 2;
+
 										initDone = true;
 					
 										break;

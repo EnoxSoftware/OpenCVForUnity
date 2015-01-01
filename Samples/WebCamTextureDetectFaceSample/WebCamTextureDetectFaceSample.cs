@@ -81,6 +81,8 @@ namespace OpenCVForUnitySample
 										faces = new MatOfRect ();
 
 										gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
+
+										Camera.main.orthographicSize = webCamTexture.width / 2;
 					
 										initDone = true;
 					
@@ -102,9 +104,9 @@ namespace OpenCVForUnitySample
 								Utils.WebCamTextureToMat (webCamTexture, rgbaMat, colors);
 
 
-
 								Imgproc.cvtColor (rgbaMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
 								Imgproc.equalizeHist (grayMat, grayMat);
+
 
 								if (cascade != null)
 										cascade.detectMultiScale (grayMat, faces, 1.1, 2, 2, // TODO: objdetect.CV_HAAR_SCALE_IMAGE

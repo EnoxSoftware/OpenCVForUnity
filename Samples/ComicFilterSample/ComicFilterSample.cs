@@ -98,6 +98,8 @@ public class ComicFilterSample : MonoBehaviour
 
 								gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 
+								Camera.main.orthographicSize = webCamTexture.width / 2;
+
 								initDone = true;
 
 								break;
