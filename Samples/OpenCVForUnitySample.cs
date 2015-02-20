@@ -26,6 +26,10 @@ namespace OpenCVForUnitySample
 
 
 						GUILayout.BeginVertical ();
+
+						if (GUILayout.Button ("Show License")) {
+								Application.LoadLevel ("ShowLicense");
+						}
 				
 						if (GUILayout.Button ("Texture2DToMatSample")) {
 								Application.LoadLevel ("Texture2DToMatSample");
@@ -67,7 +71,6 @@ namespace OpenCVForUnitySample
 								Application.LoadLevel ("ComicFilterSample");
 						}
 
-				
 
 						GUILayout.EndVertical ();
 				}

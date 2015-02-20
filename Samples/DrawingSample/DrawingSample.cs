@@ -29,6 +29,8 @@ namespace OpenCVForUnitySample
 
 						Core.circle (imgMat, new Point (500, 300), 80, new Scalar (200, 0, 0), 1);
 
+						Core.arrowedLine (imgMat, new Point (100, 500), new Point (550, 350), new Scalar (255, 255, 0), 4, Core.LINE_8, 0, 0.1);
+
 
 						double angle = 100;
 						Core.ellipse (imgMat, new Point (200, 400), new Size (80, 150), angle, angle - 200, angle + 100, new Scalar (255, 255, 255), -1);
