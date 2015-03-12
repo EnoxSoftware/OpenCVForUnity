@@ -17,7 +17,7 @@ public class ComicFilterSample : MonoBehaviour
 	    #endif
 		int width = 640;
 		int height = 480;
-//		Mat rgbaMat;
+		Mat rgbaMat;
 		Mat grayMat;
 		Mat lineMat;
 		Mat maskMat;
@@ -70,12 +70,12 @@ public class ComicFilterSample : MonoBehaviour
 				while (true) {
 
 						//If you want to use webcamTexture.width and webcamTexture.height on iOS, you have to wait until webcamTexture.didUpdateThisFrame == 1, otherwise these two values will be equal to 16. (http://forum.unity3d.com/threads/webcamtexture-and-error-0x0502.123922/)
-						if (webCamTexture.didUpdateThisFrame) {
+						if (webCamTexture.width > 16 && webCamTexture.height > 16) {
 								Debug.Log ("width " + webCamTexture.width + " height " + webCamTexture.height + " fps " + webCamTexture.requestedFPS);
 				
 								colors = new Color32[webCamTexture.width * webCamTexture.height];
 				
-//								rgbaMat = new Mat (webCamTexture.height, webCamTexture.width, CvType.CV_8UC4);
+								rgbaMat = new Mat (webCamTexture.height, webCamTexture.width, CvType.CV_8UC4);
 								grayMat = new Mat (webCamTexture.height, webCamTexture.width, CvType.CV_8UC1);
 								lineMat = new Mat (webCamTexture.height, webCamTexture.width, CvType.CV_8UC1);
 								maskMat = new Mat (webCamTexture.height, webCamTexture.width, CvType.CV_8UC1);
@@ -95,6 +95,12 @@ public class ComicFilterSample : MonoBehaviour
 				
 								gameObject.transform.eulerAngles = new Vector3 (0, 0, -90);
 								gameObject.transform.localScale = new Vector3 (webCamTexture.width, webCamTexture.height, 1);
+
+								bool _videoVerticallyMirrored = webCamTexture.videoVerticallyMirrored;
+								float scaleX = 1;
+								float scaleY = _videoVerticallyMirrored ? -1.0f : 1.0f;
+								gameObject.transform.localScale = new Vector3 (scaleX * gameObject.transform.localScale.x, scaleY * gameObject.transform.localScale.y, 1);
+
 
 								gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 
@@ -116,12 +122,12 @@ public class ComicFilterSample : MonoBehaviour
 				if (!initDone)
 						return;
 
-				if (webCamTexture.didUpdateThisFrame) {
+				if (webCamTexture.width > 16 && webCamTexture.height > 16) {
 		
-//				Utils.WebCamTextureToMat (webCamTexture, rgbaMat, colors);
-//				Imgproc.cvtColor (rgbaMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
+						Utils.webCamTextureToMat (webCamTexture, rgbaMat, colors);
+						Imgproc.cvtColor (rgbaMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
 
-						Utils.WebCamTextureToMat (webCamTexture, grayMat, colors);
+//						Utils.webCamTextureToMat (webCamTexture, grayMat, colors);
 
 				
 						bgMat.copyTo (dstMat);

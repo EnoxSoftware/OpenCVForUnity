@@ -63,7 +63,7 @@ namespace OpenCVForUnitySample
 				{
 						while (true) {
 								//If you want to use webcamTexture.width and webcamTexture.height on iOS, you have to wait until webcamTexture.didUpdateThisFrame == 1, otherwise these two values will be equal to 16. (http://forum.unity3d.com/threads/webcamtexture-and-error-0x0502.123922/)
-								if (webCamTexture.didUpdateThisFrame) {
+								if (webCamTexture.width > 16 && webCamTexture.height > 16) {
 										Debug.Log ("width " + webCamTexture.width + " height " + webCamTexture.height + " fps " + webCamTexture.requestedFPS);
 					
 										colors = new Color32[webCamTexture.width * webCamTexture.height];
@@ -75,6 +75,12 @@ namespace OpenCVForUnitySample
 					
 										gameObject.transform.eulerAngles = new Vector3 (0, 0, -90);
 										gameObject.transform.localScale = new Vector3 (webCamTexture.width, webCamTexture.height, 1);
+
+										bool _videoVerticallyMirrored = webCamTexture.videoVerticallyMirrored;
+										float scaleX = 1;
+										float scaleY = _videoVerticallyMirrored ? -1.0f : 1.0f;
+										gameObject.transform.localScale = new Vector3 (scaleX * gameObject.transform.localScale.x, scaleY * gameObject.transform.localScale.y, 1);
+
 					
 					
 										cascade = new CascadeClassifier (Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
@@ -99,9 +105,9 @@ namespace OpenCVForUnitySample
 						if (!initDone)
 								return;
 	
-						if (webCamTexture.didUpdateThisFrame) {
+						if (webCamTexture.width > 16 && webCamTexture.height > 16) {
 
-								Utils.WebCamTextureToMat (webCamTexture, rgbaMat, colors);
+								Utils.webCamTextureToMat (webCamTexture, rgbaMat, colors);
 
 
 								Imgproc.cvtColor (rgbaMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
