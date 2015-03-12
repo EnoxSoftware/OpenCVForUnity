@@ -20,8 +20,6 @@ var searchData=
   ['invertaffinetransform',['invertAffineTransform',['../class_open_c_v_for_unity_1_1_imgproc.html#a302d42d514d471b3a600c89fd36fb6ea',1,'OpenCVForUnity::Imgproc']]],
   ['iscontinuous',['isContinuous',['../class_open_c_v_for_unity_1_1_mat.html#abe0318df1c5d9b8b1c05dad00b90dab9',1,'OpenCVForUnity::Mat']]],
   ['iscontourconvex',['isContourConvex',['../class_open_c_v_for_unity_1_1_imgproc.html#aa6bc2778ef2dea571ceee737d9510fe3',1,'OpenCVForUnity::Imgproc']]],
-  ['isdisposed',['IsDisposed',['../class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525',1,'OpenCVForUnity::DisposableObject']]],
-  ['isenableddispose',['IsEnabledDispose',['../class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f',1,'OpenCVForUnity::DisposableObject']]],
   ['ismasksupported',['isMaskSupported',['../class_open_c_v_for_unity_1_1_descriptor_matcher.html#ae765b2222ed9132cfe464bf481d7ef48',1,'OpenCVForUnity.DescriptorMatcher.isMaskSupported()'],['../class_open_c_v_for_unity_1_1_generic_descriptor_matcher.html#a30ffe76730de4de3dc2c1a9a3b6fc2b7',1,'OpenCVForUnity.GenericDescriptorMatcher.isMaskSupported()']]],
   ['isopened',['isOpened',['../class_open_c_v_for_unity_1_1_video_capture.html#a1d115404c6f35a70056476052631af6b',1,'OpenCVForUnity::VideoCapture']]]
 ];
