@@ -42,6 +42,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -134,9 +135,12 @@ Static Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a889951e2e5caf051015e8b46247ea73d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a889951e2e5caf051015e8b46247ea73d"></a>
-const int&#160;</td><td class="memItemRight" valign="bottom"><b>OPTFLOW_USE_INITIAL_FLOW</b> = CV_LKFLOW_INITIAL_GUESSES</td></tr>
+<tr class="memitem:a889951e2e5caf051015e8b46247ea73d"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video.html#a889951e2e5caf051015e8b46247ea73d">OPTFLOW_USE_INITIAL_FLOW</a> = CV_LKFLOW_INITIAL_GUESSES</td></tr>
 <tr class="separator:a889951e2e5caf051015e8b46247ea73d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8a128cacf80c603f4e4ec606bdb7c96"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video.html#ab8a128cacf80c603f4e4ec606bdb7c96">OPTFLOW_LK_GET_MIN_EIGENVALS</a> = CV_LKFLOW_GET_MIN_EIGENVALS</td></tr>
+<tr class="separator:ab8a128cacf80c603f4e4ec606bdb7c96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedde09a0a8a8e53ea12e220addf457e8"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video.html#aedde09a0a8a8e53ea12e220addf457e8">OPTFLOW_FARNEBACK_GAUSSIAN</a> = 256</td></tr>
+<tr class="separator:aedde09a0a8a8e53ea12e220addf457e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="abdd5433ed2d0a9cd11080115804dd552"></a>
@@ -1179,7 +1183,7 @@ An example using the simpleFlow algorithm can be found at opencv_source_code/sam
 </table>
 </div><div class="memdoc">
 <p>Finds an object center, size, and orientation.</p>
-<p>The function implements the CAMSHIFT object tracking algorithm [Bradski98]. First, it finds an object center using "meanShift" and then adjusts the window size and finds the optimal rotation. The function returns the rotated rectangle structure that includes the object position, size, and orientation. The next position of the search window can be obtained with <code>RotatedRect.boundingRect()</code>.</p>
+<p>The function implements the CAMSHIFT object tracking algorithm [Bradski98]. First, it finds an object center using "meanShift" and then adjusts the window size and finds the optimal rotation. The function returns the rotated rectangle structure that includes the object position, size, and orientation. The next position of the search window can be obtained with <code><a class="el" href="class_open_c_v_for_unity_1_1_rotated_rect.html#af3c3b3dd97043fb1f0b0628b3c19318d">RotatedRect.boundingRect()</a></code>.</p>
 <p>See the OpenCV sample <code>camshiftdemo.c</code> that tracks colored objects.</p>
 <p>Note:</p>
 <ul>
@@ -1451,13 +1455,50 @@ A mean-shift tracking sample can be found at opencv_source_code/samples/cpp/cams
 
 </div>
 </div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="aedde09a0a8a8e53ea12e220addf457e8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int OpenCVForUnity.Video.OPTFLOW_FARNEBACK_GAUSSIAN = 256</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab8a128cacf80c603f4e4ec606bdb7c96"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int OpenCVForUnity.Video.OPTFLOW_LK_GET_MIN_EIGENVALS = CV_LKFLOW_GET_MIN_EIGENVALS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a889951e2e5caf051015e8b46247ea73d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int OpenCVForUnity.Video.OPTFLOW_USE_INITIAL_FLOW = CV_LKFLOW_INITIAL_GUESSES</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>OpenCVForUnity/org/opencv/video/Video.cs</li>
+<li>OpenCVForUnity/org/opencv/video/<a class="el" href="_video_8cs.html">Video.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 13 2015 03:35:09 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 16 2015 17:15:10 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

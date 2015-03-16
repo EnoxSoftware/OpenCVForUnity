@@ -1,4 +1,32 @@
 var searchData=
 [
-  ['pt',['pt',['../class_open_c_v_for_unity_1_1_key_point.html#a10cf57f229007aa19c745dbbbbc3ba47',1,'OpenCVForUnity::KeyPoint']]]
+  ['gamma',['GAMMA',['../class_open_c_v_for_unity_1_1_cv_s_v_m.html#a1eb165c9a19024a51a7882f9963e691a',1,'OpenCVForUnity::CvSVM']]],
+  ['gaussian',['GAUSSIAN',['../class_open_c_v_for_unity_1_1_cv_a_n_n___m_l_p.html#a3196ba5c737142fcedd57cd57beae7ab',1,'OpenCVForUnity::CvANN_MLP']]],
+  ['gc_5fbgd',['GC_BGD',['../class_open_c_v_for_unity_1_1_imgproc.html#ab37089b49b52f912efa627fe0914c151',1,'OpenCVForUnity::Imgproc']]],
+  ['gc_5feval',['GC_EVAL',['../class_open_c_v_for_unity_1_1_imgproc.html#a55038eef8ed8d5ea2be7ea4f19dda257',1,'OpenCVForUnity::Imgproc']]],
+  ['gc_5ffgd',['GC_FGD',['../class_open_c_v_for_unity_1_1_imgproc.html#a6ad00850cec56fd01cbb6a878534f030',1,'OpenCVForUnity::Imgproc']]],
+  ['gc_5finit_5fwith_5fmask',['GC_INIT_WITH_MASK',['../class_open_c_v_for_unity_1_1_imgproc.html#af78a5ec1b8b028b14720343c2a71c795',1,'OpenCVForUnity::Imgproc']]],
+  ['gc_5finit_5fwith_5frect',['GC_INIT_WITH_RECT',['../class_open_c_v_for_unity_1_1_imgproc.html#ae953ab6bd64582591eeaf51985a45951',1,'OpenCVForUnity::Imgproc']]],
+  ['gc_5fpr_5fbgd',['GC_PR_BGD',['../class_open_c_v_for_unity_1_1_imgproc.html#a8e42efd4c37643e5c318aaba748b6521',1,'OpenCVForUnity::Imgproc']]],
+  ['gc_5fpr_5ffgd',['GC_PR_FGD',['../class_open_c_v_for_unity_1_1_imgproc.html#aab426b4dc53904b1c9b5175e981e18eb',1,'OpenCVForUnity::Imgproc']]],
+  ['gemm_5f1_5ft',['GEMM_1_T',['../class_open_c_v_for_unity_1_1_core.html#aaae8aa1700fde16ab2eda2c5e340f9d5',1,'OpenCVForUnity::Core']]],
+  ['gemm_5f2_5ft',['GEMM_2_T',['../class_open_c_v_for_unity_1_1_core.html#aa83756efa19c03936ee0262376333560',1,'OpenCVForUnity::Core']]],
+  ['gemm_5f3_5ft',['GEMM_3_T',['../class_open_c_v_for_unity_1_1_core.html#afca440f41cb86ff99897460c9c008de2',1,'OpenCVForUnity::Core']]],
+  ['gentle',['GENTLE',['../class_open_c_v_for_unity_1_1_cv_boost.html#ab3529eee9a238cc935d34a4ded08e571',1,'OpenCVForUnity::CvBoost']]],
+  ['gftt',['GFTT',['../class_open_c_v_for_unity_1_1_feature_detector.html#aacd4224ce2a5cdebaf4fc172d5d89b1d',1,'OpenCVForUnity::FeatureDetector']]],
+  ['ght_5fposition',['GHT_POSITION',['../class_open_c_v_for_unity_1_1_imgproc.html#a0472ed5112bf9e6f77bc9c817b5a8d77',1,'OpenCVForUnity::Imgproc']]],
+  ['ght_5frotation',['GHT_ROTATION',['../class_open_c_v_for_unity_1_1_imgproc.html#a52ebf38fe0c4fe3b8c6267bcfde0a44a',1,'OpenCVForUnity::Imgproc']]],
+  ['ght_5fscale',['GHT_SCALE',['../class_open_c_v_for_unity_1_1_imgproc.html#ab74fb3646cdce103f9186664dc325dee',1,'OpenCVForUnity::Imgproc']]],
+  ['gini',['GINI',['../class_open_c_v_for_unity_1_1_cv_boost.html#a63388d4a74a28d1bc0326ed442cc3d5c',1,'OpenCVForUnity::CvBoost']]],
+  ['global_5fatomics',['GLOBAL_ATOMICS',['../class_open_c_v_for_unity_1_1_gpu.html#a42d1c34fb1e8a0fdbf3e756eade96506',1,'OpenCVForUnity::Gpu']]],
+  ['grid_5fbrisk',['GRID_BRISK',['../class_open_c_v_for_unity_1_1_feature_detector.html#acbb19d5c062e06982320e4eca50f4f2c',1,'OpenCVForUnity::FeatureDetector']]],
+  ['grid_5fdense',['GRID_DENSE',['../class_open_c_v_for_unity_1_1_feature_detector.html#aea31126f12a8ad71bcc7427867fee86e',1,'OpenCVForUnity::FeatureDetector']]],
+  ['grid_5ffast',['GRID_FAST',['../class_open_c_v_for_unity_1_1_feature_detector.html#a3c652d9c2f2280c24a96cc254ae9ca42',1,'OpenCVForUnity::FeatureDetector']]],
+  ['grid_5fgftt',['GRID_GFTT',['../class_open_c_v_for_unity_1_1_feature_detector.html#a0415c585ce38b2c813c368516e8b5c97',1,'OpenCVForUnity::FeatureDetector']]],
+  ['grid_5fharris',['GRID_HARRIS',['../class_open_c_v_for_unity_1_1_feature_detector.html#af58f7cfaf7a624e13b22368a55cb85a2',1,'OpenCVForUnity::FeatureDetector']]],
+  ['grid_5fmser',['GRID_MSER',['../class_open_c_v_for_unity_1_1_feature_detector.html#aa5127c41f889aaf585af6dc14a2ca7b3',1,'OpenCVForUnity::FeatureDetector']]],
+  ['grid_5forb',['GRID_ORB',['../class_open_c_v_for_unity_1_1_feature_detector.html#a45f7b2a73eb0f2044c9a5cbb624bd5ca',1,'OpenCVForUnity::FeatureDetector']]],
+  ['grid_5fsimpleblob',['GRID_SIMPLEBLOB',['../class_open_c_v_for_unity_1_1_feature_detector.html#a31b47e1e676bdb0128e58842ed2beff7',1,'OpenCVForUnity::FeatureDetector']]],
+  ['grid_5fstar',['GRID_STAR',['../class_open_c_v_for_unity_1_1_feature_detector.html#a06ce411a092bd3c43fb9e7e314b8841e',1,'OpenCVForUnity::FeatureDetector']]],
+  ['gridretector',['GRIDRETECTOR',['../class_open_c_v_for_unity_1_1_feature_detector.html#ad956c486e0ca8ebe8c6a601c0df45f54',1,'OpenCVForUnity::FeatureDetector']]]
 ];

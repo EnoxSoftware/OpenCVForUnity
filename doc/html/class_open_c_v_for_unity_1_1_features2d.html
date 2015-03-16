@@ -42,6 +42,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -114,9 +115,12 @@ Static Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a28bcc7ecb36759381956bffab58b2f42"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a28bcc7ecb36759381956bffab58b2f42"></a>
-const int&#160;</td><td class="memItemRight" valign="bottom"><b>DRAW_OVER_OUTIMG</b> = 1</td></tr>
+<tr class="memitem:a28bcc7ecb36759381956bffab58b2f42"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d.html#a28bcc7ecb36759381956bffab58b2f42">DRAW_OVER_OUTIMG</a> = 1</td></tr>
 <tr class="separator:a28bcc7ecb36759381956bffab58b2f42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49e2dcbbf32d193f057248b12c3e2412"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d.html#a49e2dcbbf32d193f057248b12c3e2412">NOT_DRAW_SINGLE_POINTS</a> = 2</td></tr>
+<tr class="separator:a49e2dcbbf32d193f057248b12c3e2412"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d86783b3b76afa9ac925b5e75b2ebee"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d.html#a1d86783b3b76afa9ac925b5e75b2ebee">DRAW_RICH_KEYPOINTS</a> = 4</td></tr>
+<tr class="separator:a1d86783b3b76afa9ac925b5e75b2ebee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a08b8431bf829f43141dc6a4d9e18e287"></a>
@@ -379,8 +383,8 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><b>DRAW_OVER_OUTIMG
     <tr><td class="paramname">keypoints2</td><td>Keypoints from the second source image. </td></tr>
     <tr><td class="paramname">matches1to2</td><td>Matches from the first image to the second one, which means that <code>keypoints1[i]</code> has a corresponding point in <code>keypoints2[matches[i]]</code>. </td></tr>
     <tr><td class="paramname">outImg</td><td>Output image. Its content depends on the <code>flags</code> value defining what is drawn in the output image. See possible <code>flags</code> bit values below. </td></tr>
-    <tr><td class="paramname">matchColor</td><td>Color of matches (lines and connected keypoints). If <code>matchColor==Scalar.all(-1)</code>, the color is generated randomly. </td></tr>
-    <tr><td class="paramname">singlePointColor</td><td>Color of single keypoints (circles), which means that keypoints do not have the matches. If <code>singlePointColor==Scalar.all(-1)</code>, the color is generated randomly. </td></tr>
+    <tr><td class="paramname">matchColor</td><td>Color of matches (lines and connected keypoints). If <code>matchColor==<a class="el" href="class_open_c_v_for_unity_1_1_scalar.html#ae9beeb3802d937e3c80081fe1a9d079d">Scalar.all</a>(-1)</code>, the color is generated randomly. </td></tr>
+    <tr><td class="paramname">singlePointColor</td><td>Color of single keypoints (circles), which means that keypoints do not have the matches. If <code>singlePointColor==<a class="el" href="class_open_c_v_for_unity_1_1_scalar.html#ae9beeb3802d937e3c80081fe1a9d079d">Scalar.all</a>(-1)</code>, the color is generated randomly. </td></tr>
     <tr><td class="paramname">matchesMask</td><td>Mask determining which matches are drawn. If the mask is empty, all matches are drawn. </td></tr>
     <tr><td class="paramname">flags</td><td>Flags setting drawing features. Possible <code>flags</code> bit values are defined by <code>DrawMatchesFlags</code>.</td></tr>
   </table>
@@ -665,8 +669,8 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><b>DRAW_OVER_OUTIMG
     <tr><td class="paramname">keypoints2</td><td>Keypoints from the second source image. </td></tr>
     <tr><td class="paramname">matches1to2</td><td>Matches from the first image to the second one, which means that <code>keypoints1[i]</code> has a corresponding point in <code>keypoints2[matches[i]]</code>. </td></tr>
     <tr><td class="paramname">outImg</td><td>Output image. Its content depends on the <code>flags</code> value defining what is drawn in the output image. See possible <code>flags</code> bit values below. </td></tr>
-    <tr><td class="paramname">matchColor</td><td>Color of matches (lines and connected keypoints). If <code>matchColor==Scalar.all(-1)</code>, the color is generated randomly. </td></tr>
-    <tr><td class="paramname">singlePointColor</td><td>Color of single keypoints (circles), which means that keypoints do not have the matches. If <code>singlePointColor==Scalar.all(-1)</code>, the color is generated randomly. </td></tr>
+    <tr><td class="paramname">matchColor</td><td>Color of matches (lines and connected keypoints). If <code>matchColor==<a class="el" href="class_open_c_v_for_unity_1_1_scalar.html#ae9beeb3802d937e3c80081fe1a9d079d">Scalar.all</a>(-1)</code>, the color is generated randomly. </td></tr>
+    <tr><td class="paramname">singlePointColor</td><td>Color of single keypoints (circles), which means that keypoints do not have the matches. If <code>singlePointColor==<a class="el" href="class_open_c_v_for_unity_1_1_scalar.html#ae9beeb3802d937e3c80081fe1a9d079d">Scalar.all</a>(-1)</code>, the color is generated randomly. </td></tr>
     <tr><td class="paramname">matchesMask</td><td>Mask determining which matches are drawn. If the mask is empty, all matches are drawn. </td></tr>
     <tr><td class="paramname">flags</td><td>Flags setting drawing features. Possible <code>flags</code> bit values are defined by <code>DrawMatchesFlags</code>.</td></tr>
   </table>
@@ -805,13 +809,50 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><b>DRAW_OVER_OUTIMG
 
 </div>
 </div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a28bcc7ecb36759381956bffab58b2f42"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int OpenCVForUnity.Features2d.DRAW_OVER_OUTIMG = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1d86783b3b76afa9ac925b5e75b2ebee"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int OpenCVForUnity.Features2d.DRAW_RICH_KEYPOINTS = 4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a49e2dcbbf32d193f057248b12c3e2412"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int OpenCVForUnity.Features2d.NOT_DRAW_SINGLE_POINTS = 2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>OpenCVForUnity/org/opencv/features2d/Features2d.cs</li>
+<li>OpenCVForUnity/org/opencv/features2d/<a class="el" href="_features2d_8cs.html">Features2d.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 13 2015 03:35:07 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 16 2015 17:15:07 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

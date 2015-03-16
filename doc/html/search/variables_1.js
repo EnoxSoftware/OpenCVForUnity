@@ -1,5 +1,21 @@
 var searchData=
 [
-  ['class_5fid',['class_id',['../class_open_c_v_for_unity_1_1_key_point.html#a7f2fc52dded8856b98b51f8336dde80f',1,'OpenCVForUnity::KeyPoint']]],
-  ['count',['COUNT',['../class_open_c_v_for_unity_1_1_term_criteria.html#a7f9af120991afa4df8491add9d8e9e6e',1,'OpenCVForUnity::TermCriteria']]]
+  ['backprop',['BACKPROP',['../class_open_c_v_for_unity_1_1_cv_a_n_n___m_l_p___train_params.html#a659cbad998a452343992ea485c4e2a51',1,'OpenCVForUnity::CvANN_MLP_TrainParams']]],
+  ['basic_5fpreset',['BASIC_PRESET',['../class_open_c_v_for_unity_1_1_stereo_b_m.html#a57be9953043e41498a98634f24d54ee2',1,'OpenCVForUnity::StereoBM']]],
+  ['border_5fconstant',['BORDER_CONSTANT',['../class_open_c_v_for_unity_1_1_imgproc.html#a88b2576e6116706ed5bdd11671961f4f',1,'OpenCVForUnity::Imgproc']]],
+  ['border_5fdefault',['BORDER_DEFAULT',['../class_open_c_v_for_unity_1_1_imgproc.html#a522f1c150c3f8bef49fb6064acb11d1d',1,'OpenCVForUnity::Imgproc']]],
+  ['border_5fisolated',['BORDER_ISOLATED',['../class_open_c_v_for_unity_1_1_imgproc.html#a90742b6831bc74a0501d35d14d808653',1,'OpenCVForUnity::Imgproc']]],
+  ['border_5freflect',['BORDER_REFLECT',['../class_open_c_v_for_unity_1_1_imgproc.html#a3c67c47612ce38e2084b2bc229278f82',1,'OpenCVForUnity::Imgproc']]],
+  ['border_5freflect101',['BORDER_REFLECT101',['../class_open_c_v_for_unity_1_1_imgproc.html#ac2753831f3f49185dc01d40450d1b532',1,'OpenCVForUnity::Imgproc']]],
+  ['border_5freflect_5f101',['BORDER_REFLECT_101',['../class_open_c_v_for_unity_1_1_imgproc.html#a97b8bd526dd14b7c0e77cb17aa8c107e',1,'OpenCVForUnity::Imgproc']]],
+  ['border_5freplicate',['BORDER_REPLICATE',['../class_open_c_v_for_unity_1_1_imgproc.html#a2c427ce2976b6adab4de303e66a33a7a',1,'OpenCVForUnity::Imgproc']]],
+  ['border_5ftransparent',['BORDER_TRANSPARENT',['../class_open_c_v_for_unity_1_1_imgproc.html#a6f9c7af3ab0393ffb56b5be9d3912544',1,'OpenCVForUnity::Imgproc']]],
+  ['border_5fwrap',['BORDER_WRAP',['../class_open_c_v_for_unity_1_1_imgproc.html#af39736d7eb6896935fec0e35dbf346a7',1,'OpenCVForUnity::Imgproc']]],
+  ['brief',['BRIEF',['../class_open_c_v_for_unity_1_1_descriptor_extractor.html#a5677493307e388092052e9ec39acce93',1,'OpenCVForUnity::DescriptorExtractor']]],
+  ['brisk',['BRISK',['../class_open_c_v_for_unity_1_1_descriptor_extractor.html#a25a9defa12e2a6a4867ec5724ce6a320',1,'OpenCVForUnity.DescriptorExtractor.BRISK()'],['../class_open_c_v_for_unity_1_1_feature_detector.html#acbd619d3616f1bd0f1a77ad1605618cc',1,'OpenCVForUnity.FeatureDetector.BRISK()']]],
+  ['bruteforce',['BRUTEFORCE',['../class_open_c_v_for_unity_1_1_descriptor_matcher.html#a6c149e129834fa9012f649ea1b11f51c',1,'OpenCVForUnity::DescriptorMatcher']]],
+  ['bruteforce_5fhamming',['BRUTEFORCE_HAMMING',['../class_open_c_v_for_unity_1_1_descriptor_matcher.html#a4a29f9f2704a232c9525e96f7df91238',1,'OpenCVForUnity::DescriptorMatcher']]],
+  ['bruteforce_5fhamminglut',['BRUTEFORCE_HAMMINGLUT',['../class_open_c_v_for_unity_1_1_descriptor_matcher.html#a23b28d39da7bae347264cdad41ff1f79',1,'OpenCVForUnity::DescriptorMatcher']]],
+  ['bruteforce_5fl1',['BRUTEFORCE_L1',['../class_open_c_v_for_unity_1_1_descriptor_matcher.html#ada9e59839aa4e5465ced33ac6cd91f0d',1,'OpenCVForUnity::DescriptorMatcher']]],
+  ['bruteforce_5fsl2',['BRUTEFORCE_SL2',['../class_open_c_v_for_unity_1_1_descriptor_matcher.html#a78b9f29b7e3c38812c51869ce7e0d176',1,'OpenCVForUnity::DescriptorMatcher']]]
 ];
