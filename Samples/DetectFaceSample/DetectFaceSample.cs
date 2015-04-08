@@ -25,7 +25,6 @@ namespace OpenCVForUnitySample
 
 						CascadeClassifier cascade = new CascadeClassifier (Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
 
-
 						Mat grayMat = new Mat ();
 						Imgproc.cvtColor (imgMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
 						Imgproc.equalizeHist (grayMat, grayMat);
