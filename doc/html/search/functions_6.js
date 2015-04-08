@@ -76,6 +76,7 @@ var searchData=
   ['get_5fprefiltercap',['get_preFilterCap',['../class_open_c_v_for_unity_1_1_stereo_s_g_b_m.html#a05008d2aec63170aeebf544020ff7752',1,'OpenCVForUnity::StereoSGBM']]],
   ['get_5fpyrscale',['get_pyrScale',['../class_open_c_v_for_unity_1_1_stereo_var.html#a7c9ff657469af29384bd06ea5962f0a6',1,'OpenCVForUnity::StereoVar']]],
   ['get_5fregression_5faccuracy',['get_regression_accuracy',['../class_open_c_v_for_unity_1_1_cv_d_tree_params.html#aba826f36cce33b298c827c3ef309dfad',1,'OpenCVForUnity::CvDTreeParams']]],
+  ['get_5frp_5fdw0',['get_rp_dw0',['../class_open_c_v_for_unity_1_1_cv_a_n_n___m_l_p___train_params.html#a3a6f198b27f8df74464cd9cba86e4759',1,'OpenCVForUnity::CvANN_MLP_TrainParams']]],
   ['get_5frp_5fdw_5fmax',['get_rp_dw_max',['../class_open_c_v_for_unity_1_1_cv_a_n_n___m_l_p___train_params.html#a50262299f0e0c497bfad4017572bf0d7',1,'OpenCVForUnity::CvANN_MLP_TrainParams']]],
   ['get_5frp_5fdw_5fmin',['get_rp_dw_min',['../class_open_c_v_for_unity_1_1_cv_a_n_n___m_l_p___train_params.html#a3afa6c014fa89a935732cecac70ae7ca',1,'OpenCVForUnity::CvANN_MLP_TrainParams']]],
   ['get_5frp_5fdw_5fminus',['get_rp_dw_minus',['../class_open_c_v_for_unity_1_1_cv_a_n_n___m_l_p___train_params.html#ad37d2c38d16a95499499425c2acaecb1',1,'OpenCVForUnity::CvANN_MLP_TrainParams']]],
