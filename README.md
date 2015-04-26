@@ -3,7 +3,7 @@ OpenCVForUnity
 
 Overview
 -----
-http://u3d.as/content/enox-software/open-cv-for-unity  
+<http://u3d.as/content/enox-software/open-cv-for-unity>  
 
 Setup Tutorial & Demo Video
 -----
