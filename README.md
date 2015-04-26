@@ -1,12 +1,20 @@
 OpenCVForUnity
 ====================
-http://u3d.as/content/enox-software/open-cv-for-unity
 
-Please read the [manual](ReadMe.pdf).
+Overview
+-----
+http://u3d.as/content/enox-software/open-cv-for-unity  
 
-https://play.google.com/store/apps/details?id=com.enoxsoftware.opencvforunitysample
+Demo
+-----
+[![](http://img.youtube.com/vi/yVl4HF2I4yc/0.jpg)](https://www.youtube.com/watch?v=yVl4HF2I4yc)
 
-https://www.youtube.com/watch?v=yVl4HF2I4yc&feature=youtu.be
+<https://play.google.com/store/apps/details?id=com.enoxsoftware.opencvforunitysample>
+
+Manual
+-----
+[ReadMe.pdf](ReadMe.pdf)
 
 API Reference
-http://enoxsoftware.github.io/OpenCVForUnity/doc/html/index.html
+-----
+<http://enoxsoftware.github.io/OpenCVForUnity/doc/html/index.html>
