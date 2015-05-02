@@ -13,37 +13,113 @@ namespace OpenCVForUnitySample
 		public class OpticalFlowSample : MonoBehaviour
 		{
 	
+				/// <summary>
+				/// The web cam texture.
+				/// </summary>
 				WebCamTexture webCamTexture;
+
+				/// <summary>
+				/// The web cam device.
+				/// </summary>
+				WebCamDevice webCamDevice;
+
+				/// <summary>
+				/// The colors.
+				/// </summary>
 				Color32[] colors;
+
+				/// <summary>
+				/// The is front facing.
+				/// </summary>
 				public bool isFrontFacing = false;
+
+				/// <summary>
+				/// The width.
+				/// </summary>
 				int width = 640;
+
+				/// <summary>
+				/// The height.
+				/// </summary>
 				int height = 480;
+
+				/// <summary>
+				/// The rgba mat.
+				/// </summary>
 				Mat rgbaMat;
+
+				/// <summary>
+				/// The mat op flow this.
+				/// </summary>
 				Mat matOpFlowThis;
+
+				/// <summary>
+				/// The mat op flow previous.
+				/// </summary>
 				Mat matOpFlowPrev;
+
+				/// <summary>
+				/// The i GFFT max.
+				/// </summary>
 				int iGFFTMax = 40;
+
+				/// <summary>
+				/// The MO pcorners.
+				/// </summary>
 				MatOfPoint MOPcorners;
+
+				/// <summary>
+				/// The m MO p2fpts this.
+				/// </summary>
 				MatOfPoint2f mMOP2fptsThis;
+
+				/// <summary>
+				/// The m MO p2fpts previous.
+				/// </summary>
 				MatOfPoint2f mMOP2fptsPrev;
+
+				/// <summary>
+				/// The m MO p2fpts safe.
+				/// </summary>
 				MatOfPoint2f mMOP2fptsSafe;
+
+				/// <summary>
+				/// The m MOB status.
+				/// </summary>
 				MatOfByte mMOBStatus;
+
+				/// <summary>
+				/// The m MO ferr.
+				/// </summary>
 				MatOfFloat mMOFerr;
+
+				/// <summary>
+				/// The color red.
+				/// </summary>
 				Scalar colorRed = new Scalar (255, 0, 0, 255);
+
+				/// <summary>
+				/// The i line thickness.
+				/// </summary>
 				int iLineThickness = 3;
+
+				/// <summary>
+				/// The texture.
+				/// </summary>
 				Texture2D texture;
+
+				/// <summary>
+				/// The init done.
+				/// </summary>
 				bool initDone = false;
 
 	
 				// Use this for initialization
 				void Start ()
 				{
-						
-
 
 						StartCoroutine (init ());
-		
-
-		
+	
 				}
 
 				private IEnumerator init ()
@@ -73,8 +149,9 @@ namespace OpenCVForUnitySample
 					
 										Debug.Log (cameraIndex + " name " + WebCamTexture.devices [cameraIndex].name + " isFrontFacing " + WebCamTexture.devices [cameraIndex].isFrontFacing);
 					
-					
-										webCamTexture = new WebCamTexture (WebCamTexture.devices [cameraIndex].name, width, height);
+										webCamDevice = WebCamTexture.devices [cameraIndex];
+
+										webCamTexture = new WebCamTexture (webCamDevice.name, width, height);
 					
 					
 										break;
@@ -84,7 +161,8 @@ namespace OpenCVForUnitySample
 						}
 			
 						if (webCamTexture == null) {
-								webCamTexture = new WebCamTexture (width, height);
+								webCamDevice = WebCamTexture.devices [0];
+								webCamTexture = new WebCamTexture (webCamDevice.name, width, height);
 						}
 			
 						Debug.Log ("width " + webCamTexture.width + " height " + webCamTexture.height + " fps " + webCamTexture.requestedFPS);
@@ -95,9 +173,14 @@ namespace OpenCVForUnitySample
 						webCamTexture.Play ();
 						while (true) {
 								//If you want to use webcamTexture.width and webcamTexture.height on iOS, you have to wait until webcamTexture.didUpdateThisFrame == 1, otherwise these two values will be equal to 16. (http://forum.unity3d.com/threads/webcamtexture-and-error-0x0502.123922/)
-								if (webCamTexture.width > 16 && webCamTexture.height > 16) {
+								#if UNITY_IPHONE && !UNITY_EDITOR
+				if (webCamTexture.width > 16 && webCamTexture.height > 16) {
+								#else
+								if (webCamTexture.didUpdateThisFrame) {
+										#endif
+
 										Debug.Log ("width " + webCamTexture.width + " height " + webCamTexture.height + " fps " + webCamTexture.requestedFPS);
-										Debug.Log ("videoRotationAngle " + webCamTexture.videoRotationAngle + " videoVerticallyMirrored " + webCamTexture.videoVerticallyMirrored);
+										Debug.Log ("videoRotationAngle " + webCamTexture.videoRotationAngle + " videoVerticallyMirrored " + webCamTexture.videoVerticallyMirrored + " isFrongFacing " + webCamDevice.isFrontFacing);
 					
 										colors = new Color32[webCamTexture.width * webCamTexture.height];
 					
@@ -134,7 +217,11 @@ namespace OpenCVForUnitySample
 
 										gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 
-										Camera.main.orthographicSize = webCamTexture.width / 2;
+										#if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR
+						                Camera.main.orthographicSize = webCamTexture.width / 2;
+										#else
+										Camera.main.orthographicSize = webCamTexture.height / 2;
+										#endif
 
 										initDone = true;
 					
@@ -151,24 +238,47 @@ namespace OpenCVForUnitySample
 						if (!initDone)
 								return;
 		
-						if (webCamTexture.width > 16 && webCamTexture.height > 16) {
+						#if UNITY_IPHONE && !UNITY_EDITOR
+				if (webCamTexture.width > 16 && webCamTexture.height > 16) {
+						#else
+						if (webCamTexture.didUpdateThisFrame) {
+								#endif
 		
 								Utils.webCamTextureToMat (webCamTexture, rgbaMat, colors);
 
-								#if UNITY_IPHONE && !UNITY_EDITOR
-				
-				if (webCamTexture.videoVerticallyMirrored){
-					if(isFrontFacing){
-						Core.flip (rgbaMat, rgbaMat, 1);
-					}else{
-						Core.flip (rgbaMat, rgbaMat, 0);
-					}
-				}else{
-					if(isFrontFacing){
-						Core.flip (rgbaMat, rgbaMat, -1);
-					}
-				}
-								#endif
+								if (webCamTexture.videoVerticallyMirrored) {
+										if (webCamDevice.isFrontFacing) {
+												if (webCamTexture.videoRotationAngle == 0) {
+														Core.flip (rgbaMat, rgbaMat, 1);
+												} else if (webCamTexture.videoRotationAngle == 90) {
+														Core.flip (rgbaMat, rgbaMat, 0);
+												} else if (webCamTexture.videoRotationAngle == 270) {
+														Core.flip (rgbaMat, rgbaMat, 1);
+												}
+										} else {
+												if (webCamTexture.videoRotationAngle == 90) {
+									
+												} else if (webCamTexture.videoRotationAngle == 270) {
+														Core.flip (rgbaMat, rgbaMat, -1);
+												}
+										}
+								} else {
+										if (webCamDevice.isFrontFacing) {
+												if (webCamTexture.videoRotationAngle == 0) {
+														Core.flip (rgbaMat, rgbaMat, 1);
+												} else if (webCamTexture.videoRotationAngle == 90) {
+														Core.flip (rgbaMat, rgbaMat, 0);
+												} else if (webCamTexture.videoRotationAngle == 270) {
+														Core.flip (rgbaMat, rgbaMat, 1);
+												}
+										} else {
+												if (webCamTexture.videoRotationAngle == 90) {
+									
+												} else if (webCamTexture.videoRotationAngle == 270) {
+														Core.flip (rgbaMat, rgbaMat, -1);
+												}
+										}
+								}
 
 								if (mMOP2fptsPrev.rows () == 0) {
 
@@ -222,7 +332,7 @@ namespace OpenCVForUnitySample
 								if (!mMOBStatus.empty ()) {
 										List<Point> cornersPrev = mMOP2fptsPrev.toList ();
 										List<Point> cornersThis = mMOP2fptsThis.toList ();
-										List<byte> byteStatus = byteStatus = mMOBStatus.toList ();
+										List<byte> byteStatus = mMOBStatus.toList ();
 
 										int x = 0;
 										int y = byteStatus.Count - 1;

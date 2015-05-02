@@ -11,26 +11,71 @@ namespace OpenCVForUnitySample
 		public class WebCamTextureDetectFaceSample : MonoBehaviour
 		{
 
+				/// <summary>
+				/// The web cam texture.
+				/// </summary>
 				WebCamTexture webCamTexture;
+
+				/// <summary>
+				/// The web cam device.
+				/// </summary>
+				WebCamDevice webCamDevice;
+
+				/// <summary>
+				/// The colors.
+				/// </summary>
 				Color32[] colors;
+
+				/// <summary>
+				/// The is front facing.
+				/// </summary>
 				public bool isFrontFacing = false;
+
+				/// <summary>
+				/// The width.
+				/// </summary>
 				int width = 640;
+
+				/// <summary>
+				/// The height.
+				/// </summary>
 				int height = 480;
+
+				/// <summary>
+				/// The rgba mat.
+				/// </summary>
 				Mat rgbaMat;
+
+				/// <summary>
+				/// The gray mat.
+				/// </summary>
 				Mat grayMat;
+
+				/// <summary>
+				/// The texture.
+				/// </summary>
 				Texture2D texture;
+
+				/// <summary>
+				/// The cascade.
+				/// </summary>
 				CascadeClassifier cascade;
+
+				/// <summary>
+				/// The faces.
+				/// </summary>
 				MatOfRect faces;
+
+				/// <summary>
+				/// The init done.
+				/// </summary>
 				bool initDone = false;
 
 				// Use this for initialization
 				void Start ()
 				{
 						
-
-
 						StartCoroutine (init ());
-
 						
 				}
 
@@ -52,9 +97,10 @@ namespace OpenCVForUnitySample
 					
 					
 										Debug.Log (cameraIndex + " name " + WebCamTexture.devices [cameraIndex].name + " isFrontFacing " + WebCamTexture.devices [cameraIndex].isFrontFacing);
+
+										webCamDevice = WebCamTexture.devices [cameraIndex];
 					
-					
-										webCamTexture = new WebCamTexture (WebCamTexture.devices [cameraIndex].name, width, height);
+										webCamTexture = new WebCamTexture (webCamDevice.name, width, height);
 					
 					
 										break;
@@ -64,7 +110,8 @@ namespace OpenCVForUnitySample
 						}
 			
 						if (webCamTexture == null) {
-								webCamTexture = new WebCamTexture (width, height);
+								webCamDevice = WebCamTexture.devices [0];
+								webCamTexture = new WebCamTexture (webCamDevice.name, width, height);
 						}
 			
 						Debug.Log ("width " + webCamTexture.width + " height " + webCamTexture.height + " fps " + webCamTexture.requestedFPS);
@@ -75,9 +122,14 @@ namespace OpenCVForUnitySample
 
 						while (true) {
 								//If you want to use webcamTexture.width and webcamTexture.height on iOS, you have to wait until webcamTexture.didUpdateThisFrame == 1, otherwise these two values will be equal to 16. (http://forum.unity3d.com/threads/webcamtexture-and-error-0x0502.123922/)
-								if (webCamTexture.width > 16 && webCamTexture.height > 16) {
+								#if UNITY_IPHONE && !UNITY_EDITOR
+				if (webCamTexture.width > 16 && webCamTexture.height > 16) {
+								#else
+								if (webCamTexture.didUpdateThisFrame) {
+										#endif
+
 										Debug.Log ("width " + webCamTexture.width + " height " + webCamTexture.height + " fps " + webCamTexture.requestedFPS);
-										Debug.Log ("videoRotationAngle " + webCamTexture.videoRotationAngle + " videoVerticallyMirrored " + webCamTexture.videoVerticallyMirrored);
+										Debug.Log ("videoRotationAngle " + webCamTexture.videoRotationAngle + " videoVerticallyMirrored " + webCamTexture.videoVerticallyMirrored + " isFrongFacing " + webCamDevice.isFrontFacing);
 
 
 										colors = new Color32[webCamTexture.width * webCamTexture.height];
@@ -111,7 +163,11 @@ namespace OpenCVForUnitySample
 
 										gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 
-										Camera.main.orthographicSize = webCamTexture.width / 2;
+										#if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR
+						                Camera.main.orthographicSize = webCamTexture.width / 2;
+										#else
+										Camera.main.orthographicSize = webCamTexture.height / 2;
+										#endif
 					
 										initDone = true;
 					
@@ -128,25 +184,47 @@ namespace OpenCVForUnitySample
 						if (!initDone)
 								return;
 	
-						if (webCamTexture.width > 16 && webCamTexture.height > 16) {
-
-//								Utils.webCamTextureToMat (webCamTexture, rgbaMat, colors);
-								Utils.textureToMat (webCamTexture, rgbaMat);
-
-								#if UNITY_IPHONE && !UNITY_EDITOR
-				
-				if (webCamTexture.videoVerticallyMirrored){
-					if(isFrontFacing){
-						Core.flip (rgbaMat, rgbaMat, 1);
-					}else{
-						Core.flip (rgbaMat, rgbaMat, 0);
-					}
-				}else{
-					if(isFrontFacing){
-						Core.flip (rgbaMat, rgbaMat, -1);
-					}
-				}
+						#if UNITY_IPHONE && !UNITY_EDITOR
+				if (webCamTexture.width > 16 && webCamTexture.height > 16) {
+						#else
+						if (webCamTexture.didUpdateThisFrame) {
 								#endif
+
+								Utils.webCamTextureToMat (webCamTexture, rgbaMat, colors);
+
+								if (webCamTexture.videoVerticallyMirrored) {
+										if (webCamDevice.isFrontFacing) {
+												if (webCamTexture.videoRotationAngle == 0) {
+														Core.flip (rgbaMat, rgbaMat, 1);
+												} else if (webCamTexture.videoRotationAngle == 90) {
+														Core.flip (rgbaMat, rgbaMat, 0);
+												} else if (webCamTexture.videoRotationAngle == 270) {
+														Core.flip (rgbaMat, rgbaMat, 1);
+												}
+										} else {
+												if (webCamTexture.videoRotationAngle == 90) {
+														
+												} else if (webCamTexture.videoRotationAngle == 270) {
+														Core.flip (rgbaMat, rgbaMat, -1);
+												}
+										}
+								} else {
+										if (webCamDevice.isFrontFacing) {
+												if (webCamTexture.videoRotationAngle == 0) {
+														Core.flip (rgbaMat, rgbaMat, 1);
+												} else if (webCamTexture.videoRotationAngle == 90) {
+														Core.flip (rgbaMat, rgbaMat, 0);
+												} else if (webCamTexture.videoRotationAngle == 270) {
+														Core.flip (rgbaMat, rgbaMat, 1);
+												}
+										} else {
+												if (webCamTexture.videoRotationAngle == 90) {
+														
+												} else if (webCamTexture.videoRotationAngle == 270) {
+														Core.flip (rgbaMat, rgbaMat, -1);
+												}
+										}
+								}
 
 
 								Imgproc.cvtColor (rgbaMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
@@ -165,9 +243,7 @@ namespace OpenCVForUnitySample
 										Core.rectangle (rgbaMat, new Point (rects [i].x, rects [i].y), new Point (rects [i].x + rects [i].width, rects [i].y + rects [i].height), new Scalar (255, 0, 0, 255), 2);
 								}
 
-//								Utils.matToTexture2D (rgbaMat, texture, colors);
-								Utils.matToTexture (rgbaMat, texture);
-
+								Utils.matToTexture2D (rgbaMat, texture, colors);
 
 						}
 				}

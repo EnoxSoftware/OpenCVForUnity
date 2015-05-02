@@ -31,7 +31,6 @@ namespace OpenCVForUnitySample
 		
 						gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 		
-		
 				}
 	
 				// Update is called once per frame
