@@ -122,7 +122,7 @@ namespace OpenCVForUnitySample
 
 						while (true) {
 								//If you want to use webcamTexture.width and webcamTexture.height on iOS, you have to wait until webcamTexture.didUpdateThisFrame == 1, otherwise these two values will be equal to 16. (http://forum.unity3d.com/threads/webcamtexture-and-error-0x0502.123922/)
-								#if UNITY_IPHONE && !UNITY_EDITOR
+								#if UNITY_IOS && !UNITY_EDITOR && (UNITY_4_6_3 || UNITY_4_6_4 || UNITY_5_0_0 || UNITY_5_0_1)
 				if (webCamTexture.width > 16 && webCamTexture.height > 16) {
 								#else
 								if (webCamTexture.didUpdateThisFrame) {
@@ -140,7 +140,7 @@ namespace OpenCVForUnitySample
 										texture = new Texture2D (webCamTexture.width, webCamTexture.height, TextureFormat.RGBA32, false);
 					
 										gameObject.transform.eulerAngles = new Vector3 (0, 0, 0);
-										#if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR
+										#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
 					gameObject.transform.eulerAngles = new Vector3 (0, 0, -90);
 										#endif
 //										gameObject.transform.rotation = gameObject.transform.rotation * Quaternion.AngleAxis (webCamTexture.videoRotationAngle, Vector3.back);
@@ -163,7 +163,7 @@ namespace OpenCVForUnitySample
 
 										gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 
-										#if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR
+										#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
 						                Camera.main.orthographicSize = webCamTexture.width / 2;
 										#else
 										Camera.main.orthographicSize = webCamTexture.height / 2;
@@ -184,7 +184,7 @@ namespace OpenCVForUnitySample
 						if (!initDone)
 								return;
 	
-						#if UNITY_IPHONE && !UNITY_EDITOR
+						#if UNITY_IOS && !UNITY_EDITOR && (UNITY_4_6_3 || UNITY_4_6_4 || UNITY_5_0_0 || UNITY_5_0_1)
 				if (webCamTexture.width > 16 && webCamTexture.height > 16) {
 						#else
 						if (webCamTexture.didUpdateThisFrame) {

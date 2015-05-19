@@ -13,7 +13,7 @@ public class TouchController : MonoBehaviour
 		{
 
 
-				#if ((UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR)
+				#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
 
 		//Touch
 		int touchCount = Input.touchCount;
