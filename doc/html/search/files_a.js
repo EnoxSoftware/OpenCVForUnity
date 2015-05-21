@@ -1,20 +1,4 @@
 var searchData=
 [
-  ['mat_2ecs',['Mat.cs',['../_mat_8cs.html',1,'']]],
-  ['matofbyte_2ecs',['MatOfByte.cs',['../_mat_of_byte_8cs.html',1,'']]],
-  ['matofdmatch_2ecs',['MatOfDMatch.cs',['../_mat_of_d_match_8cs.html',1,'']]],
-  ['matofdouble_2ecs',['MatOfDouble.cs',['../_mat_of_double_8cs.html',1,'']]],
-  ['matoffloat_2ecs',['MatOfFloat.cs',['../_mat_of_float_8cs.html',1,'']]],
-  ['matoffloat4_2ecs',['MatOfFloat4.cs',['../_mat_of_float4_8cs.html',1,'']]],
-  ['matoffloat6_2ecs',['MatOfFloat6.cs',['../_mat_of_float6_8cs.html',1,'']]],
-  ['matofint_2ecs',['MatOfInt.cs',['../_mat_of_int_8cs.html',1,'']]],
-  ['matofint4_2ecs',['MatOfInt4.cs',['../_mat_of_int4_8cs.html',1,'']]],
-  ['matofkeypoint_2ecs',['MatOfKeyPoint.cs',['../_mat_of_key_point_8cs.html',1,'']]],
-  ['matofpoint_2ecs',['MatOfPoint.cs',['../_mat_of_point_8cs.html',1,'']]],
-  ['matofpoint2f_2ecs',['MatOfPoint2f.cs',['../_mat_of_point2f_8cs.html',1,'']]],
-  ['matofpoint3_2ecs',['MatOfPoint3.cs',['../_mat_of_point3_8cs.html',1,'']]],
-  ['matofpoint3f_2ecs',['MatOfPoint3f.cs',['../_mat_of_point3f_8cs.html',1,'']]],
-  ['matofrect_2ecs',['MatOfRect.cs',['../_mat_of_rect_8cs.html',1,'']]],
-  ['ml_2ecs',['Ml.cs',['../_ml_8cs.html',1,'']]],
-  ['moments_2ecs',['Moments.cs',['../_moments_8cs.html',1,'']]]
+  ['lbphfacerecognizer_2ecs',['LBPHFaceRecognizer.cs',['../_l_b_p_h_face_recognizer_8cs.html',1,'']]]
 ];

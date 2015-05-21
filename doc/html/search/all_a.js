@@ -2,6 +2,9 @@ var searchData=
 [
   ['l2hys',['L2Hys',['../class_open_c_v_for_unity_1_1_h_o_g_descriptor.html#a2dcd81b325c6a5bd2efad938b3c51d9a',1,'OpenCVForUnity::HOGDescriptor']]],
   ['laplacian',['Laplacian',['../class_open_c_v_for_unity_1_1_imgproc.html#aacb61d981ec983c3a269ddf5b9116c85',1,'OpenCVForUnity.Imgproc.Laplacian(Mat src, Mat dst, int ddepth, int ksize, double scale, double delta, int borderType)'],['../class_open_c_v_for_unity_1_1_imgproc.html#afdc126dbebb2b3a5678c5d8f318c04ef',1,'OpenCVForUnity.Imgproc.Laplacian(Mat src, Mat dst, int ddepth, int ksize, double scale, double delta)'],['../class_open_c_v_for_unity_1_1_imgproc.html#af60d115fb4a21d2bc60760a11f7efe10',1,'OpenCVForUnity.Imgproc.Laplacian(Mat src, Mat dst, int ddepth)']]],
+  ['lbphfacerecognizer',['LBPHFaceRecognizer',['../class_open_c_v_for_unity_1_1_l_b_p_h_face_recognizer.html#a2ce6bca918c0730910eba5eed48bff8e',1,'OpenCVForUnity::LBPHFaceRecognizer']]],
+  ['lbphfacerecognizer',['LBPHFaceRecognizer',['../class_open_c_v_for_unity_1_1_l_b_p_h_face_recognizer.html',1,'OpenCVForUnity']]],
+  ['lbphfacerecognizer_2ecs',['LBPHFaceRecognizer.cs',['../_l_b_p_h_face_recognizer_8cs.html',1,'']]],
   ['lessthan',['lessThan',['../class_open_c_v_for_unity_1_1_d_match.html#a4233dbabdea559086030574d36c79b35',1,'OpenCVForUnity::DMatch']]],
   ['line',['line',['../class_open_c_v_for_unity_1_1_core.html#ad4f7ccb7e5a6d909d504db495a25bdcd',1,'OpenCVForUnity.Core.line(Mat img, Point pt1, Point pt2, Scalar color, int thickness, int lineType, int shift)'],['../class_open_c_v_for_unity_1_1_core.html#a70c1dedaa3753a665456cbb02bb3362a',1,'OpenCVForUnity.Core.line(Mat img, Point pt1, Point pt2, Scalar color, int thickness)'],['../class_open_c_v_for_unity_1_1_core.html#a4079f70e03b52d12e73558fade15fc54',1,'OpenCVForUnity.Core.line(Mat img, Point pt1, Point pt2, Scalar color)']]],
   ['line_5f4',['LINE_4',['../class_open_c_v_for_unity_1_1_core.html#ad7123a871fe48c63ae3f4d4ce86cc2f0',1,'OpenCVForUnity::Core']]],

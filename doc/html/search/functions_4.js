@@ -3,6 +3,7 @@ var searchData=
   ['edgedst',['edgeDst',['../class_open_c_v_for_unity_1_1_subdiv2_d.html#acbe57d39742f040583cdbc92708efd74',1,'OpenCVForUnity.Subdiv2D.edgeDst(int edge, Point dstpt)'],['../class_open_c_v_for_unity_1_1_subdiv2_d.html#a921d4725a0812f688d66397e7e10a673',1,'OpenCVForUnity.Subdiv2D.edgeDst(int edge)']]],
   ['edgeorg',['edgeOrg',['../class_open_c_v_for_unity_1_1_subdiv2_d.html#ac3ff30f9ab5f55f64c085549d5bfce80',1,'OpenCVForUnity.Subdiv2D.edgeOrg(int edge, Point orgpt)'],['../class_open_c_v_for_unity_1_1_subdiv2_d.html#a9fa6831a413a14a5c7bf698e5736d174',1,'OpenCVForUnity.Subdiv2D.edgeOrg(int edge)']]],
   ['eigen',['eigen',['../class_open_c_v_for_unity_1_1_core.html#aa8b9200cf93e6adc14a36c96450c7e6d',1,'OpenCVForUnity::Core']]],
+  ['eigenfacerecognizer',['EigenFaceRecognizer',['../class_open_c_v_for_unity_1_1_eigen_face_recognizer.html#a1d4541ef4ddb0bf60399a5005d3263c0',1,'OpenCVForUnity::EigenFaceRecognizer']]],
   ['elem_5fsize',['ELEM_SIZE',['../class_open_c_v_for_unity_1_1_cv_type.html#aa6762a49fa38d02e4b4549be52af0d4d',1,'OpenCVForUnity::CvType']]],
   ['elemsize',['elemSize',['../class_open_c_v_for_unity_1_1_mat.html#a5b28a2ef05e8ac0f5371d7c6bdb33d22',1,'OpenCVForUnity::Mat']]],
   ['elemsize1',['elemSize1',['../class_open_c_v_for_unity_1_1_mat.html#a40787a5952a58edcc6b6e4442ff593d6',1,'OpenCVForUnity::Mat']]],
