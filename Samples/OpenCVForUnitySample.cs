@@ -55,6 +55,10 @@ namespace OpenCVForUnitySample
 								Application.LoadLevel ("Feature2DSample");
 						}
 
+						if (GUILayout.Button ("FaceRecognizerSample")) {
+								Application.LoadLevel ("FaceRecognizerSample");
+						}
+
 						if (GUILayout.Button ("DetectFaceSample")) {
 								Application.LoadLevel ("DetectFaceSample");
 						}
@@ -74,7 +78,6 @@ namespace OpenCVForUnitySample
 						if (GUILayout.Button ("ComicFilterSample")) {
 								Application.LoadLevel ("ComicFilterSample");
 						}
-
 
 						GUILayout.EndVertical ();
 				}
