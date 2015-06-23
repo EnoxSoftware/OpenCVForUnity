@@ -23,7 +23,9 @@ namespace OpenCVForUnitySample
 						Debug.Log ("imgMat dst ToString " + imgMat.ToString ());
 
 
+						//CascadeClassifier cascade = new CascadeClassifier (Utils.getFilePath ("lbpcascade_frontalface.xml"));
 						CascadeClassifier cascade = new CascadeClassifier (Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
+
 
 						Mat grayMat = new Mat ();
 						Imgproc.cvtColor (imgMat, grayMat, Imgproc.COLOR_RGBA2GRAY);

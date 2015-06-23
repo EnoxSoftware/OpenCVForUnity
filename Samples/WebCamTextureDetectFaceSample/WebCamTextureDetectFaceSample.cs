@@ -157,7 +157,9 @@ namespace OpenCVForUnitySample
 
 					
 					
-										cascade = new CascadeClassifier (Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
+										cascade = new CascadeClassifier (Utils.getFilePath ("lbpcascade_frontalface.xml"));
+										//cascade = new CascadeClassifier (Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
+
 				
 										faces = new MatOfRect ();
 
@@ -233,7 +235,7 @@ namespace OpenCVForUnitySample
 								
 								if (cascade != null)
 										cascade.detectMultiScale (grayMat, faces, 1.1, 2, 2, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
-					                          new Size (webCamTexture.width * 0.15, webCamTexture.width * 0.15), new Size ());
+					                          new Size (webCamTexture.height * 0.2, webCamTexture.height * 0.2), new Size ());
 
 		
 								OpenCVForUnity.Rect[] rects = faces.toArray ();

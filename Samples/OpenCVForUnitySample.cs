@@ -71,6 +71,10 @@ namespace OpenCVForUnitySample
 								Application.LoadLevel ("WebCamTextureDetectFaceSample");
 						}
 
+						if (GUILayout.Button ("WebCamTextureAsyncDetectFaceSample")) {
+								Application.LoadLevel ("WebCamTextureAsyncDetectFaceSample");
+						}
+
 						if (GUILayout.Button ("OpticalFlowSample")) {
 								Application.LoadLevel ("OpticalFlowSample");
 						}
