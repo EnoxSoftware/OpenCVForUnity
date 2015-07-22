@@ -51,6 +51,7 @@ namespace OpenCVForUnitySample
 						Debug.Log ("Predicted class: " + predictedLabel [0] + " / " + "Actual class: " + testSampleLabel);
 						Debug.Log ("Confidence: " + predictedConfidence [0]);
 
+
 						Mat predictedMat = images [predictedLabel[0]];
 
 						Mat baseMat = new Mat (testSampleMat.rows (), predictedMat.cols () + testSampleMat.cols (), CvType.CV_8UC1);
