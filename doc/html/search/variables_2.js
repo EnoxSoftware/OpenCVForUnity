@@ -340,6 +340,7 @@ var searchData=
   ['cv_5fcap_5fprop_5fandroid_5fwhitebalance_5flock',['CV_CAP_PROP_ANDROID_WHITEBALANCE_LOCK',['../class_open_c_v_for_unity_1_1_highgui.html#ab33ae03c5874e29948beefdd7c5631d7',1,'OpenCVForUnity::Highgui']]],
   ['cv_5fcap_5fprop_5fautograb',['CV_CAP_PROP_AUTOGRAB',['../class_open_c_v_for_unity_1_1_highgui.html#af399ff30d84a2c4c844a8c9e3160a869',1,'OpenCVForUnity::Highgui']]],
   ['cv_5fcap_5fprop_5fbacklight',['CV_CAP_PROP_BACKLIGHT',['../class_open_c_v_for_unity_1_1_highgui.html#a16765a9540878b679b6693201369f66a',1,'OpenCVForUnity::Highgui']]],
+  ['cv_5fcap_5fprop_5fbuffersize',['CV_CAP_PROP_BUFFERSIZE',['../class_open_c_v_for_unity_1_1_highgui.html#a0e933a2736cd935cad41e32848aaf679',1,'OpenCVForUnity::Highgui']]],
   ['cv_5fcap_5fprop_5ffocus',['CV_CAP_PROP_FOCUS',['../class_open_c_v_for_unity_1_1_highgui.html#aecc10bade056bc538a7c20a528e41260',1,'OpenCVForUnity::Highgui']]],
   ['cv_5fcap_5fprop_5fframe_5fheight',['CV_CAP_PROP_FRAME_HEIGHT',['../class_open_c_v_for_unity_1_1_highgui.html#a9a2f9161680a66a3c22f81e68f74ef12',1,'OpenCVForUnity::Highgui']]],
   ['cv_5fcap_5fprop_5fframe_5fwidth',['CV_CAP_PROP_FRAME_WIDTH',['../class_open_c_v_for_unity_1_1_highgui.html#a30320001e71d86c223fe4595029107ec',1,'OpenCVForUnity::Highgui']]],

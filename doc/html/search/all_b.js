@@ -101,7 +101,7 @@ var searchData=
   ['mixchannels',['mixChannels',['../class_open_c_v_for_unity_1_1_core.html#a2b1d0f1337bd02a1af9a8366c8877bf9',1,'OpenCVForUnity::Core']]],
   ['ml',['Ml',['../class_open_c_v_for_unity_1_1_ml.html',1,'OpenCVForUnity']]],
   ['ml_2ecs',['Ml.cs',['../_ml_8cs.html',1,'']]],
-  ['moments',['moments',['../class_open_c_v_for_unity_1_1_imgproc.html#ae76b16354a652a982a497ae6a3d0723e',1,'OpenCVForUnity.Imgproc.moments(Mat array, bool binaryImage)'],['../class_open_c_v_for_unity_1_1_imgproc.html#a5522f02103f7b0af70dd12f599875287',1,'OpenCVForUnity.Imgproc.moments(Mat array)'],['../class_open_c_v_for_unity_1_1_moments.html#ad7a728e19188ab2095609e14c69f8081',1,'OpenCVForUnity.Moments.Moments()']]],
+  ['moments',['Moments',['../class_open_c_v_for_unity_1_1_moments.html#ad7a728e19188ab2095609e14c69f8081',1,'OpenCVForUnity.Moments.Moments()'],['../class_open_c_v_for_unity_1_1_imgproc.html#ae76b16354a652a982a497ae6a3d0723e',1,'OpenCVForUnity.Imgproc.moments(Mat array, bool binaryImage)'],['../class_open_c_v_for_unity_1_1_imgproc.html#a5522f02103f7b0af70dd12f599875287',1,'OpenCVForUnity.Imgproc.moments(Mat array)']]],
   ['moments',['Moments',['../class_open_c_v_for_unity_1_1_moments.html',1,'OpenCVForUnity']]],
   ['moments_2ecs',['Moments.cs',['../_moments_8cs.html',1,'']]],
   ['morph_5fblackhat',['MORPH_BLACKHAT',['../class_open_c_v_for_unity_1_1_imgproc.html#af880042653b67d0d385a624bfca84605',1,'OpenCVForUnity::Imgproc']]],
