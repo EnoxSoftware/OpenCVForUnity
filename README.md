@@ -23,5 +23,5 @@ API Reference
 
 Beta Version
 -----
-The module which has been implemented in Beta Version of ÅgOpenCV for UntiyÅh based on ÅgOpenCV3.0.0Åh.
+The module which has been implemented in Beta Version of "OpenCV for Untiy" based on "OpenCV3.0.0".
 bgsegm,bioinspired,calib3d,core,face,features2d,imgcodecs,imgproc,ml,objdetect,optflow,photo,video,videoio,xphoto
