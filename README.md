@@ -20,3 +20,8 @@ Manual
 API Reference
 -----
 <http://enoxsoftware.github.io/OpenCVForUnity/doc/html/index.html>
+
+Beta Version
+-----
+The module which has been implemented in Beta Version of "OpenCV for Untiy" based on "OpenCV3.0.0".
+bgsegm,bioinspired,calib3d,core,face,features2d,imgcodecs,imgproc,ml,objdetect,optflow,photo,video,videoio,xphoto
