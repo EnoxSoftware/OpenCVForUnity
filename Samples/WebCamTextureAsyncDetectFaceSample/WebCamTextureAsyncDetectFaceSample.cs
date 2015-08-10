@@ -1,7 +1,6 @@
 using UnityEngine;
 using System;
 using System.Collections;
-using System.Threading;
 using OpenCVForUnity;
 using System.Collections.Generic;
 using Rect = OpenCVForUnity.Rect;
@@ -9,10 +8,18 @@ using Rect = OpenCVForUnity.Rect;
 #if UNITY_WSA
 #if NETFX_CORE
 
+using System.Threading;
 using System.Threading.Tasks;
 
+#else
+
 #endif
+#else
+
+using System.Threading;
+
 #endif
+
 using PositionsVector = System.Collections.Generic.List<OpenCVForUnity.Rect>;
 
 
@@ -79,9 +86,9 @@ namespace OpenCVForUnitySample
 				/// The init done.
 				/// </summary>
 				bool initDone = false;
-				private MatOfRect resultDetect;
+                
 				private CascadeClassifier regionCascade;
-				private bool didUpdateThisFrame = false;
+				//private bool didUpdateThisFrame = false;
 				Rect[] rectsWhereRegions;
 				List<Rect> detectedObjectsInRegions = new List<Rect> ();
 				List<Rect> resultObjects = new List<Rect> ();
@@ -91,21 +98,26 @@ namespace OpenCVForUnitySample
 				private Parameters parameters;
 				private InnerParameters innerParameters;
 
-				// for Thread
+
+                // for Thread
 #if UNITY_WSA
 #if NETFX_CORE
+                private Task task_ = null;
+                private CancellationTokenSource tokenSource_ = null;
+#else
 
 #endif
 #else
-
-				volatile threadComm comm = new threadComm ();
-
+                private volatile bool shouldStopThread = false;
 #endif
 
-				private bool isThreadRunning = false;
+                private volatile ThreadComm threadComm = new ThreadComm();
+                private System.Object thisLock = new System.Object();
+                private volatile bool isThreadRunning = false;
+                private volatile bool didUpdateTheDetectionResult = false;
+
 				private Mat grayMat4Thread;
-
-
+                private MatOfRect resultDetect;
 
 
 				// Use this for initialization
@@ -202,13 +214,13 @@ namespace OpenCVForUnitySample
 
 
 
-										cascade = new CascadeClassifier (Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
+										
 										regionCascade = new CascadeClassifier (Utils.getFilePath ("lbpcascade_frontalface.xml"));
 
 										gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 
 #if (UNITY_ANDROID || UNITY_IPHONE || UNITY_WP_8_1) && !UNITY_EDITOR
-						                Camera.main.orthographicSize = webCamTexture.width / 2;
+						                Camera.main.orthographicSize = (((float)Screen.height/(float)Screen.width) * (float)webCamTexture.height) / 2.0f;
 #else
 										Camera.main.orthographicSize = webCamTexture.height / 2;
 #endif
@@ -280,35 +292,34 @@ namespace OpenCVForUnitySample
 								Imgproc.cvtColor (rgbaMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
 								Imgproc.equalizeHist (grayMat, grayMat);
 
+                                
+                                if (!threadComm.shouldDetectInMultiThread)
+                                {
+                                        lock (thisLock)
+                                        {
+                                            grayMat.copyTo(grayMat4Thread);
+                                        }
+                                        threadComm.shouldDetectInMultiThread = true;
+                                }
 
-
-
-
-								didUpdateThisFrame = true;
-
-								#if UNITY_WSA
-								#if NETFX_CORE
-					ThreadWorker();
-								#endif
-								#else
-								ThreadWorker ();
-								#endif
 
 								OpenCVForUnity.Rect[] rects;
 
-								if (resultDetect != null) {
-										//Debug.Log("DetectionBasedTracker::process: get _rectsWhereRegions were got from resultDetect");
-										rectsWhereRegions = resultDetect.toArray ();
+                                if (didUpdateTheDetectionResult)
+                                {
+                                        lock (thisLock)
+                                        {
+                                                //Debug.Log("DetectionBasedTracker::process: get _rectsWhereRegions were got from resultDetect");
+                                                rectsWhereRegions = resultDetect.toArray();
+                                                rects = resultDetect.toArray();
+                                        }
+                                        didUpdateTheDetectionResult = false;
 
 
-										rects = resultDetect.toArray ();
 										for (int i = 0; i < rects.Length; i++) {
 												Core.rectangle (rgbaMat, new Point (rects [i].x, rects [i].y), new Point (rects [i].x + rects [i].width, rects [i].y + rects [i].height), new Scalar (0, 0, 255, 255), 2);
 										}
 
-
-
-										resultDetect = null;
 								} else {
 										//Debug.Log("DetectionBasedTracker::process: get _rectsWhereRegions from previous positions");
 										rectsWhereRegions = new Rect[trackedObjects.Count];
@@ -371,98 +382,205 @@ namespace OpenCVForUnitySample
 
 				private void initThread ()
 				{
-						grayMat4Thread = new Mat ();
+                        lock (thisLock)
+                        {
+                            cascade = new CascadeClassifier(Utils.getFilePath("haarcascade_frontalface_alt.xml"));
+                            grayMat4Thread = new Mat();
+                        }
+                        threadComm.shouldDetectInMultiThread = false;
 
+                        StartThread();
 				}
 
 
 #if UNITY_WSA
 #if NETFX_CORE
-                private async void ThreadWorker()
+
+
+        private void ThreadWorker()
+        {
+            if (isThreadRunning) return;
+
+            Debug.Log("Thread Start");
+
+            isThreadRunning = true;
+
+            threadComm.shouldDetectInMultiThread = false;
+            didUpdateTheDetectionResult = false;
+
+            tokenSource_ = new CancellationTokenSource();
+
+            task_ =Task.Factory.StartNew(
+                (o)=>
                 {
-                    //Debug.Log("Thread working...");
+                    ThreadComm comm = o as ThreadComm;
 
-                    if (isThreadRunning) return;
-                    if (!didUpdateThisFrame) return;
-                    isThreadRunning = true;
-                    didUpdateThisFrame = false;
-
-                    grayMat.copyTo(grayMat4Thread);
-
-                    MatOfRect faces = new MatOfRect();
-
-                    await Task.Run(() =>
+                    while(true)
                     {
+                        tokenSource_.Token.ThrowIfCancellationRequested();
 
-                        if (cascade != null)
-							cascade.detectMultiScale(grayMat, faces, 1.1, 2, Objdetect.CASCADE_SCALE_IMAGE, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
-                                  new Size(grayMat4Thread.height() * 0.2, grayMat4Thread.height() * 0.2), new Size());
-                    });
+                        if(!comm.shouldDetectInMultiThread) continue;
+          
+                        lock (thisLock)
+                        {
+            
 
-                    //Debug.Log("Thread done.");
+                            MatOfRect faces = new MatOfRect();
+                            if (cascade != null)
+                                cascade.detectMultiScale(grayMat4Thread, faces, 1.1, 2, Objdetect.CASCADE_SCALE_IMAGE, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
+                                    new Size(grayMat4Thread.height() * 0.2, grayMat4Thread.height() * 0.2), new Size());
 
-                    isThreadRunning = false;
-                    resultDetect = faces;
+                            resultDetect = faces;
+                        }
+                        comm.shouldDetectInMultiThread = false;
+
+                        didUpdateTheDetectionResult = true;
+                    }
+
                 }
+                , threadComm
+                , tokenSource_.Token
+            ).ContinueWith(t =>
+            {
+                tokenSource_.Dispose();
+                tokenSource_ = null;
+
+                isThreadRunning = false;
+            });
+
+        }
+
+#else
+
+                private void ThreadWorker()
+                {
+                    if (isThreadRunning) return;
+
+                    Debug.Log("Thread Start");
+
+                    isThreadRunning = true;
+
+                    threadComm.shouldDetectInMultiThread = false;
+                    didUpdateTheDetectionResult = false;
+
+                    StartCoroutine("ThreadCoroutine", threadComm);
+                }
+
+
+                IEnumerator ThreadCoroutine(System.Object o)
+                {
+                    ThreadComm comm = o as ThreadComm;
+
+
+                    while (true)
+                    {
+                        while (!comm.shouldDetectInMultiThread) { yield return null; }
+
+                        lock (thisLock)
+                        {
+                            MatOfRect faces = new MatOfRect();
+                            if (cascade != null)
+                                cascade.detectMultiScale(grayMat4Thread, faces, 1.1, 2, Objdetect.CASCADE_SCALE_IMAGE, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
+                                    new Size(grayMat4Thread.height() * 0.2, grayMat4Thread.height() * 0.2), new Size());
+
+                            resultDetect = faces;
+                        }
+                        comm.shouldDetectInMultiThread = false;
+
+                        didUpdateTheDetectionResult = true;
+                    }
+                }
+
+
 #endif
 #else
 
-				private void ThreadWorker ()
-				{
-						//Debug.Log("Thread working...");
+                private void ThreadWorker()
+                {
+                    if (isThreadRunning) return;
 
-						if (isThreadRunning)
-								return;
-						if (!didUpdateThisFrame)
-								return;
-						isThreadRunning = true;
-						didUpdateThisFrame = false;
+                    Debug.Log("Thread Start");
 
-						grayMat.copyTo (grayMat4Thread);
+                    isThreadRunning = true;
+                    shouldStopThread = false;
 
-						comm.done = false;
-						ThreadPool.QueueUserWorkItem (_ThreadWorker, comm);
+                    threadComm.shouldDetectInMultiThread = false;
+                    didUpdateTheDetectionResult = false;
 
-						StartCoroutine (waitThreadDoneCoroutine ());
-				}
+                    ThreadPool.QueueUserWorkItem(_ThreadWorker, threadComm);
+                }
 
-				private void _ThreadWorker (System.Object o)
-				{
-						threadComm com = o as threadComm;
+                private void _ThreadWorker(System.Object o)
+                {
+                    ThreadComm comm = o as ThreadComm;
 
-						MatOfRect faces = new MatOfRect ();
-						if (cascade != null)
-								cascade.detectMultiScale (grayMat, faces, 1.1, 2, Objdetect.CASCADE_SCALE_IMAGE, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
-                    new Size (grayMat4Thread.height () * 0.2, grayMat4Thread.height () * 0.2), new Size ());
 
-						comm.result = faces;
-						comm.done = true;
-				}
+                    while (!shouldStopThread)
+                    {
+                        if (!comm.shouldDetectInMultiThread) continue;
 
-				private IEnumerator waitThreadDoneCoroutine ()
-				{
-						while (true) {
-								if (comm.done) {
 
-										//Debug.Log("Thread done.");
+                        lock (thisLock)
+                        {
+                            MatOfRect faces = new MatOfRect();
+                            if (cascade != null)
+                                cascade.detectMultiScale(grayMat4Thread, faces, 1.1, 2, Objdetect.CASCADE_SCALE_IMAGE, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
+                                    new Size(grayMat4Thread.height() * 0.2, grayMat4Thread.height() * 0.2), new Size());
 
-										isThreadRunning = false;
-										resultDetect = comm.result;
+                            resultDetect = faces;
+                        }
+                        comm.shouldDetectInMultiThread = false;
 
-										break;
-								} else {
-										yield return null;
-								}
-						}
-				}
+                        didUpdateTheDetectionResult = true;
+                    }
 
-				public class threadComm : System.Object
-				{
-						public bool done;
-						public MatOfRect result;
-				}
+                    isThreadRunning = false;
+                }
+
 
 #endif
+
+                public class ThreadComm : System.Object
+                {
+                    public bool shouldDetectInMultiThread = false;
+                }
+
+
+
+                public void StartThread()
+                {
+                    ThreadWorker();
+                }
+
+                public void StopThread()
+                {
+                    if (!isThreadRunning) return;
+
+
+#if UNITY_WSA
+#if NETFX_CORE
+			tokenSource_.Cancel();
+            task_ = null;
+#else
+            StopCoroutine("ThreadCoroutine");
+            isThreadRunning = false;
+#endif
+#else
+                    shouldStopThread = true;
+#endif
+
+
+                    while (isThreadRunning)
+                    {
+                        //Wait threading stop
+                    }
+                    Debug.Log("Thread Stop");
+                }
+
+
+
+
+
 
 				private void getObjects (List<Rect> result)
 				{
@@ -586,9 +704,9 @@ namespace OpenCVForUnitySample
             &&
 										(it.numFramesNotDetected > innerParameters.numStepsToTrackWithoutDetectingIfObjectHasNotBeenShown))
         ) {
-										int numpos = (int)it.lastPositions.Count;
+										//int numpos = (int)it.lastPositions.Count;
 										//if (numpos > 0) UnityEngine.Debug.LogError("numpos > 0 is false");
-										Rect r = it.lastPositions [numpos - 1];
+										//Rect r = it.lastPositions [numpos - 1];
 
 										//Debug.Log("DetectionBasedTracker::updateTrackedObjects: deleted object " + r.x + " " + r.y + " " + r.width + " " + r.height);
 
@@ -753,6 +871,8 @@ namespace OpenCVForUnitySample
 
 				void OnDisable ()
 				{
+                        StopThread();
+
 						webCamTexture.Stop ();
 				}
 

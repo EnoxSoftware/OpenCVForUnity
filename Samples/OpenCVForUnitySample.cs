@@ -20,7 +20,7 @@ namespace OpenCVForUnitySample
 
 				void OnGUI ()
 				{
-						float screenScale = Screen.width / 240.0f;
+						float screenScale = Screen.width / 300.0f;
 						Matrix4x4 scaledMatrix = Matrix4x4.Scale (new Vector3 (screenScale, screenScale, screenScale));
 						GUI.matrix = scaledMatrix;
 
@@ -81,6 +81,10 @@ namespace OpenCVForUnitySample
 
 						if (GUILayout.Button ("ComicFilterSample")) {
 								Application.LoadLevel ("ComicFilterSample");
+						}
+
+						if (GUILayout.Button ("CamShiftSample")) {
+								Application.LoadLevel ("CamShiftSample");
 						}
 
 						GUILayout.EndVertical ();

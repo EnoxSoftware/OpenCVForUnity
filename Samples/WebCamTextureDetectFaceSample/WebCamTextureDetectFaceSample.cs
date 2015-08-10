@@ -166,7 +166,7 @@ namespace OpenCVForUnitySample
 										gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 
 										#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
-						                Camera.main.orthographicSize = webCamTexture.width / 2;
+						                Camera.main.orthographicSize = (((float)Screen.height/(float)Screen.width) * (float)webCamTexture.height) / 2.0f;
 										#else
 										Camera.main.orthographicSize = webCamTexture.height / 2;
 										#endif
