@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">1.1.8</span>
+   &#160;<span id="projectnumber">1.1.9</span>
    </div>
    <div id="projectbrief">Enox Software</div>
   </td>
@@ -265,8 +265,7 @@ Because this method doesn't check bounds, is faster than <a class="el" href="cla
 <p><br />
 This function copy the Texture Pixel Data to the Pixel Data IntPtr. <br />
 The Pixel Data has to be of the same byte size as the input Texture Pixel Data ([width * height * bytePerPixel] byte). <br />
-this method doesn't check bounds. <br />
-[iOS]It does not support Metal now.Please choose OpenGL ES in [PlayerSettings]-[Other Settings]-[Configuration]-[Graphics API].</p>
+this method doesn't check bounds.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">texture</td><td>The input texture </td></tr>
@@ -319,8 +318,7 @@ this method doesn't check bounds. <br />
 <p><br />
 This function copy the Texture Pixel Data to the Pixel Data Array. <br />
 The Pixel Data Array has to be of the same byte size as the input Texture Pixel Data ([width * height * bytePerPixel] byte). <br />
-this method doesn't check bounds. <br />
-[iOS]It does not support Metal now.Please choose OpenGL ES in [PlayerSettings]-[Other Settings]-[Configuration]-[Graphics API].</p>
+this method doesn't check bounds.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">texture</td><td>The input texture </td></tr>
@@ -465,8 +463,7 @@ Because this method doesn't check bounds, is faster than <a class="el" href="cla
 <p><br />
 This function copy the Pixel Data IntPtr to the Texture Pixel Data. <br />
 The output Texture Pixel Data has to be of the same byte size as the Pixel Data ([width * height * bytePerPixel] byte). <br />
-this method doesn't check bounds. <br />
-[iOS]It does not support Metal now.Please choose OpenGL ES in [PlayerSettings]-[Other Settings]-[Configuration]-[Graphics API].</p>
+this method doesn't check bounds.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">intPtr</td><td>The Pixel Data IntPtr </td></tr>
@@ -519,8 +516,7 @@ this method doesn't check bounds. <br />
 <p><br />
 This function copy the Pixel Data Array to the Texture Pixel Data. <br />
 The output Texture Pixel Data has to be of the same byte size as the Pixel Data Array ([width * height * bytePerPixel] byte). <br />
-this method doesn't check bounds. <br />
-[iOS]It does not support Metal now.Please choose OpenGL ES in [PlayerSettings]-[Other Settings]-[Configuration]-[Graphics API].</p>
+this method doesn't check bounds.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">array</td><td>The Pixel Data Array </td></tr>
@@ -594,7 +590,8 @@ Direct3D 11 DXGI_FORMAT (Win WindowsPhone)<br />
  <br />
 OpenGL internalFormat (Win OSX)<br />
  <br />
-OpenGLES always return -1 (Android iOS)</p>
+OpenGLES always return -1 (Android iOS) <br />
+Metal MTLPixelFormat (iOS)</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">texture</td><td></td></tr>
@@ -640,8 +637,7 @@ OpenGLES always return -1 (Android iOS)</p>
 This function converts the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> to the Unity Texture using Low-level Native Plugin Interface. <br />
 The input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA). <br />
 The output Texture object has to be of the TextureFormat 'RGBA32' or 'ARGB32'. <br />
-The output Texture object has to be of the same size as the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>'(width * height). <br />
-[iOS]It does not support Metal now.Please choose OpenGL ES in [PlayerSettings]-[Other Settings]-[Configuration]-[Graphics API].</p>
+The output Texture object has to be of the same size as the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>'(width * height).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mat</td><td>The input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA). </td></tr>
@@ -787,8 +783,7 @@ The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> ob
 <p><br />
 This function converts an Unity Texture image to the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> using Low-level Native Plugin Interface. <br />
 The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same size as the input Texture'(width * height). <br />
-The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA). <br />
-[iOS]It does not support Metal now.Please choose OpenGL ES in [PlayerSettings]-[Other Settings]-[Configuration]-[Graphics API].</p>
+The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">texture</td><td></td></tr>
@@ -840,8 +835,7 @@ The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> ob
 <p><br />
 This function converts an Unity WebCamTexture image to the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>. <br />
 The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same size as the input WebCamTexture'(width * height). <br />
-The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). <br />
-[iOS]It does not support Metal now.Please choose OpenGL ES in [PlayerSettings]-[Other Settings]-[Configuration]-[Graphics API].</p>
+The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">webcamTexture</td><td></td></tr>
@@ -859,7 +853,7 @@ The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> ob
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jul 26 2015 23:38:52 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Aug 10 2015 16:29:55 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>
