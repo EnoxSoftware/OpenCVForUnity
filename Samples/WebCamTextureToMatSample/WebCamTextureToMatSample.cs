@@ -26,10 +26,10 @@ namespace OpenCVForUnitySample
 				/// </summary>
 				Color32[] colors;
 
-				/// <summary>
-				/// The is front facing.
-				/// </summary>
-				public bool isFrontFacing = false;
+                /// <summary>
+                /// Should use front facing.
+                /// </summary>
+                public bool shouldUseFrontFacing = false;
 
 				/// <summary>
 				/// The width.
@@ -56,7 +56,12 @@ namespace OpenCVForUnitySample
 				/// </summary>
 				bool initDone = false;
 
+                /// <summary>
+                /// The screenOrientation.
+                /// </summary>
+                ScreenOrientation screenOrientation = ScreenOrientation.Unknown;
 	
+
 				// Use this for initialization
 				void Start ()
 				{
@@ -78,7 +83,7 @@ namespace OpenCVForUnitySample
 						for (int cameraIndex = 0; cameraIndex < WebCamTexture.devices.Length; cameraIndex++) {
 				
 				
-								if (WebCamTexture.devices [cameraIndex].isFrontFacing == isFrontFacing) {
+								if (WebCamTexture.devices [cameraIndex].isFrontFacing == shouldUseFrontFacing) {
 					
 					
 										Debug.Log (cameraIndex + " name " + WebCamTexture.devices [cameraIndex].name + " isFrontFacing " + WebCamTexture.devices [cameraIndex].isFrontFacing);
@@ -118,36 +123,14 @@ namespace OpenCVForUnitySample
 										Debug.Log ("videoRotationAngle " + webCamTexture.videoRotationAngle + " videoVerticallyMirrored " + webCamTexture.videoVerticallyMirrored + " isFrongFacing " + webCamDevice.isFrontFacing);
 					
 										colors = new Color32[webCamTexture.width * webCamTexture.height];
-					
 										rgbaMat = new Mat (webCamTexture.height, webCamTexture.width, CvType.CV_8UC4);
-					
-										texture = new Texture2D (webCamTexture.width, webCamTexture.height, TextureFormat.RGBA32, false);
+                                        texture = new Texture2D(webCamTexture.width, webCamTexture.height, TextureFormat.RGBA32, false);
 
-										gameObject.transform.eulerAngles = new Vector3 (0, 0, 0);
-										#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
-					gameObject.transform.eulerAngles = new Vector3 (0, 0, -90);
-										#endif
+                                        gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
-//										gameObject.transform.rotation = gameObject.transform.rotation * Quaternion.AngleAxis (webCamTexture.videoRotationAngle, Vector3.back);
+                                        updateLayout();
 
-										gameObject.transform.localScale = new Vector3 (webCamTexture.width, webCamTexture.height, 1);
-
-//										bool videoVerticallyMirrored = webCamTexture.videoVerticallyMirrored;
-//										float scaleX = 1;
-//										float scaleY = videoVerticallyMirrored ? -1.0f : 1.0f;
-//										if (webCamTexture.videoRotationAngle == 270)
-//												scaleY = -1.0f;
-//										gameObject.transform.localScale = new Vector3 (scaleX * gameObject.transform.localScale.x, scaleY * gameObject.transform.localScale.y, 1);
-
-
-										gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-
-										#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
-						                Camera.main.orthographicSize = (((float)Screen.height/(float)Screen.width) * (float)webCamTexture.height) / 2.0f;
-										#else
-										Camera.main.orthographicSize = webCamTexture.height / 2;
-										#endif
-
+                                        screenOrientation = Screen.orientation;
 										initDone = true;
 					
 										break;
@@ -156,13 +139,59 @@ namespace OpenCVForUnitySample
 								}
 						}
 				}
-	
+
+
+                private void updateLayout()
+                {
+                    gameObject.transform.localRotation = new Quaternion(0, 0, 0, 0);
+                    gameObject.transform.localScale = new Vector3(webCamTexture.width, webCamTexture.height, 1);
+
+                    if (webCamTexture.videoRotationAngle == 90 || webCamTexture.videoRotationAngle == 270)
+                    {
+                        gameObject.transform.eulerAngles = new Vector3(0, 0, -90);
+                    }
+
+
+                    float width = 0;
+                    float height = 0;
+                    if (webCamTexture.videoRotationAngle == 90 || webCamTexture.videoRotationAngle == 270)
+                    {
+                        width = gameObject.transform.localScale.y;
+                        height = gameObject.transform.localScale.x;
+                    }
+                    else if (webCamTexture.videoRotationAngle == 0 || webCamTexture.videoRotationAngle == 180)
+                    {
+                        width = gameObject.transform.localScale.x;
+                        height = gameObject.transform.localScale.y;
+                    }
+
+                    float widthScale = (float)Screen.width / width;
+                    float heightScale = (float)Screen.height / height;
+                    if (widthScale < heightScale)
+                    {
+                        Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
+                    }
+                    else
+                    {
+                        Camera.main.orthographicSize = height / 2;
+                    }
+                }
+
+
 				// Update is called once per frame
 				void Update ()
 				{
 						if (!initDone)
 								return;
-		
+
+
+                        if (screenOrientation != Screen.orientation)
+                        {
+                            screenOrientation = Screen.orientation;
+                            updateLayout();
+                        }
+
+
 						#if UNITY_IOS && !UNITY_EDITOR && (UNITY_4_6_3 || UNITY_4_6_4 || UNITY_5_0_0 || UNITY_5_0_1)
 				        if (webCamTexture.width > 16 && webCamTexture.height > 16) {
 						#else
@@ -171,46 +200,39 @@ namespace OpenCVForUnitySample
 						
 								Utils.webCamTextureToMat (webCamTexture, rgbaMat, colors);
 
-				
-								if (webCamTexture.videoVerticallyMirrored) {
-										if (webCamDevice.isFrontFacing) {
-												if (webCamTexture.videoRotationAngle == 0) {
-														Core.flip (rgbaMat, rgbaMat, 1);
-												} else if (webCamTexture.videoRotationAngle == 90) {
-														Core.flip (rgbaMat, rgbaMat, 0);
-												} else if (webCamTexture.videoRotationAngle == 270) {
-														Core.flip (rgbaMat, rgbaMat, 1);
-												}
-										} else {
-												if (webCamTexture.videoRotationAngle == 90) {
-									
-												} else if (webCamTexture.videoRotationAngle == 270) {
-														Core.flip (rgbaMat, rgbaMat, -1);
-												}
-										}
-								} else {
-										if (webCamDevice.isFrontFacing) {
-												if (webCamTexture.videoRotationAngle == 0) {
-														Core.flip (rgbaMat, rgbaMat, 1);
-												} else if (webCamTexture.videoRotationAngle == 90) {
-														Core.flip (rgbaMat, rgbaMat, 0);
-												} else if (webCamTexture.videoRotationAngle == 270) {
-														Core.flip (rgbaMat, rgbaMat, 1);
-												}
-										} else {
-												if (webCamTexture.videoRotationAngle == 90) {
-									
-												} else if (webCamTexture.videoRotationAngle == 270) {
-														Core.flip (rgbaMat, rgbaMat, -1);
-												}
-										}
-								}
+                                if (webCamDevice.isFrontFacing)
+                                {
+                                    if (webCamTexture.videoRotationAngle == 0)
+                                    {
+                                        Core.flip(rgbaMat, rgbaMat, 1);
+                                    }
+                                    else if (webCamTexture.videoRotationAngle == 90)
+                                    {
+                                        Core.flip(rgbaMat, rgbaMat, 0);
+                                    }
+                                    if (webCamTexture.videoRotationAngle == 180)
+                                    {
+                                        Core.flip(rgbaMat, rgbaMat, 0);
+                                    }
+                                    else if (webCamTexture.videoRotationAngle == 270)
+                                    {
+                                        Core.flip(rgbaMat, rgbaMat, 1);
+                                    }
+                                }
+                                else
+                                {
+                                    if (webCamTexture.videoRotationAngle == 180)
+                                    {
+                                        Core.flip(rgbaMat, rgbaMat, -1);
+                                    }
+                                    else if (webCamTexture.videoRotationAngle == 270)
+                                    {
+                                        Core.flip(rgbaMat, rgbaMat, -1);
+                                    }
+                                }
 								
 		
 								Utils.matToTexture2D (rgbaMat, texture, colors);
-		
-								gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-
 						}
 
 				}
@@ -222,7 +244,7 @@ namespace OpenCVForUnitySample
 	
 				void OnGUI ()
 				{
-						float screenScale = Screen.width / 240.0f;
+                        float screenScale = Screen.height / 240.0f;
 						Matrix4x4 scaledMatrix = Matrix4x4.Scale (new Vector3 (screenScale, screenScale, screenScale));
 						GUI.matrix = scaledMatrix;
 		
@@ -232,7 +254,7 @@ namespace OpenCVForUnitySample
 								Application.LoadLevel ("OpenCVForUnitySample");
 						}
 						if (GUILayout.Button ("change camera")) {
-								isFrontFacing = !isFrontFacing;
+								shouldUseFrontFacing = !shouldUseFrontFacing;
 								StartCoroutine (init ());
 						}
 		

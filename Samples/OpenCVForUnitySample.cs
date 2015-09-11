@@ -20,7 +20,12 @@ namespace OpenCVForUnitySample
 
 				void OnGUI ()
 				{
-						float screenScale = Screen.width / 300.0f;
+						float screenScale = 1.0f;
+						if (Screen.width < Screen.height) {
+								screenScale = Screen.width / 300.0f;
+						} else {
+								screenScale = Screen.height / 380.0f;
+						}
 						Matrix4x4 scaledMatrix = Matrix4x4.Scale (new Vector3 (screenScale, screenScale, screenScale));
 						GUI.matrix = scaledMatrix;
 

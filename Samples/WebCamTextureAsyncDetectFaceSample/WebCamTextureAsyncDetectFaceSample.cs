@@ -15,11 +15,9 @@ using System.Threading.Tasks;
 
 #endif
 #else
-
 using System.Threading;
 
 #endif
-
 using PositionsVector = System.Collections.Generic.List<OpenCVForUnity.Rect>;
 
 
@@ -47,10 +45,10 @@ namespace OpenCVForUnitySample
 				/// </summary>
 				Color32[] colors;
 
-				/// <summary>
-				/// The is front facing.
-				/// </summary>
-				public bool isFrontFacing = false;
+                /// <summary>
+                /// Should use front facing.
+                /// </summary>
+                public bool shouldUseFrontFacing = false;
 
 				/// <summary>
 				/// The width.
@@ -86,9 +84,13 @@ namespace OpenCVForUnitySample
 				/// The init done.
 				/// </summary>
 				bool initDone = false;
-                
+
+                /// <summary>
+                /// The screenOrientation.
+                /// </summary>
+                ScreenOrientation screenOrientation = ScreenOrientation.Unknown;
+
 				private CascadeClassifier regionCascade;
-				//private bool didUpdateThisFrame = false;
 				Rect[] rectsWhereRegions;
 				List<Rect> detectedObjectsInRegions = new List<Rect> ();
 				List<Rect> resultObjects = new List<Rect> ();
@@ -99,7 +101,7 @@ namespace OpenCVForUnitySample
 				private InnerParameters innerParameters;
 
 
-                // for Thread
+				// for Thread
 #if UNITY_WSA
 #if NETFX_CORE
                 private Task task_ = null;
@@ -108,16 +110,15 @@ namespace OpenCVForUnitySample
 
 #endif
 #else
-                private volatile bool shouldStopThread = false;
+				private volatile bool shouldStopThread = false;
 #endif
 
-                private volatile ThreadComm threadComm = new ThreadComm();
-                private System.Object thisLock = new System.Object();
-                private volatile bool isThreadRunning = false;
-                private volatile bool didUpdateTheDetectionResult = false;
-
+				private volatile ThreadComm threadComm = new ThreadComm ();
+				private System.Object thisLock = new System.Object ();
+				private volatile bool isThreadRunning = false;
+				private volatile bool didUpdateTheDetectionResult = false;
 				private Mat grayMat4Thread;
-                private MatOfRect resultDetect;
+				private MatOfRect resultDetect;
 
 
 				// Use this for initialization
@@ -150,7 +151,7 @@ namespace OpenCVForUnitySample
 						for (int cameraIndex = 0; cameraIndex < WebCamTexture.devices.Length; cameraIndex++) {
 
 
-								if (WebCamTexture.devices [cameraIndex].isFrontFacing == isFrontFacing) {
+								if (WebCamTexture.devices [cameraIndex].isFrontFacing == shouldUseFrontFacing) {
 
 
 										Debug.Log (cameraIndex + " name " + WebCamTexture.devices [cameraIndex].name + " isFrontFacing " + WebCamTexture.devices [cameraIndex].isFrontFacing);
@@ -179,55 +180,31 @@ namespace OpenCVForUnitySample
 
 						while (true) {
 								//If you want to use webcamTexture.width and webcamTexture.height on iOS, you have to wait until webcamTexture.didUpdateThisFrame == 1, otherwise these two values will be equal to 16. (http://forum.unity3d.com/threads/webcamtexture-and-error-0x0502.123922/)
-#if UNITY_IOS && !UNITY_EDITOR && (UNITY_4_6_3 || UNITY_4_6_4 || UNITY_5_0_0 || UNITY_5_0_1)
-				if (webCamTexture.width > 16 && webCamTexture.height > 16) {
-#else
+                                #if UNITY_IOS && !UNITY_EDITOR && (UNITY_4_6_3 || UNITY_4_6_4 || UNITY_5_0_0 || UNITY_5_0_1)
+				                if (webCamTexture.width > 16 && webCamTexture.height > 16) {
+                                #else
 								if (webCamTexture.didUpdateThisFrame) {
-#endif
+                                #endif
 
 										Debug.Log ("width " + webCamTexture.width + " height " + webCamTexture.height + " fps " + webCamTexture.requestedFPS);
 										Debug.Log ("videoRotationAngle " + webCamTexture.videoRotationAngle + " videoVerticallyMirrored " + webCamTexture.videoVerticallyMirrored + " isFrongFacing " + webCamDevice.isFrontFacing);
 
 
 										colors = new Color32[webCamTexture.width * webCamTexture.height];
-
 										rgbaMat = new Mat (webCamTexture.height, webCamTexture.width, CvType.CV_8UC4);
 										grayMat = new Mat (webCamTexture.height, webCamTexture.width, CvType.CV_8UC1);
-
 										texture = new Texture2D (webCamTexture.width, webCamTexture.height, TextureFormat.RGBA32, false);
 
-										gameObject.transform.eulerAngles = new Vector3 (0, 0, 0);
-#if (UNITY_ANDROID || UNITY_IPHONE || UNITY_WP_8_1) && !UNITY_EDITOR
-					gameObject.transform.eulerAngles = new Vector3 (0, 0, -90);
-#endif
-										//										gameObject.transform.rotation = gameObject.transform.rotation * Quaternion.AngleAxis (webCamTexture.videoRotationAngle, Vector3.back);
+                                        gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
-
-										gameObject.transform.localScale = new Vector3 (webCamTexture.width, webCamTexture.height, 1);
-
-										//										bool videoVerticallyMirrored = webCamTexture.videoVerticallyMirrored;
-										//										float scaleX = 1;
-										//										float scaleY = videoVerticallyMirrored ? -1.0f : 1.0f;
-										//										if (webCamTexture.videoRotationAngle == 270)
-										//												scaleY = -1.0f;
-										//										gameObject.transform.localScale = new Vector3 (scaleX * gameObject.transform.localScale.x, scaleY * gameObject.transform.localScale.y, 1);
-
-
-
+                                        updateLayout();
 										
 										regionCascade = new CascadeClassifier (Utils.getFilePath ("lbpcascade_frontalface.xml"));
-
-										gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-
-#if (UNITY_ANDROID || UNITY_IPHONE || UNITY_WP_8_1) && !UNITY_EDITOR
-						                Camera.main.orthographicSize = (((float)Screen.height/(float)Screen.width) * (float)webCamTexture.height) / 2.0f;
-#else
-										Camera.main.orthographicSize = webCamTexture.height / 2;
-#endif
 
 
 										initThread ();
 
+                                        screenOrientation = Screen.orientation;
 										initDone = true;
 
 										break;
@@ -237,6 +214,44 @@ namespace OpenCVForUnitySample
 						}
 				}
 
+
+                private void updateLayout()
+                {
+                    gameObject.transform.localRotation = new Quaternion(0, 0, 0, 0);
+                    gameObject.transform.localScale = new Vector3(webCamTexture.width, webCamTexture.height, 1);
+
+                    if (webCamTexture.videoRotationAngle == 90 || webCamTexture.videoRotationAngle == 270)
+                    {
+                        gameObject.transform.eulerAngles = new Vector3(0, 0, -90);
+                    }
+
+
+                    float width = 0;
+                    float height = 0;
+                    if (webCamTexture.videoRotationAngle == 90 || webCamTexture.videoRotationAngle == 270)
+                    {
+                        width = gameObject.transform.localScale.y;
+                        height = gameObject.transform.localScale.x;
+                    }
+                    else if (webCamTexture.videoRotationAngle == 0 || webCamTexture.videoRotationAngle == 180)
+                    {
+                        width = gameObject.transform.localScale.x;
+                        height = gameObject.transform.localScale.y;
+                    }
+
+                    float widthScale = (float)Screen.width / width;
+                    float heightScale = (float)Screen.height / height;
+                    if (widthScale < heightScale)
+                    {
+                        Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
+                    }
+                    else
+                    {
+                        Camera.main.orthographicSize = height / 2;
+                    }
+                }
+
+
 				// Update is called once per frame
 				void Update ()
 				{
@@ -244,76 +259,73 @@ namespace OpenCVForUnitySample
 								return;
 
 
+                        if (screenOrientation != Screen.orientation)
+                        {
+                            screenOrientation = Screen.orientation;
+                            updateLayout();
+                        }
 
-
-#if UNITY_IOS && !UNITY_EDITOR && (UNITY_4_6_3 || UNITY_4_6_4 || UNITY_5_0_0 || UNITY_5_0_1)
-				if (webCamTexture.width > 16 && webCamTexture.height > 16) {
-#else
+                        #if UNITY_IOS && !UNITY_EDITOR && (UNITY_4_6_3 || UNITY_4_6_4 || UNITY_5_0_0 || UNITY_5_0_1)
+				        if (webCamTexture.width > 16 && webCamTexture.height > 16) {
+                        #else
 						if (webCamTexture.didUpdateThisFrame) {
-#endif
+                        #endif
 
 								Utils.webCamTextureToMat (webCamTexture, rgbaMat, colors);
 
-								if (webCamTexture.videoVerticallyMirrored) {
-										if (webCamDevice.isFrontFacing) {
-												if (webCamTexture.videoRotationAngle == 0) {
-														Core.flip (rgbaMat, rgbaMat, 1);
-												} else if (webCamTexture.videoRotationAngle == 90) {
-														Core.flip (rgbaMat, rgbaMat, 0);
-												} else if (webCamTexture.videoRotationAngle == 270) {
-														Core.flip (rgbaMat, rgbaMat, 1);
-												}
-										} else {
-												if (webCamTexture.videoRotationAngle == 90) {
-
-												} else if (webCamTexture.videoRotationAngle == 270) {
-														Core.flip (rgbaMat, rgbaMat, -1);
-												}
-										}
-								} else {
-										if (webCamDevice.isFrontFacing) {
-												if (webCamTexture.videoRotationAngle == 0) {
-														Core.flip (rgbaMat, rgbaMat, 1);
-												} else if (webCamTexture.videoRotationAngle == 90) {
-														Core.flip (rgbaMat, rgbaMat, 0);
-												} else if (webCamTexture.videoRotationAngle == 270) {
-														Core.flip (rgbaMat, rgbaMat, 1);
-												}
-										} else {
-												if (webCamTexture.videoRotationAngle == 90) {
-
-												} else if (webCamTexture.videoRotationAngle == 270) {
-														Core.flip (rgbaMat, rgbaMat, -1);
-												}
-										}
-								}
+                                if (webCamDevice.isFrontFacing)
+                                {
+                                    if (webCamTexture.videoRotationAngle == 0)
+                                    {
+                                        Core.flip(rgbaMat, rgbaMat, 1);
+                                    }
+                                    else if (webCamTexture.videoRotationAngle == 90)
+                                    {
+                                        Core.flip(rgbaMat, rgbaMat, 0);
+                                    }
+                                    if (webCamTexture.videoRotationAngle == 180)
+                                    {
+                                        Core.flip(rgbaMat, rgbaMat, 0);
+                                    }
+                                    else if (webCamTexture.videoRotationAngle == 270)
+                                    {
+                                        Core.flip(rgbaMat, rgbaMat, 1);
+                                    }
+                                }
+                                else
+                                {
+                                    if (webCamTexture.videoRotationAngle == 180)
+                                    {
+                                        Core.flip(rgbaMat, rgbaMat, -1);
+                                    }
+                                    else if (webCamTexture.videoRotationAngle == 270)
+                                    {
+                                        Core.flip(rgbaMat, rgbaMat, -1);
+                                    }
+                                }
 
 
 								Imgproc.cvtColor (rgbaMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
 								Imgproc.equalizeHist (grayMat, grayMat);
 
                                 
-                                if (!threadComm.shouldDetectInMultiThread)
-                                {
-                                        lock (thisLock)
-                                        {
-                                            grayMat.copyTo(grayMat4Thread);
-                                        }
-                                        threadComm.shouldDetectInMultiThread = true;
-                                }
+								if (!threadComm.shouldDetectInMultiThread) {
+										lock (thisLock) {
+												grayMat.copyTo (grayMat4Thread);
+										}
+										threadComm.shouldDetectInMultiThread = true;
+								}
 
 
 								OpenCVForUnity.Rect[] rects;
 
-                                if (didUpdateTheDetectionResult)
-                                {
-                                        lock (thisLock)
-                                        {
-                                                //Debug.Log("DetectionBasedTracker::process: get _rectsWhereRegions were got from resultDetect");
-                                                rectsWhereRegions = resultDetect.toArray();
-                                                rects = resultDetect.toArray();
-                                        }
-                                        didUpdateTheDetectionResult = false;
+								if (didUpdateTheDetectionResult) {
+										lock (thisLock) {
+												//Debug.Log("DetectionBasedTracker::process: get _rectsWhereRegions were got from resultDetect");
+												rectsWhereRegions = resultDetect.toArray ();
+												rects = resultDetect.toArray ();
+										}
+										didUpdateTheDetectionResult = false;
 
 
 										for (int i = 0; i < rects.Length; i++) {
@@ -382,14 +394,13 @@ namespace OpenCVForUnitySample
 
 				private void initThread ()
 				{
-                        lock (thisLock)
-                        {
-                            cascade = new CascadeClassifier(Utils.getFilePath("haarcascade_frontalface_alt.xml"));
-                            grayMat4Thread = new Mat();
-                        }
-                        threadComm.shouldDetectInMultiThread = false;
+						lock (thisLock) {
+								cascade = new CascadeClassifier (Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
+								grayMat4Thread = new Mat ();
+						}
+						threadComm.shouldDetectInMultiThread = false;
 
-                        StartThread();
+						StartThread ();
 				}
 
 
@@ -495,66 +506,67 @@ namespace OpenCVForUnitySample
 #endif
 #else
 
-                private void ThreadWorker()
-                {
-                    if (isThreadRunning) return;
+				private void ThreadWorker ()
+				{
+						if (isThreadRunning)
+								return;
 
-                    Debug.Log("Thread Start");
+						Debug.Log ("Thread Start");
 
-                    isThreadRunning = true;
-                    shouldStopThread = false;
+						isThreadRunning = true;
+						shouldStopThread = false;
 
-                    threadComm.shouldDetectInMultiThread = false;
-                    didUpdateTheDetectionResult = false;
+						threadComm.shouldDetectInMultiThread = false;
+						didUpdateTheDetectionResult = false;
 
-                    ThreadPool.QueueUserWorkItem(_ThreadWorker, threadComm);
-                }
+						ThreadPool.QueueUserWorkItem (_ThreadWorker, threadComm);
+				}
 
-                private void _ThreadWorker(System.Object o)
-                {
-                    ThreadComm comm = o as ThreadComm;
-
-
-                    while (!shouldStopThread)
-                    {
-                        if (!comm.shouldDetectInMultiThread) continue;
+				private void _ThreadWorker (System.Object o)
+				{
+						ThreadComm comm = o as ThreadComm;
 
 
-                        lock (thisLock)
-                        {
-                            MatOfRect faces = new MatOfRect();
-                            if (cascade != null)
-                                cascade.detectMultiScale(grayMat4Thread, faces, 1.1, 2, Objdetect.CASCADE_SCALE_IMAGE, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
-                                    new Size(grayMat4Thread.height() * 0.2, grayMat4Thread.height() * 0.2), new Size());
+						while (!shouldStopThread) {
+								if (!comm.shouldDetectInMultiThread)
+										continue;
 
-                            resultDetect = faces;
-                        }
-                        comm.shouldDetectInMultiThread = false;
 
-                        didUpdateTheDetectionResult = true;
-                    }
+								lock (thisLock) {
+										MatOfRect faces = new MatOfRect ();
+										if (cascade != null)
+												cascade.detectMultiScale (grayMat4Thread, faces, 1.1, 2, Objdetect.CASCADE_SCALE_IMAGE, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
+                                    new Size (grayMat4Thread.height () * 0.2, grayMat4Thread.height () * 0.2), new Size ());
 
-                    isThreadRunning = false;
-                }
+										resultDetect = faces;
+								}
+								comm.shouldDetectInMultiThread = false;
+
+								didUpdateTheDetectionResult = true;
+						}
+
+						isThreadRunning = false;
+				}
 
 
 #endif
 
-                public class ThreadComm : System.Object
-                {
-                    public bool shouldDetectInMultiThread = false;
-                }
+				public class ThreadComm : System.Object
+				{
+						public bool shouldDetectInMultiThread = false;
+				}
 
 
 
-                public void StartThread()
-                {
-                    ThreadWorker();
-                }
+				public void StartThread ()
+				{
+						ThreadWorker ();
+				}
 
-                public void StopThread()
-                {
-                    if (!isThreadRunning) return;
+				public void StopThread ()
+				{
+						if (!isThreadRunning)
+								return;
 
 
 #if UNITY_WSA
@@ -566,21 +578,15 @@ namespace OpenCVForUnitySample
             isThreadRunning = false;
 #endif
 #else
-                    shouldStopThread = true;
+						shouldStopThread = true;
 #endif
 
 
-                    while (isThreadRunning)
-                    {
-                        //Wait threading stop
-                    }
-                    Debug.Log("Thread Stop");
-                }
-
-
-
-
-
+						while (isThreadRunning) {
+								//Wait threading stop
+						}
+						Debug.Log ("Thread Stop");
+				}
 
 				private void getObjects (List<Rect> result)
 				{
@@ -871,19 +877,14 @@ namespace OpenCVForUnitySample
 
 				void OnDisable ()
 				{
-                        StopThread();
+						StopThread ();
 
 						webCamTexture.Stop ();
 				}
 
 				void OnGUI ()
 				{
-						float screenScale = 1.0f;
-						if (Screen.width < Screen.height) {
-								screenScale = Screen.width / 240.0f;
-						} else {
-								screenScale = Screen.height / 360.0f;
-						}
+                        float screenScale = Screen.height / 240.0f;
 						Matrix4x4 scaledMatrix = Matrix4x4.Scale (new Vector3 (screenScale, screenScale, screenScale));
 						GUI.matrix = scaledMatrix;
 
@@ -896,7 +897,7 @@ namespace OpenCVForUnitySample
 						}
 						if (GUILayout.Button ("change camera")) {
 
-								isFrontFacing = !isFrontFacing;
+                                shouldUseFrontFacing = !shouldUseFrontFacing;
 								StartCoroutine (init ());
 
 						}
