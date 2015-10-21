@@ -28,6 +28,7 @@ var searchData=
   ['iscontourconvex',['isContourConvex',['../class_open_c_v_for_unity_1_1_imgproc.html#aa6bc2778ef2dea571ceee737d9510fe3',1,'OpenCVForUnity::Imgproc']]],
   ['isinteger',['isInteger',['../class_open_c_v_for_unity_1_1_cv_type.html#aa134808bbd75722ed22ec1aed1a738f5',1,'OpenCVForUnity::CvType']]],
   ['ismasksupported',['isMaskSupported',['../class_open_c_v_for_unity_1_1_descriptor_matcher.html#ae765b2222ed9132cfe464bf481d7ef48',1,'OpenCVForUnity.DescriptorMatcher.isMaskSupported()'],['../class_open_c_v_for_unity_1_1_generic_descriptor_matcher.html#a30ffe76730de4de3dc2c1a9a3b6fc2b7',1,'OpenCVForUnity.GenericDescriptorMatcher.isMaskSupported()']]],
+  ['isnewlowlevelnativeplugininterface',['isNewLowLevelNativePluginInterface',['../class_open_c_v_for_unity_1_1_utils.html#ab27b4765e9cd9d9281b71f77bdc43284',1,'OpenCVForUnity::Utils']]],
   ['isopened',['isOpened',['../class_open_c_v_for_unity_1_1_video_capture.html#a1d115404c6f35a70056476052631af6b',1,'OpenCVForUnity::VideoCapture']]],
   ['isreal',['isReal',['../class_open_c_v_for_unity_1_1_scalar.html#a8bfe2ee686f3ca34e2c1e2b21239d83b',1,'OpenCVForUnity::Scalar']]],
   ['issubmatrix',['isSubmatrix',['../class_open_c_v_for_unity_1_1_mat.html#a8808c60997bb8f34e658d26a4dacee01',1,'OpenCVForUnity::Mat']]],

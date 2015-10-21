@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">1.2.1</span>
+   &#160;<span id="projectnumber">1.2.2</span>
    </div>
    <div id="projectbrief">Enox Software</div>
   </td>
@@ -125,10 +125,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:af67eead5f37dd6760eb2751b9ffd7d32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab343946b551e32d9623315cd01cbaadd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_utils.html#ab343946b551e32d9623315cd01cbaadd">textureToMat</a> (Texture texture, <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> mat)</td></tr>
 <tr class="separator:ab343946b551e32d9623315cd01cbaadd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74fc1274d284d5fc0e93f31b786d8ffc"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_utils.html#a74fc1274d284d5fc0e93f31b786d8ffc">getGraphicsDeviceType</a> ()</td></tr>
-<tr class="separator:a74fc1274d284d5fc0e93f31b786d8ffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6e69fe85e2e634717f733a6cd0e7c1c"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_utils.html#aa6e69fe85e2e634717f733a6cd0e7c1c">getLowLevelGraphicsDeviceType</a> ()</td></tr>
+<tr class="separator:aa6e69fe85e2e634717f733a6cd0e7c1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c7cbfce8d9478caa612f5c85b1bec23"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_utils.html#a7c7cbfce8d9478caa612f5c85b1bec23">getLowLevelTextureFormat</a> (Texture texture)</td></tr>
 <tr class="separator:a7c7cbfce8d9478caa612f5c85b1bec23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab27b4765e9cd9d9281b71f77bdc43284"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_utils.html#ab27b4765e9cd9d9281b71f77bdc43284">isNewLowLevelNativePluginInterface</a> ()</td></tr>
+<tr class="separator:ab27b4765e9cd9d9281b71f77bdc43284"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e118b30035401f5897ad21a6e6bc71a"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_utils.html#a4e118b30035401f5897ad21a6e6bc71a">getFilePath</a> (string filename)</td></tr>
 <tr class="memdesc:a4e118b30035401f5897ad21a6e6bc71a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the file path. [Android]Set the filename containing the folder of 'Assets/Plugin/Android/assets'. [iOS]Set the filename Added to Xcode by 'Build Phases &gt; Copy Bundle Resources'  <a href="#a4e118b30035401f5897ad21a6e6bc71a">More...</a><br /></td></tr>
 <tr class="separator:a4e118b30035401f5897ad21a6e6bc71a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -563,7 +565,7 @@ this method doesn't check bounds.</p>
 
 </div>
 </div>
-<a class="anchor" id="a74fc1274d284d5fc0e93f31b786d8ffc"></a>
+<a class="anchor" id="aa6e69fe85e2e634717f733a6cd0e7c1c"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -571,7 +573,7 @@ this method doesn't check bounds.</p>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static int OpenCVForUnity.Utils.getGraphicsDeviceType </td>
+          <td class="memname">static int OpenCVForUnity.Utils.getLowLevelGraphicsDeviceType </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -584,7 +586,7 @@ this method doesn't check bounds.</p>
 </table>
 </div><div class="memdoc">
 <p>Get Graphics DeviceType using Low-level Native Plugin Interface.</p>
-<p><a href="http://docs.unity3d.com/Manual/NativePluginInterface.html">http://docs.unity3d.com/Manual/NativePluginInterface.html</a> </p>
+<p><a href="http://docs.unity3d.com/Manual/NativePluginInterface.html">http://docs.unity3d.com/Manual/NativePluginInterface.html</a> kUnityGfxRendererOpenGL = 0, // Desktop OpenGL kUnityGfxRendererD3D9 = 1, // Direct3D 9 kUnityGfxRendererD3D11 = 2, // Direct3D 11 kUnityGfxRendererGCM = 3, // PlayStation 3 kUnityGfxRendererNull = 4, // "null" device (used in batch mode) kUnityGfxRendererXenon = 6, // Xbox 360 kUnityGfxRendererOpenGLES20 = 8, // OpenGL ES 2.0 kUnityGfxRendererOpenGLES30 = 11, // OpenGL ES 3.0 kUnityGfxRendererGXM = 12, // PlayStation Vita kUnityGfxRendererPS4 = 13, // PlayStation 4 kUnityGfxRendererXboxOne = 14, // Xbox One kUnityGfxRendererMetal = 16, // iOS Metal kUnityGfxRendererD3D12 = 18, // Direct3D 12 </p>
 
 </div>
 </div>
@@ -622,6 +624,31 @@ Metal MTLPixelFormat (iOS)</p>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="ab27b4765e9cd9d9281b71f77bdc43284"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool OpenCVForUnity.Utils.isNewLowLevelNativePluginInterface </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Is New Low Level Native Plugin Interface.</p>
+<p><a href="http://docs.unity3d.com/Manual/NativePluginInterface.html">http://docs.unity3d.com/Manual/NativePluginInterface.html</a> </p>
 
 </div>
 </div>
@@ -877,7 +904,7 @@ The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> ob
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 22 2015 18:42:20 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 21 2015 23:57:07 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>
