@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 using OpenCVForUnity;
@@ -150,7 +150,13 @@ namespace OpenCVForUnitySample
 				                if (webCamTexture.width > 16 && webCamTexture.height > 16) {
 								#else
 								if (webCamTexture.didUpdateThisFrame) {
+										#if UNITY_IOS && !UNITY_EDITOR && UNITY_5_2                                    
+										while (webCamTexture.width <= 16) {
+												webCamTexture.GetPixels32 ();
+												yield return new WaitForEndOfFrame ();
+										} 
 										#endif
+								#endif
 
 										Debug.Log ("width " + webCamTexture.width + " height " + webCamTexture.height + " fps " + webCamTexture.requestedFPS);
 										Debug.Log ("videoRotationAngle " + webCamTexture.videoRotationAngle + " videoVerticallyMirrored " + webCamTexture.videoVerticallyMirrored + " isFrongFacing " + webCamDevice.isFrontFacing);
