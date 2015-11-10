@@ -18,81 +18,94 @@ namespace OpenCVForUnitySample
 	
 				}
 
-				void OnGUI ()
+				public void OnShowLicenseButton ()
 				{
-						float screenScale = 1.0f;
-						if (Screen.width < Screen.height) {
-								screenScale = Screen.width / 300.0f;
-						} else {
-								screenScale = Screen.height / 380.0f;
-						}
-						Matrix4x4 scaledMatrix = Matrix4x4.Scale (new Vector3 (screenScale, screenScale, screenScale));
-						GUI.matrix = scaledMatrix;
+						Application.LoadLevel ("ShowLicense");
+				}
 
+				public void OnTexture2DToMatSample ()
+				{
+						Application.LoadLevel ("Texture2DToMatSample");
+				}
 
-						GUILayout.BeginVertical ();
+				public void OnThresholdSample ()
+				{
+						Application.LoadLevel ("ThresholdSample");
+				}
+		
+				public void OnDrawingSample ()
+				{
+						Application.LoadLevel ("DrawingSample");
+				}
+		
+				public void OnConvexHullSample ()
+				{
+						Application.LoadLevel ("ConvexHullSample");
+				}
+		
+				public void OnHoughLinesPSample ()
+				{
+						Application.LoadLevel ("HoughLinesPSample");
+				}
+		
+				public void OnFeature2DSample ()
+				{
+						Application.LoadLevel ("Feature2DSample");
+				}
 
-						if (GUILayout.Button ("Show License")) {
-								Application.LoadLevel ("ShowLicense");
-						}
+				public void OnWrapPerspectiveSample ()
+				{
+						Application.LoadLevel ("WrapPerspectiveSample");
+				}
+		
+				public void OnFaceRecognizerSample ()
+				{
+						Application.LoadLevel ("FaceRecognizerSample");
+				}
+		
+				public void OnDetectFaceSample ()
+				{
+						Application.LoadLevel ("DetectFaceSample");
+				}
 				
-						if (GUILayout.Button ("Texture2DToMatSample")) {
-								Application.LoadLevel ("Texture2DToMatSample");
-						}
-
-						if (GUILayout.Button ("ThresholdSample")) {
-								Application.LoadLevel ("ThresholdSample");
-						}
-
-						if (GUILayout.Button ("DrawingSample")) {
-								Application.LoadLevel ("DrawingSample");
-						}
-
-						if (GUILayout.Button ("ConvexHullSample")) {
-								Application.LoadLevel ("ConvexHullSample");
-						}
-
-						if (GUILayout.Button ("HoughLinesPSample")) {
-								Application.LoadLevel ("HoughLinesPSample");
-						}
-
-						if (GUILayout.Button ("Feature2DSample")) {
-								Application.LoadLevel ("Feature2DSample");
-						}
-
-						if (GUILayout.Button ("FaceRecognizerSample")) {
-								Application.LoadLevel ("FaceRecognizerSample");
-						}
-
-						if (GUILayout.Button ("DetectFaceSample")) {
-								Application.LoadLevel ("DetectFaceSample");
-						}
+				public void OnWebCamTextureToMatSample ()
+				{
+						Application.LoadLevel ("WebCamTextureToMatSample");
+				}
+				
+				public void OnWebCamTextureDetectFaceSample ()
+				{
+						Application.LoadLevel ("WebCamTextureDetectFaceSample");
+				}
 		
-						if (GUILayout.Button ("WebCamTextureToMatSample")) {
-								Application.LoadLevel ("WebCamTextureToMatSample");
-						}
+				public void OnWebCamTextureAsyncDetectFaceSample ()
+				{
+						Application.LoadLevel ("WebCamTextureAsyncDetectFaceSample");
+				}
 		
-						if (GUILayout.Button ("WebCamTextureDetectFaceSample")) {
-								Application.LoadLevel ("WebCamTextureDetectFaceSample");
-						}
+				public void OnOpticalFlowSample ()
+				{
+						Application.LoadLevel ("OpticalFlowSample");
+				}
+		
+				public void OnComicFilterSample ()
+				{
+						Application.LoadLevel ("ComicFilterSample");
+				}
+		
+				public void OnCamShiftSample ()
+				{
+						Application.LoadLevel ("CamShiftSample");
+				}
 
-						if (GUILayout.Button ("WebCamTextureAsyncDetectFaceSample")) {
-								Application.LoadLevel ("WebCamTextureAsyncDetectFaceSample");
-						}
+				public void OnHandPoseEstimationSample ()
+				{
+						Application.LoadLevel ("HandPoseEstimationSample");
+				}
 
-						if (GUILayout.Button ("OpticalFlowSample")) {
-								Application.LoadLevel ("OpticalFlowSample");
-						}
-
-						if (GUILayout.Button ("ComicFilterSample")) {
-								Application.LoadLevel ("ComicFilterSample");
-						}
-
-						if (GUILayout.Button ("CamShiftSample")) {
-								Application.LoadLevel ("CamShiftSample");
-						}
-
-						GUILayout.EndVertical ();
+				public void OnMultiObjectTrackingBasedOnColorSample ()
+				{
+						Application.LoadLevel ("MultiObjectTrackingBasedOnColorSample");
 				}
 		}
 }

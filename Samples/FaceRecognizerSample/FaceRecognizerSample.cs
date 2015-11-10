@@ -52,7 +52,7 @@ namespace OpenCVForUnitySample
 						Debug.Log ("Confidence: " + predictedConfidence [0]);
 
 
-						Mat predictedMat = images [predictedLabel[0]];
+						Mat predictedMat = images [predictedLabel [0]];
 
 						Mat baseMat = new Mat (testSampleMat.rows (), predictedMat.cols () + testSampleMat.cols (), CvType.CV_8UC1);
 						predictedMat.copyTo (baseMat.submat (new OpenCVForUnity.Rect (0, 0, predictedMat.cols (), predictedMat.rows ())));
@@ -76,20 +76,9 @@ namespace OpenCVForUnitySample
 	
 				}
 
-				void OnGUI ()
+				public void OnBackButton ()
 				{
-                        float screenScale = Screen.height / 240.0f;
-						Matrix4x4 scaledMatrix = Matrix4x4.Scale (new Vector3 (screenScale, screenScale, screenScale));
-						GUI.matrix = scaledMatrix;
-		
-		
-						GUILayout.BeginVertical ();
-						if (GUILayout.Button ("back")) {
-								Application.LoadLevel ("OpenCVForUnitySample");
-						}
-		
-		
-						GUILayout.EndVertical ();
+						Application.LoadLevel ("OpenCVForUnitySample");
 				}
 		}
 }

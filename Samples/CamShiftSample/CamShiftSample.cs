@@ -363,7 +363,7 @@ namespace OpenCVForUnitySample
 										Core.rectangle (rgbaMat, roiRect.tl (), roiRect.br (), new Scalar (0, 255, 0, 255), 2);
 								}
 
-								Core.putText (rgbaMat, "PLEASE TOUCH 4 POINTS", new Point (5, 25), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Core.LINE_AA, false);
+								Core.putText (rgbaMat, "PLEASE TOUCH 4 POINTS", new Point (5, rgbaMat.rows ()- 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Core.LINE_AA, false);
 
 		
 								Utils.matToTexture2D (rgbaMat, texture, colors);
@@ -379,24 +379,15 @@ namespace OpenCVForUnitySample
 						webCamTexture.Stop ();
 				}
 	
-				void OnGUI ()
+				public void OnBackButton ()
 				{
-						float screenScale = Screen.height / 240.0f;
-						Matrix4x4 scaledMatrix = Matrix4x4.Scale (new Vector3 (screenScale, screenScale, screenScale));
-						GUI.matrix = scaledMatrix;
-		
-		
-						GUILayout.BeginVertical ();
-						if (GUILayout.Button ("back")) {
-								Application.LoadLevel ("OpenCVForUnitySample");
-						}
-						if (GUILayout.Button ("change camera")) {
-								shouldUseFrontFacing = !shouldUseFrontFacing;
-								StartCoroutine (init ());
-						}
-		
-		
-						GUILayout.EndVertical ();
+					Application.LoadLevel ("OpenCVForUnitySample");
+				}
+				
+				public void OnChangeCameraButton ()
+				{
+					shouldUseFrontFacing = !shouldUseFrontFacing;
+					StartCoroutine (init ());
 				}
 
 				/// <summary>
