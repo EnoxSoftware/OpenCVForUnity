@@ -22,11 +22,13 @@ namespace OpenCVForUnitySample
 						MatOfInt labels = new MatOfInt ();
 						images.Add (Highgui.imread (Utils.getFilePath ("facerec/facerec_0.bmp"), 0));
 						images.Add (Highgui.imread (Utils.getFilePath ("facerec/facerec_1.bmp"), 0));
+
 						labelsList.Add (0);
-						labelsList.Add (0);
+						labelsList.Add (1);
 						labels.fromList (labelsList);
 
 						Mat testSampleMat = Highgui.imread (Utils.getFilePath ("facerec/facerec_sample.bmp"), 0);
+
 						int testSampleLabel = 0;
 
 
