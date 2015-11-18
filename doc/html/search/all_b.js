@@ -77,7 +77,7 @@ var searchData=
   ['matofrect',['MatOfRect',['../class_open_c_v_for_unity_1_1_mat_of_rect.html',1,'OpenCVForUnity']]],
   ['matofrect_2ecs',['MatOfRect.cs',['../_mat_of_rect_8cs.html',1,'']]],
   ['mattotexture',['matToTexture',['../class_open_c_v_for_unity_1_1_utils.html#af67eead5f37dd6760eb2751b9ffd7d32',1,'OpenCVForUnity::Utils']]],
-  ['mattotexture2d',['matToTexture2D',['../class_open_c_v_for_unity_1_1_utils.html#a98d24537e79b4bf9ca00fa9772c2b3ca',1,'OpenCVForUnity::Utils']]],
+  ['mattotexture2d',['matToTexture2D',['../class_open_c_v_for_unity_1_1_utils.html#a21133f9b17264935fd7f871c80ebce2f',1,'OpenCVForUnity.Utils.matToTexture2D(Mat mat, Texture2D texture2D)'],['../class_open_c_v_for_unity_1_1_utils.html#ab7fc671db4463299103186032eaba068',1,'OpenCVForUnity.Utils.matToTexture2D(Mat mat, Texture2D texture2D, Color32[] bufferColors)']]],
   ['max',['max',['../class_open_c_v_for_unity_1_1_core.html#aa45b70e5246fd8385b957c5f7091da6b',1,'OpenCVForUnity.Core.max(Mat src1, Mat src2, Mat dst)'],['../class_open_c_v_for_unity_1_1_core.html#a83060fc71e32caf8025d9ab0b0605e7a',1,'OpenCVForUnity.Core.max(Mat src1, Scalar src2, Mat dst)']]],
   ['max_5fiter',['MAX_ITER',['../class_open_c_v_for_unity_1_1_term_criteria.html#a4917185d255287ec35bb2afb07499a28',1,'OpenCVForUnity::TermCriteria']]],
   ['maxcount',['maxCount',['../class_open_c_v_for_unity_1_1_term_criteria.html#ad33e45e1e444d782b739a7d1e5ad024d',1,'OpenCVForUnity::TermCriteria']]],
