@@ -74,10 +74,10 @@ namespace OpenCVForUnitySample
 				/// </summary>
 				private Scalar blobColorHsv;
 
-				/// <summary>
-				/// The BLOB color rgba.
-				/// </summary>
-				private Scalar blobColorRgba;
+//				/// <summary>
+//				/// The BLOB color rgba.
+//				/// </summary>
+//				private Scalar blobColorRgba;
 
 				/// <summary>
 				/// The detector.
@@ -98,7 +98,7 @@ namespace OpenCVForUnitySample
 				/// The SPECTRU m_ SIZ.
 				/// </summary>
 				private Size SPECTRUM_SIZE;
-
+		
 				/// <summary>
 				/// The CONTOU r_ COLO.
 				/// </summary>
@@ -195,7 +195,7 @@ namespace OpenCVForUnitySample
 
 										detector = new ColorBlobDetector ();
 										spectrumMat = new Mat ();
-										blobColorRgba = new Scalar (255);
+//										blobColorRgba = new Scalar (255);
 										blobColorHsv = new Scalar (255);
 										SPECTRUM_SIZE = new Size (200, 64);
 										CONTOUR_COLOR = new Scalar (255, 0, 0, 255);
@@ -386,7 +386,7 @@ namespace OpenCVForUnitySample
 //								(int)boundRect.tl ().x + "] Col end [" +
 //								(int)boundRect.br ().x + "]");
 					
-						int rectHeightThresh = 0;
+
 						double a = boundRect.br ().y - boundRect.tl ().y;
 						a = a * 0.7;
 						a = boundRect.tl ().y + a;
@@ -440,7 +440,7 @@ namespace OpenCVForUnitySample
 					
 						Imgproc.drawContours (rgbaMat, hullPoints, -1, CONTOUR_COLOR, 3);
 					
-						int defectsTotal = (int)convexDefect.total ();
+//						int defectsTotal = (int)convexDefect.total ();
 //						Debug.Log ("Defect total " + defectsTotal);
 					
 						this.numberOfFingers = listPoDefect.Count;
@@ -496,8 +496,7 @@ namespace OpenCVForUnitySample
 						for (int i = 0; i < blobColorHsv.val.Length; i++)
 								blobColorHsv.val [i] /= pointCount;
 					
-						blobColorRgba = converScalarHsv2Rgba (blobColorHsv);
-					
+//						blobColorRgba = converScalarHsv2Rgba (blobColorHsv);					
 //						Debug.Log ("Touched rgba color: (" + mBlobColorRgba.val [0] + ", " + mBlobColorRgba.val [1] +
 //								", " + mBlobColorRgba.val [2] + ", " + mBlobColorRgba.val [3] + ")");
 					

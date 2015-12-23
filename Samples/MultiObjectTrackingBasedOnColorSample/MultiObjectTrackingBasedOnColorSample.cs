@@ -73,10 +73,10 @@ namespace OpenCVForUnitySample
 				/// </summary>
 				const int MIN_OBJECT_AREA = 20 * 20;
 
-				/// <summary>
-				/// max object area
-				/// </summary>
-				int MAX_OBJECT_AREA;
+//				/// <summary>
+//				/// max object area
+//				/// </summary>
+//				int MAX_OBJECT_AREA;
 
 				/// <summary>
 				/// The threshold mat.
@@ -165,7 +165,7 @@ namespace OpenCVForUnitySample
 										thresholdMat = new Mat ();
 										hsvMat = new Mat ();
 
-										MAX_OBJECT_AREA = (int)(webCamTexture.height * webCamTexture.width / 1.5);
+//										MAX_OBJECT_AREA = (int)(webCamTexture.height * webCamTexture.width / 1.5);
 						
 										gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 
@@ -361,8 +361,8 @@ namespace OpenCVForUnitySample
 						Mat hierarchy = new Mat ();
 						//find contours of filtered image using openCV findContours function
 						Imgproc.findContours (temp, contours, hierarchy, Imgproc.RETR_CCOMP, Imgproc.CHAIN_APPROX_SIMPLE);
+						
 						//use moments method to find our filtered object
-						double refArea = 0;
 						bool colorObjectFound = false;
 						if (hierarchy.rows () > 0) {
 								int numObjects = hierarchy.rows ();
