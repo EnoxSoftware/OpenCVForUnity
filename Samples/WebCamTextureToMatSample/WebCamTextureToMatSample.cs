@@ -5,237 +5,142 @@ using OpenCVForUnity;
 
 namespace OpenCVForUnitySample
 {
+	/// <summary>
+	/// WebCamTexture to mat sample.
+	/// </summary>
+	[RequireComponent(typeof(WebCamTextureToMatHelper))]
+	public class WebCamTextureToMatSample : MonoBehaviour
+	{
+	
 		/// <summary>
-		/// WebCamTexture to mat sample.
+		/// The colors.
 		/// </summary>
-		public class WebCamTextureToMatSample : MonoBehaviour
+		Color32[] colors;
+
+		/// <summary>
+		/// The texture.
+		/// </summary>
+		Texture2D texture;
+
+		/// <summary>
+		/// The web cam texture to mat helper.
+		/// </summary>
+		WebCamTextureToMatHelper webCamTextureToMatHelper;
+	
+
+		// Use this for initialization
+		void Start ()
 		{
-	
-				/// <summary>
-				/// The web cam texture.
-				/// </summary>
-				WebCamTexture webCamTexture;
+			webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
+			webCamTextureToMatHelper.Init (OnWebCamTextureToMatHelperInited, OnWebCamTextureToMatHelperDisposed);
 
-				/// <summary>
-				/// The web cam device.
-				/// </summary>
-				WebCamDevice webCamDevice;
-
-				/// <summary>
-				/// The colors.
-				/// </summary>
-				Color32[] colors;
-
-				/// <summary>
-				/// Should use front facing.
-				/// </summary>
-				public bool shouldUseFrontFacing = false;
-
-				/// <summary>
-				/// The width.
-				/// </summary>
-				int width = 640;
-
-				/// <summary>
-				/// The height.
-				/// </summary>
-				int height = 480;
-
-				/// <summary>
-				/// The rgba mat.
-				/// </summary>
-				Mat rgbaMat;
-
-				/// <summary>
-				/// The texture.
-				/// </summary>
-				Texture2D texture;
-
-				/// <summary>
-				/// The init done.
-				/// </summary>
-				bool initDone = false;
-
-				/// <summary>
-				/// The screenOrientation.
-				/// </summary>
-				ScreenOrientation screenOrientation = ScreenOrientation.Unknown;
-	
-
-				// Use this for initialization
-				void Start ()
-				{
-						
-						StartCoroutine (init ());
-
-				}
-
-				private IEnumerator init ()
-				{
-						if (webCamTexture != null) {
-								webCamTexture.Stop ();
-								initDone = false;
-				
-								rgbaMat.Dispose ();
-						}
-
-						// Checks how many and which cameras are available on the device
-						for (int cameraIndex = 0; cameraIndex < WebCamTexture.devices.Length; cameraIndex++) {
-				
-				
-								if (WebCamTexture.devices [cameraIndex].isFrontFacing == shouldUseFrontFacing) {
-					
-					
-										Debug.Log (cameraIndex + " name " + WebCamTexture.devices [cameraIndex].name + " isFrontFacing " + WebCamTexture.devices [cameraIndex].isFrontFacing);
-
-										webCamDevice = WebCamTexture.devices [cameraIndex];
-
-										webCamTexture = new WebCamTexture (webCamDevice.name, width, height);
-
-										break;
-								}
-				
-				
-						}
-			
-						if (webCamTexture == null) {
-								webCamDevice = WebCamTexture.devices [0];
-								webCamTexture = new WebCamTexture (webCamDevice.name, width, height);
-						}
-			
-						Debug.Log ("width " + webCamTexture.width + " height " + webCamTexture.height + " fps " + webCamTexture.requestedFPS);
-			
-			
-			
-						// Starts the camera
-						webCamTexture.Play ();
-
-
-						while (true) {
-								//If you want to use webcamTexture.width and webcamTexture.height on iOS, you have to wait until webcamTexture.didUpdateThisFrame == 1, otherwise these two values will be equal to 16. (http://forum.unity3d.com/threads/webcamtexture-and-error-0x0502.123922/)
-								#if UNITY_IOS && !UNITY_EDITOR && (UNITY_4_6_3 || UNITY_4_6_4 || UNITY_5_0_0 || UNITY_5_0_1)
-				                if (webCamTexture.width > 16 && webCamTexture.height > 16) {
-								#else
-								if (webCamTexture.didUpdateThisFrame) {
-										#if UNITY_IOS && !UNITY_EDITOR && UNITY_5_2                                    
-										while (webCamTexture.width <= 16) {
-												webCamTexture.GetPixels32 ();
-												yield return new WaitForEndOfFrame ();
-										} 
-										#endif
-										#endif
-
-										Debug.Log ("width " + webCamTexture.width + " height " + webCamTexture.height + " fps " + webCamTexture.requestedFPS);
-										Debug.Log ("videoRotationAngle " + webCamTexture.videoRotationAngle + " videoVerticallyMirrored " + webCamTexture.videoVerticallyMirrored + " isFrongFacing " + webCamDevice.isFrontFacing);
-					
-										colors = new Color32[webCamTexture.width * webCamTexture.height];
-										rgbaMat = new Mat (webCamTexture.height, webCamTexture.width, CvType.CV_8UC4);
-										texture = new Texture2D (webCamTexture.width, webCamTexture.height, TextureFormat.RGBA32, false);
-
-										gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-
-										updateLayout ();
-
-										screenOrientation = Screen.orientation;
-										initDone = true;
-					
-										break;
-								} else {
-										yield return 0;
-								}
-						}
-				}
-
-				private void updateLayout ()
-				{
-						gameObject.transform.localRotation = new Quaternion (0, 0, 0, 0);
-						gameObject.transform.localScale = new Vector3 (webCamTexture.width, webCamTexture.height, 1);
-
-						if (webCamTexture.videoRotationAngle == 90 || webCamTexture.videoRotationAngle == 270) {
-								gameObject.transform.eulerAngles = new Vector3 (0, 0, -90);
-						}
-
-
-						float width = 0;
-						float height = 0;
-						if (webCamTexture.videoRotationAngle == 90 || webCamTexture.videoRotationAngle == 270) {
-								width = gameObject.transform.localScale.y;
-								height = gameObject.transform.localScale.x;
-						} else if (webCamTexture.videoRotationAngle == 0 || webCamTexture.videoRotationAngle == 180) {
-								width = gameObject.transform.localScale.x;
-								height = gameObject.transform.localScale.y;
-						}
-
-						float widthScale = (float)Screen.width / width;
-						float heightScale = (float)Screen.height / height;
-						if (widthScale < heightScale) {
-								Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
-						} else {
-								Camera.main.orthographicSize = height / 2;
-						}
-				}
-
-
-				// Update is called once per frame
-				void Update ()
-				{
-						if (!initDone)
-								return;
-
-
-						if (screenOrientation != Screen.orientation) {
-								screenOrientation = Screen.orientation;
-								updateLayout ();
-						}
-
-
-						#if UNITY_IOS && !UNITY_EDITOR && (UNITY_4_6_3 || UNITY_4_6_4 || UNITY_5_0_0 || UNITY_5_0_1)
-				        if (webCamTexture.width > 16 && webCamTexture.height > 16) {
-						#else
-						if (webCamTexture.didUpdateThisFrame) {
-								#endif
-						
-								Utils.webCamTextureToMat (webCamTexture, rgbaMat, colors);
-
-								if (webCamDevice.isFrontFacing) {
-										if (webCamTexture.videoRotationAngle == 0) {
-												Core.flip (rgbaMat, rgbaMat, 1);
-										} else if (webCamTexture.videoRotationAngle == 90) {
-												Core.flip (rgbaMat, rgbaMat, 0);
-										}
-										if (webCamTexture.videoRotationAngle == 180) {
-												Core.flip (rgbaMat, rgbaMat, 0);
-										} else if (webCamTexture.videoRotationAngle == 270) {
-												Core.flip (rgbaMat, rgbaMat, 1);
-										}
-								} else {
-										if (webCamTexture.videoRotationAngle == 180) {
-												Core.flip (rgbaMat, rgbaMat, -1);
-										} else if (webCamTexture.videoRotationAngle == 270) {
-												Core.flip (rgbaMat, rgbaMat, -1);
-										}
-								}
-								
-		
-								Utils.matToTexture2D (rgbaMat, texture, colors);
-						}
-
-				}
-	
-				void OnDisable ()
-				{
-						webCamTexture.Stop ();
-				}
-
-				public void OnBackButton ()
-				{
-					Application.LoadLevel ("OpenCVForUnitySample");
-				}
-
-				public void OnChangeCameraButton ()
-				{
-					shouldUseFrontFacing = !shouldUseFrontFacing;
-					StartCoroutine (init ());
-				}
 		}
+
+		/// <summary>
+		/// Raises the web cam texture to mat helper inited event.
+		/// </summary>
+		public void OnWebCamTextureToMatHelperInited ()
+		{
+			Debug.Log ("OnWebCamTextureToMatHelperInited");
+
+			Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
+
+			colors = new Color32[webCamTextureMat.cols () * webCamTextureMat.rows ()];
+			texture = new Texture2D (webCamTextureMat.cols (), webCamTextureMat.rows (), TextureFormat.RGBA32, false);
+
+
+			gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
+
+			Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
+
+			float width = 0;
+			float height = 0;
+									
+			width = gameObject.transform.localScale.x;
+			height = gameObject.transform.localScale.y;
+									
+			float widthScale = (float)Screen.width / width;
+			float heightScale = (float)Screen.height / height;
+			if (widthScale < heightScale) {
+				Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
+			} else {
+				Camera.main.orthographicSize = height / 2;
+			}
+
+			gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
+
+		}
+
+		/// <summary>
+		/// Raises the web cam texture to mat helper disposed event.
+		/// </summary>
+		public void OnWebCamTextureToMatHelperDisposed ()
+		{
+			Debug.Log ("OnWebCamTextureToMatHelperDisposed");
+
+		}
+
+		// Update is called once per frame
+		void Update ()
+		{
+
+			if (webCamTextureToMatHelper.isPlaying ()) {
+
+				Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
+
+				Core.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Core.LINE_AA, false);
+
+				Utils.matToTexture2D (rgbaMat, texture, colors);
+			}
+
+		}
+	
+		/// <summary>
+		/// Raises the disable event.
+		/// </summary>
+		void OnDisable ()
+		{
+			webCamTextureToMatHelper.Dispose ();
+		}
+
+		/// <summary>
+		/// Raises the back button event.
+		/// </summary>
+		public void OnBackButton ()
+		{
+			Application.LoadLevel ("OpenCVForUnitySample");
+		}
+
+		/// <summary>
+		/// Raises the play button event.
+		/// </summary>
+		public void OnPlayButton ()
+		{
+			webCamTextureToMatHelper.Play ();
+		}
+
+		/// <summary>
+		/// Raises the pause button event.
+		/// </summary>
+		public void OnPauseButton ()
+		{
+			webCamTextureToMatHelper.Pause ();
+		}
+
+		/// <summary>
+		/// Raises the stop button event.
+		/// </summary>
+		public void OnStopButton ()
+		{
+			webCamTextureToMatHelper.Stop ();
+		}
+
+		/// <summary>
+		/// Raises the change camera button event.
+		/// </summary>
+		public void OnChangeCameraButton ()
+		{
+			webCamTextureToMatHelper.Init (null, webCamTextureToMatHelper.requestWidth, webCamTextureToMatHelper.requestHeight, !webCamTextureToMatHelper.requestIsFrontFacing, OnWebCamTextureToMatHelperInited, OnWebCamTextureToMatHelperDisposed);
+		}
+	}
 }

@@ -11,18 +11,9 @@ namespace OpenCVForUnitySample
 		/// Hand Pose Estimation sample
 		/// referring to the https://www.youtube.com/watch?v=KuGpOxOcpds.
 		/// </summary>
+		[RequireComponent(typeof(WebCamTextureToMatHelper))]
 		public class HandPoseEstimationSample : MonoBehaviour
 		{
-	
-				/// <summary>
-				/// The web cam texture.
-				/// </summary>
-				WebCamTexture webCamTexture;
-
-				/// <summary>
-				/// The web cam device.
-				/// </summary>
-				WebCamDevice webCamDevice;
 
 				/// <summary>
 				/// The colors.
@@ -30,39 +21,9 @@ namespace OpenCVForUnitySample
 				Color32[] colors;
 
 				/// <summary>
-				/// Should use front facing.
-				/// </summary>
-				public bool shouldUseFrontFacing = false;
-
-				/// <summary>
-				/// The width.
-				/// </summary>
-				int width = 640;
-
-				/// <summary>
-				/// The height.
-				/// </summary>
-				int height = 480;
-
-				/// <summary>
 				/// The texture.
 				/// </summary>
 				Texture2D texture;
-
-				/// <summary>
-				/// The init done.
-				/// </summary>
-				bool initDone = false;
-
-				/// <summary>
-				/// The screenOrientation.
-				/// </summary>
-				ScreenOrientation screenOrientation = ScreenOrientation.Unknown;
-
-				/// <summary>
-				/// The rgba mat.
-				/// </summary>
-				private Mat rgbaMat;
 
 				/// <summary>
 				/// The threashold slider.
@@ -74,10 +35,10 @@ namespace OpenCVForUnitySample
 				/// </summary>
 				private Scalar blobColorHsv;
 
-//				/// <summary>
-//				/// The BLOB color rgba.
-//				/// </summary>
-//				private Scalar blobColorRgba;
+				///// <summary>
+				///// The BLOB color rgba.
+				///// </summary>
+				//private Scalar blobColorRgba;
 
 				/// <summary>
 				/// The detector.
@@ -98,7 +59,7 @@ namespace OpenCVForUnitySample
 				/// The SPECTRU m_ SIZ.
 				/// </summary>
 				private Size SPECTRUM_SIZE;
-		
+
 				/// <summary>
 				/// The CONTOU r_ COLO.
 				/// </summary>
@@ -119,124 +80,49 @@ namespace OpenCVForUnitySample
 				/// </summary>
 				public Text numberOfFingersText;
 	
+				/// <summary>
+				/// The web cam texture to mat helper.
+				/// </summary>
+				WebCamTextureToMatHelper webCamTextureToMatHelper;
 
 				// Use this for initialization
 				void Start ()
 				{
-						
-						StartCoroutine (init ());
+						webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
+						webCamTextureToMatHelper.Init (OnWebCamTextureToMatHelperInited, OnWebCamTextureToMatHelperDisposed);
 
 				}
 
-				private IEnumerator init ()
+				/// <summary>
+				/// Raises the web cam texture to mat helper inited event.
+				/// </summary>
+				public void OnWebCamTextureToMatHelperInited ()
 				{
-						if (webCamTexture != null) {
-								webCamTexture.Stop ();
-								initDone = false;
-				
-								rgbaMat.Dispose ();
-								spectrumMat.Dispose ();
-						}
-
-						// Checks how many and which cameras are available on the device
-						for (int cameraIndex = 0; cameraIndex < WebCamTexture.devices.Length; cameraIndex++) {
-				
-				
-								if (WebCamTexture.devices [cameraIndex].isFrontFacing == shouldUseFrontFacing) {
-					
-					
-										Debug.Log (cameraIndex + " name " + WebCamTexture.devices [cameraIndex].name + " isFrontFacing " + WebCamTexture.devices [cameraIndex].isFrontFacing);
-
-										webCamDevice = WebCamTexture.devices [cameraIndex];
-
-										webCamTexture = new WebCamTexture (webCamDevice.name, width, height);
-
-										break;
-								}
-				
-				
-						}
+						Debug.Log ("OnWebCamTextureToMatHelperInited");
 			
-						if (webCamTexture == null) {
-								webCamDevice = WebCamTexture.devices [0];
-								webCamTexture = new WebCamTexture (webCamDevice.name, width, height);
-						}
+						Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
 			
-						Debug.Log ("width " + webCamTexture.width + " height " + webCamTexture.height + " fps " + webCamTexture.requestedFPS);
+						colors = new Color32[webCamTextureMat.cols () * webCamTextureMat.rows ()];
+						texture = new Texture2D (webCamTextureMat.cols (), webCamTextureMat.rows (), TextureFormat.RGBA32, false);
+
+						detector = new ColorBlobDetector ();
+						spectrumMat = new Mat ();
+						//blobColorRgba = new Scalar (255);
+						blobColorHsv = new Scalar (255);
+						SPECTRUM_SIZE = new Size (200, 64);
+						CONTOUR_COLOR = new Scalar (255, 0, 0, 255);
+						CONTOUR_COLOR_WHITE = new Scalar (255, 255, 255, 255);
 			
+						gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
 			
+						Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 			
-						// Starts the camera
-						webCamTexture.Play ();
-
-
-						while (true) {
-								//If you want to use webcamTexture.width and webcamTexture.height on iOS, you have to wait until webcamTexture.didUpdateThisFrame == 1, otherwise these two values will be equal to 16. (http://forum.unity3d.com/threads/webcamtexture-and-error-0x0502.123922/)
-								#if UNITY_IOS && !UNITY_EDITOR && (UNITY_4_6_3 || UNITY_4_6_4 || UNITY_5_0_0 || UNITY_5_0_1)
-				                if (webCamTexture.width > 16 && webCamTexture.height > 16) {
-								#else
-								if (webCamTexture.didUpdateThisFrame) {
-										#if UNITY_IOS && !UNITY_EDITOR && UNITY_5_2                                    
-										while (webCamTexture.width <= 16) {
-												webCamTexture.GetPixels32 ();
-												yield return new WaitForEndOfFrame ();
-										} 
-										#endif
-										#endif
-
-										Debug.Log ("width " + webCamTexture.width + " height " + webCamTexture.height + " fps " + webCamTexture.requestedFPS);
-										Debug.Log ("videoRotationAngle " + webCamTexture.videoRotationAngle + " videoVerticallyMirrored " + webCamTexture.videoVerticallyMirrored + " isFrongFacing " + webCamDevice.isFrontFacing);
-					
-										colors = new Color32[webCamTexture.width * webCamTexture.height];
-										rgbaMat = new Mat (webCamTexture.height, webCamTexture.width, CvType.CV_8UC4);
-										texture = new Texture2D (webCamTexture.width, webCamTexture.height, TextureFormat.RGBA32, false);
-
-
-
-										detector = new ColorBlobDetector ();
-										spectrumMat = new Mat ();
-//										blobColorRgba = new Scalar (255);
-										blobColorHsv = new Scalar (255);
-										SPECTRUM_SIZE = new Size (200, 64);
-										CONTOUR_COLOR = new Scalar (255, 0, 0, 255);
-										CONTOUR_COLOR_WHITE = new Scalar (255, 255, 255, 255);
-
-
-
-										gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-
-										updateLayout ();
-
-										screenOrientation = Screen.orientation;
-										initDone = true;
-					
-										break;
-								} else {
-										yield return 0;
-								}
-						}
-				}
-
-				private void updateLayout ()
-				{
-						gameObject.transform.localRotation = new Quaternion (0, 0, 0, 0);
-						gameObject.transform.localScale = new Vector3 (webCamTexture.width, webCamTexture.height, 1);
-
-						if (webCamTexture.videoRotationAngle == 90 || webCamTexture.videoRotationAngle == 270) {
-								gameObject.transform.eulerAngles = new Vector3 (0, 0, -90);
-						}
-
-
 						float width = 0;
 						float height = 0;
-						if (webCamTexture.videoRotationAngle == 90 || webCamTexture.videoRotationAngle == 270) {
-								width = gameObject.transform.localScale.y;
-								height = gameObject.transform.localScale.x;
-						} else if (webCamTexture.videoRotationAngle == 0 || webCamTexture.videoRotationAngle == 180) {
-								width = gameObject.transform.localScale.x;
-								height = gameObject.transform.localScale.y;
-						}
-
+			
+						width = gameObject.transform.localScale.x;
+						height = gameObject.transform.localScale.y;
+			
 						float widthScale = (float)Screen.width / width;
 						float heightScale = (float)Screen.height / height;
 						if (widthScale < heightScale) {
@@ -244,104 +130,118 @@ namespace OpenCVForUnitySample
 						} else {
 								Camera.main.orthographicSize = height / 2;
 						}
+			
+						gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
+			
+						//			webCamTextureToMatHelper.Play ();
+				}
+
+				/// <summary>
+				/// Raises the web cam texture to mat helper disposed event.
+				/// </summary>
+				public void OnWebCamTextureToMatHelperDisposed ()
+				{
+						Debug.Log ("OnWebCamTextureToMatHelperDisposed");
+
+						spectrumMat.Dispose ();
 				}
 
 
 				// Update is called once per frame
 				void Update ()
 				{
-						if (!initDone)
-								return;
 
-
-						if (screenOrientation != Screen.orientation) {
-								screenOrientation = Screen.orientation;
-								updateLayout ();
-						}
-
-
-						#if UNITY_IOS && !UNITY_EDITOR && (UNITY_4_6_3 || UNITY_4_6_4 || UNITY_5_0_0 || UNITY_5_0_1)
-				        if (webCamTexture.width > 16 && webCamTexture.height > 16) {
-						#else
-						if (webCamTexture.didUpdateThisFrame) {
-								#endif
-						
-								Utils.webCamTextureToMat (webCamTexture, rgbaMat, colors);
-
-								if (webCamDevice.isFrontFacing) {
-										if (webCamTexture.videoRotationAngle == 0) {
-												Core.flip (rgbaMat, rgbaMat, 1);
-										} else if (webCamTexture.videoRotationAngle == 90) {
-												Core.flip (rgbaMat, rgbaMat, 0);
-										}
-										if (webCamTexture.videoRotationAngle == 180) {
-												Core.flip (rgbaMat, rgbaMat, 0);
-										} else if (webCamTexture.videoRotationAngle == 270) {
-												Core.flip (rgbaMat, rgbaMat, 1);
-										}
-								} else {
-										if (webCamTexture.videoRotationAngle == 180) {
-												Core.flip (rgbaMat, rgbaMat, -1);
-										} else if (webCamTexture.videoRotationAngle == 270) {
-												Core.flip (rgbaMat, rgbaMat, -1);
-										}
-								}
-								
-
+						if (webCamTextureToMatHelper.isPlaying ()) {
+				
+								Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
 
 								#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-						//Touch
-						int touchCount = Input.touchCount;
-						if (touchCount == 1)
-						{
-							Touch t = Input.GetTouch(0);
-							if(t.phase == TouchPhase.Ended){
-								onTouch(convertScreenPoint (new Point (t.position.x, t.position.y), gameObject, Camera.main));
-								//									Debug.Log ("touch X " + t.position.x);
-								//									Debug.Log ("touch Y " + t.position.y);
-							}
-						}
+										//Touch
+										int touchCount = Input.touchCount;
+										if (touchCount == 1)
+										{
+											Touch t = Input.GetTouch(0);
+											if(t.phase == TouchPhase.Ended){
+												onTouch(rgbaMat, convertScreenPoint (new Point (t.position.x, t.position.y), gameObject, Camera.main));
+												//									Debug.Log ("touch X " + t.position.x);
+												//									Debug.Log ("touch Y " + t.position.y);
+											}
+										}
 								#else
 								//Mouse
 								if (Input.GetMouseButtonUp (0)) {
-							
-										onTouch (convertScreenPoint (new Point (Input.mousePosition.x, Input.mousePosition.y), gameObject, Camera.main));
+											
+										onTouch (rgbaMat, convertScreenPoint (new Point (Input.mousePosition.x, Input.mousePosition.y), gameObject, Camera.main));
 										//												Debug.Log ("mouse X " + Input.mousePosition.x);
 										//												Debug.Log ("mouse Y " + Input.mousePosition.y);
 								}
 								#endif
-
-
-								handPoseEstimationProcess ();
-
+				
+				
+								handPoseEstimationProcess (rgbaMat);
+				
 								Core.putText (rgbaMat, "PLEASE TOUCH HAND POINTS", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Core.LINE_AA, false);
 
-		
+				
+//				Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+				
 								Utils.matToTexture2D (rgbaMat, texture, colors);
 						}
 
 				}
 	
+				/// <summary>
+				/// Raises the disable event.
+				/// </summary>
 				void OnDisable ()
 				{
-						webCamTexture.Stop ();
+						webCamTextureToMatHelper.Dispose ();
 				}
-	
+
+				/// <summary>
+				/// Raises the back button event.
+				/// </summary>
 				public void OnBackButton ()
 				{
 						Application.LoadLevel ("OpenCVForUnitySample");
 				}
-				
+
+				/// <summary>
+				/// Raises the play button event.
+				/// </summary>
+				public void OnPlayButton ()
+				{
+						webCamTextureToMatHelper.Play ();
+				}
+
+				/// <summary>
+				/// Raises the pause button event.
+				/// </summary>
+				public void OnPauseButton ()
+				{
+						webCamTextureToMatHelper.Pause ();
+				}
+
+				/// <summary>
+				/// Raises the stop button event.
+				/// </summary>
+				public void OnStopButton ()
+				{
+						webCamTextureToMatHelper.Stop ();
+				}
+
+				/// <summary>
+				/// Raises the change camera button event.
+				/// </summary>
 				public void OnChangeCameraButton ()
 				{
-						shouldUseFrontFacing = !shouldUseFrontFacing;
-						StartCoroutine (init ());
+						webCamTextureToMatHelper.Init (null, webCamTextureToMatHelper.requestWidth, webCamTextureToMatHelper.requestHeight, !webCamTextureToMatHelper.requestIsFrontFacing, OnWebCamTextureToMatHelperInited, OnWebCamTextureToMatHelperDisposed);
 				}
 
 				/// <summary>
 				/// Hands the pose estimation process.
 				/// </summary>
-				public void handPoseEstimationProcess ()
+				public void handPoseEstimationProcess (Mat rgbaMat)
 				{
   
 					
@@ -386,7 +286,7 @@ namespace OpenCVForUnitySample
 //								(int)boundRect.tl ().x + "] Col end [" +
 //								(int)boundRect.br ().x + "]");
 					
-
+						
 						double a = boundRect.br ().y - boundRect.tl ().y;
 						a = a * 0.7;
 						a = boundRect.tl ().y + a;
@@ -439,8 +339,8 @@ namespace OpenCVForUnitySample
 //						Debug.Log ("defects: " + convexDefect.toList ());
 					
 						Imgproc.drawContours (rgbaMat, hullPoints, -1, CONTOUR_COLOR, 3);
-					
-//						int defectsTotal = (int)convexDefect.total ();
+
+//                      int defectsTotal = (int)convexDefect.total();
 //						Debug.Log ("Defect total " + defectsTotal);
 					
 						this.numberOfFingers = listPoDefect.Count;
@@ -463,7 +363,7 @@ namespace OpenCVForUnitySample
 				/// Ons the touch.
 				/// </summary>
 				/// <param name="touchPoint">Touch point.</param>
-				public void onTouch (Point touchPoint)
+				public void onTouch (Mat rgbaMat, Point touchPoint)
 				{
 
 						int cols = rgbaMat.cols ();
@@ -496,7 +396,8 @@ namespace OpenCVForUnitySample
 						for (int i = 0; i < blobColorHsv.val.Length; i++)
 								blobColorHsv.val [i] /= pointCount;
 					
-//						blobColorRgba = converScalarHsv2Rgba (blobColorHsv);					
+						//blobColorRgba = converScalarHsv2Rgba (blobColorHsv);
+					
 //						Debug.Log ("Touched rgba color: (" + mBlobColorRgba.val [0] + ", " + mBlobColorRgba.val [1] +
 //								", " + mBlobColorRgba.val [2] + ", " + mBlobColorRgba.val [3] + ")");
 					
@@ -538,17 +439,12 @@ namespace OpenCVForUnitySample
 						Vector2 br;
 						Vector2 bl;
 					
-						if (Input.deviceOrientation == DeviceOrientation.Portrait || Input.deviceOrientation == DeviceOrientation.PortraitUpsideDown) {
-								tl = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x + quad.transform.localScale.y / 2, quad.transform.localPosition.y + quad.transform.localScale.x / 2, quad.transform.localPosition.z));
-								tr = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x + quad.transform.localScale.y / 2, quad.transform.localPosition.y - quad.transform.localScale.x / 2, quad.transform.localPosition.z));
-								br = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x - quad.transform.localScale.y / 2, quad.transform.localPosition.y - quad.transform.localScale.x / 2, quad.transform.localPosition.z));
-								bl = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x - quad.transform.localScale.y / 2, quad.transform.localPosition.y + quad.transform.localScale.x / 2, quad.transform.localPosition.z));
-						} else {
-								tl = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x - quad.transform.localScale.x / 2, quad.transform.localPosition.y + quad.transform.localScale.y / 2, quad.transform.localPosition.z));
-								tr = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x + quad.transform.localScale.x / 2, quad.transform.localPosition.y + quad.transform.localScale.y / 2, quad.transform.localPosition.z));
-								br = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x + quad.transform.localScale.x / 2, quad.transform.localPosition.y - quad.transform.localScale.y / 2, quad.transform.localPosition.z));
-								bl = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x - quad.transform.localScale.x / 2, quad.transform.localPosition.y - quad.transform.localScale.y / 2, quad.transform.localPosition.z));
-						}
+
+						tl = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x - quad.transform.localScale.x / 2, quad.transform.localPosition.y + quad.transform.localScale.y / 2, quad.transform.localPosition.z));
+						tr = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x + quad.transform.localScale.x / 2, quad.transform.localPosition.y + quad.transform.localScale.y / 2, quad.transform.localPosition.z));
+						br = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x + quad.transform.localScale.x / 2, quad.transform.localPosition.y - quad.transform.localScale.y / 2, quad.transform.localPosition.z));
+						bl = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x - quad.transform.localScale.x / 2, quad.transform.localPosition.y - quad.transform.localScale.y / 2, quad.transform.localPosition.z));
+
 					
 						Mat srcRectMat = new Mat (4, 1, CvType.CV_32FC2);
 						Mat dstRectMat = new Mat (4, 1, CvType.CV_32FC2);

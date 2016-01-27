@@ -11,18 +11,9 @@ namespace OpenCVForUnitySample
 		/// CamShift sample.
 		/// referring to the http://www.computervisiononline.com/blog/tutorial-using-camshift-track-objects-video.
 		/// </summary>
+		[RequireComponent(typeof(WebCamTextureToMatHelper))]
 		public class CamShiftSample : MonoBehaviour
 		{
-	
-				/// <summary>
-				/// The web cam texture.
-				/// </summary>
-				WebCamTexture webCamTexture;
-
-				/// <summary>
-				/// The web cam device.
-				/// </summary>
-				WebCamDevice webCamDevice;
 
 				/// <summary>
 				/// The colors.
@@ -30,39 +21,9 @@ namespace OpenCVForUnitySample
 				Color32[] colors;
 
 				/// <summary>
-				/// Should use front facing.
-				/// </summary>
-				public bool shouldUseFrontFacing = false;
-
-				/// <summary>
-				/// The width.
-				/// </summary>
-				int width = 640;
-
-				/// <summary>
-				/// The height.
-				/// </summary>
-				int height = 480;
-
-				/// <summary>
-				/// The rgba mat.
-				/// </summary>
-				Mat rgbaMat;
-
-				/// <summary>
 				/// The texture.
 				/// </summary>
 				Texture2D texture;
-
-				/// <summary>
-				/// The init done.
-				/// </summary>
-				bool initDone = false;
-
-				/// <summary>
-				/// The screenOrientation.
-				/// </summary>
-				ScreenOrientation screenOrientation = ScreenOrientation.Unknown;
 
 				/// <summary>
 				/// The roi point list.
@@ -88,6 +49,11 @@ namespace OpenCVForUnitySample
 				/// The termination.
 				/// </summary>
 				TermCriteria termination;
+
+				/// <summary>
+				/// The web cam texture to mat helper.
+				/// </summary>
+				WebCamTextureToMatHelper webCamTextureToMatHelper;
 	
 				// Use this for initialization
 				void Start ()
@@ -95,114 +61,35 @@ namespace OpenCVForUnitySample
 						roiPointList = new List<Point> ();
 						termination = new TermCriteria (TermCriteria.EPS | TermCriteria.COUNT, 10, 1);
 						
-						StartCoroutine (init ());
+						webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
+						webCamTextureToMatHelper.Init (OnWebCamTextureToMatHelperInited, OnWebCamTextureToMatHelperDisposed);
 
 				}
 
-				private IEnumerator init ()
+				/// <summary>
+				/// Raises the web cam texture to mat helper inited event.
+				/// </summary>
+				public void OnWebCamTextureToMatHelperInited ()
 				{
-						if (webCamTexture != null) {
-								webCamTexture.Stop ();
-								initDone = false;
-				
-								rgbaMat.Dispose ();
-								hsvMat.Dispose ();
-								if (roiHistMat != null)
-										roiHistMat.Dispose ();
-								roiPointList.Clear ();
-						}
-
-						// Checks how many and which cameras are available on the device
-						for (int cameraIndex = 0; cameraIndex < WebCamTexture.devices.Length; cameraIndex++) {
-				
-				
-								if (WebCamTexture.devices [cameraIndex].isFrontFacing == shouldUseFrontFacing) {
-					
-					
-										Debug.Log (cameraIndex + " name " + WebCamTexture.devices [cameraIndex].name + " isFrontFacing " + WebCamTexture.devices [cameraIndex].isFrontFacing);
-
-										webCamDevice = WebCamTexture.devices [cameraIndex];
-
-										webCamTexture = new WebCamTexture (webCamDevice.name, width, height);
-
-										break;
-								}
-				
-				
-						}
+						Debug.Log ("OnWebCamTextureToMatHelperInited");
 			
-						if (webCamTexture == null) {
-								webCamDevice = WebCamTexture.devices [0];
-								webCamTexture = new WebCamTexture (webCamDevice.name, width, height);
-						}
+						Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
 			
-						Debug.Log ("width " + webCamTexture.width + " height " + webCamTexture.height + " fps " + webCamTexture.requestedFPS);
+						colors = new Color32[webCamTextureMat.cols () * webCamTextureMat.rows ()];
+						texture = new Texture2D (webCamTextureMat.cols (), webCamTextureMat.rows (), TextureFormat.RGBA32, false);
+
+						hsvMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC3);
 			
+						gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
 			
+						Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 			
-						// Starts the camera
-						webCamTexture.Play ();
-
-
-						while (true) {
-								//If you want to use webcamTexture.width and webcamTexture.height on iOS, you have to wait until webcamTexture.didUpdateThisFrame == 1, otherwise these two values will be equal to 16. (http://forum.unity3d.com/threads/webcamtexture-and-error-0x0502.123922/)
-								#if UNITY_IOS && !UNITY_EDITOR && (UNITY_4_6_3 || UNITY_4_6_4 || UNITY_5_0_0 || UNITY_5_0_1)
-				                if (webCamTexture.width > 16 && webCamTexture.height > 16) {
-								#else
-								if (webCamTexture.didUpdateThisFrame) {
-										#if UNITY_IOS && !UNITY_EDITOR && UNITY_5_2                                    
-										while (webCamTexture.width <= 16) {
-												webCamTexture.GetPixels32 ();
-												yield return new WaitForEndOfFrame ();
-										} 
-										#endif
-								#endif
-
-										Debug.Log ("width " + webCamTexture.width + " height " + webCamTexture.height + " fps " + webCamTexture.requestedFPS);
-										Debug.Log ("videoRotationAngle " + webCamTexture.videoRotationAngle + " videoVerticallyMirrored " + webCamTexture.videoVerticallyMirrored + " isFrongFacing " + webCamDevice.isFrontFacing);
-					
-										colors = new Color32[webCamTexture.width * webCamTexture.height];
-					
-										rgbaMat = new Mat (webCamTexture.height, webCamTexture.width, CvType.CV_8UC4);
-										hsvMat = new Mat (webCamTexture.height, webCamTexture.width, CvType.CV_8UC3);
-					
-										texture = new Texture2D (webCamTexture.width, webCamTexture.height, TextureFormat.RGBA32, false);
-
-										gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-
-										updateLayout ();
-
-										screenOrientation = Screen.orientation;
-										initDone = true;
-					
-										break;
-								} else {
-										yield return 0;
-								}
-						}
-
-				}
-
-				private void updateLayout ()
-				{
-						gameObject.transform.localRotation = new Quaternion (0, 0, 0, 0);
-						gameObject.transform.localScale = new Vector3 (webCamTexture.width, webCamTexture.height, 1);
-
-						if (webCamTexture.videoRotationAngle == 90 || webCamTexture.videoRotationAngle == 270) {
-								gameObject.transform.eulerAngles = new Vector3 (0, 0, -90);
-						}
-
-
 						float width = 0;
 						float height = 0;
-						if (webCamTexture.videoRotationAngle == 90 || webCamTexture.videoRotationAngle == 270) {
-								width = gameObject.transform.localScale.y;
-								height = gameObject.transform.localScale.x;
-						} else if (webCamTexture.videoRotationAngle == 0 || webCamTexture.videoRotationAngle == 180) {
-								width = gameObject.transform.localScale.x;
-								height = gameObject.transform.localScale.y;
-						}
-
+			
+						width = gameObject.transform.localScale.x;
+						height = gameObject.transform.localScale.y;
+			
 						float widthScale = (float)Screen.width / width;
 						float heightScale = (float)Screen.height / height;
 						if (widthScale < heightScale) {
@@ -210,184 +97,198 @@ namespace OpenCVForUnitySample
 						} else {
 								Camera.main.orthographicSize = height / 2;
 						}
+			
+						gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
+
+				}
+
+				/// <summary>
+				/// Raises the web cam texture to mat helper disposed event.
+				/// </summary>
+				public void OnWebCamTextureToMatHelperDisposed ()
+				{
+						Debug.Log ("OnWebCamTextureToMatHelperDisposed");
+
+						hsvMat.Dispose ();
+						if (roiHistMat != null)
+								roiHistMat.Dispose ();
+						roiPointList.Clear ();
 				}
 
 				// Update is called once per frame
 				void Update ()
 				{
-						if (!initDone)
-								return;
 
-						if (screenOrientation != Screen.orientation) {
-								screenOrientation = Screen.orientation;
-								updateLayout ();
-						}
+						if (webCamTextureToMatHelper.isPlaying ()) {
+				
+								Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
 
-						#if UNITY_IOS && !UNITY_EDITOR && (UNITY_4_6_3 || UNITY_4_6_4 || UNITY_5_0_0 || UNITY_5_0_1)
-				        if (webCamTexture.width > 16 && webCamTexture.height > 16) {
-						#else
-						if (webCamTexture.didUpdateThisFrame) {
-								#endif
-						
-								Utils.webCamTextureToMat (webCamTexture, rgbaMat, colors);
-
-
-								//flip to correct direction.
-								if (webCamDevice.isFrontFacing) {
-										if (webCamTexture.videoRotationAngle == 0) {
-												Core.flip (rgbaMat, rgbaMat, 1);
-										} else if (webCamTexture.videoRotationAngle == 90) {
-												Core.flip (rgbaMat, rgbaMat, 0);
-										}
-										if (webCamTexture.videoRotationAngle == 180) {
-												Core.flip (rgbaMat, rgbaMat, 0);
-										} else if (webCamTexture.videoRotationAngle == 270) {
-												Core.flip (rgbaMat, rgbaMat, 1);
-										}
-								} else {
-										if (webCamTexture.videoRotationAngle == 180) {
-												Core.flip (rgbaMat, rgbaMat, -1);
-										} else if (webCamTexture.videoRotationAngle == 270) {
-												Core.flip (rgbaMat, rgbaMat, -1);
-										}
-								}
-
-								
 								Imgproc.cvtColor (rgbaMat, hsvMat, Imgproc.COLOR_RGBA2RGB);
 								Imgproc.cvtColor (hsvMat, hsvMat, Imgproc.COLOR_RGB2HSV);
-
-
+				
+				
 								Point[] points = roiPointList.ToArray ();
-
+				
 								if (roiPointList.Count == 4) {
-										
-
+														
+				
 										using (Mat backProj = new Mat ()) {
 												Imgproc.calcBackProject (new List<Mat> (new Mat[]{hsvMat}), new MatOfInt (0), roiHistMat, backProj, new MatOfFloat (0, 180), 1.0);
-
+				
 												RotatedRect r = Video.CamShift (backProj, roiRect, termination);
 												r.points (points);
 										}
-
+				
 										#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-							//Touch
-							int touchCount = Input.touchCount;
-							if (touchCount == 1)
-							{
-								
-								if(Input.GetTouch(0).phase == TouchPhase.Ended){
-									
-									roiPointList.Clear ();
-								}
-								
-							}
+											//Touch
+											int touchCount = Input.touchCount;
+											if (touchCount == 1)
+											{
+												
+												if(Input.GetTouch(0).phase == TouchPhase.Ended){
+													
+													roiPointList.Clear ();
+												}
+												
+											}
 										#else
 										if (Input.GetMouseButtonUp (0)) {
 												roiPointList.Clear ();
 										}
-#endif
+										#endif
 								}
-
-
+				
+				
 								if (roiPointList.Count < 4) {
-
+				
 										#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-							//Touch
-							int touchCount = Input.touchCount;
-							if (touchCount == 1)
-							{
-								Touch t = Input.GetTouch(0);
-								if(t.phase == TouchPhase.Ended){
-									roiPointList.Add (convertScreenPoint (new Point (t.position.x, t.position.y), gameObject, Camera.main));
-//									Debug.Log ("touch X " + t.position.x);
-//									Debug.Log ("touch Y " + t.position.y);
-
-									if (!(new OpenCVForUnity.Rect (0, 0, hsvMat.width (), hsvMat.height ()).contains (roiPointList [roiPointList.Count - 1]))) {
-										roiPointList.RemoveAt (roiPointList.Count - 1);
-									}
-								}
-								
-							}
-#else
+											//Touch
+											int touchCount = Input.touchCount;
+											if (touchCount == 1)
+											{
+												Touch t = Input.GetTouch(0);
+												if(t.phase == TouchPhase.Ended){
+													roiPointList.Add (convertScreenPoint (new Point (t.position.x, t.position.y), gameObject, Camera.main));
+				//									Debug.Log ("touch X " + t.position.x);
+				//									Debug.Log ("touch Y " + t.position.y);
+				
+													if (!(new OpenCVForUnity.Rect (0, 0, hsvMat.width (), hsvMat.height ()).contains (roiPointList [roiPointList.Count - 1]))) {
+														roiPointList.RemoveAt (roiPointList.Count - 1);
+													}
+												}
+												
+											}
+										#else
 										//Mouse
 										if (Input.GetMouseButtonUp (0)) {
-												
+																
 												roiPointList.Add (convertScreenPoint (new Point (Input.mousePosition.x, Input.mousePosition.y), gameObject, Camera.main));
-//												Debug.Log ("mouse X " + Input.mousePosition.x);
-//												Debug.Log ("mouse Y " + Input.mousePosition.y);
-
+												//												Debug.Log ("mouse X " + Input.mousePosition.x);
+												//												Debug.Log ("mouse Y " + Input.mousePosition.y);
+				
 												if (!(new OpenCVForUnity.Rect (0, 0, hsvMat.width (), hsvMat.height ()).contains (roiPointList [roiPointList.Count - 1]))) {
 														roiPointList.RemoveAt (roiPointList.Count - 1);
 												}
 										}
-#endif
-
-							
+										#endif
+				
+											
 										if (roiPointList.Count == 4) {
-
+				
 												using (MatOfPoint roiPointMat = new MatOfPoint (roiPointList.ToArray ())) {
 														roiRect = Imgproc.boundingRect (roiPointMat);
 												}
-
-								
+				
+												
 												if (roiHistMat != null) {
 														roiHistMat.Dispose ();
 														roiHistMat = null;
 												}
 												roiHistMat = new Mat ();
-
+				
 												using (Mat roiHSVMat = new Mat(hsvMat, roiRect))
 												using (Mat maskMat = new Mat ()) {
-
-														
+				
+																		
 														Imgproc.calcHist (new List<Mat> (new Mat[]{roiHSVMat}), new MatOfInt (0), maskMat, roiHistMat, new MatOfInt (16), new MatOfFloat (0, 180)); 
 														Core.normalize (roiHistMat, roiHistMat, 0, 255, Core.NORM_MINMAX);
-								
-//														Debug.Log ("roiHist " + roiHistMat.ToString ());
+												
+														//														Debug.Log ("roiHist " + roiHistMat.ToString ());
 												}
 										}
 								}
-
+				
 								if (points.Length < 4) {
-
+				
 										for (int i = 0; i < points.Length; i++) {
 												Core.circle (rgbaMat, points [i], 6, new Scalar (0, 0, 255, 255), 2);
 										}
-
+				
 								} else {
-
+				
 										for (int i = 0; i < 4; i++) {
 												Core.line (rgbaMat, points [i], points [(i + 1) % 4], new Scalar (255, 0, 0, 255), 2);
 										}
-
+				
 										Core.rectangle (rgbaMat, roiRect.tl (), roiRect.br (), new Scalar (0, 255, 0, 255), 2);
 								}
+				
+								Core.putText (rgbaMat, "PLEASE TOUCH 4 POINTS", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Core.LINE_AA, false);
 
-								Core.putText (rgbaMat, "PLEASE TOUCH 4 POINTS", new Point (5, rgbaMat.rows ()- 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Core.LINE_AA, false);
-
-		
+				
+//				Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+				
 								Utils.matToTexture2D (rgbaMat, texture, colors);
-		
-								gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-
 						}
 
 				}
 	
+				/// <summary>
+				/// Raises the disable event.
+				/// </summary>
 				void OnDisable ()
 				{
-						webCamTexture.Stop ();
+						webCamTextureToMatHelper.Dispose ();
 				}
-	
+
+				/// <summary>
+				/// Raises the back button event.
+				/// </summary>
 				public void OnBackButton ()
 				{
-					Application.LoadLevel ("OpenCVForUnitySample");
+						Application.LoadLevel ("OpenCVForUnitySample");
 				}
-				
+
+				/// <summary>
+				/// Raises the play button event.
+				/// </summary>
+				public void OnPlayButton ()
+				{
+						webCamTextureToMatHelper.Play ();
+				}
+
+				/// <summary>
+				/// Raises the pause button event.
+				/// </summary>
+				public void OnPauseButton ()
+				{
+						webCamTextureToMatHelper.Pause ();
+				}
+
+				/// <summary>
+				/// Raises the stop button event.
+				/// </summary>
+				public void OnStopButton ()
+				{
+						webCamTextureToMatHelper.Stop ();
+				}
+
+				/// <summary>
+				/// Raises the change camera button event.
+				/// </summary>
 				public void OnChangeCameraButton ()
 				{
-					shouldUseFrontFacing = !shouldUseFrontFacing;
-					StartCoroutine (init ());
+						webCamTextureToMatHelper.Init (null, webCamTextureToMatHelper.requestWidth, webCamTextureToMatHelper.requestHeight, !webCamTextureToMatHelper.requestIsFrontFacing, OnWebCamTextureToMatHelperInited, OnWebCamTextureToMatHelperDisposed);
 				}
 
 				/// <summary>
@@ -404,17 +305,12 @@ namespace OpenCVForUnitySample
 						Vector2 br;
 						Vector2 bl;
 					
-						if (Input.deviceOrientation == DeviceOrientation.Portrait || Input.deviceOrientation == DeviceOrientation.PortraitUpsideDown) {
-								tl = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x + quad.transform.localScale.y / 2, quad.transform.localPosition.y + quad.transform.localScale.x / 2, quad.transform.localPosition.z));
-								tr = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x + quad.transform.localScale.y / 2, quad.transform.localPosition.y - quad.transform.localScale.x / 2, quad.transform.localPosition.z));
-								br = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x - quad.transform.localScale.y / 2, quad.transform.localPosition.y - quad.transform.localScale.x / 2, quad.transform.localPosition.z));
-								bl = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x - quad.transform.localScale.y / 2, quad.transform.localPosition.y + quad.transform.localScale.x / 2, quad.transform.localPosition.z));
-						} else {
-								tl = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x - quad.transform.localScale.x / 2, quad.transform.localPosition.y + quad.transform.localScale.y / 2, quad.transform.localPosition.z));
-								tr = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x + quad.transform.localScale.x / 2, quad.transform.localPosition.y + quad.transform.localScale.y / 2, quad.transform.localPosition.z));
-								br = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x + quad.transform.localScale.x / 2, quad.transform.localPosition.y - quad.transform.localScale.y / 2, quad.transform.localPosition.z));
-								bl = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x - quad.transform.localScale.x / 2, quad.transform.localPosition.y - quad.transform.localScale.y / 2, quad.transform.localPosition.z));
-						}
+
+						tl = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x - quad.transform.localScale.x / 2, quad.transform.localPosition.y + quad.transform.localScale.y / 2, quad.transform.localPosition.z));
+						tr = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x + quad.transform.localScale.x / 2, quad.transform.localPosition.y + quad.transform.localScale.y / 2, quad.transform.localPosition.z));
+						br = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x + quad.transform.localScale.x / 2, quad.transform.localPosition.y - quad.transform.localScale.y / 2, quad.transform.localPosition.z));
+						bl = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x - quad.transform.localScale.x / 2, quad.transform.localPosition.y - quad.transform.localScale.y / 2, quad.transform.localPosition.z));
+
 
 						Mat srcRectMat = new Mat (4, 1, CvType.CV_32FC2);
 						Mat dstRectMat = new Mat (4, 1, CvType.CV_32FC2);
