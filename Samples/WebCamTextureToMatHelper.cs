@@ -196,7 +196,7 @@ namespace OpenCVForUnitySample
 										screenOrientation = Screen.orientation;
 //					screenOrientation = ScreenOrientation.PortraitUpsideDown;
 
-										#if !UNITY_EDITOR || !UNITY_STANDALONE 
+										#if !UNITY_EDITOR && !UNITY_STANDALONE 
 										if (screenOrientation == ScreenOrientation.Portrait || screenOrientation == ScreenOrientation.PortraitUpsideDown) {
 												rotatedRgbaMat = new Mat (webCamTexture.width, webCamTexture.height, CvType.CV_8UC4);
 										}
