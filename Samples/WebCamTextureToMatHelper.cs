@@ -275,6 +275,27 @@ namespace OpenCVForUnitySample
 				}
 
 				/// <summary>
+				/// Dids the update this frame.
+				/// </summary>
+				/// <returns><c>true</c>, if update this frame was dided, <c>false</c> otherwise.</returns>
+				public bool didUpdateThisFrame ()
+				{
+						if (!initDone)
+								return false;
+
+						#if UNITY_IOS && !UNITY_EDITOR && (UNITY_4_6_3 || UNITY_4_6_4 || UNITY_5_0_0 || UNITY_5_0_1)
+						if (webCamTexture.width > 16 && webCamTexture.height > 16) {
+								return true;
+						} else {
+								return false;
+						}
+						#else
+						return webCamTexture.didUpdateThisFrame;
+						#endif
+
+				}
+
+				/// <summary>
 				/// Gets the mat.
 				/// </summary>
 				/// <returns>The mat.</returns>
@@ -290,34 +311,34 @@ namespace OpenCVForUnitySample
 
 			
 			
-						#if UNITY_IOS && !UNITY_EDITOR && (UNITY_4_6_3 || UNITY_4_6_4 || UNITY_5_0_0 || UNITY_5_0_1)
-			if (webCamTexture.width > 16 && webCamTexture.height > 16) {
-						#else
-						if (webCamTexture.didUpdateThisFrame) {
-								#endif
+//						#if UNITY_IOS && !UNITY_EDITOR && (UNITY_4_6_3 || UNITY_4_6_4 || UNITY_5_0_0 || UNITY_5_0_1)
+//			if (webCamTexture.width > 16 && webCamTexture.height > 16) {
+//						#else
+//						if (webCamTexture.didUpdateThisFrame) {
+//								#endif
 					
-								Utils.webCamTextureToMat (webCamTexture, rgbaMat, colors);
+						Utils.webCamTextureToMat (webCamTexture, rgbaMat, colors);
 					
-								if (webCamDevice.isFrontFacing) {
-										if (webCamTexture.videoRotationAngle == 0) {
-												Core.flip (rgbaMat, rgbaMat, 1);
-										} else if (webCamTexture.videoRotationAngle == 90) {
-												Core.flip (rgbaMat, rgbaMat, 0);
-										}
-										if (webCamTexture.videoRotationAngle == 180) {
-												Core.flip (rgbaMat, rgbaMat, 0);
-										} else if (webCamTexture.videoRotationAngle == 270) {
-												Core.flip (rgbaMat, rgbaMat, 1);
-										}
-								} else {
-										if (webCamTexture.videoRotationAngle == 180) {
-												Core.flip (rgbaMat, rgbaMat, -1);
-										} else if (webCamTexture.videoRotationAngle == 270) {
-												Core.flip (rgbaMat, rgbaMat, -1);
-										}
+						if (webCamDevice.isFrontFacing) {
+								if (webCamTexture.videoRotationAngle == 0) {
+										Core.flip (rgbaMat, rgbaMat, 1);
+								} else if (webCamTexture.videoRotationAngle == 90) {
+										Core.flip (rgbaMat, rgbaMat, 0);
 								}
-					
+								if (webCamTexture.videoRotationAngle == 180) {
+										Core.flip (rgbaMat, rgbaMat, 0);
+								} else if (webCamTexture.videoRotationAngle == 270) {
+										Core.flip (rgbaMat, rgbaMat, 1);
+								}
+						} else {
+								if (webCamTexture.videoRotationAngle == 180) {
+										Core.flip (rgbaMat, rgbaMat, -1);
+								} else if (webCamTexture.videoRotationAngle == 270) {
+										Core.flip (rgbaMat, rgbaMat, -1);
+								}
 						}
+					
+//						}
 
 						if (rotatedRgbaMat != null) {
 
