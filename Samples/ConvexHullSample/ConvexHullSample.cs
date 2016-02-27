@@ -28,7 +28,7 @@ namespace OpenCVForUnitySample
 						Point[] points = pointsMat.toArray ();
 						for (int i=0; i<rand_num; ++i) {
 						
-								Core.circle (imgMat, points [i], 2, new Scalar (255, 255, 255), -1);
+								Imgproc.circle (imgMat, points [i], 2, new Scalar (255, 255, 255), -1);
 						}
 
 	

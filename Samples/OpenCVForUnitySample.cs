@@ -107,6 +107,26 @@ namespace OpenCVForUnitySample
 				{
 						Application.LoadLevel ("MultiObjectTrackingBasedOnColorSample");
 				}
+
+				public void OnPlotSample ()
+				{
+						Application.LoadLevel ("PlotSample");
+				}
+
+				public void OnSimpleBlobSample ()
+				{
+						Application.LoadLevel ("SimpleBlobSample");
+				}
+
+				public void OnBackgroundSubtractorMOG2Sample ()
+				{
+						Application.LoadLevel ("BackgroundSubtractorMOG2Sample");
+				}
+
+				public void OnVideoCaptureSample ()
+				{
+						Application.LoadLevel ("VideoCaptureSample");
+				}
 		}
 }
 		

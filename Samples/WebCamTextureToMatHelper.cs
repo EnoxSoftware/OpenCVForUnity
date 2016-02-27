@@ -3,6 +3,7 @@ using System.Collections;
 
 using System;
 using OpenCVForUnity;
+using UnityEngine.Events;
 
 namespace OpenCVForUnitySample
 {
@@ -33,14 +34,14 @@ namespace OpenCVForUnitySample
 				public bool requestIsFrontFacing = false;
 
 				/// <summary>
-				/// The on inited.
+				/// The on inited event.
 				/// </summary>
-				public Action OnInited;
+				public UnityEvent OnInitedEvent;
 
 				/// <summary>
-				/// The on disposed.
+				/// The on disposed event.
 				/// </summary>
-				public Action OnDisposed;
+				public UnityEvent OnDisposedEvent;
 
 				/// <summary>
 				/// The web cam texture.
@@ -94,18 +95,16 @@ namespace OpenCVForUnitySample
 						}
 				}
 
-				/// <summary>
-				/// Init the specified OnInited.
-				/// </summary>
-				/// <param name="OnInited">On inited.</param>
-				public void Init (Action OnInited, Action OnDisposed)
+				public void Init ()
 				{
-						this.OnInited = OnInited;
-						this.OnDisposed = OnDisposed;
-			
+						if (OnInitedEvent == null)
+								OnInitedEvent = new UnityEvent ();
+						if (OnDisposedEvent == null)
+								OnDisposedEvent = new UnityEvent ();
+
 						StartCoroutine (init ());
 				}
-
+		
 				/// <summary>
 				/// Init the specified deviceName, requestWidth, requestHeight, requestIsFrontFacing and OnInited.
 				/// </summary>
@@ -114,14 +113,16 @@ namespace OpenCVForUnitySample
 				/// <param name="requestHeight">Request height.</param>
 				/// <param name="requestIsFrontFacing">If set to <c>true</c> request is front facing.</param>
 				/// <param name="OnInited">On inited.</param>
-				public void Init (string deviceName, int requestWidth, int requestHeight, bool requestIsFrontFacing, Action OnInited, Action OnDisposed)
+				public void Init (string deviceName, int requestWidth, int requestHeight, bool requestIsFrontFacing)
 				{
 						this.requestDeviceName = deviceName;
 						this.requestWidth = requestWidth;
 						this.requestHeight = requestHeight;
 						this.requestIsFrontFacing = requestIsFrontFacing;
-						this.OnInited = OnInited;
-						this.OnDisposed = OnDisposed;
+						if (OnInitedEvent == null)
+								OnInitedEvent = new UnityEvent ();
+						if (OnDisposedEvent == null)
+								OnDisposedEvent = new UnityEvent ();
 
 						StartCoroutine (init ());
 				}
@@ -206,8 +207,8 @@ namespace OpenCVForUnitySample
 
 										initDone = true;
 
-										if (OnInited != null)
-												OnInited ();
+										if (OnInitedEvent != null)
+												OnInitedEvent.Invoke ();
 
 
 										break;
@@ -377,8 +378,8 @@ namespace OpenCVForUnitySample
 						}
 						colors = null;
 
-						if (OnDisposed != null)
-								OnDisposed ();
+						if (OnDisposedEvent != null)
+								OnDisposedEvent.Invoke ();
 				}
 		}
 }

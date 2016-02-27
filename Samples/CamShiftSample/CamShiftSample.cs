@@ -62,7 +62,7 @@ namespace OpenCVForUnitySample
 						termination = new TermCriteria (TermCriteria.EPS | TermCriteria.COUNT, 10, 1);
 						
 						webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
-						webCamTextureToMatHelper.Init (OnWebCamTextureToMatHelperInited, OnWebCamTextureToMatHelperDisposed);
+						webCamTextureToMatHelper.Init ();
 
 				}
 
@@ -119,7 +119,7 @@ namespace OpenCVForUnitySample
 				void Update ()
 				{
 
-						if (webCamTextureToMatHelper.isPlaying () && webCamTextureToMatHelper.didUpdateThisFrame ()) {
+						if (webCamTextureToMatHelper.isPlaying () && webCamTextureToMatHelper.didUpdateThisFrame()) {
 				
 								Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
 
@@ -221,19 +221,19 @@ namespace OpenCVForUnitySample
 								if (points.Length < 4) {
 				
 										for (int i = 0; i < points.Length; i++) {
-												Core.circle (rgbaMat, points [i], 6, new Scalar (0, 0, 255, 255), 2);
+												Imgproc.circle (rgbaMat, points [i], 6, new Scalar (0, 0, 255, 255), 2);
 										}
 				
 								} else {
 				
 										for (int i = 0; i < 4; i++) {
-												Core.line (rgbaMat, points [i], points [(i + 1) % 4], new Scalar (255, 0, 0, 255), 2);
+												Imgproc.line (rgbaMat, points [i], points [(i + 1) % 4], new Scalar (255, 0, 0, 255), 2);
 										}
 				
-										Core.rectangle (rgbaMat, roiRect.tl (), roiRect.br (), new Scalar (0, 255, 0, 255), 2);
+										Imgproc.rectangle (rgbaMat, roiRect.tl (), roiRect.br (), new Scalar (0, 255, 0, 255), 2);
 								}
 				
-								Core.putText (rgbaMat, "PLEASE TOUCH 4 POINTS", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Core.LINE_AA, false);
+								Imgproc.putText (rgbaMat, "PLEASE TOUCH 4 POINTS", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
 				
 //				Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
@@ -288,7 +288,7 @@ namespace OpenCVForUnitySample
 				/// </summary>
 				public void OnChangeCameraButton ()
 				{
-						webCamTextureToMatHelper.Init (null, webCamTextureToMatHelper.requestWidth, webCamTextureToMatHelper.requestHeight, !webCamTextureToMatHelper.requestIsFrontFacing, OnWebCamTextureToMatHelperInited, OnWebCamTextureToMatHelperDisposed);
+						webCamTextureToMatHelper.Init (null, webCamTextureToMatHelper.requestWidth, webCamTextureToMatHelper.requestHeight, !webCamTextureToMatHelper.requestIsFrontFacing);
 				}
 
 				/// <summary>

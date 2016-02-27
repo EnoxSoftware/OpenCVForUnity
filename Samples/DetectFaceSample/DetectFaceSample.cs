@@ -25,7 +25,9 @@ namespace OpenCVForUnitySample
 
 						//CascadeClassifier cascade = new CascadeClassifier (Utils.getFilePath ("lbpcascade_frontalface.xml"));
 						CascadeClassifier cascade = new CascadeClassifier (Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
-
+						if (cascade.empty ()) {
+								Debug.LogError ("cascade file is not loaded.Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
+						}
 
 						Mat grayMat = new Mat ();
 						Imgproc.cvtColor (imgMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
@@ -42,7 +44,7 @@ namespace OpenCVForUnitySample
 						for (int i = 0; i < rects.Length; i++) {
 								Debug.Log ("detect faces " + rects [i]);
 
-								Core.rectangle (imgMat, new Point (rects [i].x, rects [i].y), new Point (rects [i].x + rects [i].width, rects [i].y + rects [i].height), new Scalar (255, 0, 0, 255), 2);
+								Imgproc.rectangle (imgMat, new Point (rects [i].x, rects [i].y), new Point (rects [i].x + rects [i].width, rects [i].y + rects [i].height), new Scalar (255, 0, 0, 255), 2);
 						}
 
 

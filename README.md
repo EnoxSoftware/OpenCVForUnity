@@ -7,7 +7,7 @@ Overview
 
 Setup Tutorial & Demo Video
 -----
-[![](http://img.youtube.com/vi/yVl4HF2I4yc/0.jpg)](https://www.youtube.com/watch?v=yVl4HF2I4yc)
+[![](http://img.youtube.com/vi/HnXGIvHvU9I/0.jpg)](https://www.youtube.com/watch?v=HnXGIvHvU9I)
 
 Demo Application
 -----
@@ -19,15 +19,12 @@ Manual
 
 API Reference
 -----
-<http://enoxsoftware.github.io/OpenCVForUnity/doc/html/index.html>
+<http://enoxsoftware.github.io/OpenCVForUnity/3.0.0/doc/html/index.html>
 
 Official Site
 -----
 <https://enoxsoftware.com/opencvforunity/>
 
-Beta Version
+Old Version of "OpenCV for Unity" based on "OpenCV2.4.11"
 -----
-The module which has been implemented in Beta Version of "OpenCV for Untiy" based on "OpenCV3.0.0".
-bgsegm,bioinspired,calib3d,core,face,features2d,imgcodecs,imgproc,ml,objdetect,optflow,photo,video,videoio,xphoto
-
-<http://enoxsoftware.github.io/OpenCVForUnity/3.0.0/doc/html/index.html>
+<http://enoxsoftware.github.io/OpenCVForUnity/doc/html/index.html>

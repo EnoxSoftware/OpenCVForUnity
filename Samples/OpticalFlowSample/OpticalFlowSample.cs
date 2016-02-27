@@ -89,7 +89,7 @@ namespace OpenCVForUnitySample
 				{
 
 						webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
-						webCamTextureToMatHelper.Init (OnWebCamTextureToMatHelperInited, OnWebCamTextureToMatHelperDisposed);
+						webCamTextureToMatHelper.Init ();
 	
 				}
 
@@ -226,9 +226,9 @@ namespace OpenCVForUnitySample
 														Point pt = cornersThis [x];
 														Point pt2 = cornersPrev [x];
 										
-														Core.circle (rgbaMat, pt, 5, colorRed, iLineThickness - 1);
+														Imgproc.circle (rgbaMat, pt, 5, colorRed, iLineThickness - 1);
 										
-														Core.line (rgbaMat, pt, pt2, colorRed, iLineThickness);
+														Imgproc.line (rgbaMat, pt, pt2, colorRed, iLineThickness);
 												}
 										}
 								}
@@ -285,7 +285,7 @@ namespace OpenCVForUnitySample
 				/// </summary>
 				public void OnChangeCameraButton ()
 				{
-						webCamTextureToMatHelper.Init (null, webCamTextureToMatHelper.requestWidth, webCamTextureToMatHelper.requestHeight, !webCamTextureToMatHelper.requestIsFrontFacing, OnWebCamTextureToMatHelperInited, OnWebCamTextureToMatHelperDisposed);
+						webCamTextureToMatHelper.Init (null, webCamTextureToMatHelper.requestWidth, webCamTextureToMatHelper.requestHeight, !webCamTextureToMatHelper.requestIsFrontFacing);
 				}
 		}
 }

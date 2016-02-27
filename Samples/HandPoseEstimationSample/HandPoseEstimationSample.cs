@@ -78,7 +78,7 @@ namespace OpenCVForUnitySample
 				/// <summary>
 				/// The number of fingers text.
 				/// </summary>
-				public Text numberOfFingersText;
+				public UnityEngine.UI.Text numberOfFingersText;
 	
 				/// <summary>
 				/// The web cam texture to mat helper.
@@ -89,7 +89,7 @@ namespace OpenCVForUnitySample
 				void Start ()
 				{
 						webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
-						webCamTextureToMatHelper.Init (OnWebCamTextureToMatHelperInited, OnWebCamTextureToMatHelperDisposed);
+						webCamTextureToMatHelper.Init ();
 
 				}
 
@@ -180,7 +180,7 @@ namespace OpenCVForUnitySample
 				
 								handPoseEstimationProcess (rgbaMat);
 				
-								Core.putText (rgbaMat, "PLEASE TOUCH HAND POINTS", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Core.LINE_AA, false);
+								Imgproc.putText (rgbaMat, "PLEASE TOUCH HAND POINTS", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
 				
 //				Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
@@ -235,7 +235,7 @@ namespace OpenCVForUnitySample
 				/// </summary>
 				public void OnChangeCameraButton ()
 				{
-						webCamTextureToMatHelper.Init (null, webCamTextureToMatHelper.requestWidth, webCamTextureToMatHelper.requestHeight, !webCamTextureToMatHelper.requestIsFrontFacing, OnWebCamTextureToMatHelperInited, OnWebCamTextureToMatHelperDisposed);
+						webCamTextureToMatHelper.Init (null, webCamTextureToMatHelper.requestWidth, webCamTextureToMatHelper.requestHeight, !webCamTextureToMatHelper.requestIsFrontFacing);
 				}
 
 				/// <summary>
@@ -277,7 +277,7 @@ namespace OpenCVForUnitySample
 						}
 					
 						OpenCVForUnity.Rect boundRect = Imgproc.boundingRect (new MatOfPoint (contours [boundPos].toArray ()));
-						Core.rectangle (rgbaMat, boundRect.tl (), boundRect.br (), CONTOUR_COLOR_WHITE, 2, 8, 0);
+						Imgproc.rectangle (rgbaMat, boundRect.tl (), boundRect.br (), CONTOUR_COLOR_WHITE, 2, 8, 0);
 					
 //						Debug.Log (
 //						" Row start [" + 
@@ -295,7 +295,7 @@ namespace OpenCVForUnitySample
 //						" A [" + a + "] br y - tl y = [" + (boundRect.br ().y - boundRect.tl ().y) + "]");
 					
 						//Core.rectangle( mRgba, boundRect.tl(), boundRect.br(), CONTOUR_COLOR, 2, 8, 0 );
-						Core.rectangle (rgbaMat, boundRect.tl (), new Point (boundRect.br ().x, a), CONTOUR_COLOR, 2, 8, 0);
+						Imgproc.rectangle (rgbaMat, boundRect.tl (), new Point (boundRect.br ().x, a), CONTOUR_COLOR, 2, 8, 0);
 					
 						MatOfPoint2f pointMat = new MatOfPoint2f ();
 						Imgproc.approxPolyDP (new MatOfPoint2f (contours [boundPos].toArray ()), pointMat, 3, true);
@@ -354,7 +354,7 @@ namespace OpenCVForUnitySample
 
 
 						foreach (Point p in listPoDefect) {
-								Core.circle (rgbaMat, p, 6, new Scalar (255, 0, 255, 255), -1);
+								Imgproc.circle (rgbaMat, p, 6, new Scalar (255, 0, 255, 255), -1);
 						}
 
 				}
@@ -444,8 +444,8 @@ namespace OpenCVForUnitySample
 						tr = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x + quad.transform.localScale.x / 2, quad.transform.localPosition.y + quad.transform.localScale.y / 2, quad.transform.localPosition.z));
 						br = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x + quad.transform.localScale.x / 2, quad.transform.localPosition.y - quad.transform.localScale.y / 2, quad.transform.localPosition.z));
 						bl = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x - quad.transform.localScale.x / 2, quad.transform.localPosition.y - quad.transform.localScale.y / 2, quad.transform.localPosition.z));
-
 					
+
 						Mat srcRectMat = new Mat (4, 1, CvType.CV_32FC2);
 						Mat dstRectMat = new Mat (4, 1, CvType.CV_32FC2);
 					

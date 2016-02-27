@@ -39,7 +39,7 @@ namespace OpenCVForUnitySample
 						lines.get (0, 0, linesArray);
 
 						for (int i = 0; i < linesArray.Length; i=i+4) {
-								Core.line (imgMat, new Point (linesArray [i + 0], linesArray [i + 1]), new Point (linesArray [i + 2], linesArray [i + 3]), new Scalar (255, 0, 0), 2);
+								Imgproc.line (imgMat, new Point (linesArray [i + 0], linesArray [i + 1]), new Point (linesArray [i + 2], linesArray [i + 3]), new Scalar (255, 0, 0), 2);
 						}
 
 		

@@ -5,54 +5,18 @@ using OpenCVForUnity;
 
 namespace OpenCVForUnitySample
 {
-
-/// <summary>
-/// ComicFilter sample.
-/// referring to the http://dev.classmethod.jp/smartphone/opencv-manga-2/.
-/// </summary>
+		/// <summary>
+		/// BackgroundSubtractorMOG2Sample
+		/// referring to the http://docs.opencv.org/master/d1/dc5/tutorial_background_subtraction.html#gsc.tab=0.
+		/// </summary>
 		[RequireComponent(typeof(WebCamTextureToMatHelper))]
-		public class ComicFilterSample : MonoBehaviour
+		public class BackgroundSubtractorMOG2Sample : MonoBehaviour
 		{
-
+	
 				/// <summary>
 				/// The colors.
 				/// </summary>
 				Color32[] colors;
-
-				/// <summary>
-				/// The gray mat.
-				/// </summary>
-				Mat grayMat;
-
-				/// <summary>
-				/// The line mat.
-				/// </summary>
-				Mat lineMat;
-
-				/// <summary>
-				/// The mask mat.
-				/// </summary>
-				Mat maskMat;
-
-				/// <summary>
-				/// The background mat.
-				/// </summary>
-				Mat bgMat;
-
-				/// <summary>
-				/// The dst mat.
-				/// </summary>
-				Mat dstMat;
-
-				/// <summary>
-				/// The gray pixels.
-				/// </summary>
-				byte[] grayPixels;
-
-				/// <summary>
-				/// The mask pixels.
-				/// </summary>
-				byte[] maskPixels;
 
 				/// <summary>
 				/// The texture.
@@ -64,12 +28,31 @@ namespace OpenCVForUnitySample
 				/// </summary>
 				WebCamTextureToMatHelper webCamTextureToMatHelper;
 
+				/// <summary>
+				/// The background substractor MO g2.
+				/// </summary>
+				BackgroundSubtractorMOG2 backgroundSubstractorMOG2;
+
+				/// <summary>
+				/// The rgb mat.
+				/// </summary>
+				Mat rgbMat;
+
+				/// <summary>
+				/// The fgmask mat.
+				/// </summary>
+				Mat fgmaskMat;
+
 				// Use this for initialization
 				void Start ()
 				{
-
 						webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
 						webCamTextureToMatHelper.Init ();
+
+						backgroundSubstractorMOG2 = Video.createBackgroundSubtractorMOG2 ();
+//						backgroundSubstractorMOG2.setHistory (2);
+//						backgroundSubstractorMOG2.setVarThreshold (16);
+//						backgroundSubstractorMOG2.setDetectShadows (true);
 
 				}
 
@@ -79,38 +62,23 @@ namespace OpenCVForUnitySample
 				public void OnWebCamTextureToMatHelperInited ()
 				{
 						Debug.Log ("OnWebCamTextureToMatHelperInited");
-		
+
 						Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
-		
+
 						colors = new Color32[webCamTextureMat.cols () * webCamTextureMat.rows ()];
 						texture = new Texture2D (webCamTextureMat.cols (), webCamTextureMat.rows (), TextureFormat.RGBA32, false);
 
-						grayMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
-						lineMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
-						maskMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
-		
-						//create a striped background.
-						bgMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1, new Scalar (255));
-						for (int i = 0; i < bgMat.rows ()*2.5f; i=i+4) {
-								Imgproc.line (bgMat, new Point (0, 0 + i), new Point (bgMat.cols (), -bgMat.cols () + i), new Scalar (0), 1);
-						}
-						
-						dstMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
-						
-						grayPixels = new byte[grayMat.cols () * grayMat.rows () * grayMat.channels ()];
-						maskPixels = new byte[maskMat.cols () * maskMat.rows () * maskMat.channels ()];
 
-		
 						gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
-		
+
 						Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
-		
+
 						float width = 0;
 						float height = 0;
-		
+									
 						width = gameObject.transform.localScale.x;
 						height = gameObject.transform.localScale.y;
-		
+									
 						float widthScale = (float)Screen.width / width;
 						float heightScale = (float)Screen.height / height;
 						if (widthScale < heightScale) {
@@ -118,9 +86,11 @@ namespace OpenCVForUnitySample
 						} else {
 								Camera.main.orthographicSize = height / 2;
 						}
-		
+
 						gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 
+						rgbMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC3);
+						fgmaskMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
 				}
 
 				/// <summary>
@@ -130,90 +100,27 @@ namespace OpenCVForUnitySample
 				{
 						Debug.Log ("OnWebCamTextureToMatHelperDisposed");
 
-						grayMat.Dispose ();
-						lineMat.Dispose ();
-						maskMat.Dispose ();
-		
-						bgMat.Dispose ();
-						dstMat.Dispose ();
-
-						grayPixels = null;
-						maskPixels = null;
 				}
-
 
 				// Update is called once per frame
 				void Update ()
 				{
 
 						if (webCamTextureToMatHelper.isPlaying () && webCamTextureToMatHelper.didUpdateThisFrame ()) {
-			
+
 								Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
 
-								Imgproc.cvtColor (rgbaMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
-			
-								//						Utils.webCamTextureToMat (webCamTexture, grayMat, colors);
-			
-							
-								bgMat.copyTo (dstMat);
-			
-			
-								Imgproc.GaussianBlur (grayMat, lineMat, new Size (3, 3), 0);
-							
-			
-			
-			
-								grayMat.get (0, 0, grayPixels);
-			
-								for (int i = 0; i < grayPixels.Length; i++) {
-			
-										maskPixels [i] = 0;
-						
-										if (grayPixels [i] < 70) {
-												grayPixels [i] = 0;
-			
-												maskPixels [i] = 1;
-										} else if (70 <= grayPixels [i] && grayPixels [i] < 120) {
-												grayPixels [i] = 100;
-			
-											
-										} else {
-												grayPixels [i] = 255;
-			
-												maskPixels [i] = 1;
-										}
-								}
-					
-								grayMat.put (0, 0, grayPixels);
-				
-								maskMat.put (0, 0, maskPixels);
-			
-								grayMat.copyTo (dstMat, maskMat);
-			
-			
-			
-			
-							
-								Imgproc.Canny (lineMat, lineMat, 20, 120);
-					
-								lineMat.copyTo (maskMat);
-					
-								Core.bitwise_not (lineMat, lineMat);
-			
-								lineMat.copyTo (dstMat, maskMat);
+								Imgproc.cvtColor (rgbaMat, rgbMat, Imgproc.COLOR_RGBA2RGB);
+								backgroundSubstractorMOG2.apply (rgbMat, fgmaskMat);
 
-//			Imgproc.putText (dstMat, "W:" + dstMat.width () + " H:" + dstMat.height () + " SO:" + Screen.orientation, new Point (5, dstMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (0), 2, Imgproc.LINE_AA, false);
-			
-			
-								//		Imgproc.cvtColor(dstMat,rgbaMat,Imgproc.COLOR_GRAY2RGBA);
-								//				Utils.matToTexture2D (rgbaMat, texture);
-			
-								Utils.matToTexture2D (dstMat, texture, colors);
+								Core.bitwise_not (fgmaskMat, fgmaskMat);
+								rgbaMat.setTo (new Scalar (0, 0, 0, 0), fgmaskMat);
 
+								Utils.matToTexture2D (rgbaMat, texture, colors);
 						}
-		
-				}
 
+				}
+	
 				/// <summary>
 				/// Raises the disable event.
 				/// </summary>
