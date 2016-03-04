@@ -1,4 +1,26 @@
 var searchData=
 [
-  ['normalbayesclassifier',['NormalBayesClassifier',['../class_open_c_v_for_unity_1_1_normal_bayes_classifier.html',1,'OpenCVForUnity']]]
+  ['mat',['Mat',['../class_open_c_v_for_unity_1_1_mat.html',1,'OpenCVForUnity']]],
+  ['matofbyte',['MatOfByte',['../class_open_c_v_for_unity_1_1_mat_of_byte.html',1,'OpenCVForUnity']]],
+  ['matofdmatch',['MatOfDMatch',['../class_open_c_v_for_unity_1_1_mat_of_d_match.html',1,'OpenCVForUnity']]],
+  ['matofdouble',['MatOfDouble',['../class_open_c_v_for_unity_1_1_mat_of_double.html',1,'OpenCVForUnity']]],
+  ['matoffloat',['MatOfFloat',['../class_open_c_v_for_unity_1_1_mat_of_float.html',1,'OpenCVForUnity']]],
+  ['matoffloat4',['MatOfFloat4',['../class_open_c_v_for_unity_1_1_mat_of_float4.html',1,'OpenCVForUnity']]],
+  ['matoffloat6',['MatOfFloat6',['../class_open_c_v_for_unity_1_1_mat_of_float6.html',1,'OpenCVForUnity']]],
+  ['matofint',['MatOfInt',['../class_open_c_v_for_unity_1_1_mat_of_int.html',1,'OpenCVForUnity']]],
+  ['matofint4',['MatOfInt4',['../class_open_c_v_for_unity_1_1_mat_of_int4.html',1,'OpenCVForUnity']]],
+  ['matofkeypoint',['MatOfKeyPoint',['../class_open_c_v_for_unity_1_1_mat_of_key_point.html',1,'OpenCVForUnity']]],
+  ['matofpoint',['MatOfPoint',['../class_open_c_v_for_unity_1_1_mat_of_point.html',1,'OpenCVForUnity']]],
+  ['matofpoint2f',['MatOfPoint2f',['../class_open_c_v_for_unity_1_1_mat_of_point2f.html',1,'OpenCVForUnity']]],
+  ['matofpoint3',['MatOfPoint3',['../class_open_c_v_for_unity_1_1_mat_of_point3.html',1,'OpenCVForUnity']]],
+  ['matofpoint3f',['MatOfPoint3f',['../class_open_c_v_for_unity_1_1_mat_of_point3f.html',1,'OpenCVForUnity']]],
+  ['matofrect',['MatOfRect',['../class_open_c_v_for_unity_1_1_mat_of_rect.html',1,'OpenCVForUnity']]],
+  ['mergedebevec',['MergeDebevec',['../class_open_c_v_for_unity_1_1_merge_debevec.html',1,'OpenCVForUnity']]],
+  ['mergeexposures',['MergeExposures',['../class_open_c_v_for_unity_1_1_merge_exposures.html',1,'OpenCVForUnity']]],
+  ['mergemertens',['MergeMertens',['../class_open_c_v_for_unity_1_1_merge_mertens.html',1,'OpenCVForUnity']]],
+  ['mergerobertson',['MergeRobertson',['../class_open_c_v_for_unity_1_1_merge_robertson.html',1,'OpenCVForUnity']]],
+  ['mindistancepredictcollector',['MinDistancePredictCollector',['../class_open_c_v_for_unity_1_1_min_distance_predict_collector.html',1,'OpenCVForUnity']]],
+  ['minmaxlocresult',['MinMaxLocResult',['../class_open_c_v_for_unity_1_1_core_1_1_min_max_loc_result.html',1,'OpenCVForUnity::Core']]],
+  ['ml',['Ml',['../class_open_c_v_for_unity_1_1_ml.html',1,'OpenCVForUnity']]],
+  ['moments',['Moments',['../class_open_c_v_for_unity_1_1_moments.html',1,'OpenCVForUnity']]]
 ];

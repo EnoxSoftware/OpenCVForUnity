@@ -1,11 +1,20 @@
 var searchData=
 [
-  ['termcriteria',['TermCriteria',['../class_open_c_v_for_unity_1_1_term_criteria.html',1,'OpenCVForUnity']]],
-  ['tonemap',['Tonemap',['../class_open_c_v_for_unity_1_1_tonemap.html',1,'OpenCVForUnity']]],
-  ['tonemapdrago',['TonemapDrago',['../class_open_c_v_for_unity_1_1_tonemap_drago.html',1,'OpenCVForUnity']]],
-  ['tonemapdurand',['TonemapDurand',['../class_open_c_v_for_unity_1_1_tonemap_durand.html',1,'OpenCVForUnity']]],
-  ['tonemapmantiuk',['TonemapMantiuk',['../class_open_c_v_for_unity_1_1_tonemap_mantiuk.html',1,'OpenCVForUnity']]],
-  ['tonemapreinhard',['TonemapReinhard',['../class_open_c_v_for_unity_1_1_tonemap_reinhard.html',1,'OpenCVForUnity']]],
-  ['traindata',['TrainData',['../class_open_c_v_for_unity_1_1_train_data.html',1,'OpenCVForUnity']]],
-  ['transientareassegmentationmodule',['TransientAreasSegmentationModule',['../class_open_c_v_for_unity_1_1_transient_areas_segmentation_module.html',1,'OpenCVForUnity']]]
+  ['scalar',['Scalar',['../class_open_c_v_for_unity_1_1_scalar.html',1,'OpenCVForUnity']]],
+  ['shape',['Shape',['../class_open_c_v_for_unity_1_1_shape.html',1,'OpenCVForUnity']]],
+  ['shapecontextdistanceextractor',['ShapeContextDistanceExtractor',['../class_open_c_v_for_unity_1_1_shape_context_distance_extractor.html',1,'OpenCVForUnity']]],
+  ['shapedistanceextractor',['ShapeDistanceExtractor',['../class_open_c_v_for_unity_1_1_shape_distance_extractor.html',1,'OpenCVForUnity']]],
+  ['shapetransformer',['ShapeTransformer',['../class_open_c_v_for_unity_1_1_shape_transformer.html',1,'OpenCVForUnity']]],
+  ['size',['Size',['../class_open_c_v_for_unity_1_1_size.html',1,'OpenCVForUnity']]],
+  ['sparsematchinterpolator',['SparseMatchInterpolator',['../class_open_c_v_for_unity_1_1_sparse_match_interpolator.html',1,'OpenCVForUnity']]],
+  ['statmodel',['StatModel',['../class_open_c_v_for_unity_1_1_stat_model.html',1,'OpenCVForUnity']]],
+  ['stereobm',['StereoBM',['../class_open_c_v_for_unity_1_1_stereo_b_m.html',1,'OpenCVForUnity']]],
+  ['stereomatcher',['StereoMatcher',['../class_open_c_v_for_unity_1_1_stereo_matcher.html',1,'OpenCVForUnity']]],
+  ['stereosgbm',['StereoSGBM',['../class_open_c_v_for_unity_1_1_stereo_s_g_b_m.html',1,'OpenCVForUnity']]],
+  ['structurededgedetection',['StructuredEdgeDetection',['../class_open_c_v_for_unity_1_1_structured_edge_detection.html',1,'OpenCVForUnity']]],
+  ['subdiv2d',['Subdiv2D',['../class_open_c_v_for_unity_1_1_subdiv2_d.html',1,'OpenCVForUnity']]],
+  ['superpixellsc',['SuperpixelLSC',['../class_open_c_v_for_unity_1_1_superpixel_l_s_c.html',1,'OpenCVForUnity']]],
+  ['superpixelseeds',['SuperpixelSEEDS',['../class_open_c_v_for_unity_1_1_superpixel_s_e_e_d_s.html',1,'OpenCVForUnity']]],
+  ['superpixelslic',['SuperpixelSLIC',['../class_open_c_v_for_unity_1_1_superpixel_s_l_i_c.html',1,'OpenCVForUnity']]],
+  ['svm',['SVM',['../class_open_c_v_for_unity_1_1_s_v_m.html',1,'OpenCVForUnity']]]
 ];

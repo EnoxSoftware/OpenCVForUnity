@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['lbphfacerecognizer_2ecs',['LBPHFaceRecognizer.cs',['../_l_b_p_h_face_recognizer_8cs.html',1,'']]],
-  ['linesegmentdetector_2ecs',['LineSegmentDetector.cs',['../_line_segment_detector_8cs.html',1,'']]],
-  ['logisticregression_2ecs',['LogisticRegression.cs',['../_logistic_regression_8cs.html',1,'']]]
+  ['kalmanfilter_2ecs',['KalmanFilter.cs',['../_kalman_filter_8cs.html',1,'']]],
+  ['keypoint_2ecs',['KeyPoint.cs',['../_key_point_8cs.html',1,'']]],
+  ['knearest_2ecs',['KNearest.cs',['../_k_nearest_8cs.html',1,'']]]
 ];

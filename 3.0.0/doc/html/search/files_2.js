@@ -5,6 +5,8 @@ var searchData=
   ['calibratedebevec_2ecs',['CalibrateDebevec.cs',['../_calibrate_debevec_8cs.html',1,'']]],
   ['calibraterobertson_2ecs',['CalibrateRobertson.cs',['../_calibrate_robertson_8cs.html',1,'']]],
   ['cascadeclassifier_2ecs',['CascadeClassifier.cs',['../_cascade_classifier_8cs.html',1,'']]],
+  ['ccalib_2ecs',['Ccalib.cs',['../_ccalib_8cs.html',1,'']]],
+  ['chihistogramcostextractor_2ecs',['ChiHistogramCostExtractor.cs',['../_chi_histogram_cost_extractor_8cs.html',1,'']]],
   ['clahe_2ecs',['CLAHE.cs',['../_c_l_a_h_e_8cs.html',1,'']]],
   ['converters_2ecs',['Converters.cs',['../_converters_8cs.html',1,'']]],
   ['core_2ecs',['Core.cs',['../_core_8cs.html',1,'']]],

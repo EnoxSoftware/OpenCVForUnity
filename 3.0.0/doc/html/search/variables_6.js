@@ -1,6 +1,28 @@
 var searchData=
 [
-  ['imgidx',['imgIdx',['../class_open_c_v_for_unity_1_1_d_match.html#aea664abb8e1fd8c9d5499c6a3535f9a1',1,'OpenCVForUnity::DMatch']]],
-  ['inpaint_5fns',['INPAINT_NS',['../class_open_c_v_for_unity_1_1_photo.html#a9d417bf6693b661ed1e0dd3e9342abcb',1,'OpenCVForUnity::Photo']]],
-  ['inpaint_5fshiftmap',['INPAINT_SHIFTMAP',['../class_open_c_v_for_unity_1_1_xphoto.html#a75da0c0f570735f5879782617983c4bc',1,'OpenCVForUnity::Xphoto']]]
+  ['gamma',['GAMMA',['../class_open_c_v_for_unity_1_1_s_v_m.html#a78ff6e38cc8873b7991fdd25193e8339',1,'OpenCVForUnity::SVM']]],
+  ['gaussian',['GAUSSIAN',['../class_open_c_v_for_unity_1_1_a_n_n___m_l_p.html#a88c7f2c2f12d3b3b627949ce5746b77f',1,'OpenCVForUnity::ANN_MLP']]],
+  ['gc_5fbgd',['GC_BGD',['../class_open_c_v_for_unity_1_1_imgproc.html#ab37089b49b52f912efa627fe0914c151',1,'OpenCVForUnity::Imgproc']]],
+  ['gc_5feval',['GC_EVAL',['../class_open_c_v_for_unity_1_1_imgproc.html#a55038eef8ed8d5ea2be7ea4f19dda257',1,'OpenCVForUnity::Imgproc']]],
+  ['gc_5ffgd',['GC_FGD',['../class_open_c_v_for_unity_1_1_imgproc.html#a6ad00850cec56fd01cbb6a878534f030',1,'OpenCVForUnity::Imgproc']]],
+  ['gc_5finit_5fwith_5fmask',['GC_INIT_WITH_MASK',['../class_open_c_v_for_unity_1_1_imgproc.html#af78a5ec1b8b028b14720343c2a71c795',1,'OpenCVForUnity::Imgproc']]],
+  ['gc_5finit_5fwith_5frect',['GC_INIT_WITH_RECT',['../class_open_c_v_for_unity_1_1_imgproc.html#ae953ab6bd64582591eeaf51985a45951',1,'OpenCVForUnity::Imgproc']]],
+  ['gc_5fpr_5fbgd',['GC_PR_BGD',['../class_open_c_v_for_unity_1_1_imgproc.html#a8e42efd4c37643e5c318aaba748b6521',1,'OpenCVForUnity::Imgproc']]],
+  ['gc_5fpr_5ffgd',['GC_PR_FGD',['../class_open_c_v_for_unity_1_1_imgproc.html#aab426b4dc53904b1c9b5175e981e18eb',1,'OpenCVForUnity::Imgproc']]],
+  ['gemm_5f1_5ft',['GEMM_1_T',['../class_open_c_v_for_unity_1_1_core.html#aaae8aa1700fde16ab2eda2c5e340f9d5',1,'OpenCVForUnity::Core']]],
+  ['gemm_5f2_5ft',['GEMM_2_T',['../class_open_c_v_for_unity_1_1_core.html#aa83756efa19c03936ee0262376333560',1,'OpenCVForUnity::Core']]],
+  ['gemm_5f3_5ft',['GEMM_3_T',['../class_open_c_v_for_unity_1_1_core.html#afca440f41cb86ff99897460c9c008de2',1,'OpenCVForUnity::Core']]],
+  ['gentle',['GENTLE',['../class_open_c_v_for_unity_1_1_boost.html#a4051b63892e0ca4129e70ec898cf19e1',1,'OpenCVForUnity::Boost']]],
+  ['gftt',['GFTT',['../class_open_c_v_for_unity_1_1_feature_detector.html#aacd4224ce2a5cdebaf4fc172d5d89b1d',1,'OpenCVForUnity::FeatureDetector']]],
+  ['gpuapicallerror',['GpuApiCallError',['../class_open_c_v_for_unity_1_1_core.html#add2561b1381ff15e380547711090a824',1,'OpenCVForUnity::Core']]],
+  ['gpunotsupported',['GpuNotSupported',['../class_open_c_v_for_unity_1_1_core.html#ab5ff42683524c0f43336180e4b06cf78',1,'OpenCVForUnity::Core']]],
+  ['grid_5fakaze',['GRID_AKAZE',['../class_open_c_v_for_unity_1_1_feature_detector.html#a21e5e895a8bc747754d3a120a98161c3',1,'OpenCVForUnity::FeatureDetector']]],
+  ['grid_5fbrisk',['GRID_BRISK',['../class_open_c_v_for_unity_1_1_feature_detector.html#acbb19d5c062e06982320e4eca50f4f2c',1,'OpenCVForUnity::FeatureDetector']]],
+  ['grid_5ffast',['GRID_FAST',['../class_open_c_v_for_unity_1_1_feature_detector.html#a3c652d9c2f2280c24a96cc254ae9ca42',1,'OpenCVForUnity::FeatureDetector']]],
+  ['grid_5fgftt',['GRID_GFTT',['../class_open_c_v_for_unity_1_1_feature_detector.html#a0415c585ce38b2c813c368516e8b5c97',1,'OpenCVForUnity::FeatureDetector']]],
+  ['grid_5fharris',['GRID_HARRIS',['../class_open_c_v_for_unity_1_1_feature_detector.html#af58f7cfaf7a624e13b22368a55cb85a2',1,'OpenCVForUnity::FeatureDetector']]],
+  ['grid_5fmser',['GRID_MSER',['../class_open_c_v_for_unity_1_1_feature_detector.html#aa5127c41f889aaf585af6dc14a2ca7b3',1,'OpenCVForUnity::FeatureDetector']]],
+  ['grid_5forb',['GRID_ORB',['../class_open_c_v_for_unity_1_1_feature_detector.html#a45f7b2a73eb0f2044c9a5cbb624bd5ca',1,'OpenCVForUnity::FeatureDetector']]],
+  ['grid_5fsimpleblob',['GRID_SIMPLEBLOB',['../class_open_c_v_for_unity_1_1_feature_detector.html#a31b47e1e676bdb0128e58842ed2beff7',1,'OpenCVForUnity::FeatureDetector']]],
+  ['guided_5ffilter',['GUIDED_FILTER',['../class_open_c_v_for_unity_1_1_ximgproc.html#ae4d7862c58e097770cb6c6af5deeb4ea',1,'OpenCVForUnity::Ximgproc']]]
 ];

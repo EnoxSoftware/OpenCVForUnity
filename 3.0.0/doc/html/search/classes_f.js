@@ -1,11 +1,10 @@
 var searchData=
 [
-  ['scalar',['Scalar',['../class_open_c_v_for_unity_1_1_scalar.html',1,'OpenCVForUnity']]],
-  ['size',['Size',['../class_open_c_v_for_unity_1_1_size.html',1,'OpenCVForUnity']]],
-  ['statmodel',['StatModel',['../class_open_c_v_for_unity_1_1_stat_model.html',1,'OpenCVForUnity']]],
-  ['stereobm',['StereoBM',['../class_open_c_v_for_unity_1_1_stereo_b_m.html',1,'OpenCVForUnity']]],
-  ['stereomatcher',['StereoMatcher',['../class_open_c_v_for_unity_1_1_stereo_matcher.html',1,'OpenCVForUnity']]],
-  ['stereosgbm',['StereoSGBM',['../class_open_c_v_for_unity_1_1_stereo_s_g_b_m.html',1,'OpenCVForUnity']]],
-  ['subdiv2d',['Subdiv2D',['../class_open_c_v_for_unity_1_1_subdiv2_d.html',1,'OpenCVForUnity']]],
-  ['svm',['SVM',['../class_open_c_v_for_unity_1_1_s_v_m.html',1,'OpenCVForUnity']]]
+  ['range',['Range',['../class_open_c_v_for_unity_1_1_range.html',1,'OpenCVForUnity']]],
+  ['rect',['Rect',['../class_open_c_v_for_unity_1_1_rect.html',1,'OpenCVForUnity']]],
+  ['retina',['Retina',['../class_open_c_v_for_unity_1_1_retina.html',1,'OpenCVForUnity']]],
+  ['retinafasttonemapping',['RetinaFastToneMapping',['../class_open_c_v_for_unity_1_1_retina_fast_tone_mapping.html',1,'OpenCVForUnity']]],
+  ['rffeaturegetter',['RFFeatureGetter',['../class_open_c_v_for_unity_1_1_r_f_feature_getter.html',1,'OpenCVForUnity']]],
+  ['rotatedrect',['RotatedRect',['../class_open_c_v_for_unity_1_1_rotated_rect.html',1,'OpenCVForUnity']]],
+  ['rtrees',['RTrees',['../class_open_c_v_for_unity_1_1_r_trees.html',1,'OpenCVForUnity']]]
 ];

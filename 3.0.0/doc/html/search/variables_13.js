@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['x',['x',['../class_open_c_v_for_unity_1_1_point.html#a5e2c90f063b6d4c7bbdcaea194030fb9',1,'OpenCVForUnity.Point.x()'],['../class_open_c_v_for_unity_1_1_point3.html#a5af8d34558ec2de52ccd5dd71a755c08',1,'OpenCVForUnity.Point3.x()'],['../class_open_c_v_for_unity_1_1_rect.html#a5e96b8a2ce5e4f721590beacb0490c28',1,'OpenCVForUnity.Rect.x()']]]
+  ['update_5fmodel',['UPDATE_MODEL',['../class_open_c_v_for_unity_1_1_stat_model.html#aebadaa5196233247ff2631412d257461',1,'OpenCVForUnity::StatModel']]],
+  ['update_5fweights',['UPDATE_WEIGHTS',['../class_open_c_v_for_unity_1_1_a_n_n___m_l_p.html#aed23817a6995614dee57a9deaa127914',1,'OpenCVForUnity::ANN_MLP']]]
 ];
