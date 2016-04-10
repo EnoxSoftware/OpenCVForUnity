@@ -34,6 +34,16 @@ namespace OpenCVForUnitySample
 				public bool requestIsFrontFacing = false;
 
 				/// <summary>
+				/// The flip vertical.
+				/// </summary>
+				public bool flipVertical = false;
+
+				/// <summary>
+				/// The flip horizontal.
+				/// </summary>
+				public bool flipHorizontal = false;
+
+				/// <summary>
 				/// The on inited event.
 				/// </summary>
 				public UnityEvent OnInitedEvent;
@@ -160,11 +170,14 @@ namespace OpenCVForUnitySample
 		
 						if (webCamTexture == null) {
 //			Debug.Log ("webCamTexture is null");
-
-								webCamDevice = WebCamTexture.devices [0];
-								webCamTexture = new WebCamTexture (webCamDevice.name, requestWidth, requestHeight);
+								if (WebCamTexture.devices.Length > 0) {
+										webCamDevice = WebCamTexture.devices [0];
+										webCamTexture = new WebCamTexture (webCamDevice.name, requestWidth, requestHeight);
+								} else {
+										webCamTexture = new WebCamTexture (requestWidth, requestHeight);
+								}
 						}
-	
+
 //		Debug.Log ("name " + webCamTexture.name + " width " + webCamTexture.width + " height " + webCamTexture.height + " fps " + webCamTexture.requestedFPS);
 		
 		
@@ -276,6 +289,15 @@ namespace OpenCVForUnitySample
 				}
 
 				/// <summary>
+				/// Gets the web cam device.
+				/// </summary>
+				/// <returns>The web cam device.</returns>
+				public WebCamDevice GetWebCamDevice ()
+				{
+						return webCamDevice;
+				}
+
+				/// <summary>
 				/// Dids the update this frame.
 				/// </summary>
 				/// <returns><c>true</c>, if update this frame was dided, <c>false</c> otherwise.</returns>
@@ -309,37 +331,58 @@ namespace OpenCVForUnitySample
 										return rgbaMat;
 								}
 						}
-
-			
-			
-//						#if UNITY_IOS && !UNITY_EDITOR && (UNITY_4_6_3 || UNITY_4_6_4 || UNITY_5_0_0 || UNITY_5_0_1)
-//			if (webCamTexture.width > 16 && webCamTexture.height > 16) {
-//						#else
-//						if (webCamTexture.didUpdateThisFrame) {
-//								#endif
 					
 						Utils.webCamTextureToMat (webCamTexture, rgbaMat, colors);
 					
+						int flipCode = int.MinValue;
+
 						if (webCamDevice.isFrontFacing) {
 								if (webCamTexture.videoRotationAngle == 0) {
-										Core.flip (rgbaMat, rgbaMat, 1);
+										flipCode = 1;
 								} else if (webCamTexture.videoRotationAngle == 90) {
-										Core.flip (rgbaMat, rgbaMat, 0);
+										flipCode = 0;
 								}
 								if (webCamTexture.videoRotationAngle == 180) {
-										Core.flip (rgbaMat, rgbaMat, 0);
+										flipCode = 0;
 								} else if (webCamTexture.videoRotationAngle == 270) {
-										Core.flip (rgbaMat, rgbaMat, 1);
+										flipCode = 1;
 								}
 						} else {
 								if (webCamTexture.videoRotationAngle == 180) {
-										Core.flip (rgbaMat, rgbaMat, -1);
+										flipCode = -1;
 								} else if (webCamTexture.videoRotationAngle == 270) {
-										Core.flip (rgbaMat, rgbaMat, -1);
+										flipCode = -1;
 								}
 						}
+
+						if (flipVertical) {
+								if (flipCode == int.MinValue) {
+										flipCode = 0;
+								} else if (flipCode == 0) {
+										flipCode = int.MinValue;
+								} else if (flipCode == 1) {
+										flipCode = -1;
+								} else if (flipCode == -1) {
+										flipCode = 1;
+								}
+						}
+
+						if (flipHorizontal) {
+								if (flipCode == int.MinValue) {
+										flipCode = 1;
+								} else if (flipCode == 0) {
+										flipCode = -1;
+								} else if (flipCode == 1) {
+										flipCode = int.MinValue;
+								} else if (flipCode == -1) {
+										flipCode = 0;
+								}
+						}
+
+						if (flipCode > int.MinValue) {
+								Core.flip (rgbaMat, rgbaMat, flipCode);
+						}
 					
-//						}
 
 						if (rotatedRgbaMat != null) {
 

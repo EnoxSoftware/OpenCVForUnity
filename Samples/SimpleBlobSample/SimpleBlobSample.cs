@@ -27,9 +27,7 @@ namespace OpenCVForUnitySample
 						FeatureDetector blobDetector = FeatureDetector.create (FeatureDetector.SIMPLEBLOB);
 
 						blobDetector.read (Utils.getFilePath ("blobparams.yml"));
-						if (blobDetector.empty ()) {
-								Debug.LogError ("blobparams file is not loaded.Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
-						}
+
 
 						MatOfKeyPoint keypoints = new MatOfKeyPoint ();
 						blobDetector.detect (imgMat, keypoints);

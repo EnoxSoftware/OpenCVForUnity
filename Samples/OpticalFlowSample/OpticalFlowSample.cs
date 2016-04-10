@@ -145,14 +145,22 @@ namespace OpenCVForUnitySample
 				{
 						Debug.Log ("OnWebCamTextureToMatHelperDisposed");
 
-						matOpFlowThis.Dispose ();
-						matOpFlowPrev.Dispose ();
-						MOPcorners.Dispose ();
-						mMOP2fptsThis.Dispose ();
-						mMOP2fptsPrev.Dispose ();
-						mMOP2fptsSafe.Dispose ();
-						mMOBStatus.Dispose ();
-						mMOFerr.Dispose ();
+						if (matOpFlowThis != null)
+								matOpFlowThis.Dispose ();
+						if (matOpFlowPrev != null)
+								matOpFlowPrev.Dispose ();
+						if (MOPcorners != null)
+								MOPcorners.Dispose ();
+						if (mMOP2fptsThis != null)
+								mMOP2fptsThis.Dispose ();
+						if (mMOP2fptsPrev != null)
+								mMOP2fptsPrev.Dispose ();
+						if (mMOP2fptsSafe != null)
+								mMOP2fptsSafe.Dispose ();
+						if (mMOBStatus != null)
+								mMOBStatus.Dispose ();
+						if (mMOFerr != null)
+								mMOFerr.Dispose ();
 				}
 		
 

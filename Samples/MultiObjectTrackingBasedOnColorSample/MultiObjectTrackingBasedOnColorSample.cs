@@ -120,9 +120,12 @@ namespace OpenCVForUnitySample
 				{
 						Debug.Log ("OnWebCamTextureToMatHelperDisposed");
 
-						rgbMat.Dispose ();
-						thresholdMat.Dispose ();
-						hsvMat.Dispose ();
+						if (rgbMat != null)
+								rgbMat.Dispose ();
+						if (thresholdMat != null)
+								thresholdMat.Dispose ();
+						if (hsvMat != null)
+								hsvMat.Dispose ();
 				}
 
 

@@ -14,7 +14,7 @@ namespace OpenCVForUnitySample
 				// Use this for initialization
 				void Start ()
 				{
-
+//			Utils.setDebugMode(false);
 						Texture2D imgTexture = Resources.Load ("chessboard") as Texture2D;
 			
 						Mat imgMat = new Mat (imgTexture.height, imgTexture.width, CvType.CV_8UC1);

@@ -127,6 +127,26 @@ namespace OpenCVForUnitySample
 				{
 						Application.LoadLevel ("VideoCaptureSample");
 				}
+
+				public void OnMatchTemplateSample ()
+				{
+						Application.LoadLevel ("MatchTemplateSample");
+				}
+
+				public void OnStereoBMSample ()
+				{
+						Application.LoadLevel ("StereoBMSample");
+				}
+
+				public void OnSeamlessCloneSample ()
+				{
+						Application.LoadLevel ("SeamlessCloneSample");
+				}
+
+				public void OnWebCamTextureDetectCirclesSample ()
+				{
+						Application.LoadLevel ("WebCamTextureDetectCirclesSample");
+				}
 		}
 }
 		

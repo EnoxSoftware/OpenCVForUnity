@@ -151,8 +151,10 @@ namespace OpenCVForUnitySample
 				{
 						Debug.Log ("OnWebCamTextureToMatHelperDisposed");
 
-						grayMat.Dispose ();
-						regionCascade.Dispose ();
+						if (grayMat != null)
+								grayMat.Dispose ();
+						if (regionCascade != null)
+								regionCascade.Dispose ();
 
 						StopThread ();
 				}

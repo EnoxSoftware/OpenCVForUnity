@@ -143,7 +143,8 @@ namespace OpenCVForUnitySample
 				{
 						Debug.Log ("OnWebCamTextureToMatHelperDisposed");
 
-						spectrumMat.Dispose ();
+						if (spectrumMat != null)
+								spectrumMat.Dispose ();
 				}
 
 
