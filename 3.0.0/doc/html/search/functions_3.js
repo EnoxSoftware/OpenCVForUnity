@@ -3,7 +3,6 @@ var searchData=
   ['dataaddr',['dataAddr',['../class_open_c_v_for_unity_1_1_mat.html#ac576026f06bc7b3d5e9ef5e6e442061c',1,'OpenCVForUnity::Mat']]],
   ['dct',['dct',['../class_open_c_v_for_unity_1_1_core.html#a9831fe62f5eb9449df1ee5f8e479bf03',1,'OpenCVForUnity.Core.dct(Mat src, Mat dst, int flags)'],['../class_open_c_v_for_unity_1_1_core.html#a4cc90f3dff1c7f7762c70313cbc84771',1,'OpenCVForUnity.Core.dct(Mat src, Mat dst)']]],
   ['dctdenoising',['dctDenoising',['../class_open_c_v_for_unity_1_1_xphoto.html#af4f5b227312d7f960569eca4856bce57',1,'OpenCVForUnity.Xphoto.dctDenoising(Mat src, Mat dst, double sigma, int psize)'],['../class_open_c_v_for_unity_1_1_xphoto.html#a195590b7518a3b967e0c9375a9d999e4',1,'OpenCVForUnity.Xphoto.dctDenoising(Mat src, Mat dst, double sigma)']]],
-  ['debuglogdelegate',['DebugLogDelegate',['../class_open_c_v_for_unity_1_1_utils.html#ac3e45a91ef7f3e9e58b8d768f257e958',1,'OpenCVForUnity::Utils']]],
   ['decolor',['decolor',['../class_open_c_v_for_unity_1_1_photo.html#adea66ccd9a9e5b22617286b132dfee17',1,'OpenCVForUnity::Photo']]],
   ['decomposeessentialmat',['decomposeEssentialMat',['../class_open_c_v_for_unity_1_1_calib3d.html#a56f4d64b7730416d9edf8eda7172eb40',1,'OpenCVForUnity::Calib3d']]],
   ['decomposehomographymat',['decomposeHomographyMat',['../class_open_c_v_for_unity_1_1_calib3d.html#affb31dc32330274d9e5eca2107df975e',1,'OpenCVForUnity::Calib3d']]],
