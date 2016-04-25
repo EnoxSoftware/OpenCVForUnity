@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
+#if UNITY_5_3
+using UnityEngine.SceneManagement;
+#endif
 using OpenCVForUnity;
 
 namespace OpenCVForUnitySample
@@ -261,7 +264,11 @@ namespace OpenCVForUnitySample
 				/// </summary>
 				public void OnBackButton ()
 				{
+						#if UNITY_5_3
+			SceneManager.LoadScene ("OpenCVForUnitySample");
+						#else
 						Application.LoadLevel ("OpenCVForUnitySample");
+						#endif
 				}
 
 				/// <summary>

@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+#if UNITY_5_3
+using UnityEngine.SceneManagement;
+#endif
 using OpenCVForUnity;
 
 namespace OpenCVForUnitySample
@@ -10,10 +13,6 @@ namespace OpenCVForUnitySample
 		/// </summary>
 		public class VideoCaptureSample : MonoBehaviour
 		{
-				/// <summary>
-				/// The fps.
-				/// </summary>
-				private int fps = 10;
 
 				/// <summary>
 				/// The width of the frame.
@@ -114,7 +113,11 @@ namespace OpenCVForUnitySample
 		
 				public void OnBackButton ()
 				{
+						#if UNITY_5_3
+			SceneManager.LoadScene ("OpenCVForUnitySample");
+						#else
 						Application.LoadLevel ("OpenCVForUnitySample");
+						#endif
 				}
 		}
 	

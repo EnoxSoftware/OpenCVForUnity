@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+#if UNITY_5_3
+using UnityEngine.SceneManagement;
+#endif
 using OpenCVForUnity;
 
 using System.Collections.Generic;
@@ -119,7 +122,7 @@ namespace OpenCVForUnitySample
 				void Update ()
 				{
 
-						if (webCamTextureToMatHelper.isPlaying () && webCamTextureToMatHelper.didUpdateThisFrame()) {
+						if (webCamTextureToMatHelper.isPlaying () && webCamTextureToMatHelper.didUpdateThisFrame ()) {
 				
 								Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
 
@@ -256,7 +259,11 @@ namespace OpenCVForUnitySample
 				/// </summary>
 				public void OnBackButton ()
 				{
+						#if UNITY_5_3
+			SceneManager.LoadScene ("OpenCVForUnitySample");
+						#else
 						Application.LoadLevel ("OpenCVForUnitySample");
+						#endif
 				}
 
 				/// <summary>

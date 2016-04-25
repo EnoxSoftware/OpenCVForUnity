@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+
+#if UNITY_5_3
+using UnityEngine.SceneManagement;
+#endif
 using OpenCVForUnity;
 using System.Collections.Generic;
 using Rect = OpenCVForUnity.Rect;
@@ -757,7 +761,11 @@ namespace OpenCVForUnitySample
 				/// </summary>
 				public void OnBackButton ()
 				{
+						#if UNITY_5_3
+			SceneManager.LoadScene ("OpenCVForUnitySample");
+						#else
 						Application.LoadLevel ("OpenCVForUnitySample");
+						#endif
 				}
 
 				/// <summary>

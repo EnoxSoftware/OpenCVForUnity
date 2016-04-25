@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+#if UNITY_5_3
+using UnityEngine.SceneManagement;
+#endif
+
 namespace OpenCVForUnitySample
 {
 		public class ShowLicense : MonoBehaviour
@@ -20,7 +24,11 @@ namespace OpenCVForUnitySample
 
 				public void OnBackButton ()
 				{
+						#if UNITY_5_3
+			SceneManager.LoadScene ("OpenCVForUnitySample");
+						#else
 						Application.LoadLevel ("OpenCVForUnitySample");
+#endif
 				}
 		}
 }

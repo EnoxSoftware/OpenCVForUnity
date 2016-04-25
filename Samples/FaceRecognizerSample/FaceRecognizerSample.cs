@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
+#if UNITY_5_3
+using UnityEngine.SceneManagement;
+#endif
 using OpenCVForUnity;
 
 namespace OpenCVForUnitySample
@@ -41,7 +44,7 @@ namespace OpenCVForUnitySample
 						double[] predictedConfidence = new double[1];
 
 
-                        BasicFaceRecognizer faceRecognizer = Face.createEigenFaceRecognizer();
+						BasicFaceRecognizer faceRecognizer = Face.createEigenFaceRecognizer ();
 
 						faceRecognizer.train (images, labels);
 
@@ -78,7 +81,11 @@ namespace OpenCVForUnitySample
 
 				public void OnBackButton ()
 				{
+						#if UNITY_5_3
+			SceneManager.LoadScene ("OpenCVForUnitySample");
+						#else
 						Application.LoadLevel ("OpenCVForUnitySample");
+						#endif
 				}
 		}
 }

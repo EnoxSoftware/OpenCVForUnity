@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+#if UNITY_5_3
+using UnityEngine.SceneManagement;
+#endif
 using OpenCVForUnity;
 
 namespace OpenCVForUnitySample
@@ -63,7 +66,11 @@ namespace OpenCVForUnitySample
 		
 				public void OnBackButton ()
 				{
+						#if UNITY_5_3
+			SceneManager.LoadScene ("OpenCVForUnitySample");
+						#else
 						Application.LoadLevel ("OpenCVForUnitySample");
+						#endif
 				}
 		}
 }
