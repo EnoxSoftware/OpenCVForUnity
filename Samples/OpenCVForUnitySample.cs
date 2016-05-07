@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-#if UNITY_5_3
+#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
 #endif
 
@@ -24,7 +24,7 @@ namespace OpenCVForUnitySample
 
 				public void OnShowLicenseButton ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("ShowLicense");
 #else
 						Application.LoadLevel ("ShowLicense");
@@ -33,7 +33,7 @@ namespace OpenCVForUnitySample
 
 				public void OnTexture2DToMatSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("Texture2DToMatSample");
 						#else
 						Application.LoadLevel ("Texture2DToMatSample");
@@ -42,7 +42,7 @@ namespace OpenCVForUnitySample
 
 				public void OnThresholdSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("ThresholdSample");
 						#else
 						Application.LoadLevel ("ThresholdSample");
@@ -51,7 +51,7 @@ namespace OpenCVForUnitySample
 		
 				public void OnDrawingSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("DrawingSample");
 						#else
 						Application.LoadLevel ("DrawingSample");
@@ -60,7 +60,7 @@ namespace OpenCVForUnitySample
 		
 				public void OnConvexHullSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("ConvexHullSample");
 						#else
 						Application.LoadLevel ("ConvexHullSample");
@@ -69,7 +69,7 @@ namespace OpenCVForUnitySample
 		
 				public void OnHoughLinesPSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("HoughLinesPSample");
 						#else
 						Application.LoadLevel ("HoughLinesPSample");
@@ -78,7 +78,7 @@ namespace OpenCVForUnitySample
 		
 				public void OnFeature2DSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("Feature2DSample");
 						#else
 						Application.LoadLevel ("Feature2DSample");
@@ -87,7 +87,7 @@ namespace OpenCVForUnitySample
 
 				public void OnWrapPerspectiveSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("WrapPerspectiveSample");
 						#else
 						Application.LoadLevel ("WrapPerspectiveSample");
@@ -96,7 +96,7 @@ namespace OpenCVForUnitySample
 		
 				public void OnFaceRecognizerSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("FaceRecognizerSample");
 						#else
 						Application.LoadLevel ("FaceRecognizerSample");
@@ -105,7 +105,7 @@ namespace OpenCVForUnitySample
 		
 				public void OnDetectFaceSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("DetectFaceSample");
 						#else
 						Application.LoadLevel ("DetectFaceSample");
@@ -114,7 +114,7 @@ namespace OpenCVForUnitySample
 				
 				public void OnWebCamTextureToMatSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("WebCamTextureToMatSample");
 						#else
 						Application.LoadLevel ("WebCamTextureToMatSample");
@@ -123,7 +123,7 @@ namespace OpenCVForUnitySample
 				
 				public void OnWebCamTextureDetectFaceSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("WebCamTextureDetectFaceSample");
 						#else
 						Application.LoadLevel ("WebCamTextureDetectFaceSample");
@@ -132,7 +132,7 @@ namespace OpenCVForUnitySample
 		
 				public void OnWebCamTextureAsyncDetectFaceSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("WebCamTextureAsyncDetectFaceSample");
 						#else
 						Application.LoadLevel ("WebCamTextureAsyncDetectFaceSample");
@@ -141,7 +141,7 @@ namespace OpenCVForUnitySample
 		
 				public void OnOpticalFlowSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("OpticalFlowSample");
 						#else
 						Application.LoadLevel ("OpticalFlowSample");
@@ -150,7 +150,7 @@ namespace OpenCVForUnitySample
 		
 				public void OnComicFilterSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("ComicFilterSample");
 						#else
 						Application.LoadLevel ("ComicFilterSample");
@@ -159,7 +159,7 @@ namespace OpenCVForUnitySample
 		
 				public void OnCamShiftSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("CamShiftSample");
 						#else
 						Application.LoadLevel ("CamShiftSample");
@@ -168,7 +168,7 @@ namespace OpenCVForUnitySample
 
 				public void OnHandPoseEstimationSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("HandPoseEstimationSample");
 						#else
 						Application.LoadLevel ("HandPoseEstimationSample");
@@ -177,7 +177,7 @@ namespace OpenCVForUnitySample
 
 				public void OnMultiObjectTrackingBasedOnColorSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("MultiObjectTrackingBasedOnColorSample");
 						#else
 						Application.LoadLevel ("MultiObjectTrackingBasedOnColorSample");
@@ -186,7 +186,7 @@ namespace OpenCVForUnitySample
 
 				public void OnPlotSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("PlotSample");
 						#else
 						Application.LoadLevel ("PlotSample");
@@ -195,7 +195,7 @@ namespace OpenCVForUnitySample
 
 				public void OnSimpleBlobSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("SimpleBlobSample");
 						#else
 						Application.LoadLevel ("SimpleBlobSample");
@@ -204,7 +204,7 @@ namespace OpenCVForUnitySample
 
 				public void OnBackgroundSubtractorMOG2Sample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("BackgroundSubtractorMOG2Sample");
 						#else
 						Application.LoadLevel ("BackgroundSubtractorMOG2Sample");
@@ -213,7 +213,7 @@ namespace OpenCVForUnitySample
 
 				public void OnVideoCaptureSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("VideoCaptureSample");
 						#else
 						Application.LoadLevel ("VideoCaptureSample");
@@ -222,7 +222,7 @@ namespace OpenCVForUnitySample
 
 				public void OnMatchTemplateSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("MatchTemplateSample");
 						#else
 						Application.LoadLevel ("MatchTemplateSample");
@@ -231,7 +231,7 @@ namespace OpenCVForUnitySample
 
 				public void OnStereoBMSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("StereoBMSample");
 						#else
 						Application.LoadLevel ("StereoBMSample");
@@ -240,7 +240,7 @@ namespace OpenCVForUnitySample
 
 				public void OnSeamlessCloneSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("SeamlessCloneSample");
 						#else
 						Application.LoadLevel ("SeamlessCloneSample");
@@ -249,12 +249,22 @@ namespace OpenCVForUnitySample
 
 				public void OnWebCamTextureDetectCirclesSample ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("WebCamTextureDetectCirclesSample");
 						#else
 						Application.LoadLevel ("WebCamTextureDetectCirclesSample");
 						#endif
 
+				}
+
+				public void OnSVMSample ()
+				{
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
+			SceneManager.LoadScene ("SVMSample");
+						#else
+						Application.LoadLevel ("SVMSample");
+						#endif
+			
 				}
 		}
 }

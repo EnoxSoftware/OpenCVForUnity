@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
-
-#if UNITY_5_3
+#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
 #endif
 using OpenCVForUnity;
@@ -90,6 +89,7 @@ namespace OpenCVForUnitySample
 				/// </summary>
 				WebCamTextureToMatHelper webCamTextureToMatHelper;
 
+
 				// Use this for initialization
 				void Start ()
 				{
@@ -97,9 +97,20 @@ namespace OpenCVForUnitySample
 						weightsSizesSmoothing.Add (0.5f);
 						weightsSizesSmoothing.Add (0.3f);
 						weightsSizesSmoothing.Add (0.2f);
-						parameters = new Parameters ();
-						innerParameters = new InnerParameters ();
 
+						//parameters.minObjectSize = 96;
+						//parameters.maxObjectSize = int.MaxValue;
+						//parameters.scaleFactor = 1.1f;
+						//parameters.minNeighbors = 2;
+						parameters.maxTrackLifetime = 5;
+
+						innerParameters.numLastPositionsToTrack = 4;
+						innerParameters.numStepsToWaitBeforeFirstShow = 6;
+						innerParameters.numStepsToTrackWithoutDetectingIfObjectHasNotBeenShown = 3;
+						innerParameters.numStepsToShowWithoutDetecting = 3;
+						innerParameters.coeffTrackingWindowSize = 2.0f;
+						innerParameters.coeffObjectSizeToTrack = 0.85f;
+						innerParameters.coeffObjectSpeedUsingInPrediction = 0.8f;
 
 						webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
 						webCamTextureToMatHelper.Init ();
@@ -155,14 +166,20 @@ namespace OpenCVForUnitySample
 				{
 						Debug.Log ("OnWebCamTextureToMatHelperDisposed");
 
+						StopThread ();
+
+						if (grayMat4Thread != null)
+								grayMat4Thread.Dispose ();
+ 
+						if (cascade != null)
+								cascade.Dispose ();
+
+
 						if (grayMat != null)
 								grayMat.Dispose ();
 						if (regionCascade != null)
 								regionCascade.Dispose ();
-
-						StopThread ();
 				}
-
 
 				// Update is called once per frame
 				void Update ()
@@ -177,28 +194,24 @@ namespace OpenCVForUnitySample
 				
 				                                
 								if (!threadComm.shouldDetectInMultiThread) {
-										lock (thisLock) {
-												grayMat.copyTo (grayMat4Thread);
-										}
+										grayMat.copyTo (grayMat4Thread);
 										threadComm.shouldDetectInMultiThread = true;
 								}
-				
-				
+
 								OpenCVForUnity.Rect[] rects;
 				
 								if (didUpdateTheDetectionResult) {
+										didUpdateTheDetectionResult = false;
 										lock (thisLock) {
 												//Debug.Log("DetectionBasedTracker::process: get _rectsWhereRegions were got from resultDetect");
 												rectsWhereRegions = resultDetect.toArray ();
 												rects = resultDetect.toArray ();
 										}
-										didUpdateTheDetectionResult = false;
-				
 				
 										for (int i = 0; i < rects.Length; i++) {
 												Imgproc.rectangle (rgbaMat, new Point (rects [i].x, rects [i].y), new Point (rects [i].x + rects [i].width, rects [i].y + rects [i].height), new Scalar (0, 0, 255, 255), 2);
 										}
-				
+
 								} else {
 										//Debug.Log("DetectionBasedTracker::process: get _rectsWhereRegions from previous positions");
 										rectsWhereRegions = new Rect[trackedObjects.Count];
@@ -207,7 +220,7 @@ namespace OpenCVForUnitySample
 												int n = trackedObjects [i].lastPositions.Count;
 												//if (n > 0) UnityEngine.Debug.LogError("n > 0 is false");
 				
-												Rect r = trackedObjects [i].lastPositions [n - 1];
+												Rect r = trackedObjects [i].lastPositions [n - 1].clone ();
 												if (r.area () == 0) {
 														Debug.Log ("DetectionBasedTracker::process: ERROR: ATTENTION: strange algorithm's behavior: trackedObjects[i].rect() is empty");
 														continue;
@@ -226,10 +239,12 @@ namespace OpenCVForUnitySample
 												rectsWhereRegions [i] = r;
 										}
 				
+                                    
 										rects = rectsWhereRegions;
 										for (int i = 0; i < rects.Length; i++) {
 												Imgproc.rectangle (rgbaMat, new Point (rects [i].x, rects [i].y), new Point (rects [i].x + rects [i].width, rects [i].y + rects [i].height), new Scalar (0, 255, 0, 255), 2);
 										}
+
 								}
 				
 								if (rectsWhereRegions.Length > 0) {
@@ -240,22 +255,17 @@ namespace OpenCVForUnitySample
 												detectInRegion (grayMat, rectsWhereRegions [i], detectedObjectsInRegions);
 										}
 								}
-				
+
 								updateTrackedObjects (detectedObjectsInRegions);
-				
+
 								getObjects (resultObjects);
 				
-				
+
 								rects = resultObjects.ToArray ();
 								for (int i = 0; i < rects.Length; i++) {
 										//Debug.Log ("detect faces " + rects [i]);
-				
 										Imgproc.rectangle (rgbaMat, new Point (rects [i].x, rects [i].y), new Point (rects [i].x + rects [i].width, rects [i].y + rects [i].height), new Scalar (255, 0, 0, 255), 2);
 								}
-				
-												
-				
-//				Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 				
 								Utils.matToTexture2D (rgbaMat, texture, colors);
 						}
@@ -264,13 +274,15 @@ namespace OpenCVForUnitySample
 
 				private void initThread ()
 				{
-						lock (thisLock) {
-								cascade = new CascadeClassifier (Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
-								if (cascade.empty ()) {
-										Debug.LogError ("cascade file is not loaded.Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
-								}
-								grayMat4Thread = new Mat ();
+						StopThread ();
+
+						grayMat4Thread = new Mat ();
+
+						cascade = new CascadeClassifier (Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
+						if (cascade.empty ()) {
+								Debug.LogError ("cascade file is not loaded.Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
 						}
+
 						threadComm.shouldDetectInMultiThread = false;
 
 						StartThread ();
@@ -305,15 +317,12 @@ namespace OpenCVForUnitySample
 
                         if(!comm.shouldDetectInMultiThread) continue;
           
-                        lock (thisLock)
-                        {
-            
+                        MatOfRect faces = new MatOfRect();
+                        if (cascade != null)
+                            cascade.detectMultiScale(grayMat4Thread, faces, 1.1, 2, Objdetect.CASCADE_SCALE_IMAGE, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
+                                new Size(grayMat4Thread.height() * 0.2, grayMat4Thread.height() * 0.2), new Size());
 
-                            MatOfRect faces = new MatOfRect();
-                            if (cascade != null)
-                                cascade.detectMultiScale(grayMat4Thread, faces, 1.1, 2, Objdetect.CASCADE_SCALE_IMAGE, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
-                                    new Size(grayMat4Thread.height() * 0.2, grayMat4Thread.height() * 0.2), new Size());
-
+                        lock (thisLock){
                             resultDetect = faces;
                         }
                         comm.shouldDetectInMultiThread = false;
@@ -360,13 +369,13 @@ namespace OpenCVForUnitySample
                     {
                         while (!comm.shouldDetectInMultiThread) { yield return null; }
 
-                        lock (thisLock)
-                        {
-                            MatOfRect faces = new MatOfRect();
-                            if (cascade != null)
-                                cascade.detectMultiScale(grayMat4Thread, faces, 1.1, 2, Objdetect.CASCADE_SCALE_IMAGE, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
-                                    new Size(grayMat4Thread.height() * 0.2, grayMat4Thread.height() * 0.2), new Size());
 
+                        MatOfRect faces = new MatOfRect();
+                        if (cascade != null)
+                            cascade.detectMultiScale(grayMat4Thread, faces, 1.1, 2, Objdetect.CASCADE_SCALE_IMAGE, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
+                                new Size(grayMat4Thread.height() * 0.2, grayMat4Thread.height() * 0.2), new Size());
+
+                        lock (thisLock){
                             resultDetect = faces;
                         }
                         comm.shouldDetectInMultiThread = false;
@@ -404,13 +413,13 @@ namespace OpenCVForUnitySample
 								if (!comm.shouldDetectInMultiThread)
 										continue;
 
+								MatOfRect faces = new MatOfRect ();
+								if (cascade != null)
+										cascade.detectMultiScale (grayMat4Thread, faces, 1.1, 2, Objdetect.CASCADE_SCALE_IMAGE, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
+                                            new Size (grayMat4Thread.height () * 0.2, grayMat4Thread.height () * 0.2), new Size ());
 
+								//Thread.Sleep(200);
 								lock (thisLock) {
-										MatOfRect faces = new MatOfRect ();
-										if (cascade != null)
-												cascade.detectMultiScale (grayMat4Thread, faces, 1.1, 2, Objdetect.CASCADE_SCALE_IMAGE, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
-                                    new Size (grayMat4Thread.height () * 0.2, grayMat4Thread.height () * 0.2), new Size ());
-
 										resultDetect = faces;
 								}
 								comm.shouldDetectInMultiThread = false;
@@ -586,7 +595,6 @@ namespace OpenCVForUnitySample
 										//int numpos = (int)it.lastPositions.Count;
 										//if (numpos > 0) UnityEngine.Debug.LogError("numpos > 0 is false");
 										//Rect r = it.lastPositions [numpos - 1];
-
 										//Debug.Log("DetectionBasedTracker::updateTrackedObjects: deleted object " + r.x + " " + r.y + " " + r.width + " " + r.height);
 
 										trackedObjects.Remove (it);
@@ -619,7 +627,7 @@ namespace OpenCVForUnitySample
 
 						Mat img1 = new Mat (img, r1);//subimage for rectangle -- without data copying
 
-						regionCascade.detectMultiScale (img1, tmpobjects, parameters.scaleFactor, parameters.minNeighbors, 0 | Objdetect.CASCADE_DO_CANNY_PRUNING | Objdetect.CASCADE_SCALE_IMAGE | Objdetect.CASCADE_FIND_BIGGEST_OBJECT, new Size (d, d), new Size ());
+						regionCascade.detectMultiScale (img1, tmpobjects, 1.1, 2, 0 | Objdetect.CASCADE_DO_CANNY_PRUNING | Objdetect.CASCADE_SCALE_IMAGE | Objdetect.CASCADE_FIND_BIGGEST_OBJECT, new Size (d, d), new Size ());
 
 
 						Rect[] tmpobjectsArray = tmpobjects.toArray ();
@@ -761,7 +769,7 @@ namespace OpenCVForUnitySample
 				/// </summary>
 				public void OnBackButton ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("OpenCVForUnitySample");
 						#else
 						Application.LoadLevel ("OpenCVForUnitySample");
@@ -800,33 +808,28 @@ namespace OpenCVForUnitySample
 						webCamTextureToMatHelper.Init (null, webCamTextureToMatHelper.requestWidth, webCamTextureToMatHelper.requestHeight, !webCamTextureToMatHelper.requestIsFrontFacing);
 				}
 
-				public class Parameters
+				public struct Parameters
 				{
-						public int minObjectSize = 96;
-						public int maxObjectSize = int.MaxValue;
-						public double scaleFactor = 1.1;
-						public int maxTrackLifetime = 2;//5
-						public int minNeighbors = 2;
-						public int minDetectionPeriod = 0; //the minimal time between run of the big object detector (on the whole frame) in ms (1000 mean 1 sec), default=0
+						//public int minObjectSize;
+						//public int maxObjectSize;
+						//public float scaleFactor;
+						//public int minNeighbors;
 
-						public Parameters ()
-						{
-						}
+						public int maxTrackLifetime;
+						//public int minDetectionPeriod; //the minimal time between run of the big object detector (on the whole frame) in ms (1000 mean 1 sec), default=0
+
 				};
 
-				public class InnerParameters
+				public struct InnerParameters
 				{
-						public int numLastPositionsToTrack = 4;
-						public int numStepsToWaitBeforeFirstShow = 6;
-						public int numStepsToTrackWithoutDetectingIfObjectHasNotBeenShown = 3;
-						public int numStepsToShowWithoutDetecting = 3;
-						public float coeffTrackingWindowSize = 2.0f;//2.0f
-						public float coeffObjectSizeToTrack = 0.85f;
-						public float coeffObjectSpeedUsingInPrediction = 0.8f;
+						public int numLastPositionsToTrack;
+						public int numStepsToWaitBeforeFirstShow;
+						public int numStepsToTrackWithoutDetectingIfObjectHasNotBeenShown;
+						public int numStepsToShowWithoutDetecting;
+						public float coeffTrackingWindowSize;
+						public float coeffObjectSizeToTrack;
+						public float coeffObjectSpeedUsingInPrediction;
 
-						public InnerParameters ()
-						{
-						}
 				};
 
 				public class TrackedObject
@@ -844,7 +847,7 @@ namespace OpenCVForUnitySample
 								numDetectedFrames = 1;
 								numFramesNotDetected = 0;
 
-								lastPositions.Add (rect);
+								lastPositions.Add (rect.clone ());
 
 								_id = getNextId ();
 								id = _id;

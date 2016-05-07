@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-#if UNITY_5_3
+#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
 #endif
 using OpenCVForUnity;
@@ -76,7 +76,7 @@ namespace OpenCVForUnitySample
 
 				public void OnBackButton ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("OpenCVForUnitySample");
 						#else
 						Application.LoadLevel ("OpenCVForUnitySample");

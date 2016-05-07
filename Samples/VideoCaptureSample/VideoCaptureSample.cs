@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-#if UNITY_5_3
+#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
 #endif
 using OpenCVForUnity;
@@ -87,6 +87,10 @@ namespace OpenCVForUnitySample
 				// Update is called once per frame
 				void Update ()
 				{
+						//Loop play
+						if (capture.get (Videoio.CAP_PROP_POS_FRAMES) >= capture.get (Videoio.CAP_PROP_FRAME_COUNT))
+								capture.set (Videoio.CAP_PROP_POS_FRAMES, 0);
+
 						//error PlayerLoop called recursively! on iOS.reccomend WebCamTexture.
 						if (capture.grab ()) {
 
@@ -113,7 +117,7 @@ namespace OpenCVForUnitySample
 		
 				public void OnBackButton ()
 				{
-						#if UNITY_5_3
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 			SceneManager.LoadScene ("OpenCVForUnitySample");
 						#else
 						Application.LoadLevel ("OpenCVForUnitySample");
