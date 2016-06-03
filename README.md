@@ -25,6 +25,3 @@ Official Site
 -----
 <https://enoxsoftware.com/opencvforunity/>
 
-Old Version of "OpenCV for Unity" based on "OpenCV2.4.11"
------
-<http://enoxsoftware.github.io/OpenCVForUnity/doc/html/index.html>
