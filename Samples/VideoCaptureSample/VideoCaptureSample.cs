@@ -67,20 +67,16 @@ namespace OpenCVForUnitySample
 
 
 						texture = new Texture2D ((int)(frameWidth), (int)(frameHeight), TextureFormat.RGBA32, false);
-						gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-			
-						#if (UNITY_ANDROID || UNITY_IPHONE || UNITY_WP_8_1) && !UNITY_EDITOR
-			gameObject.transform.eulerAngles = new Vector3 (0, 0, -90);
-						#endif
-			
 						gameObject.transform.localScale = new Vector3 ((float)frameWidth, (float)frameHeight, 1);
+						float widthScale = (float)Screen.width / (float)frameWidth;
+						float heightScale = (float)Screen.height / (float)frameHeight;
+						if (widthScale < heightScale) {
+								Camera.main.orthographicSize = ((float)frameWidth * (float)Screen.height / (float)Screen.width) / 2;
+						} else {
+								Camera.main.orthographicSize = (float)frameHeight / 2;
+						}
 			
-			
-						#if (UNITY_ANDROID || UNITY_IPHONE || UNITY_WP_8_1) && !UNITY_EDITOR
-			Camera.main.orthographicSize = (float)frameWidth / 2;
-						#else
-						Camera.main.orthographicSize = (float)frameHeight / 2;
-						#endif
+						gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 			
 				}
 		
