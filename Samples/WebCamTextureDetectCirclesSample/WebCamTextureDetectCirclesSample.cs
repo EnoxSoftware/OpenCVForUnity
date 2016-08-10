@@ -102,7 +102,7 @@ namespace OpenCVForUnitySample
 
 								using (Mat circles = new Mat ()) {
 										
-										Imgproc.HoughCircles (grayMat, circles, Imgproc.CV_HOUGH_GRADIENT, 2, 10, 160, 50, 10, 20); 
+										Imgproc.HoughCircles (grayMat, circles, Imgproc.CV_HOUGH_GRADIENT, 2, 10, 160, 50, 10, 40); 
 										Point pt = new Point ();
 										
 										for (int i = 0; i < circles.cols(); i++) {
