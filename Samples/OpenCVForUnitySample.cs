@@ -276,6 +276,75 @@ namespace OpenCVForUnitySample
 						#endif
 			
 				}
+
+				public void OnArUcoCreateMarkerSample ()
+				{
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
+			SceneManager.LoadScene ("ArUcoCreateMarkerSample");
+						#else
+						Application.LoadLevel ("ArUcoCreateMarkerSample");
+						#endif
+			
+				}
+		
+				public void OnArUcoTexture2DSample ()
+				{
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
+			SceneManager.LoadScene ("ArUcoTexture2DSample");
+						#else
+						Application.LoadLevel ("ArUcoTexture2DSample");
+						#endif
+			
+				}
+
+				public void OnArUcoWebCamTextureSample ()
+				{
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
+			SceneManager.LoadScene ("ArUcoWebCamTextureSample");
+						#else
+						Application.LoadLevel ("ArUcoWebCamTextureSample");
+						#endif
+			
+				}
+
+				public void OnGrabCutSample ()
+				{
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
+			SceneManager.LoadScene ("GrabCutSample");
+						#else
+						Application.LoadLevel ("GrabCutSample");
+						#endif
+			
+				}
+
+				public void OnInpaintSample ()
+				{
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
+			SceneManager.LoadScene ("InpaintSample");
+						#else
+						Application.LoadLevel ("InpaintSample");
+						#endif
+			
+				}
+		
+				public void OnMatchShapesSample ()
+				{
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
+			SceneManager.LoadScene ("MatchShapesSample");
+						#else
+						Application.LoadLevel ("MatchShapesSample");
+						#endif
+			
+				}
+		
+				public void OnMSERSample ()
+				{
+						#if UNITY_5_3 || UNITY_5_3_OR_NEWER
+			SceneManager.LoadScene ("MSERSample");
+						#else
+						Application.LoadLevel ("MSERSample");
+						#endif
+			
+				}
 		}
 }
-		
