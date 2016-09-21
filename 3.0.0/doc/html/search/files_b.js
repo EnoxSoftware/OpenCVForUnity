@@ -19,7 +19,8 @@ var searchData=
   ['mergeexposures_2ecs',['MergeExposures.cs',['../_merge_exposures_8cs.html',1,'']]],
   ['mergemertens_2ecs',['MergeMertens.cs',['../_merge_mertens_8cs.html',1,'']]],
   ['mergerobertson_2ecs',['MergeRobertson.cs',['../_merge_robertson_8cs.html',1,'']]],
-  ['mindistancepredictcollector_2ecs',['MinDistancePredictCollector.cs',['../_min_distance_predict_collector_8cs.html',1,'']]],
   ['ml_2ecs',['Ml.cs',['../_ml_8cs.html',1,'']]],
-  ['moments_2ecs',['Moments.cs',['../_moments_8cs.html',1,'']]]
+  ['moments_2ecs',['Moments.cs',['../_moments_8cs.html',1,'']]],
+  ['msddetector_2ecs',['MSDDetector.cs',['../_m_s_d_detector_8cs.html',1,'']]],
+  ['mser_2ecs',['MSER.cs',['../_m_s_e_r_8cs.html',1,'']]]
 ];

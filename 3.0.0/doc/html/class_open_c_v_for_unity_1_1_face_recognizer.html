@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.0.6</span>
+   &#160;<span id="projectnumber">2.0.7</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document(http://docs.opencv.org/3.1.0/index.html) for the details of the argument of the method.</div>
   </td>
@@ -115,12 +115,14 @@ Inheritance diagram for OpenCVForUnity.FaceRecognizer:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a8ef5e601db2f7c816724d09e9943fe3b"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_recognizer.html#a8ef5e601db2f7c816724d09e9943fe3b">getLabelInfo</a> (int label)</td></tr>
 <tr class="separator:a8ef5e601db2f7c816724d09e9943fe3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48a41c76221b322225b6d7a7df360ab2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_recognizer.html#a48a41c76221b322225b6d7a7df360ab2">predict</a> (<a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> src)</td></tr>
-<tr class="separator:a48a41c76221b322225b6d7a7df360ab2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac230a93ae65e354b7398cd9005dfe60"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_recognizer.html#aac230a93ae65e354b7398cd9005dfe60">predict_label</a> (<a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> src)</td></tr>
+<tr class="separator:aac230a93ae65e354b7398cd9005dfe60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acda119c8a95845d7b62394df80309d99"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_mat_of_int.html">MatOfInt</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_recognizer.html#acda119c8a95845d7b62394df80309d99">getLabelsBystring</a> (string str)</td></tr>
 <tr class="separator:acda119c8a95845d7b62394df80309d99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac76873c53b8a2ae2de48ba381bc8f763"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_recognizer.html#ac76873c53b8a2ae2de48ba381bc8f763">load</a> (string filename)</td></tr>
 <tr class="separator:ac76873c53b8a2ae2de48ba381bc8f763"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a530a78dc4b33a0b7f309abac9ba4b4ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_recognizer.html#a530a78dc4b33a0b7f309abac9ba4b4ee">predict_collect</a> (<a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> src, <a class="el" href="class_open_c_v_for_unity_1_1_predict_collector.html">PredictCollector</a> collector)</td></tr>
+<tr class="separator:a530a78dc4b33a0b7f309abac9ba4b4ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73bc3f7cb152b75c1e6c03139703f914"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_recognizer.html#a73bc3f7cb152b75c1e6c03139703f914">predict</a> (<a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> src, int[] label, double[] confidence)</td></tr>
 <tr class="separator:a73bc3f7cb152b75c1e6c03139703f914"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac7205b5cc19fd82e0bdaf222755315c"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_recognizer.html#aac7205b5cc19fd82e0bdaf222755315c">save</a> (string filename)</td></tr>
@@ -276,22 +278,6 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a48a41c76221b322225b6d7a7df360ab2"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int OpenCVForUnity.FaceRecognizer.predict </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>src</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a73bc3f7cb152b75c1e6c03139703f914"></a>
 <div class="memitem">
 <div class="memproto">
@@ -318,6 +304,48 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
           <td>)</td>
           <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a530a78dc4b33a0b7f309abac9ba4b4ee"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.FaceRecognizer.predict_collect </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_predict_collector.html">PredictCollector</a>&#160;</td>
+          <td class="paramname"><em>collector</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aac230a93ae65e354b7398cd9005dfe60"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int OpenCVForUnity.FaceRecognizer.predict_label </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -434,7 +462,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Aug 10 2016 00:29:57 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Sep 22 2016 07:00:01 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

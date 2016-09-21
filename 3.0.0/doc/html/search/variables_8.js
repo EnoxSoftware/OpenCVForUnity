@@ -2,6 +2,9 @@ var searchData=
 [
   ['identity',['IDENTITY',['../class_open_c_v_for_unity_1_1_a_n_n___m_l_p.html#ac6f3781449b23432f8a463163bcd785d',1,'OpenCVForUnity::ANN_MLP']]],
   ['imgidx',['imgIdx',['../class_open_c_v_for_unity_1_1_d_match.html#aea664abb8e1fd8c9d5499c6a3535f9a1',1,'OpenCVForUnity::DMatch']]],
+  ['impl_5fipp',['IMPL_IPP',['../class_open_c_v_for_unity_1_1_core.html#ab9a363a40a5575449e5204fba4c075dd',1,'OpenCVForUnity::Core']]],
+  ['impl_5fopencl',['IMPL_OPENCL',['../class_open_c_v_for_unity_1_1_core.html#a9e8578760a5e6a1d942c5d57afe9bf09',1,'OpenCVForUnity::Core']]],
+  ['impl_5fplain',['IMPL_PLAIN',['../class_open_c_v_for_unity_1_1_core.html#ade09cac159e3e49a9f27588be0a970c4',1,'OpenCVForUnity::Core']]],
   ['imread_5fanycolor',['IMREAD_ANYCOLOR',['../class_open_c_v_for_unity_1_1_imgcodecs.html#af54f5b65476c3ce756e8bdad2e22236f',1,'OpenCVForUnity::Imgcodecs']]],
   ['imread_5fanydepth',['IMREAD_ANYDEPTH',['../class_open_c_v_for_unity_1_1_imgcodecs.html#aff921417f403d5d7b22829debd15cc15',1,'OpenCVForUnity::Imgcodecs']]],
   ['imread_5fcolor',['IMREAD_COLOR',['../class_open_c_v_for_unity_1_1_imgcodecs.html#a96d3617dd2634924300aeddf3fb5a9ce',1,'OpenCVForUnity::Imgcodecs']]],

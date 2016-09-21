@@ -1,6 +1,7 @@
 var searchData=
 [
   ['native_5flibrary_5fname',['NATIVE_LIBRARY_NAME',['../class_open_c_v_for_unity_1_1_core.html#ae4e95dc357504937d93d3598fbbfbbd3',1,'OpenCVForUnity::Core']]],
+  ['nb_5fscales',['NB_SCALES',['../class_open_c_v_for_unity_1_1_f_r_e_a_k.html#a891bb47606bb67761bdfb82efc0cda75',1,'OpenCVForUnity::FREAK']]],
   ['next_5faround_5fdst',['NEXT_AROUND_DST',['../class_open_c_v_for_unity_1_1_subdiv2_d.html#a0a56a0e20e3eaac8258cbf6b9992d768',1,'OpenCVForUnity::Subdiv2D']]],
   ['next_5faround_5fleft',['NEXT_AROUND_LEFT',['../class_open_c_v_for_unity_1_1_subdiv2_d.html#a48939b237c18733846e18e52d1b83e5b',1,'OpenCVForUnity::Subdiv2D']]],
   ['next_5faround_5forg',['NEXT_AROUND_ORG',['../class_open_c_v_for_unity_1_1_subdiv2_d.html#afc9b7c9a8b61b9ba3a1381660e3af833',1,'OpenCVForUnity::Subdiv2D']]],
@@ -9,6 +10,7 @@ var searchData=
   ['niblackthreshold',['niBlackThreshold',['../class_open_c_v_for_unity_1_1_ximgproc.html#aae2432ae5224acca228657e9d7cc5892',1,'OpenCVForUnity::Ximgproc']]],
   ['no_5finput_5fscale',['NO_INPUT_SCALE',['../class_open_c_v_for_unity_1_1_a_n_n___m_l_p.html#ab9bb067166210b65ed42d204845c278c',1,'OpenCVForUnity::ANN_MLP']]],
   ['no_5foutput_5fscale',['NO_OUTPUT_SCALE',['../class_open_c_v_for_unity_1_1_a_n_n___m_l_p.html#aadadd5c854a062b464a5e0c2c39bfff1',1,'OpenCVForUnity::ANN_MLP']]],
+  ['nonmax_5fsuppression',['NONMAX_SUPPRESSION',['../class_open_c_v_for_unity_1_1_agast_feature_detector.html#abab7be8419ed69c7492a9ed4c56a37dd',1,'OpenCVForUnity.AgastFeatureDetector.NONMAX_SUPPRESSION()'],['../class_open_c_v_for_unity_1_1_fast_feature_detector.html#a49b33e1322e40c3c414556a4396426a8',1,'OpenCVForUnity.FastFeatureDetector.NONMAX_SUPPRESSION()']]],
   ['norm',['norm',['../class_open_c_v_for_unity_1_1_core.html#af0be2be1cc3b512d25ebfde990fb7e3d',1,'OpenCVForUnity.Core.norm(Mat src1, Mat src2, int normType, Mat mask)'],['../class_open_c_v_for_unity_1_1_core.html#ae0f97fc2838ba3988ede60da9044ab48',1,'OpenCVForUnity.Core.norm(Mat src1, Mat src2, int normType)'],['../class_open_c_v_for_unity_1_1_core.html#aeb61110978187776e9f4e4f5d055a305',1,'OpenCVForUnity.Core.norm(Mat src1, Mat src2)'],['../class_open_c_v_for_unity_1_1_core.html#ad3d27df9752068eba13e9783ae9d1568',1,'OpenCVForUnity.Core.norm(Mat src1, int normType, Mat mask)'],['../class_open_c_v_for_unity_1_1_core.html#accbf582e6044f83ff07e9874003647b4',1,'OpenCVForUnity.Core.norm(Mat src1, int normType)'],['../class_open_c_v_for_unity_1_1_core.html#acc513b553943ab9784fee397836b389b',1,'OpenCVForUnity.Core.norm(Mat src1)']]],
   ['norm_5fhamming',['NORM_HAMMING',['../class_open_c_v_for_unity_1_1_core.html#acfe005e70bf225e293ca6cb819358bff',1,'OpenCVForUnity::Core']]],
   ['norm_5fhamming2',['NORM_HAMMING2',['../class_open_c_v_for_unity_1_1_core.html#ace8b35f8064236089584dce603244f7a',1,'OpenCVForUnity::Core']]],
@@ -29,6 +31,7 @@ var searchData=
   ['normhistogramcostextractor',['NormHistogramCostExtractor',['../class_open_c_v_for_unity_1_1_norm_histogram_cost_extractor.html#a624bdb5f66476a0e288b3a202f31ec8f',1,'OpenCVForUnity::NormHistogramCostExtractor']]],
   ['normhistogramcostextractor_2ecs',['NormHistogramCostExtractor.cs',['../_norm_histogram_cost_extractor_8cs.html',1,'']]],
   ['not_5fdraw_5fsingle_5fpoints',['NOT_DRAW_SINGLE_POINTS',['../class_open_c_v_for_unity_1_1_features2d.html#a49e2dcbbf32d193f057248b12c3e2412',1,'OpenCVForUnity::Features2d']]],
+  ['nrm_5fnone',['NRM_NONE',['../class_open_c_v_for_unity_1_1_d_a_i_s_y.html#a1107619aeb1fdfcde77a98b7f7a671b3',1,'OpenCVForUnity::DAISY']]],
   ['nu',['NU',['../class_open_c_v_for_unity_1_1_s_v_m.html#af037dd532bf686a7959c7bf858c1b2b8',1,'OpenCVForUnity::SVM']]],
   ['nu02',['nu02',['../class_open_c_v_for_unity_1_1_moments.html#a3538a7c65c4e1cec7320d026f37ebb89',1,'OpenCVForUnity::Moments']]],
   ['nu03',['nu03',['../class_open_c_v_for_unity_1_1_moments.html#afe2f36fa844983d528334b9845011886',1,'OpenCVForUnity::Moments']]],

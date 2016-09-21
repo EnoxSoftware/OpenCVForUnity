@@ -7,7 +7,15 @@ var searchData=
   ['backgroundsubtractormog2',['BackgroundSubtractorMOG2',['../class_open_c_v_for_unity_1_1_background_subtractor_m_o_g2.html',1,'OpenCVForUnity']]],
   ['basecascadeclassifier',['BaseCascadeClassifier',['../class_open_c_v_for_unity_1_1_base_cascade_classifier.html',1,'OpenCVForUnity']]],
   ['basicfacerecognizer',['BasicFaceRecognizer',['../class_open_c_v_for_unity_1_1_basic_face_recognizer.html',1,'OpenCVForUnity']]],
+  ['bfmatcher',['BFMatcher',['../class_open_c_v_for_unity_1_1_b_f_matcher.html',1,'OpenCVForUnity']]],
   ['bgsegm',['Bgsegm',['../class_open_c_v_for_unity_1_1_bgsegm.html',1,'OpenCVForUnity']]],
+  ['bif',['BIF',['../class_open_c_v_for_unity_1_1_b_i_f.html',1,'OpenCVForUnity']]],
   ['bioinspired',['Bioinspired',['../class_open_c_v_for_unity_1_1_bioinspired.html',1,'OpenCVForUnity']]],
-  ['boost',['Boost',['../class_open_c_v_for_unity_1_1_boost.html',1,'OpenCVForUnity']]]
+  ['board',['Board',['../class_open_c_v_for_unity_1_1_board.html',1,'OpenCVForUnity']]],
+  ['boost',['Boost',['../class_open_c_v_for_unity_1_1_boost.html',1,'OpenCVForUnity']]],
+  ['bowimgdescriptorextractor',['BOWImgDescriptorExtractor',['../class_open_c_v_for_unity_1_1_b_o_w_img_descriptor_extractor.html',1,'OpenCVForUnity']]],
+  ['bowkmeanstrainer',['BOWKMeansTrainer',['../class_open_c_v_for_unity_1_1_b_o_w_k_means_trainer.html',1,'OpenCVForUnity']]],
+  ['bowtrainer',['BOWTrainer',['../class_open_c_v_for_unity_1_1_b_o_w_trainer.html',1,'OpenCVForUnity']]],
+  ['briefdescriptorextractor',['BriefDescriptorExtractor',['../class_open_c_v_for_unity_1_1_brief_descriptor_extractor.html',1,'OpenCVForUnity']]],
+  ['brisk',['BRISK',['../class_open_c_v_for_unity_1_1_b_r_i_s_k.html',1,'OpenCVForUnity']]]
 ];

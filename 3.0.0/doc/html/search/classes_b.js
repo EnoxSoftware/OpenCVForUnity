@@ -19,8 +19,9 @@ var searchData=
   ['mergeexposures',['MergeExposures',['../class_open_c_v_for_unity_1_1_merge_exposures.html',1,'OpenCVForUnity']]],
   ['mergemertens',['MergeMertens',['../class_open_c_v_for_unity_1_1_merge_mertens.html',1,'OpenCVForUnity']]],
   ['mergerobertson',['MergeRobertson',['../class_open_c_v_for_unity_1_1_merge_robertson.html',1,'OpenCVForUnity']]],
-  ['mindistancepredictcollector',['MinDistancePredictCollector',['../class_open_c_v_for_unity_1_1_min_distance_predict_collector.html',1,'OpenCVForUnity']]],
   ['minmaxlocresult',['MinMaxLocResult',['../class_open_c_v_for_unity_1_1_core_1_1_min_max_loc_result.html',1,'OpenCVForUnity::Core']]],
   ['ml',['Ml',['../class_open_c_v_for_unity_1_1_ml.html',1,'OpenCVForUnity']]],
-  ['moments',['Moments',['../class_open_c_v_for_unity_1_1_moments.html',1,'OpenCVForUnity']]]
+  ['moments',['Moments',['../class_open_c_v_for_unity_1_1_moments.html',1,'OpenCVForUnity']]],
+  ['msddetector',['MSDDetector',['../class_open_c_v_for_unity_1_1_m_s_d_detector.html',1,'OpenCVForUnity']]],
+  ['mser',['MSER',['../class_open_c_v_for_unity_1_1_m_s_e_r.html',1,'OpenCVForUnity']]]
 ];

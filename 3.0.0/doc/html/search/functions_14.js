@@ -1,6 +1,7 @@
 var searchData=
 [
   ['validatedisparity',['validateDisparity',['../class_open_c_v_for_unity_1_1_calib3d.html#abd5c2f568e31fbc0fe925cea0f494452',1,'OpenCVForUnity.Calib3d.validateDisparity(Mat disparity, Mat cost, int minDisparity, int numberOfDisparities, int disp12MaxDisp)'],['../class_open_c_v_for_unity_1_1_calib3d.html#a99bd3017d16b3e6a1373b93b17244fc6',1,'OpenCVForUnity.Calib3d.validateDisparity(Mat disparity, Mat cost, int minDisparity, int numberOfDisparities)']]],
+  ['variationalrefinement',['VariationalRefinement',['../class_open_c_v_for_unity_1_1_variational_refinement.html#aa8ad37025c8d1939b60f7cdc6ca382d6',1,'OpenCVForUnity::VariationalRefinement']]],
   ['vconcat',['vconcat',['../class_open_c_v_for_unity_1_1_core.html#a883bc2b2a25a6a1df33550bd28495e6f',1,'OpenCVForUnity::Core']]],
   ['vector_5fchar_5fto_5fmat',['vector_char_to_Mat',['../class_open_c_v_for_unity_1_1_converters.html#a32e466de0d0282cacd216be10f73905d',1,'OpenCVForUnity::Converters']]],
   ['vector_5fdmatch_5fto_5fmat',['vector_DMatch_to_Mat',['../class_open_c_v_for_unity_1_1_converters.html#acd620e8880849696494248b8d4c66b43',1,'OpenCVForUnity::Converters']]],

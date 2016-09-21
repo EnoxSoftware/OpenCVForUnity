@@ -7,7 +7,15 @@ var searchData=
   ['backgroundsubtractormog2_2ecs',['BackgroundSubtractorMOG2.cs',['../_background_subtractor_m_o_g2_8cs.html',1,'']]],
   ['basecascadeclassifier_2ecs',['BaseCascadeClassifier.cs',['../_base_cascade_classifier_8cs.html',1,'']]],
   ['basicfacerecognizer_2ecs',['BasicFaceRecognizer.cs',['../_basic_face_recognizer_8cs.html',1,'']]],
+  ['bfmatcher_2ecs',['BFMatcher.cs',['../_b_f_matcher_8cs.html',1,'']]],
   ['bgsegm_2ecs',['Bgsegm.cs',['../_bgsegm_8cs.html',1,'']]],
+  ['bif_2ecs',['BIF.cs',['../_b_i_f_8cs.html',1,'']]],
   ['bioinspired_2ecs',['Bioinspired.cs',['../_bioinspired_8cs.html',1,'']]],
-  ['boost_2ecs',['Boost.cs',['../_boost_8cs.html',1,'']]]
+  ['board_2ecs',['Board.cs',['../_board_8cs.html',1,'']]],
+  ['boost_2ecs',['Boost.cs',['../_boost_8cs.html',1,'']]],
+  ['bowimgdescriptorextractor_2ecs',['BOWImgDescriptorExtractor.cs',['../_b_o_w_img_descriptor_extractor_8cs.html',1,'']]],
+  ['bowkmeanstrainer_2ecs',['BOWKMeansTrainer.cs',['../_b_o_w_k_means_trainer_8cs.html',1,'']]],
+  ['bowtrainer_2ecs',['BOWTrainer.cs',['../_b_o_w_trainer_8cs.html',1,'']]],
+  ['briefdescriptorextractor_2ecs',['BriefDescriptorExtractor.cs',['../_brief_descriptor_extractor_8cs.html',1,'']]],
+  ['brisk_2ecs',['BRISK.cs',['../_b_r_i_s_k_8cs.html',1,'']]]
 ];

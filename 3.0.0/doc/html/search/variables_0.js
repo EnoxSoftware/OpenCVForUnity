@@ -2,6 +2,9 @@ var searchData=
 [
   ['adaptive_5fthresh_5fgaussian_5fc',['ADAPTIVE_THRESH_GAUSSIAN_C',['../class_open_c_v_for_unity_1_1_imgproc.html#a312a3b9155bf511d570062e22d523b3d',1,'OpenCVForUnity::Imgproc']]],
   ['adaptive_5fthresh_5fmean_5fc',['ADAPTIVE_THRESH_MEAN_C',['../class_open_c_v_for_unity_1_1_imgproc.html#a73b23b97a5747d3a10ccb53c9c05b9dc',1,'OpenCVForUnity::Imgproc']]],
+  ['agast_5f5_5f8',['AGAST_5_8',['../class_open_c_v_for_unity_1_1_agast_feature_detector.html#a37d790343304dba2379664989ec61eaf',1,'OpenCVForUnity::AgastFeatureDetector']]],
+  ['agast_5f7_5f12d',['AGAST_7_12d',['../class_open_c_v_for_unity_1_1_agast_feature_detector.html#a87c87480c0c3bf4b0cb1f89996cea533',1,'OpenCVForUnity::AgastFeatureDetector']]],
+  ['agast_5f7_5f12s',['AGAST_7_12s',['../class_open_c_v_for_unity_1_1_agast_feature_detector.html#a92971a7b6a0584c5a386d0ae48cb9abb',1,'OpenCVForUnity::AgastFeatureDetector']]],
   ['akaze',['AKAZE',['../class_open_c_v_for_unity_1_1_descriptor_extractor.html#abb53073d9083e10e4bcf540befc0045d',1,'OpenCVForUnity.DescriptorExtractor.AKAZE()'],['../class_open_c_v_for_unity_1_1_feature_detector.html#a7b1fc37a9b39af0c7f15510949066fe2',1,'OpenCVForUnity.FeatureDetector.AKAZE()']]],
   ['am_5ffilter',['AM_FILTER',['../class_open_c_v_for_unity_1_1_ximgproc.html#a0965716512e2e770b9972d427f4564fe',1,'OpenCVForUnity::Ximgproc']]],
   ['angle',['angle',['../class_open_c_v_for_unity_1_1_key_point.html#a931f451fa69d9fbce900632752f9ea52',1,'OpenCVForUnity.KeyPoint.angle()'],['../class_open_c_v_for_unity_1_1_rotated_rect.html#a78d80b644593df3c0f17b43123bf052f',1,'OpenCVForUnity.RotatedRect.angle()']]],
@@ -13,5 +16,6 @@ var searchData=
   ['aro_5f45_5f90',['ARO_45_90',['../class_open_c_v_for_unity_1_1_ximgproc.html#af9c8b99bc80914d24da845243774d6ab',1,'OpenCVForUnity::Ximgproc']]],
   ['aro_5f90_5f135',['ARO_90_135',['../class_open_c_v_for_unity_1_1_ximgproc.html#a7be369e52f510ecee753ef03d40dda1d',1,'OpenCVForUnity::Ximgproc']]],
   ['aro_5fctr_5fhor',['ARO_CTR_HOR',['../class_open_c_v_for_unity_1_1_ximgproc.html#ad1c380a7b12033554145b41c5c40a58e',1,'OpenCVForUnity::Ximgproc']]],
-  ['aro_5fctr_5fver',['ARO_CTR_VER',['../class_open_c_v_for_unity_1_1_ximgproc.html#a5964724dcbc47ed02fc87ef81f8482c9',1,'OpenCVForUnity::Ximgproc']]]
+  ['aro_5fctr_5fver',['ARO_CTR_VER',['../class_open_c_v_for_unity_1_1_ximgproc.html#a5964724dcbc47ed02fc87ef81f8482c9',1,'OpenCVForUnity::Ximgproc']]],
+  ['asgd',['ASGD',['../class_open_c_v_for_unity_1_1_s_v_m_s_g_d.html#a1f71b90020c7bb5a8ff73a684df39d8c',1,'OpenCVForUnity::SVMSGD']]]
 ];
