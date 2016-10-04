@@ -15,11 +15,6 @@ namespace OpenCVForUnitySample
     /// </summary>
     public class OpticalFlowSample : MonoBehaviour
     {
-
-        /// <summary>
-        /// The colors.
-        /// </summary>
-        Color32[] colors;
         
         /// <summary>
         /// The mat op flow this.
@@ -104,9 +99,28 @@ namespace OpenCVForUnitySample
             Debug.Log ("OnWebCamTextureToMatHelperInited");
             
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
-            
-            colors = new Color32[webCamTextureMat.cols () * webCamTextureMat.rows ()];
+
             texture = new Texture2D (webCamTextureMat.cols (), webCamTextureMat.rows (), TextureFormat.RGBA32, false);
+
+            gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
+
+            gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
+            
+            Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
+
+            
+            float width = webCamTextureMat.width();
+            float height = webCamTextureMat.height();
+            
+            float widthScale = (float)Screen.width / width;
+            float heightScale = (float)Screen.height / height;
+            if (widthScale < heightScale) {
+                Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
+            } else {
+                Camera.main.orthographicSize = height / 2;
+            }
+            
+
 
             matOpFlowThis = new Mat ();
             matOpFlowPrev = new Mat ();
@@ -117,28 +131,6 @@ namespace OpenCVForUnitySample
             mMOBStatus = new MatOfByte ();
             mMOFerr = new MatOfFloat ();
 
-            
-            gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
-            
-            Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
-            
-            float width = 0;
-            float height = 0;
-            
-            width = gameObject.transform.localScale.x;
-            height = gameObject.transform.localScale.y;
-            
-            float widthScale = (float)Screen.width / width;
-            float heightScale = (float)Screen.height / height;
-            if (widthScale < heightScale) {
-                Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
-            } else {
-                Camera.main.orthographicSize = height / 2;
-            }
-            
-            gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-            
-            //          webCamTextureToMatHelper.Play ();
         }
 
         /// <summary>
@@ -246,7 +238,7 @@ namespace OpenCVForUnitySample
                 
 //              Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                 
-                Utils.matToTexture2D (rgbaMat, texture, colors);
+                Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors());
             }
 
         }

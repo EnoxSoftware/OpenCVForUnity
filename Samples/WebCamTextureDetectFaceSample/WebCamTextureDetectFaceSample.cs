@@ -15,11 +15,6 @@ namespace OpenCVForUnitySample
     {
 
         /// <summary>
-        /// The colors.
-        /// </summary>
-        Color32[] colors;
-
-        /// <summary>
         /// The gray mat.
         /// </summary>
         Mat grayMat;
@@ -62,28 +57,17 @@ namespace OpenCVForUnitySample
             Debug.Log ("OnWebCamTextureToMatHelperInited");
             
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
-            
-            colors = new Color32[webCamTextureMat.cols () * webCamTextureMat.rows ()];
+
             texture = new Texture2D (webCamTextureMat.cols (), webCamTextureMat.rows (), TextureFormat.RGBA32, false);
 
-            grayMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
-            cascade = new CascadeClassifier (Utils.getFilePath ("lbpcascade_frontalface.xml"));
-            //cascade = new CascadeClassifier (Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
-//            if (cascade.empty ()) {
-//                Debug.LogError ("cascade file is not loaded.Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
-//            }
-            faces = new MatOfRect ();
-
+            gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
             
             gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
-            
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
+
             
-            float width = 0;
-            float height = 0;
-            
-            width = gameObject.transform.localScale.x;
-            height = gameObject.transform.localScale.y;
+            float width = webCamTextureMat.width();
+            float height = webCamTextureMat.height();
             
             float widthScale = (float)Screen.width / width;
             float heightScale = (float)Screen.height / height;
@@ -93,8 +77,14 @@ namespace OpenCVForUnitySample
                 Camera.main.orthographicSize = height / 2;
             }
             
-            gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 
+            grayMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
+            cascade = new CascadeClassifier (Utils.getFilePath ("lbpcascade_frontalface.xml"));
+            //cascade = new CascadeClassifier (Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
+            //            if (cascade.empty ()) {
+            //                Debug.LogError ("cascade file is not loaded.Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
+            //            }
+            faces = new MatOfRect ();
         }
 
         /// <summary>
@@ -138,7 +128,7 @@ namespace OpenCVForUnitySample
                 
 //              Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                 
-                Utils.matToTexture2D (rgbaMat, texture, colors);
+                Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors());
             }
 
         }

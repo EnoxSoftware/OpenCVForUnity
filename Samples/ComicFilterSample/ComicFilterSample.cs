@@ -18,11 +18,6 @@ namespace OpenCVForUnitySample
     {
 
         /// <summary>
-        /// The colors.
-        /// </summary>
-        Color32[] colors;
-
-        /// <summary>
         /// The gray mat.
         /// </summary>
         Mat grayMat;
@@ -85,34 +80,17 @@ namespace OpenCVForUnitySample
         
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
         
-            colors = new Color32[webCamTextureMat.cols () * webCamTextureMat.rows ()];
             texture = new Texture2D (webCamTextureMat.cols (), webCamTextureMat.rows (), TextureFormat.RGBA32, false);
 
-            grayMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
-            lineMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
-            maskMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
-        
-            //create a striped background.
-            bgMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1, new Scalar (255));
-            for (int i = 0; i < bgMat.rows ()*2.5f; i=i+4) {
-                Imgproc.line (bgMat, new Point (0, 0 + i), new Point (bgMat.cols (), -bgMat.cols () + i), new Scalar (0), 1);
-            }
-                        
-            dstMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
-                        
-            grayPixels = new byte[grayMat.cols () * grayMat.rows () * grayMat.channels ()];
-            maskPixels = new byte[maskMat.cols () * maskMat.rows () * maskMat.channels ()];
-
+            gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
         
             gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
         
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
         
-            float width = 0;
-            float height = 0;
-        
-            width = gameObject.transform.localScale.x;
-            height = gameObject.transform.localScale.y;
+
+            float width = webCamTextureMat.width();
+            float height = webCamTextureMat.height();
         
             float widthScale = (float)Screen.width / width;
             float heightScale = (float)Screen.height / height;
@@ -122,7 +100,22 @@ namespace OpenCVForUnitySample
                 Camera.main.orthographicSize = height / 2;
             }
         
-            gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
+
+
+            grayMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
+            lineMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
+            maskMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
+            
+            //create a striped background.
+            bgMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1, new Scalar (255));
+            for (int i = 0; i < bgMat.rows ()*2.5f; i=i+4) {
+                Imgproc.line (bgMat, new Point (0, 0 + i), new Point (bgMat.cols (), -bgMat.cols () + i), new Scalar (0), 1);
+            }
+            
+            dstMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
+            
+            grayPixels = new byte[grayMat.cols () * grayMat.rows () * grayMat.channels ()];
+            maskPixels = new byte[maskMat.cols () * maskMat.rows () * maskMat.channels ()];
 
         }
 
@@ -211,7 +204,7 @@ namespace OpenCVForUnitySample
                 //      Imgproc.cvtColor(dstMat,rgbaMat,Imgproc.COLOR_GRAY2RGBA);
                 //              Utils.matToTexture2D (rgbaMat, texture);
             
-                Utils.matToTexture2D (dstMat, texture, colors);
+                Utils.matToTexture2D (dstMat, texture, webCamTextureToMatHelper.GetBufferColors());
 
             }
         

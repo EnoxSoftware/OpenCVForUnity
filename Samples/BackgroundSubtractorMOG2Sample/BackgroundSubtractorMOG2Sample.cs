@@ -15,11 +15,6 @@ namespace OpenCVForUnitySample
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class BackgroundSubtractorMOG2Sample : MonoBehaviour
     {
-    
-        /// <summary>
-        /// The colors.
-        /// </summary>
-        Color32[] colors;
 
         /// <summary>
         /// The texture.
@@ -68,19 +63,18 @@ namespace OpenCVForUnitySample
 
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
 
-            colors = new Color32[webCamTextureMat.cols () * webCamTextureMat.rows ()];
             texture = new Texture2D (webCamTextureMat.cols (), webCamTextureMat.rows (), TextureFormat.RGBA32, false);
 
+            gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 
             gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
 
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
-            float width = 0;
-            float height = 0;
+
                                     
-            width = gameObject.transform.localScale.x;
-            height = gameObject.transform.localScale.y;
+            float width = webCamTextureMat.width();
+            float height = webCamTextureMat.height();
                                     
             float widthScale = (float)Screen.width / width;
             float heightScale = (float)Screen.height / height;
@@ -90,7 +84,6 @@ namespace OpenCVForUnitySample
                 Camera.main.orthographicSize = height / 2;
             }
 
-            gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 
             rgbMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC3);
             fgmaskMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
@@ -124,7 +117,7 @@ namespace OpenCVForUnitySample
                 Core.bitwise_not (fgmaskMat, fgmaskMat);
                 rgbaMat.setTo (new Scalar (0, 0, 0, 0), fgmaskMat);
 
-                Utils.matToTexture2D (rgbaMat, texture, colors);
+                Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors());
             }
 
         }

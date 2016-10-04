@@ -9,10 +9,10 @@ using OpenCVForUnity;
 namespace OpenCVForUnitySample
 {
     /// <summary>
-    /// Web cam texture detect circles sample.
+    /// WebCamTexture to mat sample.
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
-    public class WebCamTextureDetectCirclesSample : MonoBehaviour
+    public class WebCamTextureToMatHelperSample : MonoBehaviour
     {
 
         /// <summary>
@@ -24,11 +24,6 @@ namespace OpenCVForUnitySample
         /// The web cam texture to mat helper.
         /// </summary>
         WebCamTextureToMatHelper webCamTextureToMatHelper;
-
-        /// <summary>
-        /// The gray mat.
-        /// </summary>
-        Mat grayMat;
     
 
         // Use this for initialization
@@ -52,7 +47,6 @@ namespace OpenCVForUnitySample
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 
             gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
-
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
                                     
@@ -67,9 +61,6 @@ namespace OpenCVForUnitySample
                 Camera.main.orthographicSize = height / 2;
             }
 
-
-            grayMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
-
         }
 
         /// <summary>
@@ -78,9 +69,7 @@ namespace OpenCVForUnitySample
         public void OnWebCamTextureToMatHelperDisposed ()
         {
             Debug.Log ("OnWebCamTextureToMatHelperDisposed");
-            if (grayMat != null)
-                grayMat.Dispose ();
-                        
+
         }
 
         // Update is called once per frame
@@ -90,22 +79,6 @@ namespace OpenCVForUnitySample
             if (webCamTextureToMatHelper.isPlaying () && webCamTextureToMatHelper.didUpdateThisFrame ()) {
 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
-
-                Imgproc.cvtColor (rgbaMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
-
-                using (Mat circles = new Mat ()) {
-                                        
-                    Imgproc.HoughCircles (grayMat, circles, Imgproc.CV_HOUGH_GRADIENT, 2, 10, 160, 50, 10, 40); 
-                    Point pt = new Point ();
-                                        
-                    for (int i = 0; i < circles.cols(); i++) {
-                        double[] data = circles.get (0, i);
-                        pt.x = data [0];
-                        pt.y = data [1];
-                        double rho = data [2];
-                        Imgproc.circle (rgbaMat, pt, (int)rho, new Scalar (255, 0, 0, 255), 5);
-                    }
-                }
 
                 Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 

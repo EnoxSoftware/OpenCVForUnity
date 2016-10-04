@@ -18,6 +18,7 @@ namespace OpenCVForUnitySample
         // Use this for initialization
         void Start ()
         {
+
             //srcMat
             Texture2D srcTexture = Resources.Load ("matchshapes") as Texture2D;
             Mat srcMat = new Mat (srcTexture.height, srcTexture.width, CvType.CV_8UC1);
@@ -64,7 +65,7 @@ namespace OpenCVForUnitySample
             Utils.matToTexture2D (dstMat, texture);
             
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-            
+
         }
         
         // Update is called once per frame

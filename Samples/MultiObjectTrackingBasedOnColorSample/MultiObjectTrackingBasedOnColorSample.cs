@@ -18,11 +18,6 @@ namespace OpenCVForUnitySample
     {
 
         /// <summary>
-        /// The colors.
-        /// </summary>
-        Color32[] colors;
-
-        /// <summary>
         /// The texture.
         /// </summary>
         Texture2D texture;
@@ -83,26 +78,18 @@ namespace OpenCVForUnitySample
             Debug.Log ("OnWebCamTextureToMatHelperInited");
             
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
-            
-            colors = new Color32[webCamTextureMat.cols () * webCamTextureMat.rows ()];
+
             texture = new Texture2D (webCamTextureMat.cols (), webCamTextureMat.rows (), TextureFormat.RGBA32, false);
 
-            rgbMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC3);
-            thresholdMat = new Mat ();
-            hsvMat = new Mat ();
-            
-            //                                      MAX_OBJECT_AREA = (int)(webCamTexture.height * webCamTexture.width / 1.5);
-
+            gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 
             gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
             
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
-            
-            float width = 0;
-            float height = 0;
-            
-            width = gameObject.transform.localScale.x;
-            height = gameObject.transform.localScale.y;
+           
+
+            float width = webCamTextureMat.width();
+            float height = webCamTextureMat.height();
             
             float widthScale = (float)Screen.width / width;
             float heightScale = (float)Screen.height / height;
@@ -112,7 +99,14 @@ namespace OpenCVForUnitySample
                 Camera.main.orthographicSize = height / 2;
             }
             
-            gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
+
+
+            rgbMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC3);
+            thresholdMat = new Mat ();
+            hsvMat = new Mat ();
+            
+            //                                      MAX_OBJECT_AREA = (int)(webCamTexture.height * webCamTexture.width / 1.5);
+
             
         }
         
@@ -166,7 +160,7 @@ namespace OpenCVForUnitySample
                 
                 Imgproc.putText (rgbMat, "W:" + rgbMat.width () + " H:" + rgbMat.height () + " SO:" + Screen.orientation, new Point (5, rgbMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                 
-                Utils.matToTexture2D (rgbMat, texture, colors);
+                Utils.matToTexture2D (rgbMat, texture, webCamTextureToMatHelper.GetBufferColors());
             }
         }
     

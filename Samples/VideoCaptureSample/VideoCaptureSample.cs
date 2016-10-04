@@ -35,6 +35,11 @@ namespace OpenCVForUnitySample
         Mat rgbMat;
 
         /// <summary>
+        /// The colors.
+        /// </summary>
+        Color32[] colors;
+
+        /// <summary>
         /// The texture.
         /// </summary>
         Texture2D texture;
@@ -66,6 +71,7 @@ namespace OpenCVForUnitySample
             Debug.Log ("CAP_PROP_FRAME_HEIGHT: " + capture.get (Videoio.CAP_PROP_FRAME_HEIGHT));
 
 
+            colors = new Color32[(int)(frameWidth * frameHeight)];
             texture = new Texture2D ((int)(frameWidth), (int)(frameHeight), TextureFormat.RGBA32, false);
             gameObject.transform.localScale = new Vector3 ((float)frameWidth, (float)frameHeight, 1);
             float widthScale = (float)Screen.width / (float)frameWidth;
@@ -96,10 +102,7 @@ namespace OpenCVForUnitySample
                 
                 //Debug.Log ("Mat toString " + rgbMat.ToString ());
                 
-                Utils.matToTexture2D (rgbMat, texture);
-                
-                gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-                
+                Utils.matToTexture2D (rgbMat, texture, colors);
             }
         }
         
