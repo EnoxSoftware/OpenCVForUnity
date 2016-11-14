@@ -172,7 +172,8 @@ var searchData=
   ['getfeaturetype',['getFeatureType',['../class_open_c_v_for_unity_1_1_cascade_classifier.html#a18c1b3c535e783cfb0c92ecc6e02030a',1,'OpenCVForUnity::CascadeClassifier']]],
   ['getfgslambda',['getFGSLambda',['../class_open_c_v_for_unity_1_1_edge_aware_interpolator.html#a3bb2b8fa8a8ef7f4be35bd6de457584b',1,'OpenCVForUnity::EdgeAwareInterpolator']]],
   ['getfgssigma',['getFGSSigma',['../class_open_c_v_for_unity_1_1_edge_aware_interpolator.html#a878de2b80fbdf6ab136fbafed7e9edd7',1,'OpenCVForUnity::EdgeAwareInterpolator']]],
-  ['getfilepath',['getFilePath',['../class_open_c_v_for_unity_1_1_utils.html#a4e118b30035401f5897ad21a6e6bc71a',1,'OpenCVForUnity::Utils']]],
+  ['getfilepath',['getFilePath',['../class_open_c_v_for_unity_1_1_utils.html#adc3374f95991fb777ee9a1f61b74ad86',1,'OpenCVForUnity::Utils']]],
+  ['getfilepathasync',['getFilePathAsync',['../class_open_c_v_for_unity_1_1_utils.html#abd88256cefa0c36fd8f89fdab36b3bf5',1,'OpenCVForUnity::Utils']]],
   ['getfinestscale',['getFinestScale',['../class_open_c_v_for_unity_1_1_d_i_s_optical_flow.html#a43a1f2773cf444cbd6af17dfb99fbc94',1,'OpenCVForUnity::DISOpticalFlow']]],
   ['getfirstlevel',['getFirstLevel',['../class_open_c_v_for_unity_1_1_o_r_b.html#a70e2f753f317d544b957205d7c8f3037',1,'OpenCVForUnity::ORB']]],
   ['getfixedpointiterations',['getFixedPointIterations',['../class_open_c_v_for_unity_1_1_variational_refinement.html#acd259ad1328209fea3fc15a564404421',1,'OpenCVForUnity::VariationalRefinement']]],
@@ -419,5 +420,5 @@ var searchData=
   ['grayworldwb',['GrayworldWB',['../class_open_c_v_for_unity_1_1_grayworld_w_b.html#a5ee22fad418e0c6dff298155422541c0',1,'OpenCVForUnity::GrayworldWB']]],
   ['gridboard',['GridBoard',['../class_open_c_v_for_unity_1_1_grid_board.html#a86ed238cac20986ccf9bed22bd2c3bbc',1,'OpenCVForUnity::GridBoard']]],
   ['grouprectangles',['groupRectangles',['../class_open_c_v_for_unity_1_1_objdetect.html#af18dfcbfe4ebf3721309e9cd4c84248f',1,'OpenCVForUnity.Objdetect.groupRectangles(MatOfRect rectList, MatOfInt weights, int groupThreshold, double eps)'],['../class_open_c_v_for_unity_1_1_objdetect.html#a90198e2044782443e2a6539d19f57e6b',1,'OpenCVForUnity.Objdetect.groupRectangles(MatOfRect rectList, MatOfInt weights, int groupThreshold)']]],
-  ['guidedfilter',['guidedFilter',['../class_open_c_v_for_unity_1_1_ximgproc.html#abf64fec4e9b1bef5b28c6da90e620b4e',1,'OpenCVForUnity.Ximgproc.guidedFilter(Mat guide, Mat src, Mat dst, int radius, double eps, int dDepth)'],['../class_open_c_v_for_unity_1_1_ximgproc.html#a9c3fc36e7b8f920f73bd2aea6baa02a9',1,'OpenCVForUnity.Ximgproc.guidedFilter(Mat guide, Mat src, Mat dst, int radius, double eps)'],['../class_open_c_v_for_unity_1_1_guided_filter.html#a24f4c72441f435ab25f0d43398f0867b',1,'OpenCVForUnity.GuidedFilter.GuidedFilter()']]]
+  ['guidedfilter',['GuidedFilter',['../class_open_c_v_for_unity_1_1_guided_filter.html#a24f4c72441f435ab25f0d43398f0867b',1,'OpenCVForUnity.GuidedFilter.GuidedFilter()'],['../class_open_c_v_for_unity_1_1_ximgproc.html#abf64fec4e9b1bef5b28c6da90e620b4e',1,'OpenCVForUnity.Ximgproc.guidedFilter(Mat guide, Mat src, Mat dst, int radius, double eps, int dDepth)'],['../class_open_c_v_for_unity_1_1_ximgproc.html#a9c3fc36e7b8f920f73bd2aea6baa02a9',1,'OpenCVForUnity.Ximgproc.guidedFilter(Mat guide, Mat src, Mat dst, int radius, double eps)']]]
 ];

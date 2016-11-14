@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.0.8</span>
+   &#160;<span id="projectnumber">2.0.9</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document(http://docs.opencv.org/3.1.0/index.html) for the details of the argument of the method.</div>
   </td>
@@ -139,8 +139,10 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a7c7cbfce8d9478caa612f5c85b1bec23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab27b4765e9cd9d9281b71f77bdc43284"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_utils.html#ab27b4765e9cd9d9281b71f77bdc43284">isNewLowLevelNativePluginInterface</a> ()</td></tr>
 <tr class="separator:ab27b4765e9cd9d9281b71f77bdc43284"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e118b30035401f5897ad21a6e6bc71a"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_utils.html#a4e118b30035401f5897ad21a6e6bc71a">getFilePath</a> (string filename)</td></tr>
-<tr class="separator:a4e118b30035401f5897ad21a6e6bc71a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc3374f95991fb777ee9a1f61b74ad86"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_utils.html#adc3374f95991fb777ee9a1f61b74ad86">getFilePath</a> (string filepath, bool refresh=false)</td></tr>
+<tr class="separator:adc3374f95991fb777ee9a1f61b74ad86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd88256cefa0c36fd8f89fdab36b3bf5"><td class="memItemLeft" align="right" valign="top">static IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_utils.html#abd88256cefa0c36fd8f89fdab36b3bf5">getFilePathAsync</a> (string filepath, Action&lt; string &gt; callback, bool refresh=false)</td></tr>
+<tr class="separator:abd88256cefa0c36fd8f89fdab36b3bf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e4786d3eda1d058e555b5af211250f4"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_utils.html#a9e4786d3eda1d058e555b5af211250f4">setDebugMode</a> (bool debugMode)</td></tr>
 <tr class="separator:a9e4786d3eda1d058e555b5af211250f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -637,7 +639,7 @@ This function doesn't check bounds.</p>
 
 </div>
 </div>
-<a class="anchor" id="a4e118b30035401f5897ad21a6e6bc71a"></a>
+<a class="anchor" id="adc3374f95991fb777ee9a1f61b74ad86"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -648,8 +650,18 @@ This function doesn't check bounds.</p>
           <td class="memname">static string OpenCVForUnity.Utils.getFilePath </td>
           <td>(</td>
           <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td class="paramname"><em>filepath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>refresh</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -658,12 +670,68 @@ This function doesn't check bounds.</p>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Gets the file path. </p>
+<p>Gets the path of the file in the "StreamingAssets" folder. </p>
 <p><br />
-Set the filename in "StreamingAssets" folder'.</p>
+Set the relative folder path to the starting point of the "StreamingAssets" folder. e.g. "foobar.txt" or "hogehoge/foobar.txt". <br />
+[Android]The file in "StreamingAssets" folder is copied to Application.persistentDataPath.If refresh flag is false, when the file has already been copied, the file is not copied.If refresh flag is true, the file is always copyied. <br />
+[WebGL]If the file has not yet been copied to WebGL's FileSystem, you need to use <a class="el" href="class_open_c_v_for_unity_1_1_utils.html#abd88256cefa0c36fd8f89fdab36b3bf5">getFilePathAsync()</a> at first.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">filename</td><td></td></tr>
+    <tr><td class="paramname">filepath</td><td>Set the relative folder path to the starting point of the "StreamingAssets" folder. e.g. "foobar.txt" or "hogehoge/foobar.txt". </td></tr>
+    <tr><td class="paramname">refresh</td><td>[Android]If refresh flag is false, when the file has already been copied, the file is not copied.If refresh flag is true, the file is always copyied. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="abd88256cefa0c36fd8f89fdab36b3bf5"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static IEnumerator OpenCVForUnity.Utils.getFilePathAsync </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>filepath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Action&lt; string &gt;&#160;</td>
+          <td class="paramname"><em>callback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>refresh</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Gets the path of the file in the "StreamingAssets" folder to asynchronous. </p>
+<p><br />
+Set the relative folder path to the starting point of the "StreamingAssets" folder. e.g. "foobar.txt" or "hogehoge/foobar.txt". <br />
+[Android]The file in "StreamingAssets" folder is copied to Application.persistentDataPath.If refresh flag is false, when the file has already been copied, the file is not copied.If refresh flag is true, the file is always copyied. <br />
+[WebGL]The file in "StreamingAssets" folder is copied to WebGL's FileSystem.If refresh flag is false, when the file has already been copied, the file is not copied.If refresh flag is true, the file is always copyied.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filepath</td><td>Set the relative folder path to the starting point of the "StreamingAssets" folder. e.g. "foobar.txt" or "hogehoge/foobar.txt". </td></tr>
+    <tr><td class="paramname">callback</td><td>Callback function that is called when process is completed. </td></tr>
+    <tr><td class="paramname">refresh</td><td>[Android][WebGL]If refresh flag is false, when the file has already been copied, the file is not copied.If refresh flag is true, the file is always copyied. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1162,7 +1230,7 @@ The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> ob
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 4 2016 18:10:32 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Nov 15 2016 05:18:37 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>
