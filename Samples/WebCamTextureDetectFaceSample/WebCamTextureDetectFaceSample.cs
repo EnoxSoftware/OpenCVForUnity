@@ -43,9 +43,27 @@ namespace OpenCVForUnitySample
         // Use this for initialization
         void Start ()
         {
-                        
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
+
+            #if UNITY_WEBGL && !UNITY_EDITOR
+            StartCoroutine (Utils.getFilePathAsync ("lbpcascade_frontalface.xml", (result) => {
+                cascade = new CascadeClassifier ();
+                cascade.load (result);
+
+                webCamTextureToMatHelper.Init ();
+            }));
+
+            #else
+            cascade = new CascadeClassifier ();
+            cascade.load (Utils.getFilePath ("lbpcascade_frontalface.xml"));
+//            cascade = new CascadeClassifier ();
+//            cascade.load (Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
+            if (cascade.empty ()) {
+                Debug.LogError ("cascade file is not loaded.Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
+            }
+
             webCamTextureToMatHelper.Init ();
+            #endif
                         
         }
 
@@ -61,13 +79,13 @@ namespace OpenCVForUnitySample
             texture = new Texture2D (webCamTextureMat.cols (), webCamTextureMat.rows (), TextureFormat.RGBA32, false);
 
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-            
+
             gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
-            
-            float width = webCamTextureMat.width();
-            float height = webCamTextureMat.height();
+
+            float width = webCamTextureMat.width ();
+            float height = webCamTextureMat.height ();
             
             float widthScale = (float)Screen.width / width;
             float heightScale = (float)Screen.height / height;
@@ -76,14 +94,10 @@ namespace OpenCVForUnitySample
             } else {
                 Camera.main.orthographicSize = height / 2;
             }
-            
+
 
             grayMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
-            cascade = new CascadeClassifier (Utils.getFilePath ("lbpcascade_frontalface.xml"));
-            //cascade = new CascadeClassifier (Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
-            //            if (cascade.empty ()) {
-            //                Debug.LogError ("cascade file is not loaded.Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
-            //            }
+
             faces = new MatOfRect ();
         }
 
@@ -96,8 +110,7 @@ namespace OpenCVForUnitySample
 
             if (grayMat != null)
                 grayMat.Dispose ();
-            if (cascade != null)
-                cascade.Dispose ();
+
             if (faces != null)
                 faces.Dispose ();
         }
@@ -116,7 +129,7 @@ namespace OpenCVForUnitySample
                 
                 if (cascade != null)
                     cascade.detectMultiScale (grayMat, faces, 1.1, 2, 2, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
-                                              new Size (grayMat.cols () * 0.2, grayMat.rows () * 0.2), new Size ());
+                        new Size (grayMat.cols () * 0.2, grayMat.rows () * 0.2), new Size ());
                 
                 
                 OpenCVForUnity.Rect[] rects = faces.toArray ();
@@ -128,7 +141,7 @@ namespace OpenCVForUnitySample
                 
 //              Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                 
-                Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors());
+                Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors ());
             }
 
         }
@@ -139,6 +152,9 @@ namespace OpenCVForUnitySample
         void OnDisable ()
         {
             webCamTextureToMatHelper.Dispose ();
+
+            if (cascade != null)
+                cascade.Dispose ();
         }
 
         /// <summary>

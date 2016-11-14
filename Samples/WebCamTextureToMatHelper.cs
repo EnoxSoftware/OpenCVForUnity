@@ -96,10 +96,8 @@ namespace OpenCVForUnitySample
         // Update is called once per frame
         void Update ()
         {
-            if (initDone)
-            {
-                if (screenOrientation != Screen.orientation)
-                {
+            if (initDone) {
+                if (screenOrientation != Screen.orientation) {
                     StartCoroutine (init ());
                 }
             }
@@ -156,22 +154,17 @@ namespace OpenCVForUnitySample
 
             initWaiting = true;
 
-            if (!String.IsNullOrEmpty (requestDeviceName))
-            {
+            if (!String.IsNullOrEmpty (requestDeviceName)) {
                 //Debug.Log ("deviceName is "+requestDeviceName);
                 webCamTexture = new WebCamTexture (requestDeviceName, requestWidth, requestHeight);
-            }
-            else
-            {
+            } else {
                 //Debug.Log ("deviceName is null");
                 // Checks how many and which cameras are available on the device
-                for (int cameraIndex = 0; cameraIndex < WebCamTexture.devices.Length; cameraIndex++)
-                {
-                    if (WebCamTexture.devices[cameraIndex].isFrontFacing == requestIsFrontFacing)
-                    {
+                for (int cameraIndex = 0; cameraIndex < WebCamTexture.devices.Length; cameraIndex++) {
+                    if (WebCamTexture.devices [cameraIndex].isFrontFacing == requestIsFrontFacing) {
 
                         //Debug.Log (cameraIndex + " name " + WebCamTexture.devices [cameraIndex].name + " isFrontFacing " + WebCamTexture.devices [cameraIndex].isFrontFacing);
-                        webCamDevice = WebCamTexture.devices[cameraIndex];
+                        webCamDevice = WebCamTexture.devices [cameraIndex];
                         webCamTexture = new WebCamTexture (webCamDevice.name, requestWidth, requestHeight);
 
                         break;
@@ -179,15 +172,11 @@ namespace OpenCVForUnitySample
                 }
             }
 
-            if (webCamTexture == null)
-            {
-                if (WebCamTexture.devices.Length > 0)
-                {
-                    webCamDevice = WebCamTexture.devices[0];
+            if (webCamTexture == null) {
+                if (WebCamTexture.devices.Length > 0) {
+                    webCamDevice = WebCamTexture.devices [0];
                     webCamTexture = new WebCamTexture (webCamDevice.name, requestWidth, requestHeight);
-                }
-                else
-                {
+                } else {
                     webCamTexture = new WebCamTexture (requestWidth, requestHeight);
                 }
             }
@@ -197,21 +186,19 @@ namespace OpenCVForUnitySample
             // Starts the camera
             webCamTexture.Play ();
 
-            while (true)
-            {
+            while (true) {
                 // If you want to use webcamTexture.width and webcamTexture.height on iOS, you have to wait until webcamTexture.didUpdateThisFrame == 1, otherwise these two values will be equal to 16. (http://forum.unity3d.com/threads/webcamtexture-and-error-0x0502.123922/)
                 #if UNITY_IOS && !UNITY_EDITOR && (UNITY_4_6_3 || UNITY_4_6_4 || UNITY_5_0_0 || UNITY_5_0_1)
                 if (webCamTexture.width > 16 && webCamTexture.height > 16) {
                 #else
-                if (webCamTexture.didUpdateThisFrame)
-                {
+                if (webCamTexture.didUpdateThisFrame) {
                     #if UNITY_IOS && !UNITY_EDITOR && UNITY_5_2                                    
                     while (webCamTexture.width <= 16) {
                         webCamTexture.GetPixels32 ();
                         yield return new WaitForEndOfFrame ();
                     } 
                     #endif
-                #endif
+                    #endif
 
                     Debug.Log ("name " + webCamTexture.name + " width " + webCamTexture.width + " height " + webCamTexture.height + " fps " + webCamTexture.requestedFPS);
                     Debug.Log ("videoRotationAngle " + webCamTexture.videoRotationAngle + " videoVerticallyMirrored " + webCamTexture.videoVerticallyMirrored + " isFrongFacing " + webCamDevice.isFrontFacing);
@@ -223,7 +210,7 @@ namespace OpenCVForUnitySample
                     //Debug.Log ("Screen.orientation " + Screen.orientation);
                     screenOrientation = Screen.orientation;
 
-                    #if !UNITY_EDITOR && !UNITY_STANDALONE 
+                    #if !UNITY_EDITOR && !(UNITY_STANDALONE || UNITY_WEBGL) 
                     if (screenOrientation == ScreenOrientation.Portrait || screenOrientation == ScreenOrientation.PortraitUpsideDown) {
                         rotatedRgbaMat = new Mat (webCamTexture.width, webCamTexture.height, CvType.CV_8UC4);
                     }
@@ -236,9 +223,7 @@ namespace OpenCVForUnitySample
                         OnInitedEvent.Invoke ();
 
                     break;
-                }
-                else
-                {
+                } else {
                     yield return 0;
                 }
             }
@@ -335,14 +320,10 @@ namespace OpenCVForUnitySample
         /// <returns>The mat.</returns>
         public Mat GetMat ()
         {
-            if (!initDone || !webCamTexture.isPlaying)
-            {
-                if (rotatedRgbaMat != null)
-                {
+            if (!initDone || !webCamTexture.isPlaying) {
+                if (rotatedRgbaMat != null) {
                     return rotatedRgbaMat;
-                }
-                else
-                {
+                } else {
                     return rgbaMat;
                 }
             }
@@ -351,94 +332,61 @@ namespace OpenCVForUnitySample
 
             int flipCode = int.MinValue;
 
-            if (webCamDevice.isFrontFacing)
-            {
-                if (webCamTexture.videoRotationAngle == 0)
-                {
+            if (webCamDevice.isFrontFacing) {
+                if (webCamTexture.videoRotationAngle == 0) {
                     flipCode = 1;
-                }
-                else if (webCamTexture.videoRotationAngle == 90)
-                {
+                } else if (webCamTexture.videoRotationAngle == 90) {
                     flipCode = 0;
                 }
-                if (webCamTexture.videoRotationAngle == 180)
-                {
+                if (webCamTexture.videoRotationAngle == 180) {
                     flipCode = 0;
-                }
-                else if (webCamTexture.videoRotationAngle == 270)
-                {
+                } else if (webCamTexture.videoRotationAngle == 270) {
                     flipCode = 1;
                 }
-            }
-            else
-            {
-                if (webCamTexture.videoRotationAngle == 180)
-                {
+            } else {
+                if (webCamTexture.videoRotationAngle == 180) {
                     flipCode = -1;
-                }
-                else if (webCamTexture.videoRotationAngle == 270)
-                {
+                } else if (webCamTexture.videoRotationAngle == 270) {
                     flipCode = -1;
                 }
             }
 
-            if (flipVertical)
-            {
-                if (flipCode == int.MinValue)
-                {
+            if (flipVertical) {
+                if (flipCode == int.MinValue) {
                     flipCode = 0;
-                }
-                else if (flipCode == 0)
-                {
+                } else if (flipCode == 0) {
                     flipCode = int.MinValue;
-                }
-                else if (flipCode == 1)
-                {
+                } else if (flipCode == 1) {
                     flipCode = -1;
-                }
-                else if (flipCode == -1)
-                {
+                } else if (flipCode == -1) {
                     flipCode = 1;
                 }
             }
 
-            if (flipHorizontal)
-            {
-                if (flipCode == int.MinValue)
-                {
+            if (flipHorizontal) {
+                if (flipCode == int.MinValue) {
                     flipCode = 1;
-                }
-                else if (flipCode == 0)
-                {
+                } else if (flipCode == 0) {
                     flipCode = -1;
-                }
-                else if (flipCode == 1)
-                {
+                } else if (flipCode == 1) {
                     flipCode = int.MinValue;
-                }
-                else if (flipCode == -1)
-                {
+                } else if (flipCode == -1) {
                     flipCode = 0;
                 }
             }
 
-            if (flipCode > int.MinValue)
-            {
+            if (flipCode > int.MinValue) {
                 Core.flip (rgbaMat, rgbaMat, flipCode);
             }
 
-            if (rotatedRgbaMat != null)
-            {
+            if (rotatedRgbaMat != null) {
 
-                using (Mat transposeRgbaMat = rgbaMat.t ())
-                {
+                using (Mat transposeRgbaMat = rgbaMat.t ()) {
                     Core.flip (transposeRgbaMat, rotatedRgbaMat, 1);
                 }
 
                 return rotatedRgbaMat;
-            }
-            else
-            {
+            } else {
                 return rgbaMat;
             }
         }
@@ -460,24 +408,22 @@ namespace OpenCVForUnitySample
             initWaiting = false;
             initDone = false;
 
-            if (webCamTexture != null)
-            {
+            if (webCamTexture != null) {
                 webCamTexture.Stop ();
                 webCamTexture = null;
             }
-            if (rgbaMat != null)
-            {
+            if (rgbaMat != null) {
                 rgbaMat.Dispose ();
                 rgbaMat = null;
             }
-            if (rotatedRgbaMat != null)
-            {
+            if (rotatedRgbaMat != null) {
                 rotatedRgbaMat.Dispose ();
                 rotatedRgbaMat = null;
             }
 
             if (OnDisposedEvent != null)
                 OnDisposedEvent.Invoke ();
+
         }
 
         /// <summary>
@@ -489,7 +435,8 @@ namespace OpenCVForUnitySample
         /// the garbage collector can reclaim the memory that the <see cref="WebCamTextureToMatHelper"/> was occupying.</remarks>
         public void Dispose ()
         {
-            dispose ();
+            if (initDone)
+                dispose ();
 
             colors = null;
         }

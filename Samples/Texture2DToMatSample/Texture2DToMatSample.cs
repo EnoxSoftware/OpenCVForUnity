@@ -28,7 +28,7 @@ namespace OpenCVForUnitySample
 
             Texture2D texture = new Texture2D (imgMat.cols (), imgMat.rows (), TextureFormat.RGBA32, false);
 
-            Utils.matToTexture (imgMat, texture);
+            Utils.matToTexture2D (imgMat, texture);
 
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 

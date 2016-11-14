@@ -9,28 +9,42 @@ using OpenCVForUnity;
 namespace OpenCVForUnitySample
 {
     /// <summary>
-    /// DetectFace sample.
+    /// Detect face sample.
     /// </summary>
     public class DetectFaceSample : MonoBehaviour
     {
+        
+        CascadeClassifier cascade;
 
         // Use this for initialization
         void Start ()
         {
-    
+            #if UNITY_WEBGL && !UNITY_EDITOR
+            StartCoroutine(Utils.getFilePathAsync("haarcascade_frontalface_alt.xml", (result) => {
+                cascade = new CascadeClassifier ();
+                cascade.load(result);
+                Run ();
+            }));
+            #else
+            //cascade = new CascadeClassifier (Utils.getFilePath ("lbpcascade_frontalface.xml"));
+            cascade = new CascadeClassifier ();
+            cascade.load (Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
+            if (cascade.empty ()) {
+                Debug.LogError ("cascade file is not loaded.Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
+            }
+            Run ();
+            #endif
+        }
+
+        private void Run ()
+        {
             Texture2D imgTexture = Resources.Load ("lena") as Texture2D;
-            
+
             Mat imgMat = new Mat (imgTexture.height, imgTexture.width, CvType.CV_8UC4);
-            
+
             Utils.texture2DToMat (imgTexture, imgMat);
             Debug.Log ("imgMat.ToString() " + imgMat.ToString ());
 
-
-            //CascadeClassifier cascade = new CascadeClassifier (Utils.getFilePath ("lbpcascade_frontalface.xml"));
-            CascadeClassifier cascade = new CascadeClassifier (Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
-//            if (cascade.empty ()) {
-//                Debug.LogError ("cascade file is not loaded.Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
-//            }
 
             Mat grayMat = new Mat ();
             Imgproc.cvtColor (imgMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
@@ -38,10 +52,10 @@ namespace OpenCVForUnitySample
 
 
             MatOfRect faces = new MatOfRect ();
-        
+
             if (cascade != null)
                 cascade.detectMultiScale (grayMat, faces, 1.1, 2, 2, 
-                                           new Size (20, 20), new Size ());
+                    new Size (20, 20), new Size ());
 
             OpenCVForUnity.Rect[] rects = faces.toArray ();
             for (int i = 0; i < rects.Length; i++) {
@@ -51,16 +65,13 @@ namespace OpenCVForUnitySample
             }
 
 
-
             Texture2D texture = new Texture2D (imgMat.cols (), imgMat.rows (), TextureFormat.RGBA32, false);
 
             Utils.matToTexture2D (imgMat, texture);
 
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-    
-
         }
-    
+
         // Update is called once per frame
         void Update ()
         {

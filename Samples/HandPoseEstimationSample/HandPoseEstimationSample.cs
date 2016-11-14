@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -83,12 +84,16 @@ namespace OpenCVForUnitySample
         /// </summary>
         WebCamTextureToMatHelper webCamTextureToMatHelper;
 
+        /// <summary>
+        /// The stored touch point.
+        /// </summary>
+        Point storedTouchPoint;
+
         // Use this for initialization
         void Start ()
         {
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
             webCamTextureToMatHelper.Init ();
-
         }
 
         /// <summary>
@@ -108,7 +113,6 @@ namespace OpenCVForUnitySample
             
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
-            
             float width = webCamTextureMat.width();
             float height = webCamTextureMat.height();
             
@@ -119,9 +123,6 @@ namespace OpenCVForUnitySample
             } else {
                 Camera.main.orthographicSize = height / 2;
             }
-            
-           
-
 
             detector = new ColorBlobDetector ();
             spectrumMat = new Mat ();
@@ -130,7 +131,6 @@ namespace OpenCVForUnitySample
             SPECTRUM_SIZE = new Size (200, 64);
             CONTOUR_COLOR = new Scalar (255, 0, 0, 255);
             CONTOUR_COLOR_WHITE = new Scalar (255, 255, 255, 255);
-           
         }
 
         /// <summary>
@@ -144,48 +144,48 @@ namespace OpenCVForUnitySample
                 spectrumMat.Dispose ();
         }
 
-
         // Update is called once per frame
         void Update ()
         {
+
+            #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
+            //Touch
+            int touchCount = Input.touchCount;
+            if (touchCount == 1)
+            {
+                Touch t = Input.GetTouch(0);
+                if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject(t.fingerId)){
+                    storedTouchPoint = new Point (t.position.x, t.position.y);
+                    //Debug.Log ("touch X " + t.position.x);
+                    //Debug.Log ("touch Y " + t.position.y);
+                }
+            }
+            #else
+            //Mouse
+            if (Input.GetMouseButtonUp (0) && !EventSystem.current.IsPointerOverGameObject()) {
+                storedTouchPoint = new Point (Input.mousePosition.x, Input.mousePosition.y);
+                //Debug.Log ("mouse X " + Input.mousePosition.x);
+                //Debug.Log ("mouse Y " + Input.mousePosition.y);
+            }
+            #endif
 
             if (webCamTextureToMatHelper.isPlaying () && webCamTextureToMatHelper.didUpdateThisFrame ()) {
                 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
 
-                #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-                                        //Touch
-                                        int touchCount = Input.touchCount;
-                                        if (touchCount == 1)
-                                        {
-                                            Touch t = Input.GetTouch(0);
-                                            if(t.phase == TouchPhase.Ended){
-                                                onTouch(rgbaMat, convertScreenPoint (new Point (t.position.x, t.position.y), gameObject, Camera.main));
-                                                //                                  Debug.Log ("touch X " + t.position.x);
-                                                //                                  Debug.Log ("touch Y " + t.position.y);
-                                            }
-                                        }
-                #else
-                //Mouse
-                if (Input.GetMouseButtonUp (0)) {
-                                            
-                    onTouch (rgbaMat, convertScreenPoint (new Point (Input.mousePosition.x, Input.mousePosition.y), gameObject, Camera.main));
-                    //                                              Debug.Log ("mouse X " + Input.mousePosition.x);
-                    //                                              Debug.Log ("mouse Y " + Input.mousePosition.y);
+                if(storedTouchPoint != null) {
+                    onTouch (rgbaMat, convertScreenPoint (storedTouchPoint, gameObject, Camera.main));
+                    storedTouchPoint = null;
                 }
-                #endif
-                
                 
                 handPoseEstimationProcess (rgbaMat);
                 
-                Imgproc.putText (rgbaMat, "PLEASE TOUCH HAND POINTS", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-
+                Imgproc.putText (rgbaMat, "Please touch the area of the open hand.", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                 
 //              Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                 
                 Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors());
             }
-
         }
     
         /// <summary>

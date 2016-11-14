@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 #if UNITY_5_3 || UNITY_5_3_OR_NEWER
@@ -52,7 +53,12 @@ namespace OpenCVForUnitySample
         /// The web cam texture to mat helper.
         /// </summary>
         WebCamTextureToMatHelper webCamTextureToMatHelper;
-    
+
+        /// <summary>
+        /// The flag for requesting the start of the CamShift Method.
+        /// </summary>
+        bool shouldStartCamShift = false;
+
         // Use this for initialization
         void Start ()
         {
@@ -115,6 +121,62 @@ namespace OpenCVForUnitySample
         void Update ()
         {
 
+            if (roiPointList.Count == 4) {
+
+                #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
+                //Touch
+                int touchCount = Input.touchCount;
+                if (touchCount == 1)
+                {
+                    Touch t = Input.GetTouch(0);
+                    if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject(t.fingerId)){
+                        roiPointList.Clear ();
+                    }
+                }
+                #else
+                if (Input.GetMouseButtonUp (0) && !EventSystem.current.IsPointerOverGameObject()) {
+                    roiPointList.Clear ();
+                }
+                #endif
+            }
+
+            if (roiPointList.Count < 4) {
+
+                #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
+                //Touch
+                int touchCount = Input.touchCount;
+                if (touchCount == 1)
+                {
+                    Touch t = Input.GetTouch(0);
+                    if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject(t.fingerId)){
+                        roiPointList.Add (convertScreenPoint (new Point (t.position.x, t.position.y), gameObject, Camera.main));
+                        //Debug.Log ("touch X " + t.position.x);
+                        //Debug.Log ("touch Y " + t.position.y);
+
+                        if (!(new OpenCVForUnity.Rect (0, 0, hsvMat.width (), hsvMat.height ()).contains (roiPointList [roiPointList.Count - 1]))) {
+                            roiPointList.RemoveAt (roiPointList.Count - 1);
+                        }
+                    }
+                }
+                #else
+                //Mouse
+                if (Input.GetMouseButtonUp (0) && !EventSystem.current.IsPointerOverGameObject()) {
+
+                    roiPointList.Add (convertScreenPoint (new Point (Input.mousePosition.x, Input.mousePosition.y), gameObject, Camera.main));
+                    //                                              Debug.Log ("mouse X " + Input.mousePosition.x);
+                    //                                              Debug.Log ("mouse Y " + Input.mousePosition.y);
+
+                    if (!(new OpenCVForUnity.Rect (0, 0, hsvMat.width (), hsvMat.height ()).contains (roiPointList [roiPointList.Count - 1]))) {
+                        roiPointList.RemoveAt (roiPointList.Count - 1);
+                    }
+                }
+                #endif
+
+                if (roiPointList.Count == 4) {
+                    shouldStartCamShift = true;
+                }
+            }
+
             if (webCamTextureToMatHelper.isPlaying () && webCamTextureToMatHelper.didUpdateThisFrame ()) {
                 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
@@ -124,104 +186,42 @@ namespace OpenCVForUnitySample
                 
                 
                 Point[] points = roiPointList.ToArray ();
-                
-                if (roiPointList.Count == 4) {
-                                                        
-                
+
+                if (shouldStartCamShift) {
+                    shouldStartCamShift = false;
+
+                    using (MatOfPoint roiPointMat = new MatOfPoint (roiPointList.ToArray ())) {
+                        roiRect = Imgproc.boundingRect (roiPointMat);
+                    }
+
+                    if (roiHistMat != null) {
+                        roiHistMat.Dispose ();
+                        roiHistMat = null;
+                    }
+                    roiHistMat = new Mat ();
+
+                    using (Mat roiHSVMat = new Mat(hsvMat, roiRect))
+                    using (Mat maskMat = new Mat ()) {
+                        Imgproc.calcHist (new List<Mat> (new Mat[]{roiHSVMat}), new MatOfInt (0), maskMat, roiHistMat, new MatOfInt (16), new MatOfFloat (0, 180)); 
+                        Core.normalize (roiHistMat, roiHistMat, 0, 255, Core.NORM_MINMAX);
+
+                        //Debug.Log ("roiHist " + roiHistMat.ToString ());
+                    }
+                }else if (roiPointList.Count == 4) {
                     using (Mat backProj = new Mat ()) {
                         Imgproc.calcBackProject (new List<Mat> (new Mat[]{hsvMat}), new MatOfInt (0), roiHistMat, backProj, new MatOfFloat (0, 180), 1.0);
                 
                         RotatedRect r = Video.CamShift (backProj, roiRect, termination);
                         r.points (points);
                     }
-                
-                    #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-                                            //Touch
-                                            int touchCount = Input.touchCount;
-                                            if (touchCount == 1)
-                                            {
-                                                
-                                                if(Input.GetTouch(0).phase == TouchPhase.Ended){
-                                                    
-                                                    roiPointList.Clear ();
-                                                }
-                                                
-                                            }
-                    #else
-                    if (Input.GetMouseButtonUp (0)) {
-                        roiPointList.Clear ();
-                    }
-                    #endif
-                }
-                
-                
-                if (roiPointList.Count < 4) {
-                
-                    #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-                                            //Touch
-                                            int touchCount = Input.touchCount;
-                                            if (touchCount == 1)
-                                            {
-                                                Touch t = Input.GetTouch(0);
-                                                if(t.phase == TouchPhase.Ended){
-                                                    roiPointList.Add (convertScreenPoint (new Point (t.position.x, t.position.y), gameObject, Camera.main));
-                //                                  Debug.Log ("touch X " + t.position.x);
-                //                                  Debug.Log ("touch Y " + t.position.y);
-                
-                                                    if (!(new OpenCVForUnity.Rect (0, 0, hsvMat.width (), hsvMat.height ()).contains (roiPointList [roiPointList.Count - 1]))) {
-                                                        roiPointList.RemoveAt (roiPointList.Count - 1);
-                                                    }
-                                                }
-                                                
-                                            }
-                    #else
-                    //Mouse
-                    if (Input.GetMouseButtonUp (0)) {
-                                                                
-                        roiPointList.Add (convertScreenPoint (new Point (Input.mousePosition.x, Input.mousePosition.y), gameObject, Camera.main));
-                        //                                              Debug.Log ("mouse X " + Input.mousePosition.x);
-                        //                                              Debug.Log ("mouse Y " + Input.mousePosition.y);
-                
-                        if (!(new OpenCVForUnity.Rect (0, 0, hsvMat.width (), hsvMat.height ()).contains (roiPointList [roiPointList.Count - 1]))) {
-                            roiPointList.RemoveAt (roiPointList.Count - 1);
-                        }
-                    }
-                    #endif
-                
-                                            
-                    if (roiPointList.Count == 4) {
-                
-                        using (MatOfPoint roiPointMat = new MatOfPoint (roiPointList.ToArray ())) {
-                            roiRect = Imgproc.boundingRect (roiPointMat);
-                        }
-                
-                                                
-                        if (roiHistMat != null) {
-                            roiHistMat.Dispose ();
-                            roiHistMat = null;
-                        }
-                        roiHistMat = new Mat ();
-                
-                        using (Mat roiHSVMat = new Mat(hsvMat, roiRect))
-                        using (Mat maskMat = new Mat ()) {
-                
-                                                                        
-                            Imgproc.calcHist (new List<Mat> (new Mat[]{roiHSVMat}), new MatOfInt (0), maskMat, roiHistMat, new MatOfInt (16), new MatOfFloat (0, 180)); 
-                            Core.normalize (roiHistMat, roiHistMat, 0, 255, Core.NORM_MINMAX);
-                                                
-                            //                                                      Debug.Log ("roiHist " + roiHistMat.ToString ());
-                        }
-                    }
                 }
                 
                 if (points.Length < 4) {
-                
                     for (int i = 0; i < points.Length; i++) {
                         Imgproc.circle (rgbaMat, points [i], 6, new Scalar (0, 0, 255, 255), 2);
                     }
                 
                 } else {
-                
                     for (int i = 0; i < 4; i++) {
                         Imgproc.line (rgbaMat, points [i], points [(i + 1) % 4], new Scalar (255, 0, 0, 255), 2);
                     }
@@ -229,8 +229,7 @@ namespace OpenCVForUnitySample
                     Imgproc.rectangle (rgbaMat, roiRect.tl (), roiRect.br (), new Scalar (0, 255, 0, 255), 2);
                 }
                 
-                Imgproc.putText (rgbaMat, "PLEASE TOUCH 4 POINTS", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-
+                Imgproc.putText (rgbaMat, "Please touch the 4 points surrounding the tracking object.", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                 
 //              Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                 

@@ -15,16 +15,6 @@ namespace OpenCVForUnitySample
     {
 
         /// <summary>
-        /// The width of the frame.
-        /// </summary>
-        private double frameWidth = 768;
-
-        /// <summary>
-        /// The height of the frame.
-        /// </summary>
-        private double frameHeight = 576;
-
-        /// <summary>
         /// The capture.
         /// </summary>
         VideoCapture capture;
@@ -71,8 +61,12 @@ namespace OpenCVForUnitySample
             Debug.Log ("CAP_PROP_FRAME_HEIGHT: " + capture.get (Videoio.CAP_PROP_FRAME_HEIGHT));
 
 
-            colors = new Color32[(int)(frameWidth * frameHeight)];
-            texture = new Texture2D ((int)(frameWidth), (int)(frameHeight), TextureFormat.RGBA32, false);
+            capture.grab ();
+            capture.retrieve (rgbMat, 0);
+            int frameWidth = rgbMat.cols ();
+            int frameHeight = rgbMat.rows ();
+            colors = new Color32[frameWidth * frameHeight];
+            texture = new Texture2D (frameWidth, frameHeight, TextureFormat.RGBA32, false);
             gameObject.transform.localScale = new Vector3 ((float)frameWidth, (float)frameHeight, 1);
             float widthScale = (float)Screen.width / (float)frameWidth;
             float heightScale = (float)Screen.height / (float)frameHeight;
@@ -81,9 +75,10 @@ namespace OpenCVForUnitySample
             } else {
                 Camera.main.orthographicSize = (float)frameHeight / 2;
             }
+            capture.set (Videoio.CAP_PROP_POS_FRAMES, 0);
+
             
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-            
         }
         
         // Update is called once per frame

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 using System.Linq;
+
 
 public class TouchController : MonoBehaviour
 {
@@ -22,6 +24,8 @@ public class TouchController : MonoBehaviour
         {
 
             Touch t = Input.GetTouch(0);
+            if(EventSystem.current.IsPointerOverGameObject(t.fingerId))return;
+
             switch (t.phase)
             {
             case TouchPhase.Moved:
@@ -40,6 +44,7 @@ public class TouchController : MonoBehaviour
         #else
         //Mouse
         if (Input.GetMouseButton (0)) {
+            if(EventSystem.current.IsPointerOverGameObject())return;
             
             float xAngle = Input.GetAxis ("Mouse Y") * Speed * 80;
             float yAngle = -Input.GetAxis ("Mouse X") * Speed * 80;

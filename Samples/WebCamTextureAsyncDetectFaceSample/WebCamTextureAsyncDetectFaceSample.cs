@@ -31,7 +31,7 @@ namespace OpenCVForUnitySample
     /// WebCamTexture async detect face sample.
     /// This cord referred to https://github.com/Itseez/opencv/blob/master/modules/objdetect/src/detection_based_tracker.cpp.
     /// </summary>
-    [RequireComponent(typeof(WebCamTextureToMatHelper))]
+    [RequireComponent (typeof(WebCamTextureToMatHelper))]
     public class WebCamTextureAsyncDetectFaceSample : MonoBehaviour
     {
 
@@ -45,40 +45,38 @@ namespace OpenCVForUnitySample
         /// </summary>
         Texture2D texture;
 
+        #if !UNITY_WEBGL || UNITY_EDITOR
         /// <summary>
         /// The cascade.
         /// </summary>
         CascadeClassifier cascade;
-        private CascadeClassifier regionCascade;
         Rect[] rectsWhereRegions;
-        List<Rect> detectedObjectsInRegions = new List<Rect> ();
-        List<Rect> resultObjects = new List<Rect> ();
         private List<TrackedObject> trackedObjects = new List<TrackedObject> ();
         private List<float> weightsPositionsSmoothing = new List<float> ();
         private List<float> weightsSizesSmoothing = new List<float> ();
         private Parameters parameters;
         private InnerParameters innerParameters;
-
-
-        // for Thread
-#if UNITY_WSA
-#if NETFX_CORE
-                private Task task_ = null;
-                private CancellationTokenSource tokenSource_ = null;
-#else
-
-#endif
-#else
-        private volatile bool shouldStopThread = false;
-#endif
-
         private volatile ThreadComm threadComm = new ThreadComm ();
         private System.Object thisLock = new System.Object ();
         private volatile bool isThreadRunning = false;
-        private volatile bool didUpdateTheDetectionResult = false;
         private Mat grayMat4Thread;
+        private CascadeClassifier regionCascade;
+        List<Rect> detectedObjectsInRegions = new List<Rect> ();
+        List<Rect> resultObjects = new List<Rect> ();
+        private volatile bool didUpdateTheDetectionResult = false;
         private MatOfRect resultDetect;
+        #endif
 
+        // for Thread
+        #if UNITY_WSA
+        #if NETFX_CORE
+        private Task task_ = null;
+        private CancellationTokenSource tokenSource_ = null;
+        #else
+        #endif
+        #elif !UNITY_WEBGL || UNITY_EDITOR
+        private volatile bool shouldStopThread = false;
+        #endif
 
         /// <summary>
         /// The web cam texture to mat helper.
@@ -89,6 +87,7 @@ namespace OpenCVForUnitySample
         // Use this for initialization
         void Start ()
         {
+            #if !UNITY_WEBGL || UNITY_EDITOR
             weightsPositionsSmoothing.Add (1);
             weightsSizesSmoothing.Add (0.5f);
             weightsSizesSmoothing.Add (0.3f);
@@ -107,6 +106,7 @@ namespace OpenCVForUnitySample
             innerParameters.coeffTrackingWindowSize = 2.0f;
             innerParameters.coeffObjectSizeToTrack = 0.85f;
             innerParameters.coeffObjectSpeedUsingInPrediction = 0.8f;
+            #endif
 
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
             webCamTextureToMatHelper.Init ();
@@ -131,8 +131,8 @@ namespace OpenCVForUnitySample
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
             
-            float width = webCamTextureMat.width();
-            float height = webCamTextureMat.height();
+            float width = webCamTextureMat.width ();
+            float height = webCamTextureMat.height ();
             
             float widthScale = (float)Screen.width / width;
             float heightScale = (float)Screen.height / height;
@@ -143,13 +143,15 @@ namespace OpenCVForUnitySample
             }
             
 
-
+            #if !UNITY_WEBGL || UNITY_EDITOR
             grayMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
-            regionCascade = new CascadeClassifier (Utils.getFilePath ("lbpcascade_frontalface.xml"));
-            //            if (regionCascade.empty ()) {
-            //                Debug.LogError ("cascade file is not loaded.Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
-            //            }
+            regionCascade = new CascadeClassifier ();
+            regionCascade.load (Utils.getFilePath ("lbpcascade_frontalface.xml"));
+            if (regionCascade.empty ()) {
+                Debug.LogError ("cascade file is not loaded.Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
+            }
             initThread ();
+            #endif
         }
 
         /// <summary>
@@ -159,25 +161,27 @@ namespace OpenCVForUnitySample
         {
             Debug.Log ("OnWebCamTextureToMatHelperDisposed");
 
+            #if !UNITY_WEBGL || UNITY_EDITOR
             StopThread ();
 
             if (grayMat4Thread != null)
                 grayMat4Thread.Dispose ();
- 
+
             if (cascade != null)
                 cascade.Dispose ();
-
 
             if (grayMat != null)
                 grayMat.Dispose ();
             if (regionCascade != null)
                 regionCascade.Dispose ();
+            #endif
         }
 
         // Update is called once per frame
         void Update ()
         {
 
+            #if !UNITY_WEBGL || UNITY_EDITOR
             if (webCamTextureToMatHelper.isPlaying () && webCamTextureToMatHelper.didUpdateThisFrame ()) {
                 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
@@ -224,7 +228,7 @@ namespace OpenCVForUnitySample
                             Point center = centerRect (r);
                             Point center_prev = centerRect (trackedObjects [i].lastPositions [n - 2]);
                             Point shift = new Point ((center.x - center_prev.x) * innerParameters.coeffObjectSpeedUsingInPrediction,
-                                        (center.y - center_prev.y) * innerParameters.coeffObjectSpeedUsingInPrediction);
+                                              (center.y - center_prev.y) * innerParameters.coeffObjectSpeedUsingInPrediction);
                 
                             r.x += (int)Math.Round (shift.x);
                             r.y += (int)Math.Round (shift.y);
@@ -260,21 +264,29 @@ namespace OpenCVForUnitySample
                     Imgproc.rectangle (rgbaMat, new Point (rects [i].x, rects [i].y), new Point (rects [i].x + rects [i].width, rects [i].y + rects [i].height), new Scalar (255, 0, 0, 255), 2);
                 }
                 
-                Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors());
+                Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors ());
             }
-
+            #else
+            if (webCamTextureToMatHelper.isPlaying () && webCamTextureToMatHelper.didUpdateThisFrame ()) {
+                Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
+                Imgproc.putText (rgbaMat, "WebGL platform does not support multi-threading.", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (255, 255, 255, 255), 1, Imgproc.LINE_AA, false);
+                Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors ());
+            }
+            #endif
         }
 
+#if !UNITY_WEBGL || UNITY_EDITOR
         private void initThread ()
         {
             StopThread ();
 
             grayMat4Thread = new Mat ();
 
-            cascade = new CascadeClassifier (Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
-//            if (cascade.empty ()) {
-//                Debug.LogError ("cascade file is not loaded.Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
-//            }
+            cascade = new CascadeClassifier ();
+            cascade.load(Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
+            if (cascade.empty ()) {
+                Debug.LogError ("cascade file is not loaded.Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
+            }
 
             threadComm.shouldDetectInMultiThread = false;
 
@@ -282,9 +294,9 @@ namespace OpenCVForUnitySample
         }
 
 
-#if UNITY_WSA
-#if NETFX_CORE
-
+        #if UNITY_WSA
+        #if NETFX_CORE
+        
 
         private void ThreadWorker()
         {
@@ -336,8 +348,8 @@ namespace OpenCVForUnitySample
 
         }
 
-#else
-
+        #else
+        
                 private void ThreadWorker()
                 {
                     if (isThreadRunning) return;
@@ -378,8 +390,8 @@ namespace OpenCVForUnitySample
                 }
 
 
-#endif
-#else
+        #endif
+        #else
 
         private void ThreadWorker ()
         {
@@ -409,7 +421,7 @@ namespace OpenCVForUnitySample
                 MatOfRect faces = new MatOfRect ();
                 if (cascade != null)
                     cascade.detectMultiScale (grayMat4Thread, faces, 1.1, 2, Objdetect.CASCADE_SCALE_IMAGE, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
-                                            new Size (grayMat4Thread.height () * 0.2, grayMat4Thread.height () * 0.2), new Size ());
+                        new Size (grayMat4Thread.height () * 0.2, grayMat4Thread.height () * 0.2), new Size ());
 
                 //Thread.Sleep(200);
                 lock (thisLock) {
@@ -422,9 +434,7 @@ namespace OpenCVForUnitySample
 
             isThreadRunning = false;
         }
-
-
-#endif
+        #endif
 
         public class ThreadComm : System.Object
         {
@@ -444,17 +454,17 @@ namespace OpenCVForUnitySample
                 return;
 
 
-#if UNITY_WSA
-#if NETFX_CORE
+            #if UNITY_WSA
+            #if NETFX_CORE
             tokenSource_.Cancel();
             task_ = null;
-#else
+            #else
             StopCoroutine("ThreadCoroutine");
             isThreadRunning = false;
-#endif
-#else
+            #endif
+            #else
             shouldStopThread = true;
-#endif
+            #endif
 
 
             while (isThreadRunning) {
@@ -462,7 +472,7 @@ namespace OpenCVForUnitySample
             }
             Debug.Log ("Thread Stop");
         }
-
+            
         private void getObjects (List<Rect> result)
         {
             result.Clear ();
@@ -562,7 +572,7 @@ namespace OpenCVForUnitySample
                 if (i >= 0) {//add position
                     //Debug.Log("DetectionBasedTracker::updateTrackedObjects: add position");
                     trackedObjects [i].lastPositions.Add (detectedObjects [j]);
-                    while ((int)trackedObjects[i].lastPositions.Count > (int)innerParameters.numLastPositionsToTrack) {
+                    while ((int)trackedObjects [i].lastPositions.Count > (int)innerParameters.numLastPositionsToTrack) {
                         trackedObjects [i].lastPositions.Remove (trackedObjects [i].lastPositions [0]);
                     }
                     trackedObjects [i].numFramesNotDetected = 0;
@@ -580,11 +590,10 @@ namespace OpenCVForUnitySample
                 it = trackedObjects [t];
 
                 if ((it.numFramesNotDetected > parameters.maxTrackLifetime)
-        ||
+                    ||
                     ((it.numDetectedFrames <= innerParameters.numStepsToWaitBeforeFirstShow)
-            &&
-                    (it.numFramesNotDetected > innerParameters.numStepsToTrackWithoutDetectingIfObjectHasNotBeenShown))
-        ) {
+                    &&
+                    (it.numFramesNotDetected > innerParameters.numStepsToTrackWithoutDetectingIfObjectHasNotBeenShown))) {
                     //int numpos = (int)it.lastPositions.Count;
                     //if (numpos > 0) UnityEngine.Debug.LogError("numpos > 0 is false");
                     //Rect r = it.lastPositions [numpos - 1];
@@ -603,7 +612,7 @@ namespace OpenCVForUnitySample
             Rect r0 = new Rect (new Point (), img.size ());
             Rect r1 = new Rect (r.x, r.y, r.width, r.height);
             Inflate (r1, (int)((r1.width * innerParameters.coeffTrackingWindowSize) - r1.width) / 2,
-            (int)((r1.height * innerParameters.coeffTrackingWindowSize) - r1.height) / 2);
+                (int)((r1.height * innerParameters.coeffTrackingWindowSize) - r1.height) / 2);
             r1 = Intersect (r0, r1);
 
             if ((r1.width <= 0) || (r1.height <= 0)) {
@@ -748,6 +757,7 @@ namespace OpenCVForUnitySample
             rect.height += (2 * y);
             return rect;
         }
+#endif
 
         /// <summary>
         /// Raises the disable event.
