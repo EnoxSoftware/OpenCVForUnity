@@ -400,6 +400,7 @@ var searchData=
   ['getvarthreshold',['getVarThreshold',['../class_open_c_v_for_unity_1_1_background_subtractor_m_o_g2.html#a7a6a1f63b8bfb7d867b9542953ab8b70',1,'OpenCVForUnity::BackgroundSubtractorMOG2']]],
   ['getvarthresholdgen',['getVarThresholdGen',['../class_open_c_v_for_unity_1_1_background_subtractor_m_o_g2.html#aaf4f2a5f19c9a5eca1999614293dd005',1,'OpenCVForUnity::BackgroundSubtractorMOG2']]],
   ['getvartype',['getVarType',['../class_open_c_v_for_unity_1_1_train_data.html#abcc3c3269cb10c9ce2065b5f3a771d49',1,'OpenCVForUnity::TrainData']]],
+  ['getversion',['getVersion',['../class_open_c_v_for_unity_1_1_utils.html#a2d80759a341b1059eff72039536d5cb3',1,'OpenCVForUnity::Utils']]],
   ['getvertex',['getVertex',['../class_open_c_v_for_unity_1_1_subdiv2_d.html#ae5c562fb4a6f9f6b22b08d9e988d2402',1,'OpenCVForUnity.Subdiv2D.getVertex(int vertex, int[] firstEdge)'],['../class_open_c_v_for_unity_1_1_subdiv2_d.html#ad97d40283708aa4a49d787956270d00a',1,'OpenCVForUnity.Subdiv2D.getVertex(int vertex)']]],
   ['getvocabulary',['getVocabulary',['../class_open_c_v_for_unity_1_1_b_o_w_img_descriptor_extractor.html#ac825d7c08c4ef61cd85e674761743919',1,'OpenCVForUnity::BOWImgDescriptorExtractor']]],
   ['getvoronoifacetlist',['getVoronoiFacetList',['../class_open_c_v_for_unity_1_1_subdiv2_d.html#ae20fa750e73df7331ba9fe998ffb83c0',1,'OpenCVForUnity::Subdiv2D']]],
