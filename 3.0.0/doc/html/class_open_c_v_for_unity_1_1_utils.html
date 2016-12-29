@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.1.0</span>
+   &#160;<span id="projectnumber">2.1.1</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document(http://docs.opencv.org/3.1.0/index.html) for the details of the argument of the method.</div>
   </td>
@@ -131,6 +131,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a7cdaffb45e90aadf4ddfa1ab5222b67f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e5689c5a0b5e19ff8d1e5b04c81922a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_utils.html#a0e5689c5a0b5e19ff8d1e5b04c81922a">webCamTextureToMat</a> (WebCamTexture webCamTexture, <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> mat, Color32[] bufferColors)</td></tr>
 <tr class="separator:a0e5689c5a0b5e19ff8d1e5b04c81922a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02dc5eaaa5a7fbe9b87feeb56b889494"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_utils.html#a02dc5eaaa5a7fbe9b87feeb56b889494">textureToTexture2D</a> (Texture texture, Texture2D texture2D)</td></tr>
+<tr class="separator:a02dc5eaaa5a7fbe9b87feeb56b889494"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af67eead5f37dd6760eb2751b9ffd7d32"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_utils.html#af67eead5f37dd6760eb2751b9ffd7d32">matToTexture</a> (<a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> mat, Texture texture)</td></tr>
 <tr class="separator:af67eead5f37dd6760eb2751b9ffd7d32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab343946b551e32d9623315cd01cbaadd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_utils.html#ab343946b551e32d9623315cd01cbaadd">textureToMat</a> (Texture texture, <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> mat)</td></tr>
@@ -1151,6 +1153,52 @@ This function not implemented yet on OpenGLCore, Direct3D12</p>
 
 </div>
 </div>
+<a class="anchor" id="a02dc5eaaa5a7fbe9b87feeb56b889494"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void OpenCVForUnity.Utils.textureToTexture2D </td>
+          <td>(</td>
+          <td class="paramtype">Texture&#160;</td>
+          <td class="paramname"><em>texture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Texture2D&#160;</td>
+          <td class="paramname"><em>texture2D</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Converts Texture to Texture2D. </p>
+<p><br />
+This function converts Texture to Texture2D. <br />
+texture and texture2D need to be the same size. <br />
+texture2D's TextureFormat needs to be RGBA32(Unity5.5+), ARGB32, RGB24, RGBAFloat or RGBAHalf.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texture</td><td></td></tr>
+    <tr><td class="paramname">texture2D</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a7cdaffb45e90aadf4ddfa1ab5222b67f"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1256,7 +1304,7 @@ The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> ob
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 9 2016 22:58:12 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 29 2016 23:55:09 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

@@ -4,6 +4,7 @@ var searchData=
   ['raw_5foutput',['RAW_OUTPUT',['../class_open_c_v_for_unity_1_1_stat_model.html#a15072d43ef9afded4dd1a04c339a8964',1,'OpenCVForUnity::StatModel']]],
   ['rbf',['RBF',['../class_open_c_v_for_unity_1_1_s_v_m.html#a97b2749f8d4edcf091751441bf2843b4',1,'OpenCVForUnity::SVM']]],
   ['real',['REAL',['../class_open_c_v_for_unity_1_1_boost.html#ade843ac3d1c2f6b394aa10d48971c022',1,'OpenCVForUnity::Boost']]],
+  ['rect',['rect',['../union_open_c_v_for_unity_1_1_rect_1_1rect.html#aa159d5260105ffea312c37e84f6e0575',1,'OpenCVForUnity::Rect::rect']]],
   ['rectify_5fcylindrical',['RECTIFY_CYLINDRICAL',['../class_open_c_v_for_unity_1_1_ccalib.html#a5c6ccb33a56161189ac6ee3d1e23942b',1,'OpenCVForUnity::Ccalib']]],
   ['rectify_5flonglati',['RECTIFY_LONGLATI',['../class_open_c_v_for_unity_1_1_ccalib.html#a4fe237a4b6b0501ba603e1e44df3eb99',1,'OpenCVForUnity::Ccalib']]],
   ['rectify_5fperspective',['RECTIFY_PERSPECTIVE',['../class_open_c_v_for_unity_1_1_ccalib.html#a21dee51c8f948259a0c9950da5ecf42d',1,'OpenCVForUnity::Ccalib']]],

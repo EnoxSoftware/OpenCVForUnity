@@ -5,6 +5,7 @@ var searchData=
   ['texture2dtomat',['texture2DToMat',['../class_open_c_v_for_unity_1_1_utils.html#a253c2d49cd95dbf82e80fc633bc128ce',1,'OpenCVForUnity::Utils']]],
   ['textureflattening',['textureFlattening',['../class_open_c_v_for_unity_1_1_photo.html#a03fbc6d984d1a2c3ed3d0391b11b33f4',1,'OpenCVForUnity.Photo.textureFlattening(Mat src, Mat mask, Mat dst, float low_threshold, float high_threshold, int kernel_size)'],['../class_open_c_v_for_unity_1_1_photo.html#af31cc818b086bdae5cf0d1c23a32995f',1,'OpenCVForUnity.Photo.textureFlattening(Mat src, Mat mask, Mat dst)']]],
   ['texturetomat',['textureToMat',['../class_open_c_v_for_unity_1_1_utils.html#ab343946b551e32d9623315cd01cbaadd',1,'OpenCVForUnity::Utils']]],
+  ['texturetotexture2d',['textureToTexture2D',['../class_open_c_v_for_unity_1_1_utils.html#a02dc5eaaa5a7fbe9b87feeb56b889494',1,'OpenCVForUnity::Utils']]],
   ['thinning',['thinning',['../class_open_c_v_for_unity_1_1_ximgproc.html#a0ea4bb515e6def7b3f61754e7315205a',1,'OpenCVForUnity::Ximgproc']]],
   ['thinplatesplineshapetransformer',['ThinPlateSplineShapeTransformer',['../class_open_c_v_for_unity_1_1_thin_plate_spline_shape_transformer.html#a2cadd915a81c25558efcb6e3efeb2dae',1,'OpenCVForUnity::ThinPlateSplineShapeTransformer']]],
   ['threshold',['threshold',['../class_open_c_v_for_unity_1_1_imgproc.html#ae35d414c81f79d3664dc0b9780806e0c',1,'OpenCVForUnity::Imgproc']]],
