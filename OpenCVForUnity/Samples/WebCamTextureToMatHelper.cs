@@ -289,7 +289,7 @@ namespace OpenCVForUnitySample
         /// Ises the inited.
         /// </summary>
         /// <returns><c>true</c>, if inited was ised, <c>false</c> otherwise.</returns>
-        public bool isInited ()
+        public bool IsInited ()
         {
             return initDone;
         }
@@ -325,7 +325,7 @@ namespace OpenCVForUnitySample
         /// Ises the playing.
         /// </summary>
         /// <returns><c>true</c>, if playing was ised, <c>false</c> otherwise.</returns>
-        public bool isPlaying ()
+        public bool IsPlaying ()
         {
             if (!initDone)
                 return false;
@@ -354,7 +354,7 @@ namespace OpenCVForUnitySample
         /// Dids the update this frame.
         /// </summary>
         /// <returns><c>true</c>, if update this frame was dided, <c>false</c> otherwise.</returns>
-        public bool didUpdateThisFrame ()
+        public bool DidUpdateThisFrame ()
         {
             if (!initDone)
                 return false;

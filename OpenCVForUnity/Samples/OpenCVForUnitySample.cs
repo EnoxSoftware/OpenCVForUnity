@@ -355,5 +355,15 @@ namespace OpenCVForUnitySample
             #endif
             
         }
+
+        public void OnPolygonFilterSample ()
+        {
+            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
+            SceneManager.LoadScene ("PolygonFilterSample");
+            #else
+            Application.LoadLevel ("PolygonFilterSample");
+            #endif
+            
+        }
     }
 }
