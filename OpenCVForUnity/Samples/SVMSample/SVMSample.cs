@@ -14,11 +14,9 @@ namespace OpenCVForUnitySample
     /// </summary>
     public class SVMSample : MonoBehaviour
     {
-
         // Use this for initialization
         void Start ()
         {
-
             // Data for visual representation
             int width = 512, height = 512;
             Mat image = Mat.zeros (height, width, CvType.CV_8UC4);
@@ -76,13 +74,12 @@ namespace OpenCVForUnitySample
             Texture2D texture = new Texture2D (image.width (), image.height (), TextureFormat.RGBA32, false);
             Utils.matToTexture2D (image, texture);
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-
         }
     
         // Update is called once per frame
         void Update ()
         {
-    
+
         }
 
         public void OnBackButton ()

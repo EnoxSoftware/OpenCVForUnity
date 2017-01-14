@@ -77,5 +77,4 @@ namespace OpenCVForUnitySample
             base.Dispose ();
         }
     }
-
 }

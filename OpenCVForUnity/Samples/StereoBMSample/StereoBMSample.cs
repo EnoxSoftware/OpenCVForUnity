@@ -14,11 +14,9 @@ namespace OpenCVForUnitySample
     /// </summary>
     public class StereoBMSample : MonoBehaviour
     {
-        
         // Use this for initialization
         void Start ()
         {
-            
             //Read the left and right images
             Texture2D texLeft = Resources.Load ("tsukuba_l") as Texture2D;
             Texture2D texRight = Resources.Load ("tsukuba_r") as Texture2D;
@@ -51,13 +49,12 @@ namespace OpenCVForUnitySample
             Utils.matToTexture2D (imgDisparity8U, texture);
             
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-            
         }
         
         // Update is called once per frame
         void Update ()
         {
-            
+
         }
         
         public void OnBackButton ()

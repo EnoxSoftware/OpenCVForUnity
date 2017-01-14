@@ -3,18 +3,13 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using System.Linq;
 
-
 public class TouchController : MonoBehaviour
 {
-    
-
     public GameObject Cube;
     public float Speed = 0.1f;
     
     void Update ()
     {
-
-
         #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
 
         //Touch
@@ -22,18 +17,18 @@ public class TouchController : MonoBehaviour
         
         if (touchCount == 1)
         {
-
+            
             Touch t = Input.GetTouch(0);
             if(EventSystem.current.IsPointerOverGameObject(t.fingerId))return;
-
+            
             switch (t.phase)
             {
             case TouchPhase.Moved:
-
+                
                 float xAngle = t.deltaPosition.y * Speed;
                 float yAngle = -t.deltaPosition.x * Speed;
                 float zAngle = 0;
-
+                
                 Cube.transform.Rotate(xAngle, yAngle, zAngle, Space.World);
                 
                 break;
@@ -54,5 +49,4 @@ public class TouchController : MonoBehaviour
         }
         #endif
     }
-
 }

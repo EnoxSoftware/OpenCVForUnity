@@ -13,7 +13,6 @@ namespace OpenCVForUnitySample
     /// </summary>
     public class DrawingSample : MonoBehaviour
     {
-
         // Use this for initialization
         void Start ()
         {
@@ -23,7 +22,6 @@ namespace OpenCVForUnitySample
             
             Utils.texture2DToMat (imgTexture, imgMat);
             Debug.Log ("imgMat.ToString() " + imgMat.ToString ());
-                        
 
 
             Imgproc.line (imgMat, new Point (50, 50), new Point (400, 105), new Scalar (0, 0, 200), 3);  
@@ -62,14 +60,10 @@ namespace OpenCVForUnitySample
             Imgproc.putText (imgMat, "OpenCV", new Point (300, 400), face [7] | face [8], 1.2, new Scalar (255, 200, 100), 2, Imgproc.LINE_AA, false);
 
 
-        
-        
             Texture2D texture = new Texture2D (imgMat.cols (), imgMat.rows (), TextureFormat.RGBA32, false);
             Utils.matToTexture2D (imgMat, texture);
         
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-        
-        
         }
     
         // Update is called once per frame

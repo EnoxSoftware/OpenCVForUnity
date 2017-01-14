@@ -16,7 +16,6 @@ namespace OpenCVForUnitySample
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class ComicFilterSample : MonoBehaviour
     {
-
         /// <summary>
         /// The gray mat.
         /// </summary>
@@ -65,10 +64,8 @@ namespace OpenCVForUnitySample
         // Use this for initialization
         void Start ()
         {
-
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
             webCamTextureToMatHelper.Init ();
-
         }
 
         /// <summary>
@@ -99,7 +96,6 @@ namespace OpenCVForUnitySample
             } else {
                 Camera.main.orthographicSize = height / 2;
             }
-        
 
 
             grayMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
@@ -116,7 +112,6 @@ namespace OpenCVForUnitySample
             
             grayPixels = new byte[grayMat.cols () * grayMat.rows () * grayMat.channels ()];
             maskPixels = new byte[maskMat.cols () * maskMat.rows () * maskMat.channels ()];
-
         }
 
         /// <summary>
@@ -148,7 +143,6 @@ namespace OpenCVForUnitySample
         // Update is called once per frame
         void Update ()
         {
-
             if (webCamTextureToMatHelper.IsPlaying () && webCamTextureToMatHelper.DidUpdateThisFrame ()) {
             
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
@@ -157,15 +151,11 @@ namespace OpenCVForUnitySample
             
                 //                      Utils.webCamTextureToMat (webCamTexture, grayMat, colors);
             
-                            
                 bgMat.copyTo (dstMat);
-            
-            
+
                 Imgproc.GaussianBlur (grayMat, lineMat, new Size (3, 3), 0);
-                            
-            
-            
-            
+
+
                 grayMat.get (0, 0, grayPixels);
             
                 for (int i = 0; i < grayPixels.Length; i++) {
@@ -178,25 +168,18 @@ namespace OpenCVForUnitySample
                         maskPixels [i] = 1;
                     } else if (70 <= grayPixels [i] && grayPixels [i] < 120) {
                         grayPixels [i] = 100;
-            
-                                            
+
                     } else {
                         grayPixels [i] = 255;
-            
                         maskPixels [i] = 1;
                     }
                 }
                     
                 grayMat.put (0, 0, grayPixels);
-                
                 maskMat.put (0, 0, maskPixels);
-            
                 grayMat.copyTo (dstMat, maskMat);
             
             
-            
-            
-                            
                 Imgproc.Canny (lineMat, lineMat, 20, 120);
                     
                 lineMat.copyTo (maskMat);
@@ -205,16 +188,13 @@ namespace OpenCVForUnitySample
             
                 lineMat.copyTo (dstMat, maskMat);
 
-//          Imgproc.putText (dstMat, "W:" + dstMat.width () + " H:" + dstMat.height () + " SO:" + Screen.orientation, new Point (5, dstMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (0), 2, Imgproc.LINE_AA, false);
-            
+                //          Imgproc.putText (dstMat, "W:" + dstMat.width () + " H:" + dstMat.height () + " SO:" + Screen.orientation, new Point (5, dstMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (0), 2, Imgproc.LINE_AA, false);
             
                 //      Imgproc.cvtColor(dstMat,rgbaMat,Imgproc.COLOR_GRAY2RGBA);
                 //              Utils.matToTexture2D (rgbaMat, texture);
             
                 Utils.matToTexture2D (dstMat, texture, webCamTextureToMatHelper.GetBufferColors());
-
             }
-        
         }
 
         /// <summary>

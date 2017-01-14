@@ -16,7 +16,6 @@ namespace OpenCVForUnitySample
     [RequireComponent(typeof(OptimizationWebCamTextureToMatHelper))]
     public class PolygonFilterSample : MonoBehaviour
     {
-
         /// <summary>
         /// The texture.
         /// </summary>
@@ -160,7 +159,6 @@ namespace OpenCVForUnitySample
         // Update is called once per frame
         void Update ()
         {
-
             if (webCamTextureToMatHelper.IsPlaying () && webCamTextureToMatHelper.DidUpdateThisFrame ()) {
 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
@@ -273,7 +271,6 @@ namespace OpenCVForUnitySample
 
                 Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors ());
             }
-
         }
     
         /// <summary>

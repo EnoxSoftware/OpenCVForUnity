@@ -14,11 +14,9 @@ namespace OpenCVForUnitySample
     /// </summary>
     public class GrabCutSample : MonoBehaviour
     {
-
         // Use this for initialization
         void Start ()
         {
-
             Texture2D imageTexture = Resources.Load ("lena") as Texture2D;
 
             Mat image = new Mat (imageTexture.height, imageTexture.width, CvType.CV_8UC3);
@@ -32,7 +30,6 @@ namespace OpenCVForUnitySample
 
             Utils.texture2DToMat (maskTexture, mask);
             Debug.Log ("mask.ToString() " + mask.ToString ());
-
 
 
             OpenCVForUnity.Rect rectangle = new OpenCVForUnity.Rect (10, 10, image.cols () - 20, image.rows () - 20);
@@ -58,7 +55,6 @@ namespace OpenCVForUnitySample
             Utils.matToTexture2D (foreground, texture);
 
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-
         }
 
         private static void convertToGrayScaleValues (Mat mask)
@@ -79,9 +75,7 @@ namespace OpenCVForUnitySample
                         buffer [y * width + x] = (byte)170; // probably foreground
                     } else {
                         buffer [y * width + x] = (byte)255; // for sure foreground
-
                     }
-            
                 }
             }
             mask.put (0, 0, buffer);
@@ -104,15 +98,12 @@ namespace OpenCVForUnitySample
                         buffer [y * width + x] = Imgproc.GC_PR_FGD; // probably foreground
                     } else {
                         buffer [y * width + x] = Imgproc.GC_FGD; // for sure foreground
-
                     }
                 }
             }
             mask.put (0, 0, buffer);
-
         }
 
-    
         // Update is called once per frame
         void Update ()
         {
@@ -127,6 +118,5 @@ namespace OpenCVForUnitySample
             Application.LoadLevel ("OpenCVForUnitySample");
             #endif
         }
-
     }
 }

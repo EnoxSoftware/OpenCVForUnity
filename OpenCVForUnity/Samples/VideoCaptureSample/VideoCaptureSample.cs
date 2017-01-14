@@ -13,7 +13,6 @@ namespace OpenCVForUnitySample
     /// </summary>
     public class VideoCaptureSample : MonoBehaviour
     {
-
         /// <summary>
         /// The capture.
         /// </summary>
@@ -87,7 +86,6 @@ namespace OpenCVForUnitySample
             }
             capture.set (Videoio.CAP_PROP_POS_FRAMES, 0);
 
-
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
         }
 
@@ -128,5 +126,4 @@ namespace OpenCVForUnitySample
             #endif
         }
     }
-    
 }

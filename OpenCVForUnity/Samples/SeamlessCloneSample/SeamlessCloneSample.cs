@@ -13,11 +13,9 @@ namespace OpenCVForUnitySample
     /// </summary>
     public class SeamlessCloneSample : MonoBehaviour
     {
-
         // Use this for initialization
         void Start ()
         {
-
             Texture2D srcTexture = Resources.Load ("template") as Texture2D;
             Texture2D dstTexture = Resources.Load ("lena") as Texture2D;
             Mat src = new Mat (srcTexture.height, srcTexture.width, CvType.CV_8UC3);
@@ -40,13 +38,12 @@ namespace OpenCVForUnitySample
             Utils.matToTexture2D (result, texture);
 
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-
         }
-    
+
         // Update is called once per frame
         void Update ()
         {
-    
+
         }
 
         public void OnBackButton ()

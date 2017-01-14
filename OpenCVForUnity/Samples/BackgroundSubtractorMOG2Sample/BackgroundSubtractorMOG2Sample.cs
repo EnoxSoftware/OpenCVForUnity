@@ -15,7 +15,6 @@ namespace OpenCVForUnitySample
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class BackgroundSubtractorMOG2Sample : MonoBehaviour
     {
-
         /// <summary>
         /// The texture.
         /// </summary>
@@ -72,7 +71,6 @@ namespace OpenCVForUnitySample
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
 
-                                    
             float width = webCamTextureMat.width();
             float height = webCamTextureMat.height();
                                     
@@ -83,7 +81,6 @@ namespace OpenCVForUnitySample
             } else {
                 Camera.main.orthographicSize = height / 2;
             }
-
 
             rgbMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC3);
             fgmaskMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
@@ -100,7 +97,6 @@ namespace OpenCVForUnitySample
 
             if (fgmaskMat != null)
                 fgmaskMat.Dispose ();
-                
         }
 
         /// <summary>
@@ -114,7 +110,6 @@ namespace OpenCVForUnitySample
         // Update is called once per frame
         void Update ()
         {
-
             if (webCamTextureToMatHelper.IsPlaying () && webCamTextureToMatHelper.DidUpdateThisFrame ()) {
 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
@@ -127,7 +122,6 @@ namespace OpenCVForUnitySample
 
                 Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors());
             }
-
         }
     
         /// <summary>

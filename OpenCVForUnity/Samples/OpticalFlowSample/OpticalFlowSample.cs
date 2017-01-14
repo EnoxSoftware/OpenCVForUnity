@@ -15,7 +15,6 @@ namespace OpenCVForUnitySample
     /// </summary>
     public class OpticalFlowSample : MonoBehaviour
     {
-        
         /// <summary>
         /// The mat op flow this.
         /// </summary>
@@ -81,14 +80,11 @@ namespace OpenCVForUnitySample
         /// </summary>
         WebCamTextureToMatHelper webCamTextureToMatHelper;
 
-    
         // Use this for initialization
         void Start ()
         {
-
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
             webCamTextureToMatHelper.Init ();
-    
         }
 
         /// <summary>
@@ -119,7 +115,6 @@ namespace OpenCVForUnitySample
             } else {
                 Camera.main.orthographicSize = height / 2;
             }
-            
 
 
             matOpFlowThis = new Mat ();
@@ -130,7 +125,6 @@ namespace OpenCVForUnitySample
             mMOP2fptsSafe = new MatOfPoint2f ();
             mMOBStatus = new MatOfByte ();
             mMOFerr = new MatOfFloat ();
-
         }
 
         /// <summary>
@@ -169,7 +163,6 @@ namespace OpenCVForUnitySample
         // Update is called once per frame
         void Update ()
         {
-
             if (webCamTextureToMatHelper.IsPlaying () && webCamTextureToMatHelper.DidUpdateThisFrame ()) {
                 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
@@ -210,8 +203,8 @@ namespace OpenCVForUnitySample
                                     
                     mMOP2fptsThis.copyTo (mMOP2fptsSafe);
                 }
-                                
-                                
+
+
                 /*
                     Parameters:
                         prevImg first 8-bit input image
@@ -247,7 +240,6 @@ namespace OpenCVForUnitySample
                 
                 Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors());
             }
-
         }
     
         /// <summary>

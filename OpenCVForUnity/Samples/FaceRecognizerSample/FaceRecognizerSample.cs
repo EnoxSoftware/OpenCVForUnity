@@ -32,7 +32,6 @@ namespace OpenCVForUnitySample
             facerec_sample_bmp_filepath = Utils.getFilePath ("facerec/facerec_sample.bmp");
             Run ();
             #endif
-
         }
 
         private IEnumerator getFilePathCoroutine()
@@ -106,7 +105,6 @@ namespace OpenCVForUnitySample
             Utils.matToTexture2D (baseMat, texture);
 
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-
         }
 
         // Update is called once per frame

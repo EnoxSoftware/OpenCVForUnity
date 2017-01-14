@@ -1,12 +1,12 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 #if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
 #endif
 using OpenCVForUnity;
-using System.Collections.Generic;
 using Rect = OpenCVForUnity.Rect;
 
 #if UNITY_WSA
@@ -34,7 +34,6 @@ namespace OpenCVForUnitySample
     [RequireComponent (typeof(WebCamTextureToMatHelper))]
     public class WebCamTextureAsyncDetectFaceSample : MonoBehaviour
     {
-
         /// <summary>
         /// The gray mat.
         /// </summary>
@@ -110,7 +109,6 @@ namespace OpenCVForUnitySample
 
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
             webCamTextureToMatHelper.Init ();
-
         }
 
         /// <summary>
@@ -188,7 +186,6 @@ namespace OpenCVForUnitySample
         // Update is called once per frame
         void Update ()
         {
-
             #if !UNITY_WEBGL || UNITY_EDITOR
             if (webCamTextureToMatHelper.IsPlaying () && webCamTextureToMatHelper.DidUpdateThisFrame ()) {
                 
@@ -249,7 +246,6 @@ namespace OpenCVForUnitySample
                     for (int i = 0; i < rects.Length; i++) {
                         Imgproc.rectangle (rgbaMat, new Point (rects [i].x, rects [i].y), new Point (rects [i].x + rects [i].width, rects [i].y + rects [i].height), new Scalar (0, 255, 0, 255), 2);
                     }
-
                 }
                 
                 if (rectsWhereRegions.Length > 0) {

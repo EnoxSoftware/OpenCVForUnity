@@ -14,11 +14,9 @@ namespace OpenCVForUnitySample
     /// </summary>
     public class MSERSample : MonoBehaviour
     {
-
         // Use this for initialization
         void Start ()
         {
-
             Texture2D imgTexture = Resources.Load ("chessboard") as Texture2D;
 
             Mat imgMat = new Mat (imgTexture.height, imgTexture.width, CvType.CV_8UC3);
@@ -46,7 +44,6 @@ namespace OpenCVForUnitySample
             Utils.matToTexture2D (imgMat, texture);
 
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-
         }
     
         // Update is called once per frame

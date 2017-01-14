@@ -13,11 +13,9 @@ namespace OpenCVForUnitySample
     /// </summary>
     public class WrapPerspectiveSample : MonoBehaviour
     {
-        
         // Use this for initialization
         void Start ()
         {
-            
             Texture2D inputTexture = Resources.Load ("lena") as Texture2D;
             
             Mat inputMat = new Mat (inputTexture.height, inputTexture.width, CvType.CV_8UC4);
@@ -47,7 +45,6 @@ namespace OpenCVForUnitySample
             Utils.matToTexture2D (outputMat, outputTexture);
             
             gameObject.GetComponent<Renderer> ().material.mainTexture = outputTexture;
-            
         }
         
         // Update is called once per frame

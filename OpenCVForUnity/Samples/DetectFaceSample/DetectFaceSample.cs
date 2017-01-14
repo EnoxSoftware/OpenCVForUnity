@@ -13,7 +13,6 @@ namespace OpenCVForUnitySample
     /// </summary>
     public class DetectFaceSample : MonoBehaviour
     {
-        
         CascadeClassifier cascade;
 
         // Use this for initialization

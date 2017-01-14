@@ -13,12 +13,9 @@ namespace OpenCVForUnitySample
     /// </summary>
     public class Feature2DSample : MonoBehaviour
     {
-
         // Use this for initialization
         void Start ()
         {
-
-
             Texture2D imgTexture = Resources.Load ("lena") as Texture2D;
             
             Mat img1Mat = new Mat (imgTexture.height, imgTexture.width, CvType.CV_8UC3);
@@ -30,7 +27,6 @@ namespace OpenCVForUnitySample
             Debug.Log ("img2Mat.ToString() " + img2Mat.ToString ());
 
 
-
             float angle = UnityEngine.Random.Range (0, 360), scale = 1.0f;
 
             Point center = new Point (img2Mat.cols () * 0.5f, img2Mat.rows () * 0.5f);
@@ -38,7 +34,6 @@ namespace OpenCVForUnitySample
             Mat affine_matrix = Imgproc.getRotationMatrix2D (center, angle, scale);
 
             Imgproc.warpAffine (img1Mat, img2Mat, affine_matrix, img2Mat.size ());
-
 
 
             ORB detector = ORB.create ();
@@ -69,13 +64,11 @@ namespace OpenCVForUnitySample
             Features2d.drawMatches (img1Mat, keypoints1, img2Mat, keypoints2, matches, resultImg);
 
 
-
             Texture2D texture = new Texture2D (resultImg.cols (), resultImg.rows (), TextureFormat.RGBA32, false);
         
             Utils.matToTexture2D (resultImg, texture);
 
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-
         }
     
         // Update is called once per frame

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 #if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
@@ -14,7 +15,6 @@ namespace OpenCVForUnitySample
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class WebCamTextureToMatHelperSample : MonoBehaviour
     {
-
         /// <summary>
         /// The texture.
         /// </summary>
@@ -24,13 +24,26 @@ namespace OpenCVForUnitySample
         /// The web cam texture to mat helper.
         /// </summary>
         WebCamTextureToMatHelper webCamTextureToMatHelper;
-    
+
+        /// <summary>
+        /// The is flip vertical toggle.
+        /// </summary>
+        public Toggle isFlipVerticalToggle;
+        
+        /// <summary>
+        /// The is flip horizontal toggle.
+        /// </summary>
+        public Toggle isFlipHorizontalToggle;
 
         // Use this for initialization
         void Start ()
         {
+
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
             webCamTextureToMatHelper.Init ();
+
+            isFlipHorizontalToggle.isOn = webCamTextureToMatHelper.flipVertical;
+            isFlipHorizontalToggle.isOn = webCamTextureToMatHelper.flipHorizontal;
         }
 
         /// <summary>
@@ -60,7 +73,6 @@ namespace OpenCVForUnitySample
             } else {
                 Camera.main.orthographicSize = height / 2;
             }
-
         }
 
         /// <summary>
@@ -83,7 +95,6 @@ namespace OpenCVForUnitySample
         // Update is called once per frame
         void Update ()
         {
-
             if (webCamTextureToMatHelper.IsPlaying () && webCamTextureToMatHelper.DidUpdateThisFrame ()) {
 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
@@ -92,7 +103,6 @@ namespace OpenCVForUnitySample
 
                 Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors());
             }
-
         }
     
         /// <summary>
@@ -145,6 +155,30 @@ namespace OpenCVForUnitySample
         public void OnChangeCameraButton ()
         {
             webCamTextureToMatHelper.Init (null, webCamTextureToMatHelper.requestWidth, webCamTextureToMatHelper.requestHeight, !webCamTextureToMatHelper.requestIsFrontFacing);
+        }
+
+        /// <summary>
+        /// Raises the is showing face points toggle event.
+        /// </summary>
+        public void OnIsFlipVerticalToggle ()
+        {
+            if (isFlipVerticalToggle.isOn) {
+                webCamTextureToMatHelper.flipVertical = true;
+            } else {
+                webCamTextureToMatHelper.flipVertical = false;
+            }
+        }
+        
+        /// <summary>
+        /// Raises the is showing axes toggle event.
+        /// </summary>
+        public void OnIsFlipHorizontalToggle ()
+        {
+            if (isFlipHorizontalToggle.isOn) {
+                webCamTextureToMatHelper.flipHorizontal = true;
+            } else {
+                webCamTextureToMatHelper.flipHorizontal = false;
+            }
         }
     }
 }

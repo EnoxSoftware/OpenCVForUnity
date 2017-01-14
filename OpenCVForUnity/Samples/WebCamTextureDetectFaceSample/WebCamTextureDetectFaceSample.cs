@@ -13,7 +13,6 @@ namespace OpenCVForUnitySample
     /// </summary>
     public class WebCamTextureDetectFaceSample : MonoBehaviour
     {
-
         /// <summary>
         /// The gray mat.
         /// </summary>
@@ -39,7 +38,6 @@ namespace OpenCVForUnitySample
         /// </summary>
         WebCamTextureToMatHelper webCamTextureToMatHelper;
 
-
         // Use this for initialization
         void Start ()
         {
@@ -64,7 +62,6 @@ namespace OpenCVForUnitySample
 
             webCamTextureToMatHelper.Init ();
             #endif
-                        
         }
 
         /// <summary>
@@ -94,7 +91,6 @@ namespace OpenCVForUnitySample
             } else {
                 Camera.main.orthographicSize = height / 2;
             }
-
 
             grayMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
 
@@ -126,7 +122,6 @@ namespace OpenCVForUnitySample
         // Update is called once per frame
         void Update ()
         {
-
             if (webCamTextureToMatHelper.IsPlaying () && webCamTextureToMatHelper.DidUpdateThisFrame ()) {
                 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
@@ -151,7 +146,6 @@ namespace OpenCVForUnitySample
                 
                 Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors ());
             }
-
         }
 
         /// <summary>

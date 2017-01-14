@@ -13,7 +13,6 @@ namespace OpenCVForUnitySample
     /// </summary>
     public class SimpleBlobSample : MonoBehaviour
     {
-
         private string blobparams_yml_filepath;
 
         // Use this for initialization
@@ -61,7 +60,7 @@ namespace OpenCVForUnitySample
         // Update is called once per frame
         void Update ()
         {
-            
+
         }
         
         public void OnBackButton ()

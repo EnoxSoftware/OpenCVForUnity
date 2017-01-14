@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 #if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
 #endif
 using OpenCVForUnity;
-using System.Collections.Generic;
 
 namespace OpenCVForUnitySample
 {
@@ -16,7 +16,6 @@ namespace OpenCVForUnitySample
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class MultiObjectTrackingBasedOnColorSample : MonoBehaviour
     {
-
         /// <summary>
         /// The texture.
         /// </summary>
@@ -64,10 +63,8 @@ namespace OpenCVForUnitySample
         // Use this for initialization
         void Start ()
         {
-                        
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
             webCamTextureToMatHelper.Init ();
-
         }
 
         /// <summary>
@@ -98,7 +95,6 @@ namespace OpenCVForUnitySample
             } else {
                 Camera.main.orthographicSize = height / 2;
             }
-            
 
 
             rgbMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC3);
@@ -106,8 +102,6 @@ namespace OpenCVForUnitySample
             hsvMat = new Mat ();
             
             //                                      MAX_OBJECT_AREA = (int)(webCamTexture.height * webCamTexture.width / 1.5);
-
-            
         }
         
         /// <summary>
@@ -136,11 +130,9 @@ namespace OpenCVForUnitySample
         // Update is called once per frame
         void Update ()
         {
-
             if (webCamTextureToMatHelper.IsPlaying () && webCamTextureToMatHelper.DidUpdateThisFrame ()) {
                 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
-                                
 
                 Imgproc.cvtColor (rgbaMat, rgbMat, Imgproc.COLOR_RGBA2RGB);
                                         
@@ -233,7 +225,6 @@ namespace OpenCVForUnitySample
         /// <param name="hierarchy">Hierarchy.</param>
         void drawObject (List<ColorObject> theColorObjects, Mat frame, Mat temp, List<MatOfPoint> contours, Mat hierarchy)
         {
-
             for (int i = 0; i < theColorObjects.Count; i++) {
                 Imgproc.drawContours (frame, contours, i, theColorObjects [i].getColor (), 3, 8, hierarchy, int.MaxValue, new Point ());
                 Imgproc.circle (frame, new Point (theColorObjects [i].getXPos (), theColorObjects [i].getYPos ()), 5, theColorObjects [i].getColor ());
@@ -248,7 +239,6 @@ namespace OpenCVForUnitySample
         /// <param name="thresh">Thresh.</param>
         void morphOps (Mat thresh)
         {
-                    
             //create structuring element that will be used to "dilate" and "erode" image.
             //the element chosen here is a 3px by 3px rectangle
             Mat erodeElement = Imgproc.getStructuringElement (Imgproc.MORPH_RECT, new Size (3, 3));
@@ -327,6 +317,5 @@ namespace OpenCVForUnitySample
                 }
             }
         }
-
     }
 }

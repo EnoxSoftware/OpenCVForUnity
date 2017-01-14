@@ -13,7 +13,6 @@ namespace OpenCVForUnitySample
     /// </summary>
     public class HOGDescriptorSample : MonoBehaviour
     {
-
         /// <summary>
         /// The capture.
         /// </summary>
@@ -37,7 +36,6 @@ namespace OpenCVForUnitySample
         // Use this for initialization
         void Start ()
         {
-            
             rgbMat = new Mat ();
             
             capture = new VideoCapture ();
@@ -48,7 +46,6 @@ namespace OpenCVForUnitySample
             } else {
                 Debug.Log ("capture.isOpened() false");
             }
-
 
             Debug.Log ("CAP_PROP_FORMAT: " + capture.get (Videoio.CAP_PROP_FORMAT));
             Debug.Log ("CV_CAP_PROP_PREVIEW_FORMAT: " + capture.get (Videoio.CV_CAP_PROP_PREVIEW_FORMAT));
@@ -77,7 +74,6 @@ namespace OpenCVForUnitySample
             }
             capture.set (Videoio.CAP_PROP_POS_FRAMES, 0);
 
-            
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
         }
         
@@ -116,7 +112,6 @@ namespace OpenCVForUnitySample
                 Utils.matToTexture2D (rgbMat, texture, colors);
                 
                 gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-                
             }
         }
         
@@ -137,5 +132,4 @@ namespace OpenCVForUnitySample
             #endif
         }
     }
-    
 }

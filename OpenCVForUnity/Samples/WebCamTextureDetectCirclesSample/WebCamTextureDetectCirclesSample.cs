@@ -14,7 +14,6 @@ namespace OpenCVForUnitySample
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class WebCamTextureDetectCirclesSample : MonoBehaviour
     {
-
         /// <summary>
         /// The texture.
         /// </summary>
@@ -29,7 +28,6 @@ namespace OpenCVForUnitySample
         /// The gray mat.
         /// </summary>
         Mat grayMat;
-    
 
         // Use this for initialization
         void Start ()
@@ -67,9 +65,7 @@ namespace OpenCVForUnitySample
                 Camera.main.orthographicSize = height / 2;
             }
 
-
             grayMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
-
         }
 
         /// <summary>
@@ -94,7 +90,6 @@ namespace OpenCVForUnitySample
         // Update is called once per frame
         void Update ()
         {
-
             if (webCamTextureToMatHelper.IsPlaying () && webCamTextureToMatHelper.DidUpdateThisFrame ()) {
 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
@@ -119,7 +114,6 @@ namespace OpenCVForUnitySample
 
                 Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors());
             }
-
         }
     
         /// <summary>

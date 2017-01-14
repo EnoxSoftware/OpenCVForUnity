@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 using OpenCVForUnity;
-using System.Collections.Generic;
 
 public class ColorBlobDetector
 {
-
     // Lower and Upper bounds for range checking in HSV color space
     private Scalar mLowerBound = new Scalar (0);
     private Scalar mUpperBound = new Scalar (0);

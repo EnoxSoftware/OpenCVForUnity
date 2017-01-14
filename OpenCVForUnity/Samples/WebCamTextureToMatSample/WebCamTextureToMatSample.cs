@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 #if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
 #endif
 using OpenCVForUnity;
-using System;
 
 namespace OpenCVForUnitySample
 {
@@ -14,7 +14,6 @@ namespace OpenCVForUnitySample
     /// </summary>
     public class WebCamTextureToMatSample : MonoBehaviour
     {
-
         /// <summary>
         /// The name of the device.
         /// </summary>
@@ -223,7 +222,6 @@ namespace OpenCVForUnitySample
             } else {
                 Camera.main.orthographicSize = height / 2;
             }
-
         }
 
         // Update is called once per frame

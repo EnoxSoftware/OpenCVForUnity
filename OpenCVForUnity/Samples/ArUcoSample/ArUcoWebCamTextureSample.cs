@@ -16,7 +16,6 @@ namespace OpenCVForUnitySample
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class ArUcoWebCamTextureSample : MonoBehaviour
     {
-
         /// <summary>
         /// The texture.
         /// </summary>
@@ -138,7 +137,6 @@ namespace OpenCVForUnitySample
         /// The dictionary.
         /// </summary>
         Dictionary dictionary;
-    
 
         // Use this for initialization
         void Start ()
@@ -307,7 +305,6 @@ namespace OpenCVForUnitySample
         // Update is called once per frame
         void Update ()
         {
-
             if (webCamTextureToMatHelper.IsPlaying () && webCamTextureToMatHelper.DidUpdateThisFrame ()) {
 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
@@ -364,7 +361,6 @@ namespace OpenCVForUnitySample
 
                 Utils.matToTexture2D (rgbMat, texture, webCamTextureToMatHelper.GetBufferColors());
             }
-
         }
     
         /// <summary>

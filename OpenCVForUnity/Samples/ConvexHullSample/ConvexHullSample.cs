@@ -13,14 +13,11 @@ namespace OpenCVForUnitySample
     /// </summary>
     public class ConvexHullSample : MonoBehaviour
     {
-
         // Use this for initialization
         void Start ()
         {
-    
             Mat imgMat = new Mat (500, 500, CvType.CV_8UC3, new Scalar (0, 0, 0));
             Debug.Log ("imgMat.ToString() " + imgMat.ToString ());
-
 
             int rand_num = 50;
             MatOfPoint pointsMat = new MatOfPoint ();
@@ -30,7 +27,6 @@ namespace OpenCVForUnitySample
 
             Point[] points = pointsMat.toArray ();
             for (int i=0; i<rand_num; ++i) {
-                        
                 Imgproc.circle (imgMat, points [i], 2, new Scalar (255, 255, 255), -1);
             }
 
@@ -48,17 +44,13 @@ namespace OpenCVForUnitySample
             }
 
             MatOfPoint hullPointMat = new MatOfPoint ();
-        
             hullPointMat.fromList (hullPointList);
 
             List<MatOfPoint> hullPoints = new List<MatOfPoint> ();
-
             hullPoints.Add (hullPointMat);
-        
-        
+
         
             Imgproc.drawContours (imgMat, hullPoints, -1, new Scalar (0, 255, 0), 2);
-
 
             Imgproc.cvtColor (imgMat, imgMat, Imgproc.COLOR_BGR2RGB);
 

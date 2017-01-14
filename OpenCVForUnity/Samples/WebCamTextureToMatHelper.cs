@@ -6,7 +6,6 @@ using UnityEngine.Events;
 
 namespace OpenCVForUnitySample
 {
-
     /// <summary>
     /// Web cam texture to mat helper.
     /// </summary>
@@ -386,18 +385,41 @@ namespace OpenCVForUnitySample
 
             Utils.webCamTextureToMat (webCamTexture, rgbaMat, colors);
 
-            int flipCode = int.MinValue;
+            if (rotatedRgbaMat != null) {
 
+                using (Mat transposeRgbaMat = rgbaMat.t ()) {
+                    Core.flip (transposeRgbaMat, rotatedRgbaMat, 1);
+                }
+
+                flipMat (rotatedRgbaMat);
+
+                return rotatedRgbaMat;
+            } else {
+
+                flipMat (rgbaMat);
+
+                return rgbaMat;
+            }
+        }
+
+        /// <summary>
+        /// Flips the mat.
+        /// </summary>
+        /// <param name="mat">Mat.</param>
+        private void flipMat (Mat mat)
+        {
+            int flipCode = int.MinValue;
+                
             if (webCamDevice.isFrontFacing) {
                 if (webCamTexture.videoRotationAngle == 0) {
                     flipCode = 1;
                 } else if (webCamTexture.videoRotationAngle == 90) {
-                    flipCode = 0;
+                    flipCode = 1;
                 }
                 if (webCamTexture.videoRotationAngle == 180) {
                     flipCode = 0;
                 } else if (webCamTexture.videoRotationAngle == 270) {
-                    flipCode = 1;
+                    flipCode = 0;
                 }
             } else {
                 if (webCamTexture.videoRotationAngle == 180) {
@@ -406,7 +428,7 @@ namespace OpenCVForUnitySample
                     flipCode = -1;
                 }
             }
-
+                
             if (flipVertical) {
                 if (flipCode == int.MinValue) {
                     flipCode = 0;
@@ -418,7 +440,7 @@ namespace OpenCVForUnitySample
                     flipCode = 1;
                 }
             }
-
+                
             if (flipHorizontal) {
                 if (flipCode == int.MinValue) {
                     flipCode = 1;
@@ -430,20 +452,9 @@ namespace OpenCVForUnitySample
                     flipCode = 0;
                 }
             }
-
+                
             if (flipCode > int.MinValue) {
-                Core.flip (rgbaMat, rgbaMat, flipCode);
-            }
-
-            if (rotatedRgbaMat != null) {
-
-                using (Mat transposeRgbaMat = rgbaMat.t ()) {
-                    Core.flip (transposeRgbaMat, rotatedRgbaMat, 1);
-                }
-
-                return rotatedRgbaMat;
-            } else {
-                return rgbaMat;
+                Core.flip (mat, mat, flipCode);
             }
         }
 

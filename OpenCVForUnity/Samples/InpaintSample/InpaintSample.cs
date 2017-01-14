@@ -13,11 +13,9 @@ namespace OpenCVForUnitySample
     /// </summary>
     public class InpaintSample : MonoBehaviour
     {
-
         // Use this for initialization
         void Start ()
         {
-
             Texture2D srcTexture = Resources.Load ("lena") as Texture2D;
 
             Mat srcMat = new Mat (srcTexture.height, srcTexture.width, CvType.CV_8UC3);
@@ -38,13 +36,11 @@ namespace OpenCVForUnitySample
             Photo.inpaint (srcMat, maskMat, dstMat, 5, Photo.INPAINT_NS);
 
 
-
             Texture2D texture = new Texture2D (dstMat.cols (), dstMat.rows (), TextureFormat.RGBA32, false);
 
             Utils.matToTexture2D (dstMat, texture);
 
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-
         }
     
         // Update is called once per frame

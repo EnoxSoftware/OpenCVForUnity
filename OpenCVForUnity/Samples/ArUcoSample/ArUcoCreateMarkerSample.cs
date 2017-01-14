@@ -14,7 +14,6 @@ namespace OpenCVForUnitySample
     /// </summary>
     public class ArUcoCreateMarkerSample : MonoBehaviour
     {
-
         /// <summary>
         /// The dictionary identifier.
         /// </summary>
@@ -38,7 +37,6 @@ namespace OpenCVForUnitySample
         // Use this for initialization
         void Start ()
         {
-            
             Dictionary dictionary = Aruco.getPredefinedDictionary (dictionaryId);
             
             Mat markerImg = new Mat ();
@@ -56,9 +54,8 @@ namespace OpenCVForUnitySample
 //                      string savePath = Application.persistentDataPath + "/marker_id" + markerId + ".jpg";
 //                      Debug.Log ("savePath " + savePath);
 //                      Imgcodecs.imwrite (savePath, markerImg);
-
         }
-    
+
         // Update is called once per frame
         void Update ()
         {

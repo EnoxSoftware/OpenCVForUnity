@@ -13,7 +13,6 @@ namespace OpenCVForUnitySample
     /// </summary>
     public class HoughLinesPSample : MonoBehaviour
     {
-
         // Use this for initialization
         void Start ()
         {
@@ -50,8 +49,6 @@ namespace OpenCVForUnitySample
             Utils.matToTexture2D (imgMat, texture);
         
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-        
-        
         }
     
         // Update is called once per frame

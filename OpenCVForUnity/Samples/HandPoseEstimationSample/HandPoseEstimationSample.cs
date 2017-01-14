@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 #if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
 #endif
 using OpenCVForUnity;
-using System.Collections.Generic;
 
 namespace OpenCVForUnitySample
 {
@@ -18,7 +18,6 @@ namespace OpenCVForUnitySample
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class HandPoseEstimationSample : MonoBehaviour
     {
-
         /// <summary>
         /// The texture.
         /// </summary>
@@ -155,7 +154,6 @@ namespace OpenCVForUnitySample
         // Update is called once per frame
         void Update ()
         {
-
             #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
             //Touch
             int touchCount = Input.touchCount;
@@ -253,8 +251,6 @@ namespace OpenCVForUnitySample
         /// </summary>
         public void handPoseEstimationProcess (Mat rgbaMat)
         {
-  
-                    
             //Imgproc.blur(mRgba, mRgba, new Size(5,5));
             Imgproc.GaussianBlur (rgbaMat, rgbaMat, new OpenCVForUnity.Size (3, 3), 1, 1);
             //Imgproc.medianBlur(mRgba, mRgba, 3);
@@ -366,7 +362,6 @@ namespace OpenCVForUnitySample
             foreach (Point p in listPoDefect) {
                 Imgproc.circle (rgbaMat, p, 6, new Scalar (255, 0, 255, 255), -1);
             }
-
         }
 
         /// <summary>
@@ -375,7 +370,6 @@ namespace OpenCVForUnitySample
         /// <param name="touchPoint">Touch point.</param>
         public void onTouch (Mat rgbaMat, Point touchPoint)
         {
-
             int cols = rgbaMat.cols ();
             int rows = rgbaMat.rows ();
 

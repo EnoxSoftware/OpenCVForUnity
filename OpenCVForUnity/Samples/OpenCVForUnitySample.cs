@@ -13,22 +13,22 @@ namespace OpenCVForUnitySample
         // Use this for initialization
         void Start ()
         {
-    
+
         }
     
         // Update is called once per frame
         void Update ()
         {
-    
+
         }
 
         public void OnShowLicenseButton ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("ShowLicense");
-#else
+            #else
             Application.LoadLevel ("ShowLicense");
-#endif
+            #endif
         }
 
         public void OnTexture2DToMatSample ()
@@ -263,7 +263,6 @@ namespace OpenCVForUnitySample
             #else
             Application.LoadLevel ("WebCamTextureDetectCirclesSample");
             #endif
-
         }
 
         public void OnSVMSample ()
@@ -273,7 +272,6 @@ namespace OpenCVForUnitySample
             #else
             Application.LoadLevel ("SVMSample");
             #endif
-            
         }
 
         public void OnHOGDescriptorSample ()
@@ -283,7 +281,6 @@ namespace OpenCVForUnitySample
             #else
             Application.LoadLevel ("HOGDescriptorSample");
             #endif
-            
         }
 
         public void OnArUcoCreateMarkerSample ()
@@ -293,7 +290,6 @@ namespace OpenCVForUnitySample
             #else
             Application.LoadLevel ("ArUcoCreateMarkerSample");
             #endif
-            
         }
         
         public void OnArUcoTexture2DSample ()
@@ -303,7 +299,6 @@ namespace OpenCVForUnitySample
             #else
             Application.LoadLevel ("ArUcoTexture2DSample");
             #endif
-            
         }
 
         public void OnArUcoWebCamTextureSample ()
@@ -313,7 +308,6 @@ namespace OpenCVForUnitySample
             #else
             Application.LoadLevel ("ArUcoWebCamTextureSample");
             #endif
-            
         }
 
         public void OnGrabCutSample ()
@@ -323,7 +317,6 @@ namespace OpenCVForUnitySample
             #else
             Application.LoadLevel ("GrabCutSample");
             #endif
-            
         }
 
         public void OnInpaintSample ()
@@ -333,7 +326,6 @@ namespace OpenCVForUnitySample
             #else
             Application.LoadLevel ("InpaintSample");
             #endif
-            
         }
         
         public void OnMatchShapesSample ()
@@ -343,7 +335,6 @@ namespace OpenCVForUnitySample
             #else
             Application.LoadLevel ("MatchShapesSample");
             #endif
-            
         }
         
         public void OnMSERSample ()
@@ -353,7 +344,6 @@ namespace OpenCVForUnitySample
             #else
             Application.LoadLevel ("MSERSample");
             #endif
-            
         }
 
         public void OnPolygonFilterSample ()
@@ -363,7 +353,6 @@ namespace OpenCVForUnitySample
             #else
             Application.LoadLevel ("PolygonFilterSample");
             #endif
-            
         }
     }
 }
