@@ -32,6 +32,11 @@ namespace OpenCVForUnitySample
         /// The texture.
         /// </summary>
         Texture2D texture;
+
+        /// <summary>
+        /// HOGDescriptor
+        /// </summary>
+        HOGDescriptor des;
         
         // Use this for initialization
         void Start ()
@@ -75,6 +80,8 @@ namespace OpenCVForUnitySample
             capture.set (Videoio.CAP_PROP_POS_FRAMES, 0);
 
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
+
+            des = new HOGDescriptor();
         }
         
         // Update is called once per frame
@@ -93,7 +100,6 @@ namespace OpenCVForUnitySample
                 
                 //Debug.Log ("Mat toString " + rgbMat.ToString ());
                                 
-                using (HOGDescriptor des = new HOGDescriptor())
                 using (MatOfRect locations = new MatOfRect ())
                 using (MatOfDouble weights = new MatOfDouble ()) {
                     des.setSVMDetector (HOGDescriptor.getDefaultPeopleDetector ());
@@ -121,6 +127,9 @@ namespace OpenCVForUnitySample
 
             if (rgbMat != null)
                 rgbMat.Dispose ();
+
+            if(des != null)
+                des.Dispose();
         }
         
         public void OnBackButton ()
