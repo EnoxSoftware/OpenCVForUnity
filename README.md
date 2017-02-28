@@ -3,7 +3,7 @@ OpenCVForUnity
 
 Overview
 -----
-<http://u3d.as/content/enox-software/open-cv-for-unity>  
+<https://www.assetstore.unity3d.com/#!/content/21088>  
 
 Setup Tutorial & Demo Video
 -----
@@ -12,13 +12,13 @@ Setup Tutorial & Demo Video
 Demo
 -----
 - WebGL
-<https://enoxsoftware.github.io/OpenCVForUnity/webgl_sample/index.html>
+<https://enoxsoftware.github.io/OpenCVForUnity/webgl_example/index.html>
 - Android
-<https://play.google.com/store/apps/details?id=com.enoxsoftware.opencvforunitysample>
+<https://play.google.com/store/apps/details?id=com.enoxsoftware.opencvforunityexample>
 
 Manual
 -----
-[ReadMe.pdf](/OpenCVForUnity/ReadMe.pdf)
+[ReadMe.pdf](/Assets/OpenCVForUnity/ReadMe.pdf)
 
 API Reference
 -----
