@@ -27,6 +27,11 @@ namespace OpenCVForUnityExample
         public Camera ARCamera;
         
         /// <summary>
+        /// The should move AR camera.
+        /// </summary>
+        public bool shouldMoveARCamera;
+        
+        /// <summary>
         /// The AR game object.
         /// </summary>
         public GameObject ARGameObject;
@@ -138,6 +143,7 @@ namespace OpenCVForUnityExample
             }
             
             
+            
             Mat ids = new Mat ();
             List<Mat> corners = new List<Mat> ();
             List<Mat> rejected = new List<Mat> ();
@@ -162,43 +168,61 @@ namespace OpenCVForUnityExample
                 
                 if (estimatePose) {
                     for (int i = 0; i < ids.total(); i++) {
-                        //                      Debug.Log ("ids.dump() " + ids.dump ());
+//                        Debug.Log ("ids.dump() " + ids.dump ());
                         
                         Aruco.drawAxis (rgbMat, camMatrix, distCoeffs, rvecs, tvecs, markerLength * 0.5f);
                         
                         //This example can display ARObject on only first detected marker.
                         if (i == 0) {
-                            
+
                             // position
                             double[] tvec = tvecs.get (i, 0);
-                            Vector4 pos =  new Vector4((float)tvec [0], (float)tvec [1], (float)tvec [2], 0); // from OpenCV
-                            // right-handed coordinates system (OpenCV) to left-handed one (Unity)
-                            ARGameObject.transform.localPosition = new Vector3(pos.x, -pos.y, pos.z);
-                            
-                            
+
                             // rotation
                             double[] rv = rvecs.get (i, 0);
                             Mat rvec = new Mat(3,1, CvType.CV_64FC1);
                             rvec.put(0,0, rv[0]);
                             rvec.put(1,0, rv[1]);
                             rvec.put(2,0, rv[2]);
-                            
                             Calib3d.Rodrigues (rvec, rotMat);
+
+                            Matrix4x4 transformationM = new Matrix4x4 (); // from OpenCV
+                            transformationM.SetRow (0, new Vector4 ((float)rotMat.get (0, 0) [0], (float)rotMat.get (0, 1) [0], (float)rotMat.get (0, 2) [0], (float)tvec [0]));
+                            transformationM.SetRow (1, new Vector4 ((float)rotMat.get (1, 0) [0], (float)rotMat.get (1, 1) [0], (float)rotMat.get (1, 2) [0], (float)tvec [1]));
+                            transformationM.SetRow (2, new Vector4 ((float)rotMat.get (2, 0) [0], (float)rotMat.get (2, 1) [0], (float)rotMat.get (2, 2) [0], (float)tvec [2]));
+                            transformationM.SetRow (3, new Vector4 (0, 0, 0, 1));
+                            Debug.Log ("transformationM " + transformationM.ToString ());
+
+                            Matrix4x4 invertZM = Matrix4x4.TRS (Vector3.zero, Quaternion.identity, new Vector3 (1, 1, -1));
+                            Debug.Log ("invertZM " + invertZM.ToString ());
                             
-                            Vector3 forward = new Vector3((float)rotMat.get (0, 2) [0],(float)rotMat.get (1, 2) [0],(float)rotMat.get (2, 2) [0]); // from OpenCV
-                            Vector3 up = new Vector3((float)rotMat.get (0, 1) [0],(float)rotMat.get (1, 1) [0],(float)rotMat.get (2, 1) [0]); // from OpenCV
+                            Matrix4x4 invertYM = Matrix4x4.TRS (Vector3.zero, Quaternion.identity, new Vector3 (1, -1, 1));
+                            Debug.Log ("invertYM " + invertYM.ToString ());
+
                             // right-handed coordinates system (OpenCV) to left-handed one (Unity)
-                            Quaternion rot = Quaternion.LookRotation(new Vector3(forward.x, -forward.y, forward.z), new Vector3(up.x, -up.y, up.z));
-                            ARGameObject.transform.localRotation = rot;
+                            Matrix4x4 ARM = invertYM * transformationM;
                             
                             // Apply Z axis inverted matrix.
-                            Matrix4x4 invertZM = Matrix4x4.TRS (Vector3.zero, Quaternion.identity, new Vector3 (1, 1, -1));
-                            Matrix4x4 transformationM = ARGameObject.transform.localToWorldMatrix * invertZM;
-                            
-                            // Apply camera transform matrix.
-                            transformationM = ARCamera.transform.localToWorldMatrix * transformationM ;
-                            
-                            ARUtils.SetTransformFromMatrix (ARGameObject.transform, ref transformationM);
+                            ARM = ARM * invertZM;
+
+                            if (shouldMoveARCamera) {
+
+                                // Apply ARObject transform matrix.
+                                ARM = ARGameObject.transform.localToWorldMatrix * ARM.inverse;
+                                
+                                Debug.Log ("ARM " + ARM.ToString ());
+
+                                ARUtils.SetTransformFromMatrix (ARCamera.transform, ref ARM);
+
+                            } else {
+
+                                // Apply camera transform matrix.
+                                ARM = ARCamera.transform.localToWorldMatrix * ARM;
+
+                                Debug.Log ("ARM " + ARM.ToString ());
+
+                                ARUtils.SetTransformFromMatrix (ARGameObject.transform, ref ARM);
+                            }
                         }
                     }
                 }

@@ -73,6 +73,11 @@ namespace OpenCVForUnityExample
         MatOfDouble distCoeffs;
         
         /// <summary>
+        /// The invert Y.
+        /// </summary>
+        Matrix4x4 invertYM;
+        
+        /// <summary>
         /// The transformation m.
         /// </summary>
         Matrix4x4 transformationM;
@@ -81,6 +86,16 @@ namespace OpenCVForUnityExample
         /// The invert Z.
         /// </summary>
         Matrix4x4 invertZM;
+        
+        /// <summary>
+        /// The ar m.
+        /// </summary>
+        Matrix4x4 ARM;
+        
+        /// <summary>
+        /// The should move AR camera.
+        /// </summary>
+        public bool shouldMoveARCamera;
         
         /// <summary>
         /// The identifiers.
@@ -126,8 +141,6 @@ namespace OpenCVForUnityExample
         // Use this for initialization
         void Start ()
         {
-            //                      Utils.setDebugMode (true);
-            
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
             webCamTextureToMatHelper.Init ();
         }
@@ -236,6 +249,9 @@ namespace OpenCVForUnityExample
             
             transformationM = new Matrix4x4 ();
             
+            invertYM = Matrix4x4.TRS (Vector3.zero, Quaternion.identity, new Vector3 (1, -1, 1));
+            Debug.Log ("invertYM " + invertYM.ToString ());
+            
             invertZM = Matrix4x4.TRS (Vector3.zero, Quaternion.identity, new Vector3 (1, 1, -1));
             Debug.Log ("invertZM " + invertZM.ToString ());
             
@@ -276,14 +292,6 @@ namespace OpenCVForUnityExample
                 rotMat.Dispose ();
         }
         
-        /// <summary>
-        /// Raises the web cam texture to mat helper error occurred event.
-        /// </summary>
-        /// <param name="errorCode">Error code.</param>
-        public void OnWebCamTextureToMatHelperErrorOccurred(WebCamTextureToMatHelper.ErrorCode errorCode){
-            Debug.Log ("OnWebCamTextureToMatHelperErrorOccurred " + errorCode);
-        }
-        
         // Update is called once per frame
         void Update ()
         {
@@ -296,7 +304,7 @@ namespace OpenCVForUnityExample
                 
                 // detect markers and estimate pose
                 Aruco.detectMarkers (rgbMat, dictionary, corners, ids, detectorParams, rejected);
-                //          Aruco.detectMarkers (imgMat, dictionary, corners, ids);
+
                 if (estimatePose && ids.total () > 0)
                     Aruco.estimatePoseSingleMarkers (corners, markerLength, camMatrix, distCoeffs, rvecs, tvecs);
                 
@@ -311,13 +319,9 @@ namespace OpenCVForUnityExample
                             
                             //This example can display ARObject on only first detected marker.
                             if (i == 0) {
-                                
+
                                 // position
                                 double[] tvec = tvecs.get (i, 0);
-                                Vector4 pos =  new Vector4((float)tvec [0], (float)tvec [1], (float)tvec [2], 0); // from OpenCV
-                                // right-handed coordinates system (OpenCV) to left-handed one (Unity)
-                                ARGameObject.transform.localPosition = new Vector3(pos.x, -pos.y, pos.z);
-                                
                                 
                                 // rotation
                                 double[] rv = rvecs.get (i, 0);
@@ -325,24 +329,33 @@ namespace OpenCVForUnityExample
                                 rvec.put(0,0, rv[0]);
                                 rvec.put(1,0, rv[1]);
                                 rvec.put(2,0, rv[2]);
-                                
                                 Calib3d.Rodrigues (rvec, rotMat);
+
+                                transformationM.SetRow (0, new Vector4 ((float)rotMat.get (0, 0) [0], (float)rotMat.get (0, 1) [0], (float)rotMat.get (0, 2) [0], (float)tvec [0]));
+                                transformationM.SetRow (1, new Vector4 ((float)rotMat.get (1, 0) [0], (float)rotMat.get (1, 1) [0], (float)rotMat.get (1, 2) [0], (float)tvec [1]));
+                                transformationM.SetRow (2, new Vector4 ((float)rotMat.get (2, 0) [0], (float)rotMat.get (2, 1) [0], (float)rotMat.get (2, 2) [0], (float)tvec [2]));
+                                transformationM.SetRow (3, new Vector4 (0, 0, 0, 1));
                                 
-                                Vector3 forward = new Vector3((float)rotMat.get (0, 2) [0],(float)rotMat.get (1, 2) [0],(float)rotMat.get (2, 2) [0]); // from OpenCV
-                                Vector3 up = new Vector3((float)rotMat.get (0, 1) [0],(float)rotMat.get (1, 1) [0],(float)rotMat.get (2, 1) [0]); // from OpenCV
                                 // right-handed coordinates system (OpenCV) to left-handed one (Unity)
-                                Quaternion rot = Quaternion.LookRotation(new Vector3(forward.x, -forward.y, forward.z), new Vector3(up.x, -up.y, up.z));
-                                ARGameObject.transform.localRotation = rot;
-                                
+                                ARM = invertYM * transformationM;
                                 
                                 // Apply Z axis inverted matrix.
-                                invertZM = Matrix4x4.TRS (Vector3.zero, Quaternion.identity, new Vector3 (1, 1, -1));
-                                transformationM = ARGameObject.transform.localToWorldMatrix * invertZM;
+                                ARM = ARM * invertZM;
                                 
-                                // Apply camera transform matrix.
-                                transformationM = ARCamera.transform.localToWorldMatrix * transformationM ;
-                                
-                                ARUtils.SetTransformFromMatrix (ARGameObject.transform, ref transformationM);
+                                if (shouldMoveARCamera) {
+                                    
+                                    // Apply ARObject transform matrix.
+                                    ARM = ARGameObject.transform.localToWorldMatrix * ARM.inverse;
+
+                                    ARUtils.SetTransformFromMatrix (ARCamera.transform, ref ARM);
+                                    
+                                } else {
+                                    
+                                    // Apply camera transform matrix.
+                                    ARM = ARCamera.transform.localToWorldMatrix * ARM;
+
+                                    ARUtils.SetTransformFromMatrix (ARGameObject.transform, ref ARM);
+                                }
                             }
                         }
                     }
@@ -356,7 +369,6 @@ namespace OpenCVForUnityExample
                 
                 Utils.matToTexture2D (rgbMat, texture, webCamTextureToMatHelper.GetBufferColors());
             }
-            
         }
         
         /// <summary>
@@ -365,8 +377,6 @@ namespace OpenCVForUnityExample
         void OnDisable ()
         {
             webCamTextureToMatHelper.Dispose ();
-            
-            //                      Utils.setDebugMode (false);
         }
         
         /// <summary>
