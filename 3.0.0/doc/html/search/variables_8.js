@@ -9,6 +9,7 @@ var searchData=
   ['imread_5fanydepth',['IMREAD_ANYDEPTH',['../class_open_c_v_for_unity_1_1_imgcodecs.html#aff921417f403d5d7b22829debd15cc15',1,'OpenCVForUnity::Imgcodecs']]],
   ['imread_5fcolor',['IMREAD_COLOR',['../class_open_c_v_for_unity_1_1_imgcodecs.html#a96d3617dd2634924300aeddf3fb5a9ce',1,'OpenCVForUnity::Imgcodecs']]],
   ['imread_5fgrayscale',['IMREAD_GRAYSCALE',['../class_open_c_v_for_unity_1_1_imgcodecs.html#a9c4d2047b6f566e03b9cdb6df2e7ddd1',1,'OpenCVForUnity::Imgcodecs']]],
+  ['imread_5fignore_5forientation',['IMREAD_IGNORE_ORIENTATION',['../class_open_c_v_for_unity_1_1_imgcodecs.html#ac9a9ba9170f80b05c0b7b27d9872910b',1,'OpenCVForUnity::Imgcodecs']]],
   ['imread_5fload_5fgdal',['IMREAD_LOAD_GDAL',['../class_open_c_v_for_unity_1_1_imgcodecs.html#a1708ff55786d2eb9c45f437c13da9a9d',1,'OpenCVForUnity::Imgcodecs']]],
   ['imread_5freduced_5fcolor_5f2',['IMREAD_REDUCED_COLOR_2',['../class_open_c_v_for_unity_1_1_imgcodecs.html#a8b0203d56a8ec1e41f4229c60fa8ff95',1,'OpenCVForUnity::Imgcodecs']]],
   ['imread_5freduced_5fcolor_5f4',['IMREAD_REDUCED_COLOR_4',['../class_open_c_v_for_unity_1_1_imgcodecs.html#acc8cde8c8ecdf06f8ee6929420027254',1,'OpenCVForUnity::Imgcodecs']]],
@@ -23,6 +24,13 @@ var searchData=
   ['imwrite_5fjpeg_5fprogressive',['IMWRITE_JPEG_PROGRESSIVE',['../class_open_c_v_for_unity_1_1_imgcodecs.html#ab373ad44222d89e96325da82af3f2c3b',1,'OpenCVForUnity::Imgcodecs']]],
   ['imwrite_5fjpeg_5fquality',['IMWRITE_JPEG_QUALITY',['../class_open_c_v_for_unity_1_1_imgcodecs.html#accff78638beac3ea3b087415a7fef1cb',1,'OpenCVForUnity::Imgcodecs']]],
   ['imwrite_5fjpeg_5frst_5finterval',['IMWRITE_JPEG_RST_INTERVAL',['../class_open_c_v_for_unity_1_1_imgcodecs.html#a3142a79a984861356859b58da3dd8f0f',1,'OpenCVForUnity::Imgcodecs']]],
+  ['imwrite_5fpam_5fformat_5fblackandwhite',['IMWRITE_PAM_FORMAT_BLACKANDWHITE',['../class_open_c_v_for_unity_1_1_imgcodecs.html#a65bf0e4d863c31f425589da8538dc0e3',1,'OpenCVForUnity::Imgcodecs']]],
+  ['imwrite_5fpam_5fformat_5fgrayscale',['IMWRITE_PAM_FORMAT_GRAYSCALE',['../class_open_c_v_for_unity_1_1_imgcodecs.html#ae0004cd3a9846eb2d5f7f0cbd1fad256',1,'OpenCVForUnity::Imgcodecs']]],
+  ['imwrite_5fpam_5fformat_5fgrayscale_5falpha',['IMWRITE_PAM_FORMAT_GRAYSCALE_ALPHA',['../class_open_c_v_for_unity_1_1_imgcodecs.html#a8e0f3b5869551cffb451234029548e86',1,'OpenCVForUnity::Imgcodecs']]],
+  ['imwrite_5fpam_5fformat_5fnull',['IMWRITE_PAM_FORMAT_NULL',['../class_open_c_v_for_unity_1_1_imgcodecs.html#abc0f806051fc2860d50796f87c51683e',1,'OpenCVForUnity::Imgcodecs']]],
+  ['imwrite_5fpam_5fformat_5frgb',['IMWRITE_PAM_FORMAT_RGB',['../class_open_c_v_for_unity_1_1_imgcodecs.html#a52b3e4ca79e6be6f6470644376ae57c1',1,'OpenCVForUnity::Imgcodecs']]],
+  ['imwrite_5fpam_5fformat_5frgb_5falpha',['IMWRITE_PAM_FORMAT_RGB_ALPHA',['../class_open_c_v_for_unity_1_1_imgcodecs.html#a05a774e1a860dfb7eb7aa2441d0643f8',1,'OpenCVForUnity::Imgcodecs']]],
+  ['imwrite_5fpam_5ftupletype',['IMWRITE_PAM_TUPLETYPE',['../class_open_c_v_for_unity_1_1_imgcodecs.html#ac249ab66c5aeb3bd6609c63fd80395f4',1,'OpenCVForUnity::Imgcodecs']]],
   ['imwrite_5fpng_5fbilevel',['IMWRITE_PNG_BILEVEL',['../class_open_c_v_for_unity_1_1_imgcodecs.html#a231bfb95623612b086bc89c874035b39',1,'OpenCVForUnity::Imgcodecs']]],
   ['imwrite_5fpng_5fcompression',['IMWRITE_PNG_COMPRESSION',['../class_open_c_v_for_unity_1_1_imgcodecs.html#ab5271efb86a2f91fc193b84352461713',1,'OpenCVForUnity::Imgcodecs']]],
   ['imwrite_5fpng_5fstrategy',['IMWRITE_PNG_STRATEGY',['../class_open_c_v_for_unity_1_1_imgcodecs.html#af4467d267ed072f6c84b8faeb8f7bdb2',1,'OpenCVForUnity::Imgcodecs']]],
@@ -49,5 +57,6 @@ var searchData=
   ['inter_5ftab_5fsize2',['INTER_TAB_SIZE2',['../class_open_c_v_for_unity_1_1_imgproc.html#ad48f4d71d4adcffdafd2f21453653590',1,'OpenCVForUnity::Imgproc']]],
   ['intersect_5ffull',['INTERSECT_FULL',['../class_open_c_v_for_unity_1_1_imgproc.html#a1a5115792511a1447205065cddf66de3',1,'OpenCVForUnity::Imgproc']]],
   ['intersect_5fnone',['INTERSECT_NONE',['../class_open_c_v_for_unity_1_1_imgproc.html#aaf1b3c272761a578e7e39d2e30c5c7e9',1,'OpenCVForUnity::Imgproc']]],
-  ['intersect_5fpartial',['INTERSECT_PARTIAL',['../class_open_c_v_for_unity_1_1_imgproc.html#a96357480c930628297ad396649bab495',1,'OpenCVForUnity::Imgproc']]]
+  ['intersect_5fpartial',['INTERSECT_PARTIAL',['../class_open_c_v_for_unity_1_1_imgproc.html#a96357480c930628297ad396649bab495',1,'OpenCVForUnity::Imgproc']]],
+  ['iterative',['ITERATIVE',['../class_open_c_v_for_unity_1_1_fuzzy.html#a8064e03fe4793c3590a8850d71754d07',1,'OpenCVForUnity::Fuzzy']]]
 ];

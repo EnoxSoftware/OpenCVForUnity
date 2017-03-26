@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['saliency',['Saliency',['../class_open_c_v_for_unity_1_1_saliency.html',1,'OpenCVForUnity']]],
   ['scalar',['Scalar',['../class_open_c_v_for_unity_1_1_scalar.html',1,'OpenCVForUnity']]],
   ['selectivesearchsegmentation',['SelectiveSearchSegmentation',['../class_open_c_v_for_unity_1_1_selective_search_segmentation.html',1,'OpenCVForUnity']]],
   ['selectivesearchsegmentationstrategy',['SelectiveSearchSegmentationStrategy',['../class_open_c_v_for_unity_1_1_selective_search_segmentation_strategy.html',1,'OpenCVForUnity']]],
@@ -14,10 +15,16 @@ var searchData=
   ['shapetransformer',['ShapeTransformer',['../class_open_c_v_for_unity_1_1_shape_transformer.html',1,'OpenCVForUnity']]],
   ['sift',['SIFT',['../class_open_c_v_for_unity_1_1_s_i_f_t.html',1,'OpenCVForUnity']]],
   ['simplewb',['SimpleWB',['../class_open_c_v_for_unity_1_1_simple_w_b.html',1,'OpenCVForUnity']]],
+  ['sinusoidalpattern',['SinusoidalPattern',['../class_open_c_v_for_unity_1_1_sinusoidal_pattern.html',1,'OpenCVForUnity']]],
   ['size',['Size',['../class_open_c_v_for_unity_1_1_size.html',1,'OpenCVForUnity']]],
   ['sparsematchinterpolator',['SparseMatchInterpolator',['../class_open_c_v_for_unity_1_1_sparse_match_interpolator.html',1,'OpenCVForUnity']]],
+  ['sparseopticalflow',['SparseOpticalFlow',['../class_open_c_v_for_unity_1_1_sparse_optical_flow.html',1,'OpenCVForUnity']]],
+  ['sparsepyrlkopticalflow',['SparsePyrLKOpticalFlow',['../class_open_c_v_for_unity_1_1_sparse_pyr_l_k_optical_flow.html',1,'OpenCVForUnity']]],
   ['standardcollector',['StandardCollector',['../class_open_c_v_for_unity_1_1_standard_collector.html',1,'OpenCVForUnity']]],
   ['stardetector',['StarDetector',['../class_open_c_v_for_unity_1_1_star_detector.html',1,'OpenCVForUnity']]],
+  ['staticsaliency',['StaticSaliency',['../class_open_c_v_for_unity_1_1_static_saliency.html',1,'OpenCVForUnity']]],
+  ['staticsaliencyfinegrained',['StaticSaliencyFineGrained',['../class_open_c_v_for_unity_1_1_static_saliency_fine_grained.html',1,'OpenCVForUnity']]],
+  ['staticsaliencyspectralresidual',['StaticSaliencySpectralResidual',['../class_open_c_v_for_unity_1_1_static_saliency_spectral_residual.html',1,'OpenCVForUnity']]],
   ['statmodel',['StatModel',['../class_open_c_v_for_unity_1_1_stat_model.html',1,'OpenCVForUnity']]],
   ['stereobm',['StereoBM',['../class_open_c_v_for_unity_1_1_stereo_b_m.html',1,'OpenCVForUnity']]],
   ['stereomatcher',['StereoMatcher',['../class_open_c_v_for_unity_1_1_stereo_matcher.html',1,'OpenCVForUnity']]],

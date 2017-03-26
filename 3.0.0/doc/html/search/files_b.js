@@ -15,12 +15,16 @@ var searchData=
   ['matofpoint3_2ecs',['MatOfPoint3.cs',['../_mat_of_point3_8cs.html',1,'']]],
   ['matofpoint3f_2ecs',['MatOfPoint3f.cs',['../_mat_of_point3f_8cs.html',1,'']]],
   ['matofrect_2ecs',['MatOfRect.cs',['../_mat_of_rect_8cs.html',1,'']]],
+  ['matofrect2d_2ecs',['MatOfRect2d.cs',['../_mat_of_rect2d_8cs.html',1,'']]],
   ['mergedebevec_2ecs',['MergeDebevec.cs',['../_merge_debevec_8cs.html',1,'']]],
   ['mergeexposures_2ecs',['MergeExposures.cs',['../_merge_exposures_8cs.html',1,'']]],
   ['mergemertens_2ecs',['MergeMertens.cs',['../_merge_mertens_8cs.html',1,'']]],
   ['mergerobertson_2ecs',['MergeRobertson.cs',['../_merge_robertson_8cs.html',1,'']]],
   ['ml_2ecs',['Ml.cs',['../_ml_8cs.html',1,'']]],
   ['moments_2ecs',['Moments.cs',['../_moments_8cs.html',1,'']]],
+  ['motionsaliency_2ecs',['MotionSaliency.cs',['../_motion_saliency_8cs.html',1,'']]],
+  ['motionsaliencybinwangapr2014_2ecs',['MotionSaliencyBinWangApr2014.cs',['../_motion_saliency_bin_wang_apr2014_8cs.html',1,'']]],
   ['msddetector_2ecs',['MSDDetector.cs',['../_m_s_d_detector_8cs.html',1,'']]],
-  ['mser_2ecs',['MSER.cs',['../_m_s_e_r_8cs.html',1,'']]]
+  ['mser_2ecs',['MSER.cs',['../_m_s_e_r_8cs.html',1,'']]],
+  ['multitracker_2ecs',['MultiTracker.cs',['../_multi_tracker_8cs.html',1,'']]]
 ];

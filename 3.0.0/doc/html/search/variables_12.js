@@ -1,6 +1,8 @@
 var searchData=
 [
   ['test_5ferror',['TEST_ERROR',['../class_open_c_v_for_unity_1_1_ml.html#ad6426bbe78d6ed010a97d6dfbed10c71',1,'OpenCVForUnity::Ml']]],
+  ['thinning_5fguohall',['THINNING_GUOHALL',['../class_open_c_v_for_unity_1_1_ximgproc.html#aae5589f85eefa8be0980b1235d0ca45b',1,'OpenCVForUnity::Ximgproc']]],
+  ['thinning_5fzhangsuen',['THINNING_ZHANGSUEN',['../class_open_c_v_for_unity_1_1_ximgproc.html#a1e8671d1db7d5bee1bfd8120bf739ab7',1,'OpenCVForUnity::Ximgproc']]],
   ['thresh_5fbinary',['THRESH_BINARY',['../class_open_c_v_for_unity_1_1_imgproc.html#a19d7a57b71e58d1b182f405f3b2b67fa',1,'OpenCVForUnity::Imgproc']]],
   ['thresh_5fbinary_5finv',['THRESH_BINARY_INV',['../class_open_c_v_for_unity_1_1_imgproc.html#a26d8eb05694fa506b32afe22609bf565',1,'OpenCVForUnity::Imgproc']]],
   ['thresh_5fmask',['THRESH_MASK',['../class_open_c_v_for_unity_1_1_imgproc.html#a5229a7054ec86ce1978f94be511e80aa',1,'OpenCVForUnity::Imgproc']]],

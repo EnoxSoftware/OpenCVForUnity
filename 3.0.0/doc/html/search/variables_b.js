@@ -24,6 +24,7 @@ var searchData=
   ['maxval',['maxVal',['../class_open_c_v_for_unity_1_1_core_1_1_min_max_loc_result.html#a5dde185fb63309ef17638b594d8e2138',1,'OpenCVForUnity::Core::MinMaxLocResult']]],
   ['mini_5fbatch',['MINI_BATCH',['../class_open_c_v_for_unity_1_1_logistic_regression.html#afddfe3d525fe6783f9150585cfc3ea5d',1,'OpenCVForUnity::LogisticRegression']]],
   ['minloc',['minLoc',['../class_open_c_v_for_unity_1_1_core_1_1_min_max_loc_result.html#a06c9159220be9730a7322746c509d28c',1,'OpenCVForUnity::Core::MinMaxLocResult']]],
+  ['minus',['MINUS',['../class_open_c_v_for_unity_1_1_p_c_t_signatures.html#ab4ca0067921a578f39117a08cb7842e0',1,'OpenCVForUnity::PCTSignatures']]],
   ['minval',['minVal',['../class_open_c_v_for_unity_1_1_core_1_1_min_max_loc_result.html#a175fa4b64af8af1315aa3ce02e761023',1,'OpenCVForUnity::Core::MinMaxLocResult']]],
   ['mixed_5fclone',['MIXED_CLONE',['../class_open_c_v_for_unity_1_1_photo.html#a0eab4a23ea1575b06ac7fd67d69e3e30',1,'OpenCVForUnity::Photo']]],
   ['mode_5fhh',['MODE_HH',['../class_open_c_v_for_unity_1_1_stereo_s_g_b_m.html#a374c856dcd00f951caf163114097139f',1,'OpenCVForUnity::StereoSGBM']]],
@@ -46,11 +47,13 @@ var searchData=
   ['motion_5fhomography',['MOTION_HOMOGRAPHY',['../class_open_c_v_for_unity_1_1_video.html#a8271f571c625b8bb73e19d84be906f8d',1,'OpenCVForUnity::Video']]],
   ['motion_5ftranslation',['MOTION_TRANSLATION',['../class_open_c_v_for_unity_1_1_video.html#aef3f08240e091207feb01b1da9508255',1,'OpenCVForUnity::Video']]],
   ['mser',['MSER',['../class_open_c_v_for_unity_1_1_feature_detector.html#a3819356df668b824eaef1618d221d409',1,'OpenCVForUnity::FeatureDetector']]],
+  ['mslic',['MSLIC',['../class_open_c_v_for_unity_1_1_ximgproc.html#afa1ed0ac35ec30ba19e92122416d3b4d',1,'OpenCVForUnity::Ximgproc']]],
   ['mu02',['mu02',['../class_open_c_v_for_unity_1_1_moments.html#a80c96931a4b71b7fe73afa49e7690239',1,'OpenCVForUnity::Moments']]],
   ['mu03',['mu03',['../class_open_c_v_for_unity_1_1_moments.html#a00627559988fb1af397c184f41fc3f72',1,'OpenCVForUnity::Moments']]],
   ['mu11',['mu11',['../class_open_c_v_for_unity_1_1_moments.html#a3b8d420fd9a31aabf5264fc6c153dbb0',1,'OpenCVForUnity::Moments']]],
   ['mu12',['mu12',['../class_open_c_v_for_unity_1_1_moments.html#ac160a54a1d9c48ffaec84d22beb65f64',1,'OpenCVForUnity::Moments']]],
   ['mu20',['mu20',['../class_open_c_v_for_unity_1_1_moments.html#a0cd15abba76349f42691502a2c16ae4f',1,'OpenCVForUnity::Moments']]],
   ['mu21',['mu21',['../class_open_c_v_for_unity_1_1_moments.html#a155bbe631fac8b3dc3f8c1c1f473de26',1,'OpenCVForUnity::Moments']]],
-  ['mu30',['mu30',['../class_open_c_v_for_unity_1_1_moments.html#a87edd5e623ca0566e2969f3848568ad7',1,'OpenCVForUnity::Moments']]]
+  ['mu30',['mu30',['../class_open_c_v_for_unity_1_1_moments.html#a87edd5e623ca0566e2969f3848568ad7',1,'OpenCVForUnity::Moments']]],
+  ['multi_5fstep',['MULTI_STEP',['../class_open_c_v_for_unity_1_1_fuzzy.html#a18ff569dd6b7e350e5eb8fe11fc5b230',1,'OpenCVForUnity::Fuzzy']]]
 ];

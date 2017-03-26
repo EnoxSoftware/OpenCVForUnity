@@ -4,7 +4,7 @@ var searchData=
   ['raw_5foutput',['RAW_OUTPUT',['../class_open_c_v_for_unity_1_1_stat_model.html#a15072d43ef9afded4dd1a04c339a8964',1,'OpenCVForUnity::StatModel']]],
   ['rbf',['RBF',['../class_open_c_v_for_unity_1_1_s_v_m.html#a97b2749f8d4edcf091751441bf2843b4',1,'OpenCVForUnity::SVM']]],
   ['real',['REAL',['../class_open_c_v_for_unity_1_1_boost.html#ade843ac3d1c2f6b394aa10d48971c022',1,'OpenCVForUnity::Boost']]],
-  ['rect',['rect',['../union_open_c_v_for_unity_1_1_rect_1_1rect.html#aa159d5260105ffea312c37e84f6e0575',1,'OpenCVForUnity::Rect::rect']]],
+  ['rect',['rect',['../union_open_c_v_for_unity_1_1_rect_1_1rect.html#aa159d5260105ffea312c37e84f6e0575',1,'OpenCVForUnity.Rect.rect.rect()'],['../union_open_c_v_for_unity_1_1_rect2d_1_1rect.html#a967b0f612e88b0d99590b5f41c97f8c9',1,'OpenCVForUnity.Rect2d.rect.rect()']]],
   ['rectify_5fcylindrical',['RECTIFY_CYLINDRICAL',['../class_open_c_v_for_unity_1_1_ccalib.html#a5c6ccb33a56161189ac6ee3d1e23942b',1,'OpenCVForUnity::Ccalib']]],
   ['rectify_5flonglati',['RECTIFY_LONGLATI',['../class_open_c_v_for_unity_1_1_ccalib.html#a4fe237a4b6b0501ba603e1e44df3eb99',1,'OpenCVForUnity::Ccalib']]],
   ['rectify_5fperspective',['RECTIFY_PERSPECTIVE',['../class_open_c_v_for_unity_1_1_ccalib.html#a21dee51c8f948259a0c9950da5ecf42d',1,'OpenCVForUnity::Ccalib']]],
@@ -17,6 +17,7 @@ var searchData=
   ['reg_5fdisable',['REG_DISABLE',['../class_open_c_v_for_unity_1_1_logistic_regression.html#aa5c3720d0b0744f5053e59f3d18d140f',1,'OpenCVForUnity::LogisticRegression']]],
   ['reg_5fl1',['REG_L1',['../class_open_c_v_for_unity_1_1_logistic_regression.html#aa4f17f5d7560d47391d54a3b978474b0',1,'OpenCVForUnity::LogisticRegression']]],
   ['reg_5fl2',['REG_L2',['../class_open_c_v_for_unity_1_1_logistic_regression.html#a3f45beb98048178067227aa5bb84589c',1,'OpenCVForUnity::LogisticRegression']]],
+  ['regular',['REGULAR',['../class_open_c_v_for_unity_1_1_p_c_t_signatures.html#aa809c3824ad756cbcb58d8ae887838cb',1,'OpenCVForUnity::PCTSignatures']]],
   ['response',['response',['../class_open_c_v_for_unity_1_1_key_point.html#af9a84cfa8e98b6f97987a4abcc79362c',1,'OpenCVForUnity::KeyPoint']]],
   ['retina_5fcolor_5fbayer',['RETINA_COLOR_BAYER',['../class_open_c_v_for_unity_1_1_bioinspired.html#acc73a5ae81c022154c88a2897c24fec6',1,'OpenCVForUnity::Bioinspired']]],
   ['retina_5fcolor_5fdiagonal',['RETINA_COLOR_DIAGONAL',['../class_open_c_v_for_unity_1_1_bioinspired.html#ad35efebc93267e4092fe532cc39fa4a7',1,'OpenCVForUnity::Bioinspired']]],
@@ -27,6 +28,9 @@ var searchData=
   ['retr_5flist',['RETR_LIST',['../class_open_c_v_for_unity_1_1_imgproc.html#ae54cfba5baad449a0f4d986343c5da93',1,'OpenCVForUnity::Imgproc']]],
   ['retr_5ftree',['RETR_TREE',['../class_open_c_v_for_unity_1_1_imgproc.html#a4d3b88abd3521cc1c6c7d7a3213c5821',1,'OpenCVForUnity::Imgproc']]],
   ['rho',['RHO',['../class_open_c_v_for_unity_1_1_calib3d.html#a2e1180321a35abadeaab5a29e426b509',1,'OpenCVForUnity::Calib3d']]],
+  ['rotate_5f180',['ROTATE_180',['../class_open_c_v_for_unity_1_1_core.html#ac90effba6f9f85ce1fe77a7de18e3d24',1,'OpenCVForUnity::Core']]],
+  ['rotate_5f90_5fclockwise',['ROTATE_90_CLOCKWISE',['../class_open_c_v_for_unity_1_1_core.html#a935daa2e588c86fd78889ddafc3b5cfb',1,'OpenCVForUnity::Core']]],
+  ['rotate_5f90_5fcounterclockwise',['ROTATE_90_COUNTERCLOCKWISE',['../class_open_c_v_for_unity_1_1_core.html#a657dd44c1d3322d23a9b9619f11e2eb3',1,'OpenCVForUnity::Core']]],
   ['row_5fsample',['ROW_SAMPLE',['../class_open_c_v_for_unity_1_1_ml.html#affeb858549525d96511dfef415b44989',1,'OpenCVForUnity::Ml']]],
   ['rprop',['RPROP',['../class_open_c_v_for_unity_1_1_a_n_n___m_l_p.html#ababbd6d4cb01407038ceea05f4fe3919',1,'OpenCVForUnity::ANN_MLP']]]
 ];

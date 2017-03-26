@@ -13,6 +13,7 @@ var searchData=
   ['bioinspired_2ecs',['Bioinspired.cs',['../_bioinspired_8cs.html',1,'']]],
   ['board_2ecs',['Board.cs',['../_board_8cs.html',1,'']]],
   ['boost_2ecs',['Boost.cs',['../_boost_8cs.html',1,'']]],
+  ['boostdesc_2ecs',['BoostDesc.cs',['../_boost_desc_8cs.html',1,'']]],
   ['bowimgdescriptorextractor_2ecs',['BOWImgDescriptorExtractor.cs',['../_b_o_w_img_descriptor_extractor_8cs.html',1,'']]],
   ['bowkmeanstrainer_2ecs',['BOWKMeansTrainer.cs',['../_b_o_w_k_means_trainer_8cs.html',1,'']]],
   ['bowtrainer_2ecs',['BOWTrainer.cs',['../_b_o_w_trainer_8cs.html',1,'']]],

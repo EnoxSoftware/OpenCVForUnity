@@ -8,6 +8,8 @@ var searchData=
   ['tonemapdurand',['TonemapDurand',['../class_open_c_v_for_unity_1_1_tonemap_durand.html',1,'OpenCVForUnity']]],
   ['tonemapmantiuk',['TonemapMantiuk',['../class_open_c_v_for_unity_1_1_tonemap_mantiuk.html',1,'OpenCVForUnity']]],
   ['tonemapreinhard',['TonemapReinhard',['../class_open_c_v_for_unity_1_1_tonemap_reinhard.html',1,'OpenCVForUnity']]],
+  ['tracker',['Tracker',['../class_open_c_v_for_unity_1_1_tracker.html',1,'OpenCVForUnity']]],
+  ['tracking',['Tracking',['../class_open_c_v_for_unity_1_1_tracking.html',1,'OpenCVForUnity']]],
   ['traindata',['TrainData',['../class_open_c_v_for_unity_1_1_train_data.html',1,'OpenCVForUnity']]],
   ['transientareassegmentationmodule',['TransientAreasSegmentationModule',['../class_open_c_v_for_unity_1_1_transient_areas_segmentation_module.html',1,'OpenCVForUnity']]]
 ];

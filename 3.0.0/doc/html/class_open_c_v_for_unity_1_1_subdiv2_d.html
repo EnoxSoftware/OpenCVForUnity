@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.1.4</span>
+   &#160;<span id="projectnumber">2.1.5</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document(http://docs.opencv.org/3.1.0/index.html) for the details of the argument of the method.</div>
   </td>
@@ -145,6 +145,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6cade9b2bd1e4647ed3ab0d21408ea6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a573ffed0b00c869d6d26837a0d2c8592"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_subdiv2_d.html#a573ffed0b00c869d6d26837a0d2c8592">getEdgeList</a> (<a class="el" href="class_open_c_v_for_unity_1_1_mat_of_float4.html">MatOfFloat4</a> edgeList)</td></tr>
 <tr class="separator:a573ffed0b00c869d6d26837a0d2c8592"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d90621e4f0602741bd1d1edf409d761"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_subdiv2_d.html#a5d90621e4f0602741bd1d1edf409d761">getLeadingEdgeList</a> (<a class="el" href="class_open_c_v_for_unity_1_1_mat_of_int.html">MatOfInt</a> leadingEdgeList)</td></tr>
+<tr class="separator:a5d90621e4f0602741bd1d1edf409d761"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab92e428061d6f4e87aa96e95f919f257"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_subdiv2_d.html#ab92e428061d6f4e87aa96e95f919f257">getTriangleList</a> (<a class="el" href="class_open_c_v_for_unity_1_1_mat_of_float6.html">MatOfFloat6</a> triangleList)</td></tr>
 <tr class="separator:ab92e428061d6f4e87aa96e95f919f257"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae20fa750e73df7331ba9fe998ffb83c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_subdiv2_d.html#ae20fa750e73df7331ba9fe998ffb83c0">getVoronoiFacetList</a> (<a class="el" href="class_open_c_v_for_unity_1_1_mat_of_int.html">MatOfInt</a> idx, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_mat_of_point2f.html">MatOfPoint2f</a> &gt; facetList, <a class="el" href="class_open_c_v_for_unity_1_1_mat_of_point2f.html">MatOfPoint2f</a> facetCenters)</td></tr>
@@ -192,8 +194,6 @@ Public Attributes</h2></td></tr>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a7c669be6424d6ec3e538c881ce7f594c"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_subdiv2_d.html#a7c669be6424d6ec3e538c881ce7f594c">Dispose</a> (bool disposing)</td></tr>
 <tr class="separator:a7c669be6424d6ec3e538c881ce7f594c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2514b365ad5004bab9b5fbc070324c4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_subdiv2_d.html#af2514b365ad5004bab9b5fbc070324c4">Subdiv2D</a> (IntPtr addr)</td></tr>
-<tr class="separator:af2514b365ad5004bab9b5fbc070324c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
 <tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
 <tr class="separator:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -218,30 +218,6 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="af2514b365ad5004bab9b5fbc070324c4"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">OpenCVForUnity.Subdiv2D.Subdiv2D </td>
-          <td>(</td>
-          <td class="paramtype">IntPtr&#160;</td>
-          <td class="paramname"><em>addr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a0c9fcdeeb6f94321ef0349ce1c1cdccb"></a>
 <div class="memitem">
 <div class="memproto">
@@ -461,6 +437,22 @@ Additional Inherited Members</h2></td></tr>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_mat_of_float4.html">MatOfFloat4</a>&#160;</td>
           <td class="paramname"><em>edgeList</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5d90621e4f0602741bd1d1edf409d761"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.Subdiv2D.getLeadingEdgeList </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_mat_of_int.html">MatOfInt</a>&#160;</td>
+          <td class="paramname"><em>leadingEdgeList</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -859,7 +851,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 28 2017 21:07:18 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 27 2017 07:33:02 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

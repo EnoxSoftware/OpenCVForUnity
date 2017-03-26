@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['b',['b',['../union_open_c_v_for_unity_1_1_rect2d_1_1b.html',1,'OpenCVForUnity::Rect2d']]],
   ['b',['b',['../union_open_c_v_for_unity_1_1_rect_1_1b.html',1,'OpenCVForUnity::Rect']]],
   ['backgroundsubtractor',['BackgroundSubtractor',['../class_open_c_v_for_unity_1_1_background_subtractor.html',1,'OpenCVForUnity']]],
   ['backgroundsubtractorgmg',['BackgroundSubtractorGMG',['../class_open_c_v_for_unity_1_1_background_subtractor_g_m_g.html',1,'OpenCVForUnity']]],
@@ -14,6 +15,7 @@ var searchData=
   ['bioinspired',['Bioinspired',['../class_open_c_v_for_unity_1_1_bioinspired.html',1,'OpenCVForUnity']]],
   ['board',['Board',['../class_open_c_v_for_unity_1_1_board.html',1,'OpenCVForUnity']]],
   ['boost',['Boost',['../class_open_c_v_for_unity_1_1_boost.html',1,'OpenCVForUnity']]],
+  ['boostdesc',['BoostDesc',['../class_open_c_v_for_unity_1_1_boost_desc.html',1,'OpenCVForUnity']]],
   ['bowimgdescriptorextractor',['BOWImgDescriptorExtractor',['../class_open_c_v_for_unity_1_1_b_o_w_img_descriptor_extractor.html',1,'OpenCVForUnity']]],
   ['bowkmeanstrainer',['BOWKMeansTrainer',['../class_open_c_v_for_unity_1_1_b_o_w_k_means_trainer.html',1,'OpenCVForUnity']]],
   ['bowtrainer',['BOWTrainer',['../class_open_c_v_for_unity_1_1_b_o_w_trainer.html',1,'OpenCVForUnity']]],

@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['saliency_2ecs',['Saliency.cs',['../_saliency_8cs.html',1,'']]],
   ['scalar_2ecs',['Scalar.cs',['../_scalar_8cs.html',1,'']]],
   ['selectivesearchsegmentation_2ecs',['SelectiveSearchSegmentation.cs',['../_selective_search_segmentation_8cs.html',1,'']]],
   ['selectivesearchsegmentationstrategy_2ecs',['SelectiveSearchSegmentationStrategy.cs',['../_selective_search_segmentation_strategy_8cs.html',1,'']]],
@@ -14,10 +15,16 @@ var searchData=
   ['shapetransformer_2ecs',['ShapeTransformer.cs',['../_shape_transformer_8cs.html',1,'']]],
   ['sift_2ecs',['SIFT.cs',['../_s_i_f_t_8cs.html',1,'']]],
   ['simplewb_2ecs',['SimpleWB.cs',['../_simple_w_b_8cs.html',1,'']]],
+  ['sinusoidalpattern_2ecs',['SinusoidalPattern.cs',['../_sinusoidal_pattern_8cs.html',1,'']]],
   ['size_2ecs',['Size.cs',['../_size_8cs.html',1,'']]],
   ['sparsematchinterpolator_2ecs',['SparseMatchInterpolator.cs',['../_sparse_match_interpolator_8cs.html',1,'']]],
+  ['sparseopticalflow_2ecs',['SparseOpticalFlow.cs',['../_sparse_optical_flow_8cs.html',1,'']]],
+  ['sparsepyrlkopticalflow_2ecs',['SparsePyrLKOpticalFlow.cs',['../_sparse_pyr_l_k_optical_flow_8cs.html',1,'']]],
   ['standardcollector_2ecs',['StandardCollector.cs',['../_standard_collector_8cs.html',1,'']]],
   ['stardetector_2ecs',['StarDetector.cs',['../_star_detector_8cs.html',1,'']]],
+  ['staticsaliency_2ecs',['StaticSaliency.cs',['../_static_saliency_8cs.html',1,'']]],
+  ['staticsaliencyfinegrained_2ecs',['StaticSaliencyFineGrained.cs',['../_static_saliency_fine_grained_8cs.html',1,'']]],
+  ['staticsaliencyspectralresidual_2ecs',['StaticSaliencySpectralResidual.cs',['../_static_saliency_spectral_residual_8cs.html',1,'']]],
   ['statmodel_2ecs',['StatModel.cs',['../_stat_model_8cs.html',1,'']]],
   ['stereobm_2ecs',['StereoBM.cs',['../_stereo_b_m_8cs.html',1,'']]],
   ['stereomatcher_2ecs',['StereoMatcher.cs',['../_stereo_matcher_8cs.html',1,'']]],

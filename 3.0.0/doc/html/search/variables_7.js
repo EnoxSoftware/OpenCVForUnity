@@ -7,6 +7,7 @@ var searchData=
   ['hdo_5fdeskew',['HDO_DESKEW',['../class_open_c_v_for_unity_1_1_ximgproc.html#a28327c0704add042417c68e8c23b5afe',1,'OpenCVForUnity::Ximgproc']]],
   ['hdo_5fraw',['HDO_RAW',['../class_open_c_v_for_unity_1_1_ximgproc.html#a38fd0b239efb098c154447d83b664039',1,'OpenCVForUnity::Ximgproc']]],
   ['headerisnull',['HeaderIsNull',['../class_open_c_v_for_unity_1_1_core.html#ac020a980a49360dafe12928b3901f4ee',1,'OpenCVForUnity::Core']]],
+  ['heuristic',['HEURISTIC',['../class_open_c_v_for_unity_1_1_p_c_t_signatures.html#a86980f292e5ca11fbb7c579d67b365ce',1,'OpenCVForUnity::PCTSignatures']]],
   ['histcmp_5fbhattacharyya',['HISTCMP_BHATTACHARYYA',['../class_open_c_v_for_unity_1_1_imgproc.html#a8356501c42a60ee1d3e8d6aaea71dfac',1,'OpenCVForUnity::Imgproc']]],
   ['histcmp_5fchisqr',['HISTCMP_CHISQR',['../class_open_c_v_for_unity_1_1_imgproc.html#a8f2519da232be42b336282db6589b7fe',1,'OpenCVForUnity::Imgproc']]],
   ['histcmp_5fchisqr_5falt',['HISTCMP_CHISQR_ALT',['../class_open_c_v_for_unity_1_1_imgproc.html#aa9b5456e3bc6abebc15c191de0ffa6d8',1,'OpenCVForUnity::Imgproc']]],
