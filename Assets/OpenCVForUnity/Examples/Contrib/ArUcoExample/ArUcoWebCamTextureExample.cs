@@ -162,8 +162,8 @@ namespace OpenCVForUnityExample
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
             
             
-            float width = webCamTextureMat.width();
-            float height = webCamTextureMat.height();
+            float width = webCamTextureMat.width ();
+            float height = webCamTextureMat.height ();
             
             float imageSizeScale = 1.0f;
             float widthScale = (float)Screen.width / width;
@@ -291,6 +291,15 @@ namespace OpenCVForUnityExample
             if (rotMat != null)
                 rotMat.Dispose ();
         }
+
+        /// <summary>
+        /// Raises the web cam texture to mat helper error occurred event.
+        /// </summary>
+        /// <param name="errorCode">Error code.</param>
+        public void OnWebCamTextureToMatHelperErrorOccurred (WebCamTextureToMatHelper.ErrorCode errorCode)
+        {
+            Debug.Log ("OnWebCamTextureToMatHelperErrorOccurred " + errorCode);
+        }
         
         // Update is called once per frame
         void Update ()
@@ -325,10 +334,10 @@ namespace OpenCVForUnityExample
                                 
                                 // rotation
                                 double[] rv = rvecs.get (i, 0);
-                                Mat rvec = new Mat(3,1, CvType.CV_64FC1);
-                                rvec.put(0,0, rv[0]);
-                                rvec.put(1,0, rv[1]);
-                                rvec.put(2,0, rv[2]);
+                                Mat rvec = new Mat (3, 1, CvType.CV_64FC1);
+                                rvec.put (0, 0, rv [0]);
+                                rvec.put (1, 0, rv [1]);
+                                rvec.put (2, 0, rv [2]);
                                 Calib3d.Rodrigues (rvec, rotMat);
 
                                 transformationM.SetRow (0, new Vector4 ((float)rotMat.get (0, 0) [0], (float)rotMat.get (0, 1) [0], (float)rotMat.get (0, 2) [0], (float)tvec [0]));
@@ -367,7 +376,7 @@ namespace OpenCVForUnityExample
                 
                 Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                 
-                Utils.matToTexture2D (rgbMat, texture, webCamTextureToMatHelper.GetBufferColors());
+                Utils.matToTexture2D (rgbMat, texture, webCamTextureToMatHelper.GetBufferColors ());
             }
         }
         

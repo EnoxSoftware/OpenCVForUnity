@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System;
 
 #if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
@@ -15,15 +17,27 @@ namespace OpenCVForUnityExample
     {
         CascadeClassifier cascade;
 
+        #if UNITY_WEBGL && !UNITY_EDITOR
+        private Stack<IEnumerator> coroutineStack = new Stack<IEnumerator> ();
+        #endif
+
         // Use this for initialization
         void Start ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
-            StartCoroutine(Utils.getFilePathAsync("haarcascade_frontalface_alt.xml", (result) => {
+            var filepath_Coroutine = Utils.getFilePathAsync("haarcascade_frontalface_alt.xml", 
+            (result) => {
+                coroutineStack.Clear ();
+
                 cascade = new CascadeClassifier ();
                 cascade.load(result);
                 Run ();
-            }));
+            }, 
+            (result, progress) => {
+                Debug.Log ("getFilePathAsync() progress : " + result + " " + Mathf.CeilToInt (progress * 100) + "%");
+            });
+            coroutineStack.Push (filepath_Coroutine);
+            StartCoroutine (filepath_Coroutine);
             #else
             //cascade = new CascadeClassifier (Utils.getFilePath ("lbpcascade_frontalface.xml"));
             cascade = new CascadeClassifier ();
@@ -75,6 +89,19 @@ namespace OpenCVForUnityExample
         void Update ()
         {
 
+        }
+
+        /// <summary>
+        /// Raises the disable event.
+        /// </summary>
+        void OnDisable ()
+        {
+            #if UNITY_WEBGL && !UNITY_EDITOR
+            foreach (var coroutine in coroutineStack) {
+                StopCoroutine (coroutine);
+                ((IDisposable)coroutine).Dispose ();
+            }
+            #endif
         }
 
         public void OnBackButton ()

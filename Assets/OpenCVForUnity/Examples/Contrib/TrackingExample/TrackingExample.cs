@@ -56,6 +56,10 @@ namespace OpenCVForUnityExample
         /// The selected point list.
         /// </summary>
         List<Point> selectedPointList;
+
+        #if UNITY_WEBGL && !UNITY_EDITOR
+        private Stack<IEnumerator> coroutineStack = new Stack<IEnumerator> ();
+        #endif
         
         // Use this for initialization
         void Start ()
@@ -63,10 +67,14 @@ namespace OpenCVForUnityExample
             capture = new VideoCapture ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
-            StartCoroutine(Utils.getFilePathAsync("768x576_mjpeg.mjpeg", (result) => {
+            var filepath_Coroutine = Utils.getFilePathAsync("768x576_mjpeg.mjpeg", (result) => {
+                coroutineStack.Clear ();
+            
                 capture.open (result);
-                Init();
-            }));
+                Init ();
+            });
+            coroutineStack.Push (filepath_Coroutine);
+            StartCoroutine (filepath_Coroutine);
             #else
             capture.open (Utils.getFilePath ("768x576_mjpeg.mjpeg"));
             Init ();
@@ -261,6 +269,13 @@ namespace OpenCVForUnityExample
 
             if (rgbMat != null)
                 rgbMat.Dispose ();
+
+            #if UNITY_WEBGL && !UNITY_EDITOR
+            foreach (var coroutine in coroutineStack) {
+                StopCoroutine (coroutine);
+                ((IDisposable)coroutine).Dispose ();
+            }
+            #endif
         }
         
         public void OnBackButton ()

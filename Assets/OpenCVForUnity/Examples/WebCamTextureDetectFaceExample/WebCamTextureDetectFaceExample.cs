@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System;
 
 #if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
@@ -38,19 +40,26 @@ namespace OpenCVForUnityExample
         /// </summary>
         WebCamTextureToMatHelper webCamTextureToMatHelper;
 
+        #if UNITY_WEBGL && !UNITY_EDITOR
+        private Stack<IEnumerator> coroutineStack = new Stack<IEnumerator> ();
+        #endif
+
         // Use this for initialization
         void Start ()
         {
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
-            StartCoroutine (Utils.getFilePathAsync ("lbpcascade_frontalface.xml", (result) => {
+            var filepath_Coroutine = Utils.getFilePathAsync ("lbpcascade_frontalface.xml", (result) => {
+                coroutineStack.Clear ();
+
                 cascade = new CascadeClassifier ();
                 cascade.load (result);
 
                 webCamTextureToMatHelper.Init ();
-            }));
-
+            });
+            coroutineStack.Push (filepath_Coroutine);
+            StartCoroutine (filepath_Coroutine);
             #else
             cascade = new CascadeClassifier ();
             cascade.load (Utils.getFilePath ("lbpcascade_frontalface.xml"));
@@ -157,6 +166,13 @@ namespace OpenCVForUnityExample
 
             if (cascade != null)
                 cascade.Dispose ();
+
+            #if UNITY_WEBGL && !UNITY_EDITOR
+            foreach (var coroutine in coroutineStack) {
+                StopCoroutine (coroutine);
+                ((IDisposable)coroutine).Dispose ();
+            }
+            #endif
         }
 
         /// <summary>

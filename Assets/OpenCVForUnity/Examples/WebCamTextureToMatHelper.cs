@@ -8,6 +8,7 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Web cam texture to mat helper.
+    /// v 1.0.0
     /// </summary>
     public class WebCamTextureToMatHelper : MonoBehaviour
     {
@@ -30,6 +31,11 @@ namespace OpenCVForUnityExample
         /// Should use front facing.
         /// </summary>
         public bool requestIsFrontFacing = false;
+
+        /// <summary>
+        /// The requested FPS.
+        /// </summary>
+        public int requestFPS = 30;
 
         /// <summary>
         /// The flip vertical.
@@ -127,30 +133,12 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Init this instance.
         /// </summary>
-        public void Init ()
-        {
-            if (initWaiting)
-                return;
-
-            if (OnInitedEvent == null)
-                OnInitedEvent = new UnityEvent ();
-            if (OnDisposedEvent == null)
-                OnDisposedEvent = new UnityEvent ();
-            if (OnErrorOccurredEvent == null)
-                OnErrorOccurredEvent = new ErrorUnityEvent ();
-
-            StartCoroutine (init ());
-        }
-
-        /// <summary>
-        /// Init this instance.
-        /// </summary>
         /// <param name="deviceName">Device name.</param>
         /// <param name="requestWidth">Request width.</param>
         /// <param name="requestHeight">Request height.</param>
         /// <param name="requestIsFrontFacing">If set to <c>true</c> request is front facing.</param>
         /// <param name="OnInited">On inited.</param>
-        public void Init (string deviceName, int requestWidth, int requestHeight, bool requestIsFrontFacing)
+        public void Init (string deviceName = null, int requestWidth = 640, int requestHeight = 480, bool requestIsFrontFacing = false, int requestFPS = 30)
         {
             if (initWaiting)
                 return;
@@ -159,6 +147,7 @@ namespace OpenCVForUnityExample
             this.requestWidth = requestWidth;
             this.requestHeight = requestHeight;
             this.requestIsFrontFacing = requestIsFrontFacing;
+            this.requestFPS = requestFPS;
             if (OnInitedEvent == null)
                 OnInitedEvent = new UnityEvent ();
             if (OnDisposedEvent == null)
@@ -181,7 +170,7 @@ namespace OpenCVForUnityExample
 
             if (!String.IsNullOrEmpty (requestDeviceName)) {
                 //Debug.Log ("deviceName is "+requestDeviceName);
-                webCamTexture = new WebCamTexture (requestDeviceName, requestWidth, requestHeight);
+                webCamTexture = new WebCamTexture (requestDeviceName, requestWidth, requestHeight, requestFPS);
             } else {
                 //Debug.Log ("deviceName is null");
                 // Checks how many and which cameras are available on the device
@@ -190,7 +179,7 @@ namespace OpenCVForUnityExample
 
                         //Debug.Log (cameraIndex + " name " + WebCamTexture.devices [cameraIndex].name + " isFrontFacing " + WebCamTexture.devices [cameraIndex].isFrontFacing);
                         webCamDevice = WebCamTexture.devices [cameraIndex];
-                        webCamTexture = new WebCamTexture (webCamDevice.name, requestWidth, requestHeight);
+                        webCamTexture = new WebCamTexture (webCamDevice.name, requestWidth, requestHeight, requestFPS);
 
                         break;
                     }
@@ -200,7 +189,7 @@ namespace OpenCVForUnityExample
             if (webCamTexture == null) {
                 if (WebCamTexture.devices.Length > 0) {
                     webCamDevice = WebCamTexture.devices [0];
-                    webCamTexture = new WebCamTexture (webCamDevice.name, requestWidth, requestHeight);
+                    webCamTexture = new WebCamTexture (webCamDevice.name, requestWidth, requestHeight, requestFPS);
                 } else {
                     //Debug.Log("Camera device does not exist.");
                     initWaiting = false;

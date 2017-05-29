@@ -16,6 +16,10 @@ namespace OpenCVForUnityExample
         // Use this for initialization
         void Start ()
         {
+            //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
+            Utils.setDebugMode (true);
+
+
             Texture2D imgTexture = Resources.Load ("lena") as Texture2D;
 
             Mat imgMat = new Mat (imgTexture.height, imgTexture.width, CvType.CV_8UC4);
@@ -29,6 +33,9 @@ namespace OpenCVForUnityExample
             Utils.matToTexture2D (imgMat, texture);
 
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
+
+
+            Utils.setDebugMode (false);
         }
     
         // Update is called once per frame

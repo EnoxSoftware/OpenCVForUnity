@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
+using System;
 
 #if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
@@ -15,14 +17,22 @@ namespace OpenCVForUnityExample
     {
         private string blobparams_yml_filepath;
 
+        #if UNITY_WEBGL && !UNITY_EDITOR
+        private Stack<IEnumerator> coroutineStack = new Stack<IEnumerator> ();
+        #endif
+
         // Use this for initialization
         void Start ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
-            StartCoroutine(Utils.getFilePathAsync("blobparams.yml", (result) => {
+            var filepath_Coroutine = Utils.getFilePathAsync("blobparams.yml", (result) => {
+                coroutineStack.Clear ();
+
                 blobparams_yml_filepath = result;
                 Run ();
-            }));
+            });
+            coroutineStack.Push (filepath_Coroutine);
+            StartCoroutine (filepath_Coroutine);
             #else
             blobparams_yml_filepath = Utils.getFilePath ("blobparams.yml");
             Run ();
@@ -61,6 +71,19 @@ namespace OpenCVForUnityExample
         void Update ()
         {
 
+        }
+
+        /// <summary>
+        /// Raises the disable event.
+        /// </summary>
+        void OnDisable ()
+        {
+            #if UNITY_WEBGL && !UNITY_EDITOR
+            foreach (var coroutine in coroutineStack) {
+                StopCoroutine (coroutine);
+                ((IDisposable)coroutine).Dispose ();
+            }
+            #endif
         }
         
         public void OnBackButton ()
