@@ -10,48 +10,47 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// WebCamTexture to mat example.
+    /// WebCamTexture to mat helper example.
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class WebCamTextureToMatHelperExample : MonoBehaviour
     {
+        /// <summary>
+        /// The flip vertical toggle.
+        /// </summary>
+        public Toggle flipVerticalToggle;
+        
+        /// <summary>
+        /// The flip horizontal toggle.
+        /// </summary>
+        public Toggle flipHorizontalToggle;
+
         /// <summary>
         /// The texture.
         /// </summary>
         Texture2D texture;
 
         /// <summary>
-        /// The web cam texture to mat helper.
+        /// The webcam texture to mat helper.
         /// </summary>
         WebCamTextureToMatHelper webCamTextureToMatHelper;
-
-        /// <summary>
-        /// The is flip vertical toggle.
-        /// </summary>
-        public Toggle isFlipVerticalToggle;
-        
-        /// <summary>
-        /// The is flip horizontal toggle.
-        /// </summary>
-        public Toggle isFlipHorizontalToggle;
 
         // Use this for initialization
         void Start ()
         {
-
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
-            webCamTextureToMatHelper.Init ();
+            webCamTextureToMatHelper.Initialize ();
 
-            isFlipHorizontalToggle.isOn = webCamTextureToMatHelper.flipVertical;
-            isFlipHorizontalToggle.isOn = webCamTextureToMatHelper.flipHorizontal;
+            flipHorizontalToggle.isOn = webCamTextureToMatHelper.flipVertical;
+            flipHorizontalToggle.isOn = webCamTextureToMatHelper.flipHorizontal;
         }
 
         /// <summary>
-        /// Raises the web cam texture to mat helper inited event.
+        /// Raises the webcam texture to mat helper initialized event.
         /// </summary>
-        public void OnWebCamTextureToMatHelperInited ()
+        public void OnWebCamTextureToMatHelperInitialized ()
         {
-            Debug.Log ("OnWebCamTextureToMatHelperInited");
+            Debug.Log ("OnWebCamTextureToMatHelperInitialized");
 
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
 
@@ -76,7 +75,7 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the web cam texture to mat helper disposed event.
+        /// Raises the webcam texture to mat helper disposed event.
         /// </summary>
         public void OnWebCamTextureToMatHelperDisposed ()
         {
@@ -85,7 +84,7 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the web cam texture to mat helper error occurred event.
+        /// Raises the webcam texture to mat helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
         public void OnWebCamTextureToMatHelperErrorOccurred(WebCamTextureToMatHelper.ErrorCode errorCode){
@@ -114,9 +113,9 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the back button event.
+        /// Raises the back button click event.
         /// </summary>
-        public void OnBackButton ()
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
@@ -126,43 +125,43 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the play button event.
+        /// Raises the play button click event.
         /// </summary>
-        public void OnPlayButton ()
+        public void OnPlayButtonClick ()
         {
             webCamTextureToMatHelper.Play ();
         }
 
         /// <summary>
-        /// Raises the pause button event.
+        /// Raises the pause button click event.
         /// </summary>
-        public void OnPauseButton ()
+        public void OnPauseButtonClick ()
         {
             webCamTextureToMatHelper.Pause ();
         }
 
         /// <summary>
-        /// Raises the stop button event.
+        /// Raises the stop button click event.
         /// </summary>
-        public void OnStopButton ()
+        public void OnStopButtonClick ()
         {
             webCamTextureToMatHelper.Stop ();
         }
 
         /// <summary>
-        /// Raises the change camera button event.
+        /// Raises the change camera button click event.
         /// </summary>
-        public void OnChangeCameraButton ()
+        public void OnChangeCameraButtonClick ()
         {
-            webCamTextureToMatHelper.Init (null, webCamTextureToMatHelper.requestWidth, webCamTextureToMatHelper.requestHeight, !webCamTextureToMatHelper.requestIsFrontFacing);
+            webCamTextureToMatHelper.Initialize (null, webCamTextureToMatHelper.requestedWidth, webCamTextureToMatHelper.requestedHeight, !webCamTextureToMatHelper.requestedIsFrontFacing);
         }
 
         /// <summary>
-        /// Raises the is showing face points toggle event.
+        /// Raises the flip vertical toggle value changed event.
         /// </summary>
-        public void OnIsFlipVerticalToggle ()
+        public void OnFlipVerticalToggleValueChanged ()
         {
-            if (isFlipVerticalToggle.isOn) {
+            if (flipVerticalToggle.isOn) {
                 webCamTextureToMatHelper.flipVertical = true;
             } else {
                 webCamTextureToMatHelper.flipVertical = false;
@@ -170,11 +169,11 @@ namespace OpenCVForUnityExample
         }
         
         /// <summary>
-        /// Raises the is showing axes toggle event.
+        /// Raises the flip horizontal toggle value changed event.
         /// </summary>
-        public void OnIsFlipHorizontalToggle ()
+        public void OnFlipHorizontalToggleValueChanged ()
         {
-            if (isFlipHorizontalToggle.isOn) {
+            if (flipHorizontalToggle.isOn) {
                 webCamTextureToMatHelper.flipHorizontal = true;
             } else {
                 webCamTextureToMatHelper.flipHorizontal = false;

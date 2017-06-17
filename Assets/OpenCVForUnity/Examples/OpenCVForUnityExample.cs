@@ -9,7 +9,6 @@ namespace OpenCVForUnityExample
 {
     public class OpenCVForUnityExample : MonoBehaviour
     {
-
         // Use this for initialization
         void Start ()
         {
@@ -22,7 +21,7 @@ namespace OpenCVForUnityExample
 
         }
 
-        public void OnShowLicenseButton ()
+        public void OnShowLicenseButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("ShowLicense");
@@ -31,7 +30,7 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnTexture2DToMatExample ()
+        public void OnTexture2DToMatExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("Texture2DToMatExample");
@@ -40,7 +39,7 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnThresholdExample ()
+        public void OnThresholdExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("ThresholdExample");
@@ -49,7 +48,7 @@ namespace OpenCVForUnityExample
             #endif
         }
         
-        public void OnDrawingExample ()
+        public void OnDrawingExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("DrawingExample");
@@ -58,7 +57,7 @@ namespace OpenCVForUnityExample
             #endif
         }
         
-        public void OnConvexHullExample ()
+        public void OnConvexHullExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("ConvexHullExample");
@@ -67,7 +66,7 @@ namespace OpenCVForUnityExample
             #endif
         }
         
-        public void OnHoughLinesPExample ()
+        public void OnHoughLinesPExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("HoughLinesPExample");
@@ -76,7 +75,7 @@ namespace OpenCVForUnityExample
             #endif
         }
         
-        public void OnFeature2DExample ()
+        public void OnFeature2DExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("Feature2DExample");
@@ -85,7 +84,7 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnWrapPerspectiveExample ()
+        public void OnWrapPerspectiveExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("WrapPerspectiveExample");
@@ -94,7 +93,7 @@ namespace OpenCVForUnityExample
             #endif
         }
         
-        public void OnFaceRecognizerExample ()
+        public void OnFaceRecognizerExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("FaceRecognizerExample");
@@ -103,16 +102,16 @@ namespace OpenCVForUnityExample
             #endif
         }
         
-        public void OnDetectFaceExample ()
+        public void OnFaceDetectionExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
-            SceneManager.LoadScene ("DetectFaceExample");
+            SceneManager.LoadScene ("FaceDetectionExample");
             #else
-            Application.LoadLevel ("DetectFaceExample");
+            Application.LoadLevel ("FaceDetectionExample");
             #endif
         }
                 
-        public void OnWebCamTextureToMatExample ()
+        public void OnWebCamTextureToMatExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("WebCamTextureToMatExample");
@@ -121,7 +120,7 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnWebCamTextureToMatHelperExample ()
+        public void OnWebCamTextureToMatHelperExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("WebCamTextureToMatHelperExample");
@@ -130,25 +129,25 @@ namespace OpenCVForUnityExample
             #endif
         }
                 
-        public void OnWebCamTextureDetectFaceExample ()
+        public void OnWebCamTextureFaceDetectionExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
-            SceneManager.LoadScene ("WebCamTextureDetectFaceExample");
+            SceneManager.LoadScene ("WebCamTextureFaceDetectionExample");
             #else
-            Application.LoadLevel ("WebCamTextureDetectFaceExample");
+            Application.LoadLevel ("WebCamTextureFaceDetectionExample");
             #endif
         }
         
-        public void OnWebCamTextureAsyncDetectFaceExample ()
+        public void OnWebCamTextureAsyncFaceDetectionExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
-            SceneManager.LoadScene ("WebCamTextureAsyncDetectFaceExample");
+            SceneManager.LoadScene ("WebCamTextureAsyncFaceDetectionExample");
             #else
-            Application.LoadLevel ("WebCamTextureAsyncDetectFaceExample");
+            Application.LoadLevel ("WebCamTextureAsyncFaceDetectionExample");
             #endif
         }
         
-        public void OnOpticalFlowExample ()
+        public void OnOpticalFlowExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpticalFlowExample");
@@ -157,7 +156,7 @@ namespace OpenCVForUnityExample
             #endif
         }
         
-        public void OnComicFilterExample ()
+        public void OnComicFilterExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("ComicFilterExample");
@@ -166,7 +165,7 @@ namespace OpenCVForUnityExample
             #endif
         }
         
-        public void OnCamShiftExample ()
+        public void OnCamShiftExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("CamShiftExample");
@@ -175,7 +174,7 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnHandPoseEstimationExample ()
+        public void OnHandPoseEstimationExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("HandPoseEstimationExample");
@@ -184,7 +183,7 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnMultiObjectTrackingBasedOnColorExample ()
+        public void OnMultiObjectTrackingBasedOnColorExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("MultiObjectTrackingBasedOnColorExample");
@@ -193,7 +192,7 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnPlotExample ()
+        public void OnPlotExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("PlotExample");
@@ -202,7 +201,7 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnSimpleBlobExample ()
+        public void OnSimpleBlobExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("SimpleBlobExample");
@@ -211,7 +210,7 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnBackgroundSubtractorMOG2Example ()
+        public void OnBackgroundSubtractorMOG2ExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("BackgroundSubtractorMOG2Example");
@@ -220,7 +219,7 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnVideoCaptureExample ()
+        public void OnVideoCaptureExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("VideoCaptureExample");
@@ -229,7 +228,7 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnMatchTemplateExample ()
+        public void OnMatchTemplateExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("MatchTemplateExample");
@@ -238,7 +237,7 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnStereoBMExample ()
+        public void OnStereoBMExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("StereoBMExample");
@@ -247,7 +246,7 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnSeamlessCloneExample ()
+        public void OnSeamlessCloneExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("SeamlessCloneExample");
@@ -256,16 +255,16 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnWebCamTextureDetectCirclesExample ()
+        public void OnWebCamTextureCircleDetectionExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
-            SceneManager.LoadScene ("WebCamTextureDetectCirclesExample");
+            SceneManager.LoadScene ("WebCamTextureCircleDetectionExample");
             #else
-            Application.LoadLevel ("WebCamTextureDetectCirclesExample");
+            Application.LoadLevel ("WebCamTextureCircleDetectionExample");
             #endif
         }
 
-        public void OnSVMExample ()
+        public void OnSVMExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("SVMExample");
@@ -274,7 +273,7 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnHOGDescriptorExample ()
+        public void OnHOGDescriptorExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("HOGDescriptorExample");
@@ -283,7 +282,7 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnArUcoCreateMarkerExample ()
+        public void OnArUcoCreateMarkerExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("ArUcoCreateMarkerExample");
@@ -292,7 +291,7 @@ namespace OpenCVForUnityExample
             #endif
         }
         
-        public void OnArUcoTexture2DExample ()
+        public void OnArUcoTexture2DExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("ArUcoTexture2DExample");
@@ -301,7 +300,7 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnArUcoWebCamTextureExample ()
+        public void OnArUcoWebCamTextureExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("ArUcoWebCamTextureExample");
@@ -310,7 +309,7 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnGrabCutExample ()
+        public void OnGrabCutExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("GrabCutExample");
@@ -319,7 +318,7 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnInpaintExample ()
+        public void OnInpaintExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("InpaintExample");
@@ -328,7 +327,7 @@ namespace OpenCVForUnityExample
             #endif
         }
         
-        public void OnMatchShapesExample ()
+        public void OnMatchShapesExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("MatchShapesExample");
@@ -337,7 +336,7 @@ namespace OpenCVForUnityExample
             #endif
         }
         
-        public void OnMSERExample ()
+        public void OnMSERExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("MSERExample");
@@ -346,7 +345,7 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnPolygonFilterExample ()
+        public void OnPolygonFilterExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("PolygonFilterExample");
@@ -355,7 +354,7 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnConnectedComponentsExample ()
+        public void OnConnectedComponentsExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("ConnectedComponentsExample");
@@ -364,7 +363,7 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnGreenScreenExample ()
+        public void OnGreenScreenExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("GreenScreenExample");
@@ -373,12 +372,21 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnTrackingExample ()
+        public void OnTrackingExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("TrackingExample");
             #else
             Application.LoadLevel ("TrackingExample");
+            #endif
+        }
+
+        public void OnPCAExampleButtonClick ()
+        {
+            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
+            SceneManager.LoadScene ("PCAExample");
+            #else
+            Application.LoadLevel ("PCAExample");
             #endif
         }
     }

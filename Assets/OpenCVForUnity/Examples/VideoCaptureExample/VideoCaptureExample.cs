@@ -11,12 +11,12 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// VideoCapture example.
+    /// VideoCapture example. (Example of playing video files using the VideoCapture class)
     /// </summary>
     public class VideoCaptureExample : MonoBehaviour
     {
         /// <summary>
-        /// The capture.
+        /// The videocapture.
         /// </summary>
         VideoCapture capture;
 
@@ -36,7 +36,7 @@ namespace OpenCVForUnityExample
         Texture2D texture;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
-        private Stack<IEnumerator> coroutineStack = new Stack<IEnumerator> ();
+        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
         #endif
         
         // Use this for initialization
@@ -45,14 +45,14 @@ namespace OpenCVForUnityExample
             capture = new VideoCapture ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
-            var filepath_Coroutine = Utils.getFilePathAsync("768x576_mjpeg.mjpeg", (result) => {
-                coroutineStack.Clear ();
+            var getFilePath_Coroutine = Utils.getFilePathAsync("768x576_mjpeg.mjpeg", (result) => {
+                coroutines.Clear ();
 
                 capture.open (result);
                 Init();
             });
-            coroutineStack.Push (filepath_Coroutine);
-            StartCoroutine (filepath_Coroutine);
+            coroutines.Push (getFilePath_Coroutine);
+            StartCoroutine (getFilePath_Coroutine);
             #else
             capture.open (Utils.getFilePath ("768x576_mjpeg.mjpeg"));
             Init ();
@@ -127,14 +127,17 @@ namespace OpenCVForUnityExample
                 rgbMat.Dispose ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
-            foreach (var coroutine in coroutineStack) {
+            foreach (var coroutine in coroutines) {
                 StopCoroutine (coroutine);
                 ((IDisposable)coroutine).Dispose ();
             }
             #endif
         }
-        
-        public void OnBackButton ()
+
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");

@@ -11,23 +11,23 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Detect face example.
+    /// Face detection example. (Example of face detection using the CascadeClassifier class)
     /// </summary>
-    public class DetectFaceExample : MonoBehaviour
+    public class FaceDetectionExample : MonoBehaviour
     {
         CascadeClassifier cascade;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
-        private Stack<IEnumerator> coroutineStack = new Stack<IEnumerator> ();
+        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
         #endif
 
         // Use this for initialization
         void Start ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
-            var filepath_Coroutine = Utils.getFilePathAsync("haarcascade_frontalface_alt.xml", 
+            var getFilePath_Coroutine = Utils.getFilePathAsync("haarcascade_frontalface_alt.xml", 
             (result) => {
-                coroutineStack.Clear ();
+                coroutines.Clear ();
 
                 cascade = new CascadeClassifier ();
                 cascade.load(result);
@@ -36,8 +36,8 @@ namespace OpenCVForUnityExample
             (result, progress) => {
                 Debug.Log ("getFilePathAsync() progress : " + result + " " + Mathf.CeilToInt (progress * 100) + "%");
             });
-            coroutineStack.Push (filepath_Coroutine);
-            StartCoroutine (filepath_Coroutine);
+            coroutines.Push (getFilePath_Coroutine);
+            StartCoroutine (getFilePath_Coroutine);
             #else
             //cascade = new CascadeClassifier (Utils.getFilePath ("lbpcascade_frontalface.xml"));
             cascade = new CascadeClassifier ();
@@ -97,14 +97,17 @@ namespace OpenCVForUnityExample
         void OnDisable ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
-            foreach (var coroutine in coroutineStack) {
+            foreach (var coroutine in coroutines) {
                 StopCoroutine (coroutine);
                 ((IDisposable)coroutine).Dispose ();
             }
             #endif
         }
 
-        public void OnBackButton ()
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");

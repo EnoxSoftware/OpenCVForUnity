@@ -50,13 +50,14 @@ namespace OpenCVForUnityExample
         /// The hsv mat.
         /// </summary>
         Mat hsvMat;
+
         ColorObject blue = new ColorObject ("blue");
         ColorObject yellow = new ColorObject ("yellow");
         ColorObject red = new ColorObject ("red");
         ColorObject green = new ColorObject ("green");
 
         /// <summary>
-        /// The web cam texture to mat helper.
+        /// The webcam texture to mat helper.
         /// </summary>
         WebCamTextureToMatHelper webCamTextureToMatHelper;
 
@@ -64,15 +65,15 @@ namespace OpenCVForUnityExample
         void Start ()
         {
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
-            webCamTextureToMatHelper.Init ();
+            webCamTextureToMatHelper.Initialize ();
         }
 
         /// <summary>
-        /// Raises the web cam texture to mat helper inited event.
+        /// Raises the webcam texture to mat helper initialized event.
         /// </summary>
-        public void OnWebCamTextureToMatHelperInited ()
+        public void OnWebCamTextureToMatHelperInitialized ()
         {
-            Debug.Log ("OnWebCamTextureToMatHelperInited");
+            Debug.Log ("OnWebCamTextureToMatHelperInitialized");
             
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
 
@@ -105,7 +106,7 @@ namespace OpenCVForUnityExample
         }
         
         /// <summary>
-        /// Raises the web cam texture to mat helper disposed event.
+        /// Raises the webcam texture to mat helper disposed event.
         /// </summary>
         public void OnWebCamTextureToMatHelperDisposed ()
         {
@@ -120,7 +121,7 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the web cam texture to mat helper error occurred event.
+        /// Raises the webcam texture to mat helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
         public void OnWebCamTextureToMatHelperErrorOccurred(WebCamTextureToMatHelper.ErrorCode errorCode){
@@ -172,9 +173,9 @@ namespace OpenCVForUnityExample
         }
         
         /// <summary>
-        /// Raises the back button event.
+        /// Raises the back button click event.
         /// </summary>
-        public void OnBackButton ()
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
@@ -184,35 +185,35 @@ namespace OpenCVForUnityExample
         }
         
         /// <summary>
-        /// Raises the play button event.
+        /// Raises the play button click event.
         /// </summary>
-        public void OnPlayButton ()
+        public void OnPlayButtonClick ()
         {
             webCamTextureToMatHelper.Play ();
         }
         
         /// <summary>
-        /// Raises the pause button event.
+        /// Raises the pause button click event.
         /// </summary>
-        public void OnPauseButton ()
+        public void OnPauseButtonClick ()
         {
             webCamTextureToMatHelper.Pause ();
         }
         
         /// <summary>
-        /// Raises the stop button event.
+        /// Raises the stop button click event.
         /// </summary>
-        public void OnStopButton ()
+        public void OnStopButtonClick ()
         {
             webCamTextureToMatHelper.Stop ();
         }
         
         /// <summary>
-        /// Raises the change camera button event.
+        /// Raises the change camera button click event.
         /// </summary>
-        public void OnChangeCameraButton ()
+        public void OnChangeCameraButtonClick ()
         {
-            webCamTextureToMatHelper.Init (null, webCamTextureToMatHelper.requestWidth, webCamTextureToMatHelper.requestHeight, !webCamTextureToMatHelper.requestIsFrontFacing);
+            webCamTextureToMatHelper.Initialize (null, webCamTextureToMatHelper.requestedWidth, webCamTextureToMatHelper.requestedHeight, !webCamTextureToMatHelper.requestedIsFrontFacing);
         }
 
         /// <summary>
@@ -223,7 +224,7 @@ namespace OpenCVForUnityExample
         /// <param name="temp">Temp.</param>
         /// <param name="contours">Contours.</param>
         /// <param name="hierarchy">Hierarchy.</param>
-        void drawObject (List<ColorObject> theColorObjects, Mat frame, Mat temp, List<MatOfPoint> contours, Mat hierarchy)
+        private void drawObject (List<ColorObject> theColorObjects, Mat frame, Mat temp, List<MatOfPoint> contours, Mat hierarchy)
         {
             for (int i = 0; i < theColorObjects.Count; i++) {
                 Imgproc.drawContours (frame, contours, i, theColorObjects [i].getColor (), 3, 8, hierarchy, int.MaxValue, new Point ());
@@ -237,7 +238,7 @@ namespace OpenCVForUnityExample
         /// Morphs the ops.
         /// </summary>
         /// <param name="thresh">Thresh.</param>
-        void morphOps (Mat thresh)
+        private void morphOps (Mat thresh)
         {
             //create structuring element that will be used to "dilate" and "erode" image.
             //the element chosen here is a 3px by 3px rectangle
@@ -259,7 +260,7 @@ namespace OpenCVForUnityExample
         /// <param name="threshold">Threshold.</param>
         /// <param name="HSV">HS.</param>
         /// <param name="cameraFeed">Camera feed.</param>
-        void trackFilteredObject (ColorObject theColorObject, Mat threshold, Mat HSV, Mat cameraFeed)
+        private void trackFilteredObject (ColorObject theColorObject, Mat threshold, Mat HSV, Mat cameraFeed)
         {
                     
             List<ColorObject> colorObjects = new List<ColorObject> ();

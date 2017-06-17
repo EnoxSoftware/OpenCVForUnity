@@ -9,7 +9,7 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Drawing example.
+    /// Drawing example. (Example of drawing to an image using the Imgproc class)
     /// </summary>
     public class DrawingExample : MonoBehaviour
     {
@@ -72,7 +72,10 @@ namespace OpenCVForUnityExample
         
         }
     
-        public void OnBackButton ()
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");

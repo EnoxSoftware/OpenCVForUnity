@@ -16,23 +16,21 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class FaceRecognizerExample : MonoBehaviour
     {
-        private string facerec_0_bmp_filepath;
-
-        private string facerec_1_bmp_filepath;
-
-        private string facerec_sample_bmp_filepath;
+        string facerec_0_bmp_filepath;
+        string facerec_1_bmp_filepath;
+        string facerec_sample_bmp_filepath;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
-        private Stack<IEnumerator> coroutineStack = new Stack<IEnumerator> ();
+        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
         #endif
 
         // Use this for initialization
         void Start ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
-            var filepath_coroutine = getFilePathCoroutine ();
-            coroutineStack.Push (filepath_coroutine);
-            StartCoroutine (filepath_coroutine);
+            var getFilePath_Coroutine = GetFilePath ();
+            coroutines.Push (getFilePath_Coroutine);
+            StartCoroutine (getFilePath_Coroutine);
             #else
             facerec_0_bmp_filepath = Utils.getFilePath ("facerec/facerec_0.bmp");
             facerec_1_bmp_filepath = Utils.getFilePath ("facerec/facerec_1.bmp");
@@ -42,27 +40,27 @@ namespace OpenCVForUnityExample
         }
 
         #if UNITY_WEBGL && !UNITY_EDITOR
-        private IEnumerator getFilePathCoroutine()
+        private IEnumerator GetFilePath()
         {
             var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("facerec/facerec_0.bmp", (result) => {
                 facerec_0_bmp_filepath = result;
             });
-            coroutineStack.Push (getFilePathAsync_0_Coroutine);
+            coroutines.Push (getFilePathAsync_0_Coroutine);
             yield return StartCoroutine (getFilePathAsync_0_Coroutine);
 
             var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("facerec/facerec_1.bmp", (result) => {
                 facerec_1_bmp_filepath = result;
             });
-            coroutineStack.Push (getFilePathAsync_1_Coroutine);
+            coroutines.Push (getFilePathAsync_1_Coroutine);
             yield return StartCoroutine (getFilePathAsync_1_Coroutine);
 
             var getFilePathAsync_sample_Coroutine = Utils.getFilePathAsync ("facerec/facerec_sample.bmp", (result) => {
                 facerec_sample_bmp_filepath = result;
             });
-            coroutineStack.Push (getFilePathAsync_sample_Coroutine);
+            coroutines.Push (getFilePathAsync_sample_Coroutine);
             yield return StartCoroutine (getFilePathAsync_sample_Coroutine);
 
-            coroutineStack.Clear ();
+            coroutines.Clear ();
 
             Run ();
         }
@@ -134,14 +132,17 @@ namespace OpenCVForUnityExample
         void OnDisable ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
-            foreach (var coroutine in coroutineStack) {
+            foreach (var coroutine in coroutines) {
                 StopCoroutine (coroutine);
                 ((IDisposable)coroutine).Dispose ();
             }
             #endif
         }
 
-        public void OnBackButton ()
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");

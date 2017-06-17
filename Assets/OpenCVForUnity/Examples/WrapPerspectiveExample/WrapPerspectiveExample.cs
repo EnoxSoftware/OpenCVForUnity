@@ -9,7 +9,7 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Wrap perspective example.
+    /// Wrap perspective example. (Example of perspective transformation of images using the Imgproc.warpPerspective method)
     /// </summary>
     public class WrapPerspectiveExample : MonoBehaviour
     {
@@ -52,8 +52,11 @@ namespace OpenCVForUnityExample
         {
             
         }
-        
-        public void OnBackButton ()
+
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");

@@ -9,7 +9,7 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Texture2D to mat example.
+    /// Texture2D to mat example. (Example of converting Texture2D to Mat using the Utils class)
     /// </summary>
     public class Texture2DToMatExample : MonoBehaviour
     {
@@ -27,7 +27,6 @@ namespace OpenCVForUnityExample
             Utils.texture2DToMat (imgTexture, imgMat);
             Debug.Log ("imgMat.ToString() " + imgMat.ToString ());
 
-
             Texture2D texture = new Texture2D (imgMat.cols (), imgMat.rows (), TextureFormat.RGBA32, false);
 
             Utils.matToTexture2D (imgMat, texture);
@@ -44,7 +43,10 @@ namespace OpenCVForUnityExample
 
         }
 
-        public void OnBackButton ()
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");

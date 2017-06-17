@@ -6,75 +6,82 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Optimization web cam texture to mat helper.
+    /// Optimization webcam texture to mat helper.
+    /// v 1.0.1
     /// </summary>
     public class OptimizationWebCamTextureToMatHelper : WebCamTextureToMatHelper
     {
         /// <summary>
-        /// The DOWNSAMPL e_ RATI.
+        /// The downscale ratio.
         /// </summary>
-        public float DOWNSCALE_RATIO = 2;
+        public float downscaleRatio = 2;
         
         /// <summary>
-        /// The SKI p_ FRAME.
+        /// The frame skipping ratio.
         /// </summary>
-        public int SKIP_FRAMES = 2;
+        public int frameSkippingRatio = 2;
         
         /// <summary>
         /// The frame count.
         /// </summary>
-        int frameCount;
+        protected int frameCount = 0;
         
         /// <summary>
-        /// The rgba mat_downscale.
+        /// The rgba downscale mat.
         /// </summary>
-        Mat downScaleRgbaMat;
+        protected Mat downScaleRgbaMat;
 
         /// <summary>
-        /// Whether this frame is SkipFrame.
+        /// Indicates whether the current frame is skipped.
         /// </summary>
-        /// <returns><c>true</c> if this instance is skip frame; otherwise, <c>false</c>.</returns>
-        public bool IsSkipFrame ()
+        /// <returns><c>true</c>, if the current frame is skipped, <c>false</c> otherwise.</returns>
+        public virtual bool IsCurrentFrameSkipped ()
         {
             frameCount++;
 
-            if (SKIP_FRAMES <= 0)
-                return true;
+            if (frameSkippingRatio <= 0)
+                return false;
 
-            if (frameCount % SKIP_FRAMES == 0) {
+            if (frameCount % frameSkippingRatio == 0) {
                 return false;
             }
+
             return true;
         }
 
         /// <summary>
         /// Get the Mat that downscaled the original Mat.
-        /// if DOWNSCALE <= 1 , return originalMat. 
+        /// if downscaleRatio <= 1 , return originalMat. 
         /// </summary>
-        /// <returns>The down scale mat.</returns>
+        /// <returns>The downscale mat.</returns>
         /// <param name="originalMat">Original mat.</param>
-        public Mat GetDownScaleMat (Mat originalMat)
+        public virtual Mat GetDownScaleMat (Mat originalMat)
         {
-            if (DOWNSCALE_RATIO <= 1)
+            if (downscaleRatio <= 1)
                 return originalMat;
 
             if (downScaleRgbaMat == null) {
                 downScaleRgbaMat = new Mat ();
             }
 
-            Imgproc.resize (originalMat, downScaleRgbaMat, new Size (), 1.0 / DOWNSCALE_RATIO, 1.0 / DOWNSCALE_RATIO, Imgproc.INTER_LINEAR);
+            Imgproc.resize (originalMat, downScaleRgbaMat, new Size (), 1.0 / downscaleRatio, 1.0 / downscaleRatio, Imgproc.INTER_LINEAR);
 
             return downScaleRgbaMat;
         }
 
-        public new void Dispose ()
+        /// <summary>
+        /// To release the resources for the initialized method.
+        /// </summary>
+        protected override void _Dispose ()
         {
+            frameCount = 0;
+
             if (downScaleRgbaMat != null) {
                 downScaleRgbaMat.Dispose ();
                 downScaleRgbaMat = null;
             }
 
-            base.Dispose ();
+            base._Dispose ();
         }
     }
 }

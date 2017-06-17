@@ -9,7 +9,7 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// MatchShapes Example
+    /// MatchShapes Example.
     /// http://docs.opencv.org/3.1.0/d5/d45/tutorial_py_contours_more_functions.html
     /// </summary>
     public class MatchShapesExample : MonoBehaviour
@@ -71,7 +71,10 @@ namespace OpenCVForUnityExample
             
         }
 
-        public void OnBackButton ()
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");

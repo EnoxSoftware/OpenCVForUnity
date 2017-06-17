@@ -15,26 +15,10 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class ArUcoTexture2DExample : MonoBehaviour
     {
-        
         /// <summary>
         /// The image texture.
         /// </summary>
         public Texture2D imgTexture;
-        
-        /// <summary>
-        /// The AR camera.
-        /// </summary>
-        public Camera ARCamera;
-        
-        /// <summary>
-        /// The should move AR camera.
-        /// </summary>
-        public bool shouldMoveARCamera;
-        
-        /// <summary>
-        /// The AR game object.
-        /// </summary>
-        public GameObject ARGameObject;
         
         /// <summary>
         /// The dictionary identifier.
@@ -42,19 +26,34 @@ namespace OpenCVForUnityExample
         public int dictionaryId = 10;
         
         /// <summary>
-        /// The show rejected.
+        /// Determines if shows rejected markers.
         /// </summary>
         public bool showRejected = true;
         
         /// <summary>
-        /// The estimate pose.
+        /// Determines if applied the pose estimation.
         /// </summary>
-        public bool estimatePose = true;
+        public bool applyEstimationPose = true;
         
         /// <summary>
         /// The length of the marker.
         /// </summary>
         public float markerLength = 100;
+
+        /// <summary>
+        /// The AR game object.
+        /// </summary>
+        public GameObject ARGameObject;
+        
+        /// <summary>
+        /// The AR camera.
+        /// </summary>
+        public Camera ARCamera;
+        
+        /// <summary>
+        /// Determines if request the AR camera moving.
+        /// </summary>
+        public bool shouldMoveARCamera = false;
         
         // Use this for initialization
         void Start ()
@@ -82,7 +81,7 @@ namespace OpenCVForUnityExample
             }
             
             
-            //set cameraparam
+            // set cameraparam.
             int max_d = (int)Mathf.Max (width, height);
             double fx = max_d;
             double fy = max_d;
@@ -105,7 +104,7 @@ namespace OpenCVForUnityExample
             Debug.Log ("distCoeffs " + distCoeffs.dump ());
             
             
-            //calibration camera
+            // calibration camera.
             Size imageSize = new Size (width * imageSizeScale, height * imageSizeScale);
             double apertureWidth = 0;
             double apertureHeight = 0;
@@ -127,7 +126,7 @@ namespace OpenCVForUnityExample
             Debug.Log ("aspectratio " + aspectratio [0]);
             
             
-            //To convert the difference of the FOV value of the OpenCV and Unity. 
+            // To convert the difference of the FOV value of the OpenCV and Unity. 
             double fovXScale = (2.0 * Mathf.Atan ((float)(imageSize.width / (2.0 * fx)))) / (Mathf.Atan2 ((float)cx, (float)fx) + Mathf.Atan2 ((float)(imageSize.width - cx), (float)fx));
             double fovYScale = (2.0 * Mathf.Atan ((float)(imageSize.height / (2.0 * fy)))) / (Mathf.Atan2 ((float)cy, (float)fy) + Mathf.Atan2 ((float)(imageSize.height - cy), (float)fy));
             
@@ -135,7 +134,7 @@ namespace OpenCVForUnityExample
             Debug.Log ("fovYScale " + fovYScale);
             
             
-            //Adjust Unity Camera FOV https://github.com/opencv/opencv/commit/8ed1945ccd52501f5ab22bdec6aa1f91f1e2cfd4
+            // Adjust Unity Camera FOV https://github.com/opencv/opencv/commit/8ed1945ccd52501f5ab22bdec6aa1f91f1e2cfd4
             if (widthScale < heightScale) {
                 ARCamera.fieldOfView = (float)(fovx [0] * fovXScale);
             } else {
@@ -155,24 +154,23 @@ namespace OpenCVForUnityExample
             Dictionary dictionary = Aruco.getPredefinedDictionary (dictionaryId);
             
             
-            // detect markers and estimate pose
+            // detect markers.
             Aruco.detectMarkers (rgbMat, dictionary, corners, ids, detectorParams, rejected);
-            
-            if (estimatePose && ids.total () > 0)
+
+            // estimate pose.
+            if (applyEstimationPose && ids.total () > 0)
                 Aruco.estimatePoseSingleMarkers (corners, markerLength, camMatrix, distCoeffs, rvecs, tvecs);
-            
-            
-            // draw results
+
             if (ids.total () > 0) {
                 Aruco.drawDetectedMarkers (rgbMat, corners, ids, new Scalar (255, 0, 0));
                 
-                if (estimatePose) {
+                if (applyEstimationPose) {
                     for (int i = 0; i < ids.total(); i++) {
 //                        Debug.Log ("ids.dump() " + ids.dump ());
                         
                         Aruco.drawAxis (rgbMat, camMatrix, distCoeffs, rvecs, tvecs, markerLength * 0.5f);
                         
-                        //This example can display ARObject on only first detected marker.
+                        // This example can display ARObject on only first detected marker.
                         if (i == 0) {
 
                             // position
@@ -207,7 +205,6 @@ namespace OpenCVForUnityExample
 
                             if (shouldMoveARCamera) {
 
-                                // Apply ARObject transform matrix.
                                 ARM = ARGameObject.transform.localToWorldMatrix * ARM.inverse;
                                 
                                 Debug.Log ("ARM " + ARM.ToString ());
@@ -216,7 +213,6 @@ namespace OpenCVForUnityExample
 
                             } else {
 
-                                // Apply camera transform matrix.
                                 ARM = ARCamera.transform.localToWorldMatrix * ARM;
 
                                 Debug.Log ("ARM " + ARM.ToString ());
@@ -244,8 +240,11 @@ namespace OpenCVForUnityExample
         {
             
         }
-        
-        public void OnBackButton ()
+
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");

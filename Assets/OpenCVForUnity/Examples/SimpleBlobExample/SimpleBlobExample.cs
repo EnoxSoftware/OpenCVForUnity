@@ -11,28 +11,28 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Simple BLOB example.
+    /// SimpleBlob example. (Example of feature detection using SIMPLEBLOB algorithm)
     /// </summary>
     public class SimpleBlobExample : MonoBehaviour
     {
-        private string blobparams_yml_filepath;
+        string blobparams_yml_filepath;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
-        private Stack<IEnumerator> coroutineStack = new Stack<IEnumerator> ();
+        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
         #endif
 
         // Use this for initialization
         void Start ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
-            var filepath_Coroutine = Utils.getFilePathAsync("blobparams.yml", (result) => {
-                coroutineStack.Clear ();
+            var getFilePath_Coroutine = Utils.getFilePathAsync("blobparams.yml", (result) => {
+                coroutines.Clear ();
 
                 blobparams_yml_filepath = result;
                 Run ();
             });
-            coroutineStack.Push (filepath_Coroutine);
-            StartCoroutine (filepath_Coroutine);
+            coroutines.Push (getFilePath_Coroutine);
+            StartCoroutine (getFilePath_Coroutine);
             #else
             blobparams_yml_filepath = Utils.getFilePath ("blobparams.yml");
             Run ();
@@ -79,14 +79,17 @@ namespace OpenCVForUnityExample
         void OnDisable ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
-            foreach (var coroutine in coroutineStack) {
+            foreach (var coroutine in coroutines) {
                 StopCoroutine (coroutine);
                 ((IDisposable)coroutine).Dispose ();
             }
             #endif
         }
-        
-        public void OnBackButton ()
+
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");

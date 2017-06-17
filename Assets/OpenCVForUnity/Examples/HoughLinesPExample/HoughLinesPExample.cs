@@ -9,7 +9,7 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// HoughLinesP example.
+    /// HoughLinesP example. (Example of straight line detection using the HoughLinesP class)
     /// </summary>
     public class HoughLinesPExample : MonoBehaviour
     {
@@ -44,7 +44,6 @@ namespace OpenCVForUnityExample
                 Imgproc.line (imgMat, new Point (linesArray [i + 0], linesArray [i + 1]), new Point (linesArray [i + 2], linesArray [i + 3]), new Scalar (255, 0, 0), 2);
             }
 
-        
             Texture2D texture = new Texture2D (imgMat.cols (), imgMat.rows (), TextureFormat.RGBA32, false);
             Utils.matToTexture2D (imgMat, texture);
         
@@ -56,8 +55,11 @@ namespace OpenCVForUnityExample
         {
         
         }
-    
-        public void OnBackButton ()
+
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");

@@ -9,7 +9,7 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// SVM Example
+    /// SVM example. (Example of  find a separating straight line using the Support Vector Machines (SVM))
     /// referring to the http://docs.opencv.org/3.1.0/d1/d73/tutorial_introduction_to_svm.html#gsc.tab=0
     /// </summary>
     public class SVMExample : MonoBehaviour
@@ -82,7 +82,10 @@ namespace OpenCVForUnityExample
 
         }
 
-        public void OnBackButton ()
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");

@@ -14,11 +14,11 @@ using PositionsVector = System.Collections.Generic.List<OpenCVForUnity.Rect>;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// WebCamTexture async detect face example.
+    /// WebCamTexture async face detection example.
     /// This cord referred to https://github.com/Itseez/opencv/blob/master/modules/objdetect/src/detection_based_tracker.cpp.
     /// </summary>
     [RequireComponent (typeof(WebCamTextureToMatHelper))]
-    public class WebCamTextureAsyncDetectFaceExample : MonoBehaviour
+    public class WebCamTextureAsyncFaceDetectionExample : MonoBehaviour
     {
         /// <summary>
         /// The gray mat.
@@ -31,7 +31,7 @@ namespace OpenCVForUnityExample
         Texture2D texture;
 
         /// <summary>
-        /// The web cam texture to mat helper.
+        /// The webcam texture to mat helper.
         /// </summary>
         WebCamTextureToMatHelper webCamTextureToMatHelper;
 
@@ -66,37 +66,37 @@ namespace OpenCVForUnityExample
         List<Rect> resultObjects = new List<Rect> ();
 
         // for Thread
-        private CascadeClassifier cascade4Thread;
-        private Mat grayMat4Thread;
-        private MatOfRect detectionResult;
-        private System.Object sync = new System.Object ();
+        CascadeClassifier cascade4Thread;
+        Mat grayMat4Thread;
+        MatOfRect detectionResult;
+        System.Object sync = new System.Object ();
 
-        private bool _isThreadRunning = false;
-        private bool isThreadRunning {
+        bool _isThreadRunning = false;
+        bool isThreadRunning {
             get { lock (sync)
                     return _isThreadRunning; }
             set { lock (sync)
                     _isThreadRunning = value; }
         }
 
-        private bool _shouldStopThread = false;
-        private bool shouldStopThread {
+        bool _shouldStopThread = false;
+        bool shouldStopThread {
             get { lock (sync)
                     return _shouldStopThread; }
             set { lock (sync)
                     _shouldStopThread = value; }
         }
 
-        private bool _shouldDetectInMultiThread = false;
-        private bool shouldDetectInMultiThread {
+        bool _shouldDetectInMultiThread = false;
+        bool shouldDetectInMultiThread {
             get { lock (sync)
                     return _shouldDetectInMultiThread; }
             set { lock (sync)
                     _shouldDetectInMultiThread = value; }
         }
 
-        private bool _didUpdateTheDetectionResult = false;
-        private bool didUpdateTheDetectionResult {
+        bool _didUpdateTheDetectionResult = false;
+        bool didUpdateTheDetectionResult {
             get { lock (sync)
                     return _didUpdateTheDetectionResult; }
             set { lock (sync)
@@ -104,14 +104,14 @@ namespace OpenCVForUnityExample
         }
 
         // for tracker
-        private List<TrackedObject> trackedObjects = new List<TrackedObject> ();
-        private List<float> weightsPositionsSmoothing = new List<float> ();
-        private List<float> weightsSizesSmoothing = new List<float> ();
-        private Parameters parameters;
-        private InnerParameters innerParameters;
+        List<TrackedObject> trackedObjects = new List<TrackedObject> ();
+        List<float> weightsPositionsSmoothing = new List<float> ();
+        List<float> weightsSizesSmoothing = new List<float> ();
+        Parameters parameters;
+        InnerParameters innerParameters;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
-        private Stack<IEnumerator> coroutineStack = new Stack<IEnumerator> ();
+        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
         #endif
 
         // Use this for initialization
@@ -120,9 +120,9 @@ namespace OpenCVForUnityExample
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
-            var filepath_coroutine = getFilePathCoroutine ();
-            coroutineStack.Push (filepath_coroutine);
-            StartCoroutine (filepath_coroutine);
+            var getFilePath_Coroutine = GetFilePath ();
+            coroutines.Push (getFilePath_Coroutine);
+            StartCoroutine (getFilePath_Coroutine);
             #else
             lbpcascade_frontalface_xml_filepath = Utils.getFilePath ("lbpcascade_frontalface.xml");
             haarcascade_frontalface_alt_xml_filepath = Utils.getFilePath ("haarcascade_frontalface_alt.xml");
@@ -131,21 +131,21 @@ namespace OpenCVForUnityExample
         }
 
         #if UNITY_WEBGL && !UNITY_EDITOR
-        private IEnumerator getFilePathCoroutine ()
+        private IEnumerator GetFilePath ()
         {
             var getFilePathAsync_lbpcascade_frontalface_xml_filepath_Coroutine = Utils.getFilePathAsync ("lbpcascade_frontalface.xml", (result) => {
                 lbpcascade_frontalface_xml_filepath = result;
             });
-            coroutineStack.Push (getFilePathAsync_lbpcascade_frontalface_xml_filepath_Coroutine);
+            coroutines.Push (getFilePathAsync_lbpcascade_frontalface_xml_filepath_Coroutine);
             yield return StartCoroutine (getFilePathAsync_lbpcascade_frontalface_xml_filepath_Coroutine);
             
             var getFilePathAsync_haarcascade_frontalface_alt_xml_filepath_Coroutine = Utils.getFilePathAsync ("haarcascade_frontalface_alt.xml", (result) => {
                 haarcascade_frontalface_alt_xml_filepath = result;
             });
-            coroutineStack.Push (getFilePathAsync_haarcascade_frontalface_alt_xml_filepath_Coroutine);
+            coroutines.Push (getFilePathAsync_haarcascade_frontalface_alt_xml_filepath_Coroutine);
             yield return StartCoroutine (getFilePathAsync_haarcascade_frontalface_alt_xml_filepath_Coroutine);
             
-            coroutineStack.Clear ();
+            coroutines.Clear ();
             
             Run ();
         }
@@ -172,15 +172,15 @@ namespace OpenCVForUnityExample
             innerParameters.coeffObjectSizeToTrack = 0.85f;
             innerParameters.coeffObjectSpeedUsingInPrediction = 0.8f;
 
-            webCamTextureToMatHelper.Init ();
+            webCamTextureToMatHelper.Initialize ();
         }
 
         /// <summary>
-        /// Raises the web cam texture to mat helper inited event.
+        /// Raises the webcam texture to mat helper initialized event.
         /// </summary>
-        public void OnWebCamTextureToMatHelperInited ()
+        public void OnWebCamTextureToMatHelperInitialized ()
         {
-            Debug.Log ("OnWebCamTextureToMatHelperInited");
+            Debug.Log ("OnWebCamTextureToMatHelperInitialized");
             
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
 
@@ -211,11 +211,11 @@ namespace OpenCVForUnityExample
 //            if (regionCascade.empty ()) {
 //                Debug.LogError ("cascade file is not loaded.Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
 //            }
-            initThread ();
+            InitThread ();
         }
 
         /// <summary>
-        /// Raises the web cam texture to mat helper disposed event.
+        /// Raises the webcam texture to mat helper disposed event.
         /// </summary>
         public void OnWebCamTextureToMatHelperDisposed ()
         {
@@ -243,7 +243,7 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the web cam texture to mat helper error occurred event.
+        /// Raises the webcam texture to mat helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
         public void OnWebCamTextureToMatHelperErrorOccurred (WebCamTextureToMatHelper.ErrorCode errorCode)
@@ -296,8 +296,8 @@ namespace OpenCVForUnityExample
                 
                         //correction by speed of rectangle
                         if (n > 1) {
-                            Point center = centerRect (r);
-                            Point center_prev = centerRect (trackedObjects [i].lastPositions [n - 2]);
+                            Point center = CenterRect (r);
+                            Point center_prev = CenterRect (trackedObjects [i].lastPositions [n - 2]);
                             Point shift = new Point ((center.x - center_prev.x) * innerParameters.coeffObjectSpeedUsingInPrediction,
                                               (center.y - center_prev.y) * innerParameters.coeffObjectSpeedUsingInPrediction);
                 
@@ -318,12 +318,12 @@ namespace OpenCVForUnityExample
                 
                     int len = rectsWhereRegions.Length;
                     for (int i = 0; i < len; i++) {
-                        detectInRegion (grayMat, rectsWhereRegions [i], detectedObjectsInRegions);
+                        DetectInRegion (grayMat, rectsWhereRegions [i], detectedObjectsInRegions);
                     }
                 }
 
-                updateTrackedObjects (detectedObjectsInRegions);
-                getObjects (resultObjects);
+                UpdateTrackedObjects (detectedObjectsInRegions);
+                GetObjects (resultObjects);
 
                 rects = resultObjects.ToArray ();
                 for (int i = 0; i < rects.Length; i++) {
@@ -339,7 +339,7 @@ namespace OpenCVForUnityExample
             }
         }
 
-        private void detectInRegion (Mat img, Rect r, List<Rect> detectedObjectsInRegions)
+        private void DetectInRegion (Mat img, Rect r, List<Rect> detectedObjectsInRegions)
         {
             Rect r0 = new Rect (new Point (), img.size ());
             Rect r1 = new Rect (r.x, r.y, r.width, r.height);
@@ -373,13 +373,12 @@ namespace OpenCVForUnityExample
             }
         }
 
-        public Point centerRect (Rect r)
+        public Point CenterRect (Rect r)
         {
             return new Point (r.x + (r.width / 2), r.y + (r.height / 2));
         }
 
-
-        private void initThread ()
+        private void InitThread ()
         {
             StopThread ();
             
@@ -483,7 +482,7 @@ namespace OpenCVForUnityExample
             webCamTextureToMatHelper.Dispose ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
-            foreach (var coroutine in coroutineStack) {
+            foreach (var coroutine in coroutines) {
                 StopCoroutine (coroutine);
                 ((IDisposable)coroutine).Dispose ();
             }
@@ -491,9 +490,9 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the back button event.
+        /// Raises the back button click event.
         /// </summary>
-        public void OnBackButton ()
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
@@ -503,46 +502,46 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the play button event.
+        /// Raises the play button click event.
         /// </summary>
-        public void OnPlayButton ()
+        public void OnPlayButtonClick ()
         {
             webCamTextureToMatHelper.Play ();
         }
 
         /// <summary>
-        /// Raises the pause button event.
+        /// Raises the pause button click event.
         /// </summary>
-        public void OnPauseButton ()
+        public void OnPauseButtonClick ()
         {
             webCamTextureToMatHelper.Pause ();
         }
 
         /// <summary>
-        /// Raises the stop button event.
+        /// Raises the stop button click event.
         /// </summary>
-        public void OnStopButton ()
+        public void OnStopButtonClick ()
         {
             webCamTextureToMatHelper.Stop ();
         }
 
         /// <summary>
-        /// Raises the change camera button event.
+        /// Raises the change camera button click event.
         /// </summary>
-        public void OnChangeCameraButton ()
+        public void OnChangeCameraButtonClick ()
         {
-            webCamTextureToMatHelper.Init (null, webCamTextureToMatHelper.requestWidth, webCamTextureToMatHelper.requestHeight, !webCamTextureToMatHelper.requestIsFrontFacing);
+            webCamTextureToMatHelper.Initialize (null, webCamTextureToMatHelper.requestedWidth, webCamTextureToMatHelper.requestedHeight, !webCamTextureToMatHelper.requestedIsFrontFacing);
         }
 
 
         // tracker
 
-        private void getObjects (List<Rect> result)
+        private void GetObjects (List<Rect> result)
         {
             result.Clear ();
                 
             for (int i = 0; i < trackedObjects.Count; i++) {
-                Rect r = calcTrackedObjectPositionToShow (i);
+                Rect r = CalcTrackedObjectPositionToShow (i);
                 if (r.area () == 0) {
                     continue;
                 }
@@ -551,13 +550,13 @@ namespace OpenCVForUnityExample
             }
         }
             
-        public enum TrackedState : int
+        private enum TrackedState : int
         {
             NEW_RECTANGLE = -1,
             INTERSECTED_RECTANGLE = -2
         }
             
-        private void updateTrackedObjects (List<Rect> detectedObjects)
+        private void UpdateTrackedObjects (List<Rect> detectedObjects)
         {
             int N1 = (int)trackedObjects.Count;
             int N2 = (int)detectedObjects.Count;
@@ -670,7 +669,7 @@ namespace OpenCVForUnityExample
             }
         }
             
-        private Rect calcTrackedObjectPositionToShow (int i)
+        private Rect CalcTrackedObjectPositionToShow (int i)
         {
             if ((i < 0) || (i >= trackedObjects.Count)) {
                 Debug.Log ("DetectionBasedTracker::calcTrackedObjectPositionToShow: ERROR: wrong i=" + i);
@@ -760,7 +759,7 @@ namespace OpenCVForUnityExample
             return res;
         }
 
-        public struct Parameters
+        private struct Parameters
         {
             //public int minObjectSize;
             //public int maxObjectSize;
@@ -771,7 +770,7 @@ namespace OpenCVForUnityExample
             //public int minDetectionPeriod; //the minimal time between run of the big object detector (on the whole frame) in ms (1000 mean 1 sec), default=0
         };
 
-        public struct InnerParameters
+        private struct InnerParameters
         {
             public int numLastPositionsToTrack;
             public int numStepsToWaitBeforeFirstShow;
@@ -782,7 +781,7 @@ namespace OpenCVForUnityExample
             public float coeffObjectSpeedUsingInPrediction;
         };
 
-        public class TrackedObject
+        private class TrackedObject
         {
             public PositionsVector lastPositions;
             public int numDetectedFrames;
@@ -799,16 +798,15 @@ namespace OpenCVForUnityExample
 
                 lastPositions.Add (rect.clone ());
 
-                _id = getNextId ();
+                _id = GetNextId ();
                 id = _id;
             }
 
-            static int getNextId ()
+            static int GetNextId ()
             {
                 _id++;
                 return _id;
             }
         }
-        
     }
 }

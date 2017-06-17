@@ -9,7 +9,7 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Seamless clone example.
+    /// SeamlessClone example. (Example of seamless photo synthesis using the Photo.seamlessClone method)
     /// </summary>
     public class SeamlessCloneExample : MonoBehaviour
     {
@@ -46,7 +46,10 @@ namespace OpenCVForUnityExample
 
         }
 
-        public void OnBackButton ()
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");

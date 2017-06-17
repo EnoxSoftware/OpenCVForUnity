@@ -12,11 +12,10 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// VideoCapture sample.
+    /// Tracking sample. (Example of object tracking using the MultiTracker class)
     /// </summary>
     public class TrackingExample : MonoBehaviour
     {
-
         /// <summary>
         /// The capture.
         /// </summary>
@@ -58,7 +57,7 @@ namespace OpenCVForUnityExample
         List<Point> selectedPointList;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
-        private Stack<IEnumerator> coroutineStack = new Stack<IEnumerator> ();
+        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
         #endif
         
         // Use this for initialization
@@ -67,14 +66,14 @@ namespace OpenCVForUnityExample
             capture = new VideoCapture ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
-            var filepath_Coroutine = Utils.getFilePathAsync("768x576_mjpeg.mjpeg", (result) => {
-                coroutineStack.Clear ();
+            var getFilePath_Coroutine = Utils.getFilePathAsync("768x576_mjpeg.mjpeg", (result) => {
+                coroutines.Clear ();
             
                 capture.open (result);
                 Init ();
             });
-            coroutineStack.Push (filepath_Coroutine);
-            StartCoroutine (filepath_Coroutine);
+            coroutines.Push (getFilePath_Coroutine);
+            StartCoroutine (getFilePath_Coroutine);
             #else
             capture.open (Utils.getFilePath ("768x576_mjpeg.mjpeg"));
             Init ();
@@ -127,7 +126,6 @@ namespace OpenCVForUnityExample
 
             trackingColorList = new List<Scalar> ();
             selectedPointList = new List<Point> ();
-
         }
 
         // Update is called once per frame
@@ -161,7 +159,6 @@ namespace OpenCVForUnityExample
                 for (int i = 0; i < objectsArray.Length; i++) {
                     Imgproc.rectangle (rgbMat, objectsArray [i].tl (), objectsArray [i].br (), trackingColorList [i], 2, 1, 0);
                 }
-                    
                 
                 //Debug.Log ("Mat toString " + rgbMat.ToString ());
                 
@@ -175,8 +172,6 @@ namespace OpenCVForUnityExample
         /// <param name="mat">Mat.</param>
         private void selectPoint (Mat mat)
         {
-            
-            
             if (selectedPointList.Count < 2) {
                 
                 #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
@@ -196,7 +191,6 @@ namespace OpenCVForUnityExample
                             selectedPointList.RemoveAt (selectedPointList.Count - 1);
                         }
                     }
-                    
                 }
                 #else
                 //Mouse
@@ -213,7 +207,6 @@ namespace OpenCVForUnityExample
                     }
                 }
                 #endif
-                
             }
         }
         
@@ -224,7 +217,7 @@ namespace OpenCVForUnityExample
         /// <param name="screenPoint">Screen point.</param>
         /// <param name="quad">Quad.</param>
         /// <param name="cam">Cam.</param>
-        static Point convertScreenPointToMatPoint (Point screenPoint, GameObject quad, Camera cam)
+        private Point convertScreenPointToMatPoint (Point screenPoint, GameObject quad, Camera cam)
         {
             Vector2 tl;
             Vector2 tr;
@@ -262,7 +255,10 @@ namespace OpenCVForUnityExample
             
             return dstPointMat.toArray () [0];
         }
-        
+
+        /// <summary>
+        /// Raises the destroy event.
+        /// </summary>
         void OnDestroy ()
         {
             capture.release ();
@@ -271,14 +267,17 @@ namespace OpenCVForUnityExample
                 rgbMat.Dispose ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
-            foreach (var coroutine in coroutineStack) {
+            foreach (var coroutine in coroutines) {
                 StopCoroutine (coroutine);
                 ((IDisposable)coroutine).Dispose ();
             }
             #endif
         }
-        
-        public void OnBackButton ()
+
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
@@ -287,7 +286,10 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnResetTrackerButton ()
+        /// <summary>
+        /// Raises the reset tracker button click event.
+        /// </summary>
+        public void OnResetTrackerButtonClick ()
         {
             if (trackers != null) {
                 trackers.Dispose ();
@@ -304,5 +306,4 @@ namespace OpenCVForUnityExample
             selectedPointList.Clear ();
         }
     }
-    
 }

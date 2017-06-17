@@ -9,7 +9,7 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Feature2D example.
+    /// Feature2D example. (Example of descriptor extraction and descriptor matching)
     /// </summary>
     public class Feature2DExample : MonoBehaviour
     {
@@ -77,7 +77,10 @@ namespace OpenCVForUnityExample
     
         }
 
-        public void OnBackButton ()
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");

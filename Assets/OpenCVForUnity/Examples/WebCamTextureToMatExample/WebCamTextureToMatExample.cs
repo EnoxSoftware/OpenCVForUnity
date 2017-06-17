@@ -15,32 +15,32 @@ namespace OpenCVForUnityExample
     public class WebCamTextureToMatExample : MonoBehaviour
     {
         /// <summary>
-        /// The name of the device.
+        /// Set this to specify the name of the device to use.
         /// </summary>
-        public string requestDeviceName = null;
+        public string requestedDeviceName = null;
 
         /// <summary>
-        /// The width.
+        /// Set the requested width of the camera device.
         /// </summary>
-        public int requestWidth = 640;
+        public int requestedWidth = 640;
+        
+        /// <summary>
+        /// Set the requested height of the camera device.
+        /// </summary>
+        public int requestedHeight = 480;
+        
+        /// <summary>
+        /// Set the requested to using the front camera.
+        /// </summary>
+        public bool requestedIsFrontFacing = false;
 
         /// <summary>
-        /// The height.
-        /// </summary>
-        public int requestHeight = 480;
-
-        /// <summary>
-        /// Should use front facing.
-        /// </summary>
-        public bool requestIsFrontFacing = false;
-
-        /// <summary>
-        /// The web cam texture.
+        /// The webcam texture.
         /// </summary>
         WebCamTexture webCamTexture;
 
         /// <summary>
-        /// The web cam device.
+        /// The webcam device.
         /// </summary>
         WebCamDevice webCamDevice;
 
@@ -60,75 +60,74 @@ namespace OpenCVForUnityExample
         Texture2D texture;
 
         /// <summary>
-        /// The init waiting.
+        /// Indicates whether this instance is waiting for initialization to complete.
         /// </summary>
-        bool initWaiting = false;
+        bool isInitWaiting = false;
 
         /// <summary>
-        /// The init done.
+        /// Indicates whether this instance has been initialized.
         /// </summary>
-        bool initDone = false;
+        bool hasInitDone = false;
 
         // Use this for initialization
         void Start ()
         {
-            init ();
+            Initialize ();
         }
 
         /// <summary>
-        /// Init of web cam texture.
+        /// Initialize of web cam texture.
         /// </summary>
-        private void init ()
+        private void Initialize ()
         {
-            if (initWaiting)
+            if (isInitWaiting)
                 return;
 
-            StartCoroutine (init_coroutine ());
+            StartCoroutine (_Initialize ());
         }
 
         /// <summary>
-        /// Init of web cam texture.
+        /// Initialize of webcam texture.
         /// </summary>
         /// <param name="deviceName">Device name.</param>
-        /// <param name="requestWidth">Request width.</param>
-        /// <param name="requestHeight">Request height.</param>
-        /// <param name="requestIsFrontFacing">If set to <c>true</c> request is front facing.</param>
-        /// <param name="OnInited">On inited.</param>
-        private void init (string deviceName, int requestWidth, int requestHeight, bool requestIsFrontFacing)
+        /// <param name="requestedWidth">Requested width.</param>
+        /// <param name="requestedHeight">Requested height.</param>
+        /// <param name="requestedIsFrontFacing">If set to <c>true</c> requested to using the front camera.</param>
+        private void Initialize (string deviceName, int requestedWidth, int requestedHeight, bool requestedIsFrontFacing)
         {
-            if (initWaiting)
+            if (isInitWaiting)
                 return;
 
-            this.requestDeviceName = deviceName;
-            this.requestWidth = requestWidth;
-            this.requestHeight = requestHeight;
-            this.requestIsFrontFacing = requestIsFrontFacing;
+            this.requestedDeviceName = deviceName;
+            this.requestedWidth = requestedWidth;
+            this.requestedHeight = requestedHeight;
+            this.requestedIsFrontFacing = requestedIsFrontFacing;
 
-            StartCoroutine (init_coroutine ());
+            StartCoroutine (_Initialize ());
         }
 
         /// <summary>
-        /// Init of web cam texture by coroutine.
+        /// Initialize of webcam texture by coroutine.
         /// </summary>
-        private IEnumerator init_coroutine ()
+        private IEnumerator _Initialize ()
         {
-            if (initDone)
-                dispose ();
+            if (hasInitDone)
+                Dispose ();
 
-            initWaiting = true;
+            isInitWaiting = true;
 
-            if (!String.IsNullOrEmpty (requestDeviceName)) {
-                //Debug.Log ("deviceName is "+requestDeviceName);
-                webCamTexture = new WebCamTexture (requestDeviceName, requestWidth, requestHeight);
+            if (!String.IsNullOrEmpty (requestedDeviceName)) {
+                //Debug.Log ("deviceName is "+requestedDeviceName);
+                webCamTexture = new WebCamTexture (requestedDeviceName, requestedWidth, requestedHeight);
             } else {
                 //Debug.Log ("deviceName is null");
                 // Checks how many and which cameras are available on the device
                 for (int cameraIndex = 0; cameraIndex < WebCamTexture.devices.Length; cameraIndex++) {
-                    if (WebCamTexture.devices [cameraIndex].isFrontFacing == requestIsFrontFacing) {
+                    if (WebCamTexture.devices [cameraIndex].isFrontFacing == requestedIsFrontFacing) {
 
                         //Debug.Log (cameraIndex + " name " + WebCamTexture.devices [cameraIndex].name + " isFrontFacing " + WebCamTexture.devices [cameraIndex].isFrontFacing);
                         webCamDevice = WebCamTexture.devices [cameraIndex];
-                        webCamTexture = new WebCamTexture (webCamDevice.name, requestWidth, requestHeight);
+                        webCamTexture = new WebCamTexture (webCamDevice.name, requestedWidth, requestedHeight);
 
                         break;
                     }
@@ -138,9 +137,9 @@ namespace OpenCVForUnityExample
             if (webCamTexture == null) {
                 if (WebCamTexture.devices.Length > 0) {
                     webCamDevice = WebCamTexture.devices [0];
-                    webCamTexture = new WebCamTexture (webCamDevice.name, requestWidth, requestHeight);
+                    webCamTexture = new WebCamTexture (webCamDevice.name, requestedWidth, requestedHeight);
                 } else {
-                    webCamTexture = new WebCamTexture (requestWidth, requestHeight);
+                    webCamTexture = new WebCamTexture (requestedWidth, requestedHeight);
                 }
             }
 
@@ -159,15 +158,15 @@ namespace OpenCVForUnityExample
                         yield return new WaitForEndOfFrame ();
                     } 
                     #endif
-                    #endif
+                #endif
 
                     Debug.Log ("name " + webCamTexture.name + " width " + webCamTexture.width + " height " + webCamTexture.height + " fps " + webCamTexture.requestedFPS);
                     Debug.Log ("videoRotationAngle " + webCamTexture.videoRotationAngle + " videoVerticallyMirrored " + webCamTexture.videoVerticallyMirrored + " isFrongFacing " + webCamDevice.isFrontFacing);
 
-                    initWaiting = false;
-                    initDone = true;
+                    isInitWaiting = false;
+                    hasInitDone = true;
 
-                    onInited ();
+                    OnInited ();
 
                     break;
                 } else {
@@ -179,10 +178,10 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Releases all resource.
         /// </summary>
-        private void dispose ()
+        private void Dispose ()
         {
-            initWaiting = false;
-            initDone = false;
+            isInitWaiting = false;
+            hasInitDone = false;
 
             if (webCamTexture != null) {
                 webCamTexture.Stop ();
@@ -195,9 +194,9 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Init completion handler of the web camera texture.
+        /// Initialize completion handler of the webcam texture.
         /// </summary>
-        private void onInited ()
+        private void OnInited ()
         {
             if (colors == null || colors.Length != webCamTexture.width * webCamTexture.height)
                 colors = new Color32[webCamTexture.width * webCamTexture.height];
@@ -227,7 +226,7 @@ namespace OpenCVForUnityExample
         // Update is called once per frame
         void Update ()
         {
-            if (initDone && webCamTexture.isPlaying && webCamTexture.didUpdateThisFrame) {
+            if (hasInitDone && webCamTexture.isPlaying && webCamTexture.didUpdateThisFrame) {
                 Utils.webCamTextureToMat (webCamTexture, rgbaMat, colors);
 
                 Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
@@ -241,13 +240,13 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDisable ()
         {
-            dispose ();
+            Dispose ();
         }
 
         /// <summary>
-        /// Raises the back button event.
+        /// Raises the back button click event.
         /// </summary>
-        public void OnBackButton ()
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
@@ -257,39 +256,39 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the play button event.
+        /// Raises the play button click event.
         /// </summary>
-        public void OnPlayButton ()
+        public void OnPlayButtonClick ()
         {
-            if (initDone)
+            if (hasInitDone)
                 webCamTexture.Play ();
         }
 
         /// <summary>
-        /// Raises the pause button event.
+        /// Raises the pause button click event.
         /// </summary>
-        public void OnPauseButton ()
+        public void OnPauseButtonClick ()
         {
-            if (initDone)
+            if (hasInitDone)
                 webCamTexture.Pause ();
         }
 
         /// <summary>
-        /// Raises the stop button event.
+        /// Raises the stop button click event.
         /// </summary>
-        public void OnStopButton ()
+        public void OnStopButtonClick ()
         {
-            if (initDone)
+            if (hasInitDone)
                 webCamTexture.Stop ();
         }
 
         /// <summary>
-        /// Raises the change camera button event.
+        /// Raises the change camera button click event.
         /// </summary>
-        public void OnChangeCameraButton ()
+        public void OnChangeCameraButtonClick ()
         {
-            if (initDone)
-                init (null, requestWidth, requestHeight, !requestIsFrontFacing);
+            if (hasInitDone)
+                Initialize (null, requestedWidth, requestedHeight, !requestedIsFrontFacing);
         }
     }
 }

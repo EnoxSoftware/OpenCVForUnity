@@ -9,7 +9,7 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Grab cut example.
+    /// GrabCut example. (Examples of background removal using the GrabCut method)
     /// http://docs.opencv.org/3.1.0/d8/d83/tutorial_py_grabcut.html
     /// </summary>
     public class GrabCutExample : MonoBehaviour
@@ -57,7 +57,7 @@ namespace OpenCVForUnityExample
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
         }
 
-        private static void convertToGrayScaleValues (Mat mask)
+        private void convertToGrayScaleValues (Mat mask)
         {
             int width = mask.rows ();
             int height = mask.cols ();
@@ -81,7 +81,7 @@ namespace OpenCVForUnityExample
             mask.put (0, 0, buffer);
         }
         
-        private static void convertToGrabCutValues (Mat mask)
+        private void convertToGrabCutValues (Mat mask)
         {
             int width = mask.rows ();
             int height = mask.cols ();
@@ -110,7 +110,10 @@ namespace OpenCVForUnityExample
     
         }
 
-        public void OnBackButton ()
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");

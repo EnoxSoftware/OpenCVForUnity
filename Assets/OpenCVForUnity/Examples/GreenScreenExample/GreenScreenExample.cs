@@ -17,12 +17,23 @@ namespace OpenCVForUnityExample
     public class GreenScreenExample : MonoBehaviour
     {
         /// <summary>
+        /// The thresh.
+        /// </summary>
+        [Range(0 , 255)]
+        public float thresh = 50.0f;
+        
+        /// <summary>
+        /// The background raw image.
+        /// </summary>
+        public RawImage bgRawImage;
+
+        /// <summary>
         /// The texture.
         /// </summary>
         Texture2D texture;
 
         /// <summary>
-        /// The web cam texture to mat helper.
+        /// The webcam texture to mat helper.
         /// </summary>
         WebCamTextureToMatHelper webCamTextureToMatHelper;
 
@@ -32,7 +43,7 @@ namespace OpenCVForUnityExample
         Mat bgMat;
 
         /// <summary>
-        /// The fg mask mat.
+        /// The foreground mask mat.
         /// </summary>
         Mat fgMaskMat;
 
@@ -47,36 +58,23 @@ namespace OpenCVForUnityExample
         Mat greenMat;
 
         /// <summary>
-        /// The thresh.
-        /// </summary>
-        [Range(0 , 255)]
-        public float thresh = 50.0f;
-
-        /// <summary>
         /// The background texture.
         /// </summary>
         Texture2D bgTexture;
 
-        /// <summary>
-        /// The background raw image.
-        /// </summary>
-        public RawImage bgRawImage;
-
         // Use this for initialization
         void Start ()
         {
-
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
-            webCamTextureToMatHelper.Init ();
-
+            webCamTextureToMatHelper.Initialize ();
         }
 
         /// <summary>
-        /// Raises the web cam texture to mat helper inited event.
+        /// Raises the webcam texture to mat helper initialized event.
         /// </summary>
-        public void OnWebCamTextureToMatHelperInited ()
+        public void OnWebCamTextureToMatHelperInitialized ()
         {
-            Debug.Log ("OnWebCamTextureToMatHelperInited");
+            Debug.Log ("OnWebCamTextureToMatHelperInitialized");
 
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
 
@@ -87,7 +85,7 @@ namespace OpenCVForUnityExample
             gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
-                                    
+
             float width = webCamTextureMat.width();
             float height = webCamTextureMat.height();
                                     
@@ -109,7 +107,7 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the web cam texture to mat helper disposed event.
+        /// Raises the webcam texture to mat helper disposed event.
         /// </summary>
         public void OnWebCamTextureToMatHelperDisposed ()
         {
@@ -134,7 +132,7 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the web cam texture to mat helper error occurred event.
+        /// Raises the webcam texture to mat helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
         public void OnWebCamTextureToMatHelperErrorOccurred(WebCamTextureToMatHelper.ErrorCode errorCode){
@@ -171,7 +169,7 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Finds the fg mask mat.
+        /// Finds the foreground mask mat.
         /// </summary>
         /// <param name="fgMat">Fg mat.</param>
         /// <param name="bgMat">Background mat.</param>
@@ -213,13 +211,12 @@ namespace OpenCVForUnityExample
         void OnDisable ()
         {
             webCamTextureToMatHelper.Dispose ();
-
         }
 
         /// <summary>
-        /// Raises the back button event.
+        /// Raises the back button click event.
         /// </summary>
-        public void OnBackButton ()
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
@@ -229,36 +226,35 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the play button event.
+        /// Raises the play button click event.
         /// </summary>
-        public void OnPlayButton ()
+        public void OnPlayButtonClick ()
         {
             webCamTextureToMatHelper.Play ();
         }
 
         /// <summary>
-        /// Raises the pause button event.
+        /// Raises the pause button click event.
         /// </summary>
-        public void OnPauseButton ()
+        public void OnPauseButtonClick ()
         {
             webCamTextureToMatHelper.Pause ();
         }
 
         /// <summary>
-        /// Raises the stop button event.
+        /// Raises the stop button click event.
         /// </summary>
-        public void OnStopButton ()
+        public void OnStopButtonClick ()
         {
             webCamTextureToMatHelper.Stop ();
         }
 
         /// <summary>
-        /// Raises the change camera button event.
+        /// Raises the change camera button click event.
         /// </summary>
-        public void OnChangeCameraButton ()
+        public void OnChangeCameraButtonClick ()
         {
-            webCamTextureToMatHelper.Init (null, webCamTextureToMatHelper.requestWidth, webCamTextureToMatHelper.requestHeight, !webCamTextureToMatHelper.requestIsFrontFacing);
+            webCamTextureToMatHelper.Initialize (null, webCamTextureToMatHelper.requestedWidth, webCamTextureToMatHelper.requestedHeight, !webCamTextureToMatHelper.requestedIsFrontFacing);
         }
-
     }
 }

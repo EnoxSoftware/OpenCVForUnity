@@ -9,12 +9,12 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// HOGDescriptor example.
+    /// HOGDescriptor example. (Example of people detection using the HOGDescriptor class)
     /// </summary>
     public class HOGDescriptorExample : MonoBehaviour
     {
         /// <summary>
-        /// The capture.
+        /// The videoCapture.
         /// </summary>
         VideoCapture capture;
 
@@ -34,7 +34,7 @@ namespace OpenCVForUnityExample
         Texture2D texture;
 
         /// <summary>
-        /// HOGDescriptor
+        /// The HOGDescriptor.
         /// </summary>
         HOGDescriptor des;
         
@@ -120,7 +120,10 @@ namespace OpenCVForUnityExample
                 gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
             }
         }
-        
+
+        /// <summary>
+        /// Raises the destroy event.
+        /// </summary>
         void OnDestroy ()
         {
             capture.release ();
@@ -131,8 +134,11 @@ namespace OpenCVForUnityExample
             if(des != null)
                 des.Dispose();
         }
-        
-        public void OnBackButton ()
+
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");

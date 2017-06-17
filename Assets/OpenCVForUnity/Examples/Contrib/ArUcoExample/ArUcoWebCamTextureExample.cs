@@ -16,36 +16,20 @@ namespace OpenCVForUnityExample
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class ArUcoWebCamTextureExample : MonoBehaviour
     {
-        
-        /// <summary>
-        /// The texture.
-        /// </summary>
-        Texture2D texture;
-        
-        /// <summary>
-        /// The web cam texture to mat helper.
-        /// </summary>
-        WebCamTextureToMatHelper webCamTextureToMatHelper;
-        
-        /// <summary>
-        /// The rgb mat.
-        /// </summary>
-        Mat rgbMat;
-        
         /// <summary>
         /// The dictionary identifier.
         /// </summary>
         public int dictionaryId = 10;
         
         /// <summary>
-        /// The show rejected.
+        /// Determines if shows rejected markers.
         /// </summary>
         public bool showRejected = true;
         
         /// <summary>
-        /// The estimate pose.
+        /// Determines if applied the pose estimation.
         /// </summary>
-        public bool estimatePose = true;
+        public bool applyEstimationPose = true;
         
         /// <summary>
         /// The length of the marker.
@@ -61,42 +45,57 @@ namespace OpenCVForUnityExample
         /// The AR camera.
         /// </summary>
         public Camera ARCamera;
+
+        /// <summary>
+        /// Determines if request the AR camera moving.
+        /// </summary>
+        public bool shouldMoveARCamera = false;
+
+        /// <summary>
+        /// The texture.
+        /// </summary>
+        Texture2D texture;
         
         /// <summary>
-        /// The cam matrix.
+        /// The webcam texture to mat helper.
+        /// </summary>
+        WebCamTextureToMatHelper webCamTextureToMatHelper;
+        
+        /// <summary>
+        /// The rgb mat.
+        /// </summary>
+        Mat rgbMat;
+        
+        /// <summary>
+        /// The cameraparam matrix.
         /// </summary>
         Mat camMatrix;
         
         /// <summary>
-        /// The dist coeffs.
+        /// The distortion coeffs.
         /// </summary>
         MatOfDouble distCoeffs;
         
         /// <summary>
-        /// The invert Y.
+        /// The matrix that inverts the Y axis.
         /// </summary>
         Matrix4x4 invertYM;
-        
+
         /// <summary>
-        /// The transformation m.
-        /// </summary>
-        Matrix4x4 transformationM;
-        
-        /// <summary>
-        /// The invert Z.
+        /// The matrix that inverts the Z axis.
         /// </summary>
         Matrix4x4 invertZM;
         
         /// <summary>
-        /// The ar m.
+        /// The transformation matrix.
+        /// </summary>
+        Matrix4x4 transformationM;
+
+        /// <summary>
+        /// The transformation matrix for AR.
         /// </summary>
         Matrix4x4 ARM;
-        
-        /// <summary>
-        /// The should move AR camera.
-        /// </summary>
-        public bool shouldMoveARCamera;
-        
+
         /// <summary>
         /// The identifiers.
         /// </summary>
@@ -142,15 +141,15 @@ namespace OpenCVForUnityExample
         void Start ()
         {
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
-            webCamTextureToMatHelper.Init ();
+            webCamTextureToMatHelper.Initialize ();
         }
         
         /// <summary>
-        /// Raises the web cam texture to mat helper inited event.
+        /// Raises the webcam texture to mat helper initialized event.
         /// </summary>
-        public void OnWebCamTextureToMatHelperInited ()
+        public void OnWebCamTextureToMatHelperInitialized ()
         {
-            Debug.Log ("OnWebCamTextureToMatHelperInited");
+            Debug.Log ("OnWebCamTextureToMatHelperInitialized");
             
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
             
@@ -176,7 +175,7 @@ namespace OpenCVForUnityExample
             }
             
             
-            //set cameraparam
+            // set cameraparam.
             int max_d = (int)Mathf.Max (width, height);
             double fx = max_d;
             double fy = max_d;
@@ -199,7 +198,7 @@ namespace OpenCVForUnityExample
             Debug.Log ("distCoeffs " + distCoeffs.dump ());
             
             
-            //calibration camera
+            // calibration camera.
             Size imageSize = new Size (width * imageSizeScale, height * imageSizeScale);
             double apertureWidth = 0;
             double apertureHeight = 0;
@@ -221,7 +220,7 @@ namespace OpenCVForUnityExample
             Debug.Log ("aspectratio " + aspectratio [0]);
             
             
-            //To convert the difference of the FOV value of the OpenCV and Unity. 
+            // To convert the difference of the FOV value of the OpenCV and Unity. 
             double fovXScale = (2.0 * Mathf.Atan ((float)(imageSize.width / (2.0 * fx)))) / (Mathf.Atan2 ((float)cx, (float)fx) + Mathf.Atan2 ((float)(imageSize.width - cx), (float)fx));
             double fovYScale = (2.0 * Mathf.Atan ((float)(imageSize.height / (2.0 * fy)))) / (Mathf.Atan2 ((float)cy, (float)fy) + Mathf.Atan2 ((float)(imageSize.height - cy), (float)fy));
             
@@ -229,7 +228,7 @@ namespace OpenCVForUnityExample
             Debug.Log ("fovYScale " + fovYScale);
             
             
-            //Adjust Unity Camera FOV https://github.com/opencv/opencv/commit/8ed1945ccd52501f5ab22bdec6aa1f91f1e2cfd4
+            // Adjust Unity Camera FOV https://github.com/opencv/opencv/commit/8ed1945ccd52501f5ab22bdec6aa1f91f1e2cfd4
             if (widthScale < heightScale) {
                 ARCamera.fieldOfView = (float)(fovx [0] * fovXScale);
             } else {
@@ -259,14 +258,14 @@ namespace OpenCVForUnityExample
             dictionary = Aruco.getPredefinedDictionary (Aruco.DICT_6X6_250);
             
             
-            //if WebCamera is frontFaceing,flip Mat.
+            // if WebCamera is frontFaceing, flip Mat.
             if (webCamTextureToMatHelper.GetWebCamDevice ().isFrontFacing) {
                 webCamTextureToMatHelper.flipHorizontal = true;
             }
         }
         
         /// <summary>
-        /// Raises the web cam texture to mat helper disposed event.
+        /// Raises the webcam texture to mat helper disposed event.
         /// </summary>
         public void OnWebCamTextureToMatHelperDisposed ()
         {
@@ -293,7 +292,7 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the web cam texture to mat helper error occurred event.
+        /// Raises the webcam texture to mat helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
         public void OnWebCamTextureToMatHelperErrorOccurred (WebCamTextureToMatHelper.ErrorCode errorCode)
@@ -311,22 +310,21 @@ namespace OpenCVForUnityExample
                 
                 Imgproc.cvtColor (rgbaMat, rgbMat, Imgproc.COLOR_RGBA2RGB);
                 
-                // detect markers and estimate pose
+                // detect markers.
                 Aruco.detectMarkers (rgbMat, dictionary, corners, ids, detectorParams, rejected);
 
-                if (estimatePose && ids.total () > 0)
+                // estimate pose.
+                if (applyEstimationPose && ids.total () > 0)
                     Aruco.estimatePoseSingleMarkers (corners, markerLength, camMatrix, distCoeffs, rvecs, tvecs);
-                
-                
-                // draw results
+
                 if (ids.total () > 0) {
                     Aruco.drawDetectedMarkers (rgbMat, corners, ids, new Scalar (255, 0, 0));
                     
-                    if (estimatePose) {
+                    if (applyEstimationPose) {
                         for (int i = 0; i < ids.total(); i++) {
                             Aruco.drawAxis (rgbMat, camMatrix, distCoeffs, rvecs, tvecs, markerLength * 0.5f);
                             
-                            //This example can display ARObject on only first detected marker.
+                            // This example can display ARObject on only first detected marker.
                             if (i == 0) {
 
                                 // position
@@ -352,15 +350,13 @@ namespace OpenCVForUnityExample
                                 ARM = ARM * invertZM;
                                 
                                 if (shouldMoveARCamera) {
-                                    
-                                    // Apply ARObject transform matrix.
+
                                     ARM = ARGameObject.transform.localToWorldMatrix * ARM.inverse;
 
                                     ARUtils.SetTransformFromMatrix (ARCamera.transform, ref ARM);
                                     
                                 } else {
-                                    
-                                    // Apply camera transform matrix.
+
                                     ARM = ARCamera.transform.localToWorldMatrix * ARM;
 
                                     ARUtils.SetTransformFromMatrix (ARGameObject.transform, ref ARM);
@@ -389,9 +385,9 @@ namespace OpenCVForUnityExample
         }
         
         /// <summary>
-        /// Raises the back button event.
+        /// Raises the back button click event.
         /// </summary>
-        public void OnBackButton ()
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
@@ -401,35 +397,35 @@ namespace OpenCVForUnityExample
         }
         
         /// <summary>
-        /// Raises the play button event.
+        /// Raises the play button click event.
         /// </summary>
-        public void OnPlayButton ()
+        public void OnPlayButtonClick ()
         {
             webCamTextureToMatHelper.Play ();
         }
         
         /// <summary>
-        /// Raises the pause button event.
+        /// Raises the pause button click event.
         /// </summary>
-        public void OnPauseButton ()
+        public void OnPauseButtonClick ()
         {
             webCamTextureToMatHelper.Pause ();
         }
         
         /// <summary>
-        /// Raises the stop button event.
+        /// Raises the stop button click event.
         /// </summary>
-        public void OnStopButton ()
+        public void OnStopButtonClick ()
         {
             webCamTextureToMatHelper.Stop ();
         }
         
         /// <summary>
-        /// Raises the change camera button event.
+        /// Raises the change camera button click event.
         /// </summary>
-        public void OnChangeCameraButton ()
+        public void OnChangeCameraButtonClick ()
         {
-            webCamTextureToMatHelper.Init (null, webCamTextureToMatHelper.requestWidth, webCamTextureToMatHelper.requestHeight, !webCamTextureToMatHelper.requestIsFrontFacing);
+            webCamTextureToMatHelper.Initialize (null, webCamTextureToMatHelper.requestedWidth, webCamTextureToMatHelper.requestedHeight, !webCamTextureToMatHelper.requestedIsFrontFacing);
         }
     }
 }

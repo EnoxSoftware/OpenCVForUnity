@@ -9,7 +9,7 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Stereo BM example.
+    /// StereoBM example. (Example of stereo correspondence using the block matching algorithm)
     /// referring to the http://docs.opencv.org/trunk/tutorial_py_depthmap.html#gsc.tab=0
     /// </summary>
     public class StereoBMExample : MonoBehaviour
@@ -56,8 +56,11 @@ namespace OpenCVForUnityExample
         {
 
         }
-        
-        public void OnBackButton ()
+
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
