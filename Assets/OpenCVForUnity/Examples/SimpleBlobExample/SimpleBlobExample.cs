@@ -11,7 +11,8 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// SimpleBlob example. (Example of feature detection using SIMPLEBLOB algorithm)
+    /// SimpleBlob example.
+    /// An example of feature detection using the SIMPLEBLOB algorithm.
     /// </summary>
     public class SimpleBlobExample : MonoBehaviour
     {
@@ -74,9 +75,9 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the disable event.
+        /// Raises the destroy event.
         /// </summary>
-        void OnDisable ()
+        void OnDestroy ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
             foreach (var coroutine in coroutines) {

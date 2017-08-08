@@ -9,7 +9,8 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Wrap perspective example. (Example of perspective transformation of images using the Imgproc.warpPerspective method)
+    /// WrapPerspective example.
+    /// An example of perspective transformation of images using the Imgproc.warpPerspective function.
     /// </summary>
     public class WrapPerspectiveExample : MonoBehaviour
     {

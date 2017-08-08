@@ -11,7 +11,9 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// ArUco WebCamTexture example.
-    /// https://github.com/opencv/opencv_contrib/blob/master/modules/aruco/samples/detect_markers.cpp
+    /// An example of marker-based AR view and camera pose estimation using the aruco (ArUco Marker Detection) module.
+    /// Referring to https://github.com/opencv/opencv_contrib/blob/master/modules/aruco/samples/detect_markers.cpp.
+    /// http://docs.opencv.org/3.1.0/d5/dae/tutorial_aruco_detection.html
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class ArUcoWebCamTextureExample : MonoBehaviour
@@ -377,9 +379,9 @@ namespace OpenCVForUnityExample
         }
         
         /// <summary>
-        /// Raises the disable event.
+        /// Raises the destroy event.
         /// </summary>
-        void OnDisable ()
+        void OnDestroy ()
         {
             webCamTextureToMatHelper.Dispose ();
         }

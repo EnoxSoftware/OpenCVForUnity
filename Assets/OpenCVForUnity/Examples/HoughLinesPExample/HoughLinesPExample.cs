@@ -9,7 +9,9 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// HoughLinesP example. (Example of straight line detection using the HoughLinesP class)
+    /// HoughLinesP example. 
+    /// An example of straight line detection using the HoughLinesP class.
+    /// http://docs.opencv.org/3.1.0/d9/db0/tutorial_hough_lines.html
     /// </summary>
     public class HoughLinesPExample : MonoBehaviour
     {

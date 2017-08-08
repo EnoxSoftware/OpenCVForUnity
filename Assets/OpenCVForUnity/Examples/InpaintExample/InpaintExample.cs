@@ -9,7 +9,9 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Inpaint example. (Example of image restoration using Photo.inpaint method)
+    /// Inpaint example.
+    /// An example of image restoration using the Photo.inpaint function.
+    /// http://docs.opencv.org/trunk/df/d3d/tutorial_py_inpainting.html
     /// </summary>
     public class InpaintExample : MonoBehaviour
     {

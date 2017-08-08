@@ -9,8 +9,8 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// BackgroundSubtractorMOG2Example
-    /// referring to the http://docs.opencv.org/master/d1/dc5/tutorial_background_subtraction.html#gsc.tab=0.
+    /// BackgroundSubtractorMOG2 example.
+    /// Referring to http://docs.opencv.org/master/d1/dc5/tutorial_background_subtraction.html#gsc.tab=0.
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class BackgroundSubtractorMOG2Example : MonoBehaviour
@@ -125,9 +125,9 @@ namespace OpenCVForUnityExample
         }
     
         /// <summary>
-        /// Raises the disable event.
+        /// Raises the destroy event.
         /// </summary>
-        void OnDisable ()
+        void OnDestroy ()
         {
             webCamTextureToMatHelper.Dispose ();
         }

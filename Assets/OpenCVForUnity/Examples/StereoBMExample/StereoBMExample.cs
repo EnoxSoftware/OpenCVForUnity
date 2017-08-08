@@ -9,8 +9,9 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// StereoBM example. (Example of stereo correspondence using the block matching algorithm)
-    /// referring to the http://docs.opencv.org/trunk/tutorial_py_depthmap.html#gsc.tab=0
+    /// StereoBM example.
+    /// An example of stereo correspondence using the block matching algorithm.
+    /// Referring to http://docs.opencv.org/trunk/tutorial_py_depthmap.html#gsc.tab=0.
     /// </summary>
     public class StereoBMExample : MonoBehaviour
     {

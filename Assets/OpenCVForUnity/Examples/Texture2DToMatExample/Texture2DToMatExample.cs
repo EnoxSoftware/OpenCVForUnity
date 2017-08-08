@@ -9,7 +9,8 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Texture2D to mat example. (Example of converting Texture2D to Mat using the Utils class)
+    /// Texture2D to mat example.
+    /// An example of converting the Texture2D image to OpenCV's Mat format.
     /// </summary>
     public class Texture2DToMatExample : MonoBehaviour
     {

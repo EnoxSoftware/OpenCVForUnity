@@ -11,7 +11,7 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Multi object tracking based on color example.
-    /// referring to the https://www.youtube.com/watch?v=hQ-bpfdWQh8.
+    /// Referring to https://www.youtube.com/watch?v=hQ-bpfdWQh8.
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class MultiObjectTrackingBasedOnColorExample : MonoBehaviour
@@ -165,9 +165,9 @@ namespace OpenCVForUnityExample
         }
     
         /// <summary>
-        /// Raises the disable event.
+        /// Raises the destroy event.
         /// </summary>
-        void OnDisable ()
+        void OnDestroy ()
         {
             webCamTextureToMatHelper.Dispose ();
         }

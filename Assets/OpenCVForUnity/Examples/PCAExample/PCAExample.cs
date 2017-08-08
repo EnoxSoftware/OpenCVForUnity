@@ -11,7 +11,8 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// PCA example.
-    /// (Examples showing the outline of the object and the direction of the Principal Component Analysis using the PCA class)
+    /// An examples showing the outline of the object and the direction of the Principal Component Analysis using the PCA class.
+    /// http://docs.opencv.org/3.2.0/d1/dee/tutorial_introduction_to_pca.html
     /// </summary>
     public class PCAExample : MonoBehaviour
     {

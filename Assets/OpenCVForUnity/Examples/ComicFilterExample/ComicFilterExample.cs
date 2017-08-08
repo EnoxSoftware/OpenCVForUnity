@@ -8,11 +8,10 @@ using OpenCVForUnity;
 
 namespace OpenCVForUnityExample
 {
-
-/// <summary>
-/// ComicFilter example.
-/// referring to the http://dev.classmethod.jp/smartphone/opencv-manga-2/.
-/// </summary>
+    /// <summary>
+    /// ComicFilter example.
+    /// Referring to http://dev.classmethod.jp/smartphone/opencv-manga-2/.
+    /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class ComicFilterExample : MonoBehaviour
     {
@@ -198,9 +197,9 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the disable event.
+        /// Raises the destroy event.
         /// </summary>
-        void OnDisable ()
+        void OnDestroy ()
         {
             webCamTextureToMatHelper.Dispose ();
         }

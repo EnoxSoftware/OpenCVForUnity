@@ -15,7 +15,7 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// WebCamTexture async face detection example.
-    /// This cord referred to https://github.com/Itseez/opencv/blob/master/modules/objdetect/src/detection_based_tracker.cpp.
+    /// Referring to https://github.com/Itseez/opencv/blob/master/modules/objdetect/src/detection_based_tracker.cpp.
     /// </summary>
     [RequireComponent (typeof(WebCamTextureToMatHelper))]
     public class WebCamTextureAsyncFaceDetectionExample : MonoBehaviour
@@ -475,9 +475,9 @@ namespace OpenCVForUnityExample
 
 
         /// <summary>
-        /// Raises the disable event.
+        /// Raises the destroy event.
         /// </summary>
-        void OnDisable ()
+        void OnDestroy ()
         {
             webCamTextureToMatHelper.Dispose ();
 

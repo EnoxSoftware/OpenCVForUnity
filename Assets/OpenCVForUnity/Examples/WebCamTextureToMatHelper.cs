@@ -8,7 +8,7 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Webcam texture to mat helper.
-    /// v 1.0.1
+    /// v 1.0.2
     /// </summary>
     public class WebCamTextureToMatHelper : MonoBehaviour
     {
@@ -131,7 +131,15 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Initialize this instance.
+        /// Raises the destroy event.
+        /// </summary>
+        protected virtual void OnDestroy ()
+        {
+            Dispose ();
+        }
+
+        /// <summary>
+        /// Initializes this instance.
         /// </summary>
         public virtual void Initialize ()
         {
@@ -149,7 +157,7 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Initialize this instance.
+        /// Initializes this instance.
         /// </summary>
         /// <param name="deviceName">Device name.</param>
         /// <param name="requestedWidth">Requested width.</param>
@@ -177,7 +185,7 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Initialize this instance by coroutine.
+        /// Initializes this instance by coroutine.
         /// </summary>
         protected virtual IEnumerator _Initialize ()
         {
@@ -332,18 +340,18 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Get the webcam texture.
+        /// Returns the webcam texture.
         /// </summary>
-        /// <returns>The web cam texture.</returns>
+        /// <returns>The webcam texture.</returns>
         public virtual WebCamTexture GetWebCamTexture ()
         {
             return (hasInitDone) ? webCamTexture : null;
         }
 
         /// <summary>
-        /// Get the webcam device.
+        /// Returns the webcam device.
         /// </summary>
-        /// <returns>The web cam device.</returns>
+        /// <returns>The webcam device.</returns>
         public virtual WebCamDevice GetWebCamDevice ()
         {
             return webCamDevice;
@@ -370,7 +378,7 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Get the mat.
+        /// Gets the mat of the current frame.
         /// </summary>
         /// <returns>The mat.</returns>
         public virtual Mat GetMat ()
@@ -459,7 +467,7 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Get the buffer colors.
+        /// Gets the buffer colors.
         /// </summary>
         /// <returns>The buffer colors.</returns>
         public virtual Color32[] GetBufferColors ()
@@ -504,7 +512,8 @@ namespace OpenCVForUnityExample
             if (hasInitDone)
                 _Dispose ();
 
-            colors = null;
+            if (colors != null)
+                colors = null;
         }
     }
 }

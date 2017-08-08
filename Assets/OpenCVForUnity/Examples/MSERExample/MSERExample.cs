@@ -10,7 +10,8 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// MSER example. (Example of region detection using MSER extraction algorithm)
+    /// MSER example.
+    /// An example of region detection using the MSER extraction algorithm.
     /// </summary>
     public class MSERExample : MonoBehaviour
     {

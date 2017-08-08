@@ -9,7 +9,8 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// HOGDescriptor example. (Example of people detection using the HOGDescriptor class)
+    /// HOGDescriptor example.
+    /// An example of people detection using the HOGDescriptor class.
     /// </summary>
     public class HOGDescriptorExample : MonoBehaviour
     {

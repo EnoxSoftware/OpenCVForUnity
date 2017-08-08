@@ -9,8 +9,9 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// SVM example. (Example of  find a separating straight line using the Support Vector Machines (SVM))
-    /// referring to the http://docs.opencv.org/3.1.0/d1/d73/tutorial_introduction_to_svm.html#gsc.tab=0
+    /// SVM example.
+    /// An example of  find a separating straight line using the Support Vector Machines (SVM).
+    /// Referring to http://docs.opencv.org/3.1.0/d1/d73/tutorial_introduction_to_svm.html#gsc.tab=0.
     /// </summary>
     public class SVMExample : MonoBehaviour
     {

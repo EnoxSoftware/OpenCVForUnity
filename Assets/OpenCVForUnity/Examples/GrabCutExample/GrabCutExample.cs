@@ -9,7 +9,8 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// GrabCut example. (Examples of background removal using the GrabCut method)
+    /// GrabCut example.
+    /// An examples of background removal using the Imgproc.grabCut function.
     /// http://docs.opencv.org/3.1.0/d8/d83/tutorial_py_grabcut.html
     /// </summary>
     public class GrabCutExample : MonoBehaviour

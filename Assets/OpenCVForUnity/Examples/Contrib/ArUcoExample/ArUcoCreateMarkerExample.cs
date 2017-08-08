@@ -10,7 +10,7 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// ArUco create marker example.
-    /// https://github.com/opencv/opencv_contrib/blob/master/modules/aruco/samples/create_marker.cpp
+    /// Referring to https://github.com/opencv/opencv_contrib/blob/master/modules/aruco/samples/create_marker.cpp.
     /// </summary>
     public class ArUcoCreateMarkerExample : MonoBehaviour
     {

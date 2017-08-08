@@ -11,7 +11,9 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// VideoCapture example. (Example of playing video files using the VideoCapture class)
+    /// VideoCapture example.
+    /// An example of playing video files using the VideoCapture class.
+    /// http://docs.opencv.org/3.2.0/dd/d43/tutorial_py_video_display.html
     /// </summary>
     public class VideoCaptureExample : MonoBehaviour
     {
@@ -118,7 +120,10 @@ namespace OpenCVForUnityExample
                 Utils.matToTexture2D (rgbMat, texture, colors);
             }
         }
-        
+
+        /// <summary>
+        /// Raises the destroy event.
+        /// </summary>
         void OnDestroy ()
         {
             capture.release ();

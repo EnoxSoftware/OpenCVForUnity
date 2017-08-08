@@ -10,8 +10,10 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// ArUco texture2D example.
-    /// https://github.com/opencv/opencv_contrib/blob/master/modules/aruco/samples/detect_markers.cpp
+    /// ArUco Texture2D example.
+    /// An example of marker-based AR view and camera pose estimation using the aruco (ArUco Marker Detection) module.
+    /// Referring to https://github.com/opencv/opencv_contrib/blob/master/modules/aruco/samples/detect_markers.cpp.
+    /// http://docs.opencv.org/3.1.0/d5/dae/tutorial_aruco_detection.html
     /// </summary>
     public class ArUcoTexture2DExample : MonoBehaviour
     {

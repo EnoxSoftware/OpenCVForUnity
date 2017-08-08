@@ -12,6 +12,7 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// FaceRecognizer example.
+    /// An example of face recognition using the face (Face Recognition) module.
     /// http://docs.opencv.org/modules/contrib/doc/facerec/facerec_tutorial.html#eigenfaces
     /// </summary>
     public class FaceRecognizerExample : MonoBehaviour
@@ -127,9 +128,9 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the disable event.
+        /// Raises the destroy event.
         /// </summary>
-        void OnDisable ()
+        void OnDestroy ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
             foreach (var coroutine in coroutines) {

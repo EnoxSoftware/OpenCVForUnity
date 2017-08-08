@@ -7,7 +7,7 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Optimization webcam texture to mat helper.
-    /// v 1.0.1
+    /// v 1.0.2
     /// </summary>
     public class OptimizationWebCamTextureToMatHelper : WebCamTextureToMatHelper
     {
@@ -50,7 +50,7 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Get the Mat that downscaled the original Mat.
+        /// Gets the mat that downscaled the original mat.
         /// if downscaleRatio <= 1 , return originalMat. 
         /// </summary>
         /// <returns>The downscale mat.</returns>

@@ -10,7 +10,7 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// WebCamTexture to mat helper example.
+    /// WebCamTextureToMatHelper example.
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class WebCamTextureToMatHelperExample : MonoBehaviour
@@ -105,9 +105,9 @@ namespace OpenCVForUnityExample
         }
     
         /// <summary>
-        /// Raises the disable event.
+        /// Raises the destroy event.
         /// </summary>
-        void OnDisable ()
+        void OnDestroy ()
         {
             webCamTextureToMatHelper.Dispose ();
         }

@@ -9,7 +9,8 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Drawing example. (Example of drawing to an image using the Imgproc class)
+    /// Drawing example.
+    /// An example of drawing to an image using the Imgproc class.
     /// </summary>
     public class DrawingExample : MonoBehaviour
     {

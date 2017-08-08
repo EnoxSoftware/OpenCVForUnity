@@ -12,7 +12,10 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// WebCamTexture face detection example.
+    /// An example of face detection using the CascadeClassifier class.
+    /// http://docs.opencv.org/3.2.0/db/d28/tutorial_cascade_classifier.html
     /// </summary>
+    [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class WebCamTextureFaceDetectionExample : MonoBehaviour
     {
         /// <summary>
@@ -159,9 +162,9 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the disable event.
+        /// Raises the destroy event.
         /// </summary>
-        void OnDisable ()
+        void OnDestroy ()
         {
             webCamTextureToMatHelper.Dispose ();
 

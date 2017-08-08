@@ -11,7 +11,9 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Face detection example. (Example of face detection using the CascadeClassifier class)
+    /// Face detection example.
+    /// An example of face detection using the CascadeClassifier class.
+    /// http://docs.opencv.org/3.2.0/db/d28/tutorial_cascade_classifier.html
     /// </summary>
     public class FaceDetectionExample : MonoBehaviour
     {
@@ -92,9 +94,9 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the disable event.
+        /// Raises the destroy event.
         /// </summary>
-        void OnDisable ()
+        void OnDestroy ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
             foreach (var coroutine in coroutines) {

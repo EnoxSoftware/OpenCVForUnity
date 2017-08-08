@@ -9,7 +9,8 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Plot example. (Examples of creating 2D plot using the Plot class)
+    /// Plot example.
+    /// An examples of creating 2D plot using the plot (Plot function for Mat data) module.
     /// </summary>
     public class PlotExample : MonoBehaviour
     {

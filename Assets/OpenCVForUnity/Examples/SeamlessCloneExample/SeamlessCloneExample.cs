@@ -9,7 +9,8 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// SeamlessClone example. (Example of seamless photo synthesis using the Photo.seamlessClone method)
+    /// SeamlessClone example.
+    /// An example of seamless photo synthesis using the Photo.seamlessClone function.
     /// </summary>
     public class SeamlessCloneExample : MonoBehaviour
     {

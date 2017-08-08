@@ -12,7 +12,9 @@ namespace OpenCVForUnityExample
     /// <summary>
     /// OpticalFlow example.
     /// http://stackoverflow.com/questions/6505779/android-optical-flow-with-opencv?rq=1
+    /// http://docs.opencv.org/3.2.0/d7/d8b/tutorial_py_lucas_kanade.html
     /// </summary>
+    [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class OpticalFlowExample : MonoBehaviour
     {
         /// <summary>
@@ -243,9 +245,9 @@ namespace OpenCVForUnityExample
         }
     
         /// <summary>
-        /// Raises the disable event.
+        /// Raises the destroy event.
         /// </summary>
-        void OnDisable ()
+        void OnDestroy ()
         {
             webCamTextureToMatHelper.Dispose ();
         }

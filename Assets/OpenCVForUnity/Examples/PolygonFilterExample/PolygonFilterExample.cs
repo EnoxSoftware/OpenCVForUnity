@@ -11,7 +11,7 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Polygon filter example.
-    /// referring to the http://jsdo.it/hedger/tIod.
+    /// Referring to http://jsdo.it/hedger/tIod.
     /// </summary>
     [RequireComponent(typeof(OptimizationWebCamTextureToMatHelper))]
     public class PolygonFilterExample : MonoBehaviour
@@ -274,9 +274,9 @@ namespace OpenCVForUnityExample
         }
     
         /// <summary>
-        /// Raises the disable event.
+        /// Raises the destroy event.
         /// </summary>
-        void OnDisable ()
+        void OnDestroy ()
         {
             webCamTextureToMatHelper.Dispose ();
         }

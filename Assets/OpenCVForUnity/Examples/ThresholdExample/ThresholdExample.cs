@@ -9,7 +9,9 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Threshold example. (Example of image binarization using the Imgproc.threshold method)
+    /// Threshold example.
+    /// An example of image binarization using the Imgproc.threshold function.
+    /// http://docs.opencv.org/trunk/d7/d4d/tutorial_py_thresholding.html
     /// </summary>
     public class ThresholdExample : MonoBehaviour
     {

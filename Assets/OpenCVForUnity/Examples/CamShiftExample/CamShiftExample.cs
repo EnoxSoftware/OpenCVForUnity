@@ -11,8 +11,10 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// CamShift example. (Example of object tracking using the Video.Camshift method)
-    /// referring to the http://www.computervisiononline.com/blog/tutorial-using-camshift-track-objects-video.
+    /// CamShift example.
+    /// An example of object tracking using the Video.Camshift function.
+    /// Referring to http://www.computervisiononline.com/blog/tutorial-using-camshift-track-objects-video.
+    /// http://docs.opencv.org/3.2.0/db/df8/tutorial_py_meanshift.html
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class CamShiftExample : MonoBehaviour
@@ -241,9 +243,9 @@ namespace OpenCVForUnityExample
         }
     
         /// <summary>
-        /// Raises the disable event.
+        /// Raises the destroy event.
         /// </summary>
-        void OnDisable ()
+        void OnDestroy ()
         {
             webCamTextureToMatHelper.Dispose ();
         }

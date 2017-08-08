@@ -10,6 +10,7 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// ConvexHull example.
+    /// http://docs.opencv.org/trunk/d7/d1d/tutorial_hull.html
     /// </summary>
     public class ConvexHullExample : MonoBehaviour
     {

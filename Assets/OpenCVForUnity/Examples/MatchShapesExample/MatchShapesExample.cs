@@ -9,7 +9,7 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// MatchShapes Example.
+    /// MatchShapes example.
     /// http://docs.opencv.org/3.1.0/d5/d45/tutorial_py_contours_more_functions.html
     /// </summary>
     public class MatchShapesExample : MonoBehaviour

@@ -9,7 +9,9 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// MatchTemplate example. (Example of template matching using the Imgproc.matchTemplate method)
+    /// MatchTemplate example.
+    /// An example of template matching using the Imgproc.matchTemplate function.
+    /// http://docs.opencv.org/3.2.0/de/da9/tutorial_template_matching.html
     /// </summary>
     public class MatchTemplateExample : MonoBehaviour
     {

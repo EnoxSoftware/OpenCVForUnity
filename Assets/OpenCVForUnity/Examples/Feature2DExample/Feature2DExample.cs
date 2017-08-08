@@ -9,7 +9,9 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Feature2D example. (Example of descriptor extraction and descriptor matching)
+    /// Feature2D example.
+    /// An example of descriptor extraction and descriptor matching.
+    /// http://docs.opencv.org/3.1.0/d5/dde/tutorial_feature_description.html
     /// </summary>
     public class Feature2DExample : MonoBehaviour
     {

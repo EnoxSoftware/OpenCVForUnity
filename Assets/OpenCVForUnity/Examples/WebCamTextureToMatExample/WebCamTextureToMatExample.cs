@@ -11,6 +11,7 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// WebCamTexture to mat example.
+    /// An example of converting the WebCamTexture image to OpenCV's Mat format.
     /// </summary>
     public class WebCamTextureToMatExample : MonoBehaviour
     {
@@ -236,9 +237,9 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the disable event.
+        /// Raises the destroy event.
         /// </summary>
-        void OnDisable ()
+        void OnDestroy ()
         {
             Dispose ();
         }

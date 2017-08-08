@@ -12,8 +12,8 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Hand Pose Estimation example
-    /// referring to the https://www.youtube.com/watch?v=KuGpOxOcpds.
+    /// Hand pose estimation example.
+    /// Referring to https://www.youtube.com/watch?v=KuGpOxOcpds.
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class HandPoseEstimationExample : MonoBehaviour
@@ -405,9 +405,9 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the disable event.
+        /// Raises the destroy event.
         /// </summary>
-        void OnDisable ()
+        void OnDestroy ()
         {
             webCamTextureToMatHelper.Dispose ();
         }

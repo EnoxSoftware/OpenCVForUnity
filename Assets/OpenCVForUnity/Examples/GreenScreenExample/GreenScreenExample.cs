@@ -10,8 +10,8 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Green screen example.
-    /// referring to the https://gist.github.com/drscotthawley/2d6bbffce9dda5f3057b4879c3bd4422.
+    /// GreenScreen example.
+    /// Referring to https://gist.github.com/drscotthawley/2d6bbffce9dda5f3057b4879c3bd4422.
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class GreenScreenExample : MonoBehaviour
@@ -206,9 +206,9 @@ namespace OpenCVForUnityExample
         }
     
         /// <summary>
-        /// Raises the disable event.
+        /// Raises the destroy event.
         /// </summary>
-        void OnDisable ()
+        void OnDestroy ()
         {
             webCamTextureToMatHelper.Dispose ();
         }

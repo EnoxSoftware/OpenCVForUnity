@@ -12,7 +12,9 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Tracking sample. (Example of object tracking using the MultiTracker class)
+    /// Tracking example.
+    /// An example of object tracking using the tracking (Tracking API) module.
+    /// http://docs.opencv.org/trunk/d5/d07/tutorial_multitracker.html
     /// </summary>
     public class TrackingExample : MonoBehaviour
     {

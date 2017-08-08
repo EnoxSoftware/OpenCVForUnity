@@ -9,7 +9,8 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Webcam texture circle detection example.
+    /// WebcamTexture circle detection example.
+    /// http://docs.opencv.org/3.1.0/d4/d70/tutorial_hough_circle.html
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class WebCamTextureCircleDetectionExample : MonoBehaviour
@@ -117,9 +118,9 @@ namespace OpenCVForUnityExample
         }
     
         /// <summary>
-        /// Raises the disable event.
+        /// Raises the destroy event.
         /// </summary>
-        void OnDisable ()
+        void OnDestroy ()
         {
             webCamTextureToMatHelper.Dispose ();
         }

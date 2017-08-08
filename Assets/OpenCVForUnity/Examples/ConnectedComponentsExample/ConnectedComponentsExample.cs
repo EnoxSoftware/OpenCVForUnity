@@ -9,8 +9,9 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// ConnectedComponents Example
-    /// referring to the http://qiita.com/wakaba130/items/9d921b8b3eb812e4f197.
+    /// ConnectedComponents example.
+    /// An example of Connected-component labeling using the Imgproc.connectedComponentsWithStats function.
+    /// Referring to http://qiita.com/wakaba130/items/9d921b8b3eb812e4f197.
     /// </summary>
     public class ConnectedComponentsExample : MonoBehaviour
     {
