@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.1.9</span>
+   &#160;<span id="projectnumber">2.2.0</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document(http://docs.opencv.org/3.2.0/index.html) for the details of the argument of the method.</div>
   </td>
@@ -145,8 +145,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:ab27b4765e9cd9d9281b71f77bdc43284"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc3374f95991fb777ee9a1f61b74ad86"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_utils.html#adc3374f95991fb777ee9a1f61b74ad86">getFilePath</a> (string filepath, bool refresh=false)</td></tr>
 <tr class="separator:adc3374f95991fb777ee9a1f61b74ad86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3531cca31f115a40c7517259088e7e4"><td class="memItemLeft" align="right" valign="top">static IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_utils.html#ad3531cca31f115a40c7517259088e7e4">getFilePathAsync</a> (string filepath, Action&lt; string &gt; callback, Action&lt; string, float &gt; progress=null, bool refresh=false)</td></tr>
-<tr class="separator:ad3531cca31f115a40c7517259088e7e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a366ece1e06e2bf797617c6f15d453bc7"><td class="memItemLeft" align="right" valign="top">static IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_utils.html#a366ece1e06e2bf797617c6f15d453bc7">getFilePathAsync</a> (string filepath, Action&lt; string &gt; completed, Action&lt; string, float &gt; progress=null, bool refresh=false)</td></tr>
+<tr class="separator:a366ece1e06e2bf797617c6f15d453bc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e4786d3eda1d058e555b5af211250f4"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_utils.html#a9e4786d3eda1d058e555b5af211250f4">setDebugMode</a> (bool debugMode)</td></tr>
 <tr class="separator:a9e4786d3eda1d058e555b5af211250f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -182,15 +182,15 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Copy OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> Data to the Pixel Data IntPtr. </p>
+<p>Copies the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> data to the pixel data IntPtr. </p>
 <p><br />
-This function copy the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> Data to the Pixel Data IntPtr. <br />
-The Pixel Data has to be of the same byte size as the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> Data ([total() * elemSize()] byte). <br />
+This function copies the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> data to the pixel data IntPtr. <br />
+The pixel data has to be of the same byte size as the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> data ([total() * elemSize()] byte). <br />
 Because this function doesn't check bounds, is faster than <a class="el" href="class_open_c_v_for_unity_1_1_mat.html#a28f4598f4484774a9746e5c5707f6b6b">Mat.get()</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mat</td><td>The input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object </td></tr>
-    <tr><td class="paramname">intPtr</td><td>The Pixel Data has to be of the same byte size as the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> Data ([total() * elemSize()] byte). </td></tr>
+    <tr><td class="paramname">mat</td><td>the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object </td></tr>
+    <tr><td class="paramname">intPtr</td><td>the pixel data has to be of the same byte size as the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> data ([total() * elemSize()] byte) </td></tr>
   </table>
   </dd>
 </dl>
@@ -228,15 +228,15 @@ Because this function doesn't check bounds, is faster than <a class="el" href="c
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Copy OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> Data to the Pixel Data Array. </p>
+<p>Copies the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> data to the pixel data Array. </p>
 <p><br />
-This function copy the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> Data to the Pixel Data Array. <br />
-The Pixel Data Array has to be of the same byte size as the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> Data ([total() * elemSize()] byte). <br />
+This function copies the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> data to the pixel data Array. <br />
+The pixel data Array has to be of the same byte size as the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> data ([total() * elemSize()] byte). <br />
 Because this function doesn't check bounds, is faster than <a class="el" href="class_open_c_v_for_unity_1_1_mat.html#a28f4598f4484774a9746e5c5707f6b6b">Mat.get()</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mat</td><td>The input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object </td></tr>
-    <tr><td class="paramname">array</td><td>The Pixel Data Array has to be of the same byte size as the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> Data ([total() * elemSize()] byte). </td></tr>
+    <tr><td class="paramname">mat</td><td>the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object </td></tr>
+    <tr><td class="paramname">array</td><td>the pixel data Array has to be of the same byte size as the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> data ([total() * elemSize()] byte) </td></tr>
   </table>
   </dd>
 </dl>
@@ -280,17 +280,17 @@ Because this function doesn't check bounds, is faster than <a class="el" href="c
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Copy Texture Pixel Data to the Pixel Data IntPtr using Low-level Native Plugin Interface. </p>
+<p>Copies the Texture pixel data to the pixel data IntPtr using low-level native plugin interface. </p>
 <p><br />
-This function copy the Texture Pixel Data to the Pixel Data IntPtr. <br />
-The Pixel Data has to be of the same byte size as the input Texture Pixel Data ([width * height * bytePerPixel] byte). <br />
+This function copies the Texture pixel data to the pixel data IntPtr. <br />
+The pixel data has to be of the same byte size as the input Texture pixel data ([width * height * bytePerPixel] byte). <br />
 This function doesn't check bounds. <br />
 This function not implemented yet on OpenGLCore, Direct3D12.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">texture</td><td>The input texture </td></tr>
-    <tr><td class="paramname">intPtr</td><td>The Pixel Data has to be of the same byte size as the input Texture Pixel Data ([width * height * bytePerPixel] byte). </td></tr>
-    <tr><td class="paramname">bytesPerPixel</td><td>bytesPerPixel </td></tr>
+    <tr><td class="paramname">texture</td><td>the input texture </td></tr>
+    <tr><td class="paramname">intPtr</td><td>the pixel data has to be of the same byte size as the input Texture pixel data ([width * height * bytePerPixel] byte) </td></tr>
+    <tr><td class="paramname">bytesPerPixel</td><td>the bytes per pixel </td></tr>
   </table>
   </dd>
 </dl>
@@ -334,17 +334,17 @@ This function not implemented yet on OpenGLCore, Direct3D12.</p>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Copy Texture Pixel Data to the Pixel Data Array using Low-level Native Plugin Interface. </p>
+<p>Copies the Texture pixel data to the pixel data Array using low-level native plugin interface. </p>
 <p><br />
-This function copy the Texture Pixel Data to the Pixel Data Array. <br />
-The Pixel Data Array has to be of the same byte size as the input Texture Pixel Data ([width * height * bytePerPixel] byte). <br />
+This function copies the Texture pixel data to the pixel data Array. <br />
+The pixel data Array has to be of the same byte size as the input Texture pixel data ([width * height * bytePerPixel] byte). <br />
 This function doesn't check bounds. <br />
-This function not implemented yet on OpenGLCore, Direct3D12</p>
+This function not implemented yet on OpenGLCore, Direct3D12.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">texture</td><td>The input texture </td></tr>
-    <tr><td class="paramname">array</td><td>The Pixel Data Array has to be of the same byte size as the input Texture Pixel Data ([width * height * bytePerPixel] byte). </td></tr>
-    <tr><td class="paramname">bytesPerPixel</td><td>bytesPerPixel </td></tr>
+    <tr><td class="paramname">texture</td><td>the input texture </td></tr>
+    <tr><td class="paramname">array</td><td>the pixel data Array has to be of the same byte size as the input Texture pixel data ([width * height * bytePerPixel] byte) </td></tr>
+    <tr><td class="paramname">bytesPerPixel</td><td>the bytes per pixel </td></tr>
   </table>
   </dd>
 </dl>
@@ -382,15 +382,15 @@ This function not implemented yet on OpenGLCore, Direct3D12</p>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Copy the Pixel Data IntPtr to OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> Data. </p>
+<p>Copies the pixel data IntPtr to the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> data. </p>
 <p><br />
-This function copy the Pixel Data IntPtr to the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> Data. <br />
-The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same byte size as the Pixel Data ([total() * elemSize()] byte). <br />
+This function copy the pixel data IntPtr to the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> data. <br />
+The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same byte size as the pixel data ([total() * elemSize()] byte). <br />
 Because this function doesn't check bounds, is faster than <a class="el" href="class_open_c_v_for_unity_1_1_mat.html#a0e3deeaf69528d6274aacca81cd0da9f">Mat.put()</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">intPtr</td><td>The Pixel Data IntPtr </td></tr>
-    <tr><td class="paramname">mat</td><td>The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same byte size as the Pixel Data ([total() * elemSize()] byte). </td></tr>
+    <tr><td class="paramname">intPtr</td><td>the pixel data IntPtr </td></tr>
+    <tr><td class="paramname">mat</td><td>the output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same byte size as the pixel data ([total() * elemSize()] byte) </td></tr>
   </table>
   </dd>
 </dl>
@@ -428,15 +428,15 @@ Because this function doesn't check bounds, is faster than <a class="el" href="c
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Copy the Pixel Data Array to OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> Data. </p>
+<p>Copies the pixel data Array to the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> data. </p>
 <p><br />
-This function copy the Pixel Data Array to the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> Data. <br />
-The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same byte size as the Pixel Data Array ([total() * elemSize()] byte). <br />
+This function copies the pixel data Array to the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> data. <br />
+The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same byte size as the pixel data Array ([total() * elemSize()] byte). <br />
 Because this function doesn't check bounds, is faster than <a class="el" href="class_open_c_v_for_unity_1_1_mat.html#a0e3deeaf69528d6274aacca81cd0da9f">Mat.put()</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">array</td><td>The Pixel Data Array </td></tr>
-    <tr><td class="paramname">mat</td><td>The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same byte size as the Pixel Data Array ([total() * elemSize()] byte). </td></tr>
+    <tr><td class="paramname">array</td><td>the pixel data Array </td></tr>
+    <tr><td class="paramname">mat</td><td>the output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same byte size as the pixel data Array ([total() * elemSize()] byte) </td></tr>
   </table>
   </dd>
 </dl>
@@ -480,17 +480,17 @@ Because this function doesn't check bounds, is faster than <a class="el" href="c
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Copy the Pixel Data IntPtr to Texture Pixel Data using Low-level Native Plugin Interface. </p>
+<p>Copies the pixel data IntPtr to the Texture pixel data using low-level native plugin interface. </p>
 <p><br />
-This function copy the Pixel Data IntPtr to the Texture Pixel Data. <br />
-The output Texture Pixel Data has to be of the same byte size as the Pixel Data ([width * height * bytePerPixel] byte). <br />
+This function copies the pixel data IntPtr to the Texture pixel data. <br />
+The output Texture pixel data has to be of the same byte size as the pixel data ([width * height * bytePerPixel] byte). <br />
 This function doesn't check bounds. <br />
-This function not implemented yet on OpenGLCore, Direct3D12</p>
+This function not implemented yet on OpenGLCore, Direct3D12.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">intPtr</td><td>The Pixel Data IntPtr </td></tr>
-    <tr><td class="paramname">mat</td><td>The output Texture Pixel Data has to be of the same byte size as the Pixel Data ([width * height * bytePerPixel] byte). </td></tr>
-    <tr><td class="paramname">bytesPerPixel</td><td>bytesPerPixel </td></tr>
+    <tr><td class="paramname">intPtr</td><td>the pixel data IntPtr </td></tr>
+    <tr><td class="paramname">mat</td><td>the output Texture pixel data has to be of the same byte size as the Pixel data ([width * height * bytePerPixel] byte) </td></tr>
+    <tr><td class="paramname">bytesPerPixel</td><td>the bytes per pixel </td></tr>
   </table>
   </dd>
 </dl>
@@ -534,17 +534,17 @@ This function not implemented yet on OpenGLCore, Direct3D12</p>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Copy the Pixel Data Array to Texture Pixel Data using Low-level Native Plugin Interface. </p>
+<p>Copies the pixel data Array to the Texture pixel data using low-level native plugin interface. </p>
 <p><br />
-This function copy the Pixel Data Array to the Texture Pixel Data. <br />
-The output Texture Pixel Data has to be of the same byte size as the Pixel Data Array ([width * height * bytePerPixel] byte). <br />
+This function copies the pixel data Array to the Texture pixel data. <br />
+The output Texture pixel data has to be of the same byte size as the pixel data Array ([width * height * bytePerPixel] byte). <br />
 This function doesn't check bounds. <br />
-This function not implemented yet on OpenGLCore, Direct3D12</p>
+This function not implemented yet on OpenGLCore, Direct3D12.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">array</td><td>The Pixel Data Array </td></tr>
-    <tr><td class="paramname">mat</td><td>The output Texture Pixel Data has to be of the same byte size as the Pixel Data Array ([width * height * bytePerPixel] byte). </td></tr>
-    <tr><td class="paramname">bytesPerPixel</td><td>bytesPerPixel </td></tr>
+    <tr><td class="paramname">array</td><td>the pixel data Array </td></tr>
+    <tr><td class="paramname">mat</td><td>the output Texture pixel data has to be of the same byte size as the pixel data Array ([width * height * bytePerPixel] byte) </td></tr>
+    <tr><td class="paramname">bytesPerPixel</td><td>the bytes per pixel </td></tr>
   </table>
   </dd>
 </dl>
@@ -584,13 +584,13 @@ This function not implemented yet on OpenGLCore, Direct3D12</p>
 </div><div class="memdoc">
 <p>Fast converts OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> to Unity Texture2D.(Unity5.3+) </p>
 <p><br />
-This function converts the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> to the Unity Texture2D. <br />
+This function converts the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> to the Unity Texture2D image. <br />
 Passed <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> data should be of required size to fill the whole texture according to its width, height, data format and mipmapCount. <br />
 This function doesn't check bounds.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mat.</td><td></td></tr>
-    <tr><td class="paramname">texture2D.</td><td></td></tr>
+    <tr><td class="paramname">mat</td><td>the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY) </td></tr>
+    <tr><td class="paramname">texture2D</td><td>the output Texture2D object has to be of the TextureFormat 'RGBA32' or 'ARGB32'.(SetPixels32() must function) The output Texture2D object has to be of the same size as the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> (width * height). </td></tr>
   </table>
   </dd>
 </dl>
@@ -630,13 +630,13 @@ This function doesn't check bounds.</p>
 </div><div class="memdoc">
 <p>Fast converts Unity Texture2D to OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>.(Unity5.1+) </p>
 <p><br />
-This function converts an Unity Texture2D image to the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>. <br />
+This function converts the Unity Texture2D image to the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>. <br />
 <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> data size must be the same as the texture data size. <br />
 This function doesn't check bounds.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">texture2D</td><td></td></tr>
-    <tr><td class="paramname">mat.</td><td></td></tr>
+    <tr><td class="paramname">texture2D</td><td>the input Texture2D object has to be of the TextureFormat 'RGBA32' or 'ARGB32'.(SetPixels32() must function) </td></tr>
+    <tr><td class="paramname">mat</td><td>the output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same size as the input Texture2D'(width * height). The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). </td></tr>
   </table>
   </dd>
 </dl>
@@ -674,22 +674,23 @@ This function doesn't check bounds.</p>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get the path of the file in the "StreamingAssets" folder. </p>
+<p>Gets the readable path of the file in the "StreamingAssets" folder. </p>
 <p><br />
-Set the relative folder path to the starting point of the "StreamingAssets" folder. e.g. "foobar.txt" or "hogehoge/foobar.txt". <br />
-[Android]The file in "StreamingAssets" folder is copied to Application.persistentDataPath.If refresh flag is false, when the file has already been copied, the file is not copied.If refresh flag is true, the file is always copyied. <br />
-[WebGL]If the file has not yet been copied to WebGL's FileSystem, you need to use <a class="el" href="class_open_c_v_for_unity_1_1_utils.html#ad3531cca31f115a40c7517259088e7e4">getFilePathAsync()</a> at first.</p>
+Set the relative file path from the starting point of the "StreamingAssets" folder. e.g. "foobar.txt" or "hogehoge/foobar.txt". <br />
+[Android]The target file that exists in the "StreamingAssets" folder is copied into the folder of the Application.persistentDataPath. If refresh flag is false, when the file has already been copied, the file is not copied. If refresh flag is true, the file is always copyied. <br />
+[WebGL]If the target file has not yet been copied to WebGL's virtual filesystem, you need to use <a class="el" href="class_open_c_v_for_unity_1_1_utils.html#a366ece1e06e2bf797617c6f15d453bc7">getFilePathAsync()</a> at first.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">filepath</td><td>Set the relative folder path to the starting point of the "StreamingAssets" folder. e.g. "foobar.txt" or "hogehoge/foobar.txt". </td></tr>
-    <tr><td class="paramname">refresh</td><td>[Android]If refresh flag is false, when the file has already been copied, the file is not copied.If refresh flag is true, the file is always copyied. </td></tr>
+    <tr><td class="paramname">filepath</td><td>the relative file path starting from "StreamingAssets" folder </td></tr>
+    <tr><td class="paramname">refresh</td><td>[Android]If refresh flag is false, when the file has already been copied, the file is not copied. If refresh flag is true, the file is always copyied. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>returns the file path in case of success and returns empty in case of error. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ad3531cca31f115a40c7517259088e7e4"></a>
+<a class="anchor" id="a366ece1e06e2bf797617c6f15d453bc7"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -706,7 +707,7 @@ Set the relative folder path to the starting point of the "StreamingAssets" fold
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Action&lt; string &gt;&#160;</td>
-          <td class="paramname"><em>callback</em>, </td>
+          <td class="paramname"><em>completed</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -732,17 +733,17 @@ Set the relative folder path to the starting point of the "StreamingAssets" fold
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get the path of the file in the "StreamingAssets" folder to asynchronous. </p>
+<p>Gets the readable path of the file in the "StreamingAssets" folder by using coroutines. </p>
 <p><br />
-Set the relative folder path to the starting point of the "StreamingAssets" folder. e.g. "foobar.txt" or "hogehoge/foobar.txt". <br />
-[Android]The file in "StreamingAssets" folder is copied to Application.persistentDataPath.If refresh flag is false, when the file has already been copied, the file is not copied.If refresh flag is true, the file is always copyied. <br />
-[WebGL]The file in "StreamingAssets" folder is copied to WebGL's FileSystem.If refresh flag is false, when the file has already been copied, the file is not copied.If refresh flag is true, the file is always copyied.</p>
+Set the relative file path from the starting point of the "StreamingAssets" folder. e.g. "foobar.txt" or "hogehoge/foobar.txt". <br />
+[Android]The target file that exists in the "StreamingAssets" folder is copied into the folder of the Application.persistentDataPath. If refresh flag is false, when the file has already been copied, the file is not copied. If refresh flag is true, the file is always copyied. <br />
+[WebGL]The target file in the "StreamingAssets" folder is copied to the WebGL's virtual filesystem. If refresh flag is false, when the file has already been copied, the file is not copied. If refresh flag is true, the file is always copyied.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">filepath</td><td>Set the relative folder path to the starting point of the "StreamingAssets" folder. e.g. "foobar.txt" or "hogehoge/foobar.txt". </td></tr>
-    <tr><td class="paramname">callback</td><td>Callback function that is called when process is completed. Returns the file path in case of success and returns empty in case of error. </td></tr>
-    <tr><td class="paramname">progress</td><td>Callback function that is called when process is progress. Returns the file path and a value of 0 to 1. </td></tr>
-    <tr><td class="paramname">refresh</td><td>[Android][WebGL]If refresh flag is false, when the file has already been copied, the file is not copied.If refresh flag is true, the file is always copyied. </td></tr>
+    <tr><td class="paramname">filepath</td><td>the relative file path starting from "StreamingAssets" folder </td></tr>
+    <tr><td class="paramname">completed</td><td>the callback function that is called when process is completed. Returns the file path in case of success and returns empty in case of error. </td></tr>
+    <tr><td class="paramname">progress</td><td>the callback function that is called when process is progress. Returns the file path and a value of 0 to 1. </td></tr>
+    <tr><td class="paramname">refresh</td><td>[Android][WebGL]If refresh flag is false, when the file has already been copied, the file is not copied. If refresh flag is true, the file is always copyied. </td></tr>
   </table>
   </dd>
 </dl>
@@ -769,9 +770,9 @@ Set the relative folder path to the starting point of the "StreamingAssets" fold
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get Graphics DeviceType using Low-level Native Plugin Interface. </p>
+<p>Returns the low level graphics API type used by the graphics device. (using low-level native plugin interface) </p>
 <p><br />
-This function not implemented yet on OpenGLCore, Direct3D12</p>
+This function not implemented yet on OpenGLCore, Direct3D12.</p>
 <p><br />
 <a href="http://docs.unity3d.com/Manual/NativePluginInterface.html">http://docs.unity3d.com/Manual/NativePluginInterface.html</a> <br />
 kUnityGfxRendererOpenGL = 0, // Desktop OpenGL <br />
@@ -786,7 +787,8 @@ kUnityGfxRendererGXM = 12, // PlayStation Vita <br />
 kUnityGfxRendererPS4 = 13, // PlayStation 4 <br />
 kUnityGfxRendererXboxOne = 14, // Xbox One <br />
 kUnityGfxRendererMetal = 16, // iOS Metal <br />
-kUnityGfxRendererD3D12 = 18, // Direct3D 12 </p>
+kUnityGfxRendererD3D12 = 18, // Direct3D 12</p>
+<dl class="section return"><dt>Returns</dt><dd>the graphics API type </dd></dl>
 
 </div>
 </div>
@@ -811,9 +813,9 @@ kUnityGfxRendererD3D12 = 18, // Direct3D 12 </p>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get Low Level Texture Format using Low-level Native Plugin Interface. </p>
+<p>Returns the low level texture format. (using low-level native plugin interface) </p>
 <p><br />
-This function not implemented yet on OpenGLCore, Direct3D12 <br />
+This function not implemented yet on OpenGLCore, Direct3D12. <br />
 Direct3D 9 D3DFORMAT (Win) <br />
 Direct3D 11 DXGI_FORMAT (Win WindowsPhone) <br />
 OpenGL internalFormat (Win OSX) <br />
@@ -821,10 +823,11 @@ OpenGLES always return -1 (Android iOS) <br />
 Metal MTLPixelFormat (iOS)</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">texture</td><td></td></tr>
+    <tr><td class="paramname">texture</td><td>the Texture object </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>the low level texture format </dd></dl>
 
 </div>
 </div>
@@ -848,7 +851,8 @@ Metal MTLPixelFormat (iOS)</p>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get the OpenCV for Unity Version. </p>
+<p>Returns this "OpenCV for Unity" version number.</p>
+<dl class="section return"><dt>Returns</dt><dd>this "OpenCV for Unity" version number </dd></dl>
 
 </div>
 </div>
@@ -872,9 +876,10 @@ Metal MTLPixelFormat (iOS)</p>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Is New Low Level Native Plugin Interface. </p>
+<p>Indicates whether is new low level native plugin interface. </p>
 <p><br />
-<a href="http://docs.unity3d.com/Manual/NativePluginInterface.html">http://docs.unity3d.com/Manual/NativePluginInterface.html</a> </p>
+<a href="http://docs.unity3d.com/Manual/NativePluginInterface.html">http://docs.unity3d.com/Manual/NativePluginInterface.html</a></p>
+<dl class="section return"><dt>Returns</dt><dd>true, if it is new low level native plugin interface false otherwise. </dd></dl>
 
 </div>
 </div>
@@ -909,17 +914,17 @@ Metal MTLPixelFormat (iOS)</p>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Converts OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> to Unity Texture using Low-level Native Plugin Interface. </p>
+<p>Converts OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> to Unity Texture using low-level native plugin interface. </p>
 <p><br />
-This function converts the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> to the Unity Texture using Low-level Native Plugin Interface. <br />
+This function converts the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> to the Unity Texture image using low-level native plugin interface. <br />
 The input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA). <br />
 The output Texture object has to be of the TextureFormat 'RGBA32' or 'ARGB32'. <br />
 The output Texture object has to be of the same size as the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>'(width * height). <br />
-This function not implemented yet on OpenGLCore, Direct3D12</p>
+This function not implemented yet on OpenGLCore, Direct3D12.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mat</td><td>The input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA). </td></tr>
-    <tr><td class="paramname">texture</td><td>The output Texture object has to be of the TextureFormat 'RGBA32' or 'ARGB32'.The output Texture object has to be of the same size as the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>'(width * height). </td></tr>
+    <tr><td class="paramname">mat</td><td>the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) </td></tr>
+    <tr><td class="paramname">texture</td><td>the output Texture object has to be of the TextureFormat 'RGBA32' or 'ARGB32'. The output Texture object has to be of the same size as the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> (width * height). </td></tr>
   </table>
   </dd>
 </dl>
@@ -959,14 +964,14 @@ This function not implemented yet on OpenGLCore, Direct3D12</p>
 </div><div class="memdoc">
 <p>Converts OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> to Unity Texture2D. </p>
 <p><br />
-This function converts the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> to the Unity Texture2D. <br />
+This function converts the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> to the Unity Texture2D image. <br />
 The input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). <br />
 The output Texture2D object has to be of the TextureFormat 'RGBA32' or 'ARGB32'.(SetPixels32() must function.) <br />
 The output Texture2D object has to be of the same size as the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>'(width * height).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mat</td><td>The input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). </td></tr>
-    <tr><td class="paramname">The</td><td>output Texture2D object has to be of the TextureFormat 'RGBA32' or 'ARGB32'.(SetPixels32() must function.)texture2D The output Texture2D object has to be of the same size as the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>'(width * height). </td></tr>
+    <tr><td class="paramname">mat</td><td>the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY) </td></tr>
+    <tr><td class="paramname">texture2D</td><td>the output Texture2D object has to be of the TextureFormat 'RGBA32' or 'ARGB32'.(SetPixels32() must function.) The output Texture2D object has to be of the same size as the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> (width * height). </td></tr>
   </table>
   </dd>
 </dl>
@@ -1012,15 +1017,15 @@ The output Texture2D object has to be of the same size as the input <a class="el
 </div><div class="memdoc">
 <p>Converts OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> to Unity Texture2D. </p>
 <p><br />
-This function converts the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> to the Unity Texture2D. <br />
+This function converts the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> to the Unity Texture2D image. <br />
 The input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). <br />
 The output Texture2D object has to be of the TextureFormat 'RGBA32' or 'ARGB32'.(SetPixels32() must function.) <br />
 The output Texture2D object has to be of the same size as the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>'(width * height).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mat</td><td>The input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). </td></tr>
-    <tr><td class="paramname">The</td><td>output Texture2D object has to be of the TextureFormat 'RGBA32' or 'ARGB32'.(SetPixels32() must function.)texture2D The output Texture2D object has to be of the same size as the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>'(width * height). </td></tr>
-    <tr><td class="paramname">bufferColors</td><td>Optional array to receive pixel data. You can optionally pass in an array of Color32s to use in colors to avoid allocating new memory each frame. The array needs to be initialized to a length matching width * height of the texture.(<a href="http://docs.unity3d.com/ScriptReference/WebCamTexture.GetPixels32.html">http://docs.unity3d.com/ScriptReference/WebCamTexture.GetPixels32.html</a>) </td></tr>
+    <tr><td class="paramname">mat</td><td>the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY) </td></tr>
+    <tr><td class="paramname">texture2D</td><td>the output Texture2D object has to be of the TextureFormat 'RGBA32' or 'ARGB32'.(SetPixels32() must function) The output Texture2D object has to be of the same size as the input <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> (width * height). </td></tr>
+    <tr><td class="paramname">bufferColors</td><td>the optional array to receive pixel data. You can optionally pass in an array of Color32s to use in colors to avoid allocating new memory each frame. The array needs to be initialized to a length matching width * height of the texture.(<a href="http://docs.unity3d.com/ScriptReference/WebCamTexture.GetPixels32.html">http://docs.unity3d.com/ScriptReference/WebCamTexture.GetPixels32.html</a>) </td></tr>
   </table>
   </dd>
 </dl>
@@ -1060,7 +1065,7 @@ ccc <br />
 Utils.setDebugMode(false);</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">debugMode</td><td></td></tr>
+    <tr><td class="paramname">debugMode</td><td>if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console </td></tr>
   </table>
   </dd>
 </dl>
@@ -1100,13 +1105,13 @@ Utils.setDebugMode(false);</p>
 </div><div class="memdoc">
 <p>Converts Unity Texture2D to OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>. </p>
 <p><br />
-This function converts an Unity Texture2D image to the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>. <br />
+This function converts the Unity Texture2D image to the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>. <br />
 The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same size as the input Texture2D'(width * height). <br />
 The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">texture2D</td><td></td></tr>
-    <tr><td class="paramname">mat</td><td>The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same size as the input Texture2D'(width * height). The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). </td></tr>
+    <tr><td class="paramname">texture2D</td><td>the input Texture2D object has to be of the TextureFormat 'RGBA32' or 'ARGB32'.(SetPixels32() must function) </td></tr>
+    <tr><td class="paramname">mat</td><td>the output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same size as the input Texture2D'(width * height). The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). </td></tr>
   </table>
   </dd>
 </dl>
@@ -1144,17 +1149,17 @@ The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> ob
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Converts Unity Texture to OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> using Low-level Native Plugin Interface. </p>
+<p>Converts Unity Texture to OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> using low-level native plugin interface. </p>
 <p><br />
-This function converts an Unity Texture image to the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> using Low-level Native Plugin Interface. <br />
+This function converts the Unity Texture image to the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> using low-level native plugin interface. <br />
 The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same size as the input Texture'(width * height). <br />
 The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA). <br />
-This function not implemented yet on OpenGLCore, Direct3D12 <br />
+This function not implemented yet on OpenGLCore, Direct3D12. <br />
 When using Windows 10 and Direct3D11, <a class="el" href="class_open_c_v_for_unity_1_1_utils.html#ab343946b551e32d9623315cd01cbaadd">Utils.textureToMat()</a> seems to have limitations on the size of the texture. 2^n x 2^n (32x32, 32x64, 128x128, ...) is OK. But, other size is NG.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">texture</td><td></td></tr>
-    <tr><td class="paramname">mat</td><td>The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same size as the input Texture'(width * height). The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA). </td></tr>
+    <tr><td class="paramname">texture</td><td>the input Texture object </td></tr>
+    <tr><td class="paramname">mat</td><td>the output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same size as the input Texture'(width * height). The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA). </td></tr>
   </table>
   </dd>
 </dl>
@@ -1194,13 +1199,13 @@ When using Windows 10 and Direct3D11, <a class="el" href="class_open_c_v_for_uni
 </div><div class="memdoc">
 <p>Converts Texture to Texture2D. </p>
 <p><br />
-This function converts Texture to Texture2D. <br />
-texture and texture2D need to be the same size. <br />
-texture2D's TextureFormat needs to be RGBA32(Unity5.5+), ARGB32, RGB24, RGBAFloat or RGBAHalf.</p>
+This function converts the Texture image to the Texture2D image. <br />
+The texture and texture2D need to be the same size. <br />
+The texture2D's TextureFormat needs to be RGBA32(Unity5.5+), ARGB32, RGB24, RGBAFloat or RGBAHalf.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">texture</td><td></td></tr>
-    <tr><td class="paramname">texture2D</td><td></td></tr>
+    <tr><td class="paramname">texture</td><td>the input texture object </td></tr>
+    <tr><td class="paramname">texture2D</td><td>the output texture2D object </td></tr>
   </table>
   </dd>
 </dl>
@@ -1240,13 +1245,13 @@ texture2D's TextureFormat needs to be RGBA32(Unity5.5+), ARGB32, RGB24, RGBAFloa
 </div><div class="memdoc">
 <p>Converts Unity WebCamTexture to OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>. </p>
 <p><br />
-This function converts an Unity WebCamTexture image to the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>. <br />
+This function converts the Unity WebCamTexture image to the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>. <br />
 The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same size as the input WebCamTexture'(width * height). <br />
 The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">webcamTexture</td><td></td></tr>
-    <tr><td class="paramname">mat</td><td>The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same size as the input WebCamTexture'(width * height). The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). </td></tr>
+    <tr><td class="paramname">webcamTexture</td><td>the input WebCamTexture object </td></tr>
+    <tr><td class="paramname">mat</td><td>the output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same size as the input WebCamTexture'(width * height). The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). </td></tr>
   </table>
   </dd>
 </dl>
@@ -1292,14 +1297,14 @@ The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> ob
 </div><div class="memdoc">
 <p>Converts Unity WebCamTexture to OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>. </p>
 <p><br />
-This function converts an Unity WebCamTexture image to the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>. <br />
+This function converts the Unity WebCamTexture image to the OpenCV <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a>. <br />
 The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same size as the input WebCamTexture'(width * height). <br />
 The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">webcamTexture</td><td></td></tr>
-    <tr><td class="paramname">mat</td><td>The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same size as the input WebCamTexture'(width * height). The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). </td></tr>
-    <tr><td class="paramname">bufferColors</td><td>Optional array to receive pixel data. You can optionally pass in an array of Color32s to use in colors to avoid allocating new memory each frame. The array needs to be initialized to a length matching width * height of the texture.(<a href="http://docs.unity3d.com/ScriptReference/WebCamTexture.GetPixels32.html">http://docs.unity3d.com/ScriptReference/WebCamTexture.GetPixels32.html</a>) </td></tr>
+    <tr><td class="paramname">webcamTexture</td><td>the input WebCamTexture object </td></tr>
+    <tr><td class="paramname">mat</td><td>the output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same size as the input WebCamTexture'(width * height). The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). </td></tr>
+    <tr><td class="paramname">bufferColors</td><td>the optional array to receive pixel data. You can optionally pass in an array of Color32s to use in colors to avoid allocating new memory each frame. The array needs to be initialized to a length matching width * height of the texture.(<a href="http://docs.unity3d.com/ScriptReference/WebCamTexture.GetPixels32.html">http://docs.unity3d.com/ScriptReference/WebCamTexture.GetPixels32.html</a>) </td></tr>
   </table>
   </dd>
 </dl>
@@ -1312,7 +1317,7 @@ The output <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> ob
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jul 7 2017 02:02:21 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Aug 8 2017 12:30:07 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>
