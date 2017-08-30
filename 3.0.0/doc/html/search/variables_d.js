@@ -1,7 +1,16 @@
 var searchData=
 [
   ['oast_5f9_5f16',['OAST_9_16',['../class_open_c_v_for_unity_1_1_agast_feature_detector.html#a04f3d075af4e2936085d64f48426ddef',1,'OpenCVForUnity::AgastFeatureDetector']]],
+  ['ocr_5fcnn_5fclassifier',['OCR_CNN_CLASSIFIER',['../class_open_c_v_for_unity_1_1_text.html#a1e3efb6dee73bcade09a8b10cb0818df',1,'OpenCVForUnity::Text']]],
+  ['ocr_5fdecoder_5fviterbi',['OCR_DECODER_VITERBI',['../class_open_c_v_for_unity_1_1_text.html#a82167b0af348891480ce9314c5f9b3c9',1,'OpenCVForUnity::Text']]],
+  ['ocr_5fknn_5fclassifier',['OCR_KNN_CLASSIFIER',['../class_open_c_v_for_unity_1_1_text.html#a8fde458f885684ddc44ad6821031a67f',1,'OpenCVForUnity::Text']]],
+  ['ocr_5flevel_5ftextline',['OCR_LEVEL_TEXTLINE',['../class_open_c_v_for_unity_1_1_text.html#a120caf71eb700e5cd002794125388477',1,'OpenCVForUnity::Text']]],
+  ['ocr_5flevel_5fword',['OCR_LEVEL_WORD',['../class_open_c_v_for_unity_1_1_text.html#af3fdca1567d7cb15fd5d27105bf5a040',1,'OpenCVForUnity::Text']]],
   ['octave',['octave',['../class_open_c_v_for_unity_1_1_key_point.html#a0a2bc58cd44829d19f742f305d42c34a',1,'OpenCVForUnity::KeyPoint']]],
+  ['oem_5fcube_5fonly',['OEM_CUBE_ONLY',['../class_open_c_v_for_unity_1_1_text.html#a68693e866eed6ca0f811e8f4deac8100',1,'OpenCVForUnity::Text']]],
+  ['oem_5fdefault',['OEM_DEFAULT',['../class_open_c_v_for_unity_1_1_text.html#aa863aca16d3667a7bccf8e6e7cc15b67',1,'OpenCVForUnity::Text']]],
+  ['oem_5ftesseract_5fcube_5fcombined',['OEM_TESSERACT_CUBE_COMBINED',['../class_open_c_v_for_unity_1_1_text.html#a530c0dfd2976348c6417958bc21283af',1,'OpenCVForUnity::Text']]],
+  ['oem_5ftesseract_5fonly',['OEM_TESSERACT_ONLY',['../class_open_c_v_for_unity_1_1_text.html#a137f91447e5f202e0fcbb8f6f4226e22',1,'OpenCVForUnity::Text']]],
   ['one_5fclass',['ONE_CLASS',['../class_open_c_v_for_unity_1_1_s_v_m.html#a670a6a886a46a83ebee3de088b5c32bd',1,'OpenCVForUnity::SVM']]],
   ['one_5fstep',['ONE_STEP',['../class_open_c_v_for_unity_1_1_fuzzy.html#ac3cec94a1db08664551631d98a9c4b69',1,'OpenCVForUnity::Fuzzy']]],
   ['openclapicallerror',['OpenCLApiCallError',['../class_open_c_v_for_unity_1_1_core.html#ae8f486c311b2b3eddfcebe3407ee0fa5',1,'OpenCVForUnity::Core']]],

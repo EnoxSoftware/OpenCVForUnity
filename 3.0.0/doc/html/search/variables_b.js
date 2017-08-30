@@ -28,6 +28,7 @@ var searchData=
   ['minval',['minVal',['../class_open_c_v_for_unity_1_1_core_1_1_min_max_loc_result.html#a175fa4b64af8af1315aa3ce02e761023',1,'OpenCVForUnity::Core::MinMaxLocResult']]],
   ['mixed_5fclone',['MIXED_CLONE',['../class_open_c_v_for_unity_1_1_photo.html#a0eab4a23ea1575b06ac7fd67d69e3e30',1,'OpenCVForUnity::Photo']]],
   ['mode_5fhh',['MODE_HH',['../class_open_c_v_for_unity_1_1_stereo_s_g_b_m.html#a374c856dcd00f951caf163114097139f',1,'OpenCVForUnity::StereoSGBM']]],
+  ['mode_5fhh4',['MODE_HH4',['../class_open_c_v_for_unity_1_1_stereo_s_g_b_m.html#a3bda20f5af81e144fba3b8d68ffa1d82',1,'OpenCVForUnity::StereoSGBM']]],
   ['mode_5fsgbm',['MODE_SGBM',['../class_open_c_v_for_unity_1_1_stereo_s_g_b_m.html#a6f92612bd7839a06b16f81f44cae271d',1,'OpenCVForUnity::StereoSGBM']]],
   ['mode_5fsgbm_5f3way',['MODE_SGBM_3WAY',['../class_open_c_v_for_unity_1_1_stereo_s_g_b_m.html#a23da967035ab8f27c9398954a5cc5276',1,'OpenCVForUnity::StereoSGBM']]],
   ['monochrome_5ftransfer',['MONOCHROME_TRANSFER',['../class_open_c_v_for_unity_1_1_photo.html#aa9cc427da5b86c2ca3049653ec303458',1,'OpenCVForUnity::Photo']]],

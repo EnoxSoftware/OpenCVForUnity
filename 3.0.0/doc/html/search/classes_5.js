@@ -9,6 +9,7 @@ var searchData=
   ['feature2d',['Feature2D',['../class_open_c_v_for_unity_1_1_feature2_d.html',1,'OpenCVForUnity']]],
   ['featuredetector',['FeatureDetector',['../class_open_c_v_for_unity_1_1_feature_detector.html',1,'OpenCVForUnity']]],
   ['features2d',['Features2d',['../class_open_c_v_for_unity_1_1_features2d.html',1,'OpenCVForUnity']]],
+  ['fisherfacerecognizer',['FisherFaceRecognizer',['../class_open_c_v_for_unity_1_1_fisher_face_recognizer.html',1,'OpenCVForUnity']]],
   ['flannbasedmatcher',['FlannBasedMatcher',['../class_open_c_v_for_unity_1_1_flann_based_matcher.html',1,'OpenCVForUnity']]],
   ['freak',['FREAK',['../class_open_c_v_for_unity_1_1_f_r_e_a_k.html',1,'OpenCVForUnity']]],
   ['fuzzy',['Fuzzy',['../class_open_c_v_for_unity_1_1_fuzzy.html',1,'OpenCVForUnity']]]

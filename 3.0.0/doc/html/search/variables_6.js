@@ -18,6 +18,7 @@ var searchData=
   ['gpc_5fdescriptor_5fwht',['GPC_DESCRIPTOR_WHT',['../class_open_c_v_for_unity_1_1_optflow.html#a09552c3498927bd18f468fa03d0c7c84',1,'OpenCVForUnity::Optflow']]],
   ['gpuapicallerror',['GpuApiCallError',['../class_open_c_v_for_unity_1_1_core.html#add2561b1381ff15e380547711090a824',1,'OpenCVForUnity::Core']]],
   ['gpunotsupported',['GpuNotSupported',['../class_open_c_v_for_unity_1_1_core.html#ab5ff42683524c0f43336180e4b06cf78',1,'OpenCVForUnity::Core']]],
+  ['gray',['GRAY',['../class_open_c_v_for_unity_1_1_tracker_k_c_f.html#a990b2836fbdeea36a4e54a0bc3b56992',1,'OpenCVForUnity::TrackerKCF']]],
   ['grid_5fakaze',['GRID_AKAZE',['../class_open_c_v_for_unity_1_1_feature_detector.html#a21e5e895a8bc747754d3a120a98161c3',1,'OpenCVForUnity::FeatureDetector']]],
   ['grid_5fbrisk',['GRID_BRISK',['../class_open_c_v_for_unity_1_1_feature_detector.html#acbb19d5c062e06982320e4eca50f4f2c',1,'OpenCVForUnity::FeatureDetector']]],
   ['grid_5ffast',['GRID_FAST',['../class_open_c_v_for_unity_1_1_feature_detector.html#a3c652d9c2f2280c24a96cc254ae9ca42',1,'OpenCVForUnity::FeatureDetector']]],
