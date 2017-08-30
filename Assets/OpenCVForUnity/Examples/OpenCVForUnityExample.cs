@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 #if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
@@ -12,7 +13,11 @@ namespace OpenCVForUnityExample
         // Use this for initialization
         void Start ()
         {
-
+            #if UNITY_WEBGL || UNITY_WSA_10_0
+            GameObject.Find ("Canvas/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDExampleButton").GetComponent<Button> ().interactable = false;
+            GameObject.Find ("Canvas/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
+            GameObject.Find ("Canvas/SceneList/ScrollView/List/MainModulesGroup/TensorFlowWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
+            #endif
         }
     
         // Update is called once per frame
@@ -47,7 +52,7 @@ namespace OpenCVForUnityExample
             Application.LoadLevel ("ThresholdExample");
             #endif
         }
-        
+
         public void OnDrawingExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
@@ -56,7 +61,7 @@ namespace OpenCVForUnityExample
             Application.LoadLevel ("DrawingExample");
             #endif
         }
-        
+
         public void OnConvexHullExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
@@ -65,7 +70,7 @@ namespace OpenCVForUnityExample
             Application.LoadLevel ("ConvexHullExample");
             #endif
         }
-        
+
         public void OnHoughLinesPExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
@@ -74,7 +79,7 @@ namespace OpenCVForUnityExample
             Application.LoadLevel ("HoughLinesPExample");
             #endif
         }
-        
+
         public void OnFeature2DExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
@@ -92,7 +97,7 @@ namespace OpenCVForUnityExample
             Application.LoadLevel ("WrapPerspectiveExample");
             #endif
         }
-        
+
         public void OnFaceRecognizerExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
@@ -101,7 +106,7 @@ namespace OpenCVForUnityExample
             Application.LoadLevel ("FaceRecognizerExample");
             #endif
         }
-        
+
         public void OnFaceDetectionExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
@@ -110,7 +115,7 @@ namespace OpenCVForUnityExample
             Application.LoadLevel ("FaceDetectionExample");
             #endif
         }
-                
+
         public void OnWebCamTextureToMatExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
@@ -128,25 +133,25 @@ namespace OpenCVForUnityExample
             Application.LoadLevel ("WebCamTextureToMatHelperExample");
             #endif
         }
-                
-        public void OnWebCamTextureFaceDetectionExampleButtonClick ()
+
+        public void OnFaceDetectionWebCamTextureExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
-            SceneManager.LoadScene ("WebCamTextureFaceDetectionExample");
+            SceneManager.LoadScene ("FaceDetectionWebCamTextureExample");
             #else
-            Application.LoadLevel ("WebCamTextureFaceDetectionExample");
+            Application.LoadLevel ("FaceDetectionWebCamTextureExample");
             #endif
         }
-        
-        public void OnWebCamTextureAsyncFaceDetectionExampleButtonClick ()
+
+        public void OnAsynchronousFaceDetectionWebCamTextureExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
-            SceneManager.LoadScene ("WebCamTextureAsyncFaceDetectionExample");
+            SceneManager.LoadScene ("AsynchronousFaceDetectionWebCamTextureExample");
             #else
-            Application.LoadLevel ("WebCamTextureAsyncFaceDetectionExample");
+            Application.LoadLevel ("AsynchronousFaceDetectionWebCamTextureExample");
             #endif
         }
-        
+
         public void OnOpticalFlowExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
@@ -155,7 +160,7 @@ namespace OpenCVForUnityExample
             Application.LoadLevel ("OpticalFlowExample");
             #endif
         }
-        
+
         public void OnComicFilterExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
@@ -164,7 +169,7 @@ namespace OpenCVForUnityExample
             Application.LoadLevel ("ComicFilterExample");
             #endif
         }
-        
+
         public void OnCamShiftExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
@@ -255,12 +260,12 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnWebCamTextureCircleDetectionExampleButtonClick ()
+        public void OnCircleDetectionExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
-            SceneManager.LoadScene ("WebCamTextureCircleDetectionExample");
+            SceneManager.LoadScene ("CircleDetectionExample");
             #else
-            Application.LoadLevel ("WebCamTextureCircleDetectionExample");
+            Application.LoadLevel ("CircleDetectionExample");
             #endif
         }
 
@@ -290,13 +295,13 @@ namespace OpenCVForUnityExample
             Application.LoadLevel ("ArUcoCreateMarkerExample");
             #endif
         }
-        
-        public void OnArUcoTexture2DExampleButtonClick ()
+
+        public void OnArUcoExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
-            SceneManager.LoadScene ("ArUcoTexture2DExample");
+            SceneManager.LoadScene ("ArUcoExample");
             #else
-            Application.LoadLevel ("ArUcoTexture2DExample");
+            Application.LoadLevel ("ArUcoExample");
             #endif
         }
 
@@ -326,7 +331,7 @@ namespace OpenCVForUnityExample
             Application.LoadLevel ("InpaintExample");
             #endif
         }
-        
+
         public void OnMatchShapesExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
@@ -335,7 +340,7 @@ namespace OpenCVForUnityExample
             Application.LoadLevel ("MatchShapesExample");
             #endif
         }
-        
+
         public void OnMSERExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
@@ -387,6 +392,70 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene ("PCAExample");
             #else
             Application.LoadLevel ("PCAExample");
+            #endif
+        }
+
+        public void OnThinPlateSplineShapeTransformerExampleButtonClick ()
+        {
+            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
+            SceneManager.LoadScene ("ThinPlateSplineShapeTransformerExample");
+            #else
+            Application.LoadLevel ("ThinPlateSplineShapeTransformerExample");
+            #endif
+        }
+
+        public void OnVideoWriterExampleButtonClick ()
+        {
+            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
+            SceneManager.LoadScene ("VideoWriterExample");
+            #else
+            Application.LoadLevel ("VideoWriterExample");
+            #endif
+        }
+
+
+        public void OnTextDetectionExampleButtonClick ()
+        {
+            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
+            SceneManager.LoadScene ("TextDetectionExample");
+            #else
+            Application.LoadLevel ("TextDetectionExample");
+            #endif
+        }
+
+        public void OnSegmentedWordRecognitionExampleButtonClick ()
+        {
+            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
+            SceneManager.LoadScene ("SegmentedWordRecognitionExample");
+            #else
+            Application.LoadLevel ("SegmentedWordRecognitionExample");
+            #endif
+        }
+
+        public void OnMobileNetSSDExampleButtonClick ()
+        {
+            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
+            SceneManager.LoadScene ("MobileNetSSDExample");
+            #else
+            Application.LoadLevel ("MobileNetSSDExample");
+            #endif
+        }
+
+        public void OnMobileNetSSDWebCamTextureExampleButtonClick ()
+        {
+            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
+            SceneManager.LoadScene ("MobileNetSSDWebCamTextureExample");
+            #else
+            Application.LoadLevel ("MobileNetSSDWebCamTextureExample");
+            #endif
+        }
+
+        public void OnTensorFlowWebCamTextureExampleButtonClick ()
+        {
+            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
+            SceneManager.LoadScene ("TensorFlowWebCamTextureExample");
+            #else
+            Application.LoadLevel ("TensorFlowWebCamTextureExample");
             #endif
         }
     }
