@@ -76,7 +76,7 @@ namespace OpenCVForUnityExample
 
             #if !UNITY_WSA_10_0
             if (string.IsNullOrEmpty (model_filepath) || string.IsNullOrEmpty (prototxt_filepath)) {
-                Debug.LogError ("model file is not loaded.The model and class names list can be downloaded here: \"https://github.com/chuanqi305/MobileNet-SSD\".Please copy to “Assets/StreamingAssets/dnn/” folder. ");
+                Debug.LogError ("model file is not loaded.The model and prototxt file can be downloaded here: \"https://github.com/chuanqi305/MobileNet-SSD\".Please copy to “Assets/StreamingAssets/dnn/” folder. ");
             } else {
                 net = Dnn.readNetFromCaffe (prototxt_filepath, model_filepath);
 
@@ -158,35 +158,36 @@ namespace OpenCVForUnityExample
                     rgbaMat = new Mat (rgbaMat, crop);
 
                     Imgproc.putText (rgbaMat, "model file is not loaded.", new Point (5, rgbaMat.rows () - 50), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    Imgproc.putText (rgbaMat, "The model and class names list can be downloaded here:", new Point (5, rgbaMat.rows () - 30), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    Imgproc.putText (rgbaMat, "The model and prototxt file can be downloaded here:", new Point (5, rgbaMat.rows () - 30), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                     Imgproc.putText (rgbaMat, "https://github.com/chuanqi305/MobileNet-SSD.", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
                 } else {
 
-                    blob = Dnn.blobFromImage (rgbaMat, inScaleFactor, new Size (inWidth, inHeight), new Scalar (meanVal), false);
+                    blob = Dnn.blobFromImage (rgbaMat, inScaleFactor, new Size (inWidth, inHeight), new Scalar (meanVal), true);
                     net.setInput (blob);
 
                     Mat prob = net.forward ();
+                    prob = prob.reshape (1, (int)prob.total () / 7);
 
                     rgbaMat = new Mat (rgbaMat, crop);
                 
                 
-                    float[] data = new float[prob.total ()];
-                
-                    Utils.copyFromMat<float> (prob, data);
+                    float[] data = new float[7];
 
                     float confidenceThreshold = 0.2f;
-                    for (int i = 0; i < data.Length / 7; i++) {
-                        float confidence = data [i * 7 + 2];
+                    for (int i = 0; i < prob.rows (); i++) {
+
+                        prob.get (i, 0, data);
+
+                        float confidence = data [2];
                     
                         if (confidence > confidenceThreshold) {
-                            //                    int objectClass = (int)(data [i * 7 + 1]);
-                            int class_id = (int)(data [i * 7 + 1]);
+                            int class_id = (int)(data [1]);
                         
-                            float xLeftBottom = data [i * 7 + 3] * rgbaMat.cols ();
-                            float yLeftBottom = data [i * 7 + 4] * rgbaMat.rows ();
-                            float xRightTop = data [i * 7 + 5] * rgbaMat.cols ();
-                            float yRightTop = data [i * 7 + 6] * rgbaMat.rows ();
+                            float xLeftBottom = data [3] * rgbaMat.cols ();
+                            float yLeftBottom = data [4] * rgbaMat.rows ();
+                            float xRightTop = data [5] * rgbaMat.cols ();
+                            float yRightTop = data [6] * rgbaMat.rows ();
 
                             Imgproc.rectangle (rgbaMat, new Point (xLeftBottom, yLeftBottom), new Point (xRightTop, yRightTop),
                                 new Scalar (0, 255, 0, 255));

@@ -423,6 +423,16 @@ namespace OpenCVForUnityExample
             #endif
         }
 
+        public void OnTextRecognitionExampleButtonClick ()
+        {
+            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
+            SceneManager.LoadScene ("TextRecognitionExample");
+            #else
+            Application.LoadLevel ("TextRecognitionExample");
+            #endif
+        }
+
+
         public void OnSegmentedWordRecognitionExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER

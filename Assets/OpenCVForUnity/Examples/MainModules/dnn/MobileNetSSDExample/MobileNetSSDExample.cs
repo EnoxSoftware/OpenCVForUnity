@@ -63,7 +63,7 @@ namespace OpenCVForUnityExample
            
             #if !UNITY_WSA_10_0
             if (string.IsNullOrEmpty (model_filepath) || string.IsNullOrEmpty (prototxt_filepath)) {
-                Debug.LogError ("model file is not loaded.The model and class names list can be downloaded here: \"https://github.com/chuanqi305/MobileNet-SSD\".Please copy to “Assets/StreamingAssets/dnn/” folder. ");
+                Debug.LogError ("model file is not loaded.The model and prototxt file can be downloaded here: \"https://github.com/chuanqi305/MobileNet-SSD\".Please copy to “Assets/StreamingAssets/dnn/” folder. ");
             } else {
                 net = Dnn.readNetFromCaffe (prototxt_filepath, model_filepath);
 
@@ -74,7 +74,7 @@ namespace OpenCVForUnityExample
                 img = new Mat (img, crop);
 
                 Imgproc.putText (img, "model file is not loaded.", new Point (5, img.rows () - 50), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                Imgproc.putText (img, "The model and class names list can be downloaded here:", new Point (5, img.rows () - 30), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                Imgproc.putText (img, "The model and prototxt file can be downloaded here:", new Point (5, img.rows () - 30), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                 Imgproc.putText (img, "https://github.com/chuanqi305/MobileNet-SSD.", new Point (5, img.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
             } else {
@@ -87,7 +87,8 @@ namespace OpenCVForUnityExample
                 TickMeter tm = new TickMeter ();
                 tm.start ();
 
-                Mat detections = net.forward ();
+                Mat prob = net.forward ();
+                prob = prob.reshape (1, (int)prob.total () / 7);
 
                 tm.stop ();
                 Debug.Log ("Inference time, ms: " + tm.getTimeMilli ());
@@ -95,33 +96,30 @@ namespace OpenCVForUnityExample
 
                 img = new Mat (img, crop);
 
+                float[] data = new float[7];
 
-                float[] data = new float[detections.total ()];
-            
-                Utils.copyFromMat<float> (detections, data);
-            
-              
                 float confidenceThreshold = 0.2f;
-                for (int i = 0; i < data.Length / 7; i++) {
-                    float confidence = data [i * 7 + 2];
-                
+                for (int i = 0; i < prob.rows (); i++) {
+
+                    prob.get (i, 0, data);
+
+                    float confidence = data [2];
+
                     if (confidence > confidenceThreshold) {
- 
-                        int class_id = (int)(data [i * 7 + 1]);
-                    
-                        float xLeftBottom = data [i * 7 + 3] * img.cols ();
-                        float yLeftBottom = data [i * 7 + 4] * img.rows ();
-                        float xRightTop = data [i * 7 + 5] * img.cols ();
-                        float yRightTop = data [i * 7 + 6] * img.rows ();
-                    
+                        int class_id = (int)(data [1]);
+
+                        float xLeftBottom = data [3] * img.cols ();
+                        float yLeftBottom = data [4] * img.rows ();
+                        float xRightTop = data [5] * img.cols ();
+                        float yRightTop = data [6] * img.rows ();
+
                         Debug.Log ("class_id: " + class_id);
                         Debug.Log ("Confidence: " + confidence);
-                    
+
                         Debug.Log (" " + xLeftBottom
                         + " " + yLeftBottom
                         + " " + xRightTop
                         + " " + yRightTop);
-                    
 
                         Imgproc.rectangle (img, new Point (xLeftBottom, yLeftBottom), new Point (xRightTop, yRightTop),
                             new Scalar (0, 255, 0));
@@ -136,6 +134,9 @@ namespace OpenCVForUnityExample
                             Core.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (0, 0, 0));
                     }
                 }
+
+                prob.Dispose ();
+
             }
             
             Imgproc.cvtColor (img, img, Imgproc.COLOR_BGR2RGB);
