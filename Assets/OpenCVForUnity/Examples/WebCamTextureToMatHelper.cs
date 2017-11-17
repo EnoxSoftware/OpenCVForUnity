@@ -8,7 +8,7 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Webcam texture to mat helper.
-    /// v 1.0.2
+    /// v 1.0.3
     /// </summary>
     public class WebCamTextureToMatHelper : MonoBehaviour
     {
@@ -46,6 +46,11 @@ namespace OpenCVForUnityExample
         /// Determines if flips horizontal.
         /// </summary>
         public bool flipHorizontal = false;
+
+        /// <summary>
+        /// Determines if rotates 90 degree.
+        /// </summary>
+        public bool rotate90Degree = false;
 
         /// <summary>
         /// The timeout frame count.
@@ -265,9 +270,13 @@ namespace OpenCVForUnityExample
 
                     #if !UNITY_EDITOR && !(UNITY_STANDALONE || UNITY_WEBGL) 
                     if (screenOrientation == ScreenOrientation.Portrait || screenOrientation == ScreenOrientation.PortraitUpsideDown) {
-                        rotatedRgbaMat = new Mat (webCamTexture.width, webCamTexture.height, CvType.CV_8UC4);
+                        rotate90Degree = true;
                     }
                     #endif
+
+                    if (rotate90Degree) {
+                        rotatedRgbaMat = new Mat (webCamTexture.width, webCamTexture.height, CvType.CV_8UC4);
+                    }
 
                     isInitWaiting = false;
                     hasInitDone = true;
