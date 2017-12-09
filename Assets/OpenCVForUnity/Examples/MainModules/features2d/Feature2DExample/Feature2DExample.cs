@@ -39,8 +39,7 @@ namespace OpenCVForUnityExample
 
 
             ORB detector = ORB.create ();
-
-            DescriptorExtractor extractor = DescriptorExtractor.create (DescriptorExtractor.ORB);
+            ORB extractor = ORB.create ();
 
             MatOfKeyPoint keypoints1 = new MatOfKeyPoint ();
             Mat descriptors1 = new Mat ();

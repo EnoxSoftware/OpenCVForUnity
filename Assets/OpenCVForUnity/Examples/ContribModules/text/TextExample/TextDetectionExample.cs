@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#if !UNITY_WEBGL && !UNITY_WSA_10_0
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -166,3 +168,4 @@ namespace OpenCVForUnityExample
         }
     }
 }
+#endif

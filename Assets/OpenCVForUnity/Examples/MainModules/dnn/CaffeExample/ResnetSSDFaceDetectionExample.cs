@@ -13,22 +13,16 @@ using OpenCVForUnity;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// MobileNet SSD WebCamTexture Example
-    /// This example uses Single-Shot Detector (https://arxiv.org/abs/1512.02325) to detect objects in a WebCamTexture image.
-    /// Referring to https://github.com/opencv/opencv/blob/master/samples/dnn/mobilenet_ssd_python.py.
+    /// Resnet SSD FaceDetection Example
+    /// Referring to https://github.com/opencv/opencv/blob/master/samples/dnn/resnet_ssd_face_python.py.
     /// </summary>
     [RequireComponent (typeof(WebCamTextureToMatHelper))]
-    public class MobileNetSSDWebCamTextureExample : MonoBehaviour
+    public class ResnetSSDFaceDetectionExample : MonoBehaviour
     {
         /// <summary>
         /// The texture.
         /// </summary>
         Texture2D texture;
-
-        /// <summary>
-        /// The colors.
-        /// </summary>
-        Color32[] colors;
 
         /// <summary>
         /// The webcam texture to mat helper.
@@ -37,33 +31,17 @@ namespace OpenCVForUnityExample
 
         const float inWidth = 300;
         const float inHeight = 300;
-        float WHRatio = inWidth / inHeight;
-        float inScaleFactor = 0.007843f;
-        float meanVal = 127.5f;
-        
-        string[] classNames = {"background",
-            "aeroplane", "bicycle", "bird", "boat",
-            "bottle", "bus", "car", "cat", "chair",
-            "cow", "diningtable", "dog", "horse",
-            "motorbike", "person", "pottedplant",
-            "sheep", "sofa", "train", "tvmonitor"
-        };
-
+        float confThreshold = 0.5f;
 
         /// <summary>
-        /// The BLOB.
+        /// The bgr mat.
         /// </summary>
-        Mat blob;
+        Mat bgrMat;
 
         /// <summary>
         /// The net.
         /// </summary>
         Net net;
-
-        /// <summary>
-        /// The crop.
-        /// </summary>
-        OpenCVForUnity.Rect crop;
 
         // Use this for initialization
         void Start ()
@@ -71,17 +49,15 @@ namespace OpenCVForUnityExample
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             Utils.setDebugMode (true);
 
-            string model_filepath = Utils.getFilePath ("dnn/MobileNetSSD_deploy.caffemodel");
-            string prototxt_filepath = Utils.getFilePath ("dnn/MobileNetSSD_deploy.prototxt");
+            string model_filepath = Utils.getFilePath ("dnn/res10_300x300_ssd_iter_140000.caffemodel");
+            string prototxt_filepath = Utils.getFilePath ("dnn/deploy.prototxt");
 
-            #if !UNITY_WSA_10_0
             if (string.IsNullOrEmpty (model_filepath) || string.IsNullOrEmpty (prototxt_filepath)) {
-                Debug.LogError ("model file is not loaded.The model and prototxt file can be downloaded here: \"https://github.com/chuanqi305/MobileNet-SSD\".Please copy to “Assets/StreamingAssets/dnn/” folder. ");
+                Debug.LogError ("model file is not loaded.The model and prototxt file can be downloaded here: \"https://raw.githubusercontent.com/opencv/opencv_3rdparty/b2bfc75f6aea5b1f834ff0f0b865a7c18ff1459f/res10_300x300_ssd_iter_140000.caffemodel\" and \"https://github.com/opencv/opencv/blob/master/samples/dnn/face_detector/deploy.prototxt\".Please copy to “Assets/StreamingAssets/dnn/” folder. ");
             } else {
                 net = Dnn.readNetFromCaffe (prototxt_filepath, model_filepath);
 
             }
-            #endif
 
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
             webCamTextureToMatHelper.Initialize ();
@@ -96,35 +72,26 @@ namespace OpenCVForUnityExample
 
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
 
+            bgrMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC3);
 
             float width = webCamTextureMat.width ();
             float height = webCamTextureMat.height ();
 
-            Size inVideoSize = new Size (width, height);
-            Size cropSize;
-            if (inVideoSize.width / (float)inVideoSize.height > WHRatio) {
-                cropSize = new Size (inVideoSize.height * WHRatio, inVideoSize.height);
-            } else {
-                cropSize = new Size (inVideoSize.width, inVideoSize.width / WHRatio);
-            }
-            crop = new OpenCVForUnity.Rect (new Point ((inVideoSize.width - cropSize.width) / 2, (inVideoSize.height - cropSize.height) / 2), cropSize);
 
-
-            float widthScale = (float)Screen.width / crop.width;
-            float heightScale = (float)Screen.height / crop.height;
+            float widthScale = (float)Screen.width / width;
+            float heightScale = (float)Screen.height / height;
             if (widthScale < heightScale) {
-                Camera.main.orthographicSize = (crop.width * (float)Screen.height / (float)Screen.width) / 2;
+                Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
             } else {
-                Camera.main.orthographicSize = crop.height / 2;
+                Camera.main.orthographicSize = height / 2;
             }
 
 
-            texture = new Texture2D (crop.width, crop.height, TextureFormat.RGBA32, false);
-            colors = new Color32[crop.width * crop.height];
+            texture = new Texture2D (webCamTextureMat.cols (), webCamTextureMat.rows (), TextureFormat.RGBA32, false);
             
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
             
-            gameObject.transform.localScale = new Vector3 (crop.width, crop.height, 1);
+            gameObject.transform.localScale = new Vector3 (width, height, 1);
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
         }
 
@@ -135,6 +102,8 @@ namespace OpenCVForUnityExample
         {
             Debug.Log ("OnWebCamTextureToMatHelperDisposed");
 
+            if (bgrMat != null)
+                bgrMat.Dispose ();
         }
 
         /// <summary>
@@ -155,58 +124,58 @@ namespace OpenCVForUnityExample
 
                 if (net == null) {
 
-                    rgbaMat = new Mat (rgbaMat, crop);
-
-                    Imgproc.putText (rgbaMat, "model file is not loaded.", new Point (5, rgbaMat.rows () - 50), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    Imgproc.putText (rgbaMat, "The model and prototxt file can be downloaded here:", new Point (5, rgbaMat.rows () - 30), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    Imgproc.putText (rgbaMat, "https://github.com/chuanqi305/MobileNet-SSD.", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    Imgproc.putText (rgbaMat, "model file is not loaded.", new Point (5, rgbaMat.rows () - 30), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    Imgproc.putText (rgbaMat, "Please read console message.", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
                 } else {
+                    
+                    Imgproc.cvtColor (rgbaMat, bgrMat, Imgproc.COLOR_RGBA2BGR);
 
-                    blob = Dnn.blobFromImage (rgbaMat, inScaleFactor, new Size (inWidth, inHeight), new Scalar (meanVal), true);
-                    net.setInput (blob);
 
-                    Mat prob = net.forward ();
-                    prob = prob.reshape (1, (int)prob.total () / 7);
+                    net.setInput (Dnn.blobFromImage (bgrMat, 1.0, new Size (inWidth, inHeight), new Scalar (104, 177, 123), false, false), "data");
 
-                    rgbaMat = new Mat (rgbaMat, crop);
-                
-                
+                    Mat detections = net.forward ("detection_out");
+
+
+                    detections = detections.reshape (1, (int)detections.total () / 7);
+
+
                     float[] data = new float[7];
 
-                    float confidenceThreshold = 0.2f;
-                    for (int i = 0; i < prob.rows (); i++) {
+                    for (int i = 0; i < detections.rows (); i++) {
 
-                        prob.get (i, 0, data);
+                        detections.get (i, 0, data);
 
                         float confidence = data [2];
+                                        
+                        if (confidence > confThreshold) {
+                                            
+                            float xLeftBottom = data [3] * bgrMat.cols ();
+                            float yLeftBottom = data [4] * bgrMat.rows ();
+                            float xRightTop = data [5] * bgrMat.cols ();
+                            float yRightTop = data [6] * bgrMat.rows ();
                     
-                        if (confidence > confidenceThreshold) {
-                            int class_id = (int)(data [1]);
-                        
-                            float xLeftBottom = data [3] * rgbaMat.cols ();
-                            float yLeftBottom = data [4] * rgbaMat.rows ();
-                            float xRightTop = data [5] * rgbaMat.cols ();
-                            float yRightTop = data [6] * rgbaMat.rows ();
-
                             Imgproc.rectangle (rgbaMat, new Point (xLeftBottom, yLeftBottom), new Point (xRightTop, yRightTop),
-                                new Scalar (0, 255, 0, 255));
-                            string label = classNames [class_id] + ": " + confidence;
+                                new Scalar (0, 255, 0, 255), 2);
+                                                
+                            string label = "face: " + confidence;
                             int[] baseLine = new int[1];
+                    
                             Size labelSize = Imgproc.getTextSize (label, Core.FONT_HERSHEY_SIMPLEX, 0.5, 1, baseLine);
-
-                            Imgproc.rectangle (rgbaMat, new Point (xLeftBottom, yLeftBottom - labelSize.height),
-                                new Point (xLeftBottom + labelSize.width, yLeftBottom + baseLine [0]),
+                    
+                            Imgproc.rectangle (rgbaMat, new Point (xLeftBottom, yLeftBottom),
+                                new Point (xLeftBottom + labelSize.width, yLeftBottom + labelSize.height + baseLine [0]),
                                 new Scalar (255, 255, 255, 255), Core.FILLED);
-                            Imgproc.putText (rgbaMat, label, new Point (xLeftBottom, yLeftBottom),
+                            Imgproc.putText (rgbaMat, label, new Point (xLeftBottom, yLeftBottom + labelSize.height),
                                 Core.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (0, 0, 0, 255));
                         }
                     }
+                
 
-                    prob.Dispose ();
+                    detections.Dispose ();
                 }
-
-                Utils.matToTexture2D (rgbaMat, texture, colors);
+                    
+                Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors ());
             }
         }
 
@@ -217,8 +186,6 @@ namespace OpenCVForUnityExample
         {
             webCamTextureToMatHelper.Dispose ();
 
-            if (blob != null)
-                blob.Dispose ();
             if (net != null)
                 net.Dispose ();
 

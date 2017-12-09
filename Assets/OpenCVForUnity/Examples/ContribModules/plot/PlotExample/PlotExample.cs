@@ -24,7 +24,8 @@ namespace OpenCVForUnityExample
             
             Mat plot_result = new Mat ();
             
-            Plot2d plot = Plot.createPlot2d (data);
+//            Plot2d plot = Plot.createPlot2d (data);
+            Plot2d plot = Plot2d.create (data);
             plot.setPlotBackgroundColor (new Scalar (50, 50, 50));
             plot.setPlotLineColor (new Scalar (50, 50, 255));
             plot.render (plot_result);

@@ -16,7 +16,13 @@ namespace OpenCVForUnityExample
             #if UNITY_WEBGL || UNITY_WSA_10_0
             GameObject.Find ("Canvas/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDExampleButton").GetComponent<Button> ().interactable = false;
             GameObject.Find ("Canvas/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
+            GameObject.Find ("Canvas/SceneList/ScrollView/List/MainModulesGroup/ResnetSSDFaceDetectionExampleButton").GetComponent<Button> ().interactable = false;
             GameObject.Find ("Canvas/SceneList/ScrollView/List/MainModulesGroup/TensorFlowWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
+            GameObject.Find ("Canvas/SceneList/ScrollView/List/MainModulesGroup/YoloObjectDetectionExampleButton").GetComponent<Button> ().interactable = false;
+            GameObject.Find ("Canvas/SceneList/ScrollView/List/MainModulesGroup/YoloObjectDetectionWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
+
+            GameObject.Find ("Canvas/SceneList/ScrollView/List/ContribModulesGroup/TextDetectionExampleButton").GetComponent<Button> ().interactable = false;
+            GameObject.Find ("Canvas/SceneList/ScrollView/List/ContribModulesGroup/TextRecognitionExampleButton").GetComponent<Button> ().interactable = false;
             #endif
         }
     
@@ -460,12 +466,39 @@ namespace OpenCVForUnityExample
             #endif
         }
 
+        public void OnResnetSSDFaceDetectionExampleButtonClick ()
+        {
+            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
+            SceneManager.LoadScene ("ResnetSSDFaceDetectionExample");
+            #else
+            Application.LoadLevel ("ResnetSSDFaceDetectionExample");
+            #endif
+        }
+
         public void OnTensorFlowWebCamTextureExampleButtonClick ()
         {
             #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("TensorFlowWebCamTextureExample");
             #else
             Application.LoadLevel ("TensorFlowWebCamTextureExample");
+            #endif
+        }
+
+        public void OnYoloObjectDetectionExampleButtonClick ()
+        {
+            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
+            SceneManager.LoadScene ("YoloObjectDetectionExample");
+            #else
+            Application.LoadLevel ("YoloObjectDetectionExample");
+            #endif
+        }
+
+        public void OnYoloObjectDetectionWebCamTextureExampleButtonClick ()
+        {
+            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
+            SceneManager.LoadScene ("YoloObjectDetectionWebCamTextureExample");
+            #else
+            Application.LoadLevel ("YoloObjectDetectionWebCamTextureExample");
             #endif
         }
     }

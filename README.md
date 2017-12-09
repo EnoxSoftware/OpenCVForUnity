@@ -1,8 +1,9 @@
-OpenCVForUnity
+OpenCVForUnity Examples
 ====================
 
 Overview
 -----
+OpenCVForUnity is required to run example code of this repository.
 <https://www.assetstore.unity3d.com/#!/content/21088>  
 
 Setup Tutorial & Demo Video

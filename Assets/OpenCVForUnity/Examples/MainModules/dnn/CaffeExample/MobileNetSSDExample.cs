@@ -42,7 +42,9 @@ namespace OpenCVForUnityExample
             Mat img = Imgcodecs.imread (Utils.getFilePath ("dnn/004545.jpg"));
             #if !UNITY_WSA_10_0
             if (img.empty ()) {
-                Debug.LogError ("dnn/004545.jpg is not loaded.Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
+                Debug.LogError ("dnn/004545.jpg is not loaded.The image file can be downloaded here: \"https://github.com/chuanqi305/MobileNet-SSD/blob/master/images/004545.jpg\".Please copy to \"Assets/StreamingAssets/dnn/\" folder. ");
+                img = new Mat (375, 500, CvType.CV_8UC3, new Scalar (0, 0, 0));
+
             }
             #endif
 
@@ -61,25 +63,22 @@ namespace OpenCVForUnityExample
             string model_filepath = Utils.getFilePath ("dnn/MobileNetSSD_deploy.caffemodel");
             string prototxt_filepath = Utils.getFilePath ("dnn/MobileNetSSD_deploy.prototxt");
            
-            #if !UNITY_WSA_10_0
             if (string.IsNullOrEmpty (model_filepath) || string.IsNullOrEmpty (prototxt_filepath)) {
                 Debug.LogError ("model file is not loaded.The model and prototxt file can be downloaded here: \"https://github.com/chuanqi305/MobileNet-SSD\".Please copy to “Assets/StreamingAssets/dnn/” folder. ");
             } else {
                 net = Dnn.readNetFromCaffe (prototxt_filepath, model_filepath);
 
             }
-            #endif
 
             if (net == null) {
                 img = new Mat (img, crop);
 
-                Imgproc.putText (img, "model file is not loaded.", new Point (5, img.rows () - 50), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                Imgproc.putText (img, "The model and prototxt file can be downloaded here:", new Point (5, img.rows () - 30), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                Imgproc.putText (img, "https://github.com/chuanqi305/MobileNet-SSD.", new Point (5, img.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                Imgproc.putText (img, "model file is not loaded.", new Point (5, img.rows () - 30), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255), 2, Imgproc.LINE_AA, false);
+                Imgproc.putText (img, "Please read console message.", new Point (5, img.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255), 2, Imgproc.LINE_AA, false);
 
             } else {
 
-                Mat blob = Dnn.blobFromImage (img, inScaleFactor, new Size (inWidth, inHeight), new Scalar (meanVal), false);
+                Mat blob = Dnn.blobFromImage (img, inScaleFactor, new Size (inWidth, inHeight), new Scalar (meanVal), false, true);
 
                 net.setInput (blob);
 
@@ -122,15 +121,15 @@ namespace OpenCVForUnityExample
                         + " " + yRightTop);
 
                         Imgproc.rectangle (img, new Point (xLeftBottom, yLeftBottom), new Point (xRightTop, yRightTop),
-                            new Scalar (0, 255, 0));
+                            new Scalar (0, 255, 0), 2);
                         string label = classNames [class_id] + ": " + confidence;
                         int[] baseLine = new int[1];
                         Size labelSize = Imgproc.getTextSize (label, Core.FONT_HERSHEY_SIMPLEX, 0.5, 1, baseLine);
 
-                        Imgproc.rectangle (img, new Point (xLeftBottom, yLeftBottom - labelSize.height),
-                            new Point (xLeftBottom + labelSize.width, yLeftBottom + baseLine [0]),
+                        Imgproc.rectangle (img, new Point (xLeftBottom, yLeftBottom),
+                            new Point (xLeftBottom + labelSize.width, yLeftBottom + labelSize.height + baseLine [0]),
                             new Scalar (255, 255, 255), Core.FILLED);
-                        Imgproc.putText (img, label, new Point (xLeftBottom, yLeftBottom),
+                        Imgproc.putText (img, label, new Point (xLeftBottom, yLeftBottom + labelSize.height),
                             Core.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (0, 0, 0));
                     }
                 }
