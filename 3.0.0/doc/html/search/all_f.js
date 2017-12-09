@@ -16,6 +16,7 @@ var searchData=
   ['pctsignatures_2ecs',['PCTSignatures.cs',['../_p_c_t_signatures_8cs.html',1,'']]],
   ['pctsignaturessqfd',['PCTSignaturesSQFD',['../class_open_c_v_for_unity_1_1_p_c_t_signatures_s_q_f_d.html',1,'OpenCVForUnity']]],
   ['pctsignaturessqfd_2ecs',['PCTSignaturesSQFD.cs',['../_p_c_t_signatures_s_q_f_d_8cs.html',1,'']]],
+  ['peilinnormalization',['PeiLinNormalization',['../class_open_c_v_for_unity_1_1_ximgproc.html#a2fac4bdfd8e9a2aecd51dae0c440b9fd',1,'OpenCVForUnity::Ximgproc']]],
   ['pencilsketch',['pencilSketch',['../class_open_c_v_for_unity_1_1_photo.html#a63a51db19288728c5785abc377f0ed76',1,'OpenCVForUnity.Photo.pencilSketch(Mat src, Mat dst1, Mat dst2, float sigma_s, float sigma_r, float shade_factor)'],['../class_open_c_v_for_unity_1_1_photo.html#a8ae11fae45b856fb160e1fe4d6e2ef67',1,'OpenCVForUnity.Photo.pencilSketch(Mat src, Mat dst1, Mat dst2)']]],
   ['perspectivetransform',['perspectiveTransform',['../class_open_c_v_for_unity_1_1_core.html#a06157cc01626f354cf1aac91fceaca61',1,'OpenCVForUnity::Core']]],
   ['phase',['phase',['../class_open_c_v_for_unity_1_1_core.html#a4cb7ca9c85ee1687e2a102e6c4be93d9',1,'OpenCVForUnity.Core.phase(Mat x, Mat y, Mat angle, bool angleInDegrees)'],['../class_open_c_v_for_unity_1_1_core.html#a78070acde481b0298054744efb94f353',1,'OpenCVForUnity.Core.phase(Mat x, Mat y, Mat angle)']]],

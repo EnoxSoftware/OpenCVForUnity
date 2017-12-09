@@ -12,6 +12,7 @@ var searchData=
   ['clahe',['CLAHE',['../class_open_c_v_for_unity_1_1_c_l_a_h_e.html',1,'OpenCVForUnity']]],
   ['classifiercallback',['ClassifierCallback',['../class_open_c_v_for_unity_1_1_classifier_callback.html',1,'OpenCVForUnity']]],
   ['colormomenthash',['ColorMomentHash',['../class_open_c_v_for_unity_1_1_color_moment_hash.html',1,'OpenCVForUnity']]],
+  ['contourfitting',['ContourFitting',['../class_open_c_v_for_unity_1_1_contour_fitting.html',1,'OpenCVForUnity']]],
   ['converters',['Converters',['../class_open_c_v_for_unity_1_1_converters.html',1,'OpenCVForUnity']]],
   ['core',['Core',['../class_open_c_v_for_unity_1_1_core.html',1,'OpenCVForUnity']]],
   ['cvexception',['CvException',['../class_open_c_v_for_unity_1_1_cv_exception.html',1,'OpenCVForUnity']]],

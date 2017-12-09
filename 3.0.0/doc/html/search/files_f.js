@@ -8,6 +8,7 @@ var searchData=
   ['retina_2ecs',['Retina.cs',['../_retina_8cs.html',1,'']]],
   ['retinafasttonemapping_2ecs',['RetinaFastToneMapping.cs',['../_retina_fast_tone_mapping_8cs.html',1,'']]],
   ['rffeaturegetter_2ecs',['RFFeatureGetter.cs',['../_r_f_feature_getter_8cs.html',1,'']]],
+  ['ridgedetectionfilter_2ecs',['RidgeDetectionFilter.cs',['../_ridge_detection_filter_8cs.html',1,'']]],
   ['rotatedrect_2ecs',['RotatedRect.cs',['../_rotated_rect_8cs.html',1,'']]],
   ['rtrees_2ecs',['RTrees.cs',['../_r_trees_8cs.html',1,'']]]
 ];

@@ -13,7 +13,6 @@ var searchData=
   ['shapecontextdistanceextractor',['ShapeContextDistanceExtractor',['../class_open_c_v_for_unity_1_1_shape_context_distance_extractor.html',1,'OpenCVForUnity']]],
   ['shapedistanceextractor',['ShapeDistanceExtractor',['../class_open_c_v_for_unity_1_1_shape_distance_extractor.html',1,'OpenCVForUnity']]],
   ['shapetransformer',['ShapeTransformer',['../class_open_c_v_for_unity_1_1_shape_transformer.html',1,'OpenCVForUnity']]],
-  ['sift',['SIFT',['../class_open_c_v_for_unity_1_1_s_i_f_t.html',1,'OpenCVForUnity']]],
   ['simplewb',['SimpleWB',['../class_open_c_v_for_unity_1_1_simple_w_b.html',1,'OpenCVForUnity']]],
   ['sinusoidalpattern',['SinusoidalPattern',['../class_open_c_v_for_unity_1_1_sinusoidal_pattern.html',1,'OpenCVForUnity']]],
   ['size',['Size',['../class_open_c_v_for_unity_1_1_size.html',1,'OpenCVForUnity']]],
@@ -36,7 +35,6 @@ var searchData=
   ['superpixellsc',['SuperpixelLSC',['../class_open_c_v_for_unity_1_1_superpixel_l_s_c.html',1,'OpenCVForUnity']]],
   ['superpixelseeds',['SuperpixelSEEDS',['../class_open_c_v_for_unity_1_1_superpixel_s_e_e_d_s.html',1,'OpenCVForUnity']]],
   ['superpixelslic',['SuperpixelSLIC',['../class_open_c_v_for_unity_1_1_superpixel_s_l_i_c.html',1,'OpenCVForUnity']]],
-  ['surf',['SURF',['../class_open_c_v_for_unity_1_1_s_u_r_f.html',1,'OpenCVForUnity']]],
   ['svm',['SVM',['../class_open_c_v_for_unity_1_1_s_v_m.html',1,'OpenCVForUnity']]],
   ['svmsgd',['SVMSGD',['../class_open_c_v_for_unity_1_1_s_v_m_s_g_d.html',1,'OpenCVForUnity']]]
 ];

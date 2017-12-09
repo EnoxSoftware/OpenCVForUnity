@@ -25,6 +25,7 @@ var searchData=
   ['trainem',['trainEM',['../class_open_c_v_for_unity_1_1_e_m.html#a268ff261c380576a8fd1870766868765',1,'OpenCVForUnity.EM.trainEM(Mat samples, Mat logLikelihoods, Mat labels, Mat probs)'],['../class_open_c_v_for_unity_1_1_e_m.html#acd5ea0fd31d74374cc77ff0988c17eff',1,'OpenCVForUnity.EM.trainEM(Mat samples)']]],
   ['trainm',['trainM',['../class_open_c_v_for_unity_1_1_e_m.html#a960c756684048bf12339bd27af0c1665',1,'OpenCVForUnity.EM.trainM(Mat samples, Mat probs0, Mat logLikelihoods, Mat labels, Mat probs)'],['../class_open_c_v_for_unity_1_1_e_m.html#ad6498011a1278e023c7c335b021a3720',1,'OpenCVForUnity.EM.trainM(Mat samples, Mat probs0)']]],
   ['transform',['transform',['../class_open_c_v_for_unity_1_1_core.html#af4b9908d876e8e8b860a1a6bffcda20f',1,'OpenCVForUnity::Core']]],
+  ['transformfd',['transformFD',['../class_open_c_v_for_unity_1_1_ximgproc.html#aa5c959d4a01f26fa92434db5382fb66f',1,'OpenCVForUnity.Ximgproc.transformFD(Mat src, Mat t, Mat dst, bool fdContour)'],['../class_open_c_v_for_unity_1_1_ximgproc.html#a7a1fb55f1e6a81dd0647515544790086',1,'OpenCVForUnity.Ximgproc.transformFD(Mat src, Mat t, Mat dst)']]],
   ['transpose',['transpose',['../class_open_c_v_for_unity_1_1_core.html#a15240e91c27df22a964b7b3233aae393',1,'OpenCVForUnity::Core']]],
   ['triangulatepoints',['triangulatePoints',['../class_open_c_v_for_unity_1_1_calib3d.html#aeaee486b1c8398b9013741db16888efc',1,'OpenCVForUnity::Calib3d']]],
   ['type',['type',['../class_open_c_v_for_unity_1_1_mat.html#a1c7785d8e8bae759cbda6d20254e5d95',1,'OpenCVForUnity::Mat']]],

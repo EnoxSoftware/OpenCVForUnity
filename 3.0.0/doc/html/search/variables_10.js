@@ -18,6 +18,7 @@ var searchData=
   ['reg_5fl1',['REG_L1',['../class_open_c_v_for_unity_1_1_logistic_regression.html#aa4f17f5d7560d47391d54a3b978474b0',1,'OpenCVForUnity::LogisticRegression']]],
   ['reg_5fl2',['REG_L2',['../class_open_c_v_for_unity_1_1_logistic_regression.html#a3f45beb98048178067227aa5bb84589c',1,'OpenCVForUnity::LogisticRegression']]],
   ['regular',['REGULAR',['../class_open_c_v_for_unity_1_1_p_c_t_signatures.html#aa809c3824ad756cbcb58d8ae887838cb',1,'OpenCVForUnity::PCTSignatures']]],
+  ['relu',['RELU',['../class_open_c_v_for_unity_1_1_a_n_n___m_l_p.html#a47a1409575dd58843e51ff10f307fe1b',1,'OpenCVForUnity::ANN_MLP']]],
   ['response',['response',['../class_open_c_v_for_unity_1_1_key_point.html#af9a84cfa8e98b6f97987a4abcc79362c',1,'OpenCVForUnity::KeyPoint']]],
   ['retina_5fcolor_5fbayer',['RETINA_COLOR_BAYER',['../class_open_c_v_for_unity_1_1_bioinspired.html#acc73a5ae81c022154c88a2897c24fec6',1,'OpenCVForUnity::Bioinspired']]],
   ['retina_5fcolor_5fdiagonal',['RETINA_COLOR_DIAGONAL',['../class_open_c_v_for_unity_1_1_bioinspired.html#ad35efebc93267e4092fe532cc39fa4a7',1,'OpenCVForUnity::Bioinspired']]],

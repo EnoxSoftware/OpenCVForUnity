@@ -28,5 +28,6 @@ var searchData=
   ['font_5fhershey_5fsimplex',['FONT_HERSHEY_SIMPLEX',['../class_open_c_v_for_unity_1_1_core.html#a26aa0f3c0e4a8f5b0900918dc3bd474e',1,'OpenCVForUnity::Core']]],
   ['font_5fhershey_5ftriplex',['FONT_HERSHEY_TRIPLEX',['../class_open_c_v_for_unity_1_1_core.html#a4a420188322b3885f230c6236b4ce348',1,'OpenCVForUnity::Core']]],
   ['font_5fitalic',['FONT_ITALIC',['../class_open_c_v_for_unity_1_1_core.html#aeda31b6f45dc9d7b895c62670dd3e8db',1,'OpenCVForUnity::Core']]],
+  ['freak',['FREAK',['../class_open_c_v_for_unity_1_1_descriptor_extractor.html#a103bba1cdd5da02ce8c871f54d817e1d',1,'OpenCVForUnity::DescriptorExtractor']]],
   ['ftp',['FTP',['../class_open_c_v_for_unity_1_1_structured__light.html#ac5ee58b2291297dda21743efdffbf5a3',1,'OpenCVForUnity::Structured_light']]]
 ];

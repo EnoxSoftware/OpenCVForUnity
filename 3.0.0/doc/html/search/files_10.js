@@ -13,7 +13,6 @@ var searchData=
   ['shapecontextdistanceextractor_2ecs',['ShapeContextDistanceExtractor.cs',['../_shape_context_distance_extractor_8cs.html',1,'']]],
   ['shapedistanceextractor_2ecs',['ShapeDistanceExtractor.cs',['../_shape_distance_extractor_8cs.html',1,'']]],
   ['shapetransformer_2ecs',['ShapeTransformer.cs',['../_shape_transformer_8cs.html',1,'']]],
-  ['sift_2ecs',['SIFT.cs',['../_s_i_f_t_8cs.html',1,'']]],
   ['simplewb_2ecs',['SimpleWB.cs',['../_simple_w_b_8cs.html',1,'']]],
   ['sinusoidalpattern_2ecs',['SinusoidalPattern.cs',['../_sinusoidal_pattern_8cs.html',1,'']]],
   ['size_2ecs',['Size.cs',['../_size_8cs.html',1,'']]],
@@ -36,7 +35,6 @@ var searchData=
   ['superpixellsc_2ecs',['SuperpixelLSC.cs',['../_superpixel_l_s_c_8cs.html',1,'']]],
   ['superpixelseeds_2ecs',['SuperpixelSEEDS.cs',['../_superpixel_s_e_e_d_s_8cs.html',1,'']]],
   ['superpixelslic_2ecs',['SuperpixelSLIC.cs',['../_superpixel_s_l_i_c_8cs.html',1,'']]],
-  ['surf_2ecs',['SURF.cs',['../_s_u_r_f_8cs.html',1,'']]],
   ['svm_2ecs',['SVM.cs',['../_s_v_m_8cs.html',1,'']]],
   ['svmsgd_2ecs',['SVMSGD.cs',['../_s_v_m_s_g_d_8cs.html',1,'']]]
 ];

@@ -9,6 +9,7 @@ var searchData=
   ['l5',['L5',['../class_open_c_v_for_unity_1_1_p_c_t_signatures.html#a5fee5dd82e00403c166e42f58b9baf62',1,'OpenCVForUnity::PCTSignatures']]],
   ['l_5finfinity',['L_INFINITY',['../class_open_c_v_for_unity_1_1_p_c_t_signatures.html#a195329a646fcccb22ce6edac56dc2334',1,'OpenCVForUnity::PCTSignatures']]],
   ['ldr_5fsize',['LDR_SIZE',['../class_open_c_v_for_unity_1_1_photo.html#ac5997af6e16c301e6f5bc580e228c167',1,'OpenCVForUnity::Photo']]],
+  ['leakyrelu',['LEAKYRELU',['../class_open_c_v_for_unity_1_1_a_n_n___m_l_p.html#af4c9121f406b00ffc25e721dae5a41da',1,'OpenCVForUnity::ANN_MLP']]],
   ['line_5f4',['LINE_4',['../class_open_c_v_for_unity_1_1_core.html#ad7123a871fe48c63ae3f4d4ce86cc2f0',1,'OpenCVForUnity.Core.LINE_4()'],['../class_open_c_v_for_unity_1_1_imgproc.html#a13aba1149cdb6104389a0dde478d3879',1,'OpenCVForUnity.Imgproc.LINE_4()']]],
   ['line_5f8',['LINE_8',['../class_open_c_v_for_unity_1_1_core.html#ac1aa8eb7244b89c408daad5e48c57ea3',1,'OpenCVForUnity.Core.LINE_8()'],['../class_open_c_v_for_unity_1_1_imgproc.html#ae58b8106b952be4ee9007af3e6552f8a',1,'OpenCVForUnity.Imgproc.LINE_8()']]],
   ['line_5faa',['LINE_AA',['../class_open_c_v_for_unity_1_1_core.html#a8ae33eb831ac638d2105cfbdacda53f6',1,'OpenCVForUnity.Core.LINE_AA()'],['../class_open_c_v_for_unity_1_1_imgproc.html#acf5d48b7d9bd0b4cae59030042049d0c',1,'OpenCVForUnity.Imgproc.LINE_AA()']]],
