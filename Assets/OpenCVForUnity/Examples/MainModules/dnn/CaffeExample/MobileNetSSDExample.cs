@@ -20,7 +20,6 @@ namespace OpenCVForUnityExample
     {
         const float inWidth = 300;
         const float inHeight = 300;
-        float WHRatio = inWidth / inHeight;
         float inScaleFactor = 0.007843f;
         float meanVal = 127.5f;
                 
@@ -48,15 +47,6 @@ namespace OpenCVForUnityExample
             }
             #endif
 
-            Size inVideoSize = new Size (img.width (), img.height ());
-            Size cropSize;
-            if (inVideoSize.width / (float)inVideoSize.height > WHRatio) {
-                cropSize = new Size (inVideoSize.height * WHRatio, inVideoSize.height);
-            } else {
-                cropSize = new Size (inVideoSize.width, inVideoSize.width / WHRatio);
-            }
-            OpenCVForUnity.Rect crop = new OpenCVForUnity.Rect (new Point ((inVideoSize.width - cropSize.width) / 2, (inVideoSize.height - cropSize.height) / 2), cropSize);
-
 
             Net net = null;
 
@@ -71,14 +61,13 @@ namespace OpenCVForUnityExample
             }
 
             if (net == null) {
-                img = new Mat (img, crop);
 
                 Imgproc.putText (img, "model file is not loaded.", new Point (5, img.rows () - 30), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255), 2, Imgproc.LINE_AA, false);
                 Imgproc.putText (img, "Please read console message.", new Point (5, img.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255), 2, Imgproc.LINE_AA, false);
 
             } else {
 
-                Mat blob = Dnn.blobFromImage (img, inScaleFactor, new Size (inWidth, inHeight), new Scalar (meanVal), false, true);
+                Mat blob = Dnn.blobFromImage (img, inScaleFactor, new Size (inWidth, inHeight), new Scalar (meanVal, meanVal, meanVal), false, false);
 
                 net.setInput (blob);
 
@@ -93,7 +82,6 @@ namespace OpenCVForUnityExample
                 Debug.Log ("Inference time, ms: " + tm.getTimeMilli ());
 
 
-                img = new Mat (img, crop);
 
                 float[] data = new float[7];
 
@@ -107,29 +95,31 @@ namespace OpenCVForUnityExample
                     if (confidence > confidenceThreshold) {
                         int class_id = (int)(data [1]);
 
-                        float xLeftBottom = data [3] * img.cols ();
-                        float yLeftBottom = data [4] * img.rows ();
-                        float xRightTop = data [5] * img.cols ();
-                        float yRightTop = data [6] * img.rows ();
+                        float left = data [3] * img.cols ();
+                        float top = data [4] * img.rows ();
+                        float right = data [5] * img.cols ();
+                        float bottom = data [6] * img.rows ();
 
                         Debug.Log ("class_id: " + class_id);
                         Debug.Log ("Confidence: " + confidence);
 
-                        Debug.Log (" " + xLeftBottom
-                        + " " + yLeftBottom
-                        + " " + xRightTop
-                        + " " + yRightTop);
+                        Debug.Log (" " + left
+                        + " " + top
+                        + " " + right
+                        + " " + bottom);
 
-                        Imgproc.rectangle (img, new Point (xLeftBottom, yLeftBottom), new Point (xRightTop, yRightTop),
+                        Imgproc.rectangle (img, new Point (left, top), new Point (right, bottom),
                             new Scalar (0, 255, 0), 2);
                         string label = classNames [class_id] + ": " + confidence;
                         int[] baseLine = new int[1];
                         Size labelSize = Imgproc.getTextSize (label, Core.FONT_HERSHEY_SIMPLEX, 0.5, 1, baseLine);
 
-                        Imgproc.rectangle (img, new Point (xLeftBottom, yLeftBottom),
-                            new Point (xLeftBottom + labelSize.width, yLeftBottom + labelSize.height + baseLine [0]),
+                        top = Mathf.Max (top, (float)labelSize.height);
+
+                        Imgproc.rectangle (img, new Point (left, top),
+                            new Point (left + labelSize.width, top + labelSize.height + baseLine [0]),
                             new Scalar (255, 255, 255), Core.FILLED);
-                        Imgproc.putText (img, label, new Point (xLeftBottom, yLeftBottom + labelSize.height),
+                        Imgproc.putText (img, label, new Point (left, top + labelSize.height),
                             Core.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (0, 0, 0));
                     }
                 }

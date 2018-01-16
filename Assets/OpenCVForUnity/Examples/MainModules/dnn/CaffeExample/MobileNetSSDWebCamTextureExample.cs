@@ -26,18 +26,12 @@ namespace OpenCVForUnityExample
         Texture2D texture;
 
         /// <summary>
-        /// The colors.
-        /// </summary>
-        Color32[] colors;
-
-        /// <summary>
         /// The webcam texture to mat helper.
         /// </summary>
         WebCamTextureToMatHelper webCamTextureToMatHelper;
 
         const float inWidth = 300;
         const float inHeight = 300;
-        float WHRatio = inWidth / inHeight;
         float inScaleFactor = 0.007843f;
         float meanVal = 127.5f;
         
@@ -63,11 +57,6 @@ namespace OpenCVForUnityExample
         /// The net.
         /// </summary>
         Net net;
-
-        /// <summary>
-        /// The crop.
-        /// </summary>
-        OpenCVForUnity.Rect crop;
 
         // Use this for initialization
         void Start ()
@@ -98,38 +87,29 @@ namespace OpenCVForUnityExample
 
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
 
+            bgrMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC3);
+
 
             float width = webCamTextureMat.width ();
             float height = webCamTextureMat.height ();
 
-            Size inVideoSize = new Size (width, height);
-            Size cropSize;
-            if (inVideoSize.width / (float)inVideoSize.height > WHRatio) {
-                cropSize = new Size (inVideoSize.height * WHRatio, inVideoSize.height);
-            } else {
-                cropSize = new Size (inVideoSize.width, inVideoSize.width / WHRatio);
-            }
-            crop = new OpenCVForUnity.Rect (new Point ((inVideoSize.width - cropSize.width) / 2, (inVideoSize.height - cropSize.height) / 2), cropSize);
 
-
-            float widthScale = (float)Screen.width / crop.width;
-            float heightScale = (float)Screen.height / crop.height;
+            float widthScale = (float)Screen.width / width;
+            float heightScale = (float)Screen.height / height;
             if (widthScale < heightScale) {
-                Camera.main.orthographicSize = (crop.width * (float)Screen.height / (float)Screen.width) / 2;
+                Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
             } else {
-                Camera.main.orthographicSize = crop.height / 2;
+                Camera.main.orthographicSize = height / 2;
             }
 
 
-            texture = new Texture2D (crop.width, crop.height, TextureFormat.RGBA32, false);
-            colors = new Color32[crop.width * crop.height];
+            texture = new Texture2D (webCamTextureMat.cols (), webCamTextureMat.rows (), TextureFormat.RGBA32, false);
             
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
             
-            gameObject.transform.localScale = new Vector3 (crop.width, crop.height, 1);
+            gameObject.transform.localScale = new Vector3 (width, height, 1);
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
-            bgrMat = new Mat (crop.height, crop.width, CvType.CV_8UC3);
         }
 
         /// <summary>
@@ -162,8 +142,6 @@ namespace OpenCVForUnityExample
 
                 if (net == null) {
 
-                    rgbaMat = new Mat (rgbaMat, crop);
-
                     Imgproc.putText (rgbaMat, "model file is not loaded.", new Point (5, rgbaMat.rows () - 30), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                     Imgproc.putText (rgbaMat, "Please read console message.", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
@@ -171,13 +149,11 @@ namespace OpenCVForUnityExample
 
                     Imgproc.cvtColor (rgbaMat, bgrMat, Imgproc.COLOR_RGBA2BGR);
 
-                    blob = Dnn.blobFromImage (bgrMat, inScaleFactor, new Size (inWidth, inHeight), new Scalar (meanVal), false, true);
+                    blob = Dnn.blobFromImage (bgrMat, inScaleFactor, new Size (inWidth, inHeight), new Scalar (meanVal, meanVal, meanVal), false, false);
                     net.setInput (blob);
 
                     Mat prob = net.forward ();
                     prob = prob.reshape (1, (int)prob.total () / 7);
-
-                    rgbaMat = new Mat (rgbaMat, crop);
                 
                 
                     float[] data = new float[7];
@@ -192,21 +168,21 @@ namespace OpenCVForUnityExample
                         if (confidence > confidenceThreshold) {
                             int class_id = (int)(data [1]);
                         
-                            float xLeftBottom = data [3] * rgbaMat.cols ();
-                            float yLeftBottom = data [4] * rgbaMat.rows ();
-                            float xRightTop = data [5] * rgbaMat.cols ();
-                            float yRightTop = data [6] * rgbaMat.rows ();
+                            float left = data [3] * rgbaMat.cols ();
+                            float top = data [4] * rgbaMat.rows ();
+                            float right = data [5] * rgbaMat.cols ();
+                            float bottom = data [6] * rgbaMat.rows ();
 
-                            Imgproc.rectangle (rgbaMat, new Point (xLeftBottom, yLeftBottom), new Point (xRightTop, yRightTop),
+                            Imgproc.rectangle (rgbaMat, new Point (left, top), new Point (right, bottom),
                                 new Scalar (0, 255, 0, 255), 2);
                             string label = classNames [class_id] + ": " + confidence;
                             int[] baseLine = new int[1];
                             Size labelSize = Imgproc.getTextSize (label, Core.FONT_HERSHEY_SIMPLEX, 0.5, 1, baseLine);
 
-                            Imgproc.rectangle (rgbaMat, new Point (xLeftBottom, yLeftBottom),
-                                new Point (xLeftBottom + labelSize.width, yLeftBottom + labelSize.height + baseLine [0]),
+                            Imgproc.rectangle (rgbaMat, new Point (left, top),
+                                new Point (left + labelSize.width, top + labelSize.height + baseLine [0]),
                                 new Scalar (255, 255, 255, 255), Core.FILLED);
-                            Imgproc.putText (rgbaMat, label, new Point (xLeftBottom, yLeftBottom + labelSize.height),
+                            Imgproc.putText (rgbaMat, label, new Point (left, top + labelSize.height),
                                 Core.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (0, 0, 0, 255));
                         }
                     }
@@ -214,7 +190,7 @@ namespace OpenCVForUnityExample
                     prob.Dispose ();
                 }
 
-                Utils.matToTexture2D (rgbaMat, texture, colors);
+                Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors ());
             }
         }
 

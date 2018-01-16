@@ -8,49 +8,57 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Webcam texture to mat helper.
-    /// v 1.0.3
+    /// v 1.0.4
     /// </summary>
     public class WebCamTextureToMatHelper : MonoBehaviour
     {
         /// <summary>
-        /// Set this to specify the name of the device to use.
+        /// Set the name of the device to use.
         /// </summary>
+        [SerializeField, TooltipAttribute ("Set the name of the device to use.")]
         public string requestedDeviceName = null;
 
         /// <summary>
-        /// Set the requested width of the camera device.
+        /// Set the width of WebCamTexture.
         /// </summary>
+        [SerializeField, TooltipAttribute ("Set the width of WebCamTexture.")]
         public int requestedWidth = 640;
 
         /// <summary>
-        /// Set the requested height of the camera device.
+        /// Set the height of WebCamTexture.
         /// </summary>
+        [SerializeField, TooltipAttribute ("Set the height of WebCamTexture.")]
         public int requestedHeight = 480;
 
         /// <summary>
-        /// Set the requested to using the front camera.
+        /// Set whether to use the front facing camera.
         /// </summary>
+        [SerializeField, TooltipAttribute ("Set whether to use the front facing camera.")]
         public bool requestedIsFrontFacing = false;
 
         /// <summary>
-        /// Set the requested frame rate of the camera device (in frames per second).
+        /// Set FPS of WebCamTexture.
         /// </summary>
+        [SerializeField, TooltipAttribute ("Set FPS of WebCamTexture.")]
         public int requestedFPS = 30;
+
+        /// <summary>
+        /// Sets whether to rotate WebCamTexture 90 degrees.
+        /// </summary>
+        [SerializeField, TooltipAttribute ("Sets whether to rotate WebCamTexture 90 degrees.")]
+        public bool requestedRotate90Degree = false;
 
         /// <summary>
         /// Determines if flips vertically.
         /// </summary>
+        [SerializeField, TooltipAttribute ("Determines if flips vertically.")]
         public bool flipVertical = false;
 
         /// <summary>
         /// Determines if flips horizontal.
         /// </summary>
+        [SerializeField, TooltipAttribute ("Determines if flips horizontal.")]
         public bool flipHorizontal = false;
-
-        /// <summary>
-        /// Determines if rotates 90 degree.
-        /// </summary>
-        public bool rotate90Degree = false;
 
         /// <summary>
         /// The timeout frame count.
@@ -270,12 +278,13 @@ namespace OpenCVForUnityExample
 
                     #if !UNITY_EDITOR && !(UNITY_STANDALONE || UNITY_WEBGL) 
                     if (screenOrientation == ScreenOrientation.Portrait || screenOrientation == ScreenOrientation.PortraitUpsideDown) {
-                        rotate90Degree = true;
+                        rotatedRgbaMat = new Mat (webCamTexture.width, webCamTexture.height, CvType.CV_8UC4);
                     }
                     #endif
 
-                    if (rotate90Degree) {
-                        rotatedRgbaMat = new Mat (webCamTexture.width, webCamTexture.height, CvType.CV_8UC4);
+                    if (requestedRotate90Degree) {
+                        if (rotatedRgbaMat == null)
+                            rotatedRgbaMat = new Mat (webCamTexture.width, webCamTexture.height, CvType.CV_8UC4);
                     }
 
                     isInitWaiting = false;
@@ -404,9 +413,7 @@ namespace OpenCVForUnityExample
 
             if (rotatedRgbaMat != null) {
 
-                using (Mat transposeRgbaMat = rgbaMat.t ()) {
-                    Core.flip (transposeRgbaMat, rotatedRgbaMat, 1);
-                }
+                Core.rotate (rgbaMat, rotatedRgbaMat, Core.ROTATE_90_CLOCKWISE);
 
                 FlipMat (rotatedRgbaMat);
 
