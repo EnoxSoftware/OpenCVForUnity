@@ -118,7 +118,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Orientation of the screen.
         /// </summary>
-        protected ScreenOrientation screenOrientation = ScreenOrientation.Unknown;
+        protected ScreenOrientation screenOrientation;
 
         [System.Serializable]
         public enum ErrorCode :int

@@ -501,5 +501,14 @@ namespace OpenCVForUnityExample
             Application.LoadLevel ("YoloObjectDetectionWebCamTextureExample");
             #endif
         }
+
+        public void OnImwriteScreenCaptureExampleButtonClick ()
+        {
+            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
+            SceneManager.LoadScene ("ImwriteScreenCaptureExample");
+            #else
+            Application.LoadLevel ("ImwriteScreenCaptureExample");
+            #endif
+        }
     }
 }
