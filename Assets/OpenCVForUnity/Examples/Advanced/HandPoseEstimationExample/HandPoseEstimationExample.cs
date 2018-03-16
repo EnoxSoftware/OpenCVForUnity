@@ -180,21 +180,20 @@ namespace OpenCVForUnityExample
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
 
                 if(storedTouchPoint != null) {
-                    onTouch (rgbaMat, convertScreenPoint (storedTouchPoint, gameObject, Camera.main));
+                    ConvertScreenPointToTexturePoint (storedTouchPoint, storedTouchPoint, gameObject, rgbaMat.cols (), rgbaMat.rows ());
+                    OnTouch (rgbaMat, storedTouchPoint);
                     storedTouchPoint = null;
                 }
                 
-                handPoseEstimationProcess (rgbaMat);
+                HandPoseEstimationProcess (rgbaMat);
                 
                 Imgproc.putText (rgbaMat, "Please touch the area of the open hand.", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                
-//              Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                
+
                 Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors());
             }
         }
 
-        private void handPoseEstimationProcess (Mat rgbaMat)
+        private void HandPoseEstimationProcess (Mat rgbaMat)
         {
             //Imgproc.blur(mRgba, mRgba, new Size(5,5));
             Imgproc.GaussianBlur (rgbaMat, rgbaMat, new OpenCVForUnity.Size (3, 3), 1, 1);
@@ -203,8 +202,8 @@ namespace OpenCVForUnityExample
             if (!isColorSelected)
                 return;
             
-            List<MatOfPoint> contours = detector.getContours ();
-            detector.process (rgbaMat);
+            List<MatOfPoint> contours = detector.GetContours ();
+            detector.Process (rgbaMat);
             
             //                      Debug.Log ("Contours count: " + contours.Count);
             
@@ -226,8 +225,10 @@ namespace OpenCVForUnityExample
                     boundPos = i;
                 }
             }
+
+            MatOfPoint contour = contours [boundPos];
             
-            OpenCVForUnity.Rect boundRect = Imgproc.boundingRect (new MatOfPoint (contours [boundPos].toArray ()));
+            OpenCVForUnity.Rect boundRect = Imgproc.boundingRect (new MatOfPoint (contour.toArray ()));
             Imgproc.rectangle (rgbaMat, boundRect.tl (), boundRect.br (), CONTOUR_COLOR_WHITE, 2, 8, 0);
             
             //                      Debug.Log (
@@ -244,50 +245,52 @@ namespace OpenCVForUnityExample
             
             //                      Debug.Log (
             //                      " A [" + a + "] br y - tl y = [" + (boundRect.br ().y - boundRect.tl ().y) + "]");
-            
-            //Core.rectangle( mRgba, boundRect.tl(), boundRect.br(), CONTOUR_COLOR, 2, 8, 0 );
+
             Imgproc.rectangle (rgbaMat, boundRect.tl (), new Point (boundRect.br ().x, a), CONTOUR_COLOR, 2, 8, 0);
             
             MatOfPoint2f pointMat = new MatOfPoint2f ();
-            Imgproc.approxPolyDP (new MatOfPoint2f (contours [boundPos].toArray ()), pointMat, 3, true);
-            contours [boundPos] = new MatOfPoint (pointMat.toArray ());
+            Imgproc.approxPolyDP (new MatOfPoint2f (contour.toArray ()), pointMat, 3, true);
+            contour = new MatOfPoint (pointMat.toArray ());
             
             MatOfInt hull = new MatOfInt ();
             MatOfInt4 convexDefect = new MatOfInt4 ();
-            Imgproc.convexHull (new MatOfPoint (contours [boundPos].toArray ()), hull);
+            Imgproc.convexHull (new MatOfPoint (contour.toArray ()), hull);
             
             if (hull.toArray ().Length < 3)
                 return;
             
-            Imgproc.convexityDefects (new MatOfPoint (contours [boundPos]   .toArray ()), hull, convexDefect);
+            Imgproc.convexityDefects (new MatOfPoint (contour.toArray ()), hull, convexDefect);
             
             List<MatOfPoint> hullPoints = new List<MatOfPoint> ();
             List<Point> listPo = new List<Point> ();
             for (int j = 0; j < hull.toList().Count; j++) {
-                listPo.Add (contours [boundPos].toList () [hull.toList () [j]]);
+                listPo.Add (contour.toList () [hull.toList () [j]]);
             }
             
             MatOfPoint e = new MatOfPoint ();
             e.fromList (listPo);
             hullPoints.Add (e);
-            
-            List<MatOfPoint> defectPoints = new List<MatOfPoint> ();
+
             List<Point> listPoDefect = new List<Point> ();
-            for (int j = 0; j < convexDefect.toList().Count; j = j+4) {
-                Point farPoint = contours [boundPos].toList () [convexDefect.toList () [j + 2]];
-                int depth = convexDefect.toList () [j + 3];
-                if (depth > threasholdSlider.value && farPoint.y < a) {
-                    listPoDefect.Add (contours [boundPos].toList () [convexDefect.toList () [j + 2]]);
+
+            if (convexDefect.rows () > 0) {
+                List<int> convexDefectList = convexDefect.toList ();
+                List<Point> contourList = contour.toList ();
+                for (int j = 0; j < convexDefectList.Count; j = j + 4) {
+                    Point farPoint = contourList [convexDefectList [j + 2]];
+                    int depth = convexDefectList [j + 3];
+                    if (depth > threasholdSlider.value && farPoint.y < a) {
+                        listPoDefect.Add (contourList [convexDefectList [j + 2]]);
+                    }
+                    //                              Debug.Log ("convexDefectList [" + j + "] " + convexDefectList [j + 3]);
                 }
-                //                              Debug.Log ("defects [" + j + "] " + convexDefect.toList () [j + 3]);
             }
-            
-            MatOfPoint e2 = new MatOfPoint ();
-            e2.fromList (listPo);
-            defectPoints.Add (e2);
+
             
             //                      Debug.Log ("hull: " + hull.toList ());
-            //                      Debug.Log ("defects: " + convexDefect.toList ());
+            //                      if (convexDefect.rows () > 0) {
+            //                          Debug.Log ("defects: " + convexDefect.toList ());
+            //                      }
             
             Imgproc.drawContours (rgbaMat, hullPoints, -1, CONTOUR_COLOR, 3);
             
@@ -309,15 +312,15 @@ namespace OpenCVForUnityExample
             }
         }
         
-        private void onTouch (Mat rgbaMat, Point touchPoint)
+        private void OnTouch (Mat img, Point touchPoint)
         {
-            int cols = rgbaMat.cols ();
-            int rows = rgbaMat.rows ();
+            int cols = img.cols ();
+            int rows = img.rows ();
             
             int x = (int)touchPoint.x;
             int y = (int)touchPoint.y;
             
-            //                      Debug.Log ("Touch image coordinates: (" + x + ", " + y + ")");
+            //Debug.Log ("Touch image coordinates: (" + x + ", " + y + ")");
             
             if ((x < 0) || (y < 0) || (x > cols) || (y > rows))
                 return;
@@ -330,78 +333,87 @@ namespace OpenCVForUnityExample
             touchedRect.width = (x + 5 < cols) ? x + 5 - touchedRect.x : cols - touchedRect.x;
             touchedRect.height = (y + 5 < rows) ? y + 5 - touchedRect.y : rows - touchedRect.y;
             
-            Mat touchedRegionRgba = rgbaMat.submat (touchedRect);
+            using (Mat touchedRegionRgba = img.submat (touchedRect))
+            using (Mat touchedRegionHsv = new Mat ()) {
+                Imgproc.cvtColor (touchedRegionRgba, touchedRegionHsv, Imgproc.COLOR_RGB2HSV_FULL);
             
-            Mat touchedRegionHsv = new Mat ();
-            Imgproc.cvtColor (touchedRegionRgba, touchedRegionHsv, Imgproc.COLOR_RGB2HSV_FULL);
+                // Calculate average color of touched region
+                blobColorHsv = Core.sumElems (touchedRegionHsv);
+                int pointCount = touchedRect.width * touchedRect.height;
+                for (int i = 0; i < blobColorHsv.val.Length; i++)
+                    blobColorHsv.val [i] /= pointCount;
             
-            // Calculate average color of touched region
-            blobColorHsv = Core.sumElems (touchedRegionHsv);
-            int pointCount = touchedRect.width * touchedRect.height;
-            for (int i = 0; i < blobColorHsv.val.Length; i++)
-                blobColorHsv.val [i] /= pointCount;
+                //blobColorRgba = ConverScalarHsv2Rgba (blobColorHsv);            
+                //Debug.Log ("Touched rgba color: (" + mBlobColorRgba.val [0] + ", " + mBlobColorRgba.val [1] +
+                //  ", " + mBlobColorRgba.val [2] + ", " + mBlobColorRgba.val [3] + ")");
             
-            //blobColorRgba = converScalarHsv2Rgba (blobColorHsv);
+                detector.SetHsvColor (blobColorHsv);
             
-            //                      Debug.Log ("Touched rgba color: (" + mBlobColorRgba.val [0] + ", " + mBlobColorRgba.val [1] +
-            //                              ", " + mBlobColorRgba.val [2] + ", " + mBlobColorRgba.val [3] + ")");
+                Imgproc.resize (detector.GetSpectrum (), spectrumMat, SPECTRUM_SIZE);
             
-            detector.setHsvColor (blobColorHsv);
-            
-            Imgproc.resize (detector.getSpectrum (), spectrumMat, SPECTRUM_SIZE);
-            
-            isColorSelected = true;
-            
-            touchedRegionRgba.release ();
-            touchedRegionHsv.release ();
+                isColorSelected = true;
+            }
         }
         
-        private Scalar converScalarHsv2Rgba (Scalar hsvColor)
+        private Scalar ConverScalarHsv2Rgba (Scalar hsvColor)
         {
-            Mat pointMatRgba = new Mat ();
-            Mat pointMatHsv = new Mat (1, 1, CvType.CV_8UC3, hsvColor);
-            Imgproc.cvtColor (pointMatHsv, pointMatRgba, Imgproc.COLOR_HSV2RGB_FULL, 4);
+            Scalar rgbaColor;
+            using (Mat pointMatRgba = new Mat ())
+            using (Mat pointMatHsv = new Mat (1, 1, CvType.CV_8UC3, hsvColor)) {
+                Imgproc.cvtColor (pointMatHsv, pointMatRgba, Imgproc.COLOR_HSV2RGB_FULL, 4);
+                rgbaColor = new Scalar (pointMatRgba.get (0, 0));
+            }
             
-            return new Scalar (pointMatRgba.get (0, 0));
+            return rgbaColor;
         }
         
-        private Point convertScreenPoint (Point screenPoint, GameObject quad, Camera cam)
+        /// <summary>
+        /// Converts the screen point to texture point.
+        /// </summary>
+        /// <param name="screenPoint">Screen point.</param>
+        /// <param name="dstPoint">Dst point.</param>
+        /// <param name="texturQuad">Texture quad.</param>
+        /// <param name="textureWidth">Texture width.</param>
+        /// <param name="textureHeight">Texture height.</param>
+        /// <param name="camera">Camera.</param>
+        private void ConvertScreenPointToTexturePoint (Point screenPoint, Point dstPoint, GameObject textureQuad, int textureWidth = -1, int textureHeight = -1, Camera camera = null)
         {
-            Vector2 tl;
-            Vector2 tr;
-            Vector2 br;
-            Vector2 bl;
-            
-            
-            tl = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x - quad.transform.localScale.x / 2, quad.transform.localPosition.y + quad.transform.localScale.y / 2, quad.transform.localPosition.z));
-            tr = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x + quad.transform.localScale.x / 2, quad.transform.localPosition.y + quad.transform.localScale.y / 2, quad.transform.localPosition.z));
-            br = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x + quad.transform.localScale.x / 2, quad.transform.localPosition.y - quad.transform.localScale.y / 2, quad.transform.localPosition.z));
-            bl = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x - quad.transform.localScale.x / 2, quad.transform.localPosition.y - quad.transform.localScale.y / 2, quad.transform.localPosition.z));
-            
-            
-            Mat srcRectMat = new Mat (4, 1, CvType.CV_32FC2);
-            Mat dstRectMat = new Mat (4, 1, CvType.CV_32FC2);
-            
-            
-            srcRectMat.put (0, 0, tl.x, tl.y, tr.x, tr.y, br.x, br.y, bl.x, bl.y);
-            dstRectMat.put (0, 0, 0.0, 0.0, quad.transform.localScale.x, 0.0, quad.transform.localScale.x, quad.transform.localScale.y, 0.0, quad.transform.localScale.y);
-            
-            
-            Mat perspectiveTransform = Imgproc.getPerspectiveTransform (srcRectMat, dstRectMat);
-            
-            //                      Debug.Log ("srcRectMat " + srcRectMat.dump ());
-            //                      Debug.Log ("dstRectMat " + dstRectMat.dump ());
-            //                      Debug.Log ("perspectiveTransform " + perspectiveTransform.dump ());
-            
-            MatOfPoint2f srcPointMat = new MatOfPoint2f (screenPoint);
-            MatOfPoint2f dstPointMat = new MatOfPoint2f ();
-            
-            Core.perspectiveTransform (srcPointMat, dstPointMat, perspectiveTransform);
-            
-            //                      Debug.Log ("srcPointMat " + srcPointMat.dump ());
-            //                      Debug.Log ("dstPointMat " + dstPointMat.dump ());
-            
-            return dstPointMat.toArray () [0];
+            if (textureWidth < 0 || textureHeight < 0) {
+                Renderer r = textureQuad.GetComponent<Renderer> ();
+                if (r != null && r.material != null && r.material.mainTexture != null) {
+                    textureWidth = r.material.mainTexture.width;
+                    textureHeight = r.material.mainTexture.height;
+                } else {
+                    textureWidth = (int)textureQuad.transform.localScale.x;
+                    textureHeight = (int)textureQuad.transform.localScale.y;
+                }
+            }
+
+            if (camera == null)
+                camera = Camera.main;
+
+            Vector3 quadPosition = textureQuad.transform.localPosition;
+            Vector3 quadScale = textureQuad.transform.localScale;
+
+            Vector2 tl = camera.WorldToScreenPoint (new Vector3 (quadPosition.x - quadScale.x / 2, quadPosition.y + quadScale.y / 2, quadPosition.z));
+            Vector2 tr = camera.WorldToScreenPoint (new Vector3 (quadPosition.x + quadScale.x / 2, quadPosition.y + quadScale.y / 2, quadPosition.z));
+            Vector2 br = camera.WorldToScreenPoint (new Vector3 (quadPosition.x + quadScale.x / 2, quadPosition.y - quadScale.y / 2, quadPosition.z));
+            Vector2 bl = camera.WorldToScreenPoint (new Vector3 (quadPosition.x - quadScale.x / 2, quadPosition.y - quadScale.y / 2, quadPosition.z));                       
+
+            using(Mat srcRectMat = new Mat (4, 1, CvType.CV_32FC2))
+            using(Mat dstRectMat = new Mat (4, 1, CvType.CV_32FC2)) {
+                srcRectMat.put (0, 0, tl.x, tl.y, tr.x, tr.y, br.x, br.y, bl.x, bl.y);
+                dstRectMat.put (0, 0, 0, 0, quadScale.x, 0, quadScale.x, quadScale.y, 0, quadScale.y);            
+
+                using(Mat perspectiveTransform = Imgproc.getPerspectiveTransform (srcRectMat, dstRectMat))
+                using(MatOfPoint2f srcPointMat = new MatOfPoint2f (screenPoint))
+                using(MatOfPoint2f dstPointMat = new MatOfPoint2f ()) {
+                    Core.perspectiveTransform (srcPointMat, dstPointMat, perspectiveTransform);
+
+                    dstPoint.x = dstPointMat.get(0,0)[0] * textureWidth / quadScale.x;
+                    dstPoint.y = dstPointMat.get(0,0)[1] * textureHeight / quadScale.y;
+                }
+            }
         }
 
         /// <summary>
@@ -410,6 +422,9 @@ namespace OpenCVForUnityExample
         void OnDestroy ()
         {
             webCamTextureToMatHelper.Dispose ();
+
+            if (detector != null)
+                detector.Dispose ();
         }
 
         /// <summary>

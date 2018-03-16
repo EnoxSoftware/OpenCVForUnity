@@ -1,4 +1,4 @@
-#if !UNITY_WEBGL && !UNITY_WSA_10_0
+#if !UNITY_WSA_10_0
 
 using UnityEngine;
 using System.Collections;
@@ -43,23 +43,65 @@ namespace OpenCVForUnityExample
         /// </summary>
         Net net;
 
+        string res10_300x300_ssd_iter_140000_caffemodel_filepath;
+        string deploy_prototxt_filepath;
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
+#endif
+
         // Use this for initialization
         void Start ()
+        {
+            webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+var getFilePath_Coroutine = GetFilePath ();
+coroutines.Push (getFilePath_Coroutine);
+StartCoroutine (getFilePath_Coroutine);
+#else
+            res10_300x300_ssd_iter_140000_caffemodel_filepath = Utils.getFilePath ("dnn/res10_300x300_ssd_iter_140000.caffemodel");
+            deploy_prototxt_filepath = Utils.getFilePath ("dnn/deploy.prototxt");
+            Run ();
+#endif
+        }
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+private IEnumerator GetFilePath()
+{
+
+            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("dnn/res10_300x300_ssd_iter_140000.caffemodel", (result) => {
+res10_300x300_ssd_iter_140000_caffemodel_filepath = result;
+});
+coroutines.Push (getFilePathAsync_0_Coroutine);
+yield return StartCoroutine (getFilePathAsync_0_Coroutine);
+
+            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("dnn/deploy.prototxt", (result) => {
+deploy_prototxt_filepath = result;
+});
+coroutines.Push (getFilePathAsync_1_Coroutine);
+yield return StartCoroutine (getFilePathAsync_1_Coroutine);
+
+coroutines.Clear ();
+
+Run ();
+}
+#endif
+
+        // Use this for initialization
+        void Run ()
         {
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             Utils.setDebugMode (true);
 
-            string model_filepath = Utils.getFilePath ("dnn/res10_300x300_ssd_iter_140000.caffemodel");
-            string prototxt_filepath = Utils.getFilePath ("dnn/deploy.prototxt");
 
-            if (string.IsNullOrEmpty (model_filepath) || string.IsNullOrEmpty (prototxt_filepath)) {
+            if (string.IsNullOrEmpty (res10_300x300_ssd_iter_140000_caffemodel_filepath) || string.IsNullOrEmpty (deploy_prototxt_filepath)) {
                 Debug.LogError ("model file is not loaded.The model and prototxt file can be downloaded here: \"https://raw.githubusercontent.com/opencv/opencv_3rdparty/b2bfc75f6aea5b1f834ff0f0b865a7c18ff1459f/res10_300x300_ssd_iter_140000.caffemodel\" and \"https://github.com/opencv/opencv/blob/master/samples/dnn/face_detector/deploy.prototxt\".Please copy to “Assets/StreamingAssets/dnn/” folder. ");
             } else {
-                net = Dnn.readNetFromCaffe (prototxt_filepath, model_filepath);
+                net = Dnn.readNetFromCaffe (deploy_prototxt_filepath, res10_300x300_ssd_iter_140000_caffemodel_filepath);
 
             }
-
-            webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
+                
             webCamTextureToMatHelper.Initialize ();
         }
 

@@ -19,18 +19,18 @@ namespace OpenCVForUnityExample
         private List<MatOfPoint> mContours = new List<MatOfPoint> ();
     
         // Cache
-        Mat mPyrDownMat = new Mat ();
-        Mat mHsvMat = new Mat ();
-        Mat mMask = new Mat ();
-        Mat mDilatedMask = new Mat ();
-        Mat mHierarchy = new Mat ();
+        private Mat mPyrDownMat = new Mat ();
+        private Mat mHsvMat = new Mat ();
+        private Mat mMask = new Mat ();
+        private Mat mDilatedMask = new Mat ();
+        private Mat mHierarchy = new Mat ();
     
-        public void setColorRadius (Scalar radius)
+        public void SetColorRadius (Scalar radius)
         {
             mColorRadius = radius;
         }
     
-        public void setHsvColor (Scalar hsvColor)
+        public void SetHsvColor (Scalar hsvColor)
         {
             double minH = (hsvColor.val [0] >= mColorRadius.val [0]) ? hsvColor.val [0] - mColorRadius.val [0] : 0;
             double maxH = (hsvColor.val [0] + mColorRadius.val [0] <= 255) ? hsvColor.val [0] + mColorRadius.val [0] : 255;
@@ -47,27 +47,27 @@ namespace OpenCVForUnityExample
             mLowerBound.val [3] = 0;
             mUpperBound.val [3] = 255;
         
-            Mat spectrumHsv = new Mat (1, (int)(maxH - minH), CvType.CV_8UC3);
+            using (Mat spectrumHsv = new Mat (1, (int)(maxH - minH), CvType.CV_8UC3)) {        
+                for (int j = 0; j < maxH - minH; j++) {
+                    byte[] tmp = { (byte)(minH + j), (byte)255, (byte)255 };
+                    spectrumHsv.put (0, j, tmp);
+                }
         
-            for (int j = 0; j < maxH-minH; j++) {
-                byte[] tmp = {(byte)(minH + j), (byte)255, (byte)255};
-                spectrumHsv.put (0, j, tmp);
+                Imgproc.cvtColor (spectrumHsv, mSpectrum, Imgproc.COLOR_HSV2RGB_FULL, 4);
             }
-        
-            Imgproc.cvtColor (spectrumHsv, mSpectrum, Imgproc.COLOR_HSV2RGB_FULL, 4);
         }
     
-        public Mat getSpectrum ()
+        public Mat GetSpectrum ()
         {
             return mSpectrum;
         }
     
-        public void setMinContourArea (double area)
+        public void SetMinContourArea (double area)
         {
             mMinContourArea = area;
         }
     
-        public void process (Mat rgbaImage)
+        public void Process (Mat rgbaImage)
         {
             Imgproc.pyrDown (rgbaImage, mPyrDownMat);
             Imgproc.pyrDown (mPyrDownMat, mPyrDownMat);
@@ -101,9 +101,19 @@ namespace OpenCVForUnityExample
             }
         }
     
-        public List<MatOfPoint> getContours ()
+        public List<MatOfPoint> GetContours ()
         {
             return mContours;
+        }
+
+        public void Dispose()
+        {
+            mSpectrum.Dispose ();
+            mPyrDownMat.Dispose ();
+            mHsvMat.Dispose ();
+            mMask.Dispose ();
+            mDilatedMask.Dispose ();
+            mHierarchy.Dispose ();
         }
     }
 }

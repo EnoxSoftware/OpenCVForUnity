@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 #if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
@@ -12,11 +13,15 @@ namespace OpenCVForUnityExample
     [RequireComponent (typeof(Camera))]
     public class ImwriteScreenCaptureExample : MonoBehaviour
     {
-
         /// <summary>
         /// The cube.
         /// </summary>
         public GameObject cube;
+
+        /// <summary>
+        /// The save path input field.
+        /// </summary>
+        public InputField savePathInputField;
 
         /// <summary>
         /// The capture flag.
@@ -31,9 +36,7 @@ namespace OpenCVForUnityExample
         // Use this for initialization
         void Start ()
         {
-
-            savePath = Application.persistentDataPath + "/output.jpg";
-            Debug.Log ("savePath " + savePath);
+            savePath = Application.persistentDataPath + "/ImwriteScreenCaptureExample_output.jpg";
 
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             Utils.setDebugMode (true);
@@ -75,14 +78,15 @@ namespace OpenCVForUnityExample
                 Imgproc.cvtColor (cameraMat, cameraMat, Imgproc.COLOR_RGBA2BGRA);
 
                 Imgproc.rectangle (cameraMat, new Point (0, 0), new Point (cameraMat.width (), cameraMat.height ()), new Scalar (0, 0, 255, 255), 3);
-                Imgproc.putText (cameraMat, "W:" + cameraMat.width () + " H:" + cameraMat.height () + " SO:" + Screen.orientation, new Point (5, cameraMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                Imgproc.putText (cameraMat, "SavePath:",new Point (5, cameraMat.rows () - 30), Core.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (0, 0, 255), 2, Imgproc.LINE_AA, false);
+                Imgproc.putText (cameraMat, savePath, new Point (5, cameraMat.rows () - 8), Core.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (255, 255, 255), 0, Imgproc.LINE_AA, false);
 
-                //Please set your savepath;
                 Imgcodecs.imwrite (savePath, cameraMat);
 
+                savePathInputField.text = savePath;
+                Debug.Log ("savePath: " + savePath);
 
                 captureFlag = false;
-
             }
 
             Graphics.Blit (source, destination);
@@ -125,7 +129,6 @@ namespace OpenCVForUnityExample
                 Utils.matToTexture2D (loadMat, texture);
 
                 cube.GetComponent<Renderer> ().material.mainTexture = texture;
-
             }
         }
     }

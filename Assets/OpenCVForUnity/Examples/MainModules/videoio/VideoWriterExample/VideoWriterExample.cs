@@ -39,6 +39,11 @@ namespace OpenCVForUnitySample
         public Button PlayButton;
 
         /// <summary>
+        /// The save path input field.
+        /// </summary>
+        public InputField savePathInputField;
+
+        /// <summary>
         /// The max frame count.
         /// </summary>
         const int maxframeCount = 300;
@@ -168,7 +173,7 @@ namespace OpenCVForUnitySample
 
                 Imgproc.putText (recordingFrameRgbMat, frameCount.ToString(), new Point (recordingFrameRgbMat.cols() - 70, 30), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255), 2, Imgproc.LINE_AA, false);
                 Imgproc.putText (recordingFrameRgbMat, "SavePath:",new Point (5, recordingFrameRgbMat.rows () - 30), Core.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (0, 0, 255), 2, Imgproc.LINE_AA, false);
-                Imgproc.putText (recordingFrameRgbMat, savePath, new Point (5, recordingFrameRgbMat.rows () - 8), Core.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (255, 255, 255), 2, Imgproc.LINE_AA, false);
+                Imgproc.putText (recordingFrameRgbMat, savePath, new Point (5, recordingFrameRgbMat.rows () - 8), Core.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (255, 255, 255), 0, Imgproc.LINE_AA, false);
 
                 writer.write (recordingFrameRgbMat);
             }
@@ -180,7 +185,6 @@ namespace OpenCVForUnitySample
                 return;
 
             this.savePath = savePath;
-            Debug.Log ("savePath " + savePath);
 
             writer = new VideoWriter ();
             writer.open (savePath, VideoWriter.fourcc ('M', 'J', 'P', 'G'), 30, new OpenCVForUnity.Size (Screen.width, Screen.height));
@@ -208,6 +212,9 @@ namespace OpenCVForUnitySample
 
             if (recordingFrameRgbMat != null && !recordingFrameRgbMat.IsDisposed)
                 recordingFrameRgbMat.Dispose ();
+
+            savePathInputField.text = savePath;
+            Debug.Log ("savePath " + savePath);
 
             isRecording = false;
         }
@@ -300,7 +307,7 @@ namespace OpenCVForUnitySample
                 previewPanel.gameObject.SetActive (false);
             } else {
                 RecButton.GetComponentInChildren<UnityEngine.UI.Text>().color = Color.red;
-                StartRecording (Application.persistentDataPath + "/videowriter_output.avi");
+                StartRecording (Application.persistentDataPath + "/VideoWriterExample_output.avi");
                 PlayButton.interactable = false;
             }
         }

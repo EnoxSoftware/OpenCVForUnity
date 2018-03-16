@@ -1,4 +1,4 @@
-#if !UNITY_WEBGL && !UNITY_WSA_10_0
+#if !UNITY_WSA_10_0
 
 using UnityEngine;
 using System.Collections;
@@ -50,27 +50,71 @@ namespace OpenCVForUnityExample
         /// </summary>
         List<string> classes;
 
+        string tensorflow_inception_graph_pb_filepath;
+        string imagenet_comp_graph_label_strings_txt_filepath;
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
+#endif
+
         // Use this for initialization
         void Start ()
+        {
+            webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+var getFilePath_Coroutine = GetFilePath ();
+coroutines.Push (getFilePath_Coroutine);
+StartCoroutine (getFilePath_Coroutine);
+#else
+            tensorflow_inception_graph_pb_filepath = Utils.getFilePath ("dnn/tensorflow_inception_graph.pb");
+            imagenet_comp_graph_label_strings_txt_filepath = Utils.getFilePath ("dnn/imagenet_comp_graph_label_strings.txt");
+            Run ();
+#endif
+        }
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+private IEnumerator GetFilePath()
+{
+
+            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("dnn/tensorflow_inception_graph.pb", (result) => {
+tensorflow_inception_graph_pb_filepath = result;
+});
+coroutines.Push (getFilePathAsync_0_Coroutine);
+yield return StartCoroutine (getFilePathAsync_0_Coroutine);
+
+            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("dnn/imagenet_comp_graph_label_strings.txt", (result) => {
+imagenet_comp_graph_label_strings_txt_filepath = result;
+});
+coroutines.Push (getFilePathAsync_1_Coroutine);
+yield return StartCoroutine (getFilePathAsync_1_Coroutine);
+
+coroutines.Clear ();
+
+Run ();
+}
+#endif
+
+        // Use this for initialization
+        void Run ()
         {
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             Utils.setDebugMode (true);
 
 
-            net = Dnn.readNetFromTensorflow (Utils.getFilePath ("dnn/tensorflow_inception_graph.pb"));
+            net = Dnn.readNetFromTensorflow (tensorflow_inception_graph_pb_filepath);
             #if !UNITY_WSA_10_0
             if (net.empty ()) {
                 Debug.LogError ("model file is not loaded.The model and class names list can be downloaded here: \"https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip\".Please copy to “Assets/StreamingAssets/dnn/” folder. ");
             }
             #endif
-            classes = readClassNames (Utils.getFilePath ("dnn/imagenet_comp_graph_label_strings.txt"));
+            classes = readClassNames (imagenet_comp_graph_label_strings_txt_filepath);
             #if !UNITY_WSA_10_0
             if (classes == null) {
                 Debug.LogError ("class names list file is not loaded.The model and class names list can be downloaded here: \"https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip\".Please copy to “Assets/StreamingAssets/dnn/” folder. ");
             }
             #endif
-
-            webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
+            
             webCamTextureToMatHelper.Initialize ();
         }
 

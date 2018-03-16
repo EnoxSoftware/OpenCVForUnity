@@ -55,6 +55,11 @@ namespace OpenCVForUnityExample
         WebCamTextureToMatHelper webCamTextureToMatHelper;
 
         /// <summary>
+        /// The stored touch point.
+        /// </summary>
+        Point storedTouchPoint;
+
+        /// <summary>
         /// The flag for requesting the start of the CamShift Method.
         /// </summary>
         bool shouldStartCamShift = false;
@@ -126,61 +131,26 @@ namespace OpenCVForUnityExample
         // Update is called once per frame
         void Update ()
         {
-            if (roiPointList.Count == 4) {
-
-                #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-                //Touch
-                int touchCount = Input.touchCount;
-                if (touchCount == 1)
-                {
-                    Touch t = Input.GetTouch(0);
-                    if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject(t.fingerId)){
-                        roiPointList.Clear ();
-                    }
-                }
-                #else
-                if (Input.GetMouseButtonUp (0) && !EventSystem.current.IsPointerOverGameObject()) {
-                    roiPointList.Clear ();
-                }
-                #endif
-            }
-
-            if (roiPointList.Count < 4) {
-
-                #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-                //Touch
-                int touchCount = Input.touchCount;
-                if (touchCount == 1)
-                {
-                    Touch t = Input.GetTouch(0);
-                    if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject(t.fingerId)){
-                        roiPointList.Add (convertScreenPoint (new Point (t.position.x, t.position.y), gameObject, Camera.main));
-                        //Debug.Log ("touch X " + t.position.x);
-                        //Debug.Log ("touch Y " + t.position.y);
-
-                        if (!(new OpenCVForUnity.Rect (0, 0, hsvMat.width (), hsvMat.height ()).contains (roiPointList [roiPointList.Count - 1]))) {
-                            roiPointList.RemoveAt (roiPointList.Count - 1);
-                        }
-                    }
-                }
-                #else
-                //Mouse
-                if (Input.GetMouseButtonUp (0) && !EventSystem.current.IsPointerOverGameObject()) {
-
-                    roiPointList.Add (convertScreenPoint (new Point (Input.mousePosition.x, Input.mousePosition.y), gameObject, Camera.main));
-                    //                                              Debug.Log ("mouse X " + Input.mousePosition.x);
-                    //                                              Debug.Log ("mouse Y " + Input.mousePosition.y);
-
-                    if (!(new OpenCVForUnity.Rect (0, 0, hsvMat.width (), hsvMat.height ()).contains (roiPointList [roiPointList.Count - 1]))) {
-                        roiPointList.RemoveAt (roiPointList.Count - 1);
-                    }
-                }
-                #endif
-
-                if (roiPointList.Count == 4) {
-                    shouldStartCamShift = true;
+            #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
+            //Touch
+            int touchCount = Input.touchCount;
+            if (touchCount == 1)
+            {
+                Touch t = Input.GetTouch(0);
+                if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject(t.fingerId)){
+                    storedTouchPoint = new Point (t.position.x, t.position.y);
+                    //Debug.Log ("touch X " + t.position.x);
+                    //Debug.Log ("touch Y " + t.position.y);
                 }
             }
+            #else
+            //Mouse
+            if (Input.GetMouseButtonUp (0) && !EventSystem.current.IsPointerOverGameObject()) {
+                storedTouchPoint = new Point (Input.mousePosition.x, Input.mousePosition.y);
+                //Debug.Log ("mouse X " + Input.mousePosition.x);
+                //Debug.Log ("mouse Y " + Input.mousePosition.y);
+            }
+            #endif
 
             if (webCamTextureToMatHelper.IsPlaying () && webCamTextureToMatHelper.DidUpdateThisFrame ()) {
                 
@@ -188,14 +158,19 @@ namespace OpenCVForUnityExample
 
                 Imgproc.cvtColor (rgbaMat, hsvMat, Imgproc.COLOR_RGBA2RGB);
                 Imgproc.cvtColor (hsvMat, hsvMat, Imgproc.COLOR_RGB2HSV);
-                
+
+                if(storedTouchPoint != null) {
+                    ConvertScreenPointToTexturePoint (storedTouchPoint, storedTouchPoint, gameObject, rgbaMat.cols (), rgbaMat.rows ());
+                    OnTouch (rgbaMat, storedTouchPoint);
+                    storedTouchPoint = null;
+                }
                 
                 Point[] points = roiPointList.ToArray ();
 
                 if (shouldStartCamShift) {
                     shouldStartCamShift = false;
 
-                    using (MatOfPoint roiPointMat = new MatOfPoint (roiPointList.ToArray ())) {
+                    using (MatOfPoint roiPointMat = new MatOfPoint (points)) {
                         roiRect = Imgproc.boundingRect (roiPointMat);
                     }
 
@@ -212,7 +187,7 @@ namespace OpenCVForUnityExample
 
                         //Debug.Log ("roiHist " + roiHistMat.ToString ());
                     }
-                }else if (roiPointList.Count == 4) {
+                }else if (points.Length == 4) {
                     using (Mat backProj = new Mat ()) {
                         Imgproc.calcBackProject (new List<Mat> (new Mat[]{hsvMat}), new MatOfInt (0), roiHistMat, backProj, new MatOfFloat (0, 180), 1.0);
                 
@@ -239,6 +214,74 @@ namespace OpenCVForUnityExample
 //              Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                 
                 Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors());
+            }
+        }
+            
+        private void OnTouch (Mat img, Point touchPoint)
+        {
+            if (roiPointList.Count == 4) {
+                    roiPointList.Clear ();
+            }
+
+            if (roiPointList.Count < 4) {
+                roiPointList.Add (touchPoint);
+
+                if (!(new OpenCVForUnity.Rect (0, 0, img.width (), img.height ()).contains (roiPointList [roiPointList.Count - 1]))) {
+                    roiPointList.RemoveAt (roiPointList.Count - 1);
+                }
+
+                if (roiPointList.Count == 4) {
+                    shouldStartCamShift = true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Converts the screen point to texture point.
+        /// </summary>
+        /// <param name="screenPoint">Screen point.</param>
+        /// <param name="dstPoint">Dst point.</param>
+        /// <param name="texturQuad">Texture quad.</param>
+        /// <param name="textureWidth">Texture width.</param>
+        /// <param name="textureHeight">Texture height.</param>
+        /// <param name="camera">Camera.</param>
+        private void ConvertScreenPointToTexturePoint (Point screenPoint, Point dstPoint, GameObject textureQuad, int textureWidth = -1, int textureHeight = -1, Camera camera = null)
+        {
+            if (textureWidth < 0 || textureHeight < 0) {
+                Renderer r = textureQuad.GetComponent<Renderer> ();
+                if (r != null && r.material != null && r.material.mainTexture != null) {
+                    textureWidth = r.material.mainTexture.width;
+                    textureHeight = r.material.mainTexture.height;
+                } else {
+                    textureWidth = (int)textureQuad.transform.localScale.x;
+                    textureHeight = (int)textureQuad.transform.localScale.y;
+                }
+            }
+
+            if (camera == null)
+                camera = Camera.main;
+
+            Vector3 quadPosition = textureQuad.transform.localPosition;
+            Vector3 quadScale = textureQuad.transform.localScale;
+
+            Vector2 tl = camera.WorldToScreenPoint (new Vector3 (quadPosition.x - quadScale.x / 2, quadPosition.y + quadScale.y / 2, quadPosition.z));
+            Vector2 tr = camera.WorldToScreenPoint (new Vector3 (quadPosition.x + quadScale.x / 2, quadPosition.y + quadScale.y / 2, quadPosition.z));
+            Vector2 br = camera.WorldToScreenPoint (new Vector3 (quadPosition.x + quadScale.x / 2, quadPosition.y - quadScale.y / 2, quadPosition.z));
+            Vector2 bl = camera.WorldToScreenPoint (new Vector3 (quadPosition.x - quadScale.x / 2, quadPosition.y - quadScale.y / 2, quadPosition.z));                       
+
+            using(Mat srcRectMat = new Mat (4, 1, CvType.CV_32FC2))
+            using(Mat dstRectMat = new Mat (4, 1, CvType.CV_32FC2)) {
+                srcRectMat.put (0, 0, tl.x, tl.y, tr.x, tr.y, br.x, br.y, bl.x, bl.y);
+                dstRectMat.put (0, 0, 0, 0, quadScale.x, 0, quadScale.x, quadScale.y, 0, quadScale.y);            
+
+                using(Mat perspectiveTransform = Imgproc.getPerspectiveTransform (srcRectMat, dstRectMat))
+                using(MatOfPoint2f srcPointMat = new MatOfPoint2f (screenPoint))
+                using(MatOfPoint2f dstPointMat = new MatOfPoint2f ()) {
+                    Core.perspectiveTransform (srcPointMat, dstPointMat, perspectiveTransform);
+
+                    dstPoint.x = dstPointMat.get(0,0)[0] * textureWidth / quadScale.x;
+                    dstPoint.y = dstPointMat.get(0,0)[1] * textureHeight / quadScale.y;
+                }
             }
         }
     
@@ -292,51 +335,6 @@ namespace OpenCVForUnityExample
         public void OnChangeCameraButtonClick ()
         {
             webCamTextureToMatHelper.Initialize (null, webCamTextureToMatHelper.requestedWidth, webCamTextureToMatHelper.requestedHeight, !webCamTextureToMatHelper.requestedIsFrontFacing);
-        }
-
-        /// <summary>
-        /// Converts the screen point.
-        /// </summary>
-        /// <returns>The converted point.</returns>
-        /// <param name="screenPoint">Screen point.</param>
-        /// <param name="quad">Quad.</param>
-        /// <param name="cam">Cam.</param>
-        private Point convertScreenPoint (Point screenPoint, GameObject quad, Camera cam)
-        {
-            Vector2 tl;
-            Vector2 tr;
-            Vector2 br;
-            Vector2 bl;
-
-            tl = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x - quad.transform.localScale.x / 2, quad.transform.localPosition.y + quad.transform.localScale.y / 2, quad.transform.localPosition.z));
-            tr = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x + quad.transform.localScale.x / 2, quad.transform.localPosition.y + quad.transform.localScale.y / 2, quad.transform.localPosition.z));
-            br = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x + quad.transform.localScale.x / 2, quad.transform.localPosition.y - quad.transform.localScale.y / 2, quad.transform.localPosition.z));
-            bl = cam.WorldToScreenPoint (new Vector3 (quad.transform.localPosition.x - quad.transform.localScale.x / 2, quad.transform.localPosition.y - quad.transform.localScale.y / 2, quad.transform.localPosition.z));
-
-
-            Mat srcRectMat = new Mat (4, 1, CvType.CV_32FC2);
-            Mat dstRectMat = new Mat (4, 1, CvType.CV_32FC2);
-
-                        
-            srcRectMat.put (0, 0, tl.x, tl.y, tr.x, tr.y, br.x, br.y, bl.x, bl.y);
-            dstRectMat.put (0, 0, 0.0, 0.0, quad.transform.localScale.x, 0.0, quad.transform.localScale.x, quad.transform.localScale.y, 0.0, quad.transform.localScale.y);
-
-                        
-            Mat perspectiveTransform = Imgproc.getPerspectiveTransform (srcRectMat, dstRectMat);
-
-//                      Debug.Log ("srcRectMat " + srcRectMat.dump ());
-//                      Debug.Log ("dstRectMat " + dstRectMat.dump ());
-//                      Debug.Log ("perspectiveTransform " + perspectiveTransform.dump ());
-
-            MatOfPoint2f srcPointMat = new MatOfPoint2f (screenPoint);
-            MatOfPoint2f dstPointMat = new MatOfPoint2f ();
-
-            Core.perspectiveTransform (srcPointMat, dstPointMat, perspectiveTransform);
-
-//                      Debug.Log ("srcPointMat " + srcPointMat.dump ());
-//                      Debug.Log ("dstPointMat " + dstPointMat.dump ());
-
-            return dstPointMat.toArray () [0];
         }
     }
 }

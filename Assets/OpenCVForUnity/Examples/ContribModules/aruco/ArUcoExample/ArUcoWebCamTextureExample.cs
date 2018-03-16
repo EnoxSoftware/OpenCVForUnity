@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using System.Xml.Serialization;
+using System.IO;
 
 #if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
@@ -19,34 +22,69 @@ namespace OpenCVForUnityExample
     public class ArUcoWebCamTextureExample : MonoBehaviour
     {
         /// <summary>
+        /// Determines if restores the camera parameters when the file exists.
+        /// </summary>
+        public bool useStoredCameraParameters = true;
+
+        /// <summary>
+        /// The marker type.
+        /// </summary>
+        public int markerType = (int)MarkerType.CanonicalMarker;
+
+        /// <summary>
+        /// The marker type dropdown.
+        /// </summary>
+        public Dropdown markerTypeDropdown;
+
+        /// <summary>
         /// The dictionary identifier.
         /// </summary>
-        public int dictionaryId = 10;
+        public int dictionaryId = Aruco.DICT_6X6_250;
+
+        /// <summary>
+        /// The dictionary id dropdown.
+        /// </summary>
+        public Dropdown dictionaryIdDropdown;
         
         /// <summary>
-        /// Determines if shows rejected markers.
+        /// Determines if shows rejected corners.
         /// </summary>
-        public bool showRejected = true;
+        public bool showRejectedCorners = false;
+
+        /// <summary>
+        /// The shows rejected corners toggle.
+        /// </summary>
+        public Toggle showRejectedCornersToggle;
         
         /// <summary>
         /// Determines if applied the pose estimation.
         /// </summary>
         public bool applyEstimationPose = true;
+
+        /// <summary>
+        /// Determines if refine marker detection. (only valid for ArUco boards)
+        /// </summary>
+        public bool refineMarkerDetection = true;
+
+        /// <summary>
+        /// The shows refine marker detection toggle.
+        /// </summary>
+        public Toggle refineMarkerDetectionToggle;
         
         /// <summary>
-        /// The length of the marker.
+        /// The length of the markers' side. Normally, unit is meters.
         /// </summary>
-        public float markerLength = 100;
+        public float markerLength = 0.1f;
         
         /// <summary>
         /// The AR game object.
         /// </summary>
-        public GameObject ARGameObject;
+        public GameObject arGameObject;
         
         /// <summary>
         /// The AR camera.
         /// </summary>
-        public Camera ARCamera;
+        public Camera arCamera;
 
         /// <summary>
         /// Determines if request the AR camera moving.
@@ -101,7 +139,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// The identifiers.
         /// </summary>
-        Mat ids ;
+        Mat ids;
         
         /// <summary>
         /// The corners.
@@ -109,9 +147,9 @@ namespace OpenCVForUnityExample
         List<Mat> corners;
         
         /// <summary>
-        /// The rejected.
+        /// The rejected corners.
         /// </summary>
-        List<Mat> rejected;
+        List<Mat> rejectedCorners;
         
         /// <summary>
         /// The rvecs.
@@ -137,11 +175,63 @@ namespace OpenCVForUnityExample
         /// The dictionary.
         /// </summary>
         Dictionary dictionary;
-        
+
+        Mat rvec;
+        Mat tvec;
+        Mat recoveredIdxs;
+
+        // for GridBoard.
+        // number of markers in X direction
+        const int gridBoradMarkersX = 5;
+        // number of markers in Y direction
+        const int gridBoradMarkersY = 7;
+        // marker side length (normally in meters)
+        const float gridBoradMarkerLength = 0.04f;
+        // separation between two markers (same unit as markerLength)
+        const float gridBoradMarkerSeparation = 0.01f;
+        // id of first marker in dictionary to use on board.
+        const int gridBoradMarkerFirstMarker = 0;
+        GridBoard gridBoard;
+
+        // for ChArUcoBoard.
+        //  number of chessboard squares in X direction
+        const int chArUcoBoradSquaresX = 5;
+        //  number of chessboard squares in Y direction
+        const int chArUcoBoradSquaresY = 7;
+        // chessboard square side length (normally in meters)
+        const float chArUcoBoradSquareLength = 0.04f;
+        // marker side length (same unit than squareLength)
+        const float chArUcoBoradMarkerLength = 0.02f;
+        const int charucoMinMarkers = 2;
+        Mat charucoCorners;
+        Mat charucoIds;
+        CharucoBoard charucoBoard;
+
+        // for ChArUcoDiamondMarker.
+        // size of the chessboard squares in pixels
+        const float diamondSquareLength = 0.1f;
+        // size of the markers in pixels.
+        const float diamondMarkerLength = 0.06f;
+        // identifiers for diamonds in diamond corners.
+        const int diamondId1 = 45;
+        const int diamondId2 = 68;
+        const int diamondId3 = 28;
+        const int diamondId4 = 74;
+        List<Mat> diamondCorners;
+        Mat diamondIds;
         
         // Use this for initialization
         void Start ()
         {
+            if (markerTypeDropdown.value != markerType || dictionaryIdDropdown.value != dictionaryId
+                || showRejectedCornersToggle.isOn != showRejectedCorners || refineMarkerDetectionToggle.isOn != refineMarkerDetection) {
+                markerTypeDropdown.value = markerType;
+                dictionaryIdDropdown.value = dictionaryId;
+                showRejectedCornersToggle.isOn = showRejectedCorners;
+                refineMarkerDetectionToggle.isOn = refineMarkerDetection;
+            }
+            refineMarkerDetectionToggle.interactable = (markerType == (int)MarkerType.GridBoard || markerType == (int)MarkerType.ChArUcoBoard);
+
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
             webCamTextureToMatHelper.Initialize ();
         }
@@ -176,31 +266,63 @@ namespace OpenCVForUnityExample
                 Camera.main.orthographicSize = height / 2;
             }
             
-            
-            // set cameraparam.
-            int max_d = (int)Mathf.Max (width, height);
-            double fx = max_d;
-            double fy = max_d;
-            double cx = width / 2.0f;
-            double cy = height / 2.0f;
-            camMatrix = new Mat (3, 3, CvType.CV_64FC1);
-            camMatrix.put (0, 0, fx);
-            camMatrix.put (0, 1, 0);
-            camMatrix.put (0, 2, cx);
-            camMatrix.put (1, 0, 0);
-            camMatrix.put (1, 1, fy);
-            camMatrix.put (1, 2, cy);
-            camMatrix.put (2, 0, 0);
-            camMatrix.put (2, 1, 0);
-            camMatrix.put (2, 2, 1.0f);
+
+            // set camera parameters.
+            double fx;
+            double fy;
+            double cx;
+            double cy;
+
+            string loadDirectoryPath = Path.Combine (Application.persistentDataPath, "ArUcoCameraCalibrationExample");
+            string calibratonDirectoryName = "camera_parameters" + width + "x" + height;
+            string loadCalibratonFileDirectoryPath = Path.Combine (loadDirectoryPath, calibratonDirectoryName);
+            string loadPath = Path.Combine (loadCalibratonFileDirectoryPath, calibratonDirectoryName + ".xml");
+            if (useStoredCameraParameters && File.Exists (loadPath)) {
+                CameraParameters param;
+                XmlSerializer serializer = new XmlSerializer( typeof( CameraParameters ) );
+                using (var stream = new FileStream (loadPath, FileMode.Open)) {
+                    param = (CameraParameters)serializer.Deserialize (stream);
+                }
+
+                camMatrix = param.GetCameraMatrix ();
+                distCoeffs = new MatOfDouble(param.GetDistortionCoefficients ());
+
+                fx = param.camera_matrix[0];
+                fy = param.camera_matrix[4];
+                cx = param.camera_matrix[2];
+                cy = param.camera_matrix[5];
+
+                Debug.Log ("Loaded CameraParameters from a stored XML file.");
+                Debug.Log ("loadPath: " + loadPath);
+
+            } else {
+                int max_d = (int)Mathf.Max (width, height);
+                fx = max_d;
+                fy = max_d;
+                cx = width / 2.0f;
+                cy = height / 2.0f;
+
+                camMatrix = new Mat (3, 3, CvType.CV_64FC1);
+                camMatrix.put (0, 0, fx);
+                camMatrix.put (0, 1, 0);
+                camMatrix.put (0, 2, cx);
+                camMatrix.put (1, 0, 0);
+                camMatrix.put (1, 1, fy);
+                camMatrix.put (1, 2, cy);
+                camMatrix.put (2, 0, 0);
+                camMatrix.put (2, 1, 0);
+                camMatrix.put (2, 2, 1.0f);
+
+                distCoeffs = new MatOfDouble (0, 0, 0, 0);
+
+                Debug.Log ("Created a dummy CameraParameters.");
+            }
+                
             Debug.Log ("camMatrix " + camMatrix.dump ());
-            
-            
-            distCoeffs = new MatOfDouble (0, 0, 0, 0);
             Debug.Log ("distCoeffs " + distCoeffs.dump ());
-            
-            
-            // calibration camera.
+
+
+            // calibration camera matrix values.
             Size imageSize = new Size (width * imageSizeScale, height * imageSizeScale);
             double apertureWidth = 0;
             double apertureHeight = 0;
@@ -225,24 +347,25 @@ namespace OpenCVForUnityExample
             // To convert the difference of the FOV value of the OpenCV and Unity. 
             double fovXScale = (2.0 * Mathf.Atan ((float)(imageSize.width / (2.0 * fx)))) / (Mathf.Atan2 ((float)cx, (float)fx) + Mathf.Atan2 ((float)(imageSize.width - cx), (float)fx));
             double fovYScale = (2.0 * Mathf.Atan ((float)(imageSize.height / (2.0 * fy)))) / (Mathf.Atan2 ((float)cy, (float)fy) + Mathf.Atan2 ((float)(imageSize.height - cy), (float)fy));
-            
+
             Debug.Log ("fovXScale " + fovXScale);
             Debug.Log ("fovYScale " + fovYScale);
             
             
             // Adjust Unity Camera FOV https://github.com/opencv/opencv/commit/8ed1945ccd52501f5ab22bdec6aa1f91f1e2cfd4
             if (widthScale < heightScale) {
-                ARCamera.fieldOfView = (float)(fovx [0] * fovXScale);
+                arCamera.fieldOfView = (float)(fovx [0] * fovXScale);
             } else {
-                ARCamera.fieldOfView = (float)(fovy [0] * fovYScale);
+                arCamera.fieldOfView = (float)(fovy [0] * fovYScale);
             }
-            
+            // Display objects near the camera.
+            arCamera.nearClipPlane = 0.01f;
             
             
             rgbMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC3);
             ids = new Mat ();
             corners = new List<Mat> ();
-            rejected = new List<Mat> ();
+            rejectedCorners = new List<Mat> ();
             rvecs = new Mat ();
             tvecs = new Mat ();
             rotMat = new Mat (3, 3, CvType.CV_64FC1);
@@ -257,9 +380,23 @@ namespace OpenCVForUnityExample
             Debug.Log ("invertZM " + invertZM.ToString ());
             
             detectorParams = DetectorParameters.create ();
-            dictionary = Aruco.getPredefinedDictionary (Aruco.DICT_6X6_250);
-            
-            
+            dictionary = Aruco.getPredefinedDictionary (dictionaryId);
+
+            rvec = new Mat ();
+            tvec = new Mat ();
+            recoveredIdxs = new Mat ();
+
+            gridBoard = GridBoard.create (gridBoradMarkersX, gridBoradMarkersY, gridBoradMarkerLength, gridBoradMarkerSeparation, dictionary, gridBoradMarkerFirstMarker);
+
+            charucoCorners = new Mat ();
+            charucoIds = new Mat ();
+            charucoBoard = CharucoBoard.create (chArUcoBoradSquaresX, chArUcoBoradSquaresY, chArUcoBoradSquareLength, chArUcoBoradMarkerLength, dictionary);
+
+            diamondCorners = new List<Mat> ();
+            diamondIds = new Mat (1, 1, CvType.CV_32SC4);
+            diamondIds.put (0, 0, new int[] {diamondId1,diamondId2,diamondId3,diamondId4});
+
+
             // if WebCamera is frontFaceing, flip Mat.
             if (webCamTextureToMatHelper.GetWebCamDevice ().isFrontFacing) {
                 webCamTextureToMatHelper.flipHorizontal = true;
@@ -281,16 +418,40 @@ namespace OpenCVForUnityExample
                 item.Dispose ();
             }
             corners.Clear ();
-            foreach (var item in rejected) {
+            foreach (var item in rejectedCorners) {
                 item.Dispose ();
             }
-            rejected.Clear ();
+            rejectedCorners.Clear ();
             if (rvecs != null)
                 rvecs.Dispose ();
             if (tvecs != null)
                 tvecs.Dispose ();
             if (rotMat != null)
                 rotMat.Dispose ();
+
+            if (rvec != null)
+                rvec.Dispose ();
+            if (tvec != null)
+                tvec.Dispose ();
+            if (recoveredIdxs != null)
+                recoveredIdxs.Dispose (); 
+
+            if (gridBoard != null)
+                gridBoard.Dispose ();         
+
+            if (charucoCorners != null)
+                charucoCorners.Dispose ();
+            if (charucoIds != null)
+                charucoIds.Dispose ();
+            if (charucoBoard != null)
+                charucoBoard.Dispose ();
+
+            foreach (var item in diamondCorners) {
+                item.Dispose ();
+            }
+            diamondCorners.Clear ();
+            if (diamondIds != null)
+                diamondIds.Dispose ();
         }
 
         /// <summary>
@@ -304,78 +465,195 @@ namespace OpenCVForUnityExample
         
         // Update is called once per frame
         void Update ()
-        {
-            
+        {            
             if (webCamTextureToMatHelper.IsPlaying () && webCamTextureToMatHelper.DidUpdateThisFrame ()) {
                 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
                 
                 Imgproc.cvtColor (rgbaMat, rgbMat, Imgproc.COLOR_RGBA2RGB);
-                
+
+
                 // detect markers.
-                Aruco.detectMarkers (rgbMat, dictionary, corners, ids, detectorParams, rejected, camMatrix, distCoeffs);
+                Aruco.detectMarkers (rgbMat, dictionary, corners, ids, detectorParams, rejectedCorners, camMatrix, distCoeffs);
 
-                // estimate pose.
-                if (applyEstimationPose && ids.total () > 0)
-                    Aruco.estimatePoseSingleMarkers (corners, markerLength, camMatrix, distCoeffs, rvecs, tvecs);
-
-                if (ids.total () > 0) {
-                    Aruco.drawDetectedMarkers (rgbMat, corners, ids, new Scalar (255, 0, 0));
-                    
-                    if (applyEstimationPose) {
-                        for (int i = 0; i < ids.total(); i++) {
-                            Aruco.drawAxis (rgbMat, camMatrix, distCoeffs, rvecs, tvecs, markerLength * 0.5f);
-                            
-                            // This example can display ARObject on only first detected marker.
-                            if (i == 0) {
-
-                                // position
-                                double[] tvec = tvecs.get (i, 0);
-                                
-                                // rotation
-                                double[] rv = rvecs.get (i, 0);
-                                Mat rvec = new Mat (3, 1, CvType.CV_64FC1);
-                                rvec.put (0, 0, rv [0]);
-                                rvec.put (1, 0, rv [1]);
-                                rvec.put (2, 0, rv [2]);
-                                Calib3d.Rodrigues (rvec, rotMat);
-
-                                transformationM.SetRow (0, new Vector4 ((float)rotMat.get (0, 0) [0], (float)rotMat.get (0, 1) [0], (float)rotMat.get (0, 2) [0], (float)tvec [0]));
-                                transformationM.SetRow (1, new Vector4 ((float)rotMat.get (1, 0) [0], (float)rotMat.get (1, 1) [0], (float)rotMat.get (1, 2) [0], (float)tvec [1]));
-                                transformationM.SetRow (2, new Vector4 ((float)rotMat.get (2, 0) [0], (float)rotMat.get (2, 1) [0], (float)rotMat.get (2, 2) [0], (float)tvec [2]));
-                                transformationM.SetRow (3, new Vector4 (0, 0, 0, 1));
-                                
-                                // right-handed coordinates system (OpenCV) to left-handed one (Unity)
-                                ARM = invertYM * transformationM;
-                                
-                                // Apply Z axis inverted matrix.
-                                ARM = ARM * invertZM;
-                                
-                                if (shouldMoveARCamera) {
-
-                                    ARM = ARGameObject.transform.localToWorldMatrix * ARM.inverse;
-
-                                    ARUtils.SetTransformFromMatrix (ARCamera.transform, ref ARM);
-                                    
-                                } else {
-
-                                    ARM = ARCamera.transform.localToWorldMatrix * ARM;
-
-                                    ARUtils.SetTransformFromMatrix (ARGameObject.transform, ref ARM);
-                                }
-                            }
-                        }
+                // refine marker detection.
+                if (refineMarkerDetection) {
+                    switch (markerType) {
+                    case (int)MarkerType.GridBoard:
+                        Aruco.refineDetectedMarkers (rgbMat, gridBoard, corners, ids, rejectedCorners, camMatrix, distCoeffs, 10f, 3f, true, recoveredIdxs, detectorParams);
+                        break;
+                    case (int)MarkerType.ChArUcoBoard:
+                        Aruco.refineDetectedMarkers (rgbMat, charucoBoard, corners, ids, rejectedCorners, camMatrix, distCoeffs, 10f, 3f, true, recoveredIdxs, detectorParams);
+                        break;
                     }
                 }
-                
-                if (showRejected && rejected.Count > 0)
-                    Aruco.drawDetectedMarkers (rgbMat, rejected, new Mat (), new Scalar (0, 0, 255));
+
+                // if at least one marker detected
+                if (ids.total () > 0) {
+                    if (markerType != (int)MarkerType.ChArUcoDiamondMarker) {
+
+                        if (markerType == (int)MarkerType.ChArUcoBoard) {
+                            Aruco.interpolateCornersCharuco (corners, ids, rgbMat, charucoBoard, charucoCorners, charucoIds, camMatrix, distCoeffs, charucoMinMarkers);
+
+                            // draw markers.
+                            Aruco.drawDetectedMarkers (rgbMat, corners, ids, new Scalar (0, 255, 0));
+                            if (charucoIds.total () > 0) {
+                                Aruco.drawDetectedCornersCharuco (rgbMat, charucoCorners, charucoIds, new Scalar (0, 0, 255));
+                            }
+                        } else {
+                            // draw markers.
+                            Aruco.drawDetectedMarkers (rgbMat, corners, ids, new Scalar (0, 255, 0));
+                        }
+                            
+                        // estimate pose.
+                        if (applyEstimationPose) {
+                            switch (markerType) {
+                            case (int)MarkerType.CanonicalMarker:
+                                EstimatePoseCanonicalMarker (rgbMat);
+                                break;
+                            case (int)MarkerType.GridBoard:
+                                EstimatePoseGridBoard (rgbMat);
+                                break;
+                            case (int)MarkerType.ChArUcoBoard:
+                                EstimatePoseChArUcoBoard (rgbMat);
+                                break;
+                            }
+                        }
+                    } else {
+                        // detect diamond markers.
+                        Aruco.detectCharucoDiamond (rgbMat, corners, ids, diamondSquareLength / diamondMarkerLength, diamondCorners, diamondIds, camMatrix, distCoeffs);
+
+                        // draw markers.
+                        Aruco.drawDetectedMarkers (rgbMat, corners, ids, new Scalar (0, 255, 0));
+                        // draw diamond markers.
+                        Aruco.drawDetectedDiamonds (rgbMat, diamondCorners, diamondIds, new Scalar (0, 0, 255));
+
+                        // estimate pose.
+                        if (applyEstimationPose)
+                            EstimatePoseChArUcoDiamondMarker (rgbMat);
+                    }
+                }
+
+                if (showRejectedCorners && rejectedCorners.Count > 0)
+                    Aruco.drawDetectedMarkers (rgbMat, rejectedCorners, new Mat (), new Scalar (255, 0, 0));
                 
                 
                 Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                 
                 Utils.matToTexture2D (rgbMat, texture, webCamTextureToMatHelper.GetBufferColors ());
             }
+        }
+
+        private void EstimatePoseCanonicalMarker (Mat rgbMat)
+        {
+            Aruco.estimatePoseSingleMarkers (corners, markerLength, camMatrix, distCoeffs, rvecs, tvecs);
+
+            for (int i = 0; i < ids.total(); i++) {
+                using (Mat rvec = new Mat(rvecs, new OpenCVForUnity.Rect(0,i,1,1)))
+                using (Mat tvec = new Mat(tvecs, new OpenCVForUnity.Rect(0,i,1,1)))
+                {
+                    // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
+                    Aruco.drawAxis (rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
+
+                    // This example can display the ARObject on only first detected marker.
+                    if (i == 0) {
+                        UpdateARObjectTransform (rvec, tvec);
+                    }
+                }
+            }
+        }
+
+        private void EstimatePoseGridBoard (Mat rgbMat)
+        {           
+            int valid = Aruco.estimatePoseBoard (corners, ids, gridBoard, camMatrix, distCoeffs, rvec, tvec);
+
+            // if at least one board marker detected
+            if (valid > 0) {
+                // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
+                Aruco.drawAxis (rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
+
+                UpdateARObjectTransform (rvec, tvec);
+            }
+        }
+
+        private void EstimatePoseChArUcoBoard (Mat rgbMat)
+        {
+            // if at least one charuco corner detected
+            if (charucoIds.total () > 0) {
+                bool valid = Aruco.estimatePoseCharucoBoard (charucoCorners, charucoIds, charucoBoard, camMatrix, distCoeffs, rvec, tvec);
+
+                // if at least one board marker detected
+                if (valid) {
+                    // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
+                    Aruco.drawAxis (rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
+
+                    UpdateARObjectTransform (rvec, tvec);
+                }
+            }
+        }
+
+        private void EstimatePoseChArUcoDiamondMarker (Mat rgbMat)
+        {
+            Aruco.estimatePoseSingleMarkers (diamondCorners, diamondSquareLength, camMatrix, distCoeffs, rvecs, tvecs);
+
+            for (int i = 0; i < rvecs.total(); i++) {
+                using (Mat rvec = new Mat(rvecs, new OpenCVForUnity.Rect(0,i,1,1)))
+                using (Mat tvec = new Mat(tvecs, new OpenCVForUnity.Rect(0,i,1,1)))
+                {
+                    // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
+                    Aruco.drawAxis (rgbMat, camMatrix, distCoeffs, rvec, tvec, diamondSquareLength * 0.5f);
+
+                    // This example can display the ARObject on only first detected marker.
+                    if (i == 0) {
+                        UpdateARObjectTransform (rvec, tvec);
+                    }
+                }
+            }
+        }
+
+        private void UpdateARObjectTransform (Mat rvec, Mat tvec)
+        {
+            // Position
+            double[] tvecArr = new double[3];
+            tvec.get(0, 0, tvecArr);
+
+            // Rotation
+            Calib3d.Rodrigues (rvec, rotMat);
+
+            double[] rotMatArr = new double[rotMat.total()];
+            rotMat.get (0, 0, rotMatArr);
+
+            transformationM.SetRow (0, new Vector4 ((float)rotMatArr [0], (float)rotMatArr [1], (float)rotMatArr [2], (float)tvecArr [0]));
+            transformationM.SetRow (1, new Vector4 ((float)rotMatArr [3], (float)rotMatArr [4], (float)rotMatArr [5], (float)tvecArr [1]));
+            transformationM.SetRow (2, new Vector4 ((float)rotMatArr [6], (float)rotMatArr [7], (float)rotMatArr [8], (float)tvecArr [2]));
+            transformationM.SetRow (3, new Vector4 (0, 0, 0, 1));
+
+            // right-handed coordinates system (OpenCV) to left-handed one (Unity)
+            ARM = invertYM * transformationM;
+
+            // Apply Z axis inverted matrix.
+            ARM = ARM * invertZM;
+
+            if (shouldMoveARCamera) {
+
+                ARM = arGameObject.transform.localToWorldMatrix * ARM.inverse;
+
+                ARUtils.SetTransformFromMatrix (arCamera.transform, ref ARM);
+
+            } else {
+
+                ARM = arCamera.transform.localToWorldMatrix * ARM;
+
+                ARUtils.SetTransformFromMatrix (arGameObject.transform, ref ARM);
+            }
+        }
+
+        private void ResetObjectTransform ()
+        {
+            // reset AR object transform.
+            Matrix4x4 i = Matrix4x4.identity;
+            ARUtils.SetTransformFromMatrix (arCamera.transform, ref i);
+            ARUtils.SetTransformFromMatrix (arGameObject.transform, ref i);
         }
         
         /// <summary>
@@ -428,6 +706,63 @@ namespace OpenCVForUnityExample
         public void OnChangeCameraButtonClick ()
         {
             webCamTextureToMatHelper.Initialize (null, webCamTextureToMatHelper.requestedWidth, webCamTextureToMatHelper.requestedHeight, !webCamTextureToMatHelper.requestedIsFrontFacing);
+        }
+
+        /// <summary>
+        /// Raises the marker type dropdown value changed event.
+        /// </summary>
+        public void OnMarkerTypeDropdownValueChanged(int result)
+        {
+            if (markerType != result) {
+                markerType = result;
+
+                refineMarkerDetectionToggle.interactable = (markerType == (int)MarkerType.GridBoard || markerType == (int)MarkerType.ChArUcoBoard);
+
+                ResetObjectTransform ();
+
+                if (webCamTextureToMatHelper.IsInitialized())
+                    webCamTextureToMatHelper.Initialize ();
+            }
+        }
+
+        /// <summary>
+        /// Raises the dictionary id dropdown value changed event.
+        /// </summary>
+        public void OnDictionaryIdDropdownValueChanged(int result)
+        {
+            if (dictionaryId != result) {
+                dictionaryId = result;
+                dictionary = Aruco.getPredefinedDictionary (dictionaryId);
+
+                ResetObjectTransform ();
+
+                if (webCamTextureToMatHelper.IsInitialized())
+                    webCamTextureToMatHelper.Initialize ();
+            }
+        }
+
+        /// <summary>
+        /// Raises the show rejected corners toggle value changed event.
+        /// </summary>
+        public void OnShowRejectedCornersToggleValueChanged ()
+        {
+            showRejectedCorners = showRejectedCornersToggle.isOn;
+        }
+
+        /// <summary>
+        /// Raises the refine marker detection toggle value changed event.
+        /// </summary>
+        public void OnRefineMarkerDetectionToggleValueChanged ()
+        {
+            refineMarkerDetection = refineMarkerDetectionToggle.isOn;
+        }
+
+        private enum MarkerType
+        {
+            CanonicalMarker,
+            GridBoard,
+            ChArUcoBoard,
+            ChArUcoDiamondMarker
         }
     }
 }

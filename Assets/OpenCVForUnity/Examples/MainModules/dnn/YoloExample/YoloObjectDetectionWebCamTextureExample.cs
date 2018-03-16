@@ -1,4 +1,4 @@
-#if !UNITY_WEBGL && !UNITY_WSA_10_0
+#if !UNITY_WSA_10_0
 
 using UnityEngine;
 using System.Collections;
@@ -63,35 +63,83 @@ namespace OpenCVForUnityExample
         /// </summary>
         List<string> classNames;
 
+        string coco_names_filepath;
+        string tiny_yolo_cfg_filepath;
+        string tiny_yolo_weights_filepath;
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
+#endif
+
         // Use this for initialization
         void Start ()
+        {
+            webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+var getFilePath_Coroutine = GetFilePath ();
+coroutines.Push (getFilePath_Coroutine);
+StartCoroutine (getFilePath_Coroutine);
+#else
+            coco_names_filepath = Utils.getFilePath ("dnn/coco.names");
+            tiny_yolo_cfg_filepath = Utils.getFilePath ("dnn/tiny-yolo.cfg");
+            tiny_yolo_weights_filepath = Utils.getFilePath ("dnn/tiny-yolo.weights");
+            Run ();
+#endif
+        }
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        private IEnumerator GetFilePath ()
+        {
+            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("dnn/coco.names", (result) => {
+                coco_names_filepath = result;
+            });
+            coroutines.Push (getFilePathAsync_0_Coroutine);
+            yield return StartCoroutine (getFilePathAsync_0_Coroutine);
+
+            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("dnn/tiny-yolo.cfg", (result) => {
+                tiny_yolo_cfg_filepath = result;
+            });
+            coroutines.Push (getFilePathAsync_1_Coroutine);
+            yield return StartCoroutine (getFilePathAsync_1_Coroutine);
+
+            var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync ("dnn/tiny-yolo.weights", (result) => {
+                tiny_yolo_weights_filepath = result;
+            });
+            coroutines.Push (getFilePathAsync_2_Coroutine);
+            yield return StartCoroutine (getFilePathAsync_2_Coroutine);
+
+            coroutines.Clear ();
+
+            Run ();
+        }
+#endif
+
+        // Use this for initialization
+        void Run ()
         {
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             Utils.setDebugMode (true);
 
-            classNames = readClassNames (Utils.getFilePath ("dnn/coco.names"));
+            classNames = readClassNames (coco_names_filepath);
 #if !UNITY_WSA_10_0
             if (classNames == null) {
                 Debug.LogError ("class names list file is not loaded.The model and class names list can be downloaded here: \"https://github.com/pjreddie/darknet/tree/master/data/coco.names\".Please copy to “Assets/StreamingAssets/dnn/” folder. ");
             }
 #endif
-            
-            string modelConfiguration = Utils.getFilePath ("dnn/tiny-yolo.cfg");
-            string modelBinary = Utils.getFilePath ("dnn/tiny-yolo.weights");
 
 
-            if (string.IsNullOrEmpty (modelConfiguration) || string.IsNullOrEmpty (modelBinary)) {
+            if (string.IsNullOrEmpty (tiny_yolo_cfg_filepath) || string.IsNullOrEmpty (tiny_yolo_weights_filepath)) {
                 Debug.LogError ("model file is not loaded. the cfg-file and weights-file can be downloaded here: https://github.com/pjreddie/darknet/blob/master/cfg/tiny-yolo.cfg and https://pjreddie.com/media/files/tiny-yolo.weights. Please copy to “Assets/StreamingAssets/dnn/” folder. ");
             } else {
                 //! [Initialize network]
-                net = Dnn.readNetFromDarknet (modelConfiguration, modelBinary);
+                net = Dnn.readNetFromDarknet (tiny_yolo_cfg_filepath, tiny_yolo_weights_filepath);
                 //! [Initialize network]
             }
 
 
             resized = new Mat ();
-            
-            webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
+
             webCamTextureToMatHelper.Initialize ();
         }
 

@@ -1,4 +1,4 @@
-﻿#if !UNITY_WEBGL && !UNITY_WSA_10_0
+﻿#if !UNITY_WSA_10_0
 
 using UnityEngine;
 using System.Collections;
@@ -31,14 +31,64 @@ namespace OpenCVForUnityExample
             "sheep", "sofa", "train", "tvmonitor"
         };
 
+        string dnn004545_jpg_filepath;
+        string MobileNetSSD_deploy_caffemodel_filepath;
+        string MobileNetSSD_deploy_prototxt_filepath;
+
+        #if UNITY_WEBGL && !UNITY_EDITOR
+        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
+#endif
+
         // Use this for initialization
         void Start ()
+        {
+#if UNITY_WEBGL && !UNITY_EDITOR
+var getFilePath_Coroutine = GetFilePath ();
+coroutines.Push (getFilePath_Coroutine);
+StartCoroutine (getFilePath_Coroutine);
+#else
+            dnn004545_jpg_filepath = Utils.getFilePath ("dnn/004545.jpg");
+            MobileNetSSD_deploy_caffemodel_filepath = Utils.getFilePath ("dnn/MobileNetSSD_deploy.caffemodel");
+            MobileNetSSD_deploy_prototxt_filepath = Utils.getFilePath ("dnn/MobileNetSSD_deploy.prototxt");
+            Run ();
+#endif
+        }
+
+        #if UNITY_WEBGL && !UNITY_EDITOR
+        private IEnumerator GetFilePath()
+{
+            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("dnn/004545.jpg", (result) => {
+dnn004545_jpg_filepath = result;
+});
+coroutines.Push (getFilePathAsync_0_Coroutine);
+yield return StartCoroutine (getFilePathAsync_0_Coroutine);
+
+            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("dnn/MobileNetSSD_deploy.caffemodel", (result) => {
+MobileNetSSD_deploy_caffemodel_filepath = result;
+});
+coroutines.Push (getFilePathAsync_1_Coroutine);
+yield return StartCoroutine (getFilePathAsync_1_Coroutine);
+
+            var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync ("dnn/MobileNetSSD_deploy.prototxt", (result) => {
+MobileNetSSD_deploy_prototxt_filepath = result;
+});
+coroutines.Push (getFilePathAsync_2_Coroutine);
+yield return StartCoroutine (getFilePathAsync_2_Coroutine);
+
+coroutines.Clear ();
+
+Run ();
+}
+#endif
+
+        // Use this for initialization
+        void Run ()
         {
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             Utils.setDebugMode (true);
 
 
-            Mat img = Imgcodecs.imread (Utils.getFilePath ("dnn/004545.jpg"));
+            Mat img = Imgcodecs.imread (dnn004545_jpg_filepath);
             #if !UNITY_WSA_10_0
             if (img.empty ()) {
                 Debug.LogError ("dnn/004545.jpg is not loaded.The image file can be downloaded here: \"https://github.com/chuanqi305/MobileNet-SSD/blob/master/images/004545.jpg\".Please copy to \"Assets/StreamingAssets/dnn/\" folder. ");
@@ -48,15 +98,28 @@ namespace OpenCVForUnityExample
             #endif
 
 
-            Net net = null;
+            //Adust Quad.transform.localScale.
+            gameObject.transform.localScale = new Vector3 (img.width (), img.height (), 1);
+            Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
-            string model_filepath = Utils.getFilePath ("dnn/MobileNetSSD_deploy.caffemodel");
-            string prototxt_filepath = Utils.getFilePath ("dnn/MobileNetSSD_deploy.prototxt");
+            float imageWidth = img.width ();
+            float imageHeight = img.height ();
+
+            float widthScale = (float)Screen.width / imageWidth;
+            float heightScale = (float)Screen.height / imageHeight;
+            if (widthScale < heightScale) {
+                Camera.main.orthographicSize = (imageWidth * (float)Screen.height / (float)Screen.width) / 2;
+            } else {
+                Camera.main.orthographicSize = imageHeight / 2;
+            }
+
+
+            Net net = null;
            
-            if (string.IsNullOrEmpty (model_filepath) || string.IsNullOrEmpty (prototxt_filepath)) {
+            if (string.IsNullOrEmpty (MobileNetSSD_deploy_caffemodel_filepath) || string.IsNullOrEmpty (MobileNetSSD_deploy_prototxt_filepath)) {
                 Debug.LogError ("model file is not loaded.The model and prototxt file can be downloaded here: \"https://github.com/chuanqi305/MobileNet-SSD\".Please copy to “Assets/StreamingAssets/dnn/” folder. ");
             } else {
-                net = Dnn.readNetFromCaffe (prototxt_filepath, model_filepath);
+                net = Dnn.readNetFromCaffe (MobileNetSSD_deploy_prototxt_filepath, MobileNetSSD_deploy_caffemodel_filepath);
 
             }
 

@@ -13,7 +13,7 @@ namespace OpenCVForUnityExample
     /// Polygon Filter Example
     /// Referring to http://jsdo.it/hedger/tIod.
     /// </summary>
-    [RequireComponent(typeof(OptimizationWebCamTextureToMatHelper))]
+    [RequireComponent(typeof(WebCamTextureToMatHelper), typeof(ImageOptimizationHelper))]
     public class PolygonFilterExample : MonoBehaviour
     {
         /// <summary>
@@ -24,7 +24,12 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// The webcam texture to mat helper.
         /// </summary>
-        OptimizationWebCamTextureToMatHelper webCamTextureToMatHelper;
+        WebCamTextureToMatHelper webCamTextureToMatHelper;
+
+        /// <summary>
+        /// The image optimization helper.
+        /// </summary>
+        ImageOptimizationHelper imageOptimizationHelper;
 
         /// <summary>
         /// EDGE_DETECT_VALUE
@@ -69,7 +74,8 @@ namespace OpenCVForUnityExample
         // Use this for initialization
         void Start ()
         {
-            webCamTextureToMatHelper = gameObject.GetComponent<OptimizationWebCamTextureToMatHelper> ();
+            imageOptimizationHelper = gameObject.GetComponent<ImageOptimizationHelper> ();
+            webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
             webCamTextureToMatHelper.Initialize ();
         }
 
@@ -102,7 +108,7 @@ namespace OpenCVForUnityExample
             }
 
 
-            Mat downScaleMat = webCamTextureToMatHelper.GetDownScaleMat (webCamTextureMat);
+            Mat downScaleMat = imageOptimizationHelper.GetDownScaleMat ((webCamTextureMat));
 
             gray1Mat = new Mat (downScaleMat.rows (), downScaleMat.cols (), CvType.CV_8UC1);
             gray2Mat = new Mat (downScaleMat.rows (), downScaleMat.cols (), CvType.CV_8UC1);
@@ -159,12 +165,12 @@ namespace OpenCVForUnityExample
         // Update is called once per frame
         void Update ()
         {
-            if (webCamTextureToMatHelper.IsPlaying () && webCamTextureToMatHelper.DidUpdateThisFrame () && !webCamTextureToMatHelper.IsCurrentFrameSkipped ()) {
+            if (webCamTextureToMatHelper.IsPlaying () && webCamTextureToMatHelper.DidUpdateThisFrame () && !imageOptimizationHelper.IsCurrentFrameSkipped ()) {
 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
 
                 //get downScaleMat;
-                Mat downScaleRgbaMat = webCamTextureToMatHelper.GetDownScaleMat (rgbaMat);
+                Mat downScaleRgbaMat = imageOptimizationHelper.GetDownScaleMat ((rgbaMat));
 
                 //grayscale
                 Imgproc.cvtColor (downScaleRgbaMat, gray1Mat, Imgproc.COLOR_RGBA2GRAY);
@@ -224,7 +230,7 @@ namespace OpenCVForUnityExample
                     subdiv.getTriangleList (triangleList);
                 
                     float[] pointArray = triangleList.toArray ();
-                    float downScaleRatio = webCamTextureToMatHelper.downscaleRatio;
+                    float downScaleRatio = imageOptimizationHelper.downscaleRatio;
                     if (downScaleRatio < 1)
                         downScaleRatio = 1;
                     byte[] color = new byte[4];
@@ -279,6 +285,7 @@ namespace OpenCVForUnityExample
         void OnDestroy ()
         {
             webCamTextureToMatHelper.Dispose ();
+            imageOptimizationHelper.Dispose ();
         }
 
         /// <summary>

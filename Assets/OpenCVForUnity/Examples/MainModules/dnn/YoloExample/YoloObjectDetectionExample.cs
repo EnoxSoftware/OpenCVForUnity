@@ -1,4 +1,4 @@
-﻿#if !UNITY_WEBGL && !UNITY_WSA_10_0
+﻿#if !UNITY_WSA_10_0
 
 using UnityEngine;
 using System.Collections;
@@ -23,14 +23,72 @@ namespace OpenCVForUnityExample
         const int network_width = 416;
         const int network_height = 416;
 
+        string coco_names_filepath;
+        string person_jpg_filepath;
+        string tiny_yolo_cfg_filepath;
+        string tiny_yolo_weights_filepath;
+
+        #if UNITY_WEBGL && !UNITY_EDITOR
+        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
+#endif
+
         // Use this for initialization
         void Start ()
+        {
+#if UNITY_WEBGL && !UNITY_EDITOR
+var getFilePath_Coroutine = GetFilePath ();
+coroutines.Push (getFilePath_Coroutine);
+StartCoroutine (getFilePath_Coroutine);
+#else
+            coco_names_filepath = Utils.getFilePath ("dnn/coco.names");
+            person_jpg_filepath = Utils.getFilePath ("dnn/person.jpg");
+            tiny_yolo_cfg_filepath = Utils.getFilePath ("dnn/tiny-yolo.cfg");
+            tiny_yolo_weights_filepath = Utils.getFilePath ("dnn/tiny-yolo.weights");
+            Run ();
+#endif
+        }
+
+        #if UNITY_WEBGL && !UNITY_EDITOR
+        private IEnumerator GetFilePath ()
+        {
+            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("dnn/coco.names", (result) => {
+                coco_names_filepath = result;
+            });
+            coroutines.Push (getFilePathAsync_0_Coroutine);
+            yield return StartCoroutine (getFilePathAsync_0_Coroutine);
+
+            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("dnn/person.jpg", (result) => {
+                person_jpg_filepath = result;
+            });
+            coroutines.Push (getFilePathAsync_1_Coroutine);
+            yield return StartCoroutine (getFilePathAsync_1_Coroutine);
+
+            var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync ("dnn/tiny-yolo.cfg", (result) => {
+                tiny_yolo_cfg_filepath = result;
+            });
+            coroutines.Push (getFilePathAsync_2_Coroutine);
+            yield return StartCoroutine (getFilePathAsync_2_Coroutine);
+
+            var getFilePathAsync_3_Coroutine = Utils.getFilePathAsync ("dnn/tiny-yolo.weights", (result) => {
+                tiny_yolo_weights_filepath = result;
+            });
+            coroutines.Push (getFilePathAsync_3_Coroutine);
+            yield return StartCoroutine (getFilePathAsync_3_Coroutine);
+
+            coroutines.Clear ();
+
+            Run ();
+        }
+#endif
+
+        // Use this for initialization
+        void Run ()
         {
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             Utils.setDebugMode (true);
 
 
-            List<string> classNames = readClassNames (Utils.getFilePath ("dnn/coco.names"));
+            List<string> classNames = readClassNames (coco_names_filepath);
 #if !UNITY_WSA_10_0
             if (classNames == null) {
                 Debug.LogError ("class names list file is not loaded.The model and class names list can be downloaded here: \"https://github.com/pjreddie/darknet/tree/master/data/coco.names\".Please copy to “Assets/StreamingAssets/dnn/” folder. ");
@@ -38,26 +96,38 @@ namespace OpenCVForUnityExample
 #endif
 
 
-            Mat img = Imgcodecs.imread (Utils.getFilePath ("dnn/person.jpg"));
+            Mat img = Imgcodecs.imread (person_jpg_filepath);
             #if !UNITY_WSA_10_0
             if (img.empty ()) {
                 Debug.LogError ("dnn/person.jpg is not loaded.The image file can be downloaded here: \"https://github.com/pjreddie/darknet/blob/master/data/person.jpg\".Please copy to \"Assets/StreamingAssets/dnn/\" folder. ");
                 img = new Mat (424, 640, CvType.CV_8UC3, new Scalar (0, 0, 0));
             }
             #endif
-            
 
-            string modelConfiguration = Utils.getFilePath ("dnn/tiny-yolo.cfg");
-            string modelBinary = Utils.getFilePath ("dnn/tiny-yolo.weights");
+
+            //Adust Quad.transform.localScale.
+            gameObject.transform.localScale = new Vector3 (img.width (), img.height (), 1);
+            Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
+
+            float imageWidth = img.width ();
+            float imageHeight = img.height ();
+
+            float widthScale = (float)Screen.width / imageWidth;
+            float heightScale = (float)Screen.height / imageHeight;
+            if (widthScale < heightScale) {
+                Camera.main.orthographicSize = (imageWidth * (float)Screen.height / (float)Screen.width) / 2;
+            } else {
+                Camera.main.orthographicSize = imageHeight / 2;
+            }
+
 
             Net net = null;
 
-
-            if (string.IsNullOrEmpty (modelConfiguration) || string.IsNullOrEmpty (modelBinary)) {
+            if (string.IsNullOrEmpty (tiny_yolo_cfg_filepath) || string.IsNullOrEmpty (tiny_yolo_weights_filepath)) {
                 Debug.LogError ("model file is not loaded. the cfg-file and weights-file can be downloaded here: https://github.com/pjreddie/darknet/blob/master/cfg/tiny-yolo.cfg and https://pjreddie.com/media/files/tiny-yolo.weights. Please copy to “Assets/StreamingAssets/dnn/” folder. ");
             } else {
                 //! [Initialize network]
-                net = Dnn.readNetFromDarknet (modelConfiguration, modelBinary);
+                net = Dnn.readNetFromDarknet (tiny_yolo_cfg_filepath, tiny_yolo_weights_filepath);
                 //! [Initialize network]
             }
 
