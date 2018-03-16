@@ -36,5 +36,6 @@ var searchData=
   ['superpixelseeds',['SuperpixelSEEDS',['../class_open_c_v_for_unity_1_1_superpixel_s_e_e_d_s.html',1,'OpenCVForUnity']]],
   ['superpixelslic',['SuperpixelSLIC',['../class_open_c_v_for_unity_1_1_superpixel_s_l_i_c.html',1,'OpenCVForUnity']]],
   ['svm',['SVM',['../class_open_c_v_for_unity_1_1_s_v_m.html',1,'OpenCVForUnity']]],
-  ['svmsgd',['SVMSGD',['../class_open_c_v_for_unity_1_1_s_v_m_s_g_d.html',1,'OpenCVForUnity']]]
+  ['svmsgd',['SVMSGD',['../class_open_c_v_for_unity_1_1_s_v_m_s_g_d.html',1,'OpenCVForUnity']]],
+  ['syntheticsequencegenerator',['SyntheticSequenceGenerator',['../class_open_c_v_for_unity_1_1_synthetic_sequence_generator.html',1,'OpenCVForUnity']]]
 ];

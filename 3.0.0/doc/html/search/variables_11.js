@@ -1,7 +1,6 @@
 var searchData=
 [
   ['sgd',['SGD',['../class_open_c_v_for_unity_1_1_s_v_m_s_g_d.html#aa22a27df7e5745486c474588fcb8ef10',1,'OpenCVForUnity::SVMSGD']]],
-  ['sift',['SIFT',['../class_open_c_v_for_unity_1_1_descriptor_extractor.html#ac5bb8027fc55d0fa07dc07c551be569d',1,'OpenCVForUnity::DescriptorExtractor']]],
   ['sigmoid',['SIGMOID',['../class_open_c_v_for_unity_1_1_s_v_m.html#a2b2e78946d439658a08f6c8a0237f999',1,'OpenCVForUnity::SVM']]],
   ['sigmoid_5fsym',['SIGMOID_SYM',['../class_open_c_v_for_unity_1_1_a_n_n___m_l_p.html#a39939eb098caf21db1a85f6fc5171746',1,'OpenCVForUnity::ANN_MLP']]],
   ['simpleblob',['SIMPLEBLOB',['../class_open_c_v_for_unity_1_1_feature_detector.html#a9a4b70e6b69e2f68c3a38cda2e792a57',1,'OpenCVForUnity::FeatureDetector']]],
@@ -54,7 +53,6 @@ var searchData=
   ['stsunmatchedsizes',['StsUnmatchedSizes',['../class_open_c_v_for_unity_1_1_core.html#ad3d246756ed5c8ad52e36911634cd3fb',1,'OpenCVForUnity::Core']]],
   ['stsunsupportedformat',['StsUnsupportedFormat',['../class_open_c_v_for_unity_1_1_core.html#a8bc196fd501f61a16e872bc400a20386',1,'OpenCVForUnity::Core']]],
   ['stsveclengtherr',['StsVecLengthErr',['../class_open_c_v_for_unity_1_1_core.html#ad4d6bf1f138475661a03ced5b3fc9f7d',1,'OpenCVForUnity::Core']]],
-  ['surf',['SURF',['../class_open_c_v_for_unity_1_1_descriptor_extractor.html#a48e66077f5bf2e7b8cb0cb4f1b4d1e5a',1,'OpenCVForUnity::DescriptorExtractor']]],
   ['svd_5ffull_5fuv',['SVD_FULL_UV',['../class_open_c_v_for_unity_1_1_core.html#aae0c33bc7b0f40ffaa95c3102d0a1789',1,'OpenCVForUnity::Core']]],
   ['svd_5fmodify_5fa',['SVD_MODIFY_A',['../class_open_c_v_for_unity_1_1_core.html#a635d4b8bc5816656996c0a53ea7a8778',1,'OpenCVForUnity::Core']]],
   ['svd_5fno_5fuv',['SVD_NO_UV',['../class_open_c_v_for_unity_1_1_core.html#a2107eb89fc0c0db5526a50ee223298ef',1,'OpenCVForUnity::Core']]]

@@ -16,6 +16,8 @@ var searchData=
   ['linear',['LINEAR',['../class_open_c_v_for_unity_1_1_s_v_m.html#a6e6cac5e52db4b32308e5264d691106b',1,'OpenCVForUnity.SVM.LINEAR()'],['../class_open_c_v_for_unity_1_1_fuzzy.html#a8294c89837437c11d7e4257e6acd32a6',1,'OpenCVForUnity.Fuzzy.LINEAR()']]],
   ['lmeds',['LMEDS',['../class_open_c_v_for_unity_1_1_calib3d.html#a197788c8a0bb800a51911d00af48598f',1,'OpenCVForUnity::Calib3d']]],
   ['logit',['LOGIT',['../class_open_c_v_for_unity_1_1_boost.html#aa3d46c8905665afc013f5c566eca517a',1,'OpenCVForUnity::Boost']]],
+  ['lsbp_5fcamera_5fmotion_5fcompensation_5flk',['LSBP_CAMERA_MOTION_COMPENSATION_LK',['../class_open_c_v_for_unity_1_1_bgsegm.html#a9721fac1ad81b042732dc455d6ebe82f',1,'OpenCVForUnity::Bgsegm']]],
+  ['lsbp_5fcamera_5fmotion_5fcompensation_5fnone',['LSBP_CAMERA_MOTION_COMPENSATION_NONE',['../class_open_c_v_for_unity_1_1_bgsegm.html#a291d17bdc7d636ec9aff2b0838d1048b',1,'OpenCVForUnity::Bgsegm']]],
   ['lsd_5frefine_5fadv',['LSD_REFINE_ADV',['../class_open_c_v_for_unity_1_1_imgproc.html#ae26b63a273ef75031ede959586e79774',1,'OpenCVForUnity::Imgproc']]],
   ['lsd_5frefine_5fnone',['LSD_REFINE_NONE',['../class_open_c_v_for_unity_1_1_imgproc.html#ad1cdb394df65836813ebde60c1e90837',1,'OpenCVForUnity::Imgproc']]],
   ['lsd_5frefine_5fstd',['LSD_REFINE_STD',['../class_open_c_v_for_unity_1_1_imgproc.html#a75996dc4e7d3af61d830f61dc2e9e7cc',1,'OpenCVForUnity::Imgproc']]]

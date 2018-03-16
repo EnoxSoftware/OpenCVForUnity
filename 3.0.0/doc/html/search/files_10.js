@@ -36,5 +36,6 @@ var searchData=
   ['superpixelseeds_2ecs',['SuperpixelSEEDS.cs',['../_superpixel_s_e_e_d_s_8cs.html',1,'']]],
   ['superpixelslic_2ecs',['SuperpixelSLIC.cs',['../_superpixel_s_l_i_c_8cs.html',1,'']]],
   ['svm_2ecs',['SVM.cs',['../_s_v_m_8cs.html',1,'']]],
-  ['svmsgd_2ecs',['SVMSGD.cs',['../_s_v_m_s_g_d_8cs.html',1,'']]]
+  ['svmsgd_2ecs',['SVMSGD.cs',['../_s_v_m_s_g_d_8cs.html',1,'']]],
+  ['syntheticsequencegenerator_2ecs',['SyntheticSequenceGenerator.cs',['../_synthetic_sequence_generator_8cs.html',1,'']]]
 ];

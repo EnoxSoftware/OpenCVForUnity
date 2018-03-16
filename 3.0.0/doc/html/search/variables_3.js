@@ -63,6 +63,7 @@ var searchData=
   ['distance',['distance',['../class_open_c_v_for_unity_1_1_d_match.html#ad4fd9826d9fd6c1ee6b4b002c917e8ce',1,'OpenCVForUnity::DMatch']]],
   ['dnn_5fbackend_5fdefault',['DNN_BACKEND_DEFAULT',['../class_open_c_v_for_unity_1_1_dnn.html#a0dcd49d9c67918946e4d0c04c1eb2637',1,'OpenCVForUnity::Dnn']]],
   ['dnn_5fbackend_5fhalide',['DNN_BACKEND_HALIDE',['../class_open_c_v_for_unity_1_1_dnn.html#a64d2108ae94529554b3a667be1bfb323',1,'OpenCVForUnity::Dnn']]],
+  ['dnn_5fbackend_5finference_5fengine',['DNN_BACKEND_INFERENCE_ENGINE',['../class_open_c_v_for_unity_1_1_dnn.html#a144aad30908a369d0ee5d53af62136e7',1,'OpenCVForUnity::Dnn']]],
   ['dnn_5ftarget_5fcpu',['DNN_TARGET_CPU',['../class_open_c_v_for_unity_1_1_dnn.html#ac4f6bcd749266cd40f3940670f8cecc0',1,'OpenCVForUnity::Dnn']]],
   ['dnn_5ftarget_5fopencl',['DNN_TARGET_OPENCL',['../class_open_c_v_for_unity_1_1_dnn.html#ae026b5cf5c1f6284cc85f0935ec0ecaf',1,'OpenCVForUnity::Dnn']]],
   ['draw_5fover_5foutimg',['DRAW_OVER_OUTIMG',['../class_open_c_v_for_unity_1_1_features2d.html#a28bcc7ecb36759381956bffab58b2f42',1,'OpenCVForUnity::Features2d']]],

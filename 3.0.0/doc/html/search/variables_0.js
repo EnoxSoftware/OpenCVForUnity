@@ -8,6 +8,7 @@ var searchData=
   ['akaze',['AKAZE',['../class_open_c_v_for_unity_1_1_descriptor_extractor.html#abb53073d9083e10e4bcf540befc0045d',1,'OpenCVForUnity.DescriptorExtractor.AKAZE()'],['../class_open_c_v_for_unity_1_1_feature_detector.html#a7b1fc37a9b39af0c7f15510949066fe2',1,'OpenCVForUnity.FeatureDetector.AKAZE()']]],
   ['am_5ffilter',['AM_FILTER',['../class_open_c_v_for_unity_1_1_ximgproc.html#a0965716512e2e770b9972d427f4564fe',1,'OpenCVForUnity::Ximgproc']]],
   ['angle',['angle',['../class_open_c_v_for_unity_1_1_key_point.html#a931f451fa69d9fbce900632752f9ea52',1,'OpenCVForUnity.KeyPoint.angle()'],['../class_open_c_v_for_unity_1_1_rotated_rect.html#a78d80b644593df3c0f17b43123bf052f',1,'OpenCVForUnity.RotatedRect.angle()']]],
+  ['anneal',['ANNEAL',['../class_open_c_v_for_unity_1_1_a_n_n___m_l_p.html#ad0891b5cfe9426d1e8e04e81131c7c7a',1,'OpenCVForUnity::ANN_MLP']]],
   ['aro_5f0_5f45',['ARO_0_45',['../class_open_c_v_for_unity_1_1_ximgproc.html#abc87baa275df497b5531c7f470b9d5d1',1,'OpenCVForUnity::Ximgproc']]],
   ['aro_5f315_5f0',['ARO_315_0',['../class_open_c_v_for_unity_1_1_ximgproc.html#a6cd2e60427c51281cca530ba0310063f',1,'OpenCVForUnity::Ximgproc']]],
   ['aro_5f315_5f135',['ARO_315_135',['../class_open_c_v_for_unity_1_1_ximgproc.html#ae358ca7ba5db9779729279005199ca9b',1,'OpenCVForUnity::Ximgproc']]],
