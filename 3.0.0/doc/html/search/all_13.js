@@ -149,7 +149,7 @@ var searchData=
   ['setctrsize',['setCtrSize',['../class_open_c_v_for_unity_1_1_contour_fitting.html#ace66d214cb27eb177bcb9ace8c7251b4',1,'OpenCVForUnity::ContourFitting']]],
   ['setcut',['setCut',['../class_open_c_v_for_unity_1_1_align_m_t_b.html#affdf344fa2313a95acaacb2a4ac6c41b',1,'OpenCVForUnity::AlignMTB']]],
   ['setcvfolds',['setCVFolds',['../class_open_c_v_for_unity_1_1_d_trees.html#ae84816ecad22b026b7c43a92cb2714c0',1,'OpenCVForUnity::DTrees']]],
-  ['setdebugmode',['setDebugMode',['../class_open_c_v_for_unity_1_1_utils.html#a9e4786d3eda1d058e555b5af211250f4',1,'OpenCVForUnity::Utils']]],
+  ['setdebugmode',['setDebugMode',['../class_open_c_v_for_unity_1_1_utils.html#a579811fa96663ae75c917b5e9d4b5000',1,'OpenCVForUnity::Utils']]],
   ['setdecisionthreshold',['setDecisionThreshold',['../class_open_c_v_for_unity_1_1_background_subtractor_g_m_g.html#a9bd8dc9dcce2224b34d1765d4e85cf08',1,'OpenCVForUnity::BackgroundSubtractorGMG']]],
   ['setdefaultcost',['setDefaultCost',['../class_open_c_v_for_unity_1_1_histogram_cost_extractor.html#a603abdb71671461b8a8dbb1a4f695f38',1,'OpenCVForUnity::HistogramCostExtractor']]],
   ['setdefaultk',['setDefaultK',['../class_open_c_v_for_unity_1_1_k_nearest.html#aa34838bd87ff11d7aa286b44626c6bb5',1,'OpenCVForUnity::KNearest']]],
