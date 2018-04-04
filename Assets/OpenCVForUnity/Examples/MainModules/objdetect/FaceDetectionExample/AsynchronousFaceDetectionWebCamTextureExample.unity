@@ -1159,6 +1159,7 @@ GameObject:
   - 23: {fileID: 1162053729}
   - 114: {fileID: 1162053728}
   - 114: {fileID: 1162053733}
+  - 114: {fileID: 1162053734}
   m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
@@ -1246,14 +1247,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df35b0c19ca97734e87299a664cea35f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requestedDeviceName: 
-  requestedWidth: 640
-  requestedHeight: 480
-  requestedIsFrontFacing: 0
-  requestedFPS: 30
-  flipVertical: 0
-  flipHorizontal: 0
-  timeoutFrameCount: 300
+  _requestedDeviceName: 
+  _requestedWidth: 640
+  _requestedHeight: 480
+  _requestedIsFrontFacing: 0
+  _requestedFPS: 30
+  _requestedRotate90Degree: 0
+  _flipVertical: 0
+  _flipHorizontal: 0
+  _timeoutFrameCount: 300
   onInitialized:
     m_PersistentCalls:
       m_Calls:
@@ -1302,6 +1304,25 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: OpenCVForUnityExample.WebCamTextureToMatHelper+ErrorUnityEvent, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!114 &1162053734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1162053727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03ffc138d8c85b946b9bae82bf2c68c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alignment: 1
+  offset: {x: 10, y: 10}
+  boxVisible: 1
+  boxWidth: 200
+  boxHeight: 110
+  padding: {x: 8, y: 5}
+  consoleHeight: 50
+  consoleText: 
 --- !u!1 &1663048321
 GameObject:
   m_ObjectHideFlags: 0

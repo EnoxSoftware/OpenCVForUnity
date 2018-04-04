@@ -47,7 +47,6 @@ namespace OpenCVForUnityExample
         // Use this for initialization
         void Start ()
         {
-            
             capture = new VideoCapture ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
@@ -151,6 +150,11 @@ namespace OpenCVForUnityExample
 
             if (rgbMat != null)
                 rgbMat.Dispose ();
+
+            if (texture != null) {
+                Texture2D.Destroy(texture);
+                texture = null;
+            }
 
             if (des != null)
                 des.Dispose ();

@@ -59,6 +59,15 @@ namespace OpenCVForUnityExample
         Mat detectionMat;
 
         /// <summary>
+        /// The FPS monitor.
+        /// </summary>
+        FpsMonitor fpsMonitor;
+
+        #if UNITY_ANDROID && !UNITY_EDITOR
+        float rearCameraRequestedFPS;
+        #endif
+
+        /// <summary>
         /// The class names.
         /// </summary>
         List<string> classNames;
@@ -67,28 +76,30 @@ namespace OpenCVForUnityExample
         string tiny_yolo_cfg_filepath;
         string tiny_yolo_weights_filepath;
 
-#if UNITY_WEBGL && !UNITY_EDITOR
+        #if UNITY_WEBGL && !UNITY_EDITOR
         Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
-#endif
+        #endif
 
         // Use this for initialization
         void Start ()
         {
+            fpsMonitor = GetComponent<FpsMonitor> ();
+
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-var getFilePath_Coroutine = GetFilePath ();
-coroutines.Push (getFilePath_Coroutine);
-StartCoroutine (getFilePath_Coroutine);
-#else
+            #if UNITY_WEBGL && !UNITY_EDITOR
+            var getFilePath_Coroutine = GetFilePath ();
+            coroutines.Push (getFilePath_Coroutine);
+            StartCoroutine (getFilePath_Coroutine);
+            #else
             coco_names_filepath = Utils.getFilePath ("dnn/coco.names");
             tiny_yolo_cfg_filepath = Utils.getFilePath ("dnn/tiny-yolo.cfg");
             tiny_yolo_weights_filepath = Utils.getFilePath ("dnn/tiny-yolo.weights");
             Run ();
-#endif
+            #endif
         }
 
-#if UNITY_WEBGL && !UNITY_EDITOR
+        #if UNITY_WEBGL && !UNITY_EDITOR
         private IEnumerator GetFilePath ()
         {
             var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("dnn/coco.names", (result) => {
@@ -113,7 +124,7 @@ StartCoroutine (getFilePath_Coroutine);
 
             Run ();
         }
-#endif
+        #endif
 
         // Use this for initialization
         void Run ()
@@ -122,12 +133,11 @@ StartCoroutine (getFilePath_Coroutine);
             Utils.setDebugMode (true);
 
             classNames = readClassNames (coco_names_filepath);
-#if !UNITY_WSA_10_0
+            #if !UNITY_WSA_10_0
             if (classNames == null) {
                 Debug.LogError ("class names list file is not loaded.The model and class names list can be downloaded here: \"https://github.com/pjreddie/darknet/tree/master/data/coco.names\".Please copy to “Assets/StreamingAssets/dnn/” folder. ");
             }
-#endif
-
+            #endif
 
             if (string.IsNullOrEmpty (tiny_yolo_cfg_filepath) || string.IsNullOrEmpty (tiny_yolo_weights_filepath)) {
                 Debug.LogError ("model file is not loaded. the cfg-file and weights-file can be downloaded here: https://github.com/pjreddie/darknet/blob/master/cfg/tiny-yolo.cfg and https://pjreddie.com/media/files/tiny-yolo.weights. Please copy to “Assets/StreamingAssets/dnn/” folder. ");
@@ -137,10 +147,22 @@ StartCoroutine (getFilePath_Coroutine);
                 //! [Initialize network]
             }
 
-
             resized = new Mat ();
 
+            #if UNITY_ANDROID && !UNITY_EDITOR
+            // Set the requestedFPS parameter to avoid the problem of the WebCamTexture image becoming low light on some Android devices. (Pixel, pixel 2)
+            // https://forum.unity.com/threads/android-webcamtexture-in-low-light-only-some-models.520656/
+            // https://forum.unity.com/threads/released-opencv-for-unity.277080/page-33#post-3445178
+            rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
+            if (webCamTextureToMatHelper.requestedIsFrontFacing) {                
+                webCamTextureToMatHelper.requestedFPS = 15;
+                webCamTextureToMatHelper.Initialize ();
+            } else {
+                webCamTextureToMatHelper.Initialize ();
+            }
+            #else
             webCamTextureToMatHelper.Initialize ();
+            #endif
         }
 
         /// <summary>
@@ -159,6 +181,12 @@ StartCoroutine (getFilePath_Coroutine);
 
             gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
+
+            if (fpsMonitor != null){
+                fpsMonitor.Add ("width", webCamTextureMat.width ().ToString());
+                fpsMonitor.Add ("height", webCamTextureMat.height ().ToString());
+                fpsMonitor.Add ("orientation", Screen.orientation.ToString());
+            }
 
 
             float width = webCamTextureMat.width ();
@@ -185,6 +213,11 @@ StartCoroutine (getFilePath_Coroutine);
 
             if (bgrMat != null)
                 bgrMat.Dispose ();
+
+            if (texture != null) {
+                Texture2D.Destroy(texture);
+                texture = null;
+            }
         }
 
         /// <summary>
@@ -358,7 +391,16 @@ StartCoroutine (getFilePath_Coroutine);
         /// </summary>
         public void OnChangeCameraButtonClick ()
         {
-            webCamTextureToMatHelper.Initialize (null, webCamTextureToMatHelper.requestedWidth, webCamTextureToMatHelper.requestedHeight, !webCamTextureToMatHelper.requestedIsFrontFacing);
+            #if UNITY_ANDROID && !UNITY_EDITOR
+            if (!webCamTextureToMatHelper.IsFrontFacing ()) {
+                rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
+                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), 15, webCamTextureToMatHelper.rotate90Degree);
+            } else {                
+                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), rearCameraRequestedFPS, webCamTextureToMatHelper.rotate90Degree);
+            }
+            #else
+            webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing ();
+            #endif
         }
 
         private List<string> readClassNames (string filename)

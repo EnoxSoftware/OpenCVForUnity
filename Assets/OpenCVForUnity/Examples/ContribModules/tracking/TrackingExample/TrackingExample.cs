@@ -63,6 +63,11 @@ namespace OpenCVForUnityExample
         /// </summary>
         Point storedTouchPoint;
 
+        /// <summary>
+        /// The FPS monitor.
+        /// </summary>
+        FpsMonitor fpsMonitor;
+
         #if UNITY_WEBGL && !UNITY_EDITOR
         Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
         #endif
@@ -70,6 +75,8 @@ namespace OpenCVForUnityExample
         // Use this for initialization
         void Start ()
         {
+            fpsMonitor = GetComponent<FpsMonitor> ();
+
             capture = new VideoCapture ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
@@ -209,9 +216,15 @@ namespace OpenCVForUnityExample
                 }
 
                 if (selectedPointList.Count != 1) {
-                    Imgproc.putText (rgbMat, "Please touch the screen, and select tracking regions.", new Point (5, rgbMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    //Imgproc.putText (rgbMat, "Please touch the screen, and select tracking regions.", new Point (5, rgbMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    if (fpsMonitor != null) {
+                        fpsMonitor.consoleText = "Please touch the screen, and select tracking regions.";
+                    }
                 } else {
-                    Imgproc.putText (rgbMat, "Please select the end point of the new tracking region.", new Point (5, rgbMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    //Imgproc.putText (rgbMat, "Please select the end point of the new tracking region.", new Point (5, rgbMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    if (fpsMonitor != null) {
+                        fpsMonitor.consoleText = "Please select the end point of the new tracking region.";
+                    }
                 }
 
                 Utils.matToTexture2D (rgbMat, texture, colors);
@@ -286,6 +299,11 @@ namespace OpenCVForUnityExample
 
             if (rgbMat != null)
                 rgbMat.Dispose ();
+
+            if (texture != null) {
+                Texture2D.Destroy(texture);
+                texture = null;
+            }
 
             if (trackers != null)
                 trackers.Dispose ();

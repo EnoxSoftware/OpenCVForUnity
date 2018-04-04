@@ -29,7 +29,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// The marker type.
         /// </summary>
-        public int markerType = (int)MarkerType.CanonicalMarker;
+        public MarkerType markerType = MarkerType.CanonicalMarker;
 
         /// <summary>
         /// The marker type dropdown.
@@ -39,7 +39,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// The dictionary identifier.
         /// </summary>
-        public int dictionaryId = Aruco.DICT_6X6_250;
+        public ArUcoDictionary dictionaryId = ArUcoDictionary.DICT_6X6_250;
 
         /// <summary>
         /// The dictionary id dropdown.
@@ -176,6 +176,11 @@ namespace OpenCVForUnityExample
         /// </summary>
         Dictionary dictionary;
 
+        /// <summary>
+        /// The FPS monitor.
+        /// </summary>
+        FpsMonitor fpsMonitor;
+
         Mat rvec;
         Mat tvec;
         Mat recoveredIdxs;
@@ -219,21 +224,38 @@ namespace OpenCVForUnityExample
         const int diamondId4 = 74;
         List<Mat> diamondCorners;
         Mat diamondIds;
+
+        #if UNITY_ANDROID && !UNITY_EDITOR
+        float rearCameraRequestedFPS;
+        #endif
         
         // Use this for initialization
         void Start ()
         {
-            if (markerTypeDropdown.value != markerType || dictionaryIdDropdown.value != dictionaryId
-                || showRejectedCornersToggle.isOn != showRejectedCorners || refineMarkerDetectionToggle.isOn != refineMarkerDetection) {
-                markerTypeDropdown.value = markerType;
-                dictionaryIdDropdown.value = dictionaryId;
-                showRejectedCornersToggle.isOn = showRejectedCorners;
-                refineMarkerDetectionToggle.isOn = refineMarkerDetection;
-            }
-            refineMarkerDetectionToggle.interactable = (markerType == (int)MarkerType.GridBoard || markerType == (int)MarkerType.ChArUcoBoard);
+            fpsMonitor = GetComponent<FpsMonitor> ();
+
+            markerTypeDropdown.value = (int)markerType;
+            dictionaryIdDropdown.value = (int)dictionaryId;
+            showRejectedCornersToggle.isOn = showRejectedCorners;
+            refineMarkerDetectionToggle.isOn = refineMarkerDetection;
+            refineMarkerDetectionToggle.interactable = (markerType == MarkerType.GridBoard || markerType == MarkerType.ChArUcoBoard);
 
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
+
+            #if UNITY_ANDROID && !UNITY_EDITOR
+            // Set the requestedFPS parameter to avoid the problem of the WebCamTexture image becoming low light on some Android devices. (Pixel, pixel 2)
+            // https://forum.unity.com/threads/android-webcamtexture-in-low-light-only-some-models.520656/
+            // https://forum.unity.com/threads/released-opencv-for-unity.277080/page-33#post-3445178
+            rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
+            if (webCamTextureToMatHelper.requestedIsFrontFacing) {                
+                webCamTextureToMatHelper.requestedFPS = 15;
+                webCamTextureToMatHelper.Initialize ();
+            } else {
+                webCamTextureToMatHelper.Initialize ();
+            }
+            #else
             webCamTextureToMatHelper.Initialize ();
+            #endif
         }
         
         /// <summary>
@@ -251,7 +273,13 @@ namespace OpenCVForUnityExample
             
             gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
-            
+
+            if (fpsMonitor != null){
+                fpsMonitor.Add ("width", webCamTextureMat.width ().ToString());
+                fpsMonitor.Add ("height", webCamTextureMat.height ().ToString());
+                fpsMonitor.Add ("orientation", Screen.orientation.ToString());
+            }
+
             
             float width = webCamTextureMat.width ();
             float height = webCamTextureMat.height ();
@@ -380,7 +408,7 @@ namespace OpenCVForUnityExample
             Debug.Log ("invertZM " + invertZM.ToString ());
             
             detectorParams = DetectorParameters.create ();
-            dictionary = Aruco.getPredefinedDictionary (dictionaryId);
+            dictionary = Aruco.getPredefinedDictionary ((int)dictionaryId);
 
             rvec = new Mat ();
             tvec = new Mat ();
@@ -412,6 +440,12 @@ namespace OpenCVForUnityExample
             
             if (rgbMat != null)
                 rgbMat.Dispose ();
+
+            if (texture != null) {
+                Texture2D.Destroy(texture);
+                texture = null;
+            }
+
             if (ids != null)
                 ids.Dispose ();
             foreach (var item in corners) {
@@ -477,12 +511,12 @@ namespace OpenCVForUnityExample
                 Aruco.detectMarkers (rgbMat, dictionary, corners, ids, detectorParams, rejectedCorners, camMatrix, distCoeffs);
 
                 // refine marker detection.
-                if (refineMarkerDetection) {
+                if (refineMarkerDetection && (markerType == MarkerType.GridBoard || markerType == MarkerType.ChArUcoBoard)) {
                     switch (markerType) {
-                    case (int)MarkerType.GridBoard:
+                    case MarkerType.GridBoard:
                         Aruco.refineDetectedMarkers (rgbMat, gridBoard, corners, ids, rejectedCorners, camMatrix, distCoeffs, 10f, 3f, true, recoveredIdxs, detectorParams);
                         break;
-                    case (int)MarkerType.ChArUcoBoard:
+                    case MarkerType.ChArUcoBoard:
                         Aruco.refineDetectedMarkers (rgbMat, charucoBoard, corners, ids, rejectedCorners, camMatrix, distCoeffs, 10f, 3f, true, recoveredIdxs, detectorParams);
                         break;
                     }
@@ -490,9 +524,9 @@ namespace OpenCVForUnityExample
 
                 // if at least one marker detected
                 if (ids.total () > 0) {
-                    if (markerType != (int)MarkerType.ChArUcoDiamondMarker) {
+                    if (markerType != MarkerType.ChArUcoDiamondMarker) {
 
-                        if (markerType == (int)MarkerType.ChArUcoBoard) {
+                        if (markerType == MarkerType.ChArUcoBoard) {
                             Aruco.interpolateCornersCharuco (corners, ids, rgbMat, charucoBoard, charucoCorners, charucoIds, camMatrix, distCoeffs, charucoMinMarkers);
 
                             // draw markers.
@@ -508,13 +542,14 @@ namespace OpenCVForUnityExample
                         // estimate pose.
                         if (applyEstimationPose) {
                             switch (markerType) {
-                            case (int)MarkerType.CanonicalMarker:
+                            default:
+                            case MarkerType.CanonicalMarker:
                                 EstimatePoseCanonicalMarker (rgbMat);
                                 break;
-                            case (int)MarkerType.GridBoard:
+                            case MarkerType.GridBoard:
                                 EstimatePoseGridBoard (rgbMat);
                                 break;
-                            case (int)MarkerType.ChArUcoBoard:
+                            case MarkerType.ChArUcoBoard:
                                 EstimatePoseChArUcoBoard (rgbMat);
                                 break;
                             }
@@ -705,7 +740,16 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnChangeCameraButtonClick ()
         {
-            webCamTextureToMatHelper.Initialize (null, webCamTextureToMatHelper.requestedWidth, webCamTextureToMatHelper.requestedHeight, !webCamTextureToMatHelper.requestedIsFrontFacing);
+            #if UNITY_ANDROID && !UNITY_EDITOR
+            if (!webCamTextureToMatHelper.IsFrontFacing ()) {
+                rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
+                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), 15, webCamTextureToMatHelper.rotate90Degree);
+            } else {                
+                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), rearCameraRequestedFPS, webCamTextureToMatHelper.rotate90Degree);
+            }
+            #else
+            webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing ();
+            #endif
         }
 
         /// <summary>
@@ -713,10 +757,10 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnMarkerTypeDropdownValueChanged(int result)
         {
-            if (markerType != result) {
-                markerType = result;
+            if ((int)markerType != result) {
+                markerType = (MarkerType)result;
 
-                refineMarkerDetectionToggle.interactable = (markerType == (int)MarkerType.GridBoard || markerType == (int)MarkerType.ChArUcoBoard);
+                refineMarkerDetectionToggle.interactable = (markerType == MarkerType.GridBoard || markerType == MarkerType.ChArUcoBoard);
 
                 ResetObjectTransform ();
 
@@ -730,9 +774,9 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnDictionaryIdDropdownValueChanged(int result)
         {
-            if (dictionaryId != result) {
-                dictionaryId = result;
-                dictionary = Aruco.getPredefinedDictionary (dictionaryId);
+            if ((int)dictionaryId != result) {
+                dictionaryId = (ArUcoDictionary)result;
+                dictionary = Aruco.getPredefinedDictionary ((int)dictionaryId);
 
                 ResetObjectTransform ();
 
@@ -757,12 +801,33 @@ namespace OpenCVForUnityExample
             refineMarkerDetection = refineMarkerDetectionToggle.isOn;
         }
 
-        private enum MarkerType
+        public enum MarkerType
         {
             CanonicalMarker,
             GridBoard,
             ChArUcoBoard,
             ChArUcoDiamondMarker
+        }
+
+        public enum ArUcoDictionary
+        {
+            DICT_4X4_50 = Aruco.DICT_4X4_50,
+            DICT_4X4_100 = Aruco.DICT_4X4_100,
+            DICT_4X4_250 = Aruco.DICT_4X4_250,
+            DICT_4X4_1000 = Aruco.DICT_4X4_1000,
+            DICT_5X5_50 = Aruco.DICT_5X5_50,
+            DICT_5X5_100 = Aruco.DICT_5X5_100,
+            DICT_5X5_250 = Aruco.DICT_5X5_250,
+            DICT_5X5_1000 = Aruco.DICT_5X5_1000,
+            DICT_6X6_50 = Aruco.DICT_6X6_50,
+            DICT_6X6_100 = Aruco.DICT_6X6_100,
+            DICT_6X6_250 = Aruco.DICT_6X6_250,
+            DICT_6X6_1000 = Aruco.DICT_6X6_1000,
+            DICT_7X7_50 = Aruco.DICT_7X7_50,
+            DICT_7X7_100 = Aruco.DICT_7X7_100,
+            DICT_7X7_250 = Aruco.DICT_7X7_250,
+            DICT_7X7_1000 = Aruco.DICT_7X7_1000,
+            DICT_ARUCO_ORIGINAL = Aruco.DICT_ARUCO_ORIGINAL,
         }
     }
 }

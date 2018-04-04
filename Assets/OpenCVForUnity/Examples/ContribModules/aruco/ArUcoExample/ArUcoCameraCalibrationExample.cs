@@ -28,7 +28,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// The marker type.
         /// </summary>
-        public int markerType = (int)MarkerType.ChArUcoBoard;
+        public MarkerType markerType = MarkerType.ChArUcoBoard;
 
         /// <summary>
         /// The marker type dropdown.
@@ -38,7 +38,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// The dictionary identifier.
         /// </summary>
-        public int dictionaryId = Aruco.DICT_6X6_250;
+        public ArUcoDictionary dictionaryId = ArUcoDictionary.DICT_6X6_250;
 
         /// <summary>
         /// The dictionary id dropdown.
@@ -48,7 +48,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Number of squares in X direction.
         /// </summary>
-        public int squaresX = 5;
+        public NumberOfSquaresX squaresX = NumberOfSquaresX.X_5;
 
         /// <summary>
         /// The squares X dropdown.
@@ -58,7 +58,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Number of squares in X direction.
         /// </summary>
-        public int squaresY = 7;
+        public NumberOfSquaresY squaresY = NumberOfSquaresY.Y_7;
 
         /// <summary>
         /// The squares X dropdown.
@@ -191,6 +191,10 @@ namespace OpenCVForUnityExample
         bool isInitialized = false;
         bool isCalibrating = false;
 
+        #if UNITY_ANDROID && !UNITY_EDITOR
+        float rearCameraRequestedFPS;
+        #endif
+
         // Use this for initialization
         IEnumerator Start ()
         {
@@ -201,14 +205,11 @@ namespace OpenCVForUnityExample
             // wait for the screen orientation to change.
             yield return null;
 
-            if (markerTypeDropdown.value != markerType || dictionaryIdDropdown.value != dictionaryId
-                || squaresXDropdown.value != squaresX - 1 || squaresYDropdown.value != squaresY - 1) {
-                markerTypeDropdown.value = markerType;
-                dictionaryIdDropdown.value = dictionaryId;
-                squaresXDropdown.value = squaresX - 1;
-                squaresYDropdown.value = squaresY - 1;
-            }
-            dictionaryIdDropdown.interactable = (markerType == (int)MarkerType.ChArUcoBoard);
+            markerTypeDropdown.value = (int)markerType;
+            dictionaryIdDropdown.value = (int)dictionaryId;
+            squaresXDropdown.value = (int)squaresX - 1;
+            squaresYDropdown.value = (int)squaresY - 1;
+            dictionaryIdDropdown.interactable = (markerType == MarkerType.ChArUcoBoard);
 
             #if UNITY_WEBGL && !UNITY_EDITOR
             isImagesInputMode = false;
@@ -218,7 +219,20 @@ namespace OpenCVForUnityExample
             }
 
             if (!isImagesInputMode) {                
+                #if UNITY_ANDROID && !UNITY_EDITOR
+                // Set the requestedFPS parameter to avoid the problem of the WebCamTexture image becoming low light on some Android devices. (Pixel, pixel 2)
+                // https://forum.unity.com/threads/android-webcamtexture-in-low-light-only-some-models.520656/
+                // https://forum.unity.com/threads/released-opencv-for-unity.277080/page-33#post-3445178
+                rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
+                if (webCamTextureToMatHelper.requestedIsFrontFacing) {                
+                    webCamTextureToMatHelper.requestedFPS = 15;
+                    webCamTextureToMatHelper.Initialize ();
+                } else {
+                    webCamTextureToMatHelper.Initialize ();
+                }
+                #else
                 webCamTextureToMatHelper.Initialize ();
+                #endif
             }
         }
 
@@ -349,13 +363,13 @@ namespace OpenCVForUnityExample
 
             detectorParams = DetectorParameters.create ();
             detectorParams.set_cornerRefinementMethod (1);// do cornerSubPix() of OpenCV.
-            dictionary = Aruco.getPredefinedDictionary (dictionaryId);
+            dictionary = Aruco.getPredefinedDictionary ((int)dictionaryId);
 
             recoveredIdxs = new Mat ();
 
             charucoCorners = new Mat ();
             charucoIds = new Mat ();
-            charucoBoard = CharucoBoard.create (squaresX, squaresY, chArUcoBoradSquareLength, chArUcoBoradMarkerLength, dictionary);
+            charucoBoard = CharucoBoard.create ((int)squaresX, (int)squaresY, chArUcoBoradSquareLength, chArUcoBoradMarkerLength, dictionary);
 
 
             allCorners = new List<List<Mat>> ();
@@ -377,6 +391,12 @@ namespace OpenCVForUnityExample
                 bgrMat.Dispose ();
             if (rgbaMat != null)
                 rgbaMat.Dispose ();
+            
+            if (texture != null) {
+                Texture2D.Destroy(texture);
+                texture = null;
+            }
+
             if (ids != null)
                 ids.Dispose ();
             foreach (var item in corners) {
@@ -414,7 +434,8 @@ namespace OpenCVForUnityExample
             Imgproc.cvtColor (grayMat, bgrMat, Imgproc.COLOR_GRAY2BGR);
 
             switch (markerType) {
-            case (int)MarkerType.ChArUcoBoard:
+            default:
+            case MarkerType.ChArUcoBoard:
                 // detect markers.
                 Aruco.detectMarkers (grayMat, dictionary, corners, ids, detectorParams, rejectedCorners, camMatrix, distCoeffs);
 
@@ -435,31 +456,32 @@ namespace OpenCVForUnityExample
                     }
                 }
                 break;
-            case (int)MarkerType.ChessBoard:
-            case (int)MarkerType.CirclesGlid:
-            case (int)MarkerType.AsymmetricCirclesGlid:
+            case MarkerType.ChessBoard:
+            case MarkerType.CirclesGlid:
+            case MarkerType.AsymmetricCirclesGlid:
                 // detect markers.
                 MatOfPoint2f points = new MatOfPoint2f ();
                 bool found = false;
 
                 switch (markerType) {
-                case (int)MarkerType.ChessBoard:
-                    found = Calib3d.findChessboardCorners (grayMat, new Size (squaresX, squaresY), points, Calib3d.CALIB_CB_ADAPTIVE_THRESH | Calib3d.CALIB_CB_FAST_CHECK | Calib3d.CALIB_CB_NORMALIZE_IMAGE);
+                default:
+                case MarkerType.ChessBoard:
+                    found = Calib3d.findChessboardCorners (grayMat, new Size ((int)squaresX, (int)squaresY), points, Calib3d.CALIB_CB_ADAPTIVE_THRESH | Calib3d.CALIB_CB_FAST_CHECK | Calib3d.CALIB_CB_NORMALIZE_IMAGE);
                     break;
-                case (int)MarkerType.CirclesGlid:
-                    found = Calib3d.findCirclesGrid (grayMat, new Size (squaresX, squaresY), points, Calib3d.CALIB_CB_SYMMETRIC_GRID);
+                case MarkerType.CirclesGlid:
+                    found = Calib3d.findCirclesGrid (grayMat, new Size ((int)squaresX, (int)squaresY), points, Calib3d.CALIB_CB_SYMMETRIC_GRID);
                     break;
-                case (int)MarkerType.AsymmetricCirclesGlid:
-                    found = Calib3d.findCirclesGrid (grayMat, new Size (squaresX, squaresY), points, Calib3d.CALIB_CB_ASYMMETRIC_GRID);
+                case MarkerType.AsymmetricCirclesGlid:
+                    found = Calib3d.findCirclesGrid (grayMat, new Size ((int)squaresX, (int)squaresY), points, Calib3d.CALIB_CB_ASYMMETRIC_GRID);
                     break;
                 }
 
                 if (found) {
-                    if (markerType == (int)MarkerType.ChessBoard)
+                    if (markerType == MarkerType.ChessBoard)
                         Imgproc.cornerSubPix (grayMat, points, new Size (5, 5), new Size (-1, -1), new TermCriteria (TermCriteria.EPS + TermCriteria.COUNT, 30, 0.1));
 
                     // draw markers.
-                    Calib3d.drawChessboardCorners (bgrMat, new Size (squaresX, squaresY), points, found);
+                    Calib3d.drawChessboardCorners (bgrMat, new Size ((int)squaresX, (int)squaresY), points, found);
                 }
                 break;
             }
@@ -475,7 +497,7 @@ namespace OpenCVForUnityExample
             int t = 0;
             int lt = Imgproc.LINE_AA;
             bool blo = false;
-            int frameCount = (markerType == (int)MarkerType.ChArUcoBoard) ? allCorners.Count : imagePoints.Count;
+            int frameCount = (markerType == MarkerType.ChArUcoBoard) ? allCorners.Count : imagePoints.Count;
             Imgproc.putText (bgrMat, frameCount + " FRAME CAPTURED", new Point (bgrMat.cols () - 300, 20), ff, fs, c, t, lt, blo);
             Imgproc.putText (bgrMat, "IMAGE_WIDTH: " + bgrMat.width (), new Point (bgrMat.cols () - 300, 40), ff, fs, c, t, lt, blo);
             Imgproc.putText (bgrMat, "IMAGE_HEIGHT: " + bgrMat.height (), new Point (bgrMat.cols () - 300, 60), ff, fs, c, t, lt, blo);
@@ -500,7 +522,8 @@ namespace OpenCVForUnityExample
             double repErr = -1;
 
             switch (markerType) {
-            case (int)MarkerType.ChArUcoBoard:
+            default:
+            case MarkerType.ChArUcoBoard:
                 List<Mat> corners = new List<Mat> ();
                 Mat ids = new Mat ();
                 Aruco.detectMarkers (frameMat, dictionary, corners, ids, detectorParams, rejectedCorners, camMatrix, distCoeffs);
@@ -538,29 +561,30 @@ namespace OpenCVForUnityExample
                 repErr = CalibrateCameraCharuco (allCorners, allIds, charucoBoard, frameMat.size (), camMatrix, distCoeffs, rvecs, tvecs, calibrationFlags, calibrationFlags);
 
                 break;
-            case (int)MarkerType.ChessBoard:
-            case (int)MarkerType.CirclesGlid:
-            case (int)MarkerType.AsymmetricCirclesGlid:
+            case MarkerType.ChessBoard:
+            case MarkerType.CirclesGlid:
+            case MarkerType.AsymmetricCirclesGlid:
                 
                 MatOfPoint2f points = new MatOfPoint2f ();
-                Size patternSize = new Size (squaresX, squaresY);
+                Size patternSize = new Size ((int)squaresX, (int)squaresY);
 
                 bool found = false;
                 switch (markerType) {
-                case (int)MarkerType.ChessBoard:
+                default:
+                case MarkerType.ChessBoard:
                     found = Calib3d.findChessboardCorners (frameMat, patternSize, points, Calib3d.CALIB_CB_ADAPTIVE_THRESH | Calib3d.CALIB_CB_FAST_CHECK | Calib3d.CALIB_CB_NORMALIZE_IMAGE);
                     break;
-                case (int)MarkerType.CirclesGlid:
+                case MarkerType.CirclesGlid:
                     found = Calib3d.findCirclesGrid (frameMat, patternSize, points, Calib3d.CALIB_CB_SYMMETRIC_GRID);
                     break;
-                case (int)MarkerType.AsymmetricCirclesGlid:
+                case MarkerType.AsymmetricCirclesGlid:
                     found = Calib3d.findCirclesGrid (frameMat, patternSize, points, Calib3d.CALIB_CB_ASYMMETRIC_GRID);
                     break;
                 }
 
                 if (found) {
                     Debug.Log ("Frame captured.");
-                    if (markerType == (int)MarkerType.ChessBoard)
+                    if (markerType == MarkerType.ChessBoard)
                         Imgproc.cornerSubPix (frameMat, points, new Size (5, 5), new Size (-1, -1), new TermCriteria (TermCriteria.EPS + TermCriteria.COUNT, 30, 0.1));
                     
                     imagePoints.Add (points);
@@ -734,7 +758,7 @@ namespace OpenCVForUnityExample
             return camMatrix;
         }
 
-        private void CalcChessboardCorners (Size patternSize, float squareSize, MatOfPoint3f corners, int markerType)
+        private void CalcChessboardCorners (Size patternSize, float squareSize, MatOfPoint3f corners, MarkerType markerType)
         {
             if ((int)(patternSize.width * patternSize.height) != corners.rows ()) {
                 Debug.Log ("Invalid corners size.");
@@ -747,8 +771,9 @@ namespace OpenCVForUnityExample
             int height = (int)patternSize.height;
 
             switch (markerType) {
-            case (int)MarkerType.ChessBoard:
-            case (int)MarkerType.CirclesGlid:
+            default:
+            case MarkerType.ChessBoard:
+            case MarkerType.CirclesGlid:
                 for (int i = 0; i < height; ++i) {
                     for (int j = 0; j < width; ++j) {
                         cornersArr [(i * width * cn) + (j * cn)] = j * squareSize;
@@ -759,7 +784,7 @@ namespace OpenCVForUnityExample
                 corners.put (0, 0, cornersArr);
 
                 break;
-            case (int)MarkerType.AsymmetricCirclesGlid:
+            case MarkerType.AsymmetricCirclesGlid:
                 for (int i = 0; i < height; ++i) {
                     for (int j = 0; j < width; ++j) {
                         cornersArr [(i * width * cn) + (j * cn)] = (2 * j + i % 2) * squareSize;
@@ -769,9 +794,6 @@ namespace OpenCVForUnityExample
                 }
                 corners.put (0, 0, cornersArr);
 
-                break;
-            default:
-                Debug.Log ("Unknown marker type.");
                 break;
             }
         }
@@ -939,7 +961,16 @@ namespace OpenCVForUnityExample
             if (isImagesInputMode)
                 return;
 
-            webCamTextureToMatHelper.Initialize (null, webCamTextureToMatHelper.requestedWidth, webCamTextureToMatHelper.requestedHeight, !webCamTextureToMatHelper.requestedIsFrontFacing);
+            #if UNITY_ANDROID && !UNITY_EDITOR
+            if (!webCamTextureToMatHelper.IsFrontFacing ()) {
+                rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
+                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), 15, webCamTextureToMatHelper.rotate90Degree);
+            } else {                
+                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), rearCameraRequestedFPS, webCamTextureToMatHelper.rotate90Degree);
+            }
+            #else
+            webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing ();
+            #endif
         }
 
         /// <summary>
@@ -947,10 +978,10 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnMarkerTypeDropdownValueChanged (int result)
         {
-            if (markerType != result) {
-                markerType = result;
+            if ((int)markerType != result) {
+                markerType = (MarkerType)result;
 
-                dictionaryIdDropdown.interactable = (markerType == (int)MarkerType.ChArUcoBoard);
+                dictionaryIdDropdown.interactable = (markerType == MarkerType.ChArUcoBoard);
 
                 if (isImagesInputMode) {
                     InitializeImagesInputMode ();
@@ -966,9 +997,9 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnDictionaryIdDropdownValueChanged (int result)
         {
-            if (dictionaryId != result) {
-                dictionaryId = result;
-                dictionary = Aruco.getPredefinedDictionary (dictionaryId);
+            if ((int)dictionaryId != result) {
+                dictionaryId = (ArUcoDictionary)result;
+                dictionary = Aruco.getPredefinedDictionary ((int)dictionaryId);
 
                 if (isImagesInputMode) {
                     InitializeImagesInputMode ();
@@ -984,8 +1015,8 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnSquaresXDropdownValueChanged (int result)
         {
-            if (squaresX != result + 1) {
-                squaresX = result + 1;
+            if ((int)squaresX != result + 1) {
+                squaresX = (NumberOfSquaresX)(result + 1);
 
                 if (isImagesInputMode) {
                     InitializeImagesInputMode ();
@@ -1001,8 +1032,8 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnSquaresYDropdownValueChanged (int result)
         {
-            if (squaresY != result + 1) {
-                squaresY = result + 1;
+            if ((int)squaresY != result + 1) {
+                squaresY = (NumberOfSquaresY)(result + 1);
 
                 if (isImagesInputMode) {
                     InitializeImagesInputMode ();
@@ -1095,12 +1126,71 @@ namespace OpenCVForUnityExample
             Debug.Log ("savePath: " + savePath);
         }
 
-        private enum MarkerType
+        public enum MarkerType
         {
             ChArUcoBoard,
             ChessBoard,
             CirclesGlid,
             AsymmetricCirclesGlid
+        }
+
+        public enum ArUcoDictionary
+        {
+            DICT_4X4_50 = Aruco.DICT_4X4_50,
+            DICT_4X4_100 = Aruco.DICT_4X4_100,
+            DICT_4X4_250 = Aruco.DICT_4X4_250,
+            DICT_4X4_1000 = Aruco.DICT_4X4_1000,
+            DICT_5X5_50 = Aruco.DICT_5X5_50,
+            DICT_5X5_100 = Aruco.DICT_5X5_100,
+            DICT_5X5_250 = Aruco.DICT_5X5_250,
+            DICT_5X5_1000 = Aruco.DICT_5X5_1000,
+            DICT_6X6_50 = Aruco.DICT_6X6_50,
+            DICT_6X6_100 = Aruco.DICT_6X6_100,
+            DICT_6X6_250 = Aruco.DICT_6X6_250,
+            DICT_6X6_1000 = Aruco.DICT_6X6_1000,
+            DICT_7X7_50 = Aruco.DICT_7X7_50,
+            DICT_7X7_100 = Aruco.DICT_7X7_100,
+            DICT_7X7_250 = Aruco.DICT_7X7_250,
+            DICT_7X7_1000 = Aruco.DICT_7X7_1000,
+            DICT_ARUCO_ORIGINAL = Aruco.DICT_ARUCO_ORIGINAL,
+        }
+
+        public enum NumberOfSquaresX
+        {
+            X_1 = 1,
+            X_2,
+            X_3,
+            X_4,
+            X_5,
+            X_6,
+            X_7,
+            X_8,
+            X_9,
+            X_10,
+            X_11,
+            X_12,
+            X_13,
+            X_14,
+            X_15,
+        }
+
+        public enum NumberOfSquaresY
+        {
+            Y_1 = 1,
+            Y_2,
+            Y_3,
+            Y_4,
+            Y_5,
+            Y_6,
+            Y_7,
+            Y_8,
+            Y_9,
+            Y_10,
+            Y_11,
+            Y_12,
+            Y_13,
+            Y_14,
+            Y_15,
         }
     }
 }

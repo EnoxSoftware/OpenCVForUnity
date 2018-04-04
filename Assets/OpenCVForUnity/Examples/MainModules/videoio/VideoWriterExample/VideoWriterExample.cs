@@ -214,7 +214,6 @@ namespace OpenCVForUnitySample
                 recordingFrameRgbMat.Dispose ();
 
             savePathInputField.text = savePath;
-            Debug.Log ("savePath " + savePath);
 
             isRecording = false;
         }
@@ -245,9 +244,21 @@ namespace OpenCVForUnitySample
             double ext = capture.get (Videoio.CAP_PROP_FOURCC);
             Debug.Log ("CAP_PROP_FOURCC: " + (char)((int)ext & 0XFF) + (char)(((int)ext & 0XFF00) >> 8) + (char)(((int)ext & 0XFF0000) >> 16) + (char)(((int)ext & 0XFF000000) >> 24));
 
-            capture.grab ();
+
             previewRgbMat = new Mat ();
+            capture.grab ();
+
+            // OpenCV => 3.4.1
+            // The AVI container implementation in the videoio module appears, to me, to have a bug. 
+            // https://github.com/opencv/opencv/issues/11126
+            // https://github.com/opencv/opencv/pull/11146
+            Utils.setDebugMode (true);
             capture.retrieve (previewRgbMat, 0);
+            Utils.setDebugMode (false);
+
+            return;
+            //
+
             int frameWidth = previewRgbMat.cols ();
             int frameHeight = previewRgbMat.rows ();
             previewColors = new Color32[frameWidth * frameHeight];

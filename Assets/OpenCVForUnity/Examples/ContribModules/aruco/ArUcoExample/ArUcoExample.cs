@@ -26,7 +26,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// The dictionary identifier.
         /// </summary>
-        public int dictionaryId = Aruco.DICT_6X6_250;
+        public ArUcoDictionary dictionaryId = ArUcoDictionary.DICT_6X6_250;
 
         /// <summary>
         /// The dictionary id dropdown.
@@ -85,13 +85,9 @@ namespace OpenCVForUnityExample
             texture = new Texture2D (rgbMat.cols (), rgbMat.rows (), TextureFormat.RGBA32, false);
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 
-            if (dictionaryIdDropdown.value != dictionaryId || showRejectedCornersToggle.isOn != showRejectedCorners) {
-                dictionaryIdDropdown.value = dictionaryId;
-                showRejectedCornersToggle.isOn = showRejectedCorners;
-                DetectMarkers ();
-            } else {
-                DetectMarkers ();
-            }
+            dictionaryIdDropdown.value = (int)dictionaryId;
+            showRejectedCornersToggle.isOn = showRejectedCorners;
+            DetectMarkers ();
         }
         
         // Update is called once per frame
@@ -194,7 +190,7 @@ namespace OpenCVForUnityExample
             Mat rotMat = new Mat (3, 3, CvType.CV_64FC1);
 
             DetectorParameters detectorParams = DetectorParameters.create ();
-            Dictionary dictionary = Aruco.getPredefinedDictionary (dictionaryId);
+            Dictionary dictionary = Aruco.getPredefinedDictionary ((int)dictionaryId);
 
 
             // detect markers.
@@ -311,8 +307,8 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnDictionaryIdDropdownValueChanged(int result)
         {
-            if (dictionaryId != result) {
-                dictionaryId = result;
+            if ((int)dictionaryId != result) {
+                dictionaryId = (ArUcoDictionary)result;
 
                 ResetObjectTransform ();
 
@@ -332,6 +328,27 @@ namespace OpenCVForUnityExample
 
                 DetectMarkers ();
             }
+        }
+
+        public enum ArUcoDictionary
+        {
+            DICT_4X4_50 = Aruco.DICT_4X4_50,
+            DICT_4X4_100 = Aruco.DICT_4X4_100,
+            DICT_4X4_250 = Aruco.DICT_4X4_250,
+            DICT_4X4_1000 = Aruco.DICT_4X4_1000,
+            DICT_5X5_50 = Aruco.DICT_5X5_50,
+            DICT_5X5_100 = Aruco.DICT_5X5_100,
+            DICT_5X5_250 = Aruco.DICT_5X5_250,
+            DICT_5X5_1000 = Aruco.DICT_5X5_1000,
+            DICT_6X6_50 = Aruco.DICT_6X6_50,
+            DICT_6X6_100 = Aruco.DICT_6X6_100,
+            DICT_6X6_250 = Aruco.DICT_6X6_250,
+            DICT_6X6_1000 = Aruco.DICT_6X6_1000,
+            DICT_7X7_50 = Aruco.DICT_7X7_50,
+            DICT_7X7_100 = Aruco.DICT_7X7_100,
+            DICT_7X7_250 = Aruco.DICT_7X7_250,
+            DICT_7X7_1000 = Aruco.DICT_7X7_1000,
+            DICT_ARUCO_ORIGINAL = Aruco.DICT_ARUCO_ORIGINAL,
         }
     }
 }

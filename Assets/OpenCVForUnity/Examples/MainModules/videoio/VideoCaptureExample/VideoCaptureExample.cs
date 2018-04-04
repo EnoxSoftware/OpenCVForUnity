@@ -72,6 +72,7 @@ namespace OpenCVForUnityExample
             StartCoroutine (getFilePath_Coroutine);
             #else
             capture.open (Utils.getFilePath ("768x576_mjpeg.mjpeg"));
+
             Initialize ();
             #endif
         }

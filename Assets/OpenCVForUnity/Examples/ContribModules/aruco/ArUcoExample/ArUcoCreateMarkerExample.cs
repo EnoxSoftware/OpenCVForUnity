@@ -24,7 +24,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// The marker type.
         /// </summary>
-        public int markerType = (int)MarkerType.CanonicalMarker;
+        public MarkerType markerType = MarkerType.CanonicalMarker;
 
         /// <summary>
         /// The marker type dropdown.
@@ -34,7 +34,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// The dictionary identifier.
         /// </summary>
-        public int dictionaryId = Aruco.DICT_6X6_250;
+        public ArUcoDictionary dictionaryId = ArUcoDictionary.DICT_6X6_250;
 
         /// <summary>
         /// The dictionary id dropdown.
@@ -44,7 +44,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// The marker identifier.
         /// </summary>
-        public int markerId = 1;
+        public MarkerID markerId = MarkerID.MarkerID_1;
 
         /// <summary>
         /// The marker id dropdown.
@@ -102,15 +102,11 @@ namespace OpenCVForUnityExample
             texture = new Texture2D (markerImg.cols (), markerImg.rows (), TextureFormat.RGB24, false);
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 
-            if (markerTypeDropdown.value != markerType || markerIdDropdown.value != markerId || dictionaryIdDropdown.value != dictionaryId) {
-                markerTypeDropdown.value = markerType;
-                markerIdDropdown.value = markerId;
-                dictionaryIdDropdown.value = dictionaryId;
+            markerTypeDropdown.value = (int)markerType;
+            markerIdDropdown.value = (int)markerId;
+            dictionaryIdDropdown.value = (int)dictionaryId;
 
-                CreateMaeker ();
-            } else {
-                CreateMaeker ();
-            }
+            CreateMaeker ();
         }
 
         // Update is called once per frame
@@ -145,28 +141,29 @@ namespace OpenCVForUnityExample
             }
 
             // create dictinary.
-            Dictionary dictionary = Aruco.getPredefinedDictionary (dictionaryId);
+            Dictionary dictionary = Aruco.getPredefinedDictionary ((int)dictionaryId);
 
             // draw marker.
             switch (markerType)
             {
-            case (int)MarkerType.CanonicalMarker:
-                Aruco.drawMarker (dictionary, markerId, markerSize, markerImg, borderBits);
-                Debug.Log ("draw CanonicalMarker: " + "dictionaryId " + dictionaryId + " markerId " + markerId + " sidePixels " + markerSize + " borderBits " + borderBits);
+            default:
+            case MarkerType.CanonicalMarker:
+                Aruco.drawMarker (dictionary, (int)markerId, markerSize, markerImg, borderBits);
+                Debug.Log ("draw CanonicalMarker: " + "dictionaryId " + (int)dictionaryId + " markerId " + (int)markerId + " sidePixels " + markerSize + " borderBits " + borderBits);
                 break;
-            case (int)MarkerType.GridBoard:
+            case MarkerType.GridBoard:
                 GridBoard gridBoard = GridBoard.create (gridBoradMarkersX, gridBoradMarkersY, gridBoradMarkerLength, gridBoradMarkerSeparation, dictionary, gridBoradMarkerFirstMarker);
                 gridBoard.draw (new Size(markerSize, markerSize), markerImg, gridBoradMarginSize, borderBits);
                 gridBoard.Dispose ();
                 Debug.Log ("draw GridBoard: " + "markersX " + gridBoradMarkersX + " markersY " + gridBoradMarkersY + " markerLength " + gridBoradMarkerLength + 
-                    " markerSeparation "+ gridBoradMarkerSeparation + "dictionaryId " + dictionaryId + " outSize " + markerSize + " marginSize " + gridBoradMarginSize + " borderBits " + borderBits);
+                    " markerSeparation "+ gridBoradMarkerSeparation + "dictionaryId " + (int)dictionaryId + " outSize " + markerSize + " marginSize " + gridBoradMarginSize + " borderBits " + borderBits);
                 break;
-            case (int)MarkerType.ChArUcoBoard:
+            case MarkerType.ChArUcoBoard:
                 CharucoBoard charucoBoard = CharucoBoard.create (chArUcoBoradMarkersX, chArUcoBoradMarkersY, chArUcoBoradSquareLength, chArUcoBoradMarkerLength, dictionary);
                 charucoBoard.draw (new Size(markerSize, markerSize), markerImg, chArUcoBoradMarginSize, borderBits);
                 charucoBoard.Dispose ();
                 Debug.Log ("draw ChArUcoBoard: " + "markersX " + chArUcoBoradMarkersX + " markersY " + chArUcoBoradMarkersY + " markerLength " + chArUcoBoradSquareLength + 
-                    " markerSeparation "+ chArUcoBoradMarkerLength + "dictionaryId " + dictionaryId + " outSize " + markerSize + " marginSize " + chArUcoBoradMarginSize + " borderBits " + borderBits);
+                    " markerSeparation "+ chArUcoBoradMarkerLength + "dictionaryId " + (int)dictionaryId + " outSize " + markerSize + " marginSize " + chArUcoBoradMarginSize + " borderBits " + borderBits);
                 break;
             }
 
@@ -187,14 +184,15 @@ namespace OpenCVForUnityExample
             #endif
             switch (markerType)
             {
-            case (int)MarkerType.CanonicalMarker:
-                savePath = Path.Combine (saveDirectoryPath, "CanonicalMarker-d" + dictionaryId + "-i" + markerId + "-sp" + markerSize + "-bb" + borderBits + "." + format);
+            default:
+            case MarkerType.CanonicalMarker:
+                savePath = Path.Combine (saveDirectoryPath, "CanonicalMarker-d" + (int)dictionaryId + "-i" + (int)markerId + "-sp" + markerSize + "-bb" + borderBits + "." + format);
                 break;
-            case (int)MarkerType.GridBoard:
-                savePath = Path.Combine (saveDirectoryPath, "GridBoard-mx" + gridBoradMarkersX + "-my" + gridBoradMarkersY + "-d" + dictionaryId + "-os" + markerSize + "-bb" + borderBits + "." + format);
+            case MarkerType.GridBoard:
+                savePath = Path.Combine (saveDirectoryPath, "GridBoard-mx" + gridBoradMarkersX + "-my" + gridBoradMarkersY + "-d" + (int)dictionaryId + "-os" + markerSize + "-bb" + borderBits + "." + format);
                 break;
-            case (int)MarkerType.ChArUcoBoard:
-                savePath = Path.Combine (saveDirectoryPath, "ChArUcoBoard-mx" + chArUcoBoradMarkersX + "-my" + chArUcoBoradMarkersY + "-d" + dictionaryId + "-os" + markerSize + "-bb" + borderBits + "." + format);
+            case MarkerType.ChArUcoBoard:
+                savePath = Path.Combine (saveDirectoryPath, "ChArUcoBoard-mx" + chArUcoBoradMarkersX + "-my" + chArUcoBoradMarkersY + "-d" + (int)dictionaryId + "-os" + markerSize + "-bb" + borderBits + "." + format);
                 break;
             }
                 
@@ -234,10 +232,10 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnMarkerTypeDropdownValueChanged(int result)
         {
-            if (markerType != result) {
-                markerType = result;
+            if ((int)markerType != result) {
+                markerType = (MarkerType)result;
 
-                markerIdDropdown.interactable = (markerType == (int)MarkerType.CanonicalMarker);
+                markerIdDropdown.interactable = (markerType == MarkerType.CanonicalMarker);
 
                 CreateMaeker ();
             }
@@ -248,8 +246,8 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnDictionaryIdDropdownValueChanged(int result)
         {
-            if (dictionaryId != result) {
-                dictionaryId = result;
+            if ((int)dictionaryId != result) {
+                dictionaryId = (ArUcoDictionary)result;
                 CreateMaeker ();
             }
         }
@@ -259,8 +257,8 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnMarkerIdDropdownValueChanged(int result)
         {
-            if (markerId != result) {
-                markerId = result;
+            if ((int)markerId != result) {
+                markerId = (MarkerID)result;
                 CreateMaeker ();
             }
         }
@@ -273,12 +271,47 @@ namespace OpenCVForUnityExample
             SaveMarkerImg ();
         }
 
-        private enum MarkerType
+        public enum MarkerType
         {
             CanonicalMarker,
             GridBoard,
             ChArUcoBoard,
             //ChArUcoDiamondMarker //Not yet implemented.
+        }
+
+        public enum ArUcoDictionary
+        {
+            DICT_4X4_50 = Aruco.DICT_4X4_50,
+            DICT_4X4_100 = Aruco.DICT_4X4_100,
+            DICT_4X4_250 = Aruco.DICT_4X4_250,
+            DICT_4X4_1000 = Aruco.DICT_4X4_1000,
+            DICT_5X5_50 = Aruco.DICT_5X5_50,
+            DICT_5X5_100 = Aruco.DICT_5X5_100,
+            DICT_5X5_250 = Aruco.DICT_5X5_250,
+            DICT_5X5_1000 = Aruco.DICT_5X5_1000,
+            DICT_6X6_50 = Aruco.DICT_6X6_50,
+            DICT_6X6_100 = Aruco.DICT_6X6_100,
+            DICT_6X6_250 = Aruco.DICT_6X6_250,
+            DICT_6X6_1000 = Aruco.DICT_6X6_1000,
+            DICT_7X7_50 = Aruco.DICT_7X7_50,
+            DICT_7X7_100 = Aruco.DICT_7X7_100,
+            DICT_7X7_250 = Aruco.DICT_7X7_250,
+            DICT_7X7_1000 = Aruco.DICT_7X7_1000,
+            DICT_ARUCO_ORIGINAL = Aruco.DICT_ARUCO_ORIGINAL,
+        }
+
+        public enum MarkerID
+        {
+            MarkerID_0,
+            MarkerID_1,
+            MarkerID_2,
+            MarkerID_3,
+            MarkerID_4,
+            MarkerID_5,
+            MarkerID_6,
+            MarkerID_7,
+            MarkerID_8,
+            MarkerID_9,
         }
     }
 }

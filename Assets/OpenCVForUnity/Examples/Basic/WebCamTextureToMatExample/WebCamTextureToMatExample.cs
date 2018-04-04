@@ -70,9 +70,16 @@ namespace OpenCVForUnityExample
         /// </summary>
         bool hasInitDone = false;
 
+        /// <summary>
+        /// The FPS monitor.
+        /// </summary>
+        FpsMonitor fpsMonitor;
+
         // Use this for initialization
         void Start ()
         {
+            fpsMonitor = GetComponent<FpsMonitor> ();
+
             Initialize ();
         }
 
@@ -117,19 +124,41 @@ namespace OpenCVForUnityExample
 
             isInitWaiting = true;
 
+            int requestedFPS = 30;
+            #if UNITY_ANDROID && !UNITY_EDITOR
+            // Set the requestedFPS parameter to avoid the problem of the WebCamTexture image becoming low light on some Android devices. (Pixel, pixel 2)
+            // https://forum.unity.com/threads/android-webcamtexture-in-low-light-only-some-models.520656/
+            // https://forum.unity.com/threads/released-opencv-for-unity.277080/page-33#post-3445178
+            requestedFPS = requestedIsFrontFacing ? 15 : 30;
+            #endif
+
+            // Creates the camera
             if (!String.IsNullOrEmpty (requestedDeviceName)) {
-                //Debug.Log ("deviceName is "+requestedDeviceName);
-                webCamTexture = new WebCamTexture (requestedDeviceName, requestedWidth, requestedHeight);
-            } else {
-                //Debug.Log ("deviceName is null");
+                int requestedDeviceIndex = -1;
+                if (Int32.TryParse (requestedDeviceName, out requestedDeviceIndex)) {
+                    if (requestedDeviceIndex >= 0 && requestedDeviceIndex < WebCamTexture.devices.Length) {
+                        webCamDevice = WebCamTexture.devices [requestedDeviceIndex];
+                        webCamTexture = new WebCamTexture (webCamDevice.name, requestedWidth, requestedHeight, requestedFPS);
+                    }
+                } else {
+                    for (int cameraIndex = 0; cameraIndex < WebCamTexture.devices.Length; cameraIndex++) {
+                        if (WebCamTexture.devices [cameraIndex].name == requestedDeviceName) {
+                            webCamDevice = WebCamTexture.devices [cameraIndex];
+                            webCamTexture = new WebCamTexture (webCamDevice.name, requestedWidth, requestedHeight, requestedFPS);
+                            break;
+                        }
+                    }
+                }
+                if (webCamTexture == null)
+                    Debug.Log ("Cannot find camera device " + requestedDeviceName + ".");
+            }
+
+            if (webCamTexture == null) {
                 // Checks how many and which cameras are available on the device
-                for (int cameraIndex = 0; cameraIndex < WebCamTexture.devices.Length; cameraIndex++) {
+                for (int cameraIndex = 0; cameraIndex < WebCamTexture.devices.Length; cameraIndex++) {                   
                     if (WebCamTexture.devices [cameraIndex].isFrontFacing == requestedIsFrontFacing) {
-
-                        //Debug.Log (cameraIndex + " name " + WebCamTexture.devices [cameraIndex].name + " isFrontFacing " + WebCamTexture.devices [cameraIndex].isFrontFacing);
                         webCamDevice = WebCamTexture.devices [cameraIndex];
-                        webCamTexture = new WebCamTexture (webCamDevice.name, requestedWidth, requestedHeight);
-
+                        webCamTexture = new WebCamTexture (webCamDevice.name, requestedWidth, requestedHeight, requestedFPS);
                         break;
                     }
                 }
@@ -138,9 +167,11 @@ namespace OpenCVForUnityExample
             if (webCamTexture == null) {
                 if (WebCamTexture.devices.Length > 0) {
                     webCamDevice = WebCamTexture.devices [0];
-                    webCamTexture = new WebCamTexture (webCamDevice.name, requestedWidth, requestedHeight);
+                    webCamTexture = new WebCamTexture (webCamDevice.name, requestedWidth, requestedHeight, requestedFPS);
                 } else {
-                    webCamTexture = new WebCamTexture (requestedWidth, requestedHeight);
+                    Debug.LogError ("Camera device does not exist.");
+                    isInitWaiting = false;
+                    yield break;
                 }
             }
 
@@ -161,8 +192,8 @@ namespace OpenCVForUnityExample
                     #endif
                     #endif
 
-                    Debug.Log ("name " + webCamTexture.name + " width " + webCamTexture.width + " height " + webCamTexture.height + " fps " + webCamTexture.requestedFPS);
-                    Debug.Log ("videoRotationAngle " + webCamTexture.videoRotationAngle + " videoVerticallyMirrored " + webCamTexture.videoVerticallyMirrored + " isFrongFacing " + webCamDevice.isFrontFacing);
+                    Debug.Log ("name:" + webCamTexture.deviceName + " width:" + webCamTexture.width + " height:" + webCamTexture.height + " fps:" + webCamTexture.requestedFPS);
+                    Debug.Log ("videoRotationAngle:" + webCamTexture.videoRotationAngle + " videoVerticallyMirrored:" + webCamTexture.videoVerticallyMirrored + " isFrongFacing:" + webCamDevice.isFrontFacing);
 
                     isInitWaiting = false;
                     hasInitDone = true;
@@ -171,7 +202,7 @@ namespace OpenCVForUnityExample
 
                     break;
                 } else {
-                    yield return 0;
+                    yield return null;
                 }
             }
         }
@@ -186,11 +217,16 @@ namespace OpenCVForUnityExample
 
             if (webCamTexture != null) {
                 webCamTexture.Stop ();
+                WebCamTexture.Destroy (webCamTexture);
                 webCamTexture = null;
             }
             if (rgbaMat != null) {
                 rgbaMat.Dispose ();
                 rgbaMat = null;
+            }
+            if (texture != null) {
+                Texture2D.Destroy(texture);
+                texture = null;
             }
         }
 
@@ -211,6 +247,12 @@ namespace OpenCVForUnityExample
             gameObject.transform.localScale = new Vector3 (webCamTexture.width, webCamTexture.height, 1);
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
+            if (fpsMonitor != null){
+                fpsMonitor.Add ("width", rgbaMat.width ().ToString());
+                fpsMonitor.Add ("height", rgbaMat.height ().ToString());
+                fpsMonitor.Add ("orientation", Screen.orientation.ToString());
+            }
+
 
             float width = rgbaMat.width ();
             float height = rgbaMat.height ();
@@ -230,7 +272,7 @@ namespace OpenCVForUnityExample
             if (hasInitDone && webCamTexture.isPlaying && webCamTexture.didUpdateThisFrame) {
                 Utils.webCamTextureToMat (webCamTexture, rgbaMat, colors);
 
-                Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
                 Utils.matToTexture2D (rgbaMat, texture, colors);
             }
@@ -289,7 +331,7 @@ namespace OpenCVForUnityExample
         public void OnChangeCameraButtonClick ()
         {
             if (hasInitDone)
-                Initialize (null, requestedWidth, requestedHeight, !requestedIsFrontFacing);
+                Initialize (null, requestedWidth, requestedHeight, !webCamDevice.isFrontFacing);
         }
     }
 }

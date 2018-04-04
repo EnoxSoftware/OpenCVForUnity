@@ -58,51 +58,61 @@ namespace OpenCVForUnityExample
         /// </summary>
         Net net;
 
+        /// <summary>
+        /// The FPS monitor.
+        /// </summary>
+        FpsMonitor fpsMonitor;
+
+        #if UNITY_ANDROID && !UNITY_EDITOR
+        float rearCameraRequestedFPS;
+        #endif
 
         string MobileNetSSD_deploy_caffemodel_filepath;
         string MobileNetSSD_deploy_prototxt_filepath;
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
-#endif
+        #if UNITY_WEBGL && !UNITY_EDITOR
+        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
+        #endif
 
         // Use this for initialization
         void Start ()
         {
+            fpsMonitor = GetComponent<FpsMonitor> ();
+
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-var getFilePath_Coroutine = GetFilePath ();
-coroutines.Push (getFilePath_Coroutine);
-StartCoroutine (getFilePath_Coroutine);
-#else
+            #if UNITY_WEBGL && !UNITY_EDITOR
+            var getFilePath_Coroutine = GetFilePath ();
+            coroutines.Push (getFilePath_Coroutine);
+            StartCoroutine (getFilePath_Coroutine);
+            #else
             MobileNetSSD_deploy_caffemodel_filepath = Utils.getFilePath ("dnn/MobileNetSSD_deploy.caffemodel");
             MobileNetSSD_deploy_prototxt_filepath = Utils.getFilePath ("dnn/MobileNetSSD_deploy.prototxt");
             Run ();
-#endif
+            #endif
         }
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-private IEnumerator GetFilePath()
-{
+        #if UNITY_WEBGL && !UNITY_EDITOR
+        private IEnumerator GetFilePath()
+        {
 
-var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("dnn/MobileNetSSD_deploy.caffemodel", (result) => {
-MobileNetSSD_deploy_caffemodel_filepath = result;
-});
-coroutines.Push (getFilePathAsync_0_Coroutine);
-yield return StartCoroutine (getFilePathAsync_0_Coroutine);
+            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("dnn/MobileNetSSD_deploy.caffemodel", (result) => {
+                MobileNetSSD_deploy_caffemodel_filepath = result;
+            });
+            coroutines.Push (getFilePathAsync_0_Coroutine);
+            yield return StartCoroutine (getFilePathAsync_0_Coroutine);
 
-var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("dnn/MobileNetSSD_deploy.prototxt", (result) => {
-MobileNetSSD_deploy_prototxt_filepath = result;
-});
-coroutines.Push (getFilePathAsync_1_Coroutine);
-yield return StartCoroutine (getFilePathAsync_1_Coroutine);
+            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("dnn/MobileNetSSD_deploy.prototxt", (result) => {
+                MobileNetSSD_deploy_prototxt_filepath = result;
+            });
+            coroutines.Push (getFilePathAsync_1_Coroutine);
+            yield return StartCoroutine (getFilePathAsync_1_Coroutine);
 
-coroutines.Clear ();
+            coroutines.Clear ();
 
-Run ();
-}
-#endif
+            Run ();
+        }
+        #endif
 
         // Use this for initialization
         void Run ()
@@ -118,7 +128,20 @@ Run ();
 
             }
                 
+            #if UNITY_ANDROID && !UNITY_EDITOR
+            // Set the requestedFPS parameter to avoid the problem of the WebCamTexture image becoming low light on some Android devices. (Pixel, pixel 2)
+            // https://forum.unity.com/threads/android-webcamtexture-in-low-light-only-some-models.520656/
+            // https://forum.unity.com/threads/released-opencv-for-unity.277080/page-33#post-3445178
+            rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
+            if (webCamTextureToMatHelper.requestedIsFrontFacing) {                
+                webCamTextureToMatHelper.requestedFPS = 15;
+                webCamTextureToMatHelper.Initialize ();
+            } else {
+                webCamTextureToMatHelper.Initialize ();
+            }
+            #else
             webCamTextureToMatHelper.Initialize ();
+            #endif
         }
 
         /// <summary>
@@ -153,6 +176,11 @@ Run ();
             gameObject.transform.localScale = new Vector3 (width, height, 1);
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
+            if (fpsMonitor != null){
+                fpsMonitor.Add ("width", webCamTextureMat.width ().ToString());
+                fpsMonitor.Add ("height", webCamTextureMat.height ().ToString());
+                fpsMonitor.Add ("orientation", Screen.orientation.ToString());
+            }
         }
 
         /// <summary>
@@ -162,6 +190,13 @@ Run ();
         {
             Debug.Log ("OnWebCamTextureToMatHelperDisposed");
 
+            if (bgrMat != null)
+                bgrMat.Dispose ();
+
+            if (texture != null) {
+                Texture2D.Destroy(texture);
+                texture = null;
+            }
         }
 
         /// <summary>
@@ -171,9 +206,6 @@ Run ();
         public void OnWebCamTextureToMatHelperErrorOccurred (WebCamTextureToMatHelper.ErrorCode errorCode)
         {
             Debug.Log ("OnWebCamTextureToMatHelperErrorOccurred " + errorCode);
-
-            if (bgrMat != null)
-                bgrMat.Dispose ();
         }
 
         // Update is called once per frame
@@ -293,7 +325,16 @@ Run ();
         /// </summary>
         public void OnChangeCameraButtonClick ()
         {
-            webCamTextureToMatHelper.Initialize (null, webCamTextureToMatHelper.requestedWidth, webCamTextureToMatHelper.requestedHeight, !webCamTextureToMatHelper.requestedIsFrontFacing);
+            #if UNITY_ANDROID && !UNITY_EDITOR
+            if (!webCamTextureToMatHelper.IsFrontFacing ()) {
+                rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
+                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), 15, webCamTextureToMatHelper.rotate90Degree);
+            } else {                
+                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), rearCameraRequestedFPS, webCamTextureToMatHelper.rotate90Degree);
+            }
+            #else
+            webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing ();
+            #endif
         }
     }
 }
