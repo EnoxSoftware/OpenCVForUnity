@@ -38,9 +38,9 @@ namespace OpenCVForUnityExample
             #elif UNITY_WEBGL
             versionInfo.text += "WebGL";
             #endif
-            versionInfo.text +=  " ";
+            versionInfo.text += " ";
             #if ENABLE_MONO
-            versionInfo.text +=  "Mono";
+            versionInfo.text += "Mono";
             #elif ENABLE_IL2CPP
             versionInfo.text += "IL2CPP";
             #elif ENABLE_DOTNET
@@ -50,16 +50,16 @@ namespace OpenCVForUnityExample
             scrollRect.verticalNormalizedPosition = verticalNormalizedPosition;
 
             #if UNITY_WSA_10_0
-            GameObject.Find ("Canvas/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDExampleButton").GetComponent<Button> ().interactable = false;
-            GameObject.Find ("Canvas/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
-            GameObject.Find ("Canvas/SceneList/ScrollView/List/MainModulesGroup/OpenPoseExampleButton").GetComponent<Button> ().interactable = false;
-            GameObject.Find ("Canvas/SceneList/ScrollView/List/MainModulesGroup/ResnetSSDFaceDetectionExampleButton").GetComponent<Button> ().interactable = false;
-            GameObject.Find ("Canvas/SceneList/ScrollView/List/MainModulesGroup/TensorFlowWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
-            GameObject.Find ("Canvas/SceneList/ScrollView/List/MainModulesGroup/YoloObjectDetectionExampleButton").GetComponent<Button> ().interactable = false;
-            GameObject.Find ("Canvas/SceneList/ScrollView/List/MainModulesGroup/YoloObjectDetectionWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
+            GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDExampleButton").GetComponent<Button> ().interactable = false;
+            GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
+            GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/OpenPoseExampleButton").GetComponent<Button> ().interactable = false;
+            GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ResnetSSDFaceDetectionExampleButton").GetComponent<Button> ().interactable = false;
+            GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TensorFlowWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
+            GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YoloObjectDetectionExampleButton").GetComponent<Button> ().interactable = false;
+            GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YoloObjectDetectionWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
 
-            GameObject.Find ("Canvas/SceneList/ScrollView/List/ContribModulesGroup/TextDetectionExampleButton").GetComponent<Button> ().interactable = false;
-            GameObject.Find ("Canvas/SceneList/ScrollView/List/ContribModulesGroup/TextRecognitionExampleButton").GetComponent<Button> ().interactable = false;
+            GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/TextDetectionExampleButton").GetComponent<Button> ().interactable = false;
+            GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/TextRecognitionExampleButton").GetComponent<Button> ().interactable = false;
             #endif
         }
     
@@ -177,6 +177,24 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene ("PolygonFilterExample");
             #else
             Application.LoadLevel ("PolygonFilterExample");
+            #endif
+        }
+
+        public void OnAlphaBlendingExampleButtonClick ()
+        {
+            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
+            SceneManager.LoadScene ("AlphaBlendingExample");
+            #else
+            Application.LoadLevel ("AlphaBlendingExample");
+            #endif
+        }
+
+        public void OnMatToTextureInRenderThreadExampleButtonClick ()
+        {
+            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
+            SceneManager.LoadScene ("MatToTextureInRenderThreadExample");
+            #else
+                    Application.LoadLevel ("MatToTextureInRenderThreadExample");
             #endif
         }
 

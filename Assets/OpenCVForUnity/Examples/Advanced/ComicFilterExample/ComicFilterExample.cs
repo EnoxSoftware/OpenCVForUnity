@@ -226,10 +226,9 @@ namespace OpenCVForUnityExample
 
                 //          Imgproc.putText (dstMat, "W:" + dstMat.width () + " H:" + dstMat.height () + " SO:" + Screen.orientation, new Point (5, dstMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (0), 2, Imgproc.LINE_AA, false);
             
-                //      Imgproc.cvtColor(dstMat,rgbaMat,Imgproc.COLOR_GRAY2RGBA);
-                //              Utils.matToTexture2D (rgbaMat, texture);
+                Imgproc.cvtColor(dstMat,rgbaMat,Imgproc.COLOR_GRAY2RGBA);
             
-                Utils.matToTexture2D (dstMat, texture, webCamTextureToMatHelper.GetBufferColors());
+                Utils.fastMatToTexture2D (rgbaMat, texture);
             }
         }
 

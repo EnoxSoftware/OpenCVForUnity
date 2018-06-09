@@ -22,7 +22,9 @@ namespace OpenCVForUnityExample
         /// The image texture.
         /// </summary>
         public Texture2D imgTexture;
-        
+
+        [Space(10)]
+
         /// <summary>
         /// The dictionary identifier.
         /// </summary>
@@ -62,7 +64,9 @@ namespace OpenCVForUnityExample
         /// The AR camera.
         /// </summary>
         public Camera arCamera;
-        
+
+        [Space(10)]
+
         /// <summary>
         /// Determines if request the AR camera moving.
         /// </summary>
@@ -243,7 +247,7 @@ namespace OpenCVForUnityExample
                             // right-handed coordinates system (OpenCV) to left-handed one (Unity)
                             Matrix4x4 ARM = invertYM * transformationM;
 
-                            // Apply Z axis inverted matrix.
+                            // Apply Z-axis inverted matrix.
                             ARM = ARM * invertZM;
 
                             if (shouldMoveARCamera) {

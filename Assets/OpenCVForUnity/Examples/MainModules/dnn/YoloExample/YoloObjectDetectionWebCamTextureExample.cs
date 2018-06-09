@@ -93,8 +93,8 @@ namespace OpenCVForUnityExample
             StartCoroutine (getFilePath_Coroutine);
             #else
             coco_names_filepath = Utils.getFilePath ("dnn/coco.names");
-            tiny_yolo_cfg_filepath = Utils.getFilePath ("dnn/tiny-yolo.cfg");
-            tiny_yolo_weights_filepath = Utils.getFilePath ("dnn/tiny-yolo.weights");
+            tiny_yolo_cfg_filepath = Utils.getFilePath ("dnn/yolov2-tiny.cfg");
+            tiny_yolo_weights_filepath = Utils.getFilePath ("dnn/yolov2-tiny.weights");
             Run ();
             #endif
         }
@@ -182,10 +182,10 @@ namespace OpenCVForUnityExample
             gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
-            if (fpsMonitor != null){
-                fpsMonitor.Add ("width", webCamTextureMat.width ().ToString());
-                fpsMonitor.Add ("height", webCamTextureMat.height ().ToString());
-                fpsMonitor.Add ("orientation", Screen.orientation.ToString());
+            if (fpsMonitor != null) {
+                fpsMonitor.Add ("width", webCamTextureMat.width ().ToString ());
+                fpsMonitor.Add ("height", webCamTextureMat.height ().ToString ());
+                fpsMonitor.Add ("orientation", Screen.orientation.ToString ());
             }
 
 
@@ -215,7 +215,7 @@ namespace OpenCVForUnityExample
                 bgrMat.Dispose ();
 
             if (texture != null) {
-                Texture2D.Destroy(texture);
+                Texture2D.Destroy (texture);
                 texture = null;
             }
         }
@@ -329,7 +329,7 @@ namespace OpenCVForUnityExample
                     detectionMat.Dispose ();
                 }
 
-                Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors ());
+                Utils.fastMatToTexture2D (rgbaMat, texture);
             }
         }
 

@@ -228,7 +228,7 @@ namespace OpenCVForUnityExample
                 
                 //Imgproc.putText (rgbaMat, "Please touch the area of the open hand.", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
-                Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors());
+                Utils.fastMatToTexture2D (rgbaMat, texture);
             }
         }
 

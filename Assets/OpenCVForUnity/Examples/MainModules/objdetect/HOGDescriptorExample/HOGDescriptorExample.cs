@@ -26,11 +26,6 @@ namespace OpenCVForUnityExample
         Mat rgbMat;
 
         /// <summary>
-        /// The colors.
-        /// </summary>
-        Color32[] colors;
-
-        /// <summary>
         /// The texture.
         /// </summary>
         Texture2D texture;
@@ -87,8 +82,7 @@ namespace OpenCVForUnityExample
             capture.retrieve (rgbMat, 0);
             int frameWidth = rgbMat.cols ();
             int frameHeight = rgbMat.rows ();
-            colors = new Color32[frameWidth * frameHeight];
-            texture = new Texture2D (frameWidth, frameHeight, TextureFormat.RGBA32, false);
+            texture = new Texture2D (frameWidth, frameHeight, TextureFormat.RGB24, false);
             gameObject.transform.localScale = new Vector3 ((float)frameWidth, (float)frameHeight, 1);
             float widthScale = (float)Screen.width / (float)frameWidth;
             float heightScale = (float)Screen.height / (float)frameHeight;
@@ -135,7 +129,7 @@ namespace OpenCVForUnityExample
                 }
 
                 
-                Utils.matToTexture2D (rgbMat, texture, colors);
+                Utils.fastMatToTexture2D (rgbMat, texture);
                 
                 gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
             }
@@ -152,7 +146,7 @@ namespace OpenCVForUnityExample
                 rgbMat.Dispose ();
 
             if (texture != null) {
-                Texture2D.Destroy(texture);
+                Texture2D.Destroy (texture);
                 texture = null;
             }
 

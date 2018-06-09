@@ -28,11 +28,6 @@ namespace OpenCVForUnityExample
         Mat rgbMat;
 
         /// <summary>
-        /// The colors.
-        /// </summary>
-        Color32[] colors;
-
-        /// <summary>
         /// The texture.
         /// </summary>
         Texture2D texture;
@@ -52,6 +47,11 @@ namespace OpenCVForUnityExample
         /// </summary>
         long currentFrameTickCount;
 
+        /// <summary>
+        /// The FPS monitor.
+        /// </summary>
+        FpsMonitor fpsMonitor;
+
         #if UNITY_WEBGL && !UNITY_EDITOR
         Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
         #endif
@@ -59,6 +59,8 @@ namespace OpenCVForUnityExample
         // Use this for initialization
         void Start ()
         {
+            fpsMonitor = GetComponent<FpsMonitor> ();
+
             capture = new VideoCapture ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
@@ -97,11 +99,24 @@ namespace OpenCVForUnityExample
             double ext = capture.get (Videoio.CAP_PROP_FOURCC);
             Debug.Log ("CAP_PROP_FOURCC: " + (char)((int)ext & 0XFF) + (char)(((int)ext & 0XFF00) >> 8) + (char)(((int)ext & 0XFF0000) >> 16) + (char)(((int)ext & 0XFF000000) >> 24));
 
+            if (fpsMonitor != null) {
+                fpsMonitor.Add ("CAP_PROP_FORMAT", capture.get (Videoio.CAP_PROP_FORMAT).ToString ());
+                fpsMonitor.Add ("CV_CAP_PROP_PREVIEW_FORMAT", capture.get (Videoio.CV_CAP_PROP_PREVIEW_FORMAT).ToString ());
+                fpsMonitor.Add ("CAP_PROP_POS_MSEC", capture.get (Videoio.CAP_PROP_POS_MSEC).ToString ());
+                fpsMonitor.Add ("CAP_PROP_POS_FRAMES", capture.get (Videoio.CAP_PROP_POS_FRAMES).ToString ());
+                fpsMonitor.Add ("CAP_PROP_POS_AVI_RATIO", capture.get (Videoio.CAP_PROP_POS_AVI_RATIO).ToString ());
+                fpsMonitor.Add ("CAP_PROP_FRAME_COUNT", capture.get (Videoio.CAP_PROP_FRAME_COUNT).ToString ());
+                fpsMonitor.Add ("CAP_PROP_FPS", capture.get (Videoio.CAP_PROP_FPS).ToString ());
+                fpsMonitor.Add ("CAP_PROP_FRAME_WIDTH", capture.get (Videoio.CAP_PROP_FRAME_WIDTH).ToString ());
+                fpsMonitor.Add ("CAP_PROP_FRAME_HEIGHT", capture.get (Videoio.CAP_PROP_FRAME_HEIGHT).ToString ());
+                fpsMonitor.Add ("CAP_PROP_FOURCC", ((char)((int)ext & 0XFF) + (char)(((int)ext & 0XFF00) >> 8) + (char)(((int)ext & 0XFF0000) >> 16) + (char)(((int)ext & 0XFF000000) >> 24)).ToString ());
+                fpsMonitor.Add ("STATE", "");
+            }
+
             capture.grab ();
             capture.retrieve (rgbMat, 0);
             int frameWidth = rgbMat.cols ();
             int frameHeight = rgbMat.rows ();
-            colors = new Color32[frameWidth * frameHeight];
             texture = new Texture2D (frameWidth, frameHeight, TextureFormat.RGB24, false);
             gameObject.transform.localScale = new Vector3 ((float)frameWidth, (float)frameHeight, 1);
             float widthScale = (float)Screen.width / (float)frameWidth;
@@ -134,37 +149,25 @@ namespace OpenCVForUnityExample
 
                     Imgproc.cvtColor (rgbMat, rgbMat, Imgproc.COLOR_BGR2RGB);
 
-                    int ff = Core.FONT_HERSHEY_SIMPLEX;
-                    double fs = 0.4;
-                    Scalar c = new Scalar (255, 255, 255);
-                    int t = 0;
-                    int lt = Imgproc.LINE_AA;
-                    bool blo = false;
-                    Imgproc.putText (rgbMat, "CAP_PROP_FORMAT: " + capture.get (Videoio.CAP_PROP_FORMAT), new Point (rgbMat.cols() - 300, 20), ff, fs, c, t, lt, blo);
-                    Imgproc.putText (rgbMat, "CV_CAP_PROP_PREVIEW_FORMAT: " + capture.get (Videoio.CV_CAP_PROP_PREVIEW_FORMAT), new Point (rgbMat.cols() - 300, 40), ff, fs, c, t, lt, blo);
-                    Imgproc.putText (rgbMat, "CAP_PROP_POS_MSEC: " + capture.get (Videoio.CAP_PROP_POS_MSEC), new Point (rgbMat.cols() - 300, 60), ff, fs, c, t, lt, blo);
-                    Imgproc.putText (rgbMat, "CAP_PROP_POS_FRAMES: " + capture.get (Videoio.CAP_PROP_POS_FRAMES), new Point (rgbMat.cols() - 300, 80), ff, fs, c, t, lt, blo);
-                    Imgproc.putText (rgbMat, "CAP_PROP_POS_AVI_RATIO: " + capture.get (Videoio.CAP_PROP_POS_AVI_RATIO), new Point (rgbMat.cols() - 300, 100), ff, fs, c, t, lt, blo);
-                    Imgproc.putText (rgbMat, "CAP_PROP_FRAME_COUNT: " + capture.get (Videoio.CAP_PROP_FRAME_COUNT), new Point (rgbMat.cols() - 300, 120), ff, fs, c, t, lt, blo);
-                    Imgproc.putText (rgbMat, "CAP_PROP_FPS: " + capture.get (Videoio.CAP_PROP_FPS), new Point (rgbMat.cols() - 300, 140), ff, fs, c, t, lt, blo);
-                    Imgproc.putText (rgbMat, "CAP_PROP_FRAME_WIDTH: " + capture.get (Videoio.CAP_PROP_FRAME_WIDTH), new Point (rgbMat.cols() - 300, 160), ff, fs, c, t, lt, blo);
-                    Imgproc.putText (rgbMat, "CAP_PROP_FRAME_HEIGHT: " + capture.get (Videoio.CAP_PROP_FRAME_HEIGHT), new Point (rgbMat.cols() - 300, 180), ff, fs, c, t, lt, blo);
-                    double ext = capture.get (Videoio.CAP_PROP_FOURCC);
-                    Imgproc.putText (rgbMat, "CAP_PROP_FOURCC: " + (char)((int)ext & 0XFF) + (char)(((int)ext & 0XFF00) >> 8) + (char)(((int)ext & 0XFF0000) >> 16) + (char)(((int)ext & 0XFF000000) >> 24), new Point (rgbMat.cols() - 300, 200), ff, fs, c, t, lt, blo);
-
-                    int msec = (int)Math.Round(1000.0 * (currentFrameTickCount - prevFrameTickCount) / Core.getTickFrequency ());
-                    int fps = (int)Math.Round(1000.0 / msec);
-                    Imgproc.putText (rgbMat, "STATE: " + msec + "ms " + " (" + fps + "fps)", new Point (rgbMat.cols() - 300, 240), ff, fs, c, t, lt, blo);
+                    if (fpsMonitor != null) {
+                        fpsMonitor.Add ("CAP_PROP_POS_MSEC", capture.get (Videoio.CAP_PROP_POS_MSEC).ToString ());
+                        fpsMonitor.Add ("CAP_PROP_POS_FRAMES", capture.get (Videoio.CAP_PROP_POS_FRAMES).ToString ());
+                        fpsMonitor.Add ("CAP_PROP_POS_AVI_RATIO", capture.get (Videoio.CAP_PROP_POS_AVI_RATIO).ToString ());
+                        fpsMonitor.Add ("CAP_PROP_FRAME_COUNT", capture.get (Videoio.CAP_PROP_FRAME_COUNT).ToString ());
+                        int msec = (int)Math.Round (1000.0 * (currentFrameTickCount - prevFrameTickCount) / Core.getTickFrequency ());
+                        int fps = (int)Math.Round (1000.0 / msec);
+                        fpsMonitor.Add ("STATE", msec + "ms " + " (" + fps + "fps)");
+                    }
                 
-                    Utils.matToTexture2D (rgbMat, texture, colors);
+                    Utils.fastMatToTexture2D (rgbMat, texture);
                 }
             }
         }
 
-        private IEnumerator WaitFrameTime()
+        private IEnumerator WaitFrameTime ()
         {
             double videoFPS = (capture.get (Videoio.CAP_PROP_FPS) <= 0) ? 10.0 : capture.get (Videoio.CAP_PROP_FPS);
-            int frameTime_msec = (int)Math.Round(1000.0 / videoFPS);
+            int frameTime_msec = (int)Math.Round (1000.0 / videoFPS);
 
             while (true) {
                 shouldUpdateVideoFrame = true;

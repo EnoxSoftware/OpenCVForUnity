@@ -70,6 +70,8 @@ namespace OpenCVForUnityExample
         /// The shows refine marker detection toggle.
         /// </summary>
         public Toggle refineMarkerDetectionToggle;
+
+        [Space(10)]
         
         /// <summary>
         /// The length of the markers' side. Normally, unit is meters.
@@ -86,10 +88,39 @@ namespace OpenCVForUnityExample
         /// </summary>
         public Camera arCamera;
 
+        [Space(10)]
+
         /// <summary>
         /// Determines if request the AR camera moving.
         /// </summary>
-        public bool shouldMoveARCamera = false;
+        public bool shouldMoveARCamera = false;        
+        
+        [Space(10)]
+
+        /// <summary>
+        /// Determines if enable low pass filter.
+        /// </summary>
+        public bool enableLowPassFilter;
+
+        /// <summary>
+        /// The enable low pass filter toggle.
+        /// </summary>
+        public Toggle enableLowPassFilterToggle;
+
+        /// <summary>
+        /// The position low pass. (Value in meters)
+        /// </summary>
+        public float positionLowPass = 0.005f;
+
+        /// <summary>
+        /// The rotation low pass. (Value in degrees)
+        /// </summary>
+        public float rotationLowPass = 2f;
+        
+        /// <summary>
+        /// The old pose data.
+        /// </summary>
+        PoseData oldPoseData;
 
         /// <summary>
         /// The texture.
@@ -115,21 +146,6 @@ namespace OpenCVForUnityExample
         /// The distortion coeffs.
         /// </summary>
         MatOfDouble distCoeffs;
-        
-        /// <summary>
-        /// The matrix that inverts the Y axis.
-        /// </summary>
-        Matrix4x4 invertYM;
-
-        /// <summary>
-        /// The matrix that inverts the Z axis.
-        /// </summary>
-        Matrix4x4 invertZM;
-        
-        /// <summary>
-        /// The transformation matrix.
-        /// </summary>
-        Matrix4x4 transformationM;
 
         /// <summary>
         /// The transformation matrix for AR.
@@ -239,6 +255,7 @@ namespace OpenCVForUnityExample
             showRejectedCornersToggle.isOn = showRejectedCorners;
             refineMarkerDetectionToggle.isOn = refineMarkerDetection;
             refineMarkerDetectionToggle.interactable = (markerType == MarkerType.GridBoard || markerType == MarkerType.ChArUcoBoard);
+            enableLowPassFilterToggle.isOn = enableLowPassFilter;
 
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
 
@@ -267,7 +284,7 @@ namespace OpenCVForUnityExample
             
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
             
-            texture = new Texture2D (webCamTextureMat.cols (), webCamTextureMat.rows (), TextureFormat.RGBA32, false);
+            texture = new Texture2D (webCamTextureMat.cols (), webCamTextureMat.rows (), TextureFormat.RGB24, false);
             
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
             
@@ -398,14 +415,6 @@ namespace OpenCVForUnityExample
             tvecs = new Mat ();
             rotMat = new Mat (3, 3, CvType.CV_64FC1);
             
-            
-            transformationM = new Matrix4x4 ();
-            
-            invertYM = Matrix4x4.TRS (Vector3.zero, Quaternion.identity, new Vector3 (1, -1, 1));
-            Debug.Log ("invertYM " + invertYM.ToString ());
-            
-            invertZM = Matrix4x4.TRS (Vector3.zero, Quaternion.identity, new Vector3 (1, 1, -1));
-            Debug.Log ("invertZM " + invertZM.ToString ());
             
             detectorParams = DetectorParameters.create ();
             dictionary = Aruco.getPredefinedDictionary ((int)dictionaryId);
@@ -573,9 +582,9 @@ namespace OpenCVForUnityExample
                     Aruco.drawDetectedMarkers (rgbMat, rejectedCorners, new Mat (), new Scalar (255, 0, 0));
                 
                 
-                Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                
-                Utils.matToTexture2D (rgbMat, texture, webCamTextureToMatHelper.GetBufferColors ());
+                //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+
+                Utils.fastMatToTexture2D (rgbMat, texture);
             }
         }
 
@@ -648,26 +657,17 @@ namespace OpenCVForUnityExample
 
         private void UpdateARObjectTransform (Mat rvec, Mat tvec)
         {
-            // Position
-            double[] tvecArr = new double[3];
-            tvec.get(0, 0, tvecArr);
+            // Convert to unity pose data.
+            PoseData poseData = ARUtils.ConvertRvecTvecToPoseData (rvec.get (0, 0), tvec.get (0, 0));
 
-            // Rotation
-            Calib3d.Rodrigues (rvec, rotMat);
+            // Changes in pos/rot below these thresholds are ignored.
+            if (enableLowPassFilter) {
+                ARUtils.LowpassPoseData (ref oldPoseData, ref poseData, positionLowPass, rotationLowPass);
+            }
+            oldPoseData = poseData;
 
-            double[] rotMatArr = new double[rotMat.total()];
-            rotMat.get (0, 0, rotMatArr);
-
-            transformationM.SetRow (0, new Vector4 ((float)rotMatArr [0], (float)rotMatArr [1], (float)rotMatArr [2], (float)tvecArr [0]));
-            transformationM.SetRow (1, new Vector4 ((float)rotMatArr [3], (float)rotMatArr [4], (float)rotMatArr [5], (float)tvecArr [1]));
-            transformationM.SetRow (2, new Vector4 ((float)rotMatArr [6], (float)rotMatArr [7], (float)rotMatArr [8], (float)tvecArr [2]));
-            transformationM.SetRow (3, new Vector4 (0, 0, 0, 1));
-
-            // right-handed coordinates system (OpenCV) to left-handed one (Unity)
-            ARM = invertYM * transformationM;
-
-            // Apply Z axis inverted matrix.
-            ARM = ARM * invertZM;
+            // Convert to transform matrix.
+            ARM = ARUtils.ConvertPoseDataToMatrix (ref poseData, true, true);
 
             if (shouldMoveARCamera) {
 
@@ -799,6 +799,19 @@ namespace OpenCVForUnityExample
         public void OnRefineMarkerDetectionToggleValueChanged ()
         {
             refineMarkerDetection = refineMarkerDetectionToggle.isOn;
+        }
+        
+        
+        /// <summary>
+        /// Raises the enable low pass filter toggle value changed event.
+        /// </summary>
+        public void OnEnableLowPassFilterToggleValueChanged ()
+        {
+            if (enableLowPassFilterToggle.isOn) {
+                enableLowPassFilter = true;
+            } else {
+                enableLowPassFilter = false;
+            }
         }
 
         public enum MarkerType

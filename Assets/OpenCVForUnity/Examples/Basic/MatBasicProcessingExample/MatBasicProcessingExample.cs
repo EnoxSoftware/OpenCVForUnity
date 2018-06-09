@@ -268,33 +268,25 @@ namespace OpenCVForUnityExample
             executionResultText.text += "m2.dump()=" + m2.dump () + "\n";
 
             // CVException handling
-            #if UNITY_STANDALONE || UNITY_EDITOR
             // Publish CVException to Debug.LogError.
             Utils.setDebugMode (true, false);
 
             Mat m3 = m1 / m2; // element type is different.
-            Debug.Log("m3=" + m3);
+            Debug.Log ("m3=" + m3);
 
             Utils.setDebugMode (false);
 
             // Throw CVException.
             Utils.setDebugMode (true, true);
-            try
-            {
+            try {
                 Mat m4 = m1 / m2; // element type is different.
-                Debug.Log("m4=" + m4);
-            }
-            catch (Exception e)
-            {
+                Debug.Log ("m4=" + m4);
+            } catch (Exception e) {
                 Debug.Log ("CVException: " + e);
                 executionResultText.text += "CVException: " + e + "\n";
             }
             Utils.setDebugMode (false);
 
-            #else
-            Debug.Log ("The setDebugMode method is supported in WIN, MAC and LINUX.");
-            executionResultText.text += "The setDebugMode method is only supported on WIN, MAC and LINUX." + "\n";
-            #endif
 
             exampleCodeText.text = @"
             //
@@ -464,8 +456,8 @@ namespace OpenCVForUnityExample
 
             // matrix and matrix
             Mat m6 = m1 + m1;
-            Mat m7 = m1.mul(m2);
-            Mat m8 = m1.mul(m2, 2); //add scaling factor
+            Mat m7 = m1.mul (m2);
+            Mat m8 = m1.mul (m2, 2); //add scaling factor
 
             Debug.Log ("m1+m1=" + m6.dump ());
             Debug.Log ("m1.mul(m2)=" + m7.dump ());
@@ -488,11 +480,11 @@ namespace OpenCVForUnityExample
             Utils.setDebugMode (true, false);
 
             Mat m11 = m1 / m9; // element type is different.
-            Debug.Log("m1/m9=" + m11);
+            Debug.Log ("m1/m9=" + m11);
             executionResultText.text += "m1/m9=" + m11.dump () + "\n";
 
             Mat m12 = m1 / m10; // matrix size is different.
-            Debug.Log("m1/m10=" + m12);
+            Debug.Log ("m1/m10=" + m12);
             executionResultText.text += "m1/m10=" + m12.dump () + "\n";
 
             Utils.setDebugMode (false);
@@ -1487,6 +1479,11 @@ namespace OpenCVForUnityExample
             Debug.Log ("~m1=" + (~m1).dump ());
             executionResultText.text += "~m1=" + (~m1).dump () + "\n";
 
+            // Note.
+            // The assignment operator behavior is different from OpenCV (c ++). 
+            // For example, C = A + B will not be expanded to cv :: add (A, B, C).
+            // Also cannot assign a scalar to Mat like C = s.
+
 
             exampleCodeText.text = @"
             //
@@ -1556,6 +1553,12 @@ namespace OpenCVForUnityExample
 
             // (~M1 = Core.bitwise_not (M1, M_dst))
             Debug.Log (""~m1="" + (~m1).dump());
+
+
+            // Note.
+            // The assignment operator behavior is different from OpenCV (c ++). 
+            // For example, C = A + B will not be expanded to cv :: add (A, B, C).
+            // Also cannot assign a scalar to Mat like C = s.
             ";
 
             UpdateScrollRect ();
@@ -1572,6 +1575,7 @@ namespace OpenCVForUnityExample
             Debug.Log ("m1=" + m1.dump ());
 
             executionResultText.text = "m1=" + m1.dump () + "\n";
+
 
             // get an element value.
             double[] m1_1_1 = m1.get (1, 1);
@@ -1591,6 +1595,18 @@ namespace OpenCVForUnityExample
 
             executionResultText.text += "m1_array=" + dump_str + "\n";
 
+            // another faster way. (use Utils.copyFromMat())
+            Utils.copyFromMat (m1, m1_array);
+
+            dump_str = "";
+            foreach (var i in m1_array) {
+                dump_str += i + ", ";
+            }
+            Debug.Log ("m1_array (use Utils.copyFromMat())=" + dump_str);
+
+            executionResultText.text += "m1_array (use Utils.copyFromMat())=" + dump_str + "\n";
+
+
             // put an element value in a matrix.
             Mat m2 = m1.clone ();
             m2.put (1, 1, 5, 6, 7, 8);
@@ -1599,11 +1615,55 @@ namespace OpenCVForUnityExample
             executionResultText.text += "m2=" + m2.dump () + "\n";
 
             // put an array of element values in a matrix.
-            byte[] m2_arr = new byte[]{5,6,7,8,5,6,7,8,5,6,7,8,5,6,7,8,5,6,7,8,5,6,7,8,5,6,7,8,5,6,7,8,5,6,7,8};
+            byte[] m2_arr = new byte[] {
+                5,
+                6,
+                7,
+                8,
+                5,
+                6,
+                7,
+                8,
+                5,
+                6,
+                7,
+                8,
+                5,
+                6,
+                7,
+                8,
+                5,
+                6,
+                7,
+                8,
+                5,
+                6,
+                7,
+                8,
+                5,
+                6,
+                7,
+                8,
+                5,
+                6,
+                7,
+                8,
+                5,
+                6,
+                7,
+                8
+            };
             m2.put (0, 0, m2_arr);
             Debug.Log ("m2=" + m2.dump ());
 
             executionResultText.text += "m2=" + m2.dump () + "\n";
+
+            // another faster way. (use Utils.copyToMat())
+            Utils.copyToMat (m2_arr, m2);
+            Debug.Log ("m2 (use Utils.copyToMat())=" + m2.dump ());
+
+            executionResultText.text += "m2 (use Utils.copyToMat())=" + m2.dump () + "\n";
+
 
             // fill element values (setTo method)
             m2.setTo (new Scalar (100, 100, 100, 100));
@@ -1634,6 +1694,16 @@ namespace OpenCVForUnityExample
             }
             Debug.Log (""m1_array="" + dump_str);
 
+            // another faster way. (use Utils.copyFromMat())
+            Utils.copyFromMat (m1, m1_array);
+
+            dump_str = """";
+            foreach (var i in m1_array) {
+                dump_str += i + "", "";
+            }
+            Debug.Log (""m1_array (use Utils.copyFromMat())="" + dump_str);
+
+
             // put an element value in a matrix.
             Mat m2 = m1.clone ();
             m2.put (1, 1, 5,6,7,8);
@@ -1644,9 +1714,91 @@ namespace OpenCVForUnityExample
             m2.put (0, 0, m2_arr);
             Debug.Log (""m2="" + m2.dump ());
 
+            // another faster way. (use Utils.copyToMat())
+            Utils.copyToMat (m2_arr, m2);
+            Debug.Log (""m2 (use Utils.copyToMat())="" + m2.dump ());
+
+
             // fill element values (setTo method)
             m2.setTo(new Scalar(100,100,100,100));
             Debug.Log (""m2="" + m2.dump ());
+            ";
+
+            UpdateScrollRect ();
+        }
+
+        public void OnAccessingPixelValueExampleButtonClick ()
+        {
+            //
+            // accessing pixel value example
+            //
+
+            // How access pixel value in an OpenCV Mat.
+
+            // channels=4 10x10 matrix (RGBA color image)
+            Mat src_img = new Mat (10, 10, CvType.CV_8UC4, new Scalar (0, 0, 0, 255));
+            Mat dst_img = new Mat (10, 10, CvType.CV_8UC4);
+
+            Debug.Log ("src_img=" + src_img.dump ());
+            executionResultText.text = "src_img=" + src_img.dump () + "\n";
+
+            // Copies an OpenCV Mat data to a pixel data Array.
+            byte[] img_array = new byte[src_img.total () * src_img.channels ()];
+            Utils.copyFromMat (src_img, img_array);
+
+            int pixel_i = 0;
+            int channels = src_img.channels ();
+            int total = (int)src_img.total ();
+            for (int i = 0; i < total; i++) {
+
+                img_array [pixel_i] = (byte)i;
+                img_array [pixel_i + 1] = (byte)i;
+                img_array [pixel_i + 2] = (byte)i;
+
+                // Advance to next pixel
+                pixel_i += channels;
+            }
+
+            // Copies a pixel data Array to an OpenCV Mat data.
+            Utils.copyToMat (img_array, dst_img);
+
+            Debug.Log ("dst_img=" + dst_img.dump ());
+            executionResultText.text += "dst_img=" + dst_img.dump () + "\n";
+
+            exampleCodeText.text = @"
+            //
+            // accessing pixel value example
+            //
+
+            // How access pixel value in an OpenCV Mat.
+
+            // channels=4 10x10 matrix (RGBA color image)
+            Mat src_img = new Mat (10, 10, CvType.CV_8UC4, new Scalar (0, 0, 0, 255));
+            Mat dst_img = new Mat (10, 10, CvType.CV_8UC4);
+
+            Debug.Log (""src_img="" + src_img.dump ());
+
+            // Copies an OpenCV Mat data to a pixel data Array.
+            byte[] img_array = new byte[src_img.total () * src_img.channels()];
+            Utils.copyFromMat (src_img, img_array);
+
+            int pixel_i = 0;
+            int channels = src_img.channels();
+            int total = (int)src_img.total();
+            for (int i = 0; i < total; i++) {
+
+                img_array [pixel_i] = (byte)i;
+                img_array [pixel_i + 1] = (byte)i;
+                img_array [pixel_i + 2] = (byte)i;
+
+                // Advance to next pixel
+                pixel_i += channels;
+            }
+
+            // Copies a pixel data Array to an OpenCV Mat data.
+            Utils.copyToMat (img_array, dst_img);
+
+            Debug.Log (""dst_img="" + dst_img.dump ());
             ";
 
             UpdateScrollRect ();

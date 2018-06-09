@@ -9,16 +9,17 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// WebcamTexture to mat helper.
-    /// v 1.0.7
+    /// v 1.0.9
     /// </summary>
     public class WebCamTextureToMatHelper : MonoBehaviour
     {
         /// <summary>
         /// Set the name of the camera device to use. (or device index number)
         /// </summary>
-        [SerializeField, FormerlySerializedAs("requestedDeviceName"), TooltipAttribute ("Set the name of the device to use. (or device index number)")]
+        [SerializeField, FormerlySerializedAs ("requestedDeviceName"), TooltipAttribute ("Set the name of the device to use. (or device index number)")]
         protected string _requestedDeviceName = null;
-        public string requestedDeviceName {
+
+        public virtual string requestedDeviceName {
             get { return _requestedDeviceName; } 
             set {
                 _requestedDeviceName = value;
@@ -31,12 +32,13 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Set the width of camera.
         /// </summary>
-        [SerializeField, FormerlySerializedAs("requestedWidth"), TooltipAttribute ("Set the width of camera.")]
+        [SerializeField, FormerlySerializedAs ("requestedWidth"), TooltipAttribute ("Set the width of camera.")]
         protected int _requestedWidth = 640;
-        public int requestedWidth {
+
+        public virtual int requestedWidth {
             get { return _requestedWidth; } 
             set {
-                _requestedWidth = (int)Mathf.Clamp(value, 0f, float.MaxValue);
+                _requestedWidth = (int)Mathf.Clamp (value, 0f, float.MaxValue);
                 if (hasInitDone) {
                     Initialize ();
                 }
@@ -46,12 +48,13 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Set the height of camera.
         /// </summary>
-        [SerializeField, FormerlySerializedAs("requestedHeight"), TooltipAttribute ("Set the height of camera.")]
+        [SerializeField, FormerlySerializedAs ("requestedHeight"), TooltipAttribute ("Set the height of camera.")]
         protected int _requestedHeight = 480;
-        public int requestedHeight {
+
+        public virtual int requestedHeight {
             get { return _requestedHeight; } 
             set {
-                _requestedHeight = (int)Mathf.Clamp(value, 0f, float.MaxValue);
+                _requestedHeight = (int)Mathf.Clamp (value, 0f, float.MaxValue);
                 if (hasInitDone) {
                     Initialize ();
                 }
@@ -61,9 +64,10 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Set whether to use the front facing camera.
         /// </summary>
-        [SerializeField, FormerlySerializedAs("requestedIsFrontFacing"), TooltipAttribute ("Set whether to use the front facing camera.")]
+        [SerializeField, FormerlySerializedAs ("requestedIsFrontFacing"), TooltipAttribute ("Set whether to use the front facing camera.")]
         protected bool _requestedIsFrontFacing = false;
-        public bool requestedIsFrontFacing {
+
+        public virtual bool requestedIsFrontFacing {
             get { return _requestedIsFrontFacing; } 
             set {
                 _requestedIsFrontFacing = value;
@@ -76,17 +80,19 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Set the frame rate of camera.
         /// </summary>
-        [SerializeField, FormerlySerializedAs("requestedFPS"), TooltipAttribute ("Set the frame rate of camera.")]
+        [SerializeField, FormerlySerializedAs ("requestedFPS"), TooltipAttribute ("Set the frame rate of camera.")]
         protected float _requestedFPS = 30f;
-        public float requestedFPS {
+
+        public virtual float requestedFPS {
             get { return _requestedFPS; } 
             set {
-                _requestedFPS = Mathf.Clamp(value, -1f, float.MaxValue);
+                _requestedFPS = Mathf.Clamp (value, -1f, float.MaxValue);
                 if (hasInitDone) {
                     bool isPlaying = IsPlaying ();
                     Stop ();
                     webCamTexture.requestedFPS = _requestedFPS;
-                    if (isPlaying) Play ();
+                    if (isPlaying)
+                        Play ();
                 }
             }
         }
@@ -94,9 +100,10 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Sets whether to rotate camera frame 90 degrees. (clockwise)
         /// </summary>
-        [SerializeField, FormerlySerializedAs("rotate90Degree"), TooltipAttribute ("Sets whether to rotate camera frame 90 degrees. (clockwise)")]
+        [SerializeField, FormerlySerializedAs ("rotate90Degree"), TooltipAttribute ("Sets whether to rotate camera frame 90 degrees. (clockwise)")]
         protected bool _rotate90Degree = false;
-        public bool rotate90Degree {
+
+        public virtual bool rotate90Degree {
             get { return _rotate90Degree; } 
             set {
                 _rotate90Degree = value;
@@ -109,9 +116,10 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Determines if flips vertically.
         /// </summary>
-        [SerializeField, FormerlySerializedAs("flipVertical"), TooltipAttribute ("Determines if flips vertically.")]
+        [SerializeField, FormerlySerializedAs ("flipVertical"), TooltipAttribute ("Determines if flips vertically.")]
         protected bool _flipVertical = false;
-        public bool flipVertical {
+
+        public virtual bool flipVertical {
             get { return _flipVertical; } 
             set { _flipVertical = value; }
         }
@@ -119,21 +127,23 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Determines if flips horizontal.
         /// </summary>
-        [SerializeField, FormerlySerializedAs("flipHorizontal"), TooltipAttribute ("Determines if flips horizontal.")]
+        [SerializeField, FormerlySerializedAs ("flipHorizontal"), TooltipAttribute ("Determines if flips horizontal.")]
         protected bool _flipHorizontal = false;
-        public bool flipHorizontal {
+
+        public virtual bool flipHorizontal {
             get { return _flipHorizontal; } 
             set { _flipHorizontal = value; }
         }
-            
+
         /// <summary>
         /// The number of frames before the initialization process times out.
         /// </summary>
-        [SerializeField, FormerlySerializedAs("timeoutFrameCount"), TooltipAttribute ("The number of frames before the initialization process times out.")]
+        [SerializeField, FormerlySerializedAs ("timeoutFrameCount"), TooltipAttribute ("The number of frames before the initialization process times out.")]
         protected int _timeoutFrameCount = 300;
-        public int timeoutFrameCount {
+
+        public virtual int timeoutFrameCount {
             get { return _timeoutFrameCount; } 
-            set { _timeoutFrameCount = (int)Mathf.Clamp(value, 0f, float.MaxValue); }
+            set { _timeoutFrameCount = (int)Mathf.Clamp (value, 0f, float.MaxValue); }
         }
 
         /// <summary>
@@ -221,12 +231,12 @@ namespace OpenCVForUnityExample
             
         }
 
-        protected void OnValidate()
+        protected virtual void OnValidate ()
         {
-            _requestedWidth = (int)Mathf.Clamp(_requestedWidth, 0f, float.MaxValue);
-            _requestedHeight = (int)Mathf.Clamp(_requestedHeight, 0f, float.MaxValue);
-            _requestedFPS = Mathf.Clamp(_requestedFPS, -1f, float.MaxValue);
-            _timeoutFrameCount = (int)Mathf.Clamp(_timeoutFrameCount, 0f, float.MaxValue);
+            _requestedWidth = (int)Mathf.Clamp (_requestedWidth, 0f, float.MaxValue);
+            _requestedHeight = (int)Mathf.Clamp (_requestedHeight, 0f, float.MaxValue);
+            _requestedFPS = Mathf.Clamp (_requestedFPS, -1f, float.MaxValue);
+            _timeoutFrameCount = (int)Mathf.Clamp (_timeoutFrameCount, 0f, float.MaxValue);
         }
 
         // Update is called once per frame
@@ -290,8 +300,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public virtual void Initialize ()
         {
-            if (isInitWaiting)
-            {
+            if (isInitWaiting) {
                 CancelInitCoroutine ();
                 ReleaseResources ();
             }
@@ -314,8 +323,7 @@ namespace OpenCVForUnityExample
         /// <param name="requestedHeight">Requested height.</param>
         public virtual void Initialize (int requestedWidth, int requestedHeight)
         {
-            if (isInitWaiting)
-            {
+            if (isInitWaiting) {
                 CancelInitCoroutine ();
                 ReleaseResources ();
             }
@@ -341,8 +349,7 @@ namespace OpenCVForUnityExample
         /// <param name="rotate90Degree">If set to <c>true</c> requested to rotate camera frame 90 degrees. (clockwise)</param>
         public virtual void Initialize (bool requestedIsFrontFacing, float requestedFPS = 30f, bool rotate90Degree = false)
         {
-            if (isInitWaiting)
-            {
+            if (isInitWaiting) {
                 CancelInitCoroutine ();
                 ReleaseResources ();
             }
@@ -373,8 +380,7 @@ namespace OpenCVForUnityExample
         /// <param name="rotate90Degree">If set to <c>true</c> requested to rotate camera frame 90 degrees. (clockwise)</param>
         public virtual void Initialize (string deviceName, int requestedWidth, int requestedHeight, bool requestedIsFrontFacing = false, float requestedFPS = 30f, bool rotate90Degree = false)
         {
-            if (isInitWaiting)
-            {
+            if (isInitWaiting) {
                 CancelInitCoroutine ();
                 ReleaseResources ();
             }
@@ -401,8 +407,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         protected virtual IEnumerator _Initialize ()
         {
-            if (hasInitDone)
-            {
+            if (hasInitDone) {
                 ReleaseResources ();
 
                 if (onDisposed != null)
@@ -502,10 +507,10 @@ namespace OpenCVForUnityExample
                     }
                     if (isTimeout) break;
                     #endif
-                #endif
+                    #endif
 
                     Debug.Log ("WebCamTextureToMatHelper:: " + "devicename:" + webCamTexture.deviceName + " name:" + webCamTexture.name + " width:" + webCamTexture.width + " height:" + webCamTexture.height + " fps:" + webCamTexture.requestedFPS
-                        + " videoRotationAngle:" + webCamTexture.videoRotationAngle + " videoVerticallyMirrored:" + webCamTexture.videoVerticallyMirrored + " isFrongFacing:" + webCamDevice.isFrontFacing);
+                    + " videoRotationAngle:" + webCamTexture.videoRotationAngle + " videoVerticallyMirrored:" + webCamTexture.videoVerticallyMirrored + " isFrongFacing:" + webCamDevice.isFrontFacing);
 
                     if (colors == null || colors.Length != webCamTexture.width * webCamTexture.height)
                         colors = new Color32[webCamTexture.width * webCamTexture.height];
@@ -524,7 +529,7 @@ namespace OpenCVForUnityExample
                         isRotatedFrame = true;
                     }
                     #else
-                    if (rotate90Degree) 
+                    if (rotate90Degree)
                         isRotatedFrame = true;
                     #endif
                     if (isRotatedFrame)
@@ -715,8 +720,8 @@ namespace OpenCVForUnityExample
             if (!hasInitDone || !webCamTexture.isPlaying) {
                 return (rotatedFrameMat != null) ? rotatedFrameMat : frameMat;
             }
-
-            Utils.webCamTextureToMat (webCamTexture, frameMat, colors);
+                
+            Utils.webCamTextureToMat (webCamTexture, frameMat, colors, false);
 
             #if !UNITY_EDITOR && !(UNITY_STANDALONE || UNITY_WEBGL)
             if (rotatedFrameMat != null) {
@@ -764,24 +769,25 @@ namespace OpenCVForUnityExample
         /// <param name="mat">Mat.</param>
         protected virtual void FlipMat (Mat mat, bool flipVertical, bool flipHorizontal)
         {
-            int flipCode = int.MinValue;
+            //Since the order of pixels of WebCamTexture and Mat is opposite, the initial value of flipCode is set to 0 (flipVertical).
+            int flipCode = 0;
                 
             if (webCamDevice.isFrontFacing) {
                 if (webCamTexture.videoRotationAngle == 0) {
-                    flipCode = 1;
+                    flipCode = -1;
                 } else if (webCamTexture.videoRotationAngle == 90) {
-                    flipCode = 1;
+                    flipCode = -1;
                 }
                 if (webCamTexture.videoRotationAngle == 180) {
-                    flipCode = 0;
+                    flipCode = int.MinValue;
                 } else if (webCamTexture.videoRotationAngle == 270) {
-                    flipCode = 0;
+                    flipCode = int.MinValue;
                 }
             } else {
                 if (webCamTexture.videoRotationAngle == 180) {
-                    flipCode = -1;
+                    flipCode = 1;
                 } else if (webCamTexture.videoRotationAngle == 270) {
-                    flipCode = -1;
+                    flipCode = 1;
                 }
             }
                 
@@ -870,13 +876,10 @@ namespace OpenCVForUnityExample
             if (colors != null)
                 colors = null;
 
-            if (isInitWaiting)
-            {
+            if (isInitWaiting) {
                 CancelInitCoroutine ();
                 ReleaseResources ();
-            }
-            else if (hasInitDone)
-            {
+            } else if (hasInitDone) {
                 ReleaseResources ();
 
                 if (onDisposed != null)

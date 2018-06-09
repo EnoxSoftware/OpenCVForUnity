@@ -157,7 +157,7 @@ namespace OpenCVForUnityExample
                 Core.bitwise_not (fgmaskMat, fgmaskMat);
                 rgbaMat.setTo (new Scalar (0, 0, 0, 0), fgmaskMat);
 
-                Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors());
+                Utils.fastMatToTexture2D (rgbaMat, texture);
             }
         }
     

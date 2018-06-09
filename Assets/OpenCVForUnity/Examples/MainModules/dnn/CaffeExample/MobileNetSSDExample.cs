@@ -37,49 +37,49 @@ namespace OpenCVForUnityExample
 
         #if UNITY_WEBGL && !UNITY_EDITOR
         Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
-#endif
+        #endif
 
         // Use this for initialization
         void Start ()
         {
-#if UNITY_WEBGL && !UNITY_EDITOR
-var getFilePath_Coroutine = GetFilePath ();
-coroutines.Push (getFilePath_Coroutine);
-StartCoroutine (getFilePath_Coroutine);
-#else
+            #if UNITY_WEBGL && !UNITY_EDITOR
+            var getFilePath_Coroutine = GetFilePath ();
+            coroutines.Push (getFilePath_Coroutine);
+            StartCoroutine (getFilePath_Coroutine);
+            #else
             dnn004545_jpg_filepath = Utils.getFilePath ("dnn/004545.jpg");
             MobileNetSSD_deploy_caffemodel_filepath = Utils.getFilePath ("dnn/MobileNetSSD_deploy.caffemodel");
             MobileNetSSD_deploy_prototxt_filepath = Utils.getFilePath ("dnn/MobileNetSSD_deploy.prototxt");
             Run ();
-#endif
+            #endif
         }
 
         #if UNITY_WEBGL && !UNITY_EDITOR
         private IEnumerator GetFilePath()
-{
+        {
             var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("dnn/004545.jpg", (result) => {
-dnn004545_jpg_filepath = result;
-});
-coroutines.Push (getFilePathAsync_0_Coroutine);
-yield return StartCoroutine (getFilePathAsync_0_Coroutine);
+                dnn004545_jpg_filepath = result;
+            });
+            coroutines.Push (getFilePathAsync_0_Coroutine);
+            yield return StartCoroutine (getFilePathAsync_0_Coroutine);
 
             var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("dnn/MobileNetSSD_deploy.caffemodel", (result) => {
-MobileNetSSD_deploy_caffemodel_filepath = result;
-});
-coroutines.Push (getFilePathAsync_1_Coroutine);
-yield return StartCoroutine (getFilePathAsync_1_Coroutine);
+                MobileNetSSD_deploy_caffemodel_filepath = result;
+            });
+            coroutines.Push (getFilePathAsync_1_Coroutine);
+            yield return StartCoroutine (getFilePathAsync_1_Coroutine);
 
             var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync ("dnn/MobileNetSSD_deploy.prototxt", (result) => {
-MobileNetSSD_deploy_prototxt_filepath = result;
-});
-coroutines.Push (getFilePathAsync_2_Coroutine);
-yield return StartCoroutine (getFilePathAsync_2_Coroutine);
+                MobileNetSSD_deploy_prototxt_filepath = result;
+            });
+            coroutines.Push (getFilePathAsync_2_Coroutine);
+            yield return StartCoroutine (getFilePathAsync_2_Coroutine);
 
-coroutines.Clear ();
+            coroutines.Clear ();
 
-Run ();
-}
-#endif
+            Run ();
+        }
+        #endif
 
         // Use this for initialization
         void Run ()

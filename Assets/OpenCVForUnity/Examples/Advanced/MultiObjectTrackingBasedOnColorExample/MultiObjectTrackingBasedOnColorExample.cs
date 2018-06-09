@@ -102,7 +102,7 @@ namespace OpenCVForUnityExample
             
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
 
-            texture = new Texture2D (webCamTextureMat.cols (), webCamTextureMat.rows (), TextureFormat.RGBA32, false);
+            texture = new Texture2D (webCamTextureMat.cols (), webCamTextureMat.rows (), TextureFormat.RGB24, false);
 
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 
@@ -194,8 +194,8 @@ namespace OpenCVForUnityExample
                 trackFilteredObject (green, thresholdMat, hsvMat, rgbMat);
                 
                 //Imgproc.putText (rgbMat, "W:" + rgbMat.width () + " H:" + rgbMat.height () + " SO:" + Screen.orientation, new Point (5, rgbMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                
-                Utils.matToTexture2D (rgbMat, texture, webCamTextureToMatHelper.GetBufferColors());
+
+                Utils.fastMatToTexture2D (rgbMat, texture);
             }
         }
     

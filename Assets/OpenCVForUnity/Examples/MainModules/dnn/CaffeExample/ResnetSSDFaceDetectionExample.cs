@@ -250,7 +250,7 @@ namespace OpenCVForUnityExample
                     detections.Dispose ();
                 }
                     
-                Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors ());
+                Utils.fastMatToTexture2D (rgbaMat, texture);
             }
         }
 

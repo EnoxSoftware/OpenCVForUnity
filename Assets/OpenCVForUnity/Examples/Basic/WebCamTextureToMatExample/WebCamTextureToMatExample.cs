@@ -16,23 +16,33 @@ namespace OpenCVForUnityExample
     public class WebCamTextureToMatExample : MonoBehaviour
     {
         /// <summary>
-        /// Set this to specify the name of the device to use.
+        /// Set the name of the device to use.
         /// </summary>
+        [SerializeField, TooltipAttribute ("Set the name of the device to use.")]
         public string requestedDeviceName = null;
 
         /// <summary>
-        /// Set the requested width of the camera device.
+        /// Set the width of WebCamTexture.
         /// </summary>
+        [SerializeField, TooltipAttribute ("Set the width of WebCamTexture.")]
         public int requestedWidth = 640;
         
         /// <summary>
-        /// Set the requested height of the camera device.
+        /// Set the height of WebCamTexture.
         /// </summary>
+        [SerializeField, TooltipAttribute ("Set the height of WebCamTexture.")]
         public int requestedHeight = 480;
-        
+
         /// <summary>
-        /// Set the requested to using the front camera.
+        /// Set FPS of WebCamTexture.
         /// </summary>
+        [SerializeField, TooltipAttribute ("Set FPS of WebCamTexture.")]
+        public int requestedFPS = 30;
+
+        /// <summary>
+        /// Set whether to use the front facing camera.
+        /// </summary>
+        [SerializeField, TooltipAttribute ("Set whether to use the front facing camera.")]
         public bool requestedIsFrontFacing = false;
 
         /// <summary>
@@ -84,38 +94,32 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Initialize of web cam texture.
+        /// Initializes webcam texture.
         /// </summary>
         private void Initialize ()
         {
             if (isInitWaiting)
                 return;
 
+            #if UNITY_ANDROID && !UNITY_EDITOR
+            // Set the requestedFPS parameter to avoid the problem of the WebCamTexture image becoming low light on some Android devices. (Pixel, pixel 2)
+            // https://forum.unity.com/threads/android-webcamtexture-in-low-light-only-some-models.520656/
+            // https://forum.unity.com/threads/released-opencv-for-unity.277080/page-33#post-3445178
+            if (requestedIsFrontFacing) {
+                int rearCameraFPS = requestedFPS;
+                requestedFPS = 15;
+                StartCoroutine (_Initialize ());
+                requestedFPS = rearCameraFPS;
+            } else {
+                StartCoroutine (_Initialize ());
+            }
+            #else
             StartCoroutine (_Initialize ());
+            #endif
         }
 
         /// <summary>
-        /// Initialize of webcam texture.
-        /// </summary>
-        /// <param name="deviceName">Device name.</param>
-        /// <param name="requestedWidth">Requested width.</param>
-        /// <param name="requestedHeight">Requested height.</param>
-        /// <param name="requestedIsFrontFacing">If set to <c>true</c> requested to using the front camera.</param>
-        private void Initialize (string deviceName, int requestedWidth, int requestedHeight, bool requestedIsFrontFacing)
-        {
-            if (isInitWaiting)
-                return;
-
-            this.requestedDeviceName = deviceName;
-            this.requestedWidth = requestedWidth;
-            this.requestedHeight = requestedHeight;
-            this.requestedIsFrontFacing = requestedIsFrontFacing;
-
-            StartCoroutine (_Initialize ());
-        }
-
-        /// <summary>
-        /// Initialize of webcam texture by coroutine.
+        /// Initializes webcam texture by coroutine.
         /// </summary>
         private IEnumerator _Initialize ()
         {
@@ -123,14 +127,6 @@ namespace OpenCVForUnityExample
                 Dispose ();
 
             isInitWaiting = true;
-
-            int requestedFPS = 30;
-            #if UNITY_ANDROID && !UNITY_EDITOR
-            // Set the requestedFPS parameter to avoid the problem of the WebCamTexture image becoming low light on some Android devices. (Pixel, pixel 2)
-            // https://forum.unity.com/threads/android-webcamtexture-in-low-light-only-some-models.520656/
-            // https://forum.unity.com/threads/released-opencv-for-unity.277080/page-33#post-3445178
-            requestedFPS = requestedIsFrontFacing ? 15 : 30;
-            #endif
 
             // Creates the camera
             if (!String.IsNullOrEmpty (requestedDeviceName)) {
@@ -231,7 +227,7 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Initialize completion handler of the webcam texture.
+        /// Raises the webcam texture initialized event.
         /// </summary>
         private void OnInited ()
         {
@@ -330,8 +326,11 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnChangeCameraButtonClick ()
         {
-            if (hasInitDone)
-                Initialize (null, requestedWidth, requestedHeight, !webCamDevice.isFrontFacing);
+            if (hasInitDone) {
+                requestedDeviceName = null;
+                requestedIsFrontFacing = !requestedIsFrontFacing;
+                Initialize ();
+            }
         }
     }
 }

@@ -121,7 +121,9 @@ namespace OpenCVForUnityExample
                 fpsMonitor.Add ("height", webCamTextureMat.height ().ToString());
                 fpsMonitor.Add ("orientation", Screen.orientation.ToString());
             }
-           
+            if (fpsMonitor != null) {
+                fpsMonitor.consoleText = "Please touch the 4 points surrounding the tracking object.";
+            }
             
             float width = webCamTextureMat.width();
             float height = webCamTextureMat.height();
@@ -243,12 +245,10 @@ namespace OpenCVForUnityExample
                 
                     Imgproc.rectangle (rgbaMat, roiRect.tl (), roiRect.br (), new Scalar (0, 255, 0, 255), 2);
                 }
-                
-                Imgproc.putText (rgbaMat, "Please touch the 4 points surrounding the tracking object.", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                
+
 //              Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                 
-                Utils.matToTexture2D (rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors());
+                Utils.fastMatToTexture2D (rgbaMat, texture);
             }
         }
             

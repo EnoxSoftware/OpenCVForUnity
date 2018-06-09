@@ -29,11 +29,6 @@ namespace OpenCVForUnityExample
         Mat rgbMat;
 
         /// <summary>
-        /// The colors.
-        /// </summary>
-        Color32[] colors;
-
-        /// <summary>
         /// The texture.
         /// </summary>
         Texture2D texture;
@@ -119,8 +114,7 @@ namespace OpenCVForUnityExample
             capture.retrieve (rgbMat, 0);
             int frameWidth = rgbMat.cols ();
             int frameHeight = rgbMat.rows ();
-            colors = new Color32[frameWidth * frameHeight];
-            texture = new Texture2D (frameWidth, frameHeight, TextureFormat.RGBA32, false);
+            texture = new Texture2D (frameWidth, frameHeight, TextureFormat.RGB24, false);
             gameObject.transform.localScale = new Vector3 ((float)frameWidth, (float)frameHeight, 1);
             float widthScale = (float)Screen.width / (float)frameWidth;
             float heightScale = (float)Screen.height / (float)frameHeight;
@@ -159,7 +153,7 @@ namespace OpenCVForUnityExample
             }
             #else
             //Mouse
-            if (Input.GetMouseButtonUp (0) && !EventSystem.current.IsPointerOverGameObject()) {
+            if (Input.GetMouseButtonUp (0) && !EventSystem.current.IsPointerOverGameObject ()) {
                 storedTouchPoint = new Point (Input.mousePosition.x, Input.mousePosition.y);
                 //Debug.Log ("mouse X " + Input.mousePosition.x);
                 //Debug.Log ("mouse Y " + Input.mousePosition.y);
@@ -167,7 +161,7 @@ namespace OpenCVForUnityExample
             #endif
 
             if (selectedPointList.Count == 1) {
-                if(storedTouchPoint != null) {
+                if (storedTouchPoint != null) {
                     ConvertScreenPointToTexturePoint (storedTouchPoint, storedTouchPoint, gameObject, rgbMat.cols (), rgbMat.rows ());
                     OnTouch (rgbMat, storedTouchPoint);
                     storedTouchPoint = null;
@@ -184,7 +178,7 @@ namespace OpenCVForUnityExample
                 capture.retrieve (rgbMat, 0);
                 Imgproc.cvtColor (rgbMat, rgbMat, Imgproc.COLOR_BGR2RGB);
 
-                if(storedTouchPoint != null) {
+                if (storedTouchPoint != null) {
                     ConvertScreenPointToTexturePoint (storedTouchPoint, storedTouchPoint, gameObject, rgbMat.cols (), rgbMat.rows ());
                     OnTouch (rgbMat, storedTouchPoint);
                     storedTouchPoint = null;
@@ -197,15 +191,16 @@ namespace OpenCVForUnityExample
                 } else {
                     using (MatOfPoint selectedPointMat = new MatOfPoint (selectedPointList.ToArray ())) {
                         OpenCVForUnity.Rect region = Imgproc.boundingRect (selectedPointMat);
-                        trackers.add (TrackerKCF.create (), rgbMat, new Rect2d(region.x, region.y, region.width, region.height));
+                        trackers.add (TrackerKCF.create (), rgbMat, new Rect2d (region.x, region.y, region.width, region.height));
                     }
 
                     selectedPointList.Clear ();
                     trackingColorList.Add (new Scalar (UnityEngine.Random.Range (0, 255), UnityEngine.Random.Range (0, 255), UnityEngine.Random.Range (0, 255)));
                 }
 
-                bool updated = trackers.update (rgbMat, objects);
-                Debug.Log ("updated " + updated);
+                trackers.update (rgbMat, objects);
+//                bool updated = trackers.update (rgbMat, objects);
+//                Debug.Log ("updated " + updated);
 //                if (!updated && objects.rows () > 0) {
 //                    OnResetTrackerButtonClick ();
 //                }
@@ -226,8 +221,8 @@ namespace OpenCVForUnityExample
                         fpsMonitor.consoleText = "Please select the end point of the new tracking region.";
                     }
                 }
-
-                Utils.matToTexture2D (rgbMat, texture, colors);
+                    
+                Utils.fastMatToTexture2D (rgbMat, texture);
             }
         }
 
@@ -235,7 +230,7 @@ namespace OpenCVForUnityExample
         {
             if (selectedPointList.Count < 2) {
                 selectedPointList.Add (touchPoint);
-                if (!(new OpenCVForUnity.Rect (0, 0, img.cols(), img.rows()).contains (selectedPointList [selectedPointList.Count - 1]))) {
+                if (!(new OpenCVForUnity.Rect (0, 0, img.cols (), img.rows ()).contains (selectedPointList [selectedPointList.Count - 1]))) {
                     selectedPointList.RemoveAt (selectedPointList.Count - 1);
                 }
             }
@@ -274,18 +269,18 @@ namespace OpenCVForUnityExample
             Vector2 br = camera.WorldToScreenPoint (new Vector3 (quadPosition.x + quadScale.x / 2, quadPosition.y - quadScale.y / 2, quadPosition.z));
             Vector2 bl = camera.WorldToScreenPoint (new Vector3 (quadPosition.x - quadScale.x / 2, quadPosition.y - quadScale.y / 2, quadPosition.z));                       
 
-            using(Mat srcRectMat = new Mat (4, 1, CvType.CV_32FC2))
-            using(Mat dstRectMat = new Mat (4, 1, CvType.CV_32FC2)) {
+            using (Mat srcRectMat = new Mat (4, 1, CvType.CV_32FC2))
+            using (Mat dstRectMat = new Mat (4, 1, CvType.CV_32FC2)) {
                 srcRectMat.put (0, 0, tl.x, tl.y, tr.x, tr.y, br.x, br.y, bl.x, bl.y);
                 dstRectMat.put (0, 0, 0, 0, quadScale.x, 0, quadScale.x, quadScale.y, 0, quadScale.y);            
 
-                using(Mat perspectiveTransform = Imgproc.getPerspectiveTransform (srcRectMat, dstRectMat))
-                using(MatOfPoint2f srcPointMat = new MatOfPoint2f (screenPoint))
-                using(MatOfPoint2f dstPointMat = new MatOfPoint2f ()) {
+                using (Mat perspectiveTransform = Imgproc.getPerspectiveTransform (srcRectMat, dstRectMat))
+                using (MatOfPoint2f srcPointMat = new MatOfPoint2f (screenPoint))
+                using (MatOfPoint2f dstPointMat = new MatOfPoint2f ()) {
                     Core.perspectiveTransform (srcPointMat, dstPointMat, perspectiveTransform);
 
-                    dstPoint.x = dstPointMat.get(0,0)[0] * textureWidth / quadScale.x;
-                    dstPoint.y = dstPointMat.get(0,0)[1] * textureHeight / quadScale.y;
+                    dstPoint.x = dstPointMat.get (0, 0) [0] * textureWidth / quadScale.x;
+                    dstPoint.y = dstPointMat.get (0, 0) [1] * textureHeight / quadScale.y;
                 }
             }
         }
@@ -301,7 +296,7 @@ namespace OpenCVForUnityExample
                 rgbMat.Dispose ();
 
             if (texture != null) {
-                Texture2D.Destroy(texture);
+                Texture2D.Destroy (texture);
                 texture = null;
             }
 

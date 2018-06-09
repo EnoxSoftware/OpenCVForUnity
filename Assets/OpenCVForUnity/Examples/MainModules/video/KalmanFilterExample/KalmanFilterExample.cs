@@ -92,11 +92,14 @@ namespace OpenCVForUnityExample
 
             measurement = new Mat (2, 1, CvType.CV_32FC1); measurement.setTo (Scalar.all(0));
 
-            Mat statePreMat = new Mat (1, 4, CvType.CV_32FC1);
             cursorPos = new Point ();
             GetCursorPos(cursorPos);
+
+            // Set initial state estimate.
+            Mat statePreMat = KF.get_statePre ();
             statePreMat.put (0, 0, new float[] {(float)cursorPos.x,(float)cursorPos.y,0,0});
-            KF.set_statePre (statePreMat);
+            Mat statePostMat = KF.get_statePost ();
+            statePostMat.put (0, 0, new float[] {(float)cursorPos.x,(float)cursorPos.y,0,0});
 
             Mat measurementMat = new Mat (2, 4, CvType.CV_32FC1);
             Core.setIdentity (measurementMat);

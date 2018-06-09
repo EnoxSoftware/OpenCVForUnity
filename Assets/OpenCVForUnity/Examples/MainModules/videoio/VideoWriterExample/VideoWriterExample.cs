@@ -79,11 +79,6 @@ namespace OpenCVForUnitySample
         Mat previewRgbMat;
 
         /// <summary>
-        /// The preview colors.
-        /// </summary>
-        Color32[] previewColors;
-
-        /// <summary>
         /// The preview texture.
         /// </summary>
         Texture2D previrwTexture;
@@ -146,7 +141,7 @@ namespace OpenCVForUnitySample
                     Imgproc.rectangle (previewRgbMat, new Point(0,0), new Point(previewRgbMat.cols(),previewRgbMat.rows()), new Scalar (0, 0, 255), 3);
 
                     Imgproc.cvtColor (previewRgbMat, previewRgbMat, Imgproc.COLOR_BGR2RGB);
-                    Utils.matToTexture2D (previewRgbMat, previrwTexture, previewColors);
+                    Utils.fastMatToTexture2D (previewRgbMat, previrwTexture);
                 }
             }
         }
@@ -255,13 +250,10 @@ namespace OpenCVForUnitySample
             Utils.setDebugMode (true);
             capture.retrieve (previewRgbMat, 0);
             Utils.setDebugMode (false);
-
-            return;
             //
 
             int frameWidth = previewRgbMat.cols ();
             int frameHeight = previewRgbMat.rows ();
-            previewColors = new Color32[frameWidth * frameHeight];
             previrwTexture = new Texture2D (frameWidth, frameHeight, TextureFormat.RGB24, false);
 
             capture.set (Videoio.CAP_PROP_POS_FRAMES, 0);

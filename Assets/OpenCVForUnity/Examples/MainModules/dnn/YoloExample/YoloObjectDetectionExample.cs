@@ -19,7 +19,6 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class YoloObjectDetectionExample : MonoBehaviour
     {
-
         const int network_width = 416;
         const int network_height = 416;
 
@@ -30,22 +29,22 @@ namespace OpenCVForUnityExample
 
         #if UNITY_WEBGL && !UNITY_EDITOR
         Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
-#endif
+        #endif
 
         // Use this for initialization
         void Start ()
         {
-#if UNITY_WEBGL && !UNITY_EDITOR
-var getFilePath_Coroutine = GetFilePath ();
-coroutines.Push (getFilePath_Coroutine);
-StartCoroutine (getFilePath_Coroutine);
-#else
+            #if UNITY_WEBGL && !UNITY_EDITOR
+            var getFilePath_Coroutine = GetFilePath ();
+            coroutines.Push (getFilePath_Coroutine);
+            StartCoroutine (getFilePath_Coroutine);
+            #else
             coco_names_filepath = Utils.getFilePath ("dnn/coco.names");
             person_jpg_filepath = Utils.getFilePath ("dnn/person.jpg");
-            tiny_yolo_cfg_filepath = Utils.getFilePath ("dnn/tiny-yolo.cfg");
-            tiny_yolo_weights_filepath = Utils.getFilePath ("dnn/tiny-yolo.weights");
+            tiny_yolo_cfg_filepath = Utils.getFilePath ("dnn/yolov2-tiny.cfg");
+            tiny_yolo_weights_filepath = Utils.getFilePath ("dnn/yolov2-tiny.weights");
             Run ();
-#endif
+            #endif
         }
 
         #if UNITY_WEBGL && !UNITY_EDITOR
@@ -79,7 +78,7 @@ StartCoroutine (getFilePath_Coroutine);
 
             Run ();
         }
-#endif
+        #endif
 
         // Use this for initialization
         void Run ()
@@ -89,11 +88,11 @@ StartCoroutine (getFilePath_Coroutine);
 
 
             List<string> classNames = readClassNames (coco_names_filepath);
-#if !UNITY_WSA_10_0
+            #if !UNITY_WSA_10_0
             if (classNames == null) {
                 Debug.LogError ("class names list file is not loaded.The model and class names list can be downloaded here: \"https://github.com/pjreddie/darknet/tree/master/data/coco.names\".Please copy to “Assets/StreamingAssets/dnn/” folder. ");
             }
-#endif
+            #endif
 
 
             Mat img = Imgcodecs.imread (person_jpg_filepath);

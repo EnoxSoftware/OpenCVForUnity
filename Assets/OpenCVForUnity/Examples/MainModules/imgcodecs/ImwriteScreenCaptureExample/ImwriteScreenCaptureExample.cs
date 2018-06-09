@@ -8,8 +8,7 @@ using UnityEngine.SceneManagement;
 using OpenCVForUnity;
 
 namespace OpenCVForUnityExample
-{
-    
+{    
     [RequireComponent (typeof(Camera))]
     public class ImwriteScreenCaptureExample : MonoBehaviour
     {

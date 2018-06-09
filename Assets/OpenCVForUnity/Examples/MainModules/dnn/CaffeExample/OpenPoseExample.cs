@@ -124,17 +124,16 @@ namespace OpenCVForUnityExample
         // Use this for initialization
         void Start ()
         {
-
-#if UNITY_WEBGL && !UNITY_EDITOR
-var getFilePath_Coroutine = GetFilePath ();
-coroutines.Push (getFilePath_Coroutine);
-StartCoroutine (getFilePath_Coroutine);
-#else
+            #if UNITY_WEBGL && !UNITY_EDITOR
+            var getFilePath_Coroutine = GetFilePath ();
+            coroutines.Push (getFilePath_Coroutine);
+            StartCoroutine (getFilePath_Coroutine);
+            #else
             COCO_val2014_000000000589_jpg_filepath = Utils.getFilePath ("dnn/COCO_val2014_000000000589.jpg");
             pose_iter_160000_caffemodel_filepath = Utils.getFilePath ("dnn/pose_iter_160000.caffemodel");
             openpose_pose_mpi_faster_4_stages_prototxt_filepath = Utils.getFilePath ("dnn/openpose_pose_mpi_faster_4_stages.prototxt");
             Run ();
-#endif
+            #endif
         }
 
         #if UNITY_WEBGL && !UNITY_EDITOR
