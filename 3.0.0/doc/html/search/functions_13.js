@@ -2,9 +2,8 @@ var searchData=
 [
   ['t',['t',['../class_open_c_v_for_unity_1_1_mat.html#a85b7e1b0f2a39c0d32a2ad7503855c8d',1,'OpenCVForUnity::Mat']]],
   ['termcriteria',['TermCriteria',['../class_open_c_v_for_unity_1_1_term_criteria.html#a51b0f7618fc770b02a6769bb35fd4670',1,'OpenCVForUnity.TermCriteria.TermCriteria(int type, int maxCount, double epsilon)'],['../class_open_c_v_for_unity_1_1_term_criteria.html#ac0a9be4ee088fcc3fb4769678d023f19',1,'OpenCVForUnity.TermCriteria.TermCriteria()'],['../class_open_c_v_for_unity_1_1_term_criteria.html#ab53598c0caa8f7797a10f44dbd2d323f',1,'OpenCVForUnity.TermCriteria.TermCriteria(double[] vals)']]],
-  ['texture2dtomat',['texture2DToMat',['../class_open_c_v_for_unity_1_1_utils.html#a253c2d49cd95dbf82e80fc633bc128ce',1,'OpenCVForUnity::Utils']]],
+  ['texture2dtomat',['texture2DToMat',['../class_open_c_v_for_unity_1_1_utils.html#af4ab58951789e8974572874c1b1861eb',1,'OpenCVForUnity::Utils']]],
   ['textureflattening',['textureFlattening',['../class_open_c_v_for_unity_1_1_photo.html#a03fbc6d984d1a2c3ed3d0391b11b33f4',1,'OpenCVForUnity.Photo.textureFlattening(Mat src, Mat mask, Mat dst, float low_threshold, float high_threshold, int kernel_size)'],['../class_open_c_v_for_unity_1_1_photo.html#af31cc818b086bdae5cf0d1c23a32995f',1,'OpenCVForUnity.Photo.textureFlattening(Mat src, Mat mask, Mat dst)']]],
-  ['texturetomat',['textureToMat',['../class_open_c_v_for_unity_1_1_utils.html#ab343946b551e32d9623315cd01cbaadd',1,'OpenCVForUnity::Utils']]],
   ['texturetotexture2d',['textureToTexture2D',['../class_open_c_v_for_unity_1_1_utils.html#a02dc5eaaa5a7fbe9b87feeb56b889494',1,'OpenCVForUnity::Utils']]],
   ['thinning',['thinning',['../class_open_c_v_for_unity_1_1_ximgproc.html#a63e5423bd18d94879a957a1b4c980270',1,'OpenCVForUnity.Ximgproc.thinning(Mat src, Mat dst, int thinningType)'],['../class_open_c_v_for_unity_1_1_ximgproc.html#a0ea4bb515e6def7b3f61754e7315205a',1,'OpenCVForUnity.Ximgproc.thinning(Mat src, Mat dst)']]],
   ['threshold',['threshold',['../class_open_c_v_for_unity_1_1_imgproc.html#ae35d414c81f79d3664dc0b9780806e0c',1,'OpenCVForUnity::Imgproc']]],

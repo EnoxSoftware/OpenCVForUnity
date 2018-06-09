@@ -283,8 +283,6 @@ var searchData=
   ['getlearningrate',['getLearningRate',['../class_open_c_v_for_unity_1_1_logistic_regression.html#a29257a59cc3cb39bc4126d57e0e1ae0a',1,'OpenCVForUnity::LogisticRegression']]],
   ['getlightadaptation',['getLightAdaptation',['../class_open_c_v_for_unity_1_1_tonemap_reinhard.html#af61726805cab6c38ab4bb6d1f9f45f52',1,'OpenCVForUnity::TonemapReinhard']]],
   ['getlintr',['getLinTr',['../class_open_c_v_for_unity_1_1_map_affine.html#a59dd93ed4261f2bec69ee08a7dffade5',1,'OpenCVForUnity::MapAffine']]],
-  ['getlowlevelgraphicsdevicetype',['getLowLevelGraphicsDeviceType',['../class_open_c_v_for_unity_1_1_utils.html#aa6e69fe85e2e634717f733a6cd0e7c1c',1,'OpenCVForUnity::Utils']]],
-  ['getlowleveltextureformat',['getLowLevelTextureFormat',['../class_open_c_v_for_unity_1_1_utils.html#a7c7cbfce8d9478caa612f5c85b1bec23',1,'OpenCVForUnity::Utils']]],
   ['getlrcthresh',['getLRCthresh',['../class_open_c_v_for_unity_1_1_disparity_w_l_s_filter.html#af7614463c3ce5b621e4a3a92ff8ec3b7',1,'OpenCVForUnity::DisparityWLSFilter']]],
   ['getmagno',['getMagno',['../class_open_c_v_for_unity_1_1_retina.html#a1d74075377c2998e343b05322e3660f0',1,'OpenCVForUnity::Retina']]],
   ['getmagnoraw',['getMagnoRAW',['../class_open_c_v_for_unity_1_1_retina.html#a4d98c1e236a5c1c4551c914bddde0121',1,'OpenCVForUnity.Retina.getMagnoRAW()'],['../class_open_c_v_for_unity_1_1_retina.html#aa6fbf3cc7aa2eac1733fb1eb127fe81a',1,'OpenCVForUnity.Retina.getMagnoRAW(Mat retinaOutput_magno)']]],

@@ -62,12 +62,13 @@ var searchData=
   ['aro_5f90_5f135',['ARO_90_135',['../class_open_c_v_for_unity_1_1_ximgproc.html#a7be369e52f510ecee753ef03d40dda1d',1,'OpenCVForUnity::Ximgproc']]],
   ['aro_5fctr_5fhor',['ARO_CTR_HOR',['../class_open_c_v_for_unity_1_1_ximgproc.html#ad1c380a7b12033554145b41c5c40a58e',1,'OpenCVForUnity::Ximgproc']]],
   ['aro_5fctr_5fver',['ARO_CTR_VER',['../class_open_c_v_for_unity_1_1_ximgproc.html#a5964724dcbc47ed02fc87ef81f8482c9',1,'OpenCVForUnity::Ximgproc']]],
+  ['arraytotextureinrenderthread_3c_20t_20_3e',['ArrayToTextureInRenderThread&lt; T &gt;',['../class_open_c_v_for_unity_1_1_utils.html#a3e77438a0fe0269a2fed1393b94fd7f8',1,'OpenCVForUnity::Utils']]],
   ['arrowedline',['arrowedLine',['../class_open_c_v_for_unity_1_1_imgproc.html#af0fa868ac2e1ca2260b226ac870d9102',1,'OpenCVForUnity.Imgproc.arrowedLine(Mat img, Point pt1, Point pt2, Scalar color, int thickness, int line_type, int shift, double tipLength)'],['../class_open_c_v_for_unity_1_1_imgproc.html#afda5231c1b700e3dfc16b20fd6f6c0c1',1,'OpenCVForUnity.Imgproc.arrowedLine(Mat img, Point pt1, Point pt2, Scalar color)']]],
   ['aruco',['Aruco',['../class_open_c_v_for_unity_1_1_aruco.html',1,'OpenCVForUnity']]],
   ['aruco_2ecs',['Aruco.cs',['../_aruco_8cs.html',1,'']]],
   ['asgd',['ASGD',['../class_open_c_v_for_unity_1_1_s_v_m_s_g_d.html#a1f71b90020c7bb5a8ff73a684df39d8c',1,'OpenCVForUnity::SVMSGD']]],
   ['assignto',['assignTo',['../class_open_c_v_for_unity_1_1_mat.html#aaa5af323a33a7cbdfcab6a48506f4dee',1,'OpenCVForUnity.Mat.assignTo(Mat m, int type)'],['../class_open_c_v_for_unity_1_1_mat.html#a9d76f8a0b3087cc388b6652a18ad3f27',1,'OpenCVForUnity.Mat.assignTo(Mat m)']]],
-  ['averagehash',['averageHash',['../class_open_c_v_for_unity_1_1_img__hash.html#a62feb9ddb5281786ddebd5ab46b7c4b4',1,'OpenCVForUnity::Img_hash']]],
   ['averagehash',['AverageHash',['../class_open_c_v_for_unity_1_1_average_hash.html',1,'OpenCVForUnity']]],
+  ['averagehash',['averageHash',['../class_open_c_v_for_unity_1_1_img__hash.html#a62feb9ddb5281786ddebd5ab46b7c4b4',1,'OpenCVForUnity::Img_hash']]],
   ['averagehash_2ecs',['AverageHash.cs',['../_average_hash_8cs.html',1,'']]]
 ];
