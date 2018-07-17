@@ -1,32 +1,33 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!29 &1
-SceneSettings:
+OcclusionCullingSettings:
   m_ObjectHideFlags: 0
-  m_PVSData: 
-  m_PVSObjectsArray: []
-  m_PVSPortalsArray: []
+  serializedVersion: 2
   m_OcclusionBakeSettings:
     smallestOccluder: 5
-    smallestHole: .25
+    smallestHole: 0.25
     backfaceThreshold: 100
+  m_SceneGUID: 00000000000000000000000000000000
+  m_OcclusionCullingData: {fileID: 0}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 6
+  serializedVersion: 8
   m_Fog: 0
-  m_FogColor: {r: .5, g: .5, b: .5, a: 1}
+  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
-  m_FogDensity: .00999999978
+  m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: .200000003, g: .200000003, b: .200000003, a: 1}
-  m_AmbientEquatorColor: {r: .200000003, g: .200000003, b: .200000003, a: 1}
-  m_AmbientGroundColor: {r: .200000003, g: .200000003, b: .200000003, a: 1}
+  m_AmbientSkyColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  m_AmbientEquatorColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  m_AmbientGroundColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
+  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
-  m_HaloStrength: .5
+  m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
@@ -37,15 +38,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
---- !u!127 &3
-LevelGameManager:
-  m_ObjectHideFlags: 0
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 5
+  serializedVersion: 9
   m_GIWorkflowMode: 1
-  m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -56,49 +54,74 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 3
+    serializedVersion: 8
     m_Resolution: 1
     m_BakeResolution: 50
     m_TextureWidth: 1024
     m_TextureHeight: 1024
+    m_AO: 0
     m_AOMaxDistance: 1
-    m_Padding: 2
     m_CompAOExponent: 0
+    m_CompAOExponentDirect: 0
+    m_Padding: 2
     m_LightmapParameters: {fileID: 0}
+    m_LightmapsBakeMode: 1
     m_TextureCompression: 0
     m_FinalGather: 0
+    m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 1024
-  m_LightmapSnapshot: {fileID: 0}
-  m_RuntimeCPUUsage: 25
+    m_ReflectionCompression: 2
+    m_MixedBakeMode: 1
+    m_BakeBackend: 0
+    m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
+    m_PVRSampleCount: 500
+    m_PVRBounces: 2
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
+    m_PVRFilteringMode: 0
+    m_PVRCulling: 1
+    m_PVRFilteringGaussRadiusDirect: 1
+    m_PVRFilteringGaussRadiusIndirect: 5
+    m_PVRFilteringGaussRadiusAO: 2
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
+  m_LightingDataAsset: {fileID: 0}
+  m_ShadowMaskMode: 2
 --- !u!196 &5
 NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
     serializedVersion: 2
-    agentRadius: .5
+    agentTypeID: 0
+    agentRadius: 0.5
     agentHeight: 2
     agentSlope: 45
-    agentClimb: .400000006
+    agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
-    accuratePlacement: 0
     minRegionArea: 2
-    cellSize: .166666657
     manualCellSize: 0
+    cellSize: 0.16666666
+    manualTileSize: 0
+    tileSize: 256
+    accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1 &38156656
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 38156657}
-  - 114: {fileID: 38156661}
-  - 114: {fileID: 38156660}
-  - 222: {fileID: 38156659}
-  - 114: {fileID: 38156658}
+  - component: {fileID: 38156657}
+  - component: {fileID: 38156661}
+  - component: {fileID: 38156660}
+  - component: {fileID: 38156659}
+  - component: {fileID: 38156658}
   m_Layer: 5
   m_Name: ScrollView
   m_TagString: Untagged
@@ -119,11 +142,12 @@ RectTransform:
   - {fileID: 1086899404}
   m_Father: {fileID: 1646839690}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -10, y: 0}
   m_SizeDelta: {x: -20, y: 0}
-  m_Pivot: {x: .5, y: 1}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &38156658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +161,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
@@ -178,12 +208,17 @@ MonoBehaviour:
   m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
-  m_Elasticity: .100000001
+  m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: .135000005
+  m_DecelerationRate: 0.135
   m_ScrollSensitivity: 1
+  m_Viewport: {fileID: 0}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 155392644}
+  m_HorizontalScrollbarVisibility: 0
+  m_VerticalScrollbarVisibility: 0
+  m_HorizontalScrollbarSpacing: 0
+  m_VerticalScrollbarSpacing: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -194,12 +229,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 155392643}
-  - 222: {fileID: 155392646}
-  - 114: {fileID: 155392645}
-  - 114: {fileID: 155392644}
+  - component: {fileID: 155392643}
+  - component: {fileID: 155392646}
+  - component: {fileID: 155392645}
+  - component: {fileID: 155392644}
   m_Layer: 5
   m_Name: Scrollbar
   m_TagString: Untagged
@@ -220,11 +255,12 @@ RectTransform:
   - {fileID: 823457167}
   m_Father: {fileID: 1646839690}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: 20, y: 0}
-  m_Pivot: {x: .5, y: .5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &155392644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,11 +281,11 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: .960784316, g: .960784316, b: .960784316, a: 1}
-    m_PressedColor: {r: .784313738, g: .784313738, b: .784313738, a: 1}
-    m_DisabledColor: {r: .784313738, g: .784313738, b: .784313738, a: .501960814}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
-    m_FadeDuration: .100000001
+    m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -264,7 +300,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1011219728}
   m_Direction: 2
   m_Value: 1
-  m_Size: .335523546
+  m_Size: 0.42639512
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -284,6 +320,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
@@ -303,12 +345,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 316492818}
-  - 114: {fileID: 316492817}
-  - 114: {fileID: 316492816}
-  - 114: {fileID: 316492815}
+  - component: {fileID: 316492818}
+  - component: {fileID: 316492817}
+  - component: {fileID: 316492816}
+  - component: {fileID: 316492815}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -327,7 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 1997211142, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AllowActivationOnStandalone: 0
+  m_ForceModuleActive: 0
 --- !u!114 &316492816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,7 +386,8 @@ MonoBehaviour:
   m_SubmitButton: Submit
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
-  m_AllowActivationOnMobileDevice: 0
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
 --- !u!114 &316492817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,17 +414,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &432530561
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 432530562}
-  - 222: {fileID: 432530565}
-  - 114: {fileID: 432530564}
-  - 114: {fileID: 432530563}
+  - component: {fileID: 432530562}
+  - component: {fileID: 432530565}
+  - component: {fileID: 432530564}
+  - component: {fileID: 432530563}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -402,6 +446,7 @@ RectTransform:
   - {fileID: 531596783}
   m_Father: {fileID: 1502237571}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -10.0000305}
@@ -427,11 +472,11 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: .960784316, g: .960784316, b: .960784316, a: 1}
-    m_PressedColor: {r: .784313738, g: .784313738, b: .784313738, a: 1}
-    m_DisabledColor: {r: .784313738, g: .784313738, b: .784313738, a: .501960814}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
-    m_FadeDuration: .100000001
+    m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -451,8 +496,7 @@ MonoBehaviour:
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, Version=0.0.0.0,
-            Culture=neutral, PublicKeyToken=null
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -473,6 +517,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
@@ -492,11 +542,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 531596783}
-  - 222: {fileID: 531596785}
-  - 114: {fileID: 531596784}
+  - component: {fileID: 531596783}
+  - component: {fileID: 531596785}
+  - component: {fileID: 531596784}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -516,11 +566,12 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 432530562}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: .5, y: .5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &531596784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -533,7 +584,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .195999995, g: .195999995, b: .195999995, a: 1}
+  m_Color: {r: 0.196, g: 0.196, b: 0.196, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
@@ -542,6 +599,7 @@ MonoBehaviour:
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 4
+    m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
@@ -558,9 +616,9 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 823457167}
+  - component: {fileID: 823457167}
   m_Layer: 5
   m_Name: Sliding Area
   m_TagString: Untagged
@@ -581,21 +639,22 @@ RectTransform:
   - {fileID: 1011219728}
   m_Father: {fileID: 155392643}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
-  m_Pivot: {x: .5, y: .5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1011219727
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 1011219728}
-  - 222: {fileID: 1011219730}
-  - 114: {fileID: 1011219729}
+  - component: {fileID: 1011219728}
+  - component: {fileID: 1011219730}
+  - component: {fileID: 1011219729}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -615,11 +674,12 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 823457167}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
-  m_Pivot: {x: .5, y: .5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1011219729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -633,6 +693,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
@@ -652,12 +718,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 1086899404}
-  - 222: {fileID: 1086899406}
-  - 114: {fileID: 1086899405}
-  - 114: {fileID: 1086899407}
+  - component: {fileID: 1086899404}
+  - component: {fileID: 1086899406}
+  - component: {fileID: 1086899405}
+  - component: {fileID: 1086899407}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -677,11 +743,12 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 38156657}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.23977661e-05, y: -9.15527344e-05}
+  m_AnchoredPosition: {x: 0.000012397766, y: -0.000091552734}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: .5, y: 1}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1086899405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -695,6 +762,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
@@ -703,35 +776,40 @@ MonoBehaviour:
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 0
+    m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.\r\n\r\n
-    By downloading, copying, installing or using the software you agree to this license.\r\n
-    If you do not agree to this license, do not download, install,\r\n copy or use
-    the software.\r\n\r\n\r\n                          License Agreement\r\n               For
-    Open Source Computer Vision Library\r\n\r\nCopyright (C) 2000-2008, Intel Corporation,
-    all rights reserved.\r\nCopyright (C) 2008-2011, Willow Garage Inc., all rights
-    reserved.\r\nThird party copyrights are property of their respective owners.\r\n\r\nRedistribution
+  m_Text: "By downloading, copying, installing or using the software you agree to
+    this license.\r\nIf you do not agree to this license, do not download, install,\r\ncopy
+    or use the software.\r\n\r\n\r\n                          License Agreement\r\n
+    \              For Open Source Computer Vision Library\r\n                       (3-clause
+    BSD License)\r\n\r\nCopyright (C) 2000-2018, Intel Corporation, all rights reserved.\r\nCopyright
+    (C) 2009-2011, Willow Garage Inc., all rights reserved.\r\nCopyright (C) 2009-2016,
+    NVIDIA Corporation, all rights reserved.\r\nCopyright (C) 2010-2013, Advanced
+    Micro Devices, Inc., all rights reserved.\r\nCopyright (C) 2015-2016, OpenCV Foundation,
+    all rights reserved.\r\nCopyright (C) 2015-2016, Itseez Inc., all rights reserved.\r\nThird
+    party copyrights are property of their respective owners.\r\n\r\nRedistribution
     and use in source and binary forms, with or without modification,\r\nare permitted
     provided that the following conditions are met:\r\n\r\n  * Redistributions of
     source code must retain the above copyright notice,\r\n    this list of conditions
     and the following disclaimer.\r\n\r\n  * Redistributions in binary form must reproduce
     the above copyright notice,\r\n    this list of conditions and the following disclaimer
     in the documentation\r\n    and/or other materials provided with the distribution.\r\n\r\n
-    \ * The name of the copyright holders may not be used to endorse or promote products\r\n
-    \   derived from this software without specific prior written permission.\r\n\r\nThis
-    software is provided by the copyright holders and contributors \"as is\" and\r\nany
-    express or implied warranties, including, but not limited to, the implied\r\nwarranties
-    of merchantability and fitness for a particular purpose are disclaimed.\r\nIn
-    no event shall the Intel Corporation or contributors be liable for any direct,\r\nindirect,
-    incidental, special, exemplary, or consequential damages\r\n(including, but not
-    limited to, procurement of substitute goods or services;\r\nloss of use, data,
-    or profits; or business interruption) however caused\r\nand on any theory of liability,
-    whether in contract, strict liability,\r\nor tort (including negligence or otherwise)
-    arising in any way out of\r\nthe use of this software, even if advised of the
-    possibility of such damage.\r\n"
+    \ * Neither the names of the copyright holders nor the names of the contributors\r\n
+    \   may be used to endorse or promote products derived from this software\r\n
+    \   without specific prior written permission.\r\n\r\nThis software is provided
+    by the copyright holders and contributors \"as is\" and\r\nany express or implied
+    warranties, including, but not limited to, the implied\r\nwarranties of merchantability
+    and fitness for a particular purpose are disclaimed.\r\nIn no event shall copyright
+    holders or contributors be liable for any direct,\r\nindirect, incidental, special,
+    exemplary, or consequential damages\r\n(including, but not limited to, procurement
+    of substitute goods or services;\r\nloss of use, data, or profits; or business
+    interruption) however caused\r\nand on any theory of liability, whether in contract,
+    strict liability,\r\nor tort (including negligence or otherwise) arising in any
+    way out of\r\nthe use of this software, even if advised of the possibility of
+    such damage.\r\n"
 --- !u!222 &1086899406
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -756,12 +834,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 1502237571}
-  - 223: {fileID: 1502237570}
-  - 114: {fileID: 1502237569}
-  - 114: {fileID: 1502237568}
+  - component: {fileID: 1502237571}
+  - component: {fileID: 1502237570}
+  - component: {fileID: 1502237569}
+  - component: {fileID: 1502237568}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -813,7 +891,7 @@ Canvas:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1502237567}
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
@@ -821,8 +899,11 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!224 &1502237571
 RectTransform:
   m_ObjectHideFlags: 0
@@ -837,6 +918,7 @@ RectTransform:
   - {fileID: 1646839690}
   m_Father: {fileID: 0}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -847,9 +929,9 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 1646839690}
+  - component: {fileID: 1646839690}
   m_Layer: 5
   m_Name: LisenceText
   m_TagString: Untagged
@@ -871,24 +953,25 @@ RectTransform:
   - {fileID: 155392643}
   m_Father: {fileID: 1502237571}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -25}
   m_SizeDelta: {x: -40, y: -90}
-  m_Pivot: {x: .5, y: .5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1787239744
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1787239749}
-  - 20: {fileID: 1787239748}
-  - 92: {fileID: 1787239747}
-  - 124: {fileID: 1787239746}
-  - 81: {fileID: 1787239745}
-  - 114: {fileID: 1787239750}
+  - component: {fileID: 1787239749}
+  - component: {fileID: 1787239748}
+  - component: {fileID: 1787239747}
+  - component: {fileID: 1787239746}
+  - component: {fileID: 1787239745}
+  - component: {fileID: 1787239750}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -926,14 +1009,14 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
-  near clip plane: .300000012
+  near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -945,10 +1028,14 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
+  m_TargetEye: 3
   m_HDR: 0
+  m_AllowMSAA: 1
+  m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
-  m_StereoSeparation: .0219999999
+  m_StereoSeparation: 0.022
+  m_StereoMirrorMode: 0
 --- !u!4 &1787239749
 Transform:
   m_ObjectHideFlags: 0
@@ -961,6 +1048,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1787239750
 MonoBehaviour:
   m_ObjectHideFlags: 0

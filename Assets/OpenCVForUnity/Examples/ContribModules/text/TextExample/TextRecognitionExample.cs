@@ -77,8 +77,7 @@ namespace OpenCVForUnityExample
             });
             coroutines.Push (getFilePathAsync_3_Coroutine);
             yield return StartCoroutine (getFilePathAsync_3_Coroutine);
-            //Please strip ".gz" when using ".gz" file on WebGL platform.
-            var getFilePathAsync_4_Coroutine = Utils.getFilePathAsync ("text/OCRHMM_knn_model_data.xml", (result) => {
+            var getFilePathAsync_4_Coroutine = Utils.getFilePathAsync ("text/OCRHMM_knn_model_data.xml.gz", (result) => {
                 OCRHMM_knn_model_data_xml_gz_filepath = result;
             });
             coroutines.Push (getFilePathAsync_4_Coroutine);
