@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.2.9</span>
+   &#160;<span id="projectnumber">2.3.0</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document(http://docs.opencv.org/3.4.1/index.html) for the details of the argument of the method.</div>
   </td>
@@ -443,7 +443,9 @@ This function doesn't check bounds.</p>
     <tr><td class="paramname">texture2D</td><td>The Texture2D object has to be of the same size as the <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> (width * height). </td></tr>
     <tr><td class="paramname">flip</td><td>if true, the mat is fliped before converting. </td></tr>
     <tr><td class="paramname">flipCode</td><td>a flag to specify how to flip the array; 0 means flipping around the x-axis and positive value (for example, 1) means flipping around y-axis. Negative value (for example, -1) means flipping around both axes. </td></tr>
-    <tr><td class="paramname">flipAfter</td><td>if true, the mat is fliped after converting. </td></tr>
+    <tr><td class="paramname">flipAfter</td><td>if true, the mat is fliped after converting. If you want to use mat even after calling this function, set true. </td></tr>
+    <tr><td class="paramname">updateMipmaps</td><td>When set to true, mipmap levels are recalculated. </td></tr>
+    <tr><td class="paramname">makeNoLongerReadable</td><td>When set to true, system memory copy of a texture is released. </td></tr>
   </table>
   </dd>
 </dl>
@@ -759,6 +761,11 @@ The Texture2D object has to be of the same size as the <a class="el" href="class
   <table class="params">
     <tr><td class="paramname">mat</td><td>the <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY) </td></tr>
     <tr><td class="paramname">texture2D</td><td>the Texture2D object has to be of the TextureFormat 'RGBA32' or 'ARGB32'.(SetPixels32() must function.) The Texture2D object has to be of the same size as the <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> (width * height). </td></tr>
+    <tr><td class="paramname">flip</td><td>if true, the mat is fliped before converting. </td></tr>
+    <tr><td class="paramname">flipCode</td><td>a flag to specify how to flip the array; 0 means flipping around the x-axis and positive value (for example, 1) means flipping around y-axis. Negative value (for example, -1) means flipping around both axes. </td></tr>
+    <tr><td class="paramname">flipAfter</td><td>if true, the mat is fliped after converting. If you want to use mat even after calling this function, set true. </td></tr>
+    <tr><td class="paramname">updateMipmaps</td><td>When set to true, mipmap levels are recalculated. </td></tr>
+    <tr><td class="paramname">makeNoLongerReadable</td><td>When set to true, system memory copy of a texture is released. </td></tr>
   </table>
   </dd>
 </dl>
@@ -843,6 +850,11 @@ The Texture2D object has to be of the same size as the <a class="el" href="class
     <tr><td class="paramname">mat</td><td>the <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY) </td></tr>
     <tr><td class="paramname">texture2D</td><td>the Texture2D object has to be of the TextureFormat 'RGBA32' or 'ARGB32'.(SetPixels32() must function) The Texture2D object has to be of the same size as the <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> (width * height). </td></tr>
     <tr><td class="paramname">bufferColors</td><td>the optional array to receive pixel data. You can optionally pass in an array of Color32s to use in colors to avoid allocating new memory each frame. The array needs to be initialized to a length matching width * height of the texture.(<a href="http://docs.unity3d.com/ScriptReference/WebCamTexture.GetPixels32.html">http://docs.unity3d.com/ScriptReference/WebCamTexture.GetPixels32.html</a>) </td></tr>
+    <tr><td class="paramname">flip</td><td>if true, the mat is fliped before converting. </td></tr>
+    <tr><td class="paramname">flipCode</td><td>a flag to specify how to flip the array; 0 means flipping around the x-axis and positive value (for example, 1) means flipping around y-axis. Negative value (for example, -1) means flipping around both axes. </td></tr>
+    <tr><td class="paramname">flipAfter</td><td>if true, the mat is fliped after converting. If you want to use mat even after calling this function, set true. </td></tr>
+    <tr><td class="paramname">updateMipmaps</td><td>When set to true, mipmap levels are recalculated. </td></tr>
+    <tr><td class="paramname">makeNoLongerReadable</td><td>When set to true, system memory copy of a texture is released. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1025,6 +1037,8 @@ The <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object ha
   <table class="params">
     <tr><td class="paramname">texture2D</td><td>the Texture2D object has to be of the TextureFormat 'RGBA32' or 'ARGB32'.(SetPixels32() must function) </td></tr>
     <tr><td class="paramname">mat</td><td>the <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same size as the Texture2D'(width * height). The <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). </td></tr>
+    <tr><td class="paramname">flip</td><td>if true, the mat is fliped after converting. </td></tr>
+    <tr><td class="paramname">flipCode</td><td>a flag to specify how to flip the array; 0 means flipping around the x-axis and positive value (for example, 1) means flipping around y-axis. Negative value (for example, -1) means flipping around both axes. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1129,6 +1143,8 @@ The <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object ha
   <table class="params">
     <tr><td class="paramname">webcamTexture</td><td>a WebCamTexture object </td></tr>
     <tr><td class="paramname">mat</td><td>the <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same size as the WebCamTexture'(width * height). The <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). </td></tr>
+    <tr><td class="paramname">flip</td><td>if true, the mat is fliped after converting. </td></tr>
+    <tr><td class="paramname">flipCode</td><td>a flag to specify how to flip the array; 0 means flipping around the x-axis and positive value (for example, 1) means flipping around y-axis. Negative value (for example, -1) means flipping around both axes. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1194,6 +1210,8 @@ The <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object ha
     <tr><td class="paramname">webcamTexture</td><td>a WebCamTexture object </td></tr>
     <tr><td class="paramname">mat</td><td>the <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the same size as the WebCamTexture'(width * height). The <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object has to be of the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). </td></tr>
     <tr><td class="paramname">bufferColors</td><td>the optional array to receive pixel data. You can optionally pass in an array of Color32s to use in colors to avoid allocating new memory each frame. The array needs to be initialized to a length matching width * height of the texture.(<a href="http://docs.unity3d.com/ScriptReference/WebCamTexture.GetPixels32.html">http://docs.unity3d.com/ScriptReference/WebCamTexture.GetPixels32.html</a>) </td></tr>
+    <tr><td class="paramname">flip</td><td>if true, the mat is fliped after converting. </td></tr>
+    <tr><td class="paramname">flipCode</td><td>a flag to specify how to flip the array; 0 means flipping around the x-axis and positive value (for example, 1) means flipping around y-axis. Negative value (for example, -1) means flipping around both axes. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1206,7 +1224,7 @@ The <a class="el" href="class_open_c_v_for_unity_1_1_mat.html">Mat</a> object ha
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jun 10 2018 01:32:36 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 17 2018 17:50:03 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>
