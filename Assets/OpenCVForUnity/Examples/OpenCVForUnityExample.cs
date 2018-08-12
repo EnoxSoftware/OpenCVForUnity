@@ -404,15 +404,6 @@ namespace OpenCVForUnityExample
             #endif
         }
 
-        public void OnSimpleBlobExampleButtonClick ()
-        {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
-            SceneManager.LoadScene ("SimpleBlobExample");
-            #else
-            Application.LoadLevel ("SimpleBlobExample");
-            #endif
-        }
-
         #endregion
 
         #region imgcodecs

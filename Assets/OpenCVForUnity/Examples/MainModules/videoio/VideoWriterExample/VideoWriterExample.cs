@@ -134,11 +134,10 @@ namespace OpenCVForUnitySample
                 if (capture.get (Videoio.CAP_PROP_POS_FRAMES) >= capture.get (Videoio.CAP_PROP_FRAME_COUNT))
                     capture.set (Videoio.CAP_PROP_POS_FRAMES, 0);
 
-                if (capture.grab ())
-                {
+                if (capture.grab ()) {
                     capture.retrieve (previewRgbMat, 0);
 
-                    Imgproc.rectangle (previewRgbMat, new Point(0,0), new Point(previewRgbMat.cols(),previewRgbMat.rows()), new Scalar (0, 0, 255), 3);
+                    Imgproc.rectangle (previewRgbMat, new Point (0, 0), new Point (previewRgbMat.cols (), previewRgbMat.rows ()), new Scalar (0, 0, 255), 3);
 
                     Imgproc.cvtColor (previewRgbMat, previewRgbMat, Imgproc.COLOR_BGR2RGB);
                     Utils.fastMatToTexture2D (previewRgbMat, previrwTexture);
@@ -146,13 +145,11 @@ namespace OpenCVForUnitySample
             }
         }
 
-        void OnPostRender()
+        void OnPostRender ()
         {
-            if (isRecording)
-            {
+            if (isRecording) {
                 if (frameCount >= maxframeCount ||
-                    recordingFrameRgbMat.width() != Screen.width || recordingFrameRgbMat.height() != Screen.height)
-                {
+                    recordingFrameRgbMat.width () != Screen.width || recordingFrameRgbMat.height () != Screen.height) {
                     OnRecButtonClick ();
                     return;
                 }
@@ -160,14 +157,14 @@ namespace OpenCVForUnitySample
                 frameCount++;
 
                 // Take screen shot.
-                screenCapture.ReadPixels(new UnityEngine.Rect(0, 0, Screen.width, Screen.height), 0, 0);
-                screenCapture.Apply();
+                screenCapture.ReadPixels (new UnityEngine.Rect (0, 0, Screen.width, Screen.height), 0, 0);
+                screenCapture.Apply ();
 
                 Utils.texture2DToMat (screenCapture, recordingFrameRgbMat);
                 Imgproc.cvtColor (recordingFrameRgbMat, recordingFrameRgbMat, Imgproc.COLOR_RGB2BGR);
 
-                Imgproc.putText (recordingFrameRgbMat, frameCount.ToString(), new Point (recordingFrameRgbMat.cols() - 70, 30), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255), 2, Imgproc.LINE_AA, false);
-                Imgproc.putText (recordingFrameRgbMat, "SavePath:",new Point (5, recordingFrameRgbMat.rows () - 30), Core.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (0, 0, 255), 2, Imgproc.LINE_AA, false);
+                Imgproc.putText (recordingFrameRgbMat, frameCount.ToString (), new Point (recordingFrameRgbMat.cols () - 70, 30), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255), 2, Imgproc.LINE_AA, false);
+                Imgproc.putText (recordingFrameRgbMat, "SavePath:", new Point (5, recordingFrameRgbMat.rows () - 30), Core.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (0, 0, 255), 2, Imgproc.LINE_AA, false);
                 Imgproc.putText (recordingFrameRgbMat, savePath, new Point (5, recordingFrameRgbMat.rows () - 8), Core.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (255, 255, 255), 0, Imgproc.LINE_AA, false);
 
                 writer.write (recordingFrameRgbMat);
@@ -190,7 +187,7 @@ namespace OpenCVForUnitySample
                 return;
             }
 
-            screenCapture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+            screenCapture = new Texture2D (Screen.width, Screen.height, TextureFormat.RGB24, false);
             recordingFrameRgbMat = new Mat (Screen.height, Screen.width, CvType.CV_8UC3);
             frameCount = 0;
 
@@ -243,14 +240,7 @@ namespace OpenCVForUnitySample
             previewRgbMat = new Mat ();
             capture.grab ();
 
-            // OpenCV => 3.4.1
-            // The AVI container implementation in the videoio module appears, to me, to have a bug. 
-            // https://github.com/opencv/opencv/issues/11126
-            // https://github.com/opencv/opencv/pull/11146
-            Utils.setDebugMode (true);
             capture.retrieve (previewRgbMat, 0);
-            Utils.setDebugMode (false);
-            //
 
             int frameWidth = previewRgbMat.cols ();
             int frameHeight = previewRgbMat.rows ();
@@ -304,12 +294,12 @@ namespace OpenCVForUnitySample
         public void OnRecButtonClick ()
         {
             if (isRecording) {
-                RecButton.GetComponentInChildren<UnityEngine.UI.Text>().color = Color.black;
+                RecButton.GetComponentInChildren<UnityEngine.UI.Text> ().color = Color.black;
                 StopRecording ();
                 PlayButton.interactable = true;
                 previewPanel.gameObject.SetActive (false);
             } else {
-                RecButton.GetComponentInChildren<UnityEngine.UI.Text>().color = Color.red;
+                RecButton.GetComponentInChildren<UnityEngine.UI.Text> ().color = Color.red;
                 StartRecording (Application.persistentDataPath + "/VideoWriterExample_output.avi");
                 PlayButton.interactable = false;
             }
@@ -322,7 +312,7 @@ namespace OpenCVForUnitySample
         {
             if (isPlaying) {
                 StopVideo ();
-                PlayButton.GetComponentInChildren<UnityEngine.UI.Text>().text = "Play";
+                PlayButton.GetComponentInChildren<UnityEngine.UI.Text> ().text = "Play";
                 RecButton.interactable = true;
                 previewPanel.gameObject.SetActive (false);
             } else {
@@ -330,7 +320,7 @@ namespace OpenCVForUnitySample
                     return;
                 
                 PlayVideo (savePath);
-                PlayButton.GetComponentInChildren<UnityEngine.UI.Text>().text = "Stop";
+                PlayButton.GetComponentInChildren<UnityEngine.UI.Text> ().text = "Stop";
                 RecButton.interactable = false;
                 previewPanel.gameObject.SetActive (true);
             }

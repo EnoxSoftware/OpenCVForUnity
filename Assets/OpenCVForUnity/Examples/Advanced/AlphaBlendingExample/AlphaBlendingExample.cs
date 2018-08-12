@@ -132,7 +132,9 @@ namespace OpenCVForUnityExample
             for (int r = 0; r < alphaMat.rows (); r++) {
                 alphaMat.row (r).setTo (new Scalar (r / (alphaMat.rows () / 256)));
             }
+            #pragma warning disable 0618
             Imgproc.linearPolar (alphaMat, alphaMat, new Point (alphaMat.cols () / 2, alphaMat.rows () / 2), alphaMat.rows (), Imgproc.INTER_CUBIC | Imgproc.WARP_FILL_OUTLIERS | Imgproc.WARP_INVERSE_MAP);
+            #pragma warning restore 0618
 
 
             // Generate large size Mat.
