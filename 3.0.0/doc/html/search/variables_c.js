@@ -23,7 +23,6 @@ var searchData=
   ['normal',['NORMAL',['../class_open_c_v_for_unity_1_1_p_c_t_signatures.html#a7d4b96a64797a1c3a394dff2fcef1af5',1,'OpenCVForUnity::PCTSignatures']]],
   ['normal_5fclone',['NORMAL_CLONE',['../class_open_c_v_for_unity_1_1_photo.html#aab9f885623f64c1b1c45da879ca92745',1,'OpenCVForUnity::Photo']]],
   ['normconv_5ffilter',['NORMCONV_FILTER',['../class_open_c_v_for_unity_1_1_photo.html#a68b24a861bec40ea6384859cf05b7627',1,'OpenCVForUnity::Photo']]],
-  ['not_5fdraw_5fsingle_5fpoints',['NOT_DRAW_SINGLE_POINTS',['../class_open_c_v_for_unity_1_1_features2d.html#a49e2dcbbf32d193f057248b12c3e2412',1,'OpenCVForUnity::Features2d']]],
   ['nrm_5ffull',['NRM_FULL',['../class_open_c_v_for_unity_1_1_d_a_i_s_y.html#a194b1baa78ac997168d610b77f209921',1,'OpenCVForUnity::DAISY']]],
   ['nrm_5fnone',['NRM_NONE',['../class_open_c_v_for_unity_1_1_d_a_i_s_y.html#a1107619aeb1fdfcde77a98b7f7a671b3',1,'OpenCVForUnity::DAISY']]],
   ['nrm_5fpartial',['NRM_PARTIAL',['../class_open_c_v_for_unity_1_1_d_a_i_s_y.html#a420d5b74e94e6e26a9b483376da6c422',1,'OpenCVForUnity::DAISY']]],

@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['b',['b',['../union_open_c_v_for_unity_1_1_rect_1_1b.html',1,'OpenCVForUnity::Rect']]],
   ['b',['b',['../union_open_c_v_for_unity_1_1_rect2d_1_1b.html',1,'OpenCVForUnity::Rect2d']]],
+  ['b',['b',['../union_open_c_v_for_unity_1_1_rect_1_1b.html',1,'OpenCVForUnity::Rect']]],
   ['backgroundsubtractor',['BackgroundSubtractor',['../class_open_c_v_for_unity_1_1_background_subtractor.html',1,'OpenCVForUnity']]],
   ['backgroundsubtractorcnt',['BackgroundSubtractorCNT',['../class_open_c_v_for_unity_1_1_background_subtractor_c_n_t.html',1,'OpenCVForUnity']]],
   ['backgroundsubtractorgmg',['BackgroundSubtractorGMG',['../class_open_c_v_for_unity_1_1_background_subtractor_g_m_g.html',1,'OpenCVForUnity']]],

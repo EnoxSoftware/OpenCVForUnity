@@ -2,7 +2,6 @@ var searchData=
 [
   ['haar',['HAAR',['../class_open_c_v_for_unity_1_1_xphoto.html#aa729860fdca0b0e4cc088ef8fec615a3',1,'OpenCVForUnity::Xphoto']]],
   ['hard_5fmargin',['HARD_MARGIN',['../class_open_c_v_for_unity_1_1_s_v_m_s_g_d.html#af53fc4295b12de56562eedc11cf065f9',1,'OpenCVForUnity::SVMSGD']]],
-  ['harris',['HARRIS',['../class_open_c_v_for_unity_1_1_feature_detector.html#afa22032e9c75cb211f531c7d41f67f4e',1,'OpenCVForUnity::FeatureDetector']]],
   ['harris_5fscore',['HARRIS_SCORE',['../class_open_c_v_for_unity_1_1_o_r_b.html#a172921c081ce1101c9dcee131b76b982',1,'OpenCVForUnity::ORB']]],
   ['hdo_5fdeskew',['HDO_DESKEW',['../class_open_c_v_for_unity_1_1_ximgproc.html#a28327c0704add042417c68e8c23b5afe',1,'OpenCVForUnity::Ximgproc']]],
   ['hdo_5fraw',['HDO_RAW',['../class_open_c_v_for_unity_1_1_ximgproc.html#a38fd0b239efb098c154447d83b664039',1,'OpenCVForUnity::Ximgproc']]],

@@ -36,7 +36,6 @@ var searchData=
   ['border_5freplicate',['BORDER_REPLICATE',['../class_open_c_v_for_unity_1_1_core.html#a14a4d68f4c191f398f1966d2e9554687',1,'OpenCVForUnity::Core']]],
   ['border_5ftransparent',['BORDER_TRANSPARENT',['../class_open_c_v_for_unity_1_1_core.html#af1a62680ef3b7e68bff0725e2a46053c',1,'OpenCVForUnity::Core']]],
   ['border_5fwrap',['BORDER_WRAP',['../class_open_c_v_for_unity_1_1_core.html#aef3c955efdb412c39e3b0af9cf2a6114',1,'OpenCVForUnity::Core']]],
-  ['brisk',['BRISK',['../class_open_c_v_for_unity_1_1_descriptor_extractor.html#a25a9defa12e2a6a4867ec5724ce6a320',1,'OpenCVForUnity.DescriptorExtractor.BRISK()'],['../class_open_c_v_for_unity_1_1_feature_detector.html#acbd619d3616f1bd0f1a77ad1605618cc',1,'OpenCVForUnity.FeatureDetector.BRISK()']]],
   ['brute_5fforce',['BRUTE_FORCE',['../class_open_c_v_for_unity_1_1_k_nearest.html#ab06e65ffd929188c9bdfd150042b6cd8',1,'OpenCVForUnity::KNearest']]],
   ['bruteforce',['BRUTEFORCE',['../class_open_c_v_for_unity_1_1_descriptor_matcher.html#a6c149e129834fa9012f649ea1b11f51c',1,'OpenCVForUnity::DescriptorMatcher']]],
   ['bruteforce_5fhamming',['BRUTEFORCE_HAMMING',['../class_open_c_v_for_unity_1_1_descriptor_matcher.html#a4a29f9f2704a232c9525e96f7df91238',1,'OpenCVForUnity::DescriptorMatcher']]],

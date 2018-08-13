@@ -2,7 +2,6 @@ var searchData=
 [
   ['daisy',['DAISY',['../class_open_c_v_for_unity_1_1_d_a_i_s_y.html',1,'OpenCVForUnity']]],
   ['denseopticalflow',['DenseOpticalFlow',['../class_open_c_v_for_unity_1_1_dense_optical_flow.html',1,'OpenCVForUnity']]],
-  ['descriptorextractor',['DescriptorExtractor',['../class_open_c_v_for_unity_1_1_descriptor_extractor.html',1,'OpenCVForUnity']]],
   ['descriptormatcher',['DescriptorMatcher',['../class_open_c_v_for_unity_1_1_descriptor_matcher.html',1,'OpenCVForUnity']]],
   ['detectorparameters',['DetectorParameters',['../class_open_c_v_for_unity_1_1_detector_parameters.html',1,'OpenCVForUnity']]],
   ['dictionary',['Dictionary',['../class_open_c_v_for_unity_1_1_dictionary.html',1,'OpenCVForUnity']]],

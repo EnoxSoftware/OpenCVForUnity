@@ -8,7 +8,6 @@ var searchData=
   ['alignexposures',['AlignExposures',['../class_open_c_v_for_unity_1_1_align_exposures.html',1,'OpenCVForUnity']]],
   ['alignmtb',['AlignMTB',['../class_open_c_v_for_unity_1_1_align_m_t_b.html',1,'OpenCVForUnity']]],
   ['ann_5fmlp',['ANN_MLP',['../class_open_c_v_for_unity_1_1_a_n_n___m_l_p.html',1,'OpenCVForUnity']]],
-  ['ann_5fmlp_5fanneal',['ANN_MLP_ANNEAL',['../class_open_c_v_for_unity_1_1_a_n_n___m_l_p___a_n_n_e_a_l.html',1,'OpenCVForUnity']]],
   ['aruco',['Aruco',['../class_open_c_v_for_unity_1_1_aruco.html',1,'OpenCVForUnity']]],
   ['averagehash',['AverageHash',['../class_open_c_v_for_unity_1_1_average_hash.html',1,'OpenCVForUnity']]]
 ];

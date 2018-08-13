@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['mace',['MACE',['../class_open_c_v_for_unity_1_1_m_a_c_e.html',1,'OpenCVForUnity']]],
   ['map',['Map',['../class_open_c_v_for_unity_1_1_map.html',1,'OpenCVForUnity']]],
   ['mapaffine',['MapAffine',['../class_open_c_v_for_unity_1_1_map_affine.html',1,'OpenCVForUnity']]],
   ['mapper',['Mapper',['../class_open_c_v_for_unity_1_1_mapper.html',1,'OpenCVForUnity']]],

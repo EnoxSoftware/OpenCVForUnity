@@ -35,13 +35,5 @@ var searchData=
   ['ptloc_5finside',['PTLOC_INSIDE',['../class_open_c_v_for_unity_1_1_subdiv2_d.html#a5758d2fb038193e90944e66ed3c77843',1,'OpenCVForUnity::Subdiv2D']]],
   ['ptloc_5fon_5fedge',['PTLOC_ON_EDGE',['../class_open_c_v_for_unity_1_1_subdiv2_d.html#a973c7ee18e9d431e130a97e3da2df44f',1,'OpenCVForUnity::Subdiv2D']]],
   ['ptloc_5foutside_5frect',['PTLOC_OUTSIDE_RECT',['../class_open_c_v_for_unity_1_1_subdiv2_d.html#a8e53834d2fdf47b14f0e946183f3d0a5',1,'OpenCVForUnity::Subdiv2D']]],
-  ['ptloc_5fvertex',['PTLOC_VERTEX',['../class_open_c_v_for_unity_1_1_subdiv2_d.html#a9fd436ff45a267bdee3a0ab32c1a45dd',1,'OpenCVForUnity::Subdiv2D']]],
-  ['pyramid_5fakaze',['PYRAMID_AKAZE',['../class_open_c_v_for_unity_1_1_feature_detector.html#a5e979f7112c3e766b68ea0fb4ee7121d',1,'OpenCVForUnity::FeatureDetector']]],
-  ['pyramid_5fbrisk',['PYRAMID_BRISK',['../class_open_c_v_for_unity_1_1_feature_detector.html#a9e15921497b024d3729a1cf9a666c134',1,'OpenCVForUnity::FeatureDetector']]],
-  ['pyramid_5ffast',['PYRAMID_FAST',['../class_open_c_v_for_unity_1_1_feature_detector.html#a0991597aebbbcd129a7a628e41e60d1f',1,'OpenCVForUnity::FeatureDetector']]],
-  ['pyramid_5fgftt',['PYRAMID_GFTT',['../class_open_c_v_for_unity_1_1_feature_detector.html#a47e1d69fbc71da66e29db07d806690f8',1,'OpenCVForUnity::FeatureDetector']]],
-  ['pyramid_5fharris',['PYRAMID_HARRIS',['../class_open_c_v_for_unity_1_1_feature_detector.html#afa166d0d26182778827999b8effa888b',1,'OpenCVForUnity::FeatureDetector']]],
-  ['pyramid_5fmser',['PYRAMID_MSER',['../class_open_c_v_for_unity_1_1_feature_detector.html#a225509d299a46b413afa8daa96bc61a5',1,'OpenCVForUnity::FeatureDetector']]],
-  ['pyramid_5forb',['PYRAMID_ORB',['../class_open_c_v_for_unity_1_1_feature_detector.html#aec6bcc274acf5f93253da15aab5f040c',1,'OpenCVForUnity::FeatureDetector']]],
-  ['pyramid_5fsimpleblob',['PYRAMID_SIMPLEBLOB',['../class_open_c_v_for_unity_1_1_feature_detector.html#a304ccbd61712fa2fc0f868ac098898ba',1,'OpenCVForUnity::FeatureDetector']]]
+  ['ptloc_5fvertex',['PTLOC_VERTEX',['../class_open_c_v_for_unity_1_1_subdiv2_d.html#a9fd436ff45a267bdee3a0ab32c1a45dd',1,'OpenCVForUnity::Subdiv2D']]]
 ];

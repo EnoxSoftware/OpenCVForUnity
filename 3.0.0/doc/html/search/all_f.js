@@ -45,9 +45,6 @@ var searchData=
   ['operator_5e',['operator^',['../class_open_c_v_for_unity_1_1_mat.html#a93858e9943aa07d260d96562bd3134fb',1,'OpenCVForUnity.Mat.operator^(Mat a, Mat b)'],['../class_open_c_v_for_unity_1_1_mat.html#a4bca0126715f1efc5f72a34ede212d12',1,'OpenCVForUnity.Mat.operator^(Mat a, Scalar s)'],['../class_open_c_v_for_unity_1_1_mat.html#a3d2b729c900da429351dbe9b746be451',1,'OpenCVForUnity.Mat.operator^(Scalar s, Mat a)']]],
   ['operator_7c',['operator|',['../class_open_c_v_for_unity_1_1_mat.html#a37728062b8b5ccb6f7aa92a287a8d0f4',1,'OpenCVForUnity.Mat.operator|(Mat a, Mat b)'],['../class_open_c_v_for_unity_1_1_mat.html#a4fbe1b1867cf5c50f5b0d858a21e3ac0',1,'OpenCVForUnity.Mat.operator|(Mat a, Scalar s)'],['../class_open_c_v_for_unity_1_1_mat.html#a23d047d7c2d0f81ba4257cd0b618de92',1,'OpenCVForUnity.Mat.operator|(Scalar s, Mat a)'],['../class_open_c_v_for_unity_1_1_rect.html#a90cb985ef436648434d020f393ded7e8',1,'OpenCVForUnity.Rect.operator|()'],['../class_open_c_v_for_unity_1_1_rect2d.html#ad41aadbeec51b7a57c146cd082ca7ca3',1,'OpenCVForUnity.Rect2d.operator|()']]],
   ['operator_7e',['operator~',['../class_open_c_v_for_unity_1_1_mat.html#a1d12f1530c721f51667e03ce11482164',1,'OpenCVForUnity::Mat']]],
-  ['opponent_5fakaze',['OPPONENT_AKAZE',['../class_open_c_v_for_unity_1_1_descriptor_extractor.html#a52d13d3980adbdd1339e002964045c85',1,'OpenCVForUnity::DescriptorExtractor']]],
-  ['opponent_5fbrisk',['OPPONENT_BRISK',['../class_open_c_v_for_unity_1_1_descriptor_extractor.html#a87bb0a2ab4328bb3954e1acbc16f36d1',1,'OpenCVForUnity::DescriptorExtractor']]],
-  ['opponent_5forb',['OPPONENT_ORB',['../class_open_c_v_for_unity_1_1_descriptor_extractor.html#a7c8a83723953b270f984d671ea0685e0',1,'OpenCVForUnity::DescriptorExtractor']]],
   ['optflow',['Optflow',['../class_open_c_v_for_unity_1_1_optflow.html',1,'OpenCVForUnity']]],
   ['optflow_2ecs',['Optflow.cs',['../_optflow_8cs.html',1,'']]],
   ['optflow_5ffarneback_5fgaussian',['OPTFLOW_FARNEBACK_GAUSSIAN',['../class_open_c_v_for_unity_1_1_video.html#aedde09a0a8a8e53ea12e220addf457e8',1,'OpenCVForUnity::Video']]],
@@ -56,6 +53,6 @@ var searchData=
   ['opticalflowpcaflow',['OpticalFlowPCAFlow',['../class_open_c_v_for_unity_1_1_optical_flow_p_c_a_flow.html',1,'OpenCVForUnity']]],
   ['opticalflowpcaflow_2ecs',['OpticalFlowPCAFlow.cs',['../_optical_flow_p_c_a_flow_8cs.html',1,'']]],
   ['orb',['ORB',['../class_open_c_v_for_unity_1_1_o_r_b.html',1,'OpenCVForUnity']]],
-  ['orb',['ORB',['../class_open_c_v_for_unity_1_1_descriptor_extractor.html#ae3e694cbe970592d21181bf60332b12f',1,'OpenCVForUnity.DescriptorExtractor.ORB()'],['../class_open_c_v_for_unity_1_1_feature_detector.html#a49692dde8ca108b7d1ab5482ed7b0c4b',1,'OpenCVForUnity.FeatureDetector.ORB()']]],
-  ['orb_2ecs',['ORB.cs',['../_o_r_b_8cs.html',1,'']]]
+  ['orb_2ecs',['ORB.cs',['../_o_r_b_8cs.html',1,'']]],
+  ['outputnametoindex',['outputNameToIndex',['../class_open_c_v_for_unity_1_1_layer.html#a7acbf32db8198fac90e07284f4b66226',1,'OpenCVForUnity::Layer']]]
 ];

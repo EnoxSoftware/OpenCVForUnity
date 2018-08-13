@@ -3,7 +3,6 @@ var searchData=
   ['sgd',['SGD',['../class_open_c_v_for_unity_1_1_s_v_m_s_g_d.html#aa22a27df7e5745486c474588fcb8ef10',1,'OpenCVForUnity::SVMSGD']]],
   ['sigmoid',['SIGMOID',['../class_open_c_v_for_unity_1_1_s_v_m.html#a2b2e78946d439658a08f6c8a0237f999',1,'OpenCVForUnity::SVM']]],
   ['sigmoid_5fsym',['SIGMOID_SYM',['../class_open_c_v_for_unity_1_1_a_n_n___m_l_p.html#a39939eb098caf21db1a85f6fc5171746',1,'OpenCVForUnity::ANN_MLP']]],
-  ['simpleblob',['SIMPLEBLOB',['../class_open_c_v_for_unity_1_1_feature_detector.html#a9a4b70e6b69e2f68c3a38cda2e792a57',1,'OpenCVForUnity::FeatureDetector']]],
   ['sinus',['SINUS',['../class_open_c_v_for_unity_1_1_fuzzy.html#ac1e5dcf2191c76dcc2ad27a69cc7f9f9',1,'OpenCVForUnity::Fuzzy']]],
   ['size',['size',['../class_open_c_v_for_unity_1_1_key_point.html#a8d60d5d26f33bee6af9a2cf5a57e5159',1,'OpenCVForUnity.KeyPoint.size()'],['../class_open_c_v_for_unity_1_1_rotated_rect.html#a3673f8e4ce7e93c43daadd90c034b5a3',1,'OpenCVForUnity.RotatedRect.size()']]],
   ['slic',['SLIC',['../class_open_c_v_for_unity_1_1_ximgproc.html#ae80232ff50dbf46ebebdbadae37dabcb',1,'OpenCVForUnity::Ximgproc']]],

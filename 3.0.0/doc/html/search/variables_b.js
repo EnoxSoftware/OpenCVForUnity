@@ -47,7 +47,6 @@ var searchData=
   ['motion_5feuclidean',['MOTION_EUCLIDEAN',['../class_open_c_v_for_unity_1_1_video.html#ae119ea0221355bea7163e59e426060dd',1,'OpenCVForUnity::Video']]],
   ['motion_5fhomography',['MOTION_HOMOGRAPHY',['../class_open_c_v_for_unity_1_1_video.html#a8271f571c625b8bb73e19d84be906f8d',1,'OpenCVForUnity::Video']]],
   ['motion_5ftranslation',['MOTION_TRANSLATION',['../class_open_c_v_for_unity_1_1_video.html#aef3f08240e091207feb01b1da9508255',1,'OpenCVForUnity::Video']]],
-  ['mser',['MSER',['../class_open_c_v_for_unity_1_1_feature_detector.html#a3819356df668b824eaef1618d221d409',1,'OpenCVForUnity::FeatureDetector']]],
   ['mslic',['MSLIC',['../class_open_c_v_for_unity_1_1_ximgproc.html#afa1ed0ac35ec30ba19e92122416d3b4d',1,'OpenCVForUnity::Ximgproc']]],
   ['mu02',['mu02',['../class_open_c_v_for_unity_1_1_moments.html#a80c96931a4b71b7fe73afa49e7690239',1,'OpenCVForUnity::Moments']]],
   ['mu03',['mu03',['../class_open_c_v_for_unity_1_1_moments.html#a00627559988fb1af397c184f41fc3f72',1,'OpenCVForUnity::Moments']]],
