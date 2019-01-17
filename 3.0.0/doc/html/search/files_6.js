@@ -1,5 +1,8 @@
 var searchData=
 [
+  ['generalizedhough_2ecs',['GeneralizedHough.cs',['../_generalized_hough_8cs.html',1,'']]],
+  ['generalizedhoughballard_2ecs',['GeneralizedHoughBallard.cs',['../_generalized_hough_ballard_8cs.html',1,'']]],
+  ['generalizedhoughguil_2ecs',['GeneralizedHoughGuil.cs',['../_generalized_hough_guil_8cs.html',1,'']]],
   ['gfttdetector_2ecs',['GFTTDetector.cs',['../_g_f_t_t_detector_8cs.html',1,'']]],
   ['gpcdetails_2ecs',['GPCDetails.cs',['../_g_p_c_details_8cs.html',1,'']]],
   ['gpcpatchdescriptor_2ecs',['GPCPatchDescriptor.cs',['../_g_p_c_patch_descriptor_8cs.html',1,'']]],

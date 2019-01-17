@@ -1,21 +1,14 @@
 var searchData=
 [
-  ['adaptive_5fthresh_5fgaussian_5fc',['ADAPTIVE_THRESH_GAUSSIAN_C',['../class_open_c_v_for_unity_1_1_imgproc.html#a312a3b9155bf511d570062e22d523b3d',1,'OpenCVForUnity::Imgproc']]],
-  ['adaptive_5fthresh_5fmean_5fc',['ADAPTIVE_THRESH_MEAN_C',['../class_open_c_v_for_unity_1_1_imgproc.html#a73b23b97a5747d3a10ccb53c9c05b9dc',1,'OpenCVForUnity::Imgproc']]],
-  ['agast_5f5_5f8',['AGAST_5_8',['../class_open_c_v_for_unity_1_1_agast_feature_detector.html#a37d790343304dba2379664989ec61eaf',1,'OpenCVForUnity::AgastFeatureDetector']]],
-  ['agast_5f7_5f12d',['AGAST_7_12d',['../class_open_c_v_for_unity_1_1_agast_feature_detector.html#a87c87480c0c3bf4b0cb1f89996cea533',1,'OpenCVForUnity::AgastFeatureDetector']]],
-  ['agast_5f7_5f12s',['AGAST_7_12s',['../class_open_c_v_for_unity_1_1_agast_feature_detector.html#a92971a7b6a0584c5a386d0ae48cb9abb',1,'OpenCVForUnity::AgastFeatureDetector']]],
-  ['am_5ffilter',['AM_FILTER',['../class_open_c_v_for_unity_1_1_ximgproc.html#a0965716512e2e770b9972d427f4564fe',1,'OpenCVForUnity::Ximgproc']]],
-  ['angle',['angle',['../class_open_c_v_for_unity_1_1_key_point.html#a931f451fa69d9fbce900632752f9ea52',1,'OpenCVForUnity.KeyPoint.angle()'],['../class_open_c_v_for_unity_1_1_rotated_rect.html#a78d80b644593df3c0f17b43123bf052f',1,'OpenCVForUnity.RotatedRect.angle()']]],
-  ['anneal',['ANNEAL',['../class_open_c_v_for_unity_1_1_a_n_n___m_l_p.html#ad0891b5cfe9426d1e8e04e81131c7c7a',1,'OpenCVForUnity::ANN_MLP']]],
-  ['aro_5f0_5f45',['ARO_0_45',['../class_open_c_v_for_unity_1_1_ximgproc.html#abc87baa275df497b5531c7f470b9d5d1',1,'OpenCVForUnity::Ximgproc']]],
-  ['aro_5f315_5f0',['ARO_315_0',['../class_open_c_v_for_unity_1_1_ximgproc.html#a6cd2e60427c51281cca530ba0310063f',1,'OpenCVForUnity::Ximgproc']]],
-  ['aro_5f315_5f135',['ARO_315_135',['../class_open_c_v_for_unity_1_1_ximgproc.html#ae358ca7ba5db9779729279005199ca9b',1,'OpenCVForUnity::Ximgproc']]],
-  ['aro_5f315_5f45',['ARO_315_45',['../class_open_c_v_for_unity_1_1_ximgproc.html#a2df6a879a7a6adfacfaf2c81a1555dad',1,'OpenCVForUnity::Ximgproc']]],
-  ['aro_5f45_5f135',['ARO_45_135',['../class_open_c_v_for_unity_1_1_ximgproc.html#a1b111f8a54339ef8f192e6e125f803d9',1,'OpenCVForUnity::Ximgproc']]],
-  ['aro_5f45_5f90',['ARO_45_90',['../class_open_c_v_for_unity_1_1_ximgproc.html#af9c8b99bc80914d24da845243774d6ab',1,'OpenCVForUnity::Ximgproc']]],
-  ['aro_5f90_5f135',['ARO_90_135',['../class_open_c_v_for_unity_1_1_ximgproc.html#a7be369e52f510ecee753ef03d40dda1d',1,'OpenCVForUnity::Ximgproc']]],
-  ['aro_5fctr_5fhor',['ARO_CTR_HOR',['../class_open_c_v_for_unity_1_1_ximgproc.html#ad1c380a7b12033554145b41c5c40a58e',1,'OpenCVForUnity::Ximgproc']]],
-  ['aro_5fctr_5fver',['ARO_CTR_VER',['../class_open_c_v_for_unity_1_1_ximgproc.html#a5964724dcbc47ed02fc87ef81f8482c9',1,'OpenCVForUnity::Ximgproc']]],
-  ['asgd',['ASGD',['../class_open_c_v_for_unity_1_1_s_v_m_s_g_d.html#a1f71b90020c7bb5a8ff73a684df39d8c',1,'OpenCVForUnity::SVMSGD']]]
+  ['_5fdownscaleratio',['_downscaleRatio',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.html#ae634ed8f5a849559c39206a61f5bc997',1,'OpenCVForUnity::UnityUtils::Helper::ImageOptimizationHelper']]],
+  ['_5ffliphorizontal',['_flipHorizontal',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#aa1e60f416d70abf988805b01dc47682c',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]],
+  ['_5fflipvertical',['_flipVertical',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a59f58291cd82afaf36ec244604abd4ad',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]],
+  ['_5fframeskippingratio',['_frameSkippingRatio',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.html#a87d3178742cd1ee2b3d706b2635e77bd',1,'OpenCVForUnity::UnityUtils::Helper::ImageOptimizationHelper']]],
+  ['_5frequesteddevicename',['_requestedDeviceName',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a1c9b9eed37b91e492ae6e14c52c2f2a1',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]],
+  ['_5frequestedfps',['_requestedFPS',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a936884a9ccd26558b3184299599ccfea',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]],
+  ['_5frequestedheight',['_requestedHeight',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#aa9c569edbd905ed9999b375cdac22576',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]],
+  ['_5frequestedisfrontfacing',['_requestedIsFrontFacing',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a6e99a85722345518662c7dd8c7270313',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]],
+  ['_5frequestedwidth',['_requestedWidth',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#af165fae6660236131086bc7944008b5f',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]],
+  ['_5frotate90degree',['_rotate90Degree',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a9c6462a0b47ae575943baf4eb6d765f9',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]],
+  ['_5ftimeoutframecount',['_timeoutFrameCount',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a32dfd8180eb5d8dfecb92c9f8e4b4d7d',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]]
 ];

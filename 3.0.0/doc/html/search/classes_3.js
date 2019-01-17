@@ -1,19 +1,19 @@
 var searchData=
 [
-  ['daisy',['DAISY',['../class_open_c_v_for_unity_1_1_d_a_i_s_y.html',1,'OpenCVForUnity']]],
-  ['denseopticalflow',['DenseOpticalFlow',['../class_open_c_v_for_unity_1_1_dense_optical_flow.html',1,'OpenCVForUnity']]],
-  ['descriptormatcher',['DescriptorMatcher',['../class_open_c_v_for_unity_1_1_descriptor_matcher.html',1,'OpenCVForUnity']]],
-  ['detectorparameters',['DetectorParameters',['../class_open_c_v_for_unity_1_1_detector_parameters.html',1,'OpenCVForUnity']]],
-  ['dictionary',['Dictionary',['../class_open_c_v_for_unity_1_1_dictionary.html',1,'OpenCVForUnity']]],
-  ['dictvalue',['DictValue',['../class_open_c_v_for_unity_1_1_dict_value.html',1,'OpenCVForUnity']]],
-  ['disopticalflow',['DISOpticalFlow',['../class_open_c_v_for_unity_1_1_d_i_s_optical_flow.html',1,'OpenCVForUnity']]],
-  ['disparityfilter',['DisparityFilter',['../class_open_c_v_for_unity_1_1_disparity_filter.html',1,'OpenCVForUnity']]],
-  ['disparitywlsfilter',['DisparityWLSFilter',['../class_open_c_v_for_unity_1_1_disparity_w_l_s_filter.html',1,'OpenCVForUnity']]],
+  ['daisy',['DAISY',['../class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html',1,'OpenCVForUnity::Xfeatures2dModule']]],
+  ['denseopticalflow',['DenseOpticalFlow',['../class_open_c_v_for_unity_1_1_video_module_1_1_dense_optical_flow.html',1,'OpenCVForUnity::VideoModule']]],
+  ['descriptormatcher',['DescriptorMatcher',['../class_open_c_v_for_unity_1_1_features2d_module_1_1_descriptor_matcher.html',1,'OpenCVForUnity::Features2dModule']]],
+  ['detectorparameters',['DetectorParameters',['../class_open_c_v_for_unity_1_1_aruco_module_1_1_detector_parameters.html',1,'OpenCVForUnity::ArucoModule']]],
+  ['dictionary',['Dictionary',['../class_open_c_v_for_unity_1_1_aruco_module_1_1_dictionary.html',1,'OpenCVForUnity::ArucoModule']]],
+  ['dictvalue',['DictValue',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_dict_value.html',1,'OpenCVForUnity::DnnModule']]],
+  ['disopticalflow',['DISOpticalFlow',['../class_open_c_v_for_unity_1_1_video_module_1_1_d_i_s_optical_flow.html',1,'OpenCVForUnity::VideoModule']]],
+  ['disparityfilter',['DisparityFilter',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_disparity_filter.html',1,'OpenCVForUnity::XimgprocModule']]],
+  ['disparitywlsfilter',['DisparityWLSFilter',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_disparity_w_l_s_filter.html',1,'OpenCVForUnity::XimgprocModule']]],
   ['disposableobject',['DisposableObject',['../class_open_c_v_for_unity_1_1_disposable_object.html',1,'OpenCVForUnity']]],
   ['disposableopencvobject',['DisposableOpenCVObject',['../class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html',1,'OpenCVForUnity']]],
-  ['dmatch',['DMatch',['../class_open_c_v_for_unity_1_1_d_match.html',1,'OpenCVForUnity']]],
-  ['dnn',['Dnn',['../class_open_c_v_for_unity_1_1_dnn.html',1,'OpenCVForUnity']]],
-  ['dtfilter',['DTFilter',['../class_open_c_v_for_unity_1_1_d_t_filter.html',1,'OpenCVForUnity']]],
-  ['dtrees',['DTrees',['../class_open_c_v_for_unity_1_1_d_trees.html',1,'OpenCVForUnity']]],
-  ['dualtvl1opticalflow',['DualTVL1OpticalFlow',['../class_open_c_v_for_unity_1_1_dual_t_v_l1_optical_flow.html',1,'OpenCVForUnity']]]
+  ['dmatch',['DMatch',['../class_open_c_v_for_unity_1_1_core_module_1_1_d_match.html',1,'OpenCVForUnity::CoreModule']]],
+  ['dnn',['Dnn',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html',1,'OpenCVForUnity::DnnModule']]],
+  ['dtfilter',['DTFilter',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_d_t_filter.html',1,'OpenCVForUnity::XimgprocModule']]],
+  ['dtrees',['DTrees',['../class_open_c_v_for_unity_1_1_ml_module_1_1_d_trees.html',1,'OpenCVForUnity::MlModule']]],
+  ['dualtvl1opticalflow',['DualTVL1OpticalFlow',['../class_open_c_v_for_unity_1_1_optflow_module_1_1_dual_t_v_l1_optical_flow.html',1,'OpenCVForUnity::OptflowModule']]]
 ];

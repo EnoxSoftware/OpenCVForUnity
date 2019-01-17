@@ -8,6 +8,7 @@ var searchData=
   ['facemarktrain_2ecs',['FacemarkTrain.cs',['../_facemark_train_8cs.html',1,'']]],
   ['facerecognizer_2ecs',['FaceRecognizer.cs',['../_face_recognizer_8cs.html',1,'']]],
   ['farnebackopticalflow_2ecs',['FarnebackOpticalFlow.cs',['../_farneback_optical_flow_8cs.html',1,'']]],
+  ['fastbilateralsolverfilter_2ecs',['FastBilateralSolverFilter.cs',['../_fast_bilateral_solver_filter_8cs.html',1,'']]],
   ['fastfeaturedetector_2ecs',['FastFeatureDetector.cs',['../_fast_feature_detector_8cs.html',1,'']]],
   ['fastglobalsmootherfilter_2ecs',['FastGlobalSmootherFilter.cs',['../_fast_global_smoother_filter_8cs.html',1,'']]],
   ['fastlinedetector_2ecs',['FastLineDetector.cs',['../_fast_line_detector_8cs.html',1,'']]],

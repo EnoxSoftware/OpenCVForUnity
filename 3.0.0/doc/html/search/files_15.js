@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['xfeatures2d_2ecs',['Xfeatures2d.cs',['../_xfeatures2d_8cs.html',1,'']]],
-  ['ximgproc_2ecs',['Ximgproc.cs',['../_ximgproc_8cs.html',1,'']]],
-  ['xphoto_2ecs',['Xphoto.cs',['../_xphoto_8cs.html',1,'']]]
+  ['webcamtexturetomathelper_2ecs',['WebCamTextureToMatHelper.cs',['../_web_cam_texture_to_mat_helper_8cs.html',1,'']]],
+  ['whitebalancer_2ecs',['WhiteBalancer.cs',['../_white_balancer_8cs.html',1,'']]]
 ];

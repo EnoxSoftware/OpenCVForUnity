@@ -1,24 +1,7 @@
 var searchData=
 [
-  ['l0_5f25',['L0_25',['../class_open_c_v_for_unity_1_1_p_c_t_signatures.html#a4ac785ba22adede4f1820390793d4553',1,'OpenCVForUnity::PCTSignatures']]],
-  ['l0_5f5',['L0_5',['../class_open_c_v_for_unity_1_1_p_c_t_signatures.html#a9c99718fb57f21792cbfa153f3103214',1,'OpenCVForUnity::PCTSignatures']]],
-  ['l1',['L1',['../class_open_c_v_for_unity_1_1_p_c_t_signatures.html#ab0011d7c2db992671bd2130a8ead9879',1,'OpenCVForUnity::PCTSignatures']]],
-  ['l2',['L2',['../class_open_c_v_for_unity_1_1_p_c_t_signatures.html#a0c227c1c8c8eb887214d4daa73b18db9',1,'OpenCVForUnity::PCTSignatures']]],
-  ['l2hys',['L2Hys',['../class_open_c_v_for_unity_1_1_h_o_g_descriptor.html#a2dcd81b325c6a5bd2efad938b3c51d9a',1,'OpenCVForUnity::HOGDescriptor']]],
-  ['l2squared',['L2SQUARED',['../class_open_c_v_for_unity_1_1_p_c_t_signatures.html#a4b615776648b5b3ed6b914fd99db77f6',1,'OpenCVForUnity::PCTSignatures']]],
-  ['l5',['L5',['../class_open_c_v_for_unity_1_1_p_c_t_signatures.html#a5fee5dd82e00403c166e42f58b9baf62',1,'OpenCVForUnity::PCTSignatures']]],
-  ['l_5finfinity',['L_INFINITY',['../class_open_c_v_for_unity_1_1_p_c_t_signatures.html#a195329a646fcccb22ce6edac56dc2334',1,'OpenCVForUnity::PCTSignatures']]],
-  ['ldr_5fsize',['LDR_SIZE',['../class_open_c_v_for_unity_1_1_photo.html#ac5997af6e16c301e6f5bc580e228c167',1,'OpenCVForUnity::Photo']]],
-  ['leakyrelu',['LEAKYRELU',['../class_open_c_v_for_unity_1_1_a_n_n___m_l_p.html#af4c9121f406b00ffc25e721dae5a41da',1,'OpenCVForUnity::ANN_MLP']]],
-  ['line_5f4',['LINE_4',['../class_open_c_v_for_unity_1_1_core.html#ad7123a871fe48c63ae3f4d4ce86cc2f0',1,'OpenCVForUnity.Core.LINE_4()'],['../class_open_c_v_for_unity_1_1_imgproc.html#a13aba1149cdb6104389a0dde478d3879',1,'OpenCVForUnity.Imgproc.LINE_4()']]],
-  ['line_5f8',['LINE_8',['../class_open_c_v_for_unity_1_1_core.html#ac1aa8eb7244b89c408daad5e48c57ea3',1,'OpenCVForUnity.Core.LINE_8()'],['../class_open_c_v_for_unity_1_1_imgproc.html#ae58b8106b952be4ee9007af3e6552f8a',1,'OpenCVForUnity.Imgproc.LINE_8()']]],
-  ['line_5faa',['LINE_AA',['../class_open_c_v_for_unity_1_1_core.html#a8ae33eb831ac638d2105cfbdacda53f6',1,'OpenCVForUnity.Core.LINE_AA()'],['../class_open_c_v_for_unity_1_1_imgproc.html#acf5d48b7d9bd0b4cae59030042049d0c',1,'OpenCVForUnity.Imgproc.LINE_AA()']]],
-  ['linear',['LINEAR',['../class_open_c_v_for_unity_1_1_s_v_m.html#a6e6cac5e52db4b32308e5264d691106b',1,'OpenCVForUnity.SVM.LINEAR()'],['../class_open_c_v_for_unity_1_1_fuzzy.html#a8294c89837437c11d7e4257e6acd32a6',1,'OpenCVForUnity.Fuzzy.LINEAR()']]],
-  ['lmeds',['LMEDS',['../class_open_c_v_for_unity_1_1_calib3d.html#a197788c8a0bb800a51911d00af48598f',1,'OpenCVForUnity::Calib3d']]],
-  ['logit',['LOGIT',['../class_open_c_v_for_unity_1_1_boost.html#aa3d46c8905665afc013f5c566eca517a',1,'OpenCVForUnity::Boost']]],
-  ['lsbp_5fcamera_5fmotion_5fcompensation_5flk',['LSBP_CAMERA_MOTION_COMPENSATION_LK',['../class_open_c_v_for_unity_1_1_bgsegm.html#a9721fac1ad81b042732dc455d6ebe82f',1,'OpenCVForUnity::Bgsegm']]],
-  ['lsbp_5fcamera_5fmotion_5fcompensation_5fnone',['LSBP_CAMERA_MOTION_COMPENSATION_NONE',['../class_open_c_v_for_unity_1_1_bgsegm.html#a291d17bdc7d636ec9aff2b0838d1048b',1,'OpenCVForUnity::Bgsegm']]],
-  ['lsd_5frefine_5fadv',['LSD_REFINE_ADV',['../class_open_c_v_for_unity_1_1_imgproc.html#ae26b63a273ef75031ede959586e79774',1,'OpenCVForUnity::Imgproc']]],
-  ['lsd_5frefine_5fnone',['LSD_REFINE_NONE',['../class_open_c_v_for_unity_1_1_imgproc.html#ad1cdb394df65836813ebde60c1e90837',1,'OpenCVForUnity::Imgproc']]],
-  ['lsd_5frefine_5fstd',['LSD_REFINE_STD',['../class_open_c_v_for_unity_1_1_imgproc.html#a75996dc4e7d3af61d830f61dc2e9e7cc',1,'OpenCVForUnity::Imgproc']]]
+  ['kdtree',['KDTREE',['../class_open_c_v_for_unity_1_1_ml_module_1_1_k_nearest.html#ae655a8cff733e0ea11a4e2687c41e4d2',1,'OpenCVForUnity::MlModule::KNearest']]],
+  ['kmeans_5fpp_5fcenters',['KMEANS_PP_CENTERS',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#aac4117f740a37ee5e1476fd0ff0f62f5',1,'OpenCVForUnity::CoreModule::Core']]],
+  ['kmeans_5frandom_5fcenters',['KMEANS_RANDOM_CENTERS',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a80360b5754885776ef19e32a15ed7ec7',1,'OpenCVForUnity::CoreModule::Core']]],
+  ['kmeans_5fuse_5finitial_5flabels',['KMEANS_USE_INITIAL_LABELS',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#affcb62ffc3700ae98bfb7c59b458ac8d',1,'OpenCVForUnity::CoreModule::Core']]]
 ];

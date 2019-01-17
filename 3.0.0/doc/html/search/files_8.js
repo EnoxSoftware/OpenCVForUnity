@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['imageoptimizationhelper_2ecs',['ImageOptimizationHelper.cs',['../_image_optimization_helper_8cs.html',1,'']]],
   ['img_5fhash_2ecs',['Img_hash.cs',['../_img__hash_8cs.html',1,'']]],
   ['imgcodecs_2ecs',['Imgcodecs.cs',['../_imgcodecs_8cs.html',1,'']]],
   ['imghashbase_2ecs',['ImgHashBase.cs',['../_img_hash_base_8cs.html',1,'']]],

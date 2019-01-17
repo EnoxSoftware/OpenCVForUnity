@@ -1,14 +1,15 @@
 var searchData=
 [
-  ['warp_5ffill_5foutliers',['WARP_FILL_OUTLIERS',['../class_open_c_v_for_unity_1_1_imgproc.html#a82b10f80710c56c68a6d9f45aee1573c',1,'OpenCVForUnity::Imgproc']]],
-  ['warp_5finverse_5fmap',['WARP_INVERSE_MAP',['../class_open_c_v_for_unity_1_1_imgproc.html#a5cf8fa58ad1e4c5d1d09d82524f4c7b3',1,'OpenCVForUnity::Imgproc']]],
-  ['warp_5fpolar_5flinear',['WARP_POLAR_LINEAR',['../class_open_c_v_for_unity_1_1_imgproc.html#ae9c151ba38d13d5adbce6bbafc3bba56',1,'OpenCVForUnity::Imgproc']]],
-  ['warp_5fpolar_5flog',['WARP_POLAR_LOG',['../class_open_c_v_for_unity_1_1_imgproc.html#a1d6b4c9d271df2873cefa6c9c731c99c',1,'OpenCVForUnity::Imgproc']]],
-  ['width',['width',['../class_open_c_v_for_unity_1_1_size.html#a56b64c716c4a35d3977930d7e8c46ae2',1,'OpenCVForUnity::Size']]],
-  ['wmf_5fcos',['WMF_COS',['../class_open_c_v_for_unity_1_1_ximgproc.html#a9108977e39b7b36e58df45123600c997',1,'OpenCVForUnity::Ximgproc']]],
-  ['wmf_5fexp',['WMF_EXP',['../class_open_c_v_for_unity_1_1_ximgproc.html#a9c20e946e1617f444f6fe0148c8fc6bb',1,'OpenCVForUnity::Ximgproc']]],
-  ['wmf_5fiv1',['WMF_IV1',['../class_open_c_v_for_unity_1_1_ximgproc.html#ab798f32015a4785cb38039a250ccf6df',1,'OpenCVForUnity::Ximgproc']]],
-  ['wmf_5fiv2',['WMF_IV2',['../class_open_c_v_for_unity_1_1_ximgproc.html#a2c2d58e74cfd8946fadd3fdcd9d8ad0e',1,'OpenCVForUnity::Ximgproc']]],
-  ['wmf_5fjac',['WMF_JAC',['../class_open_c_v_for_unity_1_1_ximgproc.html#a9fd33ab56124d1603770774e395c231f',1,'OpenCVForUnity::Ximgproc']]],
-  ['wmf_5foff',['WMF_OFF',['../class_open_c_v_for_unity_1_1_ximgproc.html#ab2c00639ef6f16f6a7093520fd542cc4',1,'OpenCVForUnity::Ximgproc']]]
+  ['val',['val',['../class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a04763df216fc8d2a7a0d700bdd53fa0f',1,'OpenCVForUnity::CoreModule::Scalar']]],
+  ['var_5fcategorical',['VAR_CATEGORICAL',['../class_open_c_v_for_unity_1_1_ml_module_1_1_ml.html#a971d08b14d13d87c88a6a8e6d444ce45',1,'OpenCVForUnity::MlModule::Ml']]],
+  ['var_5fnumerical',['VAR_NUMERICAL',['../class_open_c_v_for_unity_1_1_ml_module_1_1_ml.html#a4f27628f9c3ecc0658d3a5d8ed3ff22f',1,'OpenCVForUnity::MlModule::Ml']]],
+  ['var_5fordered',['VAR_ORDERED',['../class_open_c_v_for_unity_1_1_ml_module_1_1_ml.html#a5980aad300a5b21bdc6e91f672a39816',1,'OpenCVForUnity::MlModule::Ml']]],
+  ['version',['VERSION',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#aa1521db94d6b2363e09cf19f4b4ad1db',1,'OpenCVForUnity::CoreModule::Core']]],
+  ['version_5fmajor',['VERSION_MAJOR',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a6cbe6467510a016cebb4d5b7e2931ce6',1,'OpenCVForUnity::CoreModule::Core']]],
+  ['version_5fminor',['VERSION_MINOR',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#abd5762a3a4848b435a55fbe44e57f830',1,'OpenCVForUnity::CoreModule::Core']]],
+  ['version_5frevision',['VERSION_REVISION',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#ac4eaa0d0f0bf1e9ae6aa2d9355c44e1f',1,'OpenCVForUnity::CoreModule::Core']]],
+  ['version_5fstatus',['VERSION_STATUS',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a85feb234beabc20a52fb41cf7e4ad0eb',1,'OpenCVForUnity::CoreModule::Core']]],
+  ['videowriter_5fprop_5fframebytes',['VIDEOWRITER_PROP_FRAMEBYTES',['../class_open_c_v_for_unity_1_1_videoio_module_1_1_videoio.html#a65688cca8ca95d8fc5dd11a17f0e1290',1,'OpenCVForUnity::VideoioModule::Videoio']]],
+  ['videowriter_5fprop_5fnstripes',['VIDEOWRITER_PROP_NSTRIPES',['../class_open_c_v_for_unity_1_1_videoio_module_1_1_videoio.html#acb2adb771de8d08c6352442bf22328b6',1,'OpenCVForUnity::VideoioModule::Videoio']]],
+  ['videowriter_5fprop_5fquality',['VIDEOWRITER_PROP_QUALITY',['../class_open_c_v_for_unity_1_1_videoio_module_1_1_videoio.html#aa477e9be5ff36fc5036e8cba5cea28c4',1,'OpenCVForUnity::VideoioModule::Videoio']]]
 ];

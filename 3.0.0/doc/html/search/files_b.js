@@ -30,6 +30,7 @@ var searchData=
   ['matofpoint3f_2ecs',['MatOfPoint3f.cs',['../_mat_of_point3f_8cs.html',1,'']]],
   ['matofrect_2ecs',['MatOfRect.cs',['../_mat_of_rect_8cs.html',1,'']]],
   ['matofrect2d_2ecs',['MatOfRect2d.cs',['../_mat_of_rect2d_8cs.html',1,'']]],
+  ['matofrotatedrect_2ecs',['MatOfRotatedRect.cs',['../_mat_of_rotated_rect_8cs.html',1,'']]],
   ['mergedebevec_2ecs',['MergeDebevec.cs',['../_merge_debevec_8cs.html',1,'']]],
   ['mergeexposures_2ecs',['MergeExposures.cs',['../_merge_exposures_8cs.html',1,'']]],
   ['mergemertens_2ecs',['MergeMertens.cs',['../_merge_mertens_8cs.html',1,'']]],
