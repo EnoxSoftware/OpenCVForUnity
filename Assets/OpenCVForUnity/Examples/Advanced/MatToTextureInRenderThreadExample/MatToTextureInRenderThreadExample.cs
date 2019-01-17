@@ -1,12 +1,12 @@
 using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
-using System;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using System;
+using System.Collections;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.UnityUtils.Helper;
+using OpenCVForUnity.ImgprocModule;
 
 namespace OpenCVForUnityExample
 {
@@ -80,7 +80,7 @@ namespace OpenCVForUnityExample
         void Start ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
-            Utils.RegisterWebGLPlugin();
+            Utils.registerWebGLPlugin();
             #endif
 
             renderThreadCoroutine = CallAtEndOfFrames ();
@@ -183,7 +183,7 @@ namespace OpenCVForUnityExample
 
                 rgbaMat = webCamTextureToMatHelper.GetMat ();
 
-                //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+//                Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
 //                Utils.fastMatToTexture2D (rgbaMat, texture);
             }
@@ -199,7 +199,7 @@ namespace OpenCVForUnityExample
                 yield return new WaitForEndOfFrame ();
 
                 if (rgbaMat != null) {
-                    Utils.MatToTextureInRenderThread (rgbaMat, texture);
+                    Utils.matToTextureInRenderThread (rgbaMat, texture);
                 }
             }
         }
@@ -217,11 +217,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
 
         /// <summary>

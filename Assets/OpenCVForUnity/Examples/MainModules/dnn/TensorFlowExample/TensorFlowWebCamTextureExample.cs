@@ -1,14 +1,16 @@
 #if !UNITY_WSA_10_0
 
-using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.DnnModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.UnityUtils.Helper;
 
 namespace OpenCVForUnityExample
 {
@@ -55,15 +57,11 @@ namespace OpenCVForUnityExample
         /// </summary>
         FpsMonitor fpsMonitor;
 
-        #if UNITY_ANDROID && !UNITY_EDITOR
-        float rearCameraRequestedFPS;
-        #endif
-
         string tensorflow_inception_graph_pb_filepath;
         string imagenet_comp_graph_label_strings_txt_filepath;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
-        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
+        IEnumerator getFilePath_Coroutine;
         #endif
 
         // Use this for initialization
@@ -74,8 +72,7 @@ namespace OpenCVForUnityExample
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
-            var getFilePath_Coroutine = GetFilePath ();
-            coroutines.Push (getFilePath_Coroutine);
+            getFilePath_Coroutine = GetFilePath ();
             StartCoroutine (getFilePath_Coroutine);
             #else
             tensorflow_inception_graph_pb_filepath = Utils.getFilePath ("dnn/tensorflow_inception_graph.pb");
@@ -91,16 +88,14 @@ namespace OpenCVForUnityExample
             var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("dnn/tensorflow_inception_graph.pb", (result) => {
                 tensorflow_inception_graph_pb_filepath = result;
             });
-            coroutines.Push (getFilePathAsync_0_Coroutine);
-            yield return StartCoroutine (getFilePathAsync_0_Coroutine);
+            yield return getFilePathAsync_0_Coroutine;
 
             var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("dnn/imagenet_comp_graph_label_strings.txt", (result) => {
                 imagenet_comp_graph_label_strings_txt_filepath = result;
             });
-            coroutines.Push (getFilePathAsync_1_Coroutine);
-            yield return StartCoroutine (getFilePathAsync_1_Coroutine);
+            yield return getFilePathAsync_1_Coroutine;
 
-            coroutines.Clear ();
+            getFilePath_Coroutine = null;
 
             Run ();
         }
@@ -116,30 +111,21 @@ namespace OpenCVForUnityExample
             net = Dnn.readNetFromTensorflow (tensorflow_inception_graph_pb_filepath);
             #if !UNITY_WSA_10_0
             if (net.empty ()) {
-                Debug.LogError ("model file is not loaded.The model and class names list can be downloaded here: \"https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip\".Please copy to “Assets/StreamingAssets/dnn/” folder. ");
+                Debug.LogError ("model file is not loaded. The model and class names list can be downloaded here: \"https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip\". Please copy to “Assets/StreamingAssets/dnn/” folder. ");
             }
             #endif
             classes = readClassNames (imagenet_comp_graph_label_strings_txt_filepath);
             #if !UNITY_WSA_10_0
             if (classes == null) {
-                Debug.LogError ("class names list file is not loaded.The model and class names list can be downloaded here: \"https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip\".Please copy to “Assets/StreamingAssets/dnn/” folder. ");
+                Debug.LogError ("class names list file is not loaded. The model and class names list can be downloaded here: \"https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip\". Please copy to “Assets/StreamingAssets/dnn/” folder. ");
             }
             #endif
             
             #if UNITY_ANDROID && !UNITY_EDITOR
-            // Set the requestedFPS parameter to avoid the problem of the WebCamTexture image becoming low light on some Android devices. (Pixel, pixel 2)
-            // https://forum.unity.com/threads/android-webcamtexture-in-low-light-only-some-models.520656/
-            // https://forum.unity.com/threads/released-opencv-for-unity.277080/page-33#post-3445178
-            rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
-            if (webCamTextureToMatHelper.requestedIsFrontFacing) {                
-                webCamTextureToMatHelper.requestedFPS = 15;
-                webCamTextureToMatHelper.Initialize ();
-            } else {
-                webCamTextureToMatHelper.Initialize ();
-            }
-            #else
-            webCamTextureToMatHelper.Initialize ();
+            // Avoids the front camera low light issue that occurs in only some Android devices (e.g. Google Pixel, Pixel2).
+            webCamTextureToMatHelper.avoidAndroidFrontCameraLowLightIssue = true;
             #endif
+            webCamTextureToMatHelper.Initialize ();
         }
 
         /// <summary>
@@ -158,10 +144,10 @@ namespace OpenCVForUnityExample
             gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
-            if (fpsMonitor != null){
-                fpsMonitor.Add ("width", webCamTextureMat.width ().ToString());
-                fpsMonitor.Add ("height", webCamTextureMat.height ().ToString());
-                fpsMonitor.Add ("orientation", Screen.orientation.ToString());
+            if (fpsMonitor != null) {
+                fpsMonitor.Add ("width", webCamTextureMat.width ().ToString ());
+                fpsMonitor.Add ("height", webCamTextureMat.height ().ToString ());
+                fpsMonitor.Add ("orientation", Screen.orientation.ToString ());
             }
 
                                     
@@ -190,7 +176,7 @@ namespace OpenCVForUnityExample
                 bgrMat.Dispose ();
 
             if (texture != null) {
-                Texture2D.Destroy(texture);
+                Texture2D.Destroy (texture);
                 texture = null;
             }
         }
@@ -212,8 +198,8 @@ namespace OpenCVForUnityExample
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
 
                 if (net.empty () || classes == null) {
-                    Imgproc.putText (rgbaMat, "model file is not loaded.", new Point (5, rgbaMat.rows () - 30), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    Imgproc.putText (rgbaMat, "Please read console message.", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    Imgproc.putText (rgbaMat, "model file is not loaded.", new Point (5, rgbaMat.rows () - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    Imgproc.putText (rgbaMat, "Please read console message.", new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
                 } else {
 
@@ -254,6 +240,13 @@ namespace OpenCVForUnityExample
                 net.Dispose ();
 
             Utils.setDebugMode (false);
+
+            #if UNITY_WEBGL && !UNITY_EDITOR
+            if (getFilePath_Coroutine != null) {
+                StopCoroutine (getFilePath_Coroutine);
+                ((IDisposable)getFilePath_Coroutine).Dispose ();
+            }
+            #endif
         }
 
         /// <summary>
@@ -261,11 +254,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
 
         /// <summary>
@@ -297,16 +286,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnChangeCameraButtonClick ()
         {
-            #if UNITY_ANDROID && !UNITY_EDITOR
-            if (!webCamTextureToMatHelper.IsFrontFacing ()) {
-                rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
-                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), 15, webCamTextureToMatHelper.rotate90Degree);
-            } else {                
-                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), rearCameraRequestedFPS, webCamTextureToMatHelper.rotate90Degree);
-            }
-            #else
             webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing ();
-            #endif
         }
 
         private List<string> readClassNames (string filename)

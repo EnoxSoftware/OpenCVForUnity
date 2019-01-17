@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System;
-using OpenCVForUnity;
+using OpenCVForUnity.CoreModule;
 
 namespace OpenCVForUnityExample
 {
     [System.Serializable]
     public struct CameraParameters
     {
-        public string calibration_date; 
+        public string calibration_date;
         public int frames_count;
         public int image_width;
         public int image_height;
@@ -30,10 +30,10 @@ namespace OpenCVForUnityExample
 
         public CameraParameters (int frames_count, int image_width, int image_height, int calibration_flags, Mat camera_matrix, Mat distortion_coefficients, double avg_reprojection_error)
         {
-            double[] camera_matrixArr = new double[camera_matrix.total()];
+            double[] camera_matrixArr = new double[camera_matrix.total ()];
             camera_matrix.get (0, 0, camera_matrixArr);
 
-            double[] distortion_coefficientsArr = new double[distortion_coefficients.total()];
+            double[] distortion_coefficientsArr = new double[distortion_coefficients.total ()];
             distortion_coefficients.get (0, 0, distortion_coefficientsArr);
 
             this.calibration_date = DateTime.Now.ToString ();

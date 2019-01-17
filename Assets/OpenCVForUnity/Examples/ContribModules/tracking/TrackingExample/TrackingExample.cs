@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using OpenCVForUnity.VideoioModule;
+using OpenCVForUnity.TrackingModule;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -64,7 +65,7 @@ namespace OpenCVForUnityExample
         FpsMonitor fpsMonitor;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
-        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
+        IEnumerator getFilePath_Coroutine;
         #endif
         
         // Use this for initialization
@@ -75,13 +76,12 @@ namespace OpenCVForUnityExample
             capture = new VideoCapture ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
-            var getFilePath_Coroutine = Utils.getFilePathAsync("768x576_mjpeg.mjpeg", (result) => {
-                coroutines.Clear ();
+            getFilePath_Coroutine = Utils.getFilePathAsync("768x576_mjpeg.mjpeg", (result) => {
+                getFilePath_Coroutine = null;
             
                 capture.open (result);
                 Init ();
             });
-            coroutines.Push (getFilePath_Coroutine);
             StartCoroutine (getFilePath_Coroutine);
             #else
             capture.open (Utils.getFilePath ("768x576_mjpeg.mjpeg"));
@@ -101,7 +101,6 @@ namespace OpenCVForUnityExample
 
 
             Debug.Log ("CAP_PROP_FORMAT: " + capture.get (Videoio.CAP_PROP_FORMAT));
-            Debug.Log ("CV_CAP_PROP_PREVIEW_FORMAT: " + capture.get (Videoio.CV_CAP_PROP_PREVIEW_FORMAT));
             Debug.Log ("CAP_PROP_POS_MSEC: " + capture.get (Videoio.CAP_PROP_POS_MSEC));
             Debug.Log ("CAP_PROP_POS_FRAMES: " + capture.get (Videoio.CAP_PROP_POS_FRAMES));
             Debug.Log ("CAP_PROP_POS_AVI_RATIO: " + capture.get (Videoio.CAP_PROP_POS_AVI_RATIO));
@@ -145,7 +144,7 @@ namespace OpenCVForUnityExample
             if (touchCount == 1)
             {
                 Touch t = Input.GetTouch(0);
-                if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject(t.fingerId)){
+                if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject (t.fingerId)) {
                     storedTouchPoint = new Point (t.position.x, t.position.y);
                     //Debug.Log ("touch X " + t.position.x);
                     //Debug.Log ("touch Y " + t.position.y);
@@ -190,7 +189,7 @@ namespace OpenCVForUnityExample
                     }
                 } else {
                     using (MatOfPoint selectedPointMat = new MatOfPoint (selectedPointList.ToArray ())) {
-                        OpenCVForUnity.Rect region = Imgproc.boundingRect (selectedPointMat);
+                        OpenCVForUnity.CoreModule.Rect region = Imgproc.boundingRect (selectedPointMat);
                         trackers.add (TrackerKCF.create (), rgbMat, new Rect2d (region.x, region.y, region.width, region.height));
                     }
 
@@ -230,7 +229,7 @@ namespace OpenCVForUnityExample
         {
             if (selectedPointList.Count < 2) {
                 selectedPointList.Add (touchPoint);
-                if (!(new OpenCVForUnity.Rect (0, 0, img.cols (), img.rows ()).contains (selectedPointList [selectedPointList.Count - 1]))) {
+                if (!(new OpenCVForUnity.CoreModule.Rect (0, 0, img.cols (), img.rows ()).contains (selectedPointList [selectedPointList.Count - 1]))) {
                     selectedPointList.RemoveAt (selectedPointList.Count - 1);
                 }
             }
@@ -307,9 +306,9 @@ namespace OpenCVForUnityExample
                 objects.Dispose ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
-            foreach (var coroutine in coroutines) {
-                StopCoroutine (coroutine);
-                ((IDisposable)coroutine).Dispose ();
+            if (getFilePath_Coroutine != null) {
+                StopCoroutine (getFilePath_Coroutine);
+                ((IDisposable)getFilePath_Coroutine).Dispose ();
             }
             #endif
         }
@@ -319,11 +318,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
 
         /// <summary>

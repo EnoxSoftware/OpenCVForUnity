@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using System.Collections.Generic;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -39,11 +38,11 @@ namespace OpenCVForUnityExample
 
             Debug.Log ("srcContours.Count " + srcContours.Count);
             
-            for (int i=0; i<srcContours.Count; i++) {
+            for (int i = 0; i < srcContours.Count; i++) {
                 Imgproc.drawContours (dstMat, srcContours, i, new Scalar (255, 0, 0), 2, 8, srcHierarchy, 0, new Point ());
             }
 
-            for (int i=0; i<srcContours.Count; i++) {
+            for (int i = 0; i < srcContours.Count; i++) {
                 double returnVal = Imgproc.matchShapes (srcContours [1], srcContours [i], Imgproc.CV_CONTOURS_MATCH_I1, 0);
                 Debug.Log ("returnVal " + i + " " + returnVal);
 
@@ -54,7 +53,7 @@ namespace OpenCVForUnityExample
                 Debug.Log ("radius.ToString() " + radius [0]);
                 
                 Imgproc.circle (dstMat, point, 5, new Scalar (0, 0, 255), -1);
-                Imgproc.putText (dstMat, " " + returnVal, point, Core.FONT_HERSHEY_SIMPLEX, 0.4, new Scalar (0, 255, 0), 1, Imgproc.LINE_AA, false);
+                Imgproc.putText (dstMat, " " + returnVal, point, Imgproc.FONT_HERSHEY_SIMPLEX, 0.4, new Scalar (0, 255, 0), 1, Imgproc.LINE_AA, false);
             }
 
                         
@@ -76,11 +75,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
     }
 }

@@ -1,12 +1,12 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.UnityUtils.Helper;
 
 namespace OpenCVForUnityExample
 {
@@ -14,13 +14,13 @@ namespace OpenCVForUnityExample
     /// Green Screen Example
     /// Referring to https://gist.github.com/drscotthawley/2d6bbffce9dda5f3057b4879c3bd4422.
     /// </summary>
-    [RequireComponent(typeof(WebCamTextureToMatHelper))]
+    [RequireComponent (typeof(WebCamTextureToMatHelper))]
     public class GreenScreenExample : MonoBehaviour
     {
         /// <summary>
         /// The thresh.
         /// </summary>
-        [Range(0 , 255)]
+        [Range (0, 255)]
         public float thresh = 50.0f;
         
         /// <summary>
@@ -68,10 +68,6 @@ namespace OpenCVForUnityExample
         /// </summary>
         FpsMonitor fpsMonitor;
 
-        #if UNITY_ANDROID && !UNITY_EDITOR
-        float rearCameraRequestedFPS;
-        #endif
-
         // Use this for initialization
         void Start ()
         {
@@ -80,19 +76,10 @@ namespace OpenCVForUnityExample
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
 
             #if UNITY_ANDROID && !UNITY_EDITOR
-            // Set the requestedFPS parameter to avoid the problem of the WebCamTexture image becoming low light on some Android devices. (Pixel, pixel 2)
-            // https://forum.unity.com/threads/android-webcamtexture-in-low-light-only-some-models.520656/
-            // https://forum.unity.com/threads/released-opencv-for-unity.277080/page-33#post-3445178
-            rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
-            if (webCamTextureToMatHelper.requestedIsFrontFacing) {                
-                webCamTextureToMatHelper.requestedFPS = 15;
-                webCamTextureToMatHelper.Initialize ();
-            } else {
-                webCamTextureToMatHelper.Initialize ();
-            }
-            #else
-            webCamTextureToMatHelper.Initialize ();
+            // Avoids the front camera low light issue that occurs in only some Android devices (e.g. Google Pixel, Pixel2).
+            webCamTextureToMatHelper.avoidAndroidFrontCameraLowLightIssue = true;
             #endif
+            webCamTextureToMatHelper.Initialize ();
         }
 
         /// <summary>
@@ -111,16 +98,16 @@ namespace OpenCVForUnityExample
             gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
-            if (fpsMonitor != null){
-                fpsMonitor.Add ("width", webCamTextureMat.width ().ToString());
-                fpsMonitor.Add ("height", webCamTextureMat.height ().ToString());
-                fpsMonitor.Add ("orientation", Screen.orientation.ToString());
+            if (fpsMonitor != null) {
+                fpsMonitor.Add ("width", webCamTextureMat.width ().ToString ());
+                fpsMonitor.Add ("height", webCamTextureMat.height ().ToString ());
+                fpsMonitor.Add ("orientation", Screen.orientation.ToString ());
                 fpsMonitor.consoleText = "SPACE KEY or TOUCH SCREEN: Reset backgroud image.";
             }
 
 
-            float width = webCamTextureMat.width();
-            float height = webCamTextureMat.height();
+            float width = webCamTextureMat.width ();
+            float height = webCamTextureMat.height ();
                                     
             float widthScale = (float)Screen.width / width;
             float heightScale = (float)Screen.height / height;
@@ -131,10 +118,10 @@ namespace OpenCVForUnityExample
             }
 
 
-            bgMat = new Mat(webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC4);
-            fgMaskMat = new Mat(webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
-            bgMaskMat = new Mat(webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
-            greenMat = new Mat(webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC4, new Scalar(0,255,0,255));
+            bgMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC4);
+            fgMaskMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
+            bgMaskMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
+            greenMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC4, new Scalar (0, 255, 0, 255));
 
             bgTexture = new Texture2D (bgMat.cols (), bgMat.rows (), TextureFormat.RGBA32, false);
         }
@@ -146,24 +133,24 @@ namespace OpenCVForUnityExample
         {
             Debug.Log ("OnWebCamTextureToMatHelperDisposed");
 
-            if(bgMat != null){
-                bgMat.Dispose();
+            if (bgMat != null) {
+                bgMat.Dispose ();
                 bgMat = null;
             }
-            if(fgMaskMat != null){
-                fgMaskMat.Dispose();
+            if (fgMaskMat != null) {
+                fgMaskMat.Dispose ();
                 fgMaskMat = null;
             }
-            if(bgMaskMat != null){
-                bgMaskMat.Dispose();
+            if (bgMaskMat != null) {
+                bgMaskMat.Dispose ();
                 bgMaskMat = null;
             }
-            if(greenMat != null){
-                greenMat.Dispose();
+            if (greenMat != null) {
+                greenMat.Dispose ();
                 greenMat = null;
             }
             if (texture != null) {
-                Texture2D.Destroy(texture);
+                Texture2D.Destroy (texture);
                 texture = null;
             }
         }
@@ -172,7 +159,8 @@ namespace OpenCVForUnityExample
         /// Raises the webcam texture to mat helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
-        public void OnWebCamTextureToMatHelperErrorOccurred(WebCamTextureToMatHelper.ErrorCode errorCode){
+        public void OnWebCamTextureToMatHelperErrorOccurred (WebCamTextureToMatHelper.ErrorCode errorCode)
+        {
             Debug.Log ("OnWebCamTextureToMatHelperErrorOccurred " + errorCode);
         }
 
@@ -197,21 +185,20 @@ namespace OpenCVForUnityExample
 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
 
-                if (isTouched)
-                {
-                    rgbaMat.copyTo(bgMat);
+                if (isTouched) {
+                    rgbaMat.copyTo (bgMat);
 
-                    setBgTexture(bgMat);
+                    setBgTexture (bgMat);
                 }
 
                 //set fgMaskMat
-                findFgMaskMat(rgbaMat, bgMat, thresh);
+                findFgMaskMat (rgbaMat, bgMat, thresh);
 
                 //set bgMaskMat
-                Core.bitwise_not(fgMaskMat, bgMaskMat);
+                Core.bitwise_not (fgMaskMat, bgMaskMat);
 
                 //copy greenMat using bgMaskMat
-                greenMat.copyTo(rgbaMat, bgMaskMat);
+                greenMat.copyTo (rgbaMat, bgMaskMat);
 
                 //Imgproc.putText (rgbaMat, "SPACE KEY or TOUCH SCREEN: Reset backgroud image.", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.6, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
@@ -225,25 +212,25 @@ namespace OpenCVForUnityExample
         /// <param name="fgMat">Fg mat.</param>
         /// <param name="bgMat">Background mat.</param>
         /// <param name="thresh">Thresh.</param>
-        private void findFgMaskMat (Mat fgMat, Mat bgMat, float thresh=13.0f)
+        private void findFgMaskMat (Mat fgMat, Mat bgMat, float thresh = 13.0f)
         {
-            Mat diff1 = new Mat();
-            Core.absdiff( fgMat, bgMat, diff1);
-            Mat diff2 = new Mat();
-            Core.absdiff( bgMat, fgMat, diff2);
+            Mat diff1 = new Mat ();
+            Core.absdiff (fgMat, bgMat, diff1);
+            Mat diff2 = new Mat ();
+            Core.absdiff (bgMat, fgMat, diff2);
             Mat diff = diff1 + diff2;
 
-            Imgproc.threshold(diff, diff, thresh, 0, Imgproc.THRESH_TOZERO);
+            Imgproc.threshold (diff, diff, thresh, 0, Imgproc.THRESH_TOZERO);
 
-            Imgproc.cvtColor(diff, fgMaskMat, Imgproc.COLOR_RGBA2GRAY);
+            Imgproc.cvtColor (diff, fgMaskMat, Imgproc.COLOR_RGBA2GRAY);
 
-            Imgproc.threshold(fgMaskMat, fgMaskMat, 10, 0, Imgproc.THRESH_TOZERO);
+            Imgproc.threshold (fgMaskMat, fgMaskMat, 10, 0, Imgproc.THRESH_TOZERO);
 
-            Imgproc.threshold(fgMaskMat, fgMaskMat, 0, 255, Imgproc.THRESH_BINARY);
+            Imgproc.threshold (fgMaskMat, fgMaskMat, 0, 255, Imgproc.THRESH_BINARY);
 
-            diff1.Dispose();
-            diff2.Dispose();
-            diff.Dispose();
+            diff1.Dispose ();
+            diff2.Dispose ();
+            diff.Dispose ();
         }
 
         /// <summary>
@@ -252,12 +239,12 @@ namespace OpenCVForUnityExample
         /// <param name="bgMat">Background mat.</param>
         private void setBgTexture (Mat bgMat)
         {
-            Utils.matToTexture2D(bgMat, bgTexture);
+            Utils.matToTexture2D (bgMat, bgTexture);
             
             bgRawImage.texture = bgTexture;
             bgRawImage.rectTransform.localScale = new Vector3 (1.0f, (float)bgMat.height () / (float)bgMat.width (), 1.0f);
         }
-    
+
         /// <summary>
         /// Raises the destroy event.
         /// </summary>
@@ -271,11 +258,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
 
         /// <summary>
@@ -307,16 +290,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnChangeCameraButtonClick ()
         {
-            #if UNITY_ANDROID && !UNITY_EDITOR
-            if (!webCamTextureToMatHelper.IsFrontFacing ()) {
-                rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
-                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), 15, webCamTextureToMatHelper.rotate90Degree);
-            } else {                
-                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), rearCameraRequestedFPS, webCamTextureToMatHelper.rotate90Degree);
-            }
-            #else
             webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing ();
-            #endif
         }
     }
 }

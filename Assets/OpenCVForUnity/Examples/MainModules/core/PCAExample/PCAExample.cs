@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.ImgcodecsModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -16,24 +17,22 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class PCAExample : MonoBehaviour
     {
-
         string pca_test1_jpg_filepath;
         
         #if UNITY_WEBGL && !UNITY_EDITOR
-        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
+        IEnumerator getFilePath_Coroutine;
         #endif
         
         // Use this for initialization
         void Start ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
-            var getFilePath_Coroutine = Utils.getFilePathAsync("pca_test1.jpg", (result) => {
-                coroutines.Clear ();
+            getFilePath_Coroutine = Utils.getFilePathAsync("pca_test1.jpg", (result) => {
+                getFilePath_Coroutine = null;
                 
                 pca_test1_jpg_filepath = result;
                 Run ();
             });
-            coroutines.Push (getFilePath_Coroutine);
             StartCoroutine (getFilePath_Coroutine);
             #else
             pca_test1_jpg_filepath = Utils.getFilePath ("pca_test1.jpg");
@@ -138,15 +137,24 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
+        /// Raises the disable event.
+        /// </summary>
+        void OnDisable ()
+        {
+            #if UNITY_WEBGL && !UNITY_EDITOR
+            if (getFilePath_Coroutine != null) {
+                StopCoroutine (getFilePath_Coroutine);
+                ((IDisposable)getFilePath_Coroutine).Dispose ();
+            }
+            #endif
+        }
+
+        /// <summary>
         /// Raises the back button click event.
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
     }
 }

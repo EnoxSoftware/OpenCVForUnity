@@ -1,11 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.UnityUtils.Helper;
 
 namespace OpenCVForUnityExample
 {
@@ -13,7 +13,7 @@ namespace OpenCVForUnityExample
     /// Polygon Filter Example
     /// Referring to http://jsdo.it/hedger/tIod.
     /// </summary>
-    [RequireComponent(typeof(WebCamTextureToMatHelper), typeof(ImageOptimizationHelper))]
+    [RequireComponent (typeof(WebCamTextureToMatHelper), typeof(ImageOptimizationHelper))]
     public class PolygonFilterExample : MonoBehaviour
     {
         /// <summary>
@@ -76,10 +76,6 @@ namespace OpenCVForUnityExample
         /// </summary>
         FpsMonitor fpsMonitor;
 
-        #if UNITY_ANDROID && !UNITY_EDITOR
-        float rearCameraRequestedFPS;
-        #endif
-
         // Use this for initialization
         void Start ()
         {
@@ -89,19 +85,10 @@ namespace OpenCVForUnityExample
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
 
             #if UNITY_ANDROID && !UNITY_EDITOR
-            // Set the requestedFPS parameter to avoid the problem of the WebCamTexture image becoming low light on some Android devices. (Pixel, pixel 2)
-            // https://forum.unity.com/threads/android-webcamtexture-in-low-light-only-some-models.520656/
-            // https://forum.unity.com/threads/released-opencv-for-unity.277080/page-33#post-3445178
-            rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
-            if (webCamTextureToMatHelper.requestedIsFrontFacing) {                
-                webCamTextureToMatHelper.requestedFPS = 15;
-                webCamTextureToMatHelper.Initialize ();
-            } else {
-                webCamTextureToMatHelper.Initialize ();
-            }
-            #else
-            webCamTextureToMatHelper.Initialize ();
+            // Avoids the front camera low light issue that occurs in only some Android devices (e.g. Google Pixel, Pixel2).
+            webCamTextureToMatHelper.avoidAndroidFrontCameraLowLightIssue = true;
             #endif
+            webCamTextureToMatHelper.Initialize ();
         }
 
         /// <summary>
@@ -120,10 +107,10 @@ namespace OpenCVForUnityExample
             gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
-            if (fpsMonitor != null){
-                fpsMonitor.Add ("width", webCamTextureMat.width ().ToString());
-                fpsMonitor.Add ("height", webCamTextureMat.height ().ToString());
-                fpsMonitor.Add ("orientation", Screen.orientation.ToString());
+            if (fpsMonitor != null) {
+                fpsMonitor.Add ("width", webCamTextureMat.width ().ToString ());
+                fpsMonitor.Add ("height", webCamTextureMat.height ().ToString ());
+                fpsMonitor.Add ("orientation", Screen.orientation.ToString ());
             }
 
                                     
@@ -184,7 +171,7 @@ namespace OpenCVForUnityExample
             }
 
             if (texture != null) {
-                Texture2D.Destroy(texture);
+                Texture2D.Destroy (texture);
                 texture = null;
             }
         }
@@ -248,7 +235,7 @@ namespace OpenCVForUnityExample
 
 
                 //init subdiv
-                subdiv.initDelaunay (new OpenCVForUnity.Rect (0, 0, downScaleRgbaMat.width (), downScaleRgbaMat.height ()));
+                subdiv.initDelaunay (new OpenCVForUnity.CoreModule.Rect (0, 0, downScaleRgbaMat.width (), downScaleRgbaMat.height ()));
                 for (int i = 0; i < pointList.Count; i++) {
                     subdiv.insert (pointList [i]);
                 }
@@ -262,7 +249,7 @@ namespace OpenCVForUnityExample
                 subdiv.insert (new Point (0, gray1Mat.height () / 2 - 1));
 
 
-                using (MatOfFloat6 triangleList = new MatOfFloat6()) {
+                using (MatOfFloat6 triangleList = new MatOfFloat6 ()) {
                     subdiv.getTriangleList (triangleList);
                 
                     float[] pointArray = triangleList.toArray ();
@@ -270,7 +257,7 @@ namespace OpenCVForUnityExample
                     if (downScaleRatio < 1)
                         downScaleRatio = 1;
                     byte[] color = new byte[4];
-                    for (int i = 0; i < pointArray.Length/6; i++) {
+                    for (int i = 0; i < pointArray.Length / 6; i++) {
                     
                         Point p0 = new Point (pointArray [i * 6 + 0] * downScaleRatio, pointArray [i * 6 + 1] * downScaleRatio);
                         Point p1 = new Point (pointArray [i * 6 + 2] * downScaleRatio, pointArray [i * 6 + 3] * downScaleRatio);
@@ -309,12 +296,12 @@ namespace OpenCVForUnityExample
                     }
                 }
 
-                //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " DOWNSCALE W:" + downScaleRgbaMat.width () + " H:" + downScaleRgbaMat.height (), new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+//                Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " DOWNSCALE W:" + downScaleRgbaMat.width () + " H:" + downScaleRgbaMat.height (), new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
                 Utils.fastMatToTexture2D (rgbaMat, texture);
             }
         }
-    
+
         /// <summary>
         /// Raises the destroy event.
         /// </summary>
@@ -329,11 +316,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
 
         /// <summary>
@@ -365,16 +348,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnChangeCameraButtonClick ()
         {
-            #if UNITY_ANDROID && !UNITY_EDITOR
-            if (!webCamTextureToMatHelper.IsFrontFacing ()) {
-                rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
-                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), 15, webCamTextureToMatHelper.rotate90Degree);
-            } else {                
-                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), rearCameraRequestedFPS, webCamTextureToMatHelper.rotate90Degree);
-            }
-            #else
             webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing ();
-            #endif
         }
     }
 }

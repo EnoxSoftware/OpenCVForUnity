@@ -1,13 +1,15 @@
 ﻿#if !UNITY_WSA_10_0
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgcodecsModule;
+using OpenCVForUnity.DnnModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -118,15 +120,14 @@ namespace OpenCVForUnityExample
         string openpose_pose_mpi_faster_4_stages_prototxt_filepath;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
-        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
+        IEnumerator getFilePath_Coroutine;
         #endif
 
         // Use this for initialization
         void Start ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
-            var getFilePath_Coroutine = GetFilePath ();
-            coroutines.Push (getFilePath_Coroutine);
+            getFilePath_Coroutine = GetFilePath ();
             StartCoroutine (getFilePath_Coroutine);
             #else
             COCO_val2014_000000000589_jpg_filepath = Utils.getFilePath ("dnn/COCO_val2014_000000000589.jpg");
@@ -142,22 +143,19 @@ namespace OpenCVForUnityExample
             var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("dnn/COCO_val2014_000000000589.jpg", (result) => {
                 COCO_val2014_000000000589_jpg_filepath = result;
             });
-            coroutines.Push (getFilePathAsync_0_Coroutine);
-            yield return StartCoroutine (getFilePathAsync_0_Coroutine);
+            yield return getFilePathAsync_0_Coroutine;
 
             var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("dnn/pose_iter_160000.caffemodel", (result) => {
                 pose_iter_160000_caffemodel_filepath = result;
             });
-            coroutines.Push (getFilePathAsync_1_Coroutine);
-            yield return StartCoroutine (getFilePathAsync_1_Coroutine);
+            yield return getFilePathAsync_1_Coroutine;
 
             var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync ("dnn/openpose_pose_mpi_faster_4_stages.prototxt", (result) => {
                 openpose_pose_mpi_faster_4_stages_prototxt_filepath = result;
             });
-            coroutines.Push (getFilePathAsync_2_Coroutine);
-            yield return StartCoroutine (getFilePathAsync_2_Coroutine);
+            yield return getFilePathAsync_2_Coroutine;
 
-            coroutines.Clear ();
+            getFilePath_Coroutine = null;
 
             Run ();
         }
@@ -199,7 +197,7 @@ namespace OpenCVForUnityExample
             Net net = null;
            
             if (string.IsNullOrEmpty (pose_iter_160000_caffemodel_filepath) || string.IsNullOrEmpty (openpose_pose_mpi_faster_4_stages_prototxt_filepath)) {
-                Debug.LogError ("model file is not loaded.The model and prototxt file can be downloaded here: \"http://posefs1.perception.cs.cmu.edu/OpenPose/models/pose/mpi/pose_iter_160000.caffemodel\",\"https://github.com/opencv/opencv_extra/blob/master/testdata/dnn/openpose_pose_mpi_faster_4_stages.prototxt\".Please copy to “Assets/StreamingAssets/dnn/” folder. ");
+                Debug.LogError ("model file is not loaded. The model and prototxt file can be downloaded here: \"http://posefs1.perception.cs.cmu.edu/OpenPose/models/pose/mpi/pose_iter_160000.caffemodel\",\"https://github.com/opencv/opencv_extra/blob/master/testdata/dnn/openpose_pose_mpi_faster_4_stages.prototxt\". Please copy to “Assets/StreamingAssets/dnn/” folder. ");
             } else {
                 net = Dnn.readNetFromCaffe (openpose_pose_mpi_faster_4_stages_prototxt_filepath, pose_iter_160000_caffemodel_filepath);
 
@@ -209,8 +207,8 @@ namespace OpenCVForUnityExample
 
             if (net == null) {
 
-                Imgproc.putText (img, "model file is not loaded.", new Point (5, img.rows () - 30), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255), 2, Imgproc.LINE_AA, false);
-                Imgproc.putText (img, "Please read console message.", new Point (5, img.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255), 2, Imgproc.LINE_AA, false);
+                Imgproc.putText (img, "model file is not loaded.", new Point (5, img.rows () - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255), 2, Imgproc.LINE_AA, false);
+                Imgproc.putText (img, "Please read console message.", new Point (5, img.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255), 2, Imgproc.LINE_AA, false);
 
             } else {
 
@@ -286,7 +284,7 @@ namespace OpenCVForUnityExample
                 double freq = Core.getTickFrequency () / 1000;
                 Debug.Log ("freq: " + freq);
 
-                Imgproc.putText (img, (t / freq) + "ms", new Point (10, img.height () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.6, new Scalar (0, 0, 255), 2);
+                Imgproc.putText (img, (t / freq) + "ms", new Point (10, img.height () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.6, new Scalar (0, 0, 255), 2);
             }
             
             Imgproc.cvtColor (img, img, Imgproc.COLOR_BGR2RGB);
@@ -309,15 +307,24 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
+        /// Raises the disable event.
+        /// </summary>
+        void OnDisable ()
+        {
+            #if UNITY_WEBGL && !UNITY_EDITOR
+            if (getFilePath_Coroutine != null) {
+                StopCoroutine (getFilePath_Coroutine);
+                ((IDisposable)getFilePath_Coroutine).Dispose ();
+            }
+            #endif
+        }
+
+        /// <summary>
         /// Raises the back button click event.
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
     }
 }

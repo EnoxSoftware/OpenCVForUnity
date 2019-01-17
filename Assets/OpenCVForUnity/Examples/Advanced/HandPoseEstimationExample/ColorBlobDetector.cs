@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
-using OpenCVForUnity;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
 
 namespace OpenCVForUnityExample
 {
@@ -24,12 +24,12 @@ namespace OpenCVForUnityExample
         private Mat mMask = new Mat ();
         private Mat mDilatedMask = new Mat ();
         private Mat mHierarchy = new Mat ();
-    
+
         public void SetColorRadius (Scalar radius)
         {
             mColorRadius = radius;
         }
-    
+
         public void SetHsvColor (Scalar hsvColor)
         {
             double minH = (hsvColor.val [0] >= mColorRadius.val [0]) ? hsvColor.val [0] - mColorRadius.val [0] : 0;
@@ -56,17 +56,17 @@ namespace OpenCVForUnityExample
                 Imgproc.cvtColor (spectrumHsv, mSpectrum, Imgproc.COLOR_HSV2RGB_FULL, 4);
             }
         }
-    
+
         public Mat GetSpectrum ()
         {
             return mSpectrum;
         }
-    
+
         public void SetMinContourArea (double area)
         {
             mMinContourArea = area;
         }
-    
+
         public void Process (Mat rgbaImage)
         {
             Imgproc.pyrDown (rgbaImage, mPyrDownMat);
@@ -100,13 +100,13 @@ namespace OpenCVForUnityExample
                 }
             }
         }
-    
+
         public List<MatOfPoint> GetContours ()
         {
             return mContours;
         }
 
-        public void Dispose()
+        public void Dispose ()
         {
             mSpectrum.Dispose ();
             mPyrDownMat.Dispose ();

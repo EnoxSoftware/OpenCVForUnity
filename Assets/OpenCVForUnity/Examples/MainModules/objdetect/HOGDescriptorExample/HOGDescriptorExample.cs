@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.VideoioModule;
+using OpenCVForUnity.ObjdetectModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -36,7 +38,7 @@ namespace OpenCVForUnityExample
         HOGDescriptor des;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
-        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
+        IEnumerator getFilePath_Coroutine;
         #endif
 
         // Use this for initialization
@@ -45,13 +47,12 @@ namespace OpenCVForUnityExample
             capture = new VideoCapture ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
-            var getFilePath_Coroutine = Utils.getFilePathAsync("768x576_mjpeg.mjpeg", (result) => {
-            coroutines.Clear ();
+            getFilePath_Coroutine = Utils.getFilePathAsync("768x576_mjpeg.mjpeg", (result) => {
+                getFilePath_Coroutine = null;
 
-            capture.open (result);
-            Init();
+                capture.open (result);
+                Init();
             });
-            coroutines.Push (getFilePath_Coroutine);
             StartCoroutine (getFilePath_Coroutine);
             #else
             capture.open (Utils.getFilePath ("768x576_mjpeg.mjpeg"));
@@ -68,7 +69,6 @@ namespace OpenCVForUnityExample
             }
 
             Debug.Log ("CAP_PROP_FORMAT: " + capture.get (Videoio.CAP_PROP_FORMAT));
-            Debug.Log ("CV_CAP_PROP_PREVIEW_FORMAT: " + capture.get (Videoio.CV_CAP_PROP_PREVIEW_FORMAT));
             Debug.Log ("CAP_PROP_POS_MSEC: " + capture.get (Videoio.CAP_PROP_POS_MSEC));
             Debug.Log ("CAP_PROP_POS_FRAMES: " + capture.get (Videoio.CAP_PROP_POS_FRAMES));
             Debug.Log ("CAP_PROP_POS_AVI_RATIO: " + capture.get (Videoio.CAP_PROP_POS_AVI_RATIO));
@@ -119,13 +119,13 @@ namespace OpenCVForUnityExample
                     des.setSVMDetector (HOGDescriptor.getDefaultPeopleDetector ());
                     des.detectMultiScale (rgbMat, locations, weights);
 
-                    OpenCVForUnity.Rect[] rects = locations.toArray ();
+                    OpenCVForUnity.CoreModule.Rect[] rects = locations.toArray ();
                     for (int i = 0; i < rects.Length; i++) {
-//                                              Debug.Log ("detected person " + rects [i]);
+                        //Debug.Log ("detected person " + rects [i]);
                         Imgproc.rectangle (rgbMat, new Point (rects [i].x, rects [i].y), new Point (rects [i].x + rects [i].width, rects [i].y + rects [i].height), new Scalar (255, 0, 0), 2);
                     }
-//                                      Debug.Log (locations.ToString ());
-//                                      Debug.Log (weights.ToString ());
+                    //Debug.Log (locations.ToString ());
+                    //Debug.Log (weights.ToString ());
                 }
 
                 
@@ -152,6 +152,13 @@ namespace OpenCVForUnityExample
 
             if (des != null)
                 des.Dispose ();
+
+            #if UNITY_WEBGL && !UNITY_EDITOR
+            if (getFilePath_Coroutine != null) {
+                StopCoroutine (getFilePath_Coroutine);
+                ((IDisposable)getFilePath_Coroutine).Dispose ();
+            }
+            #endif
         }
 
         /// <summary>
@@ -159,11 +166,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
     }
 }

@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
-
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-using UnityEngine.SceneManagement;
-#endif
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -43,7 +41,7 @@ namespace OpenCVForUnityExample
         {
             Dictionary<string, string> dicSystemInfo = new Dictionary<string, string> ();
 
-            dicSystemInfo.Add ("OpenCVForUnity version", OpenCVForUnity.Core.NATIVE_LIBRARY_NAME + " " + OpenCVForUnity.Utils.getVersion () + " (" + OpenCVForUnity.Core.VERSION + ")");
+            dicSystemInfo.Add ("OpenCVForUnity version", Core.NATIVE_LIBRARY_NAME + " " + Utils.getVersion () + " (" + Core.VERSION + ")");
             dicSystemInfo.Add ("Build Unity version", Application.unityVersion);
 
             #if UNITY_EDITOR
@@ -106,7 +104,7 @@ namespace OpenCVForUnityExample
             dicSystemInfo.Add ("graphicsShaderLevel", SystemInfo.graphicsShaderLevel.ToString ());
             
             #if UNITY_5_4_OR_NEWER
-            dicSystemInfo.Add("copyTextureSupport", SystemInfo.copyTextureSupport.ToString());
+            dicSystemInfo.Add ("copyTextureSupport", SystemInfo.copyTextureSupport.ToString ());
             #else
             dicSystemInfo.Add ("copyTextureSupport", "");
             #endif
@@ -121,11 +119,7 @@ namespace OpenCVForUnityExample
 
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
     }
 }

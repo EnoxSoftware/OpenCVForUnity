@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using System.Collections.Generic;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -27,7 +26,7 @@ namespace OpenCVForUnityExample
             Core.randu (pointsMat, 100, 400);
 
             Point[] points = pointsMat.toArray ();
-            for (int i=0; i<rand_num; ++i) {
+            for (int i = 0; i < rand_num; ++i) {
                 Imgproc.circle (imgMat, points [i], 2, new Scalar (255, 255, 255), -1);
             }
 
@@ -40,7 +39,7 @@ namespace OpenCVForUnityExample
             List<int> hullIntList = hullInt.toList ();
             List<Point> hullPointList = new List<Point> ();
 
-            for (int j=0; j < hullInt.toList().Count; j++) {
+            for (int j = 0; j < hullInt.toList ().Count; j++) {
                 hullPointList.Add (pointMatList [hullIntList [j]]);
             }
 
@@ -72,11 +71,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
     }
 }

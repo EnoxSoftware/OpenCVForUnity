@@ -9,34 +9,33 @@ namespace OpenCVForUnityExample
     {
         public GameObject Cube;
         public float Speed = 0.1f;
-    
+
         void Update ()
         {
             #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
 
-        //Touch
-        int touchCount = Input.touchCount;
+            //Touch
+            int touchCount = Input.touchCount;
         
-        if (touchCount == 1)
-        {
+            if (touchCount == 1)
+            {            
+                Touch t = Input.GetTouch (0);
+                if (EventSystem.current.IsPointerOverGameObject (t.fingerId))
+                    return;
             
-            Touch t = Input.GetTouch(0);
-            if(EventSystem.current.IsPointerOverGameObject(t.fingerId))return;
-            
-            switch (t.phase)
-            {
-            case TouchPhase.Moved:
+                switch (t.phase)
+                {
+                case TouchPhase.Moved:
                 
-                float xAngle = t.deltaPosition.y * Speed;
-                float yAngle = -t.deltaPosition.x * Speed;
-                float zAngle = 0;
+                    float xAngle = t.deltaPosition.y * Speed;
+                    float yAngle = -t.deltaPosition.x * Speed;
+                    float zAngle = 0;
                 
-                Cube.transform.Rotate(xAngle, yAngle, zAngle, Space.World);
+                    Cube.transform.Rotate (xAngle, yAngle, zAngle, Space.World);
                 
-                break;
+                    break;
+                }            
             }
-            
-        }
 
             #else
             //Mouse

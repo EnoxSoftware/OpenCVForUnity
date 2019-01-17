@@ -1,14 +1,16 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Xml.Serialization;
 using System.IO;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using System.Collections;
+using System.Collections.Generic;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ArucoModule;
+using OpenCVForUnity.Calib3dModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.UnityUtils.Helper;
 
 namespace OpenCVForUnityExample
 {
@@ -18,7 +20,7 @@ namespace OpenCVForUnityExample
     /// Referring to https://github.com/opencv/opencv_contrib/blob/master/modules/aruco/samples/detect_markers.cpp.
     /// http://docs.opencv.org/3.1.0/d5/dae/tutorial_aruco_detection.html
     /// </summary>
-    [RequireComponent(typeof(WebCamTextureToMatHelper))]
+    [RequireComponent (typeof(WebCamTextureToMatHelper))]
     public class ArUcoWebCamTextureExample : MonoBehaviour
     {
         /// <summary>
@@ -71,7 +73,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public Toggle refineMarkerDetectionToggle;
 
-        [Space(10)]
+        [Space (10)]
         
         /// <summary>
         /// The length of the markers' side. Normally, unit is meters.
@@ -88,14 +90,14 @@ namespace OpenCVForUnityExample
         /// </summary>
         public Camera arCamera;
 
-        [Space(10)]
+        [Space (10)]
 
         /// <summary>
         /// Determines if request the AR camera moving.
         /// </summary>
-        public bool shouldMoveARCamera = false;        
+        public bool shouldMoveARCamera = false;
         
-        [Space(10)]
+        [Space (10)]
 
         /// <summary>
         /// Determines if enable low pass filter.
@@ -240,10 +242,6 @@ namespace OpenCVForUnityExample
         const int diamondId4 = 74;
         List<Mat> diamondCorners;
         Mat diamondIds;
-
-        #if UNITY_ANDROID && !UNITY_EDITOR
-        float rearCameraRequestedFPS;
-        #endif
         
         // Use this for initialization
         void Start ()
@@ -260,21 +258,12 @@ namespace OpenCVForUnityExample
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
 
             #if UNITY_ANDROID && !UNITY_EDITOR
-            // Set the requestedFPS parameter to avoid the problem of the WebCamTexture image becoming low light on some Android devices. (Pixel, pixel 2)
-            // https://forum.unity.com/threads/android-webcamtexture-in-low-light-only-some-models.520656/
-            // https://forum.unity.com/threads/released-opencv-for-unity.277080/page-33#post-3445178
-            rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
-            if (webCamTextureToMatHelper.requestedIsFrontFacing) {                
-                webCamTextureToMatHelper.requestedFPS = 15;
-                webCamTextureToMatHelper.Initialize ();
-            } else {
-                webCamTextureToMatHelper.Initialize ();
-            }
-            #else
-            webCamTextureToMatHelper.Initialize ();
+            // Avoids the front camera low light issue that occurs in only some Android devices (e.g. Google Pixel, Pixel2).
+            webCamTextureToMatHelper.avoidAndroidFrontCameraLowLightIssue = true;
             #endif
+            webCamTextureToMatHelper.Initialize ();
         }
-        
+
         /// <summary>
         /// Raises the webcam texture to mat helper initialized event.
         /// </summary>
@@ -291,10 +280,10 @@ namespace OpenCVForUnityExample
             gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
-            if (fpsMonitor != null){
-                fpsMonitor.Add ("width", webCamTextureMat.width ().ToString());
-                fpsMonitor.Add ("height", webCamTextureMat.height ().ToString());
-                fpsMonitor.Add ("orientation", Screen.orientation.ToString());
+            if (fpsMonitor != null) {
+                fpsMonitor.Add ("width", webCamTextureMat.width ().ToString ());
+                fpsMonitor.Add ("height", webCamTextureMat.height ().ToString ());
+                fpsMonitor.Add ("orientation", Screen.orientation.ToString ());
             }
 
             
@@ -324,18 +313,18 @@ namespace OpenCVForUnityExample
             string loadPath = Path.Combine (loadCalibratonFileDirectoryPath, calibratonDirectoryName + ".xml");
             if (useStoredCameraParameters && File.Exists (loadPath)) {
                 CameraParameters param;
-                XmlSerializer serializer = new XmlSerializer( typeof( CameraParameters ) );
+                XmlSerializer serializer = new XmlSerializer (typeof(CameraParameters));
                 using (var stream = new FileStream (loadPath, FileMode.Open)) {
                     param = (CameraParameters)serializer.Deserialize (stream);
                 }
 
                 camMatrix = param.GetCameraMatrix ();
-                distCoeffs = new MatOfDouble(param.GetDistortionCoefficients ());
+                distCoeffs = new MatOfDouble (param.GetDistortionCoefficients ());
 
-                fx = param.camera_matrix[0];
-                fy = param.camera_matrix[4];
-                cx = param.camera_matrix[2];
-                cy = param.camera_matrix[5];
+                fx = param.camera_matrix [0];
+                fy = param.camera_matrix [4];
+                cx = param.camera_matrix [2];
+                cy = param.camera_matrix [5];
 
                 Debug.Log ("Loaded CameraParameters from a stored XML file.");
                 Debug.Log ("loadPath: " + loadPath);
@@ -431,7 +420,7 @@ namespace OpenCVForUnityExample
 
             diamondCorners = new List<Mat> ();
             diamondIds = new Mat (1, 1, CvType.CV_32SC4);
-            diamondIds.put (0, 0, new int[] {diamondId1,diamondId2,diamondId3,diamondId4});
+            diamondIds.put (0, 0, new int[] { diamondId1, diamondId2, diamondId3, diamondId4 });
 
 
             // if WebCamera is frontFaceing, flip Mat.
@@ -439,7 +428,7 @@ namespace OpenCVForUnityExample
                 webCamTextureToMatHelper.flipHorizontal = true;
             }
         }
-        
+
         /// <summary>
         /// Raises the webcam texture to mat helper disposed event.
         /// </summary>
@@ -451,7 +440,7 @@ namespace OpenCVForUnityExample
                 rgbMat.Dispose ();
 
             if (texture != null) {
-                Texture2D.Destroy(texture);
+                Texture2D.Destroy (texture);
                 texture = null;
             }
 
@@ -582,7 +571,7 @@ namespace OpenCVForUnityExample
                     Aruco.drawDetectedMarkers (rgbMat, rejectedCorners, new Mat (), new Scalar (255, 0, 0));
                 
                 
-                //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+//                Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
                 Utils.fastMatToTexture2D (rgbMat, texture);
             }
@@ -592,10 +581,9 @@ namespace OpenCVForUnityExample
         {
             Aruco.estimatePoseSingleMarkers (corners, markerLength, camMatrix, distCoeffs, rvecs, tvecs);
 
-            for (int i = 0; i < ids.total(); i++) {
-                using (Mat rvec = new Mat(rvecs, new OpenCVForUnity.Rect(0,i,1,1)))
-                using (Mat tvec = new Mat(tvecs, new OpenCVForUnity.Rect(0,i,1,1)))
-                {
+            for (int i = 0; i < ids.total (); i++) {
+                using (Mat rvec = new Mat (rvecs, new OpenCVForUnity.CoreModule.Rect (0, i, 1, 1)))
+                using (Mat tvec = new Mat (tvecs, new OpenCVForUnity.CoreModule.Rect (0, i, 1, 1))) {
                     // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
                     Aruco.drawAxis (rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
 
@@ -640,10 +628,9 @@ namespace OpenCVForUnityExample
         {
             Aruco.estimatePoseSingleMarkers (diamondCorners, diamondSquareLength, camMatrix, distCoeffs, rvecs, tvecs);
 
-            for (int i = 0; i < rvecs.total(); i++) {
-                using (Mat rvec = new Mat(rvecs, new OpenCVForUnity.Rect(0,i,1,1)))
-                using (Mat tvec = new Mat(tvecs, new OpenCVForUnity.Rect(0,i,1,1)))
-                {
+            for (int i = 0; i < rvecs.total (); i++) {
+                using (Mat rvec = new Mat (rvecs, new OpenCVForUnity.CoreModule.Rect (0, i, 1, 1)))
+                using (Mat tvec = new Mat (tvecs, new OpenCVForUnity.CoreModule.Rect (0, i, 1, 1))) {
                     // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
                     Aruco.drawAxis (rgbMat, camMatrix, distCoeffs, rvec, tvec, diamondSquareLength * 0.5f);
 
@@ -658,7 +645,11 @@ namespace OpenCVForUnityExample
         private void UpdateARObjectTransform (Mat rvec, Mat tvec)
         {
             // Convert to unity pose data.
-            PoseData poseData = ARUtils.ConvertRvecTvecToPoseData (rvec.get (0, 0), tvec.get (0, 0));
+            double[] rvecArr = new double[3];
+            rvec.get (0, 0, rvecArr);
+            double[] tvecArr = new double[3];
+            tvec.get (0, 0, tvecArr);
+            PoseData poseData = ARUtils.ConvertRvecTvecToPoseData (rvecArr, tvecArr);
 
             // Changes in pos/rot below these thresholds are ignored.
             if (enableLowPassFilter) {
@@ -690,7 +681,7 @@ namespace OpenCVForUnityExample
             ARUtils.SetTransformFromMatrix (arCamera.transform, ref i);
             ARUtils.SetTransformFromMatrix (arGameObject.transform, ref i);
         }
-        
+
         /// <summary>
         /// Raises the destroy event.
         /// </summary>
@@ -698,19 +689,15 @@ namespace OpenCVForUnityExample
         {
             webCamTextureToMatHelper.Dispose ();
         }
-        
+
         /// <summary>
         /// Raises the back button click event.
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
-        
+
         /// <summary>
         /// Raises the play button click event.
         /// </summary>
@@ -718,7 +705,7 @@ namespace OpenCVForUnityExample
         {
             webCamTextureToMatHelper.Play ();
         }
-        
+
         /// <summary>
         /// Raises the pause button click event.
         /// </summary>
@@ -726,7 +713,7 @@ namespace OpenCVForUnityExample
         {
             webCamTextureToMatHelper.Pause ();
         }
-        
+
         /// <summary>
         /// Raises the stop button click event.
         /// </summary>
@@ -734,28 +721,19 @@ namespace OpenCVForUnityExample
         {
             webCamTextureToMatHelper.Stop ();
         }
-        
+
         /// <summary>
         /// Raises the change camera button click event.
         /// </summary>
         public void OnChangeCameraButtonClick ()
         {
-            #if UNITY_ANDROID && !UNITY_EDITOR
-            if (!webCamTextureToMatHelper.IsFrontFacing ()) {
-                rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
-                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), 15, webCamTextureToMatHelper.rotate90Degree);
-            } else {                
-                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), rearCameraRequestedFPS, webCamTextureToMatHelper.rotate90Degree);
-            }
-            #else
             webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing ();
-            #endif
         }
 
         /// <summary>
         /// Raises the marker type dropdown value changed event.
         /// </summary>
-        public void OnMarkerTypeDropdownValueChanged(int result)
+        public void OnMarkerTypeDropdownValueChanged (int result)
         {
             if ((int)markerType != result) {
                 markerType = (MarkerType)result;
@@ -764,7 +742,7 @@ namespace OpenCVForUnityExample
 
                 ResetObjectTransform ();
 
-                if (webCamTextureToMatHelper.IsInitialized())
+                if (webCamTextureToMatHelper.IsInitialized ())
                     webCamTextureToMatHelper.Initialize ();
             }
         }
@@ -772,7 +750,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Raises the dictionary id dropdown value changed event.
         /// </summary>
-        public void OnDictionaryIdDropdownValueChanged(int result)
+        public void OnDictionaryIdDropdownValueChanged (int result)
         {
             if ((int)dictionaryId != result) {
                 dictionaryId = (ArUcoDictionary)result;
@@ -780,7 +758,7 @@ namespace OpenCVForUnityExample
 
                 ResetObjectTransform ();
 
-                if (webCamTextureToMatHelper.IsInitialized())
+                if (webCamTextureToMatHelper.IsInitialized ())
                     webCamTextureToMatHelper.Initialize ();
             }
         }
@@ -800,7 +778,7 @@ namespace OpenCVForUnityExample
         {
             refineMarkerDetection = refineMarkerDetectionToggle.isOn;
         }
-        
+
         
         /// <summary>
         /// Raises the enable low pass filter toggle value changed event.

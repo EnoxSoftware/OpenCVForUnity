@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using System.Collections;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.ShapeModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnitySample
 {
@@ -28,7 +28,7 @@ namespace OpenCVForUnitySample
             Debug.Log ("imgMat.ToString() " + img.ToString ());
 
 
-            OpenCVForUnity.ThinPlateSplineShapeTransformer tps = Shape.createThinPlateSplineShapeTransformer (0);
+            OpenCVForUnity.ShapeModule.ThinPlateSplineShapeTransformer tps = Shape.createThinPlateSplineShapeTransformer (0);
             MatOfPoint2f sourcePoints = new MatOfPoint2f (
                                             new Point (0, 0),
                                             new Point (512, 0),
@@ -115,11 +115,7 @@ namespace OpenCVForUnitySample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
     }
 }

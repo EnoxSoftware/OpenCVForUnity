@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
-using OpenCVForUnity;
+using OpenCVForUnity.CoreModule;
 
 namespace OpenCVForUnityExample
 {
@@ -72,27 +71,27 @@ namespace OpenCVForUnityExample
             
             }
         }
-    
+
         public int getXPos ()
         {
             return xPos;
         }
-    
+
         public void setXPos (int x)
         {
             xPos = x;
         }
-    
+
         public int getYPos ()
         {
             return yPos;
         }
-    
+
         public void setYPos (int y)
         {
             yPos = y;
         }
-    
+
         public Scalar getHSVmin ()
         {
             return HSVmin;
@@ -102,12 +101,12 @@ namespace OpenCVForUnityExample
         {
             return HSVmax;
         }
-    
+
         public void setHSVmin (Scalar min)
         {
             HSVmin = min;
         }
-    
+
         public void setHSVmax (Scalar max)
         {
             HSVmax = max;
@@ -131,6 +130,6 @@ namespace OpenCVForUnityExample
         public void setColor (Scalar c)
         { 
             Color = c; 
-        } 
+        }
     }
 }

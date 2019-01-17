@@ -1,14 +1,15 @@
 ﻿#if !UNITY_WSA_10_0
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.TextModule;
+using OpenCVForUnity.ImgcodecsModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -24,15 +25,14 @@ namespace OpenCVForUnityExample
         string trained_classifierNM2_xml_filepath;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
-        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
+        IEnumerator getFilePath_Coroutine;
         #endif
 
         // Use this for initialization
         void Start ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
-            var getFilePath_Coroutine = GetFilePath ();
-            coroutines.Push (getFilePath_Coroutine);
+            getFilePath_Coroutine = GetFilePath ();
             StartCoroutine (getFilePath_Coroutine);
             #else
             scenetext01_jpg_filepath = Utils.getFilePath ("text/scenetext01.jpg");
@@ -47,25 +47,22 @@ namespace OpenCVForUnityExample
         {
             var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("text/scenetext01.jpg", (result) => {
                 scenetext01_jpg_filepath = result;
-        });
-        coroutines.Push (getFilePathAsync_0_Coroutine);
-        yield return StartCoroutine (getFilePathAsync_0_Coroutine);
+            });
+            yield return getFilePathAsync_0_Coroutine;
 
             var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("text/trained_classifierNM1.xml", (result) => {
                 trained_classifierNM1_xml_filepath = result;
-        });
-        coroutines.Push (getFilePathAsync_1_Coroutine);
-        yield return StartCoroutine (getFilePathAsync_1_Coroutine);
+            });
+            yield return getFilePathAsync_1_Coroutine;
 
             var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync ("text/trained_classifierNM2.xml", (result) => {
                 trained_classifierNM2_xml_filepath = result;
-        });
-        coroutines.Push (getFilePathAsync_2_Coroutine);
-        yield return StartCoroutine (getFilePathAsync_2_Coroutine);
+            });
+            yield return getFilePathAsync_2_Coroutine;
 
-        coroutines.Clear ();
+            getFilePath_Coroutine = null;
 
-        Run ();
+            Run ();
         }
         #endif
 
@@ -78,7 +75,7 @@ namespace OpenCVForUnityExample
             Mat img = Imgcodecs.imread (scenetext01_jpg_filepath);
             #if !UNITY_WSA_10_0
             if (img.empty ()) {
-                Debug.LogError ("text/scenetext01.jpg is not loaded.Please copy from “OpenCVForUnity/StreamingAssets/text/” to “Assets/StreamingAssets/” folder. ");
+                Debug.LogError ("text/scenetext01.jpg is not loaded. Please copy from “OpenCVForUnity/StreamingAssets/text/” to “Assets/StreamingAssets/” folder. ");
             }
             #endif
 
@@ -114,7 +111,7 @@ namespace OpenCVForUnityExample
                 Text.erGrouping (img, channel, regions, matOfRects);
 //                Text.erGrouping (img, channel, regions, matOfRects, Text.ERGROUPING_ORIENTATION_ANY, Utils.getFilePath ("text/trained_classifier_erGrouping.xml"), 0.5f);
                
-                List<OpenCVForUnity.Rect> rects = matOfRects.toList ();
+                List<OpenCVForUnity.CoreModule.Rect> rects = matOfRects.toList ();
 
                 //#Visualization
                 foreach (var rect in rects) {
@@ -148,9 +145,9 @@ namespace OpenCVForUnityExample
         void OnDestroy ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
-            foreach (var coroutine in coroutines) {
-                StopCoroutine (coroutine);
-                ((IDisposable)coroutine).Dispose ();
+            if (getFilePath_Coroutine != null) {
+                StopCoroutine (getFilePath_Coroutine);
+                ((IDisposable)getFilePath_Coroutine).Dispose ();
             }
             #endif
         }
@@ -160,11 +157,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
     }
 }

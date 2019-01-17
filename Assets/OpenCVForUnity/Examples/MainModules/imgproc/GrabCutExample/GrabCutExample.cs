@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using System.Collections;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -33,7 +32,7 @@ namespace OpenCVForUnityExample
             Debug.Log ("mask.ToString() " + mask.ToString ());
 
 
-            OpenCVForUnity.Rect rectangle = new OpenCVForUnity.Rect (10, 10, image.cols () - 20, image.rows () - 20);
+            OpenCVForUnity.CoreModule.Rect rectangle = new OpenCVForUnity.CoreModule.Rect (10, 10, image.cols () - 20, image.rows () - 20);
 
             Mat bgdModel = new Mat (); // extracted features for background
             Mat fgdModel = new Mat (); // extracted features for foreground
@@ -116,11 +115,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
     }
 }

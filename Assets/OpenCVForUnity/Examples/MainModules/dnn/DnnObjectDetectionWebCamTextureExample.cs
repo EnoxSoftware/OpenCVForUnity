@@ -1,15 +1,17 @@
 #if !UNITY_WSA_10_0
 
-using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using System.Linq;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
+using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.DnnModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.UnityUtils.Helper;
 
 namespace OpenCVForUnityExample
 {
@@ -80,10 +82,6 @@ namespace OpenCVForUnityExample
         /// </summary>
         FpsMonitor fpsMonitor;
 
-        #if UNITY_ANDROID && !UNITY_EDITOR
-        float rearCameraRequestedFPS;
-        #endif
-
 
         List<string> classNames;
         List<string> outBlobNames;
@@ -94,7 +92,7 @@ namespace OpenCVForUnityExample
         string model_filepath;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
-        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
+        IEnumerator getFilePath_Coroutine;
         #endif
 
         // Use this for initialization
@@ -105,8 +103,7 @@ namespace OpenCVForUnityExample
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
-            var getFilePath_Coroutine = GetFilePath ();
-            coroutines.Push (getFilePath_Coroutine);
+            getFilePath_Coroutine = GetFilePath ();
             StartCoroutine (getFilePath_Coroutine);
             #else
             classes_filepath = Utils.getFilePath ("dnn/" + classes);
@@ -119,25 +116,28 @@ namespace OpenCVForUnityExample
         #if UNITY_WEBGL && !UNITY_EDITOR
         private IEnumerator GetFilePath ()
         {
-var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("dnn/"+classes, (result) => {
-classes_filepath = result;
-});
-coroutines.Push (getFilePathAsync_0_Coroutine);
-yield return StartCoroutine (getFilePathAsync_0_Coroutine);
+            if (!string.IsNullOrEmpty (classes)) {
+                var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("dnn/" + classes, (result) => {
+                    classes_filepath = result;
+                });
+                yield return getFilePathAsync_0_Coroutine;
+            }
 
-            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("dnn/"+config, (result) => {
-config_filepath = result;
-});
-coroutines.Push (getFilePathAsync_1_Coroutine);
-yield return StartCoroutine (getFilePathAsync_1_Coroutine);
+            if (!string.IsNullOrEmpty (config)) {
+                var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("dnn/" + config, (result) => {
+                    config_filepath = result;
+                });
+                yield return getFilePathAsync_1_Coroutine;
+            }
 
-            var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync ("dnn/"+model, (result) => {
-model_filepath = result;
-});
-coroutines.Push (getFilePathAsync_2_Coroutine);
-yield return StartCoroutine (getFilePathAsync_2_Coroutine);
+            if (!string.IsNullOrEmpty (model)) {
+                var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync ("dnn/" + model, (result) => {
+                    model_filepath = result;
+                });
+                yield return getFilePathAsync_2_Coroutine;
+            }
 
-            coroutines.Clear ();
+            getFilePath_Coroutine = null;
 
             Run ();
         }
@@ -151,17 +151,17 @@ yield return StartCoroutine (getFilePathAsync_2_Coroutine);
 
             if (!string.IsNullOrEmpty (classes)) {
                 classNames = readClassNames (classes_filepath);
-#if !UNITY_WSA_10_0
+                #if !UNITY_WSA_10_0
                 if (classNames == null) {
-                    Debug.LogError ("class names list file is not loaded.The model and class names list can be downloaded here: \"https://github.com/pjreddie/darknet/tree/master/data/coco.names\".Please copy to “Assets/StreamingAssets/dnn/” folder. ");
+                    Debug.LogError (classes_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
                 }
-#endif
+                #endif
             } else if (classesList.Count > 0) {
                 classNames = classesList;
             }
 
             if (string.IsNullOrEmpty (config_filepath) || string.IsNullOrEmpty (model_filepath)) {
-                Debug.LogError ("model file is not loaded. the cfg-file and weights-file can be downloaded here: https://github.com/pjreddie/darknet/blob/master/cfg/tiny-yolo.cfg and https://pjreddie.com/media/files/tiny-yolo.weights. Please copy to “Assets/StreamingAssets/dnn/” folder. ");
+                Debug.LogError (config_filepath + " or " + model_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
             } else {
                 //! [Initialize network]
                 net = Dnn.readNet (model_filepath, config_filepath);
@@ -181,19 +181,10 @@ yield return StartCoroutine (getFilePathAsync_2_Coroutine);
                 
 
             #if UNITY_ANDROID && !UNITY_EDITOR
-            // Set the requestedFPS parameter to avoid the problem of the WebCamTexture image becoming low light on some Android devices. (Pixel, pixel 2)
-            // https://forum.unity.com/threads/android-webcamtexture-in-low-light-only-some-models.520656/
-            // https://forum.unity.com/threads/released-opencv-for-unity.277080/page-33#post-3445178
-            rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
-            if (webCamTextureToMatHelper.requestedIsFrontFacing) {                
-                webCamTextureToMatHelper.requestedFPS = 15;
-                webCamTextureToMatHelper.Initialize ();
-            } else {
-                webCamTextureToMatHelper.Initialize ();
-            }
-            #else
-            webCamTextureToMatHelper.Initialize ();
+            // Avoids the front camera low light issue that occurs in only some Android devices (e.g. Google Pixel, Pixel2).
+            webCamTextureToMatHelper.avoidAndroidFrontCameraLowLightIssue = true;
             #endif
+            webCamTextureToMatHelper.Initialize ();
         }
 
         /// <summary>
@@ -269,8 +260,8 @@ yield return StartCoroutine (getFilePathAsync_2_Coroutine);
 
                 if (net == null) {
 
-                    Imgproc.putText (rgbaMat, "model file is not loaded.", new Point (5, rgbaMat.rows () - 30), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    Imgproc.putText (rgbaMat, "Please read console message.", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    Imgproc.putText (rgbaMat, "model file is not loaded.", new Point (5, rgbaMat.rows () - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    Imgproc.putText (rgbaMat, "Please read console message.", new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
                 } else {
                     
@@ -331,6 +322,13 @@ yield return StartCoroutine (getFilePathAsync_2_Coroutine);
                 net.Dispose ();
 
             Utils.setDebugMode (false);
+
+            #if UNITY_WEBGL && !UNITY_EDITOR
+            if (getFilePath_Coroutine != null) {
+                StopCoroutine (getFilePath_Coroutine);
+                ((IDisposable)getFilePath_Coroutine).Dispose ();
+            }
+            #endif
         }
 
         /// <summary>
@@ -338,11 +336,7 @@ yield return StartCoroutine (getFilePathAsync_2_Coroutine);
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
 
         /// <summary>
@@ -374,16 +368,7 @@ yield return StartCoroutine (getFilePathAsync_2_Coroutine);
         /// </summary>
         public void OnChangeCameraButtonClick ()
         {
-            #if UNITY_ANDROID && !UNITY_EDITOR
-            if (!webCamTextureToMatHelper.IsFrontFacing ()) {
-                rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
-                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), 15, webCamTextureToMatHelper.rotate90Degree);
-            } else {                
-                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), rearCameraRequestedFPS, webCamTextureToMatHelper.rotate90Degree);
-            }
-            #else
             webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing ();
-            #endif
         }
 
         /// <summary>
@@ -427,7 +412,7 @@ yield return StartCoroutine (getFilePathAsync_2_Coroutine);
 
             List<int> classIdsList = new List<int> ();
             List<float> confidencesList = new List<float> ();
-            List<OpenCVForUnity.Rect> boxesList = new List<OpenCVForUnity.Rect> ();
+            List<OpenCVForUnity.CoreModule.Rect> boxesList = new List<OpenCVForUnity.CoreModule.Rect> ();
             if (net.getLayer (new DictValue (0)).outputNameToIndex ("im_info") != -1) {  // Faster-RCNN or R-FCN
                 // Network produces output blob with a shape 1x1xNx7 where N is a number of
                 // detections and an every detection is a vector of values
@@ -461,7 +446,7 @@ yield return StartCoroutine (getFilePathAsync_2_Coroutine);
 
                             classIdsList.Add ((int)(class_id) - 0);
                             confidencesList.Add ((float)confidence);
-                            boxesList.Add (new OpenCVForUnity.Rect (left, top, width, height));
+                            boxesList.Add (new OpenCVForUnity.CoreModule.Rect (left, top, width, height));
                         }
                     }
                 }
@@ -498,7 +483,7 @@ yield return StartCoroutine (getFilePathAsync_2_Coroutine);
 
                             classIdsList.Add ((int)(class_id) - 0);
                             confidencesList.Add ((float)confidence);
-                            boxesList.Add (new OpenCVForUnity.Rect (left, top, width, height));
+                            boxesList.Add (new OpenCVForUnity.CoreModule.Rect (left, top, width, height));
                         }
                     }
                 }
@@ -535,7 +520,7 @@ yield return StartCoroutine (getFilePathAsync_2_Coroutine);
 
                             classIdsList.Add (maxIdx);
                             confidencesList.Add ((float)confidence);
-                            boxesList.Add (new OpenCVForUnity.Rect (left, top, width, height));
+                            boxesList.Add (new OpenCVForUnity.CoreModule.Rect (left, top, width, height));
 
                         }
                     }
@@ -560,7 +545,7 @@ yield return StartCoroutine (getFilePathAsync_2_Coroutine);
 
             for (int i = 0; i < indices.total (); ++i) {
                 int idx = (int)indices.get (i, 0) [0];
-                OpenCVForUnity.Rect box = boxesList [idx];
+                OpenCVForUnity.CoreModule.Rect box = boxesList [idx];
                 drawPred (classIdsList [idx], confidencesList [idx], box.x, box.y,
                     box.x + box.width, box.y + box.height, frame);
             }
@@ -593,12 +578,12 @@ yield return StartCoroutine (getFilePathAsync_2_Coroutine);
             }
 
             int[] baseLine = new int[1];
-            Size labelSize = Imgproc.getTextSize (label, Core.FONT_HERSHEY_SIMPLEX, 0.5, 1, baseLine);
+            Size labelSize = Imgproc.getTextSize (label, Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, 1, baseLine);
 
             top = Mathf.Max (top, (int)labelSize.height);
             Imgproc.rectangle (frame, new Point (left, top - labelSize.height),
                 new Point (left + labelSize.width, top + baseLine [0]), Scalar.all (255), Core.FILLED);
-            Imgproc.putText (frame, label, new Point (left, top), Core.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (0, 0, 0, 255));
+            Imgproc.putText (frame, label, new Point (left, top), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (0, 0, 0, 255));
         }
 
         /// <summary>

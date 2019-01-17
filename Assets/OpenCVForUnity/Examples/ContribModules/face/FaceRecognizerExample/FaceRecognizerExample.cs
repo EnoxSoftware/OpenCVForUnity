@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgcodecsModule;
+using OpenCVForUnity.FaceModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -22,15 +23,14 @@ namespace OpenCVForUnityExample
         string facerec_sample_bmp_filepath;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
-        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
+        IEnumerator getFilePath_Coroutine;
         #endif
 
         // Use this for initialization
         void Start ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
-            var getFilePath_Coroutine = GetFilePath ();
-            coroutines.Push (getFilePath_Coroutine);
+            getFilePath_Coroutine = GetFilePath ();
             StartCoroutine (getFilePath_Coroutine);
             #else
             facerec_0_bmp_filepath = Utils.getFilePath ("facerec/facerec_0.bmp");
@@ -46,22 +46,19 @@ namespace OpenCVForUnityExample
             var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("facerec/facerec_0.bmp", (result) => {
                 facerec_0_bmp_filepath = result;
             });
-            coroutines.Push (getFilePathAsync_0_Coroutine);
-            yield return StartCoroutine (getFilePathAsync_0_Coroutine);
+            yield return getFilePathAsync_0_Coroutine;
 
             var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("facerec/facerec_1.bmp", (result) => {
                 facerec_1_bmp_filepath = result;
             });
-            coroutines.Push (getFilePathAsync_1_Coroutine);
-            yield return StartCoroutine (getFilePathAsync_1_Coroutine);
+            yield return getFilePathAsync_1_Coroutine;
 
             var getFilePathAsync_sample_Coroutine = Utils.getFilePathAsync ("facerec/facerec_sample.bmp", (result) => {
                 facerec_sample_bmp_filepath = result;
             });
-            coroutines.Push (getFilePathAsync_sample_Coroutine);
-            yield return StartCoroutine (getFilePathAsync_sample_Coroutine);
+            yield return getFilePathAsync_sample_Coroutine;
 
-            coroutines.Clear ();
+            getFilePath_Coroutine = null;
 
             Run ();
         }
@@ -107,13 +104,13 @@ namespace OpenCVForUnityExample
             Mat predictedMat = images [predictedLabel [0]];
 
             Mat baseMat = new Mat (testSampleMat.rows (), predictedMat.cols () + testSampleMat.cols (), CvType.CV_8UC1);
-            predictedMat.copyTo (baseMat.submat (new OpenCVForUnity.Rect (0, 0, predictedMat.cols (), predictedMat.rows ())));
-            testSampleMat.copyTo (baseMat.submat (new OpenCVForUnity.Rect (predictedMat.cols (), 0, testSampleMat.cols (), testSampleMat.rows ())));
+            predictedMat.copyTo (baseMat.submat (new OpenCVForUnity.CoreModule.Rect (0, 0, predictedMat.cols (), predictedMat.rows ())));
+            testSampleMat.copyTo (baseMat.submat (new OpenCVForUnity.CoreModule.Rect (predictedMat.cols (), 0, testSampleMat.cols (), testSampleMat.rows ())));
 
-            Imgproc.putText (baseMat, "Predicted", new Point (10, 15), Core.FONT_HERSHEY_SIMPLEX, 0.4, new Scalar (255), 1, Imgproc.LINE_AA, false);
-            Imgproc.putText (baseMat, "Confidence:", new Point (5, 25), Core.FONT_HERSHEY_SIMPLEX, 0.2, new Scalar (255), 1, Imgproc.LINE_AA, false);
-            Imgproc.putText (baseMat, "   " + predictedConfidence [0], new Point (5, 33), Core.FONT_HERSHEY_SIMPLEX, 0.2, new Scalar (255), 1, Imgproc.LINE_AA, false);
-            Imgproc.putText (baseMat, "TestSample", new Point (predictedMat.cols () + 10, 15), Core.FONT_HERSHEY_SIMPLEX, 0.4, new Scalar (255), 1, Imgproc.LINE_AA, false);
+            Imgproc.putText (baseMat, "Predicted", new Point (10, 15), Imgproc.FONT_HERSHEY_SIMPLEX, 0.4, new Scalar (255), 1, Imgproc.LINE_AA, false);
+            Imgproc.putText (baseMat, "Confidence:", new Point (5, 25), Imgproc.FONT_HERSHEY_SIMPLEX, 0.2, new Scalar (255), 1, Imgproc.LINE_AA, false);
+            Imgproc.putText (baseMat, "   " + predictedConfidence [0], new Point (5, 33), Imgproc.FONT_HERSHEY_SIMPLEX, 0.2, new Scalar (255), 1, Imgproc.LINE_AA, false);
+            Imgproc.putText (baseMat, "TestSample", new Point (predictedMat.cols () + 10, 15), Imgproc.FONT_HERSHEY_SIMPLEX, 0.4, new Scalar (255), 1, Imgproc.LINE_AA, false);
 
 
             Texture2D texture = new Texture2D (baseMat.cols (), baseMat.rows (), TextureFormat.RGBA32, false);
@@ -135,9 +132,9 @@ namespace OpenCVForUnityExample
         void OnDestroy ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
-            foreach (var coroutine in coroutines) {
-                StopCoroutine (coroutine);
-                ((IDisposable)coroutine).Dispose ();
+            if (getFilePath_Coroutine != null) {
+                StopCoroutine (getFilePath_Coroutine);
+                ((IDisposable)getFilePath_Coroutine).Dispose ();
             }
             #endif
         }
@@ -147,11 +144,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
     }
 }

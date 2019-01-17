@@ -1,15 +1,16 @@
 ﻿#if !UNITY_WSA_10_0
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
-
-using System.Linq;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.DnnModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.ImgcodecsModule;
 
 namespace OpenCVForUnityExample
 {
@@ -134,15 +135,14 @@ namespace OpenCVForUnityExample
         string model_filepath;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
-        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
+        IEnumerator getFilePath_Coroutine;
         #endif
 
         // Use this for initialization
         void Start ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
-            var getFilePath_Coroutine = GetFilePath ();
-            coroutines.Push (getFilePath_Coroutine);
+            getFilePath_Coroutine = GetFilePath ();
             StartCoroutine (getFilePath_Coroutine);
             #else
             classes_filepath = Utils.getFilePath ("dnn/" + classes);
@@ -156,31 +156,35 @@ namespace OpenCVForUnityExample
         #if UNITY_WEBGL && !UNITY_EDITOR
         private IEnumerator GetFilePath ()
         {
-            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("dnn/"+classes, (result) => {
-                classes_filepath = result;
-            });
-            coroutines.Push (getFilePathAsync_0_Coroutine);
-            yield return StartCoroutine (getFilePathAsync_0_Coroutine);
+            if (!string.IsNullOrEmpty (classes)) {
+                var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("dnn/" + classes, (result) => {
+                    classes_filepath = result;
+                });
+                yield return getFilePathAsync_0_Coroutine;
+            }
 
-            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("dnn/"+input, (result) => {
-                input_filepath = result;
-            });
-            coroutines.Push (getFilePathAsync_1_Coroutine);
-            yield return StartCoroutine (getFilePathAsync_1_Coroutine);
+            if (!string.IsNullOrEmpty (input)) {
+                var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("dnn/" + input, (result) => {
+                    input_filepath = result;
+                });
+                yield return getFilePathAsync_1_Coroutine;
+            }
 
-            var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync ("dnn/"+config, (result) => {
-                config_filepath = result;
-            });
-            coroutines.Push (getFilePathAsync_2_Coroutine);
-            yield return StartCoroutine (getFilePathAsync_2_Coroutine);
+            if (!string.IsNullOrEmpty (config)) {
+                var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync ("dnn/" + config, (result) => {
+                    config_filepath = result;
+                });
+                yield return getFilePathAsync_2_Coroutine;
+            }
 
-            var getFilePathAsync_3_Coroutine = Utils.getFilePathAsync ("dnn/"+model, (result) => {
-                model_filepath = result;
-            });
-            coroutines.Push (getFilePathAsync_3_Coroutine);
-            yield return StartCoroutine (getFilePathAsync_3_Coroutine);
+            if (!string.IsNullOrEmpty (model)) {
+                var getFilePathAsync_3_Coroutine = Utils.getFilePathAsync ("dnn/" + model, (result) => {
+                    model_filepath = result;
+                });
+                yield return getFilePathAsync_3_Coroutine;
+            }
 
-            coroutines.Clear ();
+            getFilePath_Coroutine = null;
 
             Run ();
         }
@@ -197,7 +201,7 @@ namespace OpenCVForUnityExample
                 classNames = readClassNames (classes_filepath);
                 #if !UNITY_WSA_10_0
                 if (classNames == null) {
-                    Debug.LogError ("class names list file is not loaded.The model and class names list can be downloaded here: \"https://github.com/pjreddie/darknet/tree/master/data/coco.names\".Please copy to “Assets/StreamingAssets/dnn/” folder. ");
+                    Debug.LogError (classes_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
                 }
                 #endif
             } else if (classesList.Count > 0) {
@@ -207,7 +211,7 @@ namespace OpenCVForUnityExample
             Mat img = Imgcodecs.imread (input_filepath);
             #if !UNITY_WSA_10_0
             if (img.empty ()) {
-                Debug.LogError ("dnn/person.jpg is not loaded.The image file can be downloaded here: \"https://github.com/pjreddie/darknet/blob/master/data/person.jpg\".Please copy to \"Assets/StreamingAssets/dnn/\" folder. ");
+                Debug.LogError (input_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
                 img = new Mat (424, 640, CvType.CV_8UC3, new Scalar (0, 0, 0));
             }
             #endif
@@ -232,7 +236,7 @@ namespace OpenCVForUnityExample
             Net net = null;
 
             if (string.IsNullOrEmpty (config_filepath) || string.IsNullOrEmpty (model_filepath)) {
-                Debug.LogError ("model file is not loaded. the cfg-file and weights-file can be downloaded here: https://github.com/pjreddie/darknet/blob/master/cfg/tiny-yolo.cfg and https://pjreddie.com/media/files/tiny-yolo.weights. Please copy to “Assets/StreamingAssets/dnn/” folder. ");
+                Debug.LogError (config_filepath + " or " + model_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
             } else {
                 //! [Initialize network]
                 net = Dnn.readNet (model_filepath, config_filepath);
@@ -243,8 +247,8 @@ namespace OpenCVForUnityExample
 
             if (net == null) {
                
-                Imgproc.putText (img, "model file is not loaded.", new Point (5, img.rows () - 30), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255), 2, Imgproc.LINE_AA, false);
-                Imgproc.putText (img, "Please read console message.", new Point (5, img.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255), 2, Imgproc.LINE_AA, false);
+                Imgproc.putText (img, "model file is not loaded.", new Point (5, img.rows () - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255), 2, Imgproc.LINE_AA, false);
+                Imgproc.putText (img, "Please read console message.", new Point (5, img.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255), 2, Imgproc.LINE_AA, false);
 
             } else {
 
@@ -322,15 +326,24 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
+        /// Raises the disable event.
+        /// </summary>
+        void OnDisable ()
+        {
+            #if UNITY_WEBGL && !UNITY_EDITOR
+            if (getFilePath_Coroutine != null) {
+                StopCoroutine (getFilePath_Coroutine);
+                ((IDisposable)getFilePath_Coroutine).Dispose ();
+            }
+            #endif
+        }
+
+        /// <summary>
         /// Raises the back button click event.
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
 
         /// <summary>
@@ -374,7 +387,7 @@ namespace OpenCVForUnityExample
 
             List<int> classIdsList = new List<int> ();
             List<float> confidencesList = new List<float> ();
-            List<OpenCVForUnity.Rect> boxesList = new List<OpenCVForUnity.Rect> ();
+            List<OpenCVForUnity.CoreModule.Rect> boxesList = new List<OpenCVForUnity.CoreModule.Rect> ();
             if (net.getLayer (new DictValue (0)).outputNameToIndex ("im_info") != -1) {  // Faster-RCNN or R-FCN
                 // Network produces output blob with a shape 1x1xNx7 where N is a number of
                 // detections and an every detection is a vector of values
@@ -408,7 +421,7 @@ namespace OpenCVForUnityExample
 
                             classIdsList.Add ((int)(class_id) - 0);
                             confidencesList.Add ((float)confidence);
-                            boxesList.Add (new OpenCVForUnity.Rect (left, top, width, height));
+                            boxesList.Add (new OpenCVForUnity.CoreModule.Rect (left, top, width, height));
                         }
                     }
                 }
@@ -445,7 +458,7 @@ namespace OpenCVForUnityExample
 
                             classIdsList.Add ((int)(class_id) - 0);
                             confidencesList.Add ((float)confidence);
-                            boxesList.Add (new OpenCVForUnity.Rect (left, top, width, height));
+                            boxesList.Add (new OpenCVForUnity.CoreModule.Rect (left, top, width, height));
                         }
                     }
                 }
@@ -482,7 +495,7 @@ namespace OpenCVForUnityExample
                             
                             classIdsList.Add (maxIdx);
                             confidencesList.Add ((float)confidence);
-                            boxesList.Add (new OpenCVForUnity.Rect (left, top, width, height));
+                            boxesList.Add (new OpenCVForUnity.CoreModule.Rect (left, top, width, height));
                                             
                         }
                     }
@@ -507,7 +520,7 @@ namespace OpenCVForUnityExample
 
             for (int i = 0; i < indices.total (); ++i) {
                 int idx = (int)indices.get (i, 0) [0];
-                OpenCVForUnity.Rect box = boxesList [idx];
+                OpenCVForUnity.CoreModule.Rect box = boxesList [idx];
                 drawPred (classIdsList [idx], confidencesList [idx], box.x, box.y,
                     box.x + box.width, box.y + box.height, frame);
             }
@@ -540,12 +553,12 @@ namespace OpenCVForUnityExample
             }
 
             int[] baseLine = new int[1];
-            Size labelSize = Imgproc.getTextSize (label, Core.FONT_HERSHEY_SIMPLEX, 0.5, 1, baseLine);
+            Size labelSize = Imgproc.getTextSize (label, Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, 1, baseLine);
 
             top = Mathf.Max (top, (int)labelSize.height);
             Imgproc.rectangle (frame, new Point (left, top - labelSize.height),
                 new Point (left + labelSize.width, top + baseLine [0]), Scalar.all (255), Core.FILLED);
-            Imgproc.putText (frame, label, new Point (left, top), Core.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (0, 0, 0, 255));
+            Imgproc.putText (frame, label, new Point (left, top), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (0, 0, 0, 255));
         }
 
         /// <summary>

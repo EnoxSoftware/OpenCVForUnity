@@ -1,16 +1,19 @@
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
-using System;
 using System.Xml.Serialization;
 using System.IO;
 using System.Linq;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using OpenCVForUnity.ArucoModule;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.Calib3dModule;
+using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.ImgcodecsModule;
+using OpenCVForUnity.UnityUtils.Helper;
 
 namespace OpenCVForUnityExample
 {
@@ -167,7 +170,7 @@ namespace OpenCVForUnityExample
         Mat recoveredIdxs;
 
         const int calibrationFlags = 0;
-// Calib3d.CALIB_FIX_K3 | Calib3d.CALIB_FIX_K4 | Calib3d.CALIB_FIX_K5
+        // Calib3d.CALIB_FIX_K3 | Calib3d.CALIB_FIX_K4 | Calib3d.CALIB_FIX_K5
         double repErr = 0;
         bool shouldCaptureFrame = false;
 
@@ -190,10 +193,6 @@ namespace OpenCVForUnityExample
         List<Mat> imagePoints;
         bool isInitialized = false;
         bool isCalibrating = false;
-
-        #if UNITY_ANDROID && !UNITY_EDITOR
-        float rearCameraRequestedFPS;
-        #endif
 
         // Use this for initialization
         IEnumerator Start ()
@@ -220,19 +219,10 @@ namespace OpenCVForUnityExample
 
             if (!isImagesInputMode) {                
                 #if UNITY_ANDROID && !UNITY_EDITOR
-                // Set the requestedFPS parameter to avoid the problem of the WebCamTexture image becoming low light on some Android devices. (Pixel, pixel 2)
-                // https://forum.unity.com/threads/android-webcamtexture-in-low-light-only-some-models.520656/
-                // https://forum.unity.com/threads/released-opencv-for-unity.277080/page-33#post-3445178
-                rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
-                if (webCamTextureToMatHelper.requestedIsFrontFacing) {                
-                    webCamTextureToMatHelper.requestedFPS = 15;
-                    webCamTextureToMatHelper.Initialize ();
-                } else {
-                    webCamTextureToMatHelper.Initialize ();
-                }
-                #else
-                webCamTextureToMatHelper.Initialize ();
+                // Avoids the front camera low light issue that occurs in only some Android devices (e.g. Google Pixel, Pixel2).
+                webCamTextureToMatHelper.avoidAndroidFrontCameraLowLightIssue = true;
                 #endif
+                webCamTextureToMatHelper.Initialize ();
             }
         }
 
@@ -393,7 +383,7 @@ namespace OpenCVForUnityExample
                 rgbaMat.Dispose ();
             
             if (texture != null) {
-                Texture2D.Destroy(texture);
+                Texture2D.Destroy (texture);
                 texture = null;
             }
 
@@ -491,7 +481,7 @@ namespace OpenCVForUnityExample
             double[] distCoeffsArr = new double[(int)distCoeffs.total ()];
             distCoeffs.get (0, 0, distCoeffsArr);
 
-            int ff = Core.FONT_HERSHEY_SIMPLEX;
+            int ff = Imgproc.FONT_HERSHEY_SIMPLEX;
             double fs = 0.4;
             Scalar c = new Scalar (255, 255, 255, 255);
             int t = 0;
@@ -514,7 +504,7 @@ namespace OpenCVForUnityExample
             Imgproc.putText (bgrMat, "AVG_REPROJECTION_ERROR: " + repErr, new Point (bgrMat.cols () - 300, 300), ff, fs, c, t, lt, blo);
 
             if (frameCount == 0)
-                Imgproc.putText (bgrMat, "Please press the capture button to start!", new Point (5, bgrMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (255, 255, 255, 255), 1, Imgproc.LINE_AA, false);
+                Imgproc.putText (bgrMat, "Please press the capture button to start!", new Point (5, bgrMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (255, 255, 255, 255), 1, Imgproc.LINE_AA, false);
         }
 
         private double CaptureFrame (Mat frameMat)
@@ -913,11 +903,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
 
         /// <summary>
@@ -961,16 +947,7 @@ namespace OpenCVForUnityExample
             if (isImagesInputMode)
                 return;
 
-            #if UNITY_ANDROID && !UNITY_EDITOR
-            if (!webCamTextureToMatHelper.IsFrontFacing ()) {
-                rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
-                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), 15, webCamTextureToMatHelper.rotate90Degree);
-            } else {                
-                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), rearCameraRequestedFPS, webCamTextureToMatHelper.rotate90Degree);
-            }
-            #else
             webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing ();
-            #endif
         }
 
         /// <summary>
@@ -1112,10 +1089,10 @@ namespace OpenCVForUnityExample
             // save the calibration images.
             #if UNITY_WEBGL && !UNITY_EDITOR
             string format = "jpg";
-            MatOfInt compressionParams = new MatOfInt(Imgcodecs.CV_IMWRITE_JPEG_QUALITY, 100);
+            MatOfInt compressionParams = new MatOfInt(Imgcodecs.IMWRITE_JPEG_QUALITY, 100);
             #else
             string format = "png";
-            MatOfInt compressionParams = new MatOfInt (Imgcodecs.CV_IMWRITE_PNG_COMPRESSION, 0);
+            MatOfInt compressionParams = new MatOfInt (Imgcodecs.IMWRITE_PNG_COMPRESSION, 0);
             #endif
             for (int i = 0; i < allImgs.Count; ++i) {
                 Imgcodecs.imwrite (Path.Combine (saveCalibratonFileDirectoryPath, calibratonDirectoryName + "_" + i.ToString ("00") + "." + format), allImgs [i], compressionParams);

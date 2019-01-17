@@ -28,11 +28,11 @@ namespace OpenCVForUnityExample
         const float INNER_Y = 5f;
         const float GUI_CONSOLE_HEIGHT = 50f;
 
-        public Vector2 offset = new Vector2(MARGIN_X, MARGIN_Y);
+        public Vector2 offset = new Vector2 (MARGIN_X, MARGIN_Y);
         public bool boxVisible = true;
         public float boxWidth = GUI_WIDTH;
         public float boxHeight = GUI_HEIGHT;
-        public Vector2 padding = new Vector2(INNER_X, INNER_Y);
+        public Vector2 padding = new Vector2 (INNER_X, INNER_Y);
         public float consoleHeight = GUI_CONSOLE_HEIGHT;
 
         GUIStyle console_labelStyle;
@@ -52,7 +52,8 @@ namespace OpenCVForUnityExample
         public string consoleText;
 
         // Use this for initialization
-        void Start () {
+        void Start ()
+        {
             console_labelStyle = new GUIStyle ();
             console_labelStyle.fontSize = 32;
             console_labelStyle.fontStyle = FontStyle.Normal;
@@ -61,11 +62,12 @@ namespace OpenCVForUnityExample
 
             oldScrWidth = Screen.width;
             oldScrHeight = Screen.height;
-            LocateGUI();
+            LocateGUI ();
         }
 
         // Update is called once per frame
-        void Update () {
+        void Update ()
+        {
             tick++;
             elapsed += Time.deltaTime;
             if (elapsed >= 1f) {
@@ -75,29 +77,30 @@ namespace OpenCVForUnityExample
             }
         }
 
-        void OnGUI () {
+        void OnGUI ()
+        {
             if (oldScrWidth != Screen.width || oldScrHeight != Screen.height) {
-                LocateGUI();
+                LocateGUI ();
             }
             oldScrWidth = Screen.width;
             oldScrHeight = Screen.height;
 
             if (boxVisible) {
-                GUI.Box(outer, "");
+                GUI.Box (outer, "");
             }
 
-            GUILayout.BeginArea(inner);
+            GUILayout.BeginArea (inner);
             {
-                GUILayout.BeginVertical();
-                GUILayout.Label("fps : " + fps.ToString("F1"));
+                GUILayout.BeginVertical ();
+                GUILayout.Label ("fps : " + fps.ToString ("F1"));
                 foreach (KeyValuePair<string, string> pair in outputDict) {
-                    GUILayout.Label(pair.Key + " : " + pair.Value);
+                    GUILayout.Label (pair.Key + " : " + pair.Value);
                 }
-                GUILayout.EndVertical();
+                GUILayout.EndVertical ();
             }
             GUILayout.EndArea ();
 
-            if (!string.IsNullOrEmpty(consoleText)) {
+            if (!string.IsNullOrEmpty (consoleText)) {
                 if (boxVisible) {
                     GUI.Box (console_outer, "");
                 }
@@ -112,7 +115,8 @@ namespace OpenCVForUnityExample
             }
         }
 
-        public void Add (string key, string value) {
+        public void Add (string key, string value)
+        {
             if (outputDict.ContainsKey (key)) {
                 outputDict [key] = value;
             } else {
@@ -120,27 +124,31 @@ namespace OpenCVForUnityExample
             }
         }
 
-        public void Remove (string key) {
+        public void Remove (string key)
+        {
             outputDict.Remove (key);
         }
 
-        public void Clear () {
+        public void Clear ()
+        {
             outputDict.Clear ();
         }
-            
-        public void LocateGUI() {
-            x = GetAlignedX(alignment, boxWidth);
-            y = GetAlignedY(alignment, boxHeight);
-            outer = new Rect(x, y, boxWidth, boxHeight);
-            inner = new Rect(x + padding.x, y + padding.y, boxWidth, boxHeight);
 
-            console_x = GetAlignedX(Alignment.LeftBottom, Screen.width);
-            console_y = GetAlignedY(Alignment.LeftBottom, consoleHeight);
-            console_outer = new Rect(console_x, console_y, Screen.width - offset.x*2, consoleHeight);
-            console_inner = new Rect(console_x + padding.x, console_y + padding.y, Screen.width - offset.x*2 - padding.x, consoleHeight);
+        public void LocateGUI ()
+        {
+            x = GetAlignedX (alignment, boxWidth);
+            y = GetAlignedY (alignment, boxHeight);
+            outer = new Rect (x, y, boxWidth, boxHeight);
+            inner = new Rect (x + padding.x, y + padding.y, boxWidth, boxHeight);
+
+            console_x = GetAlignedX (Alignment.LeftBottom, Screen.width);
+            console_y = GetAlignedY (Alignment.LeftBottom, consoleHeight);
+            console_outer = new Rect (console_x, console_y, Screen.width - offset.x * 2, consoleHeight);
+            console_inner = new Rect (console_x + padding.x, console_y + padding.y, Screen.width - offset.x * 2 - padding.x, consoleHeight);
         }
-            
-        float GetAlignedX(Alignment anchor, float w) {
+
+        float GetAlignedX (Alignment anchor, float w)
+        {
             switch (anchor) {
             default:
             case Alignment.LeftTop:
@@ -153,7 +161,8 @@ namespace OpenCVForUnityExample
             }
         }
 
-        float GetAlignedY(Alignment anchor, float h) {
+        float GetAlignedY (Alignment anchor, float h)
+        {
             switch (anchor) {
             default:
             case Alignment.LeftTop:

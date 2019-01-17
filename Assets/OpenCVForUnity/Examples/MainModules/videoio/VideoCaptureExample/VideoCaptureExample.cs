@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.VideoioModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -53,7 +53,7 @@ namespace OpenCVForUnityExample
         FpsMonitor fpsMonitor;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
-        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
+        IEnumerator getFilePath_Coroutine;
         #endif
         
         // Use this for initialization
@@ -64,13 +64,12 @@ namespace OpenCVForUnityExample
             capture = new VideoCapture ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
-            var getFilePath_Coroutine = Utils.getFilePathAsync("768x576_mjpeg.mjpeg", (result) => {
-                coroutines.Clear ();
+            getFilePath_Coroutine = Utils.getFilePathAsync("768x576_mjpeg.mjpeg", (result) => {
+                getFilePath_Coroutine = null;
 
                 capture.open (result);
                 Initialize ();
             });
-            coroutines.Push (getFilePath_Coroutine);
             StartCoroutine (getFilePath_Coroutine);
             #else
             capture.open (Utils.getFilePath ("768x576_mjpeg.mjpeg"));
@@ -88,7 +87,6 @@ namespace OpenCVForUnityExample
             }
 
             Debug.Log ("CAP_PROP_FORMAT: " + capture.get (Videoio.CAP_PROP_FORMAT));
-            Debug.Log ("CV_CAP_PROP_PREVIEW_FORMAT: " + capture.get (Videoio.CV_CAP_PROP_PREVIEW_FORMAT));
             Debug.Log ("CAP_PROP_POS_MSEC: " + capture.get (Videoio.CAP_PROP_POS_MSEC));
             Debug.Log ("CAP_PROP_POS_FRAMES: " + capture.get (Videoio.CAP_PROP_POS_FRAMES));
             Debug.Log ("CAP_PROP_POS_AVI_RATIO: " + capture.get (Videoio.CAP_PROP_POS_AVI_RATIO));
@@ -101,7 +99,6 @@ namespace OpenCVForUnityExample
 
             if (fpsMonitor != null) {
                 fpsMonitor.Add ("CAP_PROP_FORMAT", capture.get (Videoio.CAP_PROP_FORMAT).ToString ());
-                fpsMonitor.Add ("CV_CAP_PROP_PREVIEW_FORMAT", capture.get (Videoio.CV_CAP_PROP_PREVIEW_FORMAT).ToString ());
                 fpsMonitor.Add ("CAP_PROP_POS_MSEC", capture.get (Videoio.CAP_PROP_POS_MSEC).ToString ());
                 fpsMonitor.Add ("CAP_PROP_POS_FRAMES", capture.get (Videoio.CAP_PROP_POS_FRAMES).ToString ());
                 fpsMonitor.Add ("CAP_PROP_POS_AVI_RATIO", capture.get (Videoio.CAP_PROP_POS_AVI_RATIO).ToString ());
@@ -192,9 +189,9 @@ namespace OpenCVForUnityExample
                 rgbMat.Dispose ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
-            foreach (var coroutine in coroutines) {
-                StopCoroutine (coroutine);
-                ((IDisposable)coroutine).Dispose ();
+            if (getFilePath_Coroutine != null) {
+                StopCoroutine (getFilePath_Coroutine);
+                ((IDisposable)getFilePath_Coroutine).Dispose ();
             }
             #endif
         }
@@ -204,11 +201,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
     }
 }

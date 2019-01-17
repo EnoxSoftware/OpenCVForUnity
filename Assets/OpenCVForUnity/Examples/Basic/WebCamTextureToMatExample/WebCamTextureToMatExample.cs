@@ -1,11 +1,10 @@
 ﻿using System;
-using UnityEngine;
 using System.Collections;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
+using UnityEngine;
 using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.ImgprocModule;
 
 namespace OpenCVForUnityExample
 {
@@ -102,7 +101,7 @@ namespace OpenCVForUnityExample
                 return;
 
             #if UNITY_ANDROID && !UNITY_EDITOR
-            // Set the requestedFPS parameter to avoid the problem of the WebCamTexture image becoming low light on some Android devices. (Pixel, pixel 2)
+            // Set the requestedFPS parameter to avoid the problem of the WebCamTexture image becoming low light on some Android devices (e.g. Google Pixel, Pixel2).
             // https://forum.unity.com/threads/android-webcamtexture-in-low-light-only-some-models.520656/
             // https://forum.unity.com/threads/released-opencv-for-unity.277080/page-33#post-3445178
             if (requestedIsFrontFacing) {
@@ -221,7 +220,7 @@ namespace OpenCVForUnityExample
                 rgbaMat = null;
             }
             if (texture != null) {
-                Texture2D.Destroy(texture);
+                Texture2D.Destroy (texture);
                 texture = null;
             }
         }
@@ -243,10 +242,10 @@ namespace OpenCVForUnityExample
             gameObject.transform.localScale = new Vector3 (webCamTexture.width, webCamTexture.height, 1);
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
-            if (fpsMonitor != null){
-                fpsMonitor.Add ("width", rgbaMat.width ().ToString());
-                fpsMonitor.Add ("height", rgbaMat.height ().ToString());
-                fpsMonitor.Add ("orientation", Screen.orientation.ToString());
+            if (fpsMonitor != null) {
+                fpsMonitor.Add ("width", rgbaMat.width ().ToString ());
+                fpsMonitor.Add ("height", rgbaMat.height ().ToString ());
+                fpsMonitor.Add ("orientation", Screen.orientation.ToString ());
             }
 
 
@@ -268,7 +267,7 @@ namespace OpenCVForUnityExample
             if (hasInitDone && webCamTexture.isPlaying && webCamTexture.didUpdateThisFrame) {
                 Utils.webCamTextureToMat (webCamTexture, rgbaMat, colors);
 
-                //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+//                Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
                 Utils.matToTexture2D (rgbaMat, texture, colors);
             }
@@ -287,11 +286,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
 
         /// <summary>

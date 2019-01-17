@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using System.Collections;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -42,7 +41,7 @@ namespace OpenCVForUnityExample
             int[] linesArray = new int[lines.cols () * lines.rows () * lines.channels ()];
             lines.get (0, 0, linesArray);
 
-            for (int i = 0; i < linesArray.Length; i=i+4) {
+            for (int i = 0; i < linesArray.Length; i = i + 4) {
                 Imgproc.line (imgMat, new Point (linesArray [i + 0], linesArray [i + 1]), new Point (linesArray [i + 2], linesArray [i + 3]), new Scalar (255, 0, 0), 2);
             }
 
@@ -63,11 +62,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
     }
 }

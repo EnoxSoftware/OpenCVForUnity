@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
-using OpenCVForUnity;
-using System.Collections.Generic;
-using System;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
-#endif
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -51,11 +49,7 @@ namespace OpenCVForUnityExample
 
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
 
 
@@ -158,7 +152,7 @@ namespace OpenCVForUnityExample
         }
 
 
-        public void OnMaltiChannelExampleButtonClick ()
+        public void OnMultiChannelExampleButtonClick ()
         {
             //
             // multi channel example
@@ -475,7 +469,7 @@ namespace OpenCVForUnityExample
             Mat m10 = new Mat (2, 2, CvType.CV_64FC1);
             m10.put (0, 0, 1.0, 2.0, 3.0, 4.0);
 
-            #if UNITY_STANDALONE || UNITY_EDITOR
+
             // Publish CVException to Debug.LogError.
             Utils.setDebugMode (true, false);
 
@@ -488,10 +482,7 @@ namespace OpenCVForUnityExample
             executionResultText.text += "m1/m10=" + m12.dump () + "\n";
 
             Utils.setDebugMode (false);
-            #else
-            Debug.Log ("The setDebugMode method is supported in WIN, MAC and LINUX.");
-            executionResultText.text += "The setDebugMode method os only supported in WIN, MAC and LINUX." + "\n";
-            #endif
+
 
 
             exampleCodeText.text = @"
@@ -504,6 +495,7 @@ namespace OpenCVForUnityExample
             m1.put (0, 0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0);
 
             Debug.Log (""m1="" + m1.dump ());
+            executionResultText.text = ""m1="" + m1.dump () + ""\n"";
 
             // matrix and scalar
             Mat m2 = m1 + new Scalar (3);
@@ -516,14 +508,23 @@ namespace OpenCVForUnityExample
             Debug.Log (""m1*3="" + m4.dump ());
             Debug.Log (""m1/3="" + m5.dump ());
 
+            executionResultText.text += ""m1+3="" + m2.dump () + ""\n"";
+            executionResultText.text += ""m1-3="" + m3.dump () + ""\n"";
+            executionResultText.text += ""m1*3="" + m4.dump () + ""\n"";
+            executionResultText.text += ""m1/3="" + m5.dump () + ""\n"";
+
             // matrix and matrix
             Mat m6 = m1 + m1;
-            Mat m7 = m1.mul(m2);
-            Mat m8 = m1.mul(m2, 2); //add scaling factor
+            Mat m7 = m1.mul (m2);
+            Mat m8 = m1.mul (m2, 2); //add scaling factor
 
             Debug.Log (""m1+m1="" + m6.dump ());
             Debug.Log (""m1.mul(m2)="" + m7.dump ());
             Debug.Log (""m1.mul(m2, 2)="" + m8.dump ());
+
+            executionResultText.text += ""m1+m1="" + m6.dump () + ""\n"";
+            executionResultText.text += ""m1.mul(m2)="" + m7.dump () + ""\n"";
+            executionResultText.text += ""m1.mul(m2, 2)="" + m8.dump () + ""\n"";
 
             // CVException handling
             // 8U, channels=1, 3x3
@@ -533,20 +534,19 @@ namespace OpenCVForUnityExample
             Mat m10 = new Mat (2, 2, CvType.CV_64FC1);
             m10.put (0, 0, 1.0, 2.0, 3.0, 4.0);
 
-            #if UNITY_STANDALONE || UNITY_EDITOR
+
             // Publish CVException to Debug.LogError.
             Utils.setDebugMode (true, false);
 
             Mat m11 = m1 / m9; // element type is different.
-            Debug.Log(""m1/m9="" + m11);
+            Debug.Log (""m1/m9="" + m11);
+            executionResultText.text += ""m1/m9="" + m11.dump () + ""\n"";
 
             Mat m12 = m1 / m10; // matrix size is different.
-            Debug.Log(""m1/m10="" + m12);
+            Debug.Log (""m1/m10="" + m12);
+            executionResultText.text += ""m1/m10="" + m12.dump () + ""\n"";
 
             Utils.setDebugMode (false);
-            #else
-            Debug.Log (""The setDebugMode method is only supported on WIN, MAC and LINUX."");
-            #endif
             ";
 
             UpdateScrollRect ();
@@ -1103,7 +1103,7 @@ namespace OpenCVForUnityExample
             executionResultText.text = "m1=" + m1.dump () + "\n";
 
             // get submatrix (ROI) of range (row[0_2] col[0_2])
-            Mat m2 = new Mat (m1, new OpenCVForUnity.Rect (0, 0, 2, 2));
+            Mat m2 = new Mat (m1, new OpenCVForUnity.CoreModule.Rect (0, 0, 2, 2));
             Debug.Log ("m2=" + m2.dump ());
             executionResultText.text += "m2=" + m2.dump () + "\n";
             Debug.Log ("m2.submat()=" + m2.submat (0, 2, 0, 2).dump ());
@@ -1138,7 +1138,7 @@ namespace OpenCVForUnityExample
             Debug.Log (""m1="" + m1.dump ());
 
             // get submatrix (ROI) of range (row[0_2] col[0_2])
-            Mat m2 = new Mat (m1, new OpenCVForUnity.Rect(0,0,2,2));
+            Mat m2 = new Mat (m1, new OpenCVForUnity.CoreModule.Rect(0,0,2,2));
             Debug.Log (""m2="" + m2.dump());
             Debug.Log (""m2.submat()="" + m2.submat(0,2,0,2).dump());
 
@@ -1178,7 +1178,7 @@ namespace OpenCVForUnityExample
             executionResultText.text += "m1(shuffle)=" + m1.dump () + "\n";
 
             // submatrix
-            Mat m2 = new Mat (m1, new OpenCVForUnity.Rect (1, 1, 3, 2));
+            Mat m2 = new Mat (m1, new OpenCVForUnity.CoreModule.Rect (1, 1, 3, 2));
             Debug.Log ("m2(sub-matrix)=" + m2.dump ());
 
             executionResultText.text += "m2(sub-matrix)=" + m2.dump () + "\n";
@@ -1205,7 +1205,7 @@ namespace OpenCVForUnityExample
             Debug.Log (""m1(shuffle)="" + m1.dump ());
 
             // submatrix
-            Mat m2 = new Mat (m1, new OpenCVForUnity.Rect(1,1,3,2));
+            Mat m2 = new Mat (m1, new OpenCVForUnity.CoreModule.Rect(1,1,3,2));
             Debug.Log (""m2(sub-matrix)="" + m2.dump());
 
             Core.randShuffle (m2, UnityEngine.Random.value);

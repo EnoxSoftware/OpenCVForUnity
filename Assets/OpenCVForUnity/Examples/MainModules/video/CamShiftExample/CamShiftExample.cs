@@ -1,12 +1,13 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.VideoModule;
+using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.UnityUtils.Helper;
 
 namespace OpenCVForUnityExample
 {
@@ -16,7 +17,7 @@ namespace OpenCVForUnityExample
     /// Referring to http://www.computervisiononline.com/blog/tutorial-using-camshift-track-objects-video.
     /// http://docs.opencv.org/3.2.0/db/df8/tutorial_py_meanshift.html
     /// </summary>
-    [RequireComponent(typeof(WebCamTextureToMatHelper))]
+    [RequireComponent (typeof(WebCamTextureToMatHelper))]
     public class CamShiftExample : MonoBehaviour
     {
         /// <summary>
@@ -32,7 +33,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// The roi rect.
         /// </summary>
-        OpenCVForUnity.Rect roiRect;
+        OpenCVForUnity.CoreModule.Rect roiRect;
 
         /// <summary>
         /// The hsv mat.
@@ -69,10 +70,6 @@ namespace OpenCVForUnityExample
         /// </summary>
         FpsMonitor fpsMonitor;
 
-        #if UNITY_ANDROID && !UNITY_EDITOR
-        float rearCameraRequestedFPS;
-        #endif
-
         // Use this for initialization
         void Start ()
         {
@@ -84,19 +81,10 @@ namespace OpenCVForUnityExample
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
 
             #if UNITY_ANDROID && !UNITY_EDITOR
-            // Set the requestedFPS parameter to avoid the problem of the WebCamTexture image becoming low light on some Android devices. (Pixel, pixel 2)
-            // https://forum.unity.com/threads/android-webcamtexture-in-low-light-only-some-models.520656/
-            // https://forum.unity.com/threads/released-opencv-for-unity.277080/page-33#post-3445178
-            rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
-            if (webCamTextureToMatHelper.requestedIsFrontFacing) {                
-                webCamTextureToMatHelper.requestedFPS = 15;
-                webCamTextureToMatHelper.Initialize ();
-            } else {
-                webCamTextureToMatHelper.Initialize ();
-            }
-            #else
-            webCamTextureToMatHelper.Initialize ();
+            // Avoids the front camera low light issue that occurs in only some Android devices (e.g. Google Pixel, Pixel2).
+            webCamTextureToMatHelper.avoidAndroidFrontCameraLowLightIssue = true;
             #endif
+            webCamTextureToMatHelper.Initialize ();
         }
 
         /// <summary>
@@ -116,17 +104,17 @@ namespace OpenCVForUnityExample
             
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
-            if (fpsMonitor != null){
-                fpsMonitor.Add ("width", webCamTextureMat.width ().ToString());
-                fpsMonitor.Add ("height", webCamTextureMat.height ().ToString());
-                fpsMonitor.Add ("orientation", Screen.orientation.ToString());
+            if (fpsMonitor != null) {
+                fpsMonitor.Add ("width", webCamTextureMat.width ().ToString ());
+                fpsMonitor.Add ("height", webCamTextureMat.height ().ToString ());
+                fpsMonitor.Add ("orientation", Screen.orientation.ToString ());
             }
             if (fpsMonitor != null) {
                 fpsMonitor.consoleText = "Please touch the 4 points surrounding the tracking object.";
             }
             
-            float width = webCamTextureMat.width();
-            float height = webCamTextureMat.height();
+            float width = webCamTextureMat.width ();
+            float height = webCamTextureMat.height ();
             
             float widthScale = (float)Screen.width / width;
             float heightScale = (float)Screen.height / height;
@@ -152,7 +140,7 @@ namespace OpenCVForUnityExample
             roiPointList.Clear ();
 
             if (texture != null) {
-                Texture2D.Destroy(texture);
+                Texture2D.Destroy (texture);
                 texture = null;
             }
         }
@@ -161,7 +149,8 @@ namespace OpenCVForUnityExample
         /// Raises the webcam texture to mat helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
-        public void OnWebCamTextureToMatHelperErrorOccurred(WebCamTextureToMatHelper.ErrorCode errorCode){
+        public void OnWebCamTextureToMatHelperErrorOccurred (WebCamTextureToMatHelper.ErrorCode errorCode)
+        {
             Debug.Log ("OnWebCamTextureToMatHelperErrorOccurred " + errorCode);
         }
 
@@ -174,7 +163,7 @@ namespace OpenCVForUnityExample
             if (touchCount == 1)
             {
                 Touch t = Input.GetTouch(0);
-                if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject(t.fingerId)){
+                if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject (t.fingerId)) {
                     storedTouchPoint = new Point (t.position.x, t.position.y);
                     //Debug.Log ("touch X " + t.position.x);
                     //Debug.Log ("touch Y " + t.position.y);
@@ -182,7 +171,7 @@ namespace OpenCVForUnityExample
             }
             #else
             //Mouse
-            if (Input.GetMouseButtonUp (0) && !EventSystem.current.IsPointerOverGameObject()) {
+            if (Input.GetMouseButtonUp (0) && !EventSystem.current.IsPointerOverGameObject ()) {
                 storedTouchPoint = new Point (Input.mousePosition.x, Input.mousePosition.y);
                 //Debug.Log ("mouse X " + Input.mousePosition.x);
                 //Debug.Log ("mouse Y " + Input.mousePosition.y);
@@ -196,7 +185,7 @@ namespace OpenCVForUnityExample
                 Imgproc.cvtColor (rgbaMat, hsvMat, Imgproc.COLOR_RGBA2RGB);
                 Imgproc.cvtColor (hsvMat, hsvMat, Imgproc.COLOR_RGB2HSV);
 
-                if(storedTouchPoint != null) {
+                if (storedTouchPoint != null) {
                     ConvertScreenPointToTexturePoint (storedTouchPoint, storedTouchPoint, gameObject, rgbaMat.cols (), rgbaMat.rows ());
                     OnTouch (rgbaMat, storedTouchPoint);
                     storedTouchPoint = null;
@@ -217,16 +206,16 @@ namespace OpenCVForUnityExample
                     }
                     roiHistMat = new Mat ();
 
-                    using (Mat roiHSVMat = new Mat(hsvMat, roiRect))
+                    using (Mat roiHSVMat = new Mat (hsvMat, roiRect))
                     using (Mat maskMat = new Mat ()) {
-                        Imgproc.calcHist (new List<Mat> (new Mat[]{roiHSVMat}), new MatOfInt (0), maskMat, roiHistMat, new MatOfInt (16), new MatOfFloat (0, 180)); 
+                        Imgproc.calcHist (new List<Mat> (new Mat[]{ roiHSVMat }), new MatOfInt (0), maskMat, roiHistMat, new MatOfInt (16), new MatOfFloat (0, 180)); 
                         Core.normalize (roiHistMat, roiHistMat, 0, 255, Core.NORM_MINMAX);
 
                         //Debug.Log ("roiHist " + roiHistMat.ToString ());
                     }
-                }else if (points.Length == 4) {
+                } else if (points.Length == 4) {
                     using (Mat backProj = new Mat ()) {
-                        Imgproc.calcBackProject (new List<Mat> (new Mat[]{hsvMat}), new MatOfInt (0), roiHistMat, backProj, new MatOfFloat (0, 180), 1.0);
+                        Imgproc.calcBackProject (new List<Mat> (new Mat[]{ hsvMat }), new MatOfInt (0), roiHistMat, backProj, new MatOfFloat (0, 180), 1.0);
                 
                         RotatedRect r = Video.CamShift (backProj, roiRect, termination);
                         r.points (points);
@@ -246,22 +235,22 @@ namespace OpenCVForUnityExample
                     Imgproc.rectangle (rgbaMat, roiRect.tl (), roiRect.br (), new Scalar (0, 255, 0, 255), 2);
                 }
 
-//              Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+//                Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                 
                 Utils.fastMatToTexture2D (rgbaMat, texture);
             }
         }
-            
+
         private void OnTouch (Mat img, Point touchPoint)
         {
             if (roiPointList.Count == 4) {
-                    roiPointList.Clear ();
+                roiPointList.Clear ();
             }
 
             if (roiPointList.Count < 4) {
                 roiPointList.Add (touchPoint);
 
-                if (!(new OpenCVForUnity.Rect (0, 0, img.width (), img.height ()).contains (roiPointList [roiPointList.Count - 1]))) {
+                if (!(new OpenCVForUnity.CoreModule.Rect (0, 0, img.width (), img.height ()).contains (roiPointList [roiPointList.Count - 1]))) {
                     roiPointList.RemoveAt (roiPointList.Count - 1);
                 }
 
@@ -304,22 +293,22 @@ namespace OpenCVForUnityExample
             Vector2 br = camera.WorldToScreenPoint (new Vector3 (quadPosition.x + quadScale.x / 2, quadPosition.y - quadScale.y / 2, quadPosition.z));
             Vector2 bl = camera.WorldToScreenPoint (new Vector3 (quadPosition.x - quadScale.x / 2, quadPosition.y - quadScale.y / 2, quadPosition.z));                       
 
-            using(Mat srcRectMat = new Mat (4, 1, CvType.CV_32FC2))
-            using(Mat dstRectMat = new Mat (4, 1, CvType.CV_32FC2)) {
+            using (Mat srcRectMat = new Mat (4, 1, CvType.CV_32FC2))
+            using (Mat dstRectMat = new Mat (4, 1, CvType.CV_32FC2)) {
                 srcRectMat.put (0, 0, tl.x, tl.y, tr.x, tr.y, br.x, br.y, bl.x, bl.y);
                 dstRectMat.put (0, 0, 0, 0, quadScale.x, 0, quadScale.x, quadScale.y, 0, quadScale.y);            
 
-                using(Mat perspectiveTransform = Imgproc.getPerspectiveTransform (srcRectMat, dstRectMat))
-                using(MatOfPoint2f srcPointMat = new MatOfPoint2f (screenPoint))
-                using(MatOfPoint2f dstPointMat = new MatOfPoint2f ()) {
+                using (Mat perspectiveTransform = Imgproc.getPerspectiveTransform (srcRectMat, dstRectMat))
+                using (MatOfPoint2f srcPointMat = new MatOfPoint2f (screenPoint))
+                using (MatOfPoint2f dstPointMat = new MatOfPoint2f ()) {
                     Core.perspectiveTransform (srcPointMat, dstPointMat, perspectiveTransform);
 
-                    dstPoint.x = dstPointMat.get(0,0)[0] * textureWidth / quadScale.x;
-                    dstPoint.y = dstPointMat.get(0,0)[1] * textureHeight / quadScale.y;
+                    dstPoint.x = dstPointMat.get (0, 0) [0] * textureWidth / quadScale.x;
+                    dstPoint.y = dstPointMat.get (0, 0) [1] * textureHeight / quadScale.y;
                 }
             }
         }
-    
+
         /// <summary>
         /// Raises the destroy event.
         /// </summary>
@@ -333,11 +322,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
 
         /// <summary>
@@ -369,16 +354,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnChangeCameraButtonClick ()
         {
-            #if UNITY_ANDROID && !UNITY_EDITOR
-            if (!webCamTextureToMatHelper.IsFrontFacing ()) {
-                rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
-                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), 15, webCamTextureToMatHelper.rotate90Degree);
-            } else {                
-                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), rearCameraRequestedFPS, webCamTextureToMatHelper.rotate90Degree);
-            }
-            #else
             webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing ();
-            #endif
         }
     }
 }

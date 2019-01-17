@@ -1,16 +1,16 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections;
-using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 //using Unity.IL2CPP.CompilerServices;
 
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -148,7 +148,7 @@ namespace OpenCVForUnityExample
             Imgproc.resize (dstMat, dstMatLarge, new Size (), 2, 2, 0);
 
             // Generate small size Mat (ROI).
-            OpenCVForUnity.Rect rect = new OpenCVForUnity.Rect (127, 127, 256, 256);
+            OpenCVForUnity.CoreModule.Rect rect = new OpenCVForUnity.CoreModule.Rect (127, 127, 256, 256);
             fgMatROI = new Mat (fgMat, rect);
             bgMatROI = new Mat (bgMat, rect);
             alphaMatROI = new Mat (alphaMat, rect);
@@ -202,18 +202,18 @@ namespace OpenCVForUnityExample
 
             Utils.matToTexture2D (dstMat, dstTex);
 
-#if UNITY_WSA && ENABLE_DOTNET
+            #if UNITY_WSA && ENABLE_DOTNET
             if (fpsMonitor != null)
             {
                 fpsMonitor.consoleText = imageSize + " : " + count + " : " + ms + " ms";
             }
             Debug.Log(imageSize + " : " + count + " : " + ms + " ms");
-#else
+            #else
             if (fpsMonitor != null) {
                 fpsMonitor.consoleText = imageSize + " : " + count + " : " + action.Method.Name + " : " + ms + " ms";
             }
             Debug.Log (imageSize + " : " + count + " : " + action.Method.Name + " : " + ms + " ms");
-#endif
+            #endif
         }
 
         private void getput ()
@@ -468,10 +468,10 @@ namespace OpenCVForUnityExample
             }
         }
 
-        // pointer access
         /*
-//        [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
-//        [Il2CppSetOption(Option.NullChecks, false)]
+        // pointer access
+        //        [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+        //        [Il2CppSetOption(Option.NullChecks, false)]
         private void AlphaBlend_pointerAccess (Mat fg, Mat bg, Mat alpha, Mat dst)
         {
             IntPtr fg_ptr = new IntPtr (fg.dataAddr());
@@ -547,11 +547,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
 
         /// <summary>

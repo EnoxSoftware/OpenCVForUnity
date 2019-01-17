@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using System.Collections.Generic;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -46,8 +45,8 @@ namespace OpenCVForUnityExample
             }
             
             // draw labels
-            for (int i = 0; i < dstMat.rows(); ++i) {
-                for (int j = 0; j < dstMat.cols(); ++j) {
+            for (int i = 0; i < dstMat.rows (); ++i) {
+                for (int j = 0; j < dstMat.cols (); ++j) {
                     Scalar color = colors [(int)labels.get (i, j) [0]];
                     dstMat.put (i, j, color.val [0], color.val [1], color.val [2]);
                 }
@@ -61,7 +60,7 @@ namespace OpenCVForUnityExample
                 int height = (int)stats.get (i, Imgproc.CC_STAT_HEIGHT) [0];
                 int width = (int)stats.get (i, Imgproc.CC_STAT_WIDTH) [0];
 
-                OpenCVForUnity.Rect rect = new OpenCVForUnity.Rect (x, y, width, height);
+                OpenCVForUnity.CoreModule.Rect rect = new OpenCVForUnity.CoreModule.Rect (x, y, width, height);
 
                 Imgproc.rectangle (dstMat, rect.tl (), rect.br (), new Scalar (0, 255, 0), 2);
             }
@@ -81,7 +80,7 @@ namespace OpenCVForUnityExample
                 int x = (int)stats.get (i, Imgproc.CC_STAT_LEFT) [0];
                 int y = (int)stats.get (i, Imgproc.CC_STAT_TOP) [0];
 
-                Imgproc.putText (dstMat, "" + i, new Point (x + 5, y + 15), Core.FONT_HERSHEY_COMPLEX, 0.5, new Scalar (255, 255, 0), 2);
+                Imgproc.putText (dstMat, "" + i, new Point (x + 5, y + 15), Imgproc.FONT_HERSHEY_COMPLEX, 0.5, new Scalar (255, 255, 0), 2);
             }
             
             
@@ -103,11 +102,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
     }
 }

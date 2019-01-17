@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using OpenCVForUnity.ObjdetectModule;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -20,21 +20,21 @@ namespace OpenCVForUnityExample
         CascadeClassifier cascade;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
-        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
+        IEnumerator getFilePath_Coroutine;
         #endif
 
         // Use this for initialization
         void Start ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
-            var getFilePath_Coroutine = Utils.getFilePathAsync("haarcascade_frontalface_alt.xml", 
+            getFilePath_Coroutine = Utils.getFilePathAsync("haarcascade_frontalface_alt.xml", 
             (result) => {
-                coroutines.Clear ();
+                getFilePath_Coroutine = null;
 
                 cascade = new CascadeClassifier ();
                 cascade.load(result);
                 if (cascade.empty ()) {
-                    Debug.LogError ("cascade file is not loaded.Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
+                    Debug.LogError ("cascade file is not loaded. Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
                 }
            
                 Run ();
@@ -42,7 +42,6 @@ namespace OpenCVForUnityExample
             (result, progress) => {
                 Debug.Log ("getFilePathAsync() progress : " + result + " " + Mathf.CeilToInt (progress * 100) + "%");
             });
-            coroutines.Push (getFilePath_Coroutine);
             StartCoroutine (getFilePath_Coroutine);
             #else
             //cascade = new CascadeClassifier (Utils.getFilePath ("lbpcascade_frontalface.xml"));
@@ -50,7 +49,7 @@ namespace OpenCVForUnityExample
             cascade.load (Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
             #if !UNITY_WSA_10_0
             if (cascade.empty ()) {
-                Debug.LogError ("cascade file is not loaded.Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
+                Debug.LogError ("cascade file is not loaded. Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
             }
             #endif
             Run ();
@@ -78,7 +77,7 @@ namespace OpenCVForUnityExample
                 cascade.detectMultiScale (grayMat, faces, 1.1, 2, 2, 
                     new Size (20, 20), new Size ());
 
-            OpenCVForUnity.Rect[] rects = faces.toArray ();
+            OpenCVForUnity.CoreModule.Rect[] rects = faces.toArray ();
             for (int i = 0; i < rects.Length; i++) {
                 Debug.Log ("detect faces " + rects [i]);
 
@@ -105,9 +104,9 @@ namespace OpenCVForUnityExample
         void OnDestroy ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
-            foreach (var coroutine in coroutines) {
-                StopCoroutine (coroutine);
-                ((IDisposable)coroutine).Dispose ();
+            if (getFilePath_Coroutine != null) {
+                StopCoroutine (getFilePath_Coroutine);
+                ((IDisposable)getFilePath_Coroutine).Dispose ();
             }
             #endif
         }
@@ -117,11 +116,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
     }
 }

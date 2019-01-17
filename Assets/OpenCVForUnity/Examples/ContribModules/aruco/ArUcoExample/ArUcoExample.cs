@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.Calib3dModule;
+using OpenCVForUnity.ArucoModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -23,7 +23,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public Texture2D imgTexture;
 
-        [Space(10)]
+        [Space (10)]
 
         /// <summary>
         /// The dictionary identifier.
@@ -65,7 +65,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public Camera arCamera;
 
-        [Space(10)]
+        [Space (10)]
 
         /// <summary>
         /// Determines if request the AR camera moving.
@@ -209,8 +209,8 @@ namespace OpenCVForUnityExample
                     Aruco.estimatePoseSingleMarkers (corners, markerLength, camMatrix, distCoeffs, rvecs, tvecs);
 
                     for (int i = 0; i < ids.total (); i++) {
-                        using (Mat rvec = new Mat (rvecs, new OpenCVForUnity.Rect (0, i, 1, 1)))
-                        using (Mat tvec = new Mat (tvecs, new OpenCVForUnity.Rect (0, i, 1, 1))) {
+                        using (Mat rvec = new Mat (rvecs, new OpenCVForUnity.CoreModule.Rect (0, i, 1, 1)))
+                        using (Mat tvec = new Mat (tvecs, new OpenCVForUnity.CoreModule.Rect (0, i, 1, 1))) {
                             
                             // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
                             Aruco.drawAxis (rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
@@ -228,7 +228,7 @@ namespace OpenCVForUnityExample
                             rvec.put (0, 0, rvecArr);
                             Calib3d.Rodrigues (rvec, rotMat);
 
-                            double[] rotMatArr = new double[rotMat.total()];
+                            double[] rotMatArr = new double[rotMat.total ()];
                             rotMat.get (0, 0, rotMatArr);
 
                             Matrix4x4 transformationM = new Matrix4x4 (); // from OpenCV
@@ -299,17 +299,13 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
 
         /// <summary>
         /// Raises the dictionary id dropdown value changed event.
         /// </summary>
-        public void OnDictionaryIdDropdownValueChanged(int result)
+        public void OnDictionaryIdDropdownValueChanged (int result)
         {
             if ((int)dictionaryId != result) {
                 dictionaryId = (ArUcoDictionary)result;

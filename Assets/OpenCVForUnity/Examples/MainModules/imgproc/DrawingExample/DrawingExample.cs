@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using System.Collections;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -31,16 +30,17 @@ namespace OpenCVForUnityExample
 
             Imgproc.circle (imgMat, new Point (500, 300), 80, new Scalar (200, 0, 0), 1);
 
-            Imgproc.arrowedLine (imgMat, new Point (100, 500), new Point (550, 350), new Scalar (255, 255, 0), 4, Core.LINE_8, 0, 0.1);
+            Imgproc.arrowedLine (imgMat, new Point (100, 500), new Point (550, 350), new Scalar (255, 255, 0), 4, Imgproc.LINE_8, 0, 0.1);
 
 
             double angle = 100;
             Imgproc.ellipse (imgMat, new Point (200, 400), new Size (80, 150), angle, angle - 200, angle + 100, new Scalar (255, 255, 255), -1);
 
 
-            int[] face = {Core.FONT_HERSHEY_SIMPLEX, Core.FONT_HERSHEY_PLAIN, Core.FONT_HERSHEY_DUPLEX, Core.FONT_HERSHEY_COMPLEX, 
-            Core.FONT_HERSHEY_TRIPLEX, Core.FONT_HERSHEY_COMPLEX_SMALL, Core.FONT_HERSHEY_SCRIPT_SIMPLEX, 
-            Core.FONT_HERSHEY_SCRIPT_COMPLEX, Core.FONT_ITALIC};
+            int[] face = {Imgproc.FONT_HERSHEY_SIMPLEX, Imgproc.FONT_HERSHEY_PLAIN, Imgproc.FONT_HERSHEY_DUPLEX, Imgproc.FONT_HERSHEY_COMPLEX, 
+                Imgproc.FONT_HERSHEY_TRIPLEX, Imgproc.FONT_HERSHEY_COMPLEX_SMALL, Imgproc.FONT_HERSHEY_SCRIPT_SIMPLEX, 
+                Imgproc.FONT_HERSHEY_SCRIPT_COMPLEX, Imgproc.FONT_ITALIC
+            };
         
 
             Imgproc.putText (imgMat, "OpenCV", new Point (50, 50), face [0], 1.2, new Scalar (0, 0, 200), 2, Imgproc.LINE_AA, false);
@@ -72,17 +72,13 @@ namespace OpenCVForUnityExample
         {
         
         }
-    
+
         /// <summary>
         /// Raises the back button click event.
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
     }
 }

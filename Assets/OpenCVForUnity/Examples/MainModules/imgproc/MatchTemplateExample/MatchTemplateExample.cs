@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using System.Collections;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -38,8 +37,8 @@ namespace OpenCVForUnityExample
             
             Imgproc.threshold (result, result, 0.8, 1.0, Imgproc.THRESH_TOZERO);//threshold = 0.8
             
-            for (int i=0; i<result.rows(); i++) {
-                for (int j=0; j<result.cols(); j++) {
+            for (int i = 0; i < result.rows (); i++) {
+                for (int j = 0; j < result.cols (); j++) {
                     if (result.get (i, j) [0] > 0) {
                         
                         Imgproc.rectangle (imgMat, new Point (j, i), new Point (j + tempMat.cols (), i + tempMat.rows ()), new Scalar (255, 0, 0, 255), 2);
@@ -66,11 +65,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using System.Collections;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.MlModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -23,7 +23,7 @@ namespace OpenCVForUnityExample
             Mat image = Mat.zeros (height, width, CvType.CV_8UC4);
 
             // Set up training data
-            int[] labels = {1, -1, -1, -1};
+            int[] labels = { 1, -1, -1, -1 };
             float[] trainingData = { 501, 10, 255, 10, 501, 255, 10, 501 };
             Mat trainingDataMat = new Mat (4, 2, CvType.CV_32FC1);
             trainingDataMat.put (0, 0, trainingData);
@@ -38,10 +38,10 @@ namespace OpenCVForUnityExample
             svm.train (trainingDataMat, Ml.ROW_SAMPLE, labelsMat);
 
             // Show the decision regions given by the SVM
-            byte[] green = {0,255,0,255};
-            byte[] blue = {0,0,255,255};
-            for (int i = 0; i < image.rows(); ++i)
-                for (int j = 0; j < image.cols(); ++j) {
+            byte[] green = { 0, 255, 0, 255 };
+            byte[] blue = { 0, 0, 255, 255 };
+            for (int i = 0; i < image.rows (); ++i)
+                for (int j = 0; j < image.cols (); ++j) {
                     Mat sampleMat = new Mat (1, 2, CvType.CV_32FC1);
                     sampleMat.put (0, 0, j, i);
             
@@ -67,7 +67,7 @@ namespace OpenCVForUnityExample
             Mat sv = svm.getUncompressedSupportVectors ();
 //                      Debug.Log ("sv.ToString() " + sv.ToString ());
 //                      Debug.Log ("sv.dump() " + sv.dump ());
-            for (int i = 0; i < sv.rows(); ++i) {
+            for (int i = 0; i < sv.rows (); ++i) {
                 Imgproc.circle (image, new Point ((int)sv.get (i, 0) [0], (int)sv.get (i, 1) [0]), 6, new Scalar (128, 128, 128, 255), thickness, lineType, 0);
             }
 
@@ -88,11 +88,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
     }
 }

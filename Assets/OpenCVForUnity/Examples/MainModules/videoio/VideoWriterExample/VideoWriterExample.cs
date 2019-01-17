@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-
-using OpenCVForUnity;
-using UnityEngine.UI;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-using UnityEngine.SceneManagement;
-#endif
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.VideoioModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnitySample
 {
@@ -163,9 +162,9 @@ namespace OpenCVForUnitySample
                 Utils.texture2DToMat (screenCapture, recordingFrameRgbMat);
                 Imgproc.cvtColor (recordingFrameRgbMat, recordingFrameRgbMat, Imgproc.COLOR_RGB2BGR);
 
-                Imgproc.putText (recordingFrameRgbMat, frameCount.ToString (), new Point (recordingFrameRgbMat.cols () - 70, 30), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255), 2, Imgproc.LINE_AA, false);
-                Imgproc.putText (recordingFrameRgbMat, "SavePath:", new Point (5, recordingFrameRgbMat.rows () - 30), Core.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (0, 0, 255), 2, Imgproc.LINE_AA, false);
-                Imgproc.putText (recordingFrameRgbMat, savePath, new Point (5, recordingFrameRgbMat.rows () - 8), Core.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (255, 255, 255), 0, Imgproc.LINE_AA, false);
+                Imgproc.putText (recordingFrameRgbMat, frameCount.ToString (), new Point (recordingFrameRgbMat.cols () - 70, 30), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255), 2, Imgproc.LINE_AA, false);
+                Imgproc.putText (recordingFrameRgbMat, "SavePath:", new Point (5, recordingFrameRgbMat.rows () - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (0, 0, 255), 2, Imgproc.LINE_AA, false);
+                Imgproc.putText (recordingFrameRgbMat, savePath, new Point (5, recordingFrameRgbMat.rows () - 8), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (255, 255, 255), 0, Imgproc.LINE_AA, false);
 
                 writer.write (recordingFrameRgbMat);
             }
@@ -179,7 +178,7 @@ namespace OpenCVForUnitySample
             this.savePath = savePath;
 
             writer = new VideoWriter ();
-            writer.open (savePath, VideoWriter.fourcc ('M', 'J', 'P', 'G'), 30, new OpenCVForUnity.Size (Screen.width, Screen.height));
+            writer.open (savePath, VideoWriter.fourcc ('M', 'J', 'P', 'G'), 30, new Size (Screen.width, Screen.height));
 
             if (!writer.isOpened ()) {
                 Debug.LogError ("writer.isOpened() false");
@@ -225,7 +224,6 @@ namespace OpenCVForUnitySample
             }
 
             Debug.Log ("CAP_PROP_FORMAT: " + capture.get (Videoio.CAP_PROP_FORMAT));
-            Debug.Log ("CV_CAP_PROP_PREVIEW_FORMAT: " + capture.get (Videoio.CV_CAP_PROP_PREVIEW_FORMAT));
             Debug.Log ("CAP_PROP_POS_MSEC: " + capture.get (Videoio.CAP_PROP_POS_MSEC));
             Debug.Log ("CAP_PROP_POS_FRAMES: " + capture.get (Videoio.CAP_PROP_POS_FRAMES));
             Debug.Log ("CAP_PROP_POS_AVI_RATIO: " + capture.get (Videoio.CAP_PROP_POS_AVI_RATIO));
@@ -281,11 +279,7 @@ namespace OpenCVForUnitySample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
 
         /// <summary>

@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
-using Rect = OpenCVForUnity.Rect;
-using PositionsVector = System.Collections.Generic.List<OpenCVForUnity.Rect>;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ObjdetectModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.UnityUtils.Helper;
+using Rect = OpenCVForUnity.CoreModule.Rect;
+using PositionsVector = System.Collections.Generic.List<OpenCVForUnity.CoreModule.Rect>;
 
 namespace OpenCVForUnityExample
 {
@@ -128,10 +129,6 @@ namespace OpenCVForUnityExample
         /// </summary>
         FpsMonitor fpsMonitor;
 
-        #if UNITY_ANDROID && !UNITY_EDITOR
-        float rearCameraRequestedFPS;
-        #endif
-
         // for tracker
         List<TrackedObject> trackedObjects = new List<TrackedObject> ();
         List<float> weightsPositionsSmoothing = new List<float> ();
@@ -140,7 +137,7 @@ namespace OpenCVForUnityExample
         InnerParameters innerParameters;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
-        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
+        IEnumerator getFilePath_Coroutine;
         #endif
 
         // Use this for initialization
@@ -151,8 +148,7 @@ namespace OpenCVForUnityExample
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
-            var getFilePath_Coroutine = GetFilePath ();
-            coroutines.Push (getFilePath_Coroutine);
+            getFilePath_Coroutine = GetFilePath ();
             StartCoroutine (getFilePath_Coroutine);
             #else
             lbpcascade_frontalface_xml_filepath = Utils.getFilePath ("lbpcascade_frontalface.xml");
@@ -167,16 +163,14 @@ namespace OpenCVForUnityExample
             var getFilePathAsync_lbpcascade_frontalface_xml_filepath_Coroutine = Utils.getFilePathAsync ("lbpcascade_frontalface.xml", (result) => {
                 lbpcascade_frontalface_xml_filepath = result;
             });
-            coroutines.Push (getFilePathAsync_lbpcascade_frontalface_xml_filepath_Coroutine);
-            yield return StartCoroutine (getFilePathAsync_lbpcascade_frontalface_xml_filepath_Coroutine);
+            yield return getFilePathAsync_lbpcascade_frontalface_xml_filepath_Coroutine;
             
             var getFilePathAsync_haarcascade_frontalface_alt_xml_filepath_Coroutine = Utils.getFilePathAsync ("haarcascade_frontalface_alt.xml", (result) => {
                 haarcascade_frontalface_alt_xml_filepath = result;
             });
-            coroutines.Push (getFilePathAsync_haarcascade_frontalface_alt_xml_filepath_Coroutine);
-            yield return StartCoroutine (getFilePathAsync_haarcascade_frontalface_alt_xml_filepath_Coroutine);
+            yield return getFilePathAsync_haarcascade_frontalface_alt_xml_filepath_Coroutine;
             
-            coroutines.Clear ();
+            getFilePath_Coroutine = null;
             
             Run ();
         }
@@ -204,19 +198,10 @@ namespace OpenCVForUnityExample
             innerParameters.coeffObjectSpeedUsingInPrediction = 0.8f;
 
             #if UNITY_ANDROID && !UNITY_EDITOR
-            // Set the requestedFPS parameter to avoid the problem of the WebCamTexture image becoming low light on some Android devices. (Pixel, pixel 2)
-            // https://forum.unity.com/threads/android-webcamtexture-in-low-light-only-some-models.520656/
-            // https://forum.unity.com/threads/released-opencv-for-unity.277080/page-33#post-3445178
-            rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
-            if (webCamTextureToMatHelper.requestedIsFrontFacing) {                
-                webCamTextureToMatHelper.requestedFPS = 15;
-                webCamTextureToMatHelper.Initialize ();
-            } else {
-                webCamTextureToMatHelper.Initialize ();
-            }
-            #else
-            webCamTextureToMatHelper.Initialize ();
+            // Avoids the front camera low light issue that occurs in only some Android devices (e.g. Google Pixel, Pixel2).
+            webCamTextureToMatHelper.avoidAndroidFrontCameraLowLightIssue = true;
             #endif
+            webCamTextureToMatHelper.Initialize ();
         }
 
         /// <summary>
@@ -236,10 +221,10 @@ namespace OpenCVForUnityExample
             
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
-            if (fpsMonitor != null){
-                fpsMonitor.Add ("width", webCamTextureMat.width ().ToString());
-                fpsMonitor.Add ("height", webCamTextureMat.height ().ToString());
-                fpsMonitor.Add ("orientation", Screen.orientation.ToString());
+            if (fpsMonitor != null) {
+                fpsMonitor.Add ("width", webCamTextureMat.width ().ToString ());
+                fpsMonitor.Add ("height", webCamTextureMat.height ().ToString ());
+                fpsMonitor.Add ("orientation", Screen.orientation.ToString ());
             }
 
             
@@ -260,7 +245,7 @@ namespace OpenCVForUnityExample
             cascade.load (lbpcascade_frontalface_xml_filepath);
             #if !UNITY_WSA_10_0
             if (cascade.empty ()) {
-                Debug.LogError ("cascade file is not loaded.Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
+                Debug.LogError ("cascade file is not loaded. Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
             }
             #endif
             InitThread ();
@@ -289,7 +274,7 @@ namespace OpenCVForUnityExample
                 grayMat.Dispose ();
 
             if (texture != null) {
-                Texture2D.Destroy(texture);
+                Texture2D.Destroy (texture);
                 texture = null;
             }
 
@@ -324,7 +309,7 @@ namespace OpenCVForUnityExample
                     shouldDetectInMultiThread = true;
                 }
 
-                OpenCVForUnity.Rect[] rects;
+                OpenCVForUnity.CoreModule.Rect[] rects;
                 
                 if (didUpdateTheDetectionResult) {
                     didUpdateTheDetectionResult = false;
@@ -389,7 +374,7 @@ namespace OpenCVForUnityExample
                 }
 
                 #if UNITY_WEBGL
-                Imgproc.putText (rgbaMat, "WebGL platform does not support multi-threading.", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (255, 255, 255, 255), 1, Imgproc.LINE_AA, false);
+                Imgproc.putText (rgbaMat, "WebGL platform does not support multi-threading.", new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (255, 255, 255, 255), 1, Imgproc.LINE_AA, false);
                 #endif
 
                 Utils.fastMatToTexture2D (rgbaMat, texture);
@@ -445,7 +430,7 @@ namespace OpenCVForUnityExample
             cascade4Thread.load (haarcascade_frontalface_alt_xml_filepath);
             #if !UNITY_WSA_10_0
             if (cascade4Thread.empty ()) {
-                Debug.LogError ("cascade4Thread file is not loaded.Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
+                Debug.LogError ("cascade4Thread file is not loaded. Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
             }
             #endif
             
@@ -503,6 +488,8 @@ namespace OpenCVForUnityExample
 
             isThreadRunning = false;
         }
+        
+        
         #else
         private IEnumerator ThreadWorker ()
         {
@@ -541,9 +528,9 @@ namespace OpenCVForUnityExample
             webCamTextureToMatHelper.Dispose ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
-            foreach (var coroutine in coroutines) {
-                StopCoroutine (coroutine);
-                ((IDisposable)coroutine).Dispose ();
+            if (getFilePath_Coroutine != null) {
+                StopCoroutine (getFilePath_Coroutine);
+                ((IDisposable)getFilePath_Coroutine).Dispose ();
             }
             #endif
         }
@@ -553,11 +540,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
 
         /// <summary>
@@ -589,16 +572,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnChangeCameraButtonClick ()
         {
-            #if UNITY_ANDROID && !UNITY_EDITOR
-            if (!webCamTextureToMatHelper.IsFrontFacing ()) {
-                rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
-                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), 15, webCamTextureToMatHelper.rotate90Degree);
-            } else {                
-                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), rearCameraRequestedFPS, webCamTextureToMatHelper.rotate90Degree);
-            }
-            #else
             webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing ();
-            #endif
         }
 
         //
@@ -857,7 +831,7 @@ namespace OpenCVForUnityExample
             public int id;
             static private int _id = 0;
 
-            public TrackedObject (OpenCVForUnity.Rect rect)
+            public TrackedObject (OpenCVForUnity.CoreModule.Rect rect)
             {
                 lastPositions = new PositionsVector ();
 

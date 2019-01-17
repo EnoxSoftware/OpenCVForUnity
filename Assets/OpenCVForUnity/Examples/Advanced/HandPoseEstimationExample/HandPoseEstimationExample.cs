@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils.Helper;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -15,7 +15,7 @@ namespace OpenCVForUnityExample
     /// Hand Pose Estimation Example
     /// Referring to https://www.youtube.com/watch?v=KuGpOxOcpds.
     /// </summary>
-    [RequireComponent(typeof(WebCamTextureToMatHelper))]
+    [RequireComponent (typeof(WebCamTextureToMatHelper))]
     public class HandPoseEstimationExample : MonoBehaviour
     {
         /// <summary>
@@ -93,10 +93,6 @@ namespace OpenCVForUnityExample
         /// </summary>
         FpsMonitor fpsMonitor;
 
-        #if UNITY_ANDROID && !UNITY_EDITOR
-        float rearCameraRequestedFPS;
-        #endif
-
         // Use this for initialization
         void Start ()
         {
@@ -105,19 +101,10 @@ namespace OpenCVForUnityExample
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
 
             #if UNITY_ANDROID && !UNITY_EDITOR
-            // Set the requestedFPS parameter to avoid the problem of the WebCamTexture image becoming low light on some Android devices. (Pixel, pixel 2)
-            // https://forum.unity.com/threads/android-webcamtexture-in-low-light-only-some-models.520656/
-            // https://forum.unity.com/threads/released-opencv-for-unity.277080/page-33#post-3445178
-            rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
-            if (webCamTextureToMatHelper.requestedIsFrontFacing) {                
-                webCamTextureToMatHelper.requestedFPS = 15;
-                webCamTextureToMatHelper.Initialize ();
-            } else {
-                webCamTextureToMatHelper.Initialize ();
-            }
-            #else
-            webCamTextureToMatHelper.Initialize ();
+            // Avoids the front camera low light issue that occurs in only some Android devices (e.g. Google Pixel, Pixel2).
+            webCamTextureToMatHelper.avoidAndroidFrontCameraLowLightIssue = true;
             #endif
+            webCamTextureToMatHelper.Initialize ();
         }
 
         /// <summary>
@@ -137,16 +124,16 @@ namespace OpenCVForUnityExample
             
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
-            if (fpsMonitor != null){
-                fpsMonitor.Add ("width", webCamTextureMat.width ().ToString());
-                fpsMonitor.Add ("height", webCamTextureMat.height ().ToString());
-                fpsMonitor.Add ("orientation", Screen.orientation.ToString());
+            if (fpsMonitor != null) {
+                fpsMonitor.Add ("width", webCamTextureMat.width ().ToString ());
+                fpsMonitor.Add ("height", webCamTextureMat.height ().ToString ());
+                fpsMonitor.Add ("orientation", Screen.orientation.ToString ());
                 fpsMonitor.consoleText = "Please touch the area of the open hand.";
             }
 
 
-            float width = webCamTextureMat.width();
-            float height = webCamTextureMat.height();
+            float width = webCamTextureMat.width ();
+            float height = webCamTextureMat.height ();
             
             float widthScale = (float)Screen.width / width;
             float heightScale = (float)Screen.height / height;
@@ -177,7 +164,7 @@ namespace OpenCVForUnityExample
                 spectrumMat = null;
             }
             if (texture != null) {
-                Texture2D.Destroy(texture);
+                Texture2D.Destroy (texture);
                 texture = null;
             }
         }
@@ -186,7 +173,8 @@ namespace OpenCVForUnityExample
         /// Raises the web cam texture to mat helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
-        public void OnWebCamTextureToMatHelperErrorOccurred(WebCamTextureToMatHelper.ErrorCode errorCode){
+        public void OnWebCamTextureToMatHelperErrorOccurred (WebCamTextureToMatHelper.ErrorCode errorCode)
+        {
             Debug.Log ("OnWebCamTextureToMatHelperErrorOccurred " + errorCode);
         }
 
@@ -198,8 +186,8 @@ namespace OpenCVForUnityExample
             int touchCount = Input.touchCount;
             if (touchCount == 1)
             {
-                Touch t = Input.GetTouch(0);
-                if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject(t.fingerId)){
+                Touch t = Input.GetTouch (0);
+                if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject (t.fingerId)) {
                     storedTouchPoint = new Point (t.position.x, t.position.y);
                     //Debug.Log ("touch X " + t.position.x);
                     //Debug.Log ("touch Y " + t.position.y);
@@ -207,7 +195,7 @@ namespace OpenCVForUnityExample
             }
             #else
             //Mouse
-            if (Input.GetMouseButtonUp (0) && !EventSystem.current.IsPointerOverGameObject()) {
+            if (Input.GetMouseButtonUp (0) && !EventSystem.current.IsPointerOverGameObject ()) {
                 storedTouchPoint = new Point (Input.mousePosition.x, Input.mousePosition.y);
                 //Debug.Log ("mouse X " + Input.mousePosition.x);
                 //Debug.Log ("mouse Y " + Input.mousePosition.y);
@@ -218,7 +206,7 @@ namespace OpenCVForUnityExample
                 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
 
-                if(storedTouchPoint != null) {
+                if (storedTouchPoint != null) {
                     ConvertScreenPointToTexturePoint (storedTouchPoint, storedTouchPoint, gameObject, rgbaMat.cols (), rgbaMat.rows ());
                     OnTouch (rgbaMat, storedTouchPoint);
                     storedTouchPoint = null;
@@ -226,7 +214,7 @@ namespace OpenCVForUnityExample
                 
                 HandPoseEstimationProcess (rgbaMat);
                 
-                //Imgproc.putText (rgbaMat, "Please touch the area of the open hand.", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+//                Imgproc.putText (rgbaMat, "Please touch the area of the open hand.", new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
                 Utils.fastMatToTexture2D (rgbaMat, texture);
             }
@@ -235,7 +223,7 @@ namespace OpenCVForUnityExample
         private void HandPoseEstimationProcess (Mat rgbaMat)
         {
             //Imgproc.blur(mRgba, mRgba, new Size(5,5));
-            Imgproc.GaussianBlur (rgbaMat, rgbaMat, new OpenCVForUnity.Size (3, 3), 1, 1);
+            Imgproc.GaussianBlur (rgbaMat, rgbaMat, new Size (3, 3), 1, 1);
             //Imgproc.medianBlur(mRgba, mRgba, 3);
             
             if (!isColorSelected)
@@ -244,7 +232,7 @@ namespace OpenCVForUnityExample
             List<MatOfPoint> contours = detector.GetContours ();
             detector.Process (rgbaMat);
             
-            //                      Debug.Log ("Contours count: " + contours.Count);
+//            Debug.Log ("Contours count: " + contours.Count);
             
             if (contours.Count <= 0) {
                 return;
@@ -267,23 +255,22 @@ namespace OpenCVForUnityExample
 
             MatOfPoint contour = contours [boundPos];
             
-            OpenCVForUnity.Rect boundRect = Imgproc.boundingRect (new MatOfPoint (contour.toArray ()));
+            OpenCVForUnity.CoreModule.Rect boundRect = Imgproc.boundingRect (new MatOfPoint (contour.toArray ()));
             Imgproc.rectangle (rgbaMat, boundRect.tl (), boundRect.br (), CONTOUR_COLOR_WHITE, 2, 8, 0);
             
-            //                      Debug.Log (
-            //                      " Row start [" + 
-            //                              (int)boundRect.tl ().y + "] row end [" +
-            //                              (int)boundRect.br ().y + "] Col start [" +
-            //                              (int)boundRect.tl ().x + "] Col end [" +
-            //                              (int)boundRect.br ().x + "]");
+//            Debug.Log (
+//                " Row start [" + 
+//                    (int)boundRect.tl ().y + "] row end [" +
+//                    (int)boundRect.br ().y + "] Col start [" +
+//                    (int)boundRect.tl ().x + "] Col end [" +
+//                    (int)boundRect.br ().x + "]");
             
             
             double a = boundRect.br ().y - boundRect.tl ().y;
             a = a * 0.7;
             a = boundRect.tl ().y + a;
             
-            //                      Debug.Log (
-            //                      " A [" + a + "] br y - tl y = [" + (boundRect.br ().y - boundRect.tl ().y) + "]");
+//            Debug.Log (" A [" + a + "] br y - tl y = [" + (boundRect.br ().y - boundRect.tl ().y) + "]");
 
             Imgproc.rectangle (rgbaMat, boundRect.tl (), new Point (boundRect.br ().x, a), CONTOUR_COLOR, 2, 8, 0);
             
@@ -302,7 +289,7 @@ namespace OpenCVForUnityExample
             
             List<MatOfPoint> hullPoints = new List<MatOfPoint> ();
             List<Point> listPo = new List<Point> ();
-            for (int j = 0; j < hull.toList().Count; j++) {
+            for (int j = 0; j < hull.toList ().Count; j++) {
                 listPo.Add (contour.toList () [hull.toList () [j]]);
             }
             
@@ -321,28 +308,28 @@ namespace OpenCVForUnityExample
                     if (depth > threasholdSlider.value && farPoint.y < a) {
                         listPoDefect.Add (contourList [convexDefectList [j + 2]]);
                     }
-                    //                              Debug.Log ("convexDefectList [" + j + "] " + convexDefectList [j + 3]);
+//                    Debug.Log ("convexDefectList [" + j + "] " + convexDefectList [j + 3]);
                 }
             }
 
             
-            //                      Debug.Log ("hull: " + hull.toList ());
-            //                      if (convexDefect.rows () > 0) {
-            //                          Debug.Log ("defects: " + convexDefect.toList ());
-            //                      }
+//            Debug.Log ("hull: " + hull.toList ());
+//            if (convexDefect.rows () > 0) {
+//                Debug.Log ("defects: " + convexDefect.toList ());
+//            }
             
             Imgproc.drawContours (rgbaMat, hullPoints, -1, CONTOUR_COLOR, 3);
             
-            //                      int defectsTotal = (int)convexDefect.total();
-            //                      Debug.Log ("Defect total " + defectsTotal);
+//            int defectsTotal = (int)convexDefect.total();
+//            Debug.Log ("Defect total " + defectsTotal);
             
             this.numberOfFingers = listPoDefect.Count;
             if (this.numberOfFingers > 5)
                 this.numberOfFingers = 5;
             
-            //                      Debug.Log ("numberOfFingers " + numberOfFingers);
+//            Debug.Log ("numberOfFingers " + numberOfFingers);
             
-            //                      Core.putText (mRgba, "" + numberOfFingers, new Point (mRgba.cols () / 2, mRgba.rows () / 2), Core.FONT_HERSHEY_PLAIN, 4.0, new Scalar (255, 255, 255, 255), 6, Core.LINE_AA, false);
+//            Imgproc.putText (rgbaMat, "" + numberOfFingers, new Point (rgbaMat.cols () / 2, rgbaMat.rows () / 2), Imgproc.FONT_HERSHEY_PLAIN, 4.0, new Scalar (255, 255, 255, 255), 6, Imgproc.LINE_AA, false);
             numberOfFingersText.text = numberOfFingers.ToString ();
             
             
@@ -350,7 +337,7 @@ namespace OpenCVForUnityExample
                 Imgproc.circle (rgbaMat, p, 6, new Scalar (255, 0, 255, 255), -1);
             }
         }
-        
+
         private void OnTouch (Mat img, Point touchPoint)
         {
             int cols = img.cols ();
@@ -364,7 +351,7 @@ namespace OpenCVForUnityExample
             if ((x < 0) || (y < 0) || (x > cols) || (y > rows))
                 return;
             
-            OpenCVForUnity.Rect touchedRect = new OpenCVForUnity.Rect ();
+            OpenCVForUnity.CoreModule.Rect touchedRect = new OpenCVForUnity.CoreModule.Rect ();
             
             touchedRect.x = (x > 5) ? x - 5 : 0;
             touchedRect.y = (y > 5) ? y - 5 : 0;
@@ -393,7 +380,7 @@ namespace OpenCVForUnityExample
                 isColorSelected = true;
             }
         }
-        
+
         private Scalar ConverScalarHsv2Rgba (Scalar hsvColor)
         {
             Scalar rgbaColor;
@@ -405,7 +392,7 @@ namespace OpenCVForUnityExample
             
             return rgbaColor;
         }
-        
+
         /// <summary>
         /// Converts the screen point to texture point.
         /// </summary>
@@ -439,18 +426,18 @@ namespace OpenCVForUnityExample
             Vector2 br = camera.WorldToScreenPoint (new Vector3 (quadPosition.x + quadScale.x / 2, quadPosition.y - quadScale.y / 2, quadPosition.z));
             Vector2 bl = camera.WorldToScreenPoint (new Vector3 (quadPosition.x - quadScale.x / 2, quadPosition.y - quadScale.y / 2, quadPosition.z));                       
 
-            using(Mat srcRectMat = new Mat (4, 1, CvType.CV_32FC2))
-            using(Mat dstRectMat = new Mat (4, 1, CvType.CV_32FC2)) {
+            using (Mat srcRectMat = new Mat (4, 1, CvType.CV_32FC2))
+            using (Mat dstRectMat = new Mat (4, 1, CvType.CV_32FC2)) {
                 srcRectMat.put (0, 0, tl.x, tl.y, tr.x, tr.y, br.x, br.y, bl.x, bl.y);
                 dstRectMat.put (0, 0, 0, 0, quadScale.x, 0, quadScale.x, quadScale.y, 0, quadScale.y);            
 
-                using(Mat perspectiveTransform = Imgproc.getPerspectiveTransform (srcRectMat, dstRectMat))
-                using(MatOfPoint2f srcPointMat = new MatOfPoint2f (screenPoint))
-                using(MatOfPoint2f dstPointMat = new MatOfPoint2f ()) {
+                using (Mat perspectiveTransform = Imgproc.getPerspectiveTransform (srcRectMat, dstRectMat))
+                using (MatOfPoint2f srcPointMat = new MatOfPoint2f (screenPoint))
+                using (MatOfPoint2f dstPointMat = new MatOfPoint2f ()) {
                     Core.perspectiveTransform (srcPointMat, dstPointMat, perspectiveTransform);
 
-                    dstPoint.x = dstPointMat.get(0,0)[0] * textureWidth / quadScale.x;
-                    dstPoint.y = dstPointMat.get(0,0)[1] * textureHeight / quadScale.y;
+                    dstPoint.x = dstPointMat.get (0, 0) [0] * textureWidth / quadScale.x;
+                    dstPoint.y = dstPointMat.get (0, 0) [1] * textureHeight / quadScale.y;
                 }
             }
         }
@@ -471,11 +458,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
 
         /// <summary>
@@ -507,16 +490,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnChangeCameraButtonClick ()
         {
-            #if UNITY_ANDROID && !UNITY_EDITOR
-            if (!webCamTextureToMatHelper.IsFrontFacing ()) {
-                rearCameraRequestedFPS = webCamTextureToMatHelper.requestedFPS;
-                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), 15, webCamTextureToMatHelper.rotate90Degree);
-            } else {                
-                webCamTextureToMatHelper.Initialize (!webCamTextureToMatHelper.IsFrontFacing (), rearCameraRequestedFPS, webCamTextureToMatHelper.rotate90Degree);
-            }
-            #else
             webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing ();
-            #endif
         }
     }
 }

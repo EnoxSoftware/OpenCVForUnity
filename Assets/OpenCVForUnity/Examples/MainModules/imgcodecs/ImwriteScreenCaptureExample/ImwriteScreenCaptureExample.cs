@@ -1,14 +1,14 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.ImgcodecsModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
-{    
+{
     [RequireComponent (typeof(Camera))]
     public class ImwriteScreenCaptureExample : MonoBehaviour
     {
@@ -77,8 +77,8 @@ namespace OpenCVForUnityExample
                 Imgproc.cvtColor (cameraMat, cameraMat, Imgproc.COLOR_RGBA2BGRA);
 
                 Imgproc.rectangle (cameraMat, new Point (0, 0), new Point (cameraMat.width (), cameraMat.height ()), new Scalar (0, 0, 255, 255), 3);
-                Imgproc.putText (cameraMat, "SavePath:",new Point (5, cameraMat.rows () - 30), Core.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (0, 0, 255), 2, Imgproc.LINE_AA, false);
-                Imgproc.putText (cameraMat, savePath, new Point (5, cameraMat.rows () - 8), Core.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (255, 255, 255), 0, Imgproc.LINE_AA, false);
+                Imgproc.putText (cameraMat, "SavePath:", new Point (5, cameraMat.rows () - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (0, 0, 255), 2, Imgproc.LINE_AA, false);
+                Imgproc.putText (cameraMat, savePath, new Point (5, cameraMat.rows () - 8), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (255, 255, 255), 0, Imgproc.LINE_AA, false);
 
                 Imgcodecs.imwrite (savePath, cameraMat);
 
@@ -96,11 +96,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
 
         /// <summary>

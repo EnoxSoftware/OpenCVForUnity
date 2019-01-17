@@ -1,19 +1,19 @@
 using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
-using System;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using System;
+using System.Collections;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.UnityUtils.Helper;
+using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.ImgprocModule;
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
     /// WebCamTextureToMatHelper Example
     /// </summary>
-    [RequireComponent(typeof(WebCamTextureToMatHelper))]
+    [RequireComponent (typeof(WebCamTextureToMatHelper))]
     public class WebCamTextureToMatHelperExample : MonoBehaviour
     {
         /// <summary>
@@ -82,7 +82,7 @@ namespace OpenCVForUnityExample
             // Update GUI state
             requestedResolutionDropdown.value = (int)requestedResolution;
             string[] enumNames = System.Enum.GetNames (typeof(FPSPreset));
-            int index = Array.IndexOf (enumNames, requestedFPS.ToString());
+            int index = Array.IndexOf (enumNames, requestedFPS.ToString ());
             requestedFPSDropdown.value = index;
             rotate90DegreeToggle.isOn = webCamTextureToMatHelper.rotate90Degree;
             flipVerticalToggle.isOn = webCamTextureToMatHelper.flipVertical;
@@ -105,22 +105,23 @@ namespace OpenCVForUnityExample
             gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
             Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
-            if (fpsMonitor != null){
-                fpsMonitor.Add ("deviceName", webCamTextureToMatHelper.GetDeviceName().ToString());
-                fpsMonitor.Add ("width", webCamTextureToMatHelper.GetWidth().ToString());
-                fpsMonitor.Add ("height", webCamTextureToMatHelper.GetHeight().ToString());
-                fpsMonitor.Add ("videoRotationAngle", webCamTextureToMatHelper.GetWebCamTexture ().videoRotationAngle.ToString());
-                fpsMonitor.Add ("videoVerticallyMirrored", webCamTextureToMatHelper.GetWebCamTexture ().videoVerticallyMirrored.ToString());
-                fpsMonitor.Add ("isFrontFacing", webCamTextureToMatHelper.IsFrontFacing().ToString());
-                fpsMonitor.Add ("rotate90Degree", webCamTextureToMatHelper.rotate90Degree.ToString());
-                fpsMonitor.Add ("flipVertical", webCamTextureToMatHelper.flipVertical.ToString());
-                fpsMonitor.Add ("flipHorizontal", webCamTextureToMatHelper.flipHorizontal.ToString());
-                fpsMonitor.Add ("orientation", Screen.orientation.ToString());
+            if (fpsMonitor != null) {
+                fpsMonitor.Add ("deviceName", webCamTextureToMatHelper.GetDeviceName ().ToString ());
+                fpsMonitor.Add ("width", webCamTextureToMatHelper.GetWidth ().ToString ());
+                fpsMonitor.Add ("height", webCamTextureToMatHelper.GetHeight ().ToString ());
+                fpsMonitor.Add ("videoRotationAngle", webCamTextureToMatHelper.GetWebCamTexture ().videoRotationAngle.ToString ());
+                fpsMonitor.Add ("videoVerticallyMirrored", webCamTextureToMatHelper.GetWebCamTexture ().videoVerticallyMirrored.ToString ());
+                fpsMonitor.Add ("camera fps", webCamTextureToMatHelper.GetFPS ().ToString ());
+                fpsMonitor.Add ("isFrontFacing", webCamTextureToMatHelper.IsFrontFacing ().ToString ());
+                fpsMonitor.Add ("rotate90Degree", webCamTextureToMatHelper.rotate90Degree.ToString ());
+                fpsMonitor.Add ("flipVertical", webCamTextureToMatHelper.flipVertical.ToString ());
+                fpsMonitor.Add ("flipHorizontal", webCamTextureToMatHelper.flipHorizontal.ToString ());
+                fpsMonitor.Add ("orientation", Screen.orientation.ToString ());
             }
 
                                     
-            float width = webCamTextureMat.width();
-            float height = webCamTextureMat.height();
+            float width = webCamTextureMat.width ();
+            float height = webCamTextureMat.height ();
                                     
             float widthScale = (float)Screen.width / width;
             float heightScale = (float)Screen.height / height;
@@ -139,7 +140,7 @@ namespace OpenCVForUnityExample
             Debug.Log ("OnWebCamTextureToMatHelperDisposed");
 
             if (texture != null) {
-                Texture2D.Destroy(texture);
+                Texture2D.Destroy (texture);
                 texture = null;
             }
         }
@@ -160,12 +161,12 @@ namespace OpenCVForUnityExample
 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
 
-                //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+//                Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
                 Utils.fastMatToTexture2D (rgbaMat, texture);
             }
         }
-    
+
         /// <summary>
         /// Raises the destroy event.
         /// </summary>
@@ -179,11 +180,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
 
         /// <summary>
@@ -258,7 +255,7 @@ namespace OpenCVForUnityExample
             }
 
             if (fpsMonitor != null)
-                fpsMonitor.Add ("rotate90Degree", webCamTextureToMatHelper.rotate90Degree.ToString());
+                fpsMonitor.Add ("rotate90Degree", webCamTextureToMatHelper.rotate90Degree.ToString ());
         }
 
         /// <summary>
@@ -271,7 +268,7 @@ namespace OpenCVForUnityExample
             }
 
             if (fpsMonitor != null)
-                fpsMonitor.Add ("flipVertical", webCamTextureToMatHelper.flipVertical.ToString());
+                fpsMonitor.Add ("flipVertical", webCamTextureToMatHelper.flipVertical.ToString ());
         }
 
         /// <summary>
@@ -284,7 +281,7 @@ namespace OpenCVForUnityExample
             }
 
             if (fpsMonitor != null)
-                fpsMonitor.Add ("flipHorizontal", webCamTextureToMatHelper.flipHorizontal.ToString());
+                fpsMonitor.Add ("flipHorizontal", webCamTextureToMatHelper.flipHorizontal.ToString ());
         }
 
         public enum FPSPreset : int
@@ -307,14 +304,32 @@ namespace OpenCVForUnityExample
             _9999x9999,
         }
 
-        private void Dimensions (ResolutionPreset preset, out int width, out int height) {
+        private void Dimensions (ResolutionPreset preset, out int width, out int height)
+        {
             switch (preset) {
-            case ResolutionPreset._50x50: width = 50; height = 50; break;
-            case ResolutionPreset._640x480: width = 640; height = 480; break;
-            case ResolutionPreset._1280x720: width = 1280; height = 720; break;
-            case ResolutionPreset._1920x1080: width = 1920; height = 1080; break;
-            case ResolutionPreset._9999x9999: width = 9999; height = 9999; break;
-            default: width = height = 0; break;
+            case ResolutionPreset._50x50:
+                width = 50;
+                height = 50;
+                break;
+            case ResolutionPreset._640x480:
+                width = 640;
+                height = 480;
+                break;
+            case ResolutionPreset._1280x720:
+                width = 1280;
+                height = 720;
+                break;
+            case ResolutionPreset._1920x1080:
+                width = 1920;
+                height = 1080;
+                break;
+            case ResolutionPreset._9999x9999:
+                width = 9999;
+                height = 9999;
+                break;
+            default:
+                width = height = 0;
+                break;
             }
         }
     }

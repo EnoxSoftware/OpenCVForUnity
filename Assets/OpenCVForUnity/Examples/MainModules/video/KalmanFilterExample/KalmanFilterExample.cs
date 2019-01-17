@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
-#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-using UnityEngine.SceneManagement;
-#endif
-using OpenCVForUnity;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.VideoModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -50,17 +50,17 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// The predicted trajectory points.
         /// </summary>
-        List<Point> predictedTrajectoryPoints = new List<Point>();
+        List<Point> predictedTrajectoryPoints = new List<Point> ();
 
         /// <summary>
         /// The cursor trajectory points.
         /// </summary>
-        List<Point> cursorTrajectoryPoints = new List<Point>();
+        List<Point> cursorTrajectoryPoints = new List<Point> ();
 
         /// <summary>
         /// The estimated trajectory points.
         /// </summary>
-        List<Point> estimatedTrajectoryPoints = new List<Point>();
+        List<Point> estimatedTrajectoryPoints = new List<Point> ();
 
         // Use this for initialization
         void Start ()
@@ -87,34 +87,35 @@ namespace OpenCVForUnityExample
 
             // intialization of KF...
             Mat transitionMat = new Mat (4, 4, CvType.CV_32F);
-            transitionMat.put (0, 0, new float[] {1,0,1,0,   0,1,0,1,  0,0,1,0,  0,0,0,1});
+            transitionMat.put (0, 0, new float[] { 1, 0, 1, 0,   0, 1, 0, 1,  0, 0, 1, 0,  0, 0, 0, 1 });
             KF.set_transitionMatrix (transitionMat);
 
-            measurement = new Mat (2, 1, CvType.CV_32FC1); measurement.setTo (Scalar.all(0));
+            measurement = new Mat (2, 1, CvType.CV_32FC1);
+            measurement.setTo (Scalar.all (0));
 
             cursorPos = new Point ();
-            GetCursorPos(cursorPos);
+            GetCursorPos (cursorPos);
 
             // Set initial state estimate.
             Mat statePreMat = KF.get_statePre ();
-            statePreMat.put (0, 0, new float[] {(float)cursorPos.x,(float)cursorPos.y,0,0});
+            statePreMat.put (0, 0, new float[] { (float)cursorPos.x, (float)cursorPos.y, 0, 0 });
             Mat statePostMat = KF.get_statePost ();
-            statePostMat.put (0, 0, new float[] {(float)cursorPos.x,(float)cursorPos.y,0,0});
+            statePostMat.put (0, 0, new float[] { (float)cursorPos.x, (float)cursorPos.y, 0, 0 });
 
             Mat measurementMat = new Mat (2, 4, CvType.CV_32FC1);
             Core.setIdentity (measurementMat);
             KF.set_measurementMatrix (measurementMat);
 
             Mat processNoiseCovMat = new Mat (4, 4, CvType.CV_32FC1);
-            Core.setIdentity (processNoiseCovMat, Scalar.all(1e-4));
+            Core.setIdentity (processNoiseCovMat, Scalar.all (1e-4));
             KF.set_processNoiseCov (processNoiseCovMat);
 
             Mat measurementNoiseCovMat = new Mat (2, 2, CvType.CV_32FC1);
-            Core.setIdentity (measurementNoiseCovMat, Scalar.all(10));
+            Core.setIdentity (measurementNoiseCovMat, Scalar.all (10));
             KF.set_measurementNoiseCov (measurementNoiseCovMat);
 
             Mat errorCovPostMat = new Mat (4, 4, CvType.CV_32FC1);
-            Core.setIdentity (errorCovPostMat, Scalar.all(.1));
+            Core.setIdentity (errorCovPostMat, Scalar.all (.1));
             KF.set_errorCovPost (errorCovPostMat);
         }
 
@@ -133,12 +134,12 @@ namespace OpenCVForUnityExample
             }
 
             // Get cursor point.
-            GetCursorPos(cursorPos);
+            GetCursorPos (cursorPos);
             // Noise addition (measurements/detections simulation )
-            cursorPos.x += UnityEngine.Random.Range(-2.0f, 2.0f);
-            cursorPos.y += UnityEngine.Random.Range(-2.0f, 2.0f);
-            measurement.put (0, 0, new float[] {(float)cursorPos.x,(float)cursorPos.y});
-            Point measurementPt = new Point(measurement.get (0, 0)[0], measurement.get (1, 0)[0]);
+            cursorPos.x += UnityEngine.Random.Range (-2.0f, 2.0f);
+            cursorPos.y += UnityEngine.Random.Range (-2.0f, 2.0f);
+            measurement.put (0, 0, new float[] { (float)cursorPos.x, (float)cursorPos.y });
+            Point measurementPt = new Point (measurement.get (0, 0) [0], measurement.get (1, 0) [0]);
 
             // The update phase.
             using (Mat estimated = KF.correct (measurement)) {
@@ -149,34 +150,37 @@ namespace OpenCVForUnityExample
             cursorTrajectoryPoints.Add (measurementPt);
             estimatedTrajectoryPoints.Add (estimatedPt);
 
-            DrawCross(rgbaMat, predictedPt, new Scalar(0,0,255,255), 20 );
-            DrawCross(rgbaMat, measurementPt, new Scalar(0,255,0,255), 20 );
-            DrawCross(rgbaMat, estimatedPt, new Scalar(255,0,0,255), 20 );
+            DrawCross (rgbaMat, predictedPt, new Scalar (0, 0, 255, 255), 20);
+            DrawCross (rgbaMat, measurementPt, new Scalar (0, 255, 0, 255), 20);
+            DrawCross (rgbaMat, estimatedPt, new Scalar (255, 0, 0, 255), 20);
 
-            for (int i = 0; i < predictedTrajectoryPoints.Count-1; i++) {
-                Imgproc.line(rgbaMat, predictedTrajectoryPoints[i], predictedTrajectoryPoints[i+1], new Scalar(0,255,255,i), 1);
+            for (int i = 0; i < predictedTrajectoryPoints.Count - 1; i++) {
+                Imgproc.line (rgbaMat, predictedTrajectoryPoints [i], predictedTrajectoryPoints [i + 1], new Scalar (0, 255, 255, i), 1);
             }
 
             for (int i = 0; i < cursorTrajectoryPoints.Count; i++) {
-                Imgproc.circle(rgbaMat, cursorTrajectoryPoints[i], 1, new Scalar(0,255,0,i), -1);
+                Imgproc.circle (rgbaMat, cursorTrajectoryPoints [i], 1, new Scalar (0, 255, 0, i), -1);
             }
 
-            for (int i = 0; i < estimatedTrajectoryPoints.Count-1; i++) {
-                Imgproc.line(rgbaMat, estimatedTrajectoryPoints[i], estimatedTrajectoryPoints[i+1], new Scalar(255,0,0,i), 2);
+            for (int i = 0; i < estimatedTrajectoryPoints.Count - 1; i++) {
+                Imgproc.line (rgbaMat, estimatedTrajectoryPoints [i], estimatedTrajectoryPoints [i + 1], new Scalar (255, 0, 0, i), 2);
             }
 
-            if (predictedTrajectoryPoints.Count > 255) predictedTrajectoryPoints.RemoveAt (0);
-            if (cursorTrajectoryPoints.Count > 255) cursorTrajectoryPoints.RemoveAt (0);
-            if (estimatedTrajectoryPoints.Count > 255) estimatedTrajectoryPoints.RemoveAt (0);
+            if (predictedTrajectoryPoints.Count > 255)
+                predictedTrajectoryPoints.RemoveAt (0);
+            if (cursorTrajectoryPoints.Count > 255)
+                cursorTrajectoryPoints.RemoveAt (0);
+            if (estimatedTrajectoryPoints.Count > 255)
+                estimatedTrajectoryPoints.RemoveAt (0);
 
-            Imgproc.putText (rgbaMat, "Kalman predicton", new Point (rgbaMat.cols() - 170, 20), Core.FONT_HERSHEY_SIMPLEX, 0.4, new Scalar (255, 255, 255, 255), 0, Imgproc.LINE_AA, false);
-            Imgproc.putText (rgbaMat, "measurement (cursor)", new Point (rgbaMat.cols() - 170, 40), Core.FONT_HERSHEY_SIMPLEX, 0.4, new Scalar (255, 255, 255, 255), 0, Imgproc.LINE_AA, false);
-            Imgproc.putText (rgbaMat, "Kalman correction", new Point (rgbaMat.cols() - 170, 60), Core.FONT_HERSHEY_SIMPLEX, 0.4, new Scalar (255, 255, 255, 255), 0, Imgproc.LINE_AA, false);
-            DrawCross(rgbaMat, new Point(rgbaMat.cols() - 15, 15), new Scalar(0,0,255,255), 20 );
-            DrawCross(rgbaMat, new Point(rgbaMat.cols() - 15, 35), new Scalar(0,255,0,255), 20 );
-            DrawCross(rgbaMat, new Point(rgbaMat.cols() - 15, 55), new Scalar(255,0,0,255), 20 );
+            Imgproc.putText (rgbaMat, "Kalman predicton", new Point (rgbaMat.cols () - 170, 20), Imgproc.FONT_HERSHEY_SIMPLEX, 0.4, new Scalar (255, 255, 255, 255), 0, Imgproc.LINE_AA, false);
+            Imgproc.putText (rgbaMat, "measurement (cursor)", new Point (rgbaMat.cols () - 170, 40), Imgproc.FONT_HERSHEY_SIMPLEX, 0.4, new Scalar (255, 255, 255, 255), 0, Imgproc.LINE_AA, false);
+            Imgproc.putText (rgbaMat, "Kalman correction", new Point (rgbaMat.cols () - 170, 60), Imgproc.FONT_HERSHEY_SIMPLEX, 0.4, new Scalar (255, 255, 255, 255), 0, Imgproc.LINE_AA, false);
+            DrawCross (rgbaMat, new Point (rgbaMat.cols () - 15, 15), new Scalar (0, 0, 255, 255), 20);
+            DrawCross (rgbaMat, new Point (rgbaMat.cols () - 15, 35), new Scalar (0, 255, 0, 255), 20);
+            DrawCross (rgbaMat, new Point (rgbaMat.cols () - 15, 55), new Scalar (255, 0, 0, 255), 20);
 
-            Imgproc.putText (rgbaMat, "Please move the cursor on the screen.", new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+            Imgproc.putText (rgbaMat, "Please move the cursor on the screen.", new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
             Utils.matToTexture2D (rgbaMat, texture, colors);
         }
@@ -197,7 +201,7 @@ namespace OpenCVForUnityExample
             }
             #else
             //Mouse
-            ConvertScreenPointToTexturePoint (new Point (Input.mousePosition.x, Input.mousePosition.y), pos, gameObject, rgbaMat.cols(), rgbaMat.rows());
+            ConvertScreenPointToTexturePoint (new Point (Input.mousePosition.x, Input.mousePosition.y), pos, gameObject, rgbaMat.cols (), rgbaMat.rows ());
             #endif
         }
 
@@ -234,18 +238,18 @@ namespace OpenCVForUnityExample
             Vector2 br = camera.WorldToScreenPoint (new Vector3 (quadPosition.x + quadScale.x / 2, quadPosition.y - quadScale.y / 2, quadPosition.z));
             Vector2 bl = camera.WorldToScreenPoint (new Vector3 (quadPosition.x - quadScale.x / 2, quadPosition.y - quadScale.y / 2, quadPosition.z));                       
 
-            using(Mat srcRectMat = new Mat (4, 1, CvType.CV_32FC2))
-            using(Mat dstRectMat = new Mat (4, 1, CvType.CV_32FC2)) {
+            using (Mat srcRectMat = new Mat (4, 1, CvType.CV_32FC2))
+            using (Mat dstRectMat = new Mat (4, 1, CvType.CV_32FC2)) {
                 srcRectMat.put (0, 0, tl.x, tl.y, tr.x, tr.y, br.x, br.y, bl.x, bl.y);
                 dstRectMat.put (0, 0, 0, 0, quadScale.x, 0, quadScale.x, quadScale.y, 0, quadScale.y);            
 
-                using(Mat perspectiveTransform = Imgproc.getPerspectiveTransform (srcRectMat, dstRectMat))
-                using(MatOfPoint2f srcPointMat = new MatOfPoint2f (screenPoint))
-                using(MatOfPoint2f dstPointMat = new MatOfPoint2f ()) {
+                using (Mat perspectiveTransform = Imgproc.getPerspectiveTransform (srcRectMat, dstRectMat))
+                using (MatOfPoint2f srcPointMat = new MatOfPoint2f (screenPoint))
+                using (MatOfPoint2f dstPointMat = new MatOfPoint2f ()) {
                     Core.perspectiveTransform (srcPointMat, dstPointMat, perspectiveTransform);
 
-                    dstPoint.x = dstPointMat.get(0,0)[0] * textureWidth / quadScale.x;
-                    dstPoint.y = dstPointMat.get(0,0)[1] * textureHeight / quadScale.y;
+                    dstPoint.x = dstPointMat.get (0, 0) [0] * textureWidth / quadScale.x;
+                    dstPoint.y = dstPointMat.get (0, 0) [1] * textureHeight / quadScale.y;
                 }
             }
         }
@@ -260,8 +264,8 @@ namespace OpenCVForUnityExample
         private void DrawCross (Mat img, Point center, Scalar color, int radius)
         {
             float d = Mathf.Sqrt (radius);
-            Imgproc.line(img, new Point( center.x - d, center.y - d ), new Point( center.x + d, center.y + d ), color, 2);
-            Imgproc.line(img, new Point( center.x + d, center.y - d ), new Point( center.x - d, center.y + d ), color, 2);
+            Imgproc.line (img, new Point (center.x - d, center.y - d), new Point (center.x + d, center.y + d), color, 2);
+            Imgproc.line (img, new Point (center.x + d, center.y - d), new Point (center.x - d, center.y + d), color, 2);
         }
 
         /// <summary>
@@ -283,11 +287,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick ()
         {
-            #if UNITY_5_3 || UNITY_5_3_OR_NEWER
             SceneManager.LoadScene ("OpenCVForUnityExample");
-            #else
-            Application.LoadLevel ("OpenCVForUnityExample");
-            #endif
         }
     }
 }
