@@ -13,7 +13,7 @@ var searchData=
   ['img_5fhash_2ecs',['Img_hash.cs',['../_img__hash_8cs.html',1,'']]],
   ['imgcodecs',['Imgcodecs',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html',1,'OpenCVForUnity::ImgcodecsModule']]],
   ['imgcodecs_2ecs',['Imgcodecs.cs',['../_imgcodecs_8cs.html',1,'']]],
-  ['imghashbase',['ImgHashBase',['../class_open_c_v_for_unity_1_1_img__hash_module_1_1_img_hash_base.html',1,'OpenCVForUnity::Img_hashModule']]],
+  ['imghashbase',['ImgHashBase',['../class_open_c_v_for_unity_1_1_img__hash_module_1_1_img_hash_base.html',1,'OpenCVForUnity.Img_hashModule.ImgHashBase'],['../class_open_c_v_for_unity_1_1_img__hash_module_1_1_img_hash_base.html#aae883e3b67f2ba29ad8c7107004bd487',1,'OpenCVForUnity.Img_hashModule.ImgHashBase.ImgHashBase()']]],
   ['imghashbase_2ecs',['ImgHashBase.cs',['../_img_hash_base_8cs.html',1,'']]],
   ['imgidx',['imgIdx',['../class_open_c_v_for_unity_1_1_core_module_1_1_d_match.html#a64b744108964425de4350ca60ccd3929',1,'OpenCVForUnity::CoreModule::DMatch']]],
   ['imgproc',['Imgproc',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html',1,'OpenCVForUnity::ImgprocModule']]],

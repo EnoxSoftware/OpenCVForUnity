@@ -2,9 +2,7 @@ var searchData=
 [
   ['radialvariancehash',['RadialVarianceHash',['../class_open_c_v_for_unity_1_1_img__hash_module_1_1_radial_variance_hash.html',1,'OpenCVForUnity::Img_hashModule']]],
   ['range',['Range',['../class_open_c_v_for_unity_1_1_core_module_1_1_range.html',1,'OpenCVForUnity::CoreModule']]],
-  ['rect',['rect',['../union_open_c_v_for_unity_1_1_core_module_1_1_rect_1_1rect.html',1,'OpenCVForUnity::CoreModule::Rect']]],
-  ['rect',['Rect',['../class_open_c_v_for_unity_1_1_core_module_1_1_rect.html',1,'OpenCVForUnity::CoreModule']]],
-  ['rect',['rect',['../union_open_c_v_for_unity_1_1_core_module_1_1_rect2d_1_1rect.html',1,'OpenCVForUnity::CoreModule::Rect2d']]],
+  ['rect',['rect',['../union_open_c_v_for_unity_1_1_core_module_1_1_rect2d_1_1rect.html',1,'OpenCVForUnity.CoreModule.Rect2d.rect'],['../union_open_c_v_for_unity_1_1_core_module_1_1_rect_1_1rect.html',1,'OpenCVForUnity.CoreModule.Rect.rect'],['../class_open_c_v_for_unity_1_1_core_module_1_1_rect.html',1,'OpenCVForUnity.CoreModule.Rect']]],
   ['rect2d',['Rect2d',['../class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html',1,'OpenCVForUnity::CoreModule']]],
   ['reg',['Reg',['../class_open_c_v_for_unity_1_1_reg_module_1_1_reg.html',1,'OpenCVForUnity::RegModule']]],
   ['retina',['Retina',['../class_open_c_v_for_unity_1_1_bioinspired_module_1_1_retina.html',1,'OpenCVForUnity::BioinspiredModule']]],
