@@ -115,9 +115,35 @@ namespace OpenCVForUnityExample
             }
         };
 
-        string COCO_val2014_000000000589_jpg_filepath;
-        string pose_iter_160000_caffemodel_filepath;
-        string openpose_pose_mpi_faster_4_stages_prototxt_filepath;
+        /// <summary>
+        /// IMAGE_FILENAME
+        /// </summary>
+        protected static readonly string IMAGE_FILENAME = "dnn/COCO_val2014_000000000589.jpg";
+
+        /// <summary>
+        /// The image filepath.
+        /// </summary>
+        string image_filepath;
+
+        /// <summary>
+        /// CAFFEMODEL_FILENAME
+        /// </summary>
+        protected static readonly string CAFFEMODEL_FILENAME = "dnn/pose_iter_160000.caffemodel";
+
+        /// <summary>
+        /// The caffemodel filepath.
+        /// </summary>
+        string caffemodel_filepath;
+
+        /// <summary>
+        /// PROTOTXT_FILENAME
+        /// </summary>
+        protected static readonly string PROTOTXT_FILENAME = "dnn/openpose_pose_mpi_faster_4_stages.prototxt";
+
+        /// <summary>
+        /// The prototxt filepath.
+        /// </summary>
+        string prototxt_filepath;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
         IEnumerator getFilePath_Coroutine;
@@ -130,9 +156,9 @@ namespace OpenCVForUnityExample
             getFilePath_Coroutine = GetFilePath ();
             StartCoroutine (getFilePath_Coroutine);
             #else
-            COCO_val2014_000000000589_jpg_filepath = Utils.getFilePath ("dnn/COCO_val2014_000000000589.jpg");
-            pose_iter_160000_caffemodel_filepath = Utils.getFilePath ("dnn/pose_iter_160000.caffemodel");
-            openpose_pose_mpi_faster_4_stages_prototxt_filepath = Utils.getFilePath ("dnn/openpose_pose_mpi_faster_4_stages.prototxt");
+            image_filepath = Utils.getFilePath (IMAGE_FILENAME);
+            caffemodel_filepath = Utils.getFilePath (CAFFEMODEL_FILENAME);
+            prototxt_filepath = Utils.getFilePath (PROTOTXT_FILENAME);
             Run ();
             #endif
         }
@@ -140,18 +166,18 @@ namespace OpenCVForUnityExample
         #if UNITY_WEBGL && !UNITY_EDITOR
         private IEnumerator GetFilePath ()
         {
-            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("dnn/COCO_val2014_000000000589.jpg", (result) => {
-                COCO_val2014_000000000589_jpg_filepath = result;
+            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync (IMAGE_FILENAME, (result) => {
+                image_filepath = result;
             });
             yield return getFilePathAsync_0_Coroutine;
 
-            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("dnn/pose_iter_160000.caffemodel", (result) => {
-                pose_iter_160000_caffemodel_filepath = result;
+            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync (CAFFEMODEL_FILENAME, (result) => {
+                caffemodel_filepath = result;
             });
             yield return getFilePathAsync_1_Coroutine;
 
-            var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync ("dnn/openpose_pose_mpi_faster_4_stages.prototxt", (result) => {
-                openpose_pose_mpi_faster_4_stages_prototxt_filepath = result;
+            var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync (PROTOTXT_FILENAME, (result) => {
+                prototxt_filepath = result;
             });
             yield return getFilePathAsync_2_Coroutine;
 
@@ -168,7 +194,7 @@ namespace OpenCVForUnityExample
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             Utils.setDebugMode (true);
 
-            Mat img = Imgcodecs.imread (COCO_val2014_000000000589_jpg_filepath);
+            Mat img = Imgcodecs.imread (image_filepath);
             #if !UNITY_WSA_10_0
             if (img.empty ()) {
                 Debug.LogError ("dnn/COCO_val2014_000000000589.jpg is not loaded.The image file can be downloaded here: \"https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/examples/media/COCO_val2014_000000000589.jpg\" folder. ");
@@ -196,10 +222,10 @@ namespace OpenCVForUnityExample
 
             Net net = null;
            
-            if (string.IsNullOrEmpty (pose_iter_160000_caffemodel_filepath) || string.IsNullOrEmpty (openpose_pose_mpi_faster_4_stages_prototxt_filepath)) {
+            if (string.IsNullOrEmpty (caffemodel_filepath) || string.IsNullOrEmpty (prototxt_filepath)) {
                 Debug.LogError ("model file is not loaded. The model and prototxt file can be downloaded here: \"http://posefs1.perception.cs.cmu.edu/OpenPose/models/pose/mpi/pose_iter_160000.caffemodel\",\"https://github.com/opencv/opencv_extra/blob/master/testdata/dnn/openpose_pose_mpi_faster_4_stages.prototxt\". Please copy to “Assets/StreamingAssets/dnn/” folder. ");
             } else {
-                net = Dnn.readNetFromCaffe (openpose_pose_mpi_faster_4_stages_prototxt_filepath, pose_iter_160000_caffemodel_filepath);
+                net = Dnn.readNetFromCaffe (prototxt_filepath, caffemodel_filepath);
 
                 //Intel's Deep Learning Inference Engine backend is supported on Windows 64bit platform only. Please refer to ReadMe.pdf for the setup procedure.
                 //net.setPreferableBackend (Dnn.DNN_BACKEND_INFERENCE_ENGINE);

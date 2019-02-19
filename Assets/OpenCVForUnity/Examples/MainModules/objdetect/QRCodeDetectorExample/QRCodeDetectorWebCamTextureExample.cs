@@ -8,6 +8,7 @@ using OpenCVForUnity.ObjdetectModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.UnityUtils.Helper;
+using OpenCVRect = OpenCVForUnity.CoreModule.Rect;
 
 namespace OpenCVForUnityExample
 {
@@ -38,6 +39,11 @@ namespace OpenCVForUnityExample
         /// The points.
         /// </summary>
         Mat points;
+
+        /// <summary>
+        /// The image size rect.
+        /// </summary>
+        OpenCVRect imageSizeRect;
 
         /// <summary>
         /// The webcam texture to mat helper.
@@ -102,6 +108,7 @@ namespace OpenCVForUnityExample
             }
 
             grayMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
+            imageSizeRect = new OpenCVRect (0, 0, grayMat.width (), grayMat.height ());
 
             points = new Mat ();
 
@@ -152,20 +159,32 @@ namespace OpenCVForUnityExample
 
                 if (result) {
 
-                    string decode_info = detector.decode (grayMat, points);
-
-//                    Debug.Log (decode_info);
 //                    Debug.Log (points.dump ());
 
-                    // draw QRCode contour.
                     float[] points_arr = new float[8];
                     points.get (0, 0, points_arr);
+
+                    bool decode = true;
+                    // Whether all points are in the image area or not.
+                    for (int i = 0; i < 8; i = i + 2) {
+                        if (!imageSizeRect.contains (new Point (points_arr [i], points_arr [i + 1]))) {
+                            decode = false;
+//                            Debug.Log ("The point exists out of the image area.");
+                            break;
+                        }
+                    }
+
+                    // draw QRCode contour.
                     Imgproc.line (rgbaMat, new Point (points_arr [0], points_arr [1]), new Point (points_arr [2], points_arr [3]), new Scalar (255, 0, 0, 255), 2);
                     Imgproc.line (rgbaMat, new Point (points_arr [2], points_arr [3]), new Point (points_arr [4], points_arr [5]), new Scalar (255, 0, 0, 255), 2);
                     Imgproc.line (rgbaMat, new Point (points_arr [4], points_arr [5]), new Point (points_arr [6], points_arr [7]), new Scalar (255, 0, 0, 255), 2);
                     Imgproc.line (rgbaMat, new Point (points_arr [6], points_arr [7]), new Point (points_arr [0], points_arr [1]), new Scalar (255, 0, 0, 255), 2);
 
-                    Imgproc.putText (rgbaMat, "DECODE INFO: " + decode_info, new Point (5, grayMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    if (decode) {
+                        string decode_info = detector.decode (grayMat, points);
+//                        Debug.Log (decode_info);
+                        Imgproc.putText (rgbaMat, "DECODE INFO: " + decode_info, new Point (5, grayMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    }
                 }
 
                 Utils.fastMatToTexture2D (rgbaMat, texture);

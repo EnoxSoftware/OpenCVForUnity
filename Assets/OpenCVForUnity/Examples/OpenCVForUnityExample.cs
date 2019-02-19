@@ -53,6 +53,7 @@ namespace OpenCVForUnityExample
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/OpenPoseExampleButton").GetComponent<Button> ().interactable = false;
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ResnetSSDFaceDetectionExampleButton").GetComponent<Button> ().interactable = false;
+            GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MaskRCNNExampleButton").GetComponent<Button> ().interactable = false;
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TensorFlowWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YoloObjectDetectionExampleButton").GetComponent<Button> ().interactable = false;
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YoloObjectDetectionWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
@@ -341,6 +342,11 @@ namespace OpenCVForUnityExample
         public void OnResnetSSDFaceDetectionExampleButtonClick ()
         {
             SceneManager.LoadScene ("ResnetSSDFaceDetectionExample");
+        }
+
+        public void OnMaskRCNNExampleButtonClick ()
+        {
+            SceneManager.LoadScene ("MaskRCNNExample");
         }
 
         public void OnTensorFlowWebCamTextureExampleButtonClick ()

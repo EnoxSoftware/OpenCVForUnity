@@ -57,8 +57,25 @@ namespace OpenCVForUnityExample
         /// </summary>
         FpsMonitor fpsMonitor;
 
-        string tensorflow_inception_graph_pb_filepath;
-        string imagenet_comp_graph_label_strings_txt_filepath;
+        /// <summary>
+        /// MODEL_FILENAME
+        /// </summary>
+        protected static readonly string MODEL_FILENAME = "dnn/tensorflow_inception_graph.pb";
+
+        /// <summary>
+        /// The model filepath.
+        /// </summary>
+        string model_filepath;
+
+        /// <summary>
+        /// CLASSES_FILENAME
+        /// </summary>
+        protected static readonly string CLASSES_FILENAME = "dnn/imagenet_comp_graph_label_strings.txt";
+
+        /// <summary>
+        /// The classes filepath.
+        /// </summary>
+        string classes_filepath;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
         IEnumerator getFilePath_Coroutine;
@@ -75,8 +92,8 @@ namespace OpenCVForUnityExample
             getFilePath_Coroutine = GetFilePath ();
             StartCoroutine (getFilePath_Coroutine);
             #else
-            tensorflow_inception_graph_pb_filepath = Utils.getFilePath ("dnn/tensorflow_inception_graph.pb");
-            imagenet_comp_graph_label_strings_txt_filepath = Utils.getFilePath ("dnn/imagenet_comp_graph_label_strings.txt");
+            model_filepath = Utils.getFilePath (MODEL_FILENAME);
+            classes_filepath = Utils.getFilePath (CLASSES_FILENAME);
             Run ();
             #endif
         }
@@ -85,13 +102,13 @@ namespace OpenCVForUnityExample
         private IEnumerator GetFilePath()
         {
 
-            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("dnn/tensorflow_inception_graph.pb", (result) => {
-                tensorflow_inception_graph_pb_filepath = result;
+            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync (MODEL_FILENAME, (result) => {
+                model_filepath = result;
             });
             yield return getFilePathAsync_0_Coroutine;
 
-            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("dnn/imagenet_comp_graph_label_strings.txt", (result) => {
-                imagenet_comp_graph_label_strings_txt_filepath = result;
+            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync (CLASSES_FILENAME, (result) => {
+                classes_filepath = result;
             });
             yield return getFilePathAsync_1_Coroutine;
 
@@ -108,13 +125,13 @@ namespace OpenCVForUnityExample
             Utils.setDebugMode (true);
 
 
-            net = Dnn.readNetFromTensorflow (tensorflow_inception_graph_pb_filepath);
+            net = Dnn.readNetFromTensorflow (model_filepath);
             #if !UNITY_WSA_10_0
             if (net.empty ()) {
                 Debug.LogError ("model file is not loaded. The model and class names list can be downloaded here: \"https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip\". Please copy to “Assets/StreamingAssets/dnn/” folder. ");
             }
             #endif
-            classes = readClassNames (imagenet_comp_graph_label_strings_txt_filepath);
+            classes = readClassNames (classes_filepath);
             #if !UNITY_WSA_10_0
             if (classes == null) {
                 Debug.LogError ("class names list file is not loaded. The model and class names list can be downloaded here: \"https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip\". Please copy to “Assets/StreamingAssets/dnn/” folder. ");

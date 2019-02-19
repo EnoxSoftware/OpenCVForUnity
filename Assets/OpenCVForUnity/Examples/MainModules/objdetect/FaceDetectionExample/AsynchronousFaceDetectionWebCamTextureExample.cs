@@ -42,14 +42,24 @@ namespace OpenCVForUnityExample
         CascadeClassifier cascade;
 
         /// <summary>
-        /// The lbpcascade_frontalface_xml_filepath.
+        /// LBP_CASCADE_FILENAME
         /// </summary>
-        string lbpcascade_frontalface_xml_filepath;
+        protected static readonly string LBP_CASCADE_FILENAME = "lbpcascade_frontalface.xml";
+
+        /// <summary>
+        /// The lbp cascade filepath.
+        /// </summary>
+        string lbp_cascade_filepath;
+
+        /// <summary>
+        /// HAAR_CASCADE_FILENAME
+        /// </summary>
+        protected static readonly string HAAR_CASCADE_FILENAME = "haarcascade_frontalface_alt.xml";
         
         /// <summary>
-        /// The haarcascade_frontalface_alt_xml_filepath.
+        /// The haar_cascade_filepath.
         /// </summary>
-        string haarcascade_frontalface_alt_xml_filepath;
+        string haar_cascade_filepath;
 
         /// <summary>
         /// The rects where regions.
@@ -151,8 +161,8 @@ namespace OpenCVForUnityExample
             getFilePath_Coroutine = GetFilePath ();
             StartCoroutine (getFilePath_Coroutine);
             #else
-            lbpcascade_frontalface_xml_filepath = Utils.getFilePath ("lbpcascade_frontalface.xml");
-            haarcascade_frontalface_alt_xml_filepath = Utils.getFilePath ("haarcascade_frontalface_alt.xml");
+            lbp_cascade_filepath = Utils.getFilePath (LBP_CASCADE_FILENAME);
+            haar_cascade_filepath = Utils.getFilePath (HAAR_CASCADE_FILENAME);
             Run ();
             #endif
         }
@@ -160,13 +170,13 @@ namespace OpenCVForUnityExample
         #if UNITY_WEBGL && !UNITY_EDITOR
         private IEnumerator GetFilePath ()
         {
-            var getFilePathAsync_lbpcascade_frontalface_xml_filepath_Coroutine = Utils.getFilePathAsync ("lbpcascade_frontalface.xml", (result) => {
-                lbpcascade_frontalface_xml_filepath = result;
+            var getFilePathAsync_lbpcascade_frontalface_xml_filepath_Coroutine = Utils.getFilePathAsync (LBP_CASCADE_FILENAME, (result) => {
+                lbp_cascade_filepath = result;
             });
             yield return getFilePathAsync_lbpcascade_frontalface_xml_filepath_Coroutine;
             
-            var getFilePathAsync_haarcascade_frontalface_alt_xml_filepath_Coroutine = Utils.getFilePathAsync ("haarcascade_frontalface_alt.xml", (result) => {
-                haarcascade_frontalface_alt_xml_filepath = result;
+            var getFilePathAsync_haarcascade_frontalface_alt_xml_filepath_Coroutine = Utils.getFilePathAsync (HAAR_CASCADE_FILENAME, (result) => {
+                haar_cascade_filepath = result;
             });
             yield return getFilePathAsync_haarcascade_frontalface_alt_xml_filepath_Coroutine;
             
@@ -242,7 +252,7 @@ namespace OpenCVForUnityExample
 
             grayMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
             cascade = new CascadeClassifier ();
-            cascade.load (lbpcascade_frontalface_xml_filepath);
+            cascade.load (lbp_cascade_filepath);
             #if !UNITY_WSA_10_0
             if (cascade.empty ()) {
                 Debug.LogError ("cascade file is not loaded. Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
@@ -427,7 +437,7 @@ namespace OpenCVForUnityExample
             grayMat4Thread = new Mat ();
             
             cascade4Thread = new CascadeClassifier ();
-            cascade4Thread.load (haarcascade_frontalface_alt_xml_filepath);
+            cascade4Thread.load (haar_cascade_filepath);
             #if !UNITY_WSA_10_0
             if (cascade4Thread.empty ()) {
                 Debug.LogError ("cascade4Thread file is not loaded. Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");

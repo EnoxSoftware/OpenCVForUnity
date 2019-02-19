@@ -49,6 +49,11 @@ namespace OpenCVForUnityExample
         /// </summary>
         FpsMonitor fpsMonitor;
 
+        /// <summary>
+        /// LBP_CASCADE_FILENAME
+        /// </summary>
+        protected static readonly string LBP_CASCADE_FILENAME = "lbpcascade_frontalface.xml";
+
         #if UNITY_WEBGL && !UNITY_EDITOR
         IEnumerator getFilePath_Coroutine;
         #endif
@@ -61,7 +66,7 @@ namespace OpenCVForUnityExample
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
-            getFilePath_Coroutine = Utils.getFilePathAsync ("lbpcascade_frontalface.xml", (result) => {
+            getFilePath_Coroutine = Utils.getFilePathAsync (LBP_CASCADE_FILENAME, (result) => {
                 getFilePath_Coroutine = null;
 
                 cascade = new CascadeClassifier ();
@@ -75,7 +80,7 @@ namespace OpenCVForUnityExample
             StartCoroutine (getFilePath_Coroutine);
             #else
             cascade = new CascadeClassifier ();
-            cascade.load (Utils.getFilePath ("lbpcascade_frontalface.xml"));
+            cascade.load (Utils.getFilePath (LBP_CASCADE_FILENAME));
 //            cascade.load (Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
             #if !UNITY_WSA_10_0
             if (cascade.empty ()) {

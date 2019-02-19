@@ -17,7 +17,16 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class PCAExample : MonoBehaviour
     {
-        string pca_test1_jpg_filepath;
+
+        /// <summary>
+        /// IMAGE_FILENAME
+        /// </summary>
+        protected static readonly string IMAGE_FILENAME = "pca_test1.jpg";
+
+        /// <summary>
+        /// The image filepath.
+        /// </summary>
+        string image_filepath;
         
         #if UNITY_WEBGL && !UNITY_EDITOR
         IEnumerator getFilePath_Coroutine;
@@ -27,22 +36,22 @@ namespace OpenCVForUnityExample
         void Start ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
-            getFilePath_Coroutine = Utils.getFilePathAsync("pca_test1.jpg", (result) => {
+            getFilePath_Coroutine = Utils.getFilePathAsync(IMAGE_FILENAME, (result) => {
                 getFilePath_Coroutine = null;
                 
-                pca_test1_jpg_filepath = result;
+                image_filepath = result;
                 Run ();
             });
             StartCoroutine (getFilePath_Coroutine);
             #else
-            pca_test1_jpg_filepath = Utils.getFilePath ("pca_test1.jpg");
+            image_filepath = Utils.getFilePath (IMAGE_FILENAME);
             Run ();
             #endif
         }
 
         private void Run ()
         {
-            Mat src = Imgcodecs.imread (pca_test1_jpg_filepath);
+            Mat src = Imgcodecs.imread (image_filepath);
             #if !UNITY_WSA_10_0
             if (src.empty ()) {
                 Debug.LogError ("pca_test1.jpg is not loaded. Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");

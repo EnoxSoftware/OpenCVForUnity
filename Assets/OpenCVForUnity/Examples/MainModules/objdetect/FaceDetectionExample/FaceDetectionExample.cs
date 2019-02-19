@@ -19,6 +19,11 @@ namespace OpenCVForUnityExample
     {
         CascadeClassifier cascade;
 
+        /// <summary>
+        /// HAAR_CASCADE_FILENAME
+        /// </summary>
+        protected static readonly string HAAR_CASCADE_FILENAME = "haarcascade_frontalface_alt.xml";
+
         #if UNITY_WEBGL && !UNITY_EDITOR
         IEnumerator getFilePath_Coroutine;
         #endif
@@ -27,26 +32,26 @@ namespace OpenCVForUnityExample
         void Start ()
         {
             #if UNITY_WEBGL && !UNITY_EDITOR
-            getFilePath_Coroutine = Utils.getFilePathAsync("haarcascade_frontalface_alt.xml", 
-            (result) => {
-                getFilePath_Coroutine = null;
+            getFilePath_Coroutine = Utils.getFilePathAsync (HAAR_CASCADE_FILENAME, 
+                (result) => {
+                    getFilePath_Coroutine = null;
 
-                cascade = new CascadeClassifier ();
-                cascade.load(result);
-                if (cascade.empty ()) {
-                    Debug.LogError ("cascade file is not loaded. Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
-                }
+                    cascade = new CascadeClassifier ();
+                    cascade.load (result);
+                    if (cascade.empty ()) {
+                        Debug.LogError ("cascade file is not loaded. Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
+                    }
            
-                Run ();
-            }, 
-            (result, progress) => {
-                Debug.Log ("getFilePathAsync() progress : " + result + " " + Mathf.CeilToInt (progress * 100) + "%");
-            });
+                    Run ();
+                }, 
+                (result, progress) => {
+                    Debug.Log ("getFilePathAsync() progress : " + result + " " + Mathf.CeilToInt (progress * 100) + "%");
+                });
             StartCoroutine (getFilePath_Coroutine);
             #else
             //cascade = new CascadeClassifier (Utils.getFilePath ("lbpcascade_frontalface.xml"));
             cascade = new CascadeClassifier ();
-            cascade.load (Utils.getFilePath ("haarcascade_frontalface_alt.xml"));
+            cascade.load (Utils.getFilePath (HAAR_CASCADE_FILENAME));
             #if !UNITY_WSA_10_0
             if (cascade.empty ()) {
                 Debug.LogError ("cascade file is not loaded. Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");

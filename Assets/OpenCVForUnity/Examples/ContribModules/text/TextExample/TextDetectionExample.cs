@@ -20,9 +20,36 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class TextDetectionExample : MonoBehaviour
     {
-        string scenetext01_jpg_filepath;
-        string trained_classifierNM1_xml_filepath;
-        string trained_classifierNM2_xml_filepath;
+
+        /// <summary>
+        /// IMAGE_FILENAME
+        /// </summary>
+        protected static readonly string IMAGE_FILENAME = "text/scenetext01.jpg";
+
+        /// <summary>
+        /// The image filepath.
+        /// </summary>
+        string image_filepath;
+
+        /// <summary>
+        /// TRAINED_CLASSIFIER_NM_1_FILENAME
+        /// </summary>
+        protected static readonly string TRAINED_CLASSIFIER_NM_1_FILENAME = "text/trained_classifierNM1.xml";
+
+        /// <summary>
+        /// The trained_classifierNM1 filepath.
+        /// </summary>
+        string trained_classifierNM1_filepath;
+
+        /// <summary>
+        /// TRAINED_CLASSIFIER_NM_2_FILENAME
+        /// </summary>
+        protected static readonly string TRAINED_CLASSIFIER_NM_2_FILENAME = "text/trained_classifierNM2.xml";
+
+        /// <summary>
+        /// The trained_classifierNM2 filepath.
+        /// </summary>
+        string trained_classifierNM2_filepath;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
         IEnumerator getFilePath_Coroutine;
@@ -35,9 +62,9 @@ namespace OpenCVForUnityExample
             getFilePath_Coroutine = GetFilePath ();
             StartCoroutine (getFilePath_Coroutine);
             #else
-            scenetext01_jpg_filepath = Utils.getFilePath ("text/scenetext01.jpg");
-            trained_classifierNM1_xml_filepath = Utils.getFilePath ("text/trained_classifierNM1.xml");
-            trained_classifierNM2_xml_filepath = Utils.getFilePath ("text/trained_classifierNM2.xml");
+            image_filepath = Utils.getFilePath (IMAGE_FILENAME);
+            trained_classifierNM1_filepath = Utils.getFilePath (TRAINED_CLASSIFIER_NM_1_FILENAME);
+            trained_classifierNM2_filepath = Utils.getFilePath (TRAINED_CLASSIFIER_NM_2_FILENAME);
             Run ();
             #endif
         }
@@ -45,18 +72,18 @@ namespace OpenCVForUnityExample
         #if UNITY_WEBGL && !UNITY_EDITOR
         private IEnumerator GetFilePath()
         {
-            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("text/scenetext01.jpg", (result) => {
-                scenetext01_jpg_filepath = result;
+            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync (IMAGE_FILENAME, (result) => {
+                image_filepath = result;
             });
             yield return getFilePathAsync_0_Coroutine;
 
-            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("text/trained_classifierNM1.xml", (result) => {
-                trained_classifierNM1_xml_filepath = result;
+            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync (TRAINED_CLASSIFIER_NM_1_FILENAME, (result) => {
+                trained_classifierNM1_filepath = result;
             });
             yield return getFilePathAsync_1_Coroutine;
 
-            var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync ("text/trained_classifierNM2.xml", (result) => {
-                trained_classifierNM2_xml_filepath = result;
+            var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync (TRAINED_CLASSIFIER_NM_2_FILENAME, (result) => {
+                trained_classifierNM2_filepath = result;
             });
             yield return getFilePathAsync_2_Coroutine;
 
@@ -72,7 +99,7 @@ namespace OpenCVForUnityExample
             Utils.setDebugMode (true);
 
 
-            Mat img = Imgcodecs.imread (scenetext01_jpg_filepath);
+            Mat img = Imgcodecs.imread (image_filepath);
             #if !UNITY_WSA_10_0
             if (img.empty ()) {
                 Debug.LogError ("text/scenetext01.jpg is not loaded. Please copy from “OpenCVForUnity/StreamingAssets/text/” to “Assets/StreamingAssets/” folder. ");
@@ -100,9 +127,9 @@ namespace OpenCVForUnityExample
             Debug.Log ("Extracting Class Specific Extremal Regions from " + channels.Count + " channels ...");
             Debug.Log ("    (...) this may take a while (...)");
             foreach (var channel in channels) {
-                ERFilter er1 = Text.createERFilterNM1 (trained_classifierNM1_xml_filepath, 16, 0.00015f, 0.13f, 0.2f, true, 0.1f);
+                ERFilter er1 = Text.createERFilterNM1 (trained_classifierNM1_filepath, 16, 0.00015f, 0.13f, 0.2f, true, 0.1f);
 
-                ERFilter er2 = Text.createERFilterNM2 (trained_classifierNM2_xml_filepath, 0.5f);
+                ERFilter er2 = Text.createERFilterNM2 (trained_classifierNM2_filepath, 0.5f);
 
                 List<MatOfPoint> regions = new List<MatOfPoint> ();
                 Text.detectRegions (channel, er1, er2, regions);

@@ -52,6 +52,11 @@ namespace OpenCVForUnityExample
         /// </summary>
         FpsMonitor fpsMonitor;
 
+        /// <summary>
+        /// VIDEO_FILENAME
+        /// </summary>
+        protected static readonly string VIDEO_FILENAME = "768x576_mjpeg.mjpeg";
+
         #if UNITY_WEBGL && !UNITY_EDITOR
         IEnumerator getFilePath_Coroutine;
         #endif
@@ -64,7 +69,7 @@ namespace OpenCVForUnityExample
             capture = new VideoCapture ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
-            getFilePath_Coroutine = Utils.getFilePathAsync("768x576_mjpeg.mjpeg", (result) => {
+            getFilePath_Coroutine = Utils.getFilePathAsync(VIDEO_FILENAME, (result) => {
                 getFilePath_Coroutine = null;
 
                 capture.open (result);
@@ -72,7 +77,7 @@ namespace OpenCVForUnityExample
             });
             StartCoroutine (getFilePath_Coroutine);
             #else
-            capture.open (Utils.getFilePath ("768x576_mjpeg.mjpeg"));
+            capture.open (Utils.getFilePath (VIDEO_FILENAME));
 
             Initialize ();
             #endif
@@ -106,7 +111,7 @@ namespace OpenCVForUnityExample
                 fpsMonitor.Add ("CAP_PROP_FPS", capture.get (Videoio.CAP_PROP_FPS).ToString ());
                 fpsMonitor.Add ("CAP_PROP_FRAME_WIDTH", capture.get (Videoio.CAP_PROP_FRAME_WIDTH).ToString ());
                 fpsMonitor.Add ("CAP_PROP_FRAME_HEIGHT", capture.get (Videoio.CAP_PROP_FRAME_HEIGHT).ToString ());
-                fpsMonitor.Add ("CAP_PROP_FOURCC", ((char)((int)ext & 0XFF) + (char)(((int)ext & 0XFF00) >> 8) + (char)(((int)ext & 0XFF0000) >> 16) + (char)(((int)ext & 0XFF000000) >> 24)).ToString ());
+                fpsMonitor.Add ("CAP_PROP_FOURCC", "" + (char)((int)ext & 0XFF) + (char)(((int)ext & 0XFF00) >> 8) + (char)(((int)ext & 0XFF0000) >> 16) + (char)(((int)ext & 0XFF000000) >> 24));
                 fpsMonitor.Add ("STATE", "");
             }
 

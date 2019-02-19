@@ -59,7 +59,24 @@ namespace OpenCVForUnityExample
         /// </summary>
         FpsMonitor fpsMonitor;
 
+        /// <summary>
+        /// FACEMARK_CASCADE_FILENAME
+        /// </summary>
+        protected static readonly string FACEMARK_CASCADE_FILENAME = "lbpcascade_frontalface.xml";
+
+        /// <summary>
+        /// The facemark cascade filepath.
+        /// </summary>
         string facemark_cascade_filepath;
+
+        /// <summary>
+        /// FACEMARK_CASCADE_FILENAME
+        /// </summary>
+        protected static readonly string FACEMARK_MODEL_FILENAME = "facemark/lbfmodel.yaml";
+
+        /// <summary>
+        /// The facemark model filepath.
+        /// </summary>
         string facemark_model_filepath;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
@@ -77,8 +94,8 @@ namespace OpenCVForUnityExample
             getFilePath_Coroutine = GetFilePath ();
             StartCoroutine (getFilePath_Coroutine);
             #else
-            facemark_cascade_filepath = Utils.getFilePath ("lbpcascade_frontalface.xml");
-            facemark_model_filepath = Utils.getFilePath ("facemark/lbfmodel.yaml");
+            facemark_cascade_filepath = Utils.getFilePath (FACEMARK_CASCADE_FILENAME);
+            facemark_model_filepath = Utils.getFilePath (FACEMARK_MODEL_FILENAME);
             Run ();
             #endif
         }
@@ -86,12 +103,12 @@ namespace OpenCVForUnityExample
         #if UNITY_WEBGL && !UNITY_EDITOR
         private IEnumerator GetFilePath ()
         {
-            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("lbpcascade_frontalface.xml", (result) => {
+            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync (FACEMARK_CASCADE_FILENAME, (result) => {
                 facemark_cascade_filepath = result;
             });
             yield return getFilePathAsync_0_Coroutine;
 
-            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("facemark/lbfmodel.yaml", (result) => {
+            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync (FACEMARK_MODEL_FILENAME, (result) => {
                 facemark_model_filepath = result;
             });
             yield return getFilePathAsync_1_Coroutine;

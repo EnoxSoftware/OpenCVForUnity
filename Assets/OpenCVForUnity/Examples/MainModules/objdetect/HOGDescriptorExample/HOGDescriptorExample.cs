@@ -37,6 +37,11 @@ namespace OpenCVForUnityExample
         /// </summary>
         HOGDescriptor des;
 
+        /// <summary>
+        /// VIDEO_FILENAME
+        /// </summary>
+        protected static readonly string VIDEO_FILENAME = "768x576_mjpeg.mjpeg";
+
         #if UNITY_WEBGL && !UNITY_EDITOR
         IEnumerator getFilePath_Coroutine;
         #endif
@@ -47,7 +52,7 @@ namespace OpenCVForUnityExample
             capture = new VideoCapture ();
 
             #if UNITY_WEBGL && !UNITY_EDITOR
-            getFilePath_Coroutine = Utils.getFilePathAsync("768x576_mjpeg.mjpeg", (result) => {
+            getFilePath_Coroutine = Utils.getFilePathAsync(VIDEO_FILENAME, (result) => {
                 getFilePath_Coroutine = null;
 
                 capture.open (result);
@@ -55,7 +60,7 @@ namespace OpenCVForUnityExample
             });
             StartCoroutine (getFilePath_Coroutine);
             #else
-            capture.open (Utils.getFilePath ("768x576_mjpeg.mjpeg"));
+            capture.open (Utils.getFilePath (VIDEO_FILENAME));
             Init ();
             #endif
         }

@@ -18,9 +18,35 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class FaceRecognizerExample : MonoBehaviour
     {
-        string facerec_0_bmp_filepath;
-        string facerec_1_bmp_filepath;
-        string facerec_sample_bmp_filepath;
+        /// <summary>
+        /// IMAGE_0_FILENAME
+        /// </summary>
+        protected static readonly string IMAGE_0_FILENAME = "facerec/facerec_0.bmp";
+
+        /// <summary>
+        /// The image 0 filepath.
+        /// </summary>
+        string image_0_filepath;
+
+        /// <summary>
+        /// IMAGE_1_FILENAME
+        /// </summary>
+        protected static readonly string IMAGE_1_FILENAME = "facerec/facerec_1.bmp";
+
+        /// <summary>
+        /// The image 1 filepath.
+        /// </summary>
+        string image_1_filepath;
+
+        /// <summary>
+        /// SAMPLE_IMAGE_FILENAME
+        /// </summary>
+        protected static readonly string SAMPLE_IMAGE_FILENAME = "facerec/facerec_sample.bmp";
+
+        /// <summary>
+        /// The sample image filepath.
+        /// </summary>
+        string sample_image_filepath;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
         IEnumerator getFilePath_Coroutine;
@@ -33,9 +59,9 @@ namespace OpenCVForUnityExample
             getFilePath_Coroutine = GetFilePath ();
             StartCoroutine (getFilePath_Coroutine);
             #else
-            facerec_0_bmp_filepath = Utils.getFilePath ("facerec/facerec_0.bmp");
-            facerec_1_bmp_filepath = Utils.getFilePath ("facerec/facerec_1.bmp");
-            facerec_sample_bmp_filepath = Utils.getFilePath ("facerec/facerec_sample.bmp");
+            image_0_filepath = Utils.getFilePath (IMAGE_0_FILENAME);
+            image_1_filepath = Utils.getFilePath (IMAGE_1_FILENAME);
+            sample_image_filepath = Utils.getFilePath (SAMPLE_IMAGE_FILENAME);
             Run ();
             #endif
         }
@@ -43,18 +69,18 @@ namespace OpenCVForUnityExample
         #if UNITY_WEBGL && !UNITY_EDITOR
         private IEnumerator GetFilePath()
         {
-            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("facerec/facerec_0.bmp", (result) => {
-                facerec_0_bmp_filepath = result;
+            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync (IMAGE_0_FILENAME, (result) => {
+                image_0_filepath = result;
             });
             yield return getFilePathAsync_0_Coroutine;
 
-            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("facerec/facerec_1.bmp", (result) => {
-                facerec_1_bmp_filepath = result;
+            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync (IMAGE_1_FILENAME, (result) => {
+                image_1_filepath = result;
             });
             yield return getFilePathAsync_1_Coroutine;
 
-            var getFilePathAsync_sample_Coroutine = Utils.getFilePathAsync ("facerec/facerec_sample.bmp", (result) => {
-                facerec_sample_bmp_filepath = result;
+            var getFilePathAsync_sample_Coroutine = Utils.getFilePathAsync (SAMPLE_IMAGE_FILENAME, (result) => {
+                sample_image_filepath = result;
             });
             yield return getFilePathAsync_sample_Coroutine;
 
@@ -69,13 +95,13 @@ namespace OpenCVForUnityExample
             List<Mat> images = new List<Mat> ();
             List<int> labelsList = new List<int> ();
             MatOfInt labels = new MatOfInt ();
-            images.Add (Imgcodecs.imread (facerec_0_bmp_filepath, 0));
-            images.Add (Imgcodecs.imread (facerec_1_bmp_filepath, 0));
+            images.Add (Imgcodecs.imread (image_0_filepath, 0));
+            images.Add (Imgcodecs.imread (image_1_filepath, 0));
             labelsList.Add (0);
             labelsList.Add (1);
             labels.fromList (labelsList);
 
-            Mat testSampleMat = Imgcodecs.imread (facerec_sample_bmp_filepath, 0);
+            Mat testSampleMat = Imgcodecs.imread (sample_image_filepath, 0);
             int testSampleLabel = 0;
 
 

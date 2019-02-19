@@ -21,11 +21,56 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class TextRecognitionExample : MonoBehaviour
     {
-        string scenetext01_jpg_filepath;
-        string trained_classifierNM1_xml_filepath;
-        string trained_classifierNM2_xml_filepath;
-        string OCRHMM_transitions_table_xml_filepath;
-        string OCRHMM_knn_model_data_xml_gz_filepath;
+
+        /// <summary>
+        /// IMAGE_FILENAME
+        /// </summary>
+        protected static readonly string IMAGE_FILENAME = "text/test_text.jpg";
+
+        /// <summary>
+        /// The image filepath.
+        /// </summary>
+        string image_filepath;
+
+        /// <summary>
+        /// TRAINED_CLASSIFIER_NM_1_FILENAME
+        /// </summary>
+        protected static readonly string TRAINED_CLASSIFIER_NM_1_FILENAME = "text/trained_classifierNM1.xml";
+
+        /// <summary>
+        /// The trained classifierNM1 filepath.
+        /// </summary>
+        string trained_classifierNM1_filepath;
+
+        /// <summary>
+        /// TRAINED_CLASSIFIER_NM_2_FILENAME
+        /// </summary>
+        protected static readonly string TRAINED_CLASSIFIER_NM_2_FILENAME = "text/trained_classifierNM2.xml";
+
+        /// <summary>
+        /// The trained classifierNM2 filepath.
+        /// </summary>
+        string trained_classifierNM2_filepath;
+
+        /// <summary>
+        /// CLASSIFIER_NM_2_FILENAME
+        /// </summary>
+        protected static readonly string OCRHMM_TRANSITIONS_TABLE_FILENAME = "text/OCRHMM_transitions_table.xml";
+
+        /// <summary>
+        /// The OCRHMM transitions table filepath.
+        /// </summary>
+        string OCRHMM_transitions_table_filepath;
+
+        /// <summary>
+        /// CLASSIFIER_NM_2_FILENAME
+        /// </summary>
+        protected static readonly string OCRHMM_KNN_MODEL_FILENAME = "text/OCRHMM_knn_model_data.xml";
+
+        /// <summary>
+        /// The OCRHMM knn model data filepath.
+        /// </summary>
+        string OCRHMM_knn_model_data_filepath;
 
         #if UNITY_WEBGL && !UNITY_EDITOR
         IEnumerator getFilePath_Coroutine;
@@ -39,14 +84,14 @@ namespace OpenCVForUnityExample
             getFilePath_Coroutine = GetFilePath ();
             StartCoroutine (getFilePath_Coroutine);
             #else
-            scenetext01_jpg_filepath = Utils.getFilePath ("text/test_text.jpg");
-            trained_classifierNM1_xml_filepath = Utils.getFilePath ("text/trained_classifierNM1.xml");
-            trained_classifierNM2_xml_filepath = Utils.getFilePath ("text/trained_classifierNM2.xml");
-            OCRHMM_transitions_table_xml_filepath = Utils.getFilePath ("text/OCRHMM_transitions_table.xml");
+            image_filepath = Utils.getFilePath (IMAGE_FILENAME);
+            trained_classifierNM1_filepath = Utils.getFilePath (TRAINED_CLASSIFIER_NM_1_FILENAME);
+            trained_classifierNM2_filepath = Utils.getFilePath (TRAINED_CLASSIFIER_NM_2_FILENAME);
+            OCRHMM_transitions_table_filepath = Utils.getFilePath (OCRHMM_TRANSITIONS_TABLE_FILENAME);
             #if UNITY_ANDROID && !UNITY_EDITOR
-            OCRHMM_knn_model_data_xml_gz_filepath = Utils.getFilePath ("text/OCRHMM_knn_model_data.xml");
+            OCRHMM_knn_model_data_filepath = Utils.getFilePath (OCRHMM_KNN_MODEL_FILENAME);
             #else
-            OCRHMM_knn_model_data_xml_gz_filepath = Utils.getFilePath ("text/OCRHMM_knn_model_data.xml.gz");
+            OCRHMM_knn_model_data_filepath = Utils.getFilePath (OCRHMM_KNN_MODEL_FILENAME + ".gz");
             #endif
             Run ();
             #endif
@@ -55,28 +100,28 @@ namespace OpenCVForUnityExample
         #if UNITY_WEBGL && !UNITY_EDITOR
         private IEnumerator GetFilePath ()
         {
-            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("text/test_text.jpg", (result) => {
-                scenetext01_jpg_filepath = result;
+            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync (IMAGE_FILENAME, (result) => {
+                image_filepath = result;
             });
             yield return getFilePathAsync_0_Coroutine;
 
-            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("text/trained_classifierNM1.xml", (result) => {
-                trained_classifierNM1_xml_filepath = result;
+            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync (TRAINED_CLASSIFIER_NM_1_FILENAME, (result) => {
+                trained_classifierNM1_filepath = result;
             });
             yield return getFilePathAsync_1_Coroutine;
 
-            var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync ("text/trained_classifierNM2.xml", (result) => {
-                trained_classifierNM2_xml_filepath = result;
+            var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync (TRAINED_CLASSIFIER_NM_2_FILENAME, (result) => {
+                trained_classifierNM2_filepath = result;
             });
             yield return getFilePathAsync_2_Coroutine;
 
-            var getFilePathAsync_3_Coroutine = Utils.getFilePathAsync ("text/OCRHMM_transitions_table.xml", (result) => {
-                OCRHMM_transitions_table_xml_filepath = result;
+            var getFilePathAsync_3_Coroutine = Utils.getFilePathAsync (OCRHMM_TRANSITIONS_TABLE_FILENAME, (result) => {
+                OCRHMM_transitions_table_filepath = result;
             });
             yield return getFilePathAsync_3_Coroutine;
 
-            var getFilePathAsync_4_Coroutine = Utils.getFilePathAsync ("text/OCRHMM_knn_model_data.xml.gz", (result) => {
-                OCRHMM_knn_model_data_xml_gz_filepath = result;
+            var getFilePathAsync_4_Coroutine = Utils.getFilePathAsync (OCRHMM_KNN_MODEL_FILENAME+".gz", (result) => {
+                OCRHMM_knn_model_data_filepath = result;
             });
             yield return getFilePathAsync_4_Coroutine;
 
@@ -92,7 +137,7 @@ namespace OpenCVForUnityExample
             Utils.setDebugMode (true);
 
 
-            Mat frame = Imgcodecs.imread (scenetext01_jpg_filepath);
+            Mat frame = Imgcodecs.imread (image_filepath);
             #if !UNITY_WSA_10_0
             if (frame.empty ()) {
                 Debug.LogError ("text/scenetext01.jpg is not loaded. Please copy from “OpenCVForUnity/StreamingAssets/text/” to “Assets/StreamingAssets/” folder. ");
@@ -105,9 +150,9 @@ namespace OpenCVForUnityExample
 
             List<MatOfPoint> regions = new List<MatOfPoint> ();
 
-            ERFilter er_filter1 = Text.createERFilterNM1 (trained_classifierNM1_xml_filepath, 8, 0.00015f, 0.13f, 0.2f, true, 0.1f);
+            ERFilter er_filter1 = Text.createERFilterNM1 (trained_classifierNM1_filepath, 8, 0.00015f, 0.13f, 0.2f, true, 0.1f);
 
-            ERFilter er_filter2 = Text.createERFilterNM2 (trained_classifierNM2_xml_filepath, 0.5f);
+            ERFilter er_filter2 = Text.createERFilterNM2 (trained_classifierNM2_filepath, 0.5f);
 
 
             Mat transition_p = new Mat (62, 62, CvType.CV_64FC1);
@@ -117,12 +162,12 @@ namespace OpenCVForUnityExample
             //            fs.release();
 
             //Load TransitionProbabilitiesData.
-            transition_p.put (0, 0, GetTransitionProbabilitiesData (OCRHMM_transitions_table_xml_filepath));
+            transition_p.put (0, 0, GetTransitionProbabilitiesData (OCRHMM_transitions_table_filepath));
 
             Mat emission_p = Mat.eye (62, 62, CvType.CV_64FC1);
             string voc = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             OCRHMMDecoder decoder = OCRHMMDecoder.create (
-                                        OCRHMM_knn_model_data_xml_gz_filepath,
+                                        OCRHMM_knn_model_data_filepath,
                                         voc, transition_p, emission_p);
 
             //Text Detection
