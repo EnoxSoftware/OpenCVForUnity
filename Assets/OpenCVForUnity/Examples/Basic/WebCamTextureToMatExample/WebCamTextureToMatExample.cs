@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
+
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -329,3 +331,5 @@ namespace OpenCVForUnityExample
         }
     }
 }
+
+#endif

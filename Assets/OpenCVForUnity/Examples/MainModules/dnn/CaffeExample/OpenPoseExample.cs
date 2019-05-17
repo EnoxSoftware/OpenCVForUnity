@@ -195,13 +195,11 @@ namespace OpenCVForUnityExample
             Utils.setDebugMode (true);
 
             Mat img = Imgcodecs.imread (image_filepath);
-            #if !UNITY_WSA_10_0
             if (img.empty ()) {
                 Debug.LogError ("dnn/COCO_val2014_000000000589.jpg is not loaded.The image file can be downloaded here: \"https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/examples/media/COCO_val2014_000000000589.jpg\" folder. ");
                 img = new Mat (368, 368, CvType.CV_8UC3, new Scalar (0, 0, 0));
 
             }
-            #endif
 
 
             //Adust Quad.transform.localScale.

@@ -199,22 +199,18 @@ namespace OpenCVForUnityExample
 
             if (!string.IsNullOrEmpty (classes)) {
                 classNames = readClassNames (classes_filepath);
-                #if !UNITY_WSA_10_0
                 if (classNames == null) {
                     Debug.LogError (classes_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
                 }
-                #endif
             } else if (classesList.Count > 0) {
                 classNames = classesList;
             }
 
             Mat img = Imgcodecs.imread (input_filepath);
-            #if !UNITY_WSA_10_0
             if (img.empty ()) {
                 Debug.LogError (input_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
                 img = new Mat (424, 640, CvType.CV_8UC3, new Scalar (0, 0, 0));
             }
-            #endif
 
 
             //Adust Quad.transform.localScale.

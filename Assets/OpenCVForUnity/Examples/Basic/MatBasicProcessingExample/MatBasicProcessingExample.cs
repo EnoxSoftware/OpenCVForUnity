@@ -301,7 +301,7 @@ namespace OpenCVForUnityExample
             Debug.Log (""m2="" + m2);
             Debug.Log (""m2.dump()="" + m2.dump ());
 
-            #if UNITY_STANDALONE || UNITY_EDITOR
+            // CVException handling
             // Publish CVException to Debug.LogError.
             Utils.setDebugMode (true, false);
 
@@ -322,9 +322,6 @@ namespace OpenCVForUnityExample
                 Debug.Log (""CVException: "" + e);
             }
             Utils.setDebugMode (false);
-            #else
-            Debug.Log (""The setDebugMode method is only supported on WIN, MAC and LINUX."");
-            #endif
             ";
 
             UpdateScrollRect ();

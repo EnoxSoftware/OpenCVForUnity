@@ -1,3 +1,5 @@
+#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
+
 #if !UNITY_WSA_10_0
 
 using System;
@@ -126,17 +128,13 @@ namespace OpenCVForUnityExample
 
 
             net = Dnn.readNetFromTensorflow (model_filepath);
-            #if !UNITY_WSA_10_0
             if (net.empty ()) {
                 Debug.LogError ("model file is not loaded. The model and class names list can be downloaded here: \"https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip\". Please copy to “Assets/StreamingAssets/dnn/” folder. ");
             }
-            #endif
             classes = readClassNames (classes_filepath);
-            #if !UNITY_WSA_10_0
             if (classes == null) {
                 Debug.LogError ("class names list file is not loaded. The model and class names list can be downloaded here: \"https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip\". Please copy to “Assets/StreamingAssets/dnn/” folder. ");
             }
-            #endif
             
             #if UNITY_ANDROID && !UNITY_EDITOR
             // Avoids the front camera low light issue that occurs in only some Android devices (e.g. Google Pixel, Pixel2).
@@ -330,4 +328,6 @@ namespace OpenCVForUnityExample
         }
     }
 }
+#endif
+
 #endif

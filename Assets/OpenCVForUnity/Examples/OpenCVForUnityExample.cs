@@ -277,6 +277,11 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene ("MSERExample");
         }
 
+        public void OnSimpleBlobExampleButtonClick()
+        {
+            SceneManager.LoadScene("SimpleBlobExample");
+        }
+
         #endregion
 
         #region imgcodecs
@@ -385,15 +390,6 @@ namespace OpenCVForUnityExample
         public void OnSeamlessCloneExampleButtonClick ()
         {
             SceneManager.LoadScene ("SeamlessCloneExample");
-        }
-
-        #endregion
-
-        #region shape
-
-        public void OnThinPlateSplineShapeTransformerExampleButtonClick ()
-        {
-            SceneManager.LoadScene ("ThinPlateSplineShapeTransformerExample");
         }
 
         #endregion

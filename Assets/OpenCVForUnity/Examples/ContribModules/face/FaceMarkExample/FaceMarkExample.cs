@@ -1,3 +1,5 @@
+#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -132,11 +134,9 @@ namespace OpenCVForUnityExample
 
             // setup face detection
             cascade = new CascadeClassifier (facemark_cascade_filepath);
-            #if !UNITY_WSA_10_0
             if (cascade.empty ()) {
                 Debug.LogError ("cascade file is not loaded. Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
             }
-            #endif
 
 
             #if UNITY_ANDROID && !UNITY_EDITOR
@@ -398,3 +398,5 @@ namespace OpenCVForUnityExample
         }
     }
 }
+
+#endif

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
+
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
@@ -253,11 +255,9 @@ namespace OpenCVForUnityExample
             grayMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
             cascade = new CascadeClassifier ();
             cascade.load (lbp_cascade_filepath);
-            #if !UNITY_WSA_10_0
             if (cascade.empty ()) {
                 Debug.LogError ("cascade file is not loaded. Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
             }
-            #endif
             InitThread ();
         }
 
@@ -438,11 +438,9 @@ namespace OpenCVForUnityExample
             
             cascade4Thread = new CascadeClassifier ();
             cascade4Thread.load (haar_cascade_filepath);
-            #if !UNITY_WSA_10_0
             if (cascade4Thread.empty ()) {
                 Debug.LogError ("cascade4Thread file is not loaded. Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
             }
-            #endif
             
             shouldDetectInMultiThread = false;
 
@@ -862,3 +860,5 @@ namespace OpenCVForUnityExample
         }
     }
 }
+
+#endif

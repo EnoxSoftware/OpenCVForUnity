@@ -133,11 +133,9 @@ StartCoroutine (getFilePath_Coroutine);
 
 
             classNames = readClassNames (classes_filepath);
-#if !UNITY_WSA_10_0
             if (classNames == null) {
                 Debug.LogError (classes_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
             }
-#endif
 
             classColors = new List<Scalar> ();
             for (int i = 0; i < classNames.Count; i++) {
@@ -146,13 +144,11 @@ StartCoroutine (getFilePath_Coroutine);
 
 
             Mat img = Imgcodecs.imread (image_filepath);
-            #if !UNITY_WSA_10_0
             if (img.empty ()) {
                 Debug.LogError (image_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
                 img = new Mat (height, width, CvType.CV_8UC3, new Scalar (0, 0, 0));
 
             }
-            #endif
             
 
 
@@ -209,8 +205,8 @@ StartCoroutine (getFilePath_Coroutine);
                 Mat masks = outputBlobs [1];
 
 
-                int numClasses = masks.size (1);
-                int numDetections = boxes.size (2);
+                //int numClasses = masks.size (1);
+                //int numDetections = boxes.size (2);
 
 
                 Debug.Log ("boxes.size(0) " + boxes.size (0));

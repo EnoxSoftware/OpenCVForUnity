@@ -1,3 +1,5 @@
+#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
+
 #if !UNITY_WSA_10_0
 
 using System;
@@ -151,11 +153,9 @@ namespace OpenCVForUnityExample
 
             if (!string.IsNullOrEmpty (classes)) {
                 classNames = readClassNames (classes_filepath);
-                #if !UNITY_WSA_10_0
                 if (classNames == null) {
                     Debug.LogError (classes_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
                 }
-                #endif
             } else if (classesList.Count > 0) {
                 classNames = classesList;
             }
@@ -625,4 +625,6 @@ namespace OpenCVForUnityExample
         }
     }
 }
+#endif
+
 #endif

@@ -1,3 +1,5 @@
+#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
+
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -31,7 +33,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// The marker type.
         /// </summary>
-        public MarkerType markerType = MarkerType.ChArUcoBoard;
+        public MarkerType markerType = MarkerType.ChessBoard;
 
         /// <summary>
         /// The marker type dropdown.
@@ -51,7 +53,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Number of squares in X direction.
         /// </summary>
-        public NumberOfSquaresX squaresX = NumberOfSquaresX.X_5;
+        public NumberOfSquaresX squaresX = NumberOfSquaresX.X_6;
 
         /// <summary>
         /// The squares X dropdown.
@@ -61,7 +63,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Number of squares in X direction.
         /// </summary>
-        public NumberOfSquaresY squaresY = NumberOfSquaresY.Y_7;
+        public NumberOfSquaresY squaresY = NumberOfSquaresY.Y_9;
 
         /// <summary>
         /// The squares X dropdown.
@@ -868,7 +870,7 @@ namespace OpenCVForUnityExample
             }
 
             isCalibrating = false;
-            markerTypeDropdown.interactable = dictionaryIdDropdown.interactable = squaresXDropdown.interactable = squaresYDropdown.interactable = true;
+            markerTypeDropdown.interactable = squaresXDropdown.interactable = squaresYDropdown.interactable = true;
         }
 
         private string[] GetImageFilesInDirectory (string dirPath)
@@ -1171,3 +1173,5 @@ namespace OpenCVForUnityExample
         }
     }
 }
+
+#endif

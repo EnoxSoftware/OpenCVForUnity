@@ -138,11 +138,9 @@ namespace OpenCVForUnityExample
 
 
             Mat frame = Imgcodecs.imread (image_filepath);
-            #if !UNITY_WSA_10_0
             if (frame.empty ()) {
                 Debug.LogError ("text/scenetext01.jpg is not loaded. Please copy from “OpenCVForUnity/StreamingAssets/text/” to “Assets/StreamingAssets/” folder. ");
             }
-            #endif
 
             Mat binaryMat = new Mat ();
             Mat maskMat = new Mat ();

@@ -52,11 +52,9 @@ namespace OpenCVForUnityExample
         private void Run ()
         {
             Mat src = Imgcodecs.imread (image_filepath);
-            #if !UNITY_WSA_10_0
             if (src.empty ()) {
                 Debug.LogError ("pca_test1.jpg is not loaded. Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
             }
-            #endif
 
             Debug.Log ("src.ToString() " + src.ToString ());
 
