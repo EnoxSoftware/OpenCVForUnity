@@ -21,6 +21,7 @@ var searchData=
   ['imwrite_5fexr_5ftype',['IMWRITE_EXR_TYPE',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a9c04a48ea62cf54f741a1e64b065c291',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
   ['imwrite_5fexr_5ftype_5ffloat',['IMWRITE_EXR_TYPE_FLOAT',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a302fce5ddb16d24af22227c39f2398a3',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
   ['imwrite_5fexr_5ftype_5fhalf',['IMWRITE_EXR_TYPE_HALF',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#ae1df6911fb2a514ccd26c04002977c96',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
+  ['imwrite_5fjpeg2000_5fcompression_5fx1000',['IMWRITE_JPEG2000_COMPRESSION_X1000',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a002fe8733ff912f6bde965762435ff85',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
   ['imwrite_5fjpeg_5fchroma_5fquality',['IMWRITE_JPEG_CHROMA_QUALITY',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a37c8df94fea321bfd619171a10b3429d',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
   ['imwrite_5fjpeg_5fluma_5fquality',['IMWRITE_JPEG_LUMA_QUALITY',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a4783ac127cd6309691a4e70063370811',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
   ['imwrite_5fjpeg_5foptimize',['IMWRITE_JPEG_OPTIMIZE',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a1bc8d0da4e46da8538363cf508804876',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
@@ -43,6 +44,7 @@ var searchData=
   ['imwrite_5fpng_5fstrategy_5fhuffman_5fonly',['IMWRITE_PNG_STRATEGY_HUFFMAN_ONLY',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#aaea7e321f9bb2e7ccbfdba61f2be18ae',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
   ['imwrite_5fpng_5fstrategy_5frle',['IMWRITE_PNG_STRATEGY_RLE',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#aa8511571e14906b1f5904fbd99d6dacf',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
   ['imwrite_5fpxm_5fbinary',['IMWRITE_PXM_BINARY',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a786f5e643fcd6e93104809fe3bed9083',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
+  ['imwrite_5ftiff_5fcompression',['IMWRITE_TIFF_COMPRESSION',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a3923cbe6d2e97c483ff7dc5d55353e84',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
   ['imwrite_5ftiff_5fresunit',['IMWRITE_TIFF_RESUNIT',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a1ec597ebd80a6dde64c42fd7385c8e43',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
   ['imwrite_5ftiff_5fxdpi',['IMWRITE_TIFF_XDPI',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a3bc3f254d414a1bb170f3b77824fac78',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
   ['imwrite_5ftiff_5fydpi',['IMWRITE_TIFF_YDPI',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a7732ccd703b8a45d4d9d0d4abeeee759',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
@@ -66,6 +68,5 @@ var searchData=
   ['intersect_5ffull',['INTERSECT_FULL',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#aaa7fa64d95abed6c8365bb6feffb522b',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['intersect_5fnone',['INTERSECT_NONE',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#aa79ab77335a6507eef9d43279b68d561',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['intersect_5fpartial',['INTERSECT_PARTIAL',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a96cba858171fdb252f77b6ea0c61b7de',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
-  ['isinitwaiting',['isInitWaiting',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#acb86284163e63814276b8d6ca30c4cef',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]],
-  ['iterative',['ITERATIVE',['../class_open_c_v_for_unity_1_1_fuzzy_module_1_1_fuzzy.html#a9c48641d2cd80c5621f4ecf4825eadaf',1,'OpenCVForUnity::FuzzyModule::Fuzzy']]]
+  ['isinitwaiting',['isInitWaiting',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#acb86284163e63814276b8d6ca30c4cef',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]]
 ];

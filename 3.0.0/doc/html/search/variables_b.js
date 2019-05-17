@@ -13,7 +13,7 @@ var searchData=
   ['line_5f4',['LINE_4',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#af310012e1cbe3bd4832d7b89bd108838',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['line_5f8',['LINE_8',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a92adc2426a0e2b9e74e5b027bd43be7d',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['line_5faa',['LINE_AA',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#ae6b7230423630026dafc311e7d8d21b8',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
-  ['linear',['LINEAR',['../class_open_c_v_for_unity_1_1_ml_module_1_1_s_v_m.html#a57658238d42b35004d03f5061373cf24',1,'OpenCVForUnity.MlModule.SVM.LINEAR()'],['../class_open_c_v_for_unity_1_1_fuzzy_module_1_1_fuzzy.html#a1601c9e4d9e8c9eb2cff0b972acbacc4',1,'OpenCVForUnity.FuzzyModule.Fuzzy.LINEAR()']]],
+  ['linear',['LINEAR',['../class_open_c_v_for_unity_1_1_ml_module_1_1_s_v_m.html#a57658238d42b35004d03f5061373cf24',1,'OpenCVForUnity::MlModule::SVM']]],
   ['lmeds',['LMEDS',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a733c7411eea7b8f4d9504c2436168cb4',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
   ['logit',['LOGIT',['../class_open_c_v_for_unity_1_1_ml_module_1_1_boost.html#abd70c82c28fb7e1c0b5485cff39029c9',1,'OpenCVForUnity::MlModule::Boost']]],
   ['lsbp_5fcamera_5fmotion_5fcompensation_5flk',['LSBP_CAMERA_MOTION_COMPENSATION_LK',['../class_open_c_v_for_unity_1_1_bgsegm_module_1_1_bgsegm.html#a1e3cdc386f71e21753c132685da648ff',1,'OpenCVForUnity::BgsegmModule::Bgsegm']]],

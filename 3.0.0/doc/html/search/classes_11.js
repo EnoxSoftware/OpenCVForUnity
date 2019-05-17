@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['saliency',['Saliency',['../class_open_c_v_for_unity_1_1_saliency_module_1_1_saliency.html',1,'OpenCVForUnity::SaliencyModule']]],
   ['scalar',['Scalar',['../class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html',1,'OpenCVForUnity::CoreModule']]],
   ['selectivesearchsegmentation',['SelectiveSearchSegmentation',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_selective_search_segmentation.html',1,'OpenCVForUnity::XimgprocModule']]],
   ['selectivesearchsegmentationstrategy',['SelectiveSearchSegmentationStrategy',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_selective_search_segmentation_strategy.html',1,'OpenCVForUnity::XimgprocModule']]],
@@ -9,10 +8,7 @@ var searchData=
   ['selectivesearchsegmentationstrategymultiple',['SelectiveSearchSegmentationStrategyMultiple',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_selective_search_segmentation_strategy_multiple.html',1,'OpenCVForUnity::XimgprocModule']]],
   ['selectivesearchsegmentationstrategysize',['SelectiveSearchSegmentationStrategySize',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_selective_search_segmentation_strategy_size.html',1,'OpenCVForUnity::XimgprocModule']]],
   ['selectivesearchsegmentationstrategytexture',['SelectiveSearchSegmentationStrategyTexture',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_selective_search_segmentation_strategy_texture.html',1,'OpenCVForUnity::XimgprocModule']]],
-  ['shape',['Shape',['../class_open_c_v_for_unity_1_1_shape_module_1_1_shape.html',1,'OpenCVForUnity::ShapeModule']]],
-  ['shapecontextdistanceextractor',['ShapeContextDistanceExtractor',['../class_open_c_v_for_unity_1_1_shape_module_1_1_shape_context_distance_extractor.html',1,'OpenCVForUnity::ShapeModule']]],
-  ['shapedistanceextractor',['ShapeDistanceExtractor',['../class_open_c_v_for_unity_1_1_shape_module_1_1_shape_distance_extractor.html',1,'OpenCVForUnity::ShapeModule']]],
-  ['shapetransformer',['ShapeTransformer',['../class_open_c_v_for_unity_1_1_shape_module_1_1_shape_transformer.html',1,'OpenCVForUnity::ShapeModule']]],
+  ['simpleblobdetector',['SimpleBlobDetector',['../class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector.html',1,'OpenCVForUnity::Features2dModule']]],
   ['simplewb',['SimpleWB',['../class_open_c_v_for_unity_1_1_xphoto_module_1_1_simple_w_b.html',1,'OpenCVForUnity::XphotoModule']]],
   ['sinusoidalpattern',['SinusoidalPattern',['../class_open_c_v_for_unity_1_1_structured__light_module_1_1_sinusoidal_pattern.html',1,'OpenCVForUnity::Structured_lightModule']]],
   ['size',['Size',['../class_open_c_v_for_unity_1_1_core_module_1_1_size.html',1,'OpenCVForUnity::CoreModule']]],
@@ -21,9 +17,6 @@ var searchData=
   ['sparsepyrlkopticalflow',['SparsePyrLKOpticalFlow',['../class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html',1,'OpenCVForUnity::VideoModule']]],
   ['standardcollector',['StandardCollector',['../class_open_c_v_for_unity_1_1_face_module_1_1_standard_collector.html',1,'OpenCVForUnity::FaceModule']]],
   ['stardetector',['StarDetector',['../class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_star_detector.html',1,'OpenCVForUnity::Xfeatures2dModule']]],
-  ['staticsaliency',['StaticSaliency',['../class_open_c_v_for_unity_1_1_saliency_module_1_1_static_saliency.html',1,'OpenCVForUnity::SaliencyModule']]],
-  ['staticsaliencyfinegrained',['StaticSaliencyFineGrained',['../class_open_c_v_for_unity_1_1_saliency_module_1_1_static_saliency_fine_grained.html',1,'OpenCVForUnity::SaliencyModule']]],
-  ['staticsaliencyspectralresidual',['StaticSaliencySpectralResidual',['../class_open_c_v_for_unity_1_1_saliency_module_1_1_static_saliency_spectral_residual.html',1,'OpenCVForUnity::SaliencyModule']]],
   ['statmodel',['StatModel',['../class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html',1,'OpenCVForUnity::MlModule']]],
   ['stereobm',['StereoBM',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_stereo_b_m.html',1,'OpenCVForUnity::Calib3dModule']]],
   ['stereomatcher',['StereoMatcher',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_stereo_matcher.html',1,'OpenCVForUnity::Calib3dModule']]],

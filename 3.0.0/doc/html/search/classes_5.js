@@ -16,6 +16,5 @@ var searchData=
   ['features2d',['Features2d',['../class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html',1,'OpenCVForUnity::Features2dModule']]],
   ['fisherfacerecognizer',['FisherFaceRecognizer',['../class_open_c_v_for_unity_1_1_face_module_1_1_fisher_face_recognizer.html',1,'OpenCVForUnity::FaceModule']]],
   ['flannbasedmatcher',['FlannBasedMatcher',['../class_open_c_v_for_unity_1_1_features2d_module_1_1_flann_based_matcher.html',1,'OpenCVForUnity::Features2dModule']]],
-  ['freak',['FREAK',['../class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_f_r_e_a_k.html',1,'OpenCVForUnity::Xfeatures2dModule']]],
-  ['fuzzy',['Fuzzy',['../class_open_c_v_for_unity_1_1_fuzzy_module_1_1_fuzzy.html',1,'OpenCVForUnity::FuzzyModule']]]
+  ['freak',['FREAK',['../class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_f_r_e_a_k.html',1,'OpenCVForUnity::Xfeatures2dModule']]]
 ];

@@ -14,6 +14,5 @@ var searchData=
   ['dmatch_2ecs',['DMatch.cs',['../_d_match_8cs.html',1,'']]],
   ['dnn_2ecs',['Dnn.cs',['../_dnn_8cs.html',1,'']]],
   ['dtfilter_2ecs',['DTFilter.cs',['../_d_t_filter_8cs.html',1,'']]],
-  ['dtrees_2ecs',['DTrees.cs',['../_d_trees_8cs.html',1,'']]],
-  ['dualtvl1opticalflow_2ecs',['DualTVL1OpticalFlow.cs',['../_dual_t_v_l1_optical_flow_8cs.html',1,'']]]
+  ['dtrees_2ecs',['DTrees.cs',['../_d_trees_8cs.html',1,'']]]
 ];

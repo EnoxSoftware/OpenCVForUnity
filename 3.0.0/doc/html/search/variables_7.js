@@ -14,8 +14,6 @@ var searchData=
   ['gemm_5f2_5ft',['GEMM_2_T',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a6f892f16a85d857c8dfad9d2295541a9',1,'OpenCVForUnity::CoreModule::Core']]],
   ['gemm_5f3_5ft',['GEMM_3_T',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#acb46e109d4b4e5645e297ede64eac368',1,'OpenCVForUnity::CoreModule::Core']]],
   ['gentle',['GENTLE',['../class_open_c_v_for_unity_1_1_ml_module_1_1_boost.html#ad4bfbe8b1a2b66835d9de566f6ce832f',1,'OpenCVForUnity::MlModule::Boost']]],
-  ['gpc_5fdescriptor_5fdct',['GPC_DESCRIPTOR_DCT',['../class_open_c_v_for_unity_1_1_optflow_module_1_1_optflow.html#aeabb11d2fc3869c1d6eaae39472221f2',1,'OpenCVForUnity::OptflowModule::Optflow']]],
-  ['gpc_5fdescriptor_5fwht',['GPC_DESCRIPTOR_WHT',['../class_open_c_v_for_unity_1_1_optflow_module_1_1_optflow.html#ad8837d79170ad7b2f221dae0a80da301',1,'OpenCVForUnity::OptflowModule::Optflow']]],
   ['gpuapicallerror',['GpuApiCallError',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a0ae63e9c65e9be5f1752487f627d4134',1,'OpenCVForUnity::CoreModule::Core']]],
   ['gpunotsupported',['GpuNotSupported',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a87daf0064bff70dba58e53b53c27c04c',1,'OpenCVForUnity::CoreModule::Core']]],
   ['gray',['GRAY',['../class_open_c_v_for_unity_1_1_tracking_module_1_1_tracker_k_c_f.html#a9fee0bca708d48b559a54d61ba672b4a',1,'OpenCVForUnity::TrackingModule::TrackerKCF']]],

@@ -13,7 +13,6 @@ var searchData=
   ['oem_5ftesseract_5fonly',['OEM_TESSERACT_ONLY',['../class_open_c_v_for_unity_1_1_text_module_1_1_text.html#ab672a69225bd1924c36c17eef31bcc5c',1,'OpenCVForUnity::TextModule::Text']]],
   ['ondisposed',['onDisposed',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a5cb08d1425b90b7ed252baa82278d982',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]],
   ['one_5fclass',['ONE_CLASS',['../class_open_c_v_for_unity_1_1_ml_module_1_1_s_v_m.html#a268a833db2d2c1db3e641406c5a7b24e',1,'OpenCVForUnity::MlModule::SVM']]],
-  ['one_5fstep',['ONE_STEP',['../class_open_c_v_for_unity_1_1_fuzzy_module_1_1_fuzzy.html#a4df0ac3071dd5d4fd96cec3ed1e6b5ec',1,'OpenCVForUnity::FuzzyModule::Fuzzy']]],
   ['onerroroccurred',['onErrorOccurred',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a241b5303a64899a58b68850ee517d5fe',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]],
   ['oninitialized',['onInitialized',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#ab622efe497b79c1bf36b899d1ffcb6d7',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]],
   ['openclapicallerror',['OpenCLApiCallError',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a184f83567cc447e5362c20513b06927c',1,'OpenCVForUnity::CoreModule::Core']]],

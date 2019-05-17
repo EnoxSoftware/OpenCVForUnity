@@ -38,6 +38,12 @@ var searchData=
   ['font_5fhershey_5fsimplex',['FONT_HERSHEY_SIMPLEX',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a766f4d2bcd4a509e703a5c08b8138866',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['font_5fhershey_5ftriplex',['FONT_HERSHEY_TRIPLEX',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a211befb2e85d8448dff6c26fabf0e7f9',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['font_5fitalic',['FONT_ITALIC',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#aea032d9bd61fad6bb7a1851d7ec02ba8',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
+  ['formatter_5ffmt_5fc',['Formatter_FMT_C',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a929d06b5dc9dcd84fdf8789bd9027fae',1,'OpenCVForUnity::CoreModule::Core']]],
+  ['formatter_5ffmt_5fcsv',['Formatter_FMT_CSV',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#ab2c92305f00527d5106fda4c4f58d743',1,'OpenCVForUnity::CoreModule::Core']]],
+  ['formatter_5ffmt_5fdefault',['Formatter_FMT_DEFAULT',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a48da3791baeba76631263cc4735a5e2b',1,'OpenCVForUnity::CoreModule::Core']]],
+  ['formatter_5ffmt_5fmatlab',['Formatter_FMT_MATLAB',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a8e4f7c7ceaae8ef2298a5fe25d7abffd',1,'OpenCVForUnity::CoreModule::Core']]],
+  ['formatter_5ffmt_5fnumpy',['Formatter_FMT_NUMPY',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#ab2c060b710e81d3a0dad34c2d6e5ab87',1,'OpenCVForUnity::CoreModule::Core']]],
+  ['formatter_5ffmt_5fpython',['Formatter_FMT_PYTHON',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a0619036a1120a1e7a1ec51383d7a0ae5',1,'OpenCVForUnity::CoreModule::Core']]],
   ['framecount',['frameCount',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.html#a4cc8258b81e7eb4c588fdf5f615bcfa8',1,'OpenCVForUnity::UnityUtils::Helper::ImageOptimizationHelper']]],
   ['framemat',['frameMat',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#aac6425790327559459fb40a5d620c16f',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]],
   ['ftp',['FTP',['../class_open_c_v_for_unity_1_1_structured__light_module_1_1_structured__light.html#a8134988306526bfe3f3b6f6d96a7a413',1,'OpenCVForUnity::Structured_lightModule::Structured_light']]]

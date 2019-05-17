@@ -1,18 +1,6 @@
 var searchData=
 [
   ['mace',['MACE',['../class_open_c_v_for_unity_1_1_face_module_1_1_m_a_c_e.html',1,'OpenCVForUnity::FaceModule']]],
-  ['map',['Map',['../class_open_c_v_for_unity_1_1_reg_module_1_1_map.html',1,'OpenCVForUnity::RegModule']]],
-  ['mapaffine',['MapAffine',['../class_open_c_v_for_unity_1_1_reg_module_1_1_map_affine.html',1,'OpenCVForUnity::RegModule']]],
-  ['mapper',['Mapper',['../class_open_c_v_for_unity_1_1_reg_module_1_1_mapper.html',1,'OpenCVForUnity::RegModule']]],
-  ['mappergradaffine',['MapperGradAffine',['../class_open_c_v_for_unity_1_1_reg_module_1_1_mapper_grad_affine.html',1,'OpenCVForUnity::RegModule']]],
-  ['mappergradeuclid',['MapperGradEuclid',['../class_open_c_v_for_unity_1_1_reg_module_1_1_mapper_grad_euclid.html',1,'OpenCVForUnity::RegModule']]],
-  ['mappergradproj',['MapperGradProj',['../class_open_c_v_for_unity_1_1_reg_module_1_1_mapper_grad_proj.html',1,'OpenCVForUnity::RegModule']]],
-  ['mappergradshift',['MapperGradShift',['../class_open_c_v_for_unity_1_1_reg_module_1_1_mapper_grad_shift.html',1,'OpenCVForUnity::RegModule']]],
-  ['mappergradsimilar',['MapperGradSimilar',['../class_open_c_v_for_unity_1_1_reg_module_1_1_mapper_grad_similar.html',1,'OpenCVForUnity::RegModule']]],
-  ['mapperpyramid',['MapperPyramid',['../class_open_c_v_for_unity_1_1_reg_module_1_1_mapper_pyramid.html',1,'OpenCVForUnity::RegModule']]],
-  ['mapprojec',['MapProjec',['../class_open_c_v_for_unity_1_1_reg_module_1_1_map_projec.html',1,'OpenCVForUnity::RegModule']]],
-  ['mapshift',['MapShift',['../class_open_c_v_for_unity_1_1_reg_module_1_1_map_shift.html',1,'OpenCVForUnity::RegModule']]],
-  ['maptypecaster',['MapTypeCaster',['../class_open_c_v_for_unity_1_1_reg_module_1_1_map_type_caster.html',1,'OpenCVForUnity::RegModule']]],
   ['marrhildrethhash',['MarrHildrethHash',['../class_open_c_v_for_unity_1_1_img__hash_module_1_1_marr_hildreth_hash.html',1,'OpenCVForUnity::Img_hashModule']]],
   ['mat',['Mat',['../class_open_c_v_for_unity_1_1_core_module_1_1_mat.html',1,'OpenCVForUnity::CoreModule']]],
   ['matofbyte',['MatOfByte',['../class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_byte.html',1,'OpenCVForUnity::CoreModule']]],
@@ -38,8 +26,6 @@ var searchData=
   ['minmaxlocresult',['MinMaxLocResult',['../class_open_c_v_for_unity_1_1_core_module_1_1_core_1_1_min_max_loc_result.html',1,'OpenCVForUnity::CoreModule::Core']]],
   ['ml',['Ml',['../class_open_c_v_for_unity_1_1_ml_module_1_1_ml.html',1,'OpenCVForUnity::MlModule']]],
   ['moments',['Moments',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_moments.html',1,'OpenCVForUnity::ImgprocModule']]],
-  ['motionsaliency',['MotionSaliency',['../class_open_c_v_for_unity_1_1_saliency_module_1_1_motion_saliency.html',1,'OpenCVForUnity::SaliencyModule']]],
-  ['motionsaliencybinwangapr2014',['MotionSaliencyBinWangApr2014',['../class_open_c_v_for_unity_1_1_saliency_module_1_1_motion_saliency_bin_wang_apr2014.html',1,'OpenCVForUnity::SaliencyModule']]],
   ['msddetector',['MSDDetector',['../class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_m_s_d_detector.html',1,'OpenCVForUnity::Xfeatures2dModule']]],
   ['mser',['MSER',['../class_open_c_v_for_unity_1_1_features2d_module_1_1_m_s_e_r.html',1,'OpenCVForUnity::Features2dModule']]],
   ['multitracker',['MultiTracker',['../class_open_c_v_for_unity_1_1_tracking_module_1_1_multi_tracker.html',1,'OpenCVForUnity::TrackingModule']]]

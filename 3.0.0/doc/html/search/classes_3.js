@@ -14,6 +14,5 @@ var searchData=
   ['dmatch',['DMatch',['../class_open_c_v_for_unity_1_1_core_module_1_1_d_match.html',1,'OpenCVForUnity::CoreModule']]],
   ['dnn',['Dnn',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html',1,'OpenCVForUnity::DnnModule']]],
   ['dtfilter',['DTFilter',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_d_t_filter.html',1,'OpenCVForUnity::XimgprocModule']]],
-  ['dtrees',['DTrees',['../class_open_c_v_for_unity_1_1_ml_module_1_1_d_trees.html',1,'OpenCVForUnity::MlModule']]],
-  ['dualtvl1opticalflow',['DualTVL1OpticalFlow',['../class_open_c_v_for_unity_1_1_optflow_module_1_1_dual_t_v_l1_optical_flow.html',1,'OpenCVForUnity::OptflowModule']]]
+  ['dtrees',['DTrees',['../class_open_c_v_for_unity_1_1_ml_module_1_1_d_trees.html',1,'OpenCVForUnity::MlModule']]]
 ];
