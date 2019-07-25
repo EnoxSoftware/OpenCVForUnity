@@ -28,12 +28,20 @@ namespace OpenCVForUnityExample
     /// (Data\il2cpp on Windows, Contents/Frameworks/il2cpp on OS X). Copy this source file into the Assets folder in your project.
     /// https://docs.unity3d.com/Manual/IL2CPP-CompilerOptions.html
     /// 
+    /// To use these options, need to uncomment the code that enables the feature. 
+    /// 
+    /// 
     /// # Pointer acccess. (use -unsafe):
+    /// (Unity version 2018.1 or later)
+    /// Unsafe code may only appear if compiling with /unsafe. Enable "Allow 'unsafe' code" in Player Settings.
+    /// 
+    /// (older version)
     /// Unsafe code requires the `unsafe' command line option to be specified.
     /// You need to add a file "smcs.rsp" (or "gmcs.rsp") in your "Assets" directory, which contains the line: -unsafe
     /// https://answers.unity.com/questions/804103/how-to-enable-unsafe-and-use-pointers.html
     /// 
-    /// To use these options, uncomment the code that enables the feature. 
+    /// To use this example, need to uncomment the code from lines 479 to 550, and line 254, and enable the "Intractable" property of "Pointer Access Button" in the scene. 
+    /// 
     /// ######
     /// </summary>
 

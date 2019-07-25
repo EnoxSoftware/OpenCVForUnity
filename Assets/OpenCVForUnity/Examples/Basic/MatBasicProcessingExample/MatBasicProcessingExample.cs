@@ -96,6 +96,13 @@ namespace OpenCVForUnityExample
             Core.randn (mat8, 128, 10);
             Debug.Log ("mat8=" + mat8.dump ());
 
+            // 2x2x3x4 matrix (4 dimensional array)
+            int[] sizes = new int[]{ 2, 2, 3, 4 };
+            Mat mat9 = new Mat (sizes, CvType.CV_8UC1, Scalar.all (0));
+            Debug.Log ("mat9.dims=" + mat9.dims ());
+            Debug.Log ("mat9.rows=" + mat9.rows () + " //For Mats of 3 dimensions or more, rows == cols == -1");
+            Debug.Log ("mat9.cols=" + mat9.cols ());
+
             exampleCodeText.text = @"
             //
             // initialization example
@@ -137,6 +144,13 @@ namespace OpenCVForUnityExample
             Mat mat8 = new Mat (3, 2, CvType.CV_8UC1);
             Core.randn (mat8, 128, 10);
             Debug.Log (""mat8="" + mat8.dump());
+
+            // 2x2x3x4 matrix (4 dimensional array)
+            int[] sizes = new int[]{ 2, 2, 3, 4 };
+            Mat mat9 = new Mat (sizes, CvType.CV_8UC1, Scalar.all (0));
+            Debug.Log (""mat9.dims="" + mat9.dims());
+            Debug.Log (""mat9.rows="" + mat9.rows () + "" //For Mats of 3 dimensions or more, rows == cols == -1"");
+            Debug.Log (""mat9.cols="" + mat9.cols ());
             ";
 
             executionResultText.text = "mat1=" + mat1.dump () + "\n";
@@ -147,6 +161,9 @@ namespace OpenCVForUnityExample
             executionResultText.text += "mat6=" + mat6.dump () + "\n";
             executionResultText.text += "mat7=" + mat7.dump () + "\n";
             executionResultText.text += "mat8=" + mat8.dump () + "\n";
+            executionResultText.text += "mat9.dims=" + mat9.dims () + "\n";
+            executionResultText.text += "mat9.rows=" + mat9.rows () + " //For Mats of 3 dimensions or more, rows == cols == -1" + "\n";
+            executionResultText.text += "mat9.cols=" + mat9.cols () + "\n";
 
             UpdateScrollRect ();
         }
@@ -168,6 +185,12 @@ namespace OpenCVForUnityExample
             Mat mat2 = new Mat (3, 3, CvType.CV_64FC (10));
             Debug.Log ("   dim:" + mat2.dims () + " elemSize1:" + mat2.elemSize1 () + " channels:" + mat2.channels ());
 
+            // 64F, channles=1, 2x2x3x4 (4 dimensional array)
+            Debug.Log ("mat3");
+            int[] sizes = new int[]{ 2, 2, 3, 4 };
+            Mat mat3 = new Mat (sizes, CvType.CV_64FC1);
+            Debug.Log ("   dim:" + mat3.dims () + " elemSize1:" + mat3.elemSize1 () + " channels:" + mat3.channels ());
+
             exampleCodeText.text = @"
             //
             // multi channel example
@@ -182,12 +205,20 @@ namespace OpenCVForUnityExample
             Debug.Log (""mat2"");
             Mat mat2 = new Mat (3, 3, CvType.CV_64FC(10));
             Debug.Log (""   dim:"" + mat2.dims() + "" elemSize1:"" + mat2.elemSize1() + "" channels:"" + mat2.channels());
+
+            // 64F, channles=1, 2x2x3x4 (4 dimensional array)
+            Debug.Log (""mat3"");
+            int[] sizes = new int[]{ 2, 2, 3, 4 };
+            Mat mat3 = new Mat (sizes, CvType.CV_64FC1);
+            Debug.Log (""   dim:"" + mat3.dims() + "" elemSize1:"" + mat3.elemSize1() + "" channels:"" + mat3.channels());
             ";
 
             executionResultText.text = "mat1" + "\n";
             executionResultText.text += "   dim:" + mat1.dims () + " elemSize1:" + mat1.elemSize1 () + " channels:" + mat1.channels () + "\n";
             executionResultText.text += "mat2" + "\n";
-            executionResultText.text += "   dim:" + mat2.dims () + " elemSize1" + mat2.elemSize1 () + " channels:" + mat2.channels () + "\n";
+            executionResultText.text += "   dim:" + mat2.dims () + " elemSize1:" + mat2.elemSize1 () + " channels:" + mat2.channels () + "\n";
+            executionResultText.text += "mat3" + "\n";
+            executionResultText.text += "   dim:" + mat3.dims () + " elemSize1:" + mat3.elemSize1 () + " channels:" + mat3.channels () + "\n";
 
             UpdateScrollRect ();
         }
@@ -334,7 +365,7 @@ namespace OpenCVForUnityExample
             //
 
             // 64F, channels=1, 3x4
-            Mat mat1 = new Mat (3, 3, CvType.CV_64FC1);
+            Mat mat1 = new Mat (3, 4, CvType.CV_64FC1);
 
             // number of rows
             Debug.Log ("rows:" + mat1.rows ());
@@ -354,6 +385,8 @@ namespace OpenCVForUnityExample
             Debug.Log ("elemSize1 (elemSize/channels):" + mat1.elemSize1 () + "[byte]");
             // total number of elements
             Debug.Log ("total:" + mat1.total ());
+            // size of step
+            Debug.Log ("step (step1*elemSize1):" + mat1.step1 () * mat1.elemSize1 () + "[byte]");
             // total number of channels within one step
             Debug.Log ("step1 (step/elemSize1):" + mat1.step1 ());
             // is the data continuous?
@@ -363,40 +396,205 @@ namespace OpenCVForUnityExample
             // is the data empty?
             Debug.Log ("empty:" + mat1.empty ());
 
+            Debug.Log ("==============================");
+
+
+            // 32FC, channels=5, 4x5, 3x4 Submatrix
+            Mat mat2 = new Mat (4, 5, CvType.CV_32FC (5));
+            OpenCVForUnity.CoreModule.Rect roi_rect = new OpenCVForUnity.CoreModule.Rect (0, 0, 3, 4);
+            Mat r1 = new Mat (mat2, roi_rect);
+
+            // number of rows
+            Debug.Log ("rows:" + r1.rows ());
+            // number of columns
+            Debug.Log ("cols:" + r1.cols ());
+            // number of dimensions
+            Debug.Log ("dims:" + r1.dims ());
+            // size
+            Debug.Log ("size[]:" + r1.size ().width + ", " + r1.size ().height);
+            // bit depth ID
+            Debug.Log ("depth (ID):" + r1.depth () + "(=" + CvType.CV_32F + ")");
+            // number of channels
+            Debug.Log ("channels:" + r1.channels ());
+            // size of one element
+            Debug.Log ("elemSize:" + r1.elemSize () + "[byte]");
+            // size for one channel in one element
+            Debug.Log ("elemSize1 (elemSize/channels):" + r1.elemSize1 () + "[byte]");
+            // total number of elements
+            Debug.Log ("total:" + r1.total ());
+            // size of step
+            Debug.Log ("step (step1*elemSize1):" + r1.step1 () * r1.elemSize1 () + "[byte]");
+            // total number of channels within one step
+            Debug.Log ("step1 (step/elemSize1):" + r1.step1 ());
+            // is the data continuous?
+            Debug.Log ("isContinuous:" + r1.isContinuous ());
+            // is it a submatrix?
+            Debug.Log ("isSubmatrix:" + r1.isSubmatrix ());
+            // is the data empty?
+            Debug.Log ("empty:" + r1.empty ());
+
+            Debug.Log ("==============================");
+
+
+            // 32S, channles=2, 2x3x3x4x6 (5 dimensional array)
+            int[] sizes = new int[]{ 2, 3, 3, 4, 6 };
+            Mat mat3 = new Mat (sizes, CvType.CV_32SC2);
+
+            // number of rows
+            Debug.Log ("rows:" + mat3.rows ());
+            // number of columns
+            Debug.Log ("cols:" + mat3.cols ());
+            // number of dimensions
+            Debug.Log ("dims:" + mat3.dims ());
+            // size
+            string size = "";
+            for (int i = 0; i < mat3.dims (); ++i) {
+                size += mat3.size (i) + ", ";
+            }                
+            Debug.Log ("size[]:" + size);
+            // bit depth ID
+            Debug.Log ("depth (ID):" + mat3.depth () + "(=" + CvType.CV_32S + ")");
+            // number of channels
+            Debug.Log ("channels:" + mat3.channels ());
+            // size of one element
+            Debug.Log ("elemSize:" + mat3.elemSize () + "[byte]");
+            // size for one channel in one element
+            Debug.Log ("elemSize1 (elemSize/channels):" + mat3.elemSize1 () + "[byte]");
+            // total number of elements
+            Debug.Log ("total:" + mat3.total ());
+            // size of step
+            string step = "";
+            for (int i = 0; i < mat3.dims (); ++i) {
+                step += mat3.step1 (i) * mat3.elemSize1 () + ", ";
+            } 
+            Debug.Log ("step (step1*elemSize1):" + step + "[byte]");
+            // total number of channels within one step
+            Debug.Log ("step1 (step/elemSize1):" + mat3.step1 ());
+            // is the data continuous?
+            Debug.Log ("isContinuous:" + mat3.isContinuous ());
+            // is it a submatrix?
+            Debug.Log ("isSubmatrix:" + mat3.isSubmatrix ());
+            // is the data empty?
+            Debug.Log ("empty:" + mat3.empty ());
+
+
             exampleCodeText.text = @"
             //
             // property example
             //
 
             // 64F, channels=1, 3x4
-            Mat mat1 = new Mat (3, 3, CvType.CV_64FC1);
+            Mat mat1 = new Mat (3, 4, CvType.CV_64FC1);
 
             // number of rows
-            Debug.Log (""rows:"" + mat1.rows());
+            Debug.Log (""rows:"" + mat1.rows ());
             // number of columns
-            Debug.Log (""cols:"" + mat1.cols());
+            Debug.Log (""cols:"" + mat1.cols ());
             // number of dimensions
-            Debug.Log (""dims:"" + mat1.dims());
+            Debug.Log (""dims:"" + mat1.dims ());
             // size
-            Debug.Log (""size[]:"" + mat1.size().width + "", "" + mat1.size().height);
+            Debug.Log (""size[]:"" + mat1.size ().width + "", "" + mat1.size ().height);
             // bit depth ID
-            Debug.Log (""depth (ID):"" + mat1.depth() + ""(="" + CvType.CV_64F + "")"");
+            Debug.Log (""depth (ID):"" + mat1.depth () + ""(="" + CvType.CV_64F + "")"");
             // number of channels
-            Debug.Log (""channels:"" + mat1.channels());
+            Debug.Log (""channels:"" + mat1.channels ());
             // size of one element
-            Debug.Log (""elemSize:"" + mat1.elemSize() + ""[byte]"");
+            Debug.Log (""elemSize:"" + mat1.elemSize () + ""[byte]"");
             // size for one channel in one element
-            Debug.Log (""elemSize1 (elemSize/channels):"" + mat1.elemSize1() + ""[byte]"");
+            Debug.Log (""elemSize1 (elemSize/channels):"" + mat1.elemSize1 () + ""[byte]"");
             // total number of elements
-            Debug.Log (""total:"" + mat1.total());
+            Debug.Log (""total:"" + mat1.total ());
+            // size of step
+            Debug.Log (""step (step1*elemSize1):"" + mat1.step1 () * mat1.elemSize1 () + ""[byte]"");
             // total number of channels within one step
-            Debug.Log (""step1 (step/elemSize1):"" + mat1.step1());
+            Debug.Log (""step1 (step/elemSize1):"" + mat1.step1 ());
             // is the data continuous?
-            Debug.Log (""isContinuous:"" + mat1.isContinuous());
+            Debug.Log (""isContinuous:"" + mat1.isContinuous ());
             // is it a submatrix?
-            Debug.Log (""isSubmatrix:"" + mat1.isSubmatrix());
+            Debug.Log (""isSubmatrix:"" + mat1.isSubmatrix ());
             // is the data empty?
-            Debug.Log (""empty:"" + mat1.empty());
+            Debug.Log (""empty:"" + mat1.empty ());
+
+            Debug.Log (""=============================="");
+
+
+            // 32FC, channels=5, 4x5, 3x4 Submatrix
+            Mat mat2 = new Mat (4, 5, CvType.CV_32FC (5));
+            OpenCVForUnity.CoreModule.Rect roi_rect = new OpenCVForUnity.CoreModule.Rect (0, 0, 3, 4);
+            Mat r1 = new Mat (mat2, roi_rect);
+
+            // number of rows
+            Debug.Log (""rows:"" + r1.rows ());
+            // number of columns
+            Debug.Log (""cols:"" + r1.cols ());
+            // number of dimensions
+            Debug.Log (""dims:"" + r1.dims ());
+            // size
+            Debug.Log (""size[]:"" + r1.size ().width + "", "" + r1.size ().height);
+            // bit depth ID
+            Debug.Log (""depth (ID):"" + r1.depth () + ""(="" + CvType.CV_32F + "")"");
+            // number of channels
+            Debug.Log (""channels:"" + r1.channels ());
+            // size of one element
+            Debug.Log (""elemSize:"" + r1.elemSize () + ""[byte]"");
+            // size for one channel in one element
+            Debug.Log (""elemSize1 (elemSize/channels):"" + r1.elemSize1 () + ""[byte]"");
+            // total number of elements
+            Debug.Log (""total:"" + r1.total ());
+            // size of step
+            Debug.Log (""step (step1*elemSize1):"" + r1.step1 () * r1.elemSize1 () + ""[byte]"");
+            // total number of channels within one step
+            Debug.Log (""step1 (step/elemSize1):"" + r1.step1 ());
+            // is the data continuous?
+            Debug.Log (""isContinuous:"" + r1.isContinuous ());
+            // is it a submatrix?
+            Debug.Log (""isSubmatrix:"" + r1.isSubmatrix ());
+            // is the data empty?
+            Debug.Log (""empty:"" + r1.empty ());
+
+            Debug.Log (""=============================="");
+
+
+            // 32S, channles=2, 2x3x3x4x6 (5 dimensional array)
+            int[] sizes = new int[]{ 2, 3, 3, 4, 6 };
+            Mat mat3 = new Mat (sizes, CvType.CV_32SC2);
+
+            // number of rows
+            Debug.Log (""rows:"" + mat3.rows ());
+            // number of columns
+            Debug.Log (""cols:"" + mat3.cols ());
+            // number of dimensions
+            Debug.Log (""dims:"" + mat3.dims ());
+            // size
+            string size = """";
+            for (int i = 0; i < mat3.dims (); ++i) {
+                size += mat3.size (i) + "", "";
+            }                
+            Debug.Log (""size[]:"" + size);
+            // bit depth ID
+            Debug.Log (""depth (ID):"" + mat3.depth () + ""(="" + CvType.CV_32S + "")"");
+            // number of channels
+            Debug.Log (""channels:"" + mat3.channels ());
+            // size of one element
+            Debug.Log (""elemSize:"" + mat3.elemSize () + ""[byte]"");
+            // size for one channel in one element
+            Debug.Log (""elemSize1 (elemSize/channels):"" + mat3.elemSize1 () + ""[byte]"");
+            // total number of elements
+            Debug.Log (""total:"" + mat3.total ());
+            // size of step
+            string step = """";
+            for (int i = 0; i < mat3.dims (); ++i) {
+                step += mat3.step1 (i) * mat3.elemSize1 () + "", "";
+            } 
+            Debug.Log (""step (step1*elemSize1):"" + step + ""[byte]"");
+            // total number of channels within one step
+            Debug.Log (""step1 (step/elemSize1):"" + mat3.step1 ());
+            // is the data continuous?
+            Debug.Log (""isContinuous:"" + mat3.isContinuous ());
+            // is it a submatrix?
+            Debug.Log (""isSubmatrix:"" + mat3.isSubmatrix ());
+            // is the data empty?
+            Debug.Log (""empty:"" + mat3.empty ());
             ";
 
             executionResultText.text = "rows:" + mat1.rows () + "\n";
@@ -405,13 +603,48 @@ namespace OpenCVForUnityExample
             executionResultText.text += "size[]:" + mat1.size ().width + ", " + mat1.size ().height + "\n";
             executionResultText.text += "depth (ID):" + mat1.depth () + "(=" + CvType.CV_64F + ")" + "\n";
             executionResultText.text += "channels:" + mat1.channels () + "\n";
-            executionResultText.text += "elemSize:" + mat1.elemSize () + "\n";
-            executionResultText.text += "elemSize1 (elemSize/channels):" + mat1.elemSize1 () + "\n";
+            executionResultText.text += "elemSize:" + mat1.elemSize () + "[byte]" + "\n";
+            executionResultText.text += "elemSize1 (elemSize/channels):" + mat1.elemSize1 () + "[byte]" + "\n";
             executionResultText.text += "total:" + mat1.total () + "\n";
+            executionResultText.text += "step (step1*elemSize1):" + mat1.step1 () * mat1.elemSize1 () + "[byte]" + "\n";
             executionResultText.text += "step1 (step/elemSize1):" + mat1.step1 () + "\n";
             executionResultText.text += "isContinuous:" + mat1.isContinuous () + "\n";
             executionResultText.text += "isSubmatrix:" + mat1.isSubmatrix () + "\n";
             executionResultText.text += "empty:" + mat1.empty () + "\n";
+
+            executionResultText.text += "==============================" + "\n";
+
+            executionResultText.text += "rows:" + r1.rows () + "\n";
+            executionResultText.text += "cols:" + r1.cols () + "\n";
+            executionResultText.text += "dims:" + r1.dims () + "\n";
+            executionResultText.text += "size[]:" + r1.size ().width + ", " + r1.size ().height + "\n";
+            executionResultText.text += "depth (ID):" + r1.depth () + "(=" + CvType.CV_32F + ")" + "\n";
+            executionResultText.text += "channels:" + r1.channels () + "\n";
+            executionResultText.text += "elemSize:" + r1.elemSize () + "[byte]" + "\n";
+            executionResultText.text += "elemSize1 (elemSize/channels):" + r1.elemSize1 () + "[byte]" + "\n";
+            executionResultText.text += "total:" + r1.total () + "\n";
+            executionResultText.text += "step (step1*elemSize1):" + r1.step1 () * r1.elemSize1 () + "[byte]" + "\n";
+            executionResultText.text += "step1 (step/elemSize1):" + r1.step1 () + "\n";
+            executionResultText.text += "isContinuous:" + r1.isContinuous () + "\n";
+            executionResultText.text += "isSubmatrix:" + r1.isSubmatrix () + "\n";
+            executionResultText.text += "empty:" + r1.empty () + "\n";
+
+            executionResultText.text += "==============================" + "\n";
+
+            executionResultText.text += "rows:" + mat3.rows () + "\n";
+            executionResultText.text += "cols:" + mat3.cols () + "\n";
+            executionResultText.text += "dims:" + mat3.dims () + "\n";
+            executionResultText.text += "size[]:" + size + "\n";
+            executionResultText.text += "depth (ID):" + mat3.depth () + "(=" + CvType.CV_32S + ")" + "\n";
+            executionResultText.text += "channels:" + mat3.channels () + "\n";
+            executionResultText.text += "elemSize:" + mat3.elemSize () + "[byte]" + "\n";
+            executionResultText.text += "elemSize1 (elemSize/channels):" + mat3.elemSize1 () + "[byte]" + "\n";
+            executionResultText.text += "total:" + mat3.total () + "\n";
+            executionResultText.text += "step (step1*elemSize1):" + step + "[byte]" + "\n";
+            executionResultText.text += "step1 (step/elemSize1):" + mat3.step1 () + "\n";
+            executionResultText.text += "isContinuous:" + mat3.isContinuous () + "\n";
+            executionResultText.text += "isSubmatrix:" + mat3.isSubmatrix () + "\n";
+            executionResultText.text += "empty:" + mat3.empty () + "\n";
 
             UpdateScrollRect ();
         }
@@ -610,15 +843,32 @@ namespace OpenCVForUnityExample
             Debug.Log ("m1=" + m1.dump ());
             Debug.Log ("ch=" + m1.channels ());
 
-            // channels=2, 3x2
+            // channels=1, 3x4 -> channels=2, 3x2
             Mat m2 = m1.reshape (2);
             Debug.Log ("m2=" + m2.dump ());
             Debug.Log ("ch=" + m2.channels ());
 
-            // channels=1, 2x6
+            // channels=1, 3x4 -> channels=1, 2x6
             Mat m3 = m1.reshape (1, 2);
             Debug.Log ("m3=" + m3.dump ());
             Debug.Log ("ch=" + m3.channels ());
+
+            // 2D -> 4D
+            Mat src = new Mat (6, 5, CvType.CV_8UC3, new Scalar (0));
+            Mat m4 = src.reshape (1, new int[]{ 1, src.channels () * src.cols (), 1, src.rows () });
+            Debug.Log ("m4.dims=" + m4.dims ());
+            string size = "";
+            for (int i = 0; i < m4.dims (); ++i) {
+                size += m4.size (i) + ", ";
+            }                
+            Debug.Log ("size[]=" + size);
+            Debug.Log ("ch=" + m4.channels ());
+
+            // 3D -> 2D
+            src = new Mat (new int[]{ 4, 6, 7 }, CvType.CV_8UC3, new Scalar (0));
+            Mat m5 = src.reshape (1, new int[]{ src.channels () * src.size (2), src.size (0) * src.size (1) });
+            Debug.Log ("m5=" + m5);           
+            Debug.Log ("ch=" + m5.channels ());
 
             exampleCodeText.text = @"
             //
@@ -631,15 +881,32 @@ namespace OpenCVForUnityExample
             Debug.Log (""m1="" + m1.dump());
             Debug.Log (""ch="" + m1.channels());
 
-            // channels=2, 3x2
+            // channels=1, 3x4 -> channels=2, 3x2
             Mat m2 = m1.reshape (2);
-            Debug.Log (""m2="" + m2.dump());
-            Debug.Log (""ch="" + m2.channels());
+            Debug.Log (""m2="" + m2.dump ());
+            Debug.Log (""ch="" + m2.channels ());
 
-            // channels=1, 2x6
+            // channels=1, 3x4 -> channels=1, 2x6
             Mat m3 = m1.reshape (1, 2);
-            Debug.Log (""m3="" + m3.dump());
-            Debug.Log (""ch="" + m3.channels());
+            Debug.Log (""m3="" + m3.dump ());
+            Debug.Log (""ch="" + m3.channels ());
+
+            // 2D -> 4D
+            Mat src = new Mat (6, 5, CvType.CV_8UC3, new Scalar (0));
+            Mat m4 = src.reshape (1, new int[]{ 1, src.channels () * src.cols (), 1, src.rows () });
+            Debug.Log (""m4.dims="" + m4.dims ());
+            string size = """";
+            for (int i = 0; i < m4.dims (); ++i) {
+                size += m4.size (i) + "", "";
+            }                
+            Debug.Log (""size[]="" + size);
+            Debug.Log (""ch="" + m4.channels ());
+
+            // 3D -> 2D
+            src = new Mat (new int[]{ 4, 6, 7 }, CvType.CV_8UC3, new Scalar (0));
+            Mat m5 = src.reshape (1, new int[]{ src.channels () * src.size (2), src.size (0) * src.size (1) });
+            Debug.Log (""m5="" + m5);           
+            Debug.Log (""ch="" + m5.channels ());
             ";
 
             executionResultText.text = "m1=" + m1.dump () + "\n";
@@ -648,6 +915,11 @@ namespace OpenCVForUnityExample
             executionResultText.text += "ch=" + m2.channels () + "\n";
             executionResultText.text += "m3=" + m3.dump () + "\n";
             executionResultText.text += "ch=" + m3.channels () + "\n";
+            executionResultText.text += "m4.dims=" + m4.dims () + "\n";
+            executionResultText.text += "m4.size[]=" + size + "\n";
+            executionResultText.text += "ch=" + m4.channels () + "\n";
+            executionResultText.text += "m5=" + m5 + "\n";
+            executionResultText.text += "ch=" + m5.channels () + "\n";
 
             UpdateScrollRect ();
         }
