@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.5</span>
+   &#160;<span id="projectnumber">2.3.6</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -113,6 +113,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a6eb91bad0c403d87d6cee3f784ad4053"><td class="memItemLeft" align="right" valign="top">static Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_a_r_utils.html#a6eb91bad0c403d87d6cee3f784ad4053">ExtractScaleFromMatrix</a> (ref Matrix4x4 matrix)</td></tr>
 <tr class="memdesc:a6eb91bad0c403d87d6cee3f784ad4053"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract scale from transform matrix.  <a href="#a6eb91bad0c403d87d6cee3f784ad4053">More...</a><br /></td></tr>
 <tr class="separator:a6eb91bad0c403d87d6cee3f784ad4053"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcbe9b4da6d0a23972ed21f0202ac5eb"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_a_r_utils.html#adcbe9b4da6d0a23972ed21f0202ac5eb">ComposeMatrix</a> (Vector3 localPosition, Quaternion localRotation, Vector3 localScale, out Matrix4x4 matrix)</td></tr>
+<tr class="memdesc:adcbe9b4da6d0a23972ed21f0202ac5eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose TRS matrix from position, rotation and scale.  <a href="#adcbe9b4da6d0a23972ed21f0202ac5eb">More...</a><br /></td></tr>
+<tr class="separator:adcbe9b4da6d0a23972ed21f0202ac5eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a032fe725d8eccd6d300e5bbe5fe3c449"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_a_r_utils.html#a032fe725d8eccd6d300e5bbe5fe3c449">DecomposeMatrix</a> (ref Matrix4x4 matrix, out Vector3 localPosition, out Quaternion localRotation, out Vector3 localScale)</td></tr>
 <tr class="memdesc:a032fe725d8eccd6d300e5bbe5fe3c449"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract position, rotation and scale from TRS matrix.  <a href="#a032fe725d8eccd6d300e5bbe5fe3c449">More...</a><br /></td></tr>
 <tr class="separator:a032fe725d8eccd6d300e5bbe5fe3c449"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -421,6 +424,65 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Camera matrix values. (fx = matrx.m00, fy = matrx.m11, cx = matrx.m02, cy = matrx.m12) </dd></dl>
+
+</div>
+</div>
+<a id="adcbe9b4da6d0a23972ed21f0202ac5eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcbe9b4da6d0a23972ed21f0202ac5eb">&#9670;&nbsp;</a></span>ComposeMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void OpenCVForUnity.UnityUtils.ARUtils.ComposeMatrix </td>
+          <td>(</td>
+          <td class="paramtype">Vector3&#160;</td>
+          <td class="paramname"><em>localPosition</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Quaternion&#160;</td>
+          <td class="paramname"><em>localRotation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Vector3&#160;</td>
+          <td class="paramname"><em>localScale</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">out Matrix4x4&#160;</td>
+          <td class="paramname"><em>matrix</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compose TRS matrix from position, rotation and scale. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">localPosition</td><td>Position.</td></tr>
+    <tr><td class="paramname">localRotation</td><td>Rotation.</td></tr>
+    <tr><td class="paramname">localScale</td><td>Scale.</td></tr>
+    <tr><td class="paramname">matrix</td><td>Transform matrix.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -738,9 +800,9 @@ Static Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">matrix</td><td>Transform matrix. This parameter is passed by reference to improve performance; no changes will be made to it.</td></tr>
-    <tr><td class="paramname">localPosition</td><td>Output position.</td></tr>
-    <tr><td class="paramname">localRotation</td><td>Output rotation.</td></tr>
-    <tr><td class="paramname">localScale</td><td>Output scale.</td></tr>
+    <tr><td class="paramname">localPosition</td><td>Position.</td></tr>
+    <tr><td class="paramname">localRotation</td><td>Rotation.</td></tr>
+    <tr><td class="paramname">localScale</td><td>Scale.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1021,7 +1083,7 @@ Static Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon May 13 2019 18:43:51 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jul 13 2019 00:41:59 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>
