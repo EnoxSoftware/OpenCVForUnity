@@ -1,6 +1,7 @@
 var searchData=
 [
   ['harrislaplacefeaturedetector',['HarrisLaplaceFeatureDetector',['../class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_harris_laplace_feature_detector.html#ad67fadf42354d06f33213c2597c9d060',1,'OpenCVForUnity::Xfeatures2dModule::HarrisLaplaceFeatureDetector']]],
+  ['hasuserauthorizedcamerapermission',['hasUserAuthorizedCameraPermission',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a90510c9a1746c9813069b30bfada6b69',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]],
   ['haveimagereader',['haveImageReader',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#af4ebdf34cb787ec2575b6f8c12fdb0da',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
   ['haveimagewriter',['haveImageWriter',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#ae3a9160a96a67dfc4bcc1d9ba752c7d4',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
   ['hconcat',['hconcat',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a92e94aeb54835fea90fa1b5ee6798836',1,'OpenCVForUnity::CoreModule::Core']]],
