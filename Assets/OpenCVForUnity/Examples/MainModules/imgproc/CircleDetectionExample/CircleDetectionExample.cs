@@ -62,6 +62,7 @@ namespace OpenCVForUnityExample
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
 
             texture = new Texture2D (webCamTextureMat.cols (), webCamTextureMat.rows (), TextureFormat.RGBA32, false);
+            Utils.matToTexture2D(webCamTextureMat, texture, webCamTextureToMatHelper.GetBufferColors());
 
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 

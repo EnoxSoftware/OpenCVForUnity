@@ -85,6 +85,7 @@ namespace OpenCVForUnityExample
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
 
             texture = new Texture2D (webCamTextureMat.cols (), webCamTextureMat.rows (), TextureFormat.RGBA32, false);
+            Utils.fastMatToTexture2D(webCamTextureMat, texture);
 
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 
@@ -115,9 +116,7 @@ namespace OpenCVForUnityExample
             points = new Mat ();
 
             // if WebCamera is frontFaceing, flip Mat.
-            if (webCamTextureToMatHelper.GetWebCamDevice ().isFrontFacing) {
-                webCamTextureToMatHelper.flipHorizontal = true;
-            }
+            webCamTextureToMatHelper.flipHorizontal = webCamTextureToMatHelper.GetWebCamDevice ().isFrontFacing;
         }
 
         /// <summary>

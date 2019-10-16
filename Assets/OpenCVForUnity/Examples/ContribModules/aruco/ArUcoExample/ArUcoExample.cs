@@ -219,18 +219,20 @@ namespace OpenCVForUnityExample
                         // This example can display the ARObject on only first detected marker.
                         if (i == 0) {
 
-                            // Position
+                            // Get translation vector
                             double[] tvecArr = tvecs.get (i, 0);
 
-                            // Rotation
+                            // Get rotation vector
                             double[] rvecArr = rvecs.get (i, 0);
                             Mat rvec = new Mat (3, 1, CvType.CV_64FC1);
                             rvec.put (0, 0, rvecArr);
-                            Calib3d.Rodrigues (rvec, rotMat);
 
+                            // Convert rotation vector to rotation matrix.
+                            Calib3d.Rodrigues (rvec, rotMat);
                             double[] rotMatArr = new double[rotMat.total ()];
                             rotMat.get (0, 0, rotMatArr);
 
+                            // Convert OpenCV camera extrinsic parameters to Unity Matrix4x4.
                             Matrix4x4 transformationM = new Matrix4x4 (); // from OpenCV
                             transformationM.SetRow (0, new Vector4 ((float)rotMatArr [0], (float)rotMatArr [1], (float)rotMatArr [2], (float)tvecArr [0]));
                             transformationM.SetRow (1, new Vector4 ((float)rotMatArr [3], (float)rotMatArr [4], (float)rotMatArr [5], (float)tvecArr [1]));
@@ -238,17 +240,12 @@ namespace OpenCVForUnityExample
                             transformationM.SetRow (3, new Vector4 (0, 0, 0, 1));
                             Debug.Log ("transformationM " + transformationM.ToString ());
 
-                            Matrix4x4 invertZM = Matrix4x4.TRS (Vector3.zero, Quaternion.identity, new Vector3 (1, 1, -1));
-                            Debug.Log ("invertZM " + invertZM.ToString ());
-
                             Matrix4x4 invertYM = Matrix4x4.TRS (Vector3.zero, Quaternion.identity, new Vector3 (1, -1, 1));
                             Debug.Log ("invertYM " + invertYM.ToString ());
 
                             // right-handed coordinates system (OpenCV) to left-handed one (Unity)
-                            Matrix4x4 ARM = invertYM * transformationM;
-
-                            // Apply Z-axis inverted matrix.
-                            ARM = ARM * invertZM;
+                            // https://stackoverflow.com/questions/30234945/change-handedness-of-a-row-major-4x4-transformation-matrix
+                            Matrix4x4 ARM = invertYM * transformationM * invertYM;
 
                             if (shouldMoveARCamera) {
 

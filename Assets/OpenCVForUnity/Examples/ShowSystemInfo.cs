@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.UnityUtils;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Text;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System.Collections;
-using System.Collections.Generic;
-using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -12,114 +14,168 @@ namespace OpenCVForUnityExample
     {
         public Text systemInfoText;
         public InputField systemInfoInputField;
-        Dictionary<string, string> dicSystemInfo;
+
+        private const string ASSET_NAME = "OpenCVForUnity";
 
         // Use this for initialization
-        void Start ()
+        void Start()
         {
-            dicSystemInfo = GetSystemInfo ();
 
-            systemInfoText.text = systemInfoInputField.text = "### System Info ###" + "\n";
-            Debug.Log ("### System Info ###");
-
-            foreach (string key in dicSystemInfo.Keys) {
-                systemInfoText.text = systemInfoInputField.text += key + " = " + dicSystemInfo [key] + "\n";
-                Debug.Log (key + "=" + dicSystemInfo [key]);
+            StringBuilder sb = new StringBuilder();
+            sb.Append("###### Build Info ######\n");
+            IDictionary<string, string> buildInfo = GetBuildInfo();
+            foreach (string key in buildInfo.Keys)
+            {
+                sb.Append(key).Append(" = ").Append(buildInfo[key]).Append("\n");
             }
+            sb.Append("\n");
 
-            systemInfoText.text = systemInfoInputField.text += "###################" + "\n";
-            Debug.Log ("###################");
+#if UNITY_IOS || (UNITY_ANDROID && UNITY_2018_3_OR_NEWER)
+            sb.Append("###### Device Info ######\n");
+            IDictionary<string, string> deviceInfo = GetDeviceInfo();
+            foreach (string key in deviceInfo.Keys)
+            {
+                sb.Append(key).Append(" = ").Append(deviceInfo[key]).Append("\n");
+            }
+            sb.Append("\n");
+#endif
+
+            sb.Append("###### System Info ######\n");
+            IDictionary<string, string> systemInfo = GetSystemInfo();
+            foreach (string key in systemInfo.Keys)
+            {
+                sb.Append(key).Append(" = ").Append(systemInfo[key]).Append("\n");
+            }
+            sb.Append("#########################\n");
+
+            systemInfoText.text = systemInfoInputField.text = sb.ToString();
+            Debug.Log(sb.ToString());
         }
 
         // Update is called once per frame
-        void Update ()
+        void Update()
         {
 
         }
 
-        public Dictionary<string, string> GetSystemInfo ()
+        public Dictionary<string, string> GetBuildInfo()
         {
-            Dictionary<string, string> dicSystemInfo = new Dictionary<string, string> ();
+            Dictionary<string, string> dict = new Dictionary<string, string>();
 
-            dicSystemInfo.Add ("OpenCVForUnity version", Core.NATIVE_LIBRARY_NAME + " " + Utils.getVersion () + " (" + Core.VERSION + ")");
-            dicSystemInfo.Add ("Build Unity version", Application.unityVersion);
+            dict.Add(ASSET_NAME + " version", Core.NATIVE_LIBRARY_NAME + " " + Utils.getVersion() + " (" + Core.VERSION + ")");
+            dict.Add("Build Unity version", Application.unityVersion);
 
-            #if UNITY_EDITOR
-            dicSystemInfo.Add ("Build target", "Editor");
-            #elif UNITY_STANDALONE_WIN
-            dicSystemInfo.Add("Build target", "Windows");
-            #elif UNITY_STANDALONE_OSX
-            dicSystemInfo.Add("Build target", "Mac OSX");
-            #elif UNITY_STANDALONE_LINUX
-            dicSystemInfo.Add("Build target", "Linux");
-            #elif UNITY_ANDROID
-            dicSystemInfo.Add("Build target", "Android");
-            #elif UNITY_IOS
-            dicSystemInfo.Add("Build target", "iOS");
-            #elif UNITY_WSA
-            dicSystemInfo.Add("Build target", "WSA");
-            #elif UNITY_WEBGL
-            dicSystemInfo.Add("Build target", "WebGL");
-            #else
-            dicSystemInfo.Add("Build target", "");
-            #endif
+#if UNITY_EDITOR
+            dict.Add("Build target", "Editor");
+#elif UNITY_STANDALONE_WIN
+            dict.Add("Build target", "Windows");
+#elif UNITY_STANDALONE_OSX
+            dict.Add("Build target", "Mac OSX");
+#elif UNITY_STANDALONE_LINUX
+            dict.Add("Build target", "Linux");
+#elif UNITY_ANDROID
+            dict.Add("Build target", "Android");
+#elif UNITY_IOS
+            dict.Add("Build target", "iOS");
+#elif UNITY_WSA
+            dict.Add("Build target", "WSA");
+#elif UNITY_WEBGL
+            dict.Add("Build target", "WebGL");
+#elif PLATFORM_LUMIN
+            dict.Add("Build target", "LUMIN");
+#else
+            dict.Add("Build target", "");
+#endif
 
-            #if ENABLE_MONO
-            dicSystemInfo.Add ("Scripting backend", "Mono");
-            #elif ENABLE_IL2CPP
-            dicSystemInfo.Add("Scripting backend", "IL2CPP");
-            #elif ENABLE_DOTNET
-            dicSystemInfo.Add("Scripting backend", ".NET");
-            #else
-            dicSystemInfo.Add("Scripting backend", "");
-            #endif
+#if ENABLE_MONO
+            dict.Add("Scripting backend", "Mono");
+#elif ENABLE_IL2CPP
+            dict.Add("Scripting backend", "IL2CPP");
+#elif ENABLE_DOTNET
+            dict.Add("Scripting backend", ".NET");
+#else
+            dict.Add("Scripting backend", "");
+#endif
 
-            dicSystemInfo.Add ("operatingSystem", SystemInfo.operatingSystem);
+#if OPENCV_USE_UNSAFE_CODE
+            dict.Add("Allow 'unsafe' Code", "Enabled");
+#else
+            dict.Add("Allow 'unsafe' Code", "Disabled");
+#endif
 
-            #if UNITY_IOS
-            #if UNITY_5_4_OR_NEWER
-            dicSystemInfo.Add("iPhone.generation", UnityEngine.iOS.Device.generation.ToString());
-            #else
-            dicSystemInfo.Add("iPhone.generation", UnityEngine.iPhone.generation.ToString());
-            #endif
-            #else
-            dicSystemInfo.Add ("iPhone.generation", "");
-            #endif
-
-            //dicSystemInfo.Add("deviceUniqueIdentifier", SystemInfo.deviceUniqueIdentifier);
-            dicSystemInfo.Add ("deviceModel", SystemInfo.deviceModel);
-            dicSystemInfo.Add ("deviceName", SystemInfo.deviceName);
-            dicSystemInfo.Add ("deviceType", SystemInfo.deviceType.ToString ());
-            dicSystemInfo.Add ("graphicsDeviceName", SystemInfo.graphicsDeviceName);
-            dicSystemInfo.Add ("graphicsDeviceVendor", SystemInfo.graphicsDeviceVendor);
-            dicSystemInfo.Add ("processorType", SystemInfo.processorType);
-            dicSystemInfo.Add ("graphicsMemorySize", SystemInfo.graphicsMemorySize.ToString ());
-            dicSystemInfo.Add ("systemMemorySize", SystemInfo.systemMemorySize.ToString ());
-
-            dicSystemInfo.Add ("graphicsDeviceID", SystemInfo.graphicsDeviceID.ToString ());
-            dicSystemInfo.Add ("graphicsDeviceType", SystemInfo.graphicsDeviceType.ToString ());
-            dicSystemInfo.Add ("graphicsDeviceVendorID", SystemInfo.graphicsDeviceVendorID.ToString ());
-            dicSystemInfo.Add ("graphicsDeviceVersion", SystemInfo.graphicsDeviceVersion);
-            dicSystemInfo.Add ("graphicsMultiThreaded", SystemInfo.graphicsMultiThreaded.ToString ());
-            dicSystemInfo.Add ("graphicsShaderLevel", SystemInfo.graphicsShaderLevel.ToString ());
-            
-            #if UNITY_5_4_OR_NEWER
-            dicSystemInfo.Add ("copyTextureSupport", SystemInfo.copyTextureSupport.ToString ());
-            #else
-            dicSystemInfo.Add ("copyTextureSupport", "");
-            #endif
-
-            dicSystemInfo.Add ("supportsAccelerometer", SystemInfo.supportsAccelerometer.ToString ());
-            dicSystemInfo.Add ("supportsGyroscope", SystemInfo.supportsGyroscope.ToString ());
-            dicSystemInfo.Add ("supportsVibration", SystemInfo.supportsVibration.ToString ());
-            dicSystemInfo.Add ("supportsLocationService", SystemInfo.supportsLocationService.ToString ());
-
-            return dicSystemInfo;
+            return dict;
         }
 
-        public void OnBackButtonClick ()
+        public Dictionary<string, string> GetDeviceInfo()
         {
-            SceneManager.LoadScene ("OpenCVForUnityExample");
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+
+#if UNITY_IOS
+            dict.Add("iOS.Device.generation", UnityEngine.iOS.Device.generation.ToString());
+            dict.Add("iOS.Device.systemVersion", UnityEngine.iOS.Device.systemVersion.ToString());
+#endif
+#if UNITY_IOS && UNITY_2018_1_OR_NEWER
+            dict.Add("UserAuthorization.WebCam", Application.HasUserAuthorization(UserAuthorization.WebCam).ToString());
+            dict.Add("UserAuthorization.Microphone", Application.HasUserAuthorization(UserAuthorization.Microphone).ToString());
+#endif
+#if UNITY_ANDROID && UNITY_2018_3_OR_NEWER
+            dict.Add("Android.Permission.Camera", UnityEngine.Android.Permission.HasUserAuthorizedPermission(UnityEngine.Android.Permission.Camera).ToString());
+            dict.Add("Android.Permission.CoarseLocation", UnityEngine.Android.Permission.HasUserAuthorizedPermission(UnityEngine.Android.Permission.CoarseLocation).ToString());
+            dict.Add("Android.Permission.ExternalStorageRead", UnityEngine.Android.Permission.HasUserAuthorizedPermission(UnityEngine.Android.Permission.ExternalStorageRead).ToString());
+            dict.Add("Android.Permission.ExternalStorageWrite", UnityEngine.Android.Permission.HasUserAuthorizedPermission(UnityEngine.Android.Permission.ExternalStorageWrite).ToString());
+            dict.Add("Android.Permission.FineLocation", UnityEngine.Android.Permission.HasUserAuthorizedPermission(UnityEngine.Android.Permission.FineLocation).ToString());
+            dict.Add("Android.Permission.Microphone", UnityEngine.Android.Permission.HasUserAuthorizedPermission(UnityEngine.Android.Permission.Microphone).ToString());
+#endif
+
+            return dict;
+        }
+
+        /// SystemInfo Class Propertys
+        public SortedDictionary<string, string> GetSystemInfo()
+        {
+            SortedDictionary<string, string> dict = new SortedDictionary<string, string>();
+
+            Type type = typeof(SystemInfo);
+            MemberInfo[] members = type.GetMembers(
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+
+            foreach (MemberInfo mb in members)
+            {
+                try
+                {
+                    if (mb.MemberType == MemberTypes.Property)
+                    {
+                        if (mb.Name == "deviceUniqueIdentifier")
+                        {
+                            dict.Add(mb.Name, "xxxxxxxxxxxxxxxxxxxxxxxx");
+                            continue;
+                        }
+
+                        PropertyInfo pr = type.GetProperty(mb.Name);
+
+                        if (pr != null)
+                        {
+                            object resobj = pr.GetValue(type, null);
+                            dict.Add(mb.Name, resobj.ToString());
+                        }
+                        else
+                        {
+                            dict.Add(mb.Name, "");
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.Log("Exception: " + e);
+                }
+            }
+
+            return dict;
+        }
+
+        public void OnBackButtonClick()
+        {
+            SceneManager.LoadScene("OpenCVForUnityExample");
         }
     }
 }

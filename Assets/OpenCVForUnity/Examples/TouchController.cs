@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using System.Collections;
-using System.Linq;
 
 namespace OpenCVForUnityExample
 {
@@ -10,9 +8,9 @@ namespace OpenCVForUnityExample
         public GameObject Cube;
         public float Speed = 0.1f;
 
-        void Update ()
+        void Update()
         {
-            #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
+#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
 
             //Touch
             int touchCount = Input.touchCount;
@@ -37,19 +35,20 @@ namespace OpenCVForUnityExample
                 }            
             }
 
-            #else
+#else
             //Mouse
-            if (Input.GetMouseButton (0)) {
-                if (EventSystem.current.IsPointerOverGameObject ())
+            if (Input.GetMouseButton(0))
+            {
+                if (EventSystem.current.IsPointerOverGameObject())
                     return;
-            
-                float xAngle = Input.GetAxis ("Mouse Y") * Speed * 80;
-                float yAngle = -Input.GetAxis ("Mouse X") * Speed * 80;
+
+                float xAngle = Input.GetAxis("Mouse Y") * Speed * 80;
+                float yAngle = -Input.GetAxis("Mouse X") * Speed * 80;
                 float zAngle = 0;
-            
-                Cube.transform.Rotate (xAngle, yAngle, zAngle, Space.World);
+
+                Cube.transform.Rotate(xAngle, yAngle, zAngle, Space.World);
             }
-            #endif
+#endif
         }
     }
 }

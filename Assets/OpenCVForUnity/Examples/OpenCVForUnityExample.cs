@@ -1,9 +1,8 @@
-﻿using UnityEngine;
+﻿using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.UnityUtils;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System.Collections;
-using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.UnityUtils;
 
 namespace OpenCVForUnityExample
 {
@@ -14,41 +13,41 @@ namespace OpenCVForUnityExample
         static float verticalNormalizedPosition = 1f;
 
         // Use this for initialization
-        void Start ()
+        void Start()
         {
-            versionInfo.text = Core.NATIVE_LIBRARY_NAME + " " + Utils.getVersion () + " (" + Core.VERSION + ")";
+            versionInfo.text = Core.NATIVE_LIBRARY_NAME + " " + Utils.getVersion() + " (" + Core.VERSION + ")";
             versionInfo.text += " / UnityEditor " + Application.unityVersion;
             versionInfo.text += " / ";
 
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             versionInfo.text += "Editor";
-            #elif UNITY_STANDALONE_WIN
+#elif UNITY_STANDALONE_WIN
             versionInfo.text += "Windows";
-            #elif UNITY_STANDALONE_OSX
+#elif UNITY_STANDALONE_OSX
             versionInfo.text += "Mac OSX";
-            #elif UNITY_STANDALONE_LINUX
+#elif UNITY_STANDALONE_LINUX
             versionInfo.text += "Linux";
-            #elif UNITY_ANDROID
+#elif UNITY_ANDROID
             versionInfo.text += "Android";
-            #elif UNITY_IOS
+#elif UNITY_IOS
             versionInfo.text += "iOS";
-            #elif UNITY_WSA
+#elif UNITY_WSA
             versionInfo.text += "WSA";
-            #elif UNITY_WEBGL
+#elif UNITY_WEBGL
             versionInfo.text += "WebGL";
-            #endif
+#endif
             versionInfo.text += " ";
-            #if ENABLE_MONO
+#if ENABLE_MONO
             versionInfo.text += "Mono";
-            #elif ENABLE_IL2CPP
+#elif ENABLE_IL2CPP
             versionInfo.text += "IL2CPP";
-            #elif ENABLE_DOTNET
+#elif ENABLE_DOTNET
             versionInfo.text += ".NET";
-            #endif
+#endif
 
             scrollRect.verticalNormalizedPosition = verticalNormalizedPosition;
 
-            #if UNITY_WSA_10_0
+#if UNITY_WSA_10_0
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDExampleButton").GetComponent<Button> ().interactable = false;
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/OpenPoseExampleButton").GetComponent<Button> ().interactable = false;
@@ -60,95 +59,95 @@ namespace OpenCVForUnityExample
 
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/TextDetectionExampleButton").GetComponent<Button> ().interactable = false;
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/TextRecognitionExampleButton").GetComponent<Button> ().interactable = false;
-            #endif
+#endif
         }
-    
+
         // Update is called once per frame
-        void Update ()
+        void Update()
         {
 
         }
 
-        public void OnScrollRectValueChanged ()
+        public void OnScrollRectValueChanged()
         {
             verticalNormalizedPosition = scrollRect.verticalNormalizedPosition;
         }
 
-        
-        public void OnShowSystemInfoButtonClick ()
+
+        public void OnShowSystemInfoButtonClick()
         {
-            SceneManager.LoadScene ("ShowSystemInfo");
+            SceneManager.LoadScene("ShowSystemInfo");
         }
 
-        public void OnShowLicenseButtonClick ()
+        public void OnShowLicenseButtonClick()
         {
-            SceneManager.LoadScene ("ShowLicense");
+            SceneManager.LoadScene("ShowLicense");
         }
 
         #region Basic
 
-        public void OnTexture2DToMatExampleButtonClick ()
+        public void OnTexture2DToMatExampleButtonClick()
         {
-            SceneManager.LoadScene ("Texture2DToMatExample");
+            SceneManager.LoadScene("Texture2DToMatExample");
         }
 
-        public void OnWebCamTextureToMatExampleButtonClick ()
+        public void OnWebCamTextureToMatExampleButtonClick()
         {
-            SceneManager.LoadScene ("WebCamTextureToMatExample");
+            SceneManager.LoadScene("WebCamTextureToMatExample");
         }
 
-        public void OnWebCamTextureToMatHelperExampleButtonClick ()
+        public void OnWebCamTextureToMatHelperExampleButtonClick()
         {
-            SceneManager.LoadScene ("WebCamTextureToMatHelperExample");
+            SceneManager.LoadScene("WebCamTextureToMatHelperExample");
         }
 
-        public void OnMatBasicProcessingExampleButtonClick ()
+        public void OnMatBasicProcessingExampleButtonClick()
         {
-            SceneManager.LoadScene ("MatBasicProcessingExample");
+            SceneManager.LoadScene("MatBasicProcessingExample");
         }
 
-        public void OnUtils_GetFilePathExampleButtonClick ()
+        public void OnUtils_GetFilePathExampleButtonClick()
         {
-            SceneManager.LoadScene ("Utils_GetFilePathExample");
+            SceneManager.LoadScene("Utils_GetFilePathExample");
         }
 
         #endregion
 
         #region Advanced
 
-        public void OnComicFilterExampleButtonClick ()
+        public void OnComicFilterExampleButtonClick()
         {
-            SceneManager.LoadScene ("ComicFilterExample");
+            SceneManager.LoadScene("ComicFilterExample");
         }
 
-        public void OnGreenScreenExampleButtonClick ()
+        public void OnGreenScreenExampleButtonClick()
         {
-            SceneManager.LoadScene ("GreenScreenExample");
+            SceneManager.LoadScene("GreenScreenExample");
         }
 
-        public void OnHandPoseEstimationExampleButtonClick ()
+        public void OnHandPoseEstimationExampleButtonClick()
         {
-            SceneManager.LoadScene ("HandPoseEstimationExample");
+            SceneManager.LoadScene("HandPoseEstimationExample");
         }
 
-        public void OnMultiObjectTrackingBasedOnColorExampleButtonClick ()
+        public void OnMultiObjectTrackingBasedOnColorExampleButtonClick()
         {
-            SceneManager.LoadScene ("MultiObjectTrackingBasedOnColorExample");
+            SceneManager.LoadScene("MultiObjectTrackingBasedOnColorExample");
         }
 
-        public void OnPolygonFilterExampleButtonClick ()
+        public void OnPolygonFilterExampleButtonClick()
         {
-            SceneManager.LoadScene ("PolygonFilterExample");
+            SceneManager.LoadScene("PolygonFilterExample");
         }
 
-        public void OnAlphaBlendingExampleButtonClick ()
+        public void OnAlphaBlendingExampleButtonClick()
         {
-            SceneManager.LoadScene ("AlphaBlendingExample");
+            SceneManager.LoadScene("AlphaBlendingExample");
         }
 
-        public void OnMatToTextureInRenderThreadExampleButtonClick ()
+        public void OnMatToTextureInRenderThreadExampleButtonClick()
         {
-            SceneManager.LoadScene ("MatToTextureInRenderThreadExample");
+            SceneManager.LoadScene("MatToTextureInRenderThreadExample");
         }
 
         #endregion
@@ -157,124 +156,124 @@ namespace OpenCVForUnityExample
 
         #region core
 
-        public void OnPCAExampleButtonClick ()
+        public void OnPCAExampleButtonClick()
         {
-            SceneManager.LoadScene ("PCAExample");
+            SceneManager.LoadScene("PCAExample");
         }
 
         #endregion
 
         #region imgproc
 
-        public void OnCircleDetectionExampleButtonClick ()
+        public void OnCircleDetectionExampleButtonClick()
         {
-            SceneManager.LoadScene ("CircleDetectionExample");
+            SceneManager.LoadScene("CircleDetectionExample");
         }
 
-        public void OnConnectedComponentsExampleButtonClick ()
+        public void OnConnectedComponentsExampleButtonClick()
         {
-            SceneManager.LoadScene ("ConnectedComponentsExample");
+            SceneManager.LoadScene("ConnectedComponentsExample");
         }
 
-        public void OnConvexHullExampleButtonClick ()
+        public void OnConvexHullExampleButtonClick()
         {
-            SceneManager.LoadScene ("ConvexHullExample");
+            SceneManager.LoadScene("ConvexHullExample");
         }
 
-        public void OnDrawingExampleButtonClick ()
+        public void OnDrawingExampleButtonClick()
         {
-            SceneManager.LoadScene ("DrawingExample");
+            SceneManager.LoadScene("DrawingExample");
         }
 
-        public void OnGrabCutExampleButtonClick ()
+        public void OnGrabCutExampleButtonClick()
         {
-            SceneManager.LoadScene ("GrabCutExample");
+            SceneManager.LoadScene("GrabCutExample");
         }
 
-        public void OnHoughLinesPExampleButtonClick ()
+        public void OnHoughLinesPExampleButtonClick()
         {
-            SceneManager.LoadScene ("HoughLinesPExample");
+            SceneManager.LoadScene("HoughLinesPExample");
         }
 
-        public void OnMatchShapesExampleButtonClick ()
+        public void OnMatchShapesExampleButtonClick()
         {
-            SceneManager.LoadScene ("MatchShapesExample");
+            SceneManager.LoadScene("MatchShapesExample");
         }
 
-        public void OnMatchTemplateExampleButtonClick ()
+        public void OnMatchTemplateExampleButtonClick()
         {
-            SceneManager.LoadScene ("MatchTemplateExample");
+            SceneManager.LoadScene("MatchTemplateExample");
         }
 
-        public void OnThresholdExampleButtonClick ()
+        public void OnThresholdExampleButtonClick()
         {
-            SceneManager.LoadScene ("ThresholdExample");
+            SceneManager.LoadScene("ThresholdExample");
         }
 
-        public void OnWrapPerspectiveExampleButtonClick ()
+        public void OnWrapPerspectiveExampleButtonClick()
         {
-            SceneManager.LoadScene ("WrapPerspectiveExample");
+            SceneManager.LoadScene("WrapPerspectiveExample");
         }
 
         #endregion
 
         #region videoio
 
-        public void OnVideoCaptureExampleButtonClick ()
+        public void OnVideoCaptureExampleButtonClick()
         {
-            SceneManager.LoadScene ("VideoCaptureExample");
+            SceneManager.LoadScene("VideoCaptureExample");
         }
 
-        public void OnVideoWriterExampleButtonClick ()
+        public void OnVideoWriterExampleButtonClick()
         {
-            SceneManager.LoadScene ("VideoWriterExample");
+            SceneManager.LoadScene("VideoWriterExample");
         }
 
         #endregion
 
         #region video
 
-        public void OnBackgroundSubtractorMOG2ExampleButtonClick ()
+        public void OnBackgroundSubtractorMOG2ExampleButtonClick()
         {
-            SceneManager.LoadScene ("BackgroundSubtractorMOG2Example");
+            SceneManager.LoadScene("BackgroundSubtractorMOG2Example");
         }
 
-        public void OnCamShiftExampleButtonClick ()
+        public void OnCamShiftExampleButtonClick()
         {
-            SceneManager.LoadScene ("CamShiftExample");
+            SceneManager.LoadScene("CamShiftExample");
         }
 
-        public void OnKalmanFilterExampleButtonClick ()
+        public void OnKalmanFilterExampleButtonClick()
         {
-            SceneManager.LoadScene ("KalmanFilterExample");
+            SceneManager.LoadScene("KalmanFilterExample");
         }
 
-        public void OnOpticalFlowExampleButtonClick ()
+        public void OnOpticalFlowExampleButtonClick()
         {
-            SceneManager.LoadScene ("OpticalFlowExample");
+            SceneManager.LoadScene("OpticalFlowExample");
         }
 
         #endregion
 
         #region calib3d
 
-        public void OnStereoBMExampleButtonClick ()
+        public void OnStereoBMExampleButtonClick()
         {
-            SceneManager.LoadScene ("StereoBMExample");
+            SceneManager.LoadScene("StereoBMExample");
         }
 
         #endregion
 
         #region features2d
 
-        public void OnFeature2DExampleButtonClick ()
+        public void OnFeature2DExampleButtonClick()
         {
-            SceneManager.LoadScene ("Feature2DExample");
+            SceneManager.LoadScene("Feature2DExample");
         }
 
-        public void OnMSERExampleButtonClick ()
+        public void OnMSERExampleButtonClick()
         {
-            SceneManager.LoadScene ("MSERExample");
+            SceneManager.LoadScene("MSERExample");
         }
 
         public void OnSimpleBlobExampleButtonClick()
@@ -286,110 +285,110 @@ namespace OpenCVForUnityExample
 
         #region imgcodecs
 
-        public void OnImwriteScreenCaptureExampleButtonClick ()
+        public void OnImwriteScreenCaptureExampleButtonClick()
         {
-            SceneManager.LoadScene ("ImwriteScreenCaptureExample");
+            SceneManager.LoadScene("ImwriteScreenCaptureExample");
         }
 
         #endregion
 
         #region objdetect
 
-        public void OnFaceDetectionExampleButtonClick ()
+        public void OnFaceDetectionExampleButtonClick()
         {
-            SceneManager.LoadScene ("FaceDetectionExample");
+            SceneManager.LoadScene("FaceDetectionExample");
         }
 
-        public void OnFaceDetectionWebCamTextureExampleButtonClick ()
+        public void OnFaceDetectionWebCamTextureExampleButtonClick()
         {
-            SceneManager.LoadScene ("FaceDetectionWebCamTextureExample");
+            SceneManager.LoadScene("FaceDetectionWebCamTextureExample");
         }
 
-        public void OnAsynchronousFaceDetectionWebCamTextureExampleButtonClick ()
+        public void OnAsynchronousFaceDetectionWebCamTextureExampleButtonClick()
         {
-            SceneManager.LoadScene ("AsynchronousFaceDetectionWebCamTextureExample");
+            SceneManager.LoadScene("AsynchronousFaceDetectionWebCamTextureExample");
         }
 
-        public void OnHOGDescriptorExampleButtonClick ()
+        public void OnHOGDescriptorExampleButtonClick()
         {
-            SceneManager.LoadScene ("HOGDescriptorExample");
+            SceneManager.LoadScene("HOGDescriptorExample");
         }
 
-        public void OnQRCodeDetectorExampleButtonClick ()
+        public void OnQRCodeDetectorExampleButtonClick()
         {
-            SceneManager.LoadScene ("QRCodeDetectorExample");
+            SceneManager.LoadScene("QRCodeDetectorExample");
         }
 
-        public void OnQRCodeDetectorWebCamTextureExampleButtonClick ()
+        public void OnQRCodeDetectorWebCamTextureExampleButtonClick()
         {
-            SceneManager.LoadScene ("QRCodeDetectorWebCamTextureExample");
+            SceneManager.LoadScene("QRCodeDetectorWebCamTextureExample");
         }
 
         #endregion
 
         #region dnn
 
-        public void OnMobileNetSSDExampleButtonClick ()
+        public void OnMobileNetSSDExampleButtonClick()
         {
-            SceneManager.LoadScene ("MobileNetSSDExample");
+            SceneManager.LoadScene("MobileNetSSDExample");
         }
 
-        public void OnMobileNetSSDWebCamTextureExampleButtonClick ()
+        public void OnMobileNetSSDWebCamTextureExampleButtonClick()
         {
-            SceneManager.LoadScene ("MobileNetSSDWebCamTextureExample");
+            SceneManager.LoadScene("MobileNetSSDWebCamTextureExample");
         }
 
-        public void OnOpenPoseExampleButtonClick ()
+        public void OnOpenPoseExampleButtonClick()
         {
-            SceneManager.LoadScene ("OpenPoseExample");
+            SceneManager.LoadScene("OpenPoseExample");
         }
 
-        public void OnResnetSSDFaceDetectionExampleButtonClick ()
+        public void OnResnetSSDFaceDetectionExampleButtonClick()
         {
-            SceneManager.LoadScene ("ResnetSSDFaceDetectionExample");
+            SceneManager.LoadScene("ResnetSSDFaceDetectionExample");
         }
 
-        public void OnMaskRCNNExampleButtonClick ()
+        public void OnMaskRCNNExampleButtonClick()
         {
-            SceneManager.LoadScene ("MaskRCNNExample");
+            SceneManager.LoadScene("MaskRCNNExample");
         }
 
-        public void OnTensorFlowWebCamTextureExampleButtonClick ()
+        public void OnTensorFlowWebCamTextureExampleButtonClick()
         {
-            SceneManager.LoadScene ("TensorFlowWebCamTextureExample");
+            SceneManager.LoadScene("TensorFlowWebCamTextureExample");
         }
 
-        public void OnYoloObjectDetectionExampleButtonClick ()
+        public void OnYoloObjectDetectionExampleButtonClick()
         {
-            SceneManager.LoadScene ("YoloObjectDetectionExample");
+            SceneManager.LoadScene("YoloObjectDetectionExample");
         }
 
-        public void OnYoloObjectDetectionWebCamTextureExampleButtonClick ()
+        public void OnYoloObjectDetectionWebCamTextureExampleButtonClick()
         {
-            SceneManager.LoadScene ("YoloObjectDetectionWebCamTextureExample");
+            SceneManager.LoadScene("YoloObjectDetectionWebCamTextureExample");
         }
 
         #endregion
 
         #region ml
 
-        public void OnSVMExampleButtonClick ()
+        public void OnSVMExampleButtonClick()
         {
-            SceneManager.LoadScene ("SVMExample");
+            SceneManager.LoadScene("SVMExample");
         }
 
         #endregion
 
         #region photo
 
-        public void OnInpaintExampleButtonClick ()
+        public void OnInpaintExampleButtonClick()
         {
-            SceneManager.LoadScene ("InpaintExample");
+            SceneManager.LoadScene("InpaintExample");
         }
 
-        public void OnSeamlessCloneExampleButtonClick ()
+        public void OnSeamlessCloneExampleButtonClick()
         {
-            SceneManager.LoadScene ("SeamlessCloneExample");
+            SceneManager.LoadScene("SeamlessCloneExample");
         }
 
         #endregion
@@ -400,70 +399,70 @@ namespace OpenCVForUnityExample
 
         #region aruco
 
-        public void OnArUcoExampleButtonClick ()
+        public void OnArUcoExampleButtonClick()
         {
-            SceneManager.LoadScene ("ArUcoExample");
+            SceneManager.LoadScene("ArUcoExample");
         }
 
-        public void OnArUcoWebCamTextureExampleButtonClick ()
+        public void OnArUcoWebCamTextureExampleButtonClick()
         {
-            SceneManager.LoadScene ("ArUcoWebCamTextureExample");
+            SceneManager.LoadScene("ArUcoWebCamTextureExample");
         }
 
-        public void OnArUcoCreateMarkerExampleButtonClick ()
+        public void OnArUcoCreateMarkerExampleButtonClick()
         {
-            SceneManager.LoadScene ("ArUcoCreateMarkerExample");
+            SceneManager.LoadScene("ArUcoCreateMarkerExample");
         }
 
-        public void OnArUcoCameraCalibrationExampleButtonClick ()
+        public void OnArUcoCameraCalibrationExampleButtonClick()
         {
-            SceneManager.LoadScene ("ArUcoCameraCalibrationExample");
+            SceneManager.LoadScene("ArUcoCameraCalibrationExample");
         }
 
         #endregion
 
         #region face
 
-        public void OnFaceMarkExampleButtonClick ()
+        public void OnFaceMarkExampleButtonClick()
         {
-            SceneManager.LoadScene ("FaceMarkExample");
+            SceneManager.LoadScene("FaceMarkExample");
         }
 
-        public void OnFaceRecognizerExampleButtonClick ()
+        public void OnFaceRecognizerExampleButtonClick()
         {
-            SceneManager.LoadScene ("FaceRecognizerExample");
+            SceneManager.LoadScene("FaceRecognizerExample");
         }
 
         #endregion
 
         #region plot
 
-        public void OnPlotExampleButtonClick ()
+        public void OnPlotExampleButtonClick()
         {
-            SceneManager.LoadScene ("PlotExample");
+            SceneManager.LoadScene("PlotExample");
         }
 
         #endregion
 
         #region text
 
-        public void OnTextDetectionExampleButtonClick ()
+        public void OnTextDetectionExampleButtonClick()
         {
-            SceneManager.LoadScene ("TextDetectionExample");
+            SceneManager.LoadScene("TextDetectionExample");
         }
 
-        public void OnTextRecognitionExampleButtonClick ()
+        public void OnTextRecognitionExampleButtonClick()
         {
-            SceneManager.LoadScene ("TextRecognitionExample");
+            SceneManager.LoadScene("TextRecognitionExample");
         }
 
         #endregion
 
         #region tracking
 
-        public void OnTrackingExampleButtonClick ()
+        public void OnTrackingExampleButtonClick()
         {
-            SceneManager.LoadScene ("TrackingExample");
+            SceneManager.LoadScene("TrackingExample");
         }
 
         #endregion

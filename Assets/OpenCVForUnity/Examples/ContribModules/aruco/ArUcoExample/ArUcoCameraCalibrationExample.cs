@@ -240,9 +240,7 @@ namespace OpenCVForUnityExample
             InitializeCalibraton (webCamTextureMat);
 
             // if WebCamera is frontFaceing, flip Mat.
-            if (webCamTextureToMatHelper.GetWebCamDevice ().isFrontFacing) {
-                webCamTextureToMatHelper.flipHorizontal = true;
-            }
+            webCamTextureToMatHelper.flipHorizontal = webCamTextureToMatHelper.GetWebCamDevice ().isFrontFacing;
         }
 
         /// <summary>
@@ -294,6 +292,7 @@ namespace OpenCVForUnityExample
         private void InitializeCalibraton (Mat frameMat)
         {
             texture = new Texture2D (frameMat.cols (), frameMat.rows (), TextureFormat.RGBA32, false);
+            Utils.fastMatToTexture2D(frameMat, texture);
 
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
 

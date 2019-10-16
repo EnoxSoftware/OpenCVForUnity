@@ -705,11 +705,11 @@ namespace OpenCVForUnityExample
 
             Mat m11 = m1 / m9; // element type is different.
             Debug.Log ("m1/m9=" + m11);
-            executionResultText.text += "m1/m9=" + m11.dump () + "\n";
+            executionResultText.text += "m1/m9=" + m11 + "\n";
 
             Mat m12 = m1 / m10; // matrix size is different.
             Debug.Log ("m1/m10=" + m12);
-            executionResultText.text += "m1/m10=" + m12.dump () + "\n";
+            executionResultText.text += "m1/m10=" + m12 + "\n";
 
             Utils.setDebugMode (false);
 
@@ -770,11 +770,11 @@ namespace OpenCVForUnityExample
 
             Mat m11 = m1 / m9; // element type is different.
             Debug.Log (""m1/m9="" + m11);
-            executionResultText.text += ""m1/m9="" + m11.dump () + ""\n"";
+            executionResultText.text += ""m1/m9="" + m11 + ""\n"";
 
             Mat m12 = m1 / m10; // matrix size is different.
             Debug.Log (""m1/m10="" + m12);
-            executionResultText.text += ""m1/m10="" + m12.dump () + ""\n"";
+            executionResultText.text += ""m1/m10="" + m12 + ""\n"";
 
             Utils.setDebugMode (false);
             ";

@@ -276,7 +276,8 @@ namespace OpenCVForUnityExample
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
             
             texture = new Texture2D (webCamTextureMat.cols (), webCamTextureMat.rows (), TextureFormat.RGB24, false);
-            
+            Utils.fastMatToTexture2D(webCamTextureMat, texture);
+
             gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
             
             gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
@@ -426,9 +427,7 @@ namespace OpenCVForUnityExample
 
 
             // if WebCamera is frontFaceing, flip Mat.
-            if (webCamTextureToMatHelper.GetWebCamDevice ().isFrontFacing) {
-                webCamTextureToMatHelper.flipHorizontal = true;
-            }
+            webCamTextureToMatHelper.flipHorizontal = webCamTextureToMatHelper.GetWebCamDevice ().isFrontFacing;
         }
 
         /// <summary>
@@ -660,7 +659,7 @@ namespace OpenCVForUnityExample
             oldPoseData = poseData;
 
             // Convert to transform matrix.
-            ARM = ARUtils.ConvertPoseDataToMatrix (ref poseData, true, true);
+            ARM = ARUtils.ConvertPoseDataToMatrix (ref poseData, true);
 
             if (shouldMoveARCamera) {
 

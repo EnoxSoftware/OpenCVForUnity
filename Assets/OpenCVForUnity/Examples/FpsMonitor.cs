@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace OpenCVForUnityExample
 {
@@ -28,11 +27,11 @@ namespace OpenCVForUnityExample
         const float INNER_Y = 5f;
         const float GUI_CONSOLE_HEIGHT = 50f;
 
-        public Vector2 offset = new Vector2 (MARGIN_X, MARGIN_Y);
+        public Vector2 offset = new Vector2(MARGIN_X, MARGIN_Y);
         public bool boxVisible = true;
         public float boxWidth = GUI_WIDTH;
         public float boxHeight = GUI_HEIGHT;
-        public Vector2 padding = new Vector2 (INNER_X, INNER_Y);
+        public Vector2 padding = new Vector2(INNER_X, INNER_Y);
         public float consoleHeight = GUI_CONSOLE_HEIGHT;
 
         GUIStyle console_labelStyle;
@@ -48,13 +47,13 @@ namespace OpenCVForUnityExample
         int oldScrWidth;
         int oldScrHeight;
 
-        Dictionary<string, string> outputDict = new Dictionary<string, string> ();
+        Dictionary<string, string> outputDict = new Dictionary<string, string>();
         public string consoleText;
 
         // Use this for initialization
-        void Start ()
+        void Start()
         {
-            console_labelStyle = new GUIStyle ();
+            console_labelStyle = new GUIStyle();
             console_labelStyle.fontSize = 32;
             console_labelStyle.fontStyle = FontStyle.Normal;
             console_labelStyle.wordWrap = true;
@@ -62,116 +61,127 @@ namespace OpenCVForUnityExample
 
             oldScrWidth = Screen.width;
             oldScrHeight = Screen.height;
-            LocateGUI ();
+            LocateGUI();
         }
 
         // Update is called once per frame
-        void Update ()
+        void Update()
         {
             tick++;
             elapsed += Time.deltaTime;
-            if (elapsed >= 1f) {
+            if (elapsed >= 1f)
+            {
                 fps = tick / elapsed;
                 tick = 0;
                 elapsed = 0;
             }
         }
 
-        void OnGUI ()
+        void OnGUI()
         {
-            if (oldScrWidth != Screen.width || oldScrHeight != Screen.height) {
-                LocateGUI ();
+            if (oldScrWidth != Screen.width || oldScrHeight != Screen.height)
+            {
+                LocateGUI();
             }
             oldScrWidth = Screen.width;
             oldScrHeight = Screen.height;
 
-            if (boxVisible) {
-                GUI.Box (outer, "");
-            }
-
-            GUILayout.BeginArea (inner);
+            if (boxVisible)
             {
-                GUILayout.BeginVertical ();
-                GUILayout.Label ("fps : " + fps.ToString ("F1"));
-                foreach (KeyValuePair<string, string> pair in outputDict) {
-                    GUILayout.Label (pair.Key + " : " + pair.Value);
-                }
-                GUILayout.EndVertical ();
+                GUI.Box(outer, "");
             }
-            GUILayout.EndArea ();
 
-            if (!string.IsNullOrEmpty (consoleText)) {
-                if (boxVisible) {
-                    GUI.Box (console_outer, "");
-                }
-
-                GUILayout.BeginArea (console_inner);
+            GUILayout.BeginArea(inner);
+            {
+                GUILayout.BeginVertical();
+                GUILayout.Label("fps : " + fps.ToString("F1"));
+                foreach (KeyValuePair<string, string> pair in outputDict)
                 {
-                    GUILayout.BeginVertical ();
-                    GUILayout.Label (consoleText, console_labelStyle);
-                    GUILayout.EndVertical ();
+                    GUILayout.Label(pair.Key + " : " + pair.Value);
                 }
-                GUILayout.EndArea ();
+                GUILayout.EndVertical();
+            }
+            GUILayout.EndArea();
+
+            if (!string.IsNullOrEmpty(consoleText))
+            {
+                if (boxVisible)
+                {
+                    GUI.Box(console_outer, "");
+                }
+
+                GUILayout.BeginArea(console_inner);
+                {
+                    GUILayout.BeginVertical();
+                    GUILayout.Label(consoleText, console_labelStyle);
+                    GUILayout.EndVertical();
+                }
+                GUILayout.EndArea();
             }
         }
 
-        public void Add (string key, string value)
+        public void Add(string key, string value)
         {
-            if (outputDict.ContainsKey (key)) {
-                outputDict [key] = value;
-            } else {
-                outputDict.Add (key, value);
+            if (outputDict.ContainsKey(key))
+            {
+                outputDict[key] = value;
+            }
+            else
+            {
+                outputDict.Add(key, value);
             }
         }
 
-        public void Remove (string key)
+        public void Remove(string key)
         {
-            outputDict.Remove (key);
+            outputDict.Remove(key);
         }
 
-        public void Clear ()
+        public void Clear()
         {
-            outputDict.Clear ();
+            outputDict.Clear();
         }
 
-        public void LocateGUI ()
+        public void LocateGUI()
         {
-            x = GetAlignedX (alignment, boxWidth);
-            y = GetAlignedY (alignment, boxHeight);
-            outer = new Rect (x, y, boxWidth, boxHeight);
-            inner = new Rect (x + padding.x, y + padding.y, boxWidth, boxHeight);
+            x = GetAlignedX(alignment, boxWidth);
+            y = GetAlignedY(alignment, boxHeight);
+            outer = new Rect(x, y, boxWidth, boxHeight);
+            inner = new Rect(x + padding.x, y + padding.y, boxWidth, boxHeight);
 
-            console_x = GetAlignedX (Alignment.LeftBottom, Screen.width);
-            console_y = GetAlignedY (Alignment.LeftBottom, consoleHeight);
-            console_outer = new Rect (console_x, console_y, Screen.width - offset.x * 2, consoleHeight);
-            console_inner = new Rect (console_x + padding.x, console_y + padding.y, Screen.width - offset.x * 2 - padding.x, consoleHeight);
+            console_x = GetAlignedX(Alignment.LeftBottom, Screen.width);
+            console_y = GetAlignedY(Alignment.LeftBottom, consoleHeight);
+            console_outer = new Rect(console_x, console_y, Screen.width - offset.x * 2, consoleHeight);
+            console_inner = new Rect(console_x + padding.x, console_y + padding.y, Screen.width - offset.x * 2 - padding.x, consoleHeight);
         }
 
-        float GetAlignedX (Alignment anchor, float w)
+        float GetAlignedX(Alignment anchor, float w)
         {
-            switch (anchor) {
-            default:
-            case Alignment.LeftTop:
-            case Alignment.LeftBottom:
-                return offset.x;
+            switch (anchor)
+            {
+                default:
+                case Alignment.LeftTop:
+                case Alignment.LeftBottom:
+                    return offset.x;
 
-            case Alignment.RightTop:
-            case Alignment.RightBottom:
-                return Screen.width - w - offset.x;
+                case Alignment.RightTop:
+                case Alignment.RightBottom:
+                    return Screen.width - w - offset.x;
             }
         }
 
-        float GetAlignedY (Alignment anchor, float h)
+        float GetAlignedY(Alignment anchor, float h)
         {
-            switch (anchor) {
-            default:
-            case Alignment.LeftTop:
-            case Alignment.RightTop:
-                return offset.y;
+            switch (anchor)
+            {
+                default:
+                case Alignment.LeftTop:
+                case Alignment.RightTop:
+                    return offset.y;
 
-            case Alignment.LeftBottom:
-            case Alignment.RightBottom:
-                return Screen.height - h - offset.y;
+                case Alignment.LeftBottom:
+                case Alignment.RightBottom:
+                    return Screen.height - h - offset.y;
             }
         }
     }
