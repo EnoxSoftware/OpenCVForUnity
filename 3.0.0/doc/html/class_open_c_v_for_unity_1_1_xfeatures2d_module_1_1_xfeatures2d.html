@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -86,6 +86,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:adbc534504f2cf670847cfc282e5f3ad3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeba8fd43c76aeb44683891252d03023c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_xfeatures2d.html#aeba8fd43c76aeb44683891252d03023c">matchGMS</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> size1, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> size2, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints1, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints2, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_d_match.html">MatOfDMatch</a> matches1to2, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_d_match.html">MatOfDMatch</a> matchesGMS)</td></tr>
 <tr class="separator:aeba8fd43c76aeb44683891252d03023c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac10cfc21b201101790c8951b8232de99"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_xfeatures2d.html#ac10cfc21b201101790c8951b8232de99">matchLOGOS</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints1, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints2, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_int.html">MatOfInt</a> nn1, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_int.html">MatOfInt</a> nn2, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_d_match.html">MatOfDMatch</a> matches1to2)</td></tr>
+<tr class="separator:ac10cfc21b201101790c8951b8232de99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -182,6 +184,7 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>GMS (Grid-based Motion Statistics) feature matching strategy described in CITE: Bian2017gms . param size1 Input size of image1. param size2 Input size of image2. param keypoints1 Input keypoints of image1. param keypoints2 Input keypoints of image2. param matches1to2 Input 1-nearest neighbor matches. param matchesGMS Matches returned by the GMS matching strategy. param withRotation Take rotation transformation into account. param withScale Take scale transformation into account. param thresholdFactor The higher, the less matches. <b>Note:</b> Since GMS works well when the number of features is large, we recommend to use the ORB feature and set FastThreshold to 0 to get as many as possible features quickly. If matching results are not satisfying, please add more features. (We use 10000 for images with 640 X 480). If your images have big rotation and scale changes, please set withRotation or withScale to true. </p>
 
 </div>
 </div>
@@ -254,6 +257,7 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>GMS (Grid-based Motion Statistics) feature matching strategy described in CITE: Bian2017gms . param size1 Input size of image1. param size2 Input size of image2. param keypoints1 Input keypoints of image1. param keypoints2 Input keypoints of image2. param matches1to2 Input 1-nearest neighbor matches. param matchesGMS Matches returned by the GMS matching strategy. param withRotation Take rotation transformation into account. param withScale Take scale transformation into account. <b>Note:</b> Since GMS works well when the number of features is large, we recommend to use the ORB feature and set FastThreshold to 0 to get as many as possible features quickly. If matching results are not satisfying, please add more features. (We use 10000 for images with 640 X 480). If your images have big rotation and scale changes, please set withRotation or withScale to true. </p>
 
 </div>
 </div>
@@ -320,6 +324,7 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>GMS (Grid-based Motion Statistics) feature matching strategy described in CITE: Bian2017gms . param size1 Input size of image1. param size2 Input size of image2. param keypoints1 Input keypoints of image1. param keypoints2 Input keypoints of image2. param matches1to2 Input 1-nearest neighbor matches. param matchesGMS Matches returned by the GMS matching strategy. param withRotation Take rotation transformation into account. <b>Note:</b> Since GMS works well when the number of features is large, we recommend to use the ORB feature and set FastThreshold to 0 to get as many as possible features quickly. If matching results are not satisfying, please add more features. (We use 10000 for images with 640 X 480). If your images have big rotation and scale changes, please set withRotation or withScale to true. </p>
 
 </div>
 </div>
@@ -380,6 +385,62 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>GMS (Grid-based Motion Statistics) feature matching strategy described in CITE: Bian2017gms . param size1 Input size of image1. param size2 Input size of image2. param keypoints1 Input keypoints of image1. param keypoints2 Input keypoints of image2. param matches1to2 Input 1-nearest neighbor matches. param matchesGMS Matches returned by the GMS matching strategy. <b>Note:</b> Since GMS works well when the number of features is large, we recommend to use the ORB feature and set FastThreshold to 0 to get as many as possible features quickly. If matching results are not satisfying, please add more features. (We use 10000 for images with 640 X 480). If your images have big rotation and scale changes, please set withRotation or withScale to true. </p>
+
+</div>
+</div>
+<a id="ac10cfc21b201101790c8951b8232de99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac10cfc21b201101790c8951b8232de99">&#9670;&nbsp;</a></span>matchLOGOS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void OpenCVForUnity.Xfeatures2dModule.Xfeatures2d.matchLOGOS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a>&#160;</td>
+          <td class="paramname"><em>keypoints1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a>&#160;</td>
+          <td class="paramname"><em>keypoints2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_int.html">MatOfInt</a>&#160;</td>
+          <td class="paramname"><em>nn1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_int.html">MatOfInt</a>&#160;</td>
+          <td class="paramname"><em>nn2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_d_match.html">MatOfDMatch</a>&#160;</td>
+          <td class="paramname"><em>matches1to2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>LOGOS (Local geometric support for high-outlier spatial verification) feature matching strategy described in CITE: Lowry2018LOGOSLG . param keypoints1 Input keypoints of image1. param keypoints2 Input keypoints of image2. param nn1 Index to the closest BoW centroid for each descriptors of image1. param nn2 Index to the closest BoW centroid for each descriptors of image2. param matches1to2 Matches returned by the LOGOS matching strategy. <b>Note:</b> This matching strategy is suitable for features matching against large scale database. First step consists in constructing the bag-of-words (BoW) from a representative image database. Image descriptors are then represented by their closest codevector (nearest BoW centroid). </p>
 
 </div>
 </div>
@@ -502,7 +563,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:14 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:17 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

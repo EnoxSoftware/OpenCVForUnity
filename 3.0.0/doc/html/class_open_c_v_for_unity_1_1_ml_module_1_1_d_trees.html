@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -242,7 +242,11 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The class represents a single decision tree or a collection of decision trees.</p>
+<p>The current public interface of the class allows user to train only a single decision tree, however the class is capable of storing multiple decision trees and using them for prediction (by summing responses or using a voting schemes), and the derived from <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_d_trees.html">DTrees</a> classes (such as <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_r_trees.html">RTrees</a> and <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_boost.html">Boost</a>) use this capability to implement decision tree ensembles.</p>
+<p>SEE: REF: ml_intro_trees </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a06aec39734775bf4e2ff4a0d77c6a63b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a06aec39734775bf4e2ff4a0d77c6a63b">&#9670;&nbsp;</a></span>DTrees()</h2>
 
@@ -318,6 +322,10 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates the empty model </p><pre class="fragment">The static method creates empty decision tree with the specified parameters. It should be then
+trained using train method (see StatModel::train). Alternatively, you can load the model from
+file using Algorithm::load&amp;lt;DTrees&amp;gt;(filename).
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -365,6 +373,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setCVFolds return automatically generated </p>
 
 </div>
 </div>
@@ -382,6 +391,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setMaxCategories return automatically generated </p>
 
 </div>
 </div>
@@ -399,6 +409,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setMaxDepth return automatically generated </p>
 
 </div>
 </div>
@@ -416,6 +427,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setMinSampleCount return automatically generated </p>
 
 </div>
 </div>
@@ -433,6 +445,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setPriors return automatically generated </p>
 
 </div>
 </div>
@@ -450,6 +463,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setRegressionAccuracy return automatically generated </p>
 
 </div>
 </div>
@@ -467,6 +481,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setTruncatePrunedTree return automatically generated </p>
 
 </div>
 </div>
@@ -484,6 +499,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setUse1SERule return automatically generated </p>
 
 </div>
 </div>
@@ -501,6 +517,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setUseSurrogates return automatically generated </p>
 
 </div>
 </div>
@@ -537,6 +554,9 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Loads and creates a serialized <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_d_trees.html">DTrees</a> from a file</p>
+<p>Use DTree::save to serialize and store an DTree to disk. Load the DTree from this file again, by calling this function with the path to the file. Optionally specify the node for the file containing the classifier</p>
+<p>param filepath path to serialized DTree param nodeName name of node containing the classifier return automatically generated </p>
 
 </div>
 </div>
@@ -563,6 +583,9 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Loads and creates a serialized <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_d_trees.html">DTrees</a> from a file</p>
+<p>Use DTree::save to serialize and store an DTree to disk. Load the DTree from this file again, by calling this function with the path to the file. Optionally specify the node for the file containing the classifier</p>
+<p>param filepath path to serialized DTree return automatically generated </p>
 
 </div>
 </div>
@@ -581,6 +604,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getCVFolds SEE: getCVFolds param val automatically generated </p>
 
 </div>
 </div>
@@ -599,6 +623,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getMaxCategories SEE: getMaxCategories param val automatically generated </p>
 
 </div>
 </div>
@@ -617,6 +642,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getMaxDepth SEE: getMaxDepth param val automatically generated </p>
 
 </div>
 </div>
@@ -635,6 +661,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getMinSampleCount SEE: getMinSampleCount param val automatically generated </p>
 
 </div>
 </div>
@@ -653,6 +680,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getPriors SEE: getPriors param val automatically generated </p>
 
 </div>
 </div>
@@ -671,6 +699,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getRegressionAccuracy SEE: getRegressionAccuracy param val automatically generated </p>
 
 </div>
 </div>
@@ -689,6 +718,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getTruncatePrunedTree SEE: getTruncatePrunedTree param val automatically generated </p>
 
 </div>
 </div>
@@ -707,6 +737,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getUse1SERule SEE: getUse1SERule param val automatically generated </p>
 
 </div>
 </div>
@@ -725,6 +756,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getUseSurrogates SEE: getUseSurrogates param val automatically generated </p>
 
 </div>
 </div>
@@ -791,7 +823,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:12 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:14 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

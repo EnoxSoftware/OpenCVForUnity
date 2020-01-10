@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -316,6 +316,32 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>param radius The radius used for building the Circular Local Binary Pattern. The greater the radius, the smoother the image but more spatial information you can get. param neighbors The number of sample points to build a Circular Local Binary Pattern from. An appropriate value is to use {code 8} sample points. Keep in mind: the more sample points you include, the higher the computational cost. param grid_x The number of cells in the horizontal direction, 8 is a common value used in publications. The more cells, the finer the grid, the higher the dimensionality of the resulting feature vector. param grid_y The number of cells in the vertical direction, 8 is a common value used in publications. The more cells, the finer the grid, the higher the dimensionality of the resulting feature vector. param threshold The threshold applied in the prediction. If the distance to the nearest neighbor is larger than the threshold, this method returns -1.</p>
+<h3>Notes:</h3>
+<ul>
+<li>
+The Circular Local Binary Patterns (used in training and prediction) expect the data given as grayscale images, use cvtColor to convert between the color spaces.  </li>
+<li>
+This model supports updating.  </li>
+</ul>
+<pre class="fragment">### Model internal data:
+</pre><ul>
+<li>
+radius see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+neighbors see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+grid_x see LLBPHFaceRecognizer::create.  </li>
+<li>
+grid_y see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+threshold see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+histograms Local Binary Patterns Histograms calculated from the given training data (empty if none was given).  </li>
+<li>
+labels Labels corresponding to the calculated Local Binary Patterns Histograms.  </li>
+</ul>
+<p>return automatically generated </p>
 
 </div>
 </div>
@@ -364,6 +390,32 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>param radius The radius used for building the Circular Local Binary Pattern. The greater the radius, the smoother the image but more spatial information you can get. param neighbors The number of sample points to build a Circular Local Binary Pattern from. An appropriate value is to use {code 8} sample points. Keep in mind: the more sample points you include, the higher the computational cost. param grid_x The number of cells in the horizontal direction, 8 is a common value used in publications. The more cells, the finer the grid, the higher the dimensionality of the resulting feature vector. param grid_y The number of cells in the vertical direction, 8 is a common value used in publications. The more cells, the finer the grid, the higher the dimensionality of the resulting feature vector. is larger than the threshold, this method returns -1.</p>
+<h3>Notes:</h3>
+<ul>
+<li>
+The Circular Local Binary Patterns (used in training and prediction) expect the data given as grayscale images, use cvtColor to convert between the color spaces.  </li>
+<li>
+This model supports updating.  </li>
+</ul>
+<pre class="fragment">### Model internal data:
+</pre><ul>
+<li>
+radius see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+neighbors see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+grid_x see LLBPHFaceRecognizer::create.  </li>
+<li>
+grid_y see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+threshold see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+histograms Local Binary Patterns Histograms calculated from the given training data (empty if none was given).  </li>
+<li>
+labels Labels corresponding to the calculated Local Binary Patterns Histograms.  </li>
+</ul>
+<p>return automatically generated </p>
 
 </div>
 </div>
@@ -406,6 +458,32 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>param radius The radius used for building the Circular Local Binary Pattern. The greater the radius, the smoother the image but more spatial information you can get. param neighbors The number of sample points to build a Circular Local Binary Pattern from. An appropriate value is to use {code 8} sample points. Keep in mind: the more sample points you include, the higher the computational cost. param grid_x The number of cells in the horizontal direction, 8 is a common value used in publications. The more cells, the finer the grid, the higher the dimensionality of the resulting feature vector. publications. The more cells, the finer the grid, the higher the dimensionality of the resulting feature vector. is larger than the threshold, this method returns -1.</p>
+<h3>Notes:</h3>
+<ul>
+<li>
+The Circular Local Binary Patterns (used in training and prediction) expect the data given as grayscale images, use cvtColor to convert between the color spaces.  </li>
+<li>
+This model supports updating.  </li>
+</ul>
+<pre class="fragment">### Model internal data:
+</pre><ul>
+<li>
+radius see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+neighbors see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+grid_x see LLBPHFaceRecognizer::create.  </li>
+<li>
+grid_y see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+threshold see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+histograms Local Binary Patterns Histograms calculated from the given training data (empty if none was given).  </li>
+<li>
+labels Labels corresponding to the calculated Local Binary Patterns Histograms.  </li>
+</ul>
+<p>return automatically generated </p>
 
 </div>
 </div>
@@ -442,6 +520,32 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>param radius The radius used for building the Circular Local Binary Pattern. The greater the radius, the smoother the image but more spatial information you can get. param neighbors The number of sample points to build a Circular Local Binary Pattern from. An appropriate value is to use {code 8} sample points. Keep in mind: the more sample points you include, the higher the computational cost. publications. The more cells, the finer the grid, the higher the dimensionality of the resulting feature vector. publications. The more cells, the finer the grid, the higher the dimensionality of the resulting feature vector. is larger than the threshold, this method returns -1.</p>
+<h3>Notes:</h3>
+<ul>
+<li>
+The Circular Local Binary Patterns (used in training and prediction) expect the data given as grayscale images, use cvtColor to convert between the color spaces.  </li>
+<li>
+This model supports updating.  </li>
+</ul>
+<pre class="fragment">### Model internal data:
+</pre><ul>
+<li>
+radius see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+neighbors see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+grid_x see LLBPHFaceRecognizer::create.  </li>
+<li>
+grid_y see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+threshold see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+histograms Local Binary Patterns Histograms calculated from the given training data (empty if none was given).  </li>
+<li>
+labels Labels corresponding to the calculated Local Binary Patterns Histograms.  </li>
+</ul>
+<p>return automatically generated </p>
 
 </div>
 </div>
@@ -468,6 +572,32 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>param radius The radius used for building the Circular Local Binary Pattern. The greater the radius, the smoother the image but more spatial information you can get. appropriate value is to use {code 8} sample points. Keep in mind: the more sample points you include, the higher the computational cost. publications. The more cells, the finer the grid, the higher the dimensionality of the resulting feature vector. publications. The more cells, the finer the grid, the higher the dimensionality of the resulting feature vector. is larger than the threshold, this method returns -1.</p>
+<h3>Notes:</h3>
+<ul>
+<li>
+The Circular Local Binary Patterns (used in training and prediction) expect the data given as grayscale images, use cvtColor to convert between the color spaces.  </li>
+<li>
+This model supports updating.  </li>
+</ul>
+<pre class="fragment">### Model internal data:
+</pre><ul>
+<li>
+radius see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+neighbors see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+grid_x see LLBPHFaceRecognizer::create.  </li>
+<li>
+grid_y see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+threshold see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+histograms Local Binary Patterns Histograms calculated from the given training data (empty if none was given).  </li>
+<li>
+labels Labels corresponding to the calculated Local Binary Patterns Histograms.  </li>
+</ul>
+<p>return automatically generated </p>
 
 </div>
 </div>
@@ -493,6 +623,40 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<pre class="fragment">radius, the smoother the image but more spatial information you can get.
+appropriate value is to use {code 8} sample points. Keep in mind: the more sample points you include,
+the higher the computational cost.
+publications. The more cells, the finer the grid, the higher the dimensionality of the resulting
+feature vector.
+publications. The more cells, the finer the grid, the higher the dimensionality of the resulting
+feature vector.
+is larger than the threshold, this method returns -1.
+
+### Notes:
+</pre><ul>
+<li>
+The Circular Local Binary Patterns (used in training and prediction) expect the data given as grayscale images, use cvtColor to convert between the color spaces.  </li>
+<li>
+This model supports updating.  </li>
+</ul>
+<pre class="fragment">### Model internal data:
+</pre><ul>
+<li>
+radius see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+neighbors see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+grid_x see LLBPHFaceRecognizer::create.  </li>
+<li>
+grid_y see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+threshold see <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_l_b_p_h_face_recognizer.html#a9334285a35a2ae479d9ca26d2d0cabcd">LBPHFaceRecognizer::create</a>.  </li>
+<li>
+histograms Local Binary Patterns Histograms calculated from the given training data (empty if none was given).  </li>
+<li>
+labels Labels corresponding to the calculated Local Binary Patterns Histograms.  </li>
+</ul>
+<p>return automatically generated </p>
 
 </div>
 </div>
@@ -538,6 +702,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setGridX return automatically generated </p>
 
 </div>
 </div>
@@ -555,6 +720,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setGridY return automatically generated </p>
 
 </div>
 </div>
@@ -606,6 +772,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setNeighbors return automatically generated </p>
 
 </div>
 </div>
@@ -623,6 +790,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setRadius return automatically generated </p>
 
 </div>
 </div>
@@ -640,6 +808,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setThreshold return automatically generated </p>
 
 </div>
 </div>
@@ -658,6 +827,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getGridX SEE: getGridX param val automatically generated </p>
 
 </div>
 </div>
@@ -676,6 +846,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getGridY SEE: getGridY param val automatically generated </p>
 
 </div>
 </div>
@@ -694,6 +865,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getNeighbors SEE: getNeighbors param val automatically generated </p>
 
 </div>
 </div>
@@ -712,6 +884,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getRadius SEE: getRadius param val automatically generated </p>
 
 </div>
 </div>
@@ -730,6 +903,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getThreshold SEE: getThreshold param val automatically generated </p>
 
 </div>
 </div>
@@ -739,7 +913,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:11 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:12 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

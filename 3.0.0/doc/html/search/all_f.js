@@ -26,6 +26,7 @@ var searchData=
   ['ocrbeamsearchdecoder_2ecs',['OCRBeamSearchDecoder.cs',['../_o_c_r_beam_search_decoder_8cs.html',1,'']]],
   ['ocrhmmdecoder',['OCRHMMDecoder',['../class_open_c_v_for_unity_1_1_text_module_1_1_o_c_r_h_m_m_decoder.html',1,'OpenCVForUnity.TextModule.OCRHMMDecoder'],['../class_open_c_v_for_unity_1_1_text_module_1_1_o_c_r_h_m_m_decoder.html#a5ae05003c85bb0d61255f9948e28b707',1,'OpenCVForUnity.TextModule.OCRHMMDecoder.OCRHMMDecoder()']]],
   ['ocrhmmdecoder_2ecs',['OCRHMMDecoder.cs',['../_o_c_r_h_m_m_decoder_8cs.html',1,'']]],
+  ['ocrtesseract',['OCRTesseract',['../class_open_c_v_for_unity_1_1_text_module_1_1_o_c_r_tesseract.html',1,'OpenCVForUnity.TextModule.OCRTesseract'],['../class_open_c_v_for_unity_1_1_text_module_1_1_o_c_r_tesseract.html#acc9ff9c2d9e9e5f31b629579e84b58ba',1,'OpenCVForUnity.TextModule.OCRTesseract.OCRTesseract()']]],
   ['ocrtesseract_2ecs',['OCRTesseract.cs',['../_o_c_r_tesseract_8cs.html',1,'']]],
   ['octave',['octave',['../class_open_c_v_for_unity_1_1_core_module_1_1_key_point.html#a89a242c773441f4dd0537d1c26371ed3',1,'OpenCVForUnity::CoreModule::KeyPoint']]],
   ['oem_5fcube_5fonly',['OEM_CUBE_ONLY',['../class_open_c_v_for_unity_1_1_text_module_1_1_text.html#a76c2e8a0d04370c3551d34ce8770cda1',1,'OpenCVForUnity::TextModule::Text']]],

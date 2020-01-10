@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -239,7 +239,22 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>class which allows the Gipsa/Listic Labs model to be used with OpenCV.</p>
+<p>This retina model allows spatio-temporal image processing (applied on still images, video sequences). As a summary, these are the retina model properties: </p><ul>
+<li>
+It applies a spectral whithening (mid-frequency details enhancement)  </li>
+<li>
+high frequency spatio-temporal noise reduction  </li>
+<li>
+low frequency luminance to be reduced (luminance range compression)  </li>
+<li>
+local logarithmic luminance compression allows details to be enhanced in low light conditions  </li>
+</ul>
+<p>USE : this model can be used basically for spatio-temporal video effects but also for : _using the getParvo method output matrix : texture analysiswith enhanced signal to noise ratio and enhanced details robust against input images luminance ranges _using the getMagno method output matrix : motion analysis also with the previously cited properties</p>
+<p>for more information, reer to the following papers : Benoit A., Caplier A., Durette B., Herault, J., "USING HUMAN VISUAL SYSTEM MODELING FOR BIO-INSPIRED LOW LEVEL IMAGE PROCESSING", Elsevier, Computer Vision and Image Understanding 114 (2010), pp. 758-773, DOI: <a href="http://dx.doi.org/10.1016/j.cviu.2010.01.011">http://dx.doi.org/10.1016/j.cviu.2010.01.011</a> Vision: Images, Signals and Neural Networks: Models of Neural Processing in Visual Perception (Progress in Neural Processing),By: Jeanny Herault, ISBN: 9814273686. WAPI (Tower ID): 113266891.</p>
+<p>The retina filter includes the research contributions of phd/research collegues from which code has been redrawn by the author : take a look at the retinacolor.hpp module to discover Brice Chaix de Lavarene color mosaicing/demosaicing and the reference paper: B. Chaix de Lavarene, D. Alleysson, B. Durette, J. Herault (2007). "Efficient demosaicing through recursive filtering", IEEE International Conference on Image Processing ICIP 2007 take a look at imagelogpolprojection.hpp to discover retina spatial log sampling which originates from Barthelemy Durette phd with Jeanny Herault. A <a class="el" href="class_open_c_v_for_unity_1_1_bioinspired_module_1_1_retina.html">Retina</a> / V1 cortex projection is also proposed and originates from Jeanny's discussions. more informations in the above cited Jeanny Heraults's book. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aff6923f7da890da1cc7be703ed9b98a8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aff6923f7da890da1cc7be703ed9b98a8">&#9670;&nbsp;</a></span>Retina()</h2>
 
@@ -308,6 +323,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Activate/desactivate the Parvocellular pathway processing (contours information extraction), by default, it is activated param activate true if Parvocellular (contours information extraction) output should be activated, false if not... if activated, the Parvocellular output can be retrieved using the <a class="el" href="class_open_c_v_for_unity_1_1_bioinspired_module_1_1_retina.html#a4045db2302392b74129270cb509fb419">Retina::getParvo</a> methods </p>
 
 </div>
 </div>
@@ -326,6 +342,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Activate/desactivate the Magnocellular pathway processing (motion information extraction), by default, it is activated param activate true if Magnocellular output should be activated, false if not... if activated, the Magnocellular output can be retrieved using the <b>getMagno</b> methods </p>
 
 </div>
 </div>
@@ -354,6 +371,10 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Method which processes an image in the aim to correct its luminance correct backlight problems, enhance details in shadows.</p>
+<p>This method is designed to perform High Dynamic Range image tone mapping (compress &gt;8bit/pixel images to 8bit/pixel). This is a simplified version of the <a class="el" href="class_open_c_v_for_unity_1_1_bioinspired_module_1_1_retina.html">Retina</a> Parvocellular model (simplified version of the run/getParvo methods call) since it does not include the spatio-temporal filter modelling the Outer Plexiform Layer of the retina that performs spectral whitening and many other stuff. However, it works great for tone mapping and in a faster way.</p>
+<p>Check the demos and experiments section to see examples and the way to perform tone mapping using the original retina model and the method.</p>
+<p>param inputImage the input image to process (should be coded in float format : CV_32F, CV_32FC1, CV_32F_C3, CV_32F_C4, the 4th channel won't be considered). param outputToneMappedImage the output 8bit/channel tone mapped image (CV_8U or CV_8UC3 format). </p>
 
 </div>
 </div>
@@ -371,7 +392,9 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Clears all retina buffers </p><pre class="fragment">(equivalent to opening the eyes after a long period of eye close ;o) whatchout the temporal
+transition occuring just after this method call.
+</pre> 
 </div>
 </div>
 <a id="a6b322b42c605c654ccf744b84d928afa"></a>
@@ -431,6 +454,18 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Constructors from standardized interfaces : retreive a smart pointer to a <a class="el" href="class_open_c_v_for_unity_1_1_bioinspired_module_1_1_retina.html">Retina</a> instance </p><pre class="fragment">param inputSize the input frame size
+param colorMode the chosen processing mode : with or without color processing
+param colorSamplingMethod specifies which kind of color sampling will be used :
+</pre> <ul>
+<li>
+cv::bioinspired::RETINA_COLOR_RANDOM: each pixel position is either R, G or B in a random choice  </li>
+<li>
+cv::bioinspired::RETINA_COLOR_DIAGONAL: color sampling is RGBRGBRGB..., line 2 BRGBRGBRG..., line 3, GBRGBRGBR...  </li>
+<li>
+cv::bioinspired::RETINA_COLOR_BAYER: standard bayer sampling param useRetinaLogSampling activate retina log sampling, if true, the 2 following parameters can be used param reductionFactor only usefull if param useRetinaLogSampling=true, specifies the reduction factor of the output frame (as the center (fovea) is high resolution and corners can be underscaled, then a reduction of the output is allowed without precision leak param samplingStrenght only usefull if param useRetinaLogSampling=true, specifies the strenght of the log scale that is applied  </li>
+</ul>
+<p>return automatically generated </p>
 
 </div>
 </div>
@@ -485,6 +520,18 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Constructors from standardized interfaces : retreive a smart pointer to a <a class="el" href="class_open_c_v_for_unity_1_1_bioinspired_module_1_1_retina.html">Retina</a> instance </p><pre class="fragment">param inputSize the input frame size
+param colorMode the chosen processing mode : with or without color processing
+param colorSamplingMethod specifies which kind of color sampling will be used :
+</pre> <ul>
+<li>
+cv::bioinspired::RETINA_COLOR_RANDOM: each pixel position is either R, G or B in a random choice  </li>
+<li>
+cv::bioinspired::RETINA_COLOR_DIAGONAL: color sampling is RGBRGBRGB..., line 2 BRGBRGBRG..., line 3, GBRGBRGBR...  </li>
+<li>
+cv::bioinspired::RETINA_COLOR_BAYER: standard bayer sampling param useRetinaLogSampling activate retina log sampling, if true, the 2 following parameters can be used param reductionFactor only usefull if param useRetinaLogSampling=true, specifies the reduction factor of the output frame (as the center (fovea) is high resolution and corners can be underscaled, then a reduction of the output is allowed without precision leak the log scale that is applied  </li>
+</ul>
+<p>return automatically generated </p>
 
 </div>
 </div>
@@ -533,6 +580,18 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Constructors from standardized interfaces : retreive a smart pointer to a <a class="el" href="class_open_c_v_for_unity_1_1_bioinspired_module_1_1_retina.html">Retina</a> instance </p><pre class="fragment">param inputSize the input frame size
+param colorMode the chosen processing mode : with or without color processing
+param colorSamplingMethod specifies which kind of color sampling will be used :
+</pre> <ul>
+<li>
+cv::bioinspired::RETINA_COLOR_RANDOM: each pixel position is either R, G or B in a random choice  </li>
+<li>
+cv::bioinspired::RETINA_COLOR_DIAGONAL: color sampling is RGBRGBRGB..., line 2 BRGBRGBRG..., line 3, GBRGBRGBR...  </li>
+<li>
+cv::bioinspired::RETINA_COLOR_BAYER: standard bayer sampling param useRetinaLogSampling activate retina log sampling, if true, the 2 following parameters can be used factor of the output frame (as the center (fovea) is high resolution and corners can be underscaled, then a reduction of the output is allowed without precision leak the log scale that is applied  </li>
+</ul>
+<p>return automatically generated </p>
 
 </div>
 </div>
@@ -575,6 +634,18 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Constructors from standardized interfaces : retreive a smart pointer to a <a class="el" href="class_open_c_v_for_unity_1_1_bioinspired_module_1_1_retina.html">Retina</a> instance </p><pre class="fragment">param inputSize the input frame size
+param colorMode the chosen processing mode : with or without color processing
+param colorSamplingMethod specifies which kind of color sampling will be used :
+</pre> <ul>
+<li>
+cv::bioinspired::RETINA_COLOR_RANDOM: each pixel position is either R, G or B in a random choice  </li>
+<li>
+cv::bioinspired::RETINA_COLOR_DIAGONAL: color sampling is RGBRGBRGB..., line 2 BRGBRGBRG..., line 3, GBRGBRGBR...  </li>
+<li>
+cv::bioinspired::RETINA_COLOR_BAYER: standard bayer sampling be used factor of the output frame (as the center (fovea) is high resolution and corners can be underscaled, then a reduction of the output is allowed without precision leak the log scale that is applied  </li>
+</ul>
+<p>return automatically generated </p>
 
 </div>
 </div>
@@ -611,6 +682,17 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Constructors from standardized interfaces : retreive a smart pointer to a <a class="el" href="class_open_c_v_for_unity_1_1_bioinspired_module_1_1_retina.html">Retina</a> instance </p><pre class="fragment">param inputSize the input frame size
+param colorMode the chosen processing mode : with or without color processing
+</pre> <ul>
+<li>
+cv::bioinspired::RETINA_COLOR_RANDOM: each pixel position is either R, G or B in a random choice  </li>
+<li>
+cv::bioinspired::RETINA_COLOR_DIAGONAL: color sampling is RGBRGBRGB..., line 2 BRGBRGBRG..., line 3, GBRGBRGBR...  </li>
+<li>
+cv::bioinspired::RETINA_COLOR_BAYER: standard bayer sampling be used factor of the output frame (as the center (fovea) is high resolution and corners can be underscaled, then a reduction of the output is allowed without precision leak the log scale that is applied  </li>
+</ul>
+<p>return automatically generated </p>
 
 </div>
 </div>
@@ -682,6 +764,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Retreive retina input buffer size return the retina input buffer size </p>
 
 </div>
 </div>
@@ -700,6 +783,15 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Accessor of the motion channel of the retina (models peripheral vision). </p><pre class="fragment">Warning, getMagnoRAW methods return buffers that are not rescaled within range [0;255] while
+the non RAW method allows a normalized matrix to be retrieved.
+param retinaOutput_magno the output buffer (reallocated if necessary), format can be :
+</pre> <ul>
+<li>
+a Mat, this output is rescaled for standard 8bits image processing use in OpenCV  </li>
+<li>
+RAW methods actually return a 1D matrix (encoding is M1, M2,... Mn), this output is the original retina filter model output, without any quantification or rescaling. SEE: getMagnoRAW  </li>
+</ul>
 
 </div>
 </div>
@@ -735,6 +827,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Accessor of the motion channel of the retina (models peripheral vision). SEE: getMagno param retinaOutput_magno automatically generated </p>
 
 </div>
 </div>
@@ -752,6 +845,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Retreive retina output buffer size that can be different from the input if a spatial log transformation is applied return the retina output buffer size </p>
 
 </div>
 </div>
@@ -770,6 +864,16 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Accessor of the details channel of the retina (models foveal vision). </p><pre class="fragment">Warning, getParvoRAW methods return buffers that are not rescaled within range [0;255] while
+the non RAW method allows a normalized matrix to be retrieved.
+
+param retinaOutput_parvo the output buffer (reallocated if necessary), format can be :
+</pre> <ul>
+<li>
+a Mat, this output is rescaled for standard 8bits image processing use in OpenCV  </li>
+<li>
+RAW methods actually return a 1D matrix (encoding is R1, R2, ... Rn, G1, G2, ..., Gn, B1, B2, ...Bn), this output is the original retina filter model output, without any quantification or rescaling. SEE: getParvoRAW  </li>
+</ul>
 
 </div>
 </div>
@@ -805,6 +909,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Accessor of the details channel of the retina (models foveal vision). SEE: getParvo param retinaOutput_parvo automatically generated </p>
 
 </div>
 </div>
@@ -822,6 +927,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Outputs a string showing the used parameters setup return a string which contains formated parameters information </p>
 
 </div>
 </div>
@@ -840,7 +946,11 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Method which allows retina to be applied on an input image, </p><pre class="fragment">after run, encapsulated retina module is ready to deliver its outputs using dedicated
+acccessors, see getParvo and getMagno methods
+param inputImage the input Mat image to be processed, can be gray level or BGR coded in any
+format (from 8bit to 16bits)
+</pre> 
 </div>
 </div>
 <a id="acd308194470b91b5e1e7976d32f7b6d5"></a>
@@ -868,6 +978,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Activate color saturation as the final step of the color demultiplexing process -&gt; this saturation is a sigmoide function applied to each channel of the demultiplexed image. param saturateColors boolean that activates color saturation (if true) or desactivate (if false) param colorSaturationValue the saturation factor : a simple factor applied on the chrominance buffers </p>
 
 </div>
 </div>
@@ -886,6 +997,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Activate color saturation as the final step of the color demultiplexing process -&gt; this saturation is a sigmoide function applied to each channel of the demultiplexed image. param saturateColors boolean that activates color saturation (if true) or desactivate (if false) buffers </p>
 
 </div>
 </div>
@@ -903,6 +1015,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Activate color saturation as the final step of the color demultiplexing process -&gt; this saturation is a sigmoide function applied to each channel of the demultiplexed image. buffers </p>
 
 </div>
 </div>
@@ -931,7 +1044,16 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Try to open an XML retina parameters file to adjust current retina instance setup</p>
+<ul>
+<li>
+if the xml file does not exist, then default setup is applied  </li>
+<li>
+warning, Exceptions are thrown if read XML file is not valid param retinaParameterFile the parameters filename param applyDefaultSetupOnFailure set to true if an error must be thrown on error  </li>
+</ul>
+<pre class="fragment">You can retrieve the current parameters structure using the method Retina::getParameters and update
+it before running method Retina::setup.
+</pre> 
 </div>
 </div>
 <a id="a4004287f69e03df0d4ecf0d65500ac63"></a>
@@ -949,7 +1071,16 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Try to open an XML retina parameters file to adjust current retina instance setup</p>
+<ul>
+<li>
+if the xml file does not exist, then default setup is applied  </li>
+<li>
+warning, Exceptions are thrown if read XML file is not valid param retinaParameterFile the parameters filename  </li>
+</ul>
+<pre class="fragment">You can retrieve the current parameters structure using the method Retina::getParameters and update
+it before running method Retina::setup.
+</pre> 
 </div>
 </div>
 <a id="aeaefc2523220f970d2ecb19d4f93344c"></a>
@@ -966,7 +1097,16 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Try to open an XML retina parameters file to adjust current retina instance setup</p>
+<ul>
+<li>
+if the xml file does not exist, then default setup is applied  </li>
+<li>
+warning, Exceptions are thrown if read XML file is not valid  </li>
+</ul>
+<pre class="fragment">You can retrieve the current parameters structure using the method Retina::getParameters and update
+it before running method Retina::setup.
+</pre> 
 </div>
 </div>
 <a id="aeb9c8d4d09b8a7ea40db065bd7dddd48"></a>
@@ -1030,7 +1170,29 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set parameters values for the Inner Plexiform Layer (IPL) magnocellular channel </p><pre class="fragment">this channel processes signals output from OPL processing stage in peripheral vision, it allows
+motion information enhancement. It is decorrelated from the details channel. See reference
+papers for more details.
 
+param normaliseOutput specifies if (true) output is rescaled between 0 and 255 of not (false)
+param parasolCells_beta the low pass filter gain used for local contrast adaptation at the
+IPL level of the retina (for ganglion cells local adaptation), typical value is 0
+param parasolCells_tau the low pass filter time constant used for local contrast adaptation
+at the IPL level of the retina (for ganglion cells local adaptation), unit is frame, typical
+value is 0 (immediate response)
+param parasolCells_k the low pass filter spatial constant used for local contrast adaptation
+at the IPL level of the retina (for ganglion cells local adaptation), unit is pixels, typical
+value is 5
+param amacrinCellsTemporalCutFrequency the time constant of the first order high pass fiter of
+the magnocellular way (motion information channel), unit is frames, typical value is 1.2
+param V0CompressionParameter the compression strengh of the ganglion cells local adaptation
+output, set a value between 0.6 and 1 for best results, a high value increases more the low
+value sensitivity... and the output saturates faster, recommended value: 0.95
+param localAdaptintegration_tau specifies the temporal constant of the low pas filter
+involved in the computation of the local "motion mean" for the local adaptation computation
+param localAdaptintegration_k specifies the spatial constant of the low pas filter involved
+in the computation of the local "motion mean" for the local adaptation computation
+</pre> 
 </div>
 </div>
 <a id="a5e7294057881cf3d44dde3514bfc3de4"></a>
@@ -1088,7 +1250,28 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set parameters values for the Inner Plexiform Layer (IPL) magnocellular channel </p><pre class="fragment">this channel processes signals output from OPL processing stage in peripheral vision, it allows
+motion information enhancement. It is decorrelated from the details channel. See reference
+papers for more details.
 
+param normaliseOutput specifies if (true) output is rescaled between 0 and 255 of not (false)
+param parasolCells_beta the low pass filter gain used for local contrast adaptation at the
+IPL level of the retina (for ganglion cells local adaptation), typical value is 0
+param parasolCells_tau the low pass filter time constant used for local contrast adaptation
+at the IPL level of the retina (for ganglion cells local adaptation), unit is frame, typical
+value is 0 (immediate response)
+param parasolCells_k the low pass filter spatial constant used for local contrast adaptation
+at the IPL level of the retina (for ganglion cells local adaptation), unit is pixels, typical
+value is 5
+param amacrinCellsTemporalCutFrequency the time constant of the first order high pass fiter of
+the magnocellular way (motion information channel), unit is frames, typical value is 1.2
+param V0CompressionParameter the compression strengh of the ganglion cells local adaptation
+output, set a value between 0.6 and 1 for best results, a high value increases more the low
+value sensitivity... and the output saturates faster, recommended value: 0.95
+param localAdaptintegration_tau specifies the temporal constant of the low pas filter
+involved in the computation of the local "motion mean" for the local adaptation computation
+in the computation of the local "motion mean" for the local adaptation computation
+</pre> 
 </div>
 </div>
 <a id="aeaadfce114a2337c75c78859359b7678"></a>
@@ -1140,7 +1323,27 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set parameters values for the Inner Plexiform Layer (IPL) magnocellular channel </p><pre class="fragment">this channel processes signals output from OPL processing stage in peripheral vision, it allows
+motion information enhancement. It is decorrelated from the details channel. See reference
+papers for more details.
 
+param normaliseOutput specifies if (true) output is rescaled between 0 and 255 of not (false)
+param parasolCells_beta the low pass filter gain used for local contrast adaptation at the
+IPL level of the retina (for ganglion cells local adaptation), typical value is 0
+param parasolCells_tau the low pass filter time constant used for local contrast adaptation
+at the IPL level of the retina (for ganglion cells local adaptation), unit is frame, typical
+value is 0 (immediate response)
+param parasolCells_k the low pass filter spatial constant used for local contrast adaptation
+at the IPL level of the retina (for ganglion cells local adaptation), unit is pixels, typical
+value is 5
+param amacrinCellsTemporalCutFrequency the time constant of the first order high pass fiter of
+the magnocellular way (motion information channel), unit is frames, typical value is 1.2
+param V0CompressionParameter the compression strengh of the ganglion cells local adaptation
+output, set a value between 0.6 and 1 for best results, a high value increases more the low
+value sensitivity... and the output saturates faster, recommended value: 0.95
+involved in the computation of the local "motion mean" for the local adaptation computation
+in the computation of the local "motion mean" for the local adaptation computation
+</pre> 
 </div>
 </div>
 <a id="a40310df7a4b3c1c786de4c2c33def5db"></a>
@@ -1186,7 +1389,26 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set parameters values for the Inner Plexiform Layer (IPL) magnocellular channel </p><pre class="fragment">this channel processes signals output from OPL processing stage in peripheral vision, it allows
+motion information enhancement. It is decorrelated from the details channel. See reference
+papers for more details.
 
+param normaliseOutput specifies if (true) output is rescaled between 0 and 255 of not (false)
+param parasolCells_beta the low pass filter gain used for local contrast adaptation at the
+IPL level of the retina (for ganglion cells local adaptation), typical value is 0
+param parasolCells_tau the low pass filter time constant used for local contrast adaptation
+at the IPL level of the retina (for ganglion cells local adaptation), unit is frame, typical
+value is 0 (immediate response)
+param parasolCells_k the low pass filter spatial constant used for local contrast adaptation
+at the IPL level of the retina (for ganglion cells local adaptation), unit is pixels, typical
+value is 5
+param amacrinCellsTemporalCutFrequency the time constant of the first order high pass fiter of
+the magnocellular way (motion information channel), unit is frames, typical value is 1.2
+output, set a value between 0.6 and 1 for best results, a high value increases more the low
+value sensitivity... and the output saturates faster, recommended value: 0.95
+involved in the computation of the local "motion mean" for the local adaptation computation
+in the computation of the local "motion mean" for the local adaptation computation
+</pre> 
 </div>
 </div>
 <a id="a985282d1b52e3d4ff9c0ff635926d076"></a>
@@ -1226,7 +1448,25 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set parameters values for the Inner Plexiform Layer (IPL) magnocellular channel </p><pre class="fragment">this channel processes signals output from OPL processing stage in peripheral vision, it allows
+motion information enhancement. It is decorrelated from the details channel. See reference
+papers for more details.
 
+param normaliseOutput specifies if (true) output is rescaled between 0 and 255 of not (false)
+param parasolCells_beta the low pass filter gain used for local contrast adaptation at the
+IPL level of the retina (for ganglion cells local adaptation), typical value is 0
+param parasolCells_tau the low pass filter time constant used for local contrast adaptation
+at the IPL level of the retina (for ganglion cells local adaptation), unit is frame, typical
+value is 0 (immediate response)
+param parasolCells_k the low pass filter spatial constant used for local contrast adaptation
+at the IPL level of the retina (for ganglion cells local adaptation), unit is pixels, typical
+value is 5
+the magnocellular way (motion information channel), unit is frames, typical value is 1.2
+output, set a value between 0.6 and 1 for best results, a high value increases more the low
+value sensitivity... and the output saturates faster, recommended value: 0.95
+involved in the computation of the local "motion mean" for the local adaptation computation
+in the computation of the local "motion mean" for the local adaptation computation
+</pre> 
 </div>
 </div>
 <a id="aa5edc2ffad5481a7f00025ecbdafcdc0"></a>
@@ -1260,7 +1500,24 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set parameters values for the Inner Plexiform Layer (IPL) magnocellular channel </p><pre class="fragment">this channel processes signals output from OPL processing stage in peripheral vision, it allows
+motion information enhancement. It is decorrelated from the details channel. See reference
+papers for more details.
 
+param normaliseOutput specifies if (true) output is rescaled between 0 and 255 of not (false)
+param parasolCells_beta the low pass filter gain used for local contrast adaptation at the
+IPL level of the retina (for ganglion cells local adaptation), typical value is 0
+param parasolCells_tau the low pass filter time constant used for local contrast adaptation
+at the IPL level of the retina (for ganglion cells local adaptation), unit is frame, typical
+value is 0 (immediate response)
+at the IPL level of the retina (for ganglion cells local adaptation), unit is pixels, typical
+value is 5
+the magnocellular way (motion information channel), unit is frames, typical value is 1.2
+output, set a value between 0.6 and 1 for best results, a high value increases more the low
+value sensitivity... and the output saturates faster, recommended value: 0.95
+involved in the computation of the local "motion mean" for the local adaptation computation
+in the computation of the local "motion mean" for the local adaptation computation
+</pre> 
 </div>
 </div>
 <a id="ab90cd4b7417830a2f7d18f6b00e7c54f"></a>
@@ -1288,7 +1545,23 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set parameters values for the Inner Plexiform Layer (IPL) magnocellular channel </p><pre class="fragment">this channel processes signals output from OPL processing stage in peripheral vision, it allows
+motion information enhancement. It is decorrelated from the details channel. See reference
+papers for more details.
 
+param normaliseOutput specifies if (true) output is rescaled between 0 and 255 of not (false)
+param parasolCells_beta the low pass filter gain used for local contrast adaptation at the
+IPL level of the retina (for ganglion cells local adaptation), typical value is 0
+at the IPL level of the retina (for ganglion cells local adaptation), unit is frame, typical
+value is 0 (immediate response)
+at the IPL level of the retina (for ganglion cells local adaptation), unit is pixels, typical
+value is 5
+the magnocellular way (motion information channel), unit is frames, typical value is 1.2
+output, set a value between 0.6 and 1 for best results, a high value increases more the low
+value sensitivity... and the output saturates faster, recommended value: 0.95
+involved in the computation of the local "motion mean" for the local adaptation computation
+in the computation of the local "motion mean" for the local adaptation computation
+</pre> 
 </div>
 </div>
 <a id="af80a6d535890211e9454fd0b5dead2ba"></a>
@@ -1306,7 +1579,22 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set parameters values for the Inner Plexiform Layer (IPL) magnocellular channel </p><pre class="fragment">this channel processes signals output from OPL processing stage in peripheral vision, it allows
+motion information enhancement. It is decorrelated from the details channel. See reference
+papers for more details.
 
+param normaliseOutput specifies if (true) output is rescaled between 0 and 255 of not (false)
+IPL level of the retina (for ganglion cells local adaptation), typical value is 0
+at the IPL level of the retina (for ganglion cells local adaptation), unit is frame, typical
+value is 0 (immediate response)
+at the IPL level of the retina (for ganglion cells local adaptation), unit is pixels, typical
+value is 5
+the magnocellular way (motion information channel), unit is frames, typical value is 1.2
+output, set a value between 0.6 and 1 for best results, a high value increases more the low
+value sensitivity... and the output saturates faster, recommended value: 0.95
+involved in the computation of the local "motion mean" for the local adaptation computation
+in the computation of the local "motion mean" for the local adaptation computation
+</pre> 
 </div>
 </div>
 <a id="aac41680c580b9eca7e4f1d05e91b6e5d"></a>
@@ -1323,7 +1611,21 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set parameters values for the Inner Plexiform Layer (IPL) magnocellular channel </p><pre class="fragment">this channel processes signals output from OPL processing stage in peripheral vision, it allows
+motion information enhancement. It is decorrelated from the details channel. See reference
+papers for more details.
 
+IPL level of the retina (for ganglion cells local adaptation), typical value is 0
+at the IPL level of the retina (for ganglion cells local adaptation), unit is frame, typical
+value is 0 (immediate response)
+at the IPL level of the retina (for ganglion cells local adaptation), unit is pixels, typical
+value is 5
+the magnocellular way (motion information channel), unit is frames, typical value is 1.2
+output, set a value between 0.6 and 1 for best results, a high value increases more the low
+value sensitivity... and the output saturates faster, recommended value: 0.95
+involved in the computation of the local "motion mean" for the local adaptation computation
+in the computation of the local "motion mean" for the local adaptation computation
+</pre> 
 </div>
 </div>
 <a id="adfc9813fb45a13ac80d007e9572034e1"></a>
@@ -1393,7 +1695,38 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Setup the OPL and IPL parvo channels (see biologocal model) </p><pre class="fragment">OPL is referred as Outer Plexiform Layer of the retina, it allows the spatio-temporal filtering
+which withens the spectrum and reduces spatio-temporal noise while attenuating global luminance
+(low frequency energy) IPL parvo is the OPL next processing stage, it refers to a part of the
+Inner Plexiform layer of the retina, it allows high contours sensitivity in foveal vision. See
+reference papers for more informations.
+for more informations, please have a look at the paper Benoit A., Caplier A., Durette B., Herault, J., "USING HUMAN VISUAL SYSTEM MODELING FOR BIO-INSPIRED LOW LEVEL IMAGE PROCESSING", Elsevier, Computer Vision and Image Understanding 114 (2010), pp. 758-773, DOI: http://dx.doi.org/10.1016/j.cviu.2010.01.011
+param colorMode specifies if (true) color is processed of not (false) to then processing gray
+level image
+param normaliseOutput specifies if (true) output is rescaled between 0 and 255 of not (false)
+param photoreceptorsLocalAdaptationSensitivity the photoreceptors sensitivity renage is 0-1
+(more log compression effect when value increases)
+param photoreceptorsTemporalConstant the time constant of the first order low pass filter of
+the photoreceptors, use it to cut high temporal frequencies (noise or fast motion), unit is
+frames, typical value is 1 frame
+param photoreceptorsSpatialConstant the spatial constant of the first order low pass filter of
+the photoreceptors, use it to cut high spatial frequencies (noise or thick contours), unit is
+pixels, typical value is 1 pixel
+param horizontalCellsGain gain of the horizontal cells network, if 0, then the mean value of
+the output is zero, if the parameter is near 1, then, the luminance is not filtered and is
+still reachable at the output, typicall value is 0
+param HcellsTemporalConstant the time constant of the first order low pass filter of the
+horizontal cells, use it to cut low temporal frequencies (local luminance variations), unit is
+frames, typical value is 1 frame, as the photoreceptors
+param HcellsSpatialConstant the spatial constant of the first order low pass filter of the
+horizontal cells, use it to cut low spatial frequencies (local luminance), unit is pixels,
+typical value is 5 pixel, this value is also used for local contrast computing when computing
+the local contrast adaptation at the ganglion cells level (Inner Plexiform Layer parvocellular
+channel model)
+param ganglionCellsSensitivity the compression strengh of the ganglion cells local adaptation
+output, set a value between 0.6 and 1 for best results, a high value increases more the low
+value sensitivity... and the output saturates faster, recommended value: 0.7
+</pre> 
 </div>
 </div>
 <a id="ade926aa547e0e6513662139235c782b9"></a>
@@ -1457,7 +1790,37 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Setup the OPL and IPL parvo channels (see biologocal model) </p><pre class="fragment">OPL is referred as Outer Plexiform Layer of the retina, it allows the spatio-temporal filtering
+which withens the spectrum and reduces spatio-temporal noise while attenuating global luminance
+(low frequency energy) IPL parvo is the OPL next processing stage, it refers to a part of the
+Inner Plexiform layer of the retina, it allows high contours sensitivity in foveal vision. See
+reference papers for more informations.
+for more informations, please have a look at the paper Benoit A., Caplier A., Durette B., Herault, J., "USING HUMAN VISUAL SYSTEM MODELING FOR BIO-INSPIRED LOW LEVEL IMAGE PROCESSING", Elsevier, Computer Vision and Image Understanding 114 (2010), pp. 758-773, DOI: http://dx.doi.org/10.1016/j.cviu.2010.01.011
+param colorMode specifies if (true) color is processed of not (false) to then processing gray
+level image
+param normaliseOutput specifies if (true) output is rescaled between 0 and 255 of not (false)
+param photoreceptorsLocalAdaptationSensitivity the photoreceptors sensitivity renage is 0-1
+(more log compression effect when value increases)
+param photoreceptorsTemporalConstant the time constant of the first order low pass filter of
+the photoreceptors, use it to cut high temporal frequencies (noise or fast motion), unit is
+frames, typical value is 1 frame
+param photoreceptorsSpatialConstant the spatial constant of the first order low pass filter of
+the photoreceptors, use it to cut high spatial frequencies (noise or thick contours), unit is
+pixels, typical value is 1 pixel
+param horizontalCellsGain gain of the horizontal cells network, if 0, then the mean value of
+the output is zero, if the parameter is near 1, then, the luminance is not filtered and is
+still reachable at the output, typicall value is 0
+param HcellsTemporalConstant the time constant of the first order low pass filter of the
+horizontal cells, use it to cut low temporal frequencies (local luminance variations), unit is
+frames, typical value is 1 frame, as the photoreceptors
+param HcellsSpatialConstant the spatial constant of the first order low pass filter of the
+horizontal cells, use it to cut low spatial frequencies (local luminance), unit is pixels,
+typical value is 5 pixel, this value is also used for local contrast computing when computing
+the local contrast adaptation at the ganglion cells level (Inner Plexiform Layer parvocellular
+channel model)
+output, set a value between 0.6 and 1 for best results, a high value increases more the low
+value sensitivity... and the output saturates faster, recommended value: 0.7
+</pre> 
 </div>
 </div>
 <a id="a3615b4c47d43d061aa1afabb111624ff"></a>
@@ -1515,7 +1878,36 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Setup the OPL and IPL parvo channels (see biologocal model) </p><pre class="fragment">OPL is referred as Outer Plexiform Layer of the retina, it allows the spatio-temporal filtering
+which withens the spectrum and reduces spatio-temporal noise while attenuating global luminance
+(low frequency energy) IPL parvo is the OPL next processing stage, it refers to a part of the
+Inner Plexiform layer of the retina, it allows high contours sensitivity in foveal vision. See
+reference papers for more informations.
+for more informations, please have a look at the paper Benoit A., Caplier A., Durette B., Herault, J., "USING HUMAN VISUAL SYSTEM MODELING FOR BIO-INSPIRED LOW LEVEL IMAGE PROCESSING", Elsevier, Computer Vision and Image Understanding 114 (2010), pp. 758-773, DOI: http://dx.doi.org/10.1016/j.cviu.2010.01.011
+param colorMode specifies if (true) color is processed of not (false) to then processing gray
+level image
+param normaliseOutput specifies if (true) output is rescaled between 0 and 255 of not (false)
+param photoreceptorsLocalAdaptationSensitivity the photoreceptors sensitivity renage is 0-1
+(more log compression effect when value increases)
+param photoreceptorsTemporalConstant the time constant of the first order low pass filter of
+the photoreceptors, use it to cut high temporal frequencies (noise or fast motion), unit is
+frames, typical value is 1 frame
+param photoreceptorsSpatialConstant the spatial constant of the first order low pass filter of
+the photoreceptors, use it to cut high spatial frequencies (noise or thick contours), unit is
+pixels, typical value is 1 pixel
+param horizontalCellsGain gain of the horizontal cells network, if 0, then the mean value of
+the output is zero, if the parameter is near 1, then, the luminance is not filtered and is
+still reachable at the output, typicall value is 0
+param HcellsTemporalConstant the time constant of the first order low pass filter of the
+horizontal cells, use it to cut low temporal frequencies (local luminance variations), unit is
+frames, typical value is 1 frame, as the photoreceptors
+horizontal cells, use it to cut low spatial frequencies (local luminance), unit is pixels,
+typical value is 5 pixel, this value is also used for local contrast computing when computing
+the local contrast adaptation at the ganglion cells level (Inner Plexiform Layer parvocellular
+channel model)
+output, set a value between 0.6 and 1 for best results, a high value increases more the low
+value sensitivity... and the output saturates faster, recommended value: 0.7
+</pre> 
 </div>
 </div>
 <a id="aedd28ca5c1040fc5998b9069da0f72cf"></a>
@@ -1567,7 +1959,35 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Setup the OPL and IPL parvo channels (see biologocal model) </p><pre class="fragment">OPL is referred as Outer Plexiform Layer of the retina, it allows the spatio-temporal filtering
+which withens the spectrum and reduces spatio-temporal noise while attenuating global luminance
+(low frequency energy) IPL parvo is the OPL next processing stage, it refers to a part of the
+Inner Plexiform layer of the retina, it allows high contours sensitivity in foveal vision. See
+reference papers for more informations.
+for more informations, please have a look at the paper Benoit A., Caplier A., Durette B., Herault, J., "USING HUMAN VISUAL SYSTEM MODELING FOR BIO-INSPIRED LOW LEVEL IMAGE PROCESSING", Elsevier, Computer Vision and Image Understanding 114 (2010), pp. 758-773, DOI: http://dx.doi.org/10.1016/j.cviu.2010.01.011
+param colorMode specifies if (true) color is processed of not (false) to then processing gray
+level image
+param normaliseOutput specifies if (true) output is rescaled between 0 and 255 of not (false)
+param photoreceptorsLocalAdaptationSensitivity the photoreceptors sensitivity renage is 0-1
+(more log compression effect when value increases)
+param photoreceptorsTemporalConstant the time constant of the first order low pass filter of
+the photoreceptors, use it to cut high temporal frequencies (noise or fast motion), unit is
+frames, typical value is 1 frame
+param photoreceptorsSpatialConstant the spatial constant of the first order low pass filter of
+the photoreceptors, use it to cut high spatial frequencies (noise or thick contours), unit is
+pixels, typical value is 1 pixel
+param horizontalCellsGain gain of the horizontal cells network, if 0, then the mean value of
+the output is zero, if the parameter is near 1, then, the luminance is not filtered and is
+still reachable at the output, typicall value is 0
+horizontal cells, use it to cut low temporal frequencies (local luminance variations), unit is
+frames, typical value is 1 frame, as the photoreceptors
+horizontal cells, use it to cut low spatial frequencies (local luminance), unit is pixels,
+typical value is 5 pixel, this value is also used for local contrast computing when computing
+the local contrast adaptation at the ganglion cells level (Inner Plexiform Layer parvocellular
+channel model)
+output, set a value between 0.6 and 1 for best results, a high value increases more the low
+value sensitivity... and the output saturates faster, recommended value: 0.7
+</pre> 
 </div>
 </div>
 <a id="ad73d97bffa1e6abbb7c36369a2cee54a"></a>
@@ -1613,7 +2033,34 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Setup the OPL and IPL parvo channels (see biologocal model) </p><pre class="fragment">OPL is referred as Outer Plexiform Layer of the retina, it allows the spatio-temporal filtering
+which withens the spectrum and reduces spatio-temporal noise while attenuating global luminance
+(low frequency energy) IPL parvo is the OPL next processing stage, it refers to a part of the
+Inner Plexiform layer of the retina, it allows high contours sensitivity in foveal vision. See
+reference papers for more informations.
+for more informations, please have a look at the paper Benoit A., Caplier A., Durette B., Herault, J., "USING HUMAN VISUAL SYSTEM MODELING FOR BIO-INSPIRED LOW LEVEL IMAGE PROCESSING", Elsevier, Computer Vision and Image Understanding 114 (2010), pp. 758-773, DOI: http://dx.doi.org/10.1016/j.cviu.2010.01.011
+param colorMode specifies if (true) color is processed of not (false) to then processing gray
+level image
+param normaliseOutput specifies if (true) output is rescaled between 0 and 255 of not (false)
+param photoreceptorsLocalAdaptationSensitivity the photoreceptors sensitivity renage is 0-1
+(more log compression effect when value increases)
+param photoreceptorsTemporalConstant the time constant of the first order low pass filter of
+the photoreceptors, use it to cut high temporal frequencies (noise or fast motion), unit is
+frames, typical value is 1 frame
+param photoreceptorsSpatialConstant the spatial constant of the first order low pass filter of
+the photoreceptors, use it to cut high spatial frequencies (noise or thick contours), unit is
+pixels, typical value is 1 pixel
+the output is zero, if the parameter is near 1, then, the luminance is not filtered and is
+still reachable at the output, typicall value is 0
+horizontal cells, use it to cut low temporal frequencies (local luminance variations), unit is
+frames, typical value is 1 frame, as the photoreceptors
+horizontal cells, use it to cut low spatial frequencies (local luminance), unit is pixels,
+typical value is 5 pixel, this value is also used for local contrast computing when computing
+the local contrast adaptation at the ganglion cells level (Inner Plexiform Layer parvocellular
+channel model)
+output, set a value between 0.6 and 1 for best results, a high value increases more the low
+value sensitivity... and the output saturates faster, recommended value: 0.7
+</pre> 
 </div>
 </div>
 <a id="ae6f584b6aa198d79987e79120d7f6e52"></a>
@@ -1653,7 +2100,33 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Setup the OPL and IPL parvo channels (see biologocal model) </p><pre class="fragment">OPL is referred as Outer Plexiform Layer of the retina, it allows the spatio-temporal filtering
+which withens the spectrum and reduces spatio-temporal noise while attenuating global luminance
+(low frequency energy) IPL parvo is the OPL next processing stage, it refers to a part of the
+Inner Plexiform layer of the retina, it allows high contours sensitivity in foveal vision. See
+reference papers for more informations.
+for more informations, please have a look at the paper Benoit A., Caplier A., Durette B., Herault, J., "USING HUMAN VISUAL SYSTEM MODELING FOR BIO-INSPIRED LOW LEVEL IMAGE PROCESSING", Elsevier, Computer Vision and Image Understanding 114 (2010), pp. 758-773, DOI: http://dx.doi.org/10.1016/j.cviu.2010.01.011
+param colorMode specifies if (true) color is processed of not (false) to then processing gray
+level image
+param normaliseOutput specifies if (true) output is rescaled between 0 and 255 of not (false)
+param photoreceptorsLocalAdaptationSensitivity the photoreceptors sensitivity renage is 0-1
+(more log compression effect when value increases)
+param photoreceptorsTemporalConstant the time constant of the first order low pass filter of
+the photoreceptors, use it to cut high temporal frequencies (noise or fast motion), unit is
+frames, typical value is 1 frame
+the photoreceptors, use it to cut high spatial frequencies (noise or thick contours), unit is
+pixels, typical value is 1 pixel
+the output is zero, if the parameter is near 1, then, the luminance is not filtered and is
+still reachable at the output, typicall value is 0
+horizontal cells, use it to cut low temporal frequencies (local luminance variations), unit is
+frames, typical value is 1 frame, as the photoreceptors
+horizontal cells, use it to cut low spatial frequencies (local luminance), unit is pixels,
+typical value is 5 pixel, this value is also used for local contrast computing when computing
+the local contrast adaptation at the ganglion cells level (Inner Plexiform Layer parvocellular
+channel model)
+output, set a value between 0.6 and 1 for best results, a high value increases more the low
+value sensitivity... and the output saturates faster, recommended value: 0.7
+</pre> 
 </div>
 </div>
 <a id="a3411844fe4cc666f2055857b9db223df"></a>
@@ -1687,7 +2160,32 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Setup the OPL and IPL parvo channels (see biologocal model) </p><pre class="fragment">OPL is referred as Outer Plexiform Layer of the retina, it allows the spatio-temporal filtering
+which withens the spectrum and reduces spatio-temporal noise while attenuating global luminance
+(low frequency energy) IPL parvo is the OPL next processing stage, it refers to a part of the
+Inner Plexiform layer of the retina, it allows high contours sensitivity in foveal vision. See
+reference papers for more informations.
+for more informations, please have a look at the paper Benoit A., Caplier A., Durette B., Herault, J., "USING HUMAN VISUAL SYSTEM MODELING FOR BIO-INSPIRED LOW LEVEL IMAGE PROCESSING", Elsevier, Computer Vision and Image Understanding 114 (2010), pp. 758-773, DOI: http://dx.doi.org/10.1016/j.cviu.2010.01.011
+param colorMode specifies if (true) color is processed of not (false) to then processing gray
+level image
+param normaliseOutput specifies if (true) output is rescaled between 0 and 255 of not (false)
+param photoreceptorsLocalAdaptationSensitivity the photoreceptors sensitivity renage is 0-1
+(more log compression effect when value increases)
+the photoreceptors, use it to cut high temporal frequencies (noise or fast motion), unit is
+frames, typical value is 1 frame
+the photoreceptors, use it to cut high spatial frequencies (noise or thick contours), unit is
+pixels, typical value is 1 pixel
+the output is zero, if the parameter is near 1, then, the luminance is not filtered and is
+still reachable at the output, typicall value is 0
+horizontal cells, use it to cut low temporal frequencies (local luminance variations), unit is
+frames, typical value is 1 frame, as the photoreceptors
+horizontal cells, use it to cut low spatial frequencies (local luminance), unit is pixels,
+typical value is 5 pixel, this value is also used for local contrast computing when computing
+the local contrast adaptation at the ganglion cells level (Inner Plexiform Layer parvocellular
+channel model)
+output, set a value between 0.6 and 1 for best results, a high value increases more the low
+value sensitivity... and the output saturates faster, recommended value: 0.7
+</pre> 
 </div>
 </div>
 <a id="a53f3ac67cbfd5de4d36ca41c09620d04"></a>
@@ -1715,7 +2213,31 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Setup the OPL and IPL parvo channels (see biologocal model) </p><pre class="fragment">OPL is referred as Outer Plexiform Layer of the retina, it allows the spatio-temporal filtering
+which withens the spectrum and reduces spatio-temporal noise while attenuating global luminance
+(low frequency energy) IPL parvo is the OPL next processing stage, it refers to a part of the
+Inner Plexiform layer of the retina, it allows high contours sensitivity in foveal vision. See
+reference papers for more informations.
+for more informations, please have a look at the paper Benoit A., Caplier A., Durette B., Herault, J., "USING HUMAN VISUAL SYSTEM MODELING FOR BIO-INSPIRED LOW LEVEL IMAGE PROCESSING", Elsevier, Computer Vision and Image Understanding 114 (2010), pp. 758-773, DOI: http://dx.doi.org/10.1016/j.cviu.2010.01.011
+param colorMode specifies if (true) color is processed of not (false) to then processing gray
+level image
+param normaliseOutput specifies if (true) output is rescaled between 0 and 255 of not (false)
+(more log compression effect when value increases)
+the photoreceptors, use it to cut high temporal frequencies (noise or fast motion), unit is
+frames, typical value is 1 frame
+the photoreceptors, use it to cut high spatial frequencies (noise or thick contours), unit is
+pixels, typical value is 1 pixel
+the output is zero, if the parameter is near 1, then, the luminance is not filtered and is
+still reachable at the output, typicall value is 0
+horizontal cells, use it to cut low temporal frequencies (local luminance variations), unit is
+frames, typical value is 1 frame, as the photoreceptors
+horizontal cells, use it to cut low spatial frequencies (local luminance), unit is pixels,
+typical value is 5 pixel, this value is also used for local contrast computing when computing
+the local contrast adaptation at the ganglion cells level (Inner Plexiform Layer parvocellular
+channel model)
+output, set a value between 0.6 and 1 for best results, a high value increases more the low
+value sensitivity... and the output saturates faster, recommended value: 0.7
+</pre> 
 </div>
 </div>
 <a id="a0dc001cdd1e017ad34b915d4db276991"></a>
@@ -1733,7 +2255,30 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Setup the OPL and IPL parvo channels (see biologocal model) </p><pre class="fragment">OPL is referred as Outer Plexiform Layer of the retina, it allows the spatio-temporal filtering
+which withens the spectrum and reduces spatio-temporal noise while attenuating global luminance
+(low frequency energy) IPL parvo is the OPL next processing stage, it refers to a part of the
+Inner Plexiform layer of the retina, it allows high contours sensitivity in foveal vision. See
+reference papers for more informations.
+for more informations, please have a look at the paper Benoit A., Caplier A., Durette B., Herault, J., "USING HUMAN VISUAL SYSTEM MODELING FOR BIO-INSPIRED LOW LEVEL IMAGE PROCESSING", Elsevier, Computer Vision and Image Understanding 114 (2010), pp. 758-773, DOI: http://dx.doi.org/10.1016/j.cviu.2010.01.011
+param colorMode specifies if (true) color is processed of not (false) to then processing gray
+level image
+(more log compression effect when value increases)
+the photoreceptors, use it to cut high temporal frequencies (noise or fast motion), unit is
+frames, typical value is 1 frame
+the photoreceptors, use it to cut high spatial frequencies (noise or thick contours), unit is
+pixels, typical value is 1 pixel
+the output is zero, if the parameter is near 1, then, the luminance is not filtered and is
+still reachable at the output, typicall value is 0
+horizontal cells, use it to cut low temporal frequencies (local luminance variations), unit is
+frames, typical value is 1 frame, as the photoreceptors
+horizontal cells, use it to cut low spatial frequencies (local luminance), unit is pixels,
+typical value is 5 pixel, this value is also used for local contrast computing when computing
+the local contrast adaptation at the ganglion cells level (Inner Plexiform Layer parvocellular
+channel model)
+output, set a value between 0.6 and 1 for best results, a high value increases more the low
+value sensitivity... and the output saturates faster, recommended value: 0.7
+</pre> 
 </div>
 </div>
 <a id="a486e1da3ea49bc6bc94a06976a7dbd22"></a>
@@ -1750,7 +2295,29 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Setup the OPL and IPL parvo channels (see biologocal model) </p><pre class="fragment">OPL is referred as Outer Plexiform Layer of the retina, it allows the spatio-temporal filtering
+which withens the spectrum and reduces spatio-temporal noise while attenuating global luminance
+(low frequency energy) IPL parvo is the OPL next processing stage, it refers to a part of the
+Inner Plexiform layer of the retina, it allows high contours sensitivity in foveal vision. See
+reference papers for more informations.
+for more informations, please have a look at the paper Benoit A., Caplier A., Durette B., Herault, J., "USING HUMAN VISUAL SYSTEM MODELING FOR BIO-INSPIRED LOW LEVEL IMAGE PROCESSING", Elsevier, Computer Vision and Image Understanding 114 (2010), pp. 758-773, DOI: http://dx.doi.org/10.1016/j.cviu.2010.01.011
+level image
+(more log compression effect when value increases)
+the photoreceptors, use it to cut high temporal frequencies (noise or fast motion), unit is
+frames, typical value is 1 frame
+the photoreceptors, use it to cut high spatial frequencies (noise or thick contours), unit is
+pixels, typical value is 1 pixel
+the output is zero, if the parameter is near 1, then, the luminance is not filtered and is
+still reachable at the output, typicall value is 0
+horizontal cells, use it to cut low temporal frequencies (local luminance variations), unit is
+frames, typical value is 1 frame, as the photoreceptors
+horizontal cells, use it to cut low spatial frequencies (local luminance), unit is pixels,
+typical value is 5 pixel, this value is also used for local contrast computing when computing
+the local contrast adaptation at the ganglion cells level (Inner Plexiform Layer parvocellular
+channel model)
+output, set a value between 0.6 and 1 for best results, a high value increases more the low
+value sensitivity... and the output saturates faster, recommended value: 0.7
+</pre> 
 </div>
 </div>
 <a id="a4d74a51802c0630e84a6241bbd8b79ad"></a>
@@ -1768,6 +2335,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Write xml/yml formated parameters information param fs the filename of the xml file that will be open and writen with formatted parameters information </p>
 
 </div>
 </div>
@@ -1777,7 +2345,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:10 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:09 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

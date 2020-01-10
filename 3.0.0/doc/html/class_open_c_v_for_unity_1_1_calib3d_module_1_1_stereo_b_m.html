@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -238,7 +238,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class for computing stereo correspondence using the block matching algorithm, introduced and contributed to OpenCV by K. Konolige. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a746a5d78e7731026a9d4c6457caed3b8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a746a5d78e7731026a9d4c6457caed3b8">&#9670;&nbsp;</a></span>StereoBM()</h2>
 
@@ -325,6 +327,17 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates <a class="el" href="class_open_c_v_for_unity_1_1_calib3d_module_1_1_stereo_b_m.html">StereoBM</a> object </p><pre class="fragment">param numDisparities the disparity search range. For each pixel algorithm will find the best
+disparity from 0 (default minimum disparity) to numDisparities. The search range can then be
+shifted by changing the minimum disparity.
+param blockSize the linear size of the blocks compared by the algorithm. The size should be odd
+(as the block is centered at the current pixel). Larger block size implies smoother, though less
+accurate disparity map. Smaller block size gives more detailed disparity map, but there is higher
+chance for algorithm to find a wrong correspondence.
+
+The function create StereoBM object. You can then call StereoBM::compute() to compute disparity for
+a specific stereo pair.
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -351,6 +364,16 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates <a class="el" href="class_open_c_v_for_unity_1_1_calib3d_module_1_1_stereo_b_m.html">StereoBM</a> object </p><pre class="fragment">param numDisparities the disparity search range. For each pixel algorithm will find the best
+disparity from 0 (default minimum disparity) to numDisparities. The search range can then be
+shifted by changing the minimum disparity.
+(as the block is centered at the current pixel). Larger block size implies smoother, though less
+accurate disparity map. Smaller block size gives more detailed disparity map, but there is higher
+chance for algorithm to find a wrong correspondence.
+
+The function create StereoBM object. You can then call StereoBM::compute() to compute disparity for
+a specific stereo pair.
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -376,6 +399,15 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates <a class="el" href="class_open_c_v_for_unity_1_1_calib3d_module_1_1_stereo_b_m.html">StereoBM</a> object </p><pre class="fragment">disparity from 0 (default minimum disparity) to numDisparities. The search range can then be
+shifted by changing the minimum disparity.
+(as the block is centered at the current pixel). Larger block size implies smoother, though less
+accurate disparity map. Smaller block size gives more detailed disparity map, but there is higher
+chance for algorithm to find a wrong correspondence.
+
+The function create StereoBM object. You can then call StereoBM::compute() to compute disparity for
+a specific stereo pair.
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -722,7 +754,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:10 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:10 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

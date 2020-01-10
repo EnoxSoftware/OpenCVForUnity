@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -161,7 +161,11 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Line segment detector class</p>
+<p>following the algorithm described at CITE: Rafael12 .</p>
+<p><b>Note:</b> Implementation has been removed due original code license conflict </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a390e837562d36fb772c88fa6b8038b94"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a390e837562d36fb772c88fa6b8038b94">&#9670;&nbsp;</a></span>LineSegmentDetector()</h2>
 
@@ -252,6 +256,12 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Draws two groups of lines in blue and red, counting the non overlapping (mismatching) pixels. </p><pre class="fragment">param size The size of the image, where lines1 and lines2 were found.
+param lines1 The first group of lines that needs to be drawn. It is visualized in blue color.
+param lines2 The second group of lines. They visualized in red color.
+param _image Optional image, where the lines will be drawn. The image should be color(3-channel)
+in order for lines1 and lines2 to be drawn in the above mentioned colors.
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -286,6 +296,11 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Draws two groups of lines in blue and red, counting the non overlapping (mismatching) pixels. </p><pre class="fragment">param size The size of the image, where lines1 and lines2 were found.
+param lines1 The first group of lines that needs to be drawn. It is visualized in blue color.
+param lines2 The second group of lines. They visualized in red color.
+in order for lines1 and lines2 to be drawn in the above mentioned colors.
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -332,6 +347,27 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Finds lines in the input image. </p><pre class="fragment">This is the output of the default parameters of the algorithm on the above shown image.
+
+![image](pics/building_lsd.png)
+
+param _image A grayscale (CV_8UC1) input image. If only a roi needs to be selected, use:
+{code lsd_ptr-&amp;gt;detect(image(roi), lines, ...); lines += Scalar(roi.x, roi.y, roi.x, roi.y);}
+param _lines A vector of Vec4i or Vec4f elements specifying the beginning and ending point of a line. Where
+Vec4i/Vec4f is (x1, y1, x2, y2), point 1 is the start, point 2 - end. Returned lines are strictly
+oriented depending on the gradient.
+param width Vector of widths of the regions, where the lines are found. E.g. Width of line.
+param prec Vector of precisions with which the lines are found.
+param nfa Vector containing number of false alarms in the line region, with precision of 10%. The
+bigger the value, logarithmically better the detection.
+</pre> <ul>
+<li>
+-1 corresponds to 10 mean false alarms  </li>
+<li>
+0 corresponds to 1 mean false alarm  </li>
+<li>
+1 corresponds to 0.1 mean false alarms This vector will be calculated only when the objects type is #LSD_REFINE_ADV.  </li>
+</ul>
 
 </div>
 </div>
@@ -372,6 +408,26 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Finds lines in the input image. </p><pre class="fragment">This is the output of the default parameters of the algorithm on the above shown image.
+
+![image](pics/building_lsd.png)
+
+param _image A grayscale (CV_8UC1) input image. If only a roi needs to be selected, use:
+{code lsd_ptr-&amp;gt;detect(image(roi), lines, ...); lines += Scalar(roi.x, roi.y, roi.x, roi.y);}
+param _lines A vector of Vec4i or Vec4f elements specifying the beginning and ending point of a line. Where
+Vec4i/Vec4f is (x1, y1, x2, y2), point 1 is the start, point 2 - end. Returned lines are strictly
+oriented depending on the gradient.
+param width Vector of widths of the regions, where the lines are found. E.g. Width of line.
+param prec Vector of precisions with which the lines are found.
+bigger the value, logarithmically better the detection.
+</pre> <ul>
+<li>
+-1 corresponds to 10 mean false alarms  </li>
+<li>
+0 corresponds to 1 mean false alarm  </li>
+<li>
+1 corresponds to 0.1 mean false alarms This vector will be calculated only when the objects type is #LSD_REFINE_ADV.  </li>
+</ul>
 
 </div>
 </div>
@@ -406,6 +462,25 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Finds lines in the input image. </p><pre class="fragment">This is the output of the default parameters of the algorithm on the above shown image.
+
+![image](pics/building_lsd.png)
+
+param _image A grayscale (CV_8UC1) input image. If only a roi needs to be selected, use:
+{code lsd_ptr-&amp;gt;detect(image(roi), lines, ...); lines += Scalar(roi.x, roi.y, roi.x, roi.y);}
+param _lines A vector of Vec4i or Vec4f elements specifying the beginning and ending point of a line. Where
+Vec4i/Vec4f is (x1, y1, x2, y2), point 1 is the start, point 2 - end. Returned lines are strictly
+oriented depending on the gradient.
+param width Vector of widths of the regions, where the lines are found. E.g. Width of line.
+bigger the value, logarithmically better the detection.
+</pre> <ul>
+<li>
+-1 corresponds to 10 mean false alarms  </li>
+<li>
+0 corresponds to 1 mean false alarm  </li>
+<li>
+1 corresponds to 0.1 mean false alarms This vector will be calculated only when the objects type is #LSD_REFINE_ADV.  </li>
+</ul>
 
 </div>
 </div>
@@ -434,6 +509,24 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Finds lines in the input image. </p><pre class="fragment">This is the output of the default parameters of the algorithm on the above shown image.
+
+![image](pics/building_lsd.png)
+
+param _image A grayscale (CV_8UC1) input image. If only a roi needs to be selected, use:
+{code lsd_ptr-&amp;gt;detect(image(roi), lines, ...); lines += Scalar(roi.x, roi.y, roi.x, roi.y);}
+param _lines A vector of Vec4i or Vec4f elements specifying the beginning and ending point of a line. Where
+Vec4i/Vec4f is (x1, y1, x2, y2), point 1 is the start, point 2 - end. Returned lines are strictly
+oriented depending on the gradient.
+bigger the value, logarithmically better the detection.
+</pre> <ul>
+<li>
+-1 corresponds to 10 mean false alarms  </li>
+<li>
+0 corresponds to 1 mean false alarm  </li>
+<li>
+1 corresponds to 0.1 mean false alarms This vector will be calculated only when the objects type is #LSD_REFINE_ADV.  </li>
+</ul>
 
 </div>
 </div>
@@ -490,6 +583,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Draws the line segments on a given image. param _image The image, where the lines will be drawn. Should be bigger or equal to the image, where the lines were found. param lines A vector of the lines that needed to be drawn. </p>
 
 </div>
 </div>
@@ -499,7 +593,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:12 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:14 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

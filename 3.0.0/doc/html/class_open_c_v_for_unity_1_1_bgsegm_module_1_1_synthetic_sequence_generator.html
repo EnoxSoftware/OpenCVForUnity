@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -151,7 +151,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Synthetic frame sequence generator for testing background subtraction algorithms.</p>
+<p>It will generate the moving object on top of the background. It will apply some distortion to the background to make the test more complex. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3e6ac90259496d14f735df79339efa1c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3e6ac90259496d14f735df79339efa1c">&#9670;&nbsp;</a></span>SyntheticSequenceGenerator() <span class="overload">[1/2]</span></h2>
 
@@ -227,6 +230,12 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Creates an instance of <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_synthetic_sequence_generator.html">SyntheticSequenceGenerator</a>. </p><pre class="fragment">param background Background image for object.
+param amplitude Amplitude of wave distortion applied to background.
+param wavelength Length of waves in distortion applied to background.
+param wavespeed How fast waves will move.
+param objspeed How fast object will fly over background.
+</pre><p> param _object automatically generated </p>
 
 </div>
 </div>
@@ -310,7 +319,9 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Obtain the next frame in the sequence. </p><pre class="fragment">param frame Output frame.
+param gtMask Output ground-truth (reference) segmentation mask object/background.
+</pre> 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -319,7 +330,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:10 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:09 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

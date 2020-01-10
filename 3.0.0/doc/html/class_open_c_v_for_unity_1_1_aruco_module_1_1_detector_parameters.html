@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -203,6 +203,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a93525dde533d983aa3d4a0bd2dd1c7d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bd5d3fa6cec3febbea433eae0f35d2e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_aruco_module_1_1_detector_parameters.html#a8bd5d3fa6cec3febbea433eae0f35d2e">set_aprilTagDeglitch</a> (int aprilTagDeglitch)</td></tr>
 <tr class="separator:a8bd5d3fa6cec3febbea433eae0f35d2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2c07a44c12d04f5ab0e2e46daa7377d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_aruco_module_1_1_detector_parameters.html#ac2c07a44c12d04f5ab0e2e46daa7377d">get_detectInvertedMarker</a> ()</td></tr>
+<tr class="separator:ac2c07a44c12d04f5ab0e2e46daa7377d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1768b6c29bbcd2dca2d9171660c65a0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_aruco_module_1_1_detector_parameters.html#a1768b6c29bbcd2dca2d9171660c65a0f">set_detectInvertedMarker</a> (bool detectInvertedMarker)</td></tr>
+<tr class="separator:a1768b6c29bbcd2dca2d9171660c65a0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
 <tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
 <tr class="separator:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -245,7 +249,39 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Parameters for the detectMarker process:</p><ul>
+<li>adaptiveThreshWinSizeMin: minimum window size for adaptive thresholding before finding contours (default 3).</li>
+<li>adaptiveThreshWinSizeMax: maximum window size for adaptive thresholding before finding contours (default 23).</li>
+<li>adaptiveThreshWinSizeStep: increments from adaptiveThreshWinSizeMin to adaptiveThreshWinSizeMax during the thresholding (default 10).</li>
+<li>adaptiveThreshConstant: constant for adaptive thresholding before finding contours (default 7)</li>
+<li>minMarkerPerimeterRate: determine minimum perimeter for marker contour to be detected. This is defined as a rate respect to the maximum dimension of the input image (default 0.03).</li>
+<li>maxMarkerPerimeterRate: determine maximum perimeter for marker contour to be detected. This is defined as a rate respect to the maximum dimension of the input image (default 4.0).</li>
+<li>polygonalApproxAccuracyRate: minimum accuracy during the polygonal approximation process to determine which contours are squares.</li>
+<li>minCornerDistanceRate: minimum distance between corners for detected markers relative to its perimeter (default 0.05)</li>
+<li>minDistanceToBorder: minimum distance of any corner to the image border for detected markers (in pixels) (default 3)</li>
+<li>minMarkerDistanceRate: minimum mean distance beetween two marker corners to be considered similar, so that the smaller one is removed. The rate is relative to the smaller perimeter of the two markers (default 0.05).</li>
+<li>cornerRefinementMethod: corner refinement method. (CORNER_REFINE_NONE, no refinement. CORNER_REFINE_SUBPIX, do subpixel refinement. CORNER_REFINE_CONTOUR use contour-Points, CORNER_REFINE_APRILTAG use the AprilTag2 approach)</li>
+<li>cornerRefinementWinSize: window size for the corner refinement process (in pixels) (default 5).</li>
+<li>cornerRefinementMaxIterations: maximum number of iterations for stop criteria of the corner refinement process (default 30).</li>
+<li>cornerRefinementMinAccuracy: minimum error for the stop cristeria of the corner refinement process (default: 0.1)</li>
+<li>markerBorderBits: number of bits of the marker border, i.e. marker border width (default 1).</li>
+<li>perspectiveRemovePixelPerCell: number of bits (per dimension) for each cell of the marker when removing the perspective (default 8).</li>
+<li>perspectiveRemoveIgnoredMarginPerCell: width of the margin of pixels on each cell not considered for the determination of the cell bit. Represents the rate respect to the total size of the cell, i.e. perspectiveRemovePixelPerCell (default 0.13)</li>
+<li>maxErroneousBitsInBorderRate: maximum number of accepted erroneous bits in the border (i.e. number of allowed white bits in the border). Represented as a rate respect to the total number of bits per marker (default 0.35).</li>
+<li>minOtsuStdDev: minimun standard deviation in pixels values during the decodification step to apply Otsu thresholding (otherwise, all the bits are set to 0 or 1 depending on mean higher than 128 or not) (default 5.0)</li>
+<li>errorCorrectionRate error correction rate respect to the maximun error correction capability for each dictionary. (default 0.6).</li>
+<li>aprilTagMinClusterPixels: reject quads containing too few pixels.</li>
+<li>aprilTagMaxNmaxima: how many corner candidates to consider when segmenting a group of pixels into a quad.</li>
+<li>aprilTagCriticalRad: Reject quads where pairs of edges have angles that are close to straight or close to 180 degrees. Zero means that no quads are rejected. (In radians).</li>
+<li>aprilTagMaxLineFitMse: When fitting lines to the contours, what is the maximum mean squared error allowed? This is useful in rejecting contours that are far from being quad shaped; rejecting these quads "early" saves expensive decoding processing.</li>
+<li>aprilTagMinWhiteBlackDiff: When we build our model of black &amp; white pixels, we add an extra check that the white model must be (overall) brighter than the black model. How much brighter? (in pixel values, [0,255]).</li>
+<li>aprilTagDeglitch: should the thresholded image be deglitched? Only useful for very noisy images</li>
+<li>aprilTagQuadDecimate: Detection of quads can be done on a lower-resolution image, improving speed at a cost of pose accuracy and a slight decrease in detection rate. Decoding the binary payload is still done at full resolution.</li>
+<li>aprilTagQuadSigma: What Gaussian blur should be applied to the segmented image (used for quad detection?) Parameter is the standard deviation in pixels. Very noisy images benefit from non-zero values (e.g. 0.8).</li>
+<li>detectInvertedMarker: to check if there is a white marker. In order to generate a "white" marker just invert a normal marker by using a tilde, ~markerImage. (default false) </li>
+</ul>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4fb2602213b946476977642685888b2b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4fb2602213b946476977642685888b2b">&#9670;&nbsp;</a></span>DetectorParameters()</h2>
 
@@ -615,6 +651,23 @@ Additional Inherited Members</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">int OpenCVForUnity.ArucoModule.DetectorParameters.get_cornerRefinementWinSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac2c07a44c12d04f5ab0e2e46daa7377d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2c07a44c12d04f5ab0e2e46daa7377d">&#9670;&nbsp;</a></span>get_detectInvertedMarker()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.ArucoModule.DetectorParameters.get_detectInvertedMarker </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1133,6 +1186,24 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a1768b6c29bbcd2dca2d9171660c65a0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1768b6c29bbcd2dca2d9171660c65a0f">&#9670;&nbsp;</a></span>set_detectInvertedMarker()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.ArucoModule.DetectorParameters.set_detectInvertedMarker </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>detectInvertedMarker</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a92827d267416b2feb40abd1e9d09ba37"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a92827d267416b2feb40abd1e9d09ba37">&#9670;&nbsp;</a></span>set_errorCorrectionRate()</h2>
 
@@ -1355,7 +1426,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:10 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:09 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

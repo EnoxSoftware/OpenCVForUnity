@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -187,7 +187,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Variational optical flow refinement</p>
+<p>This class implements variational refinement of the input flow field, i.e. it uses input flow to initialize the minimization of the following functional: (E(U) = \int_{\Omega} \delta \Psi(E_I) + \gamma \Psi(E_G) + \alpha \Psi(E_S) ), where (E_I,E_G,E_S) are color constancy, gradient constancy and smoothness terms respectively. (\Psi(s^2)=\sqrt{s^2+\epsilon^2}) is a robust penalizer to limit the influence of outliers. A complete formulation and a description of the minimization procedure can be found in CITE: Brox2004 </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3ff0120b75bd4dc4557f78aec9787761"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3ff0120b75bd4dc4557f78aec9787761">&#9670;&nbsp;</a></span>VariationalRefinement()</h2>
 
@@ -278,6 +281,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>REF: calc function overload to handle separate horizontal (u) and vertical (v) flow components (to avoid extra splits/merges) param I0 automatically generated param I1 automatically generated param flow_u automatically generated param flow_v automatically generated </p>
 
 </div>
 </div>
@@ -303,6 +307,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates an instance of <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_variational_refinement.html">VariationalRefinement</a> return automatically generated </p>
 
 </div>
 </div>
@@ -348,6 +353,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weight of the smoothness term SEE: setAlpha return automatically generated </p>
 
 </div>
 </div>
@@ -365,6 +371,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weight of the color constancy term SEE: setDelta return automatically generated </p>
 
 </div>
 </div>
@@ -382,6 +389,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Number of outer (fixed-point) iterations in the minimization procedure. SEE: setFixedPointIterations return automatically generated </p>
 
 </div>
 </div>
@@ -399,6 +407,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weight of the gradient constancy term SEE: setGamma return automatically generated </p>
 
 </div>
 </div>
@@ -416,6 +425,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Relaxation factor in SOR SEE: setOmega return automatically generated </p>
 
 </div>
 </div>
@@ -433,6 +443,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Number of inner successive over-relaxation (SOR) iterations in the minimization procedure to solve the respective linear system. SEE: setSorIterations return automatically generated </p>
 
 </div>
 </div>
@@ -451,6 +462,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getAlpha SEE: getAlpha param val automatically generated </p>
 
 </div>
 </div>
@@ -469,6 +481,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getDelta SEE: getDelta param val automatically generated </p>
 
 </div>
 </div>
@@ -487,6 +500,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getFixedPointIterations SEE: getFixedPointIterations param val automatically generated </p>
 
 </div>
 </div>
@@ -505,6 +519,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getGamma SEE: getGamma param val automatically generated </p>
 
 </div>
 </div>
@@ -523,6 +538,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getOmega SEE: getOmega param val automatically generated </p>
 
 </div>
 </div>
@@ -541,6 +557,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getSorIterations SEE: getSorIterations param val automatically generated </p>
 
 </div>
 </div>
@@ -550,7 +567,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:13 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:17 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

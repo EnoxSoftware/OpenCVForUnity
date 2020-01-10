@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -187,7 +187,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Base class for statistical models in OpenCV ML. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a5de72e86c1f9772fae2252c2e7a13cd2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5de72e86c1f9772fae2252c2e7a13cd2">&#9670;&nbsp;</a></span>StatModel()</h2>
 
@@ -272,6 +274,17 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Computes error on the training or test dataset </p><pre class="fragment">param data the training data
+param test if true, the error is computed over the test subset of the data, otherwise it's
+    computed over the training subset of the data. Please note that if you loaded a completely
+    different dataset to evaluate already trained classifier, you will probably want not to set
+    the test subset at all with TrainData::setTrainTestSplitRatio and specify test=false, so
+    that the error is computed for the whole new set. Yes, this sounds a bit confusing.
+param resp the optional output responses.
+
+The method uses StatModel::predict to compute the error. For regression models the error is
+computed as RMS, for classifiers - as a percent of missclassified samples (0%-100%).
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -327,6 +340,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns true if the Algorithm is empty (e.g. in the very beginning or after unsuccessful read return automatically generated </p>
 
 <p>Reimplemented from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86154915a2c596ce62de420e4f7a8d7b">OpenCVForUnity.CoreModule.Algorithm</a>.</p>
 
@@ -346,6 +360,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the number of variables in training samples return automatically generated </p>
 
 </div>
 </div>
@@ -363,6 +378,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns true if the model is classifier return automatically generated </p>
 
 </div>
 </div>
@@ -380,6 +396,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns true if the model is trained return automatically generated </p>
 
 </div>
 </div>
@@ -422,6 +439,10 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Predicts response(s) for the provided sample(s) </p><pre class="fragment">param samples The input samples, floating-point matrix
+param results The optional output matrix of results.
+param flags The optional flags, model-dependent. See cv::ml::StatModel::Flags.
+</pre><p> return automatically generated </p>
 
 <p>Reimplemented in <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_e_m.html#a1156d67a188788c4c287ea58ff9cae60">OpenCVForUnity.MlModule.EM</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_logistic_regression.html#a65c403928a34ba951832cd142d670578">OpenCVForUnity.MlModule.LogisticRegression</a>.</p>
 
@@ -460,6 +481,9 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Predicts response(s) for the provided sample(s) </p><pre class="fragment">param samples The input samples, floating-point matrix
+param results The optional output matrix of results.
+</pre><p> return automatically generated </p>
 
 <p>Reimplemented in <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_e_m.html#afa0a8d65b51b77c1fd09b2e03e65452d">OpenCVForUnity.MlModule.EM</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_logistic_regression.html#abd01a13ab2f4f0c946f8525b3ad7016d">OpenCVForUnity.MlModule.LogisticRegression</a>.</p>
 
@@ -488,6 +512,8 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Predicts response(s) for the provided sample(s) </p><pre class="fragment">param samples The input samples, floating-point matrix
+</pre><p> return automatically generated </p>
 
 <p>Reimplemented in <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_e_m.html#a00698a85ccfb55cb1385060b393efa89">OpenCVForUnity.MlModule.EM</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_logistic_regression.html#af7c1031f529b3aa761914872aa762ed6">OpenCVForUnity.MlModule.LogisticRegression</a>.</p>
 
@@ -524,6 +550,10 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Trains the statistical model </p><pre class="fragment">param samples training samples
+param layout See ml::SampleTypes.
+param responses vector of responses associated with the training samples.
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -552,6 +582,11 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Trains the statistical model </p><pre class="fragment">param trainData training data that can be loaded from file using TrainData::loadFromCSV or
+    created with TrainData::create.
+param flags optional flags, depending on the model. Some of the models can be updated with the
+    new training samples, not completely overwritten (such as NormalBayesClassifier or ANN_MLP).
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -570,6 +605,10 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Trains the statistical model </p><pre class="fragment">param trainData training data that can be loaded from file using TrainData::loadFromCSV or
+    created with TrainData::create.
+    new training samples, not completely overwritten (such as NormalBayesClassifier or ANN_MLP).
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -636,7 +675,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:12 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:14 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

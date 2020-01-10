@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -168,6 +168,9 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Draws keypoints.</p>
+<p>param image Source image. param keypoints Keypoints from the source image. param outImage Output image. Its content depends on the flags value defining what is drawn in the output image. See possible flags bit values below. param color Color of keypoints. param flags Flags setting drawing features. Possible flags bit values are defined by DrawMatchesFlags. See details above in drawMatches .</p>
+<p><b>Note:</b> For Python API, flags are modified as cv.DRAW_MATCHES_FLAGS_DEFAULT, cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS, cv.DRAW_MATCHES_FLAGS_DRAW_OVER_OUTIMG, cv.DRAW_MATCHES_FLAGS_NOT_DRAW_SINGLE_POINTS </p>
 
 </div>
 </div>
@@ -216,6 +219,9 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Draws keypoints.</p>
+<p>param image Source image. param keypoints Keypoints from the source image. param outImage Output image. Its content depends on the flags value defining what is drawn in the output image. See possible flags bit values below. param color Color of keypoints. DrawMatchesFlags. See details above in drawMatches .</p>
+<p><b>Note:</b> For Python API, flags are modified as cv.DRAW_MATCHES_FLAGS_DEFAULT, cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS, cv.DRAW_MATCHES_FLAGS_DRAW_OVER_OUTIMG, cv.DRAW_MATCHES_FLAGS_NOT_DRAW_SINGLE_POINTS </p>
 
 </div>
 </div>
@@ -258,6 +264,9 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Draws keypoints.</p>
+<p>param image Source image. param keypoints Keypoints from the source image. param outImage Output image. Its content depends on the flags value defining what is drawn in the output image. See possible flags bit values below. DrawMatchesFlags. See details above in drawMatches .</p>
+<p><b>Note:</b> For Python API, flags are modified as cv.DRAW_MATCHES_FLAGS_DEFAULT, cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS, cv.DRAW_MATCHES_FLAGS_DRAW_OVER_OUTIMG, cv.DRAW_MATCHES_FLAGS_NOT_DRAW_SINGLE_POINTS </p>
 
 </div>
 </div>
@@ -342,6 +351,9 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Draws the found matches of keypoints from two images.</p>
+<p>param img1 First source image. param keypoints1 Keypoints from the first source image. param img2 Second source image. param keypoints2 Keypoints from the second source image. param matches1to2 Matches from the first image to the second one, which means that keypoints1[i] has a corresponding point in keypoints2[matches[i]] . param outImg Output image. Its content depends on the flags value defining what is drawn in the output image. See possible flags bit values below. param matchColor Color of matches (lines and connected keypoints). If matchColor==Scalar::all(-1) , the color is generated randomly. param singlePointColor Color of single keypoints (circles), which means that keypoints do not have the matches. If singlePointColor==Scalar::all(-1) , the color is generated randomly. param matchesMask Mask determining which matches are drawn. If the mask is empty, all matches are drawn. param flags Flags setting drawing features. Possible flags bit values are defined by DrawMatchesFlags.</p>
+<p>This function draws matches of keypoints from two images in the output image. Match is a line connecting two keypoints (circles). See cv::DrawMatchesFlags. </p>
 
 </div>
 </div>
@@ -420,6 +432,9 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Draws the found matches of keypoints from two images.</p>
+<p>param img1 First source image. param keypoints1 Keypoints from the first source image. param img2 Second source image. param keypoints2 Keypoints from the second source image. param matches1to2 Matches from the first image to the second one, which means that keypoints1[i] has a corresponding point in keypoints2[matches[i]] . param outImg Output image. Its content depends on the flags value defining what is drawn in the output image. See possible flags bit values below. param matchColor Color of matches (lines and connected keypoints). If matchColor==Scalar::all(-1) , the color is generated randomly. param singlePointColor Color of single keypoints (circles), which means that keypoints do not have the matches. If singlePointColor==Scalar::all(-1) , the color is generated randomly. param matchesMask Mask determining which matches are drawn. If the mask is empty, all matches are drawn. DrawMatchesFlags.</p>
+<p>This function draws matches of keypoints from two images in the output image. Match is a line connecting two keypoints (circles). See cv::DrawMatchesFlags. </p>
 
 </div>
 </div>
@@ -492,6 +507,9 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Draws the found matches of keypoints from two images.</p>
+<p>param img1 First source image. param keypoints1 Keypoints from the first source image. param img2 Second source image. param keypoints2 Keypoints from the second source image. param matches1to2 Matches from the first image to the second one, which means that keypoints1[i] has a corresponding point in keypoints2[matches[i]] . param outImg Output image. Its content depends on the flags value defining what is drawn in the output image. See possible flags bit values below. param matchColor Color of matches (lines and connected keypoints). If matchColor==Scalar::all(-1) , the color is generated randomly. param singlePointColor Color of single keypoints (circles), which means that keypoints do not have the matches. If singlePointColor==Scalar::all(-1) , the color is generated randomly. drawn. DrawMatchesFlags.</p>
+<p>This function draws matches of keypoints from two images in the output image. Match is a line connecting two keypoints (circles). See cv::DrawMatchesFlags. </p>
 
 </div>
 </div>
@@ -558,6 +576,9 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Draws the found matches of keypoints from two images.</p>
+<p>param img1 First source image. param keypoints1 Keypoints from the first source image. param img2 Second source image. param keypoints2 Keypoints from the second source image. param matches1to2 Matches from the first image to the second one, which means that keypoints1[i] has a corresponding point in keypoints2[matches[i]] . param outImg Output image. Its content depends on the flags value defining what is drawn in the output image. See possible flags bit values below. param matchColor Color of matches (lines and connected keypoints). If matchColor==Scalar::all(-1) , the color is generated randomly. have the matches. If singlePointColor==Scalar::all(-1) , the color is generated randomly. drawn. DrawMatchesFlags.</p>
+<p>This function draws matches of keypoints from two images in the output image. Match is a line connecting two keypoints (circles). See cv::DrawMatchesFlags. </p>
 
 </div>
 </div>
@@ -618,6 +639,9 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Draws the found matches of keypoints from two images.</p>
+<p>param img1 First source image. param keypoints1 Keypoints from the first source image. param img2 Second source image. param keypoints2 Keypoints from the second source image. param matches1to2 Matches from the first image to the second one, which means that keypoints1[i] has a corresponding point in keypoints2[matches[i]] . param outImg Output image. Its content depends on the flags value defining what is drawn in the output image. See possible flags bit values below. , the color is generated randomly. have the matches. If singlePointColor==Scalar::all(-1) , the color is generated randomly. drawn. DrawMatchesFlags.</p>
+<p>This function draws matches of keypoints from two images in the output image. Match is a line connecting two keypoints (circles). See cv::DrawMatchesFlags. </p>
 
 </div>
 </div>
@@ -1044,7 +1068,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:12 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:13 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

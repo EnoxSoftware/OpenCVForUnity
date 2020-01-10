@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -158,6 +158,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:acea447fa3166d7cf30519c38e46f68b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0345ef9c0fefeca0b42564ceab5d14c"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_k_nearest.html">KNearest</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_k_nearest.html#ad0345ef9c0fefeca0b42564ceab5d14c">create</a> ()</td></tr>
 <tr class="separator:ad0345ef9c0fefeca0b42564ceab5d14c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad000c2f4c5a961d2197c3702aa28e3a1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_k_nearest.html">KNearest</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_k_nearest.html#ad000c2f4c5a961d2197c3702aa28e3a1">load</a> (string filepath)</td></tr>
+<tr class="separator:ad000c2f4c5a961d2197c3702aa28e3a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html">OpenCVForUnity.MlModule.StatModel</a></td></tr>
 <tr class="memitem:a21a47cca4cebb93a54cc8707f12352a6 inherit pub_static_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html">StatModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a21a47cca4cebb93a54cc8707f12352a6">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:a21a47cca4cebb93a54cc8707f12352a6 inherit pub_static_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -218,7 +220,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The class implements K-Nearest Neighbors model</p>
+<p>SEE: REF: ml_intro_knn </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3a5898b89153f43bc41f94c8d956a2d7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3a5898b89153f43bc41f94c8d956a2d7">&#9670;&nbsp;</a></span>KNearest()</h2>
 
@@ -294,6 +299,8 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates the empty model </p><pre class="fragment">The static method creates empty %KNearest classifier. It should be then trained using StatModel::train method.
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -368,6 +375,30 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Finds the neighbors and predicts responses for input vectors. </p><pre class="fragment">param samples Input samples stored by rows. It is a single-precision floating-point matrix of
+    {code &amp;lt;number_of_samples&amp;gt; * k} size.
+param k Number of used nearest neighbors. Should be greater than 1.
+param results Vector with results of prediction (regression or classification) for each input
+    sample. It is a single-precision floating-point vector with {code &amp;lt;number_of_samples&amp;gt;} elements.
+param neighborResponses Optional output values for corresponding neighbors. It is a single-
+    precision floating-point matrix of {code &amp;lt;number_of_samples&amp;gt; * k} size.
+param dist Optional output distances from the input vectors to the corresponding neighbors. It
+    is a single-precision floating-point matrix of {code &amp;lt;number_of_samples&amp;gt; * k} size.
+
+For each input vector (a row of the matrix samples), the method finds the k nearest neighbors.
+In case of regression, the predicted result is a mean value of the particular vector's neighbor
+responses. In case of classification, the class is determined by voting.
+
+For each input vector, the neighbors are sorted by their distances to the vector.
+
+In case of C++ interface you can use output pointers to empty matrices and the function will
+allocate memory itself.
+
+If only a single input vector is passed, all output matrices are optional and the predicted
+value is returned by the method.
+
+The function is parallelized with the TBB library.
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -408,6 +439,29 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Finds the neighbors and predicts responses for input vectors. </p><pre class="fragment">param samples Input samples stored by rows. It is a single-precision floating-point matrix of
+    {code &amp;lt;number_of_samples&amp;gt; * k} size.
+param k Number of used nearest neighbors. Should be greater than 1.
+param results Vector with results of prediction (regression or classification) for each input
+    sample. It is a single-precision floating-point vector with {code &amp;lt;number_of_samples&amp;gt;} elements.
+param neighborResponses Optional output values for corresponding neighbors. It is a single-
+    precision floating-point matrix of {code &amp;lt;number_of_samples&amp;gt; * k} size.
+    is a single-precision floating-point matrix of {code &amp;lt;number_of_samples&amp;gt; * k} size.
+
+For each input vector (a row of the matrix samples), the method finds the k nearest neighbors.
+In case of regression, the predicted result is a mean value of the particular vector's neighbor
+responses. In case of classification, the class is determined by voting.
+
+For each input vector, the neighbors are sorted by their distances to the vector.
+
+In case of C++ interface you can use output pointers to empty matrices and the function will
+allocate memory itself.
+
+If only a single input vector is passed, all output matrices are optional and the predicted
+value is returned by the method.
+
+The function is parallelized with the TBB library.
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -442,6 +496,28 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Finds the neighbors and predicts responses for input vectors. </p><pre class="fragment">param samples Input samples stored by rows. It is a single-precision floating-point matrix of
+    {code &amp;lt;number_of_samples&amp;gt; * k} size.
+param k Number of used nearest neighbors. Should be greater than 1.
+param results Vector with results of prediction (regression or classification) for each input
+    sample. It is a single-precision floating-point vector with {code &amp;lt;number_of_samples&amp;gt;} elements.
+    precision floating-point matrix of {code &amp;lt;number_of_samples&amp;gt; * k} size.
+    is a single-precision floating-point matrix of {code &amp;lt;number_of_samples&amp;gt; * k} size.
+
+For each input vector (a row of the matrix samples), the method finds the k nearest neighbors.
+In case of regression, the predicted result is a mean value of the particular vector's neighbor
+responses. In case of classification, the class is determined by voting.
+
+For each input vector, the neighbors are sorted by their distances to the vector.
+
+In case of C++ interface you can use output pointers to empty matrices and the function will
+allocate memory itself.
+
+If only a single input vector is passed, all output matrices are optional and the predicted
+value is returned by the method.
+
+The function is parallelized with the TBB library.
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -459,6 +535,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setAlgorithmType return automatically generated </p>
 
 </div>
 </div>
@@ -476,6 +553,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setDefaultK return automatically generated </p>
 
 </div>
 </div>
@@ -493,6 +571,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setEmax return automatically generated </p>
 
 </div>
 </div>
@@ -510,6 +589,36 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setIsClassifier return automatically generated </p>
+
+</div>
+</div>
+<a id="ad000c2f4c5a961d2197c3702aa28e3a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad000c2f4c5a961d2197c3702aa28e3a1">&#9670;&nbsp;</a></span>load()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_k_nearest.html">KNearest</a> OpenCVForUnity.MlModule.KNearest.load </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>filepath</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Loads and creates a serialized knearest from a file</p>
+<p>Use <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#af4c0ad9f8fd5975a8dbf9209115495db">KNearest::save</a> to serialize and store an <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_k_nearest.html">KNearest</a> to disk. Load the <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_k_nearest.html">KNearest</a> from this file again, by calling this function with the path to the file.</p>
+<p>param filepath path to serialized <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_k_nearest.html">KNearest</a> return automatically generated </p>
 
 </div>
 </div>
@@ -528,6 +637,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getAlgorithmType SEE: getAlgorithmType param val automatically generated </p>
 
 </div>
 </div>
@@ -546,6 +656,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getDefaultK SEE: getDefaultK param val automatically generated </p>
 
 </div>
 </div>
@@ -564,6 +675,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getEmax SEE: getEmax param val automatically generated </p>
 
 </div>
 </div>
@@ -582,6 +694,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getIsClassifier SEE: getIsClassifier param val automatically generated </p>
 
 </div>
 </div>
@@ -620,7 +733,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:12 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:14 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

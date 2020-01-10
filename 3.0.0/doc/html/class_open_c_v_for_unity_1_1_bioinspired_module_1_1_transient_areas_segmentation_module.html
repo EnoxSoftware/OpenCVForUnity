@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -169,7 +169,18 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>class which provides a transient/moving areas segmentation module</p>
+<p>perform a locally adapted segmentation by using the retina magno input data Based on Alexandre BENOIT thesis: "Le système visuel humain au secours de la vision par ordinateur"</p>
+<p>3 spatio temporal filters are used: </p><ul>
+<li>
+a first one which filters the noise and local variations of the input motion energy  </li>
+<li>
+a second (more powerfull low pass spatial filter) which gives the neighborhood motion energy the segmentation consists in the comparison of these both outputs, if the local motion energy is higher to the neighborhood otion energy, then the area is considered as moving and is segmented  </li>
+<li>
+a stronger third low pass filter helps decision by providing a smooth information about the "motion context" in a wider area  </li>
+</ul>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1a004dfc0724b20ec8021891dee2eb06"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1a004dfc0724b20ec8021891dee2eb06">&#9670;&nbsp;</a></span>TransientAreasSegmentationModule()</h2>
 
@@ -237,6 +248,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>cleans all the buffers of the instance </p>
 
 </div>
 </div>
@@ -263,6 +275,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>allocator param inputSize : size of the images input to segment (output will be the same size) return automatically generated </p>
 
 </div>
 </div>
@@ -309,6 +322,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>access function return the last segmentation result: a boolean picture which is resampled between 0 and 255 for a display purpose param transientAreas automatically generated </p>
 
 </div>
 </div>
@@ -326,6 +340,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>return the sze of the manage input and output images return automatically generated </p>
 
 </div>
 </div>
@@ -343,6 +358,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>parameters setup display method return a string which contains formatted parameters information </p>
 
 </div>
 </div>
@@ -371,6 +387,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>main processing method, get result using methods <a class="el" href="class_open_c_v_for_unity_1_1_bioinspired_module_1_1_transient_areas_segmentation_module.html#aef45e3fad52977ba08f80979e82f1b38">getSegmentationPicture()</a> param inputToSegment : the image to process, it must match the instance buffer size ! param channelIndex : the channel to process in case of multichannel images </p>
 
 </div>
 </div>
@@ -389,6 +406,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>main processing method, get result using methods <a class="el" href="class_open_c_v_for_unity_1_1_bioinspired_module_1_1_transient_areas_segmentation_module.html#aef45e3fad52977ba08f80979e82f1b38">getSegmentationPicture()</a> param inputToSegment : the image to process, it must match the instance buffer size ! </p>
 
 </div>
 </div>
@@ -417,6 +435,13 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>try to open an XML segmentation parameters file to adjust current segmentation instance setup</p>
+<ul>
+<li>
+if the xml file does not exist, then default setup is applied  </li>
+<li>
+warning, Exceptions are thrown if read XML file is not valid param segmentationParameterFile : the parameters filename param applyDefaultSetupOnFailure : set to true if an error must be thrown on error  </li>
+</ul>
 
 </div>
 </div>
@@ -435,6 +460,13 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>try to open an XML segmentation parameters file to adjust current segmentation instance setup</p>
+<ul>
+<li>
+if the xml file does not exist, then default setup is applied  </li>
+<li>
+warning, Exceptions are thrown if read XML file is not valid param segmentationParameterFile : the parameters filename  </li>
+</ul>
 
 </div>
 </div>
@@ -452,6 +484,13 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>try to open an XML segmentation parameters file to adjust current segmentation instance setup</p>
+<ul>
+<li>
+if the xml file does not exist, then default setup is applied  </li>
+<li>
+warning, Exceptions are thrown if read XML file is not valid  </li>
+</ul>
 
 </div>
 </div>
@@ -470,6 +509,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>write xml/yml formated parameters information param fs : the filename of the xml file that will be open and writen with formatted parameters information </p>
 
 </div>
 </div>
@@ -479,7 +519,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:10 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:09 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

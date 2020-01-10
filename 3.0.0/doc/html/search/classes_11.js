@@ -1,6 +1,7 @@
 var searchData=
 [
   ['scalar',['Scalar',['../class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html',1,'OpenCVForUnity::CoreModule']]],
+  ['segmentationmodel',['SegmentationModel',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_segmentation_model.html',1,'OpenCVForUnity::DnnModule']]],
   ['selectivesearchsegmentation',['SelectiveSearchSegmentation',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_selective_search_segmentation.html',1,'OpenCVForUnity::XimgprocModule']]],
   ['selectivesearchsegmentationstrategy',['SelectiveSearchSegmentationStrategy',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_selective_search_segmentation_strategy.html',1,'OpenCVForUnity::XimgprocModule']]],
   ['selectivesearchsegmentationstrategycolor',['SelectiveSearchSegmentationStrategyColor',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_selective_search_segmentation_strategy_color.html',1,'OpenCVForUnity::XimgprocModule']]],

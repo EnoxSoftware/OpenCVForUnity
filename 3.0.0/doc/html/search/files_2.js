@@ -8,6 +8,7 @@ var searchData=
   ['cascadeclassifier_2ecs',['CascadeClassifier.cs',['../_cascade_classifier_8cs.html',1,'']]],
   ['charucoboard_2ecs',['CharucoBoard.cs',['../_charuco_board_8cs.html',1,'']]],
   ['clahe_2ecs',['CLAHE.cs',['../_c_l_a_h_e_8cs.html',1,'']]],
+  ['classificationmodel_2ecs',['ClassificationModel.cs',['../_classification_model_8cs.html',1,'']]],
   ['classifiercallback_2ecs',['ClassifierCallback.cs',['../_classifier_callback_8cs.html',1,'']]],
   ['colormomenthash_2ecs',['ColorMomentHash.cs',['../_color_moment_hash_8cs.html',1,'']]],
   ['contourfitting_2ecs',['ContourFitting.cs',['../_contour_fitting_8cs.html',1,'']]],

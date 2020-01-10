@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -234,7 +234,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Brute-force descriptor matcher.</p>
+<p>For each descriptor in the first set, this matcher finds the closest descriptor in the second set by trying each one. This descriptor matcher supports masking permissible matches of descriptor sets. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a6c22a6b870014f3559efbc659b8d30f7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6c22a6b870014f3559efbc659b8d30f7">&#9670;&nbsp;</a></span>BFMatcher() <span class="overload">[1/4]</span></h2>
 
@@ -286,6 +289,8 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Brute-force matcher constructor (obsolete). Please use <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_b_f_matcher.html#a3072addcc2dda0bf5a3f877593c45aeb">BFMatcher.create()</a></p>
+<p>param normType automatically generated param crossCheck automatically generated </p>
 
 </div>
 </div>
@@ -304,6 +309,8 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Brute-force matcher constructor (obsolete). Please use <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_b_f_matcher.html#a3072addcc2dda0bf5a3f877593c45aeb">BFMatcher.create()</a></p>
+<p>param normType automatically generated </p>
 
 </div>
 </div>
@@ -321,6 +328,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Brute-force matcher constructor (obsolete). Please use <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_b_f_matcher.html#a3072addcc2dda0bf5a3f877593c45aeb">BFMatcher.create()</a> </p>
 
 </div>
 </div>
@@ -384,6 +392,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Brute-force matcher create method. param normType One of NORM_L1, NORM_L2, NORM_HAMMING, NORM_HAMMING2. L1 and L2 norms are preferable choices for SIFT and SURF descriptors, NORM_HAMMING should be used with <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_o_r_b.html">ORB</a>, <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_b_r_i_s_k.html">BRISK</a> and BRIEF, NORM_HAMMING2 should be used with <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_o_r_b.html">ORB</a> when WTA_K==3 or 4 (see <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_o_r_b.html#ad150a8cc82cb39b8e278754822dfae9e">ORB::ORB</a> constructor description). param crossCheck If it is false, this is will be default <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_b_f_matcher.html">BFMatcher</a> behaviour when it finds the k nearest neighbors for each query descriptor. If crossCheck==true, then the <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_descriptor_matcher.html#ad5c5d51f8c4b5dbf59dea98a061b43ec">knnMatch()</a> method with k=1 will only return pairs (i,j) such that for i-th query descriptor the j-th descriptor in the matcher's collection is the nearest and vice versa, i.e. the <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_b_f_matcher.html">BFMatcher</a> will only return consistent pairs. Such technique usually produces best results with minimal number of outliers when there are enough matches. This is alternative to the ratio test, used by D. Lowe in SIFT paper. return automatically generated </p>
 
 </div>
 </div>
@@ -410,6 +419,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Brute-force matcher create method. param normType One of NORM_L1, NORM_L2, NORM_HAMMING, NORM_HAMMING2. L1 and L2 norms are preferable choices for SIFT and SURF descriptors, NORM_HAMMING should be used with <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_o_r_b.html">ORB</a>, <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_b_r_i_s_k.html">BRISK</a> and BRIEF, NORM_HAMMING2 should be used with <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_o_r_b.html">ORB</a> when WTA_K==3 or 4 (see <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_o_r_b.html#ad150a8cc82cb39b8e278754822dfae9e">ORB::ORB</a> constructor description). nearest neighbors for each query descriptor. If crossCheck==true, then the <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_descriptor_matcher.html#ad5c5d51f8c4b5dbf59dea98a061b43ec">knnMatch()</a> method with k=1 will only return pairs (i,j) such that for i-th query descriptor the j-th descriptor in the matcher's collection is the nearest and vice versa, i.e. the <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_b_f_matcher.html">BFMatcher</a> will only return consistent pairs. Such technique usually produces best results with minimal number of outliers when there are enough matches. This is alternative to the ratio test, used by D. Lowe in SIFT paper. return automatically generated </p>
 
 </div>
 </div>
@@ -435,6 +445,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Brute-force matcher create method. preferable choices for SIFT and SURF descriptors, NORM_HAMMING should be used with <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_o_r_b.html">ORB</a>, <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_b_r_i_s_k.html">BRISK</a> and BRIEF, NORM_HAMMING2 should be used with <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_o_r_b.html">ORB</a> when WTA_K==3 or 4 (see <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_o_r_b.html#ad150a8cc82cb39b8e278754822dfae9e">ORB::ORB</a> constructor description). nearest neighbors for each query descriptor. If crossCheck==true, then the <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_descriptor_matcher.html#ad5c5d51f8c4b5dbf59dea98a061b43ec">knnMatch()</a> method with k=1 will only return pairs (i,j) such that for i-th query descriptor the j-th descriptor in the matcher's collection is the nearest and vice versa, i.e. the <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_b_f_matcher.html">BFMatcher</a> will only return consistent pairs. Such technique usually produces best results with minimal number of outliers when there are enough matches. This is alternative to the ratio test, used by D. Lowe in SIFT paper. return automatically generated </p>
 
 </div>
 </div>
@@ -472,7 +483,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:11 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:12 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

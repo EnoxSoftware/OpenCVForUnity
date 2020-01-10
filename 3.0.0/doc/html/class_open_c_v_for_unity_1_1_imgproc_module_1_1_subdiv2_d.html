@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -247,6 +247,8 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>param rect Rectangle that includes all of the 2D points that are to be added to the subdivision.</p>
+<p>The function creates an empty Delaunay subdivision where 2D points can be added using the function <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_subdiv2_d.html#a8a86329139562fdfca5b3d45ab03d395">insert()</a> . All of the points to be added must be within the specified rectangle, otherwise a runtime error is raised. </p>
 
 </div>
 </div>
@@ -264,6 +266,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>creates an empty <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_subdiv2_d.html">Subdiv2D</a> object. To create a new empty Delaunay subdivision you need to use the <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_subdiv2_d.html#ac663fb402eff8d62f254eedd312bac82">initDelaunay</a> function. </p>
 
 </div>
 </div>
@@ -347,7 +350,11 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the edge destination. </p><pre class="fragment">param edge Subdivision edge ID.
+param dstpt Output vertex location.
 
+return vertex ID.
+</pre> 
 </div>
 </div>
 <a id="af4c1f8c77abb94c9438a10c16080da44"></a>
@@ -365,7 +372,10 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the edge destination. </p><pre class="fragment">param edge Subdivision edge ID.
 
+return vertex ID.
+</pre> 
 </div>
 </div>
 <a id="a03f6898ca65fcfbffb6daeb18caef3b2"></a>
@@ -393,7 +403,11 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the edge origin. </p><pre class="fragment">param edge Subdivision edge ID.
+param orgpt Output vertex location.
 
+return vertex ID.
+</pre> 
 </div>
 </div>
 <a id="a0474635e6ad58875ef1117c3e77ca8f4"></a>
@@ -411,7 +425,10 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the edge origin. </p><pre class="fragment">param edge Subdivision edge ID.
 
+return vertex ID.
+</pre> 
 </div>
 </div>
 <a id="a73993d402cde784507c08e430994961b"></a>
@@ -439,7 +456,16 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Finds the subdivision vertex closest to the given point. </p><pre class="fragment">param pt Input point.
+param nearestPt Output subdivision vertex point.
 
+The function is another function that locates the input point within the subdivision. It finds the
+subdivision vertex that is the closest to the input point. It is not necessarily one of vertices
+of the facet containing the input point, though the facet (located using locate() ) is used as a
+starting point.
+
+return vertex ID.
+</pre> 
 </div>
 </div>
 <a id="a4ab162ae9cb92aa124114fd636a0a344"></a>
@@ -457,7 +483,15 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Finds the subdivision vertex closest to the given point. </p><pre class="fragment">param pt Input point.
 
+The function is another function that locates the input point within the subdivision. It finds the
+subdivision vertex that is the closest to the input point. It is not necessarily one of vertices
+of the facet containing the input point, though the facet (located using locate() ) is used as a
+starting point.
+
+return vertex ID.
+</pre> 
 </div>
 </div>
 <a id="af67fd304bdc72175fd83df446fbb140e"></a>
@@ -485,7 +519,31 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns one of the edges related to the given edge. </p><pre class="fragment">param edge Subdivision edge ID.
+param nextEdgeType Parameter specifying which of the related edges to return.
+The following values are possible:
+</pre> <ul>
+<li>
+NEXT_AROUND_ORG next around the edge origin ( eOnext on the picture below if e is the input edge)  </li>
+<li>
+NEXT_AROUND_DST next around the edge vertex ( eDnext )  </li>
+<li>
+PREV_AROUND_ORG previous around the edge origin (reversed eRnext )  </li>
+<li>
+PREV_AROUND_DST previous around the edge destination (reversed eLnext )  </li>
+<li>
+NEXT_AROUND_LEFT next around the left facet ( eLnext )  </li>
+<li>
+NEXT_AROUND_RIGHT next around the right facet ( eRnext )  </li>
+<li>
+PREV_AROUND_LEFT previous around the left facet (reversed eOnext )  </li>
+<li>
+PREV_AROUND_RIGHT previous around the right facet (reversed eDnext )  </li>
+</ul>
+<pre class="fragment">![sample output](pics/quadedge.png)
 
+return edge ID related to the input edge.
+</pre> 
 </div>
 </div>
 <a id="aa5137bae95108d4abd8a1081d340031e"></a>
@@ -503,7 +561,11 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns a list of all edges. </p><pre class="fragment">param edgeList Output vector.
 
+The function gives each edge as a 4 numbers vector, where each two are one of the edge
+vertices. i.e. org_x = v[0], org_y = v[1], dst_x = v[2], dst_y = v[3].
+</pre> 
 </div>
 </div>
 <a id="a7874eefe2e8e9f7bb81a1080e06ba7d8"></a>
@@ -521,7 +583,10 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns a list of the leading edge ID connected to each triangle. </p><pre class="fragment">param leadingEdgeList Output vector.
 
+The function gives one edge ID for each triangle.
+</pre> 
 </div>
 </div>
 <a id="a7f492fe571986101ad7daa764f3fb81e"></a>
@@ -556,7 +621,11 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns a list of all triangles. </p><pre class="fragment">param triangleList Output vector.
 
+The function gives each triangle as a 6 numbers vector, where each two are one of the triangle
+vertices. i.e. p1_x = v[0], p1_y = v[1], p2_x = v[2], p2_y = v[3], p3_x = v[4], p3_y = v[5].
+</pre> 
 </div>
 </div>
 <a id="a787c0e9435790bb97c8f8d686ed0add2"></a>
@@ -584,7 +653,10 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Returns vertex location from vertex ID. </p><pre class="fragment">param vertex vertex ID.
+param firstEdge Optional. The first edge ID which is connected to the vertex.
+return vertex (x,y)
+</pre> 
 </div>
 </div>
 <a id="aa183fbe31355dbf5bc0f66023f9573f0"></a>
@@ -602,7 +674,9 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Returns vertex location from vertex ID. </p><pre class="fragment">param vertex vertex ID.
+return vertex (x,y)
+</pre> 
 </div>
 </div>
 <a id="a1c859d9c79e4aaa17cee85780e7adf10"></a>
@@ -636,7 +710,10 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Returns a list of all Voronoi facets. </p><pre class="fragment">param idx Vector of vertices IDs to consider. For all vertices you can pass empty vector.
+param facetList Output vector of the Voronoi facets.
+param facetCenters Output vector of the Voronoi facets center points.
+</pre> 
 </div>
 </div>
 <a id="ac663fb402eff8d62f254eedd312bac82"></a>
@@ -654,7 +731,8 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Creates a new empty Delaunay subdivision </p><pre class="fragment">param rect Rectangle that includes all of the 2D points that are to be added to the subdivision.
+</pre> 
 </div>
 </div>
 <a id="a8a86329139562fdfca5b3d45ab03d395"></a>
@@ -672,7 +750,14 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Insert a single point into a Delaunay triangulation. </p><pre class="fragment">param pt Point to insert.
 
+The function inserts a single point into a subdivision and modifies the subdivision topology
+appropriately. If a point with the same coordinates exists already, no new point is added.
+return the ID of the point.
+
+&lt;b&gt;Note:&lt;/b&gt; If the point is outside of the triangulation specified rect a runtime error is raised.
+</pre> 
 </div>
 </div>
 <a id="ac6625a079ad7decbc14d5fdc7f53e0cf"></a>
@@ -690,7 +775,11 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Insert multiple points into a Delaunay triangulation. </p><pre class="fragment">param ptvec Points to insert.
 
+The function inserts a vector of points into a subdivision and modifies the subdivision topology
+appropriately.
+</pre> 
 </div>
 </div>
 <a id="afb7186e43b15b9f81aa94e8513a8e8d6"></a>
@@ -724,6 +813,26 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the location of a point within a Delaunay triangulation. </p><pre class="fragment">param pt Point to locate.
+param edge Output edge that the point belongs to or is located to the right of it.
+param vertex Optional output vertex the input point coincides with.
+
+The function locates the input point within the subdivision and gives one of the triangle edges
+or vertices.
+
+return an integer which specify one of the following five cases for point location:
+</pre> <ul>
+<li>
+The point falls into some facet. The function returns <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_subdiv2_d.html#a27cc84e067a68917c31a35025aeb8c1a">PTLOC_INSIDE</a> and edge will contain one of edges of the facet.  </li>
+<li>
+The point falls onto the edge. The function returns <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_subdiv2_d.html#a3eaad21bc7c704aa218859dbde8c5ce3">PTLOC_ON_EDGE</a> and edge will contain this edge.  </li>
+<li>
+The point coincides with one of the subdivision vertices. The function returns <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_subdiv2_d.html#aa3180773f6d2a74dc7e4027ebc2ea155">PTLOC_VERTEX</a> and vertex will contain a pointer to the vertex.  </li>
+<li>
+The point is outside the subdivision reference rectangle. The function returns <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_subdiv2_d.html#a23813b0fbb566ebc66512e61472c2ba8">PTLOC_OUTSIDE_RECT</a> and no pointers are filled.  </li>
+<li>
+One of input arguments is invalid. A runtime error is raised or, if silent or "parent" error processing mode is selected, <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_subdiv2_d.html#aa84c73ee71bcb57ae77c6bd2d09a37ba">PTLOC_ERROR</a> is returned.  </li>
+</ul>
 
 </div>
 </div>
@@ -742,7 +851,11 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns next edge around the edge origin. </p><pre class="fragment">param edge Subdivision edge ID.
 
+return an integer which is next edge ID around the edge origin: eOnext on the
+picture above if e is the input edge).
+</pre> 
 </div>
 </div>
 <a id="ac6ad54982564b5a11eaadbdbb4a5c301"></a>
@@ -770,7 +883,21 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Returns another edge of the same quad-edge. </p><pre class="fragment">param edge Subdivision edge ID.
+param rotate Parameter specifying which of the edges of the same quad-edge as the input
+one to return. The following values are possible:
+</pre> <ul>
+<li>
+0 - the input edge ( e on the picture below if e is the input edge)  </li>
+<li>
+1 - the rotated edge ( eRot )  </li>
+<li>
+2 - the reversed edge (reversed e (in green))  </li>
+<li>
+3 - the reversed rotated edge (reversed eRot (in green))  </li>
+</ul>
+<pre class="fragment">return one of the edges ID of the same quad-edge as the input edge.
+</pre> 
 </div>
 </div>
 <a id="a4ef1cfe7e657ae3c79963755504ed43a"></a>
@@ -980,7 +1107,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:12 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:14 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

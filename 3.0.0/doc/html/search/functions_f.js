@@ -2,6 +2,7 @@ var searchData=
 [
   ['ocrbeamsearchdecoder',['OCRBeamSearchDecoder',['../class_open_c_v_for_unity_1_1_text_module_1_1_o_c_r_beam_search_decoder.html#a32726b87fa93f2519fcb71c717b61cfd',1,'OpenCVForUnity::TextModule::OCRBeamSearchDecoder']]],
   ['ocrhmmdecoder',['OCRHMMDecoder',['../class_open_c_v_for_unity_1_1_text_module_1_1_o_c_r_h_m_m_decoder.html#a5ae05003c85bb0d61255f9948e28b707',1,'OpenCVForUnity::TextModule::OCRHMMDecoder']]],
+  ['ocrtesseract',['OCRTesseract',['../class_open_c_v_for_unity_1_1_text_module_1_1_o_c_r_tesseract.html#acc9ff9c2d9e9e5f31b629579e84b58ba',1,'OpenCVForUnity::TextModule::OCRTesseract']]],
   ['oilpainting',['oilPainting',['../class_open_c_v_for_unity_1_1_xphoto_module_1_1_xphoto.html#a0c891a1ffde891e73a5c1c9da4e0c442',1,'OpenCVForUnity.XphotoModule.Xphoto.oilPainting(Mat src, Mat dst, int size, int dynRatio, int code)'],['../class_open_c_v_for_unity_1_1_xphoto_module_1_1_xphoto.html#a036c49b891049bc4ce94cc668a138e57',1,'OpenCVForUnity.XphotoModule.Xphoto.oilPainting(Mat src, Mat dst, int size, int dynRatio)']]],
   ['onapplicationfocus',['OnApplicationFocus',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#aca60b09687d4c0afdb89859e71fd69ab',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]],
   ['ondestroy',['OnDestroy',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a05394ed5baedb3d898894460f41d73e1',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]],

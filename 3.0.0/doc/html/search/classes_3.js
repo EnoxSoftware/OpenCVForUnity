@@ -3,6 +3,7 @@ var searchData=
   ['daisy',['DAISY',['../class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html',1,'OpenCVForUnity::Xfeatures2dModule']]],
   ['denseopticalflow',['DenseOpticalFlow',['../class_open_c_v_for_unity_1_1_video_module_1_1_dense_optical_flow.html',1,'OpenCVForUnity::VideoModule']]],
   ['descriptormatcher',['DescriptorMatcher',['../class_open_c_v_for_unity_1_1_features2d_module_1_1_descriptor_matcher.html',1,'OpenCVForUnity::Features2dModule']]],
+  ['detectionmodel',['DetectionModel',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_detection_model.html',1,'OpenCVForUnity::DnnModule']]],
   ['detectorparameters',['DetectorParameters',['../class_open_c_v_for_unity_1_1_aruco_module_1_1_detector_parameters.html',1,'OpenCVForUnity::ArucoModule']]],
   ['dictionary',['Dictionary',['../class_open_c_v_for_unity_1_1_aruco_module_1_1_dictionary.html',1,'OpenCVForUnity::ArucoModule']]],
   ['dictvalue',['DictValue',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_dict_value.html',1,'OpenCVForUnity::DnnModule']]],

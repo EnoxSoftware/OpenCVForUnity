@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -209,7 +209,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Gaussian Mixture-based Background/Foreground Segmentation Algorithm.</p>
+<p>The class implements the Gaussian mixture model background subtraction described in CITE: Zivkovic2004 and CITE: Zivkovic2006 . </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a914616dcd0c4de3e2e98b7224823021c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a914616dcd0c4de3e2e98b7224823021c">&#9670;&nbsp;</a></span>BackgroundSubtractorMOG2()</h2>
 
@@ -302,7 +305,13 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Computes a foreground mask. </p><pre class="fragment">param image Next video frame. Floating point frame will be used without scaling and should be in range \([0,255]\).
+param fgmask The output foreground mask as an 8-bit binary image.
+param learningRate The value between 0 and 1 that indicates how fast the background model is
+learnt. Negative parameter value makes the algorithm to use some automatically chosen learning
+rate. 0 means that the background model is not updated at all, 1 means that the background model
+is completely reinitialized from the last frame.
+</pre> 
 <p>Reimplemented from <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html#ac9610e4e91eca8e534c44d64654ff9a2">OpenCVForUnity.VideoModule.BackgroundSubtractor</a>.</p>
 
 </div>
@@ -340,7 +349,12 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Computes a foreground mask. </p><pre class="fragment">param image Next video frame. Floating point frame will be used without scaling and should be in range \([0,255]\).
+param fgmask The output foreground mask as an 8-bit binary image.
+learnt. Negative parameter value makes the algorithm to use some automatically chosen learning
+rate. 0 means that the background model is not updated at all, 1 means that the background model
+is completely reinitialized from the last frame.
+</pre> 
 <p>Reimplemented from <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html#a2308f6394518c11b22e8ffe9de917a8b">OpenCVForUnity.VideoModule.BackgroundSubtractor</a>.</p>
 
 </div>
@@ -387,6 +401,10 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the "background ratio" parameter of the algorithm </p><pre class="fragment">If a foreground pixel keeps semi-constant value for about backgroundRatio\*history frames, it's
+considered background and added to the model as a center of a new component. It corresponds to TB
+parameter in the paper.
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -404,6 +422,10 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the complexity reduction threshold </p><pre class="fragment">This parameter defines the number of samples needed to accept to prove the component exists. CT=0.05
+is a default value for all the samples. By setting CT=0 you get an algorithm very similar to the
+standard Stauffer&amp;amp;Grimson algorithm.
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -421,6 +443,9 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the shadow detection flag </p><pre class="fragment">If true, the algorithm detects shadows and marks them. See createBackgroundSubtractorMOG2 for
+details.
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -438,6 +463,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the number of last frames that affect the background model return automatically generated </p>
 
 </div>
 </div>
@@ -455,6 +481,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the number of gaussian components in the background model return automatically generated </p>
 
 </div>
 </div>
@@ -472,6 +499,10 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the shadow threshold </p><pre class="fragment">A shadow is detected if pixel is a darker version of the background. The shadow threshold (Tau in
+the paper) is a threshold defining how much darker the shadow can be. Tau= 0.5 means that if a pixel
+is more than twice darker then it is not shadow. See Prati, Mikic, Trivedi and Cucchiara,
+</pre><p> Detecting Moving Shadows...*, IEEE PAMI,2003. return automatically generated </p>
 
 </div>
 </div>
@@ -489,6 +520,9 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the shadow value </p><pre class="fragment">Shadow value is the value used to mark shadows in the foreground mask. Default value is 127. Value 0
+in the mask always means background, 255 means foreground.
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -506,6 +540,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the initial variance of each gaussian component return automatically generated </p>
 
 </div>
 </div>
@@ -557,6 +592,9 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the variance threshold for the pixel-model match </p><pre class="fragment">The main threshold on the squared Mahalanobis distance to decide if the sample is well described by
+the background model or not. Related to Cthr from the paper.
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -574,6 +612,12 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the variance threshold for the pixel-model match used for new mixture component generation </p><pre class="fragment">Threshold for the squared Mahalanobis distance that helps decide when a sample is close to the
+existing components (corresponds to Tg in the paper). If a pixel is not close to any component, it
+is considered foreground or added as a new component. 3 sigma =&amp;gt; Tg=3\*3=9 is default. A smaller Tg
+value generates more components. A higher Tg value may result in a small number of components but
+they can grow too large.
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -592,6 +636,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the "background ratio" parameter of the algorithm param ratio automatically generated </p>
 
 </div>
 </div>
@@ -610,6 +655,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the complexity reduction threshold param ct automatically generated </p>
 
 </div>
 </div>
@@ -628,6 +674,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Enables or disables shadow detection param detectShadows automatically generated </p>
 
 </div>
 </div>
@@ -646,6 +693,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the number of last frames that affect the background model param history automatically generated </p>
 
 </div>
 </div>
@@ -664,6 +712,8 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the number of gaussian components in the background model. </p><pre class="fragment">The model needs to be reinitalized to reserve memory.
+</pre><p> param nmixtures automatically generated </p>
 
 </div>
 </div>
@@ -682,6 +732,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the shadow threshold param threshold automatically generated </p>
 
 </div>
 </div>
@@ -700,6 +751,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the shadow value param value automatically generated </p>
 
 </div>
 </div>
@@ -718,6 +770,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the initial variance of each gaussian component param varInit automatically generated </p>
 
 </div>
 </div>
@@ -772,6 +825,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the variance threshold for the pixel-model match param varThreshold automatically generated </p>
 
 </div>
 </div>
@@ -790,6 +844,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the variance threshold for the pixel-model match used for new mixture component generation param varThresholdGen automatically generated </p>
 
 </div>
 </div>
@@ -799,7 +854,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:13 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:16 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

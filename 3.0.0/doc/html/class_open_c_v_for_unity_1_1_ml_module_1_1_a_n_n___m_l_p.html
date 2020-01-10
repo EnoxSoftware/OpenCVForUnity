@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -284,7 +284,12 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Artificial Neural Networks - Multi-Layer Perceptrons.</p>
+<p>Unlike many other models in ML that are constructed and trained at once, in the MLP model these steps are separated. First, a network with the specified topology is created using the non-default constructor or the method <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#aae6902c9111977dca58f011daf8400f2">ANN_MLP::create</a>. All the weights are set to zeros. Then, the network is trained using a set of input and output vectors. The training procedure can be repeated more than once, that is, the weights can be adjusted based on the new training data.</p>
+<p>Additional flags for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a735e7bc1e8422ab769510c1afca3dd00">StatModel::train</a> are available: ANN_MLP::TrainFlags.</p>
+<p>SEE: REF: ml_intro_ann </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8e61f8d7f54a66ab34f724dbceca6ea7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8e61f8d7f54a66ab34f724dbceca6ea7">&#9670;&nbsp;</a></span>ANN_MLP()</h2>
 
@@ -360,6 +365,9 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates empty model </p><pre class="fragment">Use StatModel::train to train the model, Algorithm::load&amp;lt;ANN_MLP&amp;gt;(filename) to load the pre-trained model.
+Note that the train method has optional flags: ANN_MLP::TrainFlags.
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -405,6 +413,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setAnnealCoolingRatio return automatically generated </p>
 
 </div>
 </div>
@@ -422,6 +431,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setAnnealFinalT return automatically generated </p>
 
 </div>
 </div>
@@ -439,6 +449,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setAnnealInitialT return automatically generated </p>
 
 </div>
 </div>
@@ -456,6 +467,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setAnnealItePerStep return automatically generated </p>
 
 </div>
 </div>
@@ -473,6 +485,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setBackpropMomentumScale return automatically generated </p>
 
 </div>
 </div>
@@ -490,6 +503,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setBackpropWeightScale return automatically generated </p>
 
 </div>
 </div>
@@ -507,6 +521,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Integer vector specifying the number of neurons in each layer including the input and output layers. The very first element specifies the number of elements in the input layer. The last element - number of elements in the output layer. SEE: setLayerSizes return automatically generated </p>
 
 </div>
 </div>
@@ -524,6 +539,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setRpropDW0 return automatically generated </p>
 
 </div>
 </div>
@@ -541,6 +557,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setRpropDWMax return automatically generated </p>
 
 </div>
 </div>
@@ -558,6 +575,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setRpropDWMin return automatically generated </p>
 
 </div>
 </div>
@@ -575,6 +593,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setRpropDWMinus return automatically generated </p>
 
 </div>
 </div>
@@ -592,6 +611,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setRpropDWPlus return automatically generated </p>
 
 </div>
 </div>
@@ -609,6 +629,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setTermCriteria return automatically generated </p>
 
 </div>
 </div>
@@ -626,6 +647,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns current training method return automatically generated </p>
 
 </div>
 </div>
@@ -670,6 +692,9 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Loads and creates a serialized ANN from a file</p>
+<p>Use ANN::save to serialize and store an ANN to disk. Load the ANN from this file again, by calling this function with the path to the file.</p>
+<p>param filepath path to serialized ANN return automatically generated </p>
 
 </div>
 </div>
@@ -704,6 +729,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Initialize the activation function for each neuron. Currently the default and the only fully supported activation function is <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#acee59490f9c88a5db0046ccfa8840bbd">ANN_MLP::SIGMOID_SYM</a>. param type The type of activation function. See ANN_MLP::ActivationFunctions. param param1 The first parameter of the activation function, (\alpha). Default value is 0. param param2 The second parameter of the activation function, (\beta). Default value is 0. </p>
 
 </div>
 </div>
@@ -732,6 +758,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Initialize the activation function for each neuron. Currently the default and the only fully supported activation function is <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#acee59490f9c88a5db0046ccfa8840bbd">ANN_MLP::SIGMOID_SYM</a>. param type The type of activation function. See ANN_MLP::ActivationFunctions. param param1 The first parameter of the activation function, (\alpha). Default value is 0. </p>
 
 </div>
 </div>
@@ -750,6 +777,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Initialize the activation function for each neuron. Currently the default and the only fully supported activation function is <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#acee59490f9c88a5db0046ccfa8840bbd">ANN_MLP::SIGMOID_SYM</a>. param type The type of activation function. See ANN_MLP::ActivationFunctions. </p>
 
 </div>
 </div>
@@ -768,6 +796,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getAnnealCoolingRatio SEE: getAnnealCoolingRatio param val automatically generated </p>
 
 </div>
 </div>
@@ -786,6 +815,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getAnnealFinalT SEE: getAnnealFinalT param val automatically generated </p>
 
 </div>
 </div>
@@ -804,6 +834,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getAnnealInitialT SEE: getAnnealInitialT param val automatically generated </p>
 
 </div>
 </div>
@@ -822,6 +853,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getAnnealItePerStep SEE: getAnnealItePerStep param val automatically generated </p>
 
 </div>
 </div>
@@ -840,6 +872,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getBackpropMomentumScale SEE: getBackpropMomentumScale param val automatically generated </p>
 
 </div>
 </div>
@@ -858,6 +891,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getBackpropWeightScale SEE: getBackpropWeightScale param val automatically generated </p>
 
 </div>
 </div>
@@ -876,6 +910,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Integer vector specifying the number of neurons in each layer including the input and output layers. The very first element specifies the number of elements in the input layer. The last element - number of elements in the output layer. Default value is empty Mat. SEE: getLayerSizes param _layer_sizes automatically generated </p>
 
 </div>
 </div>
@@ -894,6 +929,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getRpropDW0 SEE: getRpropDW0 param val automatically generated </p>
 
 </div>
 </div>
@@ -912,6 +948,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getRpropDWMax SEE: getRpropDWMax param val automatically generated </p>
 
 </div>
 </div>
@@ -930,6 +967,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getRpropDWMin SEE: getRpropDWMin param val automatically generated </p>
 
 </div>
 </div>
@@ -948,6 +986,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getRpropDWMinus SEE: getRpropDWMinus param val automatically generated </p>
 
 </div>
 </div>
@@ -966,6 +1005,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getRpropDWPlus SEE: getRpropDWPlus param val automatically generated </p>
 
 </div>
 </div>
@@ -984,6 +1024,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getTermCriteria SEE: getTermCriteria param val automatically generated </p>
 
 </div>
 </div>
@@ -1018,6 +1059,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets training method and common parameters. param method Default value is <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP::RPROP</a>. See ANN_MLP::TrainingMethods. param param1 passed to setRpropDW0 for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP::RPROP</a> and to setBackpropWeightScale for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a86071216d34c271b99d0ae0815ce1765">ANN_MLP::BACKPROP</a> and to initialT for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#afb64d8fd3c179b1e2b659f06d41d3e96">ANN_MLP::ANNEAL</a>. param param2 passed to setRpropDWMin for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP::RPROP</a> and to setBackpropMomentumScale for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a86071216d34c271b99d0ae0815ce1765">ANN_MLP::BACKPROP</a> and to finalT for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#afb64d8fd3c179b1e2b659f06d41d3e96">ANN_MLP::ANNEAL</a>. </p>
 
 </div>
 </div>
@@ -1046,6 +1088,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets training method and common parameters. param method Default value is <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP::RPROP</a>. See ANN_MLP::TrainingMethods. param param1 passed to setRpropDW0 for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP::RPROP</a> and to setBackpropWeightScale for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a86071216d34c271b99d0ae0815ce1765">ANN_MLP::BACKPROP</a> and to initialT for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#afb64d8fd3c179b1e2b659f06d41d3e96">ANN_MLP::ANNEAL</a>. </p>
 
 </div>
 </div>
@@ -1064,6 +1107,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets training method and common parameters. param method Default value is <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP::RPROP</a>. See ANN_MLP::TrainingMethods. </p>
 
 </div>
 </div>
@@ -1228,7 +1272,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:12 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:14 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

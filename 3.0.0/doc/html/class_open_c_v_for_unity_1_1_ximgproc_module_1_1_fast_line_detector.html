@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -153,7 +153,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class implementing the FLD (Fast Line Detector) algorithm described in CITE: Lee14 . </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9ed5a30e24ef70e40ab08dd0b5081982"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9ed5a30e24ef70e40ab08dd0b5081982">&#9670;&nbsp;</a></span>FastLineDetector()</h2>
 
@@ -232,6 +234,9 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Finds lines in the input image. This is the output of the default parameters of the algorithm on the above shown image.</p>
+<img src="pics/corridor_fld.jpg" alt="image" class="inline"/>
+<p>param _image A grayscale (CV_8UC1) input image. If only a roi needs to be selected, use: <code>fld_ptr-&gt;detect(image(roi), lines, ...); lines += Scalar(roi.x, roi.y, roi.x, roi.y);</code> param _lines A vector of Vec4f elements specifying the beginning and ending point of a line. Where Vec4f is (x1, y1, x2, y2), point 1 is the start, point 2 - end. Returned lines are directed so that the brighter side is on their left. </p>
 
 </div>
 </div>
@@ -294,6 +299,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Draws the line segments on a given image. param _image The image, where the lines will be drawn. Should be bigger or equal to the image, where the lines were found. param lines A vector of the lines that needed to be drawn. param draw_arrow If true, arrow heads will be drawn. </p>
 
 </div>
 </div>
@@ -322,6 +328,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Draws the line segments on a given image. param _image The image, where the lines will be drawn. Should be bigger or equal to the image, where the lines were found. param lines A vector of the lines that needed to be drawn. </p>
 
 </div>
 </div>
@@ -331,7 +338,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:14 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:18 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

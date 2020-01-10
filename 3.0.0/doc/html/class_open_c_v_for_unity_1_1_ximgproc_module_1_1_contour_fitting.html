@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -159,7 +159,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class for <a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_contour_fitting.html">ContourFitting</a> algorithms. <a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_contour_fitting.html">ContourFitting</a> match two contours ( z_a ) and ( z_b ) minimizing distance ( d(z_a,z_b)=\sum (a_n - s b_n e^{j(n \alpha +\phi )})^2 ) where ( a_n ) and ( b_n ) are Fourier descriptors of ( z_a ) and ( z_b ) and s is a scaling factor and ( \phi ) is angle rotation and ( \alpha ) is starting point factor adjustement </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1d542d477a11ecc3fd7083c5caf83d47"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1d542d477a11ecc3fd7083c5caf83d47">&#9670;&nbsp;</a></span>ContourFitting()</h2>
 
@@ -284,7 +286,12 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Fit two closed curves using fourier descriptors. More details in CITE: PersoonFu1977 and CITE: BergerRaghunathan1998 </p><pre class="fragment">    param src Contour defining first shape.
+    param dst Contour defining second shape (Target).
+    param alphaPhiST : \( \alpha \)=alphaPhiST(0,0), \( \phi \)=alphaPhiST(0,1) (in radian), s=alphaPhiST(0,2), Tx=alphaPhiST(0,3), Ty=alphaPhiST(0,4) rotation center
+    param dist distance between src and dst after matching.
+    param fdContour false then src and dst are contours and true src and dst are fourier descriptors.
+</pre> 
 </div>
 </div>
 <a id="a867ff8353bfd6fa61d86a91bcabbac74"></a>
@@ -324,7 +331,11 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Fit two closed curves using fourier descriptors. More details in CITE: PersoonFu1977 and CITE: BergerRaghunathan1998 </p><pre class="fragment">    param src Contour defining first shape.
+    param dst Contour defining second shape (Target).
+    param alphaPhiST : \( \alpha \)=alphaPhiST(0,0), \( \phi \)=alphaPhiST(0,1) (in radian), s=alphaPhiST(0,2), Tx=alphaPhiST(0,3), Ty=alphaPhiST(0,4) rotation center
+    param dist distance between src and dst after matching.
+</pre> 
 </div>
 </div>
 <a id="ae9bf3b45afafa2d5372523009a35a502"></a>
@@ -341,6 +352,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>return number of fourier descriptors </p>
 
 </div>
 </div>
@@ -358,6 +370,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>return number of fourier descriptors used for optimal curve matching </p>
 
 </div>
 </div>
@@ -376,7 +389,8 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>set number of Fourier descriptors used in estimateTransformation </p><pre class="fragment">    param n number of Fourier descriptors equal to number of contour points after resampling.
+</pre> 
 </div>
 </div>
 <a id="a0ab89c05a938d394e126037933425168"></a>
@@ -394,7 +408,8 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>set number of Fourier descriptors when estimateTransformation used vector&lt;Point&gt; </p><pre class="fragment">    param n number of fourier descriptors used for optimal curve matching.
+</pre> 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -403,7 +418,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:14 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:17 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -185,7 +185,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Cascade classifier class for object detection. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afdcb1b13011b7d9573a8ae7ece9e3fe0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afdcb1b13011b7d9573a8ae7ece9e3fe0">&#9670;&nbsp;</a></span>CascadeClassifier() <span class="overload">[1/3]</span></h2>
 
@@ -227,7 +229,8 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Loads a classifier from a file. </p><pre class="fragment">param filename Name of the file from which the classifier is loaded.
+</pre> 
 </div>
 </div>
 <a id="aac6ea3877715d5c90c3c6b14e6635162"></a>
@@ -365,6 +368,13 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Detects objects of different sizes in the input image. The detected objects are returned as a list of rectangles.</p>
+<p>param image Matrix of the type CV_8U containing an image where objects are detected. param objects Vector of rectangles where each rectangle contains the detected object, the rectangles may be partially outside the original image. param scaleFactor Parameter specifying how much the image size is reduced at each image scale. param minNeighbors Parameter specifying how many neighbors each candidate rectangle should have to retain it. param flags Parameter with the same meaning for an old cascade as in the function cvHaarDetectObjects. It is not used for a new cascade. param minSize Minimum possible object size. Objects smaller than that are ignored. param maxSize Maximum possible object size. Objects larger than that are ignored. If {code maxSize == minSize} model is evaluated on single scale.</p>
+<p>The function is parallelized with the TBB library.</p>
+<p><b>Note:</b> </p><ul>
+<li>
+(Python) A face detection example using cascade classifiers can be found at opencv_source_code/samples/python/facedetect.py  </li>
+</ul>
 
 </div>
 </div>
@@ -417,6 +427,13 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Detects objects of different sizes in the input image. The detected objects are returned as a list of rectangles.</p>
+<p>param image Matrix of the type CV_8U containing an image where objects are detected. param objects Vector of rectangles where each rectangle contains the detected object, the rectangles may be partially outside the original image. param scaleFactor Parameter specifying how much the image size is reduced at each image scale. param minNeighbors Parameter specifying how many neighbors each candidate rectangle should have to retain it. param flags Parameter with the same meaning for an old cascade as in the function cvHaarDetectObjects. It is not used for a new cascade. param minSize Minimum possible object size. Objects smaller than that are ignored.</p>
+<p>The function is parallelized with the TBB library.</p>
+<p><b>Note:</b> </p><ul>
+<li>
+(Python) A face detection example using cascade classifiers can be found at opencv_source_code/samples/python/facedetect.py  </li>
+</ul>
 
 </div>
 </div>
@@ -463,6 +480,13 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Detects objects of different sizes in the input image. The detected objects are returned as a list of rectangles.</p>
+<p>param image Matrix of the type CV_8U containing an image where objects are detected. param objects Vector of rectangles where each rectangle contains the detected object, the rectangles may be partially outside the original image. param scaleFactor Parameter specifying how much the image size is reduced at each image scale. param minNeighbors Parameter specifying how many neighbors each candidate rectangle should have to retain it. param flags Parameter with the same meaning for an old cascade as in the function cvHaarDetectObjects. It is not used for a new cascade.</p>
+<p>The function is parallelized with the TBB library.</p>
+<p><b>Note:</b> </p><ul>
+<li>
+(Python) A face detection example using cascade classifiers can be found at opencv_source_code/samples/python/facedetect.py  </li>
+</ul>
 
 </div>
 </div>
@@ -503,6 +527,13 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Detects objects of different sizes in the input image. The detected objects are returned as a list of rectangles.</p>
+<p>param image Matrix of the type CV_8U containing an image where objects are detected. param objects Vector of rectangles where each rectangle contains the detected object, the rectangles may be partially outside the original image. param scaleFactor Parameter specifying how much the image size is reduced at each image scale. param minNeighbors Parameter specifying how many neighbors each candidate rectangle should have to retain it. cvHaarDetectObjects. It is not used for a new cascade.</p>
+<p>The function is parallelized with the TBB library.</p>
+<p><b>Note:</b> </p><ul>
+<li>
+(Python) A face detection example using cascade classifiers can be found at opencv_source_code/samples/python/facedetect.py  </li>
+</ul>
 
 </div>
 </div>
@@ -537,6 +568,13 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Detects objects of different sizes in the input image. The detected objects are returned as a list of rectangles.</p>
+<p>param image Matrix of the type CV_8U containing an image where objects are detected. param objects Vector of rectangles where each rectangle contains the detected object, the rectangles may be partially outside the original image. param scaleFactor Parameter specifying how much the image size is reduced at each image scale. to retain it. cvHaarDetectObjects. It is not used for a new cascade.</p>
+<p>The function is parallelized with the TBB library.</p>
+<p><b>Note:</b> </p><ul>
+<li>
+(Python) A face detection example using cascade classifiers can be found at opencv_source_code/samples/python/facedetect.py  </li>
+</ul>
 
 </div>
 </div>
@@ -565,6 +603,13 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Detects objects of different sizes in the input image. The detected objects are returned as a list of rectangles.</p>
+<p>param image Matrix of the type CV_8U containing an image where objects are detected. param objects Vector of rectangles where each rectangle contains the detected object, the rectangles may be partially outside the original image. to retain it. cvHaarDetectObjects. It is not used for a new cascade.</p>
+<p>The function is parallelized with the TBB library.</p>
+<p><b>Note:</b> </p><ul>
+<li>
+(Python) A face detection example using cascade classifiers can be found at opencv_source_code/samples/python/facedetect.py  </li>
+</ul>
 
 </div>
 </div>
@@ -629,6 +674,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>param image Matrix of the type CV_8U containing an image where objects are detected. param objects Vector of rectangles where each rectangle contains the detected object, the rectangles may be partially outside the original image. param numDetections Vector of detection numbers for the corresponding objects. An object's number of detections is the number of neighboring positively classified rectangles that were joined together to form the object. param scaleFactor Parameter specifying how much the image size is reduced at each image scale. param minNeighbors Parameter specifying how many neighbors each candidate rectangle should have to retain it. param flags Parameter with the same meaning for an old cascade as in the function cvHaarDetectObjects. It is not used for a new cascade. param minSize Minimum possible object size. Objects smaller than that are ignored. param maxSize Maximum possible object size. Objects larger than that are ignored. If {code maxSize == minSize} model is evaluated on single scale. </p>
 
 </div>
 </div>
@@ -687,6 +733,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>param image Matrix of the type CV_8U containing an image where objects are detected. param objects Vector of rectangles where each rectangle contains the detected object, the rectangles may be partially outside the original image. param numDetections Vector of detection numbers for the corresponding objects. An object's number of detections is the number of neighboring positively classified rectangles that were joined together to form the object. param scaleFactor Parameter specifying how much the image size is reduced at each image scale. param minNeighbors Parameter specifying how many neighbors each candidate rectangle should have to retain it. param flags Parameter with the same meaning for an old cascade as in the function cvHaarDetectObjects. It is not used for a new cascade. param minSize Minimum possible object size. Objects smaller than that are ignored. </p>
 
 </div>
 </div>
@@ -739,6 +786,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>param image Matrix of the type CV_8U containing an image where objects are detected. param objects Vector of rectangles where each rectangle contains the detected object, the rectangles may be partially outside the original image. param numDetections Vector of detection numbers for the corresponding objects. An object's number of detections is the number of neighboring positively classified rectangles that were joined together to form the object. param scaleFactor Parameter specifying how much the image size is reduced at each image scale. param minNeighbors Parameter specifying how many neighbors each candidate rectangle should have to retain it. param flags Parameter with the same meaning for an old cascade as in the function cvHaarDetectObjects. It is not used for a new cascade. </p>
 
 </div>
 </div>
@@ -785,6 +833,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>param image Matrix of the type CV_8U containing an image where objects are detected. param objects Vector of rectangles where each rectangle contains the detected object, the rectangles may be partially outside the original image. param numDetections Vector of detection numbers for the corresponding objects. An object's number of detections is the number of neighboring positively classified rectangles that were joined together to form the object. param scaleFactor Parameter specifying how much the image size is reduced at each image scale. param minNeighbors Parameter specifying how many neighbors each candidate rectangle should have to retain it. cvHaarDetectObjects. It is not used for a new cascade. </p>
 
 </div>
 </div>
@@ -825,6 +874,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>param image Matrix of the type CV_8U containing an image where objects are detected. param objects Vector of rectangles where each rectangle contains the detected object, the rectangles may be partially outside the original image. param numDetections Vector of detection numbers for the corresponding objects. An object's number of detections is the number of neighboring positively classified rectangles that were joined together to form the object. param scaleFactor Parameter specifying how much the image size is reduced at each image scale. to retain it. cvHaarDetectObjects. It is not used for a new cascade. </p>
 
 </div>
 </div>
@@ -859,6 +909,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>param image Matrix of the type CV_8U containing an image where objects are detected. param objects Vector of rectangles where each rectangle contains the detected object, the rectangles may be partially outside the original image. param numDetections Vector of detection numbers for the corresponding objects. An object's number of detections is the number of neighboring positively classified rectangles that were joined together to form the object. to retain it. cvHaarDetectObjects. It is not used for a new cascade. </p>
 
 </div>
 </div>
@@ -935,6 +986,22 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">This function allows you to retrieve the final stage decision certainty of classification.
+For this, one needs to set {code outputRejectLevels} on true and provide the {code rejectLevels} and {code levelWeights} parameter.
+For each resulting detection, {code levelWeights} will then contain the certainty of classification at the final stage.
+This value can then be used to separate strong from weaker classifications.
+
+A code sample on how to use it efficiently can be found below:
+&lt;code&gt;
+Mat img;
+vector&amp;lt;double&amp;gt; weights;
+vector&amp;lt;int&amp;gt; levels;
+vector&amp;lt;Rect&amp;gt; detections;
+CascadeClassifier model("/path/to/your/model.xml");
+model.detectMultiScale(img, detections, levels, weights, 1.1, 3, 0, Size(), Size(), true);
+cerr &amp;lt;&amp;lt; "Detection " &amp;lt;&amp;lt; detections[0] &amp;lt;&amp;lt; " with weight " &amp;lt;&amp;lt; weights[0] &amp;lt;&amp;lt; endl;
+&lt;/code&gt;
+</pre><p> param image automatically generated param objects automatically generated param rejectLevels automatically generated param levelWeights automatically generated param scaleFactor automatically generated param minNeighbors automatically generated param flags automatically generated param minSize automatically generated param maxSize automatically generated param outputRejectLevels automatically generated </p>
 
 </div>
 </div>
@@ -1005,6 +1072,22 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">This function allows you to retrieve the final stage decision certainty of classification.
+For this, one needs to set {code outputRejectLevels} on true and provide the {code rejectLevels} and {code levelWeights} parameter.
+For each resulting detection, {code levelWeights} will then contain the certainty of classification at the final stage.
+This value can then be used to separate strong from weaker classifications.
+
+A code sample on how to use it efficiently can be found below:
+&lt;code&gt;
+Mat img;
+vector&amp;lt;double&amp;gt; weights;
+vector&amp;lt;int&amp;gt; levels;
+vector&amp;lt;Rect&amp;gt; detections;
+CascadeClassifier model("/path/to/your/model.xml");
+model.detectMultiScale(img, detections, levels, weights, 1.1, 3, 0, Size(), Size(), true);
+cerr &amp;lt;&amp;lt; "Detection " &amp;lt;&amp;lt; detections[0] &amp;lt;&amp;lt; " with weight " &amp;lt;&amp;lt; weights[0] &amp;lt;&amp;lt; endl;
+&lt;/code&gt;
+</pre><p> param image automatically generated param objects automatically generated param rejectLevels automatically generated param levelWeights automatically generated param scaleFactor automatically generated param minNeighbors automatically generated param flags automatically generated param minSize automatically generated param maxSize automatically generated </p>
 
 </div>
 </div>
@@ -1069,6 +1152,22 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">This function allows you to retrieve the final stage decision certainty of classification.
+For this, one needs to set {code outputRejectLevels} on true and provide the {code rejectLevels} and {code levelWeights} parameter.
+For each resulting detection, {code levelWeights} will then contain the certainty of classification at the final stage.
+This value can then be used to separate strong from weaker classifications.
+
+A code sample on how to use it efficiently can be found below:
+&lt;code&gt;
+Mat img;
+vector&amp;lt;double&amp;gt; weights;
+vector&amp;lt;int&amp;gt; levels;
+vector&amp;lt;Rect&amp;gt; detections;
+CascadeClassifier model("/path/to/your/model.xml");
+model.detectMultiScale(img, detections, levels, weights, 1.1, 3, 0, Size(), Size(), true);
+cerr &amp;lt;&amp;lt; "Detection " &amp;lt;&amp;lt; detections[0] &amp;lt;&amp;lt; " with weight " &amp;lt;&amp;lt; weights[0] &amp;lt;&amp;lt; endl;
+&lt;/code&gt;
+</pre><p> param image automatically generated param objects automatically generated param rejectLevels automatically generated param levelWeights automatically generated param scaleFactor automatically generated param minNeighbors automatically generated param flags automatically generated param minSize automatically generated </p>
 
 </div>
 </div>
@@ -1127,6 +1226,22 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">This function allows you to retrieve the final stage decision certainty of classification.
+For this, one needs to set {code outputRejectLevels} on true and provide the {code rejectLevels} and {code levelWeights} parameter.
+For each resulting detection, {code levelWeights} will then contain the certainty of classification at the final stage.
+This value can then be used to separate strong from weaker classifications.
+
+A code sample on how to use it efficiently can be found below:
+&lt;code&gt;
+Mat img;
+vector&amp;lt;double&amp;gt; weights;
+vector&amp;lt;int&amp;gt; levels;
+vector&amp;lt;Rect&amp;gt; detections;
+CascadeClassifier model("/path/to/your/model.xml");
+model.detectMultiScale(img, detections, levels, weights, 1.1, 3, 0, Size(), Size(), true);
+cerr &amp;lt;&amp;lt; "Detection " &amp;lt;&amp;lt; detections[0] &amp;lt;&amp;lt; " with weight " &amp;lt;&amp;lt; weights[0] &amp;lt;&amp;lt; endl;
+&lt;/code&gt;
+</pre><p> param image automatically generated param objects automatically generated param rejectLevels automatically generated param levelWeights automatically generated param scaleFactor automatically generated param minNeighbors automatically generated param flags automatically generated </p>
 
 </div>
 </div>
@@ -1179,6 +1294,22 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">This function allows you to retrieve the final stage decision certainty of classification.
+For this, one needs to set {code outputRejectLevels} on true and provide the {code rejectLevels} and {code levelWeights} parameter.
+For each resulting detection, {code levelWeights} will then contain the certainty of classification at the final stage.
+This value can then be used to separate strong from weaker classifications.
+
+A code sample on how to use it efficiently can be found below:
+&lt;code&gt;
+Mat img;
+vector&amp;lt;double&amp;gt; weights;
+vector&amp;lt;int&amp;gt; levels;
+vector&amp;lt;Rect&amp;gt; detections;
+CascadeClassifier model("/path/to/your/model.xml");
+model.detectMultiScale(img, detections, levels, weights, 1.1, 3, 0, Size(), Size(), true);
+cerr &amp;lt;&amp;lt; "Detection " &amp;lt;&amp;lt; detections[0] &amp;lt;&amp;lt; " with weight " &amp;lt;&amp;lt; weights[0] &amp;lt;&amp;lt; endl;
+&lt;/code&gt;
+</pre><p> param image automatically generated param objects automatically generated param rejectLevels automatically generated param levelWeights automatically generated param scaleFactor automatically generated param minNeighbors automatically generated </p>
 
 </div>
 </div>
@@ -1225,6 +1356,22 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">This function allows you to retrieve the final stage decision certainty of classification.
+For this, one needs to set {code outputRejectLevels} on true and provide the {code rejectLevels} and {code levelWeights} parameter.
+For each resulting detection, {code levelWeights} will then contain the certainty of classification at the final stage.
+This value can then be used to separate strong from weaker classifications.
+
+A code sample on how to use it efficiently can be found below:
+&lt;code&gt;
+Mat img;
+vector&amp;lt;double&amp;gt; weights;
+vector&amp;lt;int&amp;gt; levels;
+vector&amp;lt;Rect&amp;gt; detections;
+CascadeClassifier model("/path/to/your/model.xml");
+model.detectMultiScale(img, detections, levels, weights, 1.1, 3, 0, Size(), Size(), true);
+cerr &amp;lt;&amp;lt; "Detection " &amp;lt;&amp;lt; detections[0] &amp;lt;&amp;lt; " with weight " &amp;lt;&amp;lt; weights[0] &amp;lt;&amp;lt; endl;
+&lt;/code&gt;
+</pre><p> param image automatically generated param objects automatically generated param rejectLevels automatically generated param levelWeights automatically generated param scaleFactor automatically generated </p>
 
 </div>
 </div>
@@ -1265,6 +1412,22 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">This function allows you to retrieve the final stage decision certainty of classification.
+For this, one needs to set {code outputRejectLevels} on true and provide the {code rejectLevels} and {code levelWeights} parameter.
+For each resulting detection, {code levelWeights} will then contain the certainty of classification at the final stage.
+This value can then be used to separate strong from weaker classifications.
+
+A code sample on how to use it efficiently can be found below:
+&lt;code&gt;
+Mat img;
+vector&amp;lt;double&amp;gt; weights;
+vector&amp;lt;int&amp;gt; levels;
+vector&amp;lt;Rect&amp;gt; detections;
+CascadeClassifier model("/path/to/your/model.xml");
+model.detectMultiScale(img, detections, levels, weights, 1.1, 3, 0, Size(), Size(), true);
+cerr &amp;lt;&amp;lt; "Detection " &amp;lt;&amp;lt; detections[0] &amp;lt;&amp;lt; " with weight " &amp;lt;&amp;lt; weights[0] &amp;lt;&amp;lt; endl;
+&lt;/code&gt;
+</pre><p> param image automatically generated param objects automatically generated param rejectLevels automatically generated param levelWeights automatically generated </p>
 
 </div>
 </div>
@@ -1310,6 +1473,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Checks whether the classifier has been loaded. return automatically generated </p>
 
 </div>
 </div>
@@ -1396,6 +1560,10 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Loads a classifier from a file. </p><pre class="fragment">param filename Name of the file from which the classifier is loaded. The file may contain an old
+HAAR classifier trained by the haartraining application or a new cascade classifier trained by the
+traincascade application.
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -1405,7 +1573,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:12 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:14 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

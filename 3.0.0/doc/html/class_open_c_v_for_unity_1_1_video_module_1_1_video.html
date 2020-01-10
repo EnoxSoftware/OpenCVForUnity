@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -220,6 +220,8 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Constructs the image pyramid which can be passed to calcOpticalFlowPyrLK.</p>
+<p>param img 8-bit input image. param pyramid output pyramid. param winSize window size of optical flow algorithm. Must be not less than winSize argument of calcOpticalFlowPyrLK. It is needed to calculate required padding for pyramid levels. param maxLevel 0-based maximal pyramid level number. param withDerivatives set to precompute gradients for the every pyramid level. If pyramid is constructed without the gradients then calcOpticalFlowPyrLK will calculate them internally. param pyrBorder the border mode for pyramid layers. param derivBorder the border mode for gradients. param tryReuseInputImage put ROI of input image into the pyramid if possible. You can pass false to force data copying. return number of levels in constructed pyramid. Can be less than maxLevel. </p>
 
 </div>
 </div>
@@ -286,6 +288,8 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Constructs the image pyramid which can be passed to calcOpticalFlowPyrLK.</p>
+<p>param img 8-bit input image. param pyramid output pyramid. param winSize window size of optical flow algorithm. Must be not less than winSize argument of calcOpticalFlowPyrLK. It is needed to calculate required padding for pyramid levels. param maxLevel 0-based maximal pyramid level number. param withDerivatives set to precompute gradients for the every pyramid level. If pyramid is constructed without the gradients then calcOpticalFlowPyrLK will calculate them internally. param pyrBorder the border mode for pyramid layers. param derivBorder the border mode for gradients. to force data copying. return number of levels in constructed pyramid. Can be less than maxLevel. </p>
 
 </div>
 </div>
@@ -346,6 +350,8 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Constructs the image pyramid which can be passed to calcOpticalFlowPyrLK.</p>
+<p>param img 8-bit input image. param pyramid output pyramid. param winSize window size of optical flow algorithm. Must be not less than winSize argument of calcOpticalFlowPyrLK. It is needed to calculate required padding for pyramid levels. param maxLevel 0-based maximal pyramid level number. param withDerivatives set to precompute gradients for the every pyramid level. If pyramid is constructed without the gradients then calcOpticalFlowPyrLK will calculate them internally. param pyrBorder the border mode for pyramid layers. to force data copying. return number of levels in constructed pyramid. Can be less than maxLevel. </p>
 
 </div>
 </div>
@@ -400,6 +406,8 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Constructs the image pyramid which can be passed to calcOpticalFlowPyrLK.</p>
+<p>param img 8-bit input image. param pyramid output pyramid. param winSize window size of optical flow algorithm. Must be not less than winSize argument of calcOpticalFlowPyrLK. It is needed to calculate required padding for pyramid levels. param maxLevel 0-based maximal pyramid level number. param withDerivatives set to precompute gradients for the every pyramid level. If pyramid is constructed without the gradients then calcOpticalFlowPyrLK will calculate them internally. to force data copying. return number of levels in constructed pyramid. Can be less than maxLevel. </p>
 
 </div>
 </div>
@@ -448,6 +456,8 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Constructs the image pyramid which can be passed to calcOpticalFlowPyrLK.</p>
+<p>param img 8-bit input image. param pyramid output pyramid. param winSize window size of optical flow algorithm. Must be not less than winSize argument of calcOpticalFlowPyrLK. It is needed to calculate required padding for pyramid levels. param maxLevel 0-based maximal pyramid level number. constructed without the gradients then calcOpticalFlowPyrLK will calculate them internally. to force data copying. return number of levels in constructed pyramid. Can be less than maxLevel. </p>
 
 </div>
 </div>
@@ -532,6 +542,22 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Computes a dense optical flow using the Gunnar Farneback's algorithm.</p>
+<p>param prev first 8-bit single-channel input image. param next second input image of the same size and the same type as prev. param flow computed flow image that has the same size as prev and type CV_32FC2. param pyr_scale parameter, specifying the image scale (&lt;1) to build pyramids for each image; pyr_scale=0.5 means a classical pyramid, where each next layer is twice smaller than the previous one. param levels number of pyramid layers including the initial image; levels=1 means that no extra layers are created and only the original images are used. param winsize averaging window size; larger values increase the algorithm robustness to image noise and give more chances for fast motion detection, but yield more blurred motion field. param iterations number of iterations the algorithm does at each pyramid level. param poly_n size of the pixel neighborhood used to find polynomial expansion in each pixel; larger values mean that the image will be approximated with smoother surfaces, yielding more robust algorithm and more blurred motion field, typically poly_n =5 or 7. param poly_sigma standard deviation of the Gaussian that is used to smooth derivatives used as a basis for the polynomial expansion; for poly_n=5, you can set poly_sigma=1.1, for poly_n=7, a good value would be poly_sigma=1.5. param flags operation flags that can be a combination of the following: </p><ul>
+<li>
+<b>OPTFLOW_USE_INITIAL_FLOW</b> uses the input flow as an initial flow approximation.  </li>
+<li>
+<b>OPTFLOW_FARNEBACK_GAUSSIAN</b> uses the Gaussian (\texttt{winsize}\times\texttt{winsize}) filter instead of a box filter of the same size for optical flow estimation; usually, this option gives z more accurate flow than with a box filter, at the cost of lower speed; normally, winsize for a Gaussian window should be set to a larger value to achieve the same level of robustness.  </li>
+</ul>
+<p>The function finds an optical flow for each prev pixel using the CITE: Farneback2003 algorithm so that</p>
+<p>(\texttt{prev} (y,x) \sim \texttt{next} ( y + \texttt{flow} (y,x)[1], x + \texttt{flow} (y,x)[0]))</p>
+<p><b>Note:</b></p>
+<ul>
+<li>
+An example using the optical flow algorithm described by Gunnar Farneback can be found at opencv_source_code/samples/cpp/fback.cpp  </li>
+<li>
+(Python) An example using the optical flow algorithm described by Gunnar Farneback can be found at opencv_source_code/samples/python/opt_flow.py  </li>
+</ul>
 
 </div>
 </div>
@@ -622,6 +648,23 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Calculates an optical flow for a sparse feature set using the iterative Lucas-Kanade method with pyramids.</p>
+<p>param prevImg first 8-bit input image or pyramid constructed by buildOpticalFlowPyramid. param nextImg second input image or pyramid of the same size and the same type as prevImg. param prevPts vector of 2D points for which the flow needs to be found; point coordinates must be single-precision floating-point numbers. param nextPts output vector of 2D points (with single-precision floating-point coordinates) containing the calculated new positions of input features in the second image; when OPTFLOW_USE_INITIAL_FLOW flag is passed, the vector must have the same size as in the input. param status output status vector (of unsigned chars); each element of the vector is set to 1 if the flow for the corresponding features has been found, otherwise, it is set to 0. param err output vector of errors; each element of the vector is set to an error for the corresponding feature, type of the error measure can be set in flags parameter; if the flow wasn't found then the error is not defined (use the status parameter to find such cases). param winSize size of the search window at each pyramid level. param maxLevel 0-based maximal pyramid level number; if set to 0, pyramids are not used (single level), if set to 1, two levels are used, and so on; if pyramids are passed to input then algorithm will use as many levels as pyramids have but no more than maxLevel. param criteria parameter, specifying the termination criteria of the iterative search algorithm (after the specified maximum number of iterations criteria.maxCount or when the search window moves by less than criteria.epsilon. param flags operation flags: </p><ul>
+<li>
+<b>OPTFLOW_USE_INITIAL_FLOW</b> uses initial estimations, stored in nextPts; if the flag is not set, then prevPts is copied to nextPts and is considered the initial estimate.  </li>
+<li>
+<b>OPTFLOW_LK_GET_MIN_EIGENVALS</b> use minimum eigen values as an error measure (see minEigThreshold description); if the flag is not set, then L1 distance between patches around the original and a moved point, divided by number of pixels in a window, is used as a error measure. param minEigThreshold the algorithm calculates the minimum eigen value of a 2x2 normal matrix of optical flow equations (this matrix is called a spatial gradient matrix in CITE: Bouguet00), divided by number of pixels in a window; if this value is less than minEigThreshold, then a corresponding feature is filtered out and its flow is not processed, so it allows to remove bad points and get a performance boost.  </li>
+</ul>
+<p>The function implements a sparse iterative version of the Lucas-Kanade optical flow in pyramids. See CITE: Bouguet00 . The function is parallelized with the TBB library.</p>
+<p><b>Note:</b></p>
+<ul>
+<li>
+An example using the Lucas-Kanade optical flow algorithm can be found at opencv_source_code/samples/cpp/lkdemo.cpp  </li>
+<li>
+(Python) An example using the Lucas-Kanade optical flow algorithm can be found at opencv_source_code/samples/python/lk_track.py  </li>
+<li>
+(Python) An example using the Lucas-Kanade tracker for homography matching can be found at opencv_source_code/samples/python/lk_homography.py  </li>
+</ul>
 
 </div>
 </div>
@@ -706,6 +749,23 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Calculates an optical flow for a sparse feature set using the iterative Lucas-Kanade method with pyramids.</p>
+<p>param prevImg first 8-bit input image or pyramid constructed by buildOpticalFlowPyramid. param nextImg second input image or pyramid of the same size and the same type as prevImg. param prevPts vector of 2D points for which the flow needs to be found; point coordinates must be single-precision floating-point numbers. param nextPts output vector of 2D points (with single-precision floating-point coordinates) containing the calculated new positions of input features in the second image; when OPTFLOW_USE_INITIAL_FLOW flag is passed, the vector must have the same size as in the input. param status output status vector (of unsigned chars); each element of the vector is set to 1 if the flow for the corresponding features has been found, otherwise, it is set to 0. param err output vector of errors; each element of the vector is set to an error for the corresponding feature, type of the error measure can be set in flags parameter; if the flow wasn't found then the error is not defined (use the status parameter to find such cases). param winSize size of the search window at each pyramid level. param maxLevel 0-based maximal pyramid level number; if set to 0, pyramids are not used (single level), if set to 1, two levels are used, and so on; if pyramids are passed to input then algorithm will use as many levels as pyramids have but no more than maxLevel. param criteria parameter, specifying the termination criteria of the iterative search algorithm (after the specified maximum number of iterations criteria.maxCount or when the search window moves by less than criteria.epsilon. param flags operation flags: </p><ul>
+<li>
+<b>OPTFLOW_USE_INITIAL_FLOW</b> uses initial estimations, stored in nextPts; if the flag is not set, then prevPts is copied to nextPts and is considered the initial estimate.  </li>
+<li>
+<b>OPTFLOW_LK_GET_MIN_EIGENVALS</b> use minimum eigen values as an error measure (see minEigThreshold description); if the flag is not set, then L1 distance between patches around the original and a moved point, divided by number of pixels in a window, is used as a error measure. optical flow equations (this matrix is called a spatial gradient matrix in CITE: Bouguet00), divided by number of pixels in a window; if this value is less than minEigThreshold, then a corresponding feature is filtered out and its flow is not processed, so it allows to remove bad points and get a performance boost.  </li>
+</ul>
+<p>The function implements a sparse iterative version of the Lucas-Kanade optical flow in pyramids. See CITE: Bouguet00 . The function is parallelized with the TBB library.</p>
+<p><b>Note:</b></p>
+<ul>
+<li>
+An example using the Lucas-Kanade optical flow algorithm can be found at opencv_source_code/samples/cpp/lkdemo.cpp  </li>
+<li>
+(Python) An example using the Lucas-Kanade optical flow algorithm can be found at opencv_source_code/samples/python/lk_track.py  </li>
+<li>
+(Python) An example using the Lucas-Kanade tracker for homography matching can be found at opencv_source_code/samples/python/lk_homography.py  </li>
+</ul>
 
 </div>
 </div>
@@ -784,6 +844,23 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Calculates an optical flow for a sparse feature set using the iterative Lucas-Kanade method with pyramids.</p>
+<p>param prevImg first 8-bit input image or pyramid constructed by buildOpticalFlowPyramid. param nextImg second input image or pyramid of the same size and the same type as prevImg. param prevPts vector of 2D points for which the flow needs to be found; point coordinates must be single-precision floating-point numbers. param nextPts output vector of 2D points (with single-precision floating-point coordinates) containing the calculated new positions of input features in the second image; when OPTFLOW_USE_INITIAL_FLOW flag is passed, the vector must have the same size as in the input. param status output status vector (of unsigned chars); each element of the vector is set to 1 if the flow for the corresponding features has been found, otherwise, it is set to 0. param err output vector of errors; each element of the vector is set to an error for the corresponding feature, type of the error measure can be set in flags parameter; if the flow wasn't found then the error is not defined (use the status parameter to find such cases). param winSize size of the search window at each pyramid level. param maxLevel 0-based maximal pyramid level number; if set to 0, pyramids are not used (single level), if set to 1, two levels are used, and so on; if pyramids are passed to input then algorithm will use as many levels as pyramids have but no more than maxLevel. param criteria parameter, specifying the termination criteria of the iterative search algorithm (after the specified maximum number of iterations criteria.maxCount or when the search window moves by less than criteria.epsilon. </p><ul>
+<li>
+<b>OPTFLOW_USE_INITIAL_FLOW</b> uses initial estimations, stored in nextPts; if the flag is not set, then prevPts is copied to nextPts and is considered the initial estimate.  </li>
+<li>
+<b>OPTFLOW_LK_GET_MIN_EIGENVALS</b> use minimum eigen values as an error measure (see minEigThreshold description); if the flag is not set, then L1 distance between patches around the original and a moved point, divided by number of pixels in a window, is used as a error measure. optical flow equations (this matrix is called a spatial gradient matrix in CITE: Bouguet00), divided by number of pixels in a window; if this value is less than minEigThreshold, then a corresponding feature is filtered out and its flow is not processed, so it allows to remove bad points and get a performance boost.  </li>
+</ul>
+<p>The function implements a sparse iterative version of the Lucas-Kanade optical flow in pyramids. See CITE: Bouguet00 . The function is parallelized with the TBB library.</p>
+<p><b>Note:</b></p>
+<ul>
+<li>
+An example using the Lucas-Kanade optical flow algorithm can be found at opencv_source_code/samples/cpp/lkdemo.cpp  </li>
+<li>
+(Python) An example using the Lucas-Kanade optical flow algorithm can be found at opencv_source_code/samples/python/lk_track.py  </li>
+<li>
+(Python) An example using the Lucas-Kanade tracker for homography matching can be found at opencv_source_code/samples/python/lk_homography.py  </li>
+</ul>
 
 </div>
 </div>
@@ -856,6 +933,23 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Calculates an optical flow for a sparse feature set using the iterative Lucas-Kanade method with pyramids.</p>
+<p>param prevImg first 8-bit input image or pyramid constructed by buildOpticalFlowPyramid. param nextImg second input image or pyramid of the same size and the same type as prevImg. param prevPts vector of 2D points for which the flow needs to be found; point coordinates must be single-precision floating-point numbers. param nextPts output vector of 2D points (with single-precision floating-point coordinates) containing the calculated new positions of input features in the second image; when OPTFLOW_USE_INITIAL_FLOW flag is passed, the vector must have the same size as in the input. param status output status vector (of unsigned chars); each element of the vector is set to 1 if the flow for the corresponding features has been found, otherwise, it is set to 0. param err output vector of errors; each element of the vector is set to an error for the corresponding feature, type of the error measure can be set in flags parameter; if the flow wasn't found then the error is not defined (use the status parameter to find such cases). param winSize size of the search window at each pyramid level. param maxLevel 0-based maximal pyramid level number; if set to 0, pyramids are not used (single level), if set to 1, two levels are used, and so on; if pyramids are passed to input then algorithm will use as many levels as pyramids have but no more than maxLevel. (after the specified maximum number of iterations criteria.maxCount or when the search window moves by less than criteria.epsilon. </p><ul>
+<li>
+<b>OPTFLOW_USE_INITIAL_FLOW</b> uses initial estimations, stored in nextPts; if the flag is not set, then prevPts is copied to nextPts and is considered the initial estimate.  </li>
+<li>
+<b>OPTFLOW_LK_GET_MIN_EIGENVALS</b> use minimum eigen values as an error measure (see minEigThreshold description); if the flag is not set, then L1 distance between patches around the original and a moved point, divided by number of pixels in a window, is used as a error measure. optical flow equations (this matrix is called a spatial gradient matrix in CITE: Bouguet00), divided by number of pixels in a window; if this value is less than minEigThreshold, then a corresponding feature is filtered out and its flow is not processed, so it allows to remove bad points and get a performance boost.  </li>
+</ul>
+<p>The function implements a sparse iterative version of the Lucas-Kanade optical flow in pyramids. See CITE: Bouguet00 . The function is parallelized with the TBB library.</p>
+<p><b>Note:</b></p>
+<ul>
+<li>
+An example using the Lucas-Kanade optical flow algorithm can be found at opencv_source_code/samples/cpp/lkdemo.cpp  </li>
+<li>
+(Python) An example using the Lucas-Kanade optical flow algorithm can be found at opencv_source_code/samples/python/lk_track.py  </li>
+<li>
+(Python) An example using the Lucas-Kanade tracker for homography matching can be found at opencv_source_code/samples/python/lk_homography.py  </li>
+</ul>
 
 </div>
 </div>
@@ -922,6 +1016,23 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Calculates an optical flow for a sparse feature set using the iterative Lucas-Kanade method with pyramids.</p>
+<p>param prevImg first 8-bit input image or pyramid constructed by buildOpticalFlowPyramid. param nextImg second input image or pyramid of the same size and the same type as prevImg. param prevPts vector of 2D points for which the flow needs to be found; point coordinates must be single-precision floating-point numbers. param nextPts output vector of 2D points (with single-precision floating-point coordinates) containing the calculated new positions of input features in the second image; when OPTFLOW_USE_INITIAL_FLOW flag is passed, the vector must have the same size as in the input. param status output status vector (of unsigned chars); each element of the vector is set to 1 if the flow for the corresponding features has been found, otherwise, it is set to 0. param err output vector of errors; each element of the vector is set to an error for the corresponding feature, type of the error measure can be set in flags parameter; if the flow wasn't found then the error is not defined (use the status parameter to find such cases). param winSize size of the search window at each pyramid level. level), if set to 1, two levels are used, and so on; if pyramids are passed to input then algorithm will use as many levels as pyramids have but no more than maxLevel. (after the specified maximum number of iterations criteria.maxCount or when the search window moves by less than criteria.epsilon. </p><ul>
+<li>
+<b>OPTFLOW_USE_INITIAL_FLOW</b> uses initial estimations, stored in nextPts; if the flag is not set, then prevPts is copied to nextPts and is considered the initial estimate.  </li>
+<li>
+<b>OPTFLOW_LK_GET_MIN_EIGENVALS</b> use minimum eigen values as an error measure (see minEigThreshold description); if the flag is not set, then L1 distance between patches around the original and a moved point, divided by number of pixels in a window, is used as a error measure. optical flow equations (this matrix is called a spatial gradient matrix in CITE: Bouguet00), divided by number of pixels in a window; if this value is less than minEigThreshold, then a corresponding feature is filtered out and its flow is not processed, so it allows to remove bad points and get a performance boost.  </li>
+</ul>
+<p>The function implements a sparse iterative version of the Lucas-Kanade optical flow in pyramids. See CITE: Bouguet00 . The function is parallelized with the TBB library.</p>
+<p><b>Note:</b></p>
+<ul>
+<li>
+An example using the Lucas-Kanade optical flow algorithm can be found at opencv_source_code/samples/cpp/lkdemo.cpp  </li>
+<li>
+(Python) An example using the Lucas-Kanade optical flow algorithm can be found at opencv_source_code/samples/python/lk_track.py  </li>
+<li>
+(Python) An example using the Lucas-Kanade tracker for homography matching can be found at opencv_source_code/samples/python/lk_homography.py  </li>
+</ul>
 
 </div>
 </div>
@@ -982,6 +1093,23 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Calculates an optical flow for a sparse feature set using the iterative Lucas-Kanade method with pyramids.</p>
+<p>param prevImg first 8-bit input image or pyramid constructed by buildOpticalFlowPyramid. param nextImg second input image or pyramid of the same size and the same type as prevImg. param prevPts vector of 2D points for which the flow needs to be found; point coordinates must be single-precision floating-point numbers. param nextPts output vector of 2D points (with single-precision floating-point coordinates) containing the calculated new positions of input features in the second image; when OPTFLOW_USE_INITIAL_FLOW flag is passed, the vector must have the same size as in the input. param status output status vector (of unsigned chars); each element of the vector is set to 1 if the flow for the corresponding features has been found, otherwise, it is set to 0. param err output vector of errors; each element of the vector is set to an error for the corresponding feature, type of the error measure can be set in flags parameter; if the flow wasn't found then the error is not defined (use the status parameter to find such cases). level), if set to 1, two levels are used, and so on; if pyramids are passed to input then algorithm will use as many levels as pyramids have but no more than maxLevel. (after the specified maximum number of iterations criteria.maxCount or when the search window moves by less than criteria.epsilon. </p><ul>
+<li>
+<b>OPTFLOW_USE_INITIAL_FLOW</b> uses initial estimations, stored in nextPts; if the flag is not set, then prevPts is copied to nextPts and is considered the initial estimate.  </li>
+<li>
+<b>OPTFLOW_LK_GET_MIN_EIGENVALS</b> use minimum eigen values as an error measure (see minEigThreshold description); if the flag is not set, then L1 distance between patches around the original and a moved point, divided by number of pixels in a window, is used as a error measure. optical flow equations (this matrix is called a spatial gradient matrix in CITE: Bouguet00), divided by number of pixels in a window; if this value is less than minEigThreshold, then a corresponding feature is filtered out and its flow is not processed, so it allows to remove bad points and get a performance boost.  </li>
+</ul>
+<p>The function implements a sparse iterative version of the Lucas-Kanade optical flow in pyramids. See CITE: Bouguet00 . The function is parallelized with the TBB library.</p>
+<p><b>Note:</b></p>
+<ul>
+<li>
+An example using the Lucas-Kanade optical flow algorithm can be found at opencv_source_code/samples/cpp/lkdemo.cpp  </li>
+<li>
+(Python) An example using the Lucas-Kanade optical flow algorithm can be found at opencv_source_code/samples/python/lk_track.py  </li>
+<li>
+(Python) An example using the Lucas-Kanade tracker for homography matching can be found at opencv_source_code/samples/python/lk_homography.py  </li>
+</ul>
 
 </div>
 </div>
@@ -1024,6 +1152,14 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Finds an object center, size, and orientation.</p>
+<p>param probImage Back projection of the object histogram. See calcBackProject. param window Initial search window. param criteria Stop criteria for the underlying meanShift. returns (in old interfaces) Number of iterations CAMSHIFT took to converge The function implements the CAMSHIFT object tracking algorithm CITE: Bradski98 . First, it finds an object center using meanShift and then adjusts the window size and finds the optimal rotation. The function returns the rotated rectangle structure that includes the object position, size, and orientation. The next position of the search window can be obtained with RotatedRect::boundingRect()</p>
+<p>See the OpenCV sample camshiftdemo.c that tracks colored objects.</p>
+<p><b>Note:</b> </p><ul>
+<li>
+(Python) A sample explaining the camshift tracking algorithm can be found at opencv_source_code/samples/python/camshift.py  </li>
+</ul>
+<p>return automatically generated </p>
 
 </div>
 </div>
@@ -1066,6 +1202,9 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Computes the Enhanced Correlation Coefficient value between two images CITE: EP08 .</p>
+<p>param templateImage single-channel template image; CV_8U or CV_32F array. param inputImage single-channel input image to be warped to provide an image similar to templateImage, same type as templateImage. param inputMask An optional mask to indicate valid values of inputImage.</p>
+<p>SEE: findTransformECC return automatically generated </p>
 
 </div>
 </div>
@@ -1102,6 +1241,9 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Computes the Enhanced Correlation Coefficient value between two images CITE: EP08 .</p>
+<p>param templateImage single-channel template image; CV_8U or CV_32F array. param inputImage single-channel input image to be warped to provide an image similar to templateImage, same type as templateImage.</p>
+<p>SEE: findTransformECC return automatically generated </p>
 
 </div>
 </div>
@@ -1144,6 +1286,8 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates KNN Background Subtractor</p>
+<p>param history Length of the history. param dist2Threshold Threshold on the squared distance between the pixel and the sample to decide whether a pixel is close to that sample. This parameter does not affect the background update. param detectShadows If true, the algorithm will detect shadows and mark them. It decreases the speed a bit, so if you do not need this feature, set the parameter to false. return automatically generated </p>
 
 </div>
 </div>
@@ -1180,6 +1324,8 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates KNN Background Subtractor</p>
+<p>param history Length of the history. param dist2Threshold Threshold on the squared distance between the pixel and the sample to decide whether a pixel is close to that sample. This parameter does not affect the background update. speed a bit, so if you do not need this feature, set the parameter to false. return automatically generated </p>
 
 </div>
 </div>
@@ -1206,6 +1352,8 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates KNN Background Subtractor</p>
+<p>param history Length of the history. whether a pixel is close to that sample. This parameter does not affect the background update. speed a bit, so if you do not need this feature, set the parameter to false. return automatically generated </p>
 
 </div>
 </div>
@@ -1231,6 +1379,8 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates KNN Background Subtractor</p>
+<p>whether a pixel is close to that sample. This parameter does not affect the background update. speed a bit, so if you do not need this feature, set the parameter to false. return automatically generated </p>
 
 </div>
 </div>
@@ -1273,6 +1423,8 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates MOG2 Background Subtractor</p>
+<p>param history Length of the history. param varThreshold Threshold on the squared Mahalanobis distance between the pixel and the model to decide whether a pixel is well described by the background model. This parameter does not affect the background update. param detectShadows If true, the algorithm will detect shadows and mark them. It decreases the speed a bit, so if you do not need this feature, set the parameter to false. return automatically generated </p>
 
 </div>
 </div>
@@ -1309,6 +1461,8 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates MOG2 Background Subtractor</p>
+<p>param history Length of the history. param varThreshold Threshold on the squared Mahalanobis distance between the pixel and the model to decide whether a pixel is well described by the background model. This parameter does not affect the background update. speed a bit, so if you do not need this feature, set the parameter to false. return automatically generated </p>
 
 </div>
 </div>
@@ -1335,6 +1489,8 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates MOG2 Background Subtractor</p>
+<p>param history Length of the history. to decide whether a pixel is well described by the background model. This parameter does not affect the background update. speed a bit, so if you do not need this feature, set the parameter to false. return automatically generated </p>
 
 </div>
 </div>
@@ -1360,6 +1516,8 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates MOG2 Background Subtractor</p>
+<p>to decide whether a pixel is well described by the background model. This parameter does not affect the background update. speed a bit, so if you do not need this feature, set the parameter to false. return automatically generated </p>
 
 </div>
 </div>
@@ -1426,6 +1584,16 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>is (3\times 3). param criteria parameter, specifying the termination criteria of the ECC algorithm; criteria.epsilon defines the threshold of the increment in the correlation coefficient between two iterations (a negative criteria.epsilon makes criteria.maxcount the only termination criterion). Default values are shown in the declaration above. param inputMask An optional mask to indicate valid values of inputImage. param gaussFiltSize An optional value indicating size of gaussian blur filter; (DEFAULT: 5)  </p>
+<p>The function estimates the optimum transformation (warpMatrix) with respect to ECC criterion (CITE: EP08), that is</p>
+<p>(\texttt{warpMatrix} = \texttt{warpMatrix} = </p><ul>
+<li>\max_{W} \texttt{ECC}(\texttt{templateImage}(x,y),\texttt{inputImage}(x',y')))</li>
+</ul>
+<p>where</p>
+<p>(\begin{bmatrix} x' \ y' \end{bmatrix} = W \cdot \begin{bmatrix} x \ y \ 1 \end{bmatrix})</p>
+<p>(the equation holds with homogeneous coordinates for homography). It returns the final enhanced correlation coefficient, that is the correlation coefficient between the template image and the final warped input image. When a (3\times 3) matrix is given with motionType =0, 1 or 2, the third row is ignored.</p>
+<p>Unlike findHomography and estimateRigidTransform, the function findTransformECC implements an area-based alignment that builds on intensity similarities. In essence, the function updates the initial transformation that roughly aligns the images. If this information is missing, the identity warp (unity matrix) is used as an initialization. Note that if images undergo strong displacements/rotations, an initial transformation that roughly aligns the images is necessary (e.g., a simple euclidean/similarity transform that allows for the images showing the same image content approximately). Use inverse warping in the second image to take an image close to the first one, i.e. use the flag WARP_INVERSE_MAP with warpAffine or warpPerspective. See also the OpenCV sample image_alignment.cpp that demonstrates the use of the function. Note that the function throws an exception if algorithm does not converges.</p>
+<p>SEE: computeECC, estimateAffine2D, estimateAffinePartial2D, findHomography return automatically generated </p>
 
 </div>
 </div>
@@ -1468,6 +1636,8 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Finds an object on a back projection image.</p>
+<p>param probImage Back projection of the object histogram. See calcBackProject for details. param window Initial search window. param criteria Stop criteria for the iterative search algorithm. returns : Number of iterations CAMSHIFT took to converge. The function implements the iterative object search algorithm. It takes the input back projection of an object and the initial position. The mass center in window of the back projection image is computed and the search window center shifts to the mass center. The procedure is repeated until the specified number of iterations criteria.maxCount is done or until the window center shifts by less than criteria.epsilon. The algorithm is used inside CamShift and, unlike CamShift , the search window size or orientation do not change during the search. You can simply pass the output of calcBackProject to this function. But better results can be obtained if you pre-filter the back projection and remove the noise. For example, you can do this by retrieving connected components with findContours , throwing away contours with small area ( contourArea ), and rendering the remaining contours with drawContours. return automatically generated </p>
 
 </div>
 </div>
@@ -1494,6 +1664,9 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Read a .flo file</p>
+<p>param path Path to the file to be loaded</p>
+<p>The function readOpticalFlow loads a flow field from a file and returns it as a single matrix. Resulting Mat has a type CV_32FC2 - floating-point, 2-channel. First channel corresponds to the flow in the horizontal direction (u), second - vertical (v). return automatically generated </p>
 
 </div>
 </div>
@@ -1530,6 +1703,9 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Write a .flo to disk</p>
+<p>param path Path to the file to be written param flow Flow field to be stored</p>
+<p>The function stores a flow field in a file, returns true on success, false otherwise. The flow field must be a 2-channel, floating-point matrix (CV_32FC2). First channel corresponds to the flow in the horizontal direction (u), second - vertical (v). return automatically generated </p>
 
 </div>
 </div>
@@ -1638,7 +1814,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:13 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:17 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

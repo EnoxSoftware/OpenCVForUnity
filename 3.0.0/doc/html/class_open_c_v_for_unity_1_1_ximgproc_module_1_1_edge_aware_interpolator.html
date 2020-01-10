@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -103,6 +103,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa5568945cff29e8b2db18c3668132510"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9299d13ffbad0be9357169890573e9e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_edge_aware_interpolator.html#ac9299d13ffbad0be9357169890573e9e">getK</a> ()</td></tr>
 <tr class="separator:ac9299d13ffbad0be9357169890573e9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a501e27b60559634fafc1624e790ff64f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_edge_aware_interpolator.html#a501e27b60559634fafc1624e790ff64f">setCostMap</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> _costMap)</td></tr>
+<tr class="separator:a501e27b60559634fafc1624e790ff64f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2baceb6686ae9478242fb573a12d7f8c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_edge_aware_interpolator.html#a2baceb6686ae9478242fb573a12d7f8c">setFGSLambda</a> (float _lambda)</td></tr>
 <tr class="separator:a2baceb6686ae9478242fb573a12d7f8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4cb78044a3f491a33a87cfcae8d27061"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_edge_aware_interpolator.html#a4cb78044a3f491a33a87cfcae8d27061">setFGSSigma</a> (float _sigma)</td></tr>
@@ -183,7 +185,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Sparse match interpolation algorithm based on modified locally-weighted affine estimator from CITE: Revaud2015 and Fast Global Smoother as post-processing filter. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a857c0af6ea50d473e5fbf74574bc9fa3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a857c0af6ea50d473e5fbf74574bc9fa3">&#9670;&nbsp;</a></span>EdgeAwareInterpolator()</h2>
 
@@ -279,6 +283,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setFGSLambda return automatically generated </p>
 
 </div>
 </div>
@@ -296,6 +301,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setFGSLambda return automatically generated </p>
 
 </div>
 </div>
@@ -313,6 +319,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setK return automatically generated </p>
 
 </div>
 </div>
@@ -330,6 +337,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setLambda return automatically generated </p>
 
 </div>
 </div>
@@ -347,6 +355,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setSigma return automatically generated </p>
 
 </div>
 </div>
@@ -364,6 +373,26 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setUsePostProcessing return automatically generated </p>
+
+</div>
+</div>
+<a id="a501e27b60559634fafc1624e790ff64f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a501e27b60559634fafc1624e790ff64f">&#9670;&nbsp;</a></span>setCostMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.XimgprocModule.EdgeAwareInterpolator.setCostMap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
+          <td class="paramname"><em>_costMap</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Interface to provide a more elaborated cost map, i.e. edge map, for the edge-aware term. This implementation is based on a rather simple gradient-based edge map estimation. To used more complex edge map estimator (e.g. <a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_structured_edge_detection.html">StructuredEdgeDetection</a> that has been used in the original publication) that may lead to improved accuracies, the internal edge map estimation can be bypassed here. param _costMap a type CV_32FC1 Mat is required. SEE: cv::ximgproc::createSuperpixelSLIC </p>
 
 </div>
 </div>
@@ -382,6 +411,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the respective fastGlobalSmootherFilter() parameter. param _lambda automatically generated </p>
 
 </div>
 </div>
@@ -400,6 +430,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setFGSLambda param _sigma automatically generated </p>
 
 </div>
 </div>
@@ -418,6 +449,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>K is a number of nearest-neighbor matches considered, when fitting a locally affine model. Usually it should be around 128. However, lower values would make the interpolation noticeably faster. param _k automatically generated </p>
 
 </div>
 </div>
@@ -436,6 +468,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Lambda is a parameter defining the weight of the edge-aware term in geodesic distance, should be in the range of 0 to 1000. param _lambda automatically generated </p>
 
 </div>
 </div>
@@ -454,6 +487,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sigma is a parameter defining how fast the weights decrease in the locally-weighted affine fitting. Higher values can help preserve fine details, lower values can help to get rid of noise in the output flow. param _sigma automatically generated </p>
 
 </div>
 </div>
@@ -472,6 +506,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets whether the fastGlobalSmootherFilter() post-processing is employed. It is turned on by default. param _use_post_proc automatically generated </p>
 
 </div>
 </div>
@@ -481,7 +516,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:14 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:17 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

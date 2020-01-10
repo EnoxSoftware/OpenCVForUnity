@@ -13,6 +13,8 @@ var searchData=
   ['solvepnp_5fap3p',['SOLVEPNP_AP3P',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a72a1a35ed6b9eb44f617fccfb24e1446',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
   ['solvepnp_5fdls',['SOLVEPNP_DLS',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#aab810b55313d7acc3e446d509feb6c3f',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
   ['solvepnp_5fepnp',['SOLVEPNP_EPNP',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#af0e5c25c1aa61af4c3f09511f2d6179b',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
+  ['solvepnp_5fippe',['SOLVEPNP_IPPE',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a36520c1b874ceb5c06254ad67978b27c',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
+  ['solvepnp_5fippe_5fsquare',['SOLVEPNP_IPPE_SQUARE',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#abba1db3c18522ed721619414f0193ed8',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
   ['solvepnp_5fiterative',['SOLVEPNP_ITERATIVE',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a346b4cf4327a5a3c2348a53becd88d8b',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
   ['solvepnp_5fmax_5fcount',['SOLVEPNP_MAX_COUNT',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#ac1b437bd8339d16853051d4a419163dc',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
   ['solvepnp_5fp3p',['SOLVEPNP_P3P',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a5213400e62fde58b8e2b2bb096f55c59',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],

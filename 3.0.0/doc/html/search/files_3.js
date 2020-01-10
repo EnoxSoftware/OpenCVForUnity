@@ -3,6 +3,7 @@ var searchData=
   ['daisy_2ecs',['DAISY.cs',['../_d_a_i_s_y_8cs.html',1,'']]],
   ['denseopticalflow_2ecs',['DenseOpticalFlow.cs',['../_dense_optical_flow_8cs.html',1,'']]],
   ['descriptormatcher_2ecs',['DescriptorMatcher.cs',['../_descriptor_matcher_8cs.html',1,'']]],
+  ['detectionmodel_2ecs',['DetectionModel.cs',['../_detection_model_8cs.html',1,'']]],
   ['detectorparameters_2ecs',['DetectorParameters.cs',['../_detector_parameters_8cs.html',1,'']]],
   ['dictionary_2ecs',['Dictionary.cs',['../_dictionary_8cs.html',1,'']]],
   ['dictvalue_2ecs',['DictValue.cs',['../_dict_value_8cs.html',1,'']]],

@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -163,7 +163,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>ChArUco board Specific class for ChArUco boards. A ChArUco board is a planar board where the markers are placed inside the white squares of a chessboard. The benefits of ChArUco boards is that they provide both, ArUco markers versatility and chessboard corner precision, which is important for calibration and pose estimation. This class also allows the easy creation and drawing of ChArUco boards. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a5b5e583135c66412d5c10d10f4ef6f84"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5b5e583135c66412d5c10d10f4ef6f84">&#9670;&nbsp;</a></span>CharucoBoard()</h2>
 
@@ -268,6 +270,9 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Create a <a class="el" href="class_open_c_v_for_unity_1_1_aruco_module_1_1_charuco_board.html">CharucoBoard</a> object</p>
+<p>param squaresX number of chessboard squares in X direction param squaresY number of chessboard squares in Y direction param squareLength chessboard square side length (normally in meters) param markerLength marker side length (same unit than squareLength) param dictionary dictionary of markers indicating the type of markers. The first markers in the dictionary are used to fill the white chessboard squares. return the output <a class="el" href="class_open_c_v_for_unity_1_1_aruco_module_1_1_charuco_board.html">CharucoBoard</a> object</p>
+<p>This functions creates a <a class="el" href="class_open_c_v_for_unity_1_1_aruco_module_1_1_charuco_board.html">CharucoBoard</a> object given the number of squares in each direction and the size of the markers and chessboard squares. </p>
 
 </div>
 </div>
@@ -336,6 +341,9 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Draw a ChArUco board</p>
+<p>param outSize size of the output image in pixels. param img output image with the board. The size of this image will be outSize and the board will be on the center, keeping the board proportions. param marginSize minimum margins (in pixels) of the board in the output image param borderBits width of the marker borders.</p>
+<p>This function return the image of the ChArUco board, ready to be printed. </p>
 
 </div>
 </div>
@@ -370,6 +378,9 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Draw a ChArUco board</p>
+<p>param outSize size of the output image in pixels. param img output image with the board. The size of this image will be outSize and the board will be on the center, keeping the board proportions. param marginSize minimum margins (in pixels) of the board in the output image</p>
+<p>This function return the image of the ChArUco board, ready to be printed. </p>
 
 </div>
 </div>
@@ -398,6 +409,9 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Draw a ChArUco board</p>
+<p>param outSize size of the output image in pixels. param img output image with the board. The size of this image will be outSize and the board will be on the center, keeping the board proportions.</p>
+<p>This function return the image of the ChArUco board, ready to be printed. </p>
 
 </div>
 </div>
@@ -475,7 +489,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:10 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:09 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

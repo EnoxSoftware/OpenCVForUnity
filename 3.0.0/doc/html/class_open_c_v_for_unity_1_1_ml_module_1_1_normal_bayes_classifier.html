@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -196,7 +196,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Bayes classifier for normally distributed data.</p>
+<p>SEE: REF: ml_intro_bayes </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae353df9dca7149de3767bc175535db99"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae353df9dca7149de3767bc175535db99">&#9670;&nbsp;</a></span>NormalBayesClassifier()</h2>
 
@@ -272,6 +275,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates empty model Use <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a735e7bc1e8422ab769510c1afca3dd00">StatModel::train</a> to train the model after creation. return automatically generated </p>
 
 </div>
 </div>
@@ -336,6 +340,9 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Loads and creates a serialized <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_normal_bayes_classifier.html">NormalBayesClassifier</a> from a file</p>
+<p>Use <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#af4c0ad9f8fd5975a8dbf9209115495db">NormalBayesClassifier::save</a> to serialize and store an <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_normal_bayes_classifier.html">NormalBayesClassifier</a> to disk. Load the <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_normal_bayes_classifier.html">NormalBayesClassifier</a> from this file again, by calling this function with the path to the file. Optionally specify the node for the file containing the classifier</p>
+<p>param filepath path to serialized <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_normal_bayes_classifier.html">NormalBayesClassifier</a> param nodeName name of node containing the classifier return automatically generated </p>
 
 </div>
 </div>
@@ -362,6 +369,9 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Loads and creates a serialized <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_normal_bayes_classifier.html">NormalBayesClassifier</a> from a file</p>
+<p>Use <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#af4c0ad9f8fd5975a8dbf9209115495db">NormalBayesClassifier::save</a> to serialize and store an <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_normal_bayes_classifier.html">NormalBayesClassifier</a> to disk. Load the <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_normal_bayes_classifier.html">NormalBayesClassifier</a> from this file again, by calling this function with the path to the file. Optionally specify the node for the file containing the classifier</p>
+<p>param filepath path to serialized <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_normal_bayes_classifier.html">NormalBayesClassifier</a> return automatically generated </p>
 
 </div>
 </div>
@@ -402,6 +412,12 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Predicts the response for sample(s). </p><pre class="fragment">The method estimates the most probable classes for input vectors. Input vectors (one or more)
+are stored as rows of the matrix inputs. In case of multiple input vectors, there should be one
+output vector outputs. The predicted class for a single input vector is returned by the method.
+The vector outputProbs contains the output probabilities corresponding to each element of
+result.
+</pre><p> param inputs automatically generated param outputs automatically generated param outputProbs automatically generated param flags automatically generated return automatically generated </p>
 
 </div>
 </div>
@@ -436,6 +452,12 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Predicts the response for sample(s). </p><pre class="fragment">The method estimates the most probable classes for input vectors. Input vectors (one or more)
+are stored as rows of the matrix inputs. In case of multiple input vectors, there should be one
+output vector outputs. The predicted class for a single input vector is returned by the method.
+The vector outputProbs contains the output probabilities corresponding to each element of
+result.
+</pre><p> param inputs automatically generated param outputs automatically generated param outputProbs automatically generated return automatically generated </p>
 
 </div>
 </div>
@@ -445,7 +467,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:12 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:14 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -213,7 +213,11 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>DIS optical flow algorithm.</p>
+<p>This class implements the Dense Inverse Search (DIS) optical flow algorithm. More details about the algorithm can be found at CITE: Kroeger2016 . Includes three presets with preselected parameters to provide reasonable trade-off between speed and quality. However, even the slowest preset is still relatively fast, use DeepFlow if you need better quality and don't care about speed.</p>
+<p>This implementation includes several additional features compared to the algorithm described in the paper, including spatial propagation of flow vectors (REF: getUseSpatialPropagation), as well as an option to utilize an initial flow approximation passed to REF: calc (which is, essentially, temporal propagation, if the previous frame's flow field is passed). </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a7b543dc6aecfdbd604e69543508b8ce7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7b543dc6aecfdbd604e69543508b8ce7">&#9670;&nbsp;</a></span>DISOpticalFlow()</h2>
 
@@ -290,6 +294,8 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates an instance of <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_d_i_s_optical_flow.html">DISOpticalFlow</a> </p><pre class="fragment">param preset one of PRESET_ULTRAFAST, PRESET_FAST and PRESET_MEDIUM
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -315,6 +321,8 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates an instance of <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_d_i_s_optical_flow.html">DISOpticalFlow</a></p>
+<p>return automatically generated </p>
 
 </div>
 </div>
@@ -360,6 +368,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Finest level of the Gaussian pyramid on which the flow is computed (zero level corresponds to the original image resolution). The final flow is obtained by bilinear upscaling. SEE: setFinestScale return automatically generated </p>
 
 </div>
 </div>
@@ -377,6 +386,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Maximum number of gradient descent iterations in the patch inverse search stage. Higher values may improve quality in some cases. SEE: setGradientDescentIterations return automatically generated </p>
 
 </div>
 </div>
@@ -394,6 +404,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Size of an image patch for matching (in pixels). Normally, default 8x8 patches work well enough in most cases. SEE: setPatchSize return automatically generated </p>
 
 </div>
 </div>
@@ -411,6 +422,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Stride between neighbor patches. Must be less than patch size. Lower values correspond to higher flow quality. SEE: setPatchStride return automatically generated </p>
 
 </div>
 </div>
@@ -428,6 +440,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Whether to use mean-normalization of patches when computing patch distance. It is turned on by default as it typically provides a noticeable quality boost because of increased robustness to illumination variations. Turn it off if you are certain that your sequence doesn't contain any changes in illumination. SEE: setUseMeanNormalization return automatically generated </p>
 
 </div>
 </div>
@@ -445,6 +458,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Whether to use spatial propagation of good optical flow vectors. This option is turned on by default, as it tends to work better on average and can sometimes help recover from major errors introduced by the coarse-to-fine scheme employed by the DIS optical flow algorithm. Turning this option off can make the output flow field a bit smoother, however. SEE: setUseSpatialPropagation return automatically generated </p>
 
 </div>
 </div>
@@ -462,6 +476,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weight of the smoothness term SEE: setVariationalRefinementAlpha return automatically generated </p>
 
 </div>
 </div>
@@ -479,6 +494,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weight of the color constancy term SEE: setVariationalRefinementDelta return automatically generated </p>
 
 </div>
 </div>
@@ -496,6 +512,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weight of the gradient constancy term SEE: setVariationalRefinementGamma return automatically generated </p>
 
 </div>
 </div>
@@ -513,6 +530,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Number of fixed point iterations of variational refinement per scale. Set to zero to disable variational refinement completely. Higher values will typically result in more smooth and high-quality flow. SEE: setGradientDescentIterations return automatically generated </p>
 
 </div>
 </div>
@@ -531,6 +549,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getFinestScale SEE: getFinestScale param val automatically generated </p>
 
 </div>
 </div>
@@ -549,6 +568,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getGradientDescentIterations SEE: getGradientDescentIterations param val automatically generated </p>
 
 </div>
 </div>
@@ -567,6 +587,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getPatchSize SEE: getPatchSize param val automatically generated </p>
 
 </div>
 </div>
@@ -585,6 +606,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getPatchStride SEE: getPatchStride param val automatically generated </p>
 
 </div>
 </div>
@@ -603,6 +625,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getUseMeanNormalization SEE: getUseMeanNormalization param val automatically generated </p>
 
 </div>
 </div>
@@ -621,6 +644,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getUseSpatialPropagation SEE: getUseSpatialPropagation param val automatically generated </p>
 
 </div>
 </div>
@@ -639,6 +663,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getVariationalRefinementAlpha SEE: getVariationalRefinementAlpha param val automatically generated </p>
 
 </div>
 </div>
@@ -657,6 +682,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getVariationalRefinementDelta SEE: getVariationalRefinementDelta param val automatically generated </p>
 
 </div>
 </div>
@@ -675,6 +701,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getVariationalRefinementGamma SEE: getVariationalRefinementGamma param val automatically generated </p>
 
 </div>
 </div>
@@ -693,6 +720,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getGradientDescentIterations SEE: getGradientDescentIterations param val automatically generated </p>
 
 </div>
 </div>
@@ -745,7 +773,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:13 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:17 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

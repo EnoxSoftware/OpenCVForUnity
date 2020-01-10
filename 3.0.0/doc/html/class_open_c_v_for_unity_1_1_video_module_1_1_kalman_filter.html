@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -185,7 +185,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Kalman filter class.</p>
+<p>The class implements a standard Kalman filter &lt;<a href="http://en.wikipedia.org/wiki/Kalman_filter&gt;,">http://en.wikipedia.org/wiki/Kalman_filter&amp;gt;,</a> CITE: Welch95 . However, you can modify transitionMatrix, controlMatrix, and measurementMatrix to get an extended Kalman filter functionality. <b>Note:</b> In C API when CvKalman* kalmanFilter structure is not needed anymore, it should be released with cvReleaseKalman(&amp;kalmanFilter) </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aea37b2e5140df7a500f817be3ca4b41c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aea37b2e5140df7a500f817be3ca4b41c">&#9670;&nbsp;</a></span>KalmanFilter() <span class="overload">[1/5]</span></h2>
 
@@ -249,6 +252,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>param dynamParams Dimensionality of the state. param measureParams Dimensionality of the measurement. param controlParams Dimensionality of the control vector. param type Type of the created matrices that should be CV_32F or CV_64F. </p>
 
 </div>
 </div>
@@ -283,6 +287,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>param dynamParams Dimensionality of the state. param measureParams Dimensionality of the measurement. param controlParams Dimensionality of the control vector. </p>
 
 </div>
 </div>
@@ -311,6 +316,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>param dynamParams Dimensionality of the state. param measureParams Dimensionality of the measurement. </p>
 
 </div>
 </div>
@@ -373,6 +379,8 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Updates the predicted state from the measurement. </p><pre class="fragment">param measurement The measured system parameters
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -606,6 +614,8 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Computes a predicted state. </p><pre class="fragment">param control The optional input control
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -623,6 +633,8 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Computes a predicted state.</p>
+<p>return automatically generated </p>
 
 </div>
 </div>
@@ -812,7 +824,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:13 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:17 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

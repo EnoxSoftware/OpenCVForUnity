@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -82,10 +82,11 @@ Inheritance diagram for OpenCVForUnity.XimgprocModule.SparseMatchInterpolator:</
  <div class="center">
   <img src="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_sparse_match_interpolator.png" usemap="#OpenCVForUnity.XimgprocModule.SparseMatchInterpolator_map" alt=""/>
   <map id="OpenCVForUnity.XimgprocModule.SparseMatchInterpolator_map" name="OpenCVForUnity.XimgprocModule.SparseMatchInterpolator_map">
-<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="0,168,352,192"/>
-<area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="0,112,352,136"/>
-<area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="0,56,352,80"/>
+<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="181,168,533,192"/>
+<area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="181,112,533,136"/>
+<area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="181,56,533,80"/>
 <area href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_edge_aware_interpolator.html" alt="OpenCVForUnity.XimgprocModule.EdgeAwareInterpolator" shape="rect" coords="0,280,352,304"/>
+<area href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_r_i_c_interpolator.html" alt="OpenCVForUnity.XimgprocModule.RICInterpolator" shape="rect" coords="362,280,714,304"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -150,7 +151,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Main interface for all filters, that take sparse matches as an input and produce a dense per-pixel matching (optical flow) as an output. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad6b6e8ee5a4230a70f90edf918da23af"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad6b6e8ee5a4230a70f90edf918da23af">&#9670;&nbsp;</a></span>SparseMatchInterpolator()</h2>
 
@@ -275,7 +278,18 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Interpolate input sparse matches. </p><pre class="fragment">param from_image first of the two matched images, 8-bit single-channel or three-channel.
 
+param from_points points of the from_image for which there are correspondences in the
+to_image (Point2f vector, size shouldn't exceed 32767)
+
+param to_image second of the two matched images, 8-bit single-channel or three-channel.
+
+param to_points points in the to_image corresponding to from_points
+(Point2f vector, size shouldn't exceed 32767)
+
+param dense_flow output dense matching (two-channel CV_32F image)
+</pre> 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -284,7 +298,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:14 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:18 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

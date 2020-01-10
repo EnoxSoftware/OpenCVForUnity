@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -157,7 +157,22 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Abstract base class for trainable facemark models</p>
+<p>To utilize this API in your program, please take a look at the REF: tutorial_table_of_content_facemark </p><h3>Description</h3>
+<p>The AAM and LBF facemark models in OpenCV are derived from the abstract base class <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_facemark_train.html">FacemarkTrain</a>, which provides a unified access to those facemark algorithms in OpenCV.</p>
+<p>Here is an example on how to declare facemark algorithm: <code> // Using <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_facemark.html">Facemark</a> in your code: Ptr&lt;<a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_facemark.html">Facemark</a>&gt; facemark = FacemarkLBF::create(); </code></p>
+<p>The typical pipeline for facemark detection is listed as follows: </p><ul>
+<li>
+(Non-mandatory) Set a user defined face detection using FacemarkTrain::setFaceDetector. The facemark algorithms are designed to fit the facial points into a face. Therefore, the face information should be provided to the facemark algorithm. Some algorithms might provides a default face recognition function. However, the users might prefer to use their own face detector to obtains the best possible detection result.  </li>
+<li>
+(Non-mandatory) Training the model for a specific algorithm using FacemarkTrain::training. In this case, the model should be automatically saved by the algorithm. If the user already have a trained model, then this part can be omitted.  </li>
+<li>
+Load the trained model using <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_facemark.html#acaed4c6c4a226596997f0ab0c574d38a">Facemark::loadModel</a>.  </li>
+<li>
+Perform the fitting via the <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_facemark.html#a7a027187b3ad6eda50007dc39a103292">Facemark::fit</a>.  </li>
+</ul>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a0c08b44a6cf72bda0f5e38222fff6805"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0c08b44a6cf72bda0f5e38222fff6805">&#9670;&nbsp;</a></span>FacemarkTrain()</h2>
 
@@ -245,7 +260,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:11 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:12 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

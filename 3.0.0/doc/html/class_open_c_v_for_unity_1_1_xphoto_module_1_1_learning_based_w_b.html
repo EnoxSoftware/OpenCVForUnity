@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -173,7 +173,13 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>More sophisticated learning-based automatic white balance algorithm.</p>
+<p>As REF: <a class="el" href="class_open_c_v_for_unity_1_1_xphoto_module_1_1_grayworld_w_b.html">GrayworldWB</a>, this algorithm works by applying different gains to the input image channels, but their computation is a bit more involved compared to the simple gray-world assumption. More details about the algorithm can be found in CITE: Cheng2015 .</p>
+<p>To mask out saturated pixels this function uses only pixels that satisfy the following condition:</p>
+<p>( \frac{\textrm{max}(R,G,B)}{\texttt{range_max_val}} &lt; \texttt{saturation_thresh} )</p>
+<p>Currently supports images of type REF: CV_8UC3 and REF: CV_16UC3. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac21e2c07f7b43eb84ef4fdf89095e55e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac21e2c07f7b43eb84ef4fdf89095e55e">&#9670;&nbsp;</a></span>LearningBasedWB()</h2>
 
@@ -280,7 +286,18 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Implements the feature extraction part of the algorithm. </p><pre class="fragment">In accordance with CITE: Cheng2015 , computes the following features for the input image:
+1. Chromaticity of an average (R,G,B) tuple
+2. Chromaticity of the brightest (R,G,B) tuple (while ignoring saturated pixels)
+3. Chromaticity of the dominant (R,G,B) tuple (the one that has the highest value in the RGB histogram)
+4. Mode of the chromaticity palette, that is constructed by taking 300 most common colors according to
+   the RGB histogram and projecting them on the chromaticity plane. Mode is the most high-density point
+   of the palette, which is computed by a straightforward fixed-bandwidth kernel density estimator with
+   a Epanechnikov kernel function.
 
+param src Input three-channel image (BGR color space is assumed).
+param dst An array of four (r,g) chromaticity tuples corresponding to the features listed above.
+</pre> 
 </div>
 </div>
 <a id="ab14dee4b7b19114cc060964f8d9b45b5"></a>
@@ -297,6 +314,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Defines the size of one dimension of a three-dimensional RGB histogram that is used internally by the algorithm. It often makes sense to increase the number of bins for images with higher bit depth (e.g. 256 bins for a 12 bit image). SEE: setHistBinNum return automatically generated </p>
 
 </div>
 </div>
@@ -314,6 +332,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Maximum possible value of the input image (e.g. 255 for 8 bit images, 4095 for 12 bit images) SEE: setRangeMaxVal return automatically generated </p>
 
 </div>
 </div>
@@ -331,6 +350,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Threshold that is used to determine saturated pixels, i.e. pixels where at least one of the channels exceeds (\texttt{saturation_threshold}\times\texttt{range_max_val}) are ignored. SEE: setSaturationThreshold return automatically generated </p>
 
 </div>
 </div>
@@ -349,6 +369,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getHistBinNum SEE: getHistBinNum param val automatically generated </p>
 
 </div>
 </div>
@@ -367,6 +388,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getRangeMaxVal SEE: getRangeMaxVal param val automatically generated </p>
 
 </div>
 </div>
@@ -385,6 +407,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getSaturationThreshold SEE: getSaturationThreshold param val automatically generated </p>
 
 </div>
 </div>
@@ -394,7 +417,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:14 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:18 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

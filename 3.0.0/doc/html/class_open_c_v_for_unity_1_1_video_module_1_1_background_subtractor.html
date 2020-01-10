@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -160,7 +160,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Base class for background/foreground segmentation. :</p>
+<p>The class is only used to define the common interface for the whole family of background/foreground segmentation algorithms. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad836e818cff6fb0c8f783b49b586cd6b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad836e818cff6fb0c8f783b49b586cd6b">&#9670;&nbsp;</a></span>BackgroundSubtractor()</h2>
 
@@ -253,7 +256,13 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Computes a foreground mask. </p><pre class="fragment">param image Next video frame.
+param fgmask The output foreground mask as an 8-bit binary image.
+param learningRate The value between 0 and 1 that indicates how fast the background model is
+learnt. Negative parameter value makes the algorithm to use some automatically chosen learning
+rate. 0 means that the background model is not updated at all, 1 means that the background model
+is completely reinitialized from the last frame.
+</pre> 
 <p>Reimplemented in <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor_m_o_g2.html#a04414174dfe7612ba61f5a298acf3dd9">OpenCVForUnity.VideoModule.BackgroundSubtractorMOG2</a>, <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_c_n_t.html#a48c491eae4295f9e804d09ef3144b21f">OpenCVForUnity.BgsegmModule.BackgroundSubtractorCNT</a>, <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_s_o_c.html#ab4be60b43f41967475844cf5c4f2a237">OpenCVForUnity.BgsegmModule.BackgroundSubtractorGSOC</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_l_s_b_p.html#a9cd5d6f88dcb702030248bfe75ad0e72">OpenCVForUnity.BgsegmModule.BackgroundSubtractorLSBP</a>.</p>
 
 </div>
@@ -291,7 +300,12 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Computes a foreground mask. </p><pre class="fragment">param image Next video frame.
+param fgmask The output foreground mask as an 8-bit binary image.
+learnt. Negative parameter value makes the algorithm to use some automatically chosen learning
+rate. 0 means that the background model is not updated at all, 1 means that the background model
+is completely reinitialized from the last frame.
+</pre> 
 <p>Reimplemented in <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor_m_o_g2.html#a7c952341a459848ad38c6dec03ca4240">OpenCVForUnity.VideoModule.BackgroundSubtractorMOG2</a>, <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_c_n_t.html#a29467f88d5b904d416dcffda0c95038c">OpenCVForUnity.BgsegmModule.BackgroundSubtractorCNT</a>, <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_s_o_c.html#a19adc513053bb80dc92a78b56baf1482">OpenCVForUnity.BgsegmModule.BackgroundSubtractorGSOC</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_l_s_b_p.html#aa134c76f5fdf63890af679607a7d58f3">OpenCVForUnity.BgsegmModule.BackgroundSubtractorLSBP</a>.</p>
 
 </div>
@@ -322,7 +336,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#ae1fddfb613d636778b282ee027a872f6">OpenCVForUnity.CoreModule.Algorithm</a>.</p>
 
-<p>Reimplemented in <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_c_n_t.html#a18de05c3d931fb36aa34e7a414457343">OpenCVForUnity.BgsegmModule.BackgroundSubtractorCNT</a>, <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#ae76d1c5279829852e3410aa65b008e07">OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG</a>, <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_s_o_c.html#afe2a0a4aaa6f105822664047a8ed869a">OpenCVForUnity.BgsegmModule.BackgroundSubtractorGSOC</a>, <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_l_s_b_p.html#a4d88f9ffa329fefa2f276d18c3bc1d8a">OpenCVForUnity.BgsegmModule.BackgroundSubtractorLSBP</a>, <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_m_o_g.html#addc3dcbc916b8cb8564f5f4faf929138">OpenCVForUnity.BgsegmModule.BackgroundSubtractorMOG</a>, <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor_k_n_n.html#a3993f02cf70c084895708c0b20763814">OpenCVForUnity.VideoModule.BackgroundSubtractorKNN</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor_m_o_g2.html#a4bc63b40a1c42eaf9de3cefeb22c57f5">OpenCVForUnity.VideoModule.BackgroundSubtractorMOG2</a>.</p>
+<p>Reimplemented in <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#ae76d1c5279829852e3410aa65b008e07">OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG</a>, <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_c_n_t.html#a18de05c3d931fb36aa34e7a414457343">OpenCVForUnity.BgsegmModule.BackgroundSubtractorCNT</a>, <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor_k_n_n.html#a3993f02cf70c084895708c0b20763814">OpenCVForUnity.VideoModule.BackgroundSubtractorKNN</a>, <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor_m_o_g2.html#a4bc63b40a1c42eaf9de3cefeb22c57f5">OpenCVForUnity.VideoModule.BackgroundSubtractorMOG2</a>, <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_s_o_c.html#afe2a0a4aaa6f105822664047a8ed869a">OpenCVForUnity.BgsegmModule.BackgroundSubtractorGSOC</a>, <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_m_o_g.html#addc3dcbc916b8cb8564f5f4faf929138">OpenCVForUnity.BgsegmModule.BackgroundSubtractorMOG</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_l_s_b_p.html#a4d88f9ffa329fefa2f276d18c3bc1d8a">OpenCVForUnity.BgsegmModule.BackgroundSubtractorLSBP</a>.</p>
 
 </div>
 </div>
@@ -349,7 +363,11 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Computes a background image. </p><pre class="fragment">param backgroundImage The output background image.
 
+&lt;b&gt;Note:&lt;/b&gt; Sometimes the background image can be very blurry, as it contain the average background
+statistics.
+</pre> 
 <p>Reimplemented in <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_c_n_t.html#a38b236b66feb5612454b249b5c80d9af">OpenCVForUnity.BgsegmModule.BackgroundSubtractorCNT</a>, <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_s_o_c.html#ace64ebaeea79094082892eaf52c13211">OpenCVForUnity.BgsegmModule.BackgroundSubtractorGSOC</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_l_s_b_p.html#a81a361536d5045f8582f99f092ed28c8">OpenCVForUnity.BgsegmModule.BackgroundSubtractorLSBP</a>.</p>
 
 </div>
@@ -360,7 +378,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:13 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:16 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

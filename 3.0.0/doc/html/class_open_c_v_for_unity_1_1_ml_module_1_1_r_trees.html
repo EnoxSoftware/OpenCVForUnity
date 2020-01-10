@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -267,7 +267,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The class implements the random forest predictor.</p>
+<p>SEE: REF: ml_intro_rtrees </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aaf4b2631e67f7e71b0a3ea8186c86426"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaf4b2631e67f7e71b0a3ea8186c86426">&#9670;&nbsp;</a></span>RTrees()</h2>
 
@@ -343,6 +346,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates the empty model. Use <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a735e7bc1e8422ab769510c1afca3dd00">StatModel::train</a> to train the model, <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a735e7bc1e8422ab769510c1afca3dd00">StatModel::train</a> to create and train the model, Algorithm::load to load the pre-trained model. return automatically generated </p>
 
 </div>
 </div>
@@ -388,6 +392,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setActiveVarCount return automatically generated </p>
 
 </div>
 </div>
@@ -405,6 +410,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setCalculateVarImportance return automatically generated </p>
 
 </div>
 </div>
@@ -422,6 +428,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>SEE: setTermCriteria return automatically generated </p>
 
 </div>
 </div>
@@ -439,6 +446,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the variable importance array. The method returns the variable importance vector, computed at the training stage when CalculateVarImportance is set to true. If this flag was set to false, the empty matrix is returned. return automatically generated </p>
 
 </div>
 </div>
@@ -473,6 +481,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the result of each individual tree in the forest. In case the model is a regression problem, the method will return each of the trees' results for each of the sample cases. If the model is a classifier, it will return a Mat with samples + 1 rows, where the first row gives the class number and the following rows return the votes each class had for each sample. param samples Array containing the samples for which votes will be calculated. param results Array where the result of the calculation will be written. param flags Flags for defining the type of <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_r_trees.html">RTrees</a>. </p>
 
 </div>
 </div>
@@ -509,6 +518,9 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Loads and creates a serialized RTree from a file</p>
+<p>Use RTree::save to serialize and store an RTree to disk. Load the RTree from this file again, by calling this function with the path to the file. Optionally specify the node for the file containing the classifier</p>
+<p>param filepath path to serialized RTree param nodeName name of node containing the classifier return automatically generated </p>
 
 </div>
 </div>
@@ -535,6 +547,9 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Loads and creates a serialized RTree from a file</p>
+<p>Use RTree::save to serialize and store an RTree to disk. Load the RTree from this file again, by calling this function with the path to the file. Optionally specify the node for the file containing the classifier</p>
+<p>param filepath path to serialized RTree return automatically generated </p>
 
 </div>
 </div>
@@ -553,6 +568,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getActiveVarCount SEE: getActiveVarCount param val automatically generated </p>
 
 </div>
 </div>
@@ -571,6 +587,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getCalculateVarImportance SEE: getCalculateVarImportance param val automatically generated </p>
 
 </div>
 </div>
@@ -589,6 +606,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>getTermCriteria SEE: getTermCriteria param val automatically generated </p>
 
 </div>
 </div>
@@ -598,7 +616,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:12 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:14 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

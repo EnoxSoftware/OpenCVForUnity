@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -281,7 +281,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class implementing PCT (position-color-texture) signature extraction as described in CITE: KrulisLS16. The algorithm is divided to a feature sampler and a clusterizer. Feature sampler produces samples at given set of coordinates. Clusterizer then produces clusters of these samples using k-means algorithm. Resulting set of clusters is the signature of the input image.</p>
+<p>A signature is an array of SIGNATURE_DIMENSION-dimensional points. Used dimensions are: weight, x, y position; lab color, contrast, entropy. CITE: KrulisLS16 CITE: BeecksUS10 </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a92d957f3d4ac5970852918209ebf47a9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a92d957f3d4ac5970852918209ebf47a9">&#9670;&nbsp;</a></span>PCTSignatures()</h2>
 
@@ -360,6 +363,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Computes signature of given image. param image Input image of CV_8U type. param signature Output computed signature. </p>
 
 </div>
 </div>
@@ -388,6 +392,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Computes signatures for multiple images in parallel. param images Vector of input images of CV_8U type. param signatures Vector of computed signatures. </p>
 
 </div>
 </div>
@@ -430,6 +435,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_p_c_t_signatures.html">PCTSignatures</a> algorithm using sample and seed count. It generates its own sets of sampling points and clusterization seed indexes. param initSampleCount Number of points used for image sampling. param initSeedCount Number of initial clusterization seeds. Must be lower or equal to initSampleCount param pointDistribution Distribution of generated points. Default: UNIFORM. Available: UNIFORM, REGULAR, NORMAL. return Created algorithm. </p>
 
 </div>
 </div>
@@ -466,6 +472,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_p_c_t_signatures.html">PCTSignatures</a> algorithm using sample and seed count. It generates its own sets of sampling points and clusterization seed indexes. param initSampleCount Number of points used for image sampling. param initSeedCount Number of initial clusterization seeds. Must be lower or equal to initSampleCount Available: UNIFORM, REGULAR, NORMAL. return Created algorithm. </p>
 
 </div>
 </div>
@@ -492,6 +499,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_p_c_t_signatures.html">PCTSignatures</a> algorithm using sample and seed count. It generates its own sets of sampling points and clusterization seed indexes. param initSampleCount Number of points used for image sampling. Must be lower or equal to initSampleCount Available: UNIFORM, REGULAR, NORMAL. return Created algorithm. </p>
 
 </div>
 </div>
@@ -517,6 +525,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_p_c_t_signatures.html">PCTSignatures</a> algorithm using sample and seed count. It generates its own sets of sampling points and clusterization seed indexes. Must be lower or equal to initSampleCount Available: UNIFORM, REGULAR, NORMAL. return Created algorithm. </p>
 
 </div>
 </div>
@@ -553,6 +562,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_p_c_t_signatures.html">PCTSignatures</a> algorithm using pre-generated sampling points and number of clusterization seeds. It uses the provided sampling points and generates its own clusterization seed indexes. param initSamplingPoints Sampling points used in image sampling. param initSeedCount Number of initial clusterization seeds. Must be lower or equal to initSamplingPoints.size(). return Created algorithm. </p>
 
 </div>
 </div>
@@ -589,6 +599,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Creates <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_p_c_t_signatures.html">PCTSignatures</a> algorithm using pre-generated sampling points and clusterization seeds indexes. param initSamplingPoints Sampling points used in image sampling. param initClusterSeedIndexes Indexes of initial clusterization seeds. Its size must be lower or equal to initSamplingPoints.size(). return Created algorithm. </p>
 
 </div>
 </div>
@@ -671,6 +682,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Draws signature in the source image and outputs the result. Signatures are visualized as a circle with radius based on signature weight and color based on signature color. Contrast and entropy are not visualized. param source Source image. param signature Image signature. param result Output result. param radiusToShorterSideRatio Determines maximal radius of signature in the output image. param borderThickness Border thickness of the visualized signature. </p>
 
 </div>
 </div>
@@ -719,6 +731,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Draws signature in the source image and outputs the result. Signatures are visualized as a circle with radius based on signature weight and color based on signature color. Contrast and entropy are not visualized. param source Source image. param signature Image signature. param result Output result. param radiusToShorterSideRatio Determines maximal radius of signature in the output image. </p>
 
 </div>
 </div>
@@ -761,6 +774,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Draws signature in the source image and outputs the result. Signatures are visualized as a circle with radius based on signature weight and color based on signature color. Contrast and entropy are not visualized. param source Source image. param signature Image signature. param result Output result. </p>
 
 </div>
 </div>
@@ -803,6 +817,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Generates initial sampling points according to selected point distribution. param initPoints Output vector where the generated points will be saved. param count Number of points to generate. param pointDistribution Point distribution selector. Available: UNIFORM, REGULAR, NORMAL. <b>Note:</b> Generated coordinates are in range [0..1) </p>
 
 </div>
 </div>
@@ -820,6 +835,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>This parameter multiplied by the index of iteration gives lower limit for cluster size. Clusters containing fewer points than specified by the limit have their centroid dismissed and points are reassigned. return automatically generated </p>
 
 </div>
 </div>
@@ -837,6 +853,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Distance function selector used for measuring distance between two points in k-means. return automatically generated </p>
 
 </div>
 </div>
@@ -854,6 +871,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Remove centroids in k-means whose weight is lesser or equal to given threshold. return automatically generated </p>
 
 </div>
 </div>
@@ -871,6 +889,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Color resolution of the greyscale bitmap represented in allocated bits (i.e., value 4 means that 16 shades of grey are used). The greyscale bitmap is used for computing contrast and entropy values. return automatically generated </p>
 
 </div>
 </div>
@@ -888,6 +907,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Number of initial seeds (initial number of clusters) for the k-means algorithm. return automatically generated </p>
 
 </div>
 </div>
@@ -905,6 +925,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Initial seeds (initial number of clusters) for the k-means algorithm. return automatically generated </p>
 
 </div>
 </div>
@@ -922,6 +943,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Number of iterations of the k-means clustering. We use fixed number of iterations, since the modified clustering is pruning clusters (not iteratively refining k clusters). return automatically generated </p>
 
 </div>
 </div>
@@ -939,6 +961,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Threshold euclidean distance between two centroids. If two cluster centers are closer than this distance, one of the centroid is dismissed and points are reassigned. return automatically generated </p>
 
 </div>
 </div>
@@ -956,6 +979,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Maximal number of generated clusters. If the number is exceeded, the clusters are sorted by their weights and the smallest clusters are cropped. return automatically generated </p>
 
 </div>
 </div>
@@ -973,6 +997,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Number of initial samples taken from the image. return automatically generated </p>
 
 </div>
 </div>
@@ -990,6 +1015,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Initial samples taken from the image. These sampled features become the input for clustering. return automatically generated </p>
 
 </div>
 </div>
@@ -1007,6 +1033,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weights (multiplicative constants) that linearly stretch individual axes of the feature space (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy) return automatically generated </p>
 
 </div>
 </div>
@@ -1024,6 +1051,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weights (multiplicative constants) that linearly stretch individual axes of the feature space (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy) return automatically generated </p>
 
 </div>
 </div>
@@ -1041,6 +1069,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weights (multiplicative constants) that linearly stretch individual axes of the feature space (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy) return automatically generated </p>
 
 </div>
 </div>
@@ -1058,6 +1087,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weights (multiplicative constants) that linearly stretch individual axes of the feature space (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy) return automatically generated </p>
 
 </div>
 </div>
@@ -1075,6 +1105,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weights (multiplicative constants) that linearly stretch individual axes of the feature space (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy) return automatically generated </p>
 
 </div>
 </div>
@@ -1092,6 +1123,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weights (multiplicative constants) that linearly stretch individual axes of the feature space (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy) return automatically generated </p>
 
 </div>
 </div>
@@ -1109,6 +1141,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weights (multiplicative constants) that linearly stretch individual axes of the feature space (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy) return automatically generated </p>
 
 </div>
 </div>
@@ -1126,6 +1159,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Size of the texture sampling window used to compute contrast and entropy (center of the window is always in the pixel selected by x,y coordinates of the corresponding feature sample). return automatically generated </p>
 
 </div>
 </div>
@@ -1144,6 +1178,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>This parameter multiplied by the index of iteration gives lower limit for cluster size. Clusters containing fewer points than specified by the limit have their centroid dismissed and points are reassigned. param clusterMinSize automatically generated </p>
 
 </div>
 </div>
@@ -1162,6 +1197,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Distance function selector used for measuring distance between two points in k-means. Available: L0_25, L0_5, L1, L2, L2SQUARED, L5, L_INFINITY. param distanceFunction automatically generated </p>
 
 </div>
 </div>
@@ -1180,6 +1216,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Remove centroids in k-means whose weight is lesser or equal to given threshold. param dropThreshold automatically generated </p>
 
 </div>
 </div>
@@ -1198,6 +1235,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Color resolution of the greyscale bitmap represented in allocated bits (i.e., value 4 means that 16 shades of grey are used). The greyscale bitmap is used for computing contrast and entropy values. param grayscaleBits automatically generated </p>
 
 </div>
 </div>
@@ -1216,6 +1254,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Initial seed indexes for the k-means algorithm. param initSeedIndexes automatically generated </p>
 
 </div>
 </div>
@@ -1234,6 +1273,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Number of iterations of the k-means clustering. We use fixed number of iterations, since the modified clustering is pruning clusters (not iteratively refining k clusters). param iterationCount automatically generated </p>
 
 </div>
 </div>
@@ -1252,6 +1292,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Threshold euclidean distance between two centroids. If two cluster centers are closer than this distance, one of the centroid is dismissed and points are reassigned. param joiningDistance automatically generated </p>
 
 </div>
 </div>
@@ -1270,6 +1311,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Maximal number of generated clusters. If the number is exceeded, the clusters are sorted by their weights and the smallest clusters are cropped. param maxClustersCount automatically generated </p>
 
 </div>
 </div>
@@ -1288,6 +1330,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets sampling points used to sample the input image. param samplingPoints Vector of sampling points in range [0..1) <b>Note:</b> Number of sampling points must be greater or equal to clusterization seed count. </p>
 
 </div>
 </div>
@@ -1316,6 +1359,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Translations of the individual axes of the feature space. param idx ID of the translation param value Value of the translation <b>Note:</b> WEIGHT_IDX = 0; X_IDX = 1; Y_IDX = 2; L_IDX = 3; A_IDX = 4; B_IDX = 5; CONTRAST_IDX = 6; ENTROPY_IDX = 7; </p>
 
 </div>
 </div>
@@ -1334,6 +1378,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Translations of the individual axes of the feature space. param translations Values of all translations. <b>Note:</b> WEIGHT_IDX = 0; X_IDX = 1; Y_IDX = 2; L_IDX = 3; A_IDX = 4; B_IDX = 5; CONTRAST_IDX = 6; ENTROPY_IDX = 7; </p>
 
 </div>
 </div>
@@ -1362,6 +1407,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weights (multiplicative constants) that linearly stretch individual axes of the feature space. param idx ID of the weight param value Value of the weight <b>Note:</b> WEIGHT_IDX = 0; X_IDX = 1; Y_IDX = 2; L_IDX = 3; A_IDX = 4; B_IDX = 5; CONTRAST_IDX = 6; ENTROPY_IDX = 7; </p>
 
 </div>
 </div>
@@ -1380,6 +1426,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weights (multiplicative constants) that linearly stretch individual axes of the feature space (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy) param weight automatically generated </p>
 
 </div>
 </div>
@@ -1398,6 +1445,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weights (multiplicative constants) that linearly stretch individual axes of the feature space (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy) param weight automatically generated </p>
 
 </div>
 </div>
@@ -1416,6 +1464,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weights (multiplicative constants) that linearly stretch individual axes of the feature space (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy) param weight automatically generated </p>
 
 </div>
 </div>
@@ -1434,6 +1483,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weights (multiplicative constants) that linearly stretch individual axes of the feature space (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy) param weight automatically generated </p>
 
 </div>
 </div>
@@ -1452,6 +1502,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weights (multiplicative constants) that linearly stretch individual axes of the feature space (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy) param weight automatically generated </p>
 
 </div>
 </div>
@@ -1470,6 +1521,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weights (multiplicative constants) that linearly stretch individual axes of the feature space. param weights Values of all weights. <b>Note:</b> WEIGHT_IDX = 0; X_IDX = 1; Y_IDX = 2; L_IDX = 3; A_IDX = 4; B_IDX = 5; CONTRAST_IDX = 6; ENTROPY_IDX = 7; </p>
 
 </div>
 </div>
@@ -1488,6 +1540,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weights (multiplicative constants) that linearly stretch individual axes of the feature space (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy) param weight automatically generated </p>
 
 </div>
 </div>
@@ -1506,6 +1559,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Weights (multiplicative constants) that linearly stretch individual axes of the feature space (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy) param weight automatically generated </p>
 
 </div>
 </div>
@@ -1524,6 +1578,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Size of the texture sampling window used to compute contrast and entropy (center of the window is always in the pixel selected by x,y coordinates of the corresponding feature sample). param radius automatically generated </p>
 
 </div>
 </div>
@@ -1716,7 +1771,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:13 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:17 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

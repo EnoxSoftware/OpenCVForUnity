@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -114,6 +114,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa862152a03bf6beb22dae98b93c4be54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a771a34ec74995570aa2fc6f304433bb4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_edge_boxes.html#a771a34ec74995570aa2fc6f304433bb4">getMaxBoxes</a> ()</td></tr>
 <tr class="separator:a771a34ec74995570aa2fc6f304433bb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c455f4fc8e3f6f72b53e20ce8d6eb47"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_edge_boxes.html#a2c455f4fc8e3f6f72b53e20ce8d6eb47">getBoundingBoxes</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> edge_map, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> orientation_map, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_rect.html">MatOfRect</a> boxes, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> scores)</td></tr>
+<tr class="separator:a2c455f4fc8e3f6f72b53e20ce8d6eb47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76e20f0f6fd6d7a08db61243060c6598"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_edge_boxes.html#a76e20f0f6fd6d7a08db61243060c6598">getBoundingBoxes</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> edge_map, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> orientation_map, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_rect.html">MatOfRect</a> boxes)</td></tr>
 <tr class="separator:a76e20f0f6fd6d7a08db61243060c6598"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae39cd99f6d643916d734ac9261ac330a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_edge_boxes.html#ae39cd99f6d643916d734ac9261ac330a">setAlpha</a> (float value)</td></tr>
@@ -197,7 +199,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class implementing <a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_edge_boxes.html">EdgeBoxes</a> algorithm from CITE: ZitnickECCV14edgeBoxes : </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ace6cf069e4c61534961d8c288e374589"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ace6cf069e4c61534961d8c288e374589">&#9670;&nbsp;</a></span>EdgeBoxes()</h2>
 
@@ -293,6 +297,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the step size of sliding window search. return automatically generated </p>
 
 </div>
 </div>
@@ -310,11 +315,56 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the nms threshold for object proposals. return automatically generated </p>
 
 </div>
 </div>
+<a id="a2c455f4fc8e3f6f72b53e20ce8d6eb47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c455f4fc8e3f6f72b53e20ce8d6eb47">&#9670;&nbsp;</a></span>getBoundingBoxes() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.XimgprocModule.EdgeBoxes.getBoundingBoxes </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
+          <td class="paramname"><em>edge_map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
+          <td class="paramname"><em>orientation_map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_rect.html">MatOfRect</a>&#160;</td>
+          <td class="paramname"><em>boxes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
+          <td class="paramname"><em>scores</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns array containing proposal boxes. </p><pre class="fragment">param edge_map edge image.
+param orientation_map orientation map.
+param boxes proposal boxes.
+param scores of the proposal boxes, provided a vector of float types.
+</pre> 
+</div>
+</div>
 <a id="a76e20f0f6fd6d7a08db61243060c6598"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76e20f0f6fd6d7a08db61243060c6598">&#9670;&nbsp;</a></span>getBoundingBoxes()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a76e20f0f6fd6d7a08db61243060c6598">&#9670;&nbsp;</a></span>getBoundingBoxes() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -344,7 +394,10 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Returns array containing proposal boxes. </p><pre class="fragment">param edge_map edge image.
+param orientation_map orientation map.
+param boxes proposal boxes.
+</pre> 
 </div>
 </div>
 <a id="a6546bdf4ad3bd52e499afd24b8222ff7"></a>
@@ -361,6 +414,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the cluster min magnitude. return automatically generated </p>
 
 </div>
 </div>
@@ -378,6 +432,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the edge merge threshold. return automatically generated </p>
 
 </div>
 </div>
@@ -395,6 +450,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the edge min magnitude. return automatically generated </p>
 
 </div>
 </div>
@@ -412,6 +468,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns adaptation rate for nms threshold. return automatically generated </p>
 
 </div>
 </div>
@@ -429,6 +486,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the affinity sensitivity. return automatically generated </p>
 
 </div>
 </div>
@@ -446,6 +504,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the scale sensitivity. return automatically generated </p>
 
 </div>
 </div>
@@ -463,6 +522,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the max aspect ratio of boxes. return automatically generated </p>
 
 </div>
 </div>
@@ -480,6 +540,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the max number of boxes to detect. return automatically generated </p>
 
 </div>
 </div>
@@ -497,6 +558,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the minimum area of boxes. return automatically generated </p>
 
 </div>
 </div>
@@ -514,6 +576,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the min score of boxes to detect. return automatically generated </p>
 
 </div>
 </div>
@@ -532,6 +595,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the step size of sliding window search. param value automatically generated </p>
 
 </div>
 </div>
@@ -550,6 +614,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the nms threshold for object proposals. param value automatically generated </p>
 
 </div>
 </div>
@@ -568,6 +633,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the cluster min magnitude. param value automatically generated </p>
 
 </div>
 </div>
@@ -586,6 +652,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the edge merge threshold. param value automatically generated </p>
 
 </div>
 </div>
@@ -604,6 +671,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the edge min magnitude. param value automatically generated </p>
 
 </div>
 </div>
@@ -622,6 +690,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the adaptation rate for nms threshold. param value automatically generated </p>
 
 </div>
 </div>
@@ -640,6 +709,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the affinity sensitivity param value automatically generated </p>
 
 </div>
 </div>
@@ -658,6 +728,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the scale sensitivity. param value automatically generated </p>
 
 </div>
 </div>
@@ -676,6 +747,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the max aspect ratio of boxes. param value automatically generated </p>
 
 </div>
 </div>
@@ -694,6 +766,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets max number of boxes to detect. param value automatically generated </p>
 
 </div>
 </div>
@@ -712,6 +785,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the minimum area of boxes. param value automatically generated </p>
 
 </div>
 </div>
@@ -730,6 +804,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets the min score of boxes to detect. param value automatically generated </p>
 
 </div>
 </div>
@@ -739,7 +814,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:14 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:17 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

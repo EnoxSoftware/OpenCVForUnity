@@ -1,6 +1,7 @@
 var searchData=
 [
   ['scalar_2ecs',['Scalar.cs',['../_scalar_8cs.html',1,'']]],
+  ['segmentationmodel_2ecs',['SegmentationModel.cs',['../_segmentation_model_8cs.html',1,'']]],
   ['selectivesearchsegmentation_2ecs',['SelectiveSearchSegmentation.cs',['../_selective_search_segmentation_8cs.html',1,'']]],
   ['selectivesearchsegmentationstrategy_2ecs',['SelectiveSearchSegmentationStrategy.cs',['../_selective_search_segmentation_strategy_8cs.html',1,'']]],
   ['selectivesearchsegmentationstrategycolor_2ecs',['SelectiveSearchSegmentationStrategyColor.cs',['../_selective_search_segmentation_strategy_color_8cs.html',1,'']]],

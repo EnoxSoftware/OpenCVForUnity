@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -163,7 +163,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Video writer class.</p>
+<p>The class provides C++ API for writing video files or image sequences. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a80ccb8d0f00c0d11458d0d6f8997ee9b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a80ccb8d0f00c0d11458d0d6f8997ee9b">&#9670;&nbsp;</a></span>VideoWriter() <span class="overload">[1/6]</span></h2>
 
@@ -239,6 +242,9 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">The {code apiPreference} parameter allows to specify API backends to use. Can be used to enforce a specific reader implementation
+if multiple are available: e.g. cv::CAP_FFMPEG or cv::CAP_GSTREAMER.
+</pre><p> param filename automatically generated param apiPreference automatically generated param fourcc automatically generated param fps automatically generated param frameSize automatically generated param isColor automatically generated </p>
 
 </div>
 </div>
@@ -285,6 +291,9 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">The {code apiPreference} parameter allows to specify API backends to use. Can be used to enforce a specific reader implementation
+if multiple are available: e.g. cv::CAP_FFMPEG or cv::CAP_GSTREAMER.
+</pre><p> param filename automatically generated param apiPreference automatically generated param fourcc automatically generated param fps automatically generated param frameSize automatically generated </p>
 
 </div>
 </div>
@@ -331,6 +340,29 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">param filename Name of the output video file.
+param fourcc 4-character code of codec used to compress the frames. For example,
+VideoWriter::fourcc('P','I','M','1') is a MPEG-1 codec, VideoWriter::fourcc('M','J','P','G') is a
+motion-jpeg codec etc. List of codes can be obtained at [Video Codecs by
+FOURCC](http://www.fourcc.org/codecs.php) page. FFMPEG backend with MP4 container natively uses
+other values as fourcc code: see [ObjectType](http://www.mp4ra.org/codecs.html),
+so you may receive a warning message from OpenCV about fourcc code conversion.
+param fps Framerate of the created video stream.
+param frameSize Size of the video frames.
+param isColor If it is not zero, the encoder will expect and encode color frames, otherwise it
+will work with grayscale frames (the flag is currently supported on Windows only).
+
+&lt;b&gt;Tips&lt;/b&gt;:
+</pre> <ul>
+<li>
+With some backends {code fourcc=-1} pops up the codec selection dialog from the system.  </li>
+<li>
+To save image sequence use a proper filename (eg. {code img_%02d.jpg}) and {code fourcc=0} OR {code fps=0}. Use uncompressed image format (eg. {code img_%02d.BMP}) to save raw frames.  </li>
+<li>
+Most codecs are lossy. If you want lossless video file you need to use a lossless codecs (eg. FFMPEG FFV1, Huffman HFYU, Lagarith LAGS, etc...)  </li>
+<li>
+If FFMPEG is enabled, using {code codec=0; fps=0;} you can create an uncompressed (raw) video file.  </li>
+</ul>
 
 </div>
 </div>
@@ -371,6 +403,28 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">param filename Name of the output video file.
+param fourcc 4-character code of codec used to compress the frames. For example,
+VideoWriter::fourcc('P','I','M','1') is a MPEG-1 codec, VideoWriter::fourcc('M','J','P','G') is a
+motion-jpeg codec etc. List of codes can be obtained at [Video Codecs by
+FOURCC](http://www.fourcc.org/codecs.php) page. FFMPEG backend with MP4 container natively uses
+other values as fourcc code: see [ObjectType](http://www.mp4ra.org/codecs.html),
+so you may receive a warning message from OpenCV about fourcc code conversion.
+param fps Framerate of the created video stream.
+param frameSize Size of the video frames.
+will work with grayscale frames (the flag is currently supported on Windows only).
+
+&lt;b&gt;Tips&lt;/b&gt;:
+</pre> <ul>
+<li>
+With some backends {code fourcc=-1} pops up the codec selection dialog from the system.  </li>
+<li>
+To save image sequence use a proper filename (eg. {code img_%02d.jpg}) and {code fourcc=0} OR {code fps=0}. Use uncompressed image format (eg. {code img_%02d.BMP}) to save raw frames.  </li>
+<li>
+Most codecs are lossy. If you want lossless video file you need to use a lossless codecs (eg. FFMPEG FFV1, Huffman HFYU, Lagarith LAGS, etc...)  </li>
+<li>
+If FFMPEG is enabled, using {code codec=0; fps=0;} you can create an uncompressed (raw) video file.  </li>
+</ul>
 
 </div>
 </div>
@@ -388,6 +442,15 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Default constructors </p><pre class="fragment">The constructors/functions initialize video writers.
+</pre> <ul>
+<li>
+On Linux FFMPEG is used to write videos;  </li>
+<li>
+On Windows FFMPEG or MSWF or DSHOW is used;  </li>
+<li>
+On MacOSX AVFoundation is used.  </li>
+</ul>
 
 </div>
 </div>
@@ -491,6 +554,11 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Concatenates 4 chars to a fourcc code </p><pre class="fragment">return a fourcc code
+
+This static method constructs the fourcc code of the codec to be used in the constructor
+VideoWriter::VideoWriter or VideoWriter::open.
+</pre><p> param c1 automatically generated param c2 automatically generated param c3 automatically generated param c4 automatically generated </p>
 
 </div>
 </div>
@@ -509,7 +577,12 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the specified <a class="el" href="class_open_c_v_for_unity_1_1_videoio_module_1_1_video_writer.html">VideoWriter</a> property </p><pre class="fragment"> param propId Property identifier from cv::VideoWriterProperties (eg. cv::VIDEOWRITER_PROP_QUALITY)
+ or one of REF: videoio_flags_others
 
+ return Value for the specified property. Value 0 is returned when querying a property that is
+ not supported by the backend used by the VideoWriter instance.
+</pre> 
 </div>
 </div>
 <a id="ab07969947f03edcf5123b239c6d24119"></a>
@@ -526,6 +599,8 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns used backend API name </p><pre class="fragment"> &lt;b&gt;Note:&lt;/b&gt; Stream should be opened.
+</pre><p> return automatically generated </p>
 
 </div>
 </div>
@@ -560,6 +635,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns true if video writer has been successfully initialized. return automatically generated </p>
 
 </div>
 </div>
@@ -704,6 +780,12 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Initializes or reinitializes video writer. </p><pre class="fragment">The method opens video writer. Parameters are the same as in the constructor
+VideoWriter::VideoWriter.
+return {code true} if video writer has been successfully initialized
+
+The method first calls VideoWriter::release to close the already opened file.
+</pre><p> param filename automatically generated param fourcc automatically generated param fps automatically generated param frameSize automatically generated param isColor automatically generated </p>
 
 </div>
 </div>
@@ -744,6 +826,12 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Initializes or reinitializes video writer. </p><pre class="fragment">The method opens video writer. Parameters are the same as in the constructor
+VideoWriter::VideoWriter.
+return {code true} if video writer has been successfully initialized
+
+The method first calls VideoWriter::release to close the already opened file.
+</pre><p> param filename automatically generated param fourcc automatically generated param fps automatically generated param frameSize automatically generated </p>
 
 </div>
 </div>
@@ -761,7 +849,9 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Closes the video writer. </p><pre class="fragment">The method is automatically called by subsequent VideoWriter::open and by the VideoWriter
+destructor.
+</pre> 
 </div>
 </div>
 <a id="a32a424235bf03532f45ef884407df41e"></a>
@@ -789,7 +879,12 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sets a property in the <a class="el" href="class_open_c_v_for_unity_1_1_videoio_module_1_1_video_writer.html">VideoWriter</a>. </p><pre class="fragment"> param propId Property identifier from cv::VideoWriterProperties (eg. cv::VIDEOWRITER_PROP_QUALITY)
+ or one of REF: videoio_flags_others
 
+ param value Value of the property.
+ return  {code true} if the property is supported by the backend used by the VideoWriter instance.
+</pre> 
 </div>
 </div>
 <a id="a2e091aeea70a471a04bfe39c201bdb0b"></a>
@@ -807,7 +902,11 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Writes the next video frame </p><pre class="fragment">param image The written frame. In general, color images are expected in BGR format.
 
+The function/method writes the specified image to video file. It must have the same size as has
+been specified when opening the video writer.
+</pre> 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -816,7 +915,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:13 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:16 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

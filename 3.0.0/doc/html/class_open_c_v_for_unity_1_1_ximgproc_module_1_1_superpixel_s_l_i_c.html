@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -163,7 +163,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class implementing the SLIC (Simple Linear Iterative Clustering) superpixels algorithm described in CITE: Achanta2012.</p>
+<p>SLIC (Simple Linear Iterative Clustering) clusters pixels using pixel channels and image plane space to efficiently generate compact, nearly uniform superpixels. The simplicity of approach makes it extremely easy to use a lone parameter specifies the number of superpixels and the efficiency of the algorithm makes it very practical. Several optimizations are available for SLIC class: SLICO stands for "Zero parameter SLIC" and it is an optimization of baseline SLIC described in CITE: Achanta2012. MSLIC stands for "Manifold SLIC" and it is an optimization of baseline SLIC described in CITE: Liu_2017_IEEE. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9c74d88084bcd67a02a84091f5bf6b0e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9c74d88084bcd67a02a84091f5bf6b0e">&#9670;&nbsp;</a></span>SuperpixelSLIC()</h2>
 
@@ -260,7 +263,13 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Enforce label connectivity. </p><pre class="fragment">param min_element_size The minimum element size in percents that should be absorbed into a bigger
+superpixel. Given resulted average superpixel size valid value should be in 0-100 range, 25 means
+that less then a quarter sized superpixel should be absorbed, this is default.
 
+The function merge component that is too small, assigning the previously found adjacent label
+to this component. Calling this function may change the final number of superpixels.
+</pre> 
 </div>
 </div>
 <a id="a61f6803a058396247b35ae71a0cc7c18"></a>
@@ -277,7 +286,12 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Enforce label connectivity. </p><pre class="fragment">superpixel. Given resulted average superpixel size valid value should be in 0-100 range, 25 means
+that less then a quarter sized superpixel should be absorbed, this is default.
 
+The function merge component that is too small, assigning the previously found adjacent label
+to this component. Calling this function may change the final number of superpixels.
+</pre> 
 </div>
 </div>
 <a id="a3297a46a574d31f6a74aac54a4156548"></a>
@@ -305,7 +319,14 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the mask of the superpixel segmentation stored in <a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_superpixel_s_l_i_c.html">SuperpixelSLIC</a> object. </p><pre class="fragment">param image Return: CV_8U1 image mask where -1 indicates that the pixel is a superpixel border,
+and 0 otherwise.
 
+param thick_line If false, the border is only one pixel wide, otherwise all pixels at the border
+are masked.
+
+The function return the boundaries of the superpixel segmentation.
+</pre> 
 </div>
 </div>
 <a id="a718636d7b30a7b8d7fcdcef594cc008c"></a>
@@ -323,7 +344,13 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the mask of the superpixel segmentation stored in <a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_superpixel_s_l_i_c.html">SuperpixelSLIC</a> object. </p><pre class="fragment">param image Return: CV_8U1 image mask where -1 indicates that the pixel is a superpixel border,
+and 0 otherwise.
 
+are masked.
+
+The function return the boundaries of the superpixel segmentation.
+</pre> 
 </div>
 </div>
 <a id="abd9e8340708967ea2e7b1392f87a0b01"></a>
@@ -341,7 +368,14 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the segmentation labeling of the image. </p><pre class="fragment">Each label represents a superpixel, and each pixel is assigned to one superpixel label.
 
+param labels_out Return: A CV_32SC1 integer array containing the labels of the superpixel
+segmentation. The labels are in the range [0, getNumberOfSuperpixels()].
+
+The function returns an image with the labels of the superpixel segmentation. The labels are in
+the range [0, getNumberOfSuperpixels()].
+</pre> 
 </div>
 </div>
 <a id="a5e15accf10526f017db98c89c0b14bd6"></a>
@@ -358,6 +392,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Calculates the actual amount of superpixels on a given segmentation computed and stored in <a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_superpixel_s_l_i_c.html">SuperpixelSLIC</a> object. return automatically generated </p>
 
 </div>
 </div>
@@ -376,6 +411,10 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Calculates the superpixel segmentation on a given image with the initialized parameters in the <a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_superpixel_s_l_i_c.html">SuperpixelSLIC</a> object.</p>
+<p>This function can be called again without the need of initializing the algorithm with createSuperpixelSLIC(). This save the computational cost of allocating memory for all the structures of the algorithm.</p>
+<p>param num_iterations Number of iterations. Higher number improves the result.</p>
+<p>The function computes the superpixels segmentation of an image with the parameters initialized with the function createSuperpixelSLIC(). The algorithms starts from a grid of superpixels and then refines the boundaries by proposing updates of edges boundaries. </p>
 
 </div>
 </div>
@@ -393,7 +432,12 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Calculates the superpixel segmentation on a given image with the initialized parameters in the <a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_superpixel_s_l_i_c.html">SuperpixelSLIC</a> object.</p>
+<p>This function can be called again without the need of initializing the algorithm with createSuperpixelSLIC(). This save the computational cost of allocating memory for all the structures of the algorithm.</p>
+<pre class="fragment">The function computes the superpixels segmentation of an image with the parameters initialized
+with the function createSuperpixelSLIC(). The algorithms starts from a grid of superpixels and
+then refines the boundaries by proposing updates of edges boundaries.
+</pre> 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -402,7 +446,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:14 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:18 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

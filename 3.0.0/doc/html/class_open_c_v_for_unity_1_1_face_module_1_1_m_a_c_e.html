@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.7</span>
+   &#160;<span id="projectnumber">2.3.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.1.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -161,7 +161,21 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Minimum Average Correlation Energy Filter useful for authentication with (cancellable) biometrical features. (does not need many positives to train (10-50), and no negatives at all, also robust to noise/salting)</p>
+<p>see also: CITE: Savvides04</p>
+<p>this implementation is largely based on: <a href="https://code.google.com/archive/p/pam-face-authentication">https://code.google.com/archive/p/pam-face-authentication</a> (GSOC 2009)</p>
+<p>use it like: <code></code></p>
+<p><code> Ptr&lt;face::MACE&gt; mace = face::MACE::create(64);</code></p>
+<p><code> vector&lt;Mat&gt; pos_images = ... mace-&gt;train(pos_images);</code></p>
+<p><code> Mat query = ... bool same = mace-&gt;same(query);</code></p>
+<p><code> </code></p>
+<p>you can also use two-factor authentication, with an additional passphrase:</p>
+<p><code> String owners_passphrase = "ilikehotdogs"; Ptr&lt;face::MACE&gt; mace = face::MACE::create(64); mace-&gt;salt(owners_passphrase); vector&lt;Mat&gt; pos_images = ... mace-&gt;train(pos_images);</code></p>
+<p><code> // now, users have to give a valid passphrase, along with the image: Mat query = ... cout &lt;&lt; "enter passphrase: "; string pass; getline(cin, pass); mace-&gt;salt(pass); bool same = mace-&gt;same(query); </code></p>
+<p>save/load your model: <code> Ptr&lt;face::MACE&gt; mace = face::MACE::create(64); mace-&gt;train(pos_images); mace-&gt;save("my_mace.xml");</code></p>
+<p><code> // later: Ptr&lt;<a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_m_a_c_e.html">MACE</a>&gt; reloaded = <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_m_a_c_e.html#abbb79448cae5fc5bb92462ecf880e483">MACE::load</a>("my_mace.xml"); reloaded-&gt;same(some_image); </code> </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a975bc1601b0169f25ba39848209b8d04"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a975bc1601b0169f25ba39848209b8d04">&#9670;&nbsp;</a></span>MACE()</h2>
 
@@ -238,6 +252,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>constructor param IMGSIZE images will get resized to this (should be an even number) return automatically generated </p>
 
 </div>
 </div>
@@ -263,6 +278,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>constructor return automatically generated </p>
 
 </div>
 </div>
@@ -327,6 +343,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>constructor param filename build a new <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_m_a_c_e.html">MACE</a> instance from a pre-serialized FileStorage param objname (optional) top-level node in the FileStorage return automatically generated </p>
 
 </div>
 </div>
@@ -353,6 +370,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>constructor param filename build a new <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_m_a_c_e.html">MACE</a> instance from a pre-serialized FileStorage return automatically generated </p>
 
 </div>
 </div>
@@ -371,6 +389,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>optionally encrypt images with random convolution param passphrase a crc64 random seed will get generated from this </p>
 
 </div>
 </div>
@@ -389,6 +408,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>correlate query img and threshold to min class value param query a Mat with query image return automatically generated </p>
 
 </div>
 </div>
@@ -407,6 +427,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>train it on positive features compute the mace filter: {code h = D(-1) * X * (X(+) * D(-1) * X)(-1) * C} also calculate a minimal threshold for this class, the smallest self-similarity from the train images param images a vector&lt;Mat&gt; with the train images </p>
 
 </div>
 </div>
@@ -416,7 +437,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 18:20:11 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 2 2020 22:41:12 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

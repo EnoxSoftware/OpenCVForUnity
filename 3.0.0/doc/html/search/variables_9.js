@@ -2,9 +2,6 @@ var searchData=
 [
   ['identity',['IDENTITY',['../class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a3fb0016e7d360bedcba1a88e32265826',1,'OpenCVForUnity::MlModule::ANN_MLP']]],
   ['imgidx',['imgIdx',['../class_open_c_v_for_unity_1_1_core_module_1_1_d_match.html#a64b744108964425de4350ca60ccd3929',1,'OpenCVForUnity::CoreModule::DMatch']]],
-  ['impl_5fipp',['IMPL_IPP',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a156c931d5c0e1cf50670c61ffcd67849',1,'OpenCVForUnity::CoreModule::Core']]],
-  ['impl_5fopencl',['IMPL_OPENCL',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#ae4e3c525f35d09df382c2960e682b658',1,'OpenCVForUnity::CoreModule::Core']]],
-  ['impl_5fplain',['IMPL_PLAIN',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a2e5768a840dfe25fe11085086544baf1',1,'OpenCVForUnity::CoreModule::Core']]],
   ['imread_5fanycolor',['IMREAD_ANYCOLOR',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a829ca7b900a1ff90f1edd3d45e446c35',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
   ['imread_5fanydepth',['IMREAD_ANYDEPTH',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a9569701903bcc153895dcb4589e4bab7',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
   ['imread_5fcolor',['IMREAD_COLOR',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a1b0b5c00a0bbdab86d5345d6c83b970d',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
@@ -50,6 +47,8 @@ var searchData=
   ['imwrite_5ftiff_5fydpi',['IMWRITE_TIFF_YDPI',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a7732ccd703b8a45d4d9d0d4abeeee759',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
   ['imwrite_5fwebp_5fquality',['IMWRITE_WEBP_QUALITY',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#ad8348c88e3d0a4c34032d334328cc7ee',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
   ['initcoroutine',['initCoroutine',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#adb72dc450d8b0e048d19d475716a2ef9',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]],
+  ['inpaint_5ffsr_5fbest',['INPAINT_FSR_BEST',['../class_open_c_v_for_unity_1_1_xphoto_module_1_1_xphoto.html#acbc453dbdd64be24c2a1ec50ce93cabf',1,'OpenCVForUnity::XphotoModule::Xphoto']]],
+  ['inpaint_5ffsr_5ffast',['INPAINT_FSR_FAST',['../class_open_c_v_for_unity_1_1_xphoto_module_1_1_xphoto.html#a5e8a434c0248e04ace81cb66b810be8c',1,'OpenCVForUnity::XphotoModule::Xphoto']]],
   ['inpaint_5fns',['INPAINT_NS',['../class_open_c_v_for_unity_1_1_photo_module_1_1_photo.html#a9f63276fa7685b68fd4489ea8775a801',1,'OpenCVForUnity::PhotoModule::Photo']]],
   ['inpaint_5fshiftmap',['INPAINT_SHIFTMAP',['../class_open_c_v_for_unity_1_1_xphoto_module_1_1_xphoto.html#a0d0809d2cfb024c720836b957974951f',1,'OpenCVForUnity::XphotoModule::Xphoto']]],
   ['inpaint_5ftelea',['INPAINT_TELEA',['../class_open_c_v_for_unity_1_1_photo_module_1_1_photo.html#a77516899522ddf40f268617655737d97',1,'OpenCVForUnity::PhotoModule::Photo']]],
