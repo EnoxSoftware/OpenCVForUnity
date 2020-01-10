@@ -1,4 +1,4 @@
-#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
+﻿#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -586,7 +586,7 @@ namespace OpenCVForUnityExample
                 using (Mat rvec = new Mat (rvecs, new OpenCVForUnity.CoreModule.Rect (0, i, 1, 1)))
                 using (Mat tvec = new Mat (tvecs, new OpenCVForUnity.CoreModule.Rect (0, i, 1, 1))) {
                     // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
-                    Aruco.drawAxis (rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
+                    Calib3d.drawFrameAxes (rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
 
                     // This example can display the ARObject on only first detected marker.
                     if (i == 0) {
@@ -603,7 +603,7 @@ namespace OpenCVForUnityExample
             // if at least one board marker detected
             if (valid > 0) {
                 // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
-                Aruco.drawAxis (rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
+                Calib3d.drawFrameAxes (rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
 
                 UpdateARObjectTransform (rvec, tvec);
             }
@@ -618,7 +618,7 @@ namespace OpenCVForUnityExample
                 // if at least one board marker detected
                 if (valid) {
                     // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
-                    Aruco.drawAxis (rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
+                    Calib3d.drawFrameAxes (rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
 
                     UpdateARObjectTransform (rvec, tvec);
                 }
@@ -633,7 +633,7 @@ namespace OpenCVForUnityExample
                 using (Mat rvec = new Mat (rvecs, new OpenCVForUnity.CoreModule.Rect (0, i, 1, 1)))
                 using (Mat tvec = new Mat (tvecs, new OpenCVForUnity.CoreModule.Rect (0, i, 1, 1))) {
                     // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
-                    Aruco.drawAxis (rgbMat, camMatrix, distCoeffs, rvec, tvec, diamondSquareLength * 0.5f);
+                    Calib3d.drawFrameAxes (rgbMat, camMatrix, distCoeffs, rvec, tvec, diamondSquareLength * 0.5f);
 
                     // This example can display the ARObject on only first detected marker.
                     if (i == 0) {

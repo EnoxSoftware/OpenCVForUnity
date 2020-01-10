@@ -213,7 +213,7 @@ namespace OpenCVForUnityExample
                         using (Mat tvec = new Mat (tvecs, new OpenCVForUnity.CoreModule.Rect (0, i, 1, 1))) {
                             
                             // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
-                            Aruco.drawAxis (rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
+                            Calib3d.drawFrameAxes(rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
                         }
                         
                         // This example can display the ARObject on only first detected marker.

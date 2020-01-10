@@ -48,12 +48,14 @@ namespace OpenCVForUnityExample
             scrollRect.verticalNormalizedPosition = verticalNormalizedPosition;
 
 #if UNITY_WSA_10_0
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FastNeuralStyleTransferExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LibFaceDetectionExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MaskRCNNExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDExampleButton").GetComponent<Button> ().interactable = false;
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/OpenPoseExampleButton").GetComponent<Button> ().interactable = false;
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ResnetSSDFaceDetectionExampleButton").GetComponent<Button> ().interactable = false;
-            GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MaskRCNNExampleButton").GetComponent<Button> ().interactable = false;
-            GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TensorFlowWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
+            GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TensorflowInceptionWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YoloObjectDetectionExampleButton").GetComponent<Button> ().interactable = false;
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YoloObjectDetectionWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
 
@@ -328,6 +330,21 @@ namespace OpenCVForUnityExample
 
         #region dnn
 
+        public void OnFastNeuralStyleTransferExampleButtonClick()
+        {
+            SceneManager.LoadScene("FastNeuralStyleTransferExample");
+        }
+
+        public void OnLibFaceDetectionExampleButtonClick()
+        {
+            SceneManager.LoadScene("LibFaceDetectionExample");
+        }
+
+        public void OnMaskRCNNExampleButtonClick()
+        {
+            SceneManager.LoadScene("MaskRCNNExample");
+        }
+
         public void OnMobileNetSSDExampleButtonClick()
         {
             SceneManager.LoadScene("MobileNetSSDExample");
@@ -348,14 +365,9 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("ResnetSSDFaceDetectionExample");
         }
 
-        public void OnMaskRCNNExampleButtonClick()
+        public void OnTensorflowInceptionWebCamTextureExampleButtonClick()
         {
-            SceneManager.LoadScene("MaskRCNNExample");
-        }
-
-        public void OnTensorFlowWebCamTextureExampleButtonClick()
-        {
-            SceneManager.LoadScene("TensorFlowWebCamTextureExample");
+            SceneManager.LoadScene("TensorflowInceptionWebCamTextureExample");
         }
 
         public void OnYoloObjectDetectionExampleButtonClick()

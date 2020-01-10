@@ -21,109 +21,41 @@ namespace OpenCVForUnityExample
     public class DnnObjectDetectionExample : MonoBehaviour
     {
 
-        [TooltipAttribute ("Path to input image.")]
+        [TooltipAttribute("Path to input image.")]
         public string input;
 
-        [TooltipAttribute ("Path to a binary file of model contains trained weights. It could be a file with extensions .caffemodel (Caffe), .pb (TensorFlow), .t7 or .net (Torch), .weights (Darknet).")]
+        [TooltipAttribute("Path to a binary file of model contains trained weights. It could be a file with extensions .caffemodel (Caffe), .pb (TensorFlow), .t7 or .net (Torch), .weights (Darknet).")]
         public string model;
 
-        [TooltipAttribute ("Path to a text file of model contains network configuration. It could be a file with extensions .prototxt (Caffe), .pbtxt (TensorFlow), .cfg (Darknet).")]
+        [TooltipAttribute("Path to a text file of model contains network configuration. It could be a file with extensions .prototxt (Caffe), .pbtxt (TensorFlow), .cfg (Darknet).")]
         public string config;
 
-        [TooltipAttribute ("Optional path to a text file with names of classes to label detected objects.")]
+        [TooltipAttribute("Optional path to a text file with names of classes to label detected objects.")]
         public string classes;
 
-        [TooltipAttribute ("Optional list of classes to label detected objects.")]
+        [TooltipAttribute("Optional list of classes to label detected objects.")]
         public List<string> classesList;
 
-        [TooltipAttribute ("Confidence threshold.")]
+        [TooltipAttribute("Confidence threshold.")]
         public float confThreshold;
 
-        [TooltipAttribute ("Non-maximum suppression threshold.")]
+        [TooltipAttribute("Non-maximum suppression threshold.")]
         public float nmsThreshold;
 
-        [TooltipAttribute ("Preprocess input image by multiplying on a scale factor.")]
+        [TooltipAttribute("Preprocess input image by multiplying on a scale factor.")]
         public float scale;
 
-        [TooltipAttribute ("Preprocess input image by subtracting mean values. Mean values should be in BGR order and delimited by spaces.")]
+        [TooltipAttribute("Preprocess input image by subtracting mean values. Mean values should be in BGR order and delimited by spaces.")]
         public Scalar mean;
 
-        [TooltipAttribute ("Indicate that model works with RGB input images instead BGR ones.")]
+        [TooltipAttribute("Indicate that model works with RGB input images instead BGR ones.")]
         public bool swapRB;
 
-        [TooltipAttribute ("Preprocess input image by resizing to a specific width.")]
+        [TooltipAttribute("Preprocess input image by resizing to a specific width.")]
         public int inpWidth;
 
-        [TooltipAttribute ("Preprocess input image by resizing to a specific height.")]
+        [TooltipAttribute("Preprocess input image by resizing to a specific height.")]
         public int inpHeight;
-
-
-
-        //yolov3
-        //        string input = "004545.jpg";
-        //        public string input = "person.jpg";
-        //        public string model = "yolov3-tiny.weights";
-        //        public string config = "yolov3-tiny.cfg";
-        //        //        string model = "yolov2-tiny.weights";
-        //        //        string config = "yolov2-tiny.cfg";
-        //        public string classes = "coco.names";
-        //
-        //
-        //        public float confThreshold = 0.24f;
-        //        public float nmsThreshold = 0.24f;
-        //        public float scale = 1f / 255f;
-        //        public Scalar mean = new Scalar (0, 0, 0);
-        //        public bool swapRB = false;
-        //        public int inpWidth = 416;
-        //        public int inpHeight = 416;
-        //
-        //        List<string> classNames;
-
-        //                //MobileNetSSD
-        //                string input = "004545.jpg";
-        //        //        string input = "person.jpg";
-        //                string model = "MobileNetSSD_deploy.caffemodel";
-        //                string config = "MobileNetSSD_deploy.prototxt";
-        //                string classes;
-        //        //        string classes = "coco.names";
-        //
-        //                float confThreshold = 0.2f;
-        //                float nmsThreshold = 0.2f;
-        //                float scale = 2f / 255f;
-        //                Scalar mean = new Scalar (127.5, 127.5, 127.5);
-        //                bool swapRB = false;
-        //                int inpWidth = 300;
-        //                int inpHeight = 300;
-        //
-        //                List<string> classNames = new List<string>(new string[]{"background",
-        //                    "aeroplane", "bicycle", "bird", "boat",
-        //                    "bottle", "bus", "car", "cat", "chair",
-        //                    "cow", "diningtable", "dog", "horse",
-        //                    "motorbike", "person", "pottedplant",
-        //                    "sheep", "sofa", "train", "tvmonitor"
-        //                });
-        //        //        List<string> classNames;
-
-        //        //ResnetSSDFaceDetection
-        //        string input = "grace_hopper_227.png";
-        //        //        string input = "person.jpg";
-        //        string model = "res10_300x300_ssd_iter_140000.caffemodel";
-        //        string config = "deploy.prototxt";
-        //        //        string model = "yolov2-tiny.weights";
-        //        //        string config = "yolov2-tiny.cfg";
-        //        string classes;
-        //
-        //
-        //        float confThreshold = 0.5f;
-        //        float nmsThreshold = 0.5f;
-        //        float scale = 1f;
-        //        Scalar mean = new Scalar (104, 177, 123);
-        //        bool swapRB = false;
-        //        int inpWidth = 300;
-        //        int inpHeight = 300;
-        //
-        //        List<string> classNames;
-
 
         List<string> classNames;
         List<string> outBlobNames;
@@ -134,51 +66,59 @@ namespace OpenCVForUnityExample
         string config_filepath;
         string model_filepath;
 
-        #if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL && !UNITY_EDITOR
         IEnumerator getFilePath_Coroutine;
-        #endif
+#endif
 
         // Use this for initialization
-        void Start ()
+        void Start()
         {
-            #if UNITY_WEBGL && !UNITY_EDITOR
-            getFilePath_Coroutine = GetFilePath ();
-            StartCoroutine (getFilePath_Coroutine);
-            #else
-            classes_filepath = Utils.getFilePath ("dnn/" + classes);
-            input_filepath = Utils.getFilePath ("dnn/" + input);
-            config_filepath = Utils.getFilePath ("dnn/" + config);
-            model_filepath = Utils.getFilePath ("dnn/" + model);
-            Run ();
-            #endif
+#if UNITY_WEBGL && !UNITY_EDITOR
+            getFilePath_Coroutine = GetFilePath();
+            StartCoroutine(getFilePath_Coroutine);
+#else
+            classes_filepath = Utils.getFilePath("dnn/" + classes);
+            input_filepath = Utils.getFilePath("dnn/" + input);
+            config_filepath = Utils.getFilePath("dnn/" + config);
+            model_filepath = Utils.getFilePath("dnn/" + model);
+            Run();
+#endif
         }
 
-        #if UNITY_WEBGL && !UNITY_EDITOR
-        private IEnumerator GetFilePath ()
+#if UNITY_WEBGL && !UNITY_EDITOR
+        private IEnumerator GetFilePath()
         {
-            if (!string.IsNullOrEmpty (classes)) {
-                var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync ("dnn/" + classes, (result) => {
+            if (!string.IsNullOrEmpty(classes))
+            {
+                var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync("dnn/" + classes, (result) =>
+                {
                     classes_filepath = result;
                 });
                 yield return getFilePathAsync_0_Coroutine;
             }
 
-            if (!string.IsNullOrEmpty (input)) {
-                var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync ("dnn/" + input, (result) => {
+            if (!string.IsNullOrEmpty(input))
+            {
+                var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync("dnn/" + input, (result) =>
+                {
                     input_filepath = result;
                 });
                 yield return getFilePathAsync_1_Coroutine;
             }
 
-            if (!string.IsNullOrEmpty (config)) {
-                var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync ("dnn/" + config, (result) => {
+            if (!string.IsNullOrEmpty(config))
+            {
+                var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync("dnn/" + config, (result) =>
+                {
                     config_filepath = result;
                 });
                 yield return getFilePathAsync_2_Coroutine;
             }
 
-            if (!string.IsNullOrEmpty (model)) {
-                var getFilePathAsync_3_Coroutine = Utils.getFilePathAsync ("dnn/" + model, (result) => {
+            if (!string.IsNullOrEmpty(model))
+            {
+                var getFilePathAsync_3_Coroutine = Utils.getFilePathAsync("dnn/" + model, (result) =>
+                {
                     model_filepath = result;
                 });
                 yield return getFilePathAsync_3_Coroutine;
@@ -186,137 +126,152 @@ namespace OpenCVForUnityExample
 
             getFilePath_Coroutine = null;
 
-            Run ();
+            Run();
         }
-        #endif
+#endif
 
         // Use this for initialization
-        void Run ()
+        void Run()
         {
-            
-            //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
-            Utils.setDebugMode (true);
 
-            if (!string.IsNullOrEmpty (classes)) {
-                classNames = readClassNames (classes_filepath);
-                if (classNames == null) {
-                    Debug.LogError (classes_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
+            //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
+            Utils.setDebugMode(true);
+
+            if (!string.IsNullOrEmpty(classes))
+            {
+                classNames = readClassNames(classes_filepath);
+                if (classNames == null)
+                {
+                    Debug.LogError(classes_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
                 }
-            } else if (classesList.Count > 0) {
+            }
+            else if (classesList.Count > 0)
+            {
                 classNames = classesList;
             }
 
-            Mat img = Imgcodecs.imread (input_filepath);
-            if (img.empty ()) {
-                Debug.LogError (input_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
-                img = new Mat (424, 640, CvType.CV_8UC3, new Scalar (0, 0, 0));
+            Mat img = Imgcodecs.imread(input_filepath);
+            if (img.empty())
+            {
+                Debug.LogError(input_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
+                img = new Mat(424, 640, CvType.CV_8UC3, new Scalar(0, 0, 0));
             }
 
 
             //Adust Quad.transform.localScale.
-            gameObject.transform.localScale = new Vector3 (img.width (), img.height (), 1);
-            Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
+            gameObject.transform.localScale = new Vector3(img.width(), img.height(), 1);
+            Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
-            float imageWidth = img.width ();
-            float imageHeight = img.height ();
+            float imageWidth = img.width();
+            float imageHeight = img.height();
 
             float widthScale = (float)Screen.width / imageWidth;
             float heightScale = (float)Screen.height / imageHeight;
-            if (widthScale < heightScale) {
+            if (widthScale < heightScale)
+            {
                 Camera.main.orthographicSize = (imageWidth * (float)Screen.height / (float)Screen.width) / 2;
-            } else {
+            }
+            else
+            {
                 Camera.main.orthographicSize = imageHeight / 2;
             }
 
 
             Net net = null;
 
-            if (string.IsNullOrEmpty (config_filepath) || string.IsNullOrEmpty (model_filepath)) {
-                Debug.LogError (config_filepath + " or " + model_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
-            } else {
+            if (string.IsNullOrEmpty(config_filepath) || string.IsNullOrEmpty(model_filepath))
+            {
+                Debug.LogError(config_filepath + " or " + model_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
+            }
+            else
+            {
                 //! [Initialize network]
-                net = Dnn.readNet (model_filepath, config_filepath);
+                net = Dnn.readNet(model_filepath, config_filepath);
                 //! [Initialize network]
-
             }
 
 
-            if (net == null) {
-               
-                Imgproc.putText (img, "model file is not loaded.", new Point (5, img.rows () - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255), 2, Imgproc.LINE_AA, false);
-                Imgproc.putText (img, "Please read console message.", new Point (5, img.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar (255, 255, 255), 2, Imgproc.LINE_AA, false);
+            if (net == null)
+            {
+                Imgproc.putText(img, "model file is not loaded.", new Point(5, img.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255), 2, Imgproc.LINE_AA, false);
+                Imgproc.putText(img, "Please read console message.", new Point(5, img.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255), 2, Imgproc.LINE_AA, false);
+            }
+            else
+            {
 
-            } else {
+                outBlobNames = getOutputsNames(net);
+                //for (int i = 0; i < outBlobNames.Count; i++)
+                //{
+                //    Debug.Log("names [" + i + "] " + outBlobNames[i]);
+                //}
 
-                outBlobNames = getOutputsNames (net);
-//                for (int i = 0; i < outBlobNames.Count; i++) {
-//                    Debug.Log ("names [" + i + "] " + outBlobNames [i]);
-//                }
-
-                outBlobTypes = getOutputsTypes (net);
-//                for (int i = 0; i < outBlobTypes.Count; i++) {
-//                    Debug.Log ("types [" + i + "] " + outBlobTypes [i]);
-//                }
+                outBlobTypes = getOutputsTypes(net);
+                //for (int i = 0; i < outBlobTypes.Count; i++)
+                //{
+                //    Debug.Log("types [" + i + "] " + outBlobTypes[i]);
+                //}
 
 
                 // Create a 4D blob from a frame.
-                Size inpSize = new Size (inpWidth > 0 ? inpWidth : img.cols (),
-                                   inpHeight > 0 ? inpHeight : img.rows ());
-                Mat blob = Dnn.blobFromImage (img, scale, inpSize, mean, swapRB, false);
+                Size inpSize = new Size(inpWidth > 0 ? inpWidth : img.cols(),
+                                   inpHeight > 0 ? inpHeight : img.rows());
+                Mat blob = Dnn.blobFromImage(img, scale, inpSize, mean, swapRB, false);
 
 
                 // Run a model.
-                net.setInput (blob);
+                net.setInput(blob);
 
-                if (net.getLayer (new DictValue (0)).outputNameToIndex ("im_info") != -1) {  // Faster-RCNN or R-FCN
-                    Imgproc.resize (img, img, inpSize);
-                    Mat imInfo = new Mat (1, 3, CvType.CV_32FC1);
-                    imInfo.put (0, 0, new float[] {
+                if (net.getLayer(new DictValue(0)).outputNameToIndex("im_info") != -1)
+                {  // Faster-RCNN or R-FCN
+                    Imgproc.resize(img, img, inpSize);
+                    Mat imInfo = new Mat(1, 3, CvType.CV_32FC1);
+                    imInfo.put(0, 0, new float[] {
                         (float)inpSize.height,
                         (float)inpSize.width,
                         1.6f
                     });
-                    net.setInput (imInfo, "im_info");
+                    net.setInput(imInfo, "im_info");
                 }
 
 
-                TickMeter tm = new TickMeter ();
-                tm.start ();
+                TickMeter tm = new TickMeter();
+                tm.start();
 
 
-                List<Mat> outs = new List<Mat> ();
-                net.forward (outs, outBlobNames);
+                List<Mat> outs = new List<Mat>();
+                net.forward(outs, outBlobNames);
 
 
-                tm.stop ();
-                Debug.Log ("Inference time, ms: " + tm.getTimeMilli ());
+                tm.stop();
+                Debug.Log("Inference time, ms: " + tm.getTimeMilli());
 
 
-                postprocess (img, outs, net);
+                postprocess(img, outs, net);
 
-                for (int i = 0; i < outs.Count; i++) {
-                    outs [i].Dispose ();
+                for (int i = 0; i < outs.Count; i++)
+                {
+                    outs[i].Dispose();
                 }
-                blob.Dispose ();
-                net.Dispose ();
+                blob.Dispose();
+                net.Dispose();
 
             }
 
-            
-            Imgproc.cvtColor (img, img, Imgproc.COLOR_BGR2RGB);
 
-            Texture2D texture = new Texture2D (img.cols (), img.rows (), TextureFormat.RGBA32, false);
+            Imgproc.cvtColor(img, img, Imgproc.COLOR_BGR2RGB);
 
-            Utils.matToTexture2D (img, texture);
+            Texture2D texture = new Texture2D(img.cols(), img.rows(), TextureFormat.RGBA32, false);
 
-            gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
+            Utils.matToTexture2D(img, texture);
+
+            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
 
-            Utils.setDebugMode (false);
+            Utils.setDebugMode(false);
         }
-    
+
         // Update is called once per frame
-        void Update ()
+        void Update()
         {
 
         }
@@ -324,22 +279,23 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Raises the disable event.
         /// </summary>
-        void OnDisable ()
+        void OnDisable()
         {
-            #if UNITY_WEBGL && !UNITY_EDITOR
-            if (getFilePath_Coroutine != null) {
-                StopCoroutine (getFilePath_Coroutine);
-                ((IDisposable)getFilePath_Coroutine).Dispose ();
+#if UNITY_WEBGL && !UNITY_EDITOR
+            if (getFilePath_Coroutine != null)
+            {
+                StopCoroutine(getFilePath_Coroutine);
+                ((IDisposable)getFilePath_Coroutine).Dispose();
             }
-            #endif
+#endif
         }
 
         /// <summary>
         /// Raises the back button click event.
         /// </summary>
-        public void OnBackButtonClick ()
+        public void OnBackButtonClick()
         {
-            SceneManager.LoadScene ("OpenCVForUnityExample");
+            SceneManager.LoadScene("OpenCVForUnityExample");
         }
 
         /// <summary>
@@ -347,24 +303,30 @@ namespace OpenCVForUnityExample
         /// </summary>
         /// <returns>The class names.</returns>
         /// <param name="filename">Filename.</param>
-        private List<string> readClassNames (string filename)
+        private List<string> readClassNames(string filename)
         {
-            List<string> classNames = new List<string> ();
+            List<string> classNames = new List<string>();
 
             System.IO.StreamReader cReader = null;
-            try {
-                cReader = new System.IO.StreamReader (filename, System.Text.Encoding.Default);
+            try
+            {
+                cReader = new System.IO.StreamReader(filename, System.Text.Encoding.Default);
 
-                while (cReader.Peek () >= 0) {
-                    string name = cReader.ReadLine ();
-                    classNames.Add (name);
+                while (cReader.Peek() >= 0)
+                {
+                    string name = cReader.ReadLine();
+                    classNames.Add(name);
                 }
-            } catch (System.Exception ex) {
-                Debug.LogError (ex.Message);
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError(ex.Message);
                 return null;
-            } finally {
+            }
+            finally
+            {
                 if (cReader != null)
-                    cReader.Close ();
+                    cReader.Close();
             }
 
             return classNames;
@@ -376,154 +338,166 @@ namespace OpenCVForUnityExample
         /// <param name="frame">Frame.</param>
         /// <param name="outs">Outs.</param>
         /// <param name="net">Net.</param>
-        private void postprocess (Mat frame, List<Mat> outs, Net net)
+        private void postprocess(Mat frame, List<Mat> outs, Net net)
         {
-            string outLayerType = outBlobTypes [0];
+            string outLayerType = outBlobTypes[0];
 
 
-            List<int> classIdsList = new List<int> ();
-            List<float> confidencesList = new List<float> ();
-            List<OpenCVForUnity.CoreModule.Rect> boxesList = new List<OpenCVForUnity.CoreModule.Rect> ();
-            if (net.getLayer (new DictValue (0)).outputNameToIndex ("im_info") != -1) {  // Faster-RCNN or R-FCN
+            List<int> classIdsList = new List<int>();
+            List<float> confidencesList = new List<float>();
+            List<OpenCVForUnity.CoreModule.Rect> boxesList = new List<OpenCVForUnity.CoreModule.Rect>();
+            if (net.getLayer(new DictValue(0)).outputNameToIndex("im_info") != -1)
+            {
+                // Faster-RCNN or R-FCN
                 // Network produces output blob with a shape 1x1xNx7 where N is a number of
                 // detections and an every detection is a vector of values
                 // [batchId, classId, confidence, left, top, right, bottom]
 
-                if (outs.Count == 1) {
+                if (outs.Count == 1)
+                {
 
-                    outs [0] = outs [0].reshape (1, (int)outs [0].total () / 7);
+                    outs[0] = outs[0].reshape(1, (int)outs[0].total() / 7);
 
-//                    Debug.Log ("outs[i].ToString() " + outs [0].ToString ());
+                    //Debug.Log ("outs[i].ToString() " + outs [0].ToString ());
 
                     float[] data = new float[7];
 
-                    for (int i = 0; i < outs [0].rows (); i++) {
+                    for (int i = 0; i < outs[0].rows(); i++)
+                    {
 
-                        outs [0].get (i, 0, data);
+                        outs[0].get(i, 0, data);
 
-                        float confidence = data [2];
+                        float confidence = data[2];
 
-                        if (confidence > confThreshold) {
-                            int class_id = (int)(data [1]);
+                        if (confidence > confThreshold)
+                        {
+                            int class_id = (int)(data[1]);
 
-
-                            int left = (int)(data [3] * frame.cols ());
-                            int top = (int)(data [4] * frame.rows ());
-                            int right = (int)(data [5] * frame.cols ());
-                            int bottom = (int)(data [6] * frame.rows ());
+                            int left = (int)(data[3] * frame.cols());
+                            int top = (int)(data[4] * frame.rows());
+                            int right = (int)(data[5] * frame.cols());
+                            int bottom = (int)(data[6] * frame.rows());
                             int width = right - left + 1;
                             int height = bottom - top + 1;
 
-
-                            classIdsList.Add ((int)(class_id) - 0);
-                            confidencesList.Add ((float)confidence);
-                            boxesList.Add (new OpenCVForUnity.CoreModule.Rect (left, top, width, height));
+                            classIdsList.Add((int)(class_id) - 0);
+                            confidencesList.Add((float)confidence);
+                            boxesList.Add(new OpenCVForUnity.CoreModule.Rect(left, top, width, height));
                         }
                     }
                 }
-            } else if (outLayerType == "DetectionOutput") {
+            }
+            else if (outLayerType == "DetectionOutput")
+            {
                 // Network produces output blob with a shape 1x1xNx7 where N is a number of
                 // detections and an every detection is a vector of values
                 // [batchId, classId, confidence, left, top, right, bottom]
 
-                if (outs.Count == 1) {
+                if (outs.Count == 1)
+                {
 
-                    outs [0] = outs [0].reshape (1, (int)outs [0].total () / 7);
+                    outs[0] = outs[0].reshape(1, (int)outs[0].total() / 7);
 
-//                    Debug.Log ("outs[i].ToString() " + outs [0].ToString ());
+                    //Debug.Log ("outs[i].ToString() " + outs [0].ToString ());
 
                     float[] data = new float[7];
 
-                    for (int i = 0; i < outs [0].rows (); i++) {
+                    for (int i = 0; i < outs[0].rows(); i++)
+                    {
 
-                        outs [0].get (i, 0, data);
+                        outs[0].get(i, 0, data);
 
-                        float confidence = data [2];
+                        float confidence = data[2];
 
-                        if (confidence > confThreshold) {
-                            int class_id = (int)(data [1]);
+                        if (confidence > confThreshold)
+                        {
+                            int class_id = (int)(data[1]);
 
-
-                            int left = (int)(data [3] * frame.cols ());
-                            int top = (int)(data [4] * frame.rows ());
-                            int right = (int)(data [5] * frame.cols ());
-                            int bottom = (int)(data [6] * frame.rows ());
+                            int left = (int)(data[3] * frame.cols());
+                            int top = (int)(data[4] * frame.rows());
+                            int right = (int)(data[5] * frame.cols());
+                            int bottom = (int)(data[6] * frame.rows());
                             int width = right - left + 1;
                             int height = bottom - top + 1;
- 
 
-                            classIdsList.Add ((int)(class_id) - 0);
-                            confidencesList.Add ((float)confidence);
-                            boxesList.Add (new OpenCVForUnity.CoreModule.Rect (left, top, width, height));
+                            classIdsList.Add((int)(class_id) - 0);
+                            confidencesList.Add((float)confidence);
+                            boxesList.Add(new OpenCVForUnity.CoreModule.Rect(left, top, width, height));
                         }
                     }
                 }
-            } else if (outLayerType == "Region") {
-                for (int i = 0; i < outs.Count; ++i) {
+            }
+            else if (outLayerType == "Region")
+            {
+                for (int i = 0; i < outs.Count; ++i)
+                {
                     // Network produces output blob with a shape NxC where N is a number of
                     // detected objects and C is a number of classes + 4 where the first 4
                     // numbers are [center_x, center_y, width, height]
 
-                    //                        Debug.Log ("outs[i].ToString() "+outs[i].ToString());
+                    //Debug.Log ("outs[i].ToString() "+outs[i].ToString());
 
                     float[] positionData = new float[5];
-                    float[] confidenceData = new float[outs [i].cols () - 5];
+                    float[] confidenceData = new float[outs[i].cols() - 5];
 
-                    for (int p = 0; p < outs [i].rows (); p++) {
+                    for (int p = 0; p < outs[i].rows(); p++)
+                    {
 
+                        outs[i].get(p, 0, positionData);
 
-                    
-                        outs [i].get (p, 0, positionData);
-                    
-                        outs [i].get (p, 5, confidenceData);
-                    
-                        int maxIdx = confidenceData.Select ((val, idx) => new { V = val, I = idx }).Aggregate ((max, working) => (max.V > working.V) ? max : working).I;
-                        float confidence = confidenceData [maxIdx];
-                    
-                        if (confidence > confThreshold) {
-                    
-                            int centerX = (int)(positionData [0] * frame.cols ());
-                            int centerY = (int)(positionData [1] * frame.rows ());
-                            int width = (int)(positionData [2] * frame.cols ());
-                            int height = (int)(positionData [3] * frame.rows ());
+                        outs[i].get(p, 5, confidenceData);
+
+                        int maxIdx = confidenceData.Select((val, idx) => new { V = val, I = idx }).Aggregate((max, working) => (max.V > working.V) ? max : working).I;
+                        float confidence = confidenceData[maxIdx];
+
+                        if (confidence > confThreshold)
+                        {
+
+                            int centerX = (int)(positionData[0] * frame.cols());
+                            int centerY = (int)(positionData[1] * frame.rows());
+                            int width = (int)(positionData[2] * frame.cols());
+                            int height = (int)(positionData[3] * frame.rows());
                             int left = centerX - width / 2;
                             int top = centerY - height / 2;
-                            
-                            classIdsList.Add (maxIdx);
-                            confidencesList.Add ((float)confidence);
-                            boxesList.Add (new OpenCVForUnity.CoreModule.Rect (left, top, width, height));
-                                            
+
+                            classIdsList.Add(maxIdx);
+                            confidencesList.Add((float)confidence);
+                            boxesList.Add(new OpenCVForUnity.CoreModule.Rect(left, top, width, height));
+
                         }
                     }
                 }
-            } else {
-                Debug.Log ("Unknown output layer type: " + outLayerType);
+            }
+            else
+            {
+                Debug.Log("Unknown output layer type: " + outLayerType);
             }
 
 
-            MatOfRect boxes = new MatOfRect ();
-            boxes.fromList (boxesList);
+            MatOfRect boxes = new MatOfRect();
+            boxes.fromList(boxesList);
 
-            MatOfFloat confidences = new MatOfFloat ();
-            confidences.fromList (confidencesList);
+            MatOfFloat confidences = new MatOfFloat();
+            confidences.fromList(confidencesList);
 
 
-            MatOfInt indices = new MatOfInt ();
-            Dnn.NMSBoxes (boxes, confidences, confThreshold, nmsThreshold, indices);
+            MatOfInt indices = new MatOfInt();
+            Dnn.NMSBoxes(boxes, confidences, confThreshold, nmsThreshold, indices);
 
-//            Debug.Log ("indices.dump () "+indices.dump ());
-//            Debug.Log ("indices.ToString () "+indices.ToString());
+            //Debug.Log ("indices.dump () "+indices.dump ());
+            //Debug.Log ("indices.ToString () "+indices.ToString());
 
-            for (int i = 0; i < indices.total (); ++i) {
-                int idx = (int)indices.get (i, 0) [0];
-                OpenCVForUnity.CoreModule.Rect box = boxesList [idx];
-                drawPred (classIdsList [idx], confidencesList [idx], box.x, box.y,
+            for (int i = 0; i < indices.total(); ++i)
+            {
+                int idx = (int)indices.get(i, 0)[0];
+                OpenCVForUnity.CoreModule.Rect box = boxesList[idx];
+                drawPred(classIdsList[idx], confidencesList[idx], box.x, box.y,
                     box.x + box.width, box.y + box.height, frame);
             }
-             
-            indices.Dispose ();
-            boxes.Dispose ();
-            confidences.Dispose ();
+
+            indices.Dispose();
+            boxes.Dispose();
+            confidences.Dispose();
 
         }
 
@@ -537,24 +511,26 @@ namespace OpenCVForUnityExample
         /// <param name="right">Right.</param>
         /// <param name="bottom">Bottom.</param>
         /// <param name="frame">Frame.</param>
-        private void drawPred (int classId, float conf, int left, int top, int right, int bottom, Mat frame)
+        private void drawPred(int classId, float conf, int left, int top, int right, int bottom, Mat frame)
         {
-            Imgproc.rectangle (frame, new Point (left, top), new Point (right, bottom), new Scalar (0, 255, 0, 255), 2);
+            Imgproc.rectangle(frame, new Point(left, top), new Point(right, bottom), new Scalar(0, 255, 0, 255), 2);
 
-            string label = conf.ToString ();
-            if (classNames != null && classNames.Count != 0) {
-                if (classId < (int)classNames.Count) {
-                    label = classNames [classId] + ": " + label;
+            string label = conf.ToString();
+            if (classNames != null && classNames.Count != 0)
+            {
+                if (classId < (int)classNames.Count)
+                {
+                    label = classNames[classId] + ": " + label;
                 }
             }
 
             int[] baseLine = new int[1];
-            Size labelSize = Imgproc.getTextSize (label, Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, 1, baseLine);
+            Size labelSize = Imgproc.getTextSize(label, Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, 1, baseLine);
 
-            top = Mathf.Max (top, (int)labelSize.height);
-            Imgproc.rectangle (frame, new Point (left, top - labelSize.height),
-                new Point (left + labelSize.width, top + baseLine [0]), Scalar.all (255), Core.FILLED);
-            Imgproc.putText (frame, label, new Point (left, top), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (0, 0, 0, 255));
+            top = Mathf.Max(top, (int)labelSize.height);
+            Imgproc.rectangle(frame, new Point(left, top - labelSize.height),
+                new Point(left + labelSize.width, top + baseLine[0]), Scalar.all(255), Core.FILLED);
+            Imgproc.putText(frame, label, new Point(left, top), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar(0, 0, 0, 255));
         }
 
         /// <summary>
@@ -562,16 +538,17 @@ namespace OpenCVForUnityExample
         /// </summary>
         /// <returns>The outputs names.</returns>
         /// <param name="net">Net.</param>
-        private List<string> getOutputsNames (Net net)
+        private List<string> getOutputsNames(Net net)
         {
-            List<string> names = new List<string> ();
+            List<string> names = new List<string>();
 
 
-            MatOfInt outLayers = net.getUnconnectedOutLayers ();
-            for (int i = 0; i < outLayers.total (); ++i) {
-                names.Add (net.getLayer (new DictValue ((int)outLayers.get (i, 0) [0])).get_name ());
+            MatOfInt outLayers = net.getUnconnectedOutLayers();
+            for (int i = 0; i < outLayers.total(); ++i)
+            {
+                names.Add(net.getLayer(new DictValue((int)outLayers.get(i, 0)[0])).get_name());
             }
-            outLayers.Dispose ();
+            outLayers.Dispose();
 
             return names;
         }
@@ -581,16 +558,17 @@ namespace OpenCVForUnityExample
         /// </summary>
         /// <returns>The outputs types.</returns>
         /// <param name="net">Net.</param>
-        private List<string> getOutputsTypes (Net net)
+        private List<string> getOutputsTypes(Net net)
         {
-            List<string> types = new List<string> ();
+            List<string> types = new List<string>();
 
 
-            MatOfInt outLayers = net.getUnconnectedOutLayers ();
-            for (int i = 0; i < outLayers.total (); ++i) {
-                types.Add (net.getLayer (new DictValue ((int)outLayers.get (i, 0) [0])).get_type ());
+            MatOfInt outLayers = net.getUnconnectedOutLayers();
+            for (int i = 0; i < outLayers.total(); ++i)
+            {
+                types.Add(net.getLayer(new DictValue((int)outLayers.get(i, 0)[0])).get_type());
             }
-            outLayers.Dispose ();
+            outLayers.Dispose();
 
             return types;
         }

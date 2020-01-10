@@ -11,6 +11,7 @@ using UnityEngine.SceneManagement;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.UtilsModule;
 
 namespace OpenCVForUnityExample
 {
@@ -371,17 +372,17 @@ namespace OpenCVForUnityExample
             }
         }
 
-        // Utils.copyFromMat
+        // MatUtils.copyFromMat
         //        [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
         //        [Il2CppSetOption(Option.NullChecks, false)]
         private void AlphaBlend_copyFromMat(Mat fg, Mat bg, Mat alpha, Mat dst)
         {
             byte[] fg_byte = new byte[fg.total() * fg.channels()];
-            Utils.copyFromMat<byte>(fg, fg_byte);
+            MatUtils.copyFromMat<byte>(fg, fg_byte);
             byte[] bg_byte = new byte[bg.total() * bg.channels()];
-            Utils.copyFromMat<byte>(bg, bg_byte);
+            MatUtils.copyFromMat<byte>(bg, bg_byte);
             byte[] alpha_byte = new byte[alpha.total() * alpha.channels()];
-            Utils.copyFromMat<byte>(alpha, alpha_byte);
+            MatUtils.copyFromMat<byte>(alpha, alpha_byte);
 
             int pixel_i = 0;
             int channels = (int)bg.channels();
@@ -407,7 +408,7 @@ namespace OpenCVForUnityExample
                 pixel_i += channels;
             }
 
-            Utils.copyToMat(bg_byte, dst);
+            MatUtils.copyToMat(bg_byte, dst);
         }
 
         // Marshal

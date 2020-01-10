@@ -1,12 +1,11 @@
-#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
+﻿#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
 
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using System.Collections;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.UnityUtils.Helper;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace OpenCVForUnityExample
 {
@@ -15,43 +14,14 @@ namespace OpenCVForUnityExample
     /// An example of image processing (comic filter) using the Imgproc class.
     /// Referring to http://dev.classmethod.jp/smartphone/opencv-manga-2/.
     /// </summary>
-    [RequireComponent (typeof(WebCamTextureToMatHelper))]
+    [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class ComicFilterExample : MonoBehaviour
     {
-        /// <summary>
-        /// The gray mat.
-        /// </summary>
-        Mat grayMat;
 
         /// <summary>
-        /// The line mat.
+        /// The comic filter.
         /// </summary>
-        Mat lineMat;
-
-        /// <summary>
-        /// The mask mat.
-        /// </summary>
-        Mat maskMat;
-
-        /// <summary>
-        /// The background mat.
-        /// </summary>
-        Mat bgMat;
-
-        /// <summary>
-        /// The dst mat.
-        /// </summary>
-        Mat dstMat;
-
-        /// <summary>
-        /// The gray pixels.
-        /// </summary>
-        byte[] grayPixels;
-
-        /// <summary>
-        /// The mask pixels.
-        /// </summary>
-        byte[] maskPixels;
+        ComicFilter comicFilter;
 
         /// <summary>
         /// The texture.
@@ -69,91 +39,75 @@ namespace OpenCVForUnityExample
         FpsMonitor fpsMonitor;
 
         // Use this for initialization
-        void Start ()
+        void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor> ();
+            fpsMonitor = GetComponent<FpsMonitor>();
 
-            webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
+            webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper>();
 
-            #if UNITY_ANDROID && !UNITY_EDITOR
+#if UNITY_ANDROID && !UNITY_EDITOR
             // Avoids the front camera low light issue that occurs in only some Android devices (e.g. Google Pixel, Pixel2).
             webCamTextureToMatHelper.avoidAndroidFrontCameraLowLightIssue = true;
-            #endif
-            webCamTextureToMatHelper.Initialize ();
+#endif
+            webCamTextureToMatHelper.Initialize();
         }
 
         /// <summary>
         /// Raises the web cam texture to mat helper initialized event.
         /// </summary>
-        public void OnWebCamTextureToMatHelperInitialized ()
+        public void OnWebCamTextureToMatHelperInitialized()
         {
-            Debug.Log ("OnWebCamTextureToMatHelperInitialized");
-        
-            Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
-        
-            texture = new Texture2D (webCamTextureMat.cols (), webCamTextureMat.rows (), TextureFormat.RGBA32, false);
+            Debug.Log("OnWebCamTextureToMatHelperInitialized");
+
+            Mat webCamTextureMat = webCamTextureToMatHelper.GetMat();
+
+            texture = new Texture2D(webCamTextureMat.cols(), webCamTextureMat.rows(), TextureFormat.RGBA32, false);
             Utils.fastMatToTexture2D(webCamTextureMat, texture);
 
-            gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
-        
-            gameObject.transform.localScale = new Vector3 (webCamTextureMat.cols (), webCamTextureMat.rows (), 1);
-        
-            Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
+            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
-            if (fpsMonitor != null) {
-                fpsMonitor.Add ("width", webCamTextureMat.width ().ToString ());
-                fpsMonitor.Add ("height", webCamTextureMat.height ().ToString ());
-                fpsMonitor.Add ("orientation", Screen.orientation.ToString ());
+            gameObject.transform.localScale = new Vector3(webCamTextureMat.cols(), webCamTextureMat.rows(), 1);
+
+            Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
+
+            if (fpsMonitor != null)
+            {
+                fpsMonitor.Add("width", webCamTextureMat.width().ToString());
+                fpsMonitor.Add("height", webCamTextureMat.height().ToString());
+                fpsMonitor.Add("orientation", Screen.orientation.ToString());
             }
-        
 
-            float width = webCamTextureMat.width ();
-            float height = webCamTextureMat.height ();
-        
+
+            float width = webCamTextureMat.width();
+            float height = webCamTextureMat.height();
+
             float widthScale = (float)Screen.width / width;
             float heightScale = (float)Screen.height / height;
-            if (widthScale < heightScale) {
+            if (widthScale < heightScale)
+            {
                 Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
-            } else {
+            }
+            else
+            {
                 Camera.main.orthographicSize = height / 2;
             }
 
-
-            grayMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
-            lineMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
-            maskMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
-            
-            //create a striped background.
-            bgMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1, new Scalar (255));
-            for (int i = 0; i < bgMat.rows () * 2.5f; i = i + 4) {
-                Imgproc.line (bgMat, new Point (0, 0 + i), new Point (bgMat.cols (), -bgMat.cols () + i), new Scalar (0), 1);
-            }
-            
-            dstMat = new Mat (webCamTextureMat.rows (), webCamTextureMat.cols (), CvType.CV_8UC1);
-            
-            grayPixels = new byte[grayMat.cols () * grayMat.rows () * grayMat.channels ()];
-            maskPixels = new byte[maskMat.cols () * maskMat.rows () * maskMat.channels ()];
+            int thickness = (Mathf.Max(width, height) <= 640) ? 3 : 5;
+            comicFilter = new ComicFilter(60, 120, thickness);
         }
 
         /// <summary>
         /// Raises the web cam texture to mat helper disposed event.
         /// </summary>
-        public void OnWebCamTextureToMatHelperDisposed ()
+        public void OnWebCamTextureToMatHelperDisposed()
         {
-            Debug.Log ("OnWebCamTextureToMatHelperDisposed");
+            Debug.Log("OnWebCamTextureToMatHelperDisposed");
 
-            grayMat.Dispose ();
-            lineMat.Dispose ();
-            maskMat.Dispose ();
-        
-            bgMat.Dispose ();
-            dstMat.Dispose ();
+            comicFilter.Dispose();
 
-            grayPixels = null;
-            maskPixels = null;
-
-            if (texture != null) {
-                Texture2D.Destroy (texture);
+            if (texture != null)
+            {
+                Texture2D.Destroy(texture);
                 texture = null;
             }
         }
@@ -162,111 +116,72 @@ namespace OpenCVForUnityExample
         /// Raises the web cam texture to mat helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
-        public void OnWebCamTextureToMatHelperErrorOccurred (WebCamTextureToMatHelper.ErrorCode errorCode)
+        public void OnWebCamTextureToMatHelperErrorOccurred(WebCamTextureToMatHelper.ErrorCode errorCode)
         {
-            Debug.Log ("OnWebCamTextureToMatHelperErrorOccurred " + errorCode);
+            Debug.Log("OnWebCamTextureToMatHelperErrorOccurred " + errorCode);
         }
 
         // Update is called once per frame
-        void Update ()
+        void Update()
         {
-            if (webCamTextureToMatHelper.IsPlaying () && webCamTextureToMatHelper.DidUpdateThisFrame ()) {
-            
-                Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
+            if (webCamTextureToMatHelper.IsPlaying() && webCamTextureToMatHelper.DidUpdateThisFrame())
+            {
+                Mat rgbaMat = webCamTextureToMatHelper.GetMat();
 
-                Imgproc.cvtColor (rgbaMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
-            
-                bgMat.copyTo (dstMat);
+                comicFilter.Process(rgbaMat, rgbaMat);
 
-                Imgproc.GaussianBlur (grayMat, lineMat, new Size (3, 3), 0);
+                //Imgproc.putText(rgbaMat, "W:" + rgbaMat.width() + " H:" + rgbaMat.height() + " SO:" + Screen.orientation, new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
-
-                grayMat.get (0, 0, grayPixels);
-            
-                for (int i = 0; i < grayPixels.Length; i++) {
-            
-                    maskPixels [i] = 0;
-                        
-                    if (grayPixels [i] < 70) {
-                        grayPixels [i] = 0;
-            
-                        maskPixels [i] = 1;
-                    } else if (70 <= grayPixels [i] && grayPixels [i] < 120) {
-                        grayPixels [i] = 100;
-
-                    } else {
-                        grayPixels [i] = 255;
-                        maskPixels [i] = 1;
-                    }
-                }
-                    
-                grayMat.put (0, 0, grayPixels);
-                maskMat.put (0, 0, maskPixels);
-                grayMat.copyTo (dstMat, maskMat);
-            
-            
-                Imgproc.Canny (lineMat, lineMat, 20, 120);
-                    
-                lineMat.copyTo (maskMat);
-                    
-                Core.bitwise_not (lineMat, lineMat);
-            
-                lineMat.copyTo (dstMat, maskMat);
-
-//                Imgproc.putText (dstMat, "W:" + dstMat.width () + " H:" + dstMat.height () + " SO:" + Screen.orientation, new Point (5, dstMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (0), 2, Imgproc.LINE_AA, false);
-            
-                Imgproc.cvtColor (dstMat, rgbaMat, Imgproc.COLOR_GRAY2RGBA);
-            
-                Utils.fastMatToTexture2D (rgbaMat, texture);
+                Utils.fastMatToTexture2D(rgbaMat, texture);
             }
         }
 
         /// <summary>
         /// Raises the destroy event.
         /// </summary>
-        void OnDestroy ()
+        void OnDestroy()
         {
-            webCamTextureToMatHelper.Dispose ();
+            webCamTextureToMatHelper.Dispose();
         }
 
         /// <summary>
         /// Raises the back button click event.
         /// </summary>
-        public void OnBackButtonClick ()
+        public void OnBackButtonClick()
         {
-            SceneManager.LoadScene ("OpenCVForUnityExample");
+            SceneManager.LoadScene("OpenCVForUnityExample");
         }
 
         /// <summary>
         /// Raises the play button click event.
         /// </summary>
-        public void OnPlayButtonClick ()
+        public void OnPlayButtonClick()
         {
-            webCamTextureToMatHelper.Play ();
+            webCamTextureToMatHelper.Play();
         }
 
         /// <summary>
         /// Raises the pause button click event.
         /// </summary>
-        public void OnPauseButtonClick ()
+        public void OnPauseButtonClick()
         {
-            webCamTextureToMatHelper.Pause ();
+            webCamTextureToMatHelper.Pause();
         }
 
         /// <summary>
         /// Raises the stop button click event.
         /// </summary>
-        public void OnStopButtonClick ()
+        public void OnStopButtonClick()
         {
-            webCamTextureToMatHelper.Stop ();
+            webCamTextureToMatHelper.Stop();
         }
 
         /// <summary>
         /// Raises the change camera button click event.
         /// </summary>
-        public void OnChangeCameraButtonClick ()
+        public void OnChangeCameraButtonClick()
         {
-            webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing ();
+            webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing();
         }
     }
 }
