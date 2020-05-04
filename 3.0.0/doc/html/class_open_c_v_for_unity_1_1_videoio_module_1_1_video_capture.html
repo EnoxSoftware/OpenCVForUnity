@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.8</span>
+   &#160;<span id="projectnumber">2.3.9</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.2.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.3.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -246,9 +246,12 @@ name of video file (eg. {code video.avi})  </li>
 <li>
 or image sequence (eg. {code img_%02d.jpg}, which will read samples like {code img_00.jpg, img_01.jpg, img_02.jpg, ...})  </li>
 <li>
-or URL of video stream (eg. {code protocol://host:port/script_name?script_params|auth}). Note that each video stream or IP camera feed has its own URL scheme. Please refer to the documentation of source stream to know the right URL. param apiPreference preferred Capture API backends to use. Can be used to enforce a specific reader implementation if multiple are available: e.g. cv::CAP_FFMPEG or cv::CAP_IMAGES or cv::CAP_DSHOW. SEE: The list of supported API backends cv::VideoCaptureAPIs  </li>
+or URL of video stream (eg. {code protocol://host:port/script_name?script_params|auth})  </li>
+<li>
+or GStreamer pipeline string in gst-launch tool format in case if GStreamer is used as backend Note that each video stream or IP camera feed has its own URL scheme. Please refer to the documentation of source stream to know the right URL. param apiPreference preferred Capture API backends to use. Can be used to enforce a specific reader implementation if multiple are available: e.g. cv::CAP_FFMPEG or cv::CAP_IMAGES or cv::CAP_DSHOW.  </li>
 </ul>
-
+<pre class="fragment">SEE: cv::VideoCaptureAPIs
+</pre> 
 </div>
 </div>
 <a id="aced5649ab1058209fba76969c9430410"></a>
@@ -275,9 +278,12 @@ name of video file (eg. {code video.avi})  </li>
 <li>
 or image sequence (eg. {code img_%02d.jpg}, which will read samples like {code img_00.jpg, img_01.jpg, img_02.jpg, ...})  </li>
 <li>
-or URL of video stream (eg. {code protocol://host:port/script_name?script_params|auth}). Note that each video stream or IP camera feed has its own URL scheme. Please refer to the documentation of source stream to know the right URL. implementation if multiple are available: e.g. cv::CAP_FFMPEG or cv::CAP_IMAGES or cv::CAP_DSHOW. SEE: The list of supported API backends cv::VideoCaptureAPIs  </li>
+or URL of video stream (eg. {code protocol://host:port/script_name?script_params|auth})  </li>
+<li>
+or GStreamer pipeline string in gst-launch tool format in case if GStreamer is used as backend Note that each video stream or IP camera feed has its own URL scheme. Please refer to the documentation of source stream to know the right URL. implementation if multiple are available: e.g. cv::CAP_FFMPEG or cv::CAP_IMAGES or cv::CAP_DSHOW.  </li>
 </ul>
-
+<pre class="fragment">SEE: cv::VideoCaptureAPIs
+</pre> 
 </div>
 </div>
 <a id="a158ba59c492e94e233f7bea04d668bea"></a>
@@ -307,7 +313,7 @@ or URL of video stream (eg. {code protocol://host:port/script_name?script_params
 </div><div class="memdoc">
 <p>Opens a camera for video capturing</p>
 <p>param index id of the video capturing device to open. To open default camera using default backend just pass 0. (to backward compatibility usage of camera_id + domain_offset (CAP_*) is valid when apiPreference is CAP_ANY) param apiPreference preferred Capture API backends to use. Can be used to enforce a specific reader implementation if multiple are available: e.g. cv::CAP_DSHOW or cv::CAP_MSMF or cv::CAP_V4L.</p>
-<p>SEE: The list of supported API backends cv::VideoCaptureAPIs </p>
+<p>SEE: cv::VideoCaptureAPIs </p>
 
 </div>
 </div>
@@ -328,7 +334,7 @@ or URL of video stream (eg. {code protocol://host:port/script_name?script_params
 </div><div class="memdoc">
 <p>Opens a camera for video capturing</p>
 <p>param index id of the video capturing device to open. To open default camera using default backend just pass 0. (to backward compatibility usage of camera_id + domain_offset (CAP_*) is valid when apiPreference is CAP_ANY) implementation if multiple are available: e.g. cv::CAP_DSHOW or cv::CAP_MSMF or cv::CAP_V4L.</p>
-<p>SEE: The list of supported API backends cv::VideoCaptureAPIs </p>
+<p>SEE: cv::VideoCaptureAPIs </p>
 
 </div>
 </div>
@@ -827,7 +833,7 @@ value has been accepted by the capture device. See note in VideoCapture::get()
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 2 2020 22:41:16 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Apr 29 2020 14:58:59 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

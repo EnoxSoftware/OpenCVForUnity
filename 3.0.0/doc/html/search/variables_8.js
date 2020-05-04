@@ -16,6 +16,7 @@ var searchData=
   ['histcmp_5fintersect',['HISTCMP_INTERSECT',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#af54f8b853270f901098b907915b70f0c',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['histcmp_5fkl_5fdiv',['HISTCMP_KL_DIV',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#afbfec529afe9bda0a7be31caf27ef77f',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['hough_5fgradient',['HOUGH_GRADIENT',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a8901d713ebbcaefaa4607d79eca9ad88',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
+  ['hough_5fgradient_5falt',['HOUGH_GRADIENT_ALT',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a27778f2293418e3dfcbd0eba8a63740c',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['hough_5fmulti_5fscale',['HOUGH_MULTI_SCALE',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a5b04317ee2d5ed8eccc5014019235872',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['hough_5fprobabilistic',['HOUGH_PROBABILISTIC',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a835a34a667a82c5f66b8c4aa8e078852',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['hough_5fstandard',['HOUGH_STANDARD',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#af328aa050c2f0751ee81fd813682a2dd',1,'OpenCVForUnity::ImgprocModule::Imgproc']]]

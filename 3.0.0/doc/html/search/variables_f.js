@@ -45,7 +45,6 @@ var searchData=
   ['psm_5fsingle_5fcolumn',['PSM_SINGLE_COLUMN',['../class_open_c_v_for_unity_1_1_text_module_1_1_text.html#a15a96e6824adccedfe01fa470f02652f',1,'OpenCVForUnity::TextModule::Text']]],
   ['psm_5fsingle_5fline',['PSM_SINGLE_LINE',['../class_open_c_v_for_unity_1_1_text_module_1_1_text.html#a6a855fb55b35e089bc0cb78335f86718',1,'OpenCVForUnity::TextModule::Text']]],
   ['psm_5fsingle_5fword',['PSM_SINGLE_WORD',['../class_open_c_v_for_unity_1_1_text_module_1_1_text.html#a37c4263d419939a400ae8c0eb5b0ce73',1,'OpenCVForUnity::TextModule::Text']]],
-  ['psp',['PSP',['../class_open_c_v_for_unity_1_1_structured__light_module_1_1_structured__light.html#ac93cd428b25ad8a2ec1eef2c8104601b',1,'OpenCVForUnity::Structured_lightModule::Structured_light']]],
   ['pt',['pt',['../class_open_c_v_for_unity_1_1_core_module_1_1_key_point.html#a8101b802cc372f1df92d65801e214613',1,'OpenCVForUnity::CoreModule::KeyPoint']]],
   ['ptloc_5ferror',['PTLOC_ERROR',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_subdiv2_d.html#aa84c73ee71bcb57ae77c6bd2d09a37ba',1,'OpenCVForUnity::ImgprocModule::Subdiv2D']]],
   ['ptloc_5finside',['PTLOC_INSIDE',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_subdiv2_d.html#a27cc84e067a68917c31a35025aeb8c1a',1,'OpenCVForUnity::ImgprocModule::Subdiv2D']]],
