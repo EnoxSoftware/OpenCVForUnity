@@ -65,7 +65,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// CLASSIFIER_NM_2_FILENAME
         /// </summary>
-        protected static readonly string OCRHMM_KNN_MODEL_FILENAME = "text/OCRHMM_knn_model_data.xml";
+        protected static readonly string OCRHMM_KNN_MODEL_FILENAME = "text/OCRHMM_knn_model_data.xml.gz";
 
         /// <summary>
         /// The OCRHMM knn model data filepath.
@@ -88,11 +88,8 @@ namespace OpenCVForUnityExample
             trained_classifierNM1_filepath = Utils.getFilePath (TRAINED_CLASSIFIER_NM_1_FILENAME);
             trained_classifierNM2_filepath = Utils.getFilePath (TRAINED_CLASSIFIER_NM_2_FILENAME);
             OCRHMM_transitions_table_filepath = Utils.getFilePath (OCRHMM_TRANSITIONS_TABLE_FILENAME);
-            #if UNITY_ANDROID && !UNITY_EDITOR
             OCRHMM_knn_model_data_filepath = Utils.getFilePath (OCRHMM_KNN_MODEL_FILENAME);
-            #else
-            OCRHMM_knn_model_data_filepath = Utils.getFilePath (OCRHMM_KNN_MODEL_FILENAME + ".gz");
-            #endif
+
             Run ();
             #endif
         }
@@ -120,7 +117,7 @@ namespace OpenCVForUnityExample
             });
             yield return getFilePathAsync_3_Coroutine;
 
-            var getFilePathAsync_4_Coroutine = Utils.getFilePathAsync (OCRHMM_KNN_MODEL_FILENAME+".gz", (result) => {
+            var getFilePathAsync_4_Coroutine = Utils.getFilePathAsync (OCRHMM_KNN_MODEL_FILENAME, (result) => {
                 OCRHMM_knn_model_data_filepath = result;
             });
             yield return getFilePathAsync_4_Coroutine;

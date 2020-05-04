@@ -42,7 +42,7 @@ RenderSettings:
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 11
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -54,7 +54,7 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 8
+    serializedVersion: 9
     m_Resolution: 1
     m_BakeResolution: 50
     m_TextureWidth: 1024
@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
   m_LightingDataAsset: {fileID: 0}
-  m_ShadowMaskMode: 2
+  m_UseShadowmask: 1
 --- !u!196 &5
 NavMeshSettings:
   serializedVersion: 2
@@ -466,7 +466,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1542644391}
   - component: {fileID: 1542644390}
-  - component: {fileID: 1542644389}
   - component: {fileID: 1542644388}
   - component: {fileID: 1542644387}
   m_Layer: 0
@@ -484,13 +483,6 @@ AudioListener:
   m_GameObject: {fileID: 1542644386}
   m_Enabled: 1
 --- !u!124 &1542644388
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1542644386}
-  m_Enabled: 1
---- !u!92 &1542644389
 Behaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -584,6 +576,7 @@ MonoBehaviour:
   m_PreferredHeight: 40
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!114 &1542903293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -702,7 +695,6 @@ GameObject:
   - component: {fileID: 1895993193}
   - component: {fileID: 1895993192}
   - component: {fileID: 1895993191}
-  - component: {fileID: 1895993190}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -710,19 +702,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1895993190
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: 516b0ed7bbe49b54eb11d0acece129f1,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1895993189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1997211142, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ForceModuleActive: 0
 --- !u!114 &1895993191
 MonoBehaviour:
   m_ObjectHideFlags: 0

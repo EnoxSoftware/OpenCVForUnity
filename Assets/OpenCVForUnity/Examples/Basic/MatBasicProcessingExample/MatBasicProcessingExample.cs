@@ -2056,7 +2056,6 @@ namespace OpenCVForUnityExample
             //
             imgMat.setTo(new Scalar(0, 0, 0, 255));
 
-            watch.Stop();
             watch.Reset();
             watch.Start();
 
@@ -2089,7 +2088,6 @@ namespace OpenCVForUnityExample
             //
             imgMat.setTo(new Scalar(0, 0, 0, 255));
 
-            watch.Stop();
             watch.Reset();
             watch.Start();
 
@@ -2132,7 +2130,8 @@ namespace OpenCVForUnityExample
 
             imgMat.setTo(new Scalar(0, 0, 0, 255));
 
-            watch.Restart();
+            watch.Reset();
+            watch.Start();
 
             step0 = imgMat.step1(0);
             step1 = imgMat.step1(1);
@@ -2212,7 +2211,8 @@ namespace OpenCVForUnityExample
             //
             imgMat.setTo(new Scalar(0, 0, 0, 255));
 
-            watch.Restart();
+            watch.Reset();
+            watch.Start();
 
             MatIndexer indexer = new MatIndexer(imgMat);
             rows = imgMat.rows();
@@ -2242,7 +2242,8 @@ namespace OpenCVForUnityExample
             //
             imgMat.setTo(new Scalar(0, 0, 0, 255));
 
-            watch.Restart();
+            watch.Reset();
+            watch.Start();
 
             // Copies an OpenCV Mat data to a pixel data Array.
             byte[] img_array = new byte[imgMat.total() * imgMat.channels()];
@@ -2282,7 +2283,8 @@ namespace OpenCVForUnityExample
 
             imgMat.setTo(new Scalar(0, 0, 0, 255));
 
-            watch.Restart();
+            watch.Reset();
+            watch.Start();
 
             step0 = imgMat.step1(0);
             step1 = imgMat.step1(1);

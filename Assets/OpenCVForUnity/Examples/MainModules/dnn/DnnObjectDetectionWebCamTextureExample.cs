@@ -62,38 +62,38 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// The texture.
         /// </summary>
-        Texture2D texture;
+        protected Texture2D texture;
 
         /// <summary>
         /// The webcam texture to mat helper.
         /// </summary>
-        WebCamTextureToMatHelper webCamTextureToMatHelper;
+        protected WebCamTextureToMatHelper webCamTextureToMatHelper;
 
         /// <summary>
         /// The bgr mat.
         /// </summary>
-        Mat bgrMat;
+        protected Mat bgrMat;
 
         /// <summary>
         /// The net.
         /// </summary>
-        Net net;
+        protected Net net;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
+        protected FpsMonitor fpsMonitor;
 
-        List<string> classNames;
-        List<string> outBlobNames;
-        List<string> outBlobTypes;
+        protected List<string> classNames;
+        protected List<string> outBlobNames;
+        protected List<string> outBlobTypes;
 
-        string classes_filepath;
-        string config_filepath;
-        string model_filepath;
+        protected string classes_filepath;
+        protected string config_filepath;
+        protected string model_filepath;
 
 #if UNITY_WEBGL && !UNITY_EDITOR
-        IEnumerator getFilePath_Coroutine;
+        protected IEnumerator getFilePath_Coroutine;
 #endif
 
         // Use this for initialization
@@ -107,15 +107,15 @@ namespace OpenCVForUnityExample
             getFilePath_Coroutine = GetFilePath();
             StartCoroutine(getFilePath_Coroutine);
 #else
-            classes_filepath = Utils.getFilePath("dnn/" + classes);
-            config_filepath = Utils.getFilePath("dnn/" + config);
-            model_filepath = Utils.getFilePath("dnn/" + model);
+            if (!string.IsNullOrEmpty(classes)) classes_filepath = Utils.getFilePath("dnn/" + classes);
+            if (!string.IsNullOrEmpty(config)) config_filepath = Utils.getFilePath("dnn/" + config);
+            if (!string.IsNullOrEmpty(model)) model_filepath = Utils.getFilePath("dnn/" + model);
             Run();
 #endif
         }
 
 #if UNITY_WEBGL && !UNITY_EDITOR
-        private IEnumerator GetFilePath()
+        protected virtual IEnumerator GetFilePath()
         {
             if (!string.IsNullOrEmpty(classes))
             {
@@ -151,7 +151,7 @@ namespace OpenCVForUnityExample
 #endif
 
         // Use this for initialization
-        void Run()
+        protected virtual void Run()
         {
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             Utils.setDebugMode(true);
@@ -169,16 +169,15 @@ namespace OpenCVForUnityExample
                 classNames = classesList;
             }
 
-            if (string.IsNullOrEmpty(config_filepath) || string.IsNullOrEmpty(model_filepath))
+            if (string.IsNullOrEmpty(model_filepath))
             {
-                Debug.LogError(config_filepath + " or " + model_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
+                Debug.LogError(model_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
             }
             else
             {
                 //! [Initialize network]
                 net = Dnn.readNet(model_filepath, config_filepath);
                 //! [Initialize network]
-
 
                 outBlobNames = getOutputsNames(net);
                 //for (int i = 0; i < outBlobNames.Count; i++)
@@ -204,7 +203,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Raises the webcam texture to mat helper initialized event.
         /// </summary>
-        public void OnWebCamTextureToMatHelperInitialized()
+        public virtual void OnWebCamTextureToMatHelperInitialized()
         {
             Debug.Log("OnWebCamTextureToMatHelperInitialized");
 
@@ -247,7 +246,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Raises the webcam texture to mat helper disposed event.
         /// </summary>
-        public void OnWebCamTextureToMatHelperDisposed()
+        public virtual void OnWebCamTextureToMatHelperDisposed()
         {
             Debug.Log("OnWebCamTextureToMatHelperDisposed");
 
@@ -265,7 +264,7 @@ namespace OpenCVForUnityExample
         /// Raises the webcam texture to mat helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
-        public void OnWebCamTextureToMatHelperErrorOccurred(WebCamTextureToMatHelper.ErrorCode errorCode)
+        public virtual void OnWebCamTextureToMatHelperErrorOccurred(WebCamTextureToMatHelper.ErrorCode errorCode)
         {
             Debug.Log("OnWebCamTextureToMatHelperErrorOccurred " + errorCode);
         }
@@ -357,7 +356,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Raises the back button click event.
         /// </summary>
-        public void OnBackButtonClick()
+        public virtual void OnBackButtonClick()
         {
             SceneManager.LoadScene("OpenCVForUnityExample");
         }
@@ -365,7 +364,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Raises the play button click event.
         /// </summary>
-        public void OnPlayButtonClick()
+        public virtual void OnPlayButtonClick()
         {
             webCamTextureToMatHelper.Play();
         }
@@ -373,7 +372,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Raises the pause button click event.
         /// </summary>
-        public void OnPauseButtonClick()
+        public virtual void OnPauseButtonClick()
         {
             webCamTextureToMatHelper.Pause();
         }
@@ -381,7 +380,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Raises the stop button click event.
         /// </summary>
-        public void OnStopButtonClick()
+        public virtual void OnStopButtonClick()
         {
             webCamTextureToMatHelper.Stop();
         }
@@ -389,7 +388,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Raises the change camera button click event.
         /// </summary>
-        public void OnChangeCameraButtonClick()
+        public virtual void OnChangeCameraButtonClick()
         {
             webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing();
         }
@@ -399,7 +398,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         /// <returns>The class names.</returns>
         /// <param name="filename">Filename.</param>
-        private List<string> readClassNames(string filename)
+        protected virtual List<string> readClassNames(string filename)
         {
             List<string> classNames = new List<string>();
 
@@ -434,14 +433,14 @@ namespace OpenCVForUnityExample
         /// <param name="frame">Frame.</param>
         /// <param name="outs">Outs.</param>
         /// <param name="net">Net.</param>
-        private void postprocess(Mat frame, List<Mat> outs, Net net)
+        protected virtual void postprocess(Mat frame, List<Mat> outs, Net net)
         {
             string outLayerType = outBlobTypes[0];
 
 
             List<int> classIdsList = new List<int>();
             List<float> confidencesList = new List<float>();
-            List<OpenCVForUnity.CoreModule.Rect> boxesList = new List<OpenCVForUnity.CoreModule.Rect>();
+            List<Rect2d> boxesList = new List<Rect2d>();
             if (net.getLayer(new DictValue(0)).outputNameToIndex("im_info") != -1)
             {
                 // Faster-RCNN or R-FCN
@@ -469,16 +468,16 @@ namespace OpenCVForUnityExample
                         {
                             int class_id = (int)(data[1]);
 
-                            int left = (int)(data[3] * frame.cols());
-                            int top = (int)(data[4] * frame.rows());
-                            int right = (int)(data[5] * frame.cols());
-                            int bottom = (int)(data[6] * frame.rows());
-                            int width = right - left + 1;
-                            int height = bottom - top + 1;
+                            float left = data[3] * frame.cols();
+                            float top = data[4] * frame.rows();
+                            float right = data[5] * frame.cols();
+                            float bottom = data[6] * frame.rows();
+                            float width = right - left + 1f;
+                            float height = bottom - top + 1f;
 
                             classIdsList.Add((int)(class_id) - 0);
                             confidencesList.Add((float)confidence);
-                            boxesList.Add(new OpenCVForUnity.CoreModule.Rect(left, top, width, height));
+                            boxesList.Add(new Rect2d(left, top, width, height));
                         }
                     }
                 }
@@ -492,9 +491,12 @@ namespace OpenCVForUnityExample
                 if (outs.Count == 1)
                 {
 
+                    //Debug.Log(outs.Count);
+                    //Debug.Log(outs[0]);
+
                     outs[0] = outs[0].reshape(1, (int)outs[0].total() / 7);
 
-                    //                    Debug.Log ("outs[i].ToString() " + outs [0].ToString ());
+                    //Debug.Log ("outs[i].ToString() " + outs [0].ToString ());
 
                     float[] data = new float[7];
 
@@ -503,22 +505,24 @@ namespace OpenCVForUnityExample
 
                         outs[0].get(i, 0, data);
 
+                        //Debug.Log("data[1] " + data[1]);
+
                         float confidence = data[2];
 
                         if (confidence > confThreshold)
                         {
                             int class_id = (int)(data[1]);
 
-                            int left = (int)(data[3] * frame.cols());
-                            int top = (int)(data[4] * frame.rows());
-                            int right = (int)(data[5] * frame.cols());
-                            int bottom = (int)(data[6] * frame.rows());
-                            int width = right - left + 1;
-                            int height = bottom - top + 1;
+                            float left = data[3] * frame.cols();
+                            float top = data[4] * frame.rows();
+                            float right = data[5] * frame.cols();
+                            float bottom = data[6] * frame.rows();
+                            float width = right - left + 1f;
+                            float height = bottom - top + 1f;
 
                             classIdsList.Add((int)(class_id) - 0);
                             confidencesList.Add((float)confidence);
-                            boxesList.Add(new OpenCVForUnity.CoreModule.Rect(left, top, width, height));
+                            boxesList.Add(new Rect2d(left, top, width, height));
                         }
                     }
                 }
@@ -549,16 +553,16 @@ namespace OpenCVForUnityExample
                         if (confidence > confThreshold)
                         {
 
-                            int centerX = (int)(positionData[0] * frame.cols());
-                            int centerY = (int)(positionData[1] * frame.rows());
-                            int width = (int)(positionData[2] * frame.cols());
-                            int height = (int)(positionData[3] * frame.rows());
-                            int left = centerX - width / 2;
-                            int top = centerY - height / 2;
+                            float centerX = positionData[0] * frame.cols();
+                            float centerY = positionData[1] * frame.rows();
+                            float width = positionData[2] * frame.cols();
+                            float height = positionData[3] * frame.rows();
+                            float left = centerX - width / 2;
+                            float top = centerY - height / 2;
 
                             classIdsList.Add(maxIdx);
                             confidencesList.Add((float)confidence);
-                            boxesList.Add(new OpenCVForUnity.CoreModule.Rect(left, top, width, height));
+                            boxesList.Add(new Rect2d(left, top, width, height));
 
                         }
                     }
@@ -570,7 +574,7 @@ namespace OpenCVForUnityExample
             }
 
 
-            MatOfRect boxes = new MatOfRect();
+            MatOfRect2d boxes = new MatOfRect2d();
             boxes.fromList(boxesList);
 
             MatOfFloat confidences = new MatOfFloat();
@@ -580,13 +584,13 @@ namespace OpenCVForUnityExample
             MatOfInt indices = new MatOfInt();
             Dnn.NMSBoxes(boxes, confidences, confThreshold, nmsThreshold, indices);
 
-            //            Debug.Log ("indices.dump () "+indices.dump ());
-            //            Debug.Log ("indices.ToString () "+indices.ToString());
+            //Debug.Log ("indices.dump () "+indices.dump ());
+            //Debug.Log ("indices.ToString () "+indices.ToString());
 
             for (int i = 0; i < indices.total(); ++i)
             {
                 int idx = (int)indices.get(i, 0)[0];
-                OpenCVForUnity.CoreModule.Rect box = boxesList[idx];
+                Rect2d box = boxesList[idx];
                 drawPred(classIdsList[idx], confidencesList[idx], box.x, box.y,
                     box.x + box.width, box.y + box.height, frame);
             }
@@ -607,7 +611,7 @@ namespace OpenCVForUnityExample
         /// <param name="right">Right.</param>
         /// <param name="bottom">Bottom.</param>
         /// <param name="frame">Frame.</param>
-        private void drawPred(int classId, float conf, int left, int top, int right, int bottom, Mat frame)
+        protected virtual void drawPred(int classId, float conf, double left, double top, double right, double bottom, Mat frame)
         {
             Imgproc.rectangle(frame, new Point(left, top), new Point(right, bottom), new Scalar(0, 255, 0, 255), 2);
 
@@ -623,7 +627,7 @@ namespace OpenCVForUnityExample
             int[] baseLine = new int[1];
             Size labelSize = Imgproc.getTextSize(label, Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, 1, baseLine);
 
-            top = Mathf.Max(top, (int)labelSize.height);
+            top = Mathf.Max((float)top, (float)labelSize.height);
             Imgproc.rectangle(frame, new Point(left, top - labelSize.height),
                 new Point(left + labelSize.width, top + baseLine[0]), Scalar.all(255), Core.FILLED);
             Imgproc.putText(frame, label, new Point(left, top), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar(0, 0, 0, 255));
@@ -634,7 +638,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         /// <returns>The outputs names.</returns>
         /// <param name="net">Net.</param>
-        private List<string> getOutputsNames(Net net)
+        protected virtual List<string> getOutputsNames(Net net)
         {
             List<string> names = new List<string>();
 
@@ -654,7 +658,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         /// <returns>The outputs types.</returns>
         /// <param name="net">Net.</param>
-        private List<string> getOutputsTypes(Net net)
+        protected virtual List<string> getOutputsTypes(Net net)
         {
             List<string> types = new List<string>();
 

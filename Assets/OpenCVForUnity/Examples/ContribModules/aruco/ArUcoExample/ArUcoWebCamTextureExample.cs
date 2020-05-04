@@ -25,10 +25,6 @@ namespace OpenCVForUnityExample
     [RequireComponent (typeof(WebCamTextureToMatHelper))]
     public class ArUcoWebCamTextureExample : MonoBehaviour
     {
-        /// <summary>
-        /// Determines if restores the camera parameters when the file exists.
-        /// </summary>
-        public bool useStoredCameraParameters = true;
 
         /// <summary>
         /// The marker type.
@@ -49,7 +45,17 @@ namespace OpenCVForUnityExample
         /// The dictionary id dropdown.
         /// </summary>
         public Dropdown dictionaryIdDropdown;
-        
+
+        /// <summary>
+        /// Determines if restores the camera parameters when the file exists.
+        /// </summary>
+        public bool useStoredCameraParameters = false;
+
+        /// <summary>
+        /// The toggle for switching to use the stored camera parameters.
+        /// </summary>
+        public Toggle useStoredCameraParametersToggle;
+
         /// <summary>
         /// Determines if shows rejected corners.
         /// </summary>
@@ -252,6 +258,7 @@ namespace OpenCVForUnityExample
 
             markerTypeDropdown.value = (int)markerType;
             dictionaryIdDropdown.value = (int)dictionaryId;
+            useStoredCameraParametersToggle.isOn = useStoredCameraParameters;
             showRejectedCornersToggle.isOn = showRejectedCorners;
             refineMarkerDetectionToggle.isOn = refineMarkerDetection;
             refineMarkerDetectionToggle.interactable = (markerType == MarkerType.GridBoard || markerType == MarkerType.ChArUcoBoard);
@@ -761,6 +768,26 @@ namespace OpenCVForUnityExample
 
                 if (webCamTextureToMatHelper.IsInitialized ())
                     webCamTextureToMatHelper.Initialize ();
+            }
+        }
+
+        /// <summary>
+        /// Raises the use stored camera parameters toggle value changed event.
+        /// </summary>
+        public void OnUseStoredCameraParametersToggleValueChanged()
+        {
+            if (useStoredCameraParametersToggle.isOn)
+            {
+                useStoredCameraParameters = true;
+            }
+            else
+            {
+                useStoredCameraParameters = false;
+            }
+
+            if (webCamTextureToMatHelper != null && webCamTextureToMatHelper.IsInitialized())
+            {
+                webCamTextureToMatHelper.Initialize();
             }
         }
 

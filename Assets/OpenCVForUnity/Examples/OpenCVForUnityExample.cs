@@ -48,8 +48,10 @@ namespace OpenCVForUnityExample
             scrollRect.verticalNormalizedPosition = verticalNormalizedPosition;
 
 #if UNITY_WSA_10_0
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ColorizationExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FastNeuralStyleTransferExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LibFaceDetectionExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LibFaceDetectionV2ExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LibFaceDetectionV3ExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MaskRCNNExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDExampleButton").GetComponent<Button> ().interactable = false;
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
@@ -120,6 +122,11 @@ namespace OpenCVForUnityExample
         public void OnComicFilterExampleButtonClick()
         {
             SceneManager.LoadScene("ComicFilterExample");
+        }
+
+        public void OnDocumentScannerExampleButtonClick()
+        {
+            SceneManager.LoadScene("DocumentScannerExample");
         }
 
         public void OnGreenScreenExampleButtonClick()
@@ -330,14 +337,24 @@ namespace OpenCVForUnityExample
 
         #region dnn
 
+        public void OnColorizationExampleButtonClick()
+        {
+            SceneManager.LoadScene("ColorizationExample");
+        }
+
         public void OnFastNeuralStyleTransferExampleButtonClick()
         {
             SceneManager.LoadScene("FastNeuralStyleTransferExample");
         }
 
-        public void OnLibFaceDetectionExampleButtonClick()
+        public void OnLibFaceDetectionV2ExampleButtonClick()
         {
-            SceneManager.LoadScene("LibFaceDetectionExample");
+            SceneManager.LoadScene("LibFaceDetectionV2Example");
+        }
+        
+        public void OnLibFaceDetectionV3ExampleButtonClick()
+        {
+            SceneManager.LoadScene("LibFaceDetectionV3Example");
         }
 
         public void OnMaskRCNNExampleButtonClick()

@@ -57,7 +57,6 @@ namespace OpenCVForUnitySample
         /// <summary>
         /// The file path input field.
         /// </summary>
-        //        public InputField filePathInputField;
         public Text filePathInputField;
 
         string[] filePathPreset = new string[] {

@@ -21,18 +21,21 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// ArUco Camera Calibration Example
-    /// An example of camera calibration using the aruco module.
-    /// Referring to https://github.com/opencv/opencv_contrib/blob/master/modules/aruco/samples/calibrate_camera.cpp.
+    /// An example of camera calibration using the aruco module. (ChessBoard, CirclesGlid, AsymmetricCirclesGlid and ChArUcoBoard)
+    /// Referring to https://docs.opencv.org/master/d4/d94/tutorial_camera_calibration.html.
     /// https://github.com/opencv/opencv/blob/master/samples/cpp/tutorial_code/calib3d/camera_calibration/camera_calibration.cpp
-    /// https://docs.opencv.org/3.2.0/da/d13/tutorial_aruco_calibration.html
     /// https://docs.opencv.org/3.4.0/d7/d21/tutorial_interactive_calibration.html
+    /// https://github.com/opencv/opencv/tree/master/apps/interactive-calibration
+    /// https://docs.opencv.org/3.2.0/da/d13/tutorial_aruco_calibration.html
+    /// https://github.com/opencv/opencv_contrib/blob/master/modules/aruco/samples/calibrate_camera_charuco.cpp
     /// </summary>
-    [RequireComponent (typeof(WebCamTextureToMatHelper))]
+    [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class ArUcoCameraCalibrationExample : MonoBehaviour
     {
         /// <summary>
-        /// The marker type.
+        /// The marker type used for calibration.
         /// </summary>
+        [Tooltip("The marker type used for calibration.")]
         public MarkerType markerType = MarkerType.ChessBoard;
 
         /// <summary>
@@ -41,8 +44,104 @@ namespace OpenCVForUnityExample
         public Dropdown markerTypeDropdown;
 
         /// <summary>
-        /// The dictionary identifier.
+        /// Number of inner corners per a item column. (square, circle)
         /// </summary>
+        [Tooltip("Number of inner corners per a item column. (square, circle)")]
+        public NumberOfBoardSizeWidth boardSizeW = NumberOfBoardSizeWidth.W_9;
+
+        /// <summary>
+        /// The board size W dropdown.
+        /// </summary>
+        public Dropdown boardSizeWDropdown;
+
+        /// <summary>
+        /// Number of inner corners per a item row. (square, circle)
+        /// </summary>
+        [Tooltip("Number of inner corners per a item row. (square, circle)")]
+        public NumberOfBoardSizeHeight boardSizeH = NumberOfBoardSizeHeight.H_6;
+
+        /// <summary>
+        /// The board size H dropdown.
+        /// </summary>
+        public Dropdown boardSizeHDropdown;
+
+        /// <summary>
+        /// The save path input field.
+        /// </summary>
+        public InputField savePathInputField;
+
+
+
+        [Header("Normal Calibration Option")]
+
+        /// <summary>
+        /// The normal calibration options group.
+        /// </summary>
+        public GameObject normalCalibrationOptionsGroup;
+
+        /// <summary>
+        /// The size of a square in some user defined metric system (pixel, millimeter)
+        /// </summary>
+        [Tooltip("The size of a square in some user defined metric system (pixel, millimeter)")]
+        public float squareSize = 50f;
+
+        /// <summary>
+        /// The square size input field.
+        /// </summary>
+        public InputField squareSizeInputField;
+
+        /// <summary>
+        /// If your calibration board is inaccurate, unmeasured, roughly planar targets
+        /// (Checkerboard patterns on paper using off-the-shelf printers are the most convenient calibration targets and most of them are not accurate enough.),
+        /// a method from [219] can be utilized to dramatically improve the accuracies of the estimated camera intrinsic parameters.
+        /// Need to set the measured values from the actual chess board to "squareSize" and "gridWidth".
+        ///  https://docs.opencv.org/4.2.0/d9/d0c/group__calib3d.html#ga11eeb16e5a458e1ed382fb27f585b753
+        /// </summary>
+        [Tooltip("If your calibration board is inaccurate, unmeasured, roughly planar targets (Checkerboard patterns on paper using off-the-shelf printers are the most convenient calibration targets and most of them are not accurate enough.), a method from [219] can be utilized to dramatically improve the accuracies of the estimated camera intrinsic parameters. Need to set the measured values from the actual chess board to \"squareSize\" and \"gridWidth\".")]
+        public bool useNewCalibrationMethod = true;
+
+        /// <summary>
+        /// The use new calibration method toggle.
+        /// </summary>
+        public Toggle useNewCalibrationMethodToggle;
+
+        /// <summary>
+        /// The measured distance between top-left (0, 0, 0) and top-right (squareSize*(boardSizeW - 1), 0, 0) corners of the pattern grid points.
+        /// </summary>
+        [Tooltip("The measured distance between top-left (0, 0, 0) and top-right (squareSize*(boardSizeW - 1), 0, 0) corners of the pattern grid points.")]
+        public float gridWidth = 400f;
+
+        /// <summary>
+        /// The glid width input field.
+        /// </summary>
+        public InputField gridWidthInputField;
+
+        /// <summary>
+        /// Determines if use findChessboardCornersSB method. (More accurate than the findChessboardCorners and cornerSubPix methods)
+        /// https://docs.opencv.org/4.2.0/d9/d0c/group__calib3d.html#gad0e88e13cd3d410870a99927510d7f91
+        /// </summary>
+        [Tooltip("Determines if use findChessboardCornersSB method. (More accurate than the findChessboardCorners and cornerSubPix methods)")]
+        public bool useFindChessboardCornersSBMethod = true;
+
+        /// <summary>
+        /// Determines if enable CornerSubPix method. (Improve the found corners' coordinate accuracy for chessboard)
+        /// </summary>
+        [Tooltip("Determines if enable CornerSubPix method. (Improve the found corners' coordinate accuracy for chessboard)")]
+        public bool enableCornerSubPix = true;
+
+
+
+        [Header("ArUco Calibration Option")]
+
+        /// <summary>
+        /// The arUco calibration options group.
+        /// </summary>
+        public GameObject arUcoCalibrationOptionsGroup;
+
+        /// <summary>
+        /// The dictionary identifier used for ArUco marker detection.
+        /// </summary>
+        [Tooltip("The dictionary identifier used for ArUco marker detection.")]
         public ArUcoDictionary dictionaryId = ArUcoDictionary.DICT_6X6_250;
 
         /// <summary>
@@ -51,56 +150,33 @@ namespace OpenCVForUnityExample
         public Dropdown dictionaryIdDropdown;
 
         /// <summary>
-        /// Number of squares in X direction.
-        /// </summary>
-        public NumberOfSquaresX squaresX = NumberOfSquaresX.X_6;
-
-        /// <summary>
-        /// The squares X dropdown.
-        /// </summary>
-        public Dropdown squaresXDropdown;
-
-        /// <summary>
-        /// Number of squares in X direction.
-        /// </summary>
-        public NumberOfSquaresY squaresY = NumberOfSquaresY.Y_9;
-
-        /// <summary>
-        /// The squares X dropdown.
-        /// </summary>
-        public Dropdown squaresYDropdown;
-
-        /// <summary>
-        /// The save path input field.
-        /// </summary>
-        public InputField savePathInputField;
-
-        /// <summary>
         /// Determines if refine marker detection. (only valid for ArUco boards)
         /// </summary>
+        [Tooltip("Determines if refine marker detection. (only valid for ArUco boards)")]
         public bool refineMarkerDetection = true;
 
 
-        [Header ("Extra Option")]
+
+        [Header("Image Input Option")]
 
         /// <summary>
         /// Determines if calibrates camera using the list of calibration images.
         /// </summary>
-        [TooltipAttribute ("Determines if calibrates camera using the list of calibration images.")]
+        [Tooltip("Determines if calibrates camera using the list of calibration images.")]
         public bool isImagesInputMode = false;
 
         /// <summary>
         /// The calibration images directory path.
         /// Set a relative directory path from the starting point of the "StreamingAssets" folder.  e.g. "calibration_images/".
         /// </summary>
-        [TooltipAttribute ("Set a relative directory path from the starting point of the \"StreamingAssets\" folder.  e.g. \"calibration_images\"")]
+        [Tooltip("Set a relative directory path from the starting point of the \"StreamingAssets\" folder.  e.g. \"calibration_images\"")]
         public string calibrationImagesDirectory = "calibration_images";
 
         /// <summary>
         /// The texture.
         /// </summary>
         Texture2D texture;
-        
+
         /// <summary>
         /// The webcam texture to mat helper.
         /// </summary>
@@ -120,12 +196,12 @@ namespace OpenCVForUnityExample
         /// The rgba mat.
         /// </summary>
         Mat rgbaMat;
-        
+
         /// <summary>
         /// The cameraparam matrix.
         /// </summary>
         Mat camMatrix;
-        
+
         /// <summary>
         /// The distortion coeffs.
         /// </summary>
@@ -135,32 +211,32 @@ namespace OpenCVForUnityExample
         /// The identifiers.
         /// </summary>
         Mat ids;
-        
+
         /// <summary>
         /// The corners.
         /// </summary>
         List<Mat> corners;
-        
+
         /// <summary>
         /// The rejected corners.
         /// </summary>
         List<Mat> rejectedCorners;
-        
+
         /// <summary>
         /// The rvecs.
         /// </summary>
         List<Mat> rvecs;
-        
+
         /// <summary>
         /// The tvecs.
         /// </summary>
         List<Mat> tvecs;
-        
+
         /// <summary>
         /// The detector parameters.
         /// </summary>
         DetectorParameters detectorParams;
-        
+
         /// <summary>
         /// The dictionary.
         /// </summary>
@@ -171,8 +247,9 @@ namespace OpenCVForUnityExample
         /// </summary>
         Mat recoveredIdxs;
 
-        const int calibrationFlags = 0;
-        // Calib3d.CALIB_FIX_K3 | Calib3d.CALIB_FIX_K4 | Calib3d.CALIB_FIX_K5
+        List<Mat> imagePoints;
+        bool isInitialized = false;
+        bool isCalibrating = false;
         double repErr = 0;
         bool shouldCaptureFrame = false;
 
@@ -182,6 +259,7 @@ namespace OpenCVForUnityExample
         // marker side length (same unit than squareLength)
         const float chArUcoBoradMarkerLength = 0.02f;
         const int charucoMinMarkers = 2;
+
         Mat charucoCorners;
         Mat charucoIds;
         CharucoBoard charucoBoard;
@@ -189,17 +267,41 @@ namespace OpenCVForUnityExample
         List<Mat> allIds;
         List<Mat> allImgs;
 
-        // for OthearMarkers.
-        // square size in some user-defined units (1 by default)
-        const float squareSize = 1f;
-        List<Mat> imagePoints;
-        bool isInitialized = false;
-        bool isCalibrating = false;
+        const int findChessboardCornersFlags =
+            Calib3d.CALIB_CB_ADAPTIVE_THRESH |
+            Calib3d.CALIB_CB_NORMALIZE_IMAGE |
+            //Calib3d.CALIB_CB_FILTER_QUADS |
+            Calib3d.CALIB_CB_FAST_CHECK |
+            0;
+
+        const int findChessboardCornersSBFlags =
+            Calib3d.CALIB_CB_NORMALIZE_IMAGE |
+            Calib3d.CALIB_CB_EXHAUSTIVE |
+            Calib3d.CALIB_CB_ACCURACY |
+            0;
+
+        const int findCirclesGridFlags =
+            //Calib3d.CALIB_CB_CLUSTERING |
+            0;
+
+        const int calibrationFlags =
+            //Calib3d.CALIB_USE_INTRINSIC_GUESS |
+            //Calib3d.CALIB_FIX_PRINCIPAL_POINT |
+            //Calib3d.CALIB_FIX_ASPECT_RATIO |
+            //Calib3d.CALIB_ZERO_TANGENT_DIST |
+            //Calib3d.CALIB_FIX_K1 |
+            //Calib3d.CALIB_FIX_K2 |
+            //Calib3d.CALIB_FIX_K3 |
+            //Calib3d.CALIB_FIX_K4 |
+            //Calib3d.CALIB_FIX_K5 |
+            Calib3d.CALIB_USE_LU |
+            0;
+
 
         // Use this for initialization
-        IEnumerator Start ()
+        IEnumerator Start()
         {
-            webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
+            webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper>();
 
             // fix the screen orientation.
             Screen.orientation = ScreenOrientation.LandscapeLeft;
@@ -207,679 +309,744 @@ namespace OpenCVForUnityExample
             yield return null;
 
             markerTypeDropdown.value = (int)markerType;
-            dictionaryIdDropdown.value = (int)dictionaryId;
-            squaresXDropdown.value = (int)squaresX - 1;
-            squaresYDropdown.value = (int)squaresY - 1;
-            dictionaryIdDropdown.interactable = (markerType == MarkerType.ChArUcoBoard);
+            boardSizeWDropdown.value = (int)boardSizeW - 1;
+            boardSizeHDropdown.value = (int)boardSizeH - 1;
 
-            #if UNITY_WEBGL && !UNITY_EDITOR
+            squareSizeInputField.text = squareSize.ToString();
+            useNewCalibrationMethodToggle.isOn = useNewCalibrationMethod;
+            gridWidthInputField.text = gridWidth.ToString();
+
+            dictionaryIdDropdown.value = (int)dictionaryId;
+
+            bool arUcoCalibMode = markerType == MarkerType.ChArUcoBoard;
+            normalCalibrationOptionsGroup.gameObject.SetActive(!arUcoCalibMode);
+            arUcoCalibrationOptionsGroup.gameObject.SetActive(arUcoCalibMode);
+
+#if UNITY_WEBGL && !UNITY_EDITOR
             isImagesInputMode = false;
-            #endif
-            if (isImagesInputMode) {
-                isImagesInputMode = InitializeImagesInputMode ();
+#endif
+            if (isImagesInputMode)
+            {
+                isImagesInputMode = InitializeImagesInputMode();
             }
 
-            if (!isImagesInputMode) {                
-                #if UNITY_ANDROID && !UNITY_EDITOR
+            if (!isImagesInputMode)
+            {
+#if UNITY_ANDROID && !UNITY_EDITOR
                 // Avoids the front camera low light issue that occurs in only some Android devices (e.g. Google Pixel, Pixel2).
                 webCamTextureToMatHelper.avoidAndroidFrontCameraLowLightIssue = true;
-                #endif
-                webCamTextureToMatHelper.Initialize ();
+#endif
+                webCamTextureToMatHelper.Initialize();
             }
         }
 
         /// <summary>
         /// Raises the webcam texture to mat helper initialized event.
         /// </summary>
-        public void OnWebCamTextureToMatHelperInitialized ()
+        public void OnWebCamTextureToMatHelperInitialized()
         {
-            Debug.Log ("OnWebCamTextureToMatHelperInitialized");
-            
-            Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
-            
-            InitializeCalibraton (webCamTextureMat);
+            Debug.Log("OnWebCamTextureToMatHelperInitialized");
+
+            Mat webCamTextureMat = webCamTextureToMatHelper.GetMat();
+
+            InitializeCalibraton(webCamTextureMat);
 
             // if WebCamera is frontFaceing, flip Mat.
-            webCamTextureToMatHelper.flipHorizontal = webCamTextureToMatHelper.GetWebCamDevice ().isFrontFacing;
+            webCamTextureToMatHelper.flipHorizontal = webCamTextureToMatHelper.GetWebCamDevice().isFrontFacing;
         }
 
         /// <summary>
         /// Raises the webcam texture to mat helper disposed event.
         /// </summary>
-        public void OnWebCamTextureToMatHelperDisposed ()
+        public void OnWebCamTextureToMatHelperDisposed()
         {
-            Debug.Log ("OnWebCamTextureToMatHelperDisposed");
+            Debug.Log("OnWebCamTextureToMatHelperDisposed");
 
-            DisposeCalibraton ();
+            DisposeCalibraton();
         }
 
         /// <summary>
         /// Raises the webcam texture to mat helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
-        public void OnWebCamTextureToMatHelperErrorOccurred (WebCamTextureToMatHelper.ErrorCode errorCode)
+        public void OnWebCamTextureToMatHelperErrorOccurred(WebCamTextureToMatHelper.ErrorCode errorCode)
         {
-            Debug.Log ("OnWebCamTextureToMatHelperErrorOccurred " + errorCode);
+            Debug.Log("OnWebCamTextureToMatHelperErrorOccurred " + errorCode);
         }
-        
+
         // Update is called once per frame
-        void Update ()
+        void Update()
         {
             if (isImagesInputMode)
                 return;
 
-            if (webCamTextureToMatHelper.IsPlaying () && webCamTextureToMatHelper.DidUpdateThisFrame ()) {
+            if (webCamTextureToMatHelper.IsPlaying() && webCamTextureToMatHelper.DidUpdateThisFrame())
+            {
 
-                Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
+                Mat rgbaMat = webCamTextureToMatHelper.GetMat();
 
-                Imgproc.cvtColor (rgbaMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
+                Imgproc.cvtColor(rgbaMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
 
-                if (shouldCaptureFrame) {
+                if (shouldCaptureFrame)
+                {
                     shouldCaptureFrame = false;
-                    Mat frameMat = grayMat.clone ();
-                    double e = CaptureFrame (frameMat);
+                    Mat frameMat = grayMat.clone();
+                    double e = CaptureFrame(frameMat);
                     if (e > 0)
                         repErr = e;
                 }
 
-                DrawFrame (grayMat, bgrMat);
-                Imgproc.cvtColor (bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
+                DrawFrame(grayMat, bgrMat);
+                Imgproc.cvtColor(bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
 
-                Utils.fastMatToTexture2D (rgbaMat, texture);
+                Utils.fastMatToTexture2D(rgbaMat, texture);
             }
         }
 
-        private void InitializeCalibraton (Mat frameMat)
+        private void InitializeCalibraton(Mat frameMat)
         {
-            texture = new Texture2D (frameMat.cols (), frameMat.rows (), TextureFormat.RGBA32, false);
+            texture = new Texture2D(frameMat.cols(), frameMat.rows(), TextureFormat.RGBA32, false);
             Utils.fastMatToTexture2D(frameMat, texture);
 
-            gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
+            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
-            gameObject.transform.localScale = new Vector3 (frameMat.cols (), frameMat.rows (), 1);
-            Debug.Log ("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
+            gameObject.transform.localScale = new Vector3(frameMat.cols(), frameMat.rows(), 1);
+            Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
 
-            float width = frameMat.width ();
-            float height = frameMat.height ();
+            float width = frameMat.width();
+            float height = frameMat.height();
 
             float imageSizeScale = 1.0f;
             float widthScale = (float)Screen.width / width;
             float heightScale = (float)Screen.height / height;
-            if (widthScale < heightScale) {
+            if (widthScale < heightScale)
+            {
                 Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
                 imageSizeScale = (float)Screen.height / (float)Screen.width;
-            } else {
+            }
+            else
+            {
                 Camera.main.orthographicSize = height / 2;
             }
 
 
             // set cameraparam.
-            camMatrix = CreateCameraMatrix (width, height);
-            Debug.Log ("camMatrix " + camMatrix.dump ());            
+            camMatrix = CreateCameraMatrix(width, height);
+            Debug.Log("camMatrix " + camMatrix.dump());
 
-            distCoeffs = new MatOfDouble (0, 0, 0, 0, 0);
-            Debug.Log ("distCoeffs " + distCoeffs.dump ());            
+            distCoeffs = new MatOfDouble(0, 0, 0, 0, 0);
+            Debug.Log("distCoeffs " + distCoeffs.dump());
 
             // calibration camera.
-            Size imageSize = new Size (width * imageSizeScale, height * imageSizeScale);
+            Size imageSize = new Size(width * imageSizeScale, height * imageSizeScale);
             double apertureWidth = 0;
             double apertureHeight = 0;
             double[] fovx = new double[1];
             double[] fovy = new double[1];
             double[] focalLength = new double[1];
-            Point principalPoint = new Point (0, 0);
+            Point principalPoint = new Point(0, 0);
             double[] aspectratio = new double[1];
 
-            Calib3d.calibrationMatrixValues (camMatrix, imageSize, apertureWidth, apertureHeight, fovx, fovy, focalLength, principalPoint, aspectratio);
+            Calib3d.calibrationMatrixValues(camMatrix, imageSize, apertureWidth, apertureHeight, fovx, fovy, focalLength, principalPoint, aspectratio);
 
-            Debug.Log ("imageSize " + imageSize.ToString ());
-            Debug.Log ("apertureWidth " + apertureWidth);
-            Debug.Log ("apertureHeight " + apertureHeight);
-            Debug.Log ("fovx " + fovx [0]);
-            Debug.Log ("fovy " + fovy [0]);
-            Debug.Log ("focalLength " + focalLength [0]);
-            Debug.Log ("principalPoint " + principalPoint.ToString ());
-            Debug.Log ("aspectratio " + aspectratio [0]);
-
-
-            grayMat = new Mat (frameMat.rows (), frameMat.cols (), CvType.CV_8UC1);
-            bgrMat = new Mat (frameMat.rows (), frameMat.cols (), CvType.CV_8UC3);
-            rgbaMat = new Mat (frameMat.rows (), frameMat.cols (), CvType.CV_8UC4);
-            ids = new Mat ();
-            corners = new List<Mat> ();
-            rejectedCorners = new List<Mat> ();
-            rvecs = new List<Mat> ();
-            tvecs = new List<Mat> ();
-
-            detectorParams = DetectorParameters.create ();
-            detectorParams.set_cornerRefinementMethod (1);// do cornerSubPix() of OpenCV.
-            dictionary = Aruco.getPredefinedDictionary ((int)dictionaryId);
-
-            recoveredIdxs = new Mat ();
-
-            charucoCorners = new Mat ();
-            charucoIds = new Mat ();
-            charucoBoard = CharucoBoard.create ((int)squaresX, (int)squaresY, chArUcoBoradSquareLength, chArUcoBoradMarkerLength, dictionary);
+            Debug.Log("imageSize " + imageSize.ToString());
+            Debug.Log("apertureWidth " + apertureWidth);
+            Debug.Log("apertureHeight " + apertureHeight);
+            Debug.Log("fovx " + fovx[0]);
+            Debug.Log("fovy " + fovy[0]);
+            Debug.Log("focalLength " + focalLength[0]);
+            Debug.Log("principalPoint " + principalPoint.ToString());
+            Debug.Log("aspectratio " + aspectratio[0]);
 
 
-            allCorners = new List<List<Mat>> ();
-            allIds = new List<Mat> ();
-            allImgs = new List<Mat> ();
+            grayMat = new Mat(frameMat.rows(), frameMat.cols(), CvType.CV_8UC1);
+            bgrMat = new Mat(frameMat.rows(), frameMat.cols(), CvType.CV_8UC3);
+            rgbaMat = new Mat(frameMat.rows(), frameMat.cols(), CvType.CV_8UC4);
+            ids = new Mat();
+            corners = new List<Mat>();
+            rejectedCorners = new List<Mat>();
+            rvecs = new List<Mat>();
+            tvecs = new List<Mat>();
 
-            imagePoints = new List<Mat> ();
+            detectorParams = DetectorParameters.create();
+            detectorParams.set_cornerRefinementMethod(1);// do cornerSubPix() of OpenCV.
+            dictionary = Aruco.getPredefinedDictionary((int)dictionaryId);
+
+            recoveredIdxs = new Mat();
+
+            charucoCorners = new Mat();
+            charucoIds = new Mat();
+            charucoBoard = CharucoBoard.create((int)boardSizeW, (int)boardSizeH, chArUcoBoradSquareLength, chArUcoBoradMarkerLength, dictionary);
+
+
+            allCorners = new List<List<Mat>>();
+            allIds = new List<Mat>();
+            allImgs = new List<Mat>();
+
+            imagePoints = new List<Mat>();
 
             isInitialized = true;
         }
 
-        private void DisposeCalibraton ()
+        private void DisposeCalibraton()
         {
-            ResetCalibration ();
+            ResetCalibration();
 
             if (grayMat != null)
-                grayMat.Dispose ();
+                grayMat.Dispose();
             if (bgrMat != null)
-                bgrMat.Dispose ();
+                bgrMat.Dispose();
             if (rgbaMat != null)
-                rgbaMat.Dispose ();
-            
-            if (texture != null) {
-                Texture2D.Destroy (texture);
+                rgbaMat.Dispose();
+
+            if (texture != null)
+            {
+                Texture2D.Destroy(texture);
                 texture = null;
             }
 
             if (ids != null)
-                ids.Dispose ();
-            foreach (var item in corners) {
-                item.Dispose ();
+                ids.Dispose();
+            foreach (var item in corners)
+            {
+                item.Dispose();
             }
-            corners.Clear ();
-            foreach (var item in rejectedCorners) {
-                item.Dispose ();
+            corners.Clear();
+            foreach (var item in rejectedCorners)
+            {
+                item.Dispose();
             }
-            rejectedCorners.Clear ();
-            foreach (var item in rvecs) {
-                item.Dispose ();
+            rejectedCorners.Clear();
+            foreach (var item in rvecs)
+            {
+                item.Dispose();
             }
-            rvecs.Clear ();
-            foreach (var item in tvecs) {
-                item.Dispose ();
+            rvecs.Clear();
+            foreach (var item in tvecs)
+            {
+                item.Dispose();
             }
-            tvecs.Clear ();
+            tvecs.Clear();
 
             if (recoveredIdxs != null)
-                recoveredIdxs.Dispose (); 
+                recoveredIdxs.Dispose();
 
             if (charucoCorners != null)
-                charucoCorners.Dispose ();
+                charucoCorners.Dispose();
             if (charucoIds != null)
-                charucoIds.Dispose ();
+                charucoIds.Dispose();
             if (charucoBoard != null)
-                charucoBoard.Dispose ();
+                charucoBoard.Dispose();
 
             isInitialized = false;
         }
 
-        private void DrawFrame (Mat grayMat, Mat bgrMat)
+        private void DrawFrame(Mat grayMat, Mat bgrMat)
         {
-            Imgproc.cvtColor (grayMat, bgrMat, Imgproc.COLOR_GRAY2BGR);
+            Imgproc.cvtColor(grayMat, bgrMat, Imgproc.COLOR_GRAY2BGR);
 
-            switch (markerType) {
-            default:
-            case MarkerType.ChArUcoBoard:
-                // detect markers.
-                Aruco.detectMarkers (grayMat, dictionary, corners, ids, detectorParams, rejectedCorners, camMatrix, distCoeffs);
-
-                // refine marker detection.
-                if (refineMarkerDetection) {
-                    Aruco.refineDetectedMarkers (grayMat, charucoBoard, corners, ids, rejectedCorners, camMatrix, distCoeffs, 10f, 3f, true, recoveredIdxs, detectorParams);
-                }
-
-                // if at least one marker detected
-                if (ids.total () > 0) {
-                    Aruco.interpolateCornersCharuco (corners, ids, grayMat, charucoBoard, charucoCorners, charucoIds, camMatrix, distCoeffs, charucoMinMarkers);
-
-                    // draw markers.
-                    Aruco.drawDetectedMarkers (bgrMat, corners, ids, new Scalar (0, 255, 0, 255));
-                    // if at least one charuco corner detected
-                    if (charucoIds.total () > 0) {
-                        Aruco.drawDetectedCornersCharuco (bgrMat, charucoCorners, charucoIds, new Scalar (0, 0, 255, 255));
-                    }
-                }
-                break;
-            case MarkerType.ChessBoard:
-            case MarkerType.CirclesGlid:
-            case MarkerType.AsymmetricCirclesGlid:
-                // detect markers.
-                MatOfPoint2f points = new MatOfPoint2f ();
-                bool found = false;
-
-                switch (markerType) {
+            switch (markerType)
+            {
                 default:
                 case MarkerType.ChessBoard:
-                    found = Calib3d.findChessboardCorners (grayMat, new Size ((int)squaresX, (int)squaresY), points, Calib3d.CALIB_CB_ADAPTIVE_THRESH | Calib3d.CALIB_CB_FAST_CHECK | Calib3d.CALIB_CB_NORMALIZE_IMAGE);
-                    break;
                 case MarkerType.CirclesGlid:
-                    found = Calib3d.findCirclesGrid (grayMat, new Size ((int)squaresX, (int)squaresY), points, Calib3d.CALIB_CB_SYMMETRIC_GRID);
-                    break;
                 case MarkerType.AsymmetricCirclesGlid:
-                    found = Calib3d.findCirclesGrid (grayMat, new Size ((int)squaresX, (int)squaresY), points, Calib3d.CALIB_CB_ASYMMETRIC_GRID);
+                    // detect markers.
+                    MatOfPoint2f points = new MatOfPoint2f();
+                    bool found = false;
+
+                    switch (markerType)
+                    {
+                        default:
+                        case MarkerType.ChessBoard:
+                            if (useFindChessboardCornersSBMethod)
+                            {
+                                found = Calib3d.findChessboardCornersSB(grayMat, new Size((int)boardSizeW, (int)boardSizeH), points, findChessboardCornersSBFlags);
+                            }
+                            else {
+                                found = Calib3d.findChessboardCorners(grayMat, new Size((int)boardSizeW, (int)boardSizeH), points, findChessboardCornersFlags);
+                            }
+                            break;
+                        case MarkerType.CirclesGlid:
+                            found = Calib3d.findCirclesGrid(grayMat, new Size((int)boardSizeW, (int)boardSizeH), points, findCirclesGridFlags | Calib3d.CALIB_CB_SYMMETRIC_GRID);
+                            break;
+                        case MarkerType.AsymmetricCirclesGlid:
+                            found = Calib3d.findCirclesGrid(grayMat, new Size((int)boardSizeW, (int)boardSizeH), points, findCirclesGridFlags | Calib3d.CALIB_CB_ASYMMETRIC_GRID);
+                            break;
+                    }
+
+                    if (found)
+                    {
+                        // draw markers.
+                        Calib3d.drawChessboardCorners(bgrMat, new Size((int)boardSizeW, (int)boardSizeH), points, found);
+                    }
                     break;
-                }
+                case MarkerType.ChArUcoBoard:
+                    // detect markers.
+                    Aruco.detectMarkers(grayMat, dictionary, corners, ids, detectorParams, rejectedCorners, camMatrix, distCoeffs);
 
-                if (found) {
-                    if (markerType == MarkerType.ChessBoard)
-                        Imgproc.cornerSubPix (grayMat, points, new Size (5, 5), new Size (-1, -1), new TermCriteria (TermCriteria.EPS + TermCriteria.COUNT, 30, 0.1));
+                    // refine marker detection.
+                    if (refineMarkerDetection)
+                    {
+                        Aruco.refineDetectedMarkers(grayMat, charucoBoard, corners, ids, rejectedCorners, camMatrix, distCoeffs, 10f, 3f, true, recoveredIdxs, detectorParams);
+                    }
 
-                    // draw markers.
-                    Calib3d.drawChessboardCorners (bgrMat, new Size ((int)squaresX, (int)squaresY), points, found);
-                }
-                break;
+                    // if at least one marker detected
+                    if (ids.total() > 0)
+                    {
+                        Aruco.interpolateCornersCharuco(corners, ids, grayMat, charucoBoard, charucoCorners, charucoIds, camMatrix, distCoeffs, charucoMinMarkers);
+
+                        // draw markers.
+                        Aruco.drawDetectedMarkers(bgrMat, corners, ids, new Scalar(0, 255, 0, 255));
+                        // if at least one charuco corner detected
+                        if (charucoIds.total() > 0)
+                        {
+                            Aruco.drawDetectedCornersCharuco(bgrMat, charucoCorners, charucoIds, new Scalar(0, 0, 255, 255));
+                        }
+                    }
+                    break;
             }
 
-            double[] camMatrixArr = new double[(int)camMatrix.total ()];
-            camMatrix.get (0, 0, camMatrixArr);
-            double[] distCoeffsArr = new double[(int)distCoeffs.total ()];
-            distCoeffs.get (0, 0, distCoeffsArr);
+            double[] camMatrixArr = new double[(int)camMatrix.total()];
+            camMatrix.get(0, 0, camMatrixArr);
+            double[] distCoeffsArr = new double[(int)distCoeffs.total()];
+            distCoeffs.get(0, 0, distCoeffsArr);
 
             int ff = Imgproc.FONT_HERSHEY_SIMPLEX;
             double fs = 0.4;
-            Scalar c = new Scalar (255, 255, 255, 255);
+            Scalar c = new Scalar(255, 255, 255, 255);
             int t = 0;
             int lt = Imgproc.LINE_AA;
             bool blo = false;
             int frameCount = (markerType == MarkerType.ChArUcoBoard) ? allCorners.Count : imagePoints.Count;
-            Imgproc.putText (bgrMat, frameCount + " FRAME CAPTURED", new Point (bgrMat.cols () - 300, 20), ff, fs, c, t, lt, blo);
-            Imgproc.putText (bgrMat, "IMAGE_WIDTH: " + bgrMat.width (), new Point (bgrMat.cols () - 300, 40), ff, fs, c, t, lt, blo);
-            Imgproc.putText (bgrMat, "IMAGE_HEIGHT: " + bgrMat.height (), new Point (bgrMat.cols () - 300, 60), ff, fs, c, t, lt, blo);
-            Imgproc.putText (bgrMat, "CALIBRATION_FLAGS: " + calibrationFlags, new Point (bgrMat.cols () - 300, 80), ff, fs, c, t, lt, blo);
+            Imgproc.putText(bgrMat, frameCount + " FRAME CAPTURED", new Point(bgrMat.cols() - 300, 20), ff, fs, c, t, lt, blo);
+            Imgproc.putText(bgrMat, "IMAGE_WIDTH: " + bgrMat.width(), new Point(bgrMat.cols() - 300, 40), ff, fs, c, t, lt, blo);
+            Imgproc.putText(bgrMat, "IMAGE_HEIGHT: " + bgrMat.height(), new Point(bgrMat.cols() - 300, 60), ff, fs, c, t, lt, blo);
+            Imgproc.putText(bgrMat, "CALIBRATION_FLAGS: " + calibrationFlags, new Point(bgrMat.cols() - 300, 80), ff, fs, c, t, lt, blo);
 
-            Imgproc.putText (bgrMat, "CAMERA_MATRIX: ", new Point (bgrMat.cols () - 300, 100), ff, fs, c, t, lt, blo);
-            for (int i = 0; i < camMatrixArr.Length; i = i + 3) {
-                Imgproc.putText (bgrMat, "   " + camMatrixArr [i] + ", " + camMatrixArr [i + 1] + ", " + camMatrixArr [i + 2] + ",", new Point (bgrMat.cols () - 300, 120 + 20 * i / 3), ff, fs, c, t, lt, blo);
+            Imgproc.putText(bgrMat, "CAMERA_MATRIX: ", new Point(bgrMat.cols() - 300, 100), ff, fs, c, t, lt, blo);
+            for (int i = 0; i < camMatrixArr.Length; i = i + 3)
+            {
+                Imgproc.putText(bgrMat, "   " + camMatrixArr[i] + ", " + camMatrixArr[i + 1] + ", " + camMatrixArr[i + 2] + ",", new Point(bgrMat.cols() - 300, 120 + 20 * i / 3), ff, fs, c, t, lt, blo);
             }
-            Imgproc.putText (bgrMat, "DISTORTION_COEFFICIENTS: ", new Point (bgrMat.cols () - 300, 180), ff, fs, c, t, lt, blo);
-            for (int i = 0; i < distCoeffsArr.Length; ++i) {
-                Imgproc.putText (bgrMat, "   " + distCoeffsArr [i] + ",", new Point (bgrMat.cols () - 300, 200 + 20 * i), ff, fs, c, t, lt, blo);
+            Imgproc.putText(bgrMat, "DISTORTION_COEFFICIENTS: ", new Point(bgrMat.cols() - 300, 180), ff, fs, c, t, lt, blo);
+            for (int i = 0; i < distCoeffsArr.Length; ++i)
+            {
+                Imgproc.putText(bgrMat, "   " + distCoeffsArr[i] + ",", new Point(bgrMat.cols() - 300, 200 + 20 * i), ff, fs, c, t, lt, blo);
             }
-            Imgproc.putText (bgrMat, "AVG_REPROJECTION_ERROR: " + repErr, new Point (bgrMat.cols () - 300, 300), ff, fs, c, t, lt, blo);
+            Imgproc.putText(bgrMat, "AVG_REPROJECTION_ERROR: " + repErr, new Point(bgrMat.cols() - 300, 300), ff, fs, c, t, lt, blo);
 
             if (frameCount == 0)
-                Imgproc.putText (bgrMat, "Please press the capture button to start!", new Point (5, bgrMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar (255, 255, 255, 255), 1, Imgproc.LINE_AA, false);
+                Imgproc.putText(bgrMat, "Please press the capture button to start!", new Point(5, bgrMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar(255, 255, 255, 255), 1, Imgproc.LINE_AA, false);
         }
 
-        private double CaptureFrame (Mat frameMat)
+        private double CaptureFrame(Mat frameMat)
         {
             double repErr = -1;
 
-            switch (markerType) {
-            default:
-            case MarkerType.ChArUcoBoard:
-                List<Mat> corners = new List<Mat> ();
-                Mat ids = new Mat ();
-                Aruco.detectMarkers (frameMat, dictionary, corners, ids, detectorParams, rejectedCorners, camMatrix, distCoeffs);
-
-                if (refineMarkerDetection) {
-                    Aruco.refineDetectedMarkers (frameMat, charucoBoard, corners, ids, rejectedCorners, camMatrix, distCoeffs, 10f, 3f, true, recoveredIdxs, detectorParams);
-                }
-
-                if (ids.total () > 0) {
-                    Debug.Log ("Frame captured.");
-
-                    allCorners.Add (corners);
-                    allIds.Add (ids);
-                    allImgs.Add (frameMat);
-                } else {
-
-                    Debug.Log ("Invalid frame.");
-
-                    frameMat.Dispose ();
-                    if (ids != null)
-                        ids.Dispose ();
-                    foreach (var item in corners) {
-                        item.Dispose ();
-                    }
-                    corners.Clear ();
-
-                    return -1;
-                }
-
-                // calibrate camera using aruco markers
-                //double arucoRepErr = CalibrateCameraAruco (allCorners, allIds, charucoBoard, frameMat.size(), camMatrix, distCoeffs, rvecs, tvecs, calibrationFlags);
-                //Debug.Log ("arucoRepErr: " + arucoRepErr);
-
-                // calibrate camera using charuco
-                repErr = CalibrateCameraCharuco (allCorners, allIds, charucoBoard, frameMat.size (), camMatrix, distCoeffs, rvecs, tvecs, calibrationFlags, calibrationFlags);
-
-                break;
-            case MarkerType.ChessBoard:
-            case MarkerType.CirclesGlid:
-            case MarkerType.AsymmetricCirclesGlid:
-                
-                MatOfPoint2f points = new MatOfPoint2f ();
-                Size patternSize = new Size ((int)squaresX, (int)squaresY);
-
-                bool found = false;
-                switch (markerType) {
+            switch (markerType)
+            {
                 default:
                 case MarkerType.ChessBoard:
-                    found = Calib3d.findChessboardCorners (frameMat, patternSize, points, Calib3d.CALIB_CB_ADAPTIVE_THRESH | Calib3d.CALIB_CB_FAST_CHECK | Calib3d.CALIB_CB_NORMALIZE_IMAGE);
-                    break;
                 case MarkerType.CirclesGlid:
-                    found = Calib3d.findCirclesGrid (frameMat, patternSize, points, Calib3d.CALIB_CB_SYMMETRIC_GRID);
-                    break;
                 case MarkerType.AsymmetricCirclesGlid:
-                    found = Calib3d.findCirclesGrid (frameMat, patternSize, points, Calib3d.CALIB_CB_ASYMMETRIC_GRID);
-                    break;
-                }
 
-                if (found) {
-                    Debug.Log ("Frame captured.");
-                    if (markerType == MarkerType.ChessBoard)
-                        Imgproc.cornerSubPix (frameMat, points, new Size (5, 5), new Size (-1, -1), new TermCriteria (TermCriteria.EPS + TermCriteria.COUNT, 30, 0.1));
-                    
-                    imagePoints.Add (points);
-                    allImgs.Add (frameMat);
-                } else {
-                    Debug.Log ("Invalid frame.");
-                    frameMat.Dispose ();
-                    if (points != null)
-                        points.Dispose ();
-                    return -1;
-                }
-                    
-                if (imagePoints.Count < 1) {
-                    Debug.Log ("Not enough points for calibration.");
-                    repErr = -1;
-                } else {
+                    MatOfPoint2f points = new MatOfPoint2f();
+                    Size patternSize = new Size((int)boardSizeW, (int)boardSizeH);
 
-                    MatOfPoint3f objectPoint = new MatOfPoint3f (new Mat (imagePoints [0].rows (), 1, CvType.CV_32FC3));
-                    CalcChessboardCorners (patternSize, squareSize, objectPoint, markerType);
-
-                    List<Mat> objectPoints = new List<Mat> ();
-                    for (int i = 0; i < imagePoints.Count; ++i) {
-                        objectPoints.Add (objectPoint);
+                    bool found = false;
+                    switch (markerType)
+                    {
+                        default:
+                        case MarkerType.ChessBoard:
+                            if (useFindChessboardCornersSBMethod)
+                            {
+                                found = Calib3d.findChessboardCornersSB(frameMat, patternSize, points, findChessboardCornersSBFlags);
+                            }
+                            else
+                            {
+                                found = Calib3d.findChessboardCorners(frameMat, patternSize, points, findChessboardCornersFlags);
+                            }
+                            break;
+                        case MarkerType.CirclesGlid:
+                            found = Calib3d.findCirclesGrid(frameMat, patternSize, points, findCirclesGridFlags | Calib3d.CALIB_CB_SYMMETRIC_GRID);
+                            break;
+                        case MarkerType.AsymmetricCirclesGlid:
+                            found = Calib3d.findCirclesGrid(frameMat, patternSize, points, findCirclesGridFlags | Calib3d.CALIB_CB_ASYMMETRIC_GRID);
+                            break;
                     }
 
-                    repErr = Calib3d.calibrateCamera (objectPoints, imagePoints, frameMat.size (), camMatrix, distCoeffs, rvecs, tvecs, calibrationFlags);
-                    objectPoint.Dispose ();
-                }
+                    if (found)
+                    {
+                        if (markerType == MarkerType.ChessBoard && !useFindChessboardCornersSBMethod && enableCornerSubPix)
+                        {
+                            int winSize = 11;
+                            Imgproc.cornerSubPix(frameMat, points, new Size(winSize, winSize), new Size(-1, -1), new TermCriteria(TermCriteria.EPS + TermCriteria.COUNT, 30, 0.0001));
+                        }
 
-                break;
+                        imagePoints.Add(points);
+                        allImgs.Add(frameMat);
+
+                        Debug.Log(imagePoints.Count + " Frame captured.");
+                    }
+                    else
+                    {
+                        Debug.Log("Invalid frame.");
+                        frameMat.Dispose();
+                        if (points != null)
+                            points.Dispose();
+                        return -1;
+                    }
+
+                    if (imagePoints.Count < 1)
+                    {
+                        Debug.Log("Not enough points for calibration.");
+                        repErr = -1;
+                    }
+                    else
+                    {
+                        MatOfPoint3f objectPoint = new MatOfPoint3f(new Mat(imagePoints[0].rows(), 1, CvType.CV_32FC3));
+                        CalcChessboardCorners(patternSize, squareSize, objectPoint, markerType);
+
+                        float grid_width = squareSize * ((int)patternSize.width - 1);
+                        bool release_object = false;
+                        if (useNewCalibrationMethod)
+                        {
+                            grid_width = gridWidth;
+                            release_object = true;
+                        }
+                        float[] tlPt = new float[3]; // top-left point
+                        objectPoint.get(0, 0, tlPt);
+                        float[] trPt = new float[3]; // top-right point
+                        objectPoint.get((int)patternSize.width - 1, 0, trPt);
+                        trPt[0] = tlPt[0] + grid_width;
+                        objectPoint.put((int)patternSize.width - 1, 0, trPt);
+                        Mat newObjPoints = objectPoint.clone();
+
+                        List<Mat> objectPoints = new List<Mat>();
+                        for (int i = 0; i < imagePoints.Count; ++i)
+                        {
+                            objectPoints.Add(objectPoint.clone());
+                        }
+
+                        int iFixedPoint = -1;
+                        if (release_object)
+                            iFixedPoint = (int)patternSize.width - 1;
+                        repErr = Calib3d.calibrateCameraRO(
+                            objectPoints,
+                            imagePoints,
+                            frameMat.size(),
+                            iFixedPoint,
+                            camMatrix,
+                            distCoeffs,
+                            rvecs,
+                            tvecs,
+                            newObjPoints,
+                            calibrationFlags
+                            );
+
+                        //if (release_object)
+                        //{
+                        //    Debug.Log("New board corners: ");
+                        //    Point3[] newPoints = new MatOfPoint3f(newObjPoints).toArray();
+                        //    Debug.Log(newPoints[0]);
+                        //    Debug.Log(newPoints[(int)patternSize.width - 1]);
+                        //    Debug.Log(newPoints[(int)patternSize.width * ((int)patternSize.height - 1)]);
+                        //    Debug.Log(newPoints[newPoints.Length - 1]);
+                        //}
+
+                        objectPoint.Dispose();
+                    }
+
+                    break;
+                case MarkerType.ChArUcoBoard:
+                    List<Mat> corners = new List<Mat>();
+                    Mat ids = new Mat();
+                    Aruco.detectMarkers(frameMat, dictionary, corners, ids, detectorParams, rejectedCorners, camMatrix, distCoeffs);
+
+                    if (refineMarkerDetection)
+                    {
+                        Aruco.refineDetectedMarkers(frameMat, charucoBoard, corners, ids, rejectedCorners, camMatrix, distCoeffs, 10f, 3f, true, recoveredIdxs, detectorParams);
+                    }
+
+                    if (ids.total() > 0)
+                    {
+                        allCorners.Add(corners);
+                        allIds.Add(ids);
+                        allImgs.Add(frameMat);
+
+                        Debug.Log(allCorners.Count + " Frame captured.");
+                    }
+                    else
+                    {
+                        Debug.Log("Invalid frame.");
+
+                        frameMat.Dispose();
+                        if (ids != null)
+                            ids.Dispose();
+                        foreach (var item in corners)
+                        {
+                            item.Dispose();
+                        }
+                        corners.Clear();
+
+                        return -1;
+                    }
+
+                    // calibrate camera using charuco boards
+                    repErr = CalibrateCameraCharuco(allCorners, allIds, charucoBoard, frameMat.size(), camMatrix, distCoeffs, rvecs, tvecs, calibrationFlags, calibrationFlags);
+
+                    break;
             }
 
-            Debug.Log ("repErr: " + repErr);
-            Debug.Log ("camMatrix: " + camMatrix.dump ());
-            Debug.Log ("distCoeffs: " + distCoeffs.dump ());
-                
+            Debug.Log("repErr: " + repErr);
+            Debug.Log("camMatrix: " + camMatrix.dump());
+            Debug.Log("distCoeffs: " + distCoeffs.dump());
+
             return repErr;
         }
 
-        private double CalibrateCameraAruco (List<List<Mat>> allCorners, List<Mat> allIds, CharucoBoard board, Size imageSize, Mat cameraMatrix, Mat distCoeffs, List<Mat> rvecs = null, List<Mat> tvecs = null, int calibrationFlags = 0)
-        {
-            // prepare data for calibration
-            int nFrames = allCorners.Count;
-            int allLen = 0;
-            int[] markerCounterPerFrameArr = new int[allCorners.Count];
-            for (int i = 0; i < nFrames; ++i) {
-                markerCounterPerFrameArr [i] = allCorners [i].Count;
-                allLen += allCorners [i].Count;
-            }
-
-            int[] allIdsConcatenatedArr = new int[allLen];
-            int index = 0;
-            for (int j = 0; j < allIds.Count; ++j) {
-                int[] idsArr = new int[(int)allIds [j].total ()];
-                allIds [j].get (0, 0, idsArr);
-
-                for (int k = 0; k < idsArr.Length; ++k) {
-                    allIdsConcatenatedArr [index + k] = (int)idsArr [k];
-                }
-                index += idsArr.Length;
-            }
-
-            using (Mat allIdsConcatenated = new Mat (1, allLen, CvType.CV_32SC1))
-            using (Mat markerCounterPerFrame = new Mat (1, nFrames, CvType.CV_32SC1)) {
-
-                List<Mat> allCornersConcatenated = new List<Mat> ();
-                foreach (var c in allCorners) {
-                    foreach (var m in c) {
-                        allCornersConcatenated.Add (m);
-                    }
-                }
-
-                allIdsConcatenated.put (0, 0, allIdsConcatenatedArr);
-                markerCounterPerFrame.put (0, 0, markerCounterPerFrameArr);
-
-                if (rvecs == null)
-                    rvecs = new List<Mat> ();
-                if (tvecs == null)
-                    tvecs = new List<Mat> ();
-
-                return Aruco.calibrateCameraAruco (allCornersConcatenated, allIdsConcatenated, markerCounterPerFrame, board, imageSize, cameraMatrix, distCoeffs, rvecs, tvecs, calibrationFlags);
-            }
-        }
-
-        private double CalibrateCameraCharuco (List<List<Mat>> allCorners, List<Mat> allIds, CharucoBoard board, Size imageSize, Mat cameraMatrix, Mat distCoeffs, List<Mat> rvecs = null, List<Mat> tvecs = null, int calibrationFlags = 0, int minMarkers = 2)
+        private double CalibrateCameraCharuco(List<List<Mat>> allCorners, List<Mat> allIds, CharucoBoard board, Size imageSize, Mat cameraMatrix, Mat distCoeffs, List<Mat> rvecs = null, List<Mat> tvecs = null, int calibrationFlags = 0, int minMarkers = 2)
         {
             // prepare data for charuco calibration
             int nFrames = allCorners.Count;
-            List<Mat> allCharucoCorners = new List<Mat> ();
-            List<Mat> allCharucoIds = new List<Mat> ();
-            List<Mat> filteredImages = new List<Mat> ();
+            List<Mat> allCharucoCorners = new List<Mat>();
+            List<Mat> allCharucoIds = new List<Mat>();
+            List<Mat> filteredImages = new List<Mat>();
 
-            for (int i = 0; i < nFrames; ++i) {
+            for (int i = 0; i < nFrames; ++i)
+            {
                 // interpolate using camera parameters
-                Mat currentCharucoCorners = new Mat ();
-                Mat currentCharucoIds = new Mat ();
+                Mat currentCharucoCorners = new Mat();
+                Mat currentCharucoIds = new Mat();
 
-                Aruco.interpolateCornersCharuco (allCorners [i], allIds [i], allImgs [i], board, currentCharucoCorners, currentCharucoIds, cameraMatrix, distCoeffs, minMarkers);
+                Aruco.interpolateCornersCharuco(allCorners[i], allIds[i], allImgs[i], board, currentCharucoCorners, currentCharucoIds, cameraMatrix, distCoeffs, minMarkers);
 
-                if (charucoIds.total () > 0) {
-                    allCharucoCorners.Add (currentCharucoCorners);
-                    allCharucoIds.Add (currentCharucoIds);
-                    filteredImages.Add (allImgs [i]);
-                } else {
-                    currentCharucoCorners.Dispose ();
-                    currentCharucoIds.Dispose ();
+                if (charucoIds.total() > 0)
+                {
+                    allCharucoCorners.Add(currentCharucoCorners);
+                    allCharucoIds.Add(currentCharucoIds);
+                    filteredImages.Add(allImgs[i]);
+                }
+                else
+                {
+                    currentCharucoCorners.Dispose();
+                    currentCharucoIds.Dispose();
                 }
             }
 
-            if (allCharucoCorners.Count < 1) {
-                Debug.Log ("Not enough corners for calibration.");
+            if (allCharucoCorners.Count < 1)
+            {
+                Debug.Log("Not enough corners for calibration.");
                 return -1;
             }
 
             if (rvecs == null)
-                rvecs = new List<Mat> ();
+                rvecs = new List<Mat>();
             if (tvecs == null)
-                tvecs = new List<Mat> ();
+                tvecs = new List<Mat>();
 
-            return Aruco.calibrateCameraCharuco (allCharucoCorners, allCharucoIds, board, imageSize, cameraMatrix, distCoeffs, rvecs, tvecs, calibrationFlags);
+            return Aruco.calibrateCameraCharuco(allCharucoCorners, allCharucoIds, board, imageSize, cameraMatrix, distCoeffs, rvecs, tvecs, calibrationFlags);
         }
 
-        private void ResetCalibration ()
+        private void ResetCalibration()
         {
-            foreach (var corners in allCorners) {
-                foreach (var item in corners) {
-                    item.Dispose ();
+            foreach (var corners in allCorners)
+            {
+                foreach (var item in corners)
+                {
+                    item.Dispose();
                 }
             }
-            allCorners.Clear ();
+            allCorners.Clear();
 
-            foreach (var item in allIds) {
-                item.Dispose ();
+            foreach (var item in allIds)
+            {
+                item.Dispose();
             }
-            allIds.Clear ();
+            allIds.Clear();
 
-            foreach (var item in allImgs) {
-                item.Dispose ();
+            foreach (var item in allImgs)
+            {
+                item.Dispose();
             }
-            allImgs.Clear ();
+            allImgs.Clear();
 
             repErr = 0;
-            camMatrix = CreateCameraMatrix (bgrMat.width (), bgrMat.height ());
-            distCoeffs = new MatOfDouble (0, 0, 0, 0, 0);
+            camMatrix = CreateCameraMatrix(bgrMat.width(), bgrMat.height());
+            distCoeffs = new MatOfDouble(0, 0, 0, 0, 0);
 
-            foreach (var item in imagePoints) {
-                item.Dispose ();
+            foreach (var item in imagePoints)
+            {
+                item.Dispose();
             }
-            imagePoints.Clear ();
+            imagePoints.Clear();
         }
 
-        private Mat CreateCameraMatrix (float width, float height)
+        private Mat CreateCameraMatrix(float width, float height)
         {
-            int max_d = (int)Mathf.Max (width, height);
+            int max_d = (int)Mathf.Max(width, height);
             double fx = max_d;
             double fy = max_d;
             double cx = width / 2.0f;
             double cy = height / 2.0f;
 
-            Mat camMatrix = new Mat (3, 3, CvType.CV_64FC1);
-            camMatrix.put (0, 0, fx);
-            camMatrix.put (0, 1, 0);
-            camMatrix.put (0, 2, cx);
-            camMatrix.put (1, 0, 0);
-            camMatrix.put (1, 1, fy);
-            camMatrix.put (1, 2, cy);
-            camMatrix.put (2, 0, 0);
-            camMatrix.put (2, 1, 0);
-            camMatrix.put (2, 2, 1.0f);
+            Mat camMatrix = new Mat(3, 3, CvType.CV_64FC1);
+            camMatrix.put(0, 0, fx);
+            camMatrix.put(0, 1, 0);
+            camMatrix.put(0, 2, cx);
+            camMatrix.put(1, 0, 0);
+            camMatrix.put(1, 1, fy);
+            camMatrix.put(1, 2, cy);
+            camMatrix.put(2, 0, 0);
+            camMatrix.put(2, 1, 0);
+            camMatrix.put(2, 2, 1.0f);
 
             return camMatrix;
         }
 
-        private void CalcChessboardCorners (Size patternSize, float squareSize, MatOfPoint3f corners, MarkerType markerType)
+        private void CalcChessboardCorners(Size patternSize, float squareSize, MatOfPoint3f corners, MarkerType markerType)
         {
-            if ((int)(patternSize.width * patternSize.height) != corners.rows ()) {
-                Debug.Log ("Invalid corners size.");
-                corners.create ((int)(patternSize.width * patternSize.height), 1, CvType.CV_32FC3);
+            if ((int)(patternSize.width * patternSize.height) != corners.rows())
+            {
+                Debug.Log("Invalid corners size.");
+                corners.create((int)(patternSize.width * patternSize.height), 1, CvType.CV_32FC3);
             }
 
-            const int cn = 3;
-            float[] cornersArr = new float[corners.rows () * cn];
             int width = (int)patternSize.width;
             int height = (int)patternSize.height;
 
-            switch (markerType) {
-            default:
-            case MarkerType.ChessBoard:
-            case MarkerType.CirclesGlid:
-                for (int i = 0; i < height; ++i) {
-                    for (int j = 0; j < width; ++j) {
-                        cornersArr [(i * width * cn) + (j * cn)] = j * squareSize;
-                        cornersArr [(i * width * cn) + (j * cn) + 1] = i * squareSize;
-                        cornersArr [(i * width * cn) + (j * cn) + 2] = 0;
+            switch (markerType)
+            {
+                default:
+                case MarkerType.ChessBoard:
+                case MarkerType.CirclesGlid:
+                    for (int i = 0; i < height; ++i)
+                    {
+                        for (int j = 0; j < width; ++j)
+                        {
+                            corners.put(width * i + j, 0, new float[] { j * squareSize, i * squareSize, 0f });
+                        }
                     }
-                }
-                corners.put (0, 0, cornersArr);
-
-                break;
-            case MarkerType.AsymmetricCirclesGlid:
-                for (int i = 0; i < height; ++i) {
-                    for (int j = 0; j < width; ++j) {
-                        cornersArr [(i * width * cn) + (j * cn)] = (2 * j + i % 2) * squareSize;
-                        cornersArr [(i * width * cn) + (j * cn) + 1] = i * squareSize;
-                        cornersArr [(i * width * cn) + (j * cn) + 2] = 0;
+                    break;
+                case MarkerType.AsymmetricCirclesGlid:
+                    for (int i = 0; i < height; ++i)
+                    {
+                        for (int j = 0; j < width; ++j)
+                        {
+                            corners.put(width * i + j, 0, new float[] { (2 * j + i % 2) * squareSize, i * squareSize, 0f });
+                        }
                     }
-                }
-                corners.put (0, 0, cornersArr);
-
-                break;
+                    break;
             }
         }
 
-        private bool InitializeImagesInputMode ()
+        private bool InitializeImagesInputMode()
         {
             if (isInitialized)
-                DisposeCalibraton ();
+                DisposeCalibraton();
 
-            if (String.IsNullOrEmpty (calibrationImagesDirectory)) {
-                Debug.LogWarning ("When using the images input mode, please set a calibration images directory path.");
+            if (String.IsNullOrEmpty(calibrationImagesDirectory))
+            {
+                Debug.LogWarning("When using the images input mode, please set a calibration images directory path.");
                 return false;
             }
 
-            string dirPath = Path.Combine (Application.streamingAssetsPath, calibrationImagesDirectory);
-            if (!Directory.Exists (dirPath)) {
-                Debug.LogWarning ("The directory does not exist.");
+            string dirPath = Path.Combine(Application.streamingAssetsPath, calibrationImagesDirectory);
+            if (!Directory.Exists(dirPath))
+            {
+                Debug.LogWarning("The directory does not exist.");
                 return false;
             }
-            string[] imageFiles = GetImageFilesInDirectory (dirPath);
-            if (imageFiles.Length < 1) {
-                Debug.LogWarning ("The image file does not exist.");
+            string[] imageFiles = GetImageFilesInDirectory(dirPath);
+            if (imageFiles.Length < 1)
+            {
+                Debug.LogWarning("The image file does not exist.");
                 return false;
-            }                
-                
-            Uri rootPath = new Uri (Application.streamingAssetsPath + System.IO.Path.AltDirectorySeparatorChar);
-            Uri fullPath = new Uri (imageFiles [0]);
-            string relativePath = rootPath.MakeRelativeUri (fullPath).ToString ();
+            }
 
-            using (Mat gray = Imgcodecs.imread (Utils.getFilePath (relativePath), Imgcodecs.IMREAD_GRAYSCALE)) {
+            Uri rootPath = new Uri(Application.streamingAssetsPath + System.IO.Path.AltDirectorySeparatorChar);
+            Uri fullPath = new Uri(imageFiles[0]);
+            string relativePath = rootPath.MakeRelativeUri(fullPath).ToString();
 
-                if (gray.total () == 0) {
-                    Debug.LogWarning ("Invalid image file.");
+            using (Mat gray = Imgcodecs.imread(Utils.getFilePath(relativePath), Imgcodecs.IMREAD_GRAYSCALE))
+            {
+
+                if (gray.total() == 0)
+                {
+                    Debug.LogWarning("Invalid image file.");
                     return false;
                 }
 
-                using (Mat bgr = new Mat (gray.size (), CvType.CV_8UC3))
-                using (Mat bgra = new Mat (gray.size (), CvType.CV_8UC4)) {
-                    InitializeCalibraton (gray);
+                using (Mat bgr = new Mat(gray.size(), CvType.CV_8UC3))
+                using (Mat rgba = new Mat(gray.size(), CvType.CV_8UC4))
+                {
+                    Imgproc.cvtColor(gray, rgba, Imgproc.COLOR_GRAY2RGBA);
+                    InitializeCalibraton(rgba);
 
-                    DrawFrame (gray, bgr);
-                    Imgproc.cvtColor (bgr, bgra, Imgproc.COLOR_BGR2RGBA);
-                    Utils.fastMatToTexture2D (bgra, texture);
+                    DrawFrame(gray, bgr);
+                    Imgproc.cvtColor(bgr, rgba, Imgproc.COLOR_BGR2RGBA);
+                    Utils.fastMatToTexture2D(rgba, texture);
                 }
             }
             return true;
         }
 
-        private IEnumerator CalibrateCameraUsingImages ()
+        private IEnumerator CalibrateCameraUsingImages()
         {
-            string dirPath = Path.Combine (Application.streamingAssetsPath, calibrationImagesDirectory);
-            string[] imageFiles = GetImageFilesInDirectory (dirPath);
+            string dirPath = Path.Combine(Application.streamingAssetsPath, calibrationImagesDirectory);
+            string[] imageFiles = GetImageFilesInDirectory(dirPath);
             if (imageFiles.Length < 1)
                 yield break;
 
             isCalibrating = true;
-            markerTypeDropdown.interactable = dictionaryIdDropdown.interactable = squaresXDropdown.interactable = squaresYDropdown.interactable = false;
+            markerTypeDropdown.interactable = boardSizeWDropdown.interactable = boardSizeHDropdown.interactable = false;
+            normalCalibrationOptionsGroup.gameObject.SetActive(false);
+            arUcoCalibrationOptionsGroup.gameObject.SetActive(false);
 
-            Uri rootPath = new Uri (Application.streamingAssetsPath + System.IO.Path.AltDirectorySeparatorChar);
+            Uri rootPath = new Uri(Application.streamingAssetsPath + System.IO.Path.AltDirectorySeparatorChar);
 
-            foreach (var path in imageFiles) {
+            foreach (var path in imageFiles)
+            {
 
-                Uri fullPath = new Uri (path);
-                string relativePath = rootPath.MakeRelativeUri (fullPath).ToString ();
+                Uri fullPath = new Uri(path);
+                string relativePath = rootPath.MakeRelativeUri(fullPath).ToString();
 
-                using (Mat gray = Imgcodecs.imread (Utils.getFilePath (relativePath), Imgcodecs.IMREAD_GRAYSCALE)) {
-
-                    if (gray.width () != bgrMat.width () || gray.height () != bgrMat.height ())
+                using (Mat gray = Imgcodecs.imread(Utils.getFilePath(relativePath), Imgcodecs.IMREAD_GRAYSCALE))
+                {
+                    if (gray.width() != bgrMat.width() || gray.height() != bgrMat.height())
                         continue;
 
-                    Mat frameMat = gray.clone ();
-                    double e = CaptureFrame (frameMat);
+                    Mat frameMat = gray.clone();
+                    double e = CaptureFrame(frameMat);
                     if (e > 0)
                         repErr = e;
 
-                    DrawFrame (gray, bgrMat);
-                    Imgproc.cvtColor (bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
+                    DrawFrame(gray, bgrMat);
+                    Imgproc.cvtColor(bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
 
-                    Utils.matToTexture2D (rgbaMat, texture);
+                    Utils.matToTexture2D(rgbaMat, texture);
                 }
-                yield return new WaitForSeconds (0.5f);
+                yield return new WaitForSeconds(0.5f);
             }
 
             isCalibrating = false;
-            markerTypeDropdown.interactable = squaresXDropdown.interactable = squaresYDropdown.interactable = true;
+            markerTypeDropdown.interactable = boardSizeWDropdown.interactable = boardSizeHDropdown.interactable = true;
+            bool arUcoCalibMode = markerType == MarkerType.ChArUcoBoard;
+            normalCalibrationOptionsGroup.gameObject.SetActive(!arUcoCalibMode);
+            arUcoCalibrationOptionsGroup.gameObject.SetActive(arUcoCalibMode);
         }
 
-        private string[] GetImageFilesInDirectory (string dirPath)
+        private string[] GetImageFilesInDirectory(string dirPath)
         {
-            if (Directory.Exists (dirPath)) {
-                string[] files = Directory.GetFiles (dirPath, "*.jpg");
-                files = files.Concat (Directory.GetFiles (dirPath, "*.jpeg")).ToArray ();
-                files = files.Concat (Directory.GetFiles (dirPath, "*.png")).ToArray ();
-                files = files.Concat (Directory.GetFiles (dirPath, "*.tiff")).ToArray ();
-                files = files.Concat (Directory.GetFiles (dirPath, "*.tif")).ToArray ();
+            if (Directory.Exists(dirPath))
+            {
+                string[] files = Directory.GetFiles(dirPath, "*.jpg");
+                files = files.Concat(Directory.GetFiles(dirPath, "*.jpeg")).ToArray();
+                files = files.Concat(Directory.GetFiles(dirPath, "*.png")).ToArray();
+                files = files.Concat(Directory.GetFiles(dirPath, "*.tiff")).ToArray();
+                files = files.Concat(Directory.GetFiles(dirPath, "*.tif")).ToArray();
                 return files;
             }
             return new string[0];
@@ -888,136 +1055,216 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Raises the destroy event.
         /// </summary>
-        void OnDestroy ()
+        void OnDestroy()
         {
-            if (isImagesInputMode) {
-                DisposeCalibraton ();
-            } else {
-                webCamTextureToMatHelper.Dispose ();
+            if (isImagesInputMode)
+            {
+                DisposeCalibraton();
             }
-                
+            else
+            {
+                webCamTextureToMatHelper.Dispose();
+            }
+
             Screen.orientation = ScreenOrientation.AutoRotation;
         }
 
         /// <summary>
         /// Raises the back button click event.
         /// </summary>
-        public void OnBackButtonClick ()
+        public void OnBackButtonClick()
         {
-            SceneManager.LoadScene ("OpenCVForUnityExample");
+            SceneManager.LoadScene("OpenCVForUnityExample");
         }
 
         /// <summary>
         /// Raises the play button click event.
         /// </summary>
-        public void OnPlayButtonClick ()
+        public void OnPlayButtonClick()
         {
             if (isImagesInputMode)
                 return;
 
-            webCamTextureToMatHelper.Play ();
+            webCamTextureToMatHelper.Play();
         }
 
         /// <summary>
         /// Raises the pause button click event.
         /// </summary>
-        public void OnPauseButtonClick ()
+        public void OnPauseButtonClick()
         {
             if (isImagesInputMode)
                 return;
 
-            webCamTextureToMatHelper.Pause ();
+            webCamTextureToMatHelper.Pause();
         }
 
         /// <summary>
         /// Raises the stop button click event.
         /// </summary>
-        public void OnStopButtonClick ()
+        public void OnStopButtonClick()
         {
             if (isImagesInputMode)
                 return;
 
-            webCamTextureToMatHelper.Stop ();
+            webCamTextureToMatHelper.Stop();
         }
 
         /// <summary>
         /// Raises the change camera button click event.
         /// </summary>
-        public void OnChangeCameraButtonClick ()
+        public void OnChangeCameraButtonClick()
         {
             if (isImagesInputMode)
                 return;
 
-            webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing ();
+            webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing();
         }
 
         /// <summary>
         /// Raises the marker type dropdown value changed event.
         /// </summary>
-        public void OnMarkerTypeDropdownValueChanged (int result)
+        public void OnMarkerTypeDropdownValueChanged(int result)
         {
-            if ((int)markerType != result) {
+            if ((int)markerType != result)
+            {
                 markerType = (MarkerType)result;
 
-                dictionaryIdDropdown.interactable = (markerType == MarkerType.ChArUcoBoard);
+                bool arUcoCalibMode = markerType == MarkerType.ChArUcoBoard;
 
-                if (isImagesInputMode) {
-                    InitializeImagesInputMode ();
-                } else {
-                    if (webCamTextureToMatHelper.IsInitialized ())
-                        webCamTextureToMatHelper.Initialize ();
+                normalCalibrationOptionsGroup.gameObject.SetActive(!arUcoCalibMode);
+                arUcoCalibrationOptionsGroup.gameObject.SetActive(arUcoCalibMode);
+
+                if (isImagesInputMode)
+                {
+                    InitializeImagesInputMode();
+                }
+                else
+                {
+                    if (webCamTextureToMatHelper.IsInitialized())
+                        webCamTextureToMatHelper.Initialize();
                 }
             }
         }
+
+        /// <summary>
+        /// Raises the board size W dropdown value changed event.
+        /// </summary>
+        public void OnBoardSizeWDropdownValueChanged(int result)
+        {
+            if ((int)boardSizeW != result + 1)
+            {
+                boardSizeW = (NumberOfBoardSizeWidth)(result + 1);
+
+                gridWidth = squareSize * ((int)boardSizeW - 1);
+                gridWidthInputField.text = gridWidth.ToString();
+
+                if (isImagesInputMode)
+                {
+                    InitializeImagesInputMode();
+                }
+                else
+                {
+                    if (webCamTextureToMatHelper.IsInitialized())
+                        webCamTextureToMatHelper.Initialize();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Raises the board size H dropdown value changed event.
+        /// </summary>
+        public void OnBoardSizeHDropdownValueChanged(int result)
+        {
+            if ((int)boardSizeH != result + 1)
+            {
+                boardSizeH = (NumberOfBoardSizeHeight)(result + 1);
+
+                if (isImagesInputMode)
+                {
+                    InitializeImagesInputMode();
+                }
+                else
+                {
+                    if (webCamTextureToMatHelper.IsInitialized())
+                        webCamTextureToMatHelper.Initialize();
+                }
+            }
+        }
+
+
+
+        /// <summary>
+        /// Raises the square size input field end edit event.
+        /// </summary>
+        public void OnSquareSizeInputFieldEndEdit()
+        {
+            float f;
+            bool result = float.TryParse(squareSizeInputField.text, out f);
+
+            if (result)
+            {
+                squareSize = f;
+                squareSizeInputField.text = f.ToString();
+            }
+            else
+            {
+                squareSize = 1f;
+                squareSizeInputField.text = squareSize.ToString();
+            }
+        }
+
+        /// <summary>
+        /// Raises the use new calibration method toggle value changed event.
+        /// </summary>
+        public void OnUseNewCalibrationMethodToggleValueChanged()
+        {
+            if (useNewCalibrationMethod != useNewCalibrationMethodToggle.isOn)
+            {
+                useNewCalibrationMethod = useNewCalibrationMethodToggle.isOn;
+            }
+        }
+
+        /// <summary>
+        /// Raises the grid width input field end edit event.
+        /// </summary>
+        public void OnGridWidthInputFieldEndEdit()
+        {
+            float f;
+            bool result = float.TryParse(gridWidthInputField.text, out f);
+
+            if (result)
+            {
+                gridWidth = f;
+                gridWidthInputField.text = f.ToString();
+            }
+            else
+            {
+                gridWidth = squareSize * ((int)boardSizeW - 1);
+                gridWidthInputField.text = gridWidth.ToString();
+            }
+        }
+
+
 
         /// <summary>
         /// Raises the dictionary id dropdown value changed event.
         /// </summary>
-        public void OnDictionaryIdDropdownValueChanged (int result)
+        public void OnDictionaryIdDropdownValueChanged(int result)
         {
-            if ((int)dictionaryId != result) {
+            if ((int)dictionaryId != result)
+            {
                 dictionaryId = (ArUcoDictionary)result;
-                dictionary = Aruco.getPredefinedDictionary ((int)dictionaryId);
+                dictionary = Aruco.getPredefinedDictionary((int)dictionaryId);
 
-                if (isImagesInputMode) {
-                    InitializeImagesInputMode ();
-                } else {
-                    if (webCamTextureToMatHelper.IsInitialized ())
-                        webCamTextureToMatHelper.Initialize ();
+                if (isImagesInputMode)
+                {
+                    InitializeImagesInputMode();
                 }
-            }
-        }
-
-        /// <summary>
-        /// Raises the squares X dropdown value changed event.
-        /// </summary>
-        public void OnSquaresXDropdownValueChanged (int result)
-        {
-            if ((int)squaresX != result + 1) {
-                squaresX = (NumberOfSquaresX)(result + 1);
-
-                if (isImagesInputMode) {
-                    InitializeImagesInputMode ();
-                } else {
-                    if (webCamTextureToMatHelper.IsInitialized ())
-                        webCamTextureToMatHelper.Initialize ();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Raises the squares Y dropdown value changed event.
-        /// </summary>
-        public void OnSquaresYDropdownValueChanged (int result)
-        {
-            if ((int)squaresY != result + 1) {
-                squaresY = (NumberOfSquaresY)(result + 1);
-
-                if (isImagesInputMode) {
-                    InitializeImagesInputMode ();
-                } else {
-                    if (webCamTextureToMatHelper.IsInitialized ())
-                        webCamTextureToMatHelper.Initialize ();
+                else
+                {
+                    if (webCamTextureToMatHelper.IsInitialized())
+                        webCamTextureToMatHelper.Initialize();
                 }
             }
         }
@@ -1025,13 +1272,16 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Raises the capture button click event.
         /// </summary>
-        public void OnCaptureButtonClick ()
+        public void OnCaptureButtonClick()
         {
-            if (isImagesInputMode) {
+            if (isImagesInputMode)
+            {
                 if (!isCalibrating)
-                    InitializeImagesInputMode ();
-                StartCoroutine ("CalibrateCameraUsingImages");
-            } else {
+                    InitializeImagesInputMode();
+                StartCoroutine("CalibrateCameraUsingImages");
+            }
+            else
+            {
                 shouldCaptureFrame = true;
             }
         }
@@ -1039,77 +1289,125 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Raises the reset button click event.
         /// </summary>
-        public void OnResetButtonClick ()
+        public void OnResetButtonClick()
         {
-            if (isImagesInputMode) {
+            if (isImagesInputMode)
+            {
                 if (!isCalibrating)
-                    InitializeImagesInputMode ();
-            } else {
-                ResetCalibration ();
+                    InitializeImagesInputMode();
+            }
+            else
+            {
+                ResetCalibration();
             }
         }
 
         /// <summary>
         /// Raises the save button click event.
         /// </summary>
-        public void OnSaveButtonClick ()
+        public void OnSaveButtonClick()
         {
-            string saveDirectoryPath = Path.Combine (Application.persistentDataPath, "ArUcoCameraCalibrationExample");
+            string saveDirectoryPath = Path.Combine(Application.persistentDataPath, "ArUcoCameraCalibrationExample");
 
-            if (!Directory.Exists (saveDirectoryPath)) {
-                Directory.CreateDirectory (saveDirectoryPath);
+            if (!Directory.Exists(saveDirectoryPath))
+            {
+                Directory.CreateDirectory(saveDirectoryPath);
             }
 
-            string calibratonDirectoryName = "camera_parameters" + bgrMat.width () + "x" + bgrMat.height ();
-            string saveCalibratonFileDirectoryPath = Path.Combine (saveDirectoryPath, calibratonDirectoryName);
+            string calibratonDirectoryName = "camera_parameters" + bgrMat.width() + "x" + bgrMat.height();
+            string saveCalibratonFileDirectoryPath = Path.Combine(saveDirectoryPath, calibratonDirectoryName);
 
             // Clean up old files.
-            if (Directory.Exists (saveCalibratonFileDirectoryPath)) {
-                DirectoryInfo directoryInfo = new DirectoryInfo (saveCalibratonFileDirectoryPath);
-                foreach (FileInfo fileInfo in directoryInfo.GetFiles()) {
-                    if ((fileInfo.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly) {
+            if (Directory.Exists(saveCalibratonFileDirectoryPath))
+            {
+                DirectoryInfo directoryInfo = new DirectoryInfo(saveCalibratonFileDirectoryPath);
+                foreach (FileInfo fileInfo in directoryInfo.GetFiles())
+                {
+                    if ((fileInfo.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+                    {
                         fileInfo.Attributes = FileAttributes.Normal;
                     }
                 }
-                if ((directoryInfo.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly) {
+                if ((directoryInfo.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+                {
                     directoryInfo.Attributes = FileAttributes.Directory;
                 }
-                directoryInfo.Delete (true);
+                directoryInfo.Delete(true);
             }
-            Directory.CreateDirectory (saveCalibratonFileDirectoryPath);
+            Directory.CreateDirectory(saveCalibratonFileDirectoryPath);
 
             // save the calibraton file.
-            string savePath = Path.Combine (saveCalibratonFileDirectoryPath, calibratonDirectoryName + ".xml");
-            int frameCount = (markerType == (int)MarkerType.ChArUcoBoard) ? allCorners.Count : imagePoints.Count;
-            CameraParameters param = new CameraParameters (frameCount, bgrMat.width (), bgrMat.height (), calibrationFlags, camMatrix, distCoeffs, repErr);
-            XmlSerializer serializer = new XmlSerializer (typeof(CameraParameters));
-            using (var stream = new FileStream (savePath, FileMode.Create)) {
-                serializer.Serialize (stream, param);
+            string savePath = Path.Combine(saveCalibratonFileDirectoryPath, calibratonDirectoryName + ".xml");
+            int frameCount = (markerType == MarkerType.ChArUcoBoard) ? allCorners.Count : imagePoints.Count;
+            CameraParameters param = new CameraParameters(frameCount, bgrMat.width(), bgrMat.height(), calibrationFlags, camMatrix, distCoeffs, repErr);
+            XmlSerializer serializer = new XmlSerializer(typeof(CameraParameters));
+            using (var stream = new FileStream(savePath, FileMode.Create))
+            {
+                serializer.Serialize(stream, param);
             }
 
             // save the calibration images.
-            #if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL && !UNITY_EDITOR
             string format = "jpg";
             MatOfInt compressionParams = new MatOfInt(Imgcodecs.IMWRITE_JPEG_QUALITY, 100);
-            #else
+#else
             string format = "png";
-            MatOfInt compressionParams = new MatOfInt (Imgcodecs.IMWRITE_PNG_COMPRESSION, 0);
-            #endif
-            for (int i = 0; i < allImgs.Count; ++i) {
-                Imgcodecs.imwrite (Path.Combine (saveCalibratonFileDirectoryPath, calibratonDirectoryName + "_" + i.ToString ("00") + "." + format), allImgs [i], compressionParams);
+            MatOfInt compressionParams = new MatOfInt(Imgcodecs.IMWRITE_PNG_COMPRESSION, 0);
+#endif
+            for (int i = 0; i < allImgs.Count; ++i)
+            {
+                Imgcodecs.imwrite(Path.Combine(saveCalibratonFileDirectoryPath, calibratonDirectoryName + "_" + i.ToString("00") + "." + format), allImgs[i], compressionParams);
             }
 
             savePathInputField.text = savePath;
-            Debug.Log ("Saved the CameraParameters to disk in XML file format.");
-            Debug.Log ("savePath: " + savePath);
+            Debug.Log("Saved the CameraParameters to disk in XML file format.");
+            Debug.Log("savePath: " + savePath);
         }
 
         public enum MarkerType
         {
-            ChArUcoBoard,
             ChessBoard,
             CirclesGlid,
-            AsymmetricCirclesGlid
+            AsymmetricCirclesGlid,
+            ChArUcoBoard,
+        }
+
+        public enum NumberOfBoardSizeWidth
+        {
+            W_1 = 1,
+            W_2,
+            W_3,
+            W_4,
+            W_5,
+            W_6,
+            W_7,
+            W_8,
+            W_9,
+            W_10,
+            W_11,
+            W_12,
+            W_13,
+            W_14,
+            W_15,
+        }
+
+        public enum NumberOfBoardSizeHeight
+        {
+            H_1 = 1,
+            H_2,
+            H_3,
+            H_4,
+            H_5,
+            H_6,
+            H_7,
+            H_8,
+            H_9,
+            H_10,
+            H_11,
+            H_12,
+            H_13,
+            H_14,
+            H_15,
         }
 
         public enum ArUcoDictionary
@@ -1131,44 +1429,6 @@ namespace OpenCVForUnityExample
             DICT_7X7_250 = Aruco.DICT_7X7_250,
             DICT_7X7_1000 = Aruco.DICT_7X7_1000,
             DICT_ARUCO_ORIGINAL = Aruco.DICT_ARUCO_ORIGINAL,
-        }
-
-        public enum NumberOfSquaresX
-        {
-            X_1 = 1,
-            X_2,
-            X_3,
-            X_4,
-            X_5,
-            X_6,
-            X_7,
-            X_8,
-            X_9,
-            X_10,
-            X_11,
-            X_12,
-            X_13,
-            X_14,
-            X_15,
-        }
-
-        public enum NumberOfSquaresY
-        {
-            Y_1 = 1,
-            Y_2,
-            Y_3,
-            Y_4,
-            Y_5,
-            Y_6,
-            Y_7,
-            Y_8,
-            Y_9,
-            Y_10,
-            Y_11,
-            Y_12,
-            Y_13,
-            Y_14,
-            Y_15,
         }
     }
 }

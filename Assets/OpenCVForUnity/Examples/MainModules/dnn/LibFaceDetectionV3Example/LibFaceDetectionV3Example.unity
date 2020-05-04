@@ -209,7 +209,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1709852089}
+      - m_Target: {fileID: 1709852087}
         m_MethodName: OnPauseButtonClick
         m_Mode: 1
         m_Arguments:
@@ -852,7 +852,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1709852089}
+      - m_Target: {fileID: 1709852087}
         m_MethodName: OnBackButtonClick
         m_Mode: 1
         m_Arguments:
@@ -999,7 +999,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1709852089}
+      - m_Target: {fileID: 1709852087}
         m_MethodName: OnStopButtonClick
         m_Mode: 1
         m_Arguments:
@@ -1209,7 +1209,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1709852089}
+      - m_Target: {fileID: 1709852087}
         m_MethodName: OnChangeCameraButtonClick
         m_Mode: 1
         m_Arguments:
@@ -1490,7 +1490,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1709852089}
+      - m_Target: {fileID: 1709852087}
         m_MethodName: OnPlayButtonClick
         m_Mode: 1
         m_Arguments:
@@ -1569,7 +1569,7 @@ GameObject:
   - component: {fileID: 1709852084}
   - component: {fileID: 1709852083}
   - component: {fileID: 1709852082}
-  - component: {fileID: 1709852089}
+  - component: {fileID: 1709852087}
   - component: {fileID: 1709852086}
   - component: {fileID: 1709852088}
   m_Layer: 0
@@ -1668,7 +1668,7 @@ MonoBehaviour:
   onInitialized:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1709852089}
+      - m_Target: {fileID: 1709852087}
         m_MethodName: OnWebCamTextureToMatHelperInitialized
         m_Mode: 1
         m_Arguments:
@@ -1684,7 +1684,7 @@ MonoBehaviour:
   onDisposed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1709852089}
+      - m_Target: {fileID: 1709852087}
         m_MethodName: OnWebCamTextureToMatHelperDisposed
         m_Mode: 1
         m_Arguments:
@@ -1700,7 +1700,7 @@ MonoBehaviour:
   onErrorOccurred:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1709852089}
+      - m_Target: {fileID: 1709852087}
         m_MethodName: OnWebCamTextureToMatHelperErrorOccurred
         m_Mode: 0
         m_Arguments:
@@ -1714,6 +1714,33 @@ MonoBehaviour:
     m_TypeName: OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper+ErrorUnityEvent,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   avoidAndroidFrontCameraLowLightIssue: 0
+--- !u!114 &1709852087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1709852081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a775784d98b428b46b5f53426f32ed6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: yunet_final.onnx
+  config: 
+  classes: 
+  classesList: []
+  confThreshold: 0.7
+  nmsThreshold: 0.3
+  scale: 1
+  mean:
+    val:
+    - 0
+    - 0
+    - 0
+    - 0
+  swapRB: 0
+  inpWidth: 320
+  inpHeight: 240
 --- !u!114 &1709852088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1733,30 +1760,3 @@ MonoBehaviour:
   padding: {x: 8, y: 5}
   consoleHeight: 50
   consoleText: 
---- !u!114 &1709852089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1709852081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b267043c7498e3498dbd64608225c98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  model: yufacedetectnet-open-v2.caffemodel
-  config: yufacedetectnet-open-v2.prototxt
-  classes: 
-  classesList: []
-  confThreshold: 0.5
-  nmsThreshold: 0.5
-  scale: 1
-  mean:
-    val:
-    - 0
-    - 0
-    - 0
-    - 0
-  swapRB: 0
-  inpWidth: 320
-  inpHeight: 240

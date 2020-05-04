@@ -42,7 +42,7 @@ RenderSettings:
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 11
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -54,7 +54,7 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 8
+    serializedVersion: 9
     m_Resolution: 1
     m_BakeResolution: 50
     m_TextureWidth: 1024
@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
   m_LightingDataAsset: {fileID: 0}
-  m_ShadowMaskMode: 2
+  m_UseShadowmask: 1
 --- !u!196 &5
 NavMeshSettings:
   serializedVersion: 2
@@ -168,6 +168,7 @@ MonoBehaviour:
   m_PreferredHeight: 40
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!114 &266668977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,7 +266,6 @@ GameObject:
   m_Component:
   - component: {fileID: 395431855}
   - component: {fileID: 395431854}
-  - component: {fileID: 395431853}
   - component: {fileID: 395431852}
   - component: {fileID: 395431851}
   m_Layer: 0
@@ -283,13 +283,6 @@ AudioListener:
   m_GameObject: {fileID: 395431850}
   m_Enabled: 1
 --- !u!124 &395431852
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 395431850}
-  m_Enabled: 1
---- !u!92 &395431853
 Behaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -607,7 +600,6 @@ GameObject:
   - component: {fileID: 1045041049}
   - component: {fileID: 1045041048}
   - component: {fileID: 1045041047}
-  - component: {fileID: 1045041046}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -615,19 +607,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1045041046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: 516b0ed7bbe49b54eb11d0acece129f1,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1045041045}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1997211142, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ForceModuleActive: 0
 --- !u!114 &1045041047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -810,6 +789,7 @@ MonoBehaviour:
   m_PreferredHeight: 40
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!114 &1177067777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -956,6 +936,7 @@ MonoBehaviour:
   m_PreferredHeight: 40
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!114 &1200307542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1165,6 +1146,7 @@ MonoBehaviour:
   m_PreferredHeight: 40
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!114 &1499899216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1445,6 +1427,7 @@ MonoBehaviour:
   m_PreferredHeight: 40
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!114 &1699795910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1708,6 +1691,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper+ErrorUnityEvent,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  avoidAndroidFrontCameraLowLightIssue: 0
 --- !u!114 &1709852087
 MonoBehaviour:
   m_ObjectHideFlags: 0
