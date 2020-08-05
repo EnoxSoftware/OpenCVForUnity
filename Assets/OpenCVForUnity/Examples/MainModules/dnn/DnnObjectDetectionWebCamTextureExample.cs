@@ -38,25 +38,25 @@ namespace OpenCVForUnityExample
         public List<string> classesList;
 
         [TooltipAttribute("Confidence threshold.")]
-        public float confThreshold;
+        public float confThreshold = 0.5f;
 
         [TooltipAttribute("Non-maximum suppression threshold.")]
-        public float nmsThreshold;
+        public float nmsThreshold = 0.4f;
 
         [TooltipAttribute("Preprocess input image by multiplying on a scale factor.")]
-        public float scale;
+        public float scale = 1.0f;
 
         [TooltipAttribute("Preprocess input image by subtracting mean values. Mean values should be in BGR order and delimited by spaces.")]
-        public Scalar mean;
+        public Scalar mean = new Scalar(0, 0, 0, 0);
 
         [TooltipAttribute("Indicate that model works with RGB input images instead BGR ones.")]
-        public bool swapRB;
+        public bool swapRB = false;
 
         [TooltipAttribute("Preprocess input image by resizing to a specific width.")]
-        public int inpWidth;
+        public int inpWidth = 320;
 
         [TooltipAttribute("Preprocess input image by resizing to a specific height.")]
-        public int inpHeight;
+        public int inpHeight = 320;
 
 
         /// <summary>
@@ -319,7 +319,7 @@ namespace OpenCVForUnityExample
                     //Debug.Log ("Inference time, ms: " + tm.getTimeMilli ());
 
 
-                    postprocess(rgbaMat, outs, net);
+                    postprocess(rgbaMat, outs, net, Dnn.DNN_BACKEND_OPENCV);
 
                     for (int i = 0; i < outs.Count; i++)
                     {
@@ -433,10 +433,11 @@ namespace OpenCVForUnityExample
         /// <param name="frame">Frame.</param>
         /// <param name="outs">Outs.</param>
         /// <param name="net">Net.</param>
-        protected virtual void postprocess(Mat frame, List<Mat> outs, Net net)
+        /// <param name="backend">Backend.</param>
+        protected virtual void postprocess(Mat frame, List<Mat> outs, Net net, int backend = Dnn.DNN_BACKEND_OPENCV)
         {
+            MatOfInt outLayers = net.getUnconnectedOutLayers();
             string outLayerType = outBlobTypes[0];
-
 
             List<int> classIdsList = new List<int>();
             List<float> confidencesList = new List<float>();
@@ -450,7 +451,6 @@ namespace OpenCVForUnityExample
 
                 if (outs.Count == 1)
                 {
-
                     outs[0] = outs[0].reshape(1, (int)outs[0].total() / 7);
 
                     //Debug.Log ("outs[i].ToString() " + outs [0].ToString ());
@@ -459,11 +459,9 @@ namespace OpenCVForUnityExample
 
                     for (int i = 0; i < outs[0].rows(); i++)
                     {
-
                         outs[0].get(i, 0, data);
 
                         float confidence = data[2];
-
                         if (confidence > confThreshold)
                         {
                             int class_id = (int)(data[1]);
@@ -475,7 +473,7 @@ namespace OpenCVForUnityExample
                             float width = right - left + 1f;
                             float height = bottom - top + 1f;
 
-                            classIdsList.Add((int)(class_id) - 0);
+                            classIdsList.Add((int)(class_id) - 1); // Skip 0th background class id.
                             confidencesList.Add((float)confidence);
                             boxesList.Add(new Rect2d(left, top, width, height));
                         }
@@ -490,25 +488,16 @@ namespace OpenCVForUnityExample
 
                 if (outs.Count == 1)
                 {
-
-                    //Debug.Log(outs.Count);
-                    //Debug.Log(outs[0]);
-
                     outs[0] = outs[0].reshape(1, (int)outs[0].total() / 7);
 
                     //Debug.Log ("outs[i].ToString() " + outs [0].ToString ());
 
                     float[] data = new float[7];
-
                     for (int i = 0; i < outs[0].rows(); i++)
                     {
-
                         outs[0].get(i, 0, data);
 
-                        //Debug.Log("data[1] " + data[1]);
-
                         float confidence = data[2];
-
                         if (confidence > confThreshold)
                         {
                             int class_id = (int)(data[1]);
@@ -520,7 +509,7 @@ namespace OpenCVForUnityExample
                             float width = right - left + 1f;
                             float height = bottom - top + 1f;
 
-                            classIdsList.Add((int)(class_id) - 0);
+                            classIdsList.Add((int)(class_id) - 1); // Skip 0th background class id.
                             confidencesList.Add((float)confidence);
                             boxesList.Add(new Rect2d(left, top, width, height));
                         }
@@ -539,20 +528,15 @@ namespace OpenCVForUnityExample
 
                     float[] positionData = new float[5];
                     float[] confidenceData = new float[outs[i].cols() - 5];
-
                     for (int p = 0; p < outs[i].rows(); p++)
                     {
-
                         outs[i].get(p, 0, positionData);
-
                         outs[i].get(p, 5, confidenceData);
 
                         int maxIdx = confidenceData.Select((val, idx) => new { V = val, I = idx }).Aggregate((max, working) => (max.V > working.V) ? max : working).I;
                         float confidence = confidenceData[maxIdx];
-
                         if (confidence > confThreshold)
                         {
-
                             float centerX = positionData[0] * frame.cols();
                             float centerY = positionData[1] * frame.rows();
                             float width = positionData[2] * frame.cols();
@@ -563,7 +547,6 @@ namespace OpenCVForUnityExample
                             classIdsList.Add(maxIdx);
                             confidencesList.Add((float)confidence);
                             boxesList.Add(new Rect2d(left, top, width, height));
-
                         }
                     }
                 }
@@ -573,32 +556,62 @@ namespace OpenCVForUnityExample
                 Debug.Log("Unknown output layer type: " + outLayerType);
             }
 
-
-            MatOfRect2d boxes = new MatOfRect2d();
-            boxes.fromList(boxesList);
-
-            MatOfFloat confidences = new MatOfFloat();
-            confidences.fromList(confidencesList);
-
-
-            MatOfInt indices = new MatOfInt();
-            Dnn.NMSBoxes(boxes, confidences, confThreshold, nmsThreshold, indices);
-
-            //Debug.Log ("indices.dump () "+indices.dump ());
-            //Debug.Log ("indices.ToString () "+indices.ToString());
-
-            for (int i = 0; i < indices.total(); ++i)
+            // NMS is used inside Region layer only on DNN_BACKEND_OPENCV for another backends we need NMS in sample
+            // or NMS is required if number of outputs > 1
+            if (outLayers.total() > 1 || (outLayerType == "Region" && backend != Dnn.DNN_BACKEND_OPENCV))
             {
-                int idx = (int)indices.get(i, 0)[0];
+                Dictionary<int, List<int>> class2indices = new Dictionary<int, List<int>>();
+                for (int i = 0; i < classIdsList.Count; i++)
+                {
+                    if (confidencesList[i] >= confThreshold)
+                    {
+                        if (!class2indices.ContainsKey(classIdsList[i]))
+                            class2indices.Add(classIdsList[i], new List<int>());
+
+                        class2indices[classIdsList[i]].Add(i);
+                    }
+                }
+
+                List<Rect2d> nmsBoxesList = new List<Rect2d>();
+                List<float> nmsConfidencesList = new List<float>();
+                List<int> nmsClassIdsList = new List<int>();
+                foreach (int key in class2indices.Keys)
+                {
+                    List<Rect2d> localBoxesList = new List<Rect2d>();
+                    List<float> localConfidencesList = new List<float>();
+                    List<int> classIndicesList = class2indices[key];
+                    for (int i = 0; i < classIndicesList.Count; i++)
+                    {
+                        localBoxesList.Add(boxesList[classIndicesList[i]]);
+                        localConfidencesList.Add(confidencesList[classIndicesList[i]]);
+                    }
+
+                    using (MatOfRect2d localBoxes = new MatOfRect2d(localBoxesList.ToArray()))
+                    using (MatOfFloat localConfidences = new MatOfFloat(localConfidencesList.ToArray()))
+                    using (MatOfInt nmsIndices = new MatOfInt())
+                    {
+                        Dnn.NMSBoxes(localBoxes, localConfidences, confThreshold, nmsThreshold, nmsIndices);
+                        for (int i = 0; i < nmsIndices.total(); i++)
+                        {
+                            int idx = (int)nmsIndices.get(i, 0)[0];
+                            nmsBoxesList.Add(localBoxesList[idx]);
+                            nmsConfidencesList.Add(localConfidencesList[idx]);
+                            nmsClassIdsList.Add(key);
+                        }
+                    }
+                }
+
+                boxesList = nmsBoxesList;
+                classIdsList = nmsClassIdsList;
+                confidencesList = nmsConfidencesList;
+            }
+
+            for (int idx = 0; idx < boxesList.Count; ++idx)
+            {
                 Rect2d box = boxesList[idx];
                 drawPred(classIdsList[idx], confidencesList[idx], box.x, box.y,
                     box.x + box.width, box.y + box.height, frame);
             }
-
-            indices.Dispose();
-            boxes.Dispose();
-            confidences.Dispose();
-
         }
 
         /// <summary>

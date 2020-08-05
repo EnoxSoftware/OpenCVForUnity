@@ -119,7 +119,7 @@ namespace OpenCVForUnityExample
             imageSizeDropdown.value = (int)imageSize;
             countDropdown.value = 2;
 
-            fgTex = Resources.Load("lena") as Texture2D;
+            fgTex = Resources.Load("face") as Texture2D;
             bgTex = new Texture2D(fgTex.width, fgTex.height, TextureFormat.RGBA32, false);
             alphaTex = new Texture2D(fgTex.width, fgTex.height, TextureFormat.RGBA32, false);
             dstTex = new Texture2D(fgTex.width, fgTex.height, TextureFormat.RGBA32, false);

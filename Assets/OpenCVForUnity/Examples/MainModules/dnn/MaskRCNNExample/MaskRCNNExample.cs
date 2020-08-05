@@ -10,32 +10,26 @@ using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.DnnModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UtilsModule;
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// MaskRCNN Example
+    /// Mask-RCNN Example
+    /// Use this script to run Mask-RCNN object detection and semantic segmentation network from TensorFlow Object Detection API.
     /// Referring to https://github.com/opencv/opencv/blob/master/samples/dnn/mask_rcnn.py.
     /// </summary>
     public class MaskRCNNExample : MonoBehaviour
     {
         const int width = 800;
         const int height = 800;
-
         const float thr = 0.6f;
-        const float mask_thr = 0.5f;
+        //const float mask_thr = 0.5f;
 
         List<string> classNames;
         List<Scalar> classColors;
 
         /// <summary>
-        /// CLASSES_FILENAME
-        /// </summary>
-        protected static readonly string CLASSES_FILENAME = "dnn/mscoco_labels.names";
-
-        /// <summary>
-        /// The classes filepath.
+        /// Path to input image file.
         /// </summary>
         string classes_filepath;
 
@@ -50,7 +44,7 @@ namespace OpenCVForUnityExample
         string image_filepath;
 
         /// <summary>
-        /// MODEL_FILENAME
+        /// Path to a .pb file with weights.
         /// </summary>
         protected static readonly string MODEL_FILENAME = "dnn/mask_rcnn_inception_v2_coco_2018_01_28.pb";
 
@@ -60,7 +54,7 @@ namespace OpenCVForUnityExample
         string model_filepath;
 
         /// <summary>
-        /// CONFIG_FILENAME
+        /// Path to a .pxtxt file contains network configuration.
         /// </summary>
         protected static readonly string CONFIG_FILENAME = "dnn/mask_rcnn_inception_v2_coco_2018_01_28.pbtxt";
 
@@ -68,6 +62,12 @@ namespace OpenCVForUnityExample
         /// The config filepath.
         /// </summary>
         string config_filepath;
+
+        /// <summary>
+        /// Path to input image file.
+        /// </summary>
+        protected static readonly string CLASSES_FILENAME = "dnn/coco-labels-paper.txt";
+
 
 
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -194,12 +194,13 @@ namespace OpenCVForUnityExample
             else
             {
 
-                float frameWidth = img.cols();
-                float frameHeight = img.rows();
+                float frameW = img.cols();
+                float frameH = img.rows();
 
+                // Create a 4D blob from a frame.
                 Mat blob = Dnn.blobFromImage(img, 1.0, new Size(width, height), new Scalar(0, 0, 0), true, false);
 
-
+                //Run a model
                 net.setInput(blob);
 
                 List<Mat> outputBlobs = new List<Mat>();
@@ -207,122 +208,72 @@ namespace OpenCVForUnityExample
                 outputName.Add("detection_out_final");
                 outputName.Add("detection_masks");
 
+                TickMeter tm = new TickMeter();
+                tm.start();
+
                 net.forward(outputBlobs, outputName);
+
+                tm.stop();
+                Debug.Log("Inference time, ms: " + tm.getTimeMilli());
 
                 Mat boxes = outputBlobs[0];
                 Mat masks = outputBlobs[1];
 
+                int numClasses = masks.size(1);
+                int numDetections = boxes.size(2);
+                int mask_sizeH = masks.size(2);
+                int mask_sizeW = masks.size(3);
 
-                //int numClasses = masks.size (1);
-                //int numDetections = boxes.size (2);
-
-
-                Debug.Log("boxes.size(0) " + boxes.size(0));
-                Debug.Log("boxes.size(1) " + boxes.size(1));
-                Debug.Log("boxes.size(2) " + boxes.size(2));
-                Debug.Log("boxes.size(3) " + boxes.size(3));
-                Debug.Log("masks.size(0) " + masks.size(0));
-                Debug.Log("masks.size(1) " + masks.size(1));
-                Debug.Log("masks.size(2) " + masks.size(2));
-                Debug.Log("masks.size(3) " + masks.size(3));
-
-
-                //reshape from 4D to two 2D.
-                float[] data = new float[boxes.size(3)];
-                boxes = boxes.reshape(1, (int)boxes.total() / boxes.size(3));
-                //Debug.Log ("boxes.ToString() " + boxes.ToString ());
-
-                //reshape from 4D to two 2D.
+                float[] box_data = new float[boxes.size(3)];
                 float[] mask_data = new float[masks.size(2) * masks.size(3)];
-                masks = masks.reshape(1, (int)masks.total() / (masks.size(2) * masks.size(3)));
-                //Debug.Log ("masks.ToString(): " + masks.ToString ());
 
-
-                for (int i = 0; i < boxes.rows(); i++)
+                for (int i = 0; i < numDetections; i++)
                 {
+                    boxes.get(new int[] { 0, 0, i, 0 }, box_data);
 
-                    boxes.get(i, 0, data);
-
-                    float score = data[2];
+                    float score = box_data[2];
 
                     if (score > thr)
                     {
-                        int class_id = (int)(data[1]);
+                        int classId = (int)box_data[1];
+
+                        float left = (int)frameW * box_data[3];
+                        float top = (int)frameH * box_data[4];
+                        float right = (int)frameW * box_data[5];
+                        float bottom = (int)frameH * box_data[6];
+
+                        left = (int)Mathf.Max(0, Mathf.Min(left, frameW - 1));
+                        top = (int)Mathf.Max(0, Mathf.Min(top, frameH - 1));
+                        right = (int)Mathf.Max(0, Mathf.Min(right, frameW - 1));
+                        bottom = (int)Mathf.Max(0, Mathf.Min(bottom, frameH - 1));
 
 
-                        float left = (float)(data[3] * frameWidth);
-                        float top = (float)(data[4] * frameHeight);
-                        float right = (float)(data[5] * frameWidth);
-                        float bottom = (float)(data[6] * frameHeight);
+                        masks.get(new int[] { i, classId, 0, 0 }, mask_data);
 
-                        left = (int)Mathf.Max(0, Mathf.Min(left, frameWidth - 1));
-                        top = (int)Mathf.Max(0, Mathf.Min(top, frameHeight - 1));
-                        right = (int)Mathf.Max(0, Mathf.Min(right, frameWidth - 1));
-                        bottom = (int)Mathf.Max(0, Mathf.Min(bottom, frameHeight - 1));
-
-                        Debug.Log("class_id: " + class_id + " class_name " + classNames[class_id] + " left: " + left + " top: " + top + " right: " + right + " bottom: " + bottom);
-
-
-
-                        //draw masks
-
-                        masks.get((i * 90) + class_id, 0, mask_data);
-
-                        Mat objectMask = new Mat(15, 15, CvType.CV_32F);
-                        MatUtils.copyToMat<float>(mask_data, objectMask);
-
-                        Imgproc.resize(objectMask, objectMask, new Size(right - left + 1, bottom - top + 1));
-
-                        Core.compare(objectMask, new Scalar(mask_thr), objectMask, Core.CMP_GT);
-                        //Debug.Log ("objectMask.ToString(): " + objectMask.ToString ());
-                        //Debug.Log ("objectMask.dump(): " + objectMask.dump ());
-
+                        Mat classMask = new Mat(mask_sizeH, mask_sizeW, CvType.CV_32F);
+                        classMask.put(0, 0, mask_data);
+                        Imgproc.resize(classMask, classMask, new Size(right - left + 1, bottom - top + 1));
+                        Core.compare(classMask, new Scalar(0.5), classMask, Core.CMP_GT);
 
                         Mat roi = new Mat(img, new OpenCVForUnity.CoreModule.Rect(new Point(left, top), new Point(right + 1, bottom + 1)));
-
                         Mat coloredRoi = new Mat(roi.size(), CvType.CV_8UC3);
-
-                        Imgproc.rectangle(coloredRoi, new Point(0, 0), new Point(coloredRoi.width(), coloredRoi.height()), classColors[class_id], -1);
-
+                        Imgproc.rectangle(coloredRoi, new Point(0, 0), new Point(coloredRoi.width(), coloredRoi.height()), classColors[classId], -1);
                         Core.addWeighted(coloredRoi, 0.7, roi, 0.3, 0, coloredRoi);
-                        //Debug.Log ("coloredRoi.ToString(): " + coloredRoi.ToString ());
-                        //Debug.Log ("roi.ToString(): " + roi.ToString ());
 
-                        coloredRoi.copyTo(roi, objectMask);
+                        coloredRoi.copyTo(roi, classMask);
                         coloredRoi.Dispose();
-
-                        objectMask.Dispose();
-
+                        classMask.Dispose();
 
 
-                        //draw boxes
+                        drawPred(classId, score, left, top, right, bottom, img);
 
-                        Imgproc.rectangle(img, new Point(left, top), new Point(right, bottom), new Scalar(0, 255, 0), 2);
-
-                        string label = score.ToString();
-                        if (classNames != null && classNames.Count != 0)
-                        {
-                            if (class_id < (int)classNames.Count)
-                            {
-                                label = classNames[class_id] + ": " + label;
-                            }
-                        }
-
-                        int[] baseLine = new int[1];
-                        Size labelSize = Imgproc.getTextSize(label, Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, 1, baseLine);
-
-                        top = Mathf.Max(top, (int)labelSize.height);
-                        Imgproc.rectangle(img, new Point(left, top - labelSize.height),
-                            new Point(left + labelSize.width, top + baseLine[0]), Scalar.all(255), Core.FILLED);
-                        Imgproc.putText(img, label, new Point(left, top), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar(0, 0, 0, 255));
-
+                        Debug.Log("classId:" + classId + " cnof:" + score + " l:" + left + " t:" + top + " r:" + right + " b:" + bottom);
                     }
                 }
 
                 boxes.Dispose();
                 masks.Dispose();
                 blob.Dispose();
-
             }
 
             Imgproc.cvtColor(img, img, Imgproc.COLOR_BGR2RGB);
@@ -367,6 +318,37 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("OpenCVForUnityExample");
         }
 
+        /// <summary>
+        /// Draws the pred.
+        /// </summary>
+        /// <param name="classId">Class identifier.</param>
+        /// <param name="conf">Conf.</param>
+        /// <param name="left">Left.</param>
+        /// <param name="top">Top.</param>
+        /// <param name="right">Right.</param>
+        /// <param name="bottom">Bottom.</param>
+        /// <param name="frame">Frame.</param>
+        protected virtual void drawPred(int classId, float conf, double left, double top, double right, double bottom, Mat frame)
+        {
+            Imgproc.rectangle(frame, new Point(left, top), new Point(right, bottom), new Scalar(0, 255, 0, 255), 2);
+
+            string label = conf.ToString();
+            if (classNames != null && classNames.Count != 0)
+            {
+                if (classId < (int)classNames.Count)
+                {
+                    label = classNames[classId] + ": " + label;
+                }
+            }
+
+            int[] baseLine = new int[1];
+            Size labelSize = Imgproc.getTextSize(label, Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, 1, baseLine);
+
+            top = Mathf.Max((float)top, (float)labelSize.height);
+            Imgproc.rectangle(frame, new Point(left, top - labelSize.height),
+                new Point(left + labelSize.width, top + baseLine[0]), Scalar.all(255), Core.FILLED);
+            Imgproc.putText(frame, label, new Point(left, top), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar(0, 0, 0, 255));
+        }
 
         /// <summary>
         /// Reads the class names.

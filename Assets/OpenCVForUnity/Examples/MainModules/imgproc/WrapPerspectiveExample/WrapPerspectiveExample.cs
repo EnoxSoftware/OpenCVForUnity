@@ -16,7 +16,7 @@ namespace OpenCVForUnityExample
         // Use this for initialization
         void Start()
         {
-            Texture2D inputTexture = Resources.Load("lena") as Texture2D;
+            Texture2D inputTexture = Resources.Load("face") as Texture2D;
 
             Mat inputMat = new Mat(inputTexture.height, inputTexture.width, CvType.CV_8UC4);
             Mat outputMat = inputMat.clone();

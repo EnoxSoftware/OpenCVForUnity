@@ -18,7 +18,7 @@ namespace OpenCVForUnityExample
         // Use this for initialization
         void Start ()
         {
-            Texture2D imgTexture = Resources.Load ("lena") as Texture2D;
+            Texture2D imgTexture = Resources.Load ("face") as Texture2D;
             
             Mat img1Mat = new Mat (imgTexture.height, imgTexture.width, CvType.CV_8UC3);
             Utils.texture2DToMat (imgTexture, img1Mat);

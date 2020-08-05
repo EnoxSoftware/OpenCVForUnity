@@ -17,7 +17,7 @@ namespace OpenCVForUnityExample
         void Start ()
         {
             Texture2D srcTexture = Resources.Load ("template") as Texture2D;
-            Texture2D dstTexture = Resources.Load ("lena") as Texture2D;
+            Texture2D dstTexture = Resources.Load ("face") as Texture2D;
             Mat src = new Mat (srcTexture.height, srcTexture.width, CvType.CV_8UC3);
             Mat dst = new Mat (dstTexture.height, dstTexture.width, CvType.CV_8UC3);
             Utils.texture2DToMat (srcTexture, src);
@@ -27,7 +27,7 @@ namespace OpenCVForUnityExample
             Mat result = new Mat ();
 
     
-            Point point = new Point (315, 450);
+            Point point = new Point(250, 160);
             Photo.seamlessClone (src, dst, mask, point, result, Photo.NORMAL_CLONE);
 
             Debug.Log ("result ToString " + result.ToString ());

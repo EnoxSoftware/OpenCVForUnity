@@ -17,14 +17,14 @@ namespace OpenCVForUnityExample
         // Use this for initialization
         void Start ()
         {
-            Texture2D imageTexture = Resources.Load ("lena") as Texture2D;
+            Texture2D imageTexture = Resources.Load ("face") as Texture2D;
 
             Mat image = new Mat (imageTexture.height, imageTexture.width, CvType.CV_8UC3);
 
             Utils.texture2DToMat (imageTexture, image);
             Debug.Log ("image.ToString() " + image.ToString ());
 
-            Texture2D maskTexture = Resources.Load ("lena_grabcut_mask") as Texture2D;
+            Texture2D maskTexture = Resources.Load ("face_grabcut_mask") as Texture2D;
 
             Mat mask = new Mat (imageTexture.height, imageTexture.width, CvType.CV_8UC1);
 

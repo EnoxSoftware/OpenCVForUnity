@@ -58,6 +58,7 @@ namespace OpenCVForUnityExample
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/OpenPoseExampleButton").GetComponent<Button> ().interactable = false;
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ResnetSSDFaceDetectionExampleButton").GetComponent<Button> ().interactable = false;
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TensorflowInceptionWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
+            GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TextOCRExampleButton").GetComponent<Button> ().interactable = false;
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YoloObjectDetectionExampleButton").GetComponent<Button> ().interactable = false;
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YoloObjectDetectionWebCamTextureExampleButton").GetComponent<Button> ().interactable = false;
 
@@ -385,6 +386,11 @@ namespace OpenCVForUnityExample
         public void OnTensorflowInceptionWebCamTextureExampleButtonClick()
         {
             SceneManager.LoadScene("TensorflowInceptionWebCamTextureExample");
+        }
+
+        public void OnTextOCRExampleButtonClick()
+        {
+            SceneManager.LoadScene("TextOCRExample");
         }
 
         public void OnYoloObjectDetectionExampleButtonClick()

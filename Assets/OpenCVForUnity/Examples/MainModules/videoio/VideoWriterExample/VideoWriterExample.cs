@@ -106,7 +106,7 @@ namespace OpenCVForUnitySample
 
         private void Initialize()
         {
-            Texture2D imgTexture = Resources.Load("lena") as Texture2D;
+            Texture2D imgTexture = Resources.Load("face") as Texture2D;
 
             Mat imgMat = new Mat(imgTexture.height, imgTexture.width, CvType.CV_8UC4);
 
@@ -181,7 +181,11 @@ namespace OpenCVForUnitySample
             this.savePath = savePath;
 
             writer = new VideoWriter();
+#if !UNITY_IOS
             writer.open(savePath, VideoWriter.fourcc('M', 'J', 'P', 'G'), 30, new Size(Screen.width, Screen.height));
+#else
+            writer.open(savePath, VideoWriter.fourcc('D', 'V', 'I', 'X'), 30, new Size(Screen.width, Screen.height));
+#endif
 
             if (!writer.isOpened())
             {
@@ -301,8 +305,11 @@ namespace OpenCVForUnitySample
             }
             else
             {
-
+#if !UNITY_IOS
                 StartRecording(Application.persistentDataPath + "/VideoWriterExample_output.avi");
+#else
+                StartRecording(Application.persistentDataPath + "/VideoWriterExample_output.m4v");
+#endif
 
                 if (isRecording)
                 {

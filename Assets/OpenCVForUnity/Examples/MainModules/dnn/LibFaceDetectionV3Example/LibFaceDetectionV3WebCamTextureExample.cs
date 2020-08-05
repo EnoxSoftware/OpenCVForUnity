@@ -30,9 +30,8 @@ namespace OpenCVForUnityExample
             base.Run();
         }
 
-        protected override void postprocess(Mat frame, List<Mat> outs, Net net)
+        protected override void postprocess(Mat frame, List<Mat> outs, Net net, int backend = Dnn.DNN_BACKEND_OPENCV)
         {
-
             List<int> classIdsList = new List<int>();
             List<float> confidencesList = new List<float>();
             List<Rect2d> boxesList = new List<Rect2d>();
@@ -134,7 +133,6 @@ namespace OpenCVForUnityExample
             indices.Dispose();
             boxes.Dispose();
             confidences.Dispose();
-
         }
 
         protected virtual Mat generatePriors(int width = 320, int height = 240)
