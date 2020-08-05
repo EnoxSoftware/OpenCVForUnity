@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.9</span>
+   &#160;<span id="projectnumber">2.4.0</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.3.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -257,28 +257,28 @@ Additional Inherited Members</h2></td></tr>
 <li>adaptiveThreshConstant: constant for adaptive thresholding before finding contours (default 7)</li>
 <li>minMarkerPerimeterRate: determine minimum perimeter for marker contour to be detected. This is defined as a rate respect to the maximum dimension of the input image (default 0.03).</li>
 <li>maxMarkerPerimeterRate: determine maximum perimeter for marker contour to be detected. This is defined as a rate respect to the maximum dimension of the input image (default 4.0).</li>
-<li>polygonalApproxAccuracyRate: minimum accuracy during the polygonal approximation process to determine which contours are squares.</li>
+<li>polygonalApproxAccuracyRate: minimum accuracy during the polygonal approximation process to determine which contours are squares. (default 0.03)</li>
 <li>minCornerDistanceRate: minimum distance between corners for detected markers relative to its perimeter (default 0.05)</li>
 <li>minDistanceToBorder: minimum distance of any corner to the image border for detected markers (in pixels) (default 3)</li>
 <li>minMarkerDistanceRate: minimum mean distance beetween two marker corners to be considered similar, so that the smaller one is removed. The rate is relative to the smaller perimeter of the two markers (default 0.05).</li>
-<li>cornerRefinementMethod: corner refinement method. (CORNER_REFINE_NONE, no refinement. CORNER_REFINE_SUBPIX, do subpixel refinement. CORNER_REFINE_CONTOUR use contour-Points, CORNER_REFINE_APRILTAG use the AprilTag2 approach)</li>
+<li>cornerRefinementMethod: corner refinement method. (CORNER_REFINE_NONE, no refinement. CORNER_REFINE_SUBPIX, do subpixel refinement. CORNER_REFINE_CONTOUR use contour-Points, CORNER_REFINE_APRILTAG use the AprilTag2 approach). (default CORNER_REFINE_NONE)</li>
 <li>cornerRefinementWinSize: window size for the corner refinement process (in pixels) (default 5).</li>
 <li>cornerRefinementMaxIterations: maximum number of iterations for stop criteria of the corner refinement process (default 30).</li>
 <li>cornerRefinementMinAccuracy: minimum error for the stop cristeria of the corner refinement process (default: 0.1)</li>
 <li>markerBorderBits: number of bits of the marker border, i.e. marker border width (default 1).</li>
-<li>perspectiveRemovePixelPerCell: number of bits (per dimension) for each cell of the marker when removing the perspective (default 8).</li>
+<li>perspectiveRemovePixelPerCell: number of bits (per dimension) for each cell of the marker when removing the perspective (default 4).</li>
 <li>perspectiveRemoveIgnoredMarginPerCell: width of the margin of pixels on each cell not considered for the determination of the cell bit. Represents the rate respect to the total size of the cell, i.e. perspectiveRemovePixelPerCell (default 0.13)</li>
 <li>maxErroneousBitsInBorderRate: maximum number of accepted erroneous bits in the border (i.e. number of allowed white bits in the border). Represented as a rate respect to the total number of bits per marker (default 0.35).</li>
 <li>minOtsuStdDev: minimun standard deviation in pixels values during the decodification step to apply Otsu thresholding (otherwise, all the bits are set to 0 or 1 depending on mean higher than 128 or not) (default 5.0)</li>
 <li>errorCorrectionRate error correction rate respect to the maximun error correction capability for each dictionary. (default 0.6).</li>
-<li>aprilTagMinClusterPixels: reject quads containing too few pixels.</li>
-<li>aprilTagMaxNmaxima: how many corner candidates to consider when segmenting a group of pixels into a quad.</li>
-<li>aprilTagCriticalRad: Reject quads where pairs of edges have angles that are close to straight or close to 180 degrees. Zero means that no quads are rejected. (In radians).</li>
-<li>aprilTagMaxLineFitMse: When fitting lines to the contours, what is the maximum mean squared error allowed? This is useful in rejecting contours that are far from being quad shaped; rejecting these quads "early" saves expensive decoding processing.</li>
-<li>aprilTagMinWhiteBlackDiff: When we build our model of black &amp; white pixels, we add an extra check that the white model must be (overall) brighter than the black model. How much brighter? (in pixel values, [0,255]).</li>
-<li>aprilTagDeglitch: should the thresholded image be deglitched? Only useful for very noisy images</li>
-<li>aprilTagQuadDecimate: Detection of quads can be done on a lower-resolution image, improving speed at a cost of pose accuracy and a slight decrease in detection rate. Decoding the binary payload is still done at full resolution.</li>
-<li>aprilTagQuadSigma: What Gaussian blur should be applied to the segmented image (used for quad detection?) Parameter is the standard deviation in pixels. Very noisy images benefit from non-zero values (e.g. 0.8).</li>
+<li>aprilTagMinClusterPixels: reject quads containing too few pixels. (default 5)</li>
+<li>aprilTagMaxNmaxima: how many corner candidates to consider when segmenting a group of pixels into a quad. (default 10)</li>
+<li>aprilTagCriticalRad: Reject quads where pairs of edges have angles that are close to straight or close to 180 degrees. Zero means that no quads are rejected. (In radians) (default 10*PI/180)</li>
+<li>aprilTagMaxLineFitMse: When fitting lines to the contours, what is the maximum mean squared error allowed? This is useful in rejecting contours that are far from being quad shaped; rejecting these quads "early" saves expensive decoding processing. (default 10.0)</li>
+<li>aprilTagMinWhiteBlackDiff: When we build our model of black &amp; white pixels, we add an extra check that the white model must be (overall) brighter than the black model. How much brighter? (in pixel values, [0,255]). (default 5)</li>
+<li>aprilTagDeglitch: should the thresholded image be deglitched? Only useful for very noisy images. (default 0)</li>
+<li>aprilTagQuadDecimate: Detection of quads can be done on a lower-resolution image, improving speed at a cost of pose accuracy and a slight decrease in detection rate. Decoding the binary payload is still done at full resolution. (default 0.0)</li>
+<li>aprilTagQuadSigma: What Gaussian blur should be applied to the segmented image (used for quad detection?) Parameter is the standard deviation in pixels. Very noisy images benefit from non-zero values (e.g. 0.8). (default 0.0)</li>
 <li>detectInvertedMarker: to check if there is a white marker. In order to generate a "white" marker just invert a normal marker by using a tilde, ~markerImage. (default false) </li>
 </ul>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -1426,7 +1426,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Apr 29 2020 14:58:53 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 30 2020 22:53:58 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

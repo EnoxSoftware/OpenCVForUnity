@@ -2,6 +2,7 @@ var searchData=
 [
   ['t',['t',['../class_open_c_v_for_unity_1_1_core_module_1_1_mat.html#a2c93fdb9e80d98c05d7167ef747de2c1',1,'OpenCVForUnity::CoreModule::Mat']]],
   ['termcriteria',['TermCriteria',['../class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html#aefbee04ce38fed6f697e6495ed885e98',1,'OpenCVForUnity.CoreModule.TermCriteria.TermCriteria(int type, int maxCount, double epsilon)'],['../class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html#a81b90e74be34df74a37b7ba4ccae387c',1,'OpenCVForUnity.CoreModule.TermCriteria.TermCriteria()'],['../class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html#af1d9fe37a0bd984b9ef1e2a912980406',1,'OpenCVForUnity.CoreModule.TermCriteria.TermCriteria(double[] vals)']]],
+  ['testcharucocornerscollinear',['testCharucoCornersCollinear',['../class_open_c_v_for_unity_1_1_aruco_module_1_1_aruco.html#a85adfc78fc06d1be606c6f13151ca030',1,'OpenCVForUnity::ArucoModule::Aruco']]],
   ['textdetector',['TextDetector',['../class_open_c_v_for_unity_1_1_text_module_1_1_text_detector.html#a9ef7825780c8aa43529253f43426cc50',1,'OpenCVForUnity::TextModule::TextDetector']]],
   ['textdetectorcnn',['TextDetectorCNN',['../class_open_c_v_for_unity_1_1_text_module_1_1_text_detector_c_n_n.html#ab69d2538837b64c37d350bfc43b36524',1,'OpenCVForUnity::TextModule::TextDetectorCNN']]],
   ['texture2dtomat',['texture2DToMat',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_utils.html#a97e3e9b88fb0724aad7584bc2f516c70',1,'OpenCVForUnity::UnityUtils::Utils']]],

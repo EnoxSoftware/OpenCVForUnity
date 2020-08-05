@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.3.9</span>
+   &#160;<span id="projectnumber">2.4.0</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.3.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -93,6 +93,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a005bced6a9f4a32fca81579a3c793405"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a113e9f98ebe92ec8fe5f9223999768e2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_tick_meter.html#a113e9f98ebe92ec8fe5f9223999768e2">TickMeter</a> ()</td></tr>
 <tr class="separator:a113e9f98ebe92ec8fe5f9223999768e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30176b76fd06ece5eae74f88196d0ba7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_tick_meter.html#a30176b76fd06ece5eae74f88196d0ba7">getAvgTimeMilli</a> ()</td></tr>
+<tr class="separator:a30176b76fd06ece5eae74f88196d0ba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3321722c79806994ea206eda2a3fc698"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_tick_meter.html#a3321722c79806994ea206eda2a3fc698">getAvgTimeSec</a> ()</td></tr>
+<tr class="separator:a3321722c79806994ea206eda2a3fc698"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a220e416bcd5c6f2ab1763d29af8b66fc"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_tick_meter.html#a220e416bcd5c6f2ab1763d29af8b66fc">getFPS</a> ()</td></tr>
+<tr class="separator:a220e416bcd5c6f2ab1763d29af8b66fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c9e63c91404d1d727a718abcd769225"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_tick_meter.html#a8c9e63c91404d1d727a718abcd769225">getTimeMicro</a> ()</td></tr>
 <tr class="separator:a8c9e63c91404d1d727a718abcd769225"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeabf5c30811cf1a0c0e4196fc2cd0d68"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_tick_meter.html#aeabf5c30811cf1a0c0e4196fc2cd0d68">getTimeMilli</a> ()</td></tr>
@@ -153,8 +159,9 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>a Class to measure passing time.</p>
-<p>The class computes passing time by counting the number of ticks per second. That is, the following code computes the execution time in seconds: <code> <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_tick_meter.html">TickMeter</a> tm; tm.start(); // do something ... tm.stop(); std::cout &lt;&lt; tm.getTimeSec(); </code></p>
-<p>It is also possible to compute the average time over multiple runs: <code> <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_tick_meter.html">TickMeter</a> tm; for (int i = 0; i &lt; 100; i++) { tm.start(); // do something ... tm.stop(); } double average_time = tm.getTimeSec() / tm.getCounter(); std::cout &lt;&lt; "Average time in second per iteration is: " &lt;&lt; average_time &lt;&lt; std::endl; </code> SEE: getTickCount, getTickFrequency </p>
+<p>The class computes passing time by counting the number of ticks per second. That is, the following code computes the execution time in seconds: SNIPPET: snippets/core_various.cpp TickMeter_total</p>
+<p>It is also possible to compute the average time over multiple runs: SNIPPET: snippets/core_various.cpp TickMeter_average</p>
+<p>SEE: getTickCount, getTickFrequency </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4a13a1b4359b620f0be81d1290533003"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4a13a1b4359b620f0be81d1290533003">&#9670;&nbsp;</a></span>TickMeter() <span class="overload">[1/2]</span></h2>
@@ -254,6 +261,40 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a30176b76fd06ece5eae74f88196d0ba7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30176b76fd06ece5eae74f88196d0ba7">&#9670;&nbsp;</a></span>getAvgTimeMilli()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double OpenCVForUnity.CoreModule.TickMeter.getAvgTimeMilli </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3321722c79806994ea206eda2a3fc698"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3321722c79806994ea206eda2a3fc698">&#9670;&nbsp;</a></span>getAvgTimeSec()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double OpenCVForUnity.CoreModule.TickMeter.getAvgTimeSec </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a4da0924130c6a0d8b3a3b467e8d05572"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4da0924130c6a0d8b3a3b467e8d05572">&#9670;&nbsp;</a></span>getCounter()</h2>
 
@@ -268,7 +309,23 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>returns internal counter value. return automatically generated </p>
+
+</div>
+</div>
+<a id="a220e416bcd5c6f2ab1763d29af8b66fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a220e416bcd5c6f2ab1763d29af8b66fc">&#9670;&nbsp;</a></span>getFPS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double OpenCVForUnity.CoreModule.TickMeter.getFPS </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -303,7 +360,6 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>returns passed time in microseconds. return automatically generated </p>
 
 </div>
 </div>
@@ -321,7 +377,6 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>returns passed time in milliseconds. return automatically generated </p>
 
 </div>
 </div>
@@ -339,7 +394,6 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>returns passed time in seconds. return automatically generated </p>
 
 </div>
 </div>
@@ -357,7 +411,6 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>returns counted ticks. return automatically generated </p>
 
 </div>
 </div>
@@ -375,7 +428,6 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>resets internal values. </p>
 
 </div>
 </div>
@@ -393,7 +445,6 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>starts counting ticks. </p>
 
 </div>
 </div>
@@ -411,7 +462,6 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>stops counting ticks. </p>
 
 </div>
 </div>
@@ -421,7 +471,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Apr 29 2020 14:58:55 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 30 2020 22:54:02 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

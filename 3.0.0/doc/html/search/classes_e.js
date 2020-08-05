@@ -1,9 +1,11 @@
 var searchData=
 [
   ['paramgrid',['ParamGrid',['../class_open_c_v_for_unity_1_1_ml_module_1_1_param_grid.html',1,'OpenCVForUnity::MlModule']]],
-  ['params',['Params',['../class_open_c_v_for_unity_1_1_features2d_module_1_1_params.html',1,'OpenCVForUnity::Features2dModule']]],
+  ['params',['Params',['../class_open_c_v_for_unity_1_1_features2d_module_1_1_params.html',1,'OpenCVForUnity.Features2dModule.Params'],['../class_open_c_v_for_unity_1_1_phase__unwrapping_module_1_1_params.html',1,'OpenCVForUnity.Phase_unwrappingModule.Params'],['../class_open_c_v_for_unity_1_1_structured__light_module_1_1_params.html',1,'OpenCVForUnity.Structured_lightModule.Params']]],
   ['pctsignatures',['PCTSignatures',['../class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_p_c_t_signatures.html',1,'OpenCVForUnity::Xfeatures2dModule']]],
   ['pctsignaturessqfd',['PCTSignaturesSQFD',['../class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_p_c_t_signatures_s_q_f_d.html',1,'OpenCVForUnity::Xfeatures2dModule']]],
+  ['phase_5funwrapping',['Phase_unwrapping',['../class_open_c_v_for_unity_1_1_phase__unwrapping_module_1_1_phase__unwrapping.html',1,'OpenCVForUnity::Phase_unwrappingModule']]],
+  ['phaseunwrapping',['PhaseUnwrapping',['../class_open_c_v_for_unity_1_1_phase__unwrapping_module_1_1_phase_unwrapping.html',1,'OpenCVForUnity::Phase_unwrappingModule']]],
   ['phash',['PHash',['../class_open_c_v_for_unity_1_1_img__hash_module_1_1_p_hash.html',1,'OpenCVForUnity::Img_hashModule']]],
   ['photo',['Photo',['../class_open_c_v_for_unity_1_1_photo_module_1_1_photo.html',1,'OpenCVForUnity::PhotoModule']]],
   ['plot',['Plot',['../class_open_c_v_for_unity_1_1_plot_module_1_1_plot.html',1,'OpenCVForUnity::PlotModule']]],

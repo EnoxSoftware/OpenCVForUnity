@@ -620,6 +620,7 @@ var searchData=
   ['colormap_5fbone',['COLORMAP_BONE',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a5b0e3340bdf7d7d547566558117bee85',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['colormap_5fcividis',['COLORMAP_CIVIDIS',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a676f001ad2feb6a1ce1bc87d1e48e310',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['colormap_5fcool',['COLORMAP_COOL',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#aa4e5b541d5e46f51549354d6ad94fb8b',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
+  ['colormap_5fdeepgreen',['COLORMAP_DEEPGREEN',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#aa0c81c7e52c3b7f873719f8e0770de87',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['colormap_5fhot',['COLORMAP_HOT',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a8edbc756cd6b0e441cbb539ae3c76ad3',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['colormap_5fhsv',['COLORMAP_HSV',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a85c2cace608f758f685d17e9200ef7d8',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['colormap_5finferno',['COLORMAP_INFERNO',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a0f59c6c81544d975d40d70ec07aaa500',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
