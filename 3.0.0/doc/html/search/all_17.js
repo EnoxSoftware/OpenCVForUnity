@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['waitframetimethreadworker',['WaitFrameTimeThreadWorker',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#a1682625413517e86ae0fa6c1b025eddf',1,'OpenCVForUnity::UnityUtils::Helper::VideoCaptureToMatHelper']]],
   ['warp_5ffill_5foutliers',['WARP_FILL_OUTLIERS',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a5cc18f533966320534f05d32ff23d377',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['warp_5finverse_5fmap',['WARP_INVERSE_MAP',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a905d5a97e2f56183b8b9140c641f27f3',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['warp_5fpolar_5flinear',['WARP_POLAR_LINEAR',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#aeb7de6327fef811bfbdc7fc5a46e333f',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],

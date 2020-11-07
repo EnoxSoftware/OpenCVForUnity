@@ -1,6 +1,7 @@
 var searchData=
 [
   ['adaptivemanifoldfilter',['AdaptiveManifoldFilter',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_adaptive_manifold_filter.html',1,'OpenCVForUnity::XimgprocModule']]],
+  ['affinefeature',['AffineFeature',['../class_open_c_v_for_unity_1_1_features2d_module_1_1_affine_feature.html',1,'OpenCVForUnity::Features2dModule']]],
   ['agastfeaturedetector',['AgastFeatureDetector',['../class_open_c_v_for_unity_1_1_features2d_module_1_1_agast_feature_detector.html',1,'OpenCVForUnity::Features2dModule']]],
   ['akaze',['AKAZE',['../class_open_c_v_for_unity_1_1_features2d_module_1_1_a_k_a_z_e.html',1,'OpenCVForUnity::Features2dModule']]],
   ['algorithm',['Algorithm',['../class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html',1,'OpenCVForUnity::CoreModule']]],

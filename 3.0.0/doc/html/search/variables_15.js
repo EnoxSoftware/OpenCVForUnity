@@ -9,6 +9,7 @@ var searchData=
   ['version_5fminor',['VERSION_MINOR',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#abd5762a3a4848b435a55fbe44e57f830',1,'OpenCVForUnity::CoreModule::Core']]],
   ['version_5frevision',['VERSION_REVISION',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#ac4eaa0d0f0bf1e9ae6aa2d9355c44e1f',1,'OpenCVForUnity::CoreModule::Core']]],
   ['version_5fstatus',['VERSION_STATUS',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a85feb234beabc20a52fb41cf7e4ad0eb',1,'OpenCVForUnity::CoreModule::Core']]],
+  ['videocapturelockobject',['videoCaptureLockObject',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#aa8842ff64f5597d6a1ad6b96644bb199',1,'OpenCVForUnity::UnityUtils::Helper::VideoCaptureToMatHelper']]],
   ['videowriter_5fprop_5fframebytes',['VIDEOWRITER_PROP_FRAMEBYTES',['../class_open_c_v_for_unity_1_1_videoio_module_1_1_videoio.html#a65688cca8ca95d8fc5dd11a17f0e1290',1,'OpenCVForUnity::VideoioModule::Videoio']]],
   ['videowriter_5fprop_5fis_5fcolor',['VIDEOWRITER_PROP_IS_COLOR',['../class_open_c_v_for_unity_1_1_videoio_module_1_1_videoio.html#a106a67b92e740ea8c2efc28e7a007075',1,'OpenCVForUnity::VideoioModule::Videoio']]],
   ['videowriter_5fprop_5fnstripes',['VIDEOWRITER_PROP_NSTRIPES',['../class_open_c_v_for_unity_1_1_videoio_module_1_1_videoio.html#acb2adb771de8d08c6352442bf22328b6',1,'OpenCVForUnity::VideoioModule::Videoio']]],

@@ -1,6 +1,7 @@
 var searchData=
 [
   ['adaptivemanifoldfilter_2ecs',['AdaptiveManifoldFilter.cs',['../_adaptive_manifold_filter_8cs.html',1,'']]],
+  ['affinefeature_2ecs',['AffineFeature.cs',['../_affine_feature_8cs.html',1,'']]],
   ['agastfeaturedetector_2ecs',['AgastFeatureDetector.cs',['../_agast_feature_detector_8cs.html',1,'']]],
   ['akaze_2ecs',['AKAZE.cs',['../_a_k_a_z_e_8cs.html',1,'']]],
   ['algorithm_2ecs',['Algorithm.cs',['../_algorithm_8cs.html',1,'']]],
