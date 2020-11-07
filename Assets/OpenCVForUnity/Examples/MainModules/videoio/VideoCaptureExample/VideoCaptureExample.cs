@@ -23,6 +23,8 @@ namespace OpenCVForUnityExample
         /// </summary>
         public Slider seekBarSlider;
 
+        Slider.SliderEvent defaultSliderEvent = new Slider.SliderEvent();
+
         /// <summary>
         /// The videocapture.
         /// </summary>
@@ -68,7 +70,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         protected static readonly string VIDEO_FILENAME = "768x576_mjpeg.mjpeg";
 
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL
         IEnumerator getFilePath_Coroutine;
 #endif
 
@@ -79,7 +81,7 @@ namespace OpenCVForUnityExample
 
             capture = new VideoCapture();
 
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL
             getFilePath_Coroutine = Utils.getFilePathAsync(VIDEO_FILENAME, (result) =>
             {
                 getFilePath_Coroutine = null;
@@ -130,7 +132,7 @@ namespace OpenCVForUnityExample
             }
 
             capture.grab();
-            capture.retrieve(rgbMat, 0);
+            capture.retrieve(rgbMat);
             int frameWidth = rgbMat.cols();
             int frameHeight = rgbMat.rows();
             texture = new Texture2D(frameWidth, frameHeight, TextureFormat.RGB24, false);
@@ -167,8 +169,7 @@ namespace OpenCVForUnityExample
 
                 if (capture.grab())
                 {
-
-                    capture.retrieve(rgbMat, 0);
+                    capture.retrieve(rgbMat);
 
                     Imgproc.cvtColor(rgbMat, rgbMat, Imgproc.COLOR_BGR2RGB);
 
@@ -185,7 +186,10 @@ namespace OpenCVForUnityExample
 
                     Utils.fastMatToTexture2D(rgbMat, texture);
 
+                    var tmp = seekBarSlider.onValueChanged;
+                    seekBarSlider.onValueChanged = defaultSliderEvent;
                     seekBarSlider.value = (float)capture.get(Videoio.CAP_PROP_POS_AVI_RATIO);
+                    seekBarSlider.onValueChanged = tmp;
                 }
             }
         }
@@ -193,8 +197,11 @@ namespace OpenCVForUnityExample
         private IEnumerator WaitFrameTime()
         {
             double videoFPS = (capture.get(Videoio.CAP_PROP_FPS) <= 0) ? 10.0 : capture.get(Videoio.CAP_PROP_FPS);
-            int frameTime_msec = (int)Math.Round(1000.0 / videoFPS);
+            float frameTime_sec = (float)(1000.0 / videoFPS / 1000.0);
+            WaitForSeconds wait = new WaitForSeconds(frameTime_sec);
             prevFrameTickCount = currentFrameTickCount = Core.getTickCount();
+
+            capture.grab();
 
             while (true)
             {
@@ -205,7 +212,7 @@ namespace OpenCVForUnityExample
                     prevFrameTickCount = currentFrameTickCount;
                     currentFrameTickCount = Core.getTickCount();
 
-                    yield return new WaitForSeconds(frameTime_msec / 1000f);
+                    yield return wait;
                 }
                 else
                 {
@@ -226,7 +233,7 @@ namespace OpenCVForUnityExample
             if (rgbMat != null)
                 rgbMat.Dispose();
 
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL
             if (getFilePath_Coroutine != null)
             {
                 StopCoroutine(getFilePath_Coroutine);

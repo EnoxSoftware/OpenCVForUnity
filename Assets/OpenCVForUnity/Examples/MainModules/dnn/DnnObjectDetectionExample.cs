@@ -66,14 +66,14 @@ namespace OpenCVForUnityExample
         protected string config_filepath;
         protected string model_filepath;
 
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL
         protected IEnumerator getFilePath_Coroutine;
 #endif
 
         // Use this for initialization
         void Start()
         {
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL
             getFilePath_Coroutine = GetFilePath();
             StartCoroutine(getFilePath_Coroutine);
 #else
@@ -85,7 +85,7 @@ namespace OpenCVForUnityExample
 #endif
         }
 
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL
         protected virtual IEnumerator GetFilePath()
         {
             if (!string.IsNullOrEmpty(classes))
@@ -278,7 +278,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDisable()
         {
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL
             if (getFilePath_Coroutine != null)
             {
                 StopCoroutine(getFilePath_Coroutine);

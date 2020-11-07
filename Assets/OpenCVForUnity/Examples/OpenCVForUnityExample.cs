@@ -49,6 +49,7 @@ namespace OpenCVForUnityExample
 
 #if UNITY_WSA_10_0
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ColorizationExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/DaSiamRPNTrackerExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FastNeuralStyleTransferExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LibFaceDetectionV2ExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LibFaceDetectionV3ExampleButton").GetComponent<Button>().interactable = false;
@@ -341,6 +342,11 @@ namespace OpenCVForUnityExample
         public void OnColorizationExampleButtonClick()
         {
             SceneManager.LoadScene("ColorizationExample");
+        }
+
+        public void OnDaSiamRPNTrackerExampleButtonClick()
+        {
+            SceneManager.LoadScene("DaSiamRPNTrackerExample");
         }
 
         public void OnFastNeuralStyleTransferExampleButtonClick()

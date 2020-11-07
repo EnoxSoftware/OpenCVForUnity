@@ -18,14 +18,14 @@ namespace OpenCVForUnityExample
     {
         string blobparams_yml_filepath;
 
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL
         Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
 #endif
 
         // Use this for initialization
         void Start()
         {
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL
             var getFilePath_Coroutine = Utils.getFilePathAsync("blobparams.yml", (result) => {
                 coroutines.Clear ();
 
@@ -89,7 +89,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDestroy()
         {
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL
             foreach (var coroutine in coroutines) {
                 StopCoroutine (coroutine);
                 ((IDisposable)coroutine).Dispose ();

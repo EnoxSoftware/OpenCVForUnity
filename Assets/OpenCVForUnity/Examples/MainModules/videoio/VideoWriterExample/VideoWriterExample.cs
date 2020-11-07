@@ -135,7 +135,7 @@ namespace OpenCVForUnitySample
 
                 if (capture.grab())
                 {
-                    capture.retrieve(previewRgbMat, 0);
+                    capture.retrieve(previewRgbMat);
 
                     Imgproc.rectangle(previewRgbMat, new Point(0, 0), new Point(previewRgbMat.cols(), previewRgbMat.rows()), new Scalar(0, 0, 255), 3);
 
@@ -152,6 +152,7 @@ namespace OpenCVForUnitySample
                 if (frameCount >= maxframeCount ||
                     recordingFrameRgbMat.width() != Screen.width || recordingFrameRgbMat.height() != Screen.height)
                 {
+                    Debug.LogError("Please fix the screen ratio of the Game View to recognize the recording area.");
                     OnRecButtonClick();
                     return;
                 }
@@ -245,9 +246,7 @@ namespace OpenCVForUnitySample
 
 
             previewRgbMat = new Mat();
-            capture.grab();
-
-            capture.retrieve(previewRgbMat, 0);
+            capture.read(previewRgbMat);
 
             int frameWidth = previewRgbMat.cols();
             int frameHeight = previewRgbMat.rows();

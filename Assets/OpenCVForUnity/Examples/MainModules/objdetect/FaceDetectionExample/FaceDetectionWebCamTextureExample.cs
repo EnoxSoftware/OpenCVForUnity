@@ -56,7 +56,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         protected static readonly string LBP_CASCADE_FILENAME = "lbpcascade_frontalface.xml";
 
-        #if UNITY_WEBGL && !UNITY_EDITOR
+        #if UNITY_WEBGL
         IEnumerator getFilePath_Coroutine;
         #endif
 
@@ -67,7 +67,7 @@ namespace OpenCVForUnityExample
 
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
 
-            #if UNITY_WEBGL && !UNITY_EDITOR
+            #if UNITY_WEBGL
             getFilePath_Coroutine = Utils.getFilePathAsync (LBP_CASCADE_FILENAME, (result) => {
                 getFilePath_Coroutine = null;
 
@@ -204,7 +204,7 @@ namespace OpenCVForUnityExample
             if (cascade != null)
                 cascade.Dispose ();
 
-            #if UNITY_WEBGL && !UNITY_EDITOR
+            #if UNITY_WEBGL
             if (getFilePath_Coroutine != null) {
                 StopCoroutine (getFilePath_Coroutine);
                 ((IDisposable)getFilePath_Coroutine).Dispose ();

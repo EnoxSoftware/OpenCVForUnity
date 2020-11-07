@@ -80,7 +80,7 @@ namespace OpenCVForUnitySample
             string readableFilePath = Utils.getFilePath(filePath, refresh, timeout);
 
 
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL
             Debug.Log("The Utils.getFilePath() method is not supported on WebGL platform.");
             filePathInputField.text = filePathInputField.text + "The Utils.getFilePath() method is not supported on WebGL platform." + "\n";
             if (!string.IsNullOrEmpty(readableFilePath))
@@ -108,7 +108,7 @@ namespace OpenCVForUnitySample
             List<string> readableFilePaths = Utils.getMultipleFilePaths(filePaths, refresh, timeout);
 
 
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL
             Debug.Log("The Utils.getFilePath() method is not supported on WebGL platform.");
             filePathInputField.text = filePathInputField.text + "The Utils.getFilePath() method is not supported on WebGL platform." + "\n";
             for (int i = 0; i < readableFilePaths.Count; i++)

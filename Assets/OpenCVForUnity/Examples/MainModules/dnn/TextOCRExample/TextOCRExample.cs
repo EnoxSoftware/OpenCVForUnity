@@ -63,7 +63,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         string recognitionmodel_filepath;
 
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL
         IEnumerator getFilePath_Coroutine;
 #endif
 
@@ -71,7 +71,7 @@ namespace OpenCVForUnityExample
         void Start()
         {
 
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL
             getFilePath_Coroutine = GetFilePath();
             StartCoroutine(getFilePath_Coroutine);
 #else
@@ -82,7 +82,7 @@ namespace OpenCVForUnityExample
 #endif
         }
 
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL
         private IEnumerator GetFilePath()
         {
             var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync(IMAGE_FILENAME, (result) =>
@@ -279,7 +279,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDisable()
         {
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL
             if (getFilePath_Coroutine != null)
             {
                 StopCoroutine(getFilePath_Coroutine);

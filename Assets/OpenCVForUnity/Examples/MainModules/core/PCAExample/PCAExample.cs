@@ -28,14 +28,14 @@ namespace OpenCVForUnityExample
         /// </summary>
         string image_filepath;
         
-        #if UNITY_WEBGL && !UNITY_EDITOR
+        #if UNITY_WEBGL
         IEnumerator getFilePath_Coroutine;
         #endif
         
         // Use this for initialization
         void Start ()
         {
-            #if UNITY_WEBGL && !UNITY_EDITOR
+            #if UNITY_WEBGL
             getFilePath_Coroutine = Utils.getFilePathAsync(IMAGE_FILENAME, (result) => {
                 getFilePath_Coroutine = null;
                 
@@ -148,7 +148,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDisable ()
         {
-            #if UNITY_WEBGL && !UNITY_EDITOR
+            #if UNITY_WEBGL
             if (getFilePath_Coroutine != null) {
                 StopCoroutine (getFilePath_Coroutine);
                 ((IDisposable)getFilePath_Coroutine).Dispose ();

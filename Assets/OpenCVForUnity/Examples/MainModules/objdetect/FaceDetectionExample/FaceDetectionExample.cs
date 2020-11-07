@@ -24,14 +24,14 @@ namespace OpenCVForUnityExample
         /// </summary>
         protected static readonly string HAAR_CASCADE_FILENAME = "haarcascade_frontalface_alt.xml";
 
-        #if UNITY_WEBGL && !UNITY_EDITOR
+        #if UNITY_WEBGL
         IEnumerator getFilePath_Coroutine;
         #endif
 
         // Use this for initialization
         void Start ()
         {
-            #if UNITY_WEBGL && !UNITY_EDITOR
+            #if UNITY_WEBGL
             getFilePath_Coroutine = Utils.getFilePathAsync (HAAR_CASCADE_FILENAME, 
                 (result) => {
                     getFilePath_Coroutine = null;
@@ -106,7 +106,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDestroy ()
         {
-            #if UNITY_WEBGL && !UNITY_EDITOR
+            #if UNITY_WEBGL
             if (getFilePath_Coroutine != null) {
                 StopCoroutine (getFilePath_Coroutine);
                 ((IDisposable)getFilePath_Coroutine).Dispose ();
