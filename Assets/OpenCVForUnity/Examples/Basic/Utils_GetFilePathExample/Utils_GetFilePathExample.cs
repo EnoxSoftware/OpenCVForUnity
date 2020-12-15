@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace OpenCVForUnitySample
+namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Utils_GetFilePath Example

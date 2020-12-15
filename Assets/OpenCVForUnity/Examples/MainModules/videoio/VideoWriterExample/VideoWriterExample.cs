@@ -6,7 +6,7 @@ using OpenCVForUnity.VideoioModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
 
-namespace OpenCVForUnitySample
+namespace OpenCVForUnityExample
 {
     /// <summary>
     /// VideoWriter Example

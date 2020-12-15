@@ -797,7 +797,6 @@ namespace OpenCVForUnityExample
             delta = delta.reshape(1, new int[] { 4, (int)delta.total() / 4 });
             _score = _score.reshape(1, new int[] { 2, (int)_score.total() / 2 });
 
-            int rows = delta.rows();
             int cols = delta.cols();
             int type = delta.type();
 
@@ -1097,7 +1096,6 @@ namespace OpenCVForUnityExample
             context_ymax += top_pad;
             int r = (int)im_sz.height;
             int c = (int)im_sz.width;
-            int k = im.channels();
 
 
             double wc_z = im.height() + context_amount * (im.width() + im.height());

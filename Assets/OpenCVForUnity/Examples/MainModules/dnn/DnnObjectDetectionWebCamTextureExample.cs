@@ -308,16 +308,14 @@ namespace OpenCVForUnityExample
                         net.setInput(imInfo, "im_info");
                     }
 
-
-                    TickMeter tm = new TickMeter();
-                    tm.start();
+                    //TickMeter tm = new TickMeter();
+                    //tm.start();
 
                     List<Mat> outs = new List<Mat>();
                     net.forward(outs, outBlobNames);
 
-                    tm.stop();
-                    //Debug.Log ("Inference time, ms: " + tm.getTimeMilli ());
-
+                    //tm.stop();
+                    //Debug.Log("Inference time, ms: " + tm.getTimeMilli());
 
                     postprocess(rgbaMat, outs, net, Dnn.DNN_BACKEND_OPENCV);
 

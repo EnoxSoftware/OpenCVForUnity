@@ -324,13 +324,8 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDestroy()
         {
-            sourceToMatHelper.Dispose();
-
-            if (texture != null)
-            {
-                Texture2D.Destroy(texture);
-                texture = null;
-            }
+            if (sourceToMatHelper != null)
+                sourceToMatHelper.Dispose();
 
             if (trackers != null)
                 trackers.Dispose();
