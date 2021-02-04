@@ -204,7 +204,7 @@ namespace OpenCVForUnityExample
                    {"LittleFingerProximal", "LittleFingerMiddle"}, {"LittleFingerMiddle", "LittleFingerDistal"} };
 
 
-                IMAGE_FILENAME = "dnn/person-s-right-hand-1257770.jpg";
+                IMAGE_FILENAME = "dnn/hand_synth_sample2.jpg";
                 CAFFEMODEL_FILENAME = "dnn/pose_iter_102000.caffemodel";
                 PROTOTXT_FILENAME = "dnn/pose_deploy.prototxt";
 
