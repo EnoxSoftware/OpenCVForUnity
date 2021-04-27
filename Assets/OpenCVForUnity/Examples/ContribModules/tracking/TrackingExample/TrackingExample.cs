@@ -1,12 +1,15 @@
-﻿using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
-using System.Collections.Generic;
-using OpenCVForUnity.TrackingModule;
-using OpenCVForUnity.CoreModule;
+﻿using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.TrackingModule;
 using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.UnityUtils.Helper;
+using OpenCVForUnity.VideoModule;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using Rect = OpenCVForUnity.CoreModule.Rect;
 
 namespace OpenCVForUnityExample
 {
@@ -19,6 +22,21 @@ namespace OpenCVForUnityExample
     public class TrackingExample : MonoBehaviour
     {
         /// <summary>
+        /// The trackerKFC Toggle.
+        /// </summary>
+        public Toggle trackerKCFToggle;
+
+        /// <summary>
+        /// The trackerCSRT Toggle.
+        /// </summary>
+        public Toggle trackerCSRTToggle;
+
+        /// <summary>
+        /// The trackerMIL Toggle.
+        /// </summary>
+        public Toggle trackerMILToggle;
+
+        /// <summary>
         /// The texture.
         /// </summary>
         Texture2D texture;
@@ -26,17 +44,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// The trackers.
         /// </summary>
-        MultiTracker trackers;
-
-        /// <summary>
-        /// The objects.
-        /// </summary>
-        MatOfRect2d objects;
-
-        /// <summary>
-        /// The tracking color list.
-        /// </summary>
-        List<Scalar> trackingColorList;
+        List<TrackerSetting> trackers;
 
         /// <summary>
         /// The selected point list.
@@ -108,10 +116,8 @@ namespace OpenCVForUnityExample
             }
 
 
-            trackers = MultiTracker.create();
-            objects = new MatOfRect2d();
+            trackers = new List<TrackerSetting>();
 
-            trackingColorList = new List<Scalar>();
             selectedPointList = new List<Point>();
         }
 
@@ -196,42 +202,79 @@ namespace OpenCVForUnityExample
                     }
                     else if (selectedPointList.Count == 2)
                     {
+                        ResetTrackers();
+
                         using (MatOfPoint selectedPointMat = new MatOfPoint(selectedPointList.ToArray()))
                         {
-                            // add tracker.
-                            OpenCVForUnity.CoreModule.Rect region = Imgproc.boundingRect(selectedPointMat);
-                            trackers.add(TrackerKCF.create(), rgbMat, new Rect2d(region.x, region.y, region.width, region.height));
+                            Rect region = Imgproc.boundingRect(selectedPointMat);
+
+                            // init trackers.
+                            if (trackerKCFToggle.isOn)
+                            {
+                                TrackerKCF trackerKCF = TrackerKCF.create(new TrackerKCF_Params());
+                                trackerKCF.init(rgbMat, region);
+                                trackers.Add(new TrackerSetting(trackerKCF, trackerKCF.GetType().Name.ToString(), new Scalar(255, 0, 0)));
+                            }
+
+                            if (trackerCSRTToggle.isOn)
+                            {
+                                TrackerCSRT trackerCSRT = TrackerCSRT.create(new TrackerCSRT_Params());
+                                trackerCSRT.init(rgbMat, region);
+                                trackers.Add(new TrackerSetting(trackerCSRT, trackerCSRT.GetType().Name.ToString(), new Scalar(0, 255, 0)));
+                            }
+
+                            if (trackerMILToggle.isOn)
+                            {
+                                TrackerMIL trackerMIL = TrackerMIL.create(new TrackerMIL_Params());
+                                trackerMIL.init(rgbMat, region);
+                                trackers.Add(new TrackerSetting(trackerMIL, trackerMIL.GetType().Name.ToString(), new Scalar(0, 0, 255)));
+                            }
                         }
 
                         selectedPointList.Clear();
-                        trackingColorList.Add(new Scalar(UnityEngine.Random.Range(0, 255), UnityEngine.Random.Range(0, 255), UnityEngine.Random.Range(0, 255)));
-                    }
 
-
-                    trackers.update(rgbMat, objects);
-
-                    // draw tracked objects regions.
-                    Rect2d[] objectsArray = objects.toArray();
-                    for (int i = 0; i < objectsArray.Length; i++)
-                    {
-                        Imgproc.rectangle(rgbMat, objectsArray[i].tl(), objectsArray[i].br(), trackingColorList[i], 2, 1, 0);
-                    }
-
-
-                    if (selectedPointList.Count != 1)
-                    {
-                        //Imgproc.putText (rgbMat, "Please touch the screen, and select tracking regions.", new Point (5, rgbMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                        if (fpsMonitor != null)
+                        if (trackers.Count > 0)
                         {
-                            fpsMonitor.consoleText = "Please touch the screen, and select tracking regions.";
+                            if (fpsMonitor != null)
+                            {
+                                fpsMonitor.consoleText = "";
+                            }
+
+                            trackerKCFToggle.interactable = trackerCSRTToggle.interactable = trackerMILToggle.interactable = false;
                         }
                     }
-                    else
+
+                    // update trackers.
+                    for (int i = 0; i < trackers.Count; i++)
                     {
-                        //Imgproc.putText (rgbMat, "Please select the end point of the new tracking region.", new Point (5, rgbMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                        if (fpsMonitor != null)
+                        Tracker tracker = trackers[i].tracker;
+                        string label = trackers[i].label;
+                        Scalar lineColor = trackers[i].lineColor;
+                        Rect boundingBox = trackers[i].boundingBox;
+
+                        tracker.update(rgbMat, boundingBox);
+
+                        Imgproc.rectangle(rgbMat, boundingBox.tl(), boundingBox.br(), lineColor, 2, 1, 0);
+                        Imgproc.putText(rgbMat, label, new Point(boundingBox.x, boundingBox.y - 5), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, lineColor, 1, Imgproc.LINE_AA, false);
+                    }
+
+                    if (trackers.Count == 0)
+                    {
+                        if (selectedPointList.Count != 1)
                         {
-                            fpsMonitor.consoleText = "Please select the end point of the new tracking region.";
+                            //Imgproc.putText (rgbMat, "Please touch the screen, and select tracking regions.", new Point (5, rgbMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                            if (fpsMonitor != null)
+                            {
+                                fpsMonitor.consoleText = "Please touch the screen, and select tracking regions.";
+                            }
+                        }
+                        else
+                        {
+                            //Imgproc.putText (rgbMat, "Please select the end point of the new tracking region.", new Point (5, rgbMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                            if (fpsMonitor != null)
+                            {
+                                fpsMonitor.consoleText = "Please select the end point of the new tracking region.";
+                            }
                         }
                     }
 
@@ -250,6 +293,20 @@ namespace OpenCVForUnityExample
                     storedTouchPoint = null;
                 }
             }
+        }
+
+        private void ResetTrackers()
+        {
+            if (trackers != null)
+            {
+                foreach (var t in trackers)
+                {
+                    t.Dispose();
+                }
+                trackers.Clear();
+            }
+
+            trackerKCFToggle.interactable = trackerCSRTToggle.interactable = trackerMILToggle.interactable = true;
         }
 
         private void OnTouch(Point touchPoint, int textureWidth = -1, int textureHeight = -1)
@@ -327,11 +384,7 @@ namespace OpenCVForUnityExample
             if (sourceToMatHelper != null)
                 sourceToMatHelper.Dispose();
 
-            if (trackers != null)
-                trackers.Dispose();
-
-            if (objects != null)
-                objects.Dispose();
+            ResetTrackers();
         }
 
         /// <summary>
@@ -343,25 +396,38 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the reset tracker button click event.
+        /// Raises the reset trackers button click event.
         /// </summary>
-        public void OnResetTrackerButtonClick()
+        public void OnResetTrackersButtonClick()
         {
-            if (trackers != null)
+            ResetTrackers();
+
+            selectedPointList.Clear();
+        }
+
+        class TrackerSetting
+        {
+            public Tracker tracker;
+            public string label;
+            public Scalar lineColor;
+            public Rect boundingBox;
+
+            public TrackerSetting(Tracker tracker, string label, Scalar lineColor)
             {
-                trackers.Dispose();
-                trackers = null;
-            }
-            if (objects != null)
-            {
-                objects.Dispose();
-                objects = null;
+                this.tracker = tracker;
+                this.label = label;
+                this.lineColor = lineColor;
+                this.boundingBox = new Rect();
             }
 
-            trackers = MultiTracker.create();
-            objects = new MatOfRect2d();
-            trackingColorList.Clear();
-            selectedPointList.Clear();
+            public void Dispose()
+            {
+                if (tracker != null)
+                {
+                    tracker.Dispose();
+                    tracker = null;
+                }
+            }
         }
     }
 }

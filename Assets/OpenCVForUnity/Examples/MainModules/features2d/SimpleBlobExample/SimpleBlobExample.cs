@@ -16,7 +16,7 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class SimpleBlobExample : MonoBehaviour
     {
-        string blobparams_yml_filepath;
+        //string blobparams_yml_filepath;
 
 #if UNITY_WEBGL
         Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
@@ -29,13 +29,13 @@ namespace OpenCVForUnityExample
             var getFilePath_Coroutine = Utils.getFilePathAsync("blobparams.yml", (result) => {
                 coroutines.Clear ();
 
-                blobparams_yml_filepath = result;
+                //blobparams_yml_filepath = result;
                 Run ();
             });
             coroutines.Push (getFilePath_Coroutine);
             StartCoroutine (getFilePath_Coroutine);
 #else
-            blobparams_yml_filepath = Utils.getFilePath("blobparams.yml");
+            //blobparams_yml_filepath = Utils.getFilePath("blobparams.yml");
             Run();
 #endif
         }
@@ -56,11 +56,37 @@ namespace OpenCVForUnityExample
 
             Mat outImgMat = new Mat();
 
-            SimpleBlobDetector blobDetector = SimpleBlobDetector.create();
+
+            //load Params from SimpleBlobDetector_Params class.
+            SimpleBlobDetector_Params param = new SimpleBlobDetector_Params();
+            param.set_thresholdStep(20.0f);
+            param.set_minThreshold(10.0f);
+            param.set_maxThreshold(200.0f);
+            param.set_minRepeatability(2);
+            param.set_minDistBetweenBlobs(0);
+            param.set_filterByColor(false);
+            param.set_filterByArea(false);
+            param.set_minArea(0);
+            param.set_maxArea(0);
+            param.set_filterByCircularity(false);
+            param.set_minCircularity(0);
+            param.set_maxCircularity(0);
+            param.set_filterByInertia(false);
+            param.set_minInertiaRatio(0);
+            param.set_maxInertiaRatio(0);
+            param.set_filterByConvexity(false);
+            param.set_minConvexity(0);
+            param.set_maxConvexity(0);
+
+            SimpleBlobDetector blobDetector = SimpleBlobDetector.create(param);
             Debug.Log("blobDetector.getDefaultName() " + blobDetector.getDefaultName());
 
-            blobDetector.read(blobparams_yml_filepath);
 
+            //load Params from yml file.
+            //SimpleBlobDetector blobDetector = SimpleBlobDetector.create();
+            //Debug.Log("blobDetector.getDefaultName() " + blobDetector.getDefaultName());
+
+            //blobDetector.read(blobparams_yml_filepath);
 
 
             MatOfKeyPoint keypoints = new MatOfKeyPoint();

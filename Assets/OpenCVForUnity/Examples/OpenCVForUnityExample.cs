@@ -66,6 +66,11 @@ namespace OpenCVForUnityExample
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/TextDetectionExampleButton").GetComponent<Button> ().interactable = false;
             GameObject.Find ("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/TextRecognitionExampleButton").GetComponent<Button> ().interactable = false;
 #endif
+
+
+#if !UNITY_EDITOR && !UNITY_STANDALONE_WIN && !UNITY_STANDALONE_OSX && !UNITY_STANDALONE_LINUX && !UNITY_ANDROID && !UNITY_IOS
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/VideoCaptureCameraInputExampleButton").GetComponent<Button>().interactable = false;
+#endif
         }
 
         // Update is called once per frame
@@ -235,6 +240,11 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("VideoCaptureExample");
         }
 
+        public void OnVideoCaptureCameraInputExampleButtonClick()
+        {
+            SceneManager.LoadScene("VideoCaptureCameraInputExample");
+        }
+
         public void OnVideoWriterExampleButtonClick()
         {
             SceneManager.LoadScene("VideoWriterExample");
@@ -244,9 +254,9 @@ namespace OpenCVForUnityExample
 
         #region video
 
-        public void OnBackgroundSubtractorMOG2ExampleButtonClick()
+        public void OnBackgroundSubtractorComparisonExampleButtonClick()
         {
-            SceneManager.LoadScene("BackgroundSubtractorMOG2Example");
+            SceneManager.LoadScene("BackgroundSubtractorComparisonExample");
         }
 
         public void OnCamShiftExampleButtonClick()
