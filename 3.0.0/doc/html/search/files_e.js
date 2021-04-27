@@ -1,7 +1,6 @@
 var searchData=
 [
   ['paramgrid_2ecs',['ParamGrid.cs',['../_param_grid_8cs.html',1,'']]],
-  ['params_2ecs',['Params.cs',['../features2d_2_params_8cs.html',1,'(Global Namespace)'],['../contrib_2phase__unwrapping_2_params_8cs.html',1,'(Global Namespace)'],['../contrib_2structured__light_2_params_8cs.html',1,'(Global Namespace)']]],
   ['pctsignatures_2ecs',['PCTSignatures.cs',['../_p_c_t_signatures_8cs.html',1,'']]],
   ['pctsignaturessqfd_2ecs',['PCTSignaturesSQFD.cs',['../_p_c_t_signatures_s_q_f_d_8cs.html',1,'']]],
   ['phase_5funwrapping_2ecs',['Phase_unwrapping.cs',['../_phase__unwrapping_8cs.html',1,'']]],

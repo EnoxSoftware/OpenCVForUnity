@@ -23,6 +23,7 @@ var searchData=
   ['logit',['LOGIT',['../class_open_c_v_for_unity_1_1_ml_module_1_1_boost.html#abd70c82c28fb7e1c0b5485cff39029c9',1,'OpenCVForUnity::MlModule::Boost']]],
   ['lsbp_5fcamera_5fmotion_5fcompensation_5flk',['LSBP_CAMERA_MOTION_COMPENSATION_LK',['../class_open_c_v_for_unity_1_1_bgsegm_module_1_1_bgsegm.html#a1e3cdc386f71e21753c132685da648ff',1,'OpenCVForUnity::BgsegmModule::Bgsegm']]],
   ['lsbp_5fcamera_5fmotion_5fcompensation_5fnone',['LSBP_CAMERA_MOTION_COMPENSATION_NONE',['../class_open_c_v_for_unity_1_1_bgsegm_module_1_1_bgsegm.html#a1b1fd58ba5e9984a3b3e43ba7026ca0b',1,'OpenCVForUnity::BgsegmModule::Bgsegm']]],
+  ['lsd',['LSD',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_edge_drawing.html#a964e0dbf3cb9abe9c97a932e37ce3cf4',1,'OpenCVForUnity::XimgprocModule::EdgeDrawing']]],
   ['lsd_5frefine_5fadv',['LSD_REFINE_ADV',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a44217d6ecd9000c2c6b3e256fdf1caa5',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['lsd_5frefine_5fnone',['LSD_REFINE_NONE',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a81418ddcb76acaf6142fdeed7fa5bd96',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['lsd_5frefine_5fstd',['LSD_REFINE_STD',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#ab9f88e74247d3f2484f28e569d159d50',1,'OpenCVForUnity::ImgprocModule::Imgproc']]]

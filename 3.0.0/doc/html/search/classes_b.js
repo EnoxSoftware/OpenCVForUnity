@@ -30,6 +30,5 @@ var searchData=
   ['model',['Model',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html',1,'OpenCVForUnity::DnnModule']]],
   ['moments',['Moments',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_moments.html',1,'OpenCVForUnity::ImgprocModule']]],
   ['msddetector',['MSDDetector',['../class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_m_s_d_detector.html',1,'OpenCVForUnity::Xfeatures2dModule']]],
-  ['mser',['MSER',['../class_open_c_v_for_unity_1_1_features2d_module_1_1_m_s_e_r.html',1,'OpenCVForUnity::Features2dModule']]],
-  ['multitracker',['MultiTracker',['../class_open_c_v_for_unity_1_1_tracking_module_1_1_multi_tracker.html',1,'OpenCVForUnity::TrackingModule']]]
+  ['mser',['MSER',['../class_open_c_v_for_unity_1_1_features2d_module_1_1_m_s_e_r.html',1,'OpenCVForUnity::Features2dModule']]]
 ];

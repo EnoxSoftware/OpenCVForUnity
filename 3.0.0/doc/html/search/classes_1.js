@@ -12,6 +12,7 @@ var searchData=
   ['basecascadeclassifier',['BaseCascadeClassifier',['../class_open_c_v_for_unity_1_1_objdetect_module_1_1_base_cascade_classifier.html',1,'OpenCVForUnity::ObjdetectModule']]],
   ['baseocr',['BaseOCR',['../class_open_c_v_for_unity_1_1_text_module_1_1_base_o_c_r.html',1,'OpenCVForUnity::TextModule']]],
   ['basicfacerecognizer',['BasicFaceRecognizer',['../class_open_c_v_for_unity_1_1_face_module_1_1_basic_face_recognizer.html',1,'OpenCVForUnity::FaceModule']]],
+  ['beblid',['BEBLID',['../class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_b_e_b_l_i_d.html',1,'OpenCVForUnity::Xfeatures2dModule']]],
   ['bfmatcher',['BFMatcher',['../class_open_c_v_for_unity_1_1_features2d_module_1_1_b_f_matcher.html',1,'OpenCVForUnity::Features2dModule']]],
   ['bgsegm',['Bgsegm',['../class_open_c_v_for_unity_1_1_bgsegm_module_1_1_bgsegm.html',1,'OpenCVForUnity::BgsegmModule']]],
   ['bif',['BIF',['../class_open_c_v_for_unity_1_1_face_module_1_1_b_i_f.html',1,'OpenCVForUnity::FaceModule']]],

@@ -12,6 +12,7 @@ var searchData=
   ['basecascadeclassifier_2ecs',['BaseCascadeClassifier.cs',['../_base_cascade_classifier_8cs.html',1,'']]],
   ['baseocr_2ecs',['BaseOCR.cs',['../_base_o_c_r_8cs.html',1,'']]],
   ['basicfacerecognizer_2ecs',['BasicFaceRecognizer.cs',['../_basic_face_recognizer_8cs.html',1,'']]],
+  ['beblid_2ecs',['BEBLID.cs',['../_b_e_b_l_i_d_8cs.html',1,'']]],
   ['bfmatcher_2ecs',['BFMatcher.cs',['../_b_f_matcher_8cs.html',1,'']]],
   ['bgsegm_2ecs',['Bgsegm.cs',['../_bgsegm_8cs.html',1,'']]],
   ['bif_2ecs',['BIF.cs',['../_b_i_f_8cs.html',1,'']]],

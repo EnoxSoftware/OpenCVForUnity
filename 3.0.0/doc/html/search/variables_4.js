@@ -81,6 +81,7 @@ var searchData=
   ['dnn_5ftarget_5fcuda',['DNN_TARGET_CUDA',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#afe4300185fda7ad87d5040cefed4fa73',1,'OpenCVForUnity::DnnModule::Dnn']]],
   ['dnn_5ftarget_5fcuda_5ffp16',['DNN_TARGET_CUDA_FP16',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a8f021881491eb3e88053690bf8a0ac8d',1,'OpenCVForUnity::DnnModule::Dnn']]],
   ['dnn_5ftarget_5ffpga',['DNN_TARGET_FPGA',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a3c055cf32bfa25be20daf4c9caf558d9',1,'OpenCVForUnity::DnnModule::Dnn']]],
+  ['dnn_5ftarget_5fhddl',['DNN_TARGET_HDDL',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a5f50582a9f1d5aba2847cf921eb18605',1,'OpenCVForUnity::DnnModule::Dnn']]],
   ['dnn_5ftarget_5fmyriad',['DNN_TARGET_MYRIAD',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#ab09dd29b8eb0e1d3b9a15d86a6275adf',1,'OpenCVForUnity::DnnModule::Dnn']]],
   ['dnn_5ftarget_5fopencl',['DNN_TARGET_OPENCL',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a0f393d12f5c6fd35ac231d1e970a94c5',1,'OpenCVForUnity::DnnModule::Dnn']]],
   ['dnn_5ftarget_5fopencl_5ffp16',['DNN_TARGET_OPENCL_FP16',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a19a0889c411613c77e14267846736b2b',1,'OpenCVForUnity::DnnModule::Dnn']]],

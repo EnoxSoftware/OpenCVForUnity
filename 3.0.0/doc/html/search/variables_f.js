@@ -32,6 +32,7 @@ var searchData=
   ['prev_5faround_5fleft',['PREV_AROUND_LEFT',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_subdiv2_d.html#a18a141876c8afb525f94c84513189eb3',1,'OpenCVForUnity::ImgprocModule::Subdiv2D']]],
   ['prev_5faround_5forg',['PREV_AROUND_ORG',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_subdiv2_d.html#a4cf09f746e674f940c1578f08eb115ac',1,'OpenCVForUnity::ImgprocModule::Subdiv2D']]],
   ['prev_5faround_5fright',['PREV_AROUND_RIGHT',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_subdiv2_d.html#a5ec8216a32c95b2c56acb89c7c399679',1,'OpenCVForUnity::ImgprocModule::Subdiv2D']]],
+  ['prewitt',['PREWITT',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_edge_drawing.html#a0283cf19f0c8d1f22fa94fc5f6fcdc6f',1,'OpenCVForUnity::XimgprocModule::EdgeDrawing']]],
   ['proj_5fspherical_5feqrect',['PROJ_SPHERICAL_EQRECT',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a0421f1a1d26d62fde15e0c6e2676dca4',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
   ['proj_5fspherical_5fortho',['PROJ_SPHERICAL_ORTHO',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a509e2cb300f562424a7d31ead9c364ab',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
   ['psm_5fauto',['PSM_AUTO',['../class_open_c_v_for_unity_1_1_text_module_1_1_text.html#a6b6381aba2cc1706d76ecfdba6762b38',1,'OpenCVForUnity::TextModule::Text']]],
