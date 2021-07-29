@@ -217,12 +217,12 @@ models = [
     # LibFaceDetectionV2Example : # https://github.com/ShiqiYu/libfacedetection/
     Model(
         name='LibFaceDetectionV2Example',
-        url='https://github.com/ShiqiYu/libfacedetection/raw/master/models/caffe/yufacedetectnet-open-v2.caffemodel',
+        url='https://github.com/ShiqiYu/libfacedetection/raw/96a7cc0bbfcf05bac17c2df52bee0e8ba6c72964/models/caffe/yufacedetectnet-open-v2.caffemodel',
         sha='3716bd48064f7f56410470f875c9a5c6264ca31c',
         filename='yufacedetectnet-open-v2.caffemodel'),
     Model(
         name='LibFaceDetectionV2Example',
-        url='https://github.com/ShiqiYu/libfacedetection/raw/master/models/caffe/yufacedetectnet-open-v2.prototxt',
+        url='https://github.com/ShiqiYu/libfacedetection/raw/96a7cc0bbfcf05bac17c2df52bee0e8ba6c72964/models/caffe/yufacedetectnet-open-v2.prototxt',
         sha='d8afd224aa1cc41c922075dc95f67852848352c0',
         filename='yufacedetectnet-open-v2.prototxt'),
 
@@ -230,8 +230,8 @@ models = [
     # LibFaceDetectionV3Example : # https://github.com/ShiqiYu/libfacedetection.train
     Model(
         name='LibFaceDetectionV3Example',
-        url='https://github.com/ShiqiYu/libfacedetection.train/raw/master/tasks/task1/onnx/YuFaceDetectNet.onnx',
-        sha='960f361e34fa5dc872f049a19350dd7becc5665f',
+        url='https://github.com/ShiqiYu/libfacedetection.train/raw/73957ce7f04c0cd4a9f2bf0a7ad4be8fec1da222/tasks/task1/onnx/YuFaceDetectNet.onnx',
+        sha='decd9c9b4e2154dca44140dcd04b65af6ea452c5',
         filename='YuFaceDetectNet.onnx'),
 
 

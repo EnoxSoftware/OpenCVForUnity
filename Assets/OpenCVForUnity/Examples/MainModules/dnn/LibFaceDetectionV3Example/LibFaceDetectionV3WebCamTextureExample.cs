@@ -8,6 +8,7 @@ using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UtilsModule;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace OpenCVForUnityExample
 {
@@ -17,8 +18,16 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class LibFaceDetectionV3WebCamTextureExample : DnnObjectDetectionWebCamTextureExample
     {
-        protected Scalar[] pointsColors = new Scalar[] { new Scalar(0, 0, 255, 255), new Scalar(255, 0, 0, 255), new Scalar(255, 255, 0, 255),
-            new Scalar(0, 255, 255, 255), new Scalar(0, 255, 0, 255), new Scalar(255, 255, 255, 255) };
+        [TooltipAttribute("Keep keep_top_k for results outputing.")]
+        public int keep_top_k = 750;
+
+        protected Scalar[] pointsColors = new Scalar[] { 
+            new Scalar(0, 0, 255, 255), // # right eye
+            new Scalar(255, 0, 0, 255), // # left eye
+            new Scalar(255, 255, 0, 255), // # nose tip
+            new Scalar(0, 255, 255, 255), // # mouth right
+            new Scalar(0, 255, 0, 255), // # mouth left
+            new Scalar(255, 255, 255, 255) };
 
         PriorBox pb;
         Mat boxes_m_c1;
@@ -93,18 +102,12 @@ namespace OpenCVForUnityExample
 
             Mat bboxes = dets.colRange(0, 4);
             bboxes.convertTo(boxes_m_c1, CvType.CV_64FC1);
-
-            // x1,y1,x2,y2 => x,y,w,h
-            Mat boxes_m_0_2 = boxes_m_c1.colRange(0, 2);
-            Mat boxes_m_2_4 = boxes_m_c1.colRange(2, 4);
-            Core.subtract(boxes_m_2_4, boxes_m_0_2, boxes_m_2_4);
-
             MatUtils.copyToMat(new IntPtr(boxes_m_c1.dataAddr()), boxes_m_c4);
 
             Mat scores = dets.colRange(14, 15);
             scores.copyTo(confidences_m);
 
-            Dnn.NMSBoxes(boxes, confidences, confThreshold, nmsThreshold, indices);
+            Dnn.NMSBoxes(boxes, confidences, confThreshold, nmsThreshold, indices, 1f, keep_top_k);
 
 
             // # Draw boudning boxes and landmarks on the original image
@@ -116,7 +119,7 @@ namespace OpenCVForUnityExample
                 bboxes.get(idx, 0, bbox_arr);
                 float[] confidence_arr = new float[1];
                 confidences.get(idx, 0, confidence_arr);
-                drawPred(0, confidence_arr[0], bbox_arr[0], bbox_arr[1], bbox_arr[2], bbox_arr[3], frame);
+                drawPred(0, confidence_arr[0], bbox_arr[0], bbox_arr[1], bbox_arr[0] + bbox_arr[2], bbox_arr[1] + bbox_arr[3], frame);
 
                 Mat landmarks = dets.colRange(4, 14);
                 float[] landmarks_arr = new float[10];
@@ -245,17 +248,17 @@ namespace OpenCVForUnityExample
             }
 
             /// <summary>
-            /// Decodes the locations (x1, y1, x2, y2...) and scores (c) from the priors, and the given loc and conf.
+            /// Decodes the locations (x1, y1, w, h,...) and scores (c) from the priors, and the given loc and conf.
             /// </summary>
-            /// <param name="loc"></param>
-            /// <param name="conf"></param>
-            /// <param name="iou"></param>
-            /// <returns>dets is concatenated by bboxes, landmarks and scoress. num * [x1, y1, x2, y2, x_re, y_re, x_le, y_le, x_ml, y_ml, x_n, y_n, x_mr, y_ml, score]</returns>
+            /// <param name="loc">loc produced from loc layers of shape [num_priors, 14]. '14' for [x_c, y_c, w, h,...].</param>
+            /// <param name="conf">conf produced from conf layers of shape [num_priors, 2]. '2' for [p_non_face, p_face].</param>
+            /// <param name="iou">iou produced from iou layers of shape [num_priors, 1]. '1' for [iou].</param>
+            /// <returns>dets is concatenated by bboxes, landmarks and scores. num * [x1, y1, w, h, x_re, y_re, x_le, y_le, x_n, y_n, x_mr, y_mr, x_ml, y_ml, score]</returns>
             public Mat decode(Mat loc, Mat conf, Mat iou)
             {
-                Mat loc_m = loc.reshape(1, new int[] { loc.size(1), loc.size(2) }); // [1*num*14] to [num*14]
-                Mat conf_m = conf.reshape(1, new int[] { conf.size(1), conf.size(2) }); // [1*num*2] to [num*2]
-                Mat iou_m = iou.reshape(1, new int[] { iou.size(1), iou.size(2) }); // [1*num*1] to [num*1]
+                Mat loc_m = loc; // [num*14]
+                Mat conf_m = conf; // [num*2]
+                Mat iou_m = iou; // [num*1]
 
                 int num = loc_m.rows();
 
@@ -296,10 +299,9 @@ namespace OpenCVForUnityExample
                 Core.exp(loc_2_4, bboxes_2_4);
                 Core.multiply(priors_2_4, bboxes_2_4, bboxes_2_4);
 
-                // # (x_c, y_c, w, h) -> (x1, y1, x2, y2)
+                // # (x_c, y_c, w, h) -> (x1, y1, w, h)
                 Core.divide(bboxes_2_4, ones_0_2, loc_2_4, 0.5);
                 Core.subtract(bboxes_0_2, loc_2_4, bboxes_0_2);
-                Core.add(bboxes_2_4, bboxes_0_2, bboxes_2_4);
 
                 // # scale recover
                 Core.multiply(bboxes, bbox_scale, bboxes);

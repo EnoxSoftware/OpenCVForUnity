@@ -65,7 +65,12 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// CLASSIFIER_NM_2_FILENAME
         /// </summary>
+        /// https://stackoverflow.com/questions/4666098/why-does-android-aapt-remove-gz-file-extension-of-assets
+#if UNITY_ANDROID && !UNITY_EDITOR
+        protected static readonly string OCRHMM_KNN_MODEL_FILENAME = "text/OCRHMM_knn_model_data.xml";
+#else
         protected static readonly string OCRHMM_KNN_MODEL_FILENAME = "text/OCRHMM_knn_model_data.xml.gz";
+#endif
 
         /// <summary>
         /// The OCRHMM knn model data filepath.

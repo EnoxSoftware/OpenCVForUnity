@@ -15,6 +15,7 @@ namespace OpenCVForUnityExample
     /// <summary>
     /// VideoCapture Camera Input Example
     /// An example of input a camera stream using the VideoCapture class.
+    /// Works well on Windows and MacOS platforms.
     /// </summary>
     public class VideoCaptureCameraInputExample : MonoBehaviour
     {
@@ -301,9 +302,7 @@ namespace OpenCVForUnityExample
                 Debug.LogError("capture.isOpened() is false. " + "DeviceId:" + (int)requestedDeviceId);
 
                 if (fpsMonitor != null)
-                {
                     fpsMonitor.consoleText = "capture.isOpened() is false. " + "DeviceId:" + (int)requestedDeviceId;
-                }
 
                 capture.release();
 
@@ -373,11 +372,24 @@ namespace OpenCVForUnityExample
             Debug.Log("CAP_PROP_CODEC_PIXEL_FORMAT: " + capture.get(Videoio.CAP_PROP_CODEC_PIXEL_FORMAT));
 
 
-
-
             inputMat = new Mat();
 
-            capture.read(inputMat);
+            int grabFrameCount = 0;
+            while (!(capture.grab() && capture.retrieve(inputMat)))
+            {
+                if (grabFrameCount > 30)
+                {
+                    Debug.LogError("The grab() and retrieve(() method is not work.");
+
+                    if (fpsMonitor != null)
+                        fpsMonitor.consoleText = "The grab() and retrieve(() method is not work.";
+
+                    capture.release();
+
+                    break;
+                }
+                grabFrameCount++;
+            }
 
             // The frame size returned by VideoCapture property may differ from the returned Mat.
             // On iOS platform, the height and width of the frame size are swapped.
@@ -398,9 +410,7 @@ namespace OpenCVForUnityExample
                 Debug.LogError("The inputMat size returned was 0x0.");
 
                 if (fpsMonitor != null)
-                {
                     fpsMonitor.consoleText = "The inputMat size returned was 0x0.";
-                }
 
                 capture.release();
 

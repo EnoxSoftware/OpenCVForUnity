@@ -98,7 +98,7 @@ namespace OpenCVForUnityExample
             Debug.Log("OnWebCamTextureToMatHelperInitialized");
 
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat();
-            
+
             texture = new Texture2D(webCamTextureMat.cols(), webCamTextureMat.rows(), TextureFormat.RGBA32, false);
             Utils.fastMatToTexture2D(webCamTextureMat, texture);
 
@@ -268,10 +268,10 @@ namespace OpenCVForUnityExample
             if (rotate90DegreeToggle.isOn != webCamTextureToMatHelper.rotate90Degree)
             {
                 webCamTextureToMatHelper.rotate90Degree = rotate90DegreeToggle.isOn;
-            }
 
-            if (fpsMonitor != null)
-                fpsMonitor.Add("rotate90Degree", webCamTextureToMatHelper.rotate90Degree.ToString());
+                if (fpsMonitor != null)
+                    fpsMonitor.Add("rotate90Degree", webCamTextureToMatHelper.rotate90Degree.ToString());
+            }
         }
 
         /// <summary>
@@ -282,10 +282,10 @@ namespace OpenCVForUnityExample
             if (flipVerticalToggle.isOn != webCamTextureToMatHelper.flipVertical)
             {
                 webCamTextureToMatHelper.flipVertical = flipVerticalToggle.isOn;
-            }
 
-            if (fpsMonitor != null)
-                fpsMonitor.Add("flipVertical", webCamTextureToMatHelper.flipVertical.ToString());
+                if (fpsMonitor != null)
+                    fpsMonitor.Add("flipVertical", webCamTextureToMatHelper.flipVertical.ToString());
+            }
         }
 
         /// <summary>
@@ -296,10 +296,10 @@ namespace OpenCVForUnityExample
             if (flipHorizontalToggle.isOn != webCamTextureToMatHelper.flipHorizontal)
             {
                 webCamTextureToMatHelper.flipHorizontal = flipHorizontalToggle.isOn;
-            }
 
-            if (fpsMonitor != null)
-                fpsMonitor.Add("flipHorizontal", webCamTextureToMatHelper.flipHorizontal.ToString());
+                if (fpsMonitor != null)
+                    fpsMonitor.Add("flipHorizontal", webCamTextureToMatHelper.flipHorizontal.ToString());
+            }
         }
 
         public enum FPSPreset : int
