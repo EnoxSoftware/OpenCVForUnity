@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.4.4</span>
+   &#160;<span id="projectnumber">2.4.5</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.5.2/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.5.3/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -86,6 +86,14 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a7e3aad72d314a5c92da737613ad81041"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a920e89e00e0496e60ede52bfac084b84"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a920e89e00e0496e60ede52bfac084b84">imreadmulti</a> (string filename, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; mats)</td></tr>
 <tr class="separator:a920e89e00e0496e60ede52bfac084b84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48850b101507eed614a46833b4501b2f"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a48850b101507eed614a46833b4501b2f">imreadmulti</a> (string filename, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; mats, int start, int count, int flags)</td></tr>
+<tr class="separator:a48850b101507eed614a46833b4501b2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6eb50d5f0c2f55c6b8aa8aa4d1ae491b"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a6eb50d5f0c2f55c6b8aa8aa4d1ae491b">imreadmulti</a> (string filename, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; mats, int start, int count)</td></tr>
+<tr class="separator:a6eb50d5f0c2f55c6b8aa8aa4d1ae491b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34860c54f4c2d21a4b26b6e6f5ba500f"><td class="memItemLeft" align="right" valign="top">static long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a34860c54f4c2d21a4b26b6e6f5ba500f">imcount</a> (string filename, int flags)</td></tr>
+<tr class="separator:a34860c54f4c2d21a4b26b6e6f5ba500f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8367c964d492b35ce54a1752ea147a3e"><td class="memItemLeft" align="right" valign="top">static long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a8367c964d492b35ce54a1752ea147a3e">imcount</a> (string filename)</td></tr>
+<tr class="separator:a8367c964d492b35ce54a1752ea147a3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7dccafe0297fa1acddd161a6a837b0f"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#ad7dccafe0297fa1acddd161a6a837b0f">imwrite</a> (string filename, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> img, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_int.html">MatOfInt</a> _params)</td></tr>
 <tr class="separator:ad7dccafe0297fa1acddd161a6a837b0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3272eb63413b15d49c3a48ad84332f36"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a3272eb63413b15d49c3a48ad84332f36">imwrite</a> (string filename, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> img)</td></tr>
@@ -272,6 +280,72 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns true if an image with the specified filename can be encoded by OpenCV</p>
 <p>param filename File name of the image return automatically generated </p>
+
+</div>
+</div>
+<a id="a34860c54f4c2d21a4b26b6e6f5ba500f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34860c54f4c2d21a4b26b6e6f5ba500f">&#9670;&nbsp;</a></span>imcount() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static long OpenCVForUnity.ImgcodecsModule.Imgcodecs.imcount </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>flags</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Returns the number of images inside the give file</p>
+<p>The function imcount will return the number of pages in a multi-page image, or 1 for single-page images param filename Name of file to be loaded. param flags Flag that can take values of cv::ImreadModes, default with cv::IMREAD_ANYCOLOR. return automatically generated </p>
+
+</div>
+</div>
+<a id="a8367c964d492b35ce54a1752ea147a3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8367c964d492b35ce54a1752ea147a3e">&#9670;&nbsp;</a></span>imcount() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static long OpenCVForUnity.ImgcodecsModule.Imgcodecs.imcount </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Returns the number of images inside the give file</p>
+<p>The function imcount will return the number of pages in a multi-page image, or 1 for single-page images param filename Name of file to be loaded. return automatically generated </p>
 
 </div>
 </div>
@@ -576,7 +650,7 @@ By default number of pixels must be less than 2^30. Limit can be set using syste
 </div>
 </div>
 <a id="a7e3aad72d314a5c92da737613ad81041"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e3aad72d314a5c92da737613ad81041">&#9670;&nbsp;</a></span>imreadmulti() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e3aad72d314a5c92da737613ad81041">&#9670;&nbsp;</a></span>imreadmulti() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -620,7 +694,7 @@ By default number of pixels must be less than 2^30. Limit can be set using syste
 </div>
 </div>
 <a id="a920e89e00e0496e60ede52bfac084b84"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a920e89e00e0496e60ede52bfac084b84">&#9670;&nbsp;</a></span>imreadmulti() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a920e89e00e0496e60ede52bfac084b84">&#9670;&nbsp;</a></span>imreadmulti() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -654,6 +728,112 @@ By default number of pixels must be less than 2^30. Limit can be set using syste
 </div><div class="memdoc">
 <p>Loads a multi-page image from a file.</p>
 <p>The function imreadmulti loads a multi-page image from the specified file into a vector of Mat objects. param filename Name of file to be loaded. param mats A vector of Mat objects holding each page, if more than one. SEE: cv::imread return automatically generated </p>
+
+</div>
+</div>
+<a id="a48850b101507eed614a46833b4501b2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48850b101507eed614a46833b4501b2f">&#9670;&nbsp;</a></span>imreadmulti() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool OpenCVForUnity.ImgcodecsModule.Imgcodecs.imreadmulti </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt;&#160;</td>
+          <td class="paramname"><em>mats</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>flags</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Loads a of images of a multi-page image from a file.</p>
+<p>The function imreadmulti loads a specified range from a multi-page image from the specified file into a vector of Mat objects. param filename Name of file to be loaded. param start Start index of the image to load param count Count number of images to load param flags Flag that can take values of cv::ImreadModes, default with cv::IMREAD_ANYCOLOR. param mats A vector of Mat objects holding each page, if more than one. SEE: cv::imread return automatically generated </p>
+
+</div>
+</div>
+<a id="a6eb50d5f0c2f55c6b8aa8aa4d1ae491b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6eb50d5f0c2f55c6b8aa8aa4d1ae491b">&#9670;&nbsp;</a></span>imreadmulti() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool OpenCVForUnity.ImgcodecsModule.Imgcodecs.imreadmulti </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt;&#160;</td>
+          <td class="paramname"><em>mats</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Loads a of images of a multi-page image from a file.</p>
+<p>The function imreadmulti loads a specified range from a multi-page image from the specified file into a vector of Mat objects. param filename Name of file to be loaded. param start Start index of the image to load param count Count number of images to load param mats A vector of Mat objects holding each page, if more than one. SEE: cv::imread return automatically generated </p>
 
 </div>
 </div>
@@ -708,6 +888,7 @@ PNG images with an alpha channel can be saved using this function. To do this, c
 <li>
 Multiple images (vector of Mat) can be saved in TIFF format (see the code sample below).  </li>
 </ul>
+<p>If the image format is not supported, the image will be converted to 8-bit unsigned (CV_8U) and saved that way.</p>
 <p>If the format, depth or channel order is different, use Mat::convertTo and cv::cvtColor to convert it before saving. Or, use the universal FileStorage I/O functions to save the image to XML or YAML format.</p>
 <p>The sample below shows how to create a BGRA image, how to set custom compression parameters and save it to a PNG file. It also demonstrates how to save multiple images in a TIFF file: INCLUDE: snippets/imgcodecs_imwrite.cpp param filename Name of the file. param img (Mat or vector of Mat) Image or Images to be saved. param _params automatically generated return automatically generated </p>
 
@@ -758,6 +939,7 @@ PNG images with an alpha channel can be saved using this function. To do this, c
 <li>
 Multiple images (vector of Mat) can be saved in TIFF format (see the code sample below).  </li>
 </ul>
+<p>If the image format is not supported, the image will be converted to 8-bit unsigned (CV_8U) and saved that way.</p>
 <p>If the format, depth or channel order is different, use Mat::convertTo and cv::cvtColor to convert it before saving. Or, use the universal FileStorage I/O functions to save the image to XML or YAML format.</p>
 <p>The sample below shows how to create a BGRA image, how to set custom compression parameters and save it to a PNG file. It also demonstrates how to save multiple images in a TIFF file: INCLUDE: snippets/imgcodecs_imwrite.cpp param filename Name of the file. param img (Mat or vector of Mat) Image or Images to be saved. return automatically generated </p>
 
@@ -1618,7 +1800,7 @@ Multiple images (vector of Mat) can be saved in TIFF format (see the code sample
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 23 2021 17:31:42 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jul 30 2021 00:08:32 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

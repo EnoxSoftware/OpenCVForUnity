@@ -18,6 +18,8 @@ var searchData=
   ['tracker_2ecs',['Tracker.cs',['../_tracker_8cs.html',1,'']]],
   ['trackercsrt_2ecs',['TrackerCSRT.cs',['../_tracker_c_s_r_t_8cs.html',1,'']]],
   ['trackercsrt_5fparams_2ecs',['TrackerCSRT_Params.cs',['../_tracker_c_s_r_t___params_8cs.html',1,'']]],
+  ['trackerdasiamrpn_2ecs',['TrackerDaSiamRPN.cs',['../_tracker_da_siam_r_p_n_8cs.html',1,'']]],
+  ['trackerdasiamrpn_5fparams_2ecs',['TrackerDaSiamRPN_Params.cs',['../_tracker_da_siam_r_p_n___params_8cs.html',1,'']]],
   ['trackergoturn_2ecs',['TrackerGOTURN.cs',['../_tracker_g_o_t_u_r_n_8cs.html',1,'']]],
   ['trackergoturn_5fparams_2ecs',['TrackerGOTURN_Params.cs',['../_tracker_g_o_t_u_r_n___params_8cs.html',1,'']]],
   ['trackerkcf_2ecs',['TrackerKCF.cs',['../_tracker_k_c_f_8cs.html',1,'']]],

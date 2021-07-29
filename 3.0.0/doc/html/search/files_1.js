@@ -9,6 +9,8 @@ var searchData=
   ['backgroundsubtractorlsbpdesc_2ecs',['BackgroundSubtractorLSBPDesc.cs',['../_background_subtractor_l_s_b_p_desc_8cs.html',1,'']]],
   ['backgroundsubtractormog_2ecs',['BackgroundSubtractorMOG.cs',['../_background_subtractor_m_o_g_8cs.html',1,'']]],
   ['backgroundsubtractormog2_2ecs',['BackgroundSubtractorMOG2.cs',['../_background_subtractor_m_o_g2_8cs.html',1,'']]],
+  ['barcode_2ecs',['Barcode.cs',['../_barcode_8cs.html',1,'']]],
+  ['barcodedetector_2ecs',['BarcodeDetector.cs',['../_barcode_detector_8cs.html',1,'']]],
   ['basecascadeclassifier_2ecs',['BaseCascadeClassifier.cs',['../_base_cascade_classifier_8cs.html',1,'']]],
   ['baseocr_2ecs',['BaseOCR.cs',['../_base_o_c_r_8cs.html',1,'']]],
   ['basicfacerecognizer_2ecs',['BasicFaceRecognizer.cs',['../_basic_face_recognizer_8cs.html',1,'']]],

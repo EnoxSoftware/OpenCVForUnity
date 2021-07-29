@@ -18,6 +18,7 @@ var searchData=
   ['videowriter_5fprop_5fdepth',['VIDEOWRITER_PROP_DEPTH',['../class_open_c_v_for_unity_1_1_videoio_module_1_1_videoio.html#a04ecaca73a054306d89bd2830efde23c',1,'OpenCVForUnity::VideoioModule::Videoio']]],
   ['videowriter_5fprop_5fframebytes',['VIDEOWRITER_PROP_FRAMEBYTES',['../class_open_c_v_for_unity_1_1_videoio_module_1_1_videoio.html#a65688cca8ca95d8fc5dd11a17f0e1290',1,'OpenCVForUnity::VideoioModule::Videoio']]],
   ['videowriter_5fprop_5fhw_5facceleration',['VIDEOWRITER_PROP_HW_ACCELERATION',['../class_open_c_v_for_unity_1_1_videoio_module_1_1_videoio.html#a30eb7383f597c3bf52c7ec3015a8fcee',1,'OpenCVForUnity::VideoioModule::Videoio']]],
+  ['videowriter_5fprop_5fhw_5facceleration_5fuse_5fopencl',['VIDEOWRITER_PROP_HW_ACCELERATION_USE_OPENCL',['../class_open_c_v_for_unity_1_1_videoio_module_1_1_videoio.html#a2833977cfe48fc52fbbb4024f363616b',1,'OpenCVForUnity::VideoioModule::Videoio']]],
   ['videowriter_5fprop_5fhw_5fdevice',['VIDEOWRITER_PROP_HW_DEVICE',['../class_open_c_v_for_unity_1_1_videoio_module_1_1_videoio.html#a626b0df8e4f5a9f9d3aa989c9b1af77d',1,'OpenCVForUnity::VideoioModule::Videoio']]],
   ['videowriter_5fprop_5fis_5fcolor',['VIDEOWRITER_PROP_IS_COLOR',['../class_open_c_v_for_unity_1_1_videoio_module_1_1_videoio.html#a106a67b92e740ea8c2efc28e7a007075',1,'OpenCVForUnity::VideoioModule::Videoio']]],
   ['videowriter_5fprop_5fnstripes',['VIDEOWRITER_PROP_NSTRIPES',['../class_open_c_v_for_unity_1_1_videoio_module_1_1_videoio.html#acb2adb771de8d08c6352442bf22328b6',1,'OpenCVForUnity::VideoioModule::Videoio']]],

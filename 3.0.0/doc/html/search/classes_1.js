@@ -9,6 +9,8 @@ var searchData=
   ['backgroundsubtractorlsbpdesc',['BackgroundSubtractorLSBPDesc',['../class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_l_s_b_p_desc.html',1,'OpenCVForUnity::BgsegmModule']]],
   ['backgroundsubtractormog',['BackgroundSubtractorMOG',['../class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_m_o_g.html',1,'OpenCVForUnity::BgsegmModule']]],
   ['backgroundsubtractormog2',['BackgroundSubtractorMOG2',['../class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor_m_o_g2.html',1,'OpenCVForUnity::VideoModule']]],
+  ['barcode',['Barcode',['../class_open_c_v_for_unity_1_1_barcode_module_1_1_barcode.html',1,'OpenCVForUnity::BarcodeModule']]],
+  ['barcodedetector',['BarcodeDetector',['../class_open_c_v_for_unity_1_1_barcode_module_1_1_barcode_detector.html',1,'OpenCVForUnity::BarcodeModule']]],
   ['basecascadeclassifier',['BaseCascadeClassifier',['../class_open_c_v_for_unity_1_1_objdetect_module_1_1_base_cascade_classifier.html',1,'OpenCVForUnity::ObjdetectModule']]],
   ['baseocr',['BaseOCR',['../class_open_c_v_for_unity_1_1_text_module_1_1_base_o_c_r.html',1,'OpenCVForUnity::TextModule']]],
   ['basicfacerecognizer',['BasicFaceRecognizer',['../class_open_c_v_for_unity_1_1_face_module_1_1_basic_face_recognizer.html',1,'OpenCVForUnity::FaceModule']]],

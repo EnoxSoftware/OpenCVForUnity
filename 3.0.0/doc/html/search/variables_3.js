@@ -147,6 +147,7 @@ var searchData=
   ['cap_5fprop_5fguid',['CAP_PROP_GUID',['../class_open_c_v_for_unity_1_1_videoio_module_1_1_videoio.html#a189e974bd99504fa8215d677dfef3066',1,'OpenCVForUnity::VideoioModule::Videoio']]],
   ['cap_5fprop_5fhue',['CAP_PROP_HUE',['../class_open_c_v_for_unity_1_1_videoio_module_1_1_videoio.html#a5cfc8ce304d8d6ae0c704d69052bb300',1,'OpenCVForUnity::VideoioModule::Videoio']]],
   ['cap_5fprop_5fhw_5facceleration',['CAP_PROP_HW_ACCELERATION',['../class_open_c_v_for_unity_1_1_videoio_module_1_1_videoio.html#a21306f54a39a2ab1dee9f8265c805536',1,'OpenCVForUnity::VideoioModule::Videoio']]],
+  ['cap_5fprop_5fhw_5facceleration_5fuse_5fopencl',['CAP_PROP_HW_ACCELERATION_USE_OPENCL',['../class_open_c_v_for_unity_1_1_videoio_module_1_1_videoio.html#a6ff368926064ba6194efc7d524b08ee4',1,'OpenCVForUnity::VideoioModule::Videoio']]],
   ['cap_5fprop_5fhw_5fdevice',['CAP_PROP_HW_DEVICE',['../class_open_c_v_for_unity_1_1_videoio_module_1_1_videoio.html#a9ccdbe53f6b37401093bc9ae482230fd',1,'OpenCVForUnity::VideoioModule::Videoio']]],
   ['cap_5fprop_5fimages_5fbase',['CAP_PROP_IMAGES_BASE',['../class_open_c_v_for_unity_1_1_videoio_module_1_1_videoio.html#ad94adb7885e554dfc5894a77256a8e0a',1,'OpenCVForUnity::VideoioModule::Videoio']]],
   ['cap_5fprop_5fimages_5flast',['CAP_PROP_IMAGES_LAST',['../class_open_c_v_for_unity_1_1_videoio_module_1_1_videoio.html#ac855e2b8af05c33149f51aac0011ded8',1,'OpenCVForUnity::VideoioModule::Videoio']]],

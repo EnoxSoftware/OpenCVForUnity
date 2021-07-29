@@ -1,6 +1,7 @@
 var searchData=
 [
   ['arucomodule',['ArucoModule',['../namespace_open_c_v_for_unity_1_1_aruco_module.html',1,'OpenCVForUnity']]],
+  ['barcodemodule',['BarcodeModule',['../namespace_open_c_v_for_unity_1_1_barcode_module.html',1,'OpenCVForUnity']]],
   ['bgsegmmodule',['BgsegmModule',['../namespace_open_c_v_for_unity_1_1_bgsegm_module.html',1,'OpenCVForUnity']]],
   ['bioinspiredmodule',['BioinspiredModule',['../namespace_open_c_v_for_unity_1_1_bioinspired_module.html',1,'OpenCVForUnity']]],
   ['calib3dmodule',['Calib3dModule',['../namespace_open_c_v_for_unity_1_1_calib3d_module.html',1,'OpenCVForUnity']]],
