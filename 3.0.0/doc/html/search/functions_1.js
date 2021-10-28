@@ -22,6 +22,7 @@ var searchData=
   ['agastfeaturedetector',['AgastFeatureDetector',['../class_open_c_v_for_unity_1_1_features2d_module_1_1_agast_feature_detector.html#adbd437fee494dbeededb22acd44161ab',1,'OpenCVForUnity::Features2dModule::AgastFeatureDetector']]],
   ['akaze',['AKAZE',['../class_open_c_v_for_unity_1_1_features2d_module_1_1_a_k_a_z_e.html#a51b7a2533deb62e58453dc6ed22edde7',1,'OpenCVForUnity::Features2dModule::AKAZE']]],
   ['algorithm',['Algorithm',['../class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a5d6791aefd7562d4a8154e08069d4333',1,'OpenCVForUnity::CoreModule::Algorithm']]],
+  ['aligncrop',['alignCrop',['../class_open_c_v_for_unity_1_1_objdetect_module_1_1_face_recognizer_s_f.html#a10e3a52d71670b84592596fb03e86399',1,'OpenCVForUnity::ObjdetectModule::FaceRecognizerSF']]],
   ['alignexposures',['AlignExposures',['../class_open_c_v_for_unity_1_1_photo_module_1_1_align_exposures.html#a3de44e560f24e9f91f95f1ae7a4033d4',1,'OpenCVForUnity::PhotoModule::AlignExposures']]],
   ['alignmtb',['AlignMTB',['../class_open_c_v_for_unity_1_1_photo_module_1_1_align_m_t_b.html#acf7a881fbb094ededf38fb2968628306',1,'OpenCVForUnity::PhotoModule::AlignMTB']]],
   ['all',['all',['../class_open_c_v_for_unity_1_1_core_module_1_1_range.html#aa1b79e9077ea22a9790ec5567f4864ac',1,'OpenCVForUnity.CoreModule.Range.all()'],['../class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a794076c5d68dd9b9cb70aecef45a52af',1,'OpenCVForUnity.CoreModule.Scalar.all()']]],

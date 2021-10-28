@@ -33,6 +33,7 @@ var searchData=
   ['akaze_2ecs',['AKAZE.cs',['../_a_k_a_z_e_8cs.html',1,'']]],
   ['algorithm',['Algorithm',['../class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html',1,'OpenCVForUnity.CoreModule.Algorithm'],['../class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a5d6791aefd7562d4a8154e08069d4333',1,'OpenCVForUnity.CoreModule.Algorithm.Algorithm()']]],
   ['algorithm_2ecs',['Algorithm.cs',['../_algorithm_8cs.html',1,'']]],
+  ['aligncrop',['alignCrop',['../class_open_c_v_for_unity_1_1_objdetect_module_1_1_face_recognizer_s_f.html#a10e3a52d71670b84592596fb03e86399',1,'OpenCVForUnity::ObjdetectModule::FaceRecognizerSF']]],
   ['alignexposures',['AlignExposures',['../class_open_c_v_for_unity_1_1_photo_module_1_1_align_exposures.html',1,'OpenCVForUnity.PhotoModule.AlignExposures'],['../class_open_c_v_for_unity_1_1_photo_module_1_1_align_exposures.html#a3de44e560f24e9f91f95f1ae7a4033d4',1,'OpenCVForUnity.PhotoModule.AlignExposures.AlignExposures()']]],
   ['alignexposures_2ecs',['AlignExposures.cs',['../_align_exposures_8cs.html',1,'']]],
   ['alignmtb',['AlignMTB',['../class_open_c_v_for_unity_1_1_photo_module_1_1_align_m_t_b.html',1,'OpenCVForUnity.PhotoModule.AlignMTB'],['../class_open_c_v_for_unity_1_1_photo_module_1_1_align_m_t_b.html#acf7a881fbb094ededf38fb2968628306',1,'OpenCVForUnity.PhotoModule.AlignMTB.AlignMTB()']]],
@@ -72,6 +73,7 @@ var searchData=
   ['arutils_2ecs',['ARUtils.cs',['../_a_r_utils_8cs.html',1,'']]],
   ['asgd',['ASGD',['../class_open_c_v_for_unity_1_1_ml_module_1_1_s_v_m_s_g_d.html#a765a3a0b67dd2626e48550011fe897cf',1,'OpenCVForUnity::MlModule::SVMSGD']]],
   ['assignto',['assignTo',['../class_open_c_v_for_unity_1_1_core_module_1_1_mat.html#a246d10f53ef54ba5e4b1c86e46672ccd',1,'OpenCVForUnity.CoreModule.Mat.assignTo(Mat m, int type)'],['../class_open_c_v_for_unity_1_1_core_module_1_1_mat.html#a090860925704d0d3adaadf0150b40395',1,'OpenCVForUnity.CoreModule.Mat.assignTo(Mat m)']]],
+  ['auto_5fstep',['AUTO_STEP',['../class_open_c_v_for_unity_1_1_core_module_1_1_mat.html#a7cee67ee777c199f7f0b02a32970bad5',1,'OpenCVForUnity::CoreModule::Mat']]],
   ['averagehash',['AverageHash',['../class_open_c_v_for_unity_1_1_img__hash_module_1_1_average_hash.html',1,'OpenCVForUnity.Img_hashModule.AverageHash'],['../class_open_c_v_for_unity_1_1_img__hash_module_1_1_average_hash.html#a1f812fbfc28684d77825208c51c4df27',1,'OpenCVForUnity.Img_hashModule.AverageHash.AverageHash()'],['../class_open_c_v_for_unity_1_1_img__hash_module_1_1_img__hash.html#afd5132e3052665f050ef90ce7ad5f5fd',1,'OpenCVForUnity.Img_hashModule.Img_hash.averageHash()']]],
   ['averagehash_2ecs',['AverageHash.cs',['../_average_hash_8cs.html',1,'']]],
   ['avoidandroidfrontcameralowlightissue',['avoidAndroidFrontCameraLowLightIssue',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a883473d004d152f29be71e65f888a3cd',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]]

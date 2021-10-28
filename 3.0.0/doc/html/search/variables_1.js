@@ -18,5 +18,6 @@ var searchData=
   ['aro_5fctr_5fhor',['ARO_CTR_HOR',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_ximgproc.html#a384f012563cfb9a26fff8159709bd5c8',1,'OpenCVForUnity::XimgprocModule::Ximgproc']]],
   ['aro_5fctr_5fver',['ARO_CTR_VER',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_ximgproc.html#a387e5d039b267cd4942105d313e20756',1,'OpenCVForUnity::XimgprocModule::Ximgproc']]],
   ['asgd',['ASGD',['../class_open_c_v_for_unity_1_1_ml_module_1_1_s_v_m_s_g_d.html#a765a3a0b67dd2626e48550011fe897cf',1,'OpenCVForUnity::MlModule::SVMSGD']]],
+  ['auto_5fstep',['AUTO_STEP',['../class_open_c_v_for_unity_1_1_core_module_1_1_mat.html#a7cee67ee777c199f7f0b02a32970bad5',1,'OpenCVForUnity::CoreModule::Mat']]],
   ['avoidandroidfrontcameralowlightissue',['avoidAndroidFrontCameraLowLightIssue',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a883473d004d152f29be71e65f888a3cd',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]]
 ];

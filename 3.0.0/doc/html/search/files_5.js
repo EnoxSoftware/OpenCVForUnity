@@ -1,12 +1,14 @@
 var searchData=
 [
   ['face_2ecs',['Face.cs',['../_face_8cs.html',1,'']]],
+  ['facedetectoryn_2ecs',['FaceDetectorYN.cs',['../_face_detector_y_n_8cs.html',1,'']]],
   ['facemark_2ecs',['Facemark.cs',['../_facemark_8cs.html',1,'']]],
   ['facemarkaam_2ecs',['FacemarkAAM.cs',['../_facemark_a_a_m_8cs.html',1,'']]],
   ['facemarkkazemi_2ecs',['FacemarkKazemi.cs',['../_facemark_kazemi_8cs.html',1,'']]],
   ['facemarklbf_2ecs',['FacemarkLBF.cs',['../_facemark_l_b_f_8cs.html',1,'']]],
   ['facemarktrain_2ecs',['FacemarkTrain.cs',['../_facemark_train_8cs.html',1,'']]],
   ['facerecognizer_2ecs',['FaceRecognizer.cs',['../_face_recognizer_8cs.html',1,'']]],
+  ['facerecognizersf_2ecs',['FaceRecognizerSF.cs',['../_face_recognizer_s_f_8cs.html',1,'']]],
   ['farnebackopticalflow_2ecs',['FarnebackOpticalFlow.cs',['../_farneback_optical_flow_8cs.html',1,'']]],
   ['fastbilateralsolverfilter_2ecs',['FastBilateralSolverFilter.cs',['../_fast_bilateral_solver_filter_8cs.html',1,'']]],
   ['fastfeaturedetector_2ecs',['FastFeatureDetector.cs',['../_fast_feature_detector_8cs.html',1,'']]],

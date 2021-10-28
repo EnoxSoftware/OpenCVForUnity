@@ -22,6 +22,8 @@ var searchData=
   ['slico',['SLICO',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_ximgproc.html#a52917699b0481f996b297bbdfceb13d0',1,'OpenCVForUnity::XimgprocModule::Ximgproc']]],
   ['sobel',['SOBEL',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_edge_drawing.html#a23173ec9402079d4fbc3c7c2bf12946a',1,'OpenCVForUnity::XimgprocModule::EdgeDrawing']]],
   ['soft_5fmargin',['SOFT_MARGIN',['../class_open_c_v_for_unity_1_1_ml_module_1_1_s_v_m_s_g_d.html#a7cbaaf9b560341d70155c29ceeb5ba20',1,'OpenCVForUnity::MlModule::SVMSGD']]],
+  ['softnmsmethod_5fsoftnms_5fgaussian',['SoftNMSMethod_SOFTNMS_GAUSSIAN',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a784a771c961990b65cfe513f9b32a5fc',1,'OpenCVForUnity::DnnModule::Dnn']]],
+  ['softnmsmethod_5fsoftnms_5flinear',['SoftNMSMethod_SOFTNMS_LINEAR',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a29b826a5ed27de8a865f642d97de41eb',1,'OpenCVForUnity::DnnModule::Dnn']]],
   ['solvepnp_5fap3p',['SOLVEPNP_AP3P',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a72a1a35ed6b9eb44f617fccfb24e1446',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
   ['solvepnp_5fdls',['SOLVEPNP_DLS',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#aab810b55313d7acc3e446d509feb6c3f',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
   ['solvepnp_5fepnp',['SOLVEPNP_EPNP',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#af0e5c25c1aa61af4c3f09511f2d6179b',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],

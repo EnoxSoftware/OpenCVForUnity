@@ -20,6 +20,8 @@ var searchData=
   ['trackercsrt_5fparams',['TrackerCSRT_Params',['../class_open_c_v_for_unity_1_1_tracking_module_1_1_tracker_c_s_r_t___params.html',1,'OpenCVForUnity::TrackingModule']]],
   ['trackerdasiamrpn',['TrackerDaSiamRPN',['../class_open_c_v_for_unity_1_1_video_module_1_1_tracker_da_siam_r_p_n.html',1,'OpenCVForUnity::VideoModule']]],
   ['trackerdasiamrpn_5fparams',['TrackerDaSiamRPN_Params',['../class_open_c_v_for_unity_1_1_video_module_1_1_tracker_da_siam_r_p_n___params.html',1,'OpenCVForUnity::VideoModule']]],
+  ['trackergoturn',['TrackerGOTURN',['../class_open_c_v_for_unity_1_1_video_module_1_1_tracker_g_o_t_u_r_n.html',1,'OpenCVForUnity::VideoModule']]],
+  ['trackergoturn_5fparams',['TrackerGOTURN_Params',['../class_open_c_v_for_unity_1_1_video_module_1_1_tracker_g_o_t_u_r_n___params.html',1,'OpenCVForUnity::VideoModule']]],
   ['trackerkcf',['TrackerKCF',['../class_open_c_v_for_unity_1_1_tracking_module_1_1_tracker_k_c_f.html',1,'OpenCVForUnity::TrackingModule']]],
   ['trackerkcf_5fparams',['TrackerKCF_Params',['../class_open_c_v_for_unity_1_1_tracking_module_1_1_tracker_k_c_f___params.html',1,'OpenCVForUnity::TrackingModule']]],
   ['trackermil',['TrackerMIL',['../class_open_c_v_for_unity_1_1_video_module_1_1_tracker_m_i_l.html',1,'OpenCVForUnity::VideoModule']]],
