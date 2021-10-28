@@ -10,6 +10,7 @@ using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.DnnModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
+using Range = OpenCVForUnity.CoreModule.Range;
 
 namespace OpenCVForUnityExample
 {

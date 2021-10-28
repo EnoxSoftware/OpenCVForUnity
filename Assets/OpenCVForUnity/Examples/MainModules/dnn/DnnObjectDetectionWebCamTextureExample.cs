@@ -97,7 +97,7 @@ namespace OpenCVForUnityExample
 #endif
 
         // Use this for initialization
-        void Start()
+        protected virtual void Start()
         {
             fpsMonitor = GetComponent<FpsMonitor>();
 
@@ -270,7 +270,7 @@ namespace OpenCVForUnityExample
         }
 
         // Update is called once per frame
-        void Update()
+        protected virtual void Update()
         {
             if (webCamTextureToMatHelper.IsPlaying() && webCamTextureToMatHelper.DidUpdateThisFrame())
             {
@@ -333,7 +333,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Raises the destroy event.
         /// </summary>
-        void OnDestroy()
+        protected virtual void OnDestroy()
         {
             webCamTextureToMatHelper.Dispose();
 
@@ -388,7 +388,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public virtual void OnChangeCameraButtonClick()
         {
-            webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing();
+            webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.requestedIsFrontFacing;
         }
 
         /// <summary>

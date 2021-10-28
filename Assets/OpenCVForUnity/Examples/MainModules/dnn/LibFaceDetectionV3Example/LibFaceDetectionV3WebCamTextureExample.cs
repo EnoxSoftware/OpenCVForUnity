@@ -9,6 +9,7 @@ using OpenCVForUnity.UtilsModule;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Range = OpenCVForUnity.CoreModule.Range;
 
 namespace OpenCVForUnityExample
 {

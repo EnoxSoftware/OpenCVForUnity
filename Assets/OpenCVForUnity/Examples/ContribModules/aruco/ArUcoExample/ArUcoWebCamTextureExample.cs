@@ -444,8 +444,15 @@ namespace OpenCVForUnityExample
             diamondIds.put(0, 0, new int[] { diamondId1, diamondId2, diamondId3, diamondId4 });
 
 
-            // if WebCamera is frontFaceing, flip Mat.
-            webCamTextureToMatHelper.flipHorizontal = webCamTextureToMatHelper.GetWebCamDevice().isFrontFacing;
+            // If the WebCam is front facing, flip the Mat horizontally. Required for successful detection of AR markers.
+            if (webCamTextureToMatHelper.IsFrontFacing() && !webCamTextureToMatHelper.flipHorizontal)
+            {
+                webCamTextureToMatHelper.flipHorizontal = true;
+            }
+            else if (!webCamTextureToMatHelper.IsFrontFacing() && webCamTextureToMatHelper.flipHorizontal)
+            {
+                webCamTextureToMatHelper.flipHorizontal = false;
+            }
         }
 
         /// <summary>
@@ -778,7 +785,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnChangeCameraButtonClick()
         {
-            webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing();
+            webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.requestedIsFrontFacing;
         }
 
         /// <summary>
@@ -821,18 +828,12 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnUseStoredCameraParametersToggleValueChanged()
         {
-            if (useStoredCameraParametersToggle.isOn)
+            if (useStoredCameraParameters != useStoredCameraParametersToggle.isOn)
             {
-                useStoredCameraParameters = true;
-            }
-            else
-            {
-                useStoredCameraParameters = false;
-            }
+                useStoredCameraParameters = useStoredCameraParametersToggle.isOn;
 
-            if (webCamTextureToMatHelper != null && webCamTextureToMatHelper.IsInitialized())
-            {
-                webCamTextureToMatHelper.Initialize();
+                if (webCamTextureToMatHelper != null && webCamTextureToMatHelper.IsInitialized())
+                    webCamTextureToMatHelper.Initialize();
             }
         }
 
@@ -858,14 +859,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnEnableLowPassFilterToggleValueChanged()
         {
-            if (enableLowPassFilterToggle.isOn)
-            {
-                enableLowPassFilter = true;
-            }
-            else
-            {
-                enableLowPassFilter = false;
-            }
+            enableLowPassFilter = enableLowPassFilterToggle.isOn;
         }
 
         public enum MarkerType

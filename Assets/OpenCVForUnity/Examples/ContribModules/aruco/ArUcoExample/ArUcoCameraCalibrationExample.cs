@@ -351,8 +351,15 @@ namespace OpenCVForUnityExample
 
             InitializeCalibraton(webCamTextureMat);
 
-            // if WebCamera is frontFaceing, flip Mat.
-            webCamTextureToMatHelper.flipHorizontal = webCamTextureToMatHelper.GetWebCamDevice().isFrontFacing;
+            // If the WebCam is front facing, flip the Mat horizontally. Required for successful detection of AR markers.
+            if (webCamTextureToMatHelper.IsFrontFacing() && !webCamTextureToMatHelper.flipHorizontal)
+            {
+                webCamTextureToMatHelper.flipHorizontal = true;
+            }
+            else if (!webCamTextureToMatHelper.IsFrontFacing() && webCamTextureToMatHelper.flipHorizontal)
+            {
+                webCamTextureToMatHelper.flipHorizontal = false;
+            }
         }
 
         /// <summary>
@@ -1118,7 +1125,7 @@ namespace OpenCVForUnityExample
             if (isImagesInputMode)
                 return;
 
-            webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing();
+            webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.requestedIsFrontFacing;
         }
 
         /// <summary>

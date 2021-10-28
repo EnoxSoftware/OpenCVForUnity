@@ -102,8 +102,15 @@ namespace OpenCVForUnityExample
                 Camera.main.orthographicSize = height / 2;
             }
 
-            // if WebCamera is frontFaceing, flip Mat.
-            webCamTextureToMatHelper.flipHorizontal = webCamTextureToMatHelper.GetWebCamDevice().isFrontFacing;
+            // If the WebCam is front facing, flip the Mat horizontally. Required for successful detection of Barcode.
+            if (webCamTextureToMatHelper.IsFrontFacing() && !webCamTextureToMatHelper.flipHorizontal)
+            {
+                webCamTextureToMatHelper.flipHorizontal = true;
+            }
+            else if (!webCamTextureToMatHelper.IsFrontFacing() && webCamTextureToMatHelper.flipHorizontal)
+            {
+                webCamTextureToMatHelper.flipHorizontal = false;
+            }
         }
 
         /// <summary>
@@ -302,7 +309,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnChangeCameraButtonClick()
         {
-            webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing();
+            webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.requestedIsFrontFacing;
         }
     }
 }

@@ -71,7 +71,7 @@ namespace OpenCVForUnityExample
 #endif
 
         // Use this for initialization
-        void Start()
+        protected virtual void Start()
         {
 #if UNITY_WEBGL
             getFilePath_Coroutine = GetFilePath();
@@ -268,15 +268,15 @@ namespace OpenCVForUnityExample
         }
 
         // Update is called once per frame
-        void Update()
+        protected virtual void Update()
         {
 
         }
 
         /// <summary>
-        /// Raises the disable event.
+        /// Raises the destroy event.
         /// </summary>
-        void OnDisable()
+        protected virtual void OnDestroy()
         {
 #if UNITY_WEBGL
             if (getFilePath_Coroutine != null)

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.UtilsModule;
+using Range = OpenCVForUnity.CoreModule.Range;
 
 namespace OpenCVForUnityExample
 {

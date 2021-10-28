@@ -130,8 +130,15 @@ namespace OpenCVForUnityExample
             DEBUG_CONTOUR_COLOR = new Scalar(255, 255, 0, 255);
             DEBUG_CORNER_NUMBER_COLOR = new Scalar(255, 255, 255, 255);
 
-            // if WebCamera is frontFaceing, flip Mat.
-            webCamTextureToMatHelper.flipHorizontal = webCamTextureToMatHelper.GetWebCamDevice().isFrontFacing;
+            // If the WebCam is front facing, flip the Mat horizontally. Required for successful detection of document.
+            if (webCamTextureToMatHelper.IsFrontFacing() && !webCamTextureToMatHelper.flipHorizontal)
+            {
+                webCamTextureToMatHelper.flipHorizontal = true;
+            }
+            else if (!webCamTextureToMatHelper.IsFrontFacing() && webCamTextureToMatHelper.flipHorizontal)
+            {
+                webCamTextureToMatHelper.flipHorizontal = false;
+            }
         }
 
         /// <summary>
@@ -409,7 +416,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnChangeCameraButtonClick ()
         {
-            webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.IsFrontFacing ();
+            webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.requestedIsFrontFacing;
         }
 
         /// <summary>

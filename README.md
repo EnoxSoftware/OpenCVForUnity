@@ -15,7 +15,7 @@ Demo
 - WebGL
 <https://enoxsoftware.github.io/OpenCVForUnity/webgl_example/index.html>
 - Android
-<https://play.google.com/store/apps/details?id=com.enoxsoftware.opencvforunityexample>
+<https://github.com/EnoxSoftware/OpenCVForUnity/releases>
 
 Manual
 -----
