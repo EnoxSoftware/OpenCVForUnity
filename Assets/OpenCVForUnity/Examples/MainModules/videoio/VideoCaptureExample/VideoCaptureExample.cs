@@ -103,7 +103,7 @@ namespace OpenCVForUnityExample
 
             if (!capture.isOpened())
             {
-                Debug.LogError("capture.isOpened() is false. Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
+                Debug.LogError(VIDEO_FILENAME + " is not opened. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
             }
 
             Debug.Log("CAP_PROP_FORMAT: " + capture.get(Videoio.CAP_PROP_FORMAT));
@@ -184,7 +184,7 @@ namespace OpenCVForUnityExample
                         fpsMonitor.Add("STATE", msec + "ms (" + fps + "fps)");
                     }
 
-                    Utils.fastMatToTexture2D(rgbMat, texture);
+                    Utils.matToTexture2D(rgbMat, texture);
 
                     var tmp = seekBarSlider.onValueChanged;
                     seekBarSlider.onValueChanged = defaultSliderEvent;

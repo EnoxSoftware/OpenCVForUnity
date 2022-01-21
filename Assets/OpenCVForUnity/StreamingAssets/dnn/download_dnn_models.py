@@ -230,8 +230,8 @@ models = [
     # LibFaceDetectionV3Example : # https://github.com/ShiqiYu/libfacedetection.train
     Model(
         name='LibFaceDetectionV3Example',
-        url='https://github.com/ShiqiYu/libfacedetection.train/raw/73957ce7f04c0cd4a9f2bf0a7ad4be8fec1da222/tasks/task1/onnx/YuFaceDetectNet.onnx',
-        sha='decd9c9b4e2154dca44140dcd04b65af6ea452c5',
+        url='https://github.com/opencv/opencv_zoo/raw/8a872fbf5ebb5e8fdc21f869f63b352c9b9f3c2b/models/face_detection_yunet/face_detection_yunet_2021dec.onnx',
+        sha='cc5db07bb193ef9a785169723e97472018b9d2f2',
         filename='YuFaceDetectNet.onnx'),
 
 
@@ -258,7 +258,7 @@ models = [
         delete='mask_rcnn_inception_v2_coco_2018_01_28.tar.gz'),
     Model(
         name='MaskRCNNExample',
-        url='https://github.com/opencv/opencv_extra/raw/master/testdata/dnn/mask_rcnn_inception_v2_coco_2018_01_28.pbtxt',
+        url='https://github.com/opencv/opencv_extra/raw/4.x/testdata/dnn/mask_rcnn_inception_v2_coco_2018_01_28.pbtxt',
         sha='31208559adc3c8ae210db9961e89558b6715ffc8',
         filename='mask_rcnn_inception_v2_coco_2018_01_28.pbtxt'),
     Model(
@@ -276,7 +276,7 @@ models = [
         filename='004545.jpg'),
     Model(
         name='MobileNetSSDExample',
-        downloader=GDrive('0B3gersZ2cHIxRm5PMWRoTkdHdHc'),
+        url='https://github.com/PINTO0309/MobileNet-SSD-RealSense/raw/master/caffemodel/MobileNetSSD/MobileNetSSD_deploy.caffemodel',
         sha='994d30a8afaa9e754d17d2373b2d62a7dfbaaf7a',
         filename='MobileNetSSD_deploy.caffemodel'),
     Model(
@@ -299,7 +299,7 @@ models = [
         filename='pose_iter_160000.caffemodel'),
     Model(
         name='OpenPoseExample',
-        url='https://github.com/opencv/opencv_extra/raw/master/testdata/dnn/openpose_pose_mpi_faster_4_stages.prototxt',
+        url='https://github.com/opencv/opencv_extra/raw/4.x/testdata/dnn/openpose_pose_mpi_faster_4_stages.prototxt',
         sha='ed939bc1107ee9eea41190ff00113ea986a9eca5',
         filename='openpose_pose_mpi_faster_4_stages.prototxt'),
     Model(
@@ -309,7 +309,7 @@ models = [
         filename='pose_iter_440000.caffemodel'),
     Model(
         name='OpenPoseExample',
-        url='https://github.com/opencv/opencv_extra/raw/master/testdata/dnn/openpose_pose_coco.prototxt',
+        url='https://github.com/opencv/opencv_extra/raw/master/4.x/dnn/openpose_pose_coco.prototxt',
         sha='98da0ee763e78e3772d4c542d648d2b762945547',
         filename='openpose_pose_coco.prototxt'),
     Model(

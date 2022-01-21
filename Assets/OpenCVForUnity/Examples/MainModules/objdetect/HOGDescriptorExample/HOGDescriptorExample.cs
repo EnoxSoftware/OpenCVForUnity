@@ -62,7 +62,7 @@ namespace OpenCVForUnityExample
             Mat rgbMat = sourceToMatHelper.GetMat();
 
             texture = new Texture2D(rgbMat.cols(), rgbMat.rows(), TextureFormat.RGB24, false);
-            Utils.fastMatToTexture2D(rgbMat, texture);
+            Utils.matToTexture2D(rgbMat, texture);
 
             gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
@@ -138,7 +138,7 @@ namespace OpenCVForUnityExample
                     //Debug.Log (locations.ToString ());
                     //Debug.Log (weights.ToString ());
 
-                    Utils.fastMatToTexture2D(rgbMat, texture);
+                    Utils.matToTexture2D(rgbMat, texture);
                 }
             }
         }

@@ -258,7 +258,7 @@ namespace OpenCVForUnityExample
             Mat img = Imgcodecs.imread(image_filepath);
             if (img.empty())
             {
-                Debug.LogError(image_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
+                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
                 img = new Mat(368, 368, CvType.CV_8UC3, new Scalar(0, 0, 0));
             }
 
@@ -286,7 +286,7 @@ namespace OpenCVForUnityExample
 
             if (string.IsNullOrEmpty(caffemodel_filepath) || string.IsNullOrEmpty(prototxt_filepath))
             {
-                Debug.LogError(caffemodel_filepath + " or " + prototxt_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
+                Debug.LogError(CAFFEMODEL_FILENAME + " or " + PROTOTXT_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
             }
             else
             {
@@ -382,6 +382,8 @@ namespace OpenCVForUnityExample
                 Debug.Log("freq: " + freq);
 
                 Imgproc.putText(img, (t / freq) + "ms", new Point(10, img.height() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.6, new Scalar(0, 0, 255), 2);
+
+                net.Dispose();
             }
 
             Imgproc.cvtColor(img, img, Imgproc.COLOR_BGR2RGB);

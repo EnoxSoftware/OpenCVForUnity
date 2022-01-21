@@ -48,6 +48,9 @@ namespace OpenCVForUnityExample
             scrollRect.verticalNormalizedPosition = verticalNormalizedPosition;
 
 #if UNITY_WSA_10_0
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceDetectorYNWebCamTextureExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceRecognizerSFExampleButton").GetComponent<Button>().interactable = false;
+
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ColorizationExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/DaSiamRPNTrackerExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FastNeuralStyleTransferExampleButton").GetComponent<Button>().interactable = false;
@@ -65,12 +68,13 @@ namespace OpenCVForUnityExample
 
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/BarcodeDetectorExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/BarcodeDetectorWebCamTextureExampleButton").GetComponent<Button>().interactable = false;
+
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/TextDetectionExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/TextRecognitionExampleButton").GetComponent<Button>().interactable = false;
 #endif
 
 
-#if !UNITY_EDITOR && !UNITY_STANDALONE_WIN && !UNITY_STANDALONE_OSX
+#if !UNITY_EDITOR && !UNITY_STANDALONE_WIN && !UNITY_STANDALONE_OSX && !UNITY_LINUX && !UNITY_IOS && !UNITY_ANDROID
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/VideoCaptureCameraInputExampleButton").GetComponent<Button>().interactable = false;
 #endif
         }
@@ -337,6 +341,16 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("AsynchronousFaceDetectionWebCamTextureExample");
         }
 
+        public void OnFaceDetectorYNWebCamTextureExampleButtonClick()
+        {
+            SceneManager.LoadScene("FaceDetectorYNWebCamTextureExample");
+        }
+
+        public void OnFaceRecognizerSFExampleButtonClick()
+        {
+            SceneManager.LoadScene("FaceRecognizerSFExample");
+        }
+
         public void OnHOGDescriptorExampleButtonClick()
         {
             SceneManager.LoadScene("HOGDescriptorExample");
@@ -350,6 +364,11 @@ namespace OpenCVForUnityExample
         public void OnQRCodeDetectorWebCamTextureExampleButtonClick()
         {
             SceneManager.LoadScene("QRCodeDetectorWebCamTextureExample");
+        }
+
+        public void OnQRCodeEncoderExampleButtonClick()
+        {
+            SceneManager.LoadScene("QRCodeEncoderExample");
         }
 
         #endregion

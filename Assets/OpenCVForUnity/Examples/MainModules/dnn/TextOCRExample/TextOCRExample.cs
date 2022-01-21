@@ -119,7 +119,7 @@ namespace OpenCVForUnityExample
             Mat img = Imgcodecs.imread(image_filepath, Imgcodecs.IMREAD_COLOR);
             if (img.empty())
             {
-                Debug.LogError(image_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
+                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
                 img = new Mat(368, 368, CvType.CV_8UC3, new Scalar(0, 0, 0));
             }
 
@@ -147,14 +147,14 @@ namespace OpenCVForUnityExample
 
             if (string.IsNullOrEmpty(detectionmodel_filepath) || string.IsNullOrEmpty(recognitionmodel_filepath))
             {
-                Debug.LogError(detectionmodel_filepath + " or " + recognitionmodel_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
+                Debug.LogError(DETECTIONMODEL_FILENAME + " or " + RECOGNTIONMODEL_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
             }
             else
             {
                 detector = Dnn.readNet(detectionmodel_filepath);
                 recognizer = Dnn.readNet(recognitionmodel_filepath);
             }
-
+            
             if (detector == null || recognizer == null)
             {
                 Imgproc.putText(img, "model file is not loaded.", new Point(5, img.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255), 2, Imgproc.LINE_AA, false);
@@ -263,7 +263,7 @@ namespace OpenCVForUnityExample
             Utils.matToTexture2D(img, texture);
 
             gameObject.GetComponent<Renderer>().material.mainTexture = texture;
-
+            
 
             Utils.setDebugMode(false);
         }

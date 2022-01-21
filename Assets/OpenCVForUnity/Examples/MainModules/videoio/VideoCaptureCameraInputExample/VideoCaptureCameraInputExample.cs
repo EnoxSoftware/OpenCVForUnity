@@ -1,6 +1,7 @@
 ﻿#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
 
 using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.VideoioModule;
@@ -113,6 +114,11 @@ namespace OpenCVForUnityExample
         /// The prop FOURCC.
         /// </summary>
         FOURCCPreset propFOURCC = FOURCCPreset.None;
+
+        /// <summary>
+        /// The prop ConvertRGB.
+        /// </summary>
+        bool propConvertRGB = true;
 
         /// <summary>
         /// The FPS monitor.
@@ -233,32 +239,60 @@ namespace OpenCVForUnityExample
                 {
                     capture.retrieve(inputMat);
 
-                    cvtColor(inputMat, rgbMat, propFOURCC);
+                    cvtColor(inputMat, rgbMat, propFOURCC, propConvertRGB);
 
-                    Utils.fastMatToTexture2D(rgbMat, texture);
+                    Utils.matToTexture2D(rgbMat, texture);
                 }
             }
         }
 
-        protected void cvtColor(Mat src, Mat dst, FOURCCPreset FOURCC)
+        protected void cvtColor(Mat src, Mat dst, FOURCCPreset FOURCC, bool convertRGB)
         {
+            if (convertRGB)
+            {
+                src.copyTo(dst);
+                return;
+            }
+
             switch (FOURCC)
             {
-                case FOURCCPreset.None:
-                case FOURCCPreset.BGR3:
                 case FOURCCPreset.MJPG:
-                case FOURCCPreset.H264:
+                    dst = Imgcodecs.imdecode(src, Imgcodecs.IMREAD_COLOR);
+                    break;
+                case FOURCCPreset.RGB3:
+                    src.copyTo(dst);
+                    break;
+                case FOURCCPreset.BGR3:
                     Imgproc.cvtColor(src, dst, Imgproc.COLOR_BGR2RGB);
+                    break;
+                case FOURCCPreset.GRAY:
+                    Imgproc.cvtColor(src, dst, Imgproc.COLOR_GRAY2RGB);
+                    break;
+                case FOURCCPreset.NV21:
+                    if (src.channels() != 1) src = src.reshape(1, dst.rows() + (dst.rows() / 2));
+                    Imgproc.cvtColor(src, dst, Imgproc.COLOR_YUV2RGB_NV21);
+                    break;
+                case FOURCCPreset.YV12:
+                    if (src.channels() != 1) src = src.reshape(1, dst.rows() + (dst.rows() / 2));
+                    Imgproc.cvtColor(src, dst, Imgproc.COLOR_YUV2RGB_YV12);
                     break;
                 case FOURCCPreset.YUYV:
-                    Imgproc.cvtColor(src.reshape(2, dst.rows()), dst, Imgproc.COLOR_YUV2RGB_YUY2);
-                    //Imgproc.cvtColor(src.reshape(2, dst.rows()), dst, Imgproc.COLOR_YUV2RGB_YUYV);
+                    if (src.channels() != 2) src = src.reshape(2, dst.rows());
+                    Imgproc.cvtColor(src, dst, Imgproc.COLOR_YUV2RGB_YUYV);
+                    break;
+                case FOURCCPreset.YUY2:
+                    if (src.channels() != 2) src = src.reshape(2, dst.rows());
+                    Imgproc.cvtColor(src, dst, Imgproc.COLOR_YUV2RGB_YUY2);
                     break;
                 case FOURCCPreset.NV12:
-                    Imgproc.cvtColor(src.reshape(1, dst.rows() + (dst.rows() / 2)), dst, Imgproc.COLOR_YUV2RGB_NV12);
+                    if (src.channels() != 1) src = src.reshape(1, dst.rows() + (dst.rows() / 2));
+                    Imgproc.cvtColor(src, dst, Imgproc.COLOR_YUV2RGB_NV12);
+                    break;
+                case FOURCCPreset.H264:
+                    src.copyTo(dst);
                     break;
                 default:
-                    Imgproc.cvtColor(src, dst, Imgproc.COLOR_BGR2RGB);
+                    src.copyTo(dst);
                     break;
             }
         }
@@ -321,11 +355,26 @@ namespace OpenCVForUnityExample
                 case FOURCCPreset.MJPG:
                     capture.set(Videoio.CAP_PROP_FOURCC, VideoWriter.fourcc('M', 'J', 'P', 'G'));
                     break;
+                case FOURCCPreset.RGB3:
+                    capture.set(Videoio.CAP_PROP_FOURCC, VideoWriter.fourcc('R', 'G', 'B', '3'));
+                    break;
                 case FOURCCPreset.BGR3:
                     capture.set(Videoio.CAP_PROP_FOURCC, VideoWriter.fourcc('B', 'G', 'R', '3'));
                     break;
+                case FOURCCPreset.GRAY:
+                    capture.set(Videoio.CAP_PROP_FOURCC, VideoWriter.fourcc('G', 'R', 'A', 'Y'));
+                    break;
+                case FOURCCPreset.NV21:
+                    capture.set(Videoio.CAP_PROP_FOURCC, VideoWriter.fourcc('N', 'V', '2', '1'));
+                    break;
+                case FOURCCPreset.YV12:
+                    capture.set(Videoio.CAP_PROP_FOURCC, VideoWriter.fourcc('Y', 'V', '1', '2'));
+                    break;
                 case FOURCCPreset.YUYV:
                     capture.set(Videoio.CAP_PROP_FOURCC, VideoWriter.fourcc('Y', 'U', 'Y', 'V'));
+                    break;
+                case FOURCCPreset.YUY2:
+                    capture.set(Videoio.CAP_PROP_FOURCC, VideoWriter.fourcc('Y', 'U', 'Y', '2'));
                     break;
                 case FOURCCPreset.NV12:
                     capture.set(Videoio.CAP_PROP_FOURCC, VideoWriter.fourcc('N', 'V', '1', '2'));
@@ -341,6 +390,10 @@ namespace OpenCVForUnityExample
             if (!requestedCONVERT_RGBToggle.isOn)
             {
                 capture.set(Videoio.CAP_PROP_CONVERT_RGB, 0);
+            }
+            else
+            {
+                capture.set(Videoio.CAP_PROP_CONVERT_RGB, 1);
             }
 
             Debug.Log("CAP_PROP_FORMAT: " + capture.get(Videoio.CAP_PROP_FORMAT));
@@ -391,19 +444,7 @@ namespace OpenCVForUnityExample
                 grabFrameCount++;
             }
 
-            // The frame size returned by VideoCapture property may differ from the returned Mat.
-            // On iOS platform, the height and width of the frame size are swapped.
-            if (fpsMonitor != null)
-            {
-                fpsMonitor.consoleText = "";
-                fpsMonitor.Add("CAP_PROP_FORMAT", capture.get(Videoio.CAP_PROP_FORMAT).ToString());
-                fpsMonitor.Add("CAP_PROP_FPS", capture.get(Videoio.CAP_PROP_FPS).ToString());
-                fpsMonitor.Add("CAP_PROP_FRAME_WIDTH", capture.get(Videoio.CAP_PROP_FRAME_WIDTH).ToString());
-                fpsMonitor.Add("CAP_PROP_FRAME_HEIGHT", capture.get(Videoio.CAP_PROP_FRAME_HEIGHT).ToString());
-                fpsMonitor.Add("CAP_PROP_FOURCC", "" + (char)((int)ext & 0XFF) + (char)(((int)ext & 0XFF00) >> 8) + (char)(((int)ext & 0XFF0000) >> 16) + (char)(((int)ext & 0XFF000000) >> 24));
-                fpsMonitor.Add("CAP_PROP_CONVERT_RGB", capture.get(Videoio.CAP_PROP_CONVERT_RGB).ToString());
-                fpsMonitor.Add("inputMat", "size:" + inputMat.width() + "x" + inputMat.height() + " type:" + CvType.typeToString(inputMat.type()));
-            }
+
 
             if (inputMat.width() == 0 && inputMat.height() == 0)
             {
@@ -417,8 +458,13 @@ namespace OpenCVForUnityExample
                 return;
             }
 
-            int frameWidth = inputMat.width();
-            int frameHeight = inputMat.height();
+#if UNITY_IOS
+            int frameWidth = (int)capture.get(Videoio.CAP_PROP_FRAME_HEIGHT);
+            int frameHeight = (int)capture.get(Videoio.CAP_PROP_FRAME_WIDTH);
+#else
+            int frameWidth = (int)capture.get(Videoio.CAP_PROP_FRAME_WIDTH);
+            int frameHeight = (int)capture.get(Videoio.CAP_PROP_FRAME_HEIGHT);
+#endif
 
             rgbMat = new Mat(frameHeight, frameWidth, CvType.CV_8UC3);
             texture = new Texture2D(frameWidth, frameHeight, TextureFormat.RGB24, false);
@@ -441,29 +487,72 @@ namespace OpenCVForUnityExample
             string strFOURCC = "" + (char)((int)ext & 0XFF) + (char)(((int)ext & 0XFF00) >> 8) + (char)(((int)ext & 0XFF0000) >> 16) + (char)(((int)ext & 0XFF000000) >> 24);
             switch (strFOURCC)
             {
-                case "":
                 case "MJPG":
-                case "BGR3":
-                case "H264":
-                    propFOURCC = FOURCCPreset.None;
+                    propFOURCC = FOURCCPreset.MJPG;
                     break;
-                case "YUY2":
+                case "RGB3":
+                    propFOURCC = FOURCCPreset.RGB3;
+                    break;
+                case "BGR3":
+                    propFOURCC = FOURCCPreset.BGR3;
+                    break;
+                case "GRAY":
+                    propFOURCC = FOURCCPreset.GRAY;
+                    break;
+                case "NV21":
+                    propFOURCC = FOURCCPreset.NV21;
+                    break;
+                case "YV12":
+                    propFOURCC = FOURCCPreset.YV12;
+                    break;
                 case "YUYV":
                     propFOURCC = FOURCCPreset.YUYV;
+                    break;
+                case "YUY2":
+                    propFOURCC = FOURCCPreset.YUY2;
                     break;
                 case "NV12":
                     propFOURCC = FOURCCPreset.NV12;
                     break;
-                default:
-                    propFOURCC = FOURCCPreset.None;
+                case "H264":
+                    propFOURCC = FOURCCPreset.H264;
                     break;
+                default:
+                    //propFOURCC = FOURCCPreset.None;
+                    propFOURCC = requestedFOURCC;
+                    break;
+            }
+
+            if (capture.get(Videoio.CAP_PROP_CONVERT_RGB) == 1)
+            {
+                propConvertRGB = true;
+            }
+            else
+            {
+                propConvertRGB = false;
+            }
+
+
+            // The frame size returned by VideoCapture property may differ from the returned Mat.
+            // On iOS platform, the height and width of the frame size are swapped.
+            if (fpsMonitor != null)
+            {
+                fpsMonitor.consoleText = "";
+                fpsMonitor.Add("getBackendName", capture.getBackendName());
+                fpsMonitor.Add("CAP_PROP_FORMAT", capture.get(Videoio.CAP_PROP_FORMAT).ToString());
+                fpsMonitor.Add("CAP_PROP_FPS", capture.get(Videoio.CAP_PROP_FPS).ToString());
+                fpsMonitor.Add("CAP_PROP_FRAME_WIDTH", capture.get(Videoio.CAP_PROP_FRAME_WIDTH).ToString());
+                fpsMonitor.Add("CAP_PROP_FRAME_HEIGHT", capture.get(Videoio.CAP_PROP_FRAME_HEIGHT).ToString());
+                fpsMonitor.Add("CAP_PROP_FOURCC", "" + (char)((int)ext & 0XFF) + (char)(((int)ext & 0XFF00) >> 8) + (char)(((int)ext & 0XFF0000) >> 16) + (char)(((int)ext & 0XFF000000) >> 24));
+                fpsMonitor.Add("CAP_PROP_CONVERT_RGB", capture.get(Videoio.CAP_PROP_CONVERT_RGB).ToString());
+                fpsMonitor.Add("inputMat", "size:" + inputMat.width() + "x" + inputMat.height() + " type:" + CvType.typeToString(inputMat.type()));
             }
 
             Utils.setDebugMode(true, true);
             try
             {
-                cvtColor(inputMat, rgbMat, propFOURCC);
-                Utils.fastMatToTexture2D(rgbMat, texture);
+                cvtColor(inputMat, rgbMat, propFOURCC, propConvertRGB);
+                Utils.matToTexture2D(rgbMat, texture);
 
                 openButton.interactable =
                 requestedDeviceIdDropdown.interactable =
@@ -560,6 +649,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnRequestedFOURCCDropdownValueChanged(int result)
         {
+
             string[] enumNames = Enum.GetNames(typeof(FOURCCPreset));
             byte value = (byte)System.Enum.Parse(typeof(FOURCCPreset), enumNames[result], true);
 
@@ -592,7 +682,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnRequestedCONVERT_RGBToggleValueChanged()
         {
-            //
+
             //Debug.Log(requestedCONVERT_RGBToggle.isOn);
         }
 
@@ -628,8 +718,13 @@ namespace OpenCVForUnityExample
         {
             None = 0,
             MJPG,
+            RGB3,
             BGR3,
+            GRAY,
+            NV21,
+            YV12,
             YUYV,
+            YUY2,
             NV12,
             H264,
         }

@@ -101,7 +101,12 @@ namespace OpenCVForUnityExample
 
             Mat img = Imgcodecs.imread (image_filepath);
             if (img.empty ()) {
-                Debug.LogError ("text/scenetext01.jpg is not loaded. Please copy from “OpenCVForUnity/StreamingAssets/text/” to “Assets/StreamingAssets/” folder. ");
+                Debug.LogError (IMAGE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
+            }
+
+            if (string.IsNullOrEmpty(trained_classifierNM1_filepath) || string.IsNullOrEmpty(trained_classifierNM2_filepath))
+            {
+                Debug.LogError(TRAINED_CLASSIFIER_NM_1_FILENAME + " or " + TRAINED_CLASSIFIER_NM_2_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
             }
 
             //# for visualization

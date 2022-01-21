@@ -1,12 +1,11 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using System.IO;
-using System.Collections;
+﻿using OpenCVForUnity.ArucoModule;
 using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.ArucoModule;
 using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.UnityUtils;
+using System.IO;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {
@@ -96,173 +95,185 @@ namespace OpenCVForUnityExample
         const int chArUcoBoradMarginSize = 10;
 
         // Use this for initialization
-        void Start ()
+        void Start()
         {
-            markerImg = new Mat (markerSize, markerSize, CvType.CV_8UC3);
-            texture = new Texture2D (markerImg.cols (), markerImg.rows (), TextureFormat.RGB24, false);
-            gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
+            markerImg = new Mat(markerSize, markerSize, CvType.CV_8UC3);
+            texture = new Texture2D(markerImg.cols(), markerImg.rows(), TextureFormat.RGB24, false);
+            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
             markerTypeDropdown.value = (int)markerType;
             markerIdDropdown.value = (int)markerId;
             dictionaryIdDropdown.value = (int)dictionaryId;
 
-            CreateMaeker ();
+            CreateMarkerImg();
         }
 
         // Update is called once per frame
-        void Update ()
+        void Update()
         {
-    
+
         }
 
-        private void CreateMaeker ()
+        private void CreateMarkerImg()
         {
-            if (markerImg.cols () != markerSize) {
-                markerImg.Dispose ();
-                markerImg = new Mat (markerSize, markerSize, CvType.CV_8UC3);
-                texture = new Texture2D (markerImg.cols (), markerImg.rows (), TextureFormat.RGB24, false);
-            } else {
-                markerImg.setTo (Scalar.all (255));
+            if (markerImg.cols() != markerSize)
+            {
+                markerImg.Dispose();
+                markerImg = new Mat(markerSize, markerSize, CvType.CV_8UC3);
+                texture = new Texture2D(markerImg.cols(), markerImg.rows(), TextureFormat.RGB24, false);
+            }
+            else
+            {
+                markerImg.setTo(Scalar.all(255));
             }
 
-            gameObject.transform.localScale = new Vector3 (markerImg.cols (), markerImg.rows (), 1);
+            gameObject.transform.localScale = new Vector3(markerImg.cols(), markerImg.rows(), 1);
 
-            float width = markerImg.width () / 0.7f;
-            float height = markerImg.height () / 0.7f;
+            float width = markerImg.width() / 0.7f;
+            float height = markerImg.height() / 0.7f;
 
             float widthScale = (float)Screen.width / width;
             float heightScale = (float)Screen.height / height;
-            if (widthScale < heightScale) {
+            if (widthScale < heightScale)
+            {
                 Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
-                gameObject.transform.localPosition = new Vector3 (0, -height * 0.1f, 0);
-            } else {
+                gameObject.transform.localPosition = new Vector3(0, -height * 0.1f, 0);
+            }
+            else
+            {
                 Camera.main.orthographicSize = height / 2;
-                gameObject.transform.localPosition = new Vector3 (width * 0.1f, 0, 0);
+                gameObject.transform.localPosition = new Vector3(width * 0.1f, 0, 0);
             }
 
             // create dictinary.
-            Dictionary dictionary = Aruco.getPredefinedDictionary ((int)dictionaryId);
+            Dictionary dictionary = Aruco.getPredefinedDictionary((int)dictionaryId);
 
             // draw marker.
-            switch (markerType) {
-            default:
-            case MarkerType.CanonicalMarker:
-                Aruco.drawMarker (dictionary, (int)markerId, markerSize, markerImg, borderBits);
-                Debug.Log ("draw CanonicalMarker: " + "dictionaryId " + (int)dictionaryId + " markerId " + (int)markerId + " sidePixels " + markerSize + " borderBits " + borderBits);
-                break;
-            case MarkerType.GridBoard:
-                GridBoard gridBoard = GridBoard.create (gridBoradMarkersX, gridBoradMarkersY, gridBoradMarkerLength, gridBoradMarkerSeparation, dictionary, gridBoradMarkerFirstMarker);
-                gridBoard.draw (new Size (markerSize, markerSize), markerImg, gridBoradMarginSize, borderBits);
-                gridBoard.Dispose ();
-                Debug.Log ("draw GridBoard: " + "markersX " + gridBoradMarkersX + " markersY " + gridBoradMarkersY + " markerLength " + gridBoradMarkerLength +
-                " markerSeparation " + gridBoradMarkerSeparation + "dictionaryId " + (int)dictionaryId + " outSize " + markerSize + " marginSize " + gridBoradMarginSize + " borderBits " + borderBits);
-                break;
-            case MarkerType.ChArUcoBoard:
-                CharucoBoard charucoBoard = CharucoBoard.create (chArUcoBoradMarkersX, chArUcoBoradMarkersY, chArUcoBoradSquareLength, chArUcoBoradMarkerLength, dictionary);
-                charucoBoard.draw (new Size (markerSize, markerSize), markerImg, chArUcoBoradMarginSize, borderBits);
-                charucoBoard.Dispose ();
-                Debug.Log ("draw ChArUcoBoard: " + "markersX " + chArUcoBoradMarkersX + " markersY " + chArUcoBoradMarkersY + " markerLength " + chArUcoBoradSquareLength +
-                " markerSeparation " + chArUcoBoradMarkerLength + "dictionaryId " + (int)dictionaryId + " outSize " + markerSize + " marginSize " + chArUcoBoradMarginSize + " borderBits " + borderBits);
-                break;
+            switch (markerType)
+            {
+                default:
+                case MarkerType.CanonicalMarker:
+                    Aruco.drawMarker(dictionary, (int)markerId, markerSize, markerImg, borderBits);
+                    Debug.Log("draw CanonicalMarker: " + "dictionaryId " + (int)dictionaryId + " markerId " + (int)markerId + " sidePixels " + markerSize + " borderBits " + borderBits);
+                    break;
+                case MarkerType.GridBoard:
+                    GridBoard gridBoard = GridBoard.create(gridBoradMarkersX, gridBoradMarkersY, gridBoradMarkerLength, gridBoradMarkerSeparation, dictionary, gridBoradMarkerFirstMarker);
+                    gridBoard.draw(new Size(markerSize, markerSize), markerImg, gridBoradMarginSize, borderBits);
+                    gridBoard.Dispose();
+                    Debug.Log("draw GridBoard: " + "markersX " + gridBoradMarkersX + " markersY " + gridBoradMarkersY + " markerLength " + gridBoradMarkerLength +
+                    " markerSeparation " + gridBoradMarkerSeparation + "dictionaryId " + (int)dictionaryId + " outSize " + markerSize + " marginSize " + gridBoradMarginSize + " borderBits " + borderBits);
+                    break;
+                case MarkerType.ChArUcoBoard:
+                    CharucoBoard charucoBoard = CharucoBoard.create(chArUcoBoradMarkersX, chArUcoBoradMarkersY, chArUcoBoradSquareLength, chArUcoBoradMarkerLength, dictionary);
+                    charucoBoard.draw(new Size(markerSize, markerSize), markerImg, chArUcoBoradMarginSize, borderBits);
+                    charucoBoard.Dispose();
+                    Debug.Log("draw ChArUcoBoard: " + "markersX " + chArUcoBoradMarkersX + " markersY " + chArUcoBoradMarkersY + " markerLength " + chArUcoBoradSquareLength +
+                    " markerSeparation " + chArUcoBoradMarkerLength + "dictionaryId " + (int)dictionaryId + " outSize " + markerSize + " marginSize " + chArUcoBoradMarginSize + " borderBits " + borderBits);
+                    break;
             }
 
-            Utils.matToTexture2D (markerImg, texture, true, 0, true);
+            Utils.matToTexture2D(markerImg, texture, true, 0, true);
         }
 
-        private void SaveMarkerImg ()
+        private void SaveMarkerImg()
         {
             // save the markerImg.
-            string saveDirectoryPath = Path.Combine (Application.persistentDataPath, "ArUcoCreateMarkerExample");
+            string saveDirectoryPath = Path.Combine(Application.persistentDataPath, "ArUcoCreateMarkerExample");
             string savePath = "";
-            #if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL && !UNITY_EDITOR
             string format = "jpg";
             MatOfInt compressionParams = new MatOfInt(Imgcodecs.IMWRITE_JPEG_QUALITY, 100);
-            #else
+#else
             string format = "png";
-            MatOfInt compressionParams = new MatOfInt (Imgcodecs.IMWRITE_PNG_COMPRESSION, 0);
-            #endif
-            switch (markerType) {
-            default:
-            case MarkerType.CanonicalMarker:
-                savePath = Path.Combine (saveDirectoryPath, "CanonicalMarker-d" + (int)dictionaryId + "-i" + (int)markerId + "-sp" + markerSize + "-bb" + borderBits + "." + format);
-                break;
-            case MarkerType.GridBoard:
-                savePath = Path.Combine (saveDirectoryPath, "GridBoard-mx" + gridBoradMarkersX + "-my" + gridBoradMarkersY + "-d" + (int)dictionaryId + "-os" + markerSize + "-bb" + borderBits + "." + format);
-                break;
-            case MarkerType.ChArUcoBoard:
-                savePath = Path.Combine (saveDirectoryPath, "ChArUcoBoard-mx" + chArUcoBoradMarkersX + "-my" + chArUcoBoradMarkersY + "-d" + (int)dictionaryId + "-os" + markerSize + "-bb" + borderBits + "." + format);
-                break;
-            }
-                
-            if (!Directory.Exists (saveDirectoryPath)) {
-                Directory.CreateDirectory (saveDirectoryPath);
+            MatOfInt compressionParams = new MatOfInt(Imgcodecs.IMWRITE_PNG_COMPRESSION, 0);
+#endif
+            switch (markerType)
+            {
+                default:
+                case MarkerType.CanonicalMarker:
+                    savePath = Path.Combine(saveDirectoryPath, "CanonicalMarker-d" + (int)dictionaryId + "-i" + (int)markerId + "-sp" + markerSize + "-bb" + borderBits + "." + format);
+                    break;
+                case MarkerType.GridBoard:
+                    savePath = Path.Combine(saveDirectoryPath, "GridBoard-mx" + gridBoradMarkersX + "-my" + gridBoradMarkersY + "-d" + (int)dictionaryId + "-os" + markerSize + "-bb" + borderBits + "." + format);
+                    break;
+                case MarkerType.ChArUcoBoard:
+                    savePath = Path.Combine(saveDirectoryPath, "ChArUcoBoard-mx" + chArUcoBoradMarkersX + "-my" + chArUcoBoradMarkersY + "-d" + (int)dictionaryId + "-os" + markerSize + "-bb" + borderBits + "." + format);
+                    break;
             }
 
-            Imgcodecs.imwrite (savePath, markerImg, compressionParams);
+            if (!Directory.Exists(saveDirectoryPath))
+            {
+                Directory.CreateDirectory(saveDirectoryPath);
+            }
+
+            Imgcodecs.imwrite(savePath, markerImg, compressionParams);
 
             savePathInputField.text = savePath;
-            Debug.Log ("savePath: " + savePath);
+            Debug.Log("savePath: " + savePath);
         }
 
         /// <summary>
         /// Raises the destroy event.
         /// </summary>
-        void OnDestroy ()
+        void OnDestroy()
         {
             if (markerImg != null)
-                markerImg.Dispose ();
+                markerImg.Dispose();
         }
 
         /// <summary>
         /// Raises the back button click event.
         /// </summary>
-        public void OnBackButtonClick ()
+        public void OnBackButtonClick()
         {
-            SceneManager.LoadScene ("OpenCVForUnityExample");
+            SceneManager.LoadScene("OpenCVForUnityExample");
         }
 
         /// <summary>
         /// Raises the marker type dropdown value changed event.
         /// </summary>
-        public void OnMarkerTypeDropdownValueChanged (int result)
+        public void OnMarkerTypeDropdownValueChanged(int result)
         {
-            if ((int)markerType != result) {
+            if ((int)markerType != result)
+            {
                 markerType = (MarkerType)result;
 
                 markerIdDropdown.interactable = (markerType == MarkerType.CanonicalMarker);
 
-                CreateMaeker ();
+                CreateMarkerImg();
             }
         }
 
         /// <summary>
         /// Raises the dictionary id dropdown value changed event.
         /// </summary>
-        public void OnDictionaryIdDropdownValueChanged (int result)
+        public void OnDictionaryIdDropdownValueChanged(int result)
         {
-            if ((int)dictionaryId != result) {
+            if ((int)dictionaryId != result)
+            {
                 dictionaryId = (ArUcoDictionary)result;
-                CreateMaeker ();
+                CreateMarkerImg();
             }
         }
 
         /// <summary>
         /// Raises the marker id dropdown value changed event.
         /// </summary>
-        public void OnMarkerIdDropdownValueChanged (int result)
+        public void OnMarkerIdDropdownValueChanged(int result)
         {
-            if ((int)markerId != result) {
+            if ((int)markerId != result)
+            {
                 markerId = (MarkerID)result;
-                CreateMaeker ();
+                CreateMarkerImg();
             }
         }
 
         /// <summary>
         /// Raises the save marker img button click event.
         /// </summary>
-        public void OnSaveMarkerImgButtonClick ()
+        public void OnSaveMarkerImgButtonClick()
         {
-            SaveMarkerImg ();
+            SaveMarkerImg();
         }
 
         public enum MarkerType

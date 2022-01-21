@@ -137,7 +137,7 @@ namespace OpenCVForUnityExample
             classNames = readClassNames(classes_filepath);
             if (classNames == null)
             {
-                Debug.LogError(classes_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
+                Debug.LogError(CLASSES_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
             }
 
             classColors = new List<Scalar>();
@@ -150,7 +150,7 @@ namespace OpenCVForUnityExample
             Mat img = Imgcodecs.imread(image_filepath);
             if (img.empty())
             {
-                Debug.LogError(image_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
+                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
                 img = new Mat(height, width, CvType.CV_8UC3, new Scalar(0, 0, 0));
             }
 
@@ -179,7 +179,7 @@ namespace OpenCVForUnityExample
 
             if (string.IsNullOrEmpty(model_filepath) || string.IsNullOrEmpty(config_filepath))
             {
-                Debug.LogError(model_filepath + " or " + config_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
+                Debug.LogError(MODEL_FILENAME + " or " + CONFIG_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
             }
             else
             {
@@ -274,6 +274,7 @@ namespace OpenCVForUnityExample
                 boxes.Dispose();
                 masks.Dispose();
                 blob.Dispose();
+                net.Dispose();
             }
 
             Imgproc.cvtColor(img, img, Imgproc.COLOR_BGR2RGB);
@@ -283,8 +284,6 @@ namespace OpenCVForUnityExample
             Utils.matToTexture2D(img, texture);
 
             gameObject.GetComponent<Renderer>().material.mainTexture = texture;
-
-            net.Dispose();
 
 
             Utils.setDebugMode(false);

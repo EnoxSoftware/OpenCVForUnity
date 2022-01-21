@@ -142,7 +142,7 @@ namespace OpenCVForUnityExample
             Mat colorized = new Mat(img.rows(), img.cols(), img.type());
             if (img.empty())
             {
-                Debug.LogError(image_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
+                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
                 img = new Mat(368, 368, CvType.CV_8UC3, new Scalar(0, 0, 0));
             }
 
@@ -150,7 +150,7 @@ namespace OpenCVForUnityExample
 
             if (string.IsNullOrEmpty(caffemodel_filepath) || string.IsNullOrEmpty(prototxt_filepath))
             {
-                Debug.LogError(caffemodel_filepath + " or " + prototxt_filepath + " is not loaded. Please see \"StreamingAssets/dnn/setup_dnn_module.pdf\". ");
+                Debug.LogError(CAFFEMODEL_FILENAME + " or " + PROTOTXT_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
             }
             else
             {
@@ -223,6 +223,8 @@ namespace OpenCVForUnityExample
 
                 Imgproc.putText(img, "gray", new Point(10, 20), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255), 2);
                 Imgproc.putText(colorized, "colorized", new Point(10, 20), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255), 2);
+
+                net.Dispose();
             }
 
             Imgproc.cvtColor(colorized, colorized, Imgproc.COLOR_BGR2RGB);

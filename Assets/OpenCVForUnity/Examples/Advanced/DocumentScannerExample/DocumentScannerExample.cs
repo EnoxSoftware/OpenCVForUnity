@@ -17,7 +17,7 @@ namespace OpenCVForUnityExample
     /// Document Scanner Example
     /// An example of document scanning (like receipts, business cards etc) using the Imgproc class.
     /// </summary>
-    [RequireComponent (typeof(WebCamTextureToMatHelper))]
+    [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class DocumentScannerExample : MonoBehaviour
     {
         /// <summary>
@@ -57,29 +57,29 @@ namespace OpenCVForUnityExample
         FpsMonitor fpsMonitor;
 
         // Use this for initialization
-        void Start ()
+        void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor> ();
-            
-            webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper> ();
+            fpsMonitor = GetComponent<FpsMonitor>();
 
-            #if UNITY_ANDROID && !UNITY_EDITOR
+            webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper>();
+
+#if UNITY_ANDROID && !UNITY_EDITOR
             // Avoids the front camera low light issue that occurs in only some Android devices (e.g. Google Pixel, Pixel2).
             webCamTextureToMatHelper.avoidAndroidFrontCameraLowLightIssue = true;
-            #endif
-            webCamTextureToMatHelper.Initialize ();
-            
+#endif
+            webCamTextureToMatHelper.Initialize();
+
             isDebugModeToggle.isOn = isDebugMode;
         }
 
         /// <summary>
         /// Raises the web cam texture to mat helper initialized event.
         /// </summary>
-        public void OnWebCamTextureToMatHelperInitialized ()
+        public void OnWebCamTextureToMatHelperInitialized()
         {
-            Debug.Log ("OnWebCamTextureToMatHelperInitialized");
-            
-            Mat webCamTextureMat = webCamTextureToMatHelper.GetMat ();
+            Debug.Log("OnWebCamTextureToMatHelperInitialized");
+
+            Mat webCamTextureMat = webCamTextureToMatHelper.GetMat();
 
             if (webCamTextureMat.width() < webCamTextureMat.height())
             {
@@ -144,12 +144,13 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Raises the web cam texture to mat helper disposed event.
         /// </summary>
-        public void OnWebCamTextureToMatHelperDisposed ()
+        public void OnWebCamTextureToMatHelperDisposed()
         {
-            Debug.Log ("OnWebCamTextureToMatHelperDisposed");
+            Debug.Log("OnWebCamTextureToMatHelperDisposed");
 
-            if (texture != null) {
-                Texture2D.Destroy (texture);
+            if (texture != null)
+            {
+                Texture2D.Destroy(texture);
                 texture = null;
             }
 
@@ -167,17 +168,18 @@ namespace OpenCVForUnityExample
         /// Raises the web cam texture to mat helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
-        public void OnWebCamTextureToMatHelperErrorOccurred (WebCamTextureToMatHelper.ErrorCode errorCode)
+        public void OnWebCamTextureToMatHelperErrorOccurred(WebCamTextureToMatHelper.ErrorCode errorCode)
         {
-            Debug.Log ("OnWebCamTextureToMatHelperErrorOccurred " + errorCode);
+            Debug.Log("OnWebCamTextureToMatHelperErrorOccurred " + errorCode);
         }
 
         // Update is called once per frame
-        void Update ()
+        void Update()
         {
-            if (webCamTextureToMatHelper.IsPlaying () && webCamTextureToMatHelper.DidUpdateThisFrame ()) {
-                
-                Mat rgbaMat = webCamTextureToMatHelper.GetMat ();
+            if (webCamTextureToMatHelper.IsPlaying() && webCamTextureToMatHelper.DidUpdateThisFrame())
+            {
+
+                Mat rgbaMat = webCamTextureToMatHelper.GetMat();
 
                 // change the color space to YUV.
                 Imgproc.cvtColor(rgbaMat, yuvMat, Imgproc.COLOR_RGBA2RGB);
@@ -246,7 +248,7 @@ namespace OpenCVForUnityExample
 
                 rgbaMat.copyTo(inputDisplayAreaMat);
 
-                Utils.fastMatToTexture2D(displayMat, texture, true, 0, true);
+                Utils.matToTexture2D(displayMat, texture, true, 0, true);
             }
         }
 
@@ -256,7 +258,7 @@ namespace OpenCVForUnityExample
             List<MatOfPoint> tmp_contours = new List<MatOfPoint>();
             Mat hierarchy = new Mat();
             Imgproc.findContours(image, tmp_contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
-            
+
             foreach (var cnt in tmp_contours)
             {
                 MatOfInt hull = new MatOfInt();
@@ -374,47 +376,47 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Raises the destroy event.
         /// </summary>
-        void OnDestroy ()
+        void OnDestroy()
         {
-            webCamTextureToMatHelper.Dispose ();
+            webCamTextureToMatHelper.Dispose();
         }
 
         /// <summary>
         /// Raises the back button click event.
         /// </summary>
-        public void OnBackButtonClick ()
+        public void OnBackButtonClick()
         {
-            SceneManager.LoadScene ("OpenCVForUnityExample");
+            SceneManager.LoadScene("OpenCVForUnityExample");
         }
 
         /// <summary>
         /// Raises the play button click event.
         /// </summary>
-        public void OnPlayButtonClick ()
+        public void OnPlayButtonClick()
         {
-            webCamTextureToMatHelper.Play ();
+            webCamTextureToMatHelper.Play();
         }
 
         /// <summary>
         /// Raises the pause button click event.
         /// </summary>
-        public void OnPauseButtonClick ()
+        public void OnPauseButtonClick()
         {
-            webCamTextureToMatHelper.Pause ();
+            webCamTextureToMatHelper.Pause();
         }
 
         /// <summary>
         /// Raises the stop button click event.
         /// </summary>
-        public void OnStopButtonClick ()
+        public void OnStopButtonClick()
         {
-            webCamTextureToMatHelper.Stop ();
+            webCamTextureToMatHelper.Stop();
         }
 
         /// <summary>
         /// Raises the change camera button click event.
         /// </summary>
-        public void OnChangeCameraButtonClick ()
+        public void OnChangeCameraButtonClick()
         {
             webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.requestedIsFrontFacing;
         }

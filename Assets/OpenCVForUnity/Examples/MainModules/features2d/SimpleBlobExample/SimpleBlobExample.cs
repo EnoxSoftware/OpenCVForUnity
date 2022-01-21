@@ -16,7 +16,7 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class SimpleBlobExample : MonoBehaviour
     {
-        //string blobparams_yml_filepath;
+        string blobparams_yml_filepath;
 
 #if UNITY_WEBGL
         Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
@@ -26,16 +26,16 @@ namespace OpenCVForUnityExample
         void Start()
         {
 #if UNITY_WEBGL
-            var getFilePath_Coroutine = Utils.getFilePathAsync("blobparams.yml", (result) => {
+            var getFilePath_Coroutine = Utils.getFilePathAsync("features2d/blobparams.yml", (result) => {
                 coroutines.Clear ();
 
-                //blobparams_yml_filepath = result;
+                blobparams_yml_filepath = result;
                 Run ();
             });
             coroutines.Push (getFilePath_Coroutine);
             StartCoroutine (getFilePath_Coroutine);
 #else
-            //blobparams_yml_filepath = Utils.getFilePath("blobparams.yml");
+            blobparams_yml_filepath = Utils.getFilePath("features2d/blobparams.yml");
             Run();
 #endif
         }
@@ -81,11 +81,11 @@ namespace OpenCVForUnityExample
             SimpleBlobDetector blobDetector = SimpleBlobDetector.create(param);
             Debug.Log("blobDetector.getDefaultName() " + blobDetector.getDefaultName());
 
+            // or
 
-            //load Params from yml file.
+            // load Params from yml file.
             //SimpleBlobDetector blobDetector = SimpleBlobDetector.create();
             //Debug.Log("blobDetector.getDefaultName() " + blobDetector.getDefaultName());
-
             //blobDetector.read(blobparams_yml_filepath);
 
 

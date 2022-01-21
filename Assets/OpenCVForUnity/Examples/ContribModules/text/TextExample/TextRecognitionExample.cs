@@ -141,8 +141,18 @@ namespace OpenCVForUnityExample
 
             Mat frame = Imgcodecs.imread (image_filepath);
             if (frame.empty ()) {
-                Debug.LogError ("text/scenetext01.jpg is not loaded. Please copy from “OpenCVForUnity/StreamingAssets/text/” to “Assets/StreamingAssets/” folder. ");
+                Debug.LogError (IMAGE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
             }
+
+            if (string.IsNullOrEmpty(trained_classifierNM1_filepath) || string.IsNullOrEmpty(trained_classifierNM2_filepath))
+            {
+                Debug.LogError(TRAINED_CLASSIFIER_NM_1_FILENAME + " or " + TRAINED_CLASSIFIER_NM_2_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
+            }
+            if (string.IsNullOrEmpty(OCRHMM_transitions_table_filepath) || string.IsNullOrEmpty(OCRHMM_knn_model_data_filepath))
+            {
+                Debug.LogError(OCRHMM_TRANSITIONS_TABLE_FILENAME + " or " + OCRHMM_KNN_MODEL_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
+            }
+
 
             Mat binaryMat = new Mat ();
             Mat maskMat = new Mat ();

@@ -20,7 +20,7 @@ namespace OpenCVForUnityExample
     /// FaceMark Example
     /// An example of detecting facial landmark in a image of WebCamTexture using the face (FaceMark API) module.
     /// The facemark model file can be downloaded here: https://github.com/spmallick/GSOC2017/blob/master/data/lbfmodel.yaml
-    /// Please copy to “Assets/StreamingAssets/facemark/” folder.
+    /// Please copy to “Assets/StreamingAssets/face/” folder.
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class FaceMarkExample : MonoBehaviour
@@ -63,7 +63,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// FACEMARK_CASCADE_FILENAME
         /// </summary>
-        protected static readonly string FACEMARK_CASCADE_FILENAME = "lbpcascade_frontalface.xml";
+        protected static readonly string FACEMARK_CASCADE_FILENAME = "objdetect/lbpcascade_frontalface.xml";
 
         /// <summary>
         /// The facemark cascade filepath.
@@ -73,7 +73,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// FACEMARK_CASCADE_FILENAME
         /// </summary>
-        protected static readonly string FACEMARK_MODEL_FILENAME = "facemark/lbfmodel.yaml";
+        protected static readonly string FACEMARK_MODEL_FILENAME = "face/lbfmodel.yaml";
 
         /// <summary>
         /// The facemark model filepath.
@@ -125,28 +125,37 @@ namespace OpenCVForUnityExample
         // Use this for initialization
         void Run()
         {
-            if (string.IsNullOrEmpty(facemark_cascade_filepath) || string.IsNullOrEmpty(facemark_model_filepath))
+            //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
+            Utils.setDebugMode(true);
+
+            if (string.IsNullOrEmpty(facemark_model_filepath))
             {
-                Debug.LogError("model file is not loaded. The facemark model file can be downloaded here: https://github.com/spmallick/GSOC2017/blob/master/data/lbfmodel.yaml\n Please copy to “Assets/StreamingAssets/facemark/” folder. ");
+                Debug.LogError(FACEMARK_MODEL_FILENAME + " is not loaded. Please read “StreamingAssets/face/setup_dnn_module.pdf” to make the necessary setup.");
+            }
+            else
+            {
+                // setup landmarks detector
+                facemark = Face.createFacemarkLBF();
+                facemark.loadModel(facemark_model_filepath);
             }
 
-            // setup landmarks detector
-            facemark = Face.createFacemarkLBF();
-            facemark.loadModel(facemark_model_filepath);
-
-            // setup face detection
-            cascade = new CascadeClassifier(facemark_cascade_filepath);
-            if (cascade.empty())
+            if (string.IsNullOrEmpty(facemark_cascade_filepath))
             {
-                Debug.LogError("cascade file is not loaded. Please copy from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder. ");
+                Debug.LogError(FACEMARK_CASCADE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
             }
-
+            else
+            {
+                // setup face detector
+                cascade = new CascadeClassifier(facemark_cascade_filepath);
+            }
 
 #if UNITY_ANDROID && !UNITY_EDITOR
             // Avoids the front camera low light issue that occurs in only some Android devices (e.g. Google Pixel, Pixel2).
             webCamTextureToMatHelper.avoidAndroidFrontCameraLowLightIssue = true;
 #endif
             webCamTextureToMatHelper.Initialize();
+
+            Utils.setDebugMode(false);
         }
 
         /// <summary>
@@ -159,7 +168,7 @@ namespace OpenCVForUnityExample
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat();
 
             texture = new Texture2D(webCamTextureMat.cols(), webCamTextureMat.rows(), TextureFormat.RGBA32, false);
-            Utils.fastMatToTexture2D(webCamTextureMat, texture);
+            Utils.matToTexture2D(webCamTextureMat, texture);
 
             gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
@@ -231,6 +240,15 @@ namespace OpenCVForUnityExample
 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat();
 
+                if (facemark == null || cascade == null)
+                {
+                    Imgproc.putText(rgbaMat, "model file is not loaded.", new Point(5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    Imgproc.putText(rgbaMat, "Please read console message.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+
+                    Utils.matToTexture2D(rgbaMat, texture);
+                    return;
+                }
+
                 Imgproc.cvtColor(rgbaMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
                 Imgproc.equalizeHist(grayMat, grayMat);
 
@@ -270,7 +288,7 @@ namespace OpenCVForUnityExample
                     }
                 }
 
-                Utils.fastMatToTexture2D(rgbaMat, texture);
+                Utils.matToTexture2D(rgbaMat, texture);
             }
         }
 

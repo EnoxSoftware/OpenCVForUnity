@@ -140,7 +140,7 @@ namespace OpenCVForUnityExample
                     Imgproc.rectangle(previewRgbMat, new Point(0, 0), new Point(previewRgbMat.cols(), previewRgbMat.rows()), new Scalar(0, 0, 255), 3);
 
                     Imgproc.cvtColor(previewRgbMat, previewRgbMat, Imgproc.COLOR_BGR2RGB);
-                    Utils.fastMatToTexture2D(previewRgbMat, previrwTexture);
+                    Utils.matToTexture2D(previewRgbMat, previrwTexture);
                 }
             }
         }

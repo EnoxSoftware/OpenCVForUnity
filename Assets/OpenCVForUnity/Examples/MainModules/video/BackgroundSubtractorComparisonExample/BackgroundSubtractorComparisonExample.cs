@@ -183,7 +183,7 @@ namespace OpenCVForUnityExample
             Mat rgbMat = sourceToMatHelper.GetMat();
 
             texture = new Texture2D(rgbMat.cols(), rgbMat.rows(), TextureFormat.RGB24, false);
-            Utils.fastMatToTexture2D(rgbMat, texture);
+            Utils.matToTexture2D(rgbMat, texture);
 
             gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
@@ -278,7 +278,7 @@ namespace OpenCVForUnityExample
                     Imgproc.cvtColor(fgmaskMat, rgbMat, Imgproc.COLOR_GRAY2RGB);
                 }
 
-                Utils.fastMatToTexture2D(rgbMat, texture);
+                Utils.matToTexture2D(rgbMat, texture);
 
 
                 if (fpsMonitor != null)

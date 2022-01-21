@@ -167,10 +167,10 @@ namespace OpenCVForUnityExample
 
         /// <summary>
         /// The calibration images directory path.
-        /// Set a relative directory path from the starting point of the "StreamingAssets" folder.  e.g. "calibration_images/".
+        /// Set a relative directory path from the starting point of the "StreamingAssets" folder.  e.g. "aruco/calibration_images/".
         /// </summary>
-        [Tooltip("Set a relative directory path from the starting point of the \"StreamingAssets\" folder.  e.g. \"calibration_images\"")]
-        public string calibrationImagesDirectory = "calibration_images";
+        [Tooltip("Set a relative directory path from the starting point of the \"StreamingAssets\" folder.  e.g. \"aruco/calibration_images\"")]
+        public string calibrationImagesDirectory = "aruco/calibration_images";
 
         /// <summary>
         /// The texture.
@@ -406,14 +406,14 @@ namespace OpenCVForUnityExample
                 DrawFrame(grayMat, bgrMat);
                 Imgproc.cvtColor(bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
 
-                Utils.fastMatToTexture2D(rgbaMat, texture);
+                Utils.matToTexture2D(rgbaMat, texture);
             }
         }
 
         private void InitializeCalibraton(Mat frameMat)
         {
             texture = new Texture2D(frameMat.cols(), frameMat.rows(), TextureFormat.RGBA32, false);
-            Utils.fastMatToTexture2D(frameMat, texture);
+            Utils.matToTexture2D(frameMat, texture);
 
             gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
@@ -571,7 +571,8 @@ namespace OpenCVForUnityExample
                             {
                                 found = Calib3d.findChessboardCornersSB(grayMat, new Size((int)boardSizeW, (int)boardSizeH), points, findChessboardCornersSBFlags);
                             }
-                            else {
+                            else
+                            {
                                 found = Calib3d.findChessboardCorners(grayMat, new Size((int)boardSizeW, (int)boardSizeH), points, findChessboardCornersFlags);
                             }
                             break;
@@ -994,7 +995,7 @@ namespace OpenCVForUnityExample
 
                     DrawFrame(gray, bgr);
                     Imgproc.cvtColor(bgr, rgba, Imgproc.COLOR_BGR2RGBA);
-                    Utils.fastMatToTexture2D(rgba, texture);
+                    Utils.matToTexture2D(rgba, texture);
                 }
             }
             return true;

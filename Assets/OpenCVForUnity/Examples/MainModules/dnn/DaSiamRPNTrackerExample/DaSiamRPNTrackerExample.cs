@@ -147,12 +147,24 @@ namespace OpenCVForUnityExample
         // Use this for initialization
         void Run()
         {
-            tracker = new DaSiamRPNTracker(net_filepath, kernel_r1_filepath, kernel_cls1_filepath);
+            //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
+            Utils.setDebugMode(true);
+
+            if (string.IsNullOrEmpty(net_filepath) || string.IsNullOrEmpty(kernel_r1_filepath) || string.IsNullOrEmpty(kernel_cls1_filepath))
+            {
+                Debug.LogError(NET_FILENAME + " or " + KERNEL_R1_FILENAME + " or " + KERNEL_CLS1_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
+            }
+            else
+            {
+                tracker = new DaSiamRPNTracker(net_filepath, kernel_r1_filepath, kernel_cls1_filepath);
+            }
 
             if (string.IsNullOrEmpty(sourceToMatHelper.requestedVideoFilePath))
                 sourceToMatHelper.requestedVideoFilePath = VIDEO_FILENAME;
             sourceToMatHelper.outputColorFormat = VideoCaptureToMatHelper.ColorFormat.RGB; // DaSiamRPNTracker API must handle 3 channels Mat image.
             sourceToMatHelper.Initialize();
+
+            Utils.setDebugMode(false);
         }
 
         /// <summary>
@@ -165,7 +177,7 @@ namespace OpenCVForUnityExample
             Mat rgbMat = sourceToMatHelper.GetMat();
 
             texture = new Texture2D(rgbMat.cols(), rgbMat.rows(), TextureFormat.RGB24, false);
-            Utils.fastMatToTexture2D(rgbMat, texture);
+            Utils.matToTexture2D(rgbMat, texture);
 
             gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
@@ -225,6 +237,21 @@ namespace OpenCVForUnityExample
             if (!sourceToMatHelper.IsInitialized())
                 return;
 
+            if (tracker == null)
+            {
+                if (sourceToMatHelper.IsPlaying() && sourceToMatHelper.DidUpdateThisFrame())
+                {
+                    Mat rgbMat = sourceToMatHelper.GetMat();
+
+                    Imgproc.putText(rgbMat, "model file is not loaded.", new Point(5, rgbMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    Imgproc.putText(rgbMat, "Please read console message.", new Point(5, rgbMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+
+                    Utils.matToTexture2D(rgbMat, texture);
+                }
+                return;
+            }
+
+
 #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
             //Touch
             int touchCount = Input.touchCount;
@@ -238,8 +265,8 @@ namespace OpenCVForUnityExample
                 }
             }
 #else
-            //Mouse
-            if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
+                //Mouse
+                if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 storedTouchPoint = new Point(Input.mousePosition.x, Input.mousePosition.y);
                 //Debug.Log ("mouse X " + Input.mousePosition.x);
@@ -320,7 +347,7 @@ namespace OpenCVForUnityExample
                         }
                     }
 
-                    Utils.fastMatToTexture2D(rgbMat, texture);
+                    Utils.matToTexture2D(rgbMat, texture);
                 }
             }
             else
@@ -441,7 +468,7 @@ namespace OpenCVForUnityExample
                 texture = null;
             }
 
-            if (!tracker.isDisposed)
+            if (tracker != null)
             {
                 tracker.dispose();
             }

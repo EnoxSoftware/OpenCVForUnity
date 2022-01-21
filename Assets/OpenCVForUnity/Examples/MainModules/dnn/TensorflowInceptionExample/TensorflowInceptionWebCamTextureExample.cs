@@ -123,15 +123,19 @@ namespace OpenCVForUnityExample
             Utils.setDebugMode(true);
 
 
-            net = Dnn.readNetFromTensorflow(model_filepath);
-            if (net.empty())
-            {
-                Debug.LogError("model file is not loaded. The model and class names list can be downloaded here: \"https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip\". Please copy to “Assets/StreamingAssets/dnn/” folder. ");
-            }
             classes = readClassNames(classes_filepath);
             if (classes == null)
             {
-                Debug.LogError("class names list file is not loaded. The model and class names list can be downloaded here: \"https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip\". Please copy to “Assets/StreamingAssets/dnn/” folder. ");
+                Debug.LogError(CLASSES_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
+            }
+
+            if (string.IsNullOrEmpty(model_filepath))
+            {
+                Debug.LogError(MODEL_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
+            }
+            else
+            {
+                net = Dnn.readNetFromTensorflow(model_filepath);
             }
 
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -151,7 +155,7 @@ namespace OpenCVForUnityExample
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat();
 
             texture = new Texture2D(webCamTextureMat.cols(), webCamTextureMat.rows(), TextureFormat.RGBA32, false);
-            Utils.fastMatToTexture2D(webCamTextureMat, texture);
+            Utils.matToTexture2D(webCamTextureMat, texture);
 
             gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
@@ -217,7 +221,7 @@ namespace OpenCVForUnityExample
 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat();
 
-                if (net.empty() || classes == null)
+                if (net == null || classes == null)
                 {
                     Imgproc.putText(rgbaMat, "model file is not loaded.", new Point(5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                     Imgproc.putText(rgbaMat, "Please read console message.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
@@ -247,7 +251,7 @@ namespace OpenCVForUnityExample
                     }
                 }
 
-                Utils.fastMatToTexture2D(rgbaMat, texture);
+                Utils.matToTexture2D(rgbaMat, texture);
             }
         }
 
