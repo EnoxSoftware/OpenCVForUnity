@@ -77,6 +77,7 @@ var searchData=
   ['dnn_5fbackend_5finference_5fengine',['DNN_BACKEND_INFERENCE_ENGINE',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#aec12aa14443c6c0fe5d63dfeb677cfce',1,'OpenCVForUnity::DnnModule::Dnn']]],
   ['dnn_5fbackend_5fopencv',['DNN_BACKEND_OPENCV',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#aca67426c9a6c1b0aea1648e96d408bdf',1,'OpenCVForUnity::DnnModule::Dnn']]],
   ['dnn_5fbackend_5fvkcom',['DNN_BACKEND_VKCOM',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a719329bdbed8bcac32da31518a104425',1,'OpenCVForUnity::DnnModule::Dnn']]],
+  ['dnn_5fbackend_5fwebnn',['DNN_BACKEND_WEBNN',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a10a4ef834f6c008f20c60d2629bf97b0',1,'OpenCVForUnity::DnnModule::Dnn']]],
   ['dnn_5ftarget_5fcpu',['DNN_TARGET_CPU',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#ac503ed74367afdd729bb8daa8ceaf394',1,'OpenCVForUnity::DnnModule::Dnn']]],
   ['dnn_5ftarget_5fcuda',['DNN_TARGET_CUDA',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#afe4300185fda7ad87d5040cefed4fa73',1,'OpenCVForUnity::DnnModule::Dnn']]],
   ['dnn_5ftarget_5fcuda_5ffp16',['DNN_TARGET_CUDA_FP16',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a8f021881491eb3e88053690bf8a0ac8d',1,'OpenCVForUnity::DnnModule::Dnn']]],

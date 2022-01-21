@@ -26,6 +26,7 @@ var searchData=
   ['utilsmodule',['UtilsModule',['../namespace_open_c_v_for_unity_1_1_utils_module.html',1,'OpenCVForUnity']]],
   ['videoiomodule',['VideoioModule',['../namespace_open_c_v_for_unity_1_1_videoio_module.html',1,'OpenCVForUnity']]],
   ['videomodule',['VideoModule',['../namespace_open_c_v_for_unity_1_1_video_module.html',1,'OpenCVForUnity']]],
+  ['wechat_5fqrcodemodule',['Wechat_qrcodeModule',['../namespace_open_c_v_for_unity_1_1_wechat__qrcode_module.html',1,'OpenCVForUnity']]],
   ['xfeatures2dmodule',['Xfeatures2dModule',['../namespace_open_c_v_for_unity_1_1_xfeatures2d_module.html',1,'OpenCVForUnity']]],
   ['ximgprocmodule',['XimgprocModule',['../namespace_open_c_v_for_unity_1_1_ximgproc_module.html',1,'OpenCVForUnity']]],
   ['xphotomodule',['XphotoModule',['../namespace_open_c_v_for_unity_1_1_xphoto_module.html',1,'OpenCVForUnity']]]
