@@ -1,7 +1,8 @@
-﻿using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.ObjdetectModule;
 using OpenCVForUnity.UnityUtils;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -33,30 +34,40 @@ namespace OpenCVForUnityExample
             Mat grayMat = new Mat();
             Imgproc.cvtColor(imgMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
 
+
             Mat points = new Mat();
-            Mat straight_qrcode = new Mat();
+            List<string> decodedInfo = new List<string>();
+            List<Mat> straightQrcode = new List<Mat>();
 
             QRCodeDetector detector = new QRCodeDetector();
 
-            bool result = detector.detect(grayMat, points);
+
+            bool result = detector.detectAndDecodeMulti(grayMat, decodedInfo, points, straightQrcode);
 
             if (result)
             {
-                string decode_info = detector.decode(grayMat, points, straight_qrcode);
 
-                Debug.Log(decode_info);
-                Debug.Log(points.dump());
-                Debug.Log(straight_qrcode.dump());
+                //Debug.Log(points.dump());
+                //Debug.Log(points.ToString());
 
-                // draw QRCode contour.
-                float[] points_arr = new float[8];
-                points.get(0, 0, points_arr);
-                Imgproc.line(imgMat, new Point(points_arr[0], points_arr[1]), new Point(points_arr[2], points_arr[3]), new Scalar(255, 0, 0, 255), 2);
-                Imgproc.line(imgMat, new Point(points_arr[2], points_arr[3]), new Point(points_arr[4], points_arr[5]), new Scalar(255, 0, 0, 255), 2);
-                Imgproc.line(imgMat, new Point(points_arr[4], points_arr[5]), new Point(points_arr[6], points_arr[7]), new Scalar(255, 0, 0, 255), 2);
-                Imgproc.line(imgMat, new Point(points_arr[6], points_arr[7]), new Point(points_arr[0], points_arr[1]), new Scalar(255, 0, 0, 255), 2);
 
-                Imgproc.putText(imgMat, "DECODE INFO: " + decode_info, new Point(5, imgMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                for (int i = 0; i < points.rows(); i++)
+                {
+                    //Debug.Log(decoded_info[i]);
+                    //Debug.Log(straight_qrcode[i].dump());
+
+                    //// draw QRCode contour.
+                    float[] points_arr = new float[8];
+                    points.get(i, 0, points_arr);
+                    Imgproc.line(imgMat, new Point(points_arr[0], points_arr[1]), new Point(points_arr[2], points_arr[3]), new Scalar(255, 0, 0, 255), 2);
+                    Imgproc.line(imgMat, new Point(points_arr[2], points_arr[3]), new Point(points_arr[4], points_arr[5]), new Scalar(255, 0, 0, 255), 2);
+                    Imgproc.line(imgMat, new Point(points_arr[4], points_arr[5]), new Point(points_arr[6], points_arr[7]), new Scalar(255, 0, 0, 255), 2);
+                    Imgproc.line(imgMat, new Point(points_arr[6], points_arr[7]), new Point(points_arr[0], points_arr[1]), new Scalar(255, 0, 0, 255), 2);
+
+                    if (decodedInfo.Count > i && decodedInfo[i] != null)
+                        Imgproc.putText(imgMat, decodedInfo[i], new Point(points_arr[0], points_arr[1]), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                }
+
             }
             else
             {

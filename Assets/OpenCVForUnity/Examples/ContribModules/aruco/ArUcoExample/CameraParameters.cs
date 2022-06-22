@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using OpenCVForUnity.CoreModule;
 
@@ -16,9 +16,9 @@ namespace OpenCVForUnityExample
         public double[] distortion_coefficients;
         public double avg_reprojection_error;
 
-        public CameraParameters (int frames_count, int image_width, int image_height, int calibration_flags, double[] camera_matrix, double[] distortion_coefficients, double avg_reprojection_error)
+        public CameraParameters(int frames_count, int image_width, int image_height, int calibration_flags, double[] camera_matrix, double[] distortion_coefficients, double avg_reprojection_error)
         {
-            this.calibration_date = DateTime.Now.ToString ();
+            this.calibration_date = DateTime.Now.ToString();
             this.frames_count = frames_count;
             this.image_width = image_width;
             this.image_height = image_height;
@@ -28,15 +28,15 @@ namespace OpenCVForUnityExample
             this.avg_reprojection_error = avg_reprojection_error;
         }
 
-        public CameraParameters (int frames_count, int image_width, int image_height, int calibration_flags, Mat camera_matrix, Mat distortion_coefficients, double avg_reprojection_error)
+        public CameraParameters(int frames_count, int image_width, int image_height, int calibration_flags, Mat camera_matrix, Mat distortion_coefficients, double avg_reprojection_error)
         {
-            double[] camera_matrixArr = new double[camera_matrix.total ()];
-            camera_matrix.get (0, 0, camera_matrixArr);
+            double[] camera_matrixArr = new double[camera_matrix.total()];
+            camera_matrix.get(0, 0, camera_matrixArr);
 
-            double[] distortion_coefficientsArr = new double[distortion_coefficients.total ()];
-            distortion_coefficients.get (0, 0, distortion_coefficientsArr);
+            double[] distortion_coefficientsArr = new double[distortion_coefficients.total()];
+            distortion_coefficients.get(0, 0, distortion_coefficientsArr);
 
-            this.calibration_date = DateTime.Now.ToString ();
+            this.calibration_date = DateTime.Now.ToString();
             this.frames_count = frames_count;
             this.image_width = image_width;
             this.image_height = image_height;
@@ -46,17 +46,17 @@ namespace OpenCVForUnityExample
             this.avg_reprojection_error = avg_reprojection_error;
         }
 
-        public Mat GetCameraMatrix ()
+        public Mat GetCameraMatrix()
         {
-            Mat m = new Mat (3, 3, CvType.CV_64FC1);
-            m.put (0, 0, camera_matrix);
+            Mat m = new Mat(3, 3, CvType.CV_64FC1);
+            m.put(0, 0, camera_matrix);
             return m;
         }
 
-        public Mat GetDistortionCoefficients ()
+        public Mat GetDistortionCoefficients()
         {
-            Mat m = new Mat (distortion_coefficients.Length, 1, CvType.CV_64FC1);
-            m.put (0, 0, distortion_coefficients);
+            Mat m = new Mat(distortion_coefficients.Length, 1, CvType.CV_64FC1);
+            m.put(0, 0, distortion_coefficients);
             return m;
         }
     }

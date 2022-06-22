@@ -1,4 +1,4 @@
-﻿#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
+#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -592,7 +592,7 @@ namespace OpenCVForUnityExample
                     break;
                 case MarkerType.ChArUcoBoard:
                     // detect markers.
-                    Aruco.detectMarkers(grayMat, dictionary, corners, ids, detectorParams, rejectedCorners, camMatrix, distCoeffs);
+                    Aruco.detectMarkers(grayMat, dictionary, corners, ids, detectorParams, rejectedCorners);
 
                     // refine marker detection.
                     if (refineMarkerDetection)
@@ -771,7 +771,7 @@ namespace OpenCVForUnityExample
                 case MarkerType.ChArUcoBoard:
                     List<Mat> corners = new List<Mat>();
                     Mat ids = new Mat();
-                    Aruco.detectMarkers(frameMat, dictionary, corners, ids, detectorParams, rejectedCorners, camMatrix, distCoeffs);
+                    Aruco.detectMarkers(frameMat, dictionary, corners, ids, detectorParams, rejectedCorners);
 
                     if (refineMarkerDetection)
                     {

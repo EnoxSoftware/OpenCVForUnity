@@ -1,4 +1,4 @@
-﻿#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
+#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
 
 #if !UNITY_WSA_10_0
 
@@ -22,7 +22,7 @@ namespace OpenCVForUnityExample
         [TooltipAttribute("Keep keep_top_k for results outputing.")]
         public int keep_top_k = 750;
 
-        protected Scalar[] pointsColors = new Scalar[] { 
+        protected Scalar[] pointsColors = new Scalar[] {
             new Scalar(0, 0, 255, 255), // # right eye
             new Scalar(255, 0, 0, 255), // # left eye
             new Scalar(255, 255, 0, 255), // # nose tip

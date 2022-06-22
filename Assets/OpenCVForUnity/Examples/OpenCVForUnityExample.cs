@@ -1,4 +1,4 @@
-﻿using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.UnityUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -56,6 +56,7 @@ namespace OpenCVForUnityExample
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FastNeuralStyleTransferExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LibFaceDetectionV2ExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LibFaceDetectionV3ExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LightweightPoseEstimationExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MaskRCNNExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDWebCamTextureExampleButton").GetComponent<Button>().interactable = false;
@@ -142,9 +143,14 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("DocumentScannerExample");
         }
 
-        public void OnGreenScreenExampleButtonClick()
+        public void OnPhysicalGreenScreenExampleButtonClick()
         {
-            SceneManager.LoadScene("GreenScreenExample");
+            SceneManager.LoadScene("PhysicalGreenScreenExample");
+        }
+
+        public void OnKeyFrameGreenScreenExampleButtonClick()
+        {
+            SceneManager.LoadScene("KeyFrameGreenScreenExample");
         }
 
         public void OnHandPoseEstimationExampleButtonClick()
@@ -394,10 +400,15 @@ namespace OpenCVForUnityExample
         {
             SceneManager.LoadScene("LibFaceDetectionV2Example");
         }
-        
+
         public void OnLibFaceDetectionV3ExampleButtonClick()
         {
             SceneManager.LoadScene("LibFaceDetectionV3Example");
+        }
+
+        public void OnLightweightPoseEstimationExampleButtonClick()
+        {
+            SceneManager.LoadScene("LightweightPoseEstimationExample");
         }
 
         public void OnMaskRCNNExampleButtonClick()
@@ -448,6 +459,11 @@ namespace OpenCVForUnityExample
         #endregion
 
         #region ml
+
+        public void OnKNNExampleButtonClick()
+        {
+            SceneManager.LoadScene("KNNExample");
+        }
 
         public void OnSVMExampleButtonClick()
         {

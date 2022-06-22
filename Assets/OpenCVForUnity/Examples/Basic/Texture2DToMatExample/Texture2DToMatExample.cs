@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using OpenCVForUnity.CoreModule;
@@ -13,31 +13,31 @@ namespace OpenCVForUnityExample
     public class Texture2DToMatExample : MonoBehaviour
     {
         // Use this for initialization
-        void Start ()
+        void Start()
         {
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
-            Utils.setDebugMode (true);
+            Utils.setDebugMode(true);
 
 
-            Texture2D imgTexture = Resources.Load ("face") as Texture2D;
+            Texture2D imgTexture = Resources.Load("face") as Texture2D;
 
-            Mat imgMat = new Mat (imgTexture.height, imgTexture.width, CvType.CV_8UC4);
+            Mat imgMat = new Mat(imgTexture.height, imgTexture.width, CvType.CV_8UC4);
 
-            Utils.texture2DToMat (imgTexture, imgMat);
-            Debug.Log ("imgMat.ToString() " + imgMat.ToString ());
+            Utils.texture2DToMat(imgTexture, imgMat);
+            Debug.Log("imgMat.ToString() " + imgMat.ToString());
 
-            Texture2D texture = new Texture2D (imgMat.cols (), imgMat.rows (), TextureFormat.RGBA32, false);
+            Texture2D texture = new Texture2D(imgMat.cols(), imgMat.rows(), TextureFormat.RGBA32, false);
 
-            Utils.matToTexture2D (imgMat, texture);
+            Utils.matToTexture2D(imgMat, texture);
 
-            gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
+            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
 
-            Utils.setDebugMode (false);
+            Utils.setDebugMode(false);
         }
-    
+
         // Update is called once per frame
-        void Update ()
+        void Update()
         {
 
         }
@@ -45,9 +45,9 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Raises the back button click event.
         /// </summary>
-        public void OnBackButtonClick ()
+        public void OnBackButtonClick()
         {
-            SceneManager.LoadScene ("OpenCVForUnityExample");
+            SceneManager.LoadScene("OpenCVForUnityExample");
         }
     }
 }

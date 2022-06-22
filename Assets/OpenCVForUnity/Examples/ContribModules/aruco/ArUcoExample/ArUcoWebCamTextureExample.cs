@@ -1,4 +1,4 @@
-﻿#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
+#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -535,9 +535,10 @@ namespace OpenCVForUnityExample
 
                 Imgproc.cvtColor(rgbaMat, rgbMat, Imgproc.COLOR_RGBA2RGB);
 
-
+                // undistort image.
+                Calib3d.undistort(rgbMat, rgbMat, camMatrix, distCoeffs);
                 // detect markers.
-                Aruco.detectMarkers(rgbMat, dictionary, corners, ids, detectorParams, rejectedCorners, camMatrix, distCoeffs);
+                Aruco.detectMarkers(rgbMat, dictionary, corners, ids, detectorParams, rejectedCorners);
 
                 // refine marker detection.
                 if (refineMarkerDetection && (markerType == MarkerType.GridBoard || markerType == MarkerType.ChArUcoBoard))

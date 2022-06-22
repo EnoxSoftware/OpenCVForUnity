@@ -1,4 +1,6 @@
-﻿#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
+#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
+
+#if !UNITY_WSA_10_0
 
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
@@ -324,7 +326,7 @@ namespace OpenCVForUnityExample
                 faceDetector.detect(inputMat, faces);
 
                 detections = new Detection[faces.rows()];
-                
+
                 for (int i = 0; i < faces.rows(); i++)
                 {
                     float[] buf = new float[Detection.Size];
@@ -336,7 +338,7 @@ namespace OpenCVForUnityExample
                         {
                             buf[x] *= scaleRatioX;
                         }
-                        else 
+                        else
                         {
                             buf[x] *= scaleRatioY;
                         }
@@ -347,7 +349,7 @@ namespace OpenCVForUnityExample
                     gch.Free();
                 }
             }
-            
+
             return detections;
         }
 
@@ -393,5 +395,6 @@ namespace OpenCVForUnityExample
         };
     }
 }
+#endif
 
 #endif

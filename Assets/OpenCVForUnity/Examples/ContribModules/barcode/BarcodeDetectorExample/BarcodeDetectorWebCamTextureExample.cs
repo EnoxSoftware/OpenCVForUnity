@@ -1,4 +1,4 @@
-﻿#if !UNITY_WSA_10_0
+#if !UNITY_WSA_10_0
 #if !(PLATFORM_LUMIN && !UNITY_EDITOR)
 
 using OpenCVForUnity.BarcodeModule;

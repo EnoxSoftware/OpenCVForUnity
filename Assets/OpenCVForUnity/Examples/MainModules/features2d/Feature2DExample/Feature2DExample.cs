@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using OpenCVForUnity.CoreModule;
@@ -16,74 +16,74 @@ namespace OpenCVForUnityExample
     public class Feature2DExample : MonoBehaviour
     {
         // Use this for initialization
-        void Start ()
+        void Start()
         {
-            Texture2D imgTexture = Resources.Load ("face") as Texture2D;
-            
-            Mat img1Mat = new Mat (imgTexture.height, imgTexture.width, CvType.CV_8UC3);
-            Utils.texture2DToMat (imgTexture, img1Mat);
-            Debug.Log ("img1Mat.ToString() " + img1Mat.ToString ());
+            Texture2D imgTexture = Resources.Load("face") as Texture2D;
 
-            Mat img2Mat = new Mat (imgTexture.height, imgTexture.width, CvType.CV_8UC3);
-            Utils.texture2DToMat (imgTexture, img2Mat);
-            Debug.Log ("img2Mat.ToString() " + img2Mat.ToString ());
+            Mat img1Mat = new Mat(imgTexture.height, imgTexture.width, CvType.CV_8UC3);
+            Utils.texture2DToMat(imgTexture, img1Mat);
+            Debug.Log("img1Mat.ToString() " + img1Mat.ToString());
 
-
-            float angle = UnityEngine.Random.Range (0, 360), scale = 1.0f;
-
-            Point center = new Point (img2Mat.cols () * 0.5f, img2Mat.rows () * 0.5f);
-
-            Mat affine_matrix = Imgproc.getRotationMatrix2D (center, angle, scale);
-
-            Imgproc.warpAffine (img1Mat, img2Mat, affine_matrix, img2Mat.size ());
+            Mat img2Mat = new Mat(imgTexture.height, imgTexture.width, CvType.CV_8UC3);
+            Utils.texture2DToMat(imgTexture, img2Mat);
+            Debug.Log("img2Mat.ToString() " + img2Mat.ToString());
 
 
-            ORB detector = ORB.create ();
-            ORB extractor = ORB.create ();
+            float angle = UnityEngine.Random.Range(0, 360), scale = 1.0f;
 
-            MatOfKeyPoint keypoints1 = new MatOfKeyPoint ();
-            Mat descriptors1 = new Mat ();
+            Point center = new Point(img2Mat.cols() * 0.5f, img2Mat.rows() * 0.5f);
 
-            detector.detect (img1Mat, keypoints1);
-            extractor.compute (img1Mat, keypoints1, descriptors1);
+            Mat affine_matrix = Imgproc.getRotationMatrix2D(center, angle, scale);
 
-            MatOfKeyPoint keypoints2 = new MatOfKeyPoint ();
-            Mat descriptors2 = new Mat ();
-        
-            detector.detect (img2Mat, keypoints2);
-            extractor.compute (img2Mat, keypoints2, descriptors2);
+            Imgproc.warpAffine(img1Mat, img2Mat, affine_matrix, img2Mat.size());
 
 
-            DescriptorMatcher matcher = DescriptorMatcher.create (DescriptorMatcher.BRUTEFORCE_HAMMINGLUT);
-            MatOfDMatch matches = new MatOfDMatch ();
+            ORB detector = ORB.create();
+            ORB extractor = ORB.create();
 
-            matcher.match (descriptors1, descriptors2, matches);
+            MatOfKeyPoint keypoints1 = new MatOfKeyPoint();
+            Mat descriptors1 = new Mat();
+
+            detector.detect(img1Mat, keypoints1);
+            extractor.compute(img1Mat, keypoints1, descriptors1);
+
+            MatOfKeyPoint keypoints2 = new MatOfKeyPoint();
+            Mat descriptors2 = new Mat();
+
+            detector.detect(img2Mat, keypoints2);
+            extractor.compute(img2Mat, keypoints2, descriptors2);
 
 
-            Mat resultImg = new Mat ();
+            DescriptorMatcher matcher = DescriptorMatcher.create(DescriptorMatcher.BRUTEFORCE_HAMMINGLUT);
+            MatOfDMatch matches = new MatOfDMatch();
 
-            Features2d.drawMatches (img1Mat, keypoints1, img2Mat, keypoints2, matches, resultImg);
+            matcher.match(descriptors1, descriptors2, matches);
 
 
-            Texture2D texture = new Texture2D (resultImg.cols (), resultImg.rows (), TextureFormat.RGBA32, false);
-        
-            Utils.matToTexture2D (resultImg, texture);
+            Mat resultImg = new Mat();
 
-            gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
+            Features2d.drawMatches(img1Mat, keypoints1, img2Mat, keypoints2, matches, resultImg);
+
+
+            Texture2D texture = new Texture2D(resultImg.cols(), resultImg.rows(), TextureFormat.RGBA32, false);
+
+            Utils.matToTexture2D(resultImg, texture);
+
+            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
         }
-    
+
         // Update is called once per frame
-        void Update ()
+        void Update()
         {
-    
+
         }
 
         /// <summary>
         /// Raises the back button click event.
         /// </summary>
-        public void OnBackButtonClick ()
+        public void OnBackButtonClick()
         {
-            SceneManager.LoadScene ("OpenCVForUnityExample");
+            SceneManager.LoadScene("OpenCVForUnityExample");
         }
     }
 }

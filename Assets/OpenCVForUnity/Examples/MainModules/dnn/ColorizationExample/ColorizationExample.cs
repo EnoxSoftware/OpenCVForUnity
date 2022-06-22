@@ -1,4 +1,4 @@
-﻿#if !UNITY_WSA_10_0
+#if !UNITY_WSA_10_0
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -166,16 +166,16 @@ namespace OpenCVForUnityExample
             {
 
                 // setup additional layers:
-                int[] sz = new int[]{ 2, 313, 1, 1 };
+                int[] sz = new int[] { 2, 313, 1, 1 };
                 Mat pts_in_hull = new Mat(sz, CvType.CV_32F);
                 pts_in_hull.put(new int[] { 0, 0, 0, 0 }, hull_pts);
 
-                Layer class8_ab = net.getLayer(new DictValue("class8_ab"));
+                Layer class8_ab = net.getLayer(net.getLayerId("class8_ab"));
                 List<Mat> blobs = class8_ab.get_blobs();
                 blobs.Add(pts_in_hull);
                 class8_ab.set_blobs(blobs);
 
-                Layer conv8_313_rh = net.getLayer(new DictValue("conv8_313_rh"));
+                Layer conv8_313_rh = net.getLayer(net.getLayerId("conv8_313_rh"));
                 blobs = conv8_313_rh.get_blobs();
                 blobs.Add(new Mat(1, 313, CvType.CV_32F, new Scalar(2.606)));
                 conv8_313_rh.set_blobs(blobs);
@@ -197,7 +197,7 @@ namespace OpenCVForUnityExample
                 Mat result = net.forward();
 
                 // retrieve the calculated a,b channels from the network output
-                Mat result_a = new Mat(result, new Range[] {new Range(0, 1), new Range(0, 1) , new Range(0, result.size(2)), new Range(0, result.size(3)) });
+                Mat result_a = new Mat(result, new Range[] { new Range(0, 1), new Range(0, 1), new Range(0, result.size(2)), new Range(0, result.size(3)) });
                 Mat result_b = new Mat(result, new Range[] { new Range(0, 1), new Range(1, 2), new Range(0, result.size(2)), new Range(0, result.size(3)) });
                 result_a = result_a.reshape(1, result.size(2));
                 result_b = result_b.reshape(1, result.size(2));

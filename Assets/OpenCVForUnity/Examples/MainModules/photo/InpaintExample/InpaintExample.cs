@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using OpenCVForUnity.CoreModule;
@@ -15,47 +15,47 @@ namespace OpenCVForUnityExample
     public class InpaintExample : MonoBehaviour
     {
         // Use this for initialization
-        void Start ()
+        void Start()
         {
-            Texture2D srcTexture = Resources.Load ("face") as Texture2D;
+            Texture2D srcTexture = Resources.Load("face") as Texture2D;
 
-            Mat srcMat = new Mat (srcTexture.height, srcTexture.width, CvType.CV_8UC3);
+            Mat srcMat = new Mat(srcTexture.height, srcTexture.width, CvType.CV_8UC3);
 
-            Utils.texture2DToMat (srcTexture, srcMat);
-            Debug.Log ("srcMat.ToString() " + srcMat.ToString ());
+            Utils.texture2DToMat(srcTexture, srcMat);
+            Debug.Log("srcMat.ToString() " + srcMat.ToString());
 
-            Texture2D maskTexture = Resources.Load ("face_inpaint_mask") as Texture2D;
-            
-            Mat maskMat = new Mat (maskTexture.height, maskTexture.width, CvType.CV_8UC1);
-            
-            Utils.texture2DToMat (maskTexture, maskMat);
-            Debug.Log ("maskMat.ToString() " + maskMat.ToString ());
+            Texture2D maskTexture = Resources.Load("face_inpaint_mask") as Texture2D;
 
-            Mat dstMat = new Mat (srcMat.rows (), srcMat.cols (), CvType.CV_8UC3);
+            Mat maskMat = new Mat(maskTexture.height, maskTexture.width, CvType.CV_8UC1);
 
+            Utils.texture2DToMat(maskTexture, maskMat);
+            Debug.Log("maskMat.ToString() " + maskMat.ToString());
 
-            Photo.inpaint (srcMat, maskMat, dstMat, 5, Photo.INPAINT_NS);
+            Mat dstMat = new Mat(srcMat.rows(), srcMat.cols(), CvType.CV_8UC3);
 
 
-            Texture2D texture = new Texture2D (dstMat.cols (), dstMat.rows (), TextureFormat.RGBA32, false);
+            Photo.inpaint(srcMat, maskMat, dstMat, 5, Photo.INPAINT_NS);
 
-            Utils.matToTexture2D (dstMat, texture);
 
-            gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
+            Texture2D texture = new Texture2D(dstMat.cols(), dstMat.rows(), TextureFormat.RGBA32, false);
+
+            Utils.matToTexture2D(dstMat, texture);
+
+            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
         }
-    
+
         // Update is called once per frame
-        void Update ()
+        void Update()
         {
-    
+
         }
 
         /// <summary>
         /// Raises the back button click event.
         /// </summary>
-        public void OnBackButtonClick ()
+        public void OnBackButtonClick()
         {
-            SceneManager.LoadScene ("OpenCVForUnityExample");
+            SceneManager.LoadScene("OpenCVForUnityExample");
         }
     }
 }

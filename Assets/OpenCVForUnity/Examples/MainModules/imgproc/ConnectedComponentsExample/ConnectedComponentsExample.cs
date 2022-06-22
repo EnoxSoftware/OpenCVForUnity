@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
@@ -15,84 +15,90 @@ namespace OpenCVForUnityExample
     public class ConnectedComponentsExample : MonoBehaviour
     {
         // Use this for initialization
-        void Start ()
+        void Start()
         {
-            Texture2D imgTexture = Resources.Load ("matchshapes") as Texture2D;
-            
-            Mat srcMat = new Mat (imgTexture.height, imgTexture.width, CvType.CV_8UC1);
-            
-            Utils.texture2DToMat (imgTexture, srcMat);
-            Debug.Log ("srcMat.ToString() " + srcMat.ToString ());
+            Texture2D imgTexture = Resources.Load("matchshapes") as Texture2D;
 
-            Mat dstMat = new Mat (srcMat.size (), CvType.CV_8UC3);
+            Mat srcMat = new Mat(imgTexture.height, imgTexture.width, CvType.CV_8UC1);
 
-            //labeling
-            Mat labels = new Mat ();
-            Mat stats = new Mat ();
-            Mat centroids = new Mat ();
-            int total = Imgproc.connectedComponentsWithStats (srcMat, labels, stats, centroids);
+            Utils.texture2DToMat(imgTexture, srcMat);
+            Debug.Log("srcMat.ToString() " + srcMat.ToString());
 
-            Debug.Log ("labels.ToString() " + labels.ToString ());
-            Debug.Log ("stats.ToString() " + stats.ToString ());
-            Debug.Log ("centroids.ToString() " + centroids.ToString ());
-            Debug.Log ("total " + total);
-            
+            Mat dstMat = new Mat(srcMat.size(), CvType.CV_8UC3);
+
+            // labeling
+            Mat labels = new Mat();
+            Mat stats = new Mat();
+            Mat centroids = new Mat();
+            int total = Imgproc.connectedComponentsWithStats(srcMat, labels, stats, centroids);
+
+            Debug.Log("labels.ToString() " + labels.ToString());
+            Debug.Log("stats.ToString() " + stats.ToString());
+            Debug.Log("centroids.ToString() " + centroids.ToString());
+            Debug.Log("total " + total);
+
             // determine drawing color
-            List<Scalar> colors = new List<Scalar> (total);
-            colors.Add (new Scalar (0, 0, 0));
-            for (int i = 1; i < total; ++i) {
-                colors.Add (new Scalar (Random.Range (0, 255), Random.Range (0, 255), Random.Range (0, 255)));
+            List<Scalar> colors = new List<Scalar>(total);
+            colors.Add(new Scalar(0, 0, 0));
+            for (int i = 1; i < total; ++i)
+            {
+                colors.Add(new Scalar(Random.Range(0, 255), Random.Range(0, 255), Random.Range(0, 255)));
             }
-            
+
             // draw labels
-            for (int i = 0; i < dstMat.rows (); ++i) {
-                for (int j = 0; j < dstMat.cols (); ++j) {
-                    Scalar color = colors [(int)labels.get (i, j) [0]];
-                    dstMat.put (i, j, color.val [0], color.val [1], color.val [2]);
+            for (int i = 0; i < dstMat.rows(); ++i)
+            {
+                for (int j = 0; j < dstMat.cols(); ++j)
+                {
+                    Scalar color = colors[(int)labels.get(i, j)[0]];
+                    dstMat.put(i, j, color.val[0], color.val[1], color.val[2]);
                 }
             }
-            
+
             // draw rectangle
-            for (int i = 1; i < total; ++i) {
+            for (int i = 1; i < total; ++i)
+            {
 
-                int x = (int)stats.get (i, Imgproc.CC_STAT_LEFT) [0];
-                int y = (int)stats.get (i, Imgproc.CC_STAT_TOP) [0];
-                int height = (int)stats.get (i, Imgproc.CC_STAT_HEIGHT) [0];
-                int width = (int)stats.get (i, Imgproc.CC_STAT_WIDTH) [0];
+                int x = (int)stats.get(i, Imgproc.CC_STAT_LEFT)[0];
+                int y = (int)stats.get(i, Imgproc.CC_STAT_TOP)[0];
+                int height = (int)stats.get(i, Imgproc.CC_STAT_HEIGHT)[0];
+                int width = (int)stats.get(i, Imgproc.CC_STAT_WIDTH)[0];
 
-                OpenCVForUnity.CoreModule.Rect rect = new OpenCVForUnity.CoreModule.Rect (x, y, width, height);
+                OpenCVForUnity.CoreModule.Rect rect = new OpenCVForUnity.CoreModule.Rect(x, y, width, height);
 
-                Imgproc.rectangle (dstMat, rect.tl (), rect.br (), new Scalar (0, 255, 0), 2);
+                Imgproc.rectangle(dstMat, rect.tl(), rect.br(), new Scalar(0, 255, 0), 2);
             }
-            
+
             // draw centroids
-            for (int i = 1; i < total; ++i) {
+            for (int i = 1; i < total; ++i)
+            {
 
-                int x = (int)centroids.get (i, 0) [0];
-                int y = (int)centroids.get (i, 1) [0];
+                int x = (int)centroids.get(i, 0)[0];
+                int y = (int)centroids.get(i, 1)[0];
 
-                Imgproc.circle (dstMat, new Point (x, y), 3, new Scalar (255, 0, 0), -1);
+                Imgproc.circle(dstMat, new Point(x, y), 3, new Scalar(255, 0, 0), -1);
             }
-            
+
             // draw index of label
-            for (int i = 1; i < total; ++i) {
+            for (int i = 1; i < total; ++i)
+            {
 
-                int x = (int)stats.get (i, Imgproc.CC_STAT_LEFT) [0];
-                int y = (int)stats.get (i, Imgproc.CC_STAT_TOP) [0];
+                int x = (int)stats.get(i, Imgproc.CC_STAT_LEFT)[0];
+                int y = (int)stats.get(i, Imgproc.CC_STAT_TOP)[0];
 
-                Imgproc.putText (dstMat, "" + i, new Point (x + 5, y + 15), Imgproc.FONT_HERSHEY_COMPLEX, 0.5, new Scalar (255, 255, 0), 2);
+                Imgproc.putText(dstMat, "" + i, new Point(x + 5, y + 15), Imgproc.FONT_HERSHEY_COMPLEX, 0.5, new Scalar(255, 255, 0), 2);
             }
-            
-            
-            Texture2D texture = new Texture2D (dstMat.cols (), dstMat.rows (), TextureFormat.RGBA32, false);
-            
-            Utils.matToTexture2D (dstMat, texture);
-            
-            gameObject.GetComponent<Renderer> ().material.mainTexture = texture;
+
+
+            Texture2D texture = new Texture2D(dstMat.cols(), dstMat.rows(), TextureFormat.RGBA32, false);
+
+            Utils.matToTexture2D(dstMat, texture);
+
+            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
         }
 
         // Update is called once per frame
-        void Update ()
+        void Update()
         {
 
         }
@@ -100,9 +106,9 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// Raises the back button click event.
         /// </summary>
-        public void OnBackButtonClick ()
+        public void OnBackButtonClick()
         {
-            SceneManager.LoadScene ("OpenCVForUnityExample");
+            SceneManager.LoadScene("OpenCVForUnityExample");
         }
     }
 }

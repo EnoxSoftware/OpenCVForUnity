@@ -1,4 +1,6 @@
-﻿using OpenCVForUnity.CoreModule;
+#if !UNITY_WSA_10_0
+
+using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.ObjdetectModule;
@@ -334,3 +336,4 @@ namespace OpenCVForUnityExample
         }
     }
 }
+#endif

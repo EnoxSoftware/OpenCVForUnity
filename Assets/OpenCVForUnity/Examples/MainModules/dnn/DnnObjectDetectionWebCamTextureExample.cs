@@ -1,4 +1,4 @@
-﻿#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
+#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
 
 #if !UNITY_WSA_10_0
 
@@ -196,7 +196,7 @@ namespace OpenCVForUnityExample
                 //! [Initialize network]
                 net = Dnn.readNet(model_filepath, config_filepath);
                 //! [Initialize network]
-                
+
                 outBlobNames = getOutputsNames(net);
                 //for (int i = 0; i < outBlobNames.Count; i++)
                 //{
@@ -314,7 +314,7 @@ namespace OpenCVForUnityExample
                     // Run a model.
                     net.setInput(blob);
 
-                    if (net.getLayer(new DictValue(0)).outputNameToIndex("im_info") != -1)
+                    if (net.getLayer(0).outputNameToIndex("im_info") != -1)
                     {  // Faster-RCNN or R-FCN
                         Imgproc.resize(bgrMat, bgrMat, inpSize);
                         Mat imInfo = new Mat(1, 3, CvType.CV_32FC1);
@@ -458,7 +458,8 @@ namespace OpenCVForUnityExample
             List<int> classIdsList = new List<int>();
             List<float> confidencesList = new List<float>();
             List<Rect2d> boxesList = new List<Rect2d>();
-            if (net.getLayer(new DictValue(0)).outputNameToIndex("im_info") != -1)
+
+            if (net.getLayer(0).outputNameToIndex("im_info") != -1)
             {
                 // Faster-RCNN or R-FCN
                 // Network produces output blob with a shape 1x1xNx7 where N is a number of
@@ -675,7 +676,7 @@ namespace OpenCVForUnityExample
             MatOfInt outLayers = net.getUnconnectedOutLayers();
             for (int i = 0; i < outLayers.total(); ++i)
             {
-                names.Add(net.getLayer(new DictValue((int)outLayers.get(i, 0)[0])).get_name());
+                names.Add(net.getLayer((int)outLayers.get(i, 0)[0]).get_name());
             }
             outLayers.Dispose();
 
@@ -695,7 +696,7 @@ namespace OpenCVForUnityExample
             MatOfInt outLayers = net.getUnconnectedOutLayers();
             for (int i = 0; i < outLayers.total(); ++i)
             {
-                types.Add(net.getLayer(new DictValue((int)outLayers.get(i, 0)[0])).get_type());
+                types.Add(net.getLayer((int)outLayers.get(i, 0)[0]).get_type());
             }
             outLayers.Dispose();
 

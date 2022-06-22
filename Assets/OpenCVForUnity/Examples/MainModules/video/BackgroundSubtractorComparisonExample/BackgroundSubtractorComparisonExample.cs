@@ -1,4 +1,4 @@
-﻿using OpenCVForUnity.BgsegmModule;
+using OpenCVForUnity.BgsegmModule;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;

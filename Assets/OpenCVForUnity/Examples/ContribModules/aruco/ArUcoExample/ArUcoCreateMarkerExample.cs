@@ -1,4 +1,4 @@
-﻿using OpenCVForUnity.ArucoModule;
+using OpenCVForUnity.ArucoModule;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.UnityUtils;

@@ -1,4 +1,4 @@
-﻿#if !UNITY_WSA_10_0
+#if !UNITY_WSA_10_0
 
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.DnnModule;
@@ -265,8 +265,8 @@ namespace OpenCVForUnityExample
                 }
             }
 #else
-                //Mouse
-                if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
+            //Mouse
+            if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 storedTouchPoint = new Point(Input.mousePosition.x, Input.mousePosition.y);
                 //Debug.Log ("mouse X " + Input.mousePosition.x);
@@ -623,7 +623,7 @@ namespace OpenCVForUnityExample
             z_crop = Dnn.blobFromImage(z_crop);
 
             net.setInput(z_crop);
-            Mat z_f = net.forward("63");
+            Mat z_f = net.forward("onnx_node_output_0!63");
             kernel_r1.setInput(z_f);
             Mat r1 = kernel_r1.forward();
             kernel_cls1.setInput(z_f);
@@ -631,8 +631,8 @@ namespace OpenCVForUnityExample
             r1 = r1.reshape(1, new int[] { 20, 256, 4, 4 });
             cls1 = cls1.reshape(1, new int[] { 10, 256, 4, 4 });
 
-            net.setParam(new DictValue(net.getLayerId("65")), 0, r1);
-            net.setParam(new DictValue(net.getLayerId("68")), 0, cls1);
+            net.setParam(net.getLayerId("onnx_node_output_0!65"), 0, r1);
+            net.setParam(net.getLayerId("onnx_node_output_0!68"), 0, cls1);
 
             _isInitialized = true;
         }

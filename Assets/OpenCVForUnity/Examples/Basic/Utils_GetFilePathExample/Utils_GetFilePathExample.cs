@@ -1,4 +1,4 @@
-﻿using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.UnityUtils;
 using System;
 using System.Collections;
 using System.Collections.Generic;

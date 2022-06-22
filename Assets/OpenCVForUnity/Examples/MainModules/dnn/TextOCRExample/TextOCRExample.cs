@@ -1,4 +1,4 @@
-﻿#if !UNITY_WSA_10_0
+#if !UNITY_WSA_10_0
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -154,7 +154,7 @@ namespace OpenCVForUnityExample
                 detector = Dnn.readNet(detectionmodel_filepath);
                 recognizer = Dnn.readNet(recognitionmodel_filepath);
             }
-            
+
             if (detector == null || recognizer == null)
             {
                 Imgproc.putText(img, "model file is not loaded.", new Point(5, img.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255), 2, Imgproc.LINE_AA, false);
@@ -263,7 +263,7 @@ namespace OpenCVForUnityExample
             Utils.matToTexture2D(img, texture);
 
             gameObject.GetComponent<Renderer>().material.mainTexture = texture;
-            
+
 
             Utils.setDebugMode(false);
         }
@@ -378,7 +378,7 @@ namespace OpenCVForUnityExample
 
             for (int rowIndex = 0; rowIndex < scoresMat.rows(); ++rowIndex)
             {
-                
+
                 Core.MinMaxLocResult result = Core.minMaxLoc(scoresMat.row(rowIndex));
                 Point p = result.maxLoc;
                 if ((int)p.x > 0 && (int)p.x <= alphabet.Length)

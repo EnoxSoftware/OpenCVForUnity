@@ -53,12 +53,12 @@ class Model:
                         break
                     sha.update(buf)
             print('  actual {}'.format(sha.hexdigest()))
-            return self.sha == sha.hexdigest()
+            self.sha_actual = sha.hexdigest()
+            return self.sha == self.sha_actual
         except Exception as e:
             print('  catch {}'.format(e))
 
     def get(self):
-                
         if self.delete:
             if os.path.isfile(self.delete):
                 os.remove(self.delete)
@@ -91,7 +91,10 @@ class Model:
 
         print(' done')
         print(' file {}'.format(self.filename))
-        return self.verify()
+        candidate_verify = self.verify()
+        if not candidate_verify:
+            self.handle_bad_download()
+        return candidate_verify
 
     def download(self):
         try:
@@ -128,6 +131,27 @@ class Model:
                 f.write(buf)
                 print('>', end='')
                 sys.stdout.flush()
+
+    def handle_bad_download(self):
+        if os.path.exists(self.filename):
+            # rename file for further investigation
+            try:
+                # NB: using `self.sha_actual` may create unbounded number of files
+                rename_target = self.filename + '.invalid'
+                # TODO: use os.replace (Python 3.3+)
+                try:
+                    if os.path.exists(rename_target):  # avoid FileExistsError on Windows from os.rename()
+                        os.remove(rename_target)
+                finally:
+                    os.rename(self.filename, rename_target)
+                    print('  renaming invalid file to ' + rename_target)
+            except:
+                import traceback
+                traceback.print_exc()
+            finally:
+                if os.path.exists(self.filename):
+                    print('  deleting invalid file')
+                    os.remove(self.filename)
 
 
 def GDrive(gid):
@@ -233,6 +257,19 @@ models = [
         url='https://github.com/opencv/opencv_zoo/raw/8a872fbf5ebb5e8fdc21f869f63b352c9b9f3c2b/models/face_detection_yunet/face_detection_yunet_2021dec.onnx',
         sha='cc5db07bb193ef9a785169723e97472018b9d2f2',
         filename='YuFaceDetectNet.onnx'),
+        
+        
+    # LightweightPoseEstimationExample : # https://github.com/Daniil-Osokin/lightweight-human-pose-estimation.pytorch
+    Model(
+        name='LightweightPoseEstimationExample',
+        url='https://github.com/CMU-Perceptual-Computing-Lab/openpose/raw/master/examples/media/COCO_val2014_000000000589.jpg',
+        sha='e078403d1a09d0ef392c29741cb0c358c3a76322',
+        filename='COCO_val2014_000000000589.jpg'),
+     Model(
+        name='LightweightPoseEstimationExample',
+        url='https://drive.google.com/uc?export=dowload&id=1--Ij_gIzCeNA488u5TA4FqWMMdxBqOji',
+        sha='5960f7aef233d75f8f4020be1fd911b2d93fbffc',
+        filename='lightweight_pose_estimation_201912.onnx'),
 
 
     # MaskRCNNExample : # https://github.com/opencv/opencv/blob/master/samples/dnn/mask_rcnn.py
@@ -309,7 +346,7 @@ models = [
         filename='pose_iter_440000.caffemodel'),
     Model(
         name='OpenPoseExample',
-        url='https://github.com/opencv/opencv_extra/raw/master/4.x/dnn/openpose_pose_coco.prototxt',
+        url='https://github.com/opencv/opencv_extra/raw/4.x/testdata/dnn/openpose_pose_coco.prototxt',
         sha='98da0ee763e78e3772d4c542d648d2b762945547',
         filename='openpose_pose_coco.prototxt'),
     Model(

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
@@ -72,11 +72,11 @@ namespace OpenCVForUnityExample
             mat2.put(0, 0, a, -b, b, a);
             Debug.Log("mat2=" + mat2.dump());
 
-            // 5x5 all 1’s matrix
+            // 5x5 all 1's matrix
             Mat mat3 = Mat.ones(5, 5, CvType.CV_64FC1);
             Debug.Log("mat3=" + mat3.dump());
 
-            // 5x5 all zero’s matrix
+            // 5x5 all zero's matrix
             Mat mat4 = Mat.zeros(5, 5, CvType.CV_64FC1);
             Debug.Log("mat4=" + mat4.dump());
 
@@ -121,11 +121,11 @@ namespace OpenCVForUnityExample
             mat2.put (0, 0, a, -b, b, a);
             Debug.Log (""mat2="" + mat2.dump());
 
-            // 5x5 all 1’s matrix
+            // 5x5 all 1's matrix
             Mat mat3 = Mat.ones(5, 5, CvType.CV_64FC1);
             Debug.Log (""mat3="" + mat3.dump());
 
-            // 5x5 all zero’s matrix
+            // 5x5 all zero's matrix
             Mat mat4 = Mat.zeros(5, 5, CvType.CV_64FC1);
             Debug.Log (""mat4="" + mat4.dump());
 
@@ -1700,10 +1700,10 @@ namespace OpenCVForUnityExample
             Debug.Log("m1+s=" + (m1 + s).dump());
             executionResultText.text += "m1+s=" + (m1 + s).dump() + "\n";
 
-            // (M1 – M2 = Core.subtract (M1, M2, M_dst))
+            // (M1 - M2 = Core.subtract (M1, M2, M_dst))
             Debug.Log("m1-m2=" + (m1 - m2).dump());
             executionResultText.text += "m1-m2=" + (m1 - m2).dump() + "\n";
-            // (M1 – s = Core.subtract (M1, s, M_dst))
+            // (M1 - s = Core.subtract (M1, s, M_dst))
             Debug.Log("m1-s=" + (m1 - s).dump());
             executionResultText.text += "m1-s=" + (m1 - s).dump() + "\n";
 
@@ -1762,6 +1762,9 @@ namespace OpenCVForUnityExample
             // The assignment operator behavior is different from OpenCV (c ++). 
             // For example, C = A + B will not be expanded to cv :: add (A, B, C).
             // Also cannot assign a scalar to Mat like C = s.
+            // In c#, it is not possible to explicitly overload compound assignment operators such as “A *= B“.
+            // Instead, binary operator overloading is used implicitly.
+            // Therefore, whenever an operator is used, a new mat is created and assigned.
 
 
             exampleCodeText.text = @"
@@ -1788,9 +1791,9 @@ namespace OpenCVForUnityExample
             // (M1 + s = Core.add (M1, s, M_dst))
             Debug.Log (""m1+s="" + (m1 + s).dump());
 
-            // (M1 – M2 = Core.subtract (M1, M2, M_dst))
+            // (M1 - M2 = Core.subtract (M1, M2, M_dst))
             Debug.Log (""m1-m2="" + (m1 - m2).dump());
-            // (M1 – s = Core.subtract (M1, s, M_dst))
+            // (M1 - s = Core.subtract (M1, s, M_dst))
             Debug.Log (""m1-s="" + (m1 - s).dump());
 
             // (-M1 = Core.multiply (M1, Scalar.all (-1), M_dst))
@@ -1838,6 +1841,9 @@ namespace OpenCVForUnityExample
             // The assignment operator behavior is different from OpenCV (c ++). 
             // For example, C = A + B will not be expanded to cv :: add (A, B, C).
             // Also cannot assign a scalar to Mat like C = s.
+            // In c#, it is not possible to explicitly overload compound assignment operators such as “A *= B“.
+            // Instead, binary operator overloading is used implicitly.
+            // Therefore, whenever an operator is used, a new mat is created and assigned.
             ";
 
             UpdateScrollRect();
