@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.4.7</span>
+   &#160;<span id="projectnumber">2.4.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.5.5/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.6.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -249,7 +249,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Detects edges and prepares them to detect lines and ellipses. </p><pre class="fragment">param src input image
+<p>Detects edges in a grayscale image and prepares them to detect lines and ellipses. </p><pre class="fragment">param src 8-bit, single-channel, grayscale input image.
 </pre> 
 </div>
 </div>
@@ -268,8 +268,8 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Detects circles and ellipses. </p><pre class="fragment">param ellipses  output Vec&amp;lt;6d&amp;gt; contains center point and perimeter for circles.
-&lt;b&gt;Note:&lt;/b&gt; you should call detectEdges() method before call this.
+<p>Detects circles and ellipses. </p><pre class="fragment">param ellipses  output Vec&amp;lt;6d&amp;gt; contains center point and perimeter for circles, center point, axes and angle for ellipses.
+&lt;b&gt;Note:&lt;/b&gt; you should call detectEdges() before calling this function.
 </pre> 
 </div>
 </div>
@@ -288,8 +288,8 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Detects lines. </p><pre class="fragment">param lines  output Vec&amp;lt;4f&amp;gt; contains start point and end point of detected lines.
-&lt;b&gt;Note:&lt;/b&gt; you should call detectEdges() method before call this.
+<p>Detects lines. </p><pre class="fragment">param lines  output Vec&amp;lt;4f&amp;gt; contains the start point and the end point of detected lines.
+&lt;b&gt;Note:&lt;/b&gt; you should call detectEdges() before calling this function.
 </pre> 
 </div>
 </div>
@@ -336,7 +336,8 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>returns Edge Image prepared by <a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_edge_drawing.html#a940a444667e8d70c9fb1e411efd115ba">detectEdges()</a> function. </p><pre class="fragment">param dst returns 8-bit, single-channel output image.
+</pre> 
 </div>
 </div>
 <a id="a30ceab28e8493963d632016e5ab6d27c"></a>
@@ -354,7 +355,8 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>returns Gradient Image prepared by <a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_edge_drawing.html#a940a444667e8d70c9fb1e411efd115ba">detectEdges()</a> function. </p><pre class="fragment">param dst returns 16-bit, single-channel output image.
+</pre> 
 </div>
 </div>
 <a id="a5cd5b6000f2e6e246ee535b37180dd8a"></a>
@@ -408,9 +410,9 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>sets parameters. </p><pre class="fragment">this function is meant to be used for parameter setting in other languages than c++.
-</pre><p> param parameters automatically generated </p>
-
+<p>sets parameters. </p><pre class="fragment">this function is meant to be used for parameter setting in other languages than c++ like python.
+param parameters
+</pre> 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -476,7 +478,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 21 2022 12:29:30 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 22 2022 18:32:43 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

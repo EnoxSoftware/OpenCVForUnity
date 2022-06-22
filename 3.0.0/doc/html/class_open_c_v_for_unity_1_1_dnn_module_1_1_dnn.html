@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.4.7</span>
+   &#160;<span id="projectnumber">2.4.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.5.5/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.6.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -217,6 +217,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:aed3c8aa41fc39f6b487cfa16ea1d2c9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10a4ef834f6c008f20c60d2629bf97b0"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a10a4ef834f6c008f20c60d2629bf97b0">DNN_BACKEND_WEBNN</a> = 0 + 6</td></tr>
 <tr class="separator:a10a4ef834f6c008f20c60d2629bf97b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60699a61d90747aaa5616d7e39e3313b"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a60699a61d90747aaa5616d7e39e3313b">DNN_BACKEND_TIMVX</a> = 0 + 7</td></tr>
+<tr class="separator:a60699a61d90747aaa5616d7e39e3313b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29b826a5ed27de8a865f642d97de41eb"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a29b826a5ed27de8a865f642d97de41eb">SoftNMSMethod_SOFTNMS_LINEAR</a> = 1</td></tr>
 <tr class="separator:a29b826a5ed27de8a865f642d97de41eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a784a771c961990b65cfe513f9b32a5fc"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a784a771c961990b65cfe513f9b32a5fc">SoftNMSMethod_SOFTNMS_GAUSSIAN</a> = 2</td></tr>
@@ -239,6 +241,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a8f021881491eb3e88053690bf8a0ac8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f50582a9f1d5aba2847cf921eb18605"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a5f50582a9f1d5aba2847cf921eb18605">DNN_TARGET_HDDL</a> = 0 + 8</td></tr>
 <tr class="separator:a5f50582a9f1d5aba2847cf921eb18605"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39dde08217c374e36234a25374fcbd0d"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a39dde08217c374e36234a25374fcbd0d">DNN_TARGET_NPU</a> = 0 + 9</td></tr>
+<tr class="separator:a39dde08217c374e36234a25374fcbd0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a6dcebc1b775bf66567f67df078f91fd1"></a>
@@ -969,7 +973,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns Inference Engine internal backend API.</p>
 <p>See values of {code CV_DNN_BACKEND_INFERENCE_ENGINE_*} macros.</p>
-<p>Default value is controlled through {code OPENCV_DNN_BACKEND_INFERENCE_ENGINE_TYPE} runtime parameter (environment variable). return automatically generated </p>
+<p>{code OPENCV_DNN_BACKEND_INFERENCE_ENGINE_TYPE} runtime parameter (environment variable) is ignored since 4.6.0.</p>
+<p>deprecated return automatically generated </p>
 
 </div>
 </div>
@@ -2483,7 +2488,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Specify Inference Engine internal backend API.</p>
 <p>See values of {code CV_DNN_BACKEND_INFERENCE_ENGINE_*} macros.</p>
-<p>return previous value of internal backend API param newBackendType automatically generated </p>
+<p>return previous value of internal backend API</p>
+<p>deprecated param newBackendType automatically generated </p>
 
 </div>
 </div>
@@ -2879,6 +2885,20 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a60699a61d90747aaa5616d7e39e3313b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60699a61d90747aaa5616d7e39e3313b">&#9670;&nbsp;</a></span>DNN_BACKEND_TIMVX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int OpenCVForUnity.DnnModule.Dnn.DNN_BACKEND_TIMVX = 0 + 7</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a719329bdbed8bcac32da31518a104425"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a719329bdbed8bcac32da31518a104425">&#9670;&nbsp;</a></span>DNN_BACKEND_VKCOM</h2>
 
@@ -2991,6 +3011,20 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a39dde08217c374e36234a25374fcbd0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39dde08217c374e36234a25374fcbd0d">&#9670;&nbsp;</a></span>DNN_TARGET_NPU</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int OpenCVForUnity.DnnModule.Dnn.DNN_TARGET_NPU = 0 + 9</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a0f393d12f5c6fd35ac231d1e970a94c5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0f393d12f5c6fd35ac231d1e970a94c5">&#9670;&nbsp;</a></span>DNN_TARGET_OPENCL</h2>
 
@@ -3067,7 +3101,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 21 2022 12:29:26 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 22 2022 18:32:36 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

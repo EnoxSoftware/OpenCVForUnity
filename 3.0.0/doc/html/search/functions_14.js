@@ -50,6 +50,7 @@ var searchData=
   ['transformfd',['transformFD',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_ximgproc.html#a1e4900e39d57b0d7fcda7e58c03dd0b4',1,'OpenCVForUnity.XimgprocModule.Ximgproc.transformFD(Mat src, Mat t, Mat dst, bool fdContour)'],['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_ximgproc.html#ac6549657fec688a3259bcf0852e1009a',1,'OpenCVForUnity.XimgprocModule.Ximgproc.transformFD(Mat src, Mat t, Mat dst)']]],
   ['transientareassegmentationmodule',['TransientAreasSegmentationModule',['../class_open_c_v_for_unity_1_1_bioinspired_module_1_1_transient_areas_segmentation_module.html#a1a004dfc0724b20ec8021891dee2eb06',1,'OpenCVForUnity::BioinspiredModule::TransientAreasSegmentationModule']]],
   ['transpose',['transpose',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a1bc608b5531dce3ded593b1ca0a2836f',1,'OpenCVForUnity::CoreModule::Core']]],
+  ['transposend',['transposeND',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#aa1ef985e19aba30aac89adde3bc54afe',1,'OpenCVForUnity::CoreModule::Core']]],
   ['triangulatepoints',['triangulatePoints',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#ac12b0925914c39f82f7adabcde99d6d9',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
   ['type',['type',['../class_open_c_v_for_unity_1_1_core_module_1_1_mat.html#ab50fde5c175a561068025df6b35363f1',1,'OpenCVForUnity::CoreModule::Mat']]],
   ['typetostring',['typeToString',['../class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a6c4dcbcdacd8881f22943a7ffffba699',1,'OpenCVForUnity::CoreModule::CvType']]]

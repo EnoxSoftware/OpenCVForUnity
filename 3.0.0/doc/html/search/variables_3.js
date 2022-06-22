@@ -421,6 +421,7 @@ var searchData=
   ['ccl_5fsauf',['CCL_SAUF',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a5028d595777b3b2de06f7fb4e509166c',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['ccl_5fspaghetti',['CCL_SPAGHETTI',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a04d247ea5bf1c880a9f80338144f6b7f',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['ccl_5fwu',['CCL_WU',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#ab12285527b5cd3888ab35f854e1fb9ce',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
+  ['ccw_5fcenter',['CCW_center',['../class_open_c_v_for_unity_1_1_aruco_module_1_1_aruco.html#a2130c52764d8243a82ef616d01cfc831',1,'OpenCVForUnity::ArucoModule::Aruco']]],
   ['center',['center',['../class_open_c_v_for_unity_1_1_core_module_1_1_rotated_rect.html#ac7a03aa65bff5af96fc9512714645a5f',1,'OpenCVForUnity::CoreModule::RotatedRect']]],
   ['chain_5fapprox_5fnone',['CHAIN_APPROX_NONE',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#acf2ac590850cc0a6d9e18dd2d663108f',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['chain_5fapprox_5fsimple',['CHAIN_APPROX_SIMPLE',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#afddab97f976086adada53d09d6f4a06a',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
@@ -828,5 +829,6 @@ var searchData=
   ['cvlevmarq_5fcalc_5fj',['CvLevMarq_CALC_J',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a945b24e913ecf190bf0e667c111775d0',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
   ['cvlevmarq_5fcheck_5ferr',['CvLevMarq_CHECK_ERR',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#aaec71631cffe0285c151aa76e93f1d12',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
   ['cvlevmarq_5fdone',['CvLevMarq_DONE',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#af6e0caca66d31e0224a0227d4d547506',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
-  ['cvlevmarq_5fstarted',['CvLevMarq_STARTED',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a7f050a360d0c98d7592033e8530aa258',1,'OpenCVForUnity::Calib3dModule::Calib3d']]]
+  ['cvlevmarq_5fstarted',['CvLevMarq_STARTED',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a7f050a360d0c98d7592033e8530aa258',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
+  ['cw_5ftop_5fleft_5fcorner',['CW_top_left_corner',['../class_open_c_v_for_unity_1_1_aruco_module_1_1_aruco.html#a20547a8f0ba151f0620b59cb3015ec6d',1,'OpenCVForUnity::ArucoModule::Aruco']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['timeoutframecount',['timeoutFrameCount',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#a08465401453fbb63bc688eae358f60f5',1,'OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper.timeoutFrameCount()'],['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a01890af75d31d8e60921751769a7c3b2',1,'OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper.timeoutFrameCount()']]]
+  ['shouldstopthread',['shouldStopThread',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#a5ef30df957cc580c4b495436bb27f6e1',1,'OpenCVForUnity::UnityUtils::Helper::VideoCaptureToMatHelper']]]
 ];

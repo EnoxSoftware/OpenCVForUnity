@@ -7,5 +7,6 @@ var searchData=
   ['eigenfacerecognizer_2ecs',['EigenFaceRecognizer.cs',['../_eigen_face_recognizer_8cs.html',1,'']]],
   ['em_2ecs',['EM.cs',['../_e_m_8cs.html',1,'']]],
   ['erfilter_2ecs',['ERFilter.cs',['../_e_r_filter_8cs.html',1,'']]],
-  ['erfilter_5fcallback_2ecs',['ERFilter_Callback.cs',['../_e_r_filter___callback_8cs.html',1,'']]]
+  ['erfilter_5fcallback_2ecs',['ERFilter_Callback.cs',['../_e_r_filter___callback_8cs.html',1,'']]],
+  ['estimateparameters_2ecs',['EstimateParameters.cs',['../_estimate_parameters_8cs.html',1,'']]]
 ];

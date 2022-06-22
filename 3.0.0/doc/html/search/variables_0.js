@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['_5fapipreference',['_apiPreference',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#abf3aa5c2cef3f40611a2e338a5880c87',1,'OpenCVForUnity::UnityUtils::Helper::VideoCaptureToMatHelper']]],
   ['_5fdidupdateimagebufferincurrentframe',['_didUpdateImageBufferInCurrentFrame',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#af46116b4b268dd192b37b27c5fc6701f',1,'OpenCVForUnity::UnityUtils::Helper::VideoCaptureToMatHelper']]],
   ['_5fdidupdatethisframe',['_didUpdateThisFrame',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#a6f0de7838d0e9afb8969767716cab847',1,'OpenCVForUnity::UnityUtils::Helper::VideoCaptureToMatHelper']]],
   ['_5fdownscaleratio',['_downscaleRatio',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.html#ae634ed8f5a849559c39206a61f5bc997',1,'OpenCVForUnity::UnityUtils::Helper::ImageOptimizationHelper']]],

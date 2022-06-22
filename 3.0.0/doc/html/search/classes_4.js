@@ -8,5 +8,6 @@ var searchData=
   ['em',['EM',['../class_open_c_v_for_unity_1_1_ml_module_1_1_e_m.html',1,'OpenCVForUnity::MlModule']]],
   ['erfilter',['ERFilter',['../class_open_c_v_for_unity_1_1_text_module_1_1_e_r_filter.html',1,'OpenCVForUnity::TextModule']]],
   ['erfilter_5fcallback',['ERFilter_Callback',['../class_open_c_v_for_unity_1_1_text_module_1_1_e_r_filter___callback.html',1,'OpenCVForUnity::TextModule']]],
-  ['errorunityevent',['ErrorUnityEvent',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper_1_1_error_unity_event.html',1,'OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper.ErrorUnityEvent'],['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper_1_1_error_unity_event.html',1,'OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper.ErrorUnityEvent']]]
+  ['errorunityevent',['ErrorUnityEvent',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper_1_1_error_unity_event.html',1,'OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper.ErrorUnityEvent'],['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper_1_1_error_unity_event.html',1,'OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper.ErrorUnityEvent']]],
+  ['estimateparameters',['EstimateParameters',['../class_open_c_v_for_unity_1_1_aruco_module_1_1_estimate_parameters.html',1,'OpenCVForUnity::ArucoModule']]]
 ];

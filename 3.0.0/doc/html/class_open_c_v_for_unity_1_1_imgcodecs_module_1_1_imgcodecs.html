@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.4.7</span>
+   &#160;<span id="projectnumber">2.4.8</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.5.5/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.6.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -436,7 +436,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Encodes an image into a memory buffer.</p>
 <p>The function imencode compresses the image and stores it in the memory buffer that is resized to fit the result. See cv::imwrite for the list of supported formats and flags description.</p>
-<p>param ext File extension that defines the output format. param img Image to be written. param buf Output buffer resized to fit the compressed image. param _params automatically generated return automatically generated </p>
+<p>param ext File extension that defines the output format. Must include a leading period. param img Image to be written. param buf Output buffer resized to fit the compressed image. param _params automatically generated return automatically generated </p>
 
 </div>
 </div>
@@ -481,7 +481,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Encodes an image into a memory buffer.</p>
 <p>The function imencode compresses the image and stores it in the memory buffer that is resized to fit the result. See cv::imwrite for the list of supported formats and flags description.</p>
-<p>param ext File extension that defines the output format. param img Image to be written. param buf Output buffer resized to fit the compressed image. return automatically generated </p>
+<p>param ext File extension that defines the output format. Must include a leading period. param img Image to be written. param buf Output buffer resized to fit the compressed image. return automatically generated </p>
 
 </div>
 </div>
@@ -689,7 +689,7 @@ By default number of pixels must be less than 2^30. Limit can be set using syste
 </table>
 </div><div class="memdoc">
 <p>Loads a multi-page image from a file.</p>
-<p>The function imreadmulti loads a multi-page image from the specified file into a vector of Mat objects. param filename Name of file to be loaded. param flags Flag that can take values of cv::ImreadModes, default with cv::IMREAD_ANYCOLOR. param mats A vector of Mat objects holding each page, if more than one. SEE: cv::imread return automatically generated </p>
+<p>The function imreadmulti loads a multi-page image from the specified file into a vector of Mat objects. param filename Name of file to be loaded. param mats A vector of Mat objects holding each page. param flags Flag that can take values of cv::ImreadModes, default with cv::IMREAD_ANYCOLOR. SEE: cv::imread return automatically generated </p>
 
 </div>
 </div>
@@ -727,7 +727,7 @@ By default number of pixels must be less than 2^30. Limit can be set using syste
 </table>
 </div><div class="memdoc">
 <p>Loads a multi-page image from a file.</p>
-<p>The function imreadmulti loads a multi-page image from the specified file into a vector of Mat objects. param filename Name of file to be loaded. param mats A vector of Mat objects holding each page, if more than one. SEE: cv::imread return automatically generated </p>
+<p>The function imreadmulti loads a multi-page image from the specified file into a vector of Mat objects. param filename Name of file to be loaded. param mats A vector of Mat objects holding each page. SEE: cv::imread return automatically generated </p>
 
 </div>
 </div>
@@ -783,7 +783,7 @@ By default number of pixels must be less than 2^30. Limit can be set using syste
 </table>
 </div><div class="memdoc">
 <p>Loads a of images of a multi-page image from a file.</p>
-<p>The function imreadmulti loads a specified range from a multi-page image from the specified file into a vector of Mat objects. param filename Name of file to be loaded. param start Start index of the image to load param count Count number of images to load param flags Flag that can take values of cv::ImreadModes, default with cv::IMREAD_ANYCOLOR. param mats A vector of Mat objects holding each page, if more than one. SEE: cv::imread return automatically generated </p>
+<p>The function imreadmulti loads a specified range from a multi-page image from the specified file into a vector of Mat objects. param filename Name of file to be loaded. param mats A vector of Mat objects holding each page. param start Start index of the image to load param count Count number of images to load param flags Flag that can take values of cv::ImreadModes, default with cv::IMREAD_ANYCOLOR. SEE: cv::imread return automatically generated </p>
 
 </div>
 </div>
@@ -833,7 +833,7 @@ By default number of pixels must be less than 2^30. Limit can be set using syste
 </table>
 </div><div class="memdoc">
 <p>Loads a of images of a multi-page image from a file.</p>
-<p>The function imreadmulti loads a specified range from a multi-page image from the specified file into a vector of Mat objects. param filename Name of file to be loaded. param start Start index of the image to load param count Count number of images to load param mats A vector of Mat objects holding each page, if more than one. SEE: cv::imread return automatically generated </p>
+<p>The function imreadmulti loads a specified range from a multi-page image from the specified file into a vector of Mat objects. param filename Name of file to be loaded. param mats A vector of Mat objects holding each page. param start Start index of the image to load param count Count number of images to load SEE: cv::imread return automatically generated </p>
 
 </div>
 </div>
@@ -1800,7 +1800,7 @@ Multiple images (vector of Mat) can be saved in TIFF format (see the code sample
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 21 2022 12:29:27 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 22 2022 18:32:38 for OpenCV for Unity by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>
