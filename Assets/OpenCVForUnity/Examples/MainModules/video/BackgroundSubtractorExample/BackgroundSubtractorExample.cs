@@ -12,11 +12,11 @@ using UnityEngine.UI;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Background Subtractor Comparison Example
+    /// Background Subtractor Example
     /// This example is intended for comparison of different background subtraction algorithms presented in OpenCV.
     /// </summary>
     [RequireComponent(typeof(VideoCaptureToMatHelper))]
-    public class BackgroundSubtractorComparisonExample : MonoBehaviour
+    public class BackgroundSubtractorExample : MonoBehaviour
     {
         /// <summary>
         /// The background subtractor algorithm dropdown.

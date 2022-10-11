@@ -1,15 +1,12 @@
 #if !(PLATFORM_LUMIN && !UNITY_EDITOR)
 
-#if !UNITY_WSA_10_0
-
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.DnnModule;
+using OpenCVForUnity.ObjdetectModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.UnityUtils.Helper;
@@ -17,17 +14,32 @@ using OpenCVForUnity.UnityUtils.Helper;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// TensorFlow WebCamTexture Example
-    /// An example of using OpenCV dnn module with Tensorflow Inception model.
-    /// Referring to https://github.com/opencv/opencv/blob/master/samples/dnn/tf_inception.cpp.
+    /// Face Detection WebCam Example
+    /// An example of detecting human face in a image of WebCamTexture using the CascadeClassifier class.
+    /// http://docs.opencv.org/3.2.0/db/d28/tutorial_cascade_classifier.html
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
-    public class TensorflowInceptionWebCamTextureExample : MonoBehaviour
+    public class FaceDetectionWebCamExample : MonoBehaviour
     {
+        /// <summary>
+        /// The gray mat.
+        /// </summary>
+        Mat grayMat;
+
         /// <summary>
         /// The texture.
         /// </summary>
         Texture2D texture;
+
+        /// <summary>
+        /// The cascade.
+        /// </summary>
+        CascadeClassifier cascade;
+
+        /// <summary>
+        /// The faces.
+        /// </summary>
+        MatOfRect faces;
 
         /// <summary>
         /// The webcam texture to mat helper.
@@ -35,44 +47,14 @@ namespace OpenCVForUnityExample
         WebCamTextureToMatHelper webCamTextureToMatHelper;
 
         /// <summary>
-        /// The bgr mat.
-        /// </summary>
-        Mat bgrMat;
-
-        /// <summary>
-        /// The net.
-        /// </summary>
-        Net net;
-
-        /// <summary>
-        /// The classes.
-        /// </summary>
-        List<string> classes;
-
-        /// <summary>
         /// The FPS monitor.
         /// </summary>
         FpsMonitor fpsMonitor;
 
         /// <summary>
-        /// MODEL_FILENAME
+        /// LBP_CASCADE_FILENAME
         /// </summary>
-        protected static readonly string MODEL_FILENAME = "dnn/tensorflow_inception_graph.pb";
-
-        /// <summary>
-        /// The model filepath.
-        /// </summary>
-        string model_filepath;
-
-        /// <summary>
-        /// CLASSES_FILENAME
-        /// </summary>
-        protected static readonly string CLASSES_FILENAME = "dnn/imagenet_comp_graph_label_strings.txt";
-
-        /// <summary>
-        /// The classes filepath.
-        /// </summary>
-        string classes_filepath;
+        protected static readonly string LBP_CASCADE_FILENAME = "objdetect/lbpcascade_frontalface.xml";
 
 #if UNITY_WEBGL
         IEnumerator getFilePath_Coroutine;
@@ -86,56 +68,31 @@ namespace OpenCVForUnityExample
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper>();
 
 #if UNITY_WEBGL
-            getFilePath_Coroutine = GetFilePath();
-            StartCoroutine(getFilePath_Coroutine);
+            getFilePath_Coroutine = Utils.getFilePathAsync (LBP_CASCADE_FILENAME, (result) => {
+                getFilePath_Coroutine = null;
+
+                if (string.IsNullOrEmpty(result))
+                {
+                    Debug.LogError(LBP_CASCADE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
+                }
+                else
+                {
+                    cascade = new CascadeClassifier(result);
+                }
+
+                webCamTextureToMatHelper.Initialize ();
+            });
+            StartCoroutine (getFilePath_Coroutine);
 #else
-            model_filepath = Utils.getFilePath(MODEL_FILENAME);
-            classes_filepath = Utils.getFilePath(CLASSES_FILENAME);
-            Run();
-#endif
-        }
 
-#if UNITY_WEBGL
-        private IEnumerator GetFilePath()
-        {
-            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync(MODEL_FILENAME, (result) =>
+            string cascade_filepath = Utils.getFilePath(LBP_CASCADE_FILENAME);
+            if (string.IsNullOrEmpty(cascade_filepath))
             {
-                model_filepath = result;
-            });
-            yield return getFilePathAsync_0_Coroutine;
-
-            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync(CLASSES_FILENAME, (result) =>
-            {
-                classes_filepath = result;
-            });
-            yield return getFilePathAsync_1_Coroutine;
-
-            getFilePath_Coroutine = null;
-
-            Run();
-        }
-#endif
-
-        // Use this for initialization
-        void Run()
-        {
-            //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
-            Utils.setDebugMode(true);
-
-
-            classes = readClassNames(classes_filepath);
-            if (classes == null)
-            {
-                Debug.LogError(CLASSES_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
-            }
-
-            if (string.IsNullOrEmpty(model_filepath))
-            {
-                Debug.LogError(MODEL_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
+                Debug.LogError(LBP_CASCADE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
             }
             else
             {
-                net = Dnn.readNetFromTensorflow(model_filepath);
+                cascade = new CascadeClassifier(cascade_filepath);
             }
 
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -143,10 +100,12 @@ namespace OpenCVForUnityExample
             webCamTextureToMatHelper.avoidAndroidFrontCameraLowLightIssue = true;
 #endif
             webCamTextureToMatHelper.Initialize();
+
+#endif
         }
 
         /// <summary>
-        /// Raises the webcam texture to mat helper initialized event.
+        /// Raises the web cam texture to mat helper initialized event.
         /// </summary>
         public void OnWebCamTextureToMatHelperInitialized()
         {
@@ -184,28 +143,33 @@ namespace OpenCVForUnityExample
                 Camera.main.orthographicSize = height / 2;
             }
 
-            bgrMat = new Mat(webCamTextureMat.rows(), webCamTextureMat.cols(), CvType.CV_8UC3);
+            grayMat = new Mat(webCamTextureMat.rows(), webCamTextureMat.cols(), CvType.CV_8UC1);
+
+            faces = new MatOfRect();
         }
 
         /// <summary>
-        /// Raises the webcam texture to mat helper disposed event.
+        /// Raises the web cam texture to mat helper disposed event.
         /// </summary>
         public void OnWebCamTextureToMatHelperDisposed()
         {
             Debug.Log("OnWebCamTextureToMatHelperDisposed");
 
-            if (bgrMat != null)
-                bgrMat.Dispose();
+            if (grayMat != null)
+                grayMat.Dispose();
 
             if (texture != null)
             {
                 Texture2D.Destroy(texture);
                 texture = null;
             }
+
+            if (faces != null)
+                faces.Dispose();
         }
 
         /// <summary>
-        /// Raises the webcam texture to mat helper error occurred event.
+        /// Raises the web cam texture to mat helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
         public void OnWebCamTextureToMatHelperErrorOccurred(WebCamTextureToMatHelper.ErrorCode errorCode)
@@ -221,35 +185,34 @@ namespace OpenCVForUnityExample
 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat();
 
-                if (net == null || classes == null)
+                if (cascade == null)
                 {
                     Imgproc.putText(rgbaMat, "model file is not loaded.", new Point(5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                     Imgproc.putText(rgbaMat, "Please read console message.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+
+                    Utils.matToTexture2D(rgbaMat, texture);
+                    return;
                 }
-                else
+
+
+                Imgproc.cvtColor(rgbaMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
+                Imgproc.equalizeHist(grayMat, grayMat);
+
+
+                if (cascade != null)
+                    cascade.detectMultiScale(grayMat, faces, 1.1, 2, 2, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
+                        new Size(grayMat.cols() * 0.2, grayMat.rows() * 0.2), new Size());
+
+
+                OpenCVForUnity.CoreModule.Rect[] rects = faces.toArray();
+                for (int i = 0; i < rects.Length; i++)
                 {
+                    //Debug.Log ("detect faces " + rects [i]);
 
-                    Imgproc.cvtColor(rgbaMat, bgrMat, Imgproc.COLOR_RGBA2BGR);
-
-                    Mat blob = Dnn.blobFromImage(bgrMat, 1, new Size(224, 224), new Scalar(104, 117, 123), false, true);
-                    net.setInput(blob);
-
-                    Mat prob = net.forward();
-
-                    Core.MinMaxLocResult minmax = Core.minMaxLoc(prob.reshape(1, 1));
-                    //Debug.Log ("Best match " + (int)minmax.maxLoc.x);
-                    //Debug.Log ("Best match class " + classes [(int)minmax.maxLoc.x]);
-                    //Debug.Log ("Probability: " + minmax.maxVal * 100 + "%");
-
-                    prob.Dispose();
-                    blob.Dispose();
-
-                    //Imgproc.putText (rgbaMat, "Best match class " + classes [(int)minmax.maxLoc.x], new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    if (fpsMonitor != null)
-                    {
-                        fpsMonitor.consoleText = "Best match class " + classes[(int)minmax.maxLoc.x];
-                    }
+                    Imgproc.rectangle(rgbaMat, new Point(rects[i].x, rects[i].y), new Point(rects[i].x + rects[i].width, rects[i].y + rects[i].height), new Scalar(255, 0, 0, 255), 2);
                 }
+
+                //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
                 Utils.matToTexture2D(rgbaMat, texture);
             }
@@ -262,16 +225,13 @@ namespace OpenCVForUnityExample
         {
             webCamTextureToMatHelper.Dispose();
 
-            if (net != null)
-                net.Dispose();
-
-            Utils.setDebugMode(false);
+            if (cascade != null)
+                cascade.Dispose();
 
 #if UNITY_WEBGL
-            if (getFilePath_Coroutine != null)
-            {
-                StopCoroutine(getFilePath_Coroutine);
-                ((IDisposable)getFilePath_Coroutine).Dispose();
+            if (getFilePath_Coroutine != null) {
+                StopCoroutine (getFilePath_Coroutine);
+                ((IDisposable)getFilePath_Coroutine).Dispose ();
             }
 #endif
         }
@@ -315,37 +275,7 @@ namespace OpenCVForUnityExample
         {
             webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.requestedIsFrontFacing;
         }
-
-        private List<string> readClassNames(string filename)
-        {
-            List<string> classNames = new List<string>();
-
-            System.IO.StreamReader cReader = null;
-            try
-            {
-                cReader = new System.IO.StreamReader(filename, System.Text.Encoding.Default);
-
-                while (cReader.Peek() >= 0)
-                {
-                    string name = cReader.ReadLine();
-                    classNames.Add(name);
-                }
-            }
-            catch (System.Exception ex)
-            {
-                Debug.LogError(ex.Message);
-                return null;
-            }
-            finally
-            {
-                if (cReader != null)
-                    cReader.Close();
-            }
-
-            return classNames;
-        }
     }
 }
-#endif
 
 #endif

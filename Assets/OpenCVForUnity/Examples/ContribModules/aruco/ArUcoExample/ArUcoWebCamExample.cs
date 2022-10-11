@@ -17,13 +17,13 @@ using OpenCVForUnity.UnityUtils.Helper;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// ArUco WebCamTexture Example
+    /// ArUco WebCam Example
     /// An example of marker-based AR view and camera pose estimation using the aruco (ArUco Marker Detection) module.
     /// Referring to https://github.com/opencv/opencv_contrib/blob/master/modules/aruco/samples/detect_markers.cpp.
     /// http://docs.opencv.org/3.1.0/d5/dae/tutorial_aruco_detection.html
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
-    public class ArUcoWebCamTextureExample : MonoBehaviour
+    public class ArUcoWebCamExample : MonoBehaviour
     {
 
         /// <summary>

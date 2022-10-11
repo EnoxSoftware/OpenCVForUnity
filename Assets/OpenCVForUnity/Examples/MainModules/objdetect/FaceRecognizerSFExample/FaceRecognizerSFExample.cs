@@ -39,7 +39,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// FD_MODEL_FILENAME
         /// </summary>
-        protected static readonly string FD_MODEL_FILENAME = "objdetect/face_detection_yunet_2021dec.onnx";
+        protected static readonly string FD_MODEL_FILENAME = "objdetect/face_detection_yunet_2022mar.onnx";
 
         /// <summary>
         /// The fd model filepath.

@@ -5,6 +5,7 @@
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.DnnModule;
 using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.UtilsModule;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,9 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// LibFaceDetection V3 Example
-    /// Referring to https://github.com/ShiqiYu/libfacedetection/tree/master/example/opencv_dnn/python.
+    /// Referring to https://github.com/opencv/opencv/blob/4.x/modules/objdetect/src/face_detect.cpp.
     /// </summary>
-    public class LibFaceDetectionV3WebCamTextureExample : DnnObjectDetectionWebCamTextureExample
+    public class LibFaceDetectionV3Example : DnnObjectDetectionWebCamTextureExample
     {
         [TooltipAttribute("Keep keep_top_k for results outputing.")]
         public int keep_top_k = 750;
@@ -78,10 +79,64 @@ namespace OpenCVForUnityExample
             indices = null;
         }
 
+        // Update is called once per frame
+        protected override void Update()
+        {
+            if (webCamTextureToMatHelper.IsPlaying() && webCamTextureToMatHelper.DidUpdateThisFrame())
+            {
+
+                Mat rgbaMat = webCamTextureToMatHelper.GetMat();
+
+                if (net == null)
+                {
+                    Imgproc.putText(rgbaMat, "model file is not loaded.", new Point(5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    Imgproc.putText(rgbaMat, "Please read console message.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                }
+                else
+                {
+
+                    Imgproc.cvtColor(rgbaMat, bgrMat, Imgproc.COLOR_RGBA2BGR);
+
+                    // Create a 4D blob from a frame.
+                    Size inpSize = new Size(inpWidth > 0 ? inpWidth : bgrMat.cols(),
+                                       inpHeight > 0 ? inpHeight : bgrMat.rows());
+                    Mat blob = Dnn.blobFromImage(bgrMat, scale, inpSize, mean, swapRB, false);
+
+
+                    // Run a model.
+                    net.setInput(blob);
+
+                    //TickMeter tm = new TickMeter();
+                    //tm.start();
+
+                    List<Mat> outs = new List<Mat>();
+                    List<string> output_names = new List<string>();
+                    output_names.Add("loc");
+                    output_names.Add("conf");
+                    output_names.Add("iou");
+                    net.forward(outs, output_names);
+
+                    //tm.stop();
+                    //Debug.Log("Inference time, ms: " + tm.getTimeMilli());
+
+                    postprocess(rgbaMat, outs, net, Dnn.DNN_BACKEND_OPENCV);
+
+                    for (int i = 0; i < outs.Count; i++)
+                    {
+                        outs[i].Dispose();
+                    }
+                    blob.Dispose();
+                }
+
+                Utils.matToTexture2D(rgbaMat, texture);
+            }
+        }
+
         protected override void postprocess(Mat frame, List<Mat> outs, Net net, int backend = Dnn.DNN_BACKEND_OPENCV)
         {
+
             // # Decode bboxes and landmarks
-            Mat dets = pb.decode(outs[0], outs[1], outs[2]);
+            Mat dets = pb.decode(outs[0], outs[1], outs[2]); // "loc", "conf", "iou"
 
 
             // # Ignore low scores + NMS
@@ -129,6 +184,7 @@ namespace OpenCVForUnityExample
                     new Point(landmarks_arr[4], landmarks_arr[5]), new Point(landmarks_arr[6], landmarks_arr[7]), new Point(landmarks_arr[8], landmarks_arr[9])};
                 drawPredPoints(points, frame);
             }
+            
         }
 
         protected virtual void drawPredPoints(Point[] points, Mat frame)

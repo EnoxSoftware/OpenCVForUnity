@@ -14,12 +14,12 @@ using Random = UnityEngine.Random;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// BarcodeDetector WebCamTexture Example
+    /// BarcodeDetector WebCam Example
     /// An example of detecting Barcode in a image of WebCamTexture using the BarcodeDetector class.
     /// https://github.com/opencv/opencv_contrib/blob/master/modules/barcode/samples/barcode.cpp
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
-    public class BarcodeDetectorWebCamTextureExample : MonoBehaviour
+    public class BarcodeDetectorWebCamExample : MonoBehaviour
     {
         /// <summary>
         /// The texture.

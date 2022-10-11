@@ -17,13 +17,13 @@ using UnityEngine.SceneManagement;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// FaceDetectorYN WebCamTexture Example
+    /// FaceDetectorYN WebCam Example
     /// An example of detecting human face in a image of WebCamTexture using the FaceDetectorYN class.
     /// https://github.com/opencv/opencv/blob/master/samples/dnn/face_detect.cpp
     /// https://docs.opencv.org/4.5.4/d0/dd4/tutorial_dnn_face.html
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
-    public class FaceDetectorYNWebCamTextureExample : MonoBehaviour
+    public class FaceDetectorYNWebCamExample : MonoBehaviour
     {
         /// <summary>
         /// The FaceDetectorYN.
@@ -79,7 +79,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// MODEL_FILENAME
         /// </summary>
-        protected static readonly string MODEL_FILENAME = "objdetect/face_detection_yunet_2021dec.onnx";
+        protected static readonly string MODEL_FILENAME = "objdetect/face_detection_yunet_2022mar.onnx";
 
         protected Scalar bBoxColor = new Scalar(255, 255, 0, 255);
 

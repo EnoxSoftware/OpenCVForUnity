@@ -15,12 +15,12 @@ using OpenCVRect = OpenCVForUnity.CoreModule.Rect;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// QRCodeDetector WebCamTexture Example
+    /// QRCodeDetector WebCam Example
     /// An example of detecting QRCode in a image of WebCamTexture using the QRCodeDetector class.
     /// https://github.com/opencv/opencv/blob/master/samples/cpp/qrcode.cpp
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
-    public class QRCodeDetectorWebCamTextureExample : MonoBehaviour
+    public class QRCodeDetectorWebCamExample : MonoBehaviour
     {
         /// <summary>
         /// The gray mat.

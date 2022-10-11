@@ -48,7 +48,7 @@ namespace OpenCVForUnityExample
             scrollRect.verticalNormalizedPosition = verticalNormalizedPosition;
 
 #if UNITY_WSA_10_0
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceDetectorYNWebCamTextureExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceDetectorYNWebCamExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceRecognizerSFExampleButton").GetComponent<Button>().interactable = false;
 
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ColorizationExampleButton").GetComponent<Button>().interactable = false;
@@ -57,18 +57,19 @@ namespace OpenCVForUnityExample
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LibFaceDetectionV2ExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LibFaceDetectionV3ExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LightweightPoseEstimationExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LightweightPoseEstimationWebCamExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MaskRCNNExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDWebCamTextureExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDWebCamExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/OpenPoseExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ResnetSSDFaceDetectionExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TensorflowInceptionWebCamTextureExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TensorflowInceptionWebCamExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TextOCRExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YoloObjectDetectionExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YoloObjectDetectionWebCamTextureExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YoloObjectDetectionWebCamExampleButton").GetComponent<Button>().interactable = false;
 
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/BarcodeDetectorExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/BarcodeDetectorWebCamTextureExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/BarcodeDetectorWebCamExampleButton").GetComponent<Button>().interactable = false;
 
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/TextDetectionExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/TextRecognitionExampleButton").GetComponent<Button>().interactable = false;
@@ -271,9 +272,9 @@ namespace OpenCVForUnityExample
 
         #region video
 
-        public void OnBackgroundSubtractorComparisonExampleButtonClick()
+        public void OnBackgroundSubtractorExampleButtonClick()
         {
-            SceneManager.LoadScene("BackgroundSubtractorComparisonExample");
+            SceneManager.LoadScene("BackgroundSubtractorExample");
         }
 
         public void OnCamShiftExampleButtonClick()
@@ -337,19 +338,19 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("FaceDetectionExample");
         }
 
-        public void OnFaceDetectionWebCamTextureExampleButtonClick()
+        public void OnFaceDetectionWebCamExampleButtonClick()
         {
-            SceneManager.LoadScene("FaceDetectionWebCamTextureExample");
+            SceneManager.LoadScene("FaceDetectionWebCamExample");
         }
 
-        public void OnAsynchronousFaceDetectionWebCamTextureExampleButtonClick()
+        public void OnAsynchronousFaceDetectionWebCamExampleButtonClick()
         {
-            SceneManager.LoadScene("AsynchronousFaceDetectionWebCamTextureExample");
+            SceneManager.LoadScene("AsynchronousFaceDetectionWebCamExample");
         }
 
-        public void OnFaceDetectorYNWebCamTextureExampleButtonClick()
+        public void OnFaceDetectorYNWebCamExampleButtonClick()
         {
-            SceneManager.LoadScene("FaceDetectorYNWebCamTextureExample");
+            SceneManager.LoadScene("FaceDetectorYNWebCamExample");
         }
 
         public void OnFaceRecognizerSFExampleButtonClick()
@@ -367,9 +368,9 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("QRCodeDetectorExample");
         }
 
-        public void OnQRCodeDetectorWebCamTextureExampleButtonClick()
+        public void OnQRCodeDetectorWebCamExampleButtonClick()
         {
-            SceneManager.LoadScene("QRCodeDetectorWebCamTextureExample");
+            SceneManager.LoadScene("QRCodeDetectorWebCamExample");
         }
 
         public void OnQRCodeEncoderExampleButtonClick()
@@ -411,6 +412,11 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("LightweightPoseEstimationExample");
         }
 
+        public void OnLightweightPoseEstimationWebCamExampleButtonClick()
+        {
+            SceneManager.LoadScene("LightweightPoseEstimationWebCamExample");
+        }
+
         public void OnMaskRCNNExampleButtonClick()
         {
             SceneManager.LoadScene("MaskRCNNExample");
@@ -421,9 +427,9 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("MobileNetSSDExample");
         }
 
-        public void OnMobileNetSSDWebCamTextureExampleButtonClick()
+        public void OnMobileNetSSDWebCamExampleButtonClick()
         {
-            SceneManager.LoadScene("MobileNetSSDWebCamTextureExample");
+            SceneManager.LoadScene("MobileNetSSDWebCamExample");
         }
 
         public void OnOpenPoseExampleButtonClick()
@@ -436,9 +442,9 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("ResnetSSDFaceDetectionExample");
         }
 
-        public void OnTensorflowInceptionWebCamTextureExampleButtonClick()
+        public void OnTensorflowInceptionWebCamExampleButtonClick()
         {
-            SceneManager.LoadScene("TensorflowInceptionWebCamTextureExample");
+            SceneManager.LoadScene("TensorflowInceptionWebCamExample");
         }
 
         public void OnTextOCRExampleButtonClick()
@@ -451,9 +457,9 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("YoloObjectDetectionExample");
         }
 
-        public void OnYoloObjectDetectionWebCamTextureExampleButtonClick()
+        public void OnYoloObjectDetectionWebCamExampleButtonClick()
         {
-            SceneManager.LoadScene("YoloObjectDetectionWebCamTextureExample");
+            SceneManager.LoadScene("YoloObjectDetectionWebCamExample");
         }
 
         #endregion
@@ -497,9 +503,9 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("ArUcoExample");
         }
 
-        public void OnArUcoWebCamTextureExampleButtonClick()
+        public void OnArUcoWebCamExampleButtonClick()
         {
-            SceneManager.LoadScene("ArUcoWebCamTextureExample");
+            SceneManager.LoadScene("ArUcoWebCamExample");
         }
 
         public void OnArUcoCreateMarkerExampleButtonClick()
@@ -521,9 +527,9 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("BarcodeDetectorExample");
         }
 
-        public void OnBarcodeDetectorWebCamTextureExampleButtonClick()
+        public void OnBarcodeDetectorWebCamExampleButtonClick()
         {
-            SceneManager.LoadScene("BarcodeDetectorWebCamTextureExample");
+            SceneManager.LoadScene("BarcodeDetectorWebCamExample");
         }
 
         #endregion
@@ -566,6 +572,12 @@ namespace OpenCVForUnityExample
         #endregion
 
         #region tracking
+
+
+        public void OnLegacyTrackingExampleButtonClick()
+        {
+            SceneManager.LoadScene("LegacyTrackingExample");
+        }
 
         public void OnTrackingExampleButtonClick()
         {

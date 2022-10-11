@@ -17,11 +17,11 @@ using PositionsVector = System.Collections.Generic.List<OpenCVForUnity.CoreModul
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Asynchronous Face Detection WebCamTexture Example
+    /// Asynchronous Face Detection WebCam Example
     /// Referring to https://github.com/Itseez/opencv/blob/master/modules/objdetect/src/detection_based_tracker.cpp.
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
-    public class AsynchronousFaceDetectionWebCamTextureExample : MonoBehaviour
+    public class AsynchronousFaceDetectionWebCamExample : MonoBehaviour
     {
         /// <summary>
         /// The gray mat.
