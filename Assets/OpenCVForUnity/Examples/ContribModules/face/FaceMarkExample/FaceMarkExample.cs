@@ -63,7 +63,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// FACEMARK_CASCADE_FILENAME
         /// </summary>
-        protected static readonly string FACEMARK_CASCADE_FILENAME = "objdetect/lbpcascade_frontalface.xml";
+        protected static readonly string FACEMARK_CASCADE_FILENAME = "OpenCVForUnity/objdetect/lbpcascade_frontalface.xml";
 
         /// <summary>
         /// The facemark cascade filepath.
@@ -73,7 +73,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// FACEMARK_CASCADE_FILENAME
         /// </summary>
-        protected static readonly string FACEMARK_MODEL_FILENAME = "face/lbfmodel.yaml";
+        protected static readonly string FACEMARK_MODEL_FILENAME = "OpenCVForUnity/face/lbfmodel.yaml";
 
         /// <summary>
         /// The facemark model filepath.
@@ -130,7 +130,7 @@ namespace OpenCVForUnityExample
 
             if (string.IsNullOrEmpty(facemark_model_filepath))
             {
-                Debug.LogError(FACEMARK_MODEL_FILENAME + " is not loaded. Please read “StreamingAssets/face/setup_dnn_module.pdf” to make the necessary setup.");
+                Debug.LogError(FACEMARK_MODEL_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/face/setup_dnn_module.pdf” to make the necessary setup.");
             }
             else
             {
@@ -141,7 +141,7 @@ namespace OpenCVForUnityExample
 
             if (string.IsNullOrEmpty(facemark_cascade_filepath))
             {
-                Debug.LogError(FACEMARK_CASCADE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
+                Debug.LogError(FACEMARK_CASCADE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
             }
             else
             {

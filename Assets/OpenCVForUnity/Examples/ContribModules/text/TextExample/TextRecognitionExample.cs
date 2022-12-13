@@ -25,7 +25,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// IMAGE_FILENAME
         /// </summary>
-        protected static readonly string IMAGE_FILENAME = "text/test_text.jpg";
+        protected static readonly string IMAGE_FILENAME = "OpenCVForUnity/text/test_text.jpg";
 
         /// <summary>
         /// The image filepath.
@@ -35,7 +35,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// TRAINED_CLASSIFIER_NM_1_FILENAME
         /// </summary>
-        protected static readonly string TRAINED_CLASSIFIER_NM_1_FILENAME = "text/trained_classifierNM1.xml";
+        protected static readonly string TRAINED_CLASSIFIER_NM_1_FILENAME = "OpenCVForUnity/text/trained_classifierNM1.xml";
 
         /// <summary>
         /// The trained classifierNM1 filepath.
@@ -45,7 +45,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// TRAINED_CLASSIFIER_NM_2_FILENAME
         /// </summary>
-        protected static readonly string TRAINED_CLASSIFIER_NM_2_FILENAME = "text/trained_classifierNM2.xml";
+        protected static readonly string TRAINED_CLASSIFIER_NM_2_FILENAME = "OpenCVForUnity/text/trained_classifierNM2.xml";
 
         /// <summary>
         /// The trained classifierNM2 filepath.
@@ -55,7 +55,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// CLASSIFIER_NM_2_FILENAME
         /// </summary>
-        protected static readonly string OCRHMM_TRANSITIONS_TABLE_FILENAME = "text/OCRHMM_transitions_table.xml";
+        protected static readonly string OCRHMM_TRANSITIONS_TABLE_FILENAME = "OpenCVForUnity/text/OCRHMM_transitions_table.xml";
 
         /// <summary>
         /// The OCRHMM transitions table filepath.
@@ -67,9 +67,9 @@ namespace OpenCVForUnityExample
         /// </summary>
         /// https://stackoverflow.com/questions/4666098/why-does-android-aapt-remove-gz-file-extension-of-assets
 #if UNITY_ANDROID && !UNITY_EDITOR
-        protected static readonly string OCRHMM_KNN_MODEL_FILENAME = "text/OCRHMM_knn_model_data.xml";
+        protected static readonly string OCRHMM_KNN_MODEL_FILENAME = "OpenCVForUnity/text/OCRHMM_knn_model_data.xml";
 #else
-        protected static readonly string OCRHMM_KNN_MODEL_FILENAME = "text/OCRHMM_knn_model_data.xml.gz";
+        protected static readonly string OCRHMM_KNN_MODEL_FILENAME = "OpenCVForUnity/text/OCRHMM_knn_model_data.xml.gz";
 #endif
 
         /// <summary>
@@ -142,16 +142,16 @@ namespace OpenCVForUnityExample
             Mat frame = Imgcodecs.imread(image_filepath);
             if (frame.empty())
             {
-                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
+                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
             }
 
             if (string.IsNullOrEmpty(trained_classifierNM1_filepath) || string.IsNullOrEmpty(trained_classifierNM2_filepath))
             {
-                Debug.LogError(TRAINED_CLASSIFIER_NM_1_FILENAME + " or " + TRAINED_CLASSIFIER_NM_2_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
+                Debug.LogError(TRAINED_CLASSIFIER_NM_1_FILENAME + " or " + TRAINED_CLASSIFIER_NM_2_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
             }
             if (string.IsNullOrEmpty(OCRHMM_transitions_table_filepath) || string.IsNullOrEmpty(OCRHMM_knn_model_data_filepath))
             {
-                Debug.LogError(OCRHMM_TRANSITIONS_TABLE_FILENAME + " or " + OCRHMM_KNN_MODEL_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
+                Debug.LogError(OCRHMM_TRANSITIONS_TABLE_FILENAME + " or " + OCRHMM_KNN_MODEL_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
             }
 
 

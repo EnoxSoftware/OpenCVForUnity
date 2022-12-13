@@ -109,18 +109,18 @@ namespace OpenCVForUnityExample
 #else
             if (!string.IsNullOrEmpty(classes))
             {
-                classes_filepath = Utils.getFilePath("dnn/" + classes);
-                if (string.IsNullOrEmpty(classes_filepath)) Debug.Log("The file:" + classes + " did not exist in the folder “Assets/StreamingAssets/dnn”.");
+                classes_filepath = Utils.getFilePath("OpenCVForUnity/dnn/" + classes);
+                if (string.IsNullOrEmpty(classes_filepath)) Debug.Log("The file:" + classes + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
             }
             if (!string.IsNullOrEmpty(config))
             {
-                config_filepath = Utils.getFilePath("dnn/" + config);
-                if (string.IsNullOrEmpty(config_filepath)) Debug.Log("The file:" + config + " did not exist in the folder “Assets/StreamingAssets/dnn”.");
+                config_filepath = Utils.getFilePath("OpenCVForUnity/dnn/" + config);
+                if (string.IsNullOrEmpty(config_filepath)) Debug.Log("The file:" + config + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
             }
             if (!string.IsNullOrEmpty(model))
             {
-                model_filepath = Utils.getFilePath("dnn/" + model);
-                if (string.IsNullOrEmpty(model_filepath)) Debug.Log("The file:" + model + " did not exist in the folder “Assets/StreamingAssets/dnn”.");
+                model_filepath = Utils.getFilePath("OpenCVForUnity/dnn/" + model);
+                if (string.IsNullOrEmpty(model_filepath)) Debug.Log("The file:" + model + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
             }
             Run();
 #endif
@@ -131,35 +131,35 @@ namespace OpenCVForUnityExample
         {
             if (!string.IsNullOrEmpty(classes))
             {
-                var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync("dnn/" + classes, (result) =>
+                var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync("OpenCVForUnity/dnn/" + classes, (result) =>
                 {
                     classes_filepath = result;
                 });
                 yield return getFilePathAsync_0_Coroutine;
 
-                if (string.IsNullOrEmpty(classes_filepath)) Debug.Log("The file:" + classes + " did not exist in the folder “Assets/StreamingAssets/dnn”.");
+                if (string.IsNullOrEmpty(classes_filepath)) Debug.Log("The file:" + classes + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
             }
 
             if (!string.IsNullOrEmpty(config))
             {
-                var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync("dnn/" + config, (result) =>
+                var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync("OpenCVForUnity/dnn/" + config, (result) =>
                 {
                     config_filepath = result;
                 });
                 yield return getFilePathAsync_1_Coroutine;
 
-                if (string.IsNullOrEmpty(config_filepath)) Debug.Log("The file:" + config + " did not exist in the folder “Assets/StreamingAssets/dnn”.");
+                if (string.IsNullOrEmpty(config_filepath)) Debug.Log("The file:" + config + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
             }
 
             if (!string.IsNullOrEmpty(model))
             {
-                var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync("dnn/" + model, (result) =>
+                var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync("OpenCVForUnity/dnn/" + model, (result) =>
                 {
                     model_filepath = result;
                 });
                 yield return getFilePathAsync_2_Coroutine;
 
-                if (string.IsNullOrEmpty(model_filepath)) Debug.Log("The file:" + model + " did not exist in the folder “Assets/StreamingAssets/dnn”.");
+                if (string.IsNullOrEmpty(model_filepath)) Debug.Log("The file:" + model + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
             }
 
             getFilePath_Coroutine = null;
@@ -179,7 +179,7 @@ namespace OpenCVForUnityExample
                 classNames = readClassNames(classes_filepath);
                 if (classNames == null)
                 {
-                    Debug.LogError(classes + " is not loaded. Please see “Assets/StreamingAssets/dnn/setup_dnn_module.pdf”. ");
+                    Debug.LogError(classes + " is not loaded. Please see “Assets/StreamingAssets/OpenCVForUnity/dnn/setup_dnn_module.pdf”. ");
                 }
             }
             else if (classesList.Count > 0)
@@ -189,7 +189,7 @@ namespace OpenCVForUnityExample
 
             if (string.IsNullOrEmpty(model_filepath))
             {
-                Debug.LogError(model + " is not loaded. Please see “Assets/StreamingAssets/dnn/setup_dnn_module.pdf”. ");
+                Debug.LogError(model + " is not loaded. Please see “Assets/StreamingAssets/OpenCVForUnity/dnn/setup_dnn_module.pdf”. ");
             }
             else
             {

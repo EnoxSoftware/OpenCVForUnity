@@ -46,7 +46,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// LBP_CASCADE_FILENAME
         /// </summary>
-        protected static readonly string LBP_CASCADE_FILENAME = "objdetect/lbpcascade_frontalface.xml";
+        protected static readonly string LBP_CASCADE_FILENAME = "OpenCVForUnity/objdetect/lbpcascade_frontalface.xml";
 
         /// <summary>
         /// The lbp cascade filepath.
@@ -56,7 +56,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// HAAR_CASCADE_FILENAME
         /// </summary>
-        protected static readonly string HAAR_CASCADE_FILENAME = "objdetect/haarcascade_frontalface_alt.xml";
+        protected static readonly string HAAR_CASCADE_FILENAME = "OpenCVForUnity/objdetect/haarcascade_frontalface_alt.xml";
 
         /// <summary>
         /// The haar_cascade_filepath.
@@ -272,7 +272,7 @@ namespace OpenCVForUnityExample
 
             if (string.IsNullOrEmpty(lbp_cascade_filepath))
             {
-                Debug.LogError(LBP_CASCADE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
+                Debug.LogError(LBP_CASCADE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
             }
             else
             {
@@ -484,7 +484,7 @@ namespace OpenCVForUnityExample
 
             if (string.IsNullOrEmpty(haar_cascade_filepath))
             {
-                Debug.LogError(HAAR_CASCADE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
+                Debug.LogError(HAAR_CASCADE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
             }
             else
             {

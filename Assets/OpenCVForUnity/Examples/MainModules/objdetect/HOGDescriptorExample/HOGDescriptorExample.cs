@@ -38,7 +38,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// VIDEO_FILENAME
         /// </summary>
-        protected static readonly string VIDEO_FILENAME = "768x576_mjpeg.mjpeg";
+        protected static readonly string VIDEO_FILENAME = "OpenCVForUnity/768x576_mjpeg.mjpeg";
 
         // Use this for initialization
         void Start()

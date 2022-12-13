@@ -54,7 +54,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// LBP_CASCADE_FILENAME
         /// </summary>
-        protected static readonly string LBP_CASCADE_FILENAME = "objdetect/lbpcascade_frontalface.xml";
+        protected static readonly string LBP_CASCADE_FILENAME = "OpenCVForUnity/objdetect/lbpcascade_frontalface.xml";
 
 #if UNITY_WEBGL
         IEnumerator getFilePath_Coroutine;
@@ -73,7 +73,7 @@ namespace OpenCVForUnityExample
 
                 if (string.IsNullOrEmpty(result))
                 {
-                    Debug.LogError(LBP_CASCADE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
+                    Debug.LogError(LBP_CASCADE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
                 }
                 else
                 {
@@ -88,7 +88,7 @@ namespace OpenCVForUnityExample
             string cascade_filepath = Utils.getFilePath(LBP_CASCADE_FILENAME);
             if (string.IsNullOrEmpty(cascade_filepath))
             {
-                Debug.LogError(LBP_CASCADE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
+                Debug.LogError(LBP_CASCADE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
             }
             else
             {

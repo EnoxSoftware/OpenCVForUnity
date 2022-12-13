@@ -60,9 +60,9 @@ namespace OpenCVForUnityExample
         public Text filePathInputField;
 
         string[] filePathPreset = new string[] {
-            "768x576_mjpeg.mjpeg",
-            "/objdetect/lbpcascade_frontalface.xml",
-            "aruco/calibration_images/left01.jpg",
+            "OpenCVForUnity/768x576_mjpeg.mjpeg",
+            "/OpenCVForUnity/objdetect/lbpcascade_frontalface.xml",
+            "OpenCVForUnity/aruco/calibration_images/left01.jpg",
             "xxx"
         };
 
@@ -91,8 +91,8 @@ namespace OpenCVForUnityExample
 #else
             if (string.IsNullOrEmpty(readableFilePath))
             {
-                Debug.LogError("# completed: " + "readableFilePath= " + filePath + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
-                filePathInputField.text = filePathInputField.text + "# completed: " + "readableFilePath= " + filePath + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder." + "\n";
+                Debug.LogError("# completed: " + "readableFilePath= " + filePath + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
+                filePathInputField.text = filePathInputField.text + "# completed: " + "readableFilePath= " + filePath + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder." + "\n";
             }
             else
             {
@@ -126,8 +126,8 @@ namespace OpenCVForUnityExample
             {
                 if (string.IsNullOrEmpty(readableFilePaths[i]))
                 {
-                    Debug.LogError("readableFilePath[" + i + "]= " + filePaths[i] + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
-                    filePathInputField.text = filePathInputField.text + "readableFilePath[" + i + "]= " + filePaths[i] + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder." + "\n";
+                    Debug.LogError("readableFilePath[" + i + "]= " + filePaths[i] + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
+                    filePathInputField.text = filePathInputField.text + "readableFilePath[" + i + "]= " + filePaths[i] + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder." + "\n";
                 }
                 else
                 {
@@ -155,8 +155,8 @@ namespace OpenCVForUnityExample
 
                     if (string.IsNullOrEmpty(readableFilePath))
                     {
-                        Debug.LogError("# completed: " + "readableFilePath= " + filePath + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
-                        filePathInputField.text = filePathInputField.text + "# completed: " + "readableFilePath= " + filePath + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder." + "\n";
+                        Debug.LogError("# completed: " + "readableFilePath= " + filePath + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
+                        filePathInputField.text = filePathInputField.text + "# completed: " + "readableFilePath= " + filePath + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder." + "\n";
                     }
 
                     Debug.Log("# completed: " + "readableFilePath= " + readableFilePath);
@@ -205,8 +205,8 @@ namespace OpenCVForUnityExample
                     {
                         if (string.IsNullOrEmpty(readableFilePaths[i]))
                         {
-                            Debug.LogError("readableFilePath[" + i + "]= " + filePaths[i] + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
-                            filePathInputField.text = filePathInputField.text + "readableFilePath[" + i + "]= " + filePaths[i] + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder." + "\n";
+                            Debug.LogError("readableFilePath[" + i + "]= " + filePaths[i] + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
+                            filePathInputField.text = filePathInputField.text + "readableFilePath[" + i + "]= " + filePaths[i] + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder." + "\n";
                         }
                         else
                         {

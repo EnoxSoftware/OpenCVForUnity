@@ -72,7 +72,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// IMAGE_FILENAME
         /// </summary>
-        string IMAGE_FILENAME = "dnn/COCO_val2014_000000000589.jpg";
+        string IMAGE_FILENAME = "OpenCVForUnity/dnn/COCO_val2014_000000000589.jpg";
 
         /// <summary>
         /// The image filepath.
@@ -82,7 +82,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// MODEL_FILENAME
         /// </summary>
-        string MODEL_FILENAME = "dnn/lightweight_pose_estimation_201912.onnx";
+        string MODEL_FILENAME = "OpenCVForUnity/dnn/lightweight_pose_estimation_201912.onnx";
 
         /// <summary>
         /// The model filepath.
@@ -139,7 +139,7 @@ namespace OpenCVForUnityExample
             Mat img = Imgcodecs.imread(image_filepath);
             if (img.empty())
             {
-                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
+                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/dnn/setup_dnn_module.pdf” to make the necessary setup.");
                 img = new Mat((int)inWidth, (int)inHeight, CvType.CV_8UC3, new Scalar(0, 0, 0));
             }
 
@@ -167,7 +167,7 @@ namespace OpenCVForUnityExample
 
             if (string.IsNullOrEmpty(model_filepath))
             {
-                Debug.LogError(MODEL_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
+                Debug.LogError(MODEL_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/dnn/setup_dnn_module.pdf” to make the necessary setup.");
             }
             else
             {

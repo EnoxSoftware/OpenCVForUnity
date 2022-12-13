@@ -58,7 +58,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// IMAGE_FILENAME
         /// </summary>
-        string IMAGE_FILENAME = "dnn/ansel_adams3.jpg";
+        string IMAGE_FILENAME = "OpenCVForUnity/dnn/ansel_adams3.jpg";
 
         /// <summary>
         /// The image filepath.
@@ -68,7 +68,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// CAFFEMODEL_FILENAME
         /// </summary>
-        string CAFFEMODEL_FILENAME = "dnn/colorization_release_v2.caffemodel";
+        string CAFFEMODEL_FILENAME = "OpenCVForUnity/dnn/colorization_release_v2.caffemodel";
 
         /// <summary>
         /// The caffemodel filepath.
@@ -78,7 +78,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// PROTOTXT_FILENAME
         /// </summary>
-        string PROTOTXT_FILENAME = "dnn/colorization_deploy_v2.prototxt";
+        string PROTOTXT_FILENAME = "OpenCVForUnity/dnn/colorization_deploy_v2.prototxt";
 
         /// <summary>
         /// The prototxt filepath.
@@ -142,7 +142,7 @@ namespace OpenCVForUnityExample
             Mat colorized = new Mat(img.rows(), img.cols(), img.type());
             if (img.empty())
             {
-                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
+                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/dnn/setup_dnn_module.pdf” to make the necessary setup.");
                 img = new Mat(368, 368, CvType.CV_8UC3, new Scalar(0, 0, 0));
             }
 
@@ -150,7 +150,7 @@ namespace OpenCVForUnityExample
 
             if (string.IsNullOrEmpty(caffemodel_filepath) || string.IsNullOrEmpty(prototxt_filepath))
             {
-                Debug.LogError(CAFFEMODEL_FILENAME + " or " + PROTOTXT_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
+                Debug.LogError(CAFFEMODEL_FILENAME + " or " + PROTOTXT_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/dnn/setup_dnn_module.pdf” to make the necessary setup.");
             }
             else
             {

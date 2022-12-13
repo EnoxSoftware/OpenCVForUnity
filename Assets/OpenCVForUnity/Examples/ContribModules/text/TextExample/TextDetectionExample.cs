@@ -24,7 +24,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// IMAGE_FILENAME
         /// </summary>
-        protected static readonly string IMAGE_FILENAME = "text/scenetext01.jpg";
+        protected static readonly string IMAGE_FILENAME = "OpenCVForUnity/text/scenetext01.jpg";
 
         /// <summary>
         /// The image filepath.
@@ -34,7 +34,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// TRAINED_CLASSIFIER_NM_1_FILENAME
         /// </summary>
-        protected static readonly string TRAINED_CLASSIFIER_NM_1_FILENAME = "text/trained_classifierNM1.xml";
+        protected static readonly string TRAINED_CLASSIFIER_NM_1_FILENAME = "OpenCVForUnity/text/trained_classifierNM1.xml";
 
         /// <summary>
         /// The trained_classifierNM1 filepath.
@@ -44,7 +44,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// TRAINED_CLASSIFIER_NM_2_FILENAME
         /// </summary>
-        protected static readonly string TRAINED_CLASSIFIER_NM_2_FILENAME = "text/trained_classifierNM2.xml";
+        protected static readonly string TRAINED_CLASSIFIER_NM_2_FILENAME = "OpenCVForUnity/text/trained_classifierNM2.xml";
 
         /// <summary>
         /// The trained_classifierNM2 filepath.
@@ -102,12 +102,12 @@ namespace OpenCVForUnityExample
             Mat img = Imgcodecs.imread(image_filepath);
             if (img.empty())
             {
-                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
+                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
             }
 
             if (string.IsNullOrEmpty(trained_classifierNM1_filepath) || string.IsNullOrEmpty(trained_classifierNM2_filepath))
             {
-                Debug.LogError(TRAINED_CLASSIFIER_NM_1_FILENAME + " or " + TRAINED_CLASSIFIER_NM_2_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
+                Debug.LogError(TRAINED_CLASSIFIER_NM_1_FILENAME + " or " + TRAINED_CLASSIFIER_NM_2_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
             }
 
             //# for visualization

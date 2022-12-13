@@ -26,7 +26,7 @@ namespace OpenCVForUnityExample
         void Start()
         {
 #if UNITY_WEBGL
-            var getFilePath_Coroutine = Utils.getFilePathAsync("features2d/blobparams.yml", (result) => {
+            var getFilePath_Coroutine = Utils.getFilePathAsync("OpenCVForUnity/features2d/blobparams.yml", (result) => {
                 coroutines.Clear ();
 
                 blobparams_yml_filepath = result;
@@ -35,7 +35,7 @@ namespace OpenCVForUnityExample
             coroutines.Push (getFilePath_Coroutine);
             StartCoroutine (getFilePath_Coroutine);
 #else
-            blobparams_yml_filepath = Utils.getFilePath("features2d/blobparams.yml");
+            blobparams_yml_filepath = Utils.getFilePath("OpenCVForUnity/features2d/blobparams.yml");
             Run();
 #endif
         }

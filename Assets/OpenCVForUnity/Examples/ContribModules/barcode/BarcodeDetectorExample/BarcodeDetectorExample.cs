@@ -35,8 +35,8 @@ namespace OpenCVForUnityExample
             BarcodeDetector detector = new BarcodeDetector();
 
             // When using super resolution.
-            // Please, download 'sr.*' from https://github.com/WeChatCV/opencv_3rdparty/tree/wechat_qrcode and put them into the StreamingAssets/barcode directory.
-            //BarcodeDetector detector = new BarcodeDetector(Utils.getFilePath("barcode/sr.prototxt"), Utils.getFilePath("barcode/sr.caffemodel"));
+            // Please, download 'sr.*' from https://github.com/WeChatCV/opencv_3rdparty/tree/wechat_qrcode and put them into the StreamingAssets/OpenCVForUnity/barcode directory.
+            //BarcodeDetector detector = new BarcodeDetector(Utils.getFilePath("OpenCVForUnity/barcode/sr.prototxt"), Utils.getFilePath("OpenCVForUnity/barcode/sr.caffemodel"));
 
             List<string> decoded_info = new List<string>();
             List<int> decoded_type = new List<int>();

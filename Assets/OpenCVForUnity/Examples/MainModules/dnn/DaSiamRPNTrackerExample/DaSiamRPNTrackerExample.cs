@@ -27,7 +27,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// IMAGE_FILENAME
         /// </summary>
-        protected static readonly string NET_FILENAME = "dnn/dasiamrpn_model.onnx";
+        protected static readonly string NET_FILENAME = "OpenCVForUnity/dnn/dasiamrpn_model.onnx";
 
         /// <summary>
         /// The net filepath.
@@ -37,7 +37,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// KERNEL_R1_FILENAME
         /// </summary>
-        protected static readonly string KERNEL_R1_FILENAME = "dnn/dasiamrpn_kernel_r1.onnx";
+        protected static readonly string KERNEL_R1_FILENAME = "OpenCVForUnity/dnn/dasiamrpn_kernel_r1.onnx";
 
         /// <summary>
         /// The kernel_r1 filepath.
@@ -47,7 +47,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// KERNEL_CLS1_FILENAME
         /// </summary>
-        protected static readonly string KERNEL_CLS1_FILENAME = "dnn/dasiamrpn_kernel_cls1.onnx";
+        protected static readonly string KERNEL_CLS1_FILENAME = "OpenCVForUnity/dnn/dasiamrpn_kernel_cls1.onnx";
 
         /// <summary>
         /// The kernel_cls1 filepath.
@@ -96,7 +96,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// VIDEO_FILENAME
         /// </summary>
-        protected static readonly string VIDEO_FILENAME = "768x576_mjpeg.mjpeg";
+        protected static readonly string VIDEO_FILENAME = "OpenCVForUnity/768x576_mjpeg.mjpeg";
 
         // Use this for initialization
         void Start()
@@ -152,7 +152,7 @@ namespace OpenCVForUnityExample
 
             if (string.IsNullOrEmpty(net_filepath) || string.IsNullOrEmpty(kernel_r1_filepath) || string.IsNullOrEmpty(kernel_cls1_filepath))
             {
-                Debug.LogError(NET_FILENAME + " or " + KERNEL_R1_FILENAME + " or " + KERNEL_CLS1_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
+                Debug.LogError(NET_FILENAME + " or " + KERNEL_R1_FILENAME + " or " + KERNEL_CLS1_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/dnn/setup_dnn_module.pdf” to make the necessary setup.");
             }
             else
             {
@@ -574,15 +574,15 @@ namespace OpenCVForUnityExample
 
             if (net.empty())
             {
-                Debug.LogError("model file is not loaded. The model and class names list can be downloaded here: \"https://www.dropbox.com/s/rr1lk9355vzolqv/dasiamrpn_model.onnx?dl=0\". Please copy to “Assets/StreamingAssets/dnn/” folder. ");
+                Debug.LogError("model file is not loaded. The model and class names list can be downloaded here: \"https://www.dropbox.com/s/rr1lk9355vzolqv/dasiamrpn_model.onnx?dl=0\". Please copy to “Assets/StreamingAssets/OpenCVForUnity/dnn/” folder. ");
             }
             if (kernel_r1.empty())
             {
-                Debug.LogError("model file is not loaded. The model and class names list can be downloaded here: \"https://www.dropbox.com/s/999cqx5zrfi7w4p/dasiamrpn_kernel_r1.onnx?dl=0\". Please copy to “Assets/StreamingAssets/dnn/” folder. ");
+                Debug.LogError("model file is not loaded. The model and class names list can be downloaded here: \"https://www.dropbox.com/s/999cqx5zrfi7w4p/dasiamrpn_kernel_r1.onnx?dl=0\". Please copy to “Assets/StreamingAssets/OpenCVForUnity/dnn/” folder. ");
             }
             if (kernel_cls1.empty())
             {
-                Debug.LogError("model file is not loaded. The model and class names list can be downloaded here: \"https://www.dropbox.com/s/qvmtszx5h339a0w/dasiamrpn_kernel_cls1.onnx?dl=0\". Please copy to “Assets/StreamingAssets/dnn/” folder. ");
+                Debug.LogError("model file is not loaded. The model and class names list can be downloaded here: \"https://www.dropbox.com/s/qvmtszx5h339a0w/dasiamrpn_kernel_cls1.onnx?dl=0\". Please copy to “Assets/StreamingAssets/OpenCVForUnity/dnn/” folder. ");
             }
         }
 

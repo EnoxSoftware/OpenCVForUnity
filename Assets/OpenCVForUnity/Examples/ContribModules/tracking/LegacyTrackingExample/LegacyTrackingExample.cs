@@ -88,7 +88,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// VIDEO_FILENAME
         /// </summary>
-        protected static readonly string VIDEO_FILENAME = "768x576_mjpeg.mjpeg";
+        protected static readonly string VIDEO_FILENAME = "OpenCVForUnity/768x576_mjpeg.mjpeg";
 
         // Use this for initialization
         void Start()
@@ -358,8 +358,7 @@ namespace OpenCVForUnityExample
                 trackers.Clear();
             }
 
-            if (trackerBoostingToggle != null)
-                trackerBoostingToggle.interactable = trackerCSRTToggle.interactable = trackerKCFToggle.interactable= trackerMedianFlowToggle.interactable = 
+            trackerBoostingToggle.interactable = trackerCSRTToggle.interactable = trackerKCFToggle.interactable= trackerMedianFlowToggle.interactable = 
                     trackerMILToggle.interactable = trackerMOSSEToggle.interactable = trackerTLDToggle.interactable = true;
         }
 

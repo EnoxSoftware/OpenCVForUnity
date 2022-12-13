@@ -58,13 +58,14 @@ namespace OpenCVForUnityExample
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LibFaceDetectionV3ExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LightweightPoseEstimationExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LightweightPoseEstimationWebCamExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MaskRCNNExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/HumanSegmentationExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDWebCamExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/OpenPoseExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ResnetSSDFaceDetectionExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TensorflowInceptionWebCamExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ImageClassificationPPResnetExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TextOCRExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TextOCRWebCamExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YoloObjectDetectionExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YoloObjectDetectionWebCamExampleButton").GetComponent<Button>().interactable = false;
 
@@ -292,6 +293,11 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("OpticalFlowExample");
         }
 
+        public void OnTransformECCExampleButtonClick()
+        {
+            SceneManager.LoadScene("TransformECCExample");
+        }
+
         #endregion
 
         #region calib3d
@@ -417,9 +423,9 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("LightweightPoseEstimationWebCamExample");
         }
 
-        public void OnMaskRCNNExampleButtonClick()
+        public void OnHumanSegmentationExampleButtonClick()
         {
-            SceneManager.LoadScene("MaskRCNNExample");
+            SceneManager.LoadScene("HumanSegmentationExample");
         }
 
         public void OnMobileNetSSDExampleButtonClick()
@@ -442,14 +448,19 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("ResnetSSDFaceDetectionExample");
         }
 
-        public void OnTensorflowInceptionWebCamExampleButtonClick()
+        public void OnImageClassificationPPResnetExampleButtonClick()
         {
-            SceneManager.LoadScene("TensorflowInceptionWebCamExample");
+            SceneManager.LoadScene("ImageClassificationPPResnetExample");
         }
 
         public void OnTextOCRExampleButtonClick()
         {
             SceneManager.LoadScene("TextOCRExample");
+        }
+
+        public void OnTextOCRWebCamExampleButtonClick()
+        {
+            SceneManager.LoadScene("TextOCRWebCamExample");
         }
 
         public void OnYoloObjectDetectionExampleButtonClick()

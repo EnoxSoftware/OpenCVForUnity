@@ -300,6 +300,7 @@ namespace OpenCVForUnityExample
 
             Mat m3 = m1 / m2; // element type is different.
             Debug.Log("m3=" + m3);
+            executionResultText.text += "m3=" + m3 + "\n";
 
             Utils.setDebugMode(false);
 
@@ -309,6 +310,7 @@ namespace OpenCVForUnityExample
             {
                 Mat m4 = m1 / m2; // element type is different.
                 Debug.Log("m4=" + m4);
+                executionResultText.text += "m4=" + m4 + "\n";
             }
             catch (Exception e)
             {

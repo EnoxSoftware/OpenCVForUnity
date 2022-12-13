@@ -79,7 +79,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// MODEL_FILENAME
         /// </summary>
-        protected static readonly string MODEL_FILENAME = "objdetect/face_detection_yunet_2022mar.onnx";
+        protected static readonly string MODEL_FILENAME = "OpenCVForUnity/objdetect/face_detection_yunet_2022mar.onnx";
 
         protected Scalar bBoxColor = new Scalar(255, 255, 0, 255);
 
@@ -111,7 +111,7 @@ namespace OpenCVForUnityExample
 
                 if (string.IsNullOrEmpty(result))
                 {
-                    Debug.LogError(MODEL_FILENAME + " is not loaded. Please read “StreamingAssets/objdetect/setup_objdetect_module.pdf” to make the necessary setup.");
+                    Debug.LogError(MODEL_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/objdetect/setup_objdetect_module.pdf” to make the necessary setup.");
                 }
                 else
                 {
@@ -125,7 +125,7 @@ namespace OpenCVForUnityExample
             string fd_modelPath = Utils.getFilePath(MODEL_FILENAME);
             if (string.IsNullOrEmpty(fd_modelPath))
             {
-                Debug.LogError(MODEL_FILENAME + " is not loaded. Please read “StreamingAssets/objdetect/setup_objdetect_module.pdf” to make the necessary setup.");
+                Debug.LogError(MODEL_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/objdetect/setup_objdetect_module.pdf” to make the necessary setup.");
             }
             else
             {

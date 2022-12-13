@@ -21,7 +21,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// IMAGE_FILENAME
         /// </summary>
-        protected static readonly string IMAGE_FILENAME = "core/pca_test1.jpg";
+        protected static readonly string IMAGE_FILENAME = "OpenCVForUnity/core/pca_test1.jpg";
 
         /// <summary>
         /// The image filepath.
@@ -54,7 +54,7 @@ namespace OpenCVForUnityExample
             Mat src = Imgcodecs.imread(image_filepath);
             if (src.empty())
             {
-                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
+                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
             }
 
             Debug.Log("src.ToString() " + src.ToString());

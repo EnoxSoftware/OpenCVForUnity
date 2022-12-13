@@ -22,7 +22,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// HAAR_CASCADE_FILENAME
         /// </summary>
-        protected static readonly string HAAR_CASCADE_FILENAME = "objdetect/haarcascade_frontalface_alt.xml";
+        protected static readonly string HAAR_CASCADE_FILENAME = "OpenCVForUnity/objdetect/haarcascade_frontalface_alt.xml";
 
 #if UNITY_WEBGL
         IEnumerator getFilePath_Coroutine;
@@ -38,7 +38,7 @@ namespace OpenCVForUnityExample
 
                     if (string.IsNullOrEmpty(result))
                     {
-                        Debug.LogError(HAAR_CASCADE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
+                        Debug.LogError(HAAR_CASCADE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
                     }
                     else
                     {
@@ -56,7 +56,7 @@ namespace OpenCVForUnityExample
             string cascade_filepath = Utils.getFilePath(HAAR_CASCADE_FILENAME);
             if (string.IsNullOrEmpty(cascade_filepath))
             {
-                Debug.LogError(HAAR_CASCADE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
+                Debug.LogError(HAAR_CASCADE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
             }
             else
             {

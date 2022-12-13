@@ -169,8 +169,8 @@ namespace OpenCVForUnityExample
         /// The calibration images directory path.
         /// Set a relative directory path from the starting point of the "StreamingAssets" folder.  e.g. "aruco/calibration_images/".
         /// </summary>
-        [Tooltip("Set a relative directory path from the starting point of the \"StreamingAssets\" folder.  e.g. \"aruco/calibration_images\"")]
-        public string calibrationImagesDirectory = "aruco/calibration_images";
+        [Tooltip("Set a relative directory path from the starting point of the \"StreamingAssets\" folder.  e.g. \"OpenCVForUnity/aruco/calibration_images\"")]
+        public string calibrationImagesDirectory = "OpenCVForUnity/aruco/calibration_images";
 
         /// <summary>
         /// The texture.

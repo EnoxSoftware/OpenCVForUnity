@@ -119,9 +119,9 @@ namespace OpenCVForUnityExample
                         { "REye", "REar" }, { "Nose", "LEye" }, { "LEye", "LEar" }
                 };
 
-                IMAGE_FILENAME = "dnn/COCO_val2014_000000000589.jpg";
-                CAFFEMODEL_FILENAME = "dnn/pose_iter_440000.caffemodel";
-                PROTOTXT_FILENAME = "dnn/openpose_pose_coco.prototxt";
+                IMAGE_FILENAME = "OpenCVForUnity/dnn/COCO_val2014_000000000589.jpg";
+                CAFFEMODEL_FILENAME = "OpenCVForUnity/dnn/pose_iter_440000.caffemodel";
+                PROTOTXT_FILENAME = "OpenCVForUnity/dnn/openpose_pose_coco.prototxt";
             }
             else if (dataset == DATASET_TYPE.MPI)
             {
@@ -176,9 +176,9 @@ namespace OpenCVForUnityExample
                     }
                 };
 
-                IMAGE_FILENAME = "dnn/COCO_val2014_000000000589.jpg";
-                CAFFEMODEL_FILENAME = "dnn/pose_iter_160000.caffemodel";
-                PROTOTXT_FILENAME = "dnn/openpose_pose_mpi_faster_4_stages.prototxt";
+                IMAGE_FILENAME = "OpenCVForUnity/dnn/COCO_val2014_000000000589.jpg";
+                CAFFEMODEL_FILENAME = "OpenCVForUnity/dnn/pose_iter_160000.caffemodel";
+                PROTOTXT_FILENAME = "OpenCVForUnity/dnn/openpose_pose_mpi_faster_4_stages.prototxt";
 
             }
             else if (dataset == DATASET_TYPE.HAND)
@@ -204,9 +204,9 @@ namespace OpenCVForUnityExample
                    {"LittleFingerProximal", "LittleFingerMiddle"}, {"LittleFingerMiddle", "LittleFingerDistal"} };
 
 
-                IMAGE_FILENAME = "dnn/hand_synth_sample2.jpg";
-                CAFFEMODEL_FILENAME = "dnn/pose_iter_102000.caffemodel";
-                PROTOTXT_FILENAME = "dnn/pose_deploy.prototxt";
+                IMAGE_FILENAME = "OpenCVForUnity/dnn/hand_synth_sample2.jpg";
+                CAFFEMODEL_FILENAME = "OpenCVForUnity/dnn/pose_iter_102000.caffemodel";
+                PROTOTXT_FILENAME = "OpenCVForUnity/dnn/pose_deploy.prototxt";
 
             }
 
@@ -258,7 +258,7 @@ namespace OpenCVForUnityExample
             Mat img = Imgcodecs.imread(image_filepath);
             if (img.empty())
             {
-                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
+                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/dnn/setup_dnn_module.pdf” to make the necessary setup.");
                 img = new Mat(368, 368, CvType.CV_8UC3, new Scalar(0, 0, 0));
             }
 
@@ -286,7 +286,7 @@ namespace OpenCVForUnityExample
 
             if (string.IsNullOrEmpty(caffemodel_filepath) || string.IsNullOrEmpty(prototxt_filepath))
             {
-                Debug.LogError(CAFFEMODEL_FILENAME + " or " + PROTOTXT_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
+                Debug.LogError(CAFFEMODEL_FILENAME + " or " + PROTOTXT_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/dnn/setup_dnn_module.pdf” to make the necessary setup.");
             }
             else
             {

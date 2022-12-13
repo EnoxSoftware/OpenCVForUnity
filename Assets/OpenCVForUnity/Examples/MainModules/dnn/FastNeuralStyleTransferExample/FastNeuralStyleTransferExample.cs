@@ -57,7 +57,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// MODEL_FILENAME
         /// </summary>
-        protected static readonly string MODEL_FILENAME = "dnn/mosaic.t7";
+        protected static readonly string MODEL_FILENAME = "OpenCVForUnity/dnn/mosaic.t7";
 
         /// <summary>
         /// The model filepath.
@@ -108,7 +108,7 @@ namespace OpenCVForUnityExample
 
             if (string.IsNullOrEmpty(model_filepath))
             {
-                Debug.LogError(MODEL_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
+                Debug.LogError(MODEL_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/dnn/setup_dnn_module.pdf” to make the necessary setup.");
             }
             else
             {

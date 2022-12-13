@@ -22,7 +22,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// IMAGE_0_FILENAME
         /// </summary>
-        protected static readonly string IMAGE_0_FILENAME = "face/facerec_0.bmp";
+        protected static readonly string IMAGE_0_FILENAME = "OpenCVForUnity/face/facerec_0.bmp";
 
         /// <summary>
         /// The image 0 filepath.
@@ -32,7 +32,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// IMAGE_1_FILENAME
         /// </summary>
-        protected static readonly string IMAGE_1_FILENAME = "face/facerec_1.bmp";
+        protected static readonly string IMAGE_1_FILENAME = "OpenCVForUnity/face/facerec_1.bmp";
 
         /// <summary>
         /// The image 1 filepath.
@@ -42,7 +42,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// SAMPLE_IMAGE_FILENAME
         /// </summary>
-        protected static readonly string SAMPLE_IMAGE_FILENAME = "face/facerec_sample.bmp";
+        protected static readonly string SAMPLE_IMAGE_FILENAME = "OpenCVForUnity/face/facerec_sample.bmp";
 
         /// <summary>
         /// The sample image filepath.
@@ -95,7 +95,7 @@ namespace OpenCVForUnityExample
         {
             if (string.IsNullOrEmpty(image_0_filepath) || string.IsNullOrEmpty(image_1_filepath) || string.IsNullOrEmpty(sample_image_filepath))
             {
-                Debug.LogError(IMAGE_0_FILENAME + " or " + IMAGE_1_FILENAME + " or " + SAMPLE_IMAGE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
+                Debug.LogError(IMAGE_0_FILENAME + " or " + IMAGE_1_FILENAME + " or " + SAMPLE_IMAGE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
             }
 
             List<Mat> images = new List<Mat>();

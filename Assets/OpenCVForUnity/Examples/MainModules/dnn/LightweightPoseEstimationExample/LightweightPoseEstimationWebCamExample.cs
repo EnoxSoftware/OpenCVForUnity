@@ -1,5 +1,7 @@
 #if !(PLATFORM_LUMIN && !UNITY_EDITOR)
 
+#if !UNITY_WSA_10_0
+
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.DnnModule;
 using OpenCVForUnity.ImgprocModule;
@@ -93,7 +95,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// MODEL_FILENAME
         /// </summary>
-        string MODEL_FILENAME = "dnn/lightweight_pose_estimation_201912.onnx";
+        string MODEL_FILENAME = "OpenCVForUnity/dnn/lightweight_pose_estimation_201912.onnx";
 
         /// <summary>
         /// The model filepath.
@@ -148,7 +150,7 @@ namespace OpenCVForUnityExample
 
             if (string.IsNullOrEmpty(model_filepath))
             {
-                Debug.LogError(MODEL_FILENAME + " is not loaded. Please read “StreamingAssets/dnn/setup_dnn_module.pdf” to make the necessary setup.");
+                Debug.LogError(MODEL_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/dnn/setup_dnn_module.pdf” to make the necessary setup.");
             }
             else
             {
@@ -350,5 +352,7 @@ namespace OpenCVForUnityExample
         }
     }
 }
+
+#endif
 
 #endif

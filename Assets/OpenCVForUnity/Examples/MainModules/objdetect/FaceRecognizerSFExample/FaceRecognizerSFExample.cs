@@ -39,7 +39,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// FD_MODEL_FILENAME
         /// </summary>
-        protected static readonly string FD_MODEL_FILENAME = "objdetect/face_detection_yunet_2022mar.onnx";
+        protected static readonly string FD_MODEL_FILENAME = "OpenCVForUnity/objdetect/face_detection_yunet_2022mar.onnx";
 
         /// <summary>
         /// The fd model filepath.
@@ -59,7 +59,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// SF_MODEL_FILENAME
         /// </summary>
-        protected static readonly string SF_MODEL_FILENAME = "objdetect/face_recognition_sface_2021dec.onnx";
+        protected static readonly string SF_MODEL_FILENAME = "OpenCVForUnity/objdetect/face_recognition_sface_2021dec.onnx";
 
         /// <summary>
         /// The sf model filepath.
@@ -69,7 +69,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// IMAGE_0_FILENAME
         /// </summary>
-        protected static readonly string IMAGE_0_FILENAME = "face/facerec_0.bmp";
+        protected static readonly string IMAGE_0_FILENAME = "OpenCVForUnity/face/facerec_0.bmp";
 
         /// <summary>
         /// The image 0 filepath.
@@ -79,7 +79,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// IMAGE_1_FILENAME
         /// </summary>
-        protected static readonly string IMAGE_1_FILENAME = "face/facerec_1.bmp";
+        protected static readonly string IMAGE_1_FILENAME = "OpenCVForUnity/face/facerec_1.bmp";
 
         /// <summary>
         /// The image 1 filepath.
@@ -89,7 +89,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// SAMPLE_IMAGE_FILENAME
         /// </summary>
-        protected static readonly string SAMPLE_IMAGE_FILENAME = "face/facerec_sample.bmp";
+        protected static readonly string SAMPLE_IMAGE_FILENAME = "OpenCVForUnity/face/facerec_sample.bmp";
 
         /// <summary>
         /// The sample image filepath.
@@ -158,7 +158,7 @@ namespace OpenCVForUnityExample
 
             if (string.IsNullOrEmpty(image_0_filepath) || string.IsNullOrEmpty(image_1_filepath) || string.IsNullOrEmpty(sample_image_filepath))
             {
-                Debug.LogError(IMAGE_0_FILENAME + " or " + IMAGE_1_FILENAME + " or " + SAMPLE_IMAGE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/” to “Assets/StreamingAssets/” folder.");
+                Debug.LogError(IMAGE_0_FILENAME + " or " + IMAGE_1_FILENAME + " or " + SAMPLE_IMAGE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
             }
 
             Mat testSampleMat = Imgcodecs.imread(sample_image_filepath, Imgcodecs.IMREAD_COLOR);
@@ -172,7 +172,7 @@ namespace OpenCVForUnityExample
 
             if (string.IsNullOrEmpty(fd_model_filepath) || string.IsNullOrEmpty(sf_model_filepath))
             {
-                Debug.LogError(FD_MODEL_FILENAME + " or " + SF_MODEL_FILENAME + " is not loaded. Please read “StreamingAssets/objdetect/setup_objdetect_module.pdf” to make the necessary setup.");
+                Debug.LogError(FD_MODEL_FILENAME + " or " + SF_MODEL_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/objdetect/setup_objdetect_module.pdf” to make the necessary setup.");
 
                 Imgproc.putText(resultMat, "model file is not loaded.", new Point(5, resultMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255), 2, Imgproc.LINE_AA, false);
                 Imgproc.putText(resultMat, "Please read console message.", new Point(5, resultMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255), 2, Imgproc.LINE_AA, false);
