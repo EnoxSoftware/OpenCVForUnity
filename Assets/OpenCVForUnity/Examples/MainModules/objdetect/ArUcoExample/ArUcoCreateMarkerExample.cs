@@ -1,6 +1,6 @@
-using OpenCVForUnity.ArucoModule;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgcodecsModule;
+using OpenCVForUnity.ObjdetectModule;
 using OpenCVForUnity.UnityUtils;
 using System.IO;
 using UnityEngine;
@@ -146,26 +146,26 @@ namespace OpenCVForUnityExample
             }
 
             // create dictinary.
-            Dictionary dictionary = Aruco.getPredefinedDictionary((int)dictionaryId);
+            Dictionary dictionary = Objdetect.getPredefinedDictionary((int)dictionaryId);
 
             // draw marker.
             switch (markerType)
             {
                 default:
                 case MarkerType.CanonicalMarker:
-                    Aruco.drawMarker(dictionary, (int)markerId, markerSize, markerImg, borderBits);
+                    Objdetect.generateImageMarker(dictionary, (int)markerId, markerSize, markerImg, borderBits);
                     Debug.Log("draw CanonicalMarker: " + "dictionaryId " + (int)dictionaryId + " markerId " + (int)markerId + " sidePixels " + markerSize + " borderBits " + borderBits);
                     break;
                 case MarkerType.GridBoard:
-                    GridBoard gridBoard = GridBoard.create(gridBoradMarkersX, gridBoradMarkersY, gridBoradMarkerLength, gridBoradMarkerSeparation, dictionary, gridBoradMarkerFirstMarker);
-                    gridBoard.draw(new Size(markerSize, markerSize), markerImg, gridBoradMarginSize, borderBits);
+                    GridBoard gridBoard = new GridBoard(new Size( gridBoradMarkersX, gridBoradMarkersY), gridBoradMarkerLength, gridBoradMarkerSeparation, dictionary);
+                    gridBoard.generateImage(new Size(markerSize, markerSize), markerImg, gridBoradMarginSize, borderBits);
                     gridBoard.Dispose();
                     Debug.Log("draw GridBoard: " + "markersX " + gridBoradMarkersX + " markersY " + gridBoradMarkersY + " markerLength " + gridBoradMarkerLength +
                     " markerSeparation " + gridBoradMarkerSeparation + "dictionaryId " + (int)dictionaryId + " outSize " + markerSize + " marginSize " + gridBoradMarginSize + " borderBits " + borderBits);
                     break;
                 case MarkerType.ChArUcoBoard:
-                    CharucoBoard charucoBoard = CharucoBoard.create(chArUcoBoradMarkersX, chArUcoBoradMarkersY, chArUcoBoradSquareLength, chArUcoBoradMarkerLength, dictionary);
-                    charucoBoard.draw(new Size(markerSize, markerSize), markerImg, chArUcoBoradMarginSize, borderBits);
+                    CharucoBoard charucoBoard = new CharucoBoard(new Size(chArUcoBoradMarkersX, chArUcoBoradMarkersY), chArUcoBoradSquareLength, chArUcoBoradMarkerLength, dictionary);
+                    charucoBoard.generateImage(new Size(markerSize, markerSize), markerImg, chArUcoBoradMarginSize, borderBits);
                     charucoBoard.Dispose();
                     Debug.Log("draw ChArUcoBoard: " + "markersX " + chArUcoBoradMarkersX + " markersY " + chArUcoBoradMarkersY + " markerLength " + chArUcoBoradSquareLength +
                     " markerSeparation " + chArUcoBoradMarkerLength + "dictionaryId " + (int)dictionaryId + " outSize " + markerSize + " marginSize " + chArUcoBoradMarginSize + " borderBits " + borderBits);
@@ -286,23 +286,23 @@ namespace OpenCVForUnityExample
 
         public enum ArUcoDictionary
         {
-            DICT_4X4_50 = Aruco.DICT_4X4_50,
-            DICT_4X4_100 = Aruco.DICT_4X4_100,
-            DICT_4X4_250 = Aruco.DICT_4X4_250,
-            DICT_4X4_1000 = Aruco.DICT_4X4_1000,
-            DICT_5X5_50 = Aruco.DICT_5X5_50,
-            DICT_5X5_100 = Aruco.DICT_5X5_100,
-            DICT_5X5_250 = Aruco.DICT_5X5_250,
-            DICT_5X5_1000 = Aruco.DICT_5X5_1000,
-            DICT_6X6_50 = Aruco.DICT_6X6_50,
-            DICT_6X6_100 = Aruco.DICT_6X6_100,
-            DICT_6X6_250 = Aruco.DICT_6X6_250,
-            DICT_6X6_1000 = Aruco.DICT_6X6_1000,
-            DICT_7X7_50 = Aruco.DICT_7X7_50,
-            DICT_7X7_100 = Aruco.DICT_7X7_100,
-            DICT_7X7_250 = Aruco.DICT_7X7_250,
-            DICT_7X7_1000 = Aruco.DICT_7X7_1000,
-            DICT_ARUCO_ORIGINAL = Aruco.DICT_ARUCO_ORIGINAL,
+            DICT_4X4_50 = Objdetect.DICT_4X4_50,
+            DICT_4X4_100 = Objdetect.DICT_4X4_100,
+            DICT_4X4_250 = Objdetect.DICT_4X4_250,
+            DICT_4X4_1000 = Objdetect.DICT_4X4_1000,
+            DICT_5X5_50 = Objdetect.DICT_5X5_50,
+            DICT_5X5_100 = Objdetect.DICT_5X5_100,
+            DICT_5X5_250 = Objdetect.DICT_5X5_250,
+            DICT_5X5_1000 = Objdetect.DICT_5X5_1000,
+            DICT_6X6_50 = Objdetect.DICT_6X6_50,
+            DICT_6X6_100 = Objdetect.DICT_6X6_100,
+            DICT_6X6_250 = Objdetect.DICT_6X6_250,
+            DICT_6X6_1000 = Objdetect.DICT_6X6_1000,
+            DICT_7X7_50 = Objdetect.DICT_7X7_50,
+            DICT_7X7_100 = Objdetect.DICT_7X7_100,
+            DICT_7X7_250 = Objdetect.DICT_7X7_250,
+            DICT_7X7_1000 = Objdetect.DICT_7X7_1000,
+            DICT_ARUCO_ORIGINAL = Objdetect.DICT_ARUCO_ORIGINAL,
         }
 
         public enum MarkerID

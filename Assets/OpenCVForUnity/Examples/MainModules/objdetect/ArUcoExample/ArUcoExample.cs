@@ -5,8 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.Calib3dModule;
-using OpenCVForUnity.ArucoModule;
 using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.ObjdetectModule;
 
 namespace OpenCVForUnityExample
 {
@@ -195,88 +195,99 @@ namespace OpenCVForUnityExample
             Mat ids = new Mat();
             List<Mat> corners = new List<Mat>();
             List<Mat> rejectedCorners = new List<Mat>();
-            Mat rvecs = new Mat();
-            Mat tvecs = new Mat();
             Mat rotMat = new Mat(3, 3, CvType.CV_64FC1);
 
-            DetectorParameters detectorParams = DetectorParameters.create();
-            Dictionary dictionary = Aruco.getPredefinedDictionary((int)dictionaryId);
+            MatOfPoint3f objPoints = new MatOfPoint3f(
+                new Point3(-markerLength / 2f, markerLength / 2f, 0),
+                new Point3(markerLength / 2f, markerLength / 2f, 0),
+                new Point3(markerLength / 2f, -markerLength / 2f, 0),
+                new Point3(-markerLength / 2f, -markerLength / 2f, 0)
+                );
+
+            Dictionary dictionary = Objdetect.getPredefinedDictionary((int)dictionaryId);
+            DetectorParameters detectorParams = new DetectorParameters();
+            detectorParams.set_useAruco3Detection(true);
+            RefineParameters refineParameters = new RefineParameters(10f, 3f, true);
+            ArucoDetector arucoDetector = new ArucoDetector(dictionary, detectorParams, refineParameters);
+
 
             // undistort image.
             Calib3d.undistort(rgbMat, rgbMat, camMatrix, distCoeffs);
             // detect markers.
-            Aruco.detectMarkers(rgbMat, dictionary, corners, ids, detectorParams, rejectedCorners);
+            arucoDetector.detectMarkers(rgbMat, corners, ids, rejectedCorners);
 
             // if at least one marker detected
             if (ids.total() > 0)
             {
-                Aruco.drawDetectedMarkers(rgbMat, corners, ids, new Scalar(0, 255, 0));
+                Objdetect.drawDetectedMarkers(rgbMat, corners, ids, new Scalar(0, 255, 0));
 
                 // estimate pose.
                 if (applyEstimationPose)
                 {
-                    Aruco.estimatePoseSingleMarkers(corners, markerLength, camMatrix, distCoeffs, rvecs, tvecs);
-
                     for (int i = 0; i < ids.total(); i++)
                     {
-                        using (Mat rvec = new Mat(rvecs, new OpenCVForUnity.CoreModule.Rect(0, i, 1, 1)))
-                        using (Mat tvec = new Mat(tvecs, new OpenCVForUnity.CoreModule.Rect(0, i, 1, 1)))
+                        using (Mat rvec = new Mat(1, 1, CvType.CV_64FC3))
+                        using (Mat tvec = new Mat(1, 1, CvType.CV_64FC3))
+                        using (Mat corner_4x1 = corners[i].reshape(2, 4)) // 1*4*CV_32FC2 => 4*1*CV_32FC2
+                        using (MatOfPoint2f imagePoints = new MatOfPoint2f(corner_4x1))
                         {
+                            // Calculate pose for each marker
+                            Calib3d.solvePnP(objPoints, imagePoints, camMatrix, distCoeffs, rvec, tvec);
 
                             // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
                             Calib3d.drawFrameAxes(rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
-                        }
 
-                        // This example can display the ARObject on only first detected marker.
-                        if (i == 0)
-                        {
 
-                            // Get translation vector
-                            double[] tvecArr = tvecs.get(i, 0);
-
-                            // Get rotation vector
-                            double[] rvecArr = rvecs.get(i, 0);
-                            Mat rvec = new Mat(3, 1, CvType.CV_64FC1);
-                            rvec.put(0, 0, rvecArr);
-
-                            // Convert rotation vector to rotation matrix.
-                            Calib3d.Rodrigues(rvec, rotMat);
-                            double[] rotMatArr = new double[rotMat.total()];
-                            rotMat.get(0, 0, rotMatArr);
-
-                            // Convert OpenCV camera extrinsic parameters to Unity Matrix4x4.
-                            Matrix4x4 transformationM = new Matrix4x4(); // from OpenCV
-                            transformationM.SetRow(0, new Vector4((float)rotMatArr[0], (float)rotMatArr[1], (float)rotMatArr[2], (float)tvecArr[0]));
-                            transformationM.SetRow(1, new Vector4((float)rotMatArr[3], (float)rotMatArr[4], (float)rotMatArr[5], (float)tvecArr[1]));
-                            transformationM.SetRow(2, new Vector4((float)rotMatArr[6], (float)rotMatArr[7], (float)rotMatArr[8], (float)tvecArr[2]));
-                            transformationM.SetRow(3, new Vector4(0, 0, 0, 1));
-                            Debug.Log("transformationM " + transformationM.ToString());
-
-                            Matrix4x4 invertYM = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3(1, -1, 1));
-                            Debug.Log("invertYM " + invertYM.ToString());
-
-                            // right-handed coordinates system (OpenCV) to left-handed one (Unity)
-                            // https://stackoverflow.com/questions/30234945/change-handedness-of-a-row-major-4x4-transformation-matrix
-                            Matrix4x4 ARM = invertYM * transformationM * invertYM;
-
-                            if (shouldMoveARCamera)
+                            // This example can display the ARObject on only first detected marker.
+                            if (i == 0)
                             {
+                                // Get translation vector
+                                double[] tvecArr = new double[3];
+                                tvec.get(0, 0, tvecArr);
 
-                                ARM = arGameObject.transform.localToWorldMatrix * ARM.inverse;
+                                // Get rotation vector
+                                Mat rvec_3x1 = rvec.reshape(1, 3);
 
-                                Debug.Log("ARM " + ARM.ToString());
+                                // Convert rotation vector to rotation matrix.
+                                Calib3d.Rodrigues(rvec_3x1, rotMat);
+                                double[] rotMatArr = new double[rotMat.total()];
+                                rotMat.get(0, 0, rotMatArr);
 
-                                ARUtils.SetTransformFromMatrix(arCamera.transform, ref ARM);
+                                // Convert OpenCV camera extrinsic parameters to Unity Matrix4x4.
+                                Matrix4x4 transformationM = new Matrix4x4(); // from OpenCV
+                                transformationM.SetRow(0, new Vector4((float)rotMatArr[0], (float)rotMatArr[1], (float)rotMatArr[2], (float)tvecArr[0]));
+                                transformationM.SetRow(1, new Vector4((float)rotMatArr[3], (float)rotMatArr[4], (float)rotMatArr[5], (float)tvecArr[1]));
+                                transformationM.SetRow(2, new Vector4((float)rotMatArr[6], (float)rotMatArr[7], (float)rotMatArr[8], (float)tvecArr[2]));
+                                transformationM.SetRow(3, new Vector4(0, 0, 0, 1));
+                                Debug.Log("transformationM " + transformationM.ToString());
 
-                            }
-                            else
-                            {
+                                Matrix4x4 invertYM = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3(1, -1, 1));
+                                Debug.Log("invertYM " + invertYM.ToString());
 
-                                ARM = arCamera.transform.localToWorldMatrix * ARM;
+                                // right-handed coordinates system (OpenCV) to left-handed one (Unity)
+                                // https://stackoverflow.com/questions/30234945/change-handedness-of-a-row-major-4x4-transformation-matrix
+                                Matrix4x4 ARM = invertYM * transformationM * invertYM;
 
-                                Debug.Log("ARM " + ARM.ToString());
+                                if (shouldMoveARCamera)
+                                {
 
-                                ARUtils.SetTransformFromMatrix(arGameObject.transform, ref ARM);
+                                    ARM = arGameObject.transform.localToWorldMatrix * ARM.inverse;
+
+                                    Debug.Log("ARM " + ARM.ToString());
+
+                                    ARUtils.SetTransformFromMatrix(arCamera.transform, ref ARM);
+
+                                }
+                                else
+                                {
+
+                                    ARM = arCamera.transform.localToWorldMatrix * ARM;
+
+                                    Debug.Log("ARM " + ARM.ToString());
+
+                                    ARUtils.SetTransformFromMatrix(arGameObject.transform, ref ARM);
+                                }
+
                             }
                         }
                     }
@@ -284,7 +295,7 @@ namespace OpenCVForUnityExample
             }
 
             if (showRejectedCorners && rejectedCorners.Count > 0)
-                Aruco.drawDetectedMarkers(rgbMat, rejectedCorners, new Mat(), new Scalar(255, 0, 0));
+                Objdetect.drawDetectedMarkers(rgbMat, rejectedCorners, new Mat(), new Scalar(255, 0, 0));
 
             Utils.matToTexture2D(rgbMat, texture);
         }
@@ -346,23 +357,23 @@ namespace OpenCVForUnityExample
 
         public enum ArUcoDictionary
         {
-            DICT_4X4_50 = Aruco.DICT_4X4_50,
-            DICT_4X4_100 = Aruco.DICT_4X4_100,
-            DICT_4X4_250 = Aruco.DICT_4X4_250,
-            DICT_4X4_1000 = Aruco.DICT_4X4_1000,
-            DICT_5X5_50 = Aruco.DICT_5X5_50,
-            DICT_5X5_100 = Aruco.DICT_5X5_100,
-            DICT_5X5_250 = Aruco.DICT_5X5_250,
-            DICT_5X5_1000 = Aruco.DICT_5X5_1000,
-            DICT_6X6_50 = Aruco.DICT_6X6_50,
-            DICT_6X6_100 = Aruco.DICT_6X6_100,
-            DICT_6X6_250 = Aruco.DICT_6X6_250,
-            DICT_6X6_1000 = Aruco.DICT_6X6_1000,
-            DICT_7X7_50 = Aruco.DICT_7X7_50,
-            DICT_7X7_100 = Aruco.DICT_7X7_100,
-            DICT_7X7_250 = Aruco.DICT_7X7_250,
-            DICT_7X7_1000 = Aruco.DICT_7X7_1000,
-            DICT_ARUCO_ORIGINAL = Aruco.DICT_ARUCO_ORIGINAL,
+            DICT_4X4_50 = Objdetect.DICT_4X4_50,
+            DICT_4X4_100 = Objdetect.DICT_4X4_100,
+            DICT_4X4_250 = Objdetect.DICT_4X4_250,
+            DICT_4X4_1000 = Objdetect.DICT_4X4_1000,
+            DICT_5X5_50 = Objdetect.DICT_5X5_50,
+            DICT_5X5_100 = Objdetect.DICT_5X5_100,
+            DICT_5X5_250 = Objdetect.DICT_5X5_250,
+            DICT_5X5_1000 = Objdetect.DICT_5X5_1000,
+            DICT_6X6_50 = Objdetect.DICT_6X6_50,
+            DICT_6X6_100 = Objdetect.DICT_6X6_100,
+            DICT_6X6_250 = Objdetect.DICT_6X6_250,
+            DICT_6X6_1000 = Objdetect.DICT_6X6_1000,
+            DICT_7X7_50 = Objdetect.DICT_7X7_50,
+            DICT_7X7_100 = Objdetect.DICT_7X7_100,
+            DICT_7X7_250 = Objdetect.DICT_7X7_250,
+            DICT_7X7_1000 = Objdetect.DICT_7X7_1000,
+            DICT_ARUCO_ORIGINAL = Objdetect.DICT_ARUCO_ORIGINAL,
         }
     }
 }

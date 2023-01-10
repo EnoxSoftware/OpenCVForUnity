@@ -56,13 +56,14 @@ namespace OpenCVForUnityExample
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FastNeuralStyleTransferExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LibFaceDetectionV2ExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LibFaceDetectionV3ExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ResnetSSDFaceDetectionExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LightweightPoseEstimationExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LightweightPoseEstimationWebCamExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/HandPoseEstimationExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/HumanSegmentationExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MobileNetSSDWebCamExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/OpenPoseExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ResnetSSDFaceDetectionExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ImageClassificationMobilenetExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ImageClassificationPPResnetExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TextOCRExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TextOCRWebCamExampleButton").GetComponent<Button>().interactable = false;
@@ -155,9 +156,9 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("KeyFrameGreenScreenExample");
         }
 
-        public void OnHandPoseEstimationExampleButtonClick()
+        public void OnCountFingersExampleButtonClick()
         {
-            SceneManager.LoadScene("HandPoseEstimationExample");
+            SceneManager.LoadScene("CountFingersExample");
         }
 
         public void OnMultiObjectTrackingBasedOnColorExampleButtonClick()
@@ -273,11 +274,6 @@ namespace OpenCVForUnityExample
 
         #region video
 
-        public void OnBackgroundSubtractorExampleButtonClick()
-        {
-            SceneManager.LoadScene("BackgroundSubtractorExample");
-        }
-
         public void OnCamShiftExampleButtonClick()
         {
             SceneManager.LoadScene("CamShiftExample");
@@ -338,6 +334,26 @@ namespace OpenCVForUnityExample
         #endregion
 
         #region objdetect
+
+        public void OnArUcoExampleButtonClick()
+        {
+            SceneManager.LoadScene("ArUcoExample");
+        }
+
+        public void OnArUcoWebCamExampleButtonClick()
+        {
+            SceneManager.LoadScene("ArUcoWebCamExample");
+        }
+
+        public void OnArUcoCreateMarkerExampleButtonClick()
+        {
+            SceneManager.LoadScene("ArUcoCreateMarkerExample");
+        }
+
+        public void OnArUcoCameraCalibrationExampleButtonClick()
+        {
+            SceneManager.LoadScene("ArUcoCameraCalibrationExample");
+        }
 
         public void OnFaceDetectionExampleButtonClick()
         {
@@ -413,6 +429,11 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("LibFaceDetectionV3Example");
         }
 
+        public void OnResnetSSDFaceDetectionExampleButtonClick()
+        {
+            SceneManager.LoadScene("ResnetSSDFaceDetectionExample");
+        }
+
         public void OnLightweightPoseEstimationExampleButtonClick()
         {
             SceneManager.LoadScene("LightweightPoseEstimationExample");
@@ -421,6 +442,11 @@ namespace OpenCVForUnityExample
         public void OnLightweightPoseEstimationWebCamExampleButtonClick()
         {
             SceneManager.LoadScene("LightweightPoseEstimationWebCamExample");
+        }
+
+        public void OnHandPoseEstimationExampleButtonClick()
+        {
+            SceneManager.LoadScene("HandPoseEstimationExample");
         }
 
         public void OnHumanSegmentationExampleButtonClick()
@@ -438,14 +464,9 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("MobileNetSSDWebCamExample");
         }
 
-        public void OnOpenPoseExampleButtonClick()
+        public void OnImageClassificationMobilenetExampleButtonClick()
         {
-            SceneManager.LoadScene("OpenPoseExample");
-        }
-
-        public void OnResnetSSDFaceDetectionExampleButtonClick()
-        {
-            SceneManager.LoadScene("ResnetSSDFaceDetectionExample");
+            SceneManager.LoadScene("ImageClassificationMobilenetExample");
         }
 
         public void OnImageClassificationPPResnetExampleButtonClick()
@@ -507,30 +528,6 @@ namespace OpenCVForUnityExample
 
         #region Contrib modules
 
-        #region aruco
-
-        public void OnArUcoExampleButtonClick()
-        {
-            SceneManager.LoadScene("ArUcoExample");
-        }
-
-        public void OnArUcoWebCamExampleButtonClick()
-        {
-            SceneManager.LoadScene("ArUcoWebCamExample");
-        }
-
-        public void OnArUcoCreateMarkerExampleButtonClick()
-        {
-            SceneManager.LoadScene("ArUcoCreateMarkerExample");
-        }
-
-        public void OnArUcoCameraCalibrationExampleButtonClick()
-        {
-            SceneManager.LoadScene("ArUcoCameraCalibrationExample");
-        }
-
-        #endregion
-
         #region barcode
 
         public void OnBarcodeDetectorExampleButtonClick()
@@ -541,6 +538,15 @@ namespace OpenCVForUnityExample
         public void OnBarcodeDetectorWebCamExampleButtonClick()
         {
             SceneManager.LoadScene("BarcodeDetectorWebCamExample");
+        }
+
+        #endregion
+
+        #region bgsegm
+
+        public void OnBackgroundSubtractorExampleButtonClick()
+        {
+            SceneManager.LoadScene("BackgroundSubtractorExample");
         }
 
         #endregion
