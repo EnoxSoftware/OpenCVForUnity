@@ -8,11 +8,11 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.ArucoModule;
 using OpenCVForUnity.Calib3dModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.UnityUtils.Helper;
+using OpenCVForUnity.ObjdetectModule;
 
 namespace OpenCVForUnityExample
 {
@@ -163,53 +163,18 @@ namespace OpenCVForUnityExample
         Matrix4x4 ARM;
 
         /// <summary>
-        /// The identifiers.
-        /// </summary>
-        Mat ids;
-
-        /// <summary>
-        /// The corners.
-        /// </summary>
-        List<Mat> corners;
-
-        /// <summary>
-        /// The rejected corners.
-        /// </summary>
-        List<Mat> rejectedCorners;
-
-        /// <summary>
-        /// The rvecs.
-        /// </summary>
-        Mat rvecs;
-
-        /// <summary>
-        /// The tvecs.
-        /// </summary>
-        Mat tvecs;
-
-        /// <summary>
-        /// The rot mat.
-        /// </summary>
-        Mat rotMat;
-
-        /// <summary>
-        /// The detector parameters.
-        /// </summary>
-        DetectorParameters detectorParams;
-
-        /// <summary>
-        /// The dictionary.
-        /// </summary>
-        Dictionary dictionary;
-
-        /// <summary>
         /// The FPS monitor.
         /// </summary>
         FpsMonitor fpsMonitor;
 
-        Mat rvec;
-        Mat tvec;
+        // for CanonicalMarker.
+        Mat ids;
+        List<Mat> corners;
+        List<Mat> rejectedCorners;
+        Mat rotMat;
+        Dictionary dictionary;
         Mat recoveredIdxs;
+        ArucoDetector arucoDetector;
 
         // for GridBoard.
         // number of markers in X direction
@@ -237,6 +202,7 @@ namespace OpenCVForUnityExample
         Mat charucoCorners;
         Mat charucoIds;
         CharucoBoard charucoBoard;
+        CharucoDetector charucoDetector;
 
         // for ChArUcoDiamondMarker.
         // size of the chessboard squares in pixels
@@ -250,6 +216,9 @@ namespace OpenCVForUnityExample
         const int diamondId4 = 74;
         List<Mat> diamondCorners;
         Mat diamondIds;
+        CharucoBoard charucoDiamondBoard;
+        CharucoDetector charucoDiamondDetector;
+
 
         // Use this for initialization
         void Start()
@@ -421,27 +390,46 @@ namespace OpenCVForUnityExample
             ids = new Mat();
             corners = new List<Mat>();
             rejectedCorners = new List<Mat>();
-            rvecs = new Mat();
-            tvecs = new Mat();
             rotMat = new Mat(3, 3, CvType.CV_64FC1);
-
-
-            detectorParams = DetectorParameters.create();
-            dictionary = Aruco.getPredefinedDictionary((int)dictionaryId);
-
-            rvec = new Mat();
-            tvec = new Mat();
+            dictionary = Objdetect.getPredefinedDictionary((int)dictionaryId);
             recoveredIdxs = new Mat();
 
-            gridBoard = GridBoard.create(gridBoradMarkersX, gridBoradMarkersY, gridBoradMarkerLength, gridBoradMarkerSeparation, dictionary, gridBoradMarkerFirstMarker);
+            DetectorParameters detectorParams = new DetectorParameters();
+            detectorParams.set_useAruco3Detection(true);
+            RefineParameters refineParameters = new RefineParameters(10f, 3f, true);
+            arucoDetector = new ArucoDetector(dictionary, detectorParams, refineParameters);
+
+
+            gridBoard = new GridBoard(new Size(gridBoradMarkersX, gridBoradMarkersY), gridBoradMarkerLength, gridBoradMarkerSeparation, dictionary);
+
 
             charucoCorners = new Mat();
             charucoIds = new Mat();
-            charucoBoard = CharucoBoard.create(chArUcoBoradSquaresX, chArUcoBoradSquaresY, chArUcoBoradSquareLength, chArUcoBoradMarkerLength, dictionary);
+            charucoBoard = new CharucoBoard(new Size(chArUcoBoradSquaresX, chArUcoBoradSquaresY), chArUcoBoradSquareLength, chArUcoBoradMarkerLength, dictionary);
+
+            charucoDetector = new CharucoDetector(charucoBoard);
+            CharucoParameters charucoParameters = charucoDetector.getCharucoParameters();
+            charucoParameters.set_cameraMatrix(camMatrix);
+            charucoParameters.set_distCoeffs(distCoeffs);
+            charucoParameters.set_minMarkers(charucoMinMarkers);
+            charucoDetector.setCharucoParameters(charucoParameters);
+            charucoDetector.setDetectorParameters(detectorParams);
+            charucoDetector.setRefineParameters(refineParameters);
+
 
             diamondCorners = new List<Mat>();
             diamondIds = new Mat(1, 1, CvType.CV_32SC4);
             diamondIds.put(0, 0, new int[] { diamondId1, diamondId2, diamondId3, diamondId4 });
+            charucoDiamondBoard = new CharucoBoard(new Size(chArUcoBoradSquaresX, chArUcoBoradSquaresY), diamondSquareLength, diamondMarkerLength, dictionary);
+
+            charucoDiamondDetector = new CharucoDetector(charucoDiamondBoard);
+            CharucoParameters charucoDiamondParameters = charucoDiamondDetector.getCharucoParameters();
+            charucoDiamondParameters.set_cameraMatrix(camMatrix);
+            charucoDiamondParameters.set_distCoeffs(distCoeffs);
+            charucoDiamondParameters.set_minMarkers(charucoMinMarkers);
+            charucoDiamondDetector.setCharucoParameters(charucoDiamondParameters);
+            charucoDiamondDetector.setDetectorParameters(detectorParams);
+            charucoDiamondDetector.setRefineParameters(refineParameters);
 
 
             // If the WebCam is front facing, flip the Mat horizontally. Required for successful detection of AR markers.
@@ -471,6 +459,13 @@ namespace OpenCVForUnityExample
                 texture = null;
             }
 
+            if (arucoDetector != null)
+                arucoDetector.Dispose();
+            if (charucoDetector != null)
+                charucoDetector.Dispose();
+            if (charucoDiamondDetector != null)
+                charucoDiamondDetector.Dispose();
+
             if (ids != null)
                 ids.Dispose();
             foreach (var item in corners)
@@ -483,17 +478,10 @@ namespace OpenCVForUnityExample
                 item.Dispose();
             }
             rejectedCorners.Clear();
-            if (rvecs != null)
-                rvecs.Dispose();
-            if (tvecs != null)
-                tvecs.Dispose();
+
             if (rotMat != null)
                 rotMat.Dispose();
 
-            if (rvec != null)
-                rvec.Dispose();
-            if (tvec != null)
-                tvec.Dispose();
             if (recoveredIdxs != null)
                 recoveredIdxs.Dispose();
 
@@ -514,6 +502,9 @@ namespace OpenCVForUnityExample
             diamondCorners.Clear();
             if (diamondIds != null)
                 diamondIds.Dispose();
+
+            if (charucoDiamondBoard != null)
+                charucoDiamondBoard.Dispose();
         }
 
         /// <summary>
@@ -535,84 +526,93 @@ namespace OpenCVForUnityExample
 
                 Imgproc.cvtColor(rgbaMat, rgbMat, Imgproc.COLOR_RGBA2RGB);
 
-                // undistort image.
+
                 Calib3d.undistort(rgbMat, rgbMat, camMatrix, distCoeffs);
-                // detect markers.
-                Aruco.detectMarkers(rgbMat, dictionary, corners, ids, detectorParams, rejectedCorners);
+                arucoDetector.detectMarkers(rgbMat, corners, ids, rejectedCorners);
 
-                // refine marker detection.
-                if (refineMarkerDetection && (markerType == MarkerType.GridBoard || markerType == MarkerType.ChArUcoBoard))
+                switch (markerType)
                 {
-                    switch (markerType)
-                    {
-                        case MarkerType.GridBoard:
-                            Aruco.refineDetectedMarkers(rgbMat, gridBoard, corners, ids, rejectedCorners, camMatrix, distCoeffs, 10f, 3f, true, recoveredIdxs, detectorParams);
-                            break;
-                        case MarkerType.ChArUcoBoard:
-                            Aruco.refineDetectedMarkers(rgbMat, charucoBoard, corners, ids, rejectedCorners, camMatrix, distCoeffs, 10f, 3f, true, recoveredIdxs, detectorParams);
-                            break;
-                    }
-                }
+                    default:
+                    case MarkerType.CanonicalMarker:
 
-                // if at least one marker detected
-                if (ids.total() > 0)
-                {
-                    if (markerType != MarkerType.ChArUcoDiamondMarker)
-                    {
-
-                        if (markerType == MarkerType.ChArUcoBoard)
+                        // If at least one marker detected
+                        if (ids.total() > 0)
                         {
-                            Aruco.interpolateCornersCharuco(corners, ids, rgbMat, charucoBoard, charucoCorners, charucoIds, camMatrix, distCoeffs, charucoMinMarkers);
+                            Objdetect.drawDetectedMarkers(rgbMat, corners, ids, new Scalar(0, 255, 0));
 
-                            // draw markers.
-                            Aruco.drawDetectedMarkers(rgbMat, corners, ids, new Scalar(0, 255, 0));
+                            if (applyEstimationPose)
+                                EstimatePoseCanonicalMarker(rgbMat);
+                        }
+                        break;
+
+                    case MarkerType.GridBoard:
+
+                        if (refineMarkerDetection)
+                            arucoDetector.refineDetectedMarkers(rgbMat, gridBoard, corners, ids, rejectedCorners, camMatrix, distCoeffs, recoveredIdxs);
+
+                        // If at least one marker detected
+                        if (ids.total() > 0)
+                        {
+                            Objdetect.drawDetectedMarkers(rgbMat, corners, ids, new Scalar(0, 255, 0));
+
+                            if (applyEstimationPose)
+                                EstimatePoseGridBoard(rgbMat);
+                        }
+                        break;
+
+                    case MarkerType.ChArUcoBoard:
+
+                        if (refineMarkerDetection)
+                            arucoDetector.refineDetectedMarkers(rgbMat, charucoBoard, corners, ids, rejectedCorners, camMatrix, distCoeffs, recoveredIdxs);
+
+                        // If at least one marker detected
+                        if (ids.total() > 0)
+                        {
+                            //charucoDetector.detectBoard(rgbMat, charucoCorners, charucoIds, corners, ids); // error
+                            charucoDetector.detectBoard(rgbMat, charucoCorners, charucoIds);
+
+                            Objdetect.drawDetectedMarkers(rgbMat, corners, ids, new Scalar(0, 255, 0));
+
+                            // if at least one charuco corner detected
                             if (charucoIds.total() > 0)
                             {
-                                Aruco.drawDetectedCornersCharuco(rgbMat, charucoCorners, charucoIds, new Scalar(0, 0, 255));
-                            }
-                        }
-                        else
-                        {
-                            // draw markers.
-                            Aruco.drawDetectedMarkers(rgbMat, corners, ids, new Scalar(0, 255, 0));
-                        }
+                                Objdetect.drawDetectedCornersCharuco(rgbMat, charucoCorners, charucoIds, new Scalar(0, 0, 255));
 
-                        // estimate pose.
-                        if (applyEstimationPose)
-                        {
-                            switch (markerType)
-                            {
-                                default:
-                                case MarkerType.CanonicalMarker:
-                                    EstimatePoseCanonicalMarker(rgbMat);
-                                    break;
-                                case MarkerType.GridBoard:
-                                    EstimatePoseGridBoard(rgbMat);
-                                    break;
-                                case MarkerType.ChArUcoBoard:
+                                if (applyEstimationPose)
                                     EstimatePoseChArUcoBoard(rgbMat);
-                                    break;
                             }
                         }
-                    }
-                    else
-                    {
-                        // detect diamond markers.
-                        Aruco.detectCharucoDiamond(rgbMat, corners, ids, diamondSquareLength / diamondMarkerLength, diamondCorners, diamondIds, camMatrix, distCoeffs);
+                        break;
 
-                        // draw markers.
-                        Aruco.drawDetectedMarkers(rgbMat, corners, ids, new Scalar(0, 255, 0));
-                        // draw diamond markers.
-                        Aruco.drawDetectedDiamonds(rgbMat, diamondCorners, diamondIds, new Scalar(0, 0, 255));
+                    case MarkerType.ChArUcoDiamondMarker:
+                        /*
 
-                        // estimate pose.
-                        if (applyEstimationPose)
-                            EstimatePoseChArUcoDiamondMarker(rgbMat);
-                    }
+                        // If at least one marker detected
+                        if (ids.total() > 0)
+                        {
+                            //charucoDiamondDetector.detectDiamonds(rgbMat, diamondCorners, diamondIds, corners, ids); // error
+                            //charucoDiamondDetector.detectDiamonds(rgbMat, diamondCorners, diamondIds, corners); // error
+                            //charucoDiamondDetector.detectDiamonds(rgbMat, diamondCorners, diamondIds); // error
+
+                            Objdetect.drawDetectedMarkers(rgbMat, corners, ids, new Scalar(0, 255, 0));
+
+                            // If at least one diamonds detected
+                            if (diamondIds.total() > 0)
+                            {
+                                Objdetect.drawDetectedDiamonds(rgbMat, diamondCorners, diamondIds, new Scalar(0, 0, 255));
+
+                                if (applyEstimationPose)
+                                    EstimatePoseChArUcoDiamondMarker(rgbMat);
+                            }
+                        }
+                        */
+                        break;
                 }
 
+                //
+
                 if (showRejectedCorners && rejectedCorners.Count > 0)
-                    Aruco.drawDetectedMarkers(rgbMat, rejectedCorners, new Mat(), new Scalar(255, 0, 0));
+                    Objdetect.drawDetectedMarkers(rgbMat, rejectedCorners, new Mat(), new Scalar(255, 0, 0));
 
 
                 //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
@@ -625,20 +625,31 @@ namespace OpenCVForUnityExample
 
         private void EstimatePoseCanonicalMarker(Mat rgbMat)
         {
-            Aruco.estimatePoseSingleMarkers(corners, markerLength, camMatrix, distCoeffs, rvecs, tvecs);
-
-            for (int i = 0; i < ids.total(); i++)
+            using (MatOfPoint3f objPoints = new MatOfPoint3f(
+                new Point3(-markerLength / 2f, markerLength / 2f, 0),
+                new Point3(markerLength / 2f, markerLength / 2f, 0),
+                new Point3(markerLength / 2f, -markerLength / 2f, 0),
+                new Point3(-markerLength / 2f, -markerLength / 2f, 0)
+                ))
             {
-                using (Mat rvec = new Mat(rvecs, new OpenCVForUnity.CoreModule.Rect(0, i, 1, 1)))
-                using (Mat tvec = new Mat(tvecs, new OpenCVForUnity.CoreModule.Rect(0, i, 1, 1)))
+                for (int i = 0; i < ids.total(); i++)
                 {
-                    // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
-                    Calib3d.drawFrameAxes(rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
-
-                    // This example can display the ARObject on only first detected marker.
-                    if (i == 0)
+                    using (Mat rvec = new Mat(1, 1, CvType.CV_64FC3))
+                    using (Mat tvec = new Mat(1, 1, CvType.CV_64FC3))
+                    using (Mat corner_4x1 = corners[i].reshape(2, 4)) // 1*4*CV_32FC2 => 4*1*CV_32FC2
+                    using (MatOfPoint2f imagePoints = new MatOfPoint2f(corner_4x1))
                     {
-                        UpdateARObjectTransform(rvec, tvec);
+                        // Calculate pose for each marker
+                        Calib3d.solvePnP(objPoints, imagePoints, camMatrix, distCoeffs, rvec, tvec);
+
+                        // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
+                        Calib3d.drawFrameAxes(rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
+
+                        // This example can display the ARObject on only first detected marker.
+                        if (i == 0)
+                        {
+                            UpdateARObjectTransform(rvec, tvec);
+                        }
                     }
                 }
             }
@@ -646,27 +657,22 @@ namespace OpenCVForUnityExample
 
         private void EstimatePoseGridBoard(Mat rgbMat)
         {
-            int valid = Aruco.estimatePoseBoard(corners, ids, gridBoard, camMatrix, distCoeffs, rvec, tvec);
-
-            // if at least one board marker detected
-            if (valid > 0)
+            using (Mat rvec = new Mat(1, 1, CvType.CV_64FC3))
+            using (Mat tvec = new Mat(1, 1, CvType.CV_64FC3))
+            using (Mat objPoints = new Mat())
+            using (Mat imgPoints = new Mat())
             {
-                // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
-                Calib3d.drawFrameAxes(rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
+                // Get object and image points for the solvePnP function
+                gridBoard.matchImagePoints(corners, ids, objPoints, imgPoints);
 
-                UpdateARObjectTransform(rvec, tvec);
-            }
-        }
+                // Find pose
+                MatOfPoint3f objPoints_p3f = new MatOfPoint3f(objPoints);
+                MatOfPoint2f imgPoints_p3f = new MatOfPoint2f(imgPoints);
+                Calib3d.solvePnP(objPoints_p3f, imgPoints_p3f, camMatrix, distCoeffs, rvec, tvec);
 
-        private void EstimatePoseChArUcoBoard(Mat rgbMat)
-        {
-            // if at least one charuco corner detected
-            if (charucoIds.total() > 0)
-            {
-                bool valid = Aruco.estimatePoseCharucoBoard(charucoCorners, charucoIds, charucoBoard, camMatrix, distCoeffs, rvec, tvec);
-
-                // if at least one board marker detected
-                if (valid)
+                // If at least one board marker detected
+                int markersOfBoardDetected = (int)objPoints.total() / 4;
+                if (markersOfBoardDetected > 0)
                 {
                     // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
                     Calib3d.drawFrameAxes(rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
@@ -676,26 +682,89 @@ namespace OpenCVForUnityExample
             }
         }
 
-        private void EstimatePoseChArUcoDiamondMarker(Mat rgbMat)
+        private void EstimatePoseChArUcoBoard(Mat rgbMat)
         {
-            Aruco.estimatePoseSingleMarkers(diamondCorners, diamondSquareLength, camMatrix, distCoeffs, rvecs, tvecs);
-
-            for (int i = 0; i < rvecs.total(); i++)
+            /*
+            // if at least one charuco corner detected
+            if (charucoIds.total() > 0)
             {
-                using (Mat rvec = new Mat(rvecs, new OpenCVForUnity.CoreModule.Rect(0, i, 1, 1)))
-                using (Mat tvec = new Mat(tvecs, new OpenCVForUnity.CoreModule.Rect(0, i, 1, 1)))
+                using (Mat rvec = new Mat(1, 1, CvType.CV_64FC3))
+                using (Mat tvec = new Mat(1, 1, CvType.CV_64FC3))
                 {
-                    // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
-                    Calib3d.drawFrameAxes(rgbMat, camMatrix, distCoeffs, rvec, tvec, diamondSquareLength * 0.5f);
+                    bool valid = Aruco.estimatePoseCharucoBoard(charucoCorners, charucoIds, charucoBoard, camMatrix, distCoeffs, rvec, tvec); // error
 
-                    // This example can display the ARObject on only first detected marker.
-                    if (i == 0)
+                    // if at least one board marker detected
+                    if (valid)
                     {
+                        // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
+                        Calib3d.drawFrameAxes(rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
+
                         UpdateARObjectTransform(rvec, tvec);
                     }
                 }
             }
+            */
+
+            using (Mat rvec = new Mat(1, 1, CvType.CV_64FC3))
+            using (Mat tvec = new Mat(1, 1, CvType.CV_64FC3))
+            using (Mat objPoints = new Mat())
+            using (Mat imgPoints = new Mat())
+            {
+                // Get object and image points for the solvePnP function
+                charucoBoard.matchImagePoints(corners, ids, objPoints, imgPoints);
+
+                // Find pose
+                MatOfPoint3f objPoints_p3f = new MatOfPoint3f(objPoints);
+                MatOfPoint2f imgPoints_p3f = new MatOfPoint2f(imgPoints);
+                Calib3d.solvePnP(objPoints_p3f, imgPoints_p3f, camMatrix, distCoeffs, rvec, tvec);
+
+                // If at least one board marker detected
+                int markersOfBoardDetected = (int)objPoints.total() / 4;
+                if (markersOfBoardDetected > 0)
+                {
+                    // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
+                    Calib3d.drawFrameAxes(rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
+
+                    UpdateARObjectTransform(rvec, tvec);
+                }
+            }
         }
+
+        /*
+        private void EstimatePoseChArUcoDiamondMarker(Mat rgbMat)
+        {
+            for (int i = 0; i < diamondIds.total(); i++)
+            {
+                using (Mat rvec = new Mat(1, 1, CvType.CV_64FC3))
+                using (Mat tvec = new Mat(1, 1, CvType.CV_64FC3))
+                using (Mat objPoints = new Mat())
+                using (Mat imgPoints = new Mat())
+                {
+                    // Get object and image points for the solvePnP function
+                    charucoDiamondBoard.matchImagePoints(diamondCorners, diamondIds, objPoints, imgPoints);
+
+                    // Find pose
+                    MatOfPoint3f objPoints_p3f = new MatOfPoint3f(objPoints);
+                    MatOfPoint2f imgPoints_p3f = new MatOfPoint2f(imgPoints);
+                    Calib3d.solvePnP(objPoints_p3f, imgPoints_p3f, camMatrix, distCoeffs, rvec, tvec);
+
+                    // If at least one board marker detected
+                    int markersOfBoardDetected = (int)objPoints.total() / 4;
+                    if (markersOfBoardDetected > 0)
+                    {
+                        // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
+                        Calib3d.drawFrameAxes(rgbMat, camMatrix, distCoeffs, rvec, tvec, diamondSquareLength * 0.5f);
+
+                        // This example can display the ARObject on only first detected marker.
+                        if (i == 0)
+                        {
+                            UpdateARObjectTransform(rvec, tvec);
+                        }
+                    }
+                }
+            }
+        }
+        */
 
         private void UpdateARObjectTransform(Mat rvec, Mat tvec)
         {
@@ -815,7 +884,7 @@ namespace OpenCVForUnityExample
             if ((int)dictionaryId != result)
             {
                 dictionaryId = (ArUcoDictionary)result;
-                dictionary = Aruco.getPredefinedDictionary((int)dictionaryId);
+                dictionary = Objdetect.getPredefinedDictionary((int)dictionaryId);
 
                 ResetObjectTransform();
 
@@ -873,23 +942,23 @@ namespace OpenCVForUnityExample
 
         public enum ArUcoDictionary
         {
-            DICT_4X4_50 = Aruco.DICT_4X4_50,
-            DICT_4X4_100 = Aruco.DICT_4X4_100,
-            DICT_4X4_250 = Aruco.DICT_4X4_250,
-            DICT_4X4_1000 = Aruco.DICT_4X4_1000,
-            DICT_5X5_50 = Aruco.DICT_5X5_50,
-            DICT_5X5_100 = Aruco.DICT_5X5_100,
-            DICT_5X5_250 = Aruco.DICT_5X5_250,
-            DICT_5X5_1000 = Aruco.DICT_5X5_1000,
-            DICT_6X6_50 = Aruco.DICT_6X6_50,
-            DICT_6X6_100 = Aruco.DICT_6X6_100,
-            DICT_6X6_250 = Aruco.DICT_6X6_250,
-            DICT_6X6_1000 = Aruco.DICT_6X6_1000,
-            DICT_7X7_50 = Aruco.DICT_7X7_50,
-            DICT_7X7_100 = Aruco.DICT_7X7_100,
-            DICT_7X7_250 = Aruco.DICT_7X7_250,
-            DICT_7X7_1000 = Aruco.DICT_7X7_1000,
-            DICT_ARUCO_ORIGINAL = Aruco.DICT_ARUCO_ORIGINAL,
+            DICT_4X4_50 = Objdetect.DICT_4X4_50,
+            DICT_4X4_100 = Objdetect.DICT_4X4_100,
+            DICT_4X4_250 = Objdetect.DICT_4X4_250,
+            DICT_4X4_1000 = Objdetect.DICT_4X4_1000,
+            DICT_5X5_50 = Objdetect.DICT_5X5_50,
+            DICT_5X5_100 = Objdetect.DICT_5X5_100,
+            DICT_5X5_250 = Objdetect.DICT_5X5_250,
+            DICT_5X5_1000 = Objdetect.DICT_5X5_1000,
+            DICT_6X6_50 = Objdetect.DICT_6X6_50,
+            DICT_6X6_100 = Objdetect.DICT_6X6_100,
+            DICT_6X6_250 = Objdetect.DICT_6X6_250,
+            DICT_6X6_1000 = Objdetect.DICT_6X6_1000,
+            DICT_7X7_50 = Objdetect.DICT_7X7_50,
+            DICT_7X7_100 = Objdetect.DICT_7X7_100,
+            DICT_7X7_250 = Objdetect.DICT_7X7_250,
+            DICT_7X7_1000 = Objdetect.DICT_7X7_1000,
+            DICT_ARUCO_ORIGINAL = Objdetect.DICT_ARUCO_ORIGINAL,
         }
     }
 }

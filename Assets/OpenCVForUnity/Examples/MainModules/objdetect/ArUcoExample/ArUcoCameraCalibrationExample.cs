@@ -9,13 +9,13 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.IO;
 using System.Linq;
-using OpenCVForUnity.ArucoModule;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.Calib3dModule;
 using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.UnityUtils.Helper;
+using OpenCVForUnity.ObjdetectModule;
 
 namespace OpenCVForUnityExample
 {
@@ -208,21 +208,6 @@ namespace OpenCVForUnityExample
         MatOfDouble distCoeffs;
 
         /// <summary>
-        /// The identifiers.
-        /// </summary>
-        Mat ids;
-
-        /// <summary>
-        /// The corners.
-        /// </summary>
-        List<Mat> corners;
-
-        /// <summary>
-        /// The rejected corners.
-        /// </summary>
-        List<Mat> rejectedCorners;
-
-        /// <summary>
         /// The rvecs.
         /// </summary>
         List<Mat> rvecs;
@@ -232,40 +217,13 @@ namespace OpenCVForUnityExample
         /// </summary>
         List<Mat> tvecs;
 
-        /// <summary>
-        /// The detector parameters.
-        /// </summary>
-        DetectorParameters detectorParams;
-
-        /// <summary>
-        /// The dictionary.
-        /// </summary>
-        Dictionary dictionary;
-
-        /// <summary>
-        /// The recovered identifiers.
-        /// </summary>
-        Mat recoveredIdxs;
 
         List<Mat> imagePoints;
+        List<Mat> allImgs;
         bool isInitialized = false;
         bool isCalibrating = false;
         double repErr = 0;
         bool shouldCaptureFrame = false;
-
-        // for ChArUcoBoard.
-        // chessboard square side length (normally in meters)
-        const float chArUcoBoradSquareLength = 0.04f;
-        // marker side length (same unit than squareLength)
-        const float chArUcoBoradMarkerLength = 0.02f;
-        const int charucoMinMarkers = 2;
-
-        Mat charucoCorners;
-        Mat charucoIds;
-        CharucoBoard charucoBoard;
-        List<List<Mat>> allCorners;
-        List<Mat> allIds;
-        List<Mat> allImgs;
 
         const int findChessboardCornersFlags =
             Calib3d.CALIB_CB_ADAPTIVE_THRESH |
@@ -298,9 +256,31 @@ namespace OpenCVForUnityExample
             0;
 
 
+        // for ChArUcoBoard.
+        // chessboard square side length (normally in meters)
+        //const float chArUcoBoradSquareLength = 0.04f;
+        // marker side length (same unit than squareLength)
+        //const float chArUcoBoradMarkerLength = 0.02f;
+        //const int charucoMinMarkers = 2;
+
+        //Mat ids;
+        //List<Mat> corners;
+        //List<Mat> rejectedCorners;
+        //Mat recoveredIdxs;
+        Dictionary dictionary;
+        //Mat charucoCorners;
+        //Mat charucoIds;
+        //CharucoBoard charucoBoard;
+        //ArucoDetector arucoDetector;
+        //CharucoDetector charucoDetector;
+        List<List<Mat>> allCorners;
+        //List<Mat> allIds;
+
+
         // Use this for initialization
         IEnumerator Start()
         {
+
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper>();
 
             // fix the screen orientation.
@@ -470,28 +450,40 @@ namespace OpenCVForUnityExample
             grayMat = new Mat(frameMat.rows(), frameMat.cols(), CvType.CV_8UC1);
             bgrMat = new Mat(frameMat.rows(), frameMat.cols(), CvType.CV_8UC3);
             rgbaMat = new Mat(frameMat.rows(), frameMat.cols(), CvType.CV_8UC4);
-            ids = new Mat();
-            corners = new List<Mat>();
-            rejectedCorners = new List<Mat>();
             rvecs = new List<Mat>();
             tvecs = new List<Mat>();
 
-            detectorParams = DetectorParameters.create();
-            detectorParams.set_cornerRefinementMethod(1);// do cornerSubPix() of OpenCV.
-            dictionary = Aruco.getPredefinedDictionary((int)dictionaryId);
+            imagePoints = new List<Mat>();
+            allImgs = new List<Mat>();
 
+            /*
+            ids = new Mat();
+            corners = new List<Mat>();
+            rejectedCorners = new List<Mat>();
             recoveredIdxs = new Mat();
+            DetectorParameters detectorParams = new DetectorParameters();
+            //detectorParams.set_cornerRefinementMethod(1);// do cornerSubPix() of OpenCV.
+            dictionary = Objdetect.getPredefinedDictionary((int)dictionaryId);
+            RefineParameters refineParameters = new RefineParameters(10f, 3f, true);
+            arucoDetector = new ArucoDetector(dictionary, detectorParams, refineParameters);
 
             charucoCorners = new Mat();
             charucoIds = new Mat();
-            charucoBoard = CharucoBoard.create((int)boardSizeW, (int)boardSizeH, chArUcoBoradSquareLength, chArUcoBoradMarkerLength, dictionary);
+            charucoBoard = new CharucoBoard( new Size((int)boardSizeW, (int)boardSizeH), chArUcoBoradSquareLength, chArUcoBoradMarkerLength, dictionary);
 
+            charucoDetector = new CharucoDetector(charucoBoard);
+            CharucoParameters charucoParameters = charucoDetector.getCharucoParameters();
+            charucoParameters.set_cameraMatrix(camMatrix);
+            charucoParameters.set_distCoeffs(distCoeffs);
+            charucoParameters.set_minMarkers(charucoMinMarkers);
+            charucoDetector.setCharucoParameters(charucoParameters);
+            charucoDetector.setDetectorParameters(detectorParams);
+            charucoDetector.setRefineParameters(refineParameters);
 
-            allCorners = new List<List<Mat>>();
             allIds = new List<Mat>();
-            allImgs = new List<Mat>();
+            */
+            allCorners = new List<List<Mat>>();
 
-            imagePoints = new List<Mat>();
 
             isInitialized = true;
         }
@@ -513,6 +505,18 @@ namespace OpenCVForUnityExample
                 texture = null;
             }
 
+            foreach (var item in rvecs)
+            {
+                item.Dispose();
+            }
+            rvecs.Clear();
+            foreach (var item in tvecs)
+            {
+                item.Dispose();
+            }
+            tvecs.Clear();
+
+            /*
             if (ids != null)
                 ids.Dispose();
             foreach (var item in corners)
@@ -525,17 +529,6 @@ namespace OpenCVForUnityExample
                 item.Dispose();
             }
             rejectedCorners.Clear();
-            foreach (var item in rvecs)
-            {
-                item.Dispose();
-            }
-            rvecs.Clear();
-            foreach (var item in tvecs)
-            {
-                item.Dispose();
-            }
-            tvecs.Clear();
-
             if (recoveredIdxs != null)
                 recoveredIdxs.Dispose();
 
@@ -545,6 +538,12 @@ namespace OpenCVForUnityExample
                 charucoIds.Dispose();
             if (charucoBoard != null)
                 charucoBoard.Dispose();
+
+            if (arucoDetector != null)
+                arucoDetector.Dispose();
+            if (charucoDetector != null)
+                charucoDetector.Dispose();
+            */
 
             isInitialized = false;
         }
@@ -591,28 +590,31 @@ namespace OpenCVForUnityExample
                     }
                     break;
                 case MarkerType.ChArUcoBoard:
+                    /*
                     // detect markers.
-                    Aruco.detectMarkers(grayMat, dictionary, corners, ids, detectorParams, rejectedCorners);
+                    arucoDetector.detectMarkers(grayMat, corners, ids, rejectedCorners);
 
                     // refine marker detection.
                     if (refineMarkerDetection)
                     {
-                        Aruco.refineDetectedMarkers(grayMat, charucoBoard, corners, ids, rejectedCorners, camMatrix, distCoeffs, 10f, 3f, true, recoveredIdxs, detectorParams);
+                        arucoDetector.refineDetectedMarkers(grayMat, charucoBoard, corners, ids, rejectedCorners, camMatrix, distCoeffs, recoveredIdxs);
                     }
 
                     // if at least one marker detected
                     if (ids.total() > 0)
                     {
-                        Aruco.interpolateCornersCharuco(corners, ids, grayMat, charucoBoard, charucoCorners, charucoIds, camMatrix, distCoeffs, charucoMinMarkers);
+                        charucoDetector.detectBoard(grayMat, charucoCorners, charucoIds);
 
                         // draw markers.
-                        Aruco.drawDetectedMarkers(bgrMat, corners, ids, new Scalar(0, 255, 0, 255));
+                        Objdetect.drawDetectedMarkers(bgrMat, corners, ids, new Scalar(0, 255, 0, 255));
+
                         // if at least one charuco corner detected
                         if (charucoIds.total() > 0)
                         {
-                            Aruco.drawDetectedCornersCharuco(bgrMat, charucoCorners, charucoIds, new Scalar(0, 0, 255, 255));
+                            Objdetect.drawDetectedCornersCharuco(bgrMat, charucoCorners, charucoIds, new Scalar(0, 0, 255, 255));
                         }
                     }
+                    */
                     break;
             }
 
@@ -769,13 +771,15 @@ namespace OpenCVForUnityExample
 
                     break;
                 case MarkerType.ChArUcoBoard:
+                    /*
                     List<Mat> corners = new List<Mat>();
                     Mat ids = new Mat();
-                    Aruco.detectMarkers(frameMat, dictionary, corners, ids, detectorParams, rejectedCorners);
+
+                    arucoDetector.detectMarkers(frameMat, corners, ids, rejectedCorners);
 
                     if (refineMarkerDetection)
                     {
-                        Aruco.refineDetectedMarkers(frameMat, charucoBoard, corners, ids, rejectedCorners, camMatrix, distCoeffs, 10f, 3f, true, recoveredIdxs, detectorParams);
+                        arucoDetector.refineDetectedMarkers(frameMat, charucoBoard, corners, ids, rejectedCorners, camMatrix, distCoeffs, recoveredIdxs);
                     }
 
                     if (ids.total() > 0)
@@ -804,7 +808,7 @@ namespace OpenCVForUnityExample
 
                     // calibrate camera using charuco boards
                     repErr = CalibrateCameraCharuco(allCorners, allIds, charucoBoard, frameMat.size(), camMatrix, distCoeffs, rvecs, tvecs, calibrationFlags, calibrationFlags);
-
+                    */
                     break;
             }
 
@@ -815,6 +819,7 @@ namespace OpenCVForUnityExample
             return repErr;
         }
 
+        /*
         private double CalibrateCameraCharuco(List<List<Mat>> allCorners, List<Mat> allIds, CharucoBoard board, Size imageSize, Mat cameraMatrix, Mat distCoeffs, List<Mat> rvecs = null, List<Mat> tvecs = null, int calibrationFlags = 0, int minMarkers = 2)
         {
             // prepare data for charuco calibration
@@ -829,9 +834,9 @@ namespace OpenCVForUnityExample
                 Mat currentCharucoCorners = new Mat();
                 Mat currentCharucoIds = new Mat();
 
-                Aruco.interpolateCornersCharuco(allCorners[i], allIds[i], allImgs[i], board, currentCharucoCorners, currentCharucoIds, cameraMatrix, distCoeffs, minMarkers);
+                charucoDetector.detectBoard(allImgs[i], currentCharucoCorners, currentCharucoIds);
 
-                if (charucoIds.total() > 0)
+                if (currentCharucoIds.total() > 0)
                 {
                     allCharucoCorners.Add(currentCharucoCorners);
                     allCharucoIds.Add(currentCharucoIds);
@@ -855,26 +860,12 @@ namespace OpenCVForUnityExample
             if (tvecs == null)
                 tvecs = new List<Mat>();
 
-            return Aruco.calibrateCameraCharuco(allCharucoCorners, allCharucoIds, board, imageSize, cameraMatrix, distCoeffs, rvecs, tvecs, calibrationFlags);
+            return Aruco.calibrateCameraCharuco(allCharucoCorners, allCharucoIds, board, imageSize, cameraMatrix, distCoeffs, rvecs, tvecs, calibrationFlags); // error
         }
+        */
 
         private void ResetCalibration()
         {
-            foreach (var corners in allCorners)
-            {
-                foreach (var item in corners)
-                {
-                    item.Dispose();
-                }
-            }
-            allCorners.Clear();
-
-            foreach (var item in allIds)
-            {
-                item.Dispose();
-            }
-            allIds.Clear();
-
             foreach (var item in allImgs)
             {
                 item.Dispose();
@@ -890,6 +881,23 @@ namespace OpenCVForUnityExample
                 item.Dispose();
             }
             imagePoints.Clear();
+
+            foreach (var corners in allCorners)
+            {
+                foreach (var item in corners)
+                {
+                    item.Dispose();
+                }
+            }
+            allCorners.Clear();
+
+            /*
+            foreach (var item in allIds)
+            {
+                item.Dispose();
+            }
+            allIds.Clear();
+            */
         }
 
         private Mat CreateCameraMatrix(float width, float height)
@@ -1263,7 +1271,7 @@ namespace OpenCVForUnityExample
             if ((int)dictionaryId != result)
             {
                 dictionaryId = (ArUcoDictionary)result;
-                dictionary = Aruco.getPredefinedDictionary((int)dictionaryId);
+                dictionary = Objdetect.getPredefinedDictionary((int)dictionaryId);
 
                 if (isImagesInputMode)
                 {
@@ -1420,23 +1428,23 @@ namespace OpenCVForUnityExample
 
         public enum ArUcoDictionary
         {
-            DICT_4X4_50 = Aruco.DICT_4X4_50,
-            DICT_4X4_100 = Aruco.DICT_4X4_100,
-            DICT_4X4_250 = Aruco.DICT_4X4_250,
-            DICT_4X4_1000 = Aruco.DICT_4X4_1000,
-            DICT_5X5_50 = Aruco.DICT_5X5_50,
-            DICT_5X5_100 = Aruco.DICT_5X5_100,
-            DICT_5X5_250 = Aruco.DICT_5X5_250,
-            DICT_5X5_1000 = Aruco.DICT_5X5_1000,
-            DICT_6X6_50 = Aruco.DICT_6X6_50,
-            DICT_6X6_100 = Aruco.DICT_6X6_100,
-            DICT_6X6_250 = Aruco.DICT_6X6_250,
-            DICT_6X6_1000 = Aruco.DICT_6X6_1000,
-            DICT_7X7_50 = Aruco.DICT_7X7_50,
-            DICT_7X7_100 = Aruco.DICT_7X7_100,
-            DICT_7X7_250 = Aruco.DICT_7X7_250,
-            DICT_7X7_1000 = Aruco.DICT_7X7_1000,
-            DICT_ARUCO_ORIGINAL = Aruco.DICT_ARUCO_ORIGINAL,
+            DICT_4X4_50 = Objdetect.DICT_4X4_50,
+            DICT_4X4_100 = Objdetect.DICT_4X4_100,
+            DICT_4X4_250 = Objdetect.DICT_4X4_250,
+            DICT_4X4_1000 = Objdetect.DICT_4X4_1000,
+            DICT_5X5_50 = Objdetect.DICT_5X5_50,
+            DICT_5X5_100 = Objdetect.DICT_5X5_100,
+            DICT_5X5_250 = Objdetect.DICT_5X5_250,
+            DICT_5X5_1000 = Objdetect.DICT_5X5_1000,
+            DICT_6X6_50 = Objdetect.DICT_6X6_50,
+            DICT_6X6_100 = Objdetect.DICT_6X6_100,
+            DICT_6X6_250 = Objdetect.DICT_6X6_250,
+            DICT_6X6_1000 = Objdetect.DICT_6X6_1000,
+            DICT_7X7_50 = Objdetect.DICT_7X7_50,
+            DICT_7X7_100 = Objdetect.DICT_7X7_100,
+            DICT_7X7_250 = Objdetect.DICT_7X7_250,
+            DICT_7X7_1000 = Objdetect.DICT_7X7_1000,
+            DICT_ARUCO_ORIGINAL = Objdetect.DICT_ARUCO_ORIGINAL,
         }
     }
 }

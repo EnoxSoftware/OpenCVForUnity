@@ -49,6 +49,11 @@ namespace OpenCVForUnityExample
         public Toggle trackerDaSiamRPNToggle;
 
         /// <summary>
+        /// The trackerNano Toggle.
+        /// </summary>
+        public Toggle trackerNanoToggle;
+
+        /// <summary>
         /// GOTURN_MODELTXT_FILENAME
         /// </summary>
         protected static readonly string GOTURN_MODELTXT_FILENAME = "OpenCVForUnity/tracking/goturn.prototxt";
@@ -98,9 +103,31 @@ namespace OpenCVForUnityExample
         /// </summary>
         string DaSiamRPN_kernel_cls1_filepath;
 
+        /// <summary>
+        /// NANOTRACK_BACKBONE_SIM_FILENAME
+        /// </summary>
+        protected static readonly string NANOTRACK_BACKBONE_SIM_FILENAME = "OpenCVForUnity/tracking/nanotrack_backbone_sim.onnx";
+
+        /// <summary>
+        /// The NANOTRACK_backbone_sim filepath.
+        /// </summary>
+        string NANOTRACK_backbone_sim_filepath;
+
+        /// <summary>
+        /// NANOTRACK_HEAD_SIM_FILENAME
+        /// </summary>
+        protected static readonly string NANOTRACK_HEAD_SIM_FILENAME = "OpenCVForUnity/tracking/nanotrack_head_sim.onnx";
+
+        /// <summary>
+        /// The NANOTRACK_head_sim filepath.
+        /// </summary>
+        string NANOTRACK_head_sim_filepath;
+
         bool disableTrackerGOTURN = false;
 
         bool disableTrackerDaSiamRPN = false;
+
+        bool disableTrackerNano = false;
 
 #if UNITY_WEBGL
         IEnumerator getFilePath_Coroutine;
@@ -156,6 +183,8 @@ namespace OpenCVForUnityExample
             disableTrackerGOTURN = true;
             trackerDaSiamRPNToggle.isOn = trackerDaSiamRPNToggle.interactable = false;
             disableTrackerDaSiamRPN = true;
+            trackerNanoToggle.isOn = trackerNanoToggle.interactable = false;
+            disableTrackerNano = true;
             Run();
 
 #elif UNITY_WEBGL
@@ -170,6 +199,8 @@ namespace OpenCVForUnityExample
             DaSiamRPN_model_filepath = Utils.getFilePath(DaSiamRPN_MODEL_FILENAME);
             DaSiamRPN_kernel_r1_filepath = Utils.getFilePath(DaSiamRPN_KERNEL_R1_FILENAME);
             DaSiamRPN_kernel_cls1_filepath = Utils.getFilePath(DaSiamRPN_KERNEL_CLS1_FILENAME);
+            NANOTRACK_backbone_sim_filepath = Utils.getFilePath(NANOTRACK_BACKBONE_SIM_FILENAME);
+            NANOTRACK_head_sim_filepath = Utils.getFilePath(NANOTRACK_HEAD_SIM_FILENAME);
             CheckFilePaths();
             Run();
 
@@ -209,6 +240,18 @@ namespace OpenCVForUnityExample
             });
             yield return getFilePathAsync_4_Coroutine;
 
+            var getFilePathAsync_5_Coroutine = Utils.getFilePathAsync(NANOTRACK_BACKBONE_SIM_FILENAME, (result) =>
+            {
+                NANOTRACK_backbone_sim_filepath = result;
+            });
+            yield return getFilePathAsync_5_Coroutine;
+
+            var getFilePathAsync_6_Coroutine = Utils.getFilePathAsync(NANOTRACK_HEAD_SIM_FILENAME, (result) =>
+            {
+                NANOTRACK_head_sim_filepath = result;
+            });
+            yield return getFilePathAsync_6_Coroutine;
+
             getFilePath_Coroutine = null;
 
             CheckFilePaths();
@@ -232,6 +275,14 @@ namespace OpenCVForUnityExample
 
                 trackerDaSiamRPNToggle.isOn = trackerDaSiamRPNToggle.interactable = false;
                 disableTrackerDaSiamRPN = true;
+            }
+
+            if (string.IsNullOrEmpty(NANOTRACK_backbone_sim_filepath) || string.IsNullOrEmpty(NANOTRACK_head_sim_filepath))
+            {
+                Debug.LogError(NANOTRACK_BACKBONE_SIM_FILENAME + " or " + NANOTRACK_HEAD_SIM_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/tracking/setup_tracking_module.pdf” to make the necessary setup.");
+
+                trackerNanoToggle.isOn = trackerNanoToggle.interactable = false;
+                disableTrackerNano = true;
             }
         }
 
@@ -410,6 +461,16 @@ namespace OpenCVForUnityExample
                                 trackerDaSiamRPN.init(rgbMat, region);
                                 trackers.Add(new TrackerSetting(trackerDaSiamRPN, trackerDaSiamRPN.GetType().Name.ToString(), new Scalar(255, 0, 255)));
                             }
+
+                            if (!disableTrackerNano && trackerNanoToggle.isOn)
+                            {
+                                var _params = new TrackerNano_Params();
+                                _params.set_backbone(NANOTRACK_backbone_sim_filepath);
+                                _params.set_neckhead(NANOTRACK_head_sim_filepath);
+                                TrackerNano trackerNano = TrackerNano.create(_params);
+                                trackerNano.init(rgbMat, region);
+                                trackers.Add(new TrackerSetting(trackerNano, trackerNano.GetType().Name.ToString(), new Scalar(0, 255, 255)));
+                            }
                         }
 
                         selectedPointList.Clear();
@@ -428,6 +489,9 @@ namespace OpenCVForUnityExample
 
                             if (!disableTrackerDaSiamRPN)
                                 trackerDaSiamRPNToggle.interactable = false;
+
+                            if (!disableTrackerNano)
+                                trackerNanoToggle.interactable = false;
                         }
                     }
 
@@ -500,6 +564,9 @@ namespace OpenCVForUnityExample
 
             if (!disableTrackerDaSiamRPN)
                 trackerDaSiamRPNToggle.interactable = true;
+
+            if (!disableTrackerNano)
+                trackerNanoToggle.interactable = true;
         }
 
         private void OnTouch(Point touchPoint, int textureWidth = -1, int textureHeight = -1)

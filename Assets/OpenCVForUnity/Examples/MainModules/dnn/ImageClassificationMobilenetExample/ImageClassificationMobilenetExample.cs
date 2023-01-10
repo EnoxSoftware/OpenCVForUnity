@@ -17,12 +17,12 @@ using OpenCVForUnity.UnityUtils.Helper;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Human Segmentation WebCam Example
-    /// An example of using OpenCV dnn module with Human Segmentation model.
-    /// Referring to https://github.com/opencv/opencv_zoo/tree/master/models/human_segmentation_pphumanseg.
+    /// Image Classification MobileNet WebCam Example
+    /// An example of using OpenCV dnn module with Image Classification MobileNet model.
+    /// Referring to https://github.com/opencv/opencv_zoo/tree/master/models/image_classification_mobilenet.
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
-    public class HumanSegmentationExample : MonoBehaviour
+    public class ImageClassificationMobilenetExample : MonoBehaviour
     {
         /// <summary>
         /// The texture.
@@ -40,14 +40,14 @@ namespace OpenCVForUnityExample
         Mat rgbMat;
 
         /// <summary>
-        /// The mask mat.
-        /// </summary>
-        Mat maskMat;
-
-        /// <summary>
         /// The net.
         /// </summary>
         Net net;
+
+        /// <summary>
+        /// The classes.
+        /// </summary>
+        List<string> classes;
 
         /// <summary>
         /// The FPS monitor.
@@ -57,12 +57,22 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// MODEL_FILENAME
         /// </summary>
-        protected static readonly string MODEL_FILENAME = "OpenCVForUnity/dnn/human_segmentation_pphumanseg_2021oct.onnx";
+        protected static readonly string MODEL_FILENAME = "OpenCVForUnity/dnn/image_classification_mobilenetv2_2022apr.onnx";
 
         /// <summary>
         /// The model filepath.
         /// </summary>
         string model_filepath;
+
+        /// <summary>
+        /// CLASSES_FILENAME
+        /// </summary>
+        protected static readonly string CLASSES_FILENAME = "OpenCVForUnity/dnn/imagenet_labels.txt";
+
+        /// <summary>
+        /// The classes filepath.
+        /// </summary>
+        string classes_filepath;
 
 #if UNITY_WEBGL
         IEnumerator getFilePath_Coroutine;
@@ -80,6 +90,7 @@ namespace OpenCVForUnityExample
             StartCoroutine(getFilePath_Coroutine);
 #else
             model_filepath = Utils.getFilePath(MODEL_FILENAME);
+            classes_filepath = Utils.getFilePath(CLASSES_FILENAME);
             Run();
 #endif
         }
@@ -93,6 +104,12 @@ namespace OpenCVForUnityExample
             });
             yield return getFilePathAsync_0_Coroutine;
 
+            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync(CLASSES_FILENAME, (result) =>
+            {
+                classes_filepath = result;
+            });
+            yield return getFilePathAsync_1_Coroutine;
+
             getFilePath_Coroutine = null;
 
             Run();
@@ -104,6 +121,13 @@ namespace OpenCVForUnityExample
         {
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             Utils.setDebugMode(true);
+
+
+            classes = readClassNames(classes_filepath);
+            if (classes == null)
+            {
+                Debug.LogError(CLASSES_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/dnn/setup_dnn_module.pdf” to make the necessary setup.");
+            }
 
             if (string.IsNullOrEmpty(model_filepath))
             {
@@ -161,8 +185,6 @@ namespace OpenCVForUnityExample
             }
 
             rgbMat = new Mat(webCamTextureMat.rows(), webCamTextureMat.cols(), CvType.CV_8UC3);
-            maskMat = new Mat(webCamTextureMat.rows(), webCamTextureMat.cols(), CvType.CV_8UC1);
-
         }
 
         /// <summary>
@@ -174,9 +196,6 @@ namespace OpenCVForUnityExample
 
             if (rgbMat != null)
                 rgbMat.Dispose();
-
-            if (maskMat != null)
-                maskMat.Dispose();
 
             if (texture != null)
             {
@@ -202,7 +221,7 @@ namespace OpenCVForUnityExample
 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat();
 
-                if (net == null)
+                if (net == null || classes == null)
                 {
                     Imgproc.putText(rgbaMat, "model file is not loaded.", new Point(5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                     Imgproc.putText(rgbaMat, "Please read console message.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
@@ -212,34 +231,30 @@ namespace OpenCVForUnityExample
 
                     Imgproc.cvtColor(rgbaMat, rgbMat, Imgproc.COLOR_RGBA2RGB);
 
-
-                    Mat blob = Dnn.blobFromImage(rgbMat, 1.0 / 255.0, new Size(192, 192), new Scalar(0.5, 0.5, 0.5), false, false, CvType.CV_32F);
+                    Mat blob = Dnn.blobFromImage(rgbMat, 1.0/255.0, new Size(224, 224), new Scalar(0.485, 0.456, 0.406), false, true, CvType.CV_32F);
                     // Divide blob by std.
-                    Core.divide(blob, new Scalar(0.5, 0.5, 0.5), blob);
+                    Core.divide(blob, new Scalar(0.229, 0.224, 0.225), blob);
 
 
                     net.setInput(blob);
 
-                    Mat prob = net.forward("save_infer_model/scale_0.tmp_1");
-
-                    Mat result = new Mat();
-                    Core.reduceArgMax(prob, result, 1);
-                    //result.reshape(0, new int[] { 192,192});
-                    result.convertTo(result, CvType.CV_8U);
-                    //Debug.Log("result.ToString(): " + result.ToString());
+                    Mat prob = net.forward();
+                    //Debug.Log("prob.ToString(): " + prob.ToString());
 
 
-                    Mat mask192x192 = new Mat(192, 192, CvType.CV_8UC1, (IntPtr)result.dataAddr());
-                    Imgproc.resize(mask192x192, maskMat, rgbaMat.size(), Imgproc.INTER_NEAREST);
-
-                    rgbaMat.setTo(new Scalar(255, 255, 255,255), maskMat);
-
-                    mask192x192.Dispose();
-                    result.Dispose();
+                    Core.MinMaxLocResult minmax = Core.minMaxLoc(prob.reshape(1, 1));
+                    //Debug.Log ("Best match " + (int)minmax.maxLoc.x);
+                    //Debug.Log ("Best match class " + classes [(int)minmax.maxLoc.x]);
+                    //Debug.Log ("Probability: " + minmax.maxVal * 100 + "%");
 
                     prob.Dispose();
                     blob.Dispose();
 
+                    //Imgproc.putText (rgbaMat, "Best match class " + classes [(int)minmax.maxLoc.x], new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    if (fpsMonitor != null)
+                    {
+                        fpsMonitor.consoleText = "Best match class " + classes[(int)minmax.maxLoc.x];
+                    }
                 }
 
                 Utils.matToTexture2D(rgbaMat, texture);
@@ -307,6 +322,34 @@ namespace OpenCVForUnityExample
             webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.requestedIsFrontFacing;
         }
 
+        private List<string> readClassNames(string filename)
+        {
+            List<string> classNames = new List<string>();
+
+            System.IO.StreamReader cReader = null;
+            try
+            {
+                cReader = new System.IO.StreamReader(filename, System.Text.Encoding.Default);
+
+                while (cReader.Peek() >= 0)
+                {
+                    string name = cReader.ReadLine();
+                    classNames.Add(name);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError(ex.Message);
+                return null;
+            }
+            finally
+            {
+                if (cReader != null)
+                    cReader.Close();
+            }
+
+            return classNames;
+        }
     }
 }
 #endif

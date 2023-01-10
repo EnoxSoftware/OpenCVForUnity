@@ -14,11 +14,12 @@ using OpenCVForUnity.UnityUtils;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Hand Pose Estimation Example
+    /// Count Fingers Example
+    /// The techniques used are color segmentation using HSV color space to find the hand contour, and convex hull and convex defect algorithms to count the number of fingers.
     /// Referring to https://www.youtube.com/watch?v=KuGpOxOcpds.
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
-    public class HandPoseEstimationExample : MonoBehaviour
+    public class CountFingersExample : MonoBehaviour
     {
         /// <summary>
         /// The number of fingers text.
