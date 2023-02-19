@@ -78,6 +78,11 @@ namespace OpenCVForUnityExample
         Mat rgbMat;
 
         /// <summary>
+        /// The undistorted rgb mat.
+        /// </summary>
+        Mat undistortedRgbMat;
+
+        /// <summary>
         /// The texture.
         /// </summary>
         Texture2D texture;
@@ -91,6 +96,9 @@ namespace OpenCVForUnityExample
 
             dictionaryIdDropdown.value = (int)dictionaryId;
             showRejectedCornersToggle.isOn = showRejectedCorners;
+
+            undistortedRgbMat = new Mat();
+
             DetectMarkers();
         }
 
@@ -102,6 +110,10 @@ namespace OpenCVForUnityExample
 
         private void DetectMarkers()
         {
+            //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
+            Utils.setDebugMode(true);
+
+
             Utils.texture2DToMat(imgTexture, rgbMat);
             Debug.Log("imgMat dst ToString " + rgbMat.ToString());
 
@@ -212,14 +224,14 @@ namespace OpenCVForUnityExample
 
 
             // undistort image.
-            Calib3d.undistort(rgbMat, rgbMat, camMatrix, distCoeffs);
+            Calib3d.undistort(rgbMat, undistortedRgbMat, camMatrix, distCoeffs);
             // detect markers.
-            arucoDetector.detectMarkers(rgbMat, corners, ids, rejectedCorners);
+            arucoDetector.detectMarkers(undistortedRgbMat, corners, ids, rejectedCorners);
 
             // if at least one marker detected
             if (ids.total() > 0)
             {
-                Objdetect.drawDetectedMarkers(rgbMat, corners, ids, new Scalar(0, 255, 0));
+                Objdetect.drawDetectedMarkers(undistortedRgbMat, corners, ids, new Scalar(0, 255, 0));
 
                 // estimate pose.
                 if (applyEstimationPose)
@@ -235,7 +247,7 @@ namespace OpenCVForUnityExample
                             Calib3d.solvePnP(objPoints, imagePoints, camMatrix, distCoeffs, rvec, tvec);
 
                             // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
-                            Calib3d.drawFrameAxes(rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
+                            Calib3d.drawFrameAxes(undistortedRgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
 
 
                             // This example can display the ARObject on only first detected marker.
@@ -295,9 +307,12 @@ namespace OpenCVForUnityExample
             }
 
             if (showRejectedCorners && rejectedCorners.Count > 0)
-                Objdetect.drawDetectedMarkers(rgbMat, rejectedCorners, new Mat(), new Scalar(255, 0, 0));
+                Objdetect.drawDetectedMarkers(undistortedRgbMat, rejectedCorners, new Mat(), new Scalar(255, 0, 0));
 
-            Utils.matToTexture2D(rgbMat, texture);
+            Utils.matToTexture2D(undistortedRgbMat, texture);
+
+
+            Utils.setDebugMode(false, false);
         }
 
         private void ResetObjectTransform()
@@ -315,6 +330,9 @@ namespace OpenCVForUnityExample
         {
             if (rgbMat != null)
                 rgbMat.Dispose();
+
+            if (undistortedRgbMat != null)
+                undistortedRgbMat.Dispose();
         }
 
         /// <summary>

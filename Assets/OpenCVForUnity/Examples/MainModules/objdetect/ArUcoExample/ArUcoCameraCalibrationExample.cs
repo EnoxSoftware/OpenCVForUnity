@@ -70,6 +70,16 @@ namespace OpenCVForUnityExample
         /// </summary>
         public InputField savePathInputField;
 
+        /// <summary>
+        /// The show undistort image.
+        /// </summary>
+        public bool showUndistortImage = true;
+
+        /// <summary>
+        /// The show undistort image toggle.
+        /// </summary>
+        public Toggle showUndistortImageToggle;
+
 
 
         [Header("Normal Calibration Option")]
@@ -167,10 +177,10 @@ namespace OpenCVForUnityExample
 
         /// <summary>
         /// The calibration images directory path.
-        /// Set a relative directory path from the starting point of the "StreamingAssets" folder.  e.g. "aruco/calibration_images/".
+        /// Set a relative directory path from the starting point of the "StreamingAssets" folder.  e.g. "objdetect/calibration_images/".
         /// </summary>
-        [Tooltip("Set a relative directory path from the starting point of the \"StreamingAssets\" folder.  e.g. \"OpenCVForUnity/aruco/calibration_images\"")]
-        public string calibrationImagesDirectory = "OpenCVForUnity/aruco/calibration_images";
+        [Tooltip("Set a relative directory path from the starting point of the \"StreamingAssets\" folder.  e.g. \"OpenCVForUnity/objdetect/calibration_images\"")]
+        public string calibrationImagesDirectory = "OpenCVForUnity/objdetect/calibration_images";
 
         /// <summary>
         /// The texture.
@@ -191,6 +201,11 @@ namespace OpenCVForUnityExample
         /// The bgr mat.
         /// </summary>
         Mat bgrMat;
+
+        /// <summary>
+        /// The undistorted bgr mat.
+        /// </summary>
+        Mat undistortedBgrMat;
 
         /// <summary>
         /// The rgba mat.
@@ -292,6 +307,8 @@ namespace OpenCVForUnityExample
             boardSizeWDropdown.value = (int)boardSizeW - 1;
             boardSizeHDropdown.value = (int)boardSizeH - 1;
 
+            showUndistortImageToggle.isOn = showUndistortImage;
+
             squareSizeInputField.text = squareSize.ToString();
             useNewCalibrationMethodToggle.isOn = useNewCalibrationMethod;
             gridWidthInputField.text = gridWidth.ToString();
@@ -384,7 +401,18 @@ namespace OpenCVForUnityExample
                 }
 
                 DrawFrame(grayMat, bgrMat);
-                Imgproc.cvtColor(bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
+
+                if (showUndistortImage)
+                {
+                    Calib3d.undistort(bgrMat, undistortedBgrMat, camMatrix, distCoeffs);
+                    DrawCalibrationResult(undistortedBgrMat);
+                    Imgproc.cvtColor(undistortedBgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
+                }
+                else
+                {
+                    DrawCalibrationResult(bgrMat);
+                    Imgproc.cvtColor(bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
+                }
 
                 Utils.matToTexture2D(rgbaMat, texture);
             }
@@ -449,6 +477,7 @@ namespace OpenCVForUnityExample
 
             grayMat = new Mat(frameMat.rows(), frameMat.cols(), CvType.CV_8UC1);
             bgrMat = new Mat(frameMat.rows(), frameMat.cols(), CvType.CV_8UC3);
+            undistortedBgrMat = new Mat();
             rgbaMat = new Mat(frameMat.rows(), frameMat.cols(), CvType.CV_8UC4);
             rvecs = new List<Mat>();
             tvecs = new List<Mat>();
@@ -496,6 +525,8 @@ namespace OpenCVForUnityExample
                 grayMat.Dispose();
             if (bgrMat != null)
                 bgrMat.Dispose();
+            if (undistortedBgrMat != null)
+                undistortedBgrMat.Dispose();
             if (rgbaMat != null)
                 rgbaMat.Dispose();
 
@@ -617,12 +648,16 @@ namespace OpenCVForUnityExample
                     */
                     break;
             }
+        }
 
+        private void DrawCalibrationResult(Mat bgrMat)
+        {
             double[] camMatrixArr = new double[(int)camMatrix.total()];
             camMatrix.get(0, 0, camMatrixArr);
             double[] distCoeffsArr = new double[(int)distCoeffs.total()];
             distCoeffs.get(0, 0, distCoeffsArr);
 
+            int textLeft = 320;
             int ff = Imgproc.FONT_HERSHEY_SIMPLEX;
             double fs = 0.4;
             Scalar c = new Scalar(255, 255, 255, 255);
@@ -630,22 +665,22 @@ namespace OpenCVForUnityExample
             int lt = Imgproc.LINE_AA;
             bool blo = false;
             int frameCount = (markerType == MarkerType.ChArUcoBoard) ? allCorners.Count : imagePoints.Count;
-            Imgproc.putText(bgrMat, frameCount + " FRAME CAPTURED", new Point(bgrMat.cols() - 300, 20), ff, fs, c, t, lt, blo);
-            Imgproc.putText(bgrMat, "IMAGE_WIDTH: " + bgrMat.width(), new Point(bgrMat.cols() - 300, 40), ff, fs, c, t, lt, blo);
-            Imgproc.putText(bgrMat, "IMAGE_HEIGHT: " + bgrMat.height(), new Point(bgrMat.cols() - 300, 60), ff, fs, c, t, lt, blo);
-            Imgproc.putText(bgrMat, "CALIBRATION_FLAGS: " + calibrationFlags, new Point(bgrMat.cols() - 300, 80), ff, fs, c, t, lt, blo);
+            Imgproc.putText(bgrMat, frameCount + " FRAME CAPTURED", new Point(bgrMat.cols() - textLeft, 20), ff, fs, c, t, lt, blo);
+            Imgproc.putText(bgrMat, "IMAGE_WIDTH: " + bgrMat.width(), new Point(bgrMat.cols() - textLeft, 40), ff, fs, c, t, lt, blo);
+            Imgproc.putText(bgrMat, "IMAGE_HEIGHT: " + bgrMat.height(), new Point(bgrMat.cols() - textLeft, 60), ff, fs, c, t, lt, blo);
+            Imgproc.putText(bgrMat, "CALIBRATION_FLAGS: " + calibrationFlags, new Point(bgrMat.cols() - textLeft, 80), ff, fs, c, t, lt, blo);
 
-            Imgproc.putText(bgrMat, "CAMERA_MATRIX: ", new Point(bgrMat.cols() - 300, 100), ff, fs, c, t, lt, blo);
+            Imgproc.putText(bgrMat, "CAMERA_MATRIX: ", new Point(bgrMat.cols() - 310, 100), ff, fs, c, t, lt, blo);
             for (int i = 0; i < camMatrixArr.Length; i = i + 3)
             {
-                Imgproc.putText(bgrMat, "   " + camMatrixArr[i] + ", " + camMatrixArr[i + 1] + ", " + camMatrixArr[i + 2] + ",", new Point(bgrMat.cols() - 300, 120 + 20 * i / 3), ff, fs, c, t, lt, blo);
+                Imgproc.putText(bgrMat, "   " + camMatrixArr[i] + ", " + camMatrixArr[i + 1] + ", " + camMatrixArr[i + 2] + ",", new Point(bgrMat.cols() - textLeft, 120 + 20 * i / 3), ff, fs, c, t, lt, blo);
             }
-            Imgproc.putText(bgrMat, "DISTORTION_COEFFICIENTS: ", new Point(bgrMat.cols() - 300, 180), ff, fs, c, t, lt, blo);
+            Imgproc.putText(bgrMat, "DISTORTION_COEFFICIENTS: ", new Point(bgrMat.cols() - textLeft, 180), ff, fs, c, t, lt, blo);
             for (int i = 0; i < distCoeffsArr.Length; ++i)
             {
-                Imgproc.putText(bgrMat, "   " + distCoeffsArr[i] + ",", new Point(bgrMat.cols() - 300, 200 + 20 * i), ff, fs, c, t, lt, blo);
+                Imgproc.putText(bgrMat, "   " + distCoeffsArr[i] + ",", new Point(bgrMat.cols() - textLeft, 200 + 20 * i), ff, fs, c, t, lt, blo);
             }
-            Imgproc.putText(bgrMat, "AVG_REPROJECTION_ERROR: " + repErr, new Point(bgrMat.cols() - 300, 300), ff, fs, c, t, lt, blo);
+            Imgproc.putText(bgrMat, "AVG_REPROJECTION_ERROR: " + repErr, new Point(bgrMat.cols() - textLeft, 300), ff, fs, c, t, lt, blo);
 
             if (frameCount == 0)
                 Imgproc.putText(bgrMat, "Please press the capture button to start!", new Point(5, bgrMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar(255, 255, 255, 255), 1, Imgproc.LINE_AA, false);
@@ -1002,6 +1037,7 @@ namespace OpenCVForUnityExample
                     InitializeCalibraton(rgba);
 
                     DrawFrame(gray, bgr);
+                    DrawCalibrationResult(bgr);
                     Imgproc.cvtColor(bgr, rgba, Imgproc.COLOR_BGR2RGBA);
                     Utils.matToTexture2D(rgba, texture);
                 }
@@ -1040,6 +1076,7 @@ namespace OpenCVForUnityExample
                         repErr = e;
 
                     DrawFrame(gray, bgrMat);
+                    DrawCalibrationResult(bgrMat);
                     Imgproc.cvtColor(bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
 
                     Utils.matToTexture2D(rgbaMat, texture);
@@ -1205,6 +1242,18 @@ namespace OpenCVForUnityExample
                     if (webCamTextureToMatHelper.IsInitialized())
                         webCamTextureToMatHelper.Initialize();
                 }
+            }
+        }
+
+
+        /// <summary>
+        /// Raises the show undistort image toggle value changed event.
+        /// </summary>
+        public void OnShowUndistortImageToggleValueChanged()
+        {
+            if (showUndistortImage != showUndistortImageToggle.isOn)
+            {
+                showUndistortImage = showUndistortImageToggle.isOn;
             }
         }
 

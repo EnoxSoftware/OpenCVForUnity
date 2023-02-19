@@ -62,7 +62,7 @@ namespace OpenCVForUnityExample
         string[] filePathPreset = new string[] {
             "OpenCVForUnity/768x576_mjpeg.mjpeg",
             "/OpenCVForUnity/objdetect/lbpcascade_frontalface.xml",
-            "OpenCVForUnity/aruco/calibration_images/left01.jpg",
+            "OpenCVForUnity/objdetect/calibration_images/left01.jpg",
             "xxx"
         };
 

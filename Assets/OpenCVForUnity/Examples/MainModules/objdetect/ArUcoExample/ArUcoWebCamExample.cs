@@ -148,6 +148,11 @@ namespace OpenCVForUnityExample
         Mat rgbMat;
 
         /// <summary>
+        /// The undistorted rgb mat.
+        /// </summary>
+        Mat undistortedRgbMat;
+
+        /// <summary>
         /// The cameraparam matrix.
         /// </summary>
         Mat camMatrix;
@@ -387,6 +392,7 @@ namespace OpenCVForUnityExample
 
 
             rgbMat = new Mat(webCamTextureMat.rows(), webCamTextureMat.cols(), CvType.CV_8UC3);
+            undistortedRgbMat = new Mat();
             ids = new Mat();
             corners = new List<Mat>();
             rejectedCorners = new List<Mat>();
@@ -452,6 +458,9 @@ namespace OpenCVForUnityExample
 
             if (rgbMat != null)
                 rgbMat.Dispose();
+
+            if (undistortedRgbMat != null)
+                undistortedRgbMat.Dispose();
 
             if (texture != null)
             {
@@ -527,8 +536,8 @@ namespace OpenCVForUnityExample
                 Imgproc.cvtColor(rgbaMat, rgbMat, Imgproc.COLOR_RGBA2RGB);
 
 
-                Calib3d.undistort(rgbMat, rgbMat, camMatrix, distCoeffs);
-                arucoDetector.detectMarkers(rgbMat, corners, ids, rejectedCorners);
+                Calib3d.undistort(rgbMat, undistortedRgbMat, camMatrix, distCoeffs);
+                arucoDetector.detectMarkers(undistortedRgbMat, corners, ids, rejectedCorners);
 
                 switch (markerType)
                 {
@@ -538,48 +547,48 @@ namespace OpenCVForUnityExample
                         // If at least one marker detected
                         if (ids.total() > 0)
                         {
-                            Objdetect.drawDetectedMarkers(rgbMat, corners, ids, new Scalar(0, 255, 0));
+                            Objdetect.drawDetectedMarkers(undistortedRgbMat, corners, ids, new Scalar(0, 255, 0));
 
                             if (applyEstimationPose)
-                                EstimatePoseCanonicalMarker(rgbMat);
+                                EstimatePoseCanonicalMarker(undistortedRgbMat);
                         }
                         break;
 
                     case MarkerType.GridBoard:
 
                         if (refineMarkerDetection)
-                            arucoDetector.refineDetectedMarkers(rgbMat, gridBoard, corners, ids, rejectedCorners, camMatrix, distCoeffs, recoveredIdxs);
+                            arucoDetector.refineDetectedMarkers(undistortedRgbMat, gridBoard, corners, ids, rejectedCorners, camMatrix, distCoeffs, recoveredIdxs);
 
                         // If at least one marker detected
                         if (ids.total() > 0)
                         {
-                            Objdetect.drawDetectedMarkers(rgbMat, corners, ids, new Scalar(0, 255, 0));
+                            Objdetect.drawDetectedMarkers(undistortedRgbMat, corners, ids, new Scalar(0, 255, 0));
 
                             if (applyEstimationPose)
-                                EstimatePoseGridBoard(rgbMat);
+                                EstimatePoseGridBoard(undistortedRgbMat);
                         }
                         break;
 
                     case MarkerType.ChArUcoBoard:
 
                         if (refineMarkerDetection)
-                            arucoDetector.refineDetectedMarkers(rgbMat, charucoBoard, corners, ids, rejectedCorners, camMatrix, distCoeffs, recoveredIdxs);
+                            arucoDetector.refineDetectedMarkers(undistortedRgbMat, charucoBoard, corners, ids, rejectedCorners, camMatrix, distCoeffs, recoveredIdxs);
 
                         // If at least one marker detected
                         if (ids.total() > 0)
                         {
-                            //charucoDetector.detectBoard(rgbMat, charucoCorners, charucoIds, corners, ids); // error
-                            charucoDetector.detectBoard(rgbMat, charucoCorners, charucoIds);
+                            //charucoDetector.detectBoard(undistortedRgbMat, charucoCorners, charucoIds, corners, ids); // error
+                            charucoDetector.detectBoard(undistortedRgbMat, charucoCorners, charucoIds);
 
-                            Objdetect.drawDetectedMarkers(rgbMat, corners, ids, new Scalar(0, 255, 0));
+                            Objdetect.drawDetectedMarkers(undistortedRgbMat, corners, ids, new Scalar(0, 255, 0));
 
                             // if at least one charuco corner detected
                             if (charucoIds.total() > 0)
                             {
-                                Objdetect.drawDetectedCornersCharuco(rgbMat, charucoCorners, charucoIds, new Scalar(0, 0, 255));
+                                Objdetect.drawDetectedCornersCharuco(undistortedRgbMat, charucoCorners, charucoIds, new Scalar(0, 0, 255));
 
                                 if (applyEstimationPose)
-                                    EstimatePoseChArUcoBoard(rgbMat);
+                                    EstimatePoseChArUcoBoard(undistortedRgbMat);
                             }
                         }
                         break;
@@ -590,19 +599,19 @@ namespace OpenCVForUnityExample
                         // If at least one marker detected
                         if (ids.total() > 0)
                         {
-                            //charucoDiamondDetector.detectDiamonds(rgbMat, diamondCorners, diamondIds, corners, ids); // error
-                            //charucoDiamondDetector.detectDiamonds(rgbMat, diamondCorners, diamondIds, corners); // error
-                            //charucoDiamondDetector.detectDiamonds(rgbMat, diamondCorners, diamondIds); // error
+                            //charucoDiamondDetector.detectDiamonds(undistortedRgbMat, diamondCorners, diamondIds, corners, ids); // error
+                            //charucoDiamondDetector.detectDiamonds(undistortedRgbMat, diamondCorners, diamondIds, corners); // error
+                            //charucoDiamondDetector.detectDiamonds(undistortedRgbMat, diamondCorners, diamondIds); // error
 
-                            Objdetect.drawDetectedMarkers(rgbMat, corners, ids, new Scalar(0, 255, 0));
+                            Objdetect.drawDetectedMarkers(undistortedRgbMat, corners, ids, new Scalar(0, 255, 0));
 
                             // If at least one diamonds detected
                             if (diamondIds.total() > 0)
                             {
-                                Objdetect.drawDetectedDiamonds(rgbMat, diamondCorners, diamondIds, new Scalar(0, 0, 255));
+                                Objdetect.drawDetectedDiamonds(undistortedRgbMat, diamondCorners, diamondIds, new Scalar(0, 0, 255));
 
                                 if (applyEstimationPose)
-                                    EstimatePoseChArUcoDiamondMarker(rgbMat);
+                                    EstimatePoseChArUcoDiamondMarker(undistortedRgbMat);
                             }
                         }
                         */
@@ -612,12 +621,12 @@ namespace OpenCVForUnityExample
                 //
 
                 if (showRejectedCorners && rejectedCorners.Count > 0)
-                    Objdetect.drawDetectedMarkers(rgbMat, rejectedCorners, new Mat(), new Scalar(255, 0, 0));
+                    Objdetect.drawDetectedMarkers(undistortedRgbMat, rejectedCorners, new Mat(), new Scalar(255, 0, 0));
 
 
                 //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
-                Imgproc.cvtColor(rgbMat, rgbaMat, Imgproc.COLOR_RGB2RGBA);
+                Imgproc.cvtColor(undistortedRgbMat, rgbaMat, Imgproc.COLOR_RGB2RGBA);
 
                 Utils.matToTexture2D(rgbaMat, texture);
             }

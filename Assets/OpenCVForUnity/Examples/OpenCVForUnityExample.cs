@@ -67,8 +67,10 @@ namespace OpenCVForUnityExample
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ImageClassificationPPResnetExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TextOCRExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TextOCRWebCamExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YoloObjectDetectionExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YoloObjectDetectionWebCamExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YOLOv4ObjectDetectionExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YOLOv7ObjectDetectionExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YOLOXObjectDetectionExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/NanoDetPlusObjectDetectionExampleButton").GetComponent<Button>().interactable = false;
 
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/BarcodeDetectorExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/BarcodeDetectorWebCamExampleButton").GetComponent<Button>().interactable = false;
@@ -484,14 +486,24 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("TextOCRWebCamExample");
         }
 
-        public void OnYoloObjectDetectionExampleButtonClick()
+        public void OnYOLOv4ObjectDetectionExampleButtonClick()
         {
-            SceneManager.LoadScene("YoloObjectDetectionExample");
+            SceneManager.LoadScene("YOLOv4ObjectDetectionExample");
         }
 
-        public void OnYoloObjectDetectionWebCamExampleButtonClick()
+        public void OnYOLOv7ObjectDetectionExampleButtonClick()
         {
-            SceneManager.LoadScene("YoloObjectDetectionWebCamExample");
+            SceneManager.LoadScene("YOLOv7ObjectDetectionExample");
+        }
+
+        public void OnYOLOXObjectDetectionExampleButtonClick()
+        {
+            SceneManager.LoadScene("YOLOXObjectDetectionExample");
+        }
+
+        public void OnNanoDetPlusObjectDetectionExampleButtonClick()
+        {
+            SceneManager.LoadScene("NanoDetPlusObjectDetectionExample");
         }
 
         #endregion
