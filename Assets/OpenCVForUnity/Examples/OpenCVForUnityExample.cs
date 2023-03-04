@@ -57,6 +57,7 @@ namespace OpenCVForUnityExample
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LibFaceDetectionV2ExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LibFaceDetectionV3ExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ResnetSSDFaceDetectionExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FacialExpressionRecognitionExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LightweightPoseEstimationExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LightweightPoseEstimationWebCamExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/HandPoseEstimationExampleButton").GetComponent<Button>().interactable = false;
@@ -434,6 +435,11 @@ namespace OpenCVForUnityExample
         public void OnResnetSSDFaceDetectionExampleButtonClick()
         {
             SceneManager.LoadScene("ResnetSSDFaceDetectionExample");
+        }
+
+        public void OnFacialExpressionRecognitionExampleButtonClick()
+        {
+            SceneManager.LoadScene("FacialExpressionRecognitionExample");
         }
 
         public void OnLightweightPoseEstimationExampleButtonClick()

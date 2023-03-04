@@ -75,7 +75,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// HANDPOSE_ESTIMATION_MODEL_FILENAME
         /// </summary>
-        protected static readonly string HANDPOSE_ESTIMATION_MODEL_FILENAME = "OpenCVForUnity/dnn/handpose_estimation_mediapipe_2022may.onnx";
+        protected static readonly string HANDPOSE_ESTIMATION_MODEL_FILENAME = "OpenCVForUnity/dnn/handpose_estimation_mediapipe_2023feb.onnx";
 
         /// <summary>
         /// The handpose estimation model filepath.
@@ -139,7 +139,7 @@ namespace OpenCVForUnityExample
             }
             else
             {
-                palmDetector = new PalmDetector(palm_detection_model_filepath, 0.3f, 0.8f);
+                palmDetector = new PalmDetector(palm_detection_model_filepath, 0.3f, 0.6f);
             }
 
             if (string.IsNullOrEmpty(handpose_estimation_model_filepath))
@@ -148,7 +148,7 @@ namespace OpenCVForUnityExample
             }
             else
             {
-                handPoseEstimator = new HandPoseEstimator(handpose_estimation_model_filepath);
+                handPoseEstimator = new HandPoseEstimator(handpose_estimation_model_filepath, 0.9f);
             }
 
 
@@ -204,7 +204,7 @@ namespace OpenCVForUnityExample
                             if (!hodpose.empty())
                                 hands.Add(hodpose);
                         }
-                        palmDetector.visualize(img, palms, true, false);
+                        //palmDetector.visualize(img, palms, true, false);
                         handPoseEstimator.visualize(img, hands, true, false);
                     }
 
@@ -2783,7 +2783,7 @@ namespace OpenCVForUnityExample
                 return anchors;
             }
         }
-        
+
         private class HandPoseEstimator
         {
             float conf_threshold;
@@ -2792,7 +2792,7 @@ namespace OpenCVForUnityExample
 
             Net handpose_estimation_net;
 
-            Size input_size = new Size(256, 256);
+            Size input_size = new Size(224, 224);
             //int[] PALM_LANDMARK_IDS = new int[] { 0, 5, 9, 13, 17, 1, 2 };
             int PALM_LANDMARKS_INDEX_OF_PALM_BASE = 0;
             int PALM_LANDMARKS_INDEX_OF_MIDDLE_FINGER_BASE = 2;
@@ -2970,18 +2970,21 @@ namespace OpenCVForUnityExample
                     output_blob[i].Dispose();
                 }
 
-                return results;// [bbox_coords, landmarks_coords, conf]
+                return results;// [bbox_coords, landmarks_coords, landmarks_coords_world, handedness, conf]
             }
 
             protected virtual Mat postprocess(List<Mat> output_blob, Mat rotated_palm_bbox, double angle, Mat rotation_matrix)
             {
                 Mat landmarks = output_blob[0];
                 float conf = (float)output_blob[1].get(0, 0)[0];
+                float handedness = (float)output_blob[2].get(0, 0)[0];
+                Mat landmarks_world = output_blob[3];
 
                 if (conf < conf_threshold)
                     return new Mat();
 
                 landmarks = landmarks.reshape(1, 21); // shape: (1, 63) -> (21, 3)
+                landmarks_world = landmarks_world.reshape(1, 21); // shape: (1, 63) -> (21, 3)
 
                 // transform coords back to the input coords
                 double[] rotated_palm_bbox_arr = new double[4];
@@ -2993,7 +2996,8 @@ namespace OpenCVForUnityExample
 
                 Mat _landmarks_21x1_c3 = landmarks.reshape(3, 21);
                 Core.subtract(_landmarks_21x1_c3, new Scalar(input_size.width / 2.0, input_size.height / 2.0, 0.0), _landmarks_21x1_c3);
-                Core.multiply(_landmarks_21x1_c3, new Scalar(scale_factor.x, scale_factor.y, 1.0), _landmarks_21x1_c3);
+                double max_scale_factor = Math.Max(scale_factor.x, scale_factor.y);
+                Core.multiply(_landmarks_21x1_c3, new Scalar(scale_factor.x, scale_factor.y, max_scale_factor), _landmarks_21x1_c3); //  # depth scaling
 
                 Mat coords_rotation_matrix = Imgproc.getRotationMatrix2D(new Point(0, 0), angle, 1.0);
 
@@ -3013,6 +3017,18 @@ namespace OpenCVForUnityExample
                     rotated_landmarks.put(i, 0, new float[] { (float)_a.dot(_b) });
                     _b.put(0, 0, new double[] { _b_arr[1], _b_arr[4] });
                     rotated_landmarks.put(i, 1, new float[] { (float)_a.dot(_b) });
+                }
+
+                Mat rotated_landmarks_world = landmarks_world.clone();
+                for (int i = 0; i < 21; ++i)
+                {
+                    landmarks_world.get(i, 0, _a_arr);
+                    _a.put(0, 0, new double[] { _a_arr[0], _a_arr[1] });
+
+                    _b.put(0, 0, new double[] { _b_arr[0], _b_arr[3] });
+                    rotated_landmarks_world.put(i, 0, new float[] { (float)_a.dot(_b) });
+                    _b.put(0, 0, new double[] { _b_arr[1], _b_arr[4] });
+                    rotated_landmarks_world.put(i, 1, new float[] { (float)_a.dot(_b) });
                 }
 
                 // invert rotation
@@ -3057,13 +3073,22 @@ namespace OpenCVForUnityExample
                 Point new_half_size = new Point(wh_bbox.x * HAND_BOX_ENLARGE_FACTOR / 2.0, wh_bbox.y * HAND_BOX_ENLARGE_FACTOR / 2.0);
                 bbox = new OpenCVRect(new Point(center_bbox.x - new_half_size.x, center_bbox.y - new_half_size.y), new Point(center_bbox.x + new_half_size.x, center_bbox.y + new_half_size.y));
 
-                Mat results = new Mat(47, 1, CvType.CV_32FC1);
-                results.put(0, 0, new float[] { (float)bbox.tl().x, (float)bbox.tl().y, (float)bbox.br().x, (float)bbox.br().y });
-                Mat results_col4_46_21x2 = results.rowRange(new OpenCVRange(4, 46)).reshape(1, 21);
-                landmarks.colRange(new OpenCVRange(0, 2)).copyTo(results_col4_46_21x2);
-                results.put(46, 0, new float[] { conf });
 
-                return results;//np.r_[bbox.reshape(-1), landmarks.reshape(-1), conf[0]]
+                Mat results = new Mat(132, 1, CvType.CV_32FC1);
+                results.put(0, 0, new float[] { (float)bbox.tl().x, (float)bbox.tl().y, (float)bbox.br().x, (float)bbox.br().y });
+                Mat results_col4_67_21x3 = results.rowRange(new OpenCVRange(4, 67)).reshape(1, 21);
+                landmarks.colRange(new OpenCVRange(0, 3)).copyTo(results_col4_67_21x3);
+                Mat results_col67_130_21x3 = results.rowRange(new OpenCVRange(67, 130)).reshape(1, 21);
+                rotated_landmarks_world.colRange(new OpenCVRange(0, 3)).copyTo(results_col67_130_21x3);
+                results.put(130, 0, new float[] { handedness });
+                results.put(131, 0, new float[] { conf });
+
+                // # [0: 4]: hand bounding box found in image of format [x1, y1, x2, y2] (top-left and bottom-right points)
+                // # [4: 67]: screen landmarks with format [x1, y1, z1, x2, y2 ... x21, y21, z21], z value is relative to WRIST
+                // # [67: 130]: world landmarks with format [x1, y1, z1, x2, y2 ... x21, y21, z21], 3D metric x, y, z coordinate
+                // # [130]: handedness, (left)[0, 1](right) hand
+                // # [131]: confidence
+                return results;//np.r_[bbox.reshape(-1), landmarks.reshape(-1), rotated_landmarks_world.reshape(-1), handedness[0][0], conf]
             }
 
             public virtual void visualize(Mat image, List<Mat> results, bool print_results = false, bool isRGB = false)
@@ -3085,64 +3110,107 @@ namespace OpenCVForUnityExample
                 {
                     Mat result = results[i];
 
-                    if (result.empty() || result.rows() < 47)
+                    if (result.empty() || result.rows() < 132)
                         continue;
 
                     float[] conf = new float[1];
-                    result.get(46, 0, conf);
+                    result.get(131, 0, conf);
+                    float[] handedness = new float[1];
+                    result.get(130, 0, handedness);
+                    string handedness_text = (handedness[0] <= 0.5f) ? "Left" : "Right";
                     float[] bbox = new float[4];
                     result.get(0, 0, bbox);
-                    float[] landmarks = new float[42];
-                    result.get(4, 0, landmarks);
 
-                    // Draw line between each key points
-                    Imgproc.line(image, new Point(landmarks[0], landmarks[1]), new Point(landmarks[2], landmarks[3]), line_color, 2);
-                    Imgproc.line(image, new Point(landmarks[2], landmarks[3]), new Point(landmarks[4], landmarks[5]), line_color, 2);
-                    Imgproc.line(image, new Point(landmarks[4], landmarks[5]), new Point(landmarks[6], landmarks[7]), line_color, 2);
-                    Imgproc.line(image, new Point(landmarks[6], landmarks[7]), new Point(landmarks[8], landmarks[9]), line_color, 2);
+                    Mat results_col4_67_21x3 = result.rowRange(new OpenCVRange(4, 67)).reshape(1, 21);
+                    float[] landmarks_screen_xy = new float[42];
+                    results_col4_67_21x3.colRange(new OpenCVRange(0, 2)).get(0, 0, landmarks_screen_xy);
 
-                    Imgproc.line(image, new Point(landmarks[0], landmarks[1]), new Point(landmarks[10], landmarks[11]), line_color, 2);
-                    Imgproc.line(image, new Point(landmarks[10], landmarks[11]), new Point(landmarks[12], landmarks[13]), line_color, 2);
-                    Imgproc.line(image, new Point(landmarks[12], landmarks[13]), new Point(landmarks[14], landmarks[15]), line_color, 2);
-                    Imgproc.line(image, new Point(landmarks[14], landmarks[15]), new Point(landmarks[16], landmarks[17]), line_color, 2);
+                    float[] landmarks_screen_xyz = new float[63];
+                    results_col4_67_21x3.get(0, 0, landmarks_screen_xyz);
 
-                    Imgproc.line(image, new Point(landmarks[0], landmarks[1]), new Point(landmarks[18], landmarks[19]), line_color, 2);
-                    Imgproc.line(image, new Point(landmarks[18], landmarks[19]), new Point(landmarks[20], landmarks[21]), line_color, 2);
-                    Imgproc.line(image, new Point(landmarks[20], landmarks[21]), new Point(landmarks[22], landmarks[23]), line_color, 2);
-                    Imgproc.line(image, new Point(landmarks[22], landmarks[23]), new Point(landmarks[24], landmarks[25]), line_color, 2);
+                    Mat results_col67_130_21x3 = result.rowRange(new OpenCVRange(67, 130)).reshape(1, 21);
+                    float[] landmarks_world = new float[63];
+                    results_col67_130_21x3.get(0, 0, landmarks_world);
 
-                    Imgproc.line(image, new Point(landmarks[0], landmarks[1]), new Point(landmarks[26], landmarks[27]), line_color, 2);
-                    Imgproc.line(image, new Point(landmarks[26], landmarks[27]), new Point(landmarks[28], landmarks[29]), line_color, 2);
-                    Imgproc.line(image, new Point(landmarks[28], landmarks[29]), new Point(landmarks[30], landmarks[31]), line_color, 2);
-                    Imgproc.line(image, new Point(landmarks[30], landmarks[31]), new Point(landmarks[32], landmarks[33]), line_color, 2);
+                    // # draw box
+                    Imgproc.rectangle(image, new Point(bbox[0], bbox[1]), new Point(bbox[2], bbox[3]), new Scalar(0, 255, 0, 255), 2);
 
-                    Imgproc.line(image, new Point(landmarks[0], landmarks[1]), new Point(landmarks[34], landmarks[35]), line_color, 2);
-                    Imgproc.line(image, new Point(landmarks[34], landmarks[35]), new Point(landmarks[36], landmarks[37]), line_color, 2);
-                    Imgproc.line(image, new Point(landmarks[36], landmarks[37]), new Point(landmarks[38], landmarks[39]), line_color, 2);
-                    Imgproc.line(image, new Point(landmarks[38], landmarks[39]), new Point(landmarks[40], landmarks[41]), line_color, 2);
+                    // # draw handedness
+                    Imgproc.putText(image, handedness_text, new Point(bbox[0], bbox[1] + 12), Imgproc.FONT_HERSHEY_DUPLEX, 0.5, point_color);
 
-                    for (int j = 0; j < 42; j += 2)
+                    // # Draw line between each key points
+                    draw_lines(landmarks_screen_xy, false);
+
+                    // # z value is relative to WRIST
+                    for (int j = 0; j < 63; j += 3)
                     {
-                        Imgproc.circle(image, new Point(landmarks[j], landmarks[j + 1]), 2, point_color, 2);
+                        int r = Mathf.Max((int)(5 - landmarks_screen_xyz[j + 2] / 5), 0);
+                        r = Mathf.Min(r, 14);
+                        Imgproc.circle(image, new Point(landmarks_screen_xyz[j], landmarks_screen_xyz[j + 1]), r, point_color, -1);
                     }
+
 
                     // Print results
                     if (print_results)
                     {
                         sb.AppendLine(String.Format("-----------hand {0}-----------", i + 1));
                         sb.AppendLine(String.Format("conf: {0:0.00}", conf[0]));
+                        sb.AppendLine("handedness: " + handedness_text);
                         sb.AppendLine(String.Format("hand box: {0:0} {1:0} {2:0} {3:0}", bbox[0], bbox[1], bbox[2], bbox[3]));
-                        sb.Append("hand landmarks: ");
-                        foreach (var p in landmarks)
+                        sb.AppendLine("hand landmarks: ");
+                        foreach (var p in landmarks_screen_xyz)
                         {
                             sb.Append(String.Format("{0:0} ", p));
                         }
                         sb.AppendLine();
+                        sb.AppendLine("hand world landmarks: ");
+                        foreach (var p in landmarks_world)
+                        {
+                            sb.Append(String.Format("{0:0.000000} ", p));
+                        }
                     }
                 }
 
                 if (print_results)
                     Debug.Log(sb);
+
+
+                void draw_lines(float[] landmarks, bool is_draw_point = true, int thickness = 2)
+                {
+                    // Draw line between each key points
+                    Imgproc.line(image, new Point(landmarks[0], landmarks[1]), new Point(landmarks[2], landmarks[3]), line_color, thickness);
+                    Imgproc.line(image, new Point(landmarks[2], landmarks[3]), new Point(landmarks[4], landmarks[5]), line_color, thickness);
+                    Imgproc.line(image, new Point(landmarks[4], landmarks[5]), new Point(landmarks[6], landmarks[7]), line_color, thickness);
+                    Imgproc.line(image, new Point(landmarks[6], landmarks[7]), new Point(landmarks[8], landmarks[9]), line_color, thickness);
+
+                    Imgproc.line(image, new Point(landmarks[0], landmarks[1]), new Point(landmarks[10], landmarks[11]), line_color, thickness);
+                    Imgproc.line(image, new Point(landmarks[10], landmarks[11]), new Point(landmarks[12], landmarks[13]), line_color, thickness);
+                    Imgproc.line(image, new Point(landmarks[12], landmarks[13]), new Point(landmarks[14], landmarks[15]), line_color, thickness);
+                    Imgproc.line(image, new Point(landmarks[14], landmarks[15]), new Point(landmarks[16], landmarks[17]), line_color, thickness);
+
+                    Imgproc.line(image, new Point(landmarks[0], landmarks[1]), new Point(landmarks[18], landmarks[19]), line_color, thickness);
+                    Imgproc.line(image, new Point(landmarks[18], landmarks[19]), new Point(landmarks[20], landmarks[21]), line_color, thickness);
+                    Imgproc.line(image, new Point(landmarks[20], landmarks[21]), new Point(landmarks[22], landmarks[23]), line_color, thickness);
+                    Imgproc.line(image, new Point(landmarks[22], landmarks[23]), new Point(landmarks[24], landmarks[25]), line_color, thickness);
+
+                    Imgproc.line(image, new Point(landmarks[0], landmarks[1]), new Point(landmarks[26], landmarks[27]), line_color, thickness);
+                    Imgproc.line(image, new Point(landmarks[26], landmarks[27]), new Point(landmarks[28], landmarks[29]), line_color, thickness);
+                    Imgproc.line(image, new Point(landmarks[28], landmarks[29]), new Point(landmarks[30], landmarks[31]), line_color, thickness);
+                    Imgproc.line(image, new Point(landmarks[30], landmarks[31]), new Point(landmarks[32], landmarks[33]), line_color, thickness);
+
+                    Imgproc.line(image, new Point(landmarks[0], landmarks[1]), new Point(landmarks[34], landmarks[35]), line_color, thickness);
+                    Imgproc.line(image, new Point(landmarks[34], landmarks[35]), new Point(landmarks[36], landmarks[37]), line_color, thickness);
+                    Imgproc.line(image, new Point(landmarks[36], landmarks[37]), new Point(landmarks[38], landmarks[39]), line_color, thickness);
+                    Imgproc.line(image, new Point(landmarks[38], landmarks[39]), new Point(landmarks[40], landmarks[41]), line_color, thickness);
+
+                    if (is_draw_point)
+                    {
+                        for (int j = 0; j < 42; j += 2)
+                        {
+                            Imgproc.circle(image, new Point(landmarks[j], landmarks[j + 1]), 2, point_color, -1);
+                        }
+                    }
+                }
             }
 
             public virtual void dispose()
