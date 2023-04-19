@@ -5,6 +5,7 @@ using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.VideoioModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
+using System.IO;
 
 namespace OpenCVForUnityExample
 {
@@ -149,15 +150,18 @@ namespace OpenCVForUnityExample
         {
             if (isRecording)
             {
-                if (frameCount >= maxframeCount ||
-                    recordingFrameRgbMat.width() != Screen.width || recordingFrameRgbMat.height() != Screen.height)
+                if (frameCount >= maxframeCount)
+                {
+                    Debug.LogError("Recording was stopped because the maxframeCount was exceeded.");
+                    OnRecButtonClick();
+                    return;
+                }
+                if (recordingFrameRgbMat.width() != Screen.width || recordingFrameRgbMat.height() != Screen.height)
                 {
                     Debug.LogError("Please fix the screen ratio of the Game View to recognize the recording area.");
                     OnRecButtonClick();
                     return;
                 }
-
-                frameCount++;
 
                 // Take screen shot.
                 screenCapture.ReadPixels(new UnityEngine.Rect(0, 0, Screen.width, Screen.height), 0, 0);
@@ -171,6 +175,8 @@ namespace OpenCVForUnityExample
                 Imgproc.putText(recordingFrameRgbMat, savePath, new Point(5, recordingFrameRgbMat.rows() - 8), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar(255, 255, 255), 0, Imgproc.LINE_AA, false);
 
                 writer.write(recordingFrameRgbMat);
+
+                frameCount++;
             }
         }
 
@@ -180,6 +186,12 @@ namespace OpenCVForUnityExample
                 return;
 
             this.savePath = savePath;
+
+            if (File.Exists(savePath))
+            {
+                Debug.Log("Delete " + savePath);
+                File.Delete(savePath);
+            }
 
             writer = new VideoWriter();
 #if !UNITY_IOS
@@ -209,6 +221,12 @@ namespace OpenCVForUnityExample
 
             if (writer != null && !writer.IsDisposed)
                 writer.release();
+
+            if (screenCapture != null)
+            {
+                Texture2D.Destroy(screenCapture);
+                screenCapture = null;
+            }
 
             if (recordingFrameRgbMat != null && !recordingFrameRgbMat.IsDisposed)
                 recordingFrameRgbMat.Dispose();

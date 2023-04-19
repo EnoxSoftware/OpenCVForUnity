@@ -273,6 +273,11 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("VideoWriterExample");
         }
 
+        public void OnVideoWriterAsyncExampleButtonClick()
+        {
+            SceneManager.LoadScene("VideoWriterAsyncExample");
+        }
+
         #endregion
 
         #region video

@@ -63,27 +63,27 @@ namespace OpenCVForUnityExample
             param.set_minThreshold(10.0f);
             param.set_maxThreshold(200.0f);
             param.set_minRepeatability(2);
-            param.set_minDistBetweenBlobs(0);
+            param.set_minDistBetweenBlobs(10);
             param.set_filterByColor(false);
             param.set_filterByArea(false);
-            param.set_minArea(0);
-            param.set_maxArea(0);
+            param.set_minArea(1);
+            param.set_maxArea(100000);
             param.set_filterByCircularity(false);
-            param.set_minCircularity(0);
-            param.set_maxCircularity(0);
+            param.set_minCircularity(1);
+            param.set_maxCircularity(100000);
             param.set_filterByInertia(false);
-            param.set_minInertiaRatio(0);
-            param.set_maxInertiaRatio(0);
+            param.set_minInertiaRatio(1);
+            param.set_maxInertiaRatio(100000);
             param.set_filterByConvexity(false);
-            param.set_minConvexity(0);
-            param.set_maxConvexity(0);
+            param.set_minConvexity(1);
+            param.set_maxConvexity(100000);
 
             SimpleBlobDetector blobDetector = SimpleBlobDetector.create(param);
             Debug.Log("blobDetector.getDefaultName() " + blobDetector.getDefaultName());
 
             // or
 
-            // load Params from yml file.
+            ////load Params from yml file.
             //SimpleBlobDetector blobDetector = SimpleBlobDetector.create();
             //Debug.Log("blobDetector.getDefaultName() " + blobDetector.getDefaultName());
             //blobDetector.read(blobparams_yml_filepath);

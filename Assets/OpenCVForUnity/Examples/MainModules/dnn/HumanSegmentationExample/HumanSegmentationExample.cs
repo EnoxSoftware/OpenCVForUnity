@@ -25,6 +25,21 @@ namespace OpenCVForUnityExample
     public class HumanSegmentationExample : MonoBehaviour
     {
         /// <summary>
+        /// The compose bg image toggle.
+        /// </summary>
+        public Toggle composeBGImageToggle;
+
+        /// <summary>
+        /// The hide person toggle.
+        /// </summary>
+        public Toggle hidePersonToggle;
+
+        /// <summary>
+        /// The background image texture.
+        /// </summary>
+        public Texture2D backGroundImageTexture;
+
+        /// <summary>
         /// The texture.
         /// </summary>
         Texture2D texture;
@@ -43,6 +58,16 @@ namespace OpenCVForUnityExample
         /// The mask mat.
         /// </summary>
         Mat maskMat;
+
+        /// <summary>
+        /// The background mask mat.
+        /// </summary>
+        Mat bgMaskMat;
+
+        /// <summary>
+        /// The background image mat.
+        /// </summary>
+        Mat backGroundImageMat;
 
         /// <summary>
         /// The net.
@@ -163,6 +188,16 @@ namespace OpenCVForUnityExample
             rgbMat = new Mat(webCamTextureMat.rows(), webCamTextureMat.cols(), CvType.CV_8UC3);
             maskMat = new Mat(webCamTextureMat.rows(), webCamTextureMat.cols(), CvType.CV_8UC1);
 
+            bgMaskMat = new Mat(webCamTextureMat.rows(), webCamTextureMat.cols(), CvType.CV_8UC1);
+            backGroundImageMat = new Mat(webCamTextureMat.size(), CvType.CV_8UC4, new Scalar(39, 255, 86, 255));
+            if (backGroundImageTexture != null)
+            {
+                using (Mat bgMat = new Mat(backGroundImageTexture.height, backGroundImageTexture.width, CvType.CV_8UC4))
+                {
+                    Utils.texture2DToMat(backGroundImageTexture, bgMat);
+                    Imgproc.resize(bgMat, backGroundImageMat, backGroundImageMat.size());
+                }
+            }
         }
 
         /// <summary>
@@ -177,6 +212,12 @@ namespace OpenCVForUnityExample
 
             if (maskMat != null)
                 maskMat.Dispose();
+
+            if (bgMaskMat != null)
+                bgMaskMat.Dispose();
+
+            if (backGroundImageMat != null)
+                backGroundImageMat.Dispose();
 
             if (texture != null)
             {
@@ -225,14 +266,23 @@ namespace OpenCVForUnityExample
                     Mat result = new Mat();
                     Core.reduceArgMax(prob, result, 1);
                     //result.reshape(0, new int[] { 192,192});
-                    result.convertTo(result, CvType.CV_8U);
+                    result.convertTo(result, CvType.CV_8U, 255.0);
                     //Debug.Log("result.ToString(): " + result.ToString());
-
 
                     Mat mask192x192 = new Mat(192, 192, CvType.CV_8UC1, (IntPtr)result.dataAddr());
                     Imgproc.resize(mask192x192, maskMat, rgbaMat.size(), Imgproc.INTER_NEAREST);
 
-                    rgbaMat.setTo(new Scalar(255, 255, 255,255), maskMat);
+                    if (composeBGImageToggle.isOn)
+                    {
+                        // Compose the background image.
+                        Core.bitwise_not(maskMat, bgMaskMat);
+                        backGroundImageMat.copyTo(rgbaMat, bgMaskMat);
+                    }
+
+                    if (hidePersonToggle.isOn)
+                    {
+                        rgbaMat.setTo(new Scalar(255, 255, 255, 255), maskMat);
+                    }
 
                     mask192x192.Dispose();
                     result.Dispose();
@@ -306,7 +356,6 @@ namespace OpenCVForUnityExample
         {
             webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.requestedIsFrontFacing;
         }
-
     }
 }
 #endif

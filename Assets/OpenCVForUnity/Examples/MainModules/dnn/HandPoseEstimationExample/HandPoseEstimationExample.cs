@@ -2796,12 +2796,15 @@ namespace OpenCVForUnityExample
             //int[] PALM_LANDMARK_IDS = new int[] { 0, 5, 9, 13, 17, 1, 2 };
             int PALM_LANDMARKS_INDEX_OF_PALM_BASE = 0;
             int PALM_LANDMARKS_INDEX_OF_MIDDLE_FINGER_BASE = 2;
+            Point PALM_BOX_PRE_SHIFT_VECTOR = new Point(0, 0);
+            //double PALM_BOX_PRE_ENLARGE_FACTOR = 4.0;
             Point PALM_BOX_SHIFT_VECTOR = new Point(0, -0.4);
             double PALM_BOX_ENLARGE_FACTOR = 3.0;
             Point HAND_BOX_SHIFT_VECTOR = new Point(0, -0.1);
             double HAND_BOX_ENLARGE_FACTOR = 1.65;
 
             Mat tmpImage;
+            Mat tmpRotatedImage;
 
             public HandPoseEstimator(string modelFilepath, float confThreshold = 0.8f, int backend = Dnn.DNN_BACKEND_OPENCV, int target = Dnn.DNN_TARGET_CPU)
             {
@@ -2819,12 +2822,54 @@ namespace OpenCVForUnityExample
                 handpose_estimation_net.setPreferableTarget(this.target);
             }
 
-            protected virtual Mat preprocess(Mat image, Mat palm, out Mat rotated_palm_bbox, out double angle, out Mat rotation_matrix)
+            protected virtual Mat preprocess(Mat image, Mat palm, out Mat rotated_palm_bbox, out double angle, out Mat rotation_matrix, out Mat pad_bias)
             {
+                // '''
+                // Rotate input for inference.
+                // Parameters:
+                //  image - input image of BGR channel order
+                //  palm_bbox - palm bounding box found in image of format[[x1, y1], [x2, y2]] (top - left and bottom - right points)
+                //            palm_landmarks - 7 landmarks(5 finger base points, 2 palm base points) of shape[7, 2]
+                // Returns:
+                //        rotated_hand - rotated hand image for inference
+                //        rotate_palm_bbox - palm box of interest range
+                //        angle - rotate angle for hand
+                //        rotation_matrix - matrix for rotation and de - rotation
+                //        pad_bias - pad pixels of interest range
+                // '''
+
+                // Generate an image with padding added after the squarify process.
+                int maxSize = Math.Max(image.width(), image.height());
+                int tmpImageSize = (int)(maxSize * 1.5);
+                if (tmpImage != null && (tmpImage.width() != tmpImageSize || tmpImage.height() != tmpImageSize))
+                {
+                    tmpImage.Dispose();
+                    tmpImage = null;
+                    tmpRotatedImage.Dispose();
+                    tmpRotatedImage = null;
+                }
+                if (tmpImage == null)
+                {
+                    tmpImage = new Mat(tmpImageSize, tmpImageSize, image.type(), Scalar.all(0));
+                    tmpRotatedImage = tmpImage.clone();
+                }
+
+                int pad = (tmpImageSize - maxSize) / 2;
+                pad_bias = new Mat(2, 1, CvType.CV_32FC1);
+                pad_bias.put(0, 0, new float[] { -pad, -pad });
+
+                Mat _tmpImage_roi = new Mat(tmpImage, new OpenCVRect(pad, pad, image.width(), image.height()));
+                image.copyTo(_tmpImage_roi);
+
+                // Apply the pad_bias to palm_bbox and palm_landmarks.
+                Mat new_palm = palm.clone();
+                Mat palm_bbox_and_landmark = new_palm.colRange(new OpenCVRange(0, 18)).reshape(2, 9);
+                Core.add(palm_bbox_and_landmark, new Scalar(pad, pad), palm_bbox_and_landmark);
+
                 // Rotate input to have vertically oriented hand image
                 // compute rotation
-                Mat palm_bbox = palm.colRange(new OpenCVRange(0, 4)).reshape(1, 2);
-                Mat palm_landmarks = palm.colRange(new OpenCVRange(4, 18)).reshape(1, 7);
+                Mat palm_bbox = new_palm.colRange(new OpenCVRange(0, 4)).reshape(1, 2);
+                Mat palm_landmarks = new_palm.colRange(new OpenCVRange(4, 18)).reshape(1, 7);
 
                 Mat p1 = palm_landmarks.row(PALM_LANDMARKS_INDEX_OF_PALM_BASE);
                 Mat p2 = palm_landmarks.row(PALM_LANDMARKS_INDEX_OF_MIDDLE_FINGER_BASE);
@@ -2843,10 +2888,6 @@ namespace OpenCVForUnityExample
 
                 // get rotation matrix
                 rotation_matrix = Imgproc.getRotationMatrix2D(center_palm_bbox, angle, 1.0);
-
-                // get rotated image
-                Mat rotated_image = new Mat();
-                Imgproc.warpAffine(image, rotated_image, rotation_matrix, image.size());
 
                 // get bounding boxes from rotated palm landmarks
                 Mat rotated_palm_landmarks = new Mat(2, 7, CvType.CV_32FC1);
@@ -2884,7 +2925,6 @@ namespace OpenCVForUnityExample
                 Point _rotated_palm_bbox_br = _rotated_palm_bbox.br();
                 Point wh_rotated_palm_bbox = _rotated_palm_bbox_br - _rotated_palm_bbox_tl;
                 Point shift_vector = new Point(PALM_BOX_SHIFT_VECTOR.x * wh_rotated_palm_bbox.x, PALM_BOX_SHIFT_VECTOR.y * wh_rotated_palm_bbox.y);
-
                 _rotated_palm_bbox_tl = _rotated_palm_bbox_tl + shift_vector;
                 _rotated_palm_bbox_br = _rotated_palm_bbox_br + shift_vector;
 
@@ -2899,51 +2939,49 @@ namespace OpenCVForUnityExample
                 center_rotated_plam_bbox = new Point((_rotated_palm_bbox_tl.x + _rotated_palm_bbox_br.x) / 2, (_rotated_palm_bbox_tl.y + _rotated_palm_bbox_br.y) / 2);
                 wh_rotated_palm_bbox = _rotated_palm_bbox_br - _rotated_palm_bbox_tl;
                 Point new_half_size2 = new Point(wh_rotated_palm_bbox.x * PALM_BOX_ENLARGE_FACTOR / 2.0, wh_rotated_palm_bbox.y * PALM_BOX_ENLARGE_FACTOR / 2.0);
-                _rotated_palm_bbox_tl = new Point(center_rotated_plam_bbox.x - new_half_size2.x, center_rotated_plam_bbox.y - new_half_size2.x);
-                _rotated_palm_bbox_br = new Point(center_rotated_plam_bbox.x + new_half_size2.x, center_rotated_plam_bbox.y + new_half_size2.x);
+                OpenCVRect _rotated_palm_bbox_rect = new OpenCVRect((int)(center_rotated_plam_bbox.x - new_half_size2.x), (int)(center_rotated_plam_bbox.y - new_half_size2.y)
+                    , (int)(new_half_size2.x * 2), (int)(new_half_size2.y * 2));
+                _rotated_palm_bbox_tl = _rotated_palm_bbox_rect.tl();
+                _rotated_palm_bbox_br = _rotated_palm_bbox_rect.br();
                 rotated_palm_bbox.put(0, 0, new double[] { _rotated_palm_bbox_tl.x, _rotated_palm_bbox_tl.y, _rotated_palm_bbox_br.x, _rotated_palm_bbox_br.y });
 
-                // Crop and resize the rotated image by the bounding box
+                // crop bounding box
                 int[] diff = new int[] {
                     Math.Max((int)-_rotated_palm_bbox_tl.x, 0),
                     Math.Max((int)-_rotated_palm_bbox_tl.y, 0),
-                    Math.Max((int)_rotated_palm_bbox_br.x - rotated_image.width(), 0),
-                    Math.Max((int)_rotated_palm_bbox_br.y - rotated_image.height(), 0)
+                    Math.Max((int)_rotated_palm_bbox_br.x - tmpRotatedImage.width(), 0),
+                    Math.Max((int)_rotated_palm_bbox_br.y - tmpRotatedImage.height(), 0)
                 };
                 Point tl = new Point(_rotated_palm_bbox_tl.x + diff[0], _rotated_palm_bbox_tl.y + diff[1]);
                 Point br = new Point(_rotated_palm_bbox_br.x + diff[2], _rotated_palm_bbox_br.y + diff[3]);
                 OpenCVRect rotated_palm_bbox_rect = new OpenCVRect(tl, br);
-                OpenCVRect rotated_image_rect = new OpenCVRect(0, 0, rotated_image.width(), rotated_image.height());
-                Mat crop = new Mat(rotated_image, rotated_image_rect.intersect(rotated_palm_bbox_rect));
+                OpenCVRect rotated_image_rect = new OpenCVRect(0, 0, tmpRotatedImage.width(), tmpRotatedImage.height());
 
-                //
-                //Core.copyMakeBorder(crop, crop, diff[1], diff[3], diff[0], diff[2], Core.BORDER_CONSTANT, Scalar.all(0));
-                //Mat blob = Dnn.blobFromImage(crop, 1.0 / 255.0, input_size, new Scalar(0, 0, 0), true, false, CvType.CV_32F);
-                //
-                // or
-                //
-                int tmpImageSize = (int)(Math.Max(image.width(), image.height()) * 1.5);
-                if (tmpImage != null && (tmpImage.width() != tmpImageSize || tmpImage.height() != tmpImageSize))
-                {
-                    tmpImage.Dispose();
-                    tmpImage = null;
-                }
-                if (tmpImage == null)
-                {
-                    tmpImage = new Mat(tmpImageSize, tmpImageSize, image.type(), Scalar.all(0));
-                }
-                Mat _tmpImage_crop = new Mat(tmpImage, new OpenCVRect(0, 0, diff[0] + crop.width() + diff[2], diff[1] + crop.height() + diff[3]));
-                Imgproc.rectangle(_tmpImage_crop, new OpenCVRect(0, 0, _tmpImage_crop.width(), _tmpImage_crop.height()), Scalar.all(0));
-                Mat _tmpImage_crop2 = new Mat(tmpImage, new OpenCVRect(diff[0], diff[1], crop.width(), crop.height()));
-                crop.copyTo(_tmpImage_crop2);
+                // get rotated image
+                OpenCVRect warp_roi_rect = rotated_image_rect.intersect(rotated_palm_bbox_rect);
+                Mat _tmpImage_warp_roi = new Mat(tmpImage, warp_roi_rect);
+                Mat _tmpRotatedImage_warp_roi = new Mat(tmpRotatedImage, warp_roi_rect);
+                Point warp_roi_center_palm_bbox = center_palm_bbox - warp_roi_rect.tl();
+                Mat warp_roi_rotation_matrix = Imgproc.getRotationMatrix2D(warp_roi_center_palm_bbox, angle, 1.0);
+                Imgproc.warpAffine(_tmpImage_warp_roi, _tmpRotatedImage_warp_roi, warp_roi_rotation_matrix, _tmpImage_warp_roi.size());
 
-                Mat blob = Dnn.blobFromImage(_tmpImage_crop, 1.0 / 255.0, input_size, new Scalar(0, 0, 0), true, false, CvType.CV_32F);
-                //
+                // get rotated_palm_bbox-size rotated image
+                OpenCVRect crop_rect = rotated_image_rect.intersect(
+                    new OpenCVRect(0, 0, (int)_rotated_palm_bbox_br.x - (int)_rotated_palm_bbox_tl.x, (int)_rotated_palm_bbox_br.y - (int)_rotated_palm_bbox_tl.y));
+                Mat _tmpImage_crop_roi = new Mat(tmpImage, crop_rect);
+                Imgproc.rectangle(_tmpImage_crop_roi, new OpenCVRect(0, 0, _tmpImage_crop_roi.width(), _tmpImage_crop_roi.height()), Scalar.all(0), -1);
+                OpenCVRect crop2_rect = rotated_image_rect.intersect(new OpenCVRect(diff[0], diff[1], _tmpRotatedImage_warp_roi.width(), _tmpRotatedImage_warp_roi.height()));
+                Mat _tmpImage_crop2_roi = new Mat(tmpImage, crop2_rect);
+                if (_tmpRotatedImage_warp_roi.size() == _tmpImage_crop2_roi.size())
+                    _tmpRotatedImage_warp_roi.copyTo(_tmpImage_crop2_roi);
+
+
+                Mat blob = Dnn.blobFromImage(_tmpImage_crop_roi, 1.0 / 255.0, input_size, new Scalar(0, 0, 0), true, false, CvType.CV_32F);
 
                 // NCHW => NHWC
                 Core.transposeND(blob, new MatOfInt(0, 2, 3, 1), blob);
 
-                rotated_image.Dispose();
+                new_palm.Dispose();
 
                 return blob;
             }
@@ -2954,7 +2992,8 @@ namespace OpenCVForUnityExample
                 Mat rotated_palm_bbox;
                 double angle;
                 Mat rotation_matrix;
-                Mat input_blob = preprocess(image, palm, out rotated_palm_bbox, out angle, out rotation_matrix);
+                Mat pad_bias;
+                Mat input_blob = preprocess(image, palm, out rotated_palm_bbox, out angle, out rotation_matrix, out pad_bias);
 
                 // Forward
                 handpose_estimation_net.setInput(input_blob);
@@ -2962,7 +3001,7 @@ namespace OpenCVForUnityExample
                 handpose_estimation_net.forward(output_blob, handpose_estimation_net.getUnconnectedOutLayersNames());
 
                 // Postprocess
-                Mat results = postprocess(output_blob, rotated_palm_bbox, angle, rotation_matrix);
+                Mat results = postprocess(output_blob, rotated_palm_bbox, angle, rotation_matrix, pad_bias);
 
                 input_blob.Dispose();
                 for (int i = 0; i < output_blob.Count; i++)
@@ -2973,7 +3012,7 @@ namespace OpenCVForUnityExample
                 return results;// [bbox_coords, landmarks_coords, landmarks_coords_world, handedness, conf]
             }
 
-            protected virtual Mat postprocess(List<Mat> output_blob, Mat rotated_palm_bbox, double angle, Mat rotation_matrix)
+            protected virtual Mat postprocess(List<Mat> output_blob, Mat rotated_palm_bbox, double angle, Mat rotation_matrix, Mat pad_bias)
             {
                 Mat landmarks = output_blob[0];
                 float conf = (float)output_blob[1].get(0, 0)[0];
@@ -3050,7 +3089,10 @@ namespace OpenCVForUnityExample
                 center.put(0, 0, new double[] { (rotated_palm_bbox_arr[0] + rotated_palm_bbox_arr[2]) / 2.0, (rotated_palm_bbox_arr[1] + rotated_palm_bbox_arr[3]) / 2.0, 1.0 });
                 Mat original_center = new Mat(2, 1, CvType.CV_64FC1);
                 original_center.put(0, 0, new double[] { inverse_rotation_matrix.row(0).dot(center.reshape(1, 1)), inverse_rotation_matrix.row(1).dot(center.reshape(1, 1)) });
-                Core.add(rotated_landmarks.reshape(3, 21), new Scalar(original_center.get(0, 0)[0], original_center.get(1, 0)[0], 0.0), landmarks.reshape(3, 21));
+
+                Core.add(rotated_landmarks.reshape(3, 21)
+                    , new Scalar(original_center.get(0, 0)[0] + pad_bias.get(0, 0)[0], original_center.get(1, 0)[0] + pad_bias.get(1, 0)[0], 0.0)
+                    , landmarks.reshape(3, 21));
 
                 // get bounding box from rotated_landmarks
                 Point[] landmarks_points = new Point[21];
@@ -3220,6 +3262,9 @@ namespace OpenCVForUnityExample
 
                 if (tmpImage != null)
                     tmpImage.Dispose();
+
+                if (tmpRotatedImage != null)
+                    tmpRotatedImage.Dispose();
             }
         }
     }
