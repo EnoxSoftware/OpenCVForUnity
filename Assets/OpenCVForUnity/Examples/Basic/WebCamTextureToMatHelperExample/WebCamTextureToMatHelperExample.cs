@@ -72,12 +72,18 @@ namespace OpenCVForUnityExample
         {
             fpsMonitor = GetComponent<FpsMonitor>();
 
+            // Get the WebCamTextureToMatHelper component attached to the current game object
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper>();
+
+            // Set the requested width, height, FPS and ColorFormat
             int width, height;
             Dimensions(requestedResolution, out width, out height);
             webCamTextureToMatHelper.requestedWidth = width;
             webCamTextureToMatHelper.requestedHeight = height;
             webCamTextureToMatHelper.requestedFPS = (int)requestedFPS;
+            webCamTextureToMatHelper.outputColorFormat = WebCamTextureToMatHelper.ColorFormat.RGBA;
+
+            // Initialize the webcam texture to Mat helper, which starts the webcam and prepares the conversion
             webCamTextureToMatHelper.Initialize();
 
             // Update GUI state
@@ -97,15 +103,22 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnWebCamTextureToMatHelperInitialized");
 
+            // Retrieve the current frame from the WebCamTextureToMatHelper as a Mat object
             Mat webCamTextureMat = webCamTextureToMatHelper.GetMat();
 
+            // Create a new Texture2D with the same dimensions as the Mat and RGBA32 color format
             texture = new Texture2D(webCamTextureMat.cols(), webCamTextureMat.rows(), TextureFormat.RGBA32, false);
+
+            // Convert the Mat to a Texture2D, effectively transferring the image data
             Utils.matToTexture2D(webCamTextureMat, texture);
 
+            // Set the Texture2D as the main texture of the Renderer component attached to the game object
             gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
+            // Adjust the scale of the game object to match the dimensions of the texture
             gameObject.transform.localScale = new Vector3(webCamTextureMat.cols(), webCamTextureMat.rows(), 1);
             Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
+
 
             if (fpsMonitor != null)
             {
@@ -123,17 +136,23 @@ namespace OpenCVForUnityExample
             }
 
 
+            // Get the width and height of the webCamTextureMat
             float width = webCamTextureMat.width();
             float height = webCamTextureMat.height();
 
+            // Calculate the scale factors for width and height based on the screen dimensions
             float widthScale = (float)Screen.width / width;
             float heightScale = (float)Screen.height / height;
+
+            // Adjust the orthographic size of the main Camera to fit the aspect ratio of the image
             if (widthScale < heightScale)
             {
+                // If the width scale is smaller, adjust the orthographic size based on width and screen height
                 Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
             }
             else
             {
+                // If the height scale is smaller or equal, adjust the orthographic size based on height
                 Camera.main.orthographicSize = height / 2;
             }
         }
@@ -145,6 +164,7 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnWebCamTextureToMatHelperDisposed");
 
+            // Destroy the texture and set it to null
             if (texture != null)
             {
                 Texture2D.Destroy(texture);
@@ -169,13 +189,16 @@ namespace OpenCVForUnityExample
         // Update is called once per frame
         void Update()
         {
+            // Check if the web camera is playing and if a new frame was updated
             if (webCamTextureToMatHelper.IsPlaying() && webCamTextureToMatHelper.DidUpdateThisFrame())
             {
-
+                // Retrieve the current frame as a Mat object
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat();
 
+                // Add text overlay on the frame
                 //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
+                // Convert the Mat to a Texture2D to display it on a texture
                 Utils.matToTexture2D(rgbaMat, texture);
             }
         }
@@ -185,6 +208,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDestroy()
         {
+            // Dispose of the webCamTextureToMatHelper object and release any resources held by it.
             webCamTextureToMatHelper.Dispose();
         }
 
@@ -193,6 +217,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnBackButtonClick()
         {
+            // Load the specified scene when the back button is clicked
             SceneManager.LoadScene("OpenCVForUnityExample");
         }
 

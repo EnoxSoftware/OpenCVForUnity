@@ -19,7 +19,7 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Dnn ObjectDetection Example
-    /// Referring to https://github.com/opencv/opencv/blob/master/samples/dnn/object_detection.cpp.
+    /// Referring to https://github.com/opencv/opencv/blob/master/samples/dnn/object_detection.cpp
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class DnnObjectDetectionWebCamTextureExample : MonoBehaviour

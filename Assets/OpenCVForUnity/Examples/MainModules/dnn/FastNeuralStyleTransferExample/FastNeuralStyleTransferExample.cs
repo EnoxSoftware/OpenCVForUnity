@@ -18,8 +18,8 @@ using Range = OpenCVForUnity.CoreModule.Range;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// FastNeuralStyleTransfer WebCamTexture Example
-    /// Referring to https://github.com/opencv/opencv/blob/master/samples/dnn/fast_neural_style.py and https://github.com/jcjohnson/fast-neural-style.
+    /// Fast Neural Style Transfer Example
+    /// Referring to https://github.com/opencv/opencv/blob/master/samples/dnn/fast_neural_style.py and https://github.com/jcjohnson/fast-neural-style
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class FastNeuralStyleTransferExample : MonoBehaviour

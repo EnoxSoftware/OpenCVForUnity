@@ -1,6 +1,5 @@
-using UnityEngine;
-using System;
 using OpenCVForUnity.CoreModule;
+using System;
 
 namespace OpenCVForUnityExample
 {

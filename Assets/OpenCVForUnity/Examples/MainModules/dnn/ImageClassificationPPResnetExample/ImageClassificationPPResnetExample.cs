@@ -17,9 +17,9 @@ using OpenCVForUnity.UnityUtils.Helper;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Image Classification PPResnet WebCam Example
+    /// Image Classification PPResnet Example
     /// An example of using OpenCV dnn module with Image Classification PPResnet model.
-    /// Referring to https://github.com/opencv/opencv_zoo/tree/master/models/image_classification_ppresnet.
+    /// Referring to https://github.com/opencv/opencv_zoo/tree/master/models/image_classification_ppresnet
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class ImageClassificationPPResnetExample : MonoBehaviour

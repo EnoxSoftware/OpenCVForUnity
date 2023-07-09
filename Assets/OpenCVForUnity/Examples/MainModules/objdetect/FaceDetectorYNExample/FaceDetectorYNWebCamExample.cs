@@ -79,7 +79,7 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// MODEL_FILENAME
         /// </summary>
-        protected static readonly string MODEL_FILENAME = "OpenCVForUnity/objdetect/face_detection_yunet_2022mar.onnx";
+        protected static readonly string MODEL_FILENAME = "OpenCVForUnity/objdetect/face_detection_yunet_2023mar.onnx";
 
         protected Scalar bBoxColor = new Scalar(255, 255, 0, 255);
 

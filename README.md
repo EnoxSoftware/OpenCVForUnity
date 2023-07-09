@@ -6,9 +6,11 @@ Overview
 OpenCVForUnity is required to run example code of this repository.  
 [https://assetstore.unity.com/packages/tools/integration/opencv-for-unity-21088](https://assetstore.unity.com/packages/tools/integration/opencv-for-unity-21088?aid=1011l4ehR)  
 
-Setup Tutorial & Demo Video
+[![](http://img.youtube.com/vi/88ftWSdIhwc/0.jpg)](https://www.youtube.com/watch?v=88ftWSdIhwc)
+
+Setup Guide
 -----
-[![](http://img.youtube.com/vi/HnXGIvHvU9I/0.jpg)](https://www.youtube.com/watch?v=HnXGIvHvU9I)
+[![](http://img.youtube.com/vi/ZdyQ58rBkyo/0.jpg)](https://www.youtube.com/watch?v=ZdyQ58rBkyo)
 
 Demo
 -----

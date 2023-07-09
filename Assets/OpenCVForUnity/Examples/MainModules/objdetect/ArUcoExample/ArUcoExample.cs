@@ -1,20 +1,20 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using System.Collections;
-using System.Collections.Generic;
-using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.Calib3dModule;
-using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ObjdetectModule;
+using OpenCVForUnity.UnityUtils;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
     /// ArUco Example
-    /// An example of marker-based AR view and camera pose estimation using the aruco (ArUco Marker Detection) module.
-    /// Referring to https://github.com/opencv/opencv_contrib/blob/master/modules/aruco/samples/detect_markers.cpp.
+    /// An example of marker-based AR view and camera pose estimation using the objdetect and aruco module.
+    /// Referring to https://github.com/opencv/opencv_contrib/blob/4.x/modules/aruco/samples/detect_markers.cpp
     /// http://docs.opencv.org/3.1.0/d5/dae/tutorial_aruco_detection.html
+    /// https://github.com/opencv/opencv/blob/4.x/modules/objdetect/test/test_arucodetection.cpp
     /// </summary>
     public class ArUcoExample : MonoBehaviour
     {
@@ -219,6 +219,7 @@ namespace OpenCVForUnityExample
             Dictionary dictionary = Objdetect.getPredefinedDictionary((int)dictionaryId);
             DetectorParameters detectorParams = new DetectorParameters();
             detectorParams.set_useAruco3Detection(true);
+            detectorParams.set_cornerRefinementMethod(Objdetect.CORNER_REFINE_SUBPIX);
             RefineParameters refineParameters = new RefineParameters(10f, 3f, true);
             ArucoDetector arucoDetector = new ArucoDetector(dictionary, detectorParams, refineParameters);
 
@@ -228,11 +229,12 @@ namespace OpenCVForUnityExample
             // detect markers.
             arucoDetector.detectMarkers(undistortedRgbMat, corners, ids, rejectedCorners);
 
+            if (corners.Count == ids.total() || ids.total() == 0)
+                Objdetect.drawDetectedMarkers(undistortedRgbMat, corners, ids, new Scalar(0, 255, 0));
+
             // if at least one marker detected
             if (ids.total() > 0)
             {
-                Objdetect.drawDetectedMarkers(undistortedRgbMat, corners, ids, new Scalar(0, 255, 0));
-
                 // estimate pose.
                 if (applyEstimationPose)
                 {

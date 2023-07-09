@@ -183,14 +183,14 @@ namespace OpenCVForUnityExample
             {
 
                 KeypointsModel keypointsModel = new KeypointsModel(net);
-                keypointsModel.setInputScale(inScale);
+                keypointsModel.setInputScale(Scalar.all(inScale));
                 keypointsModel.setInputSize(new Size(inWidth, inHeight));
                 keypointsModel.setInputMean(new Scalar(inMean));
                 keypointsModel.setInputSwapRB(false);
                 keypointsModel.setInputCrop(false);
 
                 List<Point> points = keypointsModel.estimate(img, (float)threshold).toList();
-                
+
                 for (int i = 0; i < POSE_PAIRS.GetLength(0); i++)
                 {
                     string partFrom = POSE_PAIRS[i, 0];

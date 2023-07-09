@@ -157,7 +157,7 @@ namespace OpenCVForUnityExample
                 net = Dnn.readNet(model_filepath);
 
                 keypointsModel = new KeypointsModel(net);
-                keypointsModel.setInputScale(inScale);
+                keypointsModel.setInputScale(Scalar.all(inScale));
                 keypointsModel.setInputSize(new Size(inWidth, inHeight));
                 keypointsModel.setInputMean(new Scalar(inMean));
                 keypointsModel.setInputSwapRB(false);

@@ -17,7 +17,7 @@ namespace OpenCVForUnityExample
     /// <summary>
     /// Colorization Example
     /// This sample demonstrates recoloring grayscale images with dnn.
-    /// Referring to https://github.com/opencv/opencv/blob/master/samples/dnn/colorization.cpp.
+    /// Referring to https://github.com/opencv/opencv/blob/master/samples/dnn/colorization.cpp
     /// </summary>
     public class ColorizationExample : MonoBehaviour
     {

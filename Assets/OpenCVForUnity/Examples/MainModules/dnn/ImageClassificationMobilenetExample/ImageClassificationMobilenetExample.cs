@@ -17,9 +17,9 @@ using OpenCVForUnity.UnityUtils.Helper;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Image Classification MobileNet WebCam Example
+    /// Image Classification MobileNet Example
     /// An example of using OpenCV dnn module with Image Classification MobileNet model.
-    /// Referring to https://github.com/opencv/opencv_zoo/tree/master/models/image_classification_mobilenet.
+    /// Referring to https://github.com/opencv/opencv_zoo/tree/master/models/image_classification_mobilenet
     /// </summary>
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class ImageClassificationMobilenetExample : MonoBehaviour
