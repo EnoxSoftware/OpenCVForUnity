@@ -21,9 +21,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.5.4</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.5.5</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.7.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.8.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -217,6 +217,12 @@ Static Public Attributes</h2></td></tr>
 <tr class="separator:a3923cbe6d2e97c483ff7dc5d55353e84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a002fe8733ff912f6bde965762435ff85"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a002fe8733ff912f6bde965762435ff85">IMWRITE_JPEG2000_COMPRESSION_X1000</a> = 272</td></tr>
 <tr class="separator:a002fe8733ff912f6bde965762435ff85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb0a700af51cbed5585eecb2cab9ea85"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#abb0a700af51cbed5585eecb2cab9ea85">IMWRITE_AVIF_QUALITY</a> = 512</td></tr>
+<tr class="separator:abb0a700af51cbed5585eecb2cab9ea85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa51a3f7a5ef8bfa27482751e0c46a97f"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#aa51a3f7a5ef8bfa27482751e0c46a97f">IMWRITE_AVIF_DEPTH</a> = 513</td></tr>
+<tr class="separator:aa51a3f7a5ef8bfa27482751e0c46a97f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44cb916321ebf8a6b592e9db71ccf2b6"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a44cb916321ebf8a6b592e9db71ccf2b6">IMWRITE_AVIF_SPEED</a> = 514</td></tr>
+<tr class="separator:a44cb916321ebf8a6b592e9db71ccf2b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7262979b2b7a51e96968deb702435b1d"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a7262979b2b7a51e96968deb702435b1d">IMWRITE_HDR_COMPRESSION_NONE</a> = 0</td></tr>
 <tr class="separator:a7262979b2b7a51e96968deb702435b1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec43421c17c516149a3aaf42d6418424"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#aec43421c17c516149a3aaf42d6418424">IMWRITE_HDR_COMPRESSION_RLE</a> = 1</td></tr>
@@ -598,6 +604,8 @@ Portable Network Graphics - *.png (see the <em>Note</em> section)  </li>
 <li>
 WebP - *.webp (see the <em>Note</em> section)  </li>
 <li>
+AVIF - *.avif (see the <em>Note</em> section)  </li>
+<li>
 Portable image format - *.pbm, *.pgm, *.ppm *.pxm, *.pnm (always supported)  </li>
 <li>
 PFM files - *.pfm (see the <em>Note</em> section)  </li>
@@ -684,6 +692,8 @@ JPEG 2000 files - *.jp2 (see the <em>Note</em> section)  </li>
 Portable Network Graphics - *.png (see the <em>Note</em> section)  </li>
 <li>
 WebP - *.webp (see the <em>Note</em> section)  </li>
+<li>
+AVIF - *.avif (see the <em>Note</em> section)  </li>
 <li>
 Portable image format - *.pbm, *.pgm, *.ppm *.pxm, *.pnm (always supported)  </li>
 <li>
@@ -945,18 +955,42 @@ By default number of pixels must be less than 2^30. Limit can be set using syste
 </table>
 </div><div class="memdoc">
 <p>Saves an image to a specified file.</p>
-<p>The function imwrite saves the image to the specified file. The image format is chosen based on the filename extension (see cv::imread for the list of extensions). In general, only 8-bit single-channel or 3-channel (with 'BGR' channel order) images can be saved using this function, with these exceptions:</p>
+<p>The function imwrite saves the image to the specified file. The image format is chosen based on the filename extension (see cv::imread for the list of extensions). In general, only 8-bit unsigned (CV_8U) single-channel or 3-channel (with 'BGR' channel order) images can be saved using this function, with these exceptions:</p>
 <ul>
 <li>
-16-bit unsigned (CV_16U) images can be saved in the case of PNG, JPEG 2000, and TIFF formats  </li>
+With OpenEXR encoder, only 32-bit float (CV_32F) images can be saved. <ul>
 <li>
-32-bit float (CV_32F) images can be saved in PFM, TIFF, OpenEXR, and Radiance HDR formats; 3-channel (CV_32FC3) TIFF images will be saved using the LogLuv high dynamic range encoding (4 bytes per pixel)  </li>
+8-bit unsigned (CV_8U) images are not supported.  </li>
+</ul>
+</li>
+<li>
+With Radiance HDR encoder, non 64-bit float (CV_64F) images can be saved. <ul>
+<li>
+All images will be converted to 32-bit float (CV_32F).  </li>
+</ul>
+</li>
+<li>
+With JPEG 2000 encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.  </li>
+<li>
+With PAM encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.  </li>
+<li>
+With PNG encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved. <ul>
 <li>
 PNG images with an alpha channel can be saved using this function. To do this, create 8-bit (or 16-bit) 4-channel image BGRA, where the alpha channel goes last. Fully transparent pixels should have alpha set to 0, fully opaque pixels should have alpha set to 255/65535 (see the code sample below).  </li>
+</ul>
+</li>
+<li>
+With PGM/PPM encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.  </li>
+<li>
+<p class="startli">With TIFF encoder, 8-bit unsigned (CV_8U), 16-bit unsigned (CV_16U), 32-bit float (CV_32F) and 64-bit float (CV_64F) images can be saved. </p><ul>
 <li>
 Multiple images (vector of Mat) can be saved in TIFF format (see the code sample below).  </li>
+<li>
+32-bit float 3-channel (CV_32FC3) TIFF images will be saved using the LogLuv high dynamic range encoding (4 bytes per pixel)  </li>
 </ul>
-<p>If the image format is not supported, the image will be converted to 8-bit unsigned (CV_8U) and saved that way.</p>
+<p class="endli">If the image format is not supported, the image will be converted to 8-bit unsigned (CV_8U) and saved that way.  </p>
+</li>
+</ul>
 <p>If the format, depth or channel order is different, use <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html#ae89d02605d9843365941fa911908a7f1">Mat::convertTo</a> and cv::cvtColor to convert it before saving. Or, use the universal FileStorage I/O functions to save the image to XML or YAML format.</p>
 <p>The sample below shows how to create a BGRA image, how to set custom compression parameters and save it to a PNG file. It also demonstrates how to save multiple images in a TIFF file: INCLUDE: snippets/imgcodecs_imwrite.cpp param filename Name of the file. param img (Mat or vector of Mat) Image or Images to be saved. return automatically generated </p>
 
@@ -1002,18 +1036,42 @@ Multiple images (vector of Mat) can be saved in TIFF format (see the code sample
 </table>
 </div><div class="memdoc">
 <p>Saves an image to a specified file.</p>
-<p>The function imwrite saves the image to the specified file. The image format is chosen based on the filename extension (see cv::imread for the list of extensions). In general, only 8-bit single-channel or 3-channel (with 'BGR' channel order) images can be saved using this function, with these exceptions:</p>
+<p>The function imwrite saves the image to the specified file. The image format is chosen based on the filename extension (see cv::imread for the list of extensions). In general, only 8-bit unsigned (CV_8U) single-channel or 3-channel (with 'BGR' channel order) images can be saved using this function, with these exceptions:</p>
 <ul>
 <li>
-16-bit unsigned (CV_16U) images can be saved in the case of PNG, JPEG 2000, and TIFF formats  </li>
+With OpenEXR encoder, only 32-bit float (CV_32F) images can be saved. <ul>
 <li>
-32-bit float (CV_32F) images can be saved in PFM, TIFF, OpenEXR, and Radiance HDR formats; 3-channel (CV_32FC3) TIFF images will be saved using the LogLuv high dynamic range encoding (4 bytes per pixel)  </li>
+8-bit unsigned (CV_8U) images are not supported.  </li>
+</ul>
+</li>
+<li>
+With Radiance HDR encoder, non 64-bit float (CV_64F) images can be saved. <ul>
+<li>
+All images will be converted to 32-bit float (CV_32F).  </li>
+</ul>
+</li>
+<li>
+With JPEG 2000 encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.  </li>
+<li>
+With PAM encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.  </li>
+<li>
+With PNG encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved. <ul>
 <li>
 PNG images with an alpha channel can be saved using this function. To do this, create 8-bit (or 16-bit) 4-channel image BGRA, where the alpha channel goes last. Fully transparent pixels should have alpha set to 0, fully opaque pixels should have alpha set to 255/65535 (see the code sample below).  </li>
+</ul>
+</li>
+<li>
+With PGM/PPM encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.  </li>
+<li>
+<p class="startli">With TIFF encoder, 8-bit unsigned (CV_8U), 16-bit unsigned (CV_16U), 32-bit float (CV_32F) and 64-bit float (CV_64F) images can be saved. </p><ul>
 <li>
 Multiple images (vector of Mat) can be saved in TIFF format (see the code sample below).  </li>
+<li>
+32-bit float 3-channel (CV_32FC3) TIFF images will be saved using the LogLuv high dynamic range encoding (4 bytes per pixel)  </li>
 </ul>
-<p>If the image format is not supported, the image will be converted to 8-bit unsigned (CV_8U) and saved that way.</p>
+<p class="endli">If the image format is not supported, the image will be converted to 8-bit unsigned (CV_8U) and saved that way.  </p>
+</li>
+</ul>
 <p>If the format, depth or channel order is different, use <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html#ae89d02605d9843365941fa911908a7f1">Mat::convertTo</a> and cv::cvtColor to convert it before saving. Or, use the universal FileStorage I/O functions to save the image to XML or YAML format.</p>
 <p>The sample below shows how to create a BGRA image, how to set custom compression parameters and save it to a PNG file. It also demonstrates how to save multiple images in a TIFF file: INCLUDE: snippets/imgcodecs_imwrite.cpp param filename Name of the file. param img (Mat or vector of Mat) Image or Images to be saved. param _params automatically generated return automatically generated </p>
 
@@ -1373,6 +1431,72 @@ Multiple images (vector of Mat) can be saved in TIFF format (see the code sample
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.ImgcodecsModule.Imgcodecs.IMREAD_UNCHANGED = -1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa51a3f7a5ef8bfa27482751e0c46a97f" name="aa51a3f7a5ef8bfa27482751e0c46a97f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa51a3f7a5ef8bfa27482751e0c46a97f">&#9670;&#160;</a></span>IMWRITE_AVIF_DEPTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int OpenCVForUnity.ImgcodecsModule.Imgcodecs.IMWRITE_AVIF_DEPTH = 513</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abb0a700af51cbed5585eecb2cab9ea85" name="abb0a700af51cbed5585eecb2cab9ea85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb0a700af51cbed5585eecb2cab9ea85">&#9670;&#160;</a></span>IMWRITE_AVIF_QUALITY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int OpenCVForUnity.ImgcodecsModule.Imgcodecs.IMWRITE_AVIF_QUALITY = 512</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a44cb916321ebf8a6b592e9db71ccf2b6" name="a44cb916321ebf8a6b592e9db71ccf2b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44cb916321ebf8a6b592e9db71ccf2b6">&#9670;&#160;</a></span>IMWRITE_AVIF_SPEED</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int OpenCVForUnity.ImgcodecsModule.Imgcodecs.IMWRITE_AVIF_SPEED = 514</td>
         </tr>
       </table>
   </td>
@@ -2534,7 +2658,7 @@ Multiple images (vector of Mat) can be saved in TIFF format (see the code sample
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 20 2023 00:28:02 for OpenCV for Unity by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
+Generated on Tue Jul 4 2023 21:21:11 for OpenCV for Unity by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
 </small></address>
 </body>
 </html>

@@ -21,9 +21,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.5.4</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.5.5</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.7.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.8.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -733,6 +733,14 @@ Static Public Attributes</h2></td></tr>
 <tr class="separator:a55a81042fc3d722fc328c396cdfc5658"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30d4c1520c8e7b2584ab4740779939fd"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a30d4c1520c8e7b2584ab4740779939fd">NEIGH_FLANN_RADIUS</a> = 2</td></tr>
 <tr class="separator:a30d4c1520c8e7b2584ab4740779939fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5dbfcca4910f37166f7d40858721918"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#ab5dbfcca4910f37166f7d40858721918">NONE_POLISHER</a> = 0</td></tr>
+<tr class="separator:ab5dbfcca4910f37166f7d40858721918"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e2c7bfca0a7160a06093fa9f13f2460"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a3e2c7bfca0a7160a06093fa9f13f2460">LSQ_POLISHER</a> = 1</td></tr>
+<tr class="separator:a3e2c7bfca0a7160a06093fa9f13f2460"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c565da065f7ff5d3e9a2493d3cd7862"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a0c565da065f7ff5d3e9a2493d3cd7862">MAGSAC</a> = 2</td></tr>
+<tr class="separator:a0c565da065f7ff5d3e9a2493d3cd7862"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23e78e5054c0bd80577516c8ec41a121"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a23e78e5054c0bd80577516c8ec41a121">COV_POLISHER</a> = 3</td></tr>
+<tr class="separator:a23e78e5054c0bd80577516c8ec41a121"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80ddbd05f5b18582ae2d80f736b92c69"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a80ddbd05f5b18582ae2d80f736b92c69">CALIB_ROBOT_WORLD_HAND_EYE_SHAH</a> = 0</td></tr>
 <tr class="separator:a80ddbd05f5b18582ae2d80f736b92c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93c0ddfe3e574b22c4cfcbb67d9a6f35"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a93c0ddfe3e574b22c4cfcbb67d9a6f35">CALIB_ROBOT_WORLD_HAND_EYE_LI</a> = 1</td></tr>
@@ -1369,8 +1377,9 @@ REF: CALIB_FIX_S1_S2_S3_S4 The thin prism distortion coefficients are not change
 <li>
 REF: CALIB_TILTED_MODEL Coefficients tauX and tauY are enabled. To provide the backward compatibility, this extra flag should be explicitly specified to make the calibration function use the tilted sensor model and return 14 coefficients.  </li>
 <li>
-REF: CALIB_FIX_TAUX_TAUY The coefficients of the tilted sensor model are not changed during the optimization. If REF: CALIB_USE_INTRINSIC_GUESS is set, the coefficient from the supplied distCoeffs matrix is used. Otherwise, it is set to 0. param criteria Termination criteria for the iterative optimization algorithm.  </li>
+REF: CALIB_FIX_TAUX_TAUY The coefficients of the tilted sensor model are not changed during the optimization. If REF: CALIB_USE_INTRINSIC_GUESS is set, the coefficient from the supplied distCoeffs matrix is used. Otherwise, it is set to 0.  </li>
 </ul>
+<p>param criteria Termination criteria for the iterative optimization algorithm.</p>
 <p>return the overall RMS re-projection error.</p>
 <p>The function estimates the intrinsic camera parameters and extrinsic parameters for each of the views. The algorithm is based on CITE: Zhang2000 and CITE: BouguetMCT . The coordinates of 3D object points and their corresponding 2D projections in each view must be specified. That may be achieved by using an object with known geometry and easily detectable feature points. Such an object is called a calibration rig or calibration pattern, and OpenCV has built-in support for a chessboard as a calibration rig (see REF: findChessboardCorners). Currently, initialization of intrinsic parameters (when REF: CALIB_USE_INTRINSIC_GUESS is not set) is only implemented for planar calibration patterns (where Z-coordinates of the object points must be all zeros). 3D calibration rigs can also be used as long as initial cameraMatrix is provided.</p>
 <p>The algorithm performs the following steps:</p>
@@ -4211,8 +4220,9 @@ for each pose, the homogeneous transformation between the calibration target fra
 <li>
 REF: RANSAC - RANSAC-based robust method  </li>
 <li>
-REF: LMEDS - Least-Median robust method RANSAC is the default method. a point as an inlier. Applies only to RANSAC. between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.  </li>
+REF: LMEDS - Least-Median robust method RANSAC is the default method.  </li>
 </ul>
+<p>a point as an inlier. Applies only to RANSAC. between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.</p>
 <p>return Output 2D affine transformation matrix (2 \times 3) or empty matrix if transformation could not be estimated. The returned matrix has the following form: ( \begin{bmatrix} a_{11} &amp; a_{12} &amp; b_1\ a_{21} &amp; a_{22} &amp; b_2\ \end{bmatrix} )</p>
 <p>The function estimates an optimal 2D affine transformation between two 2D point sets using the selected robust algorithm.</p>
 <p>The computed transformation is then refined further (using only inliers) with the Levenberg-Marquardt method to reduce the re-projection error even more.</p>
@@ -4268,8 +4278,9 @@ REF: LMEDS - Least-Median robust method RANSAC is the default method. a point as
 <li>
 REF: RANSAC - RANSAC-based robust method  </li>
 <li>
-REF: LMEDS - Least-Median robust method RANSAC is the default method. a point as an inlier. Applies only to RANSAC. between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.  </li>
+REF: LMEDS - Least-Median robust method RANSAC is the default method.  </li>
 </ul>
+<p>a point as an inlier. Applies only to RANSAC. between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.</p>
 <p>return Output 2D affine transformation matrix (2 \times 3) or empty matrix if transformation could not be estimated. The returned matrix has the following form: ( \begin{bmatrix} a_{11} &amp; a_{12} &amp; b_1\ a_{21} &amp; a_{22} &amp; b_2\ \end{bmatrix} )</p>
 <p>The function estimates an optimal 2D affine transformation between two 2D point sets using the selected robust algorithm.</p>
 <p>The computed transformation is then refined further (using only inliers) with the Levenberg-Marquardt method to reduce the re-projection error even more.</p>
@@ -4331,8 +4342,9 @@ REF: LMEDS - Least-Median robust method RANSAC is the default method. a point as
 <li>
 REF: RANSAC - RANSAC-based robust method  </li>
 <li>
-REF: LMEDS - Least-Median robust method RANSAC is the default method. a point as an inlier. Applies only to RANSAC. between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.  </li>
+REF: LMEDS - Least-Median robust method RANSAC is the default method.  </li>
 </ul>
+<p>a point as an inlier. Applies only to RANSAC. between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.</p>
 <p>return Output 2D affine transformation matrix (2 \times 3) or empty matrix if transformation could not be estimated. The returned matrix has the following form: ( \begin{bmatrix} a_{11} &amp; a_{12} &amp; b_1\ a_{21} &amp; a_{22} &amp; b_2\ \end{bmatrix} )</p>
 <p>The function estimates an optimal 2D affine transformation between two 2D point sets using the selected robust algorithm.</p>
 <p>The computed transformation is then refined further (using only inliers) with the Levenberg-Marquardt method to reduce the re-projection error even more.</p>
@@ -4400,8 +4412,9 @@ REF: LMEDS - Least-Median robust method RANSAC is the default method. a point as
 <li>
 REF: RANSAC - RANSAC-based robust method  </li>
 <li>
-REF: LMEDS - Least-Median robust method RANSAC is the default method. param ransacReprojThreshold Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC. between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.  </li>
+REF: LMEDS - Least-Median robust method RANSAC is the default method.  </li>
 </ul>
+<p>param ransacReprojThreshold Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC. between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.</p>
 <p>return Output 2D affine transformation matrix (2 \times 3) or empty matrix if transformation could not be estimated. The returned matrix has the following form: ( \begin{bmatrix} a_{11} &amp; a_{12} &amp; b_1\ a_{21} &amp; a_{22} &amp; b_2\ \end{bmatrix} )</p>
 <p>The function estimates an optimal 2D affine transformation between two 2D point sets using the selected robust algorithm.</p>
 <p>The computed transformation is then refined further (using only inliers) with the Levenberg-Marquardt method to reduce the re-projection error even more.</p>
@@ -4475,8 +4488,9 @@ REF: LMEDS - Least-Median robust method RANSAC is the default method. param rans
 <li>
 REF: RANSAC - RANSAC-based robust method  </li>
 <li>
-REF: LMEDS - Least-Median robust method RANSAC is the default method. param ransacReprojThreshold Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC. param maxIters The maximum number of robust method iterations. between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.  </li>
+REF: LMEDS - Least-Median robust method RANSAC is the default method.  </li>
 </ul>
+<p>param ransacReprojThreshold Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC. param maxIters The maximum number of robust method iterations. between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.</p>
 <p>return Output 2D affine transformation matrix (2 \times 3) or empty matrix if transformation could not be estimated. The returned matrix has the following form: ( \begin{bmatrix} a_{11} &amp; a_{12} &amp; b_1\ a_{21} &amp; a_{22} &amp; b_2\ \end{bmatrix} )</p>
 <p>The function estimates an optimal 2D affine transformation between two 2D point sets using the selected robust algorithm.</p>
 <p>The computed transformation is then refined further (using only inliers) with the Levenberg-Marquardt method to reduce the re-projection error even more.</p>
@@ -4556,8 +4570,9 @@ REF: LMEDS - Least-Median robust method RANSAC is the default method. param rans
 <li>
 REF: RANSAC - RANSAC-based robust method  </li>
 <li>
-REF: LMEDS - Least-Median robust method RANSAC is the default method. param ransacReprojThreshold Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC. param maxIters The maximum number of robust method iterations. param confidence Confidence level, between 0 and 1, for the estimated transformation. Anything between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.  </li>
+REF: LMEDS - Least-Median robust method RANSAC is the default method.  </li>
 </ul>
+<p>param ransacReprojThreshold Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC. param maxIters The maximum number of robust method iterations. param confidence Confidence level, between 0 and 1, for the estimated transformation. Anything between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.</p>
 <p>return Output 2D affine transformation matrix (2 \times 3) or empty matrix if transformation could not be estimated. The returned matrix has the following form: ( \begin{bmatrix} a_{11} &amp; a_{12} &amp; b_1\ a_{21} &amp; a_{22} &amp; b_2\ \end{bmatrix} )</p>
 <p>The function estimates an optimal 2D affine transformation between two 2D point sets using the selected robust algorithm.</p>
 <p>The computed transformation is then refined further (using only inliers) with the Levenberg-Marquardt method to reduce the re-projection error even more.</p>
@@ -4643,8 +4658,9 @@ REF: LMEDS - Least-Median robust method RANSAC is the default method. param rans
 <li>
 REF: RANSAC - RANSAC-based robust method  </li>
 <li>
-REF: LMEDS - Least-Median robust method RANSAC is the default method. param ransacReprojThreshold Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC. param maxIters The maximum number of robust method iterations. param confidence Confidence level, between 0 and 1, for the estimated transformation. Anything between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. param refineIters Maximum number of iterations of refining algorithm (Levenberg-Marquardt). Passing 0 will disable refining, so the output matrix will be output of robust method.  </li>
+REF: LMEDS - Least-Median robust method RANSAC is the default method.  </li>
 </ul>
+<p>param ransacReprojThreshold Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC. param maxIters The maximum number of robust method iterations. param confidence Confidence level, between 0 and 1, for the estimated transformation. Anything between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. param refineIters Maximum number of iterations of refining algorithm (Levenberg-Marquardt). Passing 0 will disable refining, so the output matrix will be output of robust method.</p>
 <p>return Output 2D affine transformation matrix (2 \times 3) or empty matrix if transformation could not be estimated. The returned matrix has the following form: ( \begin{bmatrix} a_{11} &amp; a_{12} &amp; b_1\ a_{21} &amp; a_{22} &amp; b_2\ \end{bmatrix} )</p>
 <p>The function estimates an optimal 2D affine transformation between two 2D point sets using the selected robust algorithm.</p>
 <p>The computed transformation is then refined further (using only inliers) with the Levenberg-Marquardt method to reduce the re-projection error even more.</p>
@@ -5054,8 +5070,9 @@ REF: LMEDS - Least-Median robust method RANSAC is the default method. param rans
 <li>
 REF: RANSAC - RANSAC-based robust method  </li>
 <li>
-REF: LMEDS - Least-Median robust method RANSAC is the default method. a point as an inlier. Applies only to RANSAC. between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.  </li>
+REF: LMEDS - Least-Median robust method RANSAC is the default method.  </li>
 </ul>
+<p>a point as an inlier. Applies only to RANSAC. between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.</p>
 <p>return Output 2D affine transformation (4 degrees of freedom) matrix (2 \times 3) or empty matrix if transformation could not be estimated.</p>
 <p>The function estimates an optimal 2D affine transformation with 4 degrees of freedom limited to combinations of translation, rotation, and uniform scaling. Uses the selected algorithm for robust estimation.</p>
 <p>The computed transformation is then refined further (using only inliers) with the Levenberg-Marquardt method to reduce the re-projection error even more.</p>
@@ -5109,8 +5126,9 @@ REF: LMEDS - Least-Median robust method RANSAC is the default method. a point as
 <li>
 REF: RANSAC - RANSAC-based robust method  </li>
 <li>
-REF: LMEDS - Least-Median robust method RANSAC is the default method. a point as an inlier. Applies only to RANSAC. between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.  </li>
+REF: LMEDS - Least-Median robust method RANSAC is the default method.  </li>
 </ul>
+<p>a point as an inlier. Applies only to RANSAC. between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.</p>
 <p>return Output 2D affine transformation (4 degrees of freedom) matrix (2 \times 3) or empty matrix if transformation could not be estimated.</p>
 <p>The function estimates an optimal 2D affine transformation with 4 degrees of freedom limited to combinations of translation, rotation, and uniform scaling. Uses the selected algorithm for robust estimation.</p>
 <p>The computed transformation is then refined further (using only inliers) with the Levenberg-Marquardt method to reduce the re-projection error even more.</p>
@@ -5170,8 +5188,9 @@ REF: LMEDS - Least-Median robust method RANSAC is the default method. a point as
 <li>
 REF: RANSAC - RANSAC-based robust method  </li>
 <li>
-REF: LMEDS - Least-Median robust method RANSAC is the default method. a point as an inlier. Applies only to RANSAC. between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.  </li>
+REF: LMEDS - Least-Median robust method RANSAC is the default method.  </li>
 </ul>
+<p>a point as an inlier. Applies only to RANSAC. between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.</p>
 <p>return Output 2D affine transformation (4 degrees of freedom) matrix (2 \times 3) or empty matrix if transformation could not be estimated.</p>
 <p>The function estimates an optimal 2D affine transformation with 4 degrees of freedom limited to combinations of translation, rotation, and uniform scaling. Uses the selected algorithm for robust estimation.</p>
 <p>The computed transformation is then refined further (using only inliers) with the Levenberg-Marquardt method to reduce the re-projection error even more.</p>
@@ -5237,8 +5256,9 @@ REF: LMEDS - Least-Median robust method RANSAC is the default method. a point as
 <li>
 REF: RANSAC - RANSAC-based robust method  </li>
 <li>
-REF: LMEDS - Least-Median robust method RANSAC is the default method. param ransacReprojThreshold Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC. between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.  </li>
+REF: LMEDS - Least-Median robust method RANSAC is the default method.  </li>
 </ul>
+<p>param ransacReprojThreshold Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC. between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.</p>
 <p>return Output 2D affine transformation (4 degrees of freedom) matrix (2 \times 3) or empty matrix if transformation could not be estimated.</p>
 <p>The function estimates an optimal 2D affine transformation with 4 degrees of freedom limited to combinations of translation, rotation, and uniform scaling. Uses the selected algorithm for robust estimation.</p>
 <p>The computed transformation is then refined further (using only inliers) with the Levenberg-Marquardt method to reduce the re-projection error even more.</p>
@@ -5310,8 +5330,9 @@ REF: LMEDS - Least-Median robust method RANSAC is the default method. param rans
 <li>
 REF: RANSAC - RANSAC-based robust method  </li>
 <li>
-REF: LMEDS - Least-Median robust method RANSAC is the default method. param ransacReprojThreshold Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC. param maxIters The maximum number of robust method iterations. between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.  </li>
+REF: LMEDS - Least-Median robust method RANSAC is the default method.  </li>
 </ul>
+<p>param ransacReprojThreshold Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC. param maxIters The maximum number of robust method iterations. between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.</p>
 <p>return Output 2D affine transformation (4 degrees of freedom) matrix (2 \times 3) or empty matrix if transformation could not be estimated.</p>
 <p>The function estimates an optimal 2D affine transformation with 4 degrees of freedom limited to combinations of translation, rotation, and uniform scaling. Uses the selected algorithm for robust estimation.</p>
 <p>The computed transformation is then refined further (using only inliers) with the Levenberg-Marquardt method to reduce the re-projection error even more.</p>
@@ -5389,8 +5410,9 @@ REF: LMEDS - Least-Median robust method RANSAC is the default method. param rans
 <li>
 REF: RANSAC - RANSAC-based robust method  </li>
 <li>
-REF: LMEDS - Least-Median robust method RANSAC is the default method. param ransacReprojThreshold Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC. param maxIters The maximum number of robust method iterations. param confidence Confidence level, between 0 and 1, for the estimated transformation. Anything between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.  </li>
+REF: LMEDS - Least-Median robust method RANSAC is the default method.  </li>
 </ul>
+<p>param ransacReprojThreshold Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC. param maxIters The maximum number of robust method iterations. param confidence Confidence level, between 0 and 1, for the estimated transformation. Anything between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. Passing 0 will disable refining, so the output matrix will be output of robust method.</p>
 <p>return Output 2D affine transformation (4 degrees of freedom) matrix (2 \times 3) or empty matrix if transformation could not be estimated.</p>
 <p>The function estimates an optimal 2D affine transformation with 4 degrees of freedom limited to combinations of translation, rotation, and uniform scaling. Uses the selected algorithm for robust estimation.</p>
 <p>The computed transformation is then refined further (using only inliers) with the Levenberg-Marquardt method to reduce the re-projection error even more.</p>
@@ -5474,8 +5496,9 @@ REF: LMEDS - Least-Median robust method RANSAC is the default method. param rans
 <li>
 REF: RANSAC - RANSAC-based robust method  </li>
 <li>
-REF: LMEDS - Least-Median robust method RANSAC is the default method. param ransacReprojThreshold Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC. param maxIters The maximum number of robust method iterations. param confidence Confidence level, between 0 and 1, for the estimated transformation. Anything between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. param refineIters Maximum number of iterations of refining algorithm (Levenberg-Marquardt). Passing 0 will disable refining, so the output matrix will be output of robust method.  </li>
+REF: LMEDS - Least-Median robust method RANSAC is the default method.  </li>
 </ul>
+<p>param ransacReprojThreshold Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC. param maxIters The maximum number of robust method iterations. param confidence Confidence level, between 0 and 1, for the estimated transformation. Anything between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation. param refineIters Maximum number of iterations of refining algorithm (Levenberg-Marquardt). Passing 0 will disable refining, so the output matrix will be output of robust method.</p>
 <p>return Output 2D affine transformation (4 degrees of freedom) matrix (2 \times 3) or empty matrix if transformation could not be estimated.</p>
 <p>The function estimates an optimal 2D affine transformation with 4 degrees of freedom limited to combinations of translation, rotation, and uniform scaling. Uses the selected algorithm for robust estimation.</p>
 <p>The computed transformation is then refined further (using only inliers) with the Levenberg-Marquardt method to reduce the re-projection error even more.</p>
@@ -6442,7 +6465,9 @@ REF: CALIB_CB_ACCURACY Up sample input image to improve sub-pixel accuracy due t
 <li>
 REF: CALIB_CB_LARGER The detected pattern is allowed to be larger than patternSize (see description).  </li>
 <li>
-REF: CALIB_CB_MARKER The detected pattern must have a marker (see description). This should be used if an accurate camera calibration is required. param meta Optional output arrray of detected corners (CV_8UC1 and size = cv::Size(columns,rows)). Each entry stands for one corner of the pattern and can have one of the following values:  </li>
+REF: CALIB_CB_MARKER The detected pattern must have a marker (see description). This should be used if an accurate camera calibration is required.  </li>
+</ul>
+<p>param meta Optional output arrray of detected corners (CV_8UC1 and size = cv::Size(columns,rows)). Each entry stands for one corner of the pattern and can have one of the following values: </p><ul>
 <li>
 0 = no meta data attached  </li>
 <li>
@@ -6589,8 +6614,9 @@ Calibration" demonstrating that the returned sub-pixel positions are more accura
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. confidence (probability) that the estimated matrix is correct. for the other points. The array is computed only in the RANSAC and LMedS methods.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. confidence (probability) that the estimated matrix is correct. for the other points. The array is computed only in the RANSAC and LMedS methods.</p>
 <p>This function differs from the one above that it computes camera intrinsic matrix from focal length and principal point:</p>
 <p>(A = \begin{bmatrix} f &amp; 0 &amp; x_{pp} \ 0 &amp; f &amp; y_{pp} \ 0 &amp; 0 &amp; 1 \end{bmatrix}) return automatically generated </p>
 
@@ -6639,8 +6665,9 @@ REF: LMEDS for the LMedS algorithm. line in pixels, beyond which the point is co
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. confidence (probability) that the estimated matrix is correct. for the other points. The array is computed only in the RANSAC and LMedS methods.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. confidence (probability) that the estimated matrix is correct. for the other points. The array is computed only in the RANSAC and LMedS methods.</p>
 <p>This function differs from the one above that it computes camera intrinsic matrix from focal length and principal point:</p>
 <p>(A = \begin{bmatrix} f &amp; 0 &amp; x_{pp} \ 0 &amp; f &amp; y_{pp} \ 0 &amp; 0 &amp; 1 \end{bmatrix}) return automatically generated </p>
 
@@ -6695,8 +6722,9 @@ REF: LMEDS for the LMedS algorithm. line in pixels, beyond which the point is co
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. confidence (probability) that the estimated matrix is correct. for the other points. The array is computed only in the RANSAC and LMedS methods.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. confidence (probability) that the estimated matrix is correct. for the other points. The array is computed only in the RANSAC and LMedS methods.</p>
 <p>This function differs from the one above that it computes camera intrinsic matrix from focal length and principal point:</p>
 <p>(A = \begin{bmatrix} f &amp; 0 &amp; x_{pp} \ 0 &amp; f &amp; y_{pp} \ 0 &amp; 0 &amp; 1 \end{bmatrix}) return automatically generated </p>
 
@@ -6757,8 +6785,9 @@ REF: LMEDS for the LMedS algorithm. line in pixels, beyond which the point is co
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. confidence (probability) that the estimated matrix is correct. for the other points. The array is computed only in the RANSAC and LMedS methods.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. confidence (probability) that the estimated matrix is correct. for the other points. The array is computed only in the RANSAC and LMedS methods.</p>
 <p>This function differs from the one above that it computes camera intrinsic matrix from focal length and principal point:</p>
 <p>(A = \begin{bmatrix} f &amp; 0 &amp; x_{pp} \ 0 &amp; f &amp; y_{pp} \ 0 &amp; 0 &amp; 1 \end{bmatrix}) return automatically generated </p>
 
@@ -6825,8 +6854,9 @@ REF: LMEDS for the LMedS algorithm. line in pixels, beyond which the point is co
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. for the other points. The array is computed only in the RANSAC and LMedS methods.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. for the other points. The array is computed only in the RANSAC and LMedS methods.</p>
 <p>This function differs from the one above that it computes camera intrinsic matrix from focal length and principal point:</p>
 <p>(A = \begin{bmatrix} f &amp; 0 &amp; x_{pp} \ 0 &amp; f &amp; y_{pp} \ 0 &amp; 0 &amp; 1 \end{bmatrix}) return automatically generated </p>
 
@@ -6899,8 +6929,9 @@ REF: LMEDS for the LMedS algorithm. line in pixels, beyond which the point is co
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. for the other points. The array is computed only in the RANSAC and LMedS methods.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. for the other points. The array is computed only in the RANSAC and LMedS methods.</p>
 <p>This function differs from the one above that it computes camera intrinsic matrix from focal length and principal point:</p>
 <p>(A = \begin{bmatrix} f &amp; 0 &amp; x_{pp} \ 0 &amp; f &amp; y_{pp} \ 0 &amp; 0 &amp; 1 \end{bmatrix}) return automatically generated </p>
 
@@ -6979,8 +7010,9 @@ REF: LMEDS for the LMedS algorithm. param threshold Parameter used for RANSAC. I
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. for the other points. The array is computed only in the RANSAC and LMedS methods. param maxIters The maximum number of robust method iterations.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. for the other points. The array is computed only in the RANSAC and LMedS methods. param maxIters The maximum number of robust method iterations.</p>
 <p>This function differs from the one above that it computes camera intrinsic matrix from focal length and principal point:</p>
 <p>(A = \begin{bmatrix} f &amp; 0 &amp; x_{pp} \ 0 &amp; f &amp; y_{pp} \ 0 &amp; 0 &amp; 1 \end{bmatrix}) return automatically generated </p>
 
@@ -7065,8 +7097,9 @@ REF: LMEDS for the LMedS algorithm. param threshold Parameter used for RANSAC. I
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. param mask Output array of N elements, every element of which is set to 0 for outliers and to 1 for the other points. The array is computed only in the RANSAC and LMedS methods. param maxIters The maximum number of robust method iterations.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. param mask Output array of N elements, every element of which is set to 0 for outliers and to 1 for the other points. The array is computed only in the RANSAC and LMedS methods. param maxIters The maximum number of robust method iterations.</p>
 <p>This function differs from the one above that it computes camera intrinsic matrix from focal length and principal point:</p>
 <p>(A = \begin{bmatrix} f &amp; 0 &amp; x_{pp} \ 0 &amp; f &amp; y_{pp} \ 0 &amp; 0 &amp; 1 \end{bmatrix}) return automatically generated </p>
 
@@ -7116,8 +7149,9 @@ REF: LMEDS for the LMedS algorithm. param threshold Parameter used for RANSAC. I
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. confidence (probability) that the estimated matrix is correct. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. for the other points. The array is computed only in the RANSAC and LMedS methods.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>confidence (probability) that the estimated matrix is correct. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. for the other points. The array is computed only in the RANSAC and LMedS methods.</p>
 <p>This function estimates essential matrix based on the five-point algorithm solver in CITE: Nister03 . CITE: SteweniusCFS is also a related. The epipolar geometry is described by the following equation:</p>
 <p>([p_2; 1]^T K^{-T} E K^{-1} [p_1; 1] = 0)</p>
 <p>where (E) is an essential matrix, (p_1) and (p_2) are corresponding points in the first and the second images, respectively. The result of this function may be passed further to #decomposeEssentialMat or #recoverPose to recover the relative pose between cameras. return automatically generated </p>
@@ -7174,8 +7208,9 @@ REF: LMEDS for the LMedS algorithm. confidence (probability) that the estimated 
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. confidence (probability) that the estimated matrix is correct. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. for the other points. The array is computed only in the RANSAC and LMedS methods.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>confidence (probability) that the estimated matrix is correct. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. for the other points. The array is computed only in the RANSAC and LMedS methods.</p>
 <p>This function estimates essential matrix based on the five-point algorithm solver in CITE: Nister03 . CITE: SteweniusCFS is also a related. The epipolar geometry is described by the following equation:</p>
 <p>([p_2; 1]^T K^{-T} E K^{-1} [p_1; 1] = 0)</p>
 <p>where (E) is an essential matrix, (p_1) and (p_2) are corresponding points in the first and the second images, respectively. The result of this function may be passed further to #decomposeEssentialMat or #recoverPose to recover the relative pose between cameras. return automatically generated </p>
@@ -7238,8 +7273,9 @@ REF: LMEDS for the LMedS algorithm. confidence (probability) that the estimated 
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. for the other points. The array is computed only in the RANSAC and LMedS methods.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. for the other points. The array is computed only in the RANSAC and LMedS methods.</p>
 <p>This function estimates essential matrix based on the five-point algorithm solver in CITE: Nister03 . CITE: SteweniusCFS is also a related. The epipolar geometry is described by the following equation:</p>
 <p>([p_2; 1]^T K^{-T} E K^{-1} [p_1; 1] = 0)</p>
 <p>where (E) is an essential matrix, (p_1) and (p_2) are corresponding points in the first and the second images, respectively. The result of this function may be passed further to #decomposeEssentialMat or #recoverPose to recover the relative pose between cameras. return automatically generated </p>
@@ -7308,8 +7344,9 @@ REF: LMEDS for the LMedS algorithm. param prob Parameter used for the RANSAC or 
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. for the other points. The array is computed only in the RANSAC and LMedS methods.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. for the other points. The array is computed only in the RANSAC and LMedS methods.</p>
 <p>This function estimates essential matrix based on the five-point algorithm solver in CITE: Nister03 . CITE: SteweniusCFS is also a related. The epipolar geometry is described by the following equation:</p>
 <p>([p_2; 1]^T K^{-T} E K^{-1} [p_1; 1] = 0)</p>
 <p>where (E) is an essential matrix, (p_1) and (p_2) are corresponding points in the first and the second images, respectively. The result of this function may be passed further to #decomposeEssentialMat or #recoverPose to recover the relative pose between cameras. return automatically generated </p>
@@ -7384,8 +7421,9 @@ REF: LMEDS for the LMedS algorithm. param prob Parameter used for the RANSAC or 
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. for the other points. The array is computed only in the RANSAC and LMedS methods. param maxIters The maximum number of robust method iterations.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. for the other points. The array is computed only in the RANSAC and LMedS methods. param maxIters The maximum number of robust method iterations.</p>
 <p>This function estimates essential matrix based on the five-point algorithm solver in CITE: Nister03 . CITE: SteweniusCFS is also a related. The epipolar geometry is described by the following equation:</p>
 <p>([p_2; 1]^T K^{-T} E K^{-1} [p_1; 1] = 0)</p>
 <p>where (E) is an essential matrix, (p_1) and (p_2) are corresponding points in the first and the second images, respectively. The result of this function may be passed further to #decomposeEssentialMat or #recoverPose to recover the relative pose between cameras. return automatically generated </p>
@@ -7466,8 +7504,9 @@ REF: LMEDS for the LMedS algorithm. param prob Parameter used for the RANSAC or 
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. param mask Output array of N elements, every element of which is set to 0 for outliers and to 1 for the other points. The array is computed only in the RANSAC and LMedS methods. param maxIters The maximum number of robust method iterations.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. param mask Output array of N elements, every element of which is set to 0 for outliers and to 1 for the other points. The array is computed only in the RANSAC and LMedS methods. param maxIters The maximum number of robust method iterations.</p>
 <p>This function estimates essential matrix based on the five-point algorithm solver in CITE: Nister03 . CITE: SteweniusCFS is also a related. The epipolar geometry is described by the following equation:</p>
 <p>([p_2; 1]^T K^{-T} E K^{-1} [p_1; 1] = 0)</p>
 <p>where (E) is an essential matrix, (p_1) and (p_2) are corresponding points in the first and the second images, respectively. The result of this function may be passed further to #decomposeEssentialMat or #recoverPose to recover the relative pose between cameras. return automatically generated </p>
@@ -7608,8 +7647,9 @@ REF: LMEDS for the LMedS algorithm. param prob Parameter used for the RANSAC or 
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. confidence (probability) that the estimated matrix is correct. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. for the other points. The array is computed only in the RANSAC and LMedS methods.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>confidence (probability) that the estimated matrix is correct. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. for the other points. The array is computed only in the RANSAC and LMedS methods.</p>
 <p>This function estimates essential matrix based on the five-point algorithm solver in CITE: Nister03 . CITE: SteweniusCFS is also a related. The epipolar geometry is described by the following equation:</p>
 <p>([p_2; 1]^T K^{-T} E K^{-1} [p_1; 1] = 0)</p>
 <p>where (E) is an essential matrix, (p_1) and (p_2) are corresponding points in the first and the second images, respectively. The result of this function may be passed further to #decomposeEssentialMat or #recoverPose to recover the relative pose between cameras. return automatically generated </p>
@@ -7684,8 +7724,9 @@ REF: LMEDS for the LMedS algorithm. confidence (probability) that the estimated 
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. confidence (probability) that the estimated matrix is correct. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. for the other points. The array is computed only in the RANSAC and LMedS methods.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>confidence (probability) that the estimated matrix is correct. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. for the other points. The array is computed only in the RANSAC and LMedS methods.</p>
 <p>This function estimates essential matrix based on the five-point algorithm solver in CITE: Nister03 . CITE: SteweniusCFS is also a related. The epipolar geometry is described by the following equation:</p>
 <p>([p_2; 1]^T K^{-T} E K^{-1} [p_1; 1] = 0)</p>
 <p>where (E) is an essential matrix, (p_1) and (p_2) are corresponding points in the first and the second images, respectively. The result of this function may be passed further to #decomposeEssentialMat or #recoverPose to recover the relative pose between cameras. return automatically generated </p>
@@ -7766,8 +7807,9 @@ REF: LMEDS for the LMedS algorithm. confidence (probability) that the estimated 
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. for the other points. The array is computed only in the RANSAC and LMedS methods.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. for the other points. The array is computed only in the RANSAC and LMedS methods.</p>
 <p>This function estimates essential matrix based on the five-point algorithm solver in CITE: Nister03 . CITE: SteweniusCFS is also a related. The epipolar geometry is described by the following equation:</p>
 <p>([p_2; 1]^T K^{-T} E K^{-1} [p_1; 1] = 0)</p>
 <p>where (E) is an essential matrix, (p_1) and (p_2) are corresponding points in the first and the second images, respectively. The result of this function may be passed further to #decomposeEssentialMat or #recoverPose to recover the relative pose between cameras. return automatically generated </p>
@@ -7854,8 +7896,9 @@ REF: LMEDS for the LMedS algorithm. param prob Parameter used for the RANSAC or 
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. for the other points. The array is computed only in the RANSAC and LMedS methods.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. for the other points. The array is computed only in the RANSAC and LMedS methods.</p>
 <p>This function estimates essential matrix based on the five-point algorithm solver in CITE: Nister03 . CITE: SteweniusCFS is also a related. The epipolar geometry is described by the following equation:</p>
 <p>([p_2; 1]^T K^{-T} E K^{-1} [p_1; 1] = 0)</p>
 <p>where (E) is an essential matrix, (p_1) and (p_2) are corresponding points in the first and the second images, respectively. The result of this function may be passed further to #decomposeEssentialMat or #recoverPose to recover the relative pose between cameras. return automatically generated </p>
@@ -7948,8 +7991,9 @@ REF: LMEDS for the LMedS algorithm. param prob Parameter used for the RANSAC or 
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. param mask Output array of N elements, every element of which is set to 0 for outliers and to 1 for the other points. The array is computed only in the RANSAC and LMedS methods.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. param mask Output array of N elements, every element of which is set to 0 for outliers and to 1 for the other points. The array is computed only in the RANSAC and LMedS methods.</p>
 <p>This function estimates essential matrix based on the five-point algorithm solver in CITE: Nister03 . CITE: SteweniusCFS is also a related. The epipolar geometry is described by the following equation:</p>
 <p>([p_2; 1]^T K^{-T} E K^{-1} [p_1; 1] = 0)</p>
 <p>where (E) is an essential matrix, (p_1) and (p_2) are corresponding points in the first and the second images, respectively. The result of this function may be passed further to #decomposeEssentialMat or #recoverPose to recover the relative pose between cameras. return automatically generated </p>
@@ -8202,8 +8246,9 @@ REF: FM_8POINT for an 8-point algorithm. (N \ge 8)  </li>
 <li>
 REF: FM_RANSAC for the RANSAC algorithm. (N \ge 8)  </li>
 <li>
-REF: FM_LMEDS for the LMedS algorithm. (N \ge 8) param ransacReprojThreshold Parameter used only for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. param confidence Parameter used for the RANSAC and LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. param maxIters The maximum number of robust method iterations.  </li>
+REF: FM_LMEDS for the LMedS algorithm. (N \ge 8)  </li>
 </ul>
+<p>param ransacReprojThreshold Parameter used only for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. param confidence Parameter used for the RANSAC and LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. param maxIters The maximum number of robust method iterations.</p>
 <p>The epipolar geometry is described by the following equation:</p>
 <p>([p_2; 1]^T F [p_1; 1] = 0)</p>
 <p>where (F) is a fundamental matrix, (p_1) and (p_2) are corresponding points in the first and the second images, respectively.</p>
@@ -8286,8 +8331,9 @@ REF: FM_8POINT for an 8-point algorithm. (N \ge 8)  </li>
 <li>
 REF: FM_RANSAC for the RANSAC algorithm. (N \ge 8)  </li>
 <li>
-REF: FM_LMEDS for the LMedS algorithm. (N \ge 8) param ransacReprojThreshold Parameter used only for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. param confidence Parameter used for the RANSAC and LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. param mask optional output mask param maxIters The maximum number of robust method iterations.  </li>
+REF: FM_LMEDS for the LMedS algorithm. (N \ge 8)  </li>
 </ul>
+<p>param ransacReprojThreshold Parameter used only for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. param confidence Parameter used for the RANSAC and LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. param mask optional output mask param maxIters The maximum number of robust method iterations.</p>
 <p>The epipolar geometry is described by the following equation:</p>
 <p>([p_2; 1]^T F [p_1; 1] = 0)</p>
 <p>where (F) is a fundamental matrix, (p_1) and (p_2) are corresponding points in the first and the second images, respectively.</p>
@@ -8448,8 +8494,9 @@ REF: RANSAC - RANSAC-based robust method  </li>
 <li>
 REF: LMEDS - Least-Median robust method  </li>
 <li>
-REF: RHO - PROSAC-based robust method (used in the RANSAC and RHO methods only). That is, if (| \texttt{dstPoints} _i - \texttt{convertPointsHomogeneous} ( \texttt{H} \cdot \texttt{srcPoints} _i) |_2 &gt; \texttt{ransacReprojThreshold}) then the point (i) is considered as an outlier. If srcPoints and dstPoints are measured in pixels, it usually makes sense to set this parameter somewhere in the range of 1 to 10. mask values are ignored.  </li>
+REF: RHO - PROSAC-based robust method  </li>
 </ul>
+<p>(used in the RANSAC and RHO methods only). That is, if (| \texttt{dstPoints} _i - \texttt{convertPointsHomogeneous} ( \texttt{H} \cdot \texttt{srcPoints} _i) |_2 &gt; \texttt{ransacReprojThreshold}) then the point (i) is considered as an outlier. If srcPoints and dstPoints are measured in pixels, it usually makes sense to set this parameter somewhere in the range of 1 to 10. mask values are ignored.</p>
 <p>The function finds and returns the perspective transformation (H) between the source and the destination planes:</p>
 <p>(s_i \vecthree{x'_i}{y'_i}{1} \sim H \vecthree{x_i}{y_i}{1})</p>
 <p>so that the back-projection error</p>
@@ -8511,8 +8558,9 @@ REF: RANSAC - RANSAC-based robust method  </li>
 <li>
 REF: LMEDS - Least-Median robust method  </li>
 <li>
-REF: RHO - PROSAC-based robust method (used in the RANSAC and RHO methods only). That is, if (| \texttt{dstPoints} _i - \texttt{convertPointsHomogeneous} ( \texttt{H} \cdot \texttt{srcPoints} _i) |_2 &gt; \texttt{ransacReprojThreshold}) then the point (i) is considered as an outlier. If srcPoints and dstPoints are measured in pixels, it usually makes sense to set this parameter somewhere in the range of 1 to 10. mask values are ignored.  </li>
+REF: RHO - PROSAC-based robust method  </li>
 </ul>
+<p>(used in the RANSAC and RHO methods only). That is, if (| \texttt{dstPoints} _i - \texttt{convertPointsHomogeneous} ( \texttt{H} \cdot \texttt{srcPoints} _i) |_2 &gt; \texttt{ransacReprojThreshold}) then the point (i) is considered as an outlier. If srcPoints and dstPoints are measured in pixels, it usually makes sense to set this parameter somewhere in the range of 1 to 10. mask values are ignored.</p>
 <p>The function finds and returns the perspective transformation (H) between the source and the destination planes:</p>
 <p>(s_i \vecthree{x'_i}{y'_i}{1} \sim H \vecthree{x_i}{y_i}{1})</p>
 <p>so that the back-projection error</p>
@@ -8580,8 +8628,9 @@ REF: RANSAC - RANSAC-based robust method  </li>
 <li>
 REF: LMEDS - Least-Median robust method  </li>
 <li>
-REF: RHO - PROSAC-based robust method param ransacReprojThreshold Maximum allowed reprojection error to treat a point pair as an inlier (used in the RANSAC and RHO methods only). That is, if (| \texttt{dstPoints} _i - \texttt{convertPointsHomogeneous} ( \texttt{H} \cdot \texttt{srcPoints} _i) |_2 &gt; \texttt{ransacReprojThreshold}) then the point (i) is considered as an outlier. If srcPoints and dstPoints are measured in pixels, it usually makes sense to set this parameter somewhere in the range of 1 to 10. mask values are ignored.  </li>
+REF: RHO - PROSAC-based robust method  </li>
 </ul>
+<p>param ransacReprojThreshold Maximum allowed reprojection error to treat a point pair as an inlier (used in the RANSAC and RHO methods only). That is, if (| \texttt{dstPoints} _i - \texttt{convertPointsHomogeneous} ( \texttt{H} \cdot \texttt{srcPoints} _i) |_2 &gt; \texttt{ransacReprojThreshold}) then the point (i) is considered as an outlier. If srcPoints and dstPoints are measured in pixels, it usually makes sense to set this parameter somewhere in the range of 1 to 10. mask values are ignored.</p>
 <p>The function finds and returns the perspective transformation (H) between the source and the destination planes:</p>
 <p>(s_i \vecthree{x'_i}{y'_i}{1} \sim H \vecthree{x_i}{y_i}{1})</p>
 <p>so that the back-projection error</p>
@@ -8655,8 +8704,9 @@ REF: RANSAC - RANSAC-based robust method  </li>
 <li>
 REF: LMEDS - Least-Median robust method  </li>
 <li>
-REF: RHO - PROSAC-based robust method param ransacReprojThreshold Maximum allowed reprojection error to treat a point pair as an inlier (used in the RANSAC and RHO methods only). That is, if (| \texttt{dstPoints} _i - \texttt{convertPointsHomogeneous} ( \texttt{H} \cdot \texttt{srcPoints} _i) |_2 &gt; \texttt{ransacReprojThreshold}) then the point (i) is considered as an outlier. If srcPoints and dstPoints are measured in pixels, it usually makes sense to set this parameter somewhere in the range of 1 to 10. param mask Optional output mask set by a robust method ( RANSAC or LMeDS ). Note that the input mask values are ignored.  </li>
+REF: RHO - PROSAC-based robust method  </li>
 </ul>
+<p>param ransacReprojThreshold Maximum allowed reprojection error to treat a point pair as an inlier (used in the RANSAC and RHO methods only). That is, if (| \texttt{dstPoints} _i - \texttt{convertPointsHomogeneous} ( \texttt{H} \cdot \texttt{srcPoints} _i) |_2 &gt; \texttt{ransacReprojThreshold}) then the point (i) is considered as an outlier. If srcPoints and dstPoints are measured in pixels, it usually makes sense to set this parameter somewhere in the range of 1 to 10. param mask Optional output mask set by a robust method ( RANSAC or LMeDS ). Note that the input mask values are ignored.</p>
 <p>The function finds and returns the perspective transformation (H) between the source and the destination planes:</p>
 <p>(s_i \vecthree{x'_i}{y'_i}{1} \sim H \vecthree{x_i}{y_i}{1})</p>
 <p>so that the back-projection error</p>
@@ -8736,8 +8786,9 @@ REF: RANSAC - RANSAC-based robust method  </li>
 <li>
 REF: LMEDS - Least-Median robust method  </li>
 <li>
-REF: RHO - PROSAC-based robust method param ransacReprojThreshold Maximum allowed reprojection error to treat a point pair as an inlier (used in the RANSAC and RHO methods only). That is, if (| \texttt{dstPoints} _i - \texttt{convertPointsHomogeneous} ( \texttt{H} \cdot \texttt{srcPoints} _i) |_2 &gt; \texttt{ransacReprojThreshold}) then the point (i) is considered as an outlier. If srcPoints and dstPoints are measured in pixels, it usually makes sense to set this parameter somewhere in the range of 1 to 10. param mask Optional output mask set by a robust method ( RANSAC or LMeDS ). Note that the input mask values are ignored. param maxIters The maximum number of RANSAC iterations.  </li>
+REF: RHO - PROSAC-based robust method  </li>
 </ul>
+<p>param ransacReprojThreshold Maximum allowed reprojection error to treat a point pair as an inlier (used in the RANSAC and RHO methods only). That is, if (| \texttt{dstPoints} _i - \texttt{convertPointsHomogeneous} ( \texttt{H} \cdot \texttt{srcPoints} _i) |_2 &gt; \texttt{ransacReprojThreshold}) then the point (i) is considered as an outlier. If srcPoints and dstPoints are measured in pixels, it usually makes sense to set this parameter somewhere in the range of 1 to 10. param mask Optional output mask set by a robust method ( RANSAC or LMeDS ). Note that the input mask values are ignored. param maxIters The maximum number of RANSAC iterations.</p>
 <p>The function finds and returns the perspective transformation (H) between the source and the destination planes:</p>
 <p>(s_i \vecthree{x'_i}{y'_i}{1} \sim H \vecthree{x_i}{y_i}{1})</p>
 <p>so that the back-projection error</p>
@@ -8823,8 +8874,9 @@ REF: RANSAC - RANSAC-based robust method  </li>
 <li>
 REF: LMEDS - Least-Median robust method  </li>
 <li>
-REF: RHO - PROSAC-based robust method param ransacReprojThreshold Maximum allowed reprojection error to treat a point pair as an inlier (used in the RANSAC and RHO methods only). That is, if (| \texttt{dstPoints} _i - \texttt{convertPointsHomogeneous} ( \texttt{H} \cdot \texttt{srcPoints} _i) |_2 &gt; \texttt{ransacReprojThreshold}) then the point (i) is considered as an outlier. If srcPoints and dstPoints are measured in pixels, it usually makes sense to set this parameter somewhere in the range of 1 to 10. param mask Optional output mask set by a robust method ( RANSAC or LMeDS ). Note that the input mask values are ignored. param maxIters The maximum number of RANSAC iterations. param confidence Confidence level, between 0 and 1.  </li>
+REF: RHO - PROSAC-based robust method  </li>
 </ul>
+<p>param ransacReprojThreshold Maximum allowed reprojection error to treat a point pair as an inlier (used in the RANSAC and RHO methods only). That is, if (| \texttt{dstPoints} _i - \texttt{convertPointsHomogeneous} ( \texttt{H} \cdot \texttt{srcPoints} _i) |_2 &gt; \texttt{ransacReprojThreshold}) then the point (i) is considered as an outlier. If srcPoints and dstPoints are measured in pixels, it usually makes sense to set this parameter somewhere in the range of 1 to 10. param mask Optional output mask set by a robust method ( RANSAC or LMeDS ). Note that the input mask values are ignored. param maxIters The maximum number of RANSAC iterations. param confidence Confidence level, between 0 and 1.</p>
 <p>The function finds and returns the perspective transformation (H) between the source and the destination planes:</p>
 <p>(s_i \vecthree{x'_i}{y'_i}{1} \sim H \vecthree{x_i}{y_i}{1})</p>
 <p>so that the back-projection error</p>
@@ -9200,9 +9252,9 @@ REF: fisheye::CALIB_FIX_K1,..., REF: fisheye::CALIB_FIX_K4 Selected distortion c
 <li>
 REF: fisheye::CALIB_FIX_PRINCIPAL_POINT The principal point is not changed during the global optimization. It stays at the center or at a different location specified when REF: fisheye::CALIB_USE_INTRINSIC_GUESS is set too.  </li>
 <li>
-REF: fisheye::CALIB_FIX_FOCAL_LENGTH The focal length is not changed during the global optimization. It is the (max(width,height)/\pi) or the provided (f_x), (f_y) when REF: fisheye::CALIB_USE_INTRINSIC_GUESS is set too. param criteria Termination criteria for the iterative optimization algorithm.  </li>
+REF: fisheye::CALIB_FIX_FOCAL_LENGTH The focal length is not changed during the global optimization. It is the (max(width,height)/\pi) or the provided (f_x), (f_y) when REF: fisheye::CALIB_USE_INTRINSIC_GUESS is set too.  </li>
 </ul>
-<p>return automatically generated </p>
+<p>param criteria Termination criteria for the iterative optimization algorithm. return automatically generated </p>
 
 </div>
 </div>
@@ -10575,9 +10627,9 @@ REF: fisheye::CALIB_CHECK_COND The functions will check validity of condition nu
 <li>
 REF: fisheye::CALIB_FIX_SKEW Skew coefficient (alpha) is set to zero and stay zero.  </li>
 <li>
-REF: fisheye::CALIB_FIX_K1,..., REF: fisheye::CALIB_FIX_K4 Selected distortion coefficients are set to zeros and stay zero. param criteria Termination criteria for the iterative optimization algorithm.  </li>
+REF: fisheye::CALIB_FIX_K1,..., REF: fisheye::CALIB_FIX_K4 Selected distortion coefficients are set to zeros and stay zero.  </li>
 </ul>
-<p>return automatically generated </p>
+<p>param criteria Termination criteria for the iterative optimization algorithm. return automatically generated </p>
 
 </div>
 </div>
@@ -13272,8 +13324,9 @@ param undistorted Output array of image points, 1xN/Nx1 2-channel, or vector&amp
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. confidence (probability) that the estimated matrix is correct. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. inliers in points1 and points2 for then given essential matrix E. Only these inliers will be used to recover pose. In the output mask only inliers which pass the cheirality check.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>confidence (probability) that the estimated matrix is correct. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. inliers in points1 and points2 for then given essential matrix E. Only these inliers will be used to recover pose. In the output mask only inliers which pass the cheirality check.</p>
 <p>This function decomposes an essential matrix using REF: decomposeEssentialMat and then verifies possible pose hypotheses by doing cheirality check. The cheirality check means that the triangulated 3D points should have positive depth. Some details can be found in CITE: Nister03.</p>
 <p>This function can be used to process the output E and mask from REF: findEssentialMat. In this scenario, points1 and points2 are the same input for findEssentialMat.: <code> // Example. Estimation of fundamental matrix using the RANSAC algorithm int point_count = 100; vector&lt;Point2f&gt; points1(point_count); vector&lt;Point2f&gt; points2(point_count);</code></p>
 <p><code> // initialize the points here ... for( int i = 0; i &lt; point_count; i++ ) { points1[i] = ...; points2[i] = ...; }</code></p>
@@ -13369,8 +13422,9 @@ REF: LMEDS for the LMedS algorithm. confidence (probability) that the estimated 
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. confidence (probability) that the estimated matrix is correct. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. inliers in points1 and points2 for then given essential matrix E. Only these inliers will be used to recover pose. In the output mask only inliers which pass the cheirality check.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>confidence (probability) that the estimated matrix is correct. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. inliers in points1 and points2 for then given essential matrix E. Only these inliers will be used to recover pose. In the output mask only inliers which pass the cheirality check.</p>
 <p>This function decomposes an essential matrix using REF: decomposeEssentialMat and then verifies possible pose hypotheses by doing cheirality check. The cheirality check means that the triangulated 3D points should have positive depth. Some details can be found in CITE: Nister03.</p>
 <p>This function can be used to process the output E and mask from REF: findEssentialMat. In this scenario, points1 and points2 are the same input for findEssentialMat.: <code> // Example. Estimation of fundamental matrix using the RANSAC algorithm int point_count = 100; vector&lt;Point2f&gt; points1(point_count); vector&lt;Point2f&gt; points2(point_count);</code></p>
 <p><code> // initialize the points here ... for( int i = 0; i &lt; point_count; i++ ) { points1[i] = ...; points2[i] = ...; }</code></p>
@@ -13472,8 +13526,9 @@ REF: LMEDS for the LMedS algorithm. confidence (probability) that the estimated 
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. inliers in points1 and points2 for then given essential matrix E. Only these inliers will be used to recover pose. In the output mask only inliers which pass the cheirality check.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. inliers in points1 and points2 for then given essential matrix E. Only these inliers will be used to recover pose. In the output mask only inliers which pass the cheirality check.</p>
 <p>This function decomposes an essential matrix using REF: decomposeEssentialMat and then verifies possible pose hypotheses by doing cheirality check. The cheirality check means that the triangulated 3D points should have positive depth. Some details can be found in CITE: Nister03.</p>
 <p>This function can be used to process the output E and mask from REF: findEssentialMat. In this scenario, points1 and points2 are the same input for findEssentialMat.: <code> // Example. Estimation of fundamental matrix using the RANSAC algorithm int point_count = 100; vector&lt;Point2f&gt; points1(point_count); vector&lt;Point2f&gt; points2(point_count);</code></p>
 <p><code> // initialize the points here ... for( int i = 0; i &lt; point_count; i++ ) { points1[i] = ...; points2[i] = ...; }</code></p>
@@ -13581,8 +13636,9 @@ REF: LMEDS for the LMedS algorithm. param prob Parameter used for the RANSAC or 
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. inliers in points1 and points2 for then given essential matrix E. Only these inliers will be used to recover pose. In the output mask only inliers which pass the cheirality check.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. inliers in points1 and points2 for then given essential matrix E. Only these inliers will be used to recover pose. In the output mask only inliers which pass the cheirality check.</p>
 <p>This function decomposes an essential matrix using REF: decomposeEssentialMat and then verifies possible pose hypotheses by doing cheirality check. The cheirality check means that the triangulated 3D points should have positive depth. Some details can be found in CITE: Nister03.</p>
 <p>This function can be used to process the output E and mask from REF: findEssentialMat. In this scenario, points1 and points2 are the same input for findEssentialMat.: <code> // Example. Estimation of fundamental matrix using the RANSAC algorithm int point_count = 100; vector&lt;Point2f&gt; points1(point_count); vector&lt;Point2f&gt; points2(point_count);</code></p>
 <p><code> // initialize the points here ... for( int i = 0; i &lt; point_count; i++ ) { points1[i] = ...; points2[i] = ...; }</code></p>
@@ -13696,8 +13752,9 @@ REF: LMEDS for the LMedS algorithm. param prob Parameter used for the RANSAC or 
 <li>
 REF: RANSAC for the RANSAC algorithm.  </li>
 <li>
-REF: LMEDS for the LMedS algorithm. param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. param mask Input/output mask for inliers in points1 and points2. If it is not empty, then it marks inliers in points1 and points2 for then given essential matrix E. Only these inliers will be used to recover pose. In the output mask only inliers which pass the cheirality check.  </li>
+REF: LMEDS for the LMedS algorithm.  </li>
 </ul>
+<p>param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct. param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise. param mask Input/output mask for inliers in points1 and points2. If it is not empty, then it marks inliers in points1 and points2 for then given essential matrix E. Only these inliers will be used to recover pose. In the output mask only inliers which pass the cheirality check.</p>
 <p>This function decomposes an essential matrix using REF: decomposeEssentialMat and then verifies possible pose hypotheses by doing cheirality check. The cheirality check means that the triangulated 3D points should have positive depth. Some details can be found in CITE: Nister03.</p>
 <p>This function can be used to process the output E and mask from REF: findEssentialMat. In this scenario, points1 and points2 are the same input for findEssentialMat.: <code> // Example. Estimation of fundamental matrix using the RANSAC algorithm int point_count = 100; vector&lt;Point2f&gt; points1(point_count); vector&lt;Point2f&gt; points2(point_count);</code></p>
 <p><code> // initialize the points here ... for( int i = 0; i &lt; point_count; i++ ) { points1[i] = ...; points2[i] = ...; }</code></p>
@@ -17944,8 +18001,9 @@ REF: CALIB_FIX_S1_S2_S3_S4 The thin prism distortion coefficients are not change
 <li>
 REF: CALIB_TILTED_MODEL Coefficients tauX and tauY are enabled. To provide the backward compatibility, this extra flag should be explicitly specified to make the calibration function use the tilted sensor model and return 14 coefficients. If the flag is not set, the function computes and returns only 5 distortion coefficients.  </li>
 <li>
-REF: CALIB_FIX_TAUX_TAUY The coefficients of the tilted sensor model are not changed during the optimization. If REF: CALIB_USE_INTRINSIC_GUESS is set, the coefficient from the supplied distCoeffs matrix is used. Otherwise, it is set to 0. param criteria Termination criteria for the iterative optimization algorithm.  </li>
+REF: CALIB_FIX_TAUX_TAUY The coefficients of the tilted sensor model are not changed during the optimization. If REF: CALIB_USE_INTRINSIC_GUESS is set, the coefficient from the supplied distCoeffs matrix is used. Otherwise, it is set to 0.  </li>
 </ul>
+<p>param criteria Termination criteria for the iterative optimization algorithm.</p>
 <p>The function estimates the transformation between two cameras making a stereo pair. If one computes the poses of an object relative to the first camera and to the second camera, ( (R_1),(T_1) ) and ((R_2),(T_2)), respectively, for a stereo camera where the relative position and orientation between the two cameras are fixed, then those poses definitely relate to each other. This means, if the relative position and orientation ((R),(T)) of the two cameras is known, it is possible to compute ((R_2),(T_2)) when ((R_1),(T_1)) is given. This is what the described function does. It computes ((R),(T)) such that:</p>
 <p>(R_2=R R_1) (T_2=R T_1 + T.)</p>
 <p>Therefore, one can compute the coordinate representation of a 3D point for the second camera's coordinate system when given the point's coordinate representation in the first camera's coordinate system:</p>
@@ -20695,6 +20753,28 @@ y^{"} \leftarrow (v - c_y)/f_y \ (x',y') = undistort(x^{"},y^{"}, \texttt{distCo
 
 </div>
 </div>
+<a id="a23e78e5054c0bd80577516c8ec41a121" name="a23e78e5054c0bd80577516c8ec41a121"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23e78e5054c0bd80577516c8ec41a121">&#9670;&#160;</a></span>COV_POLISHER</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int OpenCVForUnity.Calib3dModule.Calib3d.COV_POLISHER = 3</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac3ada49198d1cfe8f36388e559743721" name="ac3ada49198d1cfe8f36388e559743721"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac3ada49198d1cfe8f36388e559743721">&#9670;&#160;</a></span>CV_DLS</h2>
 
@@ -21355,6 +21435,50 @@ y^{"} \leftarrow (v - c_y)/f_y \ (x',y') = undistort(x^{"},y^{"}, \texttt{distCo
 
 </div>
 </div>
+<a id="a3e2c7bfca0a7160a06093fa9f13f2460" name="a3e2c7bfca0a7160a06093fa9f13f2460"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e2c7bfca0a7160a06093fa9f13f2460">&#9670;&#160;</a></span>LSQ_POLISHER</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int OpenCVForUnity.Calib3dModule.Calib3d.LSQ_POLISHER = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0c565da065f7ff5d3e9a2493d3cd7862" name="a0c565da065f7ff5d3e9a2493d3cd7862"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c565da065f7ff5d3e9a2493d3cd7862">&#9670;&#160;</a></span>MAGSAC</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int OpenCVForUnity.Calib3dModule.Calib3d.MAGSAC = 2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a0669a5dc6901050ca1ad4a9fac29a5c0" name="a0669a5dc6901050ca1ad4a9fac29a5c0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0669a5dc6901050ca1ad4a9fac29a5c0">&#9670;&#160;</a></span>NEIGH_FLANN_KNN</h2>
 
@@ -21410,6 +21534,28 @@ y^{"} \leftarrow (v - c_y)/f_y \ (x',y') = undistort(x^{"},y^{"}, \texttt{distCo
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.Calib3dModule.Calib3d.NEIGH_GRID = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab5dbfcca4910f37166f7d40858721918" name="ab5dbfcca4910f37166f7d40858721918"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5dbfcca4910f37166f7d40858721918">&#9670;&#160;</a></span>NONE_POLISHER</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int OpenCVForUnity.Calib3dModule.Calib3d.NONE_POLISHER = 0</td>
         </tr>
       </table>
   </td>
@@ -22065,7 +22211,7 @@ y^{"} \leftarrow (v - c_y)/f_y \ (x',y') = undistort(x^{"},y^{"}, \texttt{distCo
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 20 2023 00:28:00 for OpenCV for Unity by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
+Generated on Tue Jul 4 2023 21:21:08 for OpenCV for Unity by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
 </small></address>
 </body>
 </html>

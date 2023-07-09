@@ -82,7 +82,8 @@ var searchData=
   ['lsd_5frefine_5fadv_79',['LSD_REFINE_ADV',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a44217d6ecd9000c2c6b3e256fdf1caa5',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['lsd_5frefine_5fnone_80',['LSD_REFINE_NONE',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a81418ddcb76acaf6142fdeed7fa5bd96',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['lsd_5frefine_5fstd_81',['LSD_REFINE_STD',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#ab9f88e74247d3f2484f28e569d159d50',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
-  ['lucid_82',['LUCID',['../class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_l_u_c_i_d.html',1,'OpenCVForUnity::Xfeatures2dModule']]],
-  ['lucid_2ecs_83',['LUCID.cs',['../_l_u_c_i_d_8cs.html',1,'']]],
-  ['lut_84',['LUT',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a0c8383ebe3bcc91813b06c3a5f90395e',1,'OpenCVForUnity::CoreModule::Core']]]
+  ['lsq_5fpolisher_82',['LSQ_POLISHER',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a3e2c7bfca0a7160a06093fa9f13f2460',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
+  ['lucid_83',['LUCID',['../class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_l_u_c_i_d.html',1,'OpenCVForUnity::Xfeatures2dModule']]],
+  ['lucid_2ecs_84',['LUCID.cs',['../_l_u_c_i_d_8cs.html',1,'']]],
+  ['lut_85',['LUT',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a0c8383ebe3bcc91813b06c3a5f90395e',1,'OpenCVForUnity::CoreModule::Core']]]
 ];

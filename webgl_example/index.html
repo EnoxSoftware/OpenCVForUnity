@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | 2022.1.24f1_Il2CPP_OpenCVForUnityExample</title>
+    <title>Unity WebGL Player | OpenCVForUnityExample2.5.5</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=640 height=480></canvas>
+      <canvas id="unity-canvas" width=960 height=600></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -20,7 +20,7 @@
       <div id="unity-footer">
         <div id="unity-webgl-logo"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">2022.1.24f1_Il2CPP_OpenCVForUnityExample</div>
+        <div id="unity-build-title">OpenCVForUnityExample2.5.5</div>
       </div>
     </div>
     <script>
@@ -56,15 +56,15 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/Default WebGL-beta-Wasm.loader.js";
+      var loaderUrl = buildUrl + "/opencvforunityexample.loader.js";
       var config = {
-        dataUrl: buildUrl + "/Default WebGL-beta-Wasm.data.unityweb",
-        frameworkUrl: buildUrl + "/Default WebGL-beta-Wasm.framework.js.unityweb",
-        codeUrl: buildUrl + "/Default WebGL-beta-Wasm.wasm.unityweb",
+        dataUrl: buildUrl + "/opencvforunityexample.data.unityweb",
+        frameworkUrl: buildUrl + "/opencvforunityexample.framework.js.unityweb",
+        codeUrl: buildUrl + "/opencvforunityexample.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
-        companyName: "Enox Software",
-        productName: "2022.1.24f1_Il2CPP_OpenCVForUnityExample",
-        productVersion: "2.5.4",
+        companyName: "EnoxSoftware",
+        productName: "OpenCVForUnityExample2.5.5",
+        productVersion: "2.5.5",
         showBanner: unityShowBanner,
       };
 
@@ -91,8 +91,8 @@
       } else {
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
-        canvas.style.width = "640px";
-        canvas.style.height = "480px";
+        canvas.style.width = "960px";
+        canvas.style.height = "600px";
       }
 
       loadingBar.style.display = "block";

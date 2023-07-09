@@ -26,5 +26,6 @@ var searchData=
   ['lsd_23',['LSD',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_edge_drawing.html#a964e0dbf3cb9abe9c97a932e37ce3cf4',1,'OpenCVForUnity::XimgprocModule::EdgeDrawing']]],
   ['lsd_5frefine_5fadv_24',['LSD_REFINE_ADV',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a44217d6ecd9000c2c6b3e256fdf1caa5',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
   ['lsd_5frefine_5fnone_25',['LSD_REFINE_NONE',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a81418ddcb76acaf6142fdeed7fa5bd96',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
-  ['lsd_5frefine_5fstd_26',['LSD_REFINE_STD',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#ab9f88e74247d3f2484f28e569d159d50',1,'OpenCVForUnity::ImgprocModule::Imgproc']]]
+  ['lsd_5frefine_5fstd_26',['LSD_REFINE_STD',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#ab9f88e74247d3f2484f28e569d159d50',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],
+  ['lsq_5fpolisher_27',['LSQ_POLISHER',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a3e2c7bfca0a7160a06093fa9f13f2460',1,'OpenCVForUnity::Calib3dModule::Calib3d']]]
 ];
