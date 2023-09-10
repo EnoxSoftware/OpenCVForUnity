@@ -6,6 +6,7 @@ using OpenCVForUnity.VideoioModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
 using System.IO;
+using UnityEngine.Rendering;
 
 namespace OpenCVForUnityExample
 {
@@ -103,6 +104,9 @@ namespace OpenCVForUnityExample
             previewPanel.gameObject.SetActive(false);
 
             Initialize();
+
+            // for URP and HDRP
+            RenderPipelineManager.endCameraRendering += OnEndCameraRendering;
         }
 
         private void Initialize()
@@ -144,6 +148,12 @@ namespace OpenCVForUnityExample
                     Utils.matToTexture2D(previewRgbMat, previrwTexture);
                 }
             }
+        }
+
+        // for URP and HDRP
+        void OnEndCameraRendering(ScriptableRenderContext context, Camera camera)
+        {
+            OnPostRender();
         }
 
         void OnPostRender()
@@ -296,6 +306,9 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDestroy()
         {
+            // for URP and HDRP
+            RenderPipelineManager.endCameraRendering -= OnEndCameraRendering;
+
             StopRecording();
             StopVideo();
         }

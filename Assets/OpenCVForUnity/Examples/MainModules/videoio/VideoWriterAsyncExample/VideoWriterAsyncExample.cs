@@ -112,6 +112,9 @@ namespace OpenCVForUnityExample
 
             Initialize();
 
+            // for URP and HDRP
+            RenderPipelineManager.endCameraRendering += OnEndCameraRendering;
+
 #if OPENCV_USE_UNSAFE_CODE
             if (!SystemInfo.supportsAsyncGPUReadback)
             {
@@ -174,6 +177,12 @@ namespace OpenCVForUnityExample
                     Utils.matToTexture2D(previewRgbMat, previrwTexture);
                 }
             }
+        }
+
+        // for URP and HDRP
+        void OnEndCameraRendering(ScriptableRenderContext context, Camera camera)
+        {
+            OnPostRender();
         }
 
         void OnPostRender()
@@ -372,6 +381,9 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDestroy()
         {
+            // for URP and HDRP
+            RenderPipelineManager.endCameraRendering -= OnEndCameraRendering;
+
             StopRecording();
             StopVideo();
         }

@@ -61,8 +61,7 @@ namespace OpenCVForUnityExample
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceDetectionYuNetExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceDetectionYuNetV2ExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FacialExpressionRecognitionExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LightweightPoseEstimationExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/LightweightPoseEstimationWebCamExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/PoseEstimationMediaPipeExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/HandPoseEstimationMediaPipeExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/HumanSegmentationPPHumanSegExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ImageClassificationMobilenetExampleButton").GetComponent<Button>().interactable = false;
@@ -457,14 +456,9 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("FacialExpressionRecognitionExample");
         }
 
-        public void OnLightweightPoseEstimationExampleButtonClick()
+        public void OnPoseEstimationMediaPipeExampleButtonClick()
         {
-            SceneManager.LoadScene("LightweightPoseEstimationExample");
-        }
-
-        public void OnLightweightPoseEstimationWebCamExampleButtonClick()
-        {
-            SceneManager.LoadScene("LightweightPoseEstimationWebCamExample");
+            SceneManager.LoadScene("PoseEstimationMediaPipeExample");
         }
 
         public void OnHandPoseEstimationMediaPipeExampleButtonClick()
