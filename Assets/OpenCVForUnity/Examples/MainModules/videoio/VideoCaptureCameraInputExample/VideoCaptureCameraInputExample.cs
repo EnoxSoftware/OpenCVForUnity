@@ -1,5 +1,3 @@
-#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
-
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.ImgprocModule;
@@ -760,5 +758,3 @@ namespace OpenCVForUnityExample
         }
     }
 }
-
-#endif

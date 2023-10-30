@@ -1,5 +1,3 @@
-#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
-
 #if !UNITY_WSA_10_0
 
 using OpenCVForUnity.CoreModule;
@@ -420,6 +418,5 @@ namespace OpenCVForUnityExample
         }
     }
 }
-#endif
 
 #endif

@@ -1,5 +1,3 @@
-#if !(PLATFORM_LUMIN && !UNITY_EDITOR)
-
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
@@ -209,16 +207,17 @@ namespace OpenCVForUnityExample
                 //Debug.Log ("mouse Y " + Input.mousePosition.y);
             }
 #endif
-            if (storedTouchPoint != null)
-            {
-                ConvertScreenPointToTexturePoint(storedTouchPoint, storedTouchPoint, gameObject, texture.width, texture.height);
-                x = (float)storedTouchPoint.x / scaling;
-                y = (float)storedTouchPoint.y / scaling;
-                storedTouchPoint = null;
-            }
 
             if (webCamTextureToMatHelper.IsPlaying() && webCamTextureToMatHelper.DidUpdateThisFrame())
             {
+                if (storedTouchPoint != null)
+                {
+                    ConvertScreenPointToTexturePoint(storedTouchPoint, storedTouchPoint, gameObject, texture.width, texture.height);
+                    x = (float)storedTouchPoint.x / scaling;
+                    y = (float)storedTouchPoint.y / scaling;
+                    storedTouchPoint = null;
+                }
+
 
                 Mat rgbaMat = webCamTextureToMatHelper.GetMat();
 
@@ -388,5 +387,3 @@ namespace OpenCVForUnityExample
         }
     }
 }
-
-#endif

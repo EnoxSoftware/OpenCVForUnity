@@ -69,7 +69,6 @@ namespace OpenCVForUnityExample
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionMobileNetSSDExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionMobileNetSSDWebCamExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionYOLOv4ExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionYOLOv7ExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionYOLOXExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionNanoDetPlusExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TextRecognitionCRNNExampleButton").GetComponent<Button>().interactable = false;
@@ -314,9 +313,9 @@ namespace OpenCVForUnityExample
 
         #region features2d
 
-        public void OnFeature2DExampleButtonClick()
+        public void OnFeatureMatchingExampleButtonClick()
         {
-            SceneManager.LoadScene("Feature2DExample");
+            SceneManager.LoadScene("FeatureMatchingExample");
         }
 
         public void OnMSERExampleButtonClick()
@@ -494,11 +493,6 @@ namespace OpenCVForUnityExample
         public void OnObjectDetectionYOLOv4ExampleButtonClick()
         {
             SceneManager.LoadScene("ObjectDetectionYOLOv4Example");
-        }
-
-        public void OnObjectDetectionYOLOv7ExampleButtonClick()
-        {
-            SceneManager.LoadScene("ObjectDetectionYOLOv7Example");
         }
 
         public void OnObjectDetectionYOLOXExampleButtonClick()

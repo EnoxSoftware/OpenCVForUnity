@@ -1,3 +1,5 @@
+#if !UNITY_WSA_10_0
+
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.DnnModule;
 using OpenCVForUnity.ImgprocModule;
@@ -2664,3 +2666,4 @@ namespace OpenCVForUnityExample.DnnModel
         }
     }
 }
+#endif
