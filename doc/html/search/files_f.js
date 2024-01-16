@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['scalar_2ecs',['Scalar.cs',['../_scalar_8cs.html',1,'']]],
-  ['size_2ecs',['Size.cs',['../_size_8cs.html',1,'']]],
-  ['stereobm_2ecs',['StereoBM.cs',['../_stereo_b_m_8cs.html',1,'']]],
-  ['stereosgbm_2ecs',['StereoSGBM.cs',['../_stereo_s_g_b_m_8cs.html',1,'']]],
-  ['stereovar_2ecs',['StereoVar.cs',['../_stereo_var_8cs.html',1,'']]],
-  ['subdiv2d_2ecs',['Subdiv2D.cs',['../_subdiv2_d_8cs.html',1,'']]]
+  ['qrcodedetector_2ecs',['QRCodeDetector.cs',['../_q_r_code_detector_8cs.html',1,'']]],
+  ['qrcodedetectoraruco_2ecs',['QRCodeDetectorAruco.cs',['../_q_r_code_detector_aruco_8cs.html',1,'']]],
+  ['qrcodedetectoraruco_5fparams_2ecs',['QRCodeDetectorAruco_Params.cs',['../_q_r_code_detector_aruco___params_8cs.html',1,'']]],
+  ['qrcodeencoder_2ecs',['QRCodeEncoder.cs',['../_q_r_code_encoder_8cs.html',1,'']]],
+  ['qrcodeencoder_5fparams_2ecs',['QRCodeEncoder_Params.cs',['../_q_r_code_encoder___params_8cs.html',1,'']]]
 ];

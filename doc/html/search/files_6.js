@@ -1,5 +1,13 @@
 var searchData=
 [
-  ['genericdescriptormatcher_2ecs',['GenericDescriptorMatcher.cs',['../_generic_descriptor_matcher_8cs.html',1,'']]],
-  ['gpu_2ecs',['Gpu.cs',['../_gpu_8cs.html',1,'']]]
+  ['generalizedhough_2ecs',['GeneralizedHough.cs',['../_generalized_hough_8cs.html',1,'']]],
+  ['generalizedhoughballard_2ecs',['GeneralizedHoughBallard.cs',['../_generalized_hough_ballard_8cs.html',1,'']]],
+  ['generalizedhoughguil_2ecs',['GeneralizedHoughGuil.cs',['../_generalized_hough_guil_8cs.html',1,'']]],
+  ['gfttdetector_2ecs',['GFTTDetector.cs',['../_g_f_t_t_detector_8cs.html',1,'']]],
+  ['graphicalcodedetector_2ecs',['GraphicalCodeDetector.cs',['../_graphical_code_detector_8cs.html',1,'']]],
+  ['graphsegmentation_2ecs',['GraphSegmentation.cs',['../_graph_segmentation_8cs.html',1,'']]],
+  ['graycodepattern_2ecs',['GrayCodePattern.cs',['../_gray_code_pattern_8cs.html',1,'']]],
+  ['grayworldwb_2ecs',['GrayworldWB.cs',['../_grayworld_w_b_8cs.html',1,'']]],
+  ['gridboard_2ecs',['GridBoard.cs',['../_grid_board_8cs.html',1,'']]],
+  ['guidedfilter_2ecs',['GuidedFilter.cs',['../_guided_filter_8cs.html',1,'']]]
 ];

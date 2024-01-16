@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['scalar',['Scalar',['../class_open_c_v_for_unity_1_1_scalar.html',1,'OpenCVForUnity']]],
-  ['size',['Size',['../class_open_c_v_for_unity_1_1_size.html',1,'OpenCVForUnity']]],
-  ['stereobm',['StereoBM',['../class_open_c_v_for_unity_1_1_stereo_b_m.html',1,'OpenCVForUnity']]],
-  ['stereosgbm',['StereoSGBM',['../class_open_c_v_for_unity_1_1_stereo_s_g_b_m.html',1,'OpenCVForUnity']]],
-  ['stereovar',['StereoVar',['../class_open_c_v_for_unity_1_1_stereo_var.html',1,'OpenCVForUnity']]],
-  ['subdiv2d',['Subdiv2D',['../class_open_c_v_for_unity_1_1_subdiv2_d.html',1,'OpenCVForUnity']]]
+  ['qrcodedetector',['QRCodeDetector',['../class_open_c_v_for_unity_1_1_objdetect_module_1_1_q_r_code_detector.html',1,'OpenCVForUnity::ObjdetectModule']]],
+  ['qrcodedetectoraruco',['QRCodeDetectorAruco',['../class_open_c_v_for_unity_1_1_objdetect_module_1_1_q_r_code_detector_aruco.html',1,'OpenCVForUnity::ObjdetectModule']]],
+  ['qrcodedetectoraruco_5fparams',['QRCodeDetectorAruco_Params',['../class_open_c_v_for_unity_1_1_objdetect_module_1_1_q_r_code_detector_aruco___params.html',1,'OpenCVForUnity::ObjdetectModule']]],
+  ['qrcodeencoder',['QRCodeEncoder',['../class_open_c_v_for_unity_1_1_objdetect_module_1_1_q_r_code_encoder.html',1,'OpenCVForUnity::ObjdetectModule']]],
+  ['qrcodeencoder_5fparams',['QRCodeEncoder_Params',['../class_open_c_v_for_unity_1_1_objdetect_module_1_1_q_r_code_encoder___params.html',1,'OpenCVForUnity::ObjdetectModule']]]
 ];
