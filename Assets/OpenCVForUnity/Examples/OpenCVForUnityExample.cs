@@ -133,6 +133,11 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("Utils_GetFilePathExample");
         }
 
+        public void OnDebugMatUtilsExampleButtonClick()
+        {
+            SceneManager.LoadScene("DebugMatUtilsExample");
+        }
+
         #endregion
 
         #region Advanced
@@ -170,6 +175,11 @@ namespace OpenCVForUnityExample
         public void OnMultiObjectTrackingBasedOnColorExampleButtonClick()
         {
             SceneManager.LoadScene("MultiObjectTrackingBasedOnColorExample");
+        }
+
+        public void OnMultiObjectTrackingExampleButtonClick()
+        {
+            SceneManager.LoadScene("MultiObjectTrackingExample");
         }
 
         public void OnPolygonFilterExampleButtonClick()

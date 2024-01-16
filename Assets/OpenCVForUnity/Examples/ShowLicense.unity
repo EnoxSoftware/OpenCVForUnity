@@ -43,7 +43,7 @@ RenderSettings:
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 11
+  serializedVersion: 12
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -98,7 +98,8 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 0735d33743d18bf4f9d95aa59e487cc4,
+    type: 2}
 --- !u!196 &5
 NavMeshSettings:
   serializedVersion: 2
@@ -118,6 +119,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
@@ -176,6 +179,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -294,6 +298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -323,7 +328,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1011219728}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.05841231
+  m_Size: 0.06824643
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -343,6 +348,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -484,6 +490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -514,6 +521,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1787239750}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnBackButtonClick
         m_Mode: 1
         m_Arguments:
@@ -539,6 +547,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -613,6 +622,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.196, g: 0.196, b: 0.196, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -727,6 +737,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -802,6 +813,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -994,8 +1006,10 @@ MonoBehaviour:
     of Artificial Intelligence and Robotics for Society, all rights reserved.\r\nhttps://github.com/opencv/opencv_zoo/blob/master/models/text_detection_db/LICENSE\r\n\r\n-
     yolov4-tiny.cfg, yolov4-tiny.weights : YOLO LICENSE\r\nhttps://github.com/AlexeyAB/darknet/blob/master/LICENSE\r\n\n-
     yolox_tiny.onnx : Apache License 2.0\r\nhttps://github.com/Megvii-BaseDetection/YOLOX/blob/main/LICENSE\r\n\r\n-
-    nanotrack_backbone_sim.onnx, nanotrack_head_sim.onn : Apache 2.0 License\r\nCopyright
-    (c) SenseTime. All Rights Reserved.\r\nhttps://github.com/HonglinChu/SiamTrackers/blob/master/NanoTrack/LICENSE"
+    nanotrack_backbone_sim.onnx, nanotrack_head_sim.onnx : Apache 2.0 License\r\nCopyright
+    (c) SenseTime. All Rights Reserved.\r\nhttps://github.com/HonglinChu/SiamTrackers/blob/master/NanoTrack/LICENSE\n\n-
+    object_tracking_vittrack_2023sep.onnx : Apache 2.0 License\r\nhttps://github.com/opencv/opencv_zoo/blob/main/models/object_tracking_vittrack/LICENSE\r\n\r\n-
+    ByteTrack : MIT License\r\nCopyright (c) 2021 Yifu Zhang\r\nhttps://github.com/ifzhang/ByteTrack/blob/main/LICENSE"
 --- !u!222 &1086899406
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1076,6 +1090,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!223 &1502237570
 Canvas:
   m_ObjectHideFlags: 0

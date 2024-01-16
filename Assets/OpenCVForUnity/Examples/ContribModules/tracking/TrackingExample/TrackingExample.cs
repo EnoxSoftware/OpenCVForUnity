@@ -19,6 +19,10 @@ namespace OpenCVForUnityExample
     /// Tracking Example
     /// An example of object tracking using the tracking (Tracking API) module.
     /// http://docs.opencv.org/trunk/d5/d07/tutorial_multitracker.html
+    /// 
+    /// https://github.com/opencv/opencv_zoo/tree/main/models/object_tracking_vittrack
+    /// https://github.com/opencv/opencv/blob/4.x/samples/dnn/dasiamrpn_tracker.cpp
+    /// https://github.com/opencv/opencv/blob/4.x/samples/dnn/nanotrack_tracker.cpp
     /// </summary>
     [RequireComponent(typeof(VideoCaptureToMatHelper))]
     public class TrackingExample : MonoBehaviour
@@ -39,9 +43,9 @@ namespace OpenCVForUnityExample
         public Toggle trackerMILToggle;
 
         /// <summary>
-        /// The trackerGOTURN Toggle.
+        /// The trackerVit Toggle.
         /// </summary>
-        public Toggle trackerGOTURNToggle;
+        public Toggle trackerVitToggle;
 
         /// <summary>
         /// The trackerDaSiamRPN Toggle.
@@ -54,24 +58,14 @@ namespace OpenCVForUnityExample
         public Toggle trackerNanoToggle;
 
         /// <summary>
-        /// GOTURN_MODELTXT_FILENAME
+        /// Vit_MODEL_FILENAME
         /// </summary>
-        protected static readonly string GOTURN_MODELTXT_FILENAME = "OpenCVForUnity/tracking/goturn.prototxt";
+        protected static readonly string Vit_MODEL_FILENAME = "OpenCVForUnity/tracking/object_tracking_vittrack_2023sep.onnx";
 
         /// <summary>
-        /// The GOTURN modelTxt filepath.
+        /// The Vit model filepath.
         /// </summary>
-        string GOTURN_modelTxt_filepath;
-
-        /// <summary>
-        /// GOTURN_MODELBIN_FILENAME
-        /// </summary>
-        protected static readonly string GOTURN_MODELBIN_FILENAME = "OpenCVForUnity/tracking/goturn.caffemodel";
-
-        /// <summary>
-        /// The GOTURN modelBin filepath.
-        /// </summary>
-        string GOTURN_modelBin_filepath;
+        string Vit_model_filepath;
 
         /// <summary>
         /// DaSiamRPN_MODEL_FILENAME
@@ -123,7 +117,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         string NANOTRACK_head_sim_filepath;
 
-        bool disableTrackerGOTURN = false;
+        bool disableTrackerVit = false;
 
         bool disableTrackerDaSiamRPN = false;
 
@@ -179,8 +173,8 @@ namespace OpenCVForUnityExample
 #if UNITY_WSA_10_0
             
             // Disable the DNN module-dependent Tracker on UWP platforms, as it cannot be used.
-            trackerGOTURNToggle.isOn = trackerGOTURNToggle.interactable = false;
-            disableTrackerGOTURN = true;
+            trackerVitToggle.isOn = trackerVitToggle.interactable = false;
+            disableTrackerVit = true;
             trackerDaSiamRPNToggle.isOn = trackerDaSiamRPNToggle.interactable = false;
             disableTrackerDaSiamRPN = true;
             trackerNanoToggle.isOn = trackerNanoToggle.interactable = false;
@@ -194,8 +188,7 @@ namespace OpenCVForUnityExample
 
 #else
 
-            GOTURN_modelTxt_filepath = Utils.getFilePath(GOTURN_MODELTXT_FILENAME);
-            GOTURN_modelBin_filepath = Utils.getFilePath(GOTURN_MODELBIN_FILENAME);
+            Vit_model_filepath = Utils.getFilePath(Vit_MODEL_FILENAME);
             DaSiamRPN_model_filepath = Utils.getFilePath(DaSiamRPN_MODEL_FILENAME);
             DaSiamRPN_kernel_r1_filepath = Utils.getFilePath(DaSiamRPN_KERNEL_R1_FILENAME);
             DaSiamRPN_kernel_cls1_filepath = Utils.getFilePath(DaSiamRPN_KERNEL_CLS1_FILENAME);
@@ -210,47 +203,41 @@ namespace OpenCVForUnityExample
 #if UNITY_WEBGL
         private IEnumerator GetFilePath()
         {
-            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync(GOTURN_MODELTXT_FILENAME, (result) =>
+            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync(Vit_MODEL_FILENAME, (result) =>
             {
-                GOTURN_modelTxt_filepath = result;
+                Vit_model_filepath = result;
             });
             yield return getFilePathAsync_0_Coroutine;
 
-            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync(GOTURN_MODELBIN_FILENAME, (result) =>
-            {
-                GOTURN_modelBin_filepath = result;
-            });
-            yield return getFilePathAsync_1_Coroutine;
-
-            var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync(DaSiamRPN_MODEL_FILENAME, (result) =>
+            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync(DaSiamRPN_MODEL_FILENAME, (result) =>
             {
                 DaSiamRPN_model_filepath = result;
             });
-            yield return getFilePathAsync_2_Coroutine;
+            yield return getFilePathAsync_1_Coroutine;
 
-            var getFilePathAsync_3_Coroutine = Utils.getFilePathAsync(DaSiamRPN_KERNEL_R1_FILENAME, (result) =>
+            var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync(DaSiamRPN_KERNEL_R1_FILENAME, (result) =>
             {
                 DaSiamRPN_kernel_r1_filepath = result;
             });
-            yield return getFilePathAsync_3_Coroutine;
+            yield return getFilePathAsync_2_Coroutine;
 
-            var getFilePathAsync_4_Coroutine = Utils.getFilePathAsync(DaSiamRPN_KERNEL_CLS1_FILENAME, (result) =>
+            var getFilePathAsync_3_Coroutine = Utils.getFilePathAsync(DaSiamRPN_KERNEL_CLS1_FILENAME, (result) =>
             {
                 DaSiamRPN_kernel_cls1_filepath = result;
             });
-            yield return getFilePathAsync_4_Coroutine;
+            yield return getFilePathAsync_3_Coroutine;
 
-            var getFilePathAsync_5_Coroutine = Utils.getFilePathAsync(NANOTRACK_BACKBONE_SIM_FILENAME, (result) =>
+            var getFilePathAsync_4_Coroutine = Utils.getFilePathAsync(NANOTRACK_BACKBONE_SIM_FILENAME, (result) =>
             {
                 NANOTRACK_backbone_sim_filepath = result;
             });
-            yield return getFilePathAsync_5_Coroutine;
+            yield return getFilePathAsync_4_Coroutine;
 
-            var getFilePathAsync_6_Coroutine = Utils.getFilePathAsync(NANOTRACK_HEAD_SIM_FILENAME, (result) =>
+            var getFilePathAsync_5_Coroutine = Utils.getFilePathAsync(NANOTRACK_HEAD_SIM_FILENAME, (result) =>
             {
                 NANOTRACK_head_sim_filepath = result;
             });
-            yield return getFilePathAsync_6_Coroutine;
+            yield return getFilePathAsync_5_Coroutine;
 
             getFilePath_Coroutine = null;
 
@@ -261,12 +248,12 @@ namespace OpenCVForUnityExample
 
         void CheckFilePaths()
         {
-            if (string.IsNullOrEmpty(GOTURN_modelTxt_filepath) || string.IsNullOrEmpty(GOTURN_modelBin_filepath))
+            if (string.IsNullOrEmpty(Vit_model_filepath))
             {
-                Debug.LogError(GOTURN_MODELTXT_FILENAME + " or " + GOTURN_MODELBIN_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/tracking/setup_tracking_module.pdf” to make the necessary setup.");
+                Debug.LogError(Vit_MODEL_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/tracking/setup_tracking_module.pdf” to make the necessary setup.");
 
-                trackerGOTURNToggle.isOn = trackerGOTURNToggle.interactable = false;
-                disableTrackerGOTURN = true;
+                trackerVitToggle.isOn = trackerVitToggle.interactable = false;
+                disableTrackerVit = true;
             }
 
             if (string.IsNullOrEmpty(DaSiamRPN_model_filepath) || string.IsNullOrEmpty(DaSiamRPN_kernel_r1_filepath) || string.IsNullOrEmpty(DaSiamRPN_kernel_cls1_filepath))
@@ -441,14 +428,13 @@ namespace OpenCVForUnityExample
                                 trackers.Add(new TrackerSetting(trackerMIL, trackerMIL.GetType().Name.ToString(), new Scalar(0, 0, 255)));
                             }
 
-                            if (!disableTrackerGOTURN && trackerGOTURNToggle.isOn)
+                            if (!disableTrackerVit && trackerVitToggle.isOn)
                             {
-                                var _params = new TrackerGOTURN_Params();
-                                _params.set_modelTxt(GOTURN_modelTxt_filepath);
-                                _params.set_modelBin(GOTURN_modelBin_filepath);
-                                TrackerGOTURN trackerGOTURN = TrackerGOTURN.create(_params);
-                                trackerGOTURN.init(rgbMat, region);
-                                trackers.Add(new TrackerSetting(trackerGOTURN, trackerGOTURN.GetType().Name.ToString(), new Scalar(255, 255, 0)));
+                                var _params = new TrackerVit_Params();
+                                _params.set_net(Vit_model_filepath);
+                                TrackerVit TrackerVit = TrackerVit.create(_params);
+                                TrackerVit.init(rgbMat, region);
+                                trackers.Add(new TrackerSetting(TrackerVit, TrackerVit.GetType().Name.ToString(), new Scalar(255, 255, 0)));
                             }
 
                             if (!disableTrackerDaSiamRPN && trackerDaSiamRPNToggle.isOn)
@@ -484,8 +470,8 @@ namespace OpenCVForUnityExample
 
                             trackerKCFToggle.interactable = trackerCSRTToggle.interactable = trackerMILToggle.interactable = false;
 
-                            if (!disableTrackerGOTURN)
-                                trackerGOTURNToggle.interactable = false;
+                            if (!disableTrackerVit)
+                                trackerVitToggle.interactable = false;
 
                             if (!disableTrackerDaSiamRPN)
                                 trackerDaSiamRPNToggle.interactable = false;
@@ -506,7 +492,25 @@ namespace OpenCVForUnityExample
                         tracker.update(rgbMat, boundingBox);
 
                         Imgproc.rectangle(rgbMat, boundingBox.tl(), boundingBox.br(), lineColor, 2, 1, 0);
-                        Imgproc.putText(rgbMat, label, new Point(boundingBox.x, boundingBox.y - 5), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, lineColor, 1, Imgproc.LINE_AA, false);
+
+                        //  vit tracker provides confidence values during the tracking process, which can be used to determine if the tracking is currently lost.
+                        if (trackers[i].tracker is TrackerVit)
+                        {
+                            TrackerVit trackerVit = (TrackerVit)trackers[i].tracker;
+                            float score = trackerVit.getTrackingScore();
+                            if (score < 0.4f)
+                            {
+                                Imgproc.putText(rgbMat, label + " " + String.Format("{0:0.00}", score), new Point(boundingBox.x, boundingBox.y - 5), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar(255, 0, 0, 255), 1, Imgproc.LINE_AA, false);
+                            }
+                            else
+                            {
+                                Imgproc.putText(rgbMat, label + " " + String.Format("{0:0.00}", score), new Point(boundingBox.x, boundingBox.y - 5), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, lineColor, 1, Imgproc.LINE_AA, false);
+                            }
+                        }
+                        else
+                        {
+                            Imgproc.putText(rgbMat, label, new Point(boundingBox.x, boundingBox.y - 5), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, lineColor, 1, Imgproc.LINE_AA, false);
+                        }
                     }
 
                     if (trackers.Count == 0)
@@ -559,8 +563,8 @@ namespace OpenCVForUnityExample
 
             trackerKCFToggle.interactable = trackerCSRTToggle.interactable = trackerMILToggle.interactable = true;
 
-            if (!disableTrackerGOTURN)
-                trackerGOTURNToggle.interactable = true;
+            if (!disableTrackerVit)
+                trackerVitToggle.interactable = true;
 
             if (!disableTrackerDaSiamRPN)
                 trackerDaSiamRPNToggle.interactable = true;

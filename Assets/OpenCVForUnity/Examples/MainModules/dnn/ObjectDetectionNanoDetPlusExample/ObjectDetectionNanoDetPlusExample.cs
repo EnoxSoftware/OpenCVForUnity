@@ -30,7 +30,7 @@ namespace OpenCVForUnityExample
     public class ObjectDetectionNanoDetPlusExample : MonoBehaviour
     {
         [TooltipAttribute("Path to a binary file of model contains trained weights. It could be a file with extensions .caffemodel (Caffe), .pb (TensorFlow), .t7 or .net (Torch), .weights (Darknet).")]
-        public string model = "nanodet-plus-m_320.onnx";
+        public string model = "nanodet-plus-m_416.onnx";
 
         [TooltipAttribute("Path to a text file of model contains network configuration. It could be a file with extensions .prototxt (Caffe), .pbtxt (TensorFlow), .cfg (Darknet).")]
         public string config = "";
@@ -48,10 +48,10 @@ namespace OpenCVForUnityExample
         public int topK = 1000;
 
         [TooltipAttribute("Preprocess input image by resizing to a specific width.")]
-        public int inpWidth = 320;
+        public int inpWidth = 416;
 
         [TooltipAttribute("Preprocess input image by resizing to a specific height.")]
-        public int inpHeight = 320;
+        public int inpHeight = 416;
 
 
         [Header("TEST")]
@@ -174,7 +174,7 @@ namespace OpenCVForUnityExample
             Utils.setDebugMode(true);
 
 
-            if (string.IsNullOrEmpty(model_filepath) || string.IsNullOrEmpty(classes_filepath))
+            if (string.IsNullOrEmpty(model_filepath))
             {
                 Debug.LogError("model: " + model + " or " + "config: " + config + " or " + "classes: " + classes + " is not loaded.");
             }

@@ -173,7 +173,7 @@ namespace OpenCVForUnityExample
             Utils.setDebugMode(true);
 
 
-            if (string.IsNullOrEmpty(model_filepath) || string.IsNullOrEmpty(classes_filepath))
+            if (string.IsNullOrEmpty(model_filepath))
             {
                 Debug.LogError("model: " + model + " or " + "config: " + config + " or " + "classes: " + classes + " is not loaded.");
             }

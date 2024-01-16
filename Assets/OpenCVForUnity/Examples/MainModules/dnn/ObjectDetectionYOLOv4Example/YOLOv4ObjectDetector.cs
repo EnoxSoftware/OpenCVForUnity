@@ -188,12 +188,13 @@ namespace OpenCVForUnityExample.DnnModel
                 Imgproc.rectangle(image, new Point(left, top), new Point(right, bottom), color, 2);
 
                 string label = String.Format("{0:0.00}", conf[0]);
-                if (classNames != null && classNames.Count != 0)
+                if (classNames != null && classNames.Count != 0 && classId < classNames.Count)
                 {
-                    if (classId < (int)classNames.Count)
-                    {
-                        label = classNames[classId] + " " + label;
-                    }
+                    label = classNames[classId] + " " + label;
+                }
+                else
+                {
+                    label = classId + " " + label;
                 }
 
                 int[] baseLine = new int[1];
@@ -221,12 +222,9 @@ namespace OpenCVForUnityExample.DnnModel
 
                     int classId = (int)cls[0];
                     string label = String.Format("{0:0}", cls[0]);
-                    if (classNames != null && classNames.Count != 0)
+                    if (classNames != null && classNames.Count != 0 && classId < classNames.Count)
                     {
-                        if (classId < (int)classNames.Count)
-                        {
-                            label = classNames[classId] + " " + label;
-                        }
+                        label = classNames[classId] + " " + label;
                     }
 
                     sb.AppendLine(String.Format("-----------object {0}-----------", i + 1));

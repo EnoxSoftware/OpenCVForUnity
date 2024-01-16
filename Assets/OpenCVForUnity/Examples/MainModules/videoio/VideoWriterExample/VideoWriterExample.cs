@@ -18,9 +18,33 @@ namespace OpenCVForUnityExample
     public class VideoWriterExample : MonoBehaviour
     {
         /// <summary>
+        /// The full screen capture
+        /// </summary>
+        [HeaderAttribute("Capture Settings")]
+        [TooltipAttribute("When checked, the entire screen screen is captured.")]
+        public bool fullScreenCapture = true;
+
+        /// <summary>
+        /// The capture rect
+        /// </summary>
+        [TooltipAttribute("The four values indicate which area of the screen screen is to be captured (value 0-1).")]
+        public UnityEngine.Rect captureRect = new UnityEngine.Rect( 0.05f, 0.05f, 0.95f, 0.95f);
+
+        /// <summary>
         /// The cube.
         /// </summary>
+        [Space(10)]
         public GameObject cube;
+
+        /// <summary>
+        /// The canvas.
+        /// </summary>
+        public Canvas canvas;
+
+        /// <summary>
+        /// The capture rect panel.
+        /// </summary>
+        public RawImage captureRectPanel;
 
         /// <summary>
         /// The preview panel.
@@ -97,10 +121,63 @@ namespace OpenCVForUnityExample
         /// </summary>
         string savePath;
 
+        /// <summary>
+        /// The capture rect pixel
+        /// </summary>
+        UnityEngine.Rect captureRectPixel;
+
+#if UNITY_EDITOR
+        private RectTransform canvasRectTransform;
+
+        private Vector2 canvasSizeDelta;
+
+        private void Awake()
+        {
+            canvasRectTransform = canvas.GetComponent<RectTransform>();
+            canvasSizeDelta = canvasRectTransform.sizeDelta;
+        }
+        private void OnValidate()
+        {
+            UnityEditor.EditorApplication.update += OnValidateImpl;
+        }
+
+        void OnValidateImpl()
+        {
+            UnityEditor.EditorApplication.update -= OnValidateImpl;
+            if (this == null) return;
+
+            captureRect = new UnityEngine.Rect(Mathf.Clamp(captureRect.x, 0, 1), Mathf.Clamp(captureRect.y, 0, 1), Mathf.Clamp(captureRect.width, 0, 1), Mathf.Clamp(captureRect.height, 0, 1));
+
+            SetCaptureRectPanel();
+        }
+
+        private void SetCaptureRectPanel()
+        {
+            if (canvasRectTransform == null) canvasRectTransform = canvas.GetComponent<RectTransform>();
+
+            Vector2 uGuiScreenSize = canvasRectTransform.sizeDelta;
+            if (fullScreenCapture)
+            {
+                captureRectPanel.rectTransform.offsetMin = new Vector2(0, 0);
+                captureRectPanel.rectTransform.offsetMax = new Vector2(0, 0);
+            }
+            else
+            {
+                captureRectPanel.rectTransform.offsetMin = new Vector2(uGuiScreenSize.x * captureRect.x, uGuiScreenSize.y * (1.0f - captureRect.height));
+                captureRectPanel.rectTransform.offsetMax = new Vector2(-uGuiScreenSize.x * (1.0f - captureRect.width), -uGuiScreenSize.y * captureRect.y);
+            }
+        }
+#endif
+
         // Use this for initialization
         void Start()
         {
+#if UNITY_EDITOR
+            SetCaptureRectPanel();
+#endif
+
             PlayButton.interactable = false;
+            captureRectPanel.gameObject.SetActive(true);
             previewPanel.gameObject.SetActive(false);
 
             Initialize();
@@ -127,6 +204,14 @@ namespace OpenCVForUnityExample
         // Update is called once per frame
         void Update()
         {
+#if UNITY_EDITOR
+            if(canvasSizeDelta.x != canvasRectTransform.sizeDelta.x || canvasSizeDelta.y != canvasRectTransform.sizeDelta.y)
+            {
+                canvasSizeDelta = canvasRectTransform.sizeDelta;
+                SetCaptureRectPanel();
+            }
+#endif
+
             if (!isPlaying)
             {
                 cube.transform.Rotate(new Vector3(90, 90, 0) * Time.deltaTime, Space.Self);
@@ -166,15 +251,15 @@ namespace OpenCVForUnityExample
                     OnRecButtonClick();
                     return;
                 }
-                if (recordingFrameRgbMat.width() != Screen.width || recordingFrameRgbMat.height() != Screen.height)
+                if (recordingFrameRgbMat.width() > Screen.width || recordingFrameRgbMat.height() > Screen.height)
                 {
-                    Debug.LogError("Please fix the screen ratio of the Game View to recognize the recording area.");
+                    Debug.LogError("Recording was stopped because the screen size was larger than the recording area.");
                     OnRecButtonClick();
                     return;
                 }
 
                 // Take screen shot.
-                screenCapture.ReadPixels(new UnityEngine.Rect(0, 0, Screen.width, Screen.height), 0, 0);
+                screenCapture.ReadPixels(captureRectPixel, 0, 0);
                 screenCapture.Apply();
 
                 Utils.texture2DToMat(screenCapture, recordingFrameRgbMat);
@@ -203,12 +288,26 @@ namespace OpenCVForUnityExample
                 File.Delete(savePath);
             }
 
+            if (fullScreenCapture)
+            {
+                captureRectPixel = new UnityEngine.Rect(0, 0, Screen.width, Screen.height);
+            }
+            else
+            {
+                captureRectPixel = new UnityEngine.Rect(Screen.width * captureRect.x, Screen.height * captureRect.y, Screen.width * (captureRect.width-captureRect.x), Screen.height * (captureRect.height-captureRect.y));
+
+                if (captureRectPixel.x < 0 || captureRectPixel.y < 0 || captureRectPixel.width > Screen.width || captureRectPixel.height > Screen.height || captureRectPixel.width < 1 || captureRectPixel.height < 1)
+                {
+                    Debug.LogError("Since the captureRect is larger than the screen size, the value of captureRect is changed to the screen size.");
+                    captureRectPixel = new UnityEngine.Rect(0, 0, Screen.width, Screen.height);
+                }
+            }
+            //Debug.Log("captureRectPixel " + captureRectPixel);
+
             writer = new VideoWriter();
-#if !UNITY_IOS
-            writer.open(savePath, VideoWriter.fourcc('M', 'J', 'P', 'G'), 30, new Size(Screen.width, Screen.height));
-#else
-            writer.open(savePath, VideoWriter.fourcc('D', 'V', 'I', 'X'), 30, new Size(Screen.width, Screen.height));
-#endif
+
+            writer.open(savePath, Videoio.CAP_OPENCV_MJPEG, VideoWriter.fourcc('M', 'J', 'P', 'G'), 30, new Size((int)captureRectPixel.width, (int)captureRectPixel.height));
+
 
             if (!writer.isOpened())
             {
@@ -217,8 +316,8 @@ namespace OpenCVForUnityExample
                 return;
             }
 
-            screenCapture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
-            recordingFrameRgbMat = new Mat(Screen.height, Screen.width, CvType.CV_8UC3);
+            screenCapture = new Texture2D((int)captureRectPixel.width, (int)captureRectPixel.height, TextureFormat.RGB24, false);
+            recordingFrameRgbMat = new Mat((int)captureRectPixel.height, (int)captureRectPixel.width, CvType.CV_8UC3);
             frameCount = 0;
 
             isRecording = true;
@@ -252,7 +351,7 @@ namespace OpenCVForUnityExample
                 return;
 
             capture = new VideoCapture();
-            capture.open(filePath);
+            capture.open(filePath, Videoio.CAP_OPENCV_MJPEG);
 
             if (!capture.isOpened())
             {
@@ -283,6 +382,7 @@ namespace OpenCVForUnityExample
             capture.set(Videoio.CAP_PROP_POS_FRAMES, 0);
 
             previewPanel.texture = previrwTexture;
+            previewPanel.rectTransform.localScale = new Vector3((captureRectPixel.width / (float)Screen.width) * 0.8f, (captureRectPixel.height / (float)Screen.height) * 0.8f, 1f);
 
             isPlaying = true;
         }
@@ -331,19 +431,19 @@ namespace OpenCVForUnityExample
                 RecButton.GetComponentInChildren<UnityEngine.UI.Text>().color = Color.black;
                 StopRecording();
                 PlayButton.interactable = true;
+                captureRectPanel.gameObject.SetActive(true);
                 previewPanel.gameObject.SetActive(false);
+                OnPlayButtonClick();
             }
             else
             {
-#if !UNITY_IOS
+
                 StartRecording(Application.persistentDataPath + "/VideoWriterExample_output.avi");
-#else
-                StartRecording(Application.persistentDataPath + "/VideoWriterExample_output.m4v");
-#endif
 
                 if (isRecording)
                 {
                     RecButton.GetComponentInChildren<UnityEngine.UI.Text>().color = Color.red;
+                    captureRectPanel.gameObject.SetActive(false);
                     PlayButton.interactable = false;
                 }
             }
@@ -359,6 +459,7 @@ namespace OpenCVForUnityExample
                 StopVideo();
                 PlayButton.GetComponentInChildren<UnityEngine.UI.Text>().text = "Play";
                 RecButton.interactable = true;
+                captureRectPanel.gameObject.SetActive(true);
                 previewPanel.gameObject.SetActive(false);
             }
             else
@@ -369,6 +470,7 @@ namespace OpenCVForUnityExample
                 PlayVideo(savePath);
                 PlayButton.GetComponentInChildren<UnityEngine.UI.Text>().text = "Stop";
                 RecButton.interactable = false;
+                captureRectPanel.gameObject.SetActive(false);
                 previewPanel.gameObject.SetActive(true);
             }
         }

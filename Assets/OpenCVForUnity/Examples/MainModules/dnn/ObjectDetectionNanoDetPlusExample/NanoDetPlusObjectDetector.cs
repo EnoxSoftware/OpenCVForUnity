@@ -45,7 +45,7 @@ namespace OpenCVForUnityExample.DnnModel
 
         List<Scalar> palette;
 
-        Mat maxSizeImg;
+        Mat paddedImg;
 
         Mat pickup_blob_numx6;
 
@@ -114,25 +114,28 @@ namespace OpenCVForUnityExample.DnnModel
 
             if (keep_ratio)
             {
-                // Add padding to make it square.
-                int max = Mathf.Max(image.cols(), image.rows());
+                // Add padding to make it input size.
+                // (padding on the top and bottom side)
+                float ratio = Mathf.Max((float)image.cols() / (float)input_size.width, (float)image.rows() / (float)input_size.height);
+                int padw = (int)Mathf.Ceil((float)input_size.width * ratio);
+                int padh = (int)Mathf.Ceil((float)input_size.height * ratio);
 
-                if (maxSizeImg == null)
-                    maxSizeImg = new Mat(max, max, image.type(), Scalar.all(114));
-                if (maxSizeImg.width() != max || maxSizeImg.height() != max)
+                if (paddedImg == null)
+                    paddedImg = new Mat(padh, padw, image.type(), Scalar.all(114));
+                if (paddedImg.width() != padw || paddedImg.height() != padh)
                 {
-                    maxSizeImg.create(max, max, image.type());
-                    Imgproc.rectangle(maxSizeImg, new OpenCVRect(0, 0, maxSizeImg.width(), maxSizeImg.height()), Scalar.all(114), -1);
+                    paddedImg.create(padh, padw, image.type());
+                    Imgproc.rectangle(paddedImg, new OpenCVRect(0, 0, paddedImg.width(), paddedImg.height()), Scalar.all(114), -1);
                 }
 
-                Mat _maxSizeImg_roi = new Mat(maxSizeImg, new OpenCVRect((max - image.cols()) / 2, (max - image.rows()) / 2, image.cols(), image.rows()));
-                image.copyTo(_maxSizeImg_roi);
+                Mat _paddedImg_roi = new Mat(paddedImg, new OpenCVRect((paddedImg.cols() - image.cols()) / 2, (paddedImg.rows() - image.rows()) / 2, image.cols(), image.rows()));
+                image.copyTo(_paddedImg_roi);
 
-                blob = Dnn.blobFromImage(maxSizeImg, 1.0, input_size, Scalar.all(0), false, false, CvType.CV_32F); // HWC to NCHW
+                blob = Dnn.blobFromImage(paddedImg, 1.0, input_size, Scalar.all(0), false, false, CvType.CV_32F); // HWC to NCHW, BGR
             }
             else
             {
-                blob = Dnn.blobFromImage(image, 1.0, input_size, Scalar.all(0), false, false, CvType.CV_32F); // HWC to NCHW
+                blob = Dnn.blobFromImage(image, 1.0, input_size, Scalar.all(0), false, false, CvType.CV_32F); // HWC to NCHW, BGR
             }
 
             int c = image.channels();
@@ -182,18 +185,18 @@ namespace OpenCVForUnityExample.DnnModel
             float y_shift;
             if (keep_ratio)
             {
-                float maxSize = Mathf.Max((float)image.size().width, (float)image.size().height);
-                x_factor = maxSize / (float)input_size.width;
-                y_factor = maxSize / (float)input_size.height;
-                x_shift = (maxSize - (float)image.size().width) / 2f;
-                y_shift = (maxSize - (float)image.size().height) / 2f;
+                float ratio = Mathf.Max((float)image.cols() / (float)input_size.width, (float)image.rows() / (float)input_size.height);
+                x_factor = ratio;
+                y_factor = ratio;
+                x_shift = ((float)input_size.width * ratio - (float)image.size().width) / 2f;
+                y_shift = ((float)input_size.height * ratio - (float)image.size().height) / 2f;
             }
             else
             {
                 x_factor = (float)image.size().width / (float)input_size.width;
                 y_factor = (float)image.size().height / (float)input_size.height;
-                x_shift = ((float)image.size().width - (float)image.size().width) / 2f;
-                y_shift = ((float)image.size().height - (float)image.size().height) / 2f;
+                x_shift = 0;
+                y_shift = 0;
             }
             for (int i = 0; i < results.rows(); ++i)
             {
@@ -224,8 +227,14 @@ namespace OpenCVForUnityExample.DnnModel
 
             Mat output_blob_0 = output_blob;
 
-            if (output_blob_0.size(2) < 112)
-                return new Mat();
+            if (output_blob_0.size(2) != 32 + num_classes)
+            {
+                Debug.LogWarning("The number of classes and output shapes are different. " +
+                "( output_blob_0.size(2):" + output_blob_0.size(2) + " != 32 + num_classes:" + num_classes + " )\n" +
+                "When using a custom model, be sure to set the correct number of classes by loading the appropriate custom classesFile.");
+
+                num_classes = output_blob_0.size(2) - 32;
+            }
 
             int num = output_blob_0.size(1);
             Mat output_blob_numx112 = output_blob_0.reshape(1, num);
@@ -522,12 +531,13 @@ namespace OpenCVForUnityExample.DnnModel
                 Imgproc.rectangle(image, new Point(left, top), new Point(right, bottom), color, 2);
 
                 string label = String.Format("{0:0.00}", conf[0]);
-                if (classNames != null && classNames.Count != 0)
+                if (classNames != null && classNames.Count != 0 && classId < classNames.Count)
                 {
-                    if (classId < (int)classNames.Count)
-                    {
-                        label = classNames[classId] + " " + label;
-                    }
+                    label = classNames[classId] + " " + label;
+                }
+                else
+                {
+                    label = classId + " " + label;
                 }
 
                 int[] baseLine = new int[1];
@@ -555,12 +565,9 @@ namespace OpenCVForUnityExample.DnnModel
 
                     int classId = (int)cls[0];
                     string label = String.Format("{0:0}", cls[0]);
-                    if (classNames != null && classNames.Count != 0)
+                    if (classNames != null && classNames.Count != 0 && classId < classNames.Count)
                     {
-                        if (classId < (int)classNames.Count)
-                        {
-                            label = classNames[classId] + " " + label;
-                        }
+                        label = classNames[classId] + " " + label;
                     }
 
                     sb.AppendLine(String.Format("-----------object {0}-----------", i + 1));
@@ -578,10 +585,10 @@ namespace OpenCVForUnityExample.DnnModel
             if (object_detection_net != null)
                 object_detection_net.Dispose();
 
-            if (maxSizeImg != null)
-                maxSizeImg.Dispose();
+            if (paddedImg != null)
+                paddedImg.Dispose();
 
-            maxSizeImg = null;
+            paddedImg = null;
 
             if (pickup_blob_numx6 != null)
                 pickup_blob_numx6.Dispose();
@@ -632,18 +639,18 @@ namespace OpenCVForUnityExample.DnnModel
                 int feat_w = wsizes[i];
                 int stride = strides[i];
 
-                // #shift_y = np.arange(0, feat_h) * stride
                 // #shift_x = np.arange(0, feat_w) * stride
-                Mat shift_y = arange(0, feat_h);
-                Core.multiply(shift_y, Scalar.all(stride), shift_y);
-                Mat shift_x = arange(0, feat_w).t();
+                // #shift_y = np.arange(0, feat_h) * stride
+                Mat shift_x = arange(0, feat_w);
                 Core.multiply(shift_x, Scalar.all(stride), shift_x);
+                Mat shift_y = arange(0, feat_h).t();
+                Core.multiply(shift_y, Scalar.all(stride), shift_y);
 
                 // #xv, yv = np.meshgrid(shift_x, shift_y)
-                Mat xv = new Mat(feat_h, feat_h, CvType.CV_32FC1);
-                tile(shift_y, feat_h, 1, xv);
-                Mat yv = new Mat(feat_w, feat_w, CvType.CV_32FC1);
-                tile(shift_x, 1, feat_w, yv);
+                Mat xv = new Mat(feat_h, feat_w, CvType.CV_32FC1);
+                tile(shift_x, feat_h, 1, xv);
+                Mat yv = new Mat(feat_h, feat_w, CvType.CV_32FC1);
+                tile(shift_y, 1, feat_w, yv);
 
                 // #np.stack((xv, yv), axis=-1)
                 Mat xv_totalx1 = xv.reshape(1, (int)xv.total());//total*1*CV_32FC1

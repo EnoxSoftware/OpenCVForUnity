@@ -39,7 +39,7 @@ namespace OpenCVForUnityExample.DnnModel
 
         List<Scalar> palette;
 
-        Mat maxSizeImg;
+        Mat paddedImg;
 
         Mat pickup_blob_numx6;
         Mat boxesMat;
@@ -103,23 +103,27 @@ namespace OpenCVForUnityExample.DnnModel
 
         protected virtual Mat preprocess(Mat image)
         {
-            // Add padding to make it square.
-            // (padding on the bottom and right side)
-            int max = Mathf.Max(image.cols(), image.rows());
+            // https://github.com/Megvii-BaseDetection/YOLOX/blob/ac58e0a5e68e57454b7b9ac822aced493b553c53/yolox/data/data_augment.py#L142
 
-            if (maxSizeImg == null)
-                maxSizeImg = new Mat(max, max, image.type(), Scalar.all(114));
-            if (maxSizeImg.width() != max || maxSizeImg.height() != max)
+            // Add padding to make it input size.
+            // (padding on the bottom and right side)
+            float ratio = Mathf.Max((float)image.cols() / (float)input_size.width, (float)image.rows() / (float)input_size.height);
+            int padw = (int)Mathf.Ceil((float)input_size.width * ratio);
+            int padh = (int)Mathf.Ceil((float)input_size.height * ratio);
+
+            if (paddedImg == null)
+                paddedImg = new Mat(padh, padw, image.type(), Scalar.all(114));
+            if (paddedImg.width() != padw || paddedImg.height() != padh)
             {
-                maxSizeImg.create(max, max, image.type());
-                Imgproc.rectangle(maxSizeImg, new OpenCVRect(0, 0, maxSizeImg.width(), maxSizeImg.height()), Scalar.all(114), -1);
+                paddedImg.create(padh, padw, image.type());
+                Imgproc.rectangle(paddedImg, new OpenCVRect(0, 0, paddedImg.width(), paddedImg.height()), Scalar.all(114), -1);
             }
 
-            Mat _maxSizeImg_roi = new Mat(maxSizeImg, new OpenCVRect(0, 0, image.cols(), image.rows()));
-            image.copyTo(_maxSizeImg_roi);
+            Mat _paddedImg_roi = new Mat(paddedImg, new OpenCVRect(0, 0, image.cols(), image.rows()));
+            image.copyTo(_paddedImg_roi);
 
             // Create a 4D blob from a frame.
-            Mat blob = Dnn.blobFromImage(maxSizeImg, 1.0, input_size, Scalar.all(0), true, false, CvType.CV_32F); // HWC to NCHW, BGR to RGB
+            Mat blob = Dnn.blobFromImage(paddedImg, 1.0, input_size, Scalar.all(0), false, false, CvType.CV_32F); // HWC to NCHW, BGR
 
             return blob;// [1, 3, h, w]
         }
@@ -146,9 +150,9 @@ namespace OpenCVForUnityExample.DnnModel
             Mat results = postprocess(output_blob[0], image.size());
 
             // scale_boxes
-            float maxSize = Mathf.Max((float)image.size().width, (float)image.size().height);
-            float x_factor = maxSize / (float)input_size.width;
-            float y_factor = maxSize / (float)input_size.height;
+            float ratio = Mathf.Max((float)image.cols() / (float)input_size.width, (float)image.rows() / (float)input_size.height);
+            float x_factor = ratio;
+            float y_factor = ratio;
 
             for (int i = 0; i < results.rows(); ++i)
             {
@@ -161,6 +165,7 @@ namespace OpenCVForUnityExample.DnnModel
 
                 results.put(i, 0, new float[] { x1, y1, x2, y2 });
             }
+
 
             input_blob.Dispose();
             for (int i = 0; i < output_blob.Count; i++)
@@ -175,8 +180,14 @@ namespace OpenCVForUnityExample.DnnModel
         {
             Mat output_blob_0 = output_blob;
 
-            if (output_blob_0.size(2) < 5 + num_classes)
-                return new Mat();
+            if (output_blob_0.size(2) != 5 + num_classes)
+            {
+                Debug.LogWarning("The number of classes and output shapes are different. " +
+                                "( output_blob_0.size(2):" + output_blob_0.size(2) + " != 5 + num_classes:" + num_classes + " )\n" +
+                                "When using a custom model, be sure to set the correct number of classes by loading the appropriate custom classesFile.");
+
+                num_classes = output_blob_0.size(2) - 5;
+            }
 
             int num = output_blob_0.size(1);
             Mat output_blob_numx85 = output_blob_0.reshape(1, num);
@@ -339,12 +350,13 @@ namespace OpenCVForUnityExample.DnnModel
                 Imgproc.rectangle(image, new Point(left, top), new Point(right, bottom), color, 2);
 
                 string label = String.Format("{0:0.00}", conf[0]);
-                if (classNames != null && classNames.Count != 0)
+                if (classNames != null && classNames.Count != 0 && classId < classNames.Count)
                 {
-                    if (classId < (int)classNames.Count)
-                    {
-                        label = classNames[classId] + " " + label;
-                    }
+                    label = classNames[classId] + " " + label;
+                }
+                else
+                {
+                    label = classId + " " + label;
                 }
 
                 int[] baseLine = new int[1];
@@ -372,12 +384,9 @@ namespace OpenCVForUnityExample.DnnModel
 
                     int classId = (int)cls[0];
                     string label = String.Format("{0:0}", cls[0]);
-                    if (classNames != null && classNames.Count != 0)
+                    if (classNames != null && classNames.Count != 0 && classId < classNames.Count)
                     {
-                        if (classId < (int)classNames.Count)
-                        {
-                            label = classNames[classId] + " " + label;
-                        }
+                        label = classNames[classId] + " " + label;
                     }
 
                     sb.AppendLine(String.Format("-----------object {0}-----------", i + 1));
@@ -395,10 +404,10 @@ namespace OpenCVForUnityExample.DnnModel
             if (object_detection_net != null)
                 object_detection_net.Dispose();
 
-            if (maxSizeImg != null)
-                maxSizeImg.Dispose();
+            if (paddedImg != null)
+                paddedImg.Dispose();
 
-            maxSizeImg = null;
+            paddedImg = null;
 
             if (pickup_blob_numx6 != null)
                 pickup_blob_numx6.Dispose();
@@ -457,12 +466,12 @@ namespace OpenCVForUnityExample.DnnModel
                 int stride = strides[i];
 
                 // #xv, yv = np.meshgrid(np.arange(hsize), np.arange(wsize))
-                Mat h_arange = arange(0, hsize);
-                Mat w_arange = arange(0, wsize).t();
-                Mat xv = new Mat(hsize, hsize, CvType.CV_32FC1);
-                tile(h_arange, hsize, 1, xv);
-                Mat yv = new Mat(wsize, wsize, CvType.CV_32FC1);
-                tile(w_arange, 1, wsize, yv);
+                Mat w_arange = arange(0, wsize);
+                Mat h_arange = arange(0, hsize).t();
+                Mat xv = new Mat(hsize, wsize, CvType.CV_32FC1);
+                tile(w_arange, hsize, 1, xv);
+                Mat yv = new Mat(hsize, wsize, CvType.CV_32FC1);
+                tile(h_arange, 1, wsize, yv);
 
                 // #grid = np.stack((xv, yv), 2).reshape(1, -1, 2)
                 // #self.grids.append(grid)

@@ -46,6 +46,8 @@ namespace OpenCVForUnityExample
         // The unclip ratio of the detected text region, which determines the output size.
         const double detection_unclip_ratio = 2.0;
 
+        const float detection_confidences_threshold = 0.7f;
+
 
         // Preprocess input image by resizing to a specific width.
         const float recogniton_inputSize_w = 100f;
@@ -231,24 +233,54 @@ namespace OpenCVForUnityExample
                 tickMeter.stop();
 
                 RotatedRect[] detectons_arr = detectons.toArray();
-                foreach (var rb in detectons_arr)
-                {
-                    Point[] vertices = new Point[4];
-                    rb.points(vertices);
+                Array.Reverse(detectons_arr);
+                float[] confidences_arr = new float[detectons_arr.Length];
+                if (confidences.total() > 0)
+                    confidences_arr = confidences.toArray();
+                Array.Reverse(confidences_arr);
+                string[] recognition_arr = new string[detectons_arr.Length];
 
-                    for (int j = 0; j < 4; ++j)
-                        Imgproc.line(img, vertices[j], vertices[(j + 1) % 4], new Scalar(0, 255, 0), 1);
+                for (int i = 0; i < detectons_arr.Length; ++i)
+                {
+                    if (confidences_arr[i] < detection_confidences_threshold)
+                        continue;
+
+                    Point[] vertices = new Point[4];
+                    detectons_arr[i].points(vertices);
 
                     // Create transformed and cropped image.
                     fourPointsTransform(img, croppedMat, vertices);
                     Imgproc.cvtColor(croppedMat, croppedGrayMat, Imgproc.COLOR_BGR2GRAY);
 
+                    //
+                    DebugMatUtils.imshow("croppedMat_" + i, croppedGrayMat);
+                    //
+
                     tickMeter.start();
                     string recognitionResult = recognitonModel.recognize(croppedGrayMat);
                     tickMeter.stop();
 
-                    Debug.Log(recognitionResult);
-                    Imgproc.putText(img, recognitionResult, vertices[1], Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar(0, 0, 255), 2, Imgproc.LINE_AA, false);
+                    recognition_arr[i] = recognitionResult;
+                }
+
+                // Draw results.
+                for (int i = 0; i < detectons_arr.Length; ++i)
+                {
+                    Point[] vertices = new Point[4];
+                    detectons_arr[i].points(vertices);
+
+                    for (int j = 0; j < 4; ++j)
+                        Imgproc.line(img, vertices[j], vertices[(j + 1) % 4], new Scalar(0, 255, 0), 2);
+
+                    if (confidences_arr[i] < detection_confidences_threshold)
+                    {
+                        for (int j = 0; j < 4; ++j)
+                            Imgproc.line(img, vertices[j], vertices[(j + 1) % 4], new Scalar(0, 255, 255), 2);
+                    }
+
+                    Imgproc.putText(img, recognition_arr[i], vertices[1], Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar(0, 0, 255), 2, Imgproc.LINE_AA, false);
+
+                    Debug.Log("[" + recognition_arr[i] + "] " + confidences_arr[i]);
                 }
 
                 Debug.Log("Inference time, ms: " + tickMeter.getTimeMilli());
