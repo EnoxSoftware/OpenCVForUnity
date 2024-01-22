@@ -5,6 +5,8 @@ using OpenCVForUnity.DnnModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.ObjdetectModule;
 using System;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using UnityEngine;
 
@@ -121,26 +123,22 @@ namespace OpenCVForUnityExample.DnnModel
             if (results.empty() || results.cols() < 15)
                 return;
 
-            for (int i = results.rows() - 1; i >= 0; --i)
-            {
-                float[] box = new float[4];
-                results.get(i, 0, box);
-                float[] conf = new float[1];
-                results.get(i, 14, conf);
-                float[] landmarks = new float[10];
-                results.get(i, 4, landmarks);
+            DetectionData[] data = getData(results);
 
-                float left = box[0];
-                float top = box[1];
-                float right = box[0] + box[2];
-                float bottom = box[1] + box[3];
+            foreach (var d in data.Reverse())
+            {
+                float left = d.xy.x;
+                float top = d.xy.y;
+                float right = d.xy.x + d.wh.x;
+                float bottom = d.xy.y + d.wh.y;
+                float score = d.score;
 
                 Scalar bbc = bBoxColor;
                 Scalar bbcolor = isRGB ? bbc : new Scalar(bbc.val[2], bbc.val[1], bbc.val[0], bbc.val[3]);
 
                 Imgproc.rectangle(image, new Point(left, top), new Point(right, bottom), bbcolor, 2);
 
-                string label = String.Format("{0:0.0000}", conf[0]);
+                string label = String.Format("{0:0.0000}", score);
                 int[] baseLine = new int[1];
                 Size labelSize = Imgproc.getTextSize(label, Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, 1, baseLine);
 
@@ -150,13 +148,16 @@ namespace OpenCVForUnityExample.DnnModel
                 Imgproc.putText(image, label, new Point(left, top), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar(0, 0, 0, 255), 1, Imgproc.LINE_AA);
 
                 // draw landmark points
-                for (int j = 0; j < 10; j += 2)
-                {
-                    Scalar c = keyPointsColors[(j / 2) % keyPointsColors.Length];
-                    Scalar color = isRGB ? c : new Scalar(c.val[2], c.val[1], c.val[0], c.val[3]);
-
-                    Imgproc.circle(image, new Point(landmarks[j], landmarks[j + 1]), 2, color, 2);
-                }
+                Imgproc.circle(image, new Point(d.rightEye.x, d.rightEye.y), 2,
+                    isRGB ? keyPointsColors[0] : new Scalar(keyPointsColors[0].val[2], keyPointsColors[0].val[1], keyPointsColors[0].val[0], keyPointsColors[0].val[3]), 2);
+                Imgproc.circle(image, new Point(d.leftEye.x, d.leftEye.y), 2,
+                    isRGB ? keyPointsColors[1] : new Scalar(keyPointsColors[1].val[2], keyPointsColors[1].val[1], keyPointsColors[1].val[0], keyPointsColors[1].val[3]), 2);
+                Imgproc.circle(image, new Point(d.nose.x, d.nose.y), 2,
+                    isRGB ? keyPointsColors[2] : new Scalar(keyPointsColors[2].val[2], keyPointsColors[2].val[1], keyPointsColors[2].val[0], keyPointsColors[2].val[3]), 2);
+                Imgproc.circle(image, new Point(d.rightMouth.x, d.rightMouth.y), 2,
+                    isRGB ? keyPointsColors[3] : new Scalar(keyPointsColors[3].val[2], keyPointsColors[3].val[1], keyPointsColors[3].val[0], keyPointsColors[3].val[3]), 2);
+                Imgproc.circle(image, new Point(d.leftMouth.x, d.leftMouth.y), 2,
+                    isRGB ? keyPointsColors[4] : new Scalar(keyPointsColors[4].val[2], keyPointsColors[4].val[1], keyPointsColors[4].val[0], keyPointsColors[4].val[3]), 2);
             }
 
             // Print results
@@ -164,23 +165,25 @@ namespace OpenCVForUnityExample.DnnModel
             {
                 StringBuilder sb = new StringBuilder();
 
-                for (int i = 0; i < results.rows(); ++i)
+                for (int i = 0; i < data.Length; ++i)
                 {
-                    float[] box = new float[4];
-                    results.get(i, 0, box);
-                    float[] conf = new float[1];
-                    results.get(i, 14, conf);
-                    float[] landmarks = new float[10];
-                    results.get(i, 4, landmarks);
+                    var d = data[i];
+                    float left = d.xy.x;
+                    float top = d.xy.y;
+                    float right = d.xy.x + d.wh.x;
+                    float bottom = d.xy.y + d.wh.y;
+                    float score = d.score;
 
                     sb.AppendLine(String.Format("-----------face {0}-----------", i + 1));
-                    sb.AppendLine(String.Format("conf: {0:0.0000}", conf[0]));
-                    sb.AppendLine(String.Format("box: {0:0} {1:0} {2:0} {3:0}", box[0], box[1], box[2], box[3]));
+                    sb.AppendLine(String.Format("score: {0:0.0000}", score));
+                    sb.AppendLine(String.Format("box: {0:0} {1:0} {2:0} {3:0}", left, top, right, bottom));
                     sb.Append("landmarks: ");
-                    foreach (var p in landmarks)
-                    {
-                        sb.Append(String.Format("{0:0} ", p));
-                    }
+                    sb.Append(String.Format("{0:0} {1:0} ", d.rightEye.x, d.rightEye.y));
+                    sb.Append(String.Format("{0:0} {1:0} ", d.leftEye.x, d.leftEye.y));
+                    sb.Append(String.Format("{0:0} {1:0} ", d.nose.x, d.nose.y));
+                    sb.Append(String.Format("{0:0} {1:0} ", d.rightMouth.x, d.rightMouth.y));
+                    sb.Append(String.Format("{0:0} {1:0} ", d.leftMouth.x, d.leftMouth.y));
+
                     sb.AppendLine();
                 }
 
@@ -197,6 +200,55 @@ namespace OpenCVForUnityExample.DnnModel
                 input_sizeMat.Dispose();
 
             input_sizeMat = null;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public readonly struct DetectionData
+        {
+            // Bounding box
+            public readonly Vector2 xy;
+            public readonly Vector2 wh;
+
+            // Key points
+            public readonly Vector2 rightEye;
+            public readonly Vector2 leftEye;
+            public readonly Vector2 nose;
+            public readonly Vector2 rightMouth;
+            public readonly Vector2 leftMouth;
+
+            // Confidence score [0, 1]
+            public readonly float score;
+
+            // sizeof(DetectionData)
+            public const int Size = 15 * sizeof(float);
+
+            public DetectionData(Vector2 xy, Vector2 wh, Vector2 rightEye, Vector2 leftEye, Vector2 nose, Vector2 rightMouth, Vector2 leftMouth, float score)
+            {
+                this.xy = xy;
+                this.wh = wh;
+                this.rightEye = rightEye;
+                this.leftEye = leftEye;
+                this.nose = nose;
+                this.rightMouth = rightMouth;
+                this.leftMouth = leftMouth;
+                this.score = score;
+            }
+
+            public override string ToString()
+            {
+                return "xy:" + xy + " wh:" + wh + " rightEye:" + rightEye + " leftEye:" + leftEye + " nose:" + nose + " rightMouth:" + rightMouth + " leftMouth:" + leftMouth + " score:" + score;
+            }
+        };
+
+        public virtual DetectionData[] getData(Mat results)
+        {
+            if (results.empty())
+                return new DetectionData[0];
+
+            var dst = new DetectionData[results.rows()];
+            OpenCVForUnity.UtilsModule.MatUtils.copyFromMat(results, dst);
+
+            return dst;
         }
     }
 }

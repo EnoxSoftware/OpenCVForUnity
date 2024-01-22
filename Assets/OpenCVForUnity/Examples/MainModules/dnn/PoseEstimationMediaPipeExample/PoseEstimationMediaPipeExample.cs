@@ -193,6 +193,9 @@ namespace OpenCVForUnityExample
                         tm.stop();
                         Debug.Log("MediaPipePersonDetector Inference time (preprocess + infer + postprocess), ms: " + tm.getTimeMilli());
 
+                        List<Mat> poses = new List<Mat>();
+                        List<Mat> masks = new List<Mat>();
+
                         // Estimate the pose of each person
                         for (int i = 0; i < persons.rows(); ++i)
                         {
@@ -204,14 +207,20 @@ namespace OpenCVForUnityExample
 
                             tm.stop();
                             Debug.Log("MediaPipePoseEstimator Inference time (preprocess + infer + postprocess), ms: " + tm.getTimeMilli());
-                            
-                            if (!results[1].empty())
-                                poseEstimator.visualize_mask(img, results[1], false);
 
-                            poseEstimator.visualize(img, results[0], true, false);
+                            poses.Add(results[0]);
+
+                            if (!results[1].empty())
+                                masks.Add(results[1]);
                         }
 
                         //personDetector.visualize(img, persons, true, false);
+
+                        foreach (var mask in masks)
+                            poseEstimator.visualize_mask(img, mask, false);
+
+                        foreach (var pose in poses)
+                            poseEstimator.visualize(img, pose, true, false);
                     }
 
                     gameObject.transform.localScale = new Vector3(img.width(), img.height(), 1);
@@ -227,7 +236,7 @@ namespace OpenCVForUnityExample
                     {
                         Camera.main.orthographicSize = imageHeight / 2;
                     }
-                    
+
                     Imgproc.cvtColor(img, img, Imgproc.COLOR_BGR2RGB);
                     Texture2D texture = new Texture2D(img.cols(), img.rows(), TextureFormat.RGB24, false);
                     Utils.matToTexture2D(img, texture);
@@ -333,6 +342,9 @@ namespace OpenCVForUnityExample
                     //tm.stop();
                     //Debug.Log("MediaPipePersonDetector Inference time (preprocess + infer + postprocess), ms: " + tm.getTimeMilli());
 
+                    List<Mat> poses = new List<Mat>();
+                    List<Mat> masks = new List<Mat>();
+
                     // Estimate the pose of each person
                     for (int i = 0; i < persons.rows(); ++i)
                     {
@@ -345,16 +357,22 @@ namespace OpenCVForUnityExample
                         //tm.stop();
                         //Debug.Log("MediaPipePoseEstimator Inference time (preprocess + infer + postprocess), ms: " + tm.getTimeMilli());
 
-                        if (!results[1].empty())
-                            poseEstimator.visualize_mask(bgrMat, results[1], false);
+                        poses.Add(results[0]);
 
-                        poseEstimator.visualize(bgrMat, results[0], false, false);
+                        if (!results[1].empty())
+                            masks.Add(results[1]);
                     }
 
-                    //personDetector.visualize(bgrMat, persons, false, false);
-                }
+                    Imgproc.cvtColor(bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
 
-                Imgproc.cvtColor(bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
+                    //personDetector.visualize(bgrMat, persons, false, true);
+
+                    foreach (var mask in masks)
+                        poseEstimator.visualize_mask(rgbaMat, mask, true);
+
+                    foreach (var pose in poses)
+                        poseEstimator.visualize(rgbaMat, pose, false, true);
+                }
 
                 Utils.matToTexture2D(rgbaMat, texture);
             }

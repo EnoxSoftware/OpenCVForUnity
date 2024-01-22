@@ -14,6 +14,7 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Face Detection YuNet Example
+    /// (##### The inference model used in this example is an older version. Normally, you should use the example "FaceDetectionYuNetV2Example" which uses a newer model. #####)
     /// Referring to https://github.com/opencv/opencv/blob/131dab774c386217d323c00248b0276bd4033dda/modules/objdetect/src/face_detect.cpp
     /// Model file - face_detection_yunet_2022mar.onnx: https://github.com/opencv/opencv_zoo/raw/4563a91ba98172b14d7af8bce621b6d1ae7ae0c6/models/face_detection_yunet/face_detection_yunet_2022mar.onnx
     /// </summary>

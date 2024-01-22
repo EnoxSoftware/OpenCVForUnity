@@ -5,6 +5,7 @@ using OpenCVForUnity.DnnModule;
 using OpenCVForUnity.ImgprocModule;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 using UnityEngine;
 using OpenCVRange = OpenCVForUnity.CoreModule.Range;
@@ -364,123 +365,106 @@ namespace OpenCVForUnityExample.DnnModel
             return results;//np.r_[bbox.reshape(-1), landmarks.reshape(-1), rotated_landmarks_world.reshape(-1), handedness[0][0], conf]
         }
 
-        public virtual void visualize(Mat image, List<Mat> results, bool print_results = false, bool isRGB = false)
+        public virtual void visualize(Mat image, Mat result, bool print_result = false, bool isRGB = false)
         {
             if (image.IsDisposed)
                 return;
 
-            if (results.Count < 1)
+            if (result.empty() || result.rows() < 132)
                 return;
 
             StringBuilder sb = null;
 
-            if (print_results)
+            if (print_result)
                 sb = new StringBuilder();
 
             Scalar line_color = new Scalar(255, 255, 255, 255);
             Scalar point_color = (isRGB) ? new Scalar(255, 0, 0, 255) : new Scalar(0, 0, 255, 255);
-            for (int i = 0; i < results.Count; ++i)
+
+
+            EstimationData data = getData(result);
+
+            float left = data.x1;
+            float top = data.y1;
+            float right = data.x2;
+            float bottom = data.y2;
+
+            Vector3[] landmarks_screen = data.landmarks_screen;
+            Vector3[] landmarks_world = data.landmarks_world;
+
+            float handedness = data.handedness;
+            string handedness_text = (handedness <= 0.5f) ? "Left" : "Right";
+            float confidence = data.confidence;
+
+            // # draw box
+            Imgproc.rectangle(image, new Point(left, top), new Point(right, bottom), new Scalar(0, 255, 0, 255), 2);
+            Imgproc.putText(image, String.Format("{0:0.000}", confidence), new Point(left, top + 12), Imgproc.FONT_HERSHEY_DUPLEX, 0.5, point_color);
+            Imgproc.putText(image, handedness_text, new Point(left, top + 24), Imgproc.FONT_HERSHEY_DUPLEX, 0.5, point_color);
+
+            // # Draw line between each key points
+            draw_lines(landmarks_screen, true);
+
+            // Print results
+            if (print_result)
             {
-                Mat result = results[i];
-
-                if (result.empty() || result.rows() < 132)
-                    continue;
-
-                float[] conf = new float[1];
-                result.get(131, 0, conf);
-                float[] handedness = new float[1];
-                result.get(130, 0, handedness);
-                string handedness_text = (handedness[0] <= 0.5f) ? "Left" : "Right";
-                float[] bbox = new float[4];
-                result.get(0, 0, bbox);
-
-                Mat results_col4_67_21x3 = result.rowRange(new OpenCVRange(4, 67)).reshape(1, 21);
-                float[] landmarks_screen_xy = new float[42];
-                results_col4_67_21x3.colRange(new OpenCVRange(0, 2)).get(0, 0, landmarks_screen_xy);
-
-                float[] landmarks_screen_xyz = new float[63];
-                results_col4_67_21x3.get(0, 0, landmarks_screen_xyz);
-
-                Mat results_col67_130_21x3 = result.rowRange(new OpenCVRange(67, 130)).reshape(1, 21);
-                float[] landmarks_world = new float[63];
-                results_col67_130_21x3.get(0, 0, landmarks_world);
-
-                // # draw box
-                Imgproc.rectangle(image, new Point(bbox[0], bbox[1]), new Point(bbox[2], bbox[3]), new Scalar(0, 255, 0, 255), 2);
-
-                // # draw handedness
-                Imgproc.putText(image, handedness_text, new Point(bbox[0], bbox[1] + 12), Imgproc.FONT_HERSHEY_DUPLEX, 0.5, point_color);
-
-                // # Draw line between each key points
-                draw_lines(landmarks_screen_xy, false);
-
-                // # z value is relative to WRIST
-                for (int j = 0; j < 63; j += 3)
+                sb.AppendLine(String.Format("-----------hand-----------"));
+                sb.AppendLine(String.Format("confidence: {0:0.000}", confidence));
+                sb.AppendLine("handedness: " + handedness_text + String.Format(" ({0:0.000})", handedness));
+                sb.AppendLine(String.Format("hand box: {0:0} {1:0} {2:0} {3:0}", left, top, right, bottom));
+                sb.AppendLine("hand screen landmarks: ");
+                foreach (var p in landmarks_screen)
                 {
-                    int r = Mathf.Max((int)(5 - landmarks_screen_xyz[j + 2] / 5), 0);
-                    r = Mathf.Min(r, 14);
-                    Imgproc.circle(image, new Point(landmarks_screen_xyz[j], landmarks_screen_xyz[j + 1]), r, point_color, -1);
+                    sb.Append(String.Format("{0:0} {1:0} {2:0} ", p.x, p.y, p.z));
                 }
-
-
-                // Print results
-                if (print_results)
+                sb.AppendLine();
+                sb.AppendLine("hand world landmarks: ");
+                foreach (var p in landmarks_world)
                 {
-                    sb.AppendLine(String.Format("-----------hand {0}-----------", i + 1));
-                    sb.AppendLine(String.Format("conf: {0:0.00}", conf[0]));
-                    sb.AppendLine("handedness: " + handedness_text);
-                    sb.AppendLine(String.Format("hand box: {0:0} {1:0} {2:0} {3:0}", bbox[0], bbox[1], bbox[2], bbox[3]));
-                    sb.AppendLine("hand landmarks: ");
-                    foreach (var p in landmarks_screen_xyz)
-                    {
-                        sb.Append(String.Format("{0:0} ", p));
-                    }
-                    sb.AppendLine();
-                    sb.AppendLine("hand world landmarks: ");
-                    foreach (var p in landmarks_world)
-                    {
-                        sb.Append(String.Format("{0:0.000000} ", p));
-                    }
+                    sb.Append(String.Format("{0:0.00000} {1:0.00000} {2:0.00000} ", p.x, p.y, p.z));
                 }
+                sb.AppendLine();
             }
 
-            if (print_results)
+            if (print_result)
                 Debug.Log(sb);
 
 
-            void draw_lines(float[] landmarks, bool is_draw_point = true, int thickness = 2)
+            void draw_lines(Vector3[] landmarks, bool is_draw_point = true, int thickness = 2)
             {
                 // Draw line between each key points
-                Imgproc.line(image, new Point(landmarks[0], landmarks[1]), new Point(landmarks[2], landmarks[3]), line_color, thickness);
-                Imgproc.line(image, new Point(landmarks[2], landmarks[3]), new Point(landmarks[4], landmarks[5]), line_color, thickness);
-                Imgproc.line(image, new Point(landmarks[4], landmarks[5]), new Point(landmarks[6], landmarks[7]), line_color, thickness);
-                Imgproc.line(image, new Point(landmarks[6], landmarks[7]), new Point(landmarks[8], landmarks[9]), line_color, thickness);
+                Imgproc.line(image, new Point(landmarks[(int)KeyPoint.Wrist].x, landmarks[(int)KeyPoint.Wrist].y), new Point(landmarks[(int)KeyPoint.Thumb1].x, landmarks[(int)KeyPoint.Thumb1].y), line_color, thickness);
+                Imgproc.line(image, new Point(landmarks[(int)KeyPoint.Thumb1].x, landmarks[(int)KeyPoint.Thumb1].y), new Point(landmarks[(int)KeyPoint.Thumb2].x, landmarks[(int)KeyPoint.Thumb2].y), line_color, thickness);
+                Imgproc.line(image, new Point(landmarks[(int)KeyPoint.Thumb2].x, landmarks[(int)KeyPoint.Thumb2].y), new Point(landmarks[(int)KeyPoint.Thumb3].x, landmarks[(int)KeyPoint.Thumb3].y), line_color, thickness);
+                Imgproc.line(image, new Point(landmarks[(int)KeyPoint.Thumb3].x, landmarks[(int)KeyPoint.Thumb3].y), new Point(landmarks[(int)KeyPoint.Thumb4].x, landmarks[(int)KeyPoint.Thumb4].y), line_color, thickness);
 
-                Imgproc.line(image, new Point(landmarks[0], landmarks[1]), new Point(landmarks[10], landmarks[11]), line_color, thickness);
-                Imgproc.line(image, new Point(landmarks[10], landmarks[11]), new Point(landmarks[12], landmarks[13]), line_color, thickness);
-                Imgproc.line(image, new Point(landmarks[12], landmarks[13]), new Point(landmarks[14], landmarks[15]), line_color, thickness);
-                Imgproc.line(image, new Point(landmarks[14], landmarks[15]), new Point(landmarks[16], landmarks[17]), line_color, thickness);
+                Imgproc.line(image, new Point(landmarks[(int)KeyPoint.Wrist].x, landmarks[(int)KeyPoint.Wrist].y), new Point(landmarks[(int)KeyPoint.Index1].x, landmarks[(int)KeyPoint.Index1].y), line_color, thickness);
+                Imgproc.line(image, new Point(landmarks[(int)KeyPoint.Index1].x, landmarks[(int)KeyPoint.Index1].y), new Point(landmarks[(int)KeyPoint.Index2].x, landmarks[(int)KeyPoint.Index2].y), line_color, thickness);
+                Imgproc.line(image, new Point(landmarks[(int)KeyPoint.Index2].x, landmarks[(int)KeyPoint.Index2].y), new Point(landmarks[(int)KeyPoint.Index3].x, landmarks[(int)KeyPoint.Index3].y), line_color, thickness);
+                Imgproc.line(image, new Point(landmarks[(int)KeyPoint.Index3].x, landmarks[(int)KeyPoint.Index3].y), new Point(landmarks[(int)KeyPoint.Index4].x, landmarks[(int)KeyPoint.Index4].y), line_color, thickness);
 
-                Imgproc.line(image, new Point(landmarks[0], landmarks[1]), new Point(landmarks[18], landmarks[19]), line_color, thickness);
-                Imgproc.line(image, new Point(landmarks[18], landmarks[19]), new Point(landmarks[20], landmarks[21]), line_color, thickness);
-                Imgproc.line(image, new Point(landmarks[20], landmarks[21]), new Point(landmarks[22], landmarks[23]), line_color, thickness);
-                Imgproc.line(image, new Point(landmarks[22], landmarks[23]), new Point(landmarks[24], landmarks[25]), line_color, thickness);
+                Imgproc.line(image, new Point(landmarks[(int)KeyPoint.Wrist].x, landmarks[(int)KeyPoint.Wrist].y), new Point(landmarks[(int)KeyPoint.Middle1].x, landmarks[(int)KeyPoint.Middle1].y), line_color, thickness);
+                Imgproc.line(image, new Point(landmarks[(int)KeyPoint.Middle1].x, landmarks[(int)KeyPoint.Middle1].y), new Point(landmarks[(int)KeyPoint.Middle2].x, landmarks[(int)KeyPoint.Middle2].y), line_color, thickness);
+                Imgproc.line(image, new Point(landmarks[(int)KeyPoint.Middle2].x, landmarks[(int)KeyPoint.Middle2].y), new Point(landmarks[(int)KeyPoint.Middle3].x, landmarks[(int)KeyPoint.Middle3].y), line_color, thickness);
+                Imgproc.line(image, new Point(landmarks[(int)KeyPoint.Middle3].x, landmarks[(int)KeyPoint.Middle3].y), new Point(landmarks[(int)KeyPoint.Middle4].x, landmarks[(int)KeyPoint.Middle4].y), line_color, thickness);
 
-                Imgproc.line(image, new Point(landmarks[0], landmarks[1]), new Point(landmarks[26], landmarks[27]), line_color, thickness);
-                Imgproc.line(image, new Point(landmarks[26], landmarks[27]), new Point(landmarks[28], landmarks[29]), line_color, thickness);
-                Imgproc.line(image, new Point(landmarks[28], landmarks[29]), new Point(landmarks[30], landmarks[31]), line_color, thickness);
-                Imgproc.line(image, new Point(landmarks[30], landmarks[31]), new Point(landmarks[32], landmarks[33]), line_color, thickness);
+                Imgproc.line(image, new Point(landmarks[(int)KeyPoint.Wrist].x, landmarks[(int)KeyPoint.Wrist].y), new Point(landmarks[(int)KeyPoint.Ring1].x, landmarks[(int)KeyPoint.Ring1].y), line_color, thickness);
+                Imgproc.line(image, new Point(landmarks[(int)KeyPoint.Ring1].x, landmarks[(int)KeyPoint.Ring1].y), new Point(landmarks[(int)KeyPoint.Ring2].x, landmarks[(int)KeyPoint.Ring2].y), line_color, thickness);
+                Imgproc.line(image, new Point(landmarks[(int)KeyPoint.Ring2].x, landmarks[(int)KeyPoint.Ring2].y), new Point(landmarks[(int)KeyPoint.Ring3].x, landmarks[(int)KeyPoint.Ring3].y), line_color, thickness);
+                Imgproc.line(image, new Point(landmarks[(int)KeyPoint.Ring3].x, landmarks[(int)KeyPoint.Ring3].y), new Point(landmarks[(int)KeyPoint.Ring4].x, landmarks[(int)KeyPoint.Ring4].y), line_color, thickness);
 
-                Imgproc.line(image, new Point(landmarks[0], landmarks[1]), new Point(landmarks[34], landmarks[35]), line_color, thickness);
-                Imgproc.line(image, new Point(landmarks[34], landmarks[35]), new Point(landmarks[36], landmarks[37]), line_color, thickness);
-                Imgproc.line(image, new Point(landmarks[36], landmarks[37]), new Point(landmarks[38], landmarks[39]), line_color, thickness);
-                Imgproc.line(image, new Point(landmarks[38], landmarks[39]), new Point(landmarks[40], landmarks[41]), line_color, thickness);
+                Imgproc.line(image, new Point(landmarks[(int)KeyPoint.Wrist].x, landmarks[(int)KeyPoint.Wrist].y), new Point(landmarks[(int)KeyPoint.Pinky1].x, landmarks[(int)KeyPoint.Pinky1].y), line_color, thickness);
+                Imgproc.line(image, new Point(landmarks[(int)KeyPoint.Pinky1].x, landmarks[(int)KeyPoint.Pinky1].y), new Point(landmarks[(int)KeyPoint.Pinky2].x, landmarks[(int)KeyPoint.Pinky2].y), line_color, thickness);
+                Imgproc.line(image, new Point(landmarks[(int)KeyPoint.Pinky2].x, landmarks[(int)KeyPoint.Pinky2].y), new Point(landmarks[(int)KeyPoint.Pinky3].x, landmarks[(int)KeyPoint.Pinky3].y), line_color, thickness);
+                Imgproc.line(image, new Point(landmarks[(int)KeyPoint.Pinky3].x, landmarks[(int)KeyPoint.Pinky3].y), new Point(landmarks[(int)KeyPoint.Pinky4].x, landmarks[(int)KeyPoint.Pinky4].y), line_color, thickness);
 
                 if (is_draw_point)
                 {
-                    for (int j = 0; j < 42; j += 2)
+                    // # z value is relative to WRIST
+                    foreach (var p in landmarks)
                     {
-                        Imgproc.circle(image, new Point(landmarks[j], landmarks[j + 1]), 2, point_color, -1);
+                        int r = Mathf.Max((int)(5 - p.z / 5), 0);
+                        r = Mathf.Min(r, 14);
+                        Imgproc.circle(image, new Point(p.x, p.y), r, point_color, -1);
                     }
                 }
             }
@@ -496,6 +480,64 @@ namespace OpenCVForUnityExample.DnnModel
 
             if (tmpRotatedImage != null)
                 tmpRotatedImage.Dispose();
+        }
+
+        public enum KeyPoint
+        {
+            Wrist,
+            Thumb1, Thumb2, Thumb3, Thumb4,
+            Index1, Index2, Index3, Index4,
+            Middle1, Middle2, Middle3, Middle4,
+            Ring1, Ring2, Ring3, Ring4,
+            Pinky1, Pinky2, Pinky3, Pinky4
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public readonly struct EstimationData
+        {
+            public readonly float x1;
+            public readonly float y1;
+            public readonly float x2;
+            public readonly float y2;
+
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 21)]
+            public readonly Vector3[] landmarks_screen;
+
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 21)]
+            public readonly Vector3[] landmarks_world;
+
+            public readonly float handedness;
+            public readonly float confidence;
+
+            // sizeof(EstimationData)
+            public const int Size = 132 * sizeof(float);
+
+            public EstimationData(int x1, int y1, int x2, int y2, int handedness, float confidence)
+            {
+                this.x1 = x1;
+                this.y1 = y1;
+                this.x2 = x2;
+                this.y2 = y2;
+                this.landmarks_screen = new Vector3[21];
+                this.landmarks_world = new Vector3[21];
+                this.handedness = handedness;
+                this.confidence = confidence;
+            }
+
+            public override string ToString()
+            {
+                return "x1:" + x1 + " y1:" + y1 + " x2:" + x2 + " y2:" + y2 + " handedness:" + handedness + " confidence:" + confidence;
+            }
+        };
+
+        public virtual EstimationData getData(Mat result)
+        {
+            if (result.empty())
+                return new EstimationData();
+
+            EstimationData dst = Marshal.PtrToStructure<EstimationData>((IntPtr)(result.dataAddr()));
+
+            return dst;
         }
     }
 }

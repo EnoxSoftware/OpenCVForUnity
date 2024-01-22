@@ -6,6 +6,7 @@ using OpenCVForUnity.ImgprocModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using UnityEngine;
 using OpenCVRange = OpenCVForUnity.CoreModule.Range;
@@ -510,35 +511,23 @@ namespace OpenCVForUnityExample.DnnModel
             if (results.empty() || results.cols() < 6)
                 return;
 
-            for (int i = results.rows() - 1; i >= 0; --i)
-            {
-                float[] box = new float[4];
-                results.get(i, 0, box);
-                float[] conf = new float[1];
-                results.get(i, 4, conf);
-                float[] cls = new float[1];
-                results.get(i, 5, cls);
+            DetectionData[] data = getData(results);
 
-                float left = box[0];
-                float top = box[1];
-                float right = box[2];
-                float bottom = box[3];
-                int classId = (int)cls[0];
+            foreach (var d in data.Reverse())
+            {
+                float left = d.x1;
+                float top = d.y1;
+                float right = d.x2;
+                float bottom = d.y2;
+                float conf = d.conf;
+                int classId = (int)d.cls;
 
                 Scalar c = palette[classId % palette.Count];
                 Scalar color = isRGB ? c : new Scalar(c.val[2], c.val[1], c.val[0], c.val[3]);
 
                 Imgproc.rectangle(image, new Point(left, top), new Point(right, bottom), color, 2);
 
-                string label = String.Format("{0:0.00}", conf[0]);
-                if (classNames != null && classNames.Count != 0 && classId < classNames.Count)
-                {
-                    label = classNames[classId] + " " + label;
-                }
-                else
-                {
-                    label = classId + " " + label;
-                }
+                string label = getClassLabel(classId) + ", " + String.Format("{0:0.00}", conf);
 
                 int[] baseLine = new int[1];
                 Size labelSize = Imgproc.getTextSize(label, Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, 1, baseLine);
@@ -554,26 +543,15 @@ namespace OpenCVForUnityExample.DnnModel
             {
                 StringBuilder sb = new StringBuilder();
 
-                for (int i = 0; i < results.rows(); ++i)
+                for (int i = 0; i < data.Length; ++i)
                 {
-                    float[] box = new float[4];
-                    results.get(i, 0, box);
-                    float[] conf = new float[1];
-                    results.get(i, 4, conf);
-                    float[] cls = new float[1];
-                    results.get(i, 5, cls);
-
-                    int classId = (int)cls[0];
-                    string label = String.Format("{0:0}", cls[0]);
-                    if (classNames != null && classNames.Count != 0 && classId < classNames.Count)
-                    {
-                        label = classNames[classId] + " " + label;
-                    }
+                    var d = data[i];
+                    string label = getClassLabel(d.cls) + ", " + String.Format("{0:0}", d.conf);
 
                     sb.AppendLine(String.Format("-----------object {0}-----------", i + 1));
-                    sb.AppendLine(String.Format("conf: {0:0.0000}", conf[0]));
+                    sb.AppendLine(String.Format("conf: {0:0.0000}", d.conf));
                     sb.AppendLine(String.Format("cls: {0:0}", label));
-                    sb.AppendLine(String.Format("box: {0:0} {1:0} {2:0} {3:0}", box[0], box[1], box[2], box[3]));
+                    sb.AppendLine(String.Format("box: {0:0} {1:0} {2:0} {3:0}", d.x1, d.y1, d.x2, d.y2));
                 }
 
                 Debug.Log(sb);
@@ -720,6 +698,63 @@ namespace OpenCVForUnityExample.DnnModel
             }
 
             return classNames;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public readonly struct DetectionData
+        {
+            public readonly float x1;
+            public readonly float y1;
+            public readonly float x2;
+            public readonly float y2;
+            public readonly float conf;
+            public readonly float cls;
+
+            // sizeof(DetectionData)
+            public const int Size = 6 * sizeof(float);
+
+            public DetectionData(int x1, int y1, int x2, int y2, float conf, int cls)
+            {
+                this.x1 = x1;
+                this.y1 = y1;
+                this.x2 = x2;
+                this.y2 = y2;
+                this.conf = conf;
+                this.cls = cls;
+            }
+
+            public override string ToString()
+            {
+                return "x1:" + x1 + " y1:" + y1 + " x2:" + x2 + " y2:" + y2 + " conf:" + conf + "  cls:" + cls;
+            }
+        };
+
+        public virtual DetectionData[] getData(Mat results)
+        {
+            if (results.empty())
+                return new DetectionData[0];
+
+            var dst = new DetectionData[results.rows()];
+            OpenCVForUnity.UtilsModule.MatUtils.copyFromMat(results, dst);
+
+            return dst;
+        }
+
+        public virtual string getClassLabel(float id)
+        {
+            int classId = (int)id;
+            string className = string.Empty;
+            if (classNames != null && classNames.Count != 0)
+            {
+                if (classId >= 0 && classId < classNames.Count)
+                {
+                    className = classNames[classId];
+                }
+            }
+            if (string.IsNullOrEmpty(className))
+                className = classId.ToString();
+
+            return className;
         }
     }
 }

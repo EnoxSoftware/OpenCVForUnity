@@ -5,6 +5,7 @@ using OpenCVForUnity.DnnModule;
 using OpenCVForUnity.ImgprocModule;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 using UnityEngine;
 using OpenCVRange = OpenCVForUnity.CoreModule.Range;
@@ -14,6 +15,7 @@ namespace OpenCVForUnityExample.DnnModel
 {
     /// <summary>
     /// Referring to https://github.com/opencv/opencv_zoo/tree/main/models/pose_estimation_mediapipe
+    /// https://developers.google.com/mediapipe/solutions/vision/pose_landmarker
     /// </summary>
     public class MediaPipePoseEstimator
     {
@@ -429,144 +431,127 @@ namespace OpenCVForUnityExample.DnnModel
             return invert_rotation_mask;
         }
 
-        public virtual void visualize(Mat image, Mat results, bool print_results = false, bool isRGB = false)
+        public virtual void visualize(Mat image, Mat result, bool print_result = false, bool isRGB = false)
         {
             if (image.IsDisposed)
                 return;
 
-            if (results.empty() || results.rows() < 317)
+            if (result.empty() || result.rows() < 317)
                 return;
 
             StringBuilder sb = null;
 
-            if (print_results)
+            if (print_result)
                 sb = new StringBuilder();
 
             Scalar line_color = new Scalar(255, 255, 255, 255);
             Scalar point_color = (isRGB) ? new Scalar(255, 0, 0, 255) : new Scalar(0, 0, 255, 255);
 
-            float[] conf = new float[1];
-            results.get(316, 0, conf);
-            float[] bbox = new float[4];
-            results.get(0, 0, bbox);
 
-            int auxiliary_points_num = 6;
-            Mat results_col4_199_39x5 = results.rowRange(new OpenCVRange(4, 199 - (5 * auxiliary_points_num))).reshape(1, 39 - auxiliary_points_num);
-            float[] landmarks_screen_xy = new float[(39 - auxiliary_points_num) * 2];
-            results_col4_199_39x5.colRange(new OpenCVRange(0, 2)).get(0, 0, landmarks_screen_xy);
+            EstimationData data = getData(result);
 
-            float[] landmarks_screen_xyz = new float[(39 - auxiliary_points_num) * 3];
-            results_col4_199_39x5.colRange(new OpenCVRange(0, 3)).get(0, 0, landmarks_screen_xyz);
+            float left = data.x1;
+            float top = data.y1;
+            float right = data.x2;
+            float bottom = data.y2;
 
-            // # only show visible keypoints which presence bigger than 0.8
-            float[] landmarks_presence = new float[(39 - auxiliary_points_num)];
-            results_col4_199_39x5.colRange(new OpenCVRange(4, 5)).get(0, 0, landmarks_presence);
+            // Create a landmark array with auxiliary points removed.
+            ScreenLandmark[] landmarks_screen = getScreenLandmarks(data.landmarks_screen);
+            Vector3[] landmarks_world = getWorldLandmarks(data.landmarks_world);
 
-
-            Mat results_col199_316_39x3 = results.rowRange(new OpenCVRange(199, 316 - (3 * auxiliary_points_num))).reshape(1, 39 - auxiliary_points_num);
-            float[] landmarks_world = new float[(39 - auxiliary_points_num) * 3];
-            results_col199_316_39x3.get(0, 0, landmarks_world);
+            float confidence = data.confidence;
 
             // # draw box
-            Imgproc.rectangle(image, new Point(bbox[0], bbox[1]), new Point(bbox[2], bbox[3]), new Scalar(0, 255, 0, 255), 2);
-            Imgproc.putText(image, String.Format("{0:0.0000}", conf[0]), new Point(bbox[0], bbox[1] + 12), Imgproc.FONT_HERSHEY_DUPLEX, 0.5, point_color);
+            Imgproc.rectangle(image, new Point(left, top), new Point(right, bottom), new Scalar(0, 255, 0, 255), 2);
+            Imgproc.putText(image, String.Format("{0:0.000}", confidence), new Point(left, top + 12), Imgproc.FONT_HERSHEY_DUPLEX, 0.5, point_color);
 
             // # Draw line between each key points
-            draw_lines(landmarks_screen_xy, landmarks_presence, false);
-
-            // # z value is relative to HIP, but we use constant to instead
-            for (int j = 0; j < landmarks_screen_xyz.Length / 3; ++j)
-            {
-                int idx = j * 3;
-                if (landmarks_presence[j] > 0.8)
-                    Imgproc.circle(image, new Point(landmarks_screen_xyz[idx], landmarks_screen_xyz[idx + 1]), 2, point_color, -1);
-            }
+            draw_lines(landmarks_screen, true);
 
             // Print results
-            if (print_results)
+            if (print_result)
             {
                 sb.AppendLine("-----------pose-----------");
-                sb.AppendLine(String.Format("conf: {0:0.00}", conf[0]));
-                sb.AppendLine(String.Format("person box: {0:0} {1:0} {2:0} {3:0}", bbox[0], bbox[1], bbox[2], bbox[3]));
-                sb.AppendLine("pose landmarks: ");
-                foreach (var p in landmarks_screen_xyz)
+                sb.AppendLine(String.Format("confidence: {0:0.000}", confidence));
+                sb.AppendLine(String.Format("person box: {0:0} {1:0} {2:0} {3:0}", left, top, right, bottom));
+                sb.AppendLine("pose screen landmarks: ");
+                foreach (var p in landmarks_screen)
                 {
-                    sb.Append(String.Format("{0:0} ", p));
+                    sb.Append(String.Format("{0:0} {1:0} {2:0} ", p.x, p.y, p.z));
                 }
                 sb.AppendLine();
                 sb.AppendLine("pose world landmarks: ");
                 foreach (var p in landmarks_world)
                 {
-                    sb.Append(String.Format("{0:0.000000} ", p));
+                    sb.Append(String.Format("{0:0.00000} {1:0.00000} {2:0.00000} ", p.x, p.y, p.z));
                 }
+                sb.AppendLine();
             }
 
-            if (print_results)
+            if (print_result)
                 Debug.Log(sb);
 
 
-            void draw_lines(float[] landmarks, float[] _landmarks_presence, bool is_draw_point = true, int thickness = 2)
+            void draw_lines(ScreenLandmark[] landmarks, bool is_draw_point = true, int thickness = 2)
             {
                 void _draw_by_presence(int idx1, int idx2)
                 {
-                    if (_landmarks_presence[idx1] > 0.8 && _landmarks_presence[idx2] > 0.8)
+                    if (landmarks[idx1].presence > 0.8 && landmarks[idx2].presence > 0.8)
                     {
-                        idx1 = idx1 * 2;
-                        idx2 = idx2 * 2;
-                        Imgproc.line(image, new Point(landmarks[idx1], landmarks[idx1 + 1]), new Point(landmarks[idx2], landmarks[idx2 + 1]), line_color, thickness);
+                        Imgproc.line(image, new Point(landmarks[idx1].x, landmarks[idx1].y), new Point(landmarks[idx2].x, landmarks[idx2].y), line_color, thickness);
                     }
                 }
 
                 // Draw line between each key points
-                _draw_by_presence(0, 1);
-                _draw_by_presence(1, 2);
-                _draw_by_presence(2, 3);
-                _draw_by_presence(3, 7);
-                _draw_by_presence(0, 4);
-                _draw_by_presence(4, 5);
-                _draw_by_presence(5, 6);
-                _draw_by_presence(6, 8);
+                _draw_by_presence((int)KeyPoint.Nose, (int)KeyPoint.LeftEyeInner);
+                _draw_by_presence((int)KeyPoint.LeftEyeInner, (int)KeyPoint.LeftEye);
+                _draw_by_presence((int)KeyPoint.LeftEye, (int)KeyPoint.LeftEyeOuter);
+                _draw_by_presence((int)KeyPoint.LeftEyeOuter, (int)KeyPoint.LeftEar);
+                _draw_by_presence((int)KeyPoint.Nose, (int)KeyPoint.RightEyeInner);
+                _draw_by_presence((int)KeyPoint.RightEyeInner, (int)KeyPoint.RightEye);
+                _draw_by_presence((int)KeyPoint.RightEye, (int)KeyPoint.RightEyeOuter);
+                _draw_by_presence((int)KeyPoint.RightEyeOuter, (int)KeyPoint.RightEar);
 
-                _draw_by_presence(9, 10);
+                _draw_by_presence((int)KeyPoint.MouthLeft, (int)KeyPoint.MouthRight);
 
-                _draw_by_presence(12, 14);
-                _draw_by_presence(14, 16);
-                _draw_by_presence(16, 22);
-                _draw_by_presence(16, 18);
-                _draw_by_presence(16, 20);
-                _draw_by_presence(18, 20);
+                _draw_by_presence((int)KeyPoint.RightShoulder, (int)KeyPoint.RightElbow);
+                _draw_by_presence((int)KeyPoint.RightElbow, (int)KeyPoint.RightWrist);
+                _draw_by_presence((int)KeyPoint.RightWrist, (int)KeyPoint.RightThumb);
+                _draw_by_presence((int)KeyPoint.RightWrist, (int)KeyPoint.RightPinky);
+                _draw_by_presence((int)KeyPoint.RightWrist, (int)KeyPoint.RightIndex);
+                _draw_by_presence((int)KeyPoint.RightPinky, (int)KeyPoint.RightIndex);
 
-                _draw_by_presence(11, 13);
-                _draw_by_presence(13, 15);
-                _draw_by_presence(15, 21);
-                _draw_by_presence(15, 19);
-                _draw_by_presence(15, 17);
-                _draw_by_presence(17, 19);
+                _draw_by_presence((int)KeyPoint.LeftShoulder, (int)KeyPoint.LeftElbow);
+                _draw_by_presence((int)KeyPoint.LeftElbow, (int)KeyPoint.LeftWrist);
+                _draw_by_presence((int)KeyPoint.LeftWrist, (int)KeyPoint.LeftThumb);
+                _draw_by_presence((int)KeyPoint.LeftWrist, (int)KeyPoint.LeftIndex);
+                _draw_by_presence((int)KeyPoint.LeftWrist, (int)KeyPoint.LeftPinky);
+                _draw_by_presence((int)KeyPoint.LeftPinky, (int)KeyPoint.LeftIndex);
 
-                _draw_by_presence(11, 12);
-                _draw_by_presence(11, 23);
-                _draw_by_presence(23, 24);
-                _draw_by_presence(24, 12);
+                _draw_by_presence((int)KeyPoint.LeftShoulder, (int)KeyPoint.RightShoulder);
+                _draw_by_presence((int)KeyPoint.LeftShoulder, (int)KeyPoint.LeftHip);
+                _draw_by_presence((int)KeyPoint.LeftHip, (int)KeyPoint.RightHip);
+                _draw_by_presence((int)KeyPoint.RightHip, (int)KeyPoint.RightShoulder);
 
-                _draw_by_presence(24, 26);
-                _draw_by_presence(26, 28);
-                _draw_by_presence(28, 30);
-                _draw_by_presence(28, 32);
-                _draw_by_presence(30, 32);
+                _draw_by_presence((int)KeyPoint.RightHip, (int)KeyPoint.RightKnee);
+                _draw_by_presence((int)KeyPoint.RightKnee, (int)KeyPoint.RightAnkle);
+                _draw_by_presence((int)KeyPoint.RightAnkle, (int)KeyPoint.RightHeel);
+                _draw_by_presence((int)KeyPoint.RightAnkle, (int)KeyPoint.RightFootIndex);
+                _draw_by_presence((int)KeyPoint.RightHeel, (int)KeyPoint.RightFootIndex);
 
-                _draw_by_presence(23, 25);
-                _draw_by_presence(25, 27);
-                _draw_by_presence(27, 31);
-                _draw_by_presence(27, 29);
-                _draw_by_presence(29, 31);
+                _draw_by_presence((int)KeyPoint.LeftHip, (int)KeyPoint.LeftKnee);
+                _draw_by_presence((int)KeyPoint.LeftKnee, (int)KeyPoint.LeftAnkle);
+                _draw_by_presence((int)KeyPoint.LeftAnkle, (int)KeyPoint.LeftFootIndex);
+                _draw_by_presence((int)KeyPoint.LeftAnkle, (int)KeyPoint.LeftHeel);
+                _draw_by_presence((int)KeyPoint.LeftHeel, (int)KeyPoint.LeftFootIndex);
 
                 if (is_draw_point)
                 {
-                    for (int j = 0; j < landmarks.Length / 2; ++j)
+                    // # z value is relative to HIP, but we use constant to instead
+                    foreach (var p in landmarks)
                     {
-                        int idx = j * 2;
-                        if (_landmarks_presence[j] > 0.8)
-                            Imgproc.circle(image, new Point(landmarks[idx], landmarks[idx + 1]), 2, point_color, -1);
+                        if (p.presence > 0.8)
+                            Imgproc.circle(image, new Point(p.x, p.y), 2, point_color, -1);
                     }
                 }
             }
@@ -641,6 +626,116 @@ namespace OpenCVForUnityExample.DnnModel
             {
                 Core.divide(_mat, mat, mat);
             }
+        }
+
+        public enum KeyPoint
+        {
+            Nose, LeftEyeInner, LeftEye, LeftEyeOuter, RightEyeInner, RightEye, RightEyeOuter, LeftEar, RightEar,
+            MouthLeft, MouthRight,
+            LeftShoulder, RightShoulder, LeftElbow, RightElbow, LeftWrist, RightWrist, LeftPinky, RightPinky, LeftIndex, RightIndex, LeftThumb, RightThumb,
+            LeftHip, RightHip, LeftKnee, RightKnee, LeftAnkle, RightAnkle, LeftHeel, RightHeel, LeftFootIndex, RightFootIndex
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public readonly struct ScreenLandmark
+        {
+            public readonly float x;
+            public readonly float y;
+            public readonly float z;
+            public readonly float visibility;
+            public readonly float presence;
+
+            // sizeof(ScreenLandmark)
+            public const int Size = 5 * sizeof(float);
+            public ScreenLandmark(float x, float y, float z, float visibility, float presence)
+            {
+                this.x = x;
+                this.y = y;
+                this.z = z;
+                this.visibility = visibility;
+                this.presence = presence;
+            }
+
+            public override string ToString()
+            {
+                return "x:" + x + " y:" + y + " z:" + z + " visibility:" + visibility + " presence:" + presence;
+            }
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public readonly struct EstimationData
+        {
+            public readonly float x1;
+            public readonly float y1;
+            public readonly float x2;
+            public readonly float y2;
+
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 39)]
+            public readonly ScreenLandmark[] landmarks_screen;
+
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 39)]
+            public readonly Vector3[] landmarks_world;
+
+            public readonly float confidence;
+
+            // sizeof(EstimationData)
+            public const int Size = 317 * sizeof(float);
+
+            public EstimationData(int x1, int y1, int x2, int y2, float confidence)
+            {
+                this.x1 = x1;
+                this.y1 = y1;
+                this.x2 = x2;
+                this.y2 = y2;
+                this.landmarks_screen = new ScreenLandmark[39];
+                this.landmarks_world = new Vector3[39];
+                this.confidence = confidence;
+            }
+
+            public override string ToString()
+            {
+                return "x1:" + x1 + " y1:" + y1 + " x2:" + x2 + " y2:" + y2 + " confidence:" + confidence;
+            }
+        };
+
+        public virtual EstimationData getData(Mat result)
+        {
+            if (result.empty())
+                return new EstimationData();
+
+            EstimationData dst = Marshal.PtrToStructure<EstimationData>((IntPtr)(result.dataAddr()));
+
+            return dst;
+        }
+
+        public virtual ScreenLandmark[] getScreenLandmarks(ScreenLandmark[] landmarks)
+        {
+            // Remove 6 unneeded auxiliary points at the end of the raw landmark array.
+            ScreenLandmark[] newArr = new ScreenLandmark[landmarks.Length - 6];
+            Array.Copy(landmarks, 0, newArr, 0, newArr.Length);
+
+            return newArr;
+        }
+
+        public virtual Vector3[] getWorldLandmarks(Vector3[] landmarks)
+        {
+            // Remove 6 unneeded auxiliary points at the end of the raw landmark array.
+            Vector3[] newArr = new Vector3[landmarks.Length - 6];
+            Array.Copy(landmarks, 0, newArr, 0, newArr.Length);
+
+            return newArr;
+        }
+
+        public virtual bool[] getKeepLandmarks(ScreenLandmark[] landmarks, float presence = 0.8f)
+        {
+            bool[] keep = new bool[landmarks.Length];
+
+            for (int i = 0; i < landmarks.Length; ++i)
+            {
+                keep[i] = landmarks[i].presence > presence;
+            }
+
+            return keep;
         }
     }
 }

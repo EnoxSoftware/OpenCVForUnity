@@ -327,7 +327,7 @@ namespace OpenCVForUnityExample.DnnModel
                 if (print_results)
                 {
                     sb.AppendLine(String.Format("-----------person {0}-----------", i + 1));
-                    sb.AppendLine(String.Format("score: {0:0.00}", score[0]));
+                    sb.AppendLine(String.Format("score: {0:0.000}", score[0]));
                     sb.AppendLine(String.Format("face box: {0:0} {1:0} {2:0} {3:0}", face_box[0], face_box[1], face_box[2], face_box[3]));
                     sb.Append("person landmarks: ");
                     foreach (var p in person_landmarks)
