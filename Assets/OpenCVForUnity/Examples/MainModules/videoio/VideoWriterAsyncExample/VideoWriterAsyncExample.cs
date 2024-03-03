@@ -189,7 +189,7 @@ namespace OpenCVForUnityExample
             // for URP and HDRP
             RenderPipelineManager.endCameraRendering += OnEndCameraRendering;
 
-#if OPENCV_USE_UNSAFE_CODE
+#if !OPENCV_DONT_USE_UNSAFE_CODE
             if (!SystemInfo.supportsAsyncGPUReadback)
             {
                 Debug.Log("Error : SystemInfo.supportsAsyncGPUReadback is false.");
@@ -335,7 +335,7 @@ namespace OpenCVForUnityExample
                     {
                         //Debug.Log("Start GPU readback done. ");
 
-#if OPENCV_USE_UNSAFE_CODE
+#if !OPENCV_DONT_USE_UNSAFE_CODE
                         MatUtils.copyToMat(request.GetData<byte>(), recordingFrameRgbMat);
 #endif
 

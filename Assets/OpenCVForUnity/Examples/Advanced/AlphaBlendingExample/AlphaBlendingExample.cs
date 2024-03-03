@@ -41,7 +41,6 @@ namespace OpenCVForUnityExample
     /// You need to add a file "smcs.rsp" (or "gmcs.rsp") in your "Assets" directory, which contains the line: -unsafe
     /// https://answers.unity.com/questions/804103/how-to-enable-unsafe-and-use-pointers.html
     /// 
-    /// To use this example,  need to add "OPENCV_USE_UNSAFE_CODE" to Scripting Define Symbols in Player Settings.
     /// 
     /// ######
     /// </summary>
@@ -516,7 +515,7 @@ namespace OpenCVForUnityExample
         private void AlphaBlend_pointerAccess(Mat fg, Mat bg, Mat alpha, Mat dst)
         {
 
-#if OPENCV_USE_UNSAFE_CODE
+#if !OPENCV_DONT_USE_UNSAFE_CODE
 
             IntPtr fg_ptr = new IntPtr(fg.dataAddr());
             IntPtr bg_ptr = new IntPtr(bg.dataAddr());
@@ -678,10 +677,10 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnPointerAccessButtonClick()
         {
-#if OPENCV_USE_UNSAFE_CODE
+#if !OPENCV_DONT_USE_UNSAFE_CODE
             StartCoroutine(AlphaBlending(pointerAccess, count));
 #else
-            Debug.LogWarning("To use this example,  need to add \"OPENCV_USE_UNSAFE_CODE\" to Scripting Define Symbols in Player Settings. In addition, unsafe code requires the `unsafe' command-line option to be specified.");
+            Debug.LogWarning("Error : Allow 'unsafe' Code is disable. Please enable Allow 'unsafe' Code. [MenuItem]->[Tools]->[OpenCV for Unity]->[Open Setup Tools]->[Enable Use Unsafe Code]");
 #endif
         }
     }

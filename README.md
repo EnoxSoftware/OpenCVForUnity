@@ -25,7 +25,7 @@ Manual
 
 API Reference
 -----
-<https://enoxsoftware.github.io/OpenCVForUnity/doc/html/index.html>
+<https://enoxsoftware.github.io/OpenCVForUnity/doc/html/annotated.html>
 
 Official Site
 -----

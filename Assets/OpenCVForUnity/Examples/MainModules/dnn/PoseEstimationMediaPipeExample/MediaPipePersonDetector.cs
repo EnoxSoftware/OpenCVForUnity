@@ -279,7 +279,7 @@ namespace OpenCVForUnityExample.DnnModel
             StringBuilder sb = null;
 
             if (print_results)
-                sb = new StringBuilder();
+                sb = new StringBuilder(256);
 
             for (int i = 0; i < results.rows(); ++i)
             {
@@ -300,7 +300,7 @@ namespace OpenCVForUnityExample.DnnModel
                 float upper_body_y = person_landmarks[7];
 
                 // put score
-                Imgproc.putText(image, String.Format("{0:0.0000}", score[0]), new Point(face_box[0], face_box[1] + 12), Imgproc.FONT_HERSHEY_DUPLEX, 0.5, new Scalar(0, 255, 0, 255));
+                Imgproc.putText(image, score[0].ToString("F4"), new Point(face_box[0], face_box[1] + 12), Imgproc.FONT_HERSHEY_DUPLEX, 0.5, new Scalar(0, 255, 0, 255));
 
                 // draw box
                 Imgproc.rectangle(image, new Point(face_box[0], face_box[1]), new Point(face_box[2], face_box[3]), new Scalar(0, 255, 0, 255), 2);
@@ -326,20 +326,23 @@ namespace OpenCVForUnityExample.DnnModel
                 // Print results
                 if (print_results)
                 {
-                    sb.AppendLine(String.Format("-----------person {0}-----------", i + 1));
-                    sb.AppendLine(String.Format("score: {0:0.000}", score[0]));
-                    sb.AppendLine(String.Format("face box: {0:0} {1:0} {2:0} {3:0}", face_box[0], face_box[1], face_box[2], face_box[3]));
+                    sb.AppendFormat("-----------person {0}-----------", i + 1);
+                    sb.AppendLine();
+                    sb.AppendFormat("score: {0:F3}", score[0]);
+                    sb.AppendLine();
+                    sb.AppendFormat("face box: {0:F0} {1:F0} {2:F0} {3:F0}", face_box[0], face_box[1], face_box[2], face_box[3]);
+                    sb.AppendLine();
                     sb.Append("person landmarks: ");
                     foreach (var p in person_landmarks)
                     {
-                        sb.Append(String.Format("{0:0} ", p));
+                        sb.AppendFormat("{0:F0} ", p);
                     }
                     sb.AppendLine();
                 }
             }
 
             if (print_results)
-                Debug.Log(sb);
+                Debug.Log(sb.ToString());
         }
 
         public virtual void dispose()

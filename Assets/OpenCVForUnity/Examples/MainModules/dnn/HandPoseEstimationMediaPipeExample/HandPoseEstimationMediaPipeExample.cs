@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {
@@ -22,6 +23,15 @@ namespace OpenCVForUnityExample
     [RequireComponent(typeof(WebCamTextureToMatHelper))]
     public class HandPoseEstimationMediaPipeExample : MonoBehaviour
     {
+        /// <summary>
+        /// The show Skeleton toggle.
+        /// </summary>
+        public Toggle showSkeletonToggle;
+
+        public bool showSkeleton;
+
+        public MediaPipeHandPoseSkeletonVisualizer skeletonVisualizer;
+
         [Header("TEST")]
 
         [TooltipAttribute("Path to test input image.")]
@@ -89,6 +99,9 @@ namespace OpenCVForUnityExample
             fpsMonitor = GetComponent<FpsMonitor>();
 
             webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper>();
+
+            // Update GUI state
+            showSkeletonToggle.isOn = showSkeleton;
 
 #if UNITY_WEBGL
             getFilePath_Coroutine = GetFilePath();
@@ -203,6 +216,12 @@ namespace OpenCVForUnityExample
 
                         foreach (var hand in hands)
                             handPoseEstimator.visualize(img, hand, true, false);
+
+                        if (skeletonVisualizer != null && skeletonVisualizer.showSkeleton)
+                        {
+                            if (hands.Count > 0 && !hands[0].empty())
+                                skeletonVisualizer.UpdatePose(hands[0]);
+                        }
                     }
 
                     gameObject.transform.localScale = new Vector3(img.width(), img.height(), 1);
@@ -349,6 +368,13 @@ namespace OpenCVForUnityExample
 
                     foreach (var hand in hands)
                         handPoseEstimator.visualize(rgbaMat, hand, false, true);
+
+
+                    if (skeletonVisualizer != null && skeletonVisualizer.showSkeleton)
+                    {
+                        if (hands.Count > 0 && !hands[0].empty())
+                            skeletonVisualizer.UpdatePose(hands[0]);
+                    }
                 }
 
                 Utils.matToTexture2D(rgbaMat, texture);
@@ -419,6 +445,18 @@ namespace OpenCVForUnityExample
         public void OnChangeCameraButtonClick()
         {
             webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.requestedIsFrontFacing;
+        }
+
+        /// <summary>
+        /// Raises the show skeleton toggle value changed event.
+        /// </summary>
+        public void OnShowSkeletonToggleValueChanged()
+        {
+            if (showSkeletonToggle.isOn != showSkeleton)
+            {
+                showSkeleton = showSkeletonToggle.isOn;
+                skeletonVisualizer.showSkeleton = showSkeletonToggle.isOn;
+            }
         }
     }
 }

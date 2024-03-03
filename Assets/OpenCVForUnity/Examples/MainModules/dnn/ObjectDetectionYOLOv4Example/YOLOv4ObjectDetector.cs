@@ -187,14 +187,14 @@ namespace OpenCVForUnityExample.DnnModel
 
                 Imgproc.rectangle(image, new Point(left, top), new Point(right, bottom), color, 2);
 
-                string label = String.Format("{0:0.00}", conf[0]);
+                string label = conf[0].ToString("F2");
                 if (classNames != null && classNames.Count != 0 && classId < classNames.Count)
                 {
                     label = classNames[classId] + " " + label;
                 }
                 else
                 {
-                    label = classId + " " + label;
+                    label = classId.ToString() + " " + label;
                 }
 
                 int[] baseLine = new int[1];
@@ -209,7 +209,7 @@ namespace OpenCVForUnityExample.DnnModel
             // Print results
             if (print_results)
             {
-                StringBuilder sb = new StringBuilder();
+                StringBuilder sb = new StringBuilder(512);
 
                 for (int i = 0; i < results.rows(); ++i)
                 {
@@ -221,19 +221,23 @@ namespace OpenCVForUnityExample.DnnModel
                     results.get(i, 5, cls);
 
                     int classId = (int)cls[0];
-                    string label = String.Format("{0:0}", cls[0]);
+                    string label = cls[0].ToString("F0");
                     if (classNames != null && classNames.Count != 0 && classId < classNames.Count)
                     {
                         label = classNames[classId] + " " + label;
                     }
 
-                    sb.AppendLine(String.Format("-----------object {0}-----------", i + 1));
-                    sb.AppendLine(String.Format("conf: {0:0.0000}", conf[0]));
-                    sb.AppendLine(String.Format("cls: {0:0}", label));
-                    sb.AppendLine(String.Format("box: {0:0} {1:0} {2:0} {3:0}", box[0], box[1], box[2], box[3]));
+                    sb.AppendFormat("-----------object {0}-----------", i + 1);
+                    sb.AppendLine();
+                    sb.AppendFormat("conf: {0:F4}", conf[0]);
+                    sb.AppendLine();
+                    sb.Append("cls: ").Append(label);
+                    sb.AppendLine();
+                    sb.AppendFormat("box: {0:F0} {1:F0} {2:F0} {3:F0}", box[0], box[1], box[2], box[3]);
+                    sb.AppendLine();
                 }
 
-                Debug.Log(sb);
+                Debug.Log(sb.ToString());
             }
         }
 

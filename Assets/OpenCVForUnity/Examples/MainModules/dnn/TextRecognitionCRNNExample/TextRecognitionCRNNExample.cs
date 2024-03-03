@@ -11,6 +11,7 @@ using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.DnnModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
+using System.Text;
 
 namespace OpenCVForUnityExample
 {
@@ -264,6 +265,7 @@ namespace OpenCVForUnityExample
                 }
 
                 // Draw results.
+                StringBuilder sb = new StringBuilder(1024);
                 for (int i = 0; i < detectons_arr.Length; ++i)
                 {
                     Point[] vertices = new Point[4];
@@ -280,8 +282,9 @@ namespace OpenCVForUnityExample
 
                     Imgproc.putText(img, recognition_arr[i], vertices[1], Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar(0, 0, 255), 2, Imgproc.LINE_AA, false);
 
-                    Debug.Log("[" + recognition_arr[i] + "] " + confidences_arr[i]);
+                    sb.Append("[").Append(recognition_arr[i]).Append("] ").Append(confidences_arr[i]).AppendLine();
                 }
+                Debug.Log(sb.ToString());
 
                 Debug.Log("Inference time, ms: " + tickMeter.getTimeMilli());
 

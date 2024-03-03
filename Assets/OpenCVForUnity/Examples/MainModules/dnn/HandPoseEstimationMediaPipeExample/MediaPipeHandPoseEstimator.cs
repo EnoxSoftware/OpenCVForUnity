@@ -376,7 +376,7 @@ namespace OpenCVForUnityExample.DnnModel
             StringBuilder sb = null;
 
             if (print_result)
-                sb = new StringBuilder();
+                sb = new StringBuilder(1024);
 
             Scalar line_color = new Scalar(255, 255, 255, 255);
             Scalar point_color = (isRGB) ? new Scalar(255, 0, 0, 255) : new Scalar(0, 0, 255, 255);
@@ -398,7 +398,7 @@ namespace OpenCVForUnityExample.DnnModel
 
             // # draw box
             Imgproc.rectangle(image, new Point(left, top), new Point(right, bottom), new Scalar(0, 255, 0, 255), 2);
-            Imgproc.putText(image, String.Format("{0:0.000}", confidence), new Point(left, top + 12), Imgproc.FONT_HERSHEY_DUPLEX, 0.5, point_color);
+            Imgproc.putText(image, confidence.ToString("F3"), new Point(left, top + 12), Imgproc.FONT_HERSHEY_DUPLEX, 0.5, point_color);
             Imgproc.putText(image, handedness_text, new Point(left, top + 24), Imgproc.FONT_HERSHEY_DUPLEX, 0.5, point_color);
 
             // # Draw line between each key points
@@ -407,26 +407,29 @@ namespace OpenCVForUnityExample.DnnModel
             // Print results
             if (print_result)
             {
-                sb.AppendLine(String.Format("-----------hand-----------"));
-                sb.AppendLine(String.Format("confidence: {0:0.000}", confidence));
-                sb.AppendLine("handedness: " + handedness_text + String.Format(" ({0:0.000})", handedness));
-                sb.AppendLine(String.Format("hand box: {0:0} {1:0} {2:0} {3:0}", left, top, right, bottom));
-                sb.AppendLine("hand screen landmarks: ");
+                sb.Append("-----------hand-----------");
+                sb.AppendLine();
+                sb.AppendFormat("confidence: {0:F3}", confidence);
+                sb.AppendLine();
+                sb.AppendFormat("handedness: {0} ({1:F3})", handedness_text, handedness);
+                sb.AppendLine();
+                sb.AppendFormat("hand box: {0:F0} {1:F0} {2:F0} {3:F0}", left, top, right, bottom);
+                sb.AppendLine();
+                sb.Append("hand screen landmarks: ");
                 foreach (var p in landmarks_screen)
                 {
-                    sb.Append(String.Format("{0:0} {1:0} {2:0} ", p.x, p.y, p.z));
+                    sb.AppendFormat("{0:F0} {1:F0} {2:F0} ", p.x, p.y, p.z);
                 }
                 sb.AppendLine();
-                sb.AppendLine("hand world landmarks: ");
+                sb.Append("hand world landmarks: ");
                 foreach (var p in landmarks_world)
                 {
-                    sb.Append(String.Format("{0:0.00000} {1:0.00000} {2:0.00000} ", p.x, p.y, p.z));
+                    sb.AppendFormat("{0:F5} {1:F5} {2:F5} ", p.x, p.y, p.z);
                 }
-                sb.AppendLine();
             }
 
             if (print_result)
-                Debug.Log(sb);
+                Debug.Log(sb.ToString());
 
 
             void draw_lines(Vector3[] landmarks, bool is_draw_point = true, int thickness = 2)
@@ -526,7 +529,8 @@ namespace OpenCVForUnityExample.DnnModel
 
             public override string ToString()
             {
-                return "x1:" + x1 + " y1:" + y1 + " x2:" + x2 + " y2:" + y2 + " handedness:" + handedness + " confidence:" + confidence;
+                return "x1:" + x1.ToString() + " y1:" + y1.ToString() + " x2:" + x2.ToString() + " y2:" + y2.ToString()
+                    + " handedness:" + handedness.ToString() + " confidence:" + confidence.ToString();
             }
         };
 

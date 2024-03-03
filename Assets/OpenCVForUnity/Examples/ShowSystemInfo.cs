@@ -95,7 +95,7 @@ namespace OpenCVForUnityExample
             dict.Add("Scripting backend", "");
 #endif
 
-#if OPENCV_USE_UNSAFE_CODE
+#if !OPENCV_DONT_USE_UNSAFE_CODE
             dict.Add("Allow 'unsafe' Code", "Enabled");
 #else
             dict.Add("Allow 'unsafe' Code", "Disabled");

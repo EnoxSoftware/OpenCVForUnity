@@ -30,6 +30,15 @@ namespace OpenCVForUnityExample
 
         public bool mask;
 
+        /// <summary>
+        /// The show Skeleton toggle.
+        /// </summary>
+        public Toggle showSkeletonToggle;
+
+        public bool showSkeleton;
+
+        public MediaPipePoseSkeletonVisualizer skeletonVisualizer;
+
         [Header("TEST")]
 
         [TooltipAttribute("Path to test input image.")]
@@ -100,6 +109,7 @@ namespace OpenCVForUnityExample
 
             // Update GUI state
             maskToggle.isOn = mask;
+            showSkeletonToggle.isOn = showSkeleton;
 
 #if UNITY_WEBGL
             getFilePath_Coroutine = GetFilePath();
@@ -221,6 +231,12 @@ namespace OpenCVForUnityExample
 
                         foreach (var pose in poses)
                             poseEstimator.visualize(img, pose, true, false);
+
+                        if (skeletonVisualizer != null && skeletonVisualizer.showSkeleton)
+                        {
+                            if (poses.Count > 0 && !poses[0].empty())
+                                skeletonVisualizer.UpdatePose(poses[0]);
+                        }
                     }
 
                     gameObject.transform.localScale = new Vector3(img.width(), img.height(), 1);
@@ -372,6 +388,12 @@ namespace OpenCVForUnityExample
 
                     foreach (var pose in poses)
                         poseEstimator.visualize(rgbaMat, pose, false, true);
+
+                    if (skeletonVisualizer != null && skeletonVisualizer.showSkeleton)
+                    {
+                        if (poses.Count > 0 && !poses[0].empty())
+                            skeletonVisualizer.UpdatePose(poses[0]);
+                    }
                 }
 
                 Utils.matToTexture2D(rgbaMat, texture);
@@ -452,6 +474,18 @@ namespace OpenCVForUnityExample
             if (maskToggle.isOn != mask)
             {
                 mask = maskToggle.isOn;
+            }
+        }
+
+        /// <summary>
+        /// Raises the show skeleton toggle value changed event.
+        /// </summary>
+        public void OnShowSkeletonToggleValueChanged()
+        {
+            if (showSkeletonToggle.isOn != showSkeleton)
+            {
+                showSkeleton = showSkeletonToggle.isOn;
+                skeletonVisualizer.showSkeleton = showSkeletonToggle.isOn;
             }
         }
     }

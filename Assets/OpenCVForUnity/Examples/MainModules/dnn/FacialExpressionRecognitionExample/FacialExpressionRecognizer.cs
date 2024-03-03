@@ -4,6 +4,7 @@ using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.DnnModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.ObjdetectModule;
+using OpenCVForUnity.UnityUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -172,7 +173,7 @@ namespace OpenCVForUnityExample.DnnModel
             StringBuilder sb = null;
 
             if (print_results)
-                sb = new StringBuilder();
+                sb = new StringBuilder(64);
 
             for (int i = 0; i < results.Count; ++i)
             {
@@ -186,7 +187,7 @@ namespace OpenCVForUnityExample.DnnModel
 
                 ClassificationData bmData = getBestMatchData(results[i]);
                 int classId = (int)bmData.cls;
-                string label = getClassLabel(bmData.cls) + ", " + String.Format("{0:0.0000}", bmData.conf);
+                string label = $"{getClassLabel(bmData.cls)}, {bmData.conf:F4}";
 
                 Scalar c = palette[classId % palette.Count];
                 Scalar color = isRGB ? c : new Scalar(c.val[2], c.val[1], c.val[0], c.val[3]);
@@ -206,13 +207,15 @@ namespace OpenCVForUnityExample.DnnModel
                 // Print results
                 if (print_results)
                 {
-                    sb.AppendLine(String.Format("-----------expression {0}-----------", i + 1));
-                    sb.AppendLine(String.Format("Best match: " + getClassLabel(bmData.cls) + ", " + bmData));
+                    sb.AppendFormat("-----------expression {0}-----------", i + 1);
+                    sb.AppendLine();
+                    sb.Append("Best match: ").Append(getClassLabel(bmData.cls)).Append(", ").Append(bmData.ToString());
+                    sb.AppendLine();
                 }
             }
 
             if (print_results)
-                Debug.Log(sb);
+                Debug.Log(sb.ToString());
         }
 
         public virtual void dispose()
@@ -258,7 +261,7 @@ namespace OpenCVForUnityExample.DnnModel
 
             public override string ToString()
             {
-                return "cls:" + cls + " conf:" + conf;
+                return "cls:" + cls.ToString() + " conf:" + conf.ToString();
             }
         };
 
@@ -280,7 +283,7 @@ namespace OpenCVForUnityExample.DnnModel
             results_numx1.copyTo(getDataMat.col(1));
 
             var dst = new ClassificationData[num];
-            OpenCVForUnity.UtilsModule.MatUtils.copyFromMat(getDataMat, dst);
+            MatUtils.copyFromMat(getDataMat, dst);
 
             return dst;
         }

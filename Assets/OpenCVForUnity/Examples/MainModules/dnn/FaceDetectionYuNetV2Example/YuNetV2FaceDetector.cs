@@ -4,6 +4,7 @@ using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.DnnModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.ObjdetectModule;
+using OpenCVForUnity.UnityUtils;
 using System;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -138,7 +139,7 @@ namespace OpenCVForUnityExample.DnnModel
 
                 Imgproc.rectangle(image, new Point(left, top), new Point(right, bottom), bbcolor, 2);
 
-                string label = String.Format("{0:0.0000}", score);
+                string label = score.ToString("F4");
                 int[] baseLine = new int[1];
                 Size labelSize = Imgproc.getTextSize(label, Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, 1, baseLine);
 
@@ -163,7 +164,7 @@ namespace OpenCVForUnityExample.DnnModel
             // Print results
             if (print_results)
             {
-                StringBuilder sb = new StringBuilder();
+                StringBuilder sb = new StringBuilder(128);
 
                 for (int i = 0; i < data.Length; ++i)
                 {
@@ -174,20 +175,22 @@ namespace OpenCVForUnityExample.DnnModel
                     float bottom = d.xy.y + d.wh.y;
                     float score = d.score;
 
-                    sb.AppendLine(String.Format("-----------face {0}-----------", i + 1));
-                    sb.AppendLine(String.Format("score: {0:0.0000}", score));
-                    sb.AppendLine(String.Format("box: {0:0} {1:0} {2:0} {3:0}", left, top, right, bottom));
+                    sb.AppendFormat("-----------face {0}-----------", i + 1);
+                    sb.AppendLine();
+                    sb.AppendFormat("score: {0:F4}", score);
+                    sb.AppendLine();
+                    sb.AppendFormat("box: {0:F0} {1:F0} {2:F0} {3:F0}", left, top, right, bottom);
+                    sb.AppendLine();
                     sb.Append("landmarks: ");
-                    sb.Append(String.Format("{0:0} {1:0} ", d.rightEye.x, d.rightEye.y));
-                    sb.Append(String.Format("{0:0} {1:0} ", d.leftEye.x, d.leftEye.y));
-                    sb.Append(String.Format("{0:0} {1:0} ", d.nose.x, d.nose.y));
-                    sb.Append(String.Format("{0:0} {1:0} ", d.rightMouth.x, d.rightMouth.y));
-                    sb.Append(String.Format("{0:0} {1:0} ", d.leftMouth.x, d.leftMouth.y));
-
+                    sb.AppendFormat("{0:F0} {1:F0} ", d.rightEye.x, d.rightEye.y);
+                    sb.AppendFormat("{0:F0} {1:F0} ", d.leftEye.x, d.leftEye.y);
+                    sb.AppendFormat("{0:F0} {1:F0} ", d.nose.x, d.nose.y);
+                    sb.AppendFormat("{0:F0} {1:F0} ", d.rightMouth.x, d.rightMouth.y);
+                    sb.AppendFormat("{0:F0} {1:F0} ", d.leftMouth.x, d.leftMouth.y);
                     sb.AppendLine();
                 }
 
-                Debug.Log(sb);
+                Debug.Log(sb.ToString());
             }
         }
 
@@ -236,7 +239,8 @@ namespace OpenCVForUnityExample.DnnModel
 
             public override string ToString()
             {
-                return "xy:" + xy + " wh:" + wh + " rightEye:" + rightEye + " leftEye:" + leftEye + " nose:" + nose + " rightMouth:" + rightMouth + " leftMouth:" + leftMouth + " score:" + score;
+                return "xy:" + xy.ToString() + " wh:" + wh.ToString() + " rightEye:" + rightEye.ToString() + " leftEye:" + leftEye.ToString()
+                    + " nose:" + nose.ToString() + " rightMouth:" + rightMouth.ToString() + " leftMouth:" + leftMouth.ToString() + " score:" + score.ToString();
             }
         };
 
@@ -246,7 +250,7 @@ namespace OpenCVForUnityExample.DnnModel
                 return new DetectionData[0];
 
             var dst = new DetectionData[results.rows()];
-            OpenCVForUnity.UtilsModule.MatUtils.copyFromMat(results, dst);
+            MatUtils.copyFromMat(results, dst);
 
             return dst;
         }

@@ -2131,7 +2131,7 @@ namespace OpenCVForUnityExample
             executionResultText.text += "3. Use MatUtils.copyFromMat and MatUtils.copyToMat method. time: " + watch.ElapsedMilliseconds + " ms" + "\n";
 
 
-#if OPENCV_USE_UNSAFE_CODE
+#if !OPENCV_DONT_USE_UNSAFE_CODE
 
             //
             // 4. Use pointer access.
@@ -2284,7 +2284,7 @@ namespace OpenCVForUnityExample
             Debug.Log(""3. Use MatUtils.copyFromMat and MatUtils.copyToMat method. time: "" + watch.ElapsedMilliseconds + "" ms"");
 
 
-#if OPENCV_USE_UNSAFE_CODE
+#if !OPENCV_DONT_USE_UNSAFE_CODE
 
             //
             // 4. Use pointer access.

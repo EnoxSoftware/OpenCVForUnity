@@ -271,7 +271,7 @@ namespace OpenCVForUnityExample.DnnModel
             StringBuilder sb = null;
 
             if (print_results)
-                sb = new StringBuilder();
+                sb = new StringBuilder(256);
 
             for (int i = 0; i < results.rows(); ++i)
             {
@@ -283,7 +283,7 @@ namespace OpenCVForUnityExample.DnnModel
                 results.get(i, 4, palm_landmarks);
 
                 // put score
-                Imgproc.putText(image, String.Format("{0:0.0000}", score[0]), new Point(palm_box[0], palm_box[1] + 12), Imgproc.FONT_HERSHEY_DUPLEX, 0.5, new Scalar(0, 255, 0, 255));
+                Imgproc.putText(image, score[0].ToString("F4"), new Point(palm_box[0], palm_box[1] + 12), Imgproc.FONT_HERSHEY_DUPLEX, 0.5, new Scalar(0, 255, 0, 255));
 
                 // draw box
                 Imgproc.rectangle(image, new Point(palm_box[0], palm_box[1]), new Point(palm_box[2], palm_box[3]), new Scalar(0, 255, 0, 255), 2);
@@ -297,20 +297,23 @@ namespace OpenCVForUnityExample.DnnModel
                 // Print results
                 if (print_results)
                 {
-                    sb.AppendLine(String.Format("-----------palm {0}-----------", i + 1));
-                    sb.AppendLine(String.Format("score: {0:0.000}", score[0]));
-                    sb.AppendLine(String.Format("palm box: {0:0} {1:0} {2:0} {3:0}", palm_box[0], palm_box[1], palm_box[2], palm_box[3]));
+                    sb.AppendFormat("-----------palm {0}-----------", i + 1);
+                    sb.AppendLine();
+                    sb.AppendFormat("score: {0:F3}", score[0]);
+                    sb.AppendLine();
+                    sb.AppendFormat("palm box: {0:F0} {1:F0} {2:F0} {3:F0}", palm_box[0], palm_box[1], palm_box[2], palm_box[3]);
+                    sb.AppendLine();
                     sb.Append("palm landmarks: ");
                     foreach (var p in palm_landmarks)
                     {
-                        sb.Append(String.Format("{0:0} ", p));
+                        sb.AppendFormat("{0:F0} ", p);
                     }
                     sb.AppendLine();
                 }
             }
 
             if (print_results)
-                Debug.Log(sb);
+                Debug.Log(sb.ToString() + sb.Length);
         }
 
         public virtual void dispose()

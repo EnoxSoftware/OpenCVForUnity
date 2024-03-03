@@ -442,28 +442,25 @@ namespace OpenCVForUnityExample.DnnModel
             StringBuilder sb = null;
 
             if (print_result)
-                sb = new StringBuilder();
+                sb = new StringBuilder(1536);
 
             Scalar line_color = new Scalar(255, 255, 255, 255);
             Scalar point_color = (isRGB) ? new Scalar(255, 0, 0, 255) : new Scalar(0, 0, 255, 255);
 
-
+            const int auxiliary_points_num = 6;
             EstimationData data = getData(result);
 
             float left = data.x1;
             float top = data.y1;
             float right = data.x2;
             float bottom = data.y2;
-
-            // Create a landmark array with auxiliary points removed.
-            ScreenLandmark[] landmarks_screen = getScreenLandmarks(data.landmarks_screen);
-            Vector3[] landmarks_world = getWorldLandmarks(data.landmarks_world);
-
+            ScreenLandmark[] landmarks_screen = data.landmarks_screen;
+            Vector3[] landmarks_world = data.landmarks_world;
             float confidence = data.confidence;
 
             // # draw box
             Imgproc.rectangle(image, new Point(left, top), new Point(right, bottom), new Scalar(0, 255, 0, 255), 2);
-            Imgproc.putText(image, String.Format("{0:0.000}", confidence), new Point(left, top + 12), Imgproc.FONT_HERSHEY_DUPLEX, 0.5, point_color);
+            Imgproc.putText(image, confidence.ToString("F3"), new Point(left, top + 12), Imgproc.FONT_HERSHEY_DUPLEX, 0.5, point_color);
 
             // # Draw line between each key points
             draw_lines(landmarks_screen, true);
@@ -471,25 +468,27 @@ namespace OpenCVForUnityExample.DnnModel
             // Print results
             if (print_result)
             {
-                sb.AppendLine("-----------pose-----------");
-                sb.AppendLine(String.Format("confidence: {0:0.000}", confidence));
-                sb.AppendLine(String.Format("person box: {0:0} {1:0} {2:0} {3:0}", left, top, right, bottom));
-                sb.AppendLine("pose screen landmarks: ");
-                foreach (var p in landmarks_screen)
+                sb.Append("-----------pose-----------");
+                sb.AppendLine();
+                sb.AppendFormat("confidence: {0:F3}", confidence);
+                sb.AppendLine();
+                sb.AppendFormat("person box: {0:F0} {1:F0} {2:F0} {3:F0}", left, top, right, bottom);
+                sb.AppendLine();
+                sb.Append("pose screen landmarks: ");
+                for (int i = 0; i < landmarks_screen.Length - auxiliary_points_num; ++i)
                 {
-                    sb.Append(String.Format("{0:0} {1:0} {2:0} ", p.x, p.y, p.z));
+                    sb.AppendFormat("{0:F0} {1:F0} {2:F0} ", landmarks_screen[i].x, landmarks_screen[i].y, landmarks_screen[i].z);
                 }
                 sb.AppendLine();
-                sb.AppendLine("pose world landmarks: ");
-                foreach (var p in landmarks_world)
+                sb.Append("pose world landmarks: ");
+                for (int i = 0; i < landmarks_world.Length - auxiliary_points_num; ++i)
                 {
-                    sb.Append(String.Format("{0:0.00000} {1:0.00000} {2:0.00000} ", p.x, p.y, p.z));
+                    sb.AppendFormat("{0:F5} {1:F5} {2:F5} ", landmarks_world[i].x, landmarks_world[i].y, landmarks_world[i].z);
                 }
-                sb.AppendLine();
             }
 
             if (print_result)
-                Debug.Log(sb);
+                Debug.Log(sb.ToString());
 
 
             void draw_lines(ScreenLandmark[] landmarks, bool is_draw_point = true, int thickness = 2)
@@ -548,10 +547,10 @@ namespace OpenCVForUnityExample.DnnModel
                 if (is_draw_point)
                 {
                     // # z value is relative to HIP, but we use constant to instead
-                    foreach (var p in landmarks)
+                    for (int i = 0; i < landmarks.Length - auxiliary_points_num; ++i)
                     {
-                        if (p.presence > 0.8)
-                            Imgproc.circle(image, new Point(p.x, p.y), 2, point_color, -1);
+                        if (landmarks[i].presence > 0.8)
+                            Imgproc.circle(image, new Point(landmarks[i].x, landmarks[i].y), 2, point_color, -1);
                     }
                 }
             }
@@ -658,7 +657,7 @@ namespace OpenCVForUnityExample.DnnModel
 
             public override string ToString()
             {
-                return "x:" + x + " y:" + y + " z:" + z + " visibility:" + visibility + " presence:" + presence;
+                return "x:" + x.ToString() + " y:" + y.ToString() + " z:" + z.ToString() + " visibility:" + visibility.ToString() + " presence:" + presence.ToString();
             }
         }
 
