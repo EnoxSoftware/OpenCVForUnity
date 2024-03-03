@@ -2,8 +2,11 @@ var searchData=
 [
   ['radialvariancehash_2ecs',['RadialVarianceHash.cs',['../_radial_variance_hash_8cs.html',1,'']]],
   ['range_2ecs',['Range.cs',['../_range_8cs.html',1,'']]],
+  ['range_5fex_2ecs',['Range_Ex.cs',['../_range___ex_8cs.html',1,'']]],
   ['rect_2ecs',['Rect.cs',['../_rect_8cs.html',1,'']]],
   ['rect2d_2ecs',['Rect2d.cs',['../_rect2d_8cs.html',1,'']]],
+  ['rect2d_5fex_2ecs',['Rect2d_Ex.cs',['../_rect2d___ex_8cs.html',1,'']]],
+  ['rect_5fex_2ecs',['Rect_Ex.cs',['../_rect___ex_8cs.html',1,'']]],
   ['refineparameters_2ecs',['RefineParameters.cs',['../_refine_parameters_8cs.html',1,'']]],
   ['retina_2ecs',['Retina.cs',['../_retina_8cs.html',1,'']]],
   ['retinafasttonemapping_2ecs',['RetinaFastToneMapping.cs',['../_retina_fast_tone_mapping_8cs.html',1,'']]],

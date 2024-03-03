@@ -1,6 +1,7 @@
 var searchData=
 [
   ['scalar_2ecs',['Scalar.cs',['../_scalar_8cs.html',1,'']]],
+  ['scalar_5fex_2ecs',['Scalar_Ex.cs',['../_scalar___ex_8cs.html',1,'']]],
   ['scansegment_2ecs',['ScanSegment.cs',['../_scan_segment_8cs.html',1,'']]],
   ['segmentationmodel_2ecs',['SegmentationModel.cs',['../_segmentation_model_8cs.html',1,'']]],
   ['selectivesearchsegmentation_2ecs',['SelectiveSearchSegmentation.cs',['../_selective_search_segmentation_8cs.html',1,'']]],
@@ -17,6 +18,7 @@ var searchData=
   ['sinusoidalpattern_2ecs',['SinusoidalPattern.cs',['../_sinusoidal_pattern_8cs.html',1,'']]],
   ['sinusoidalpattern_5fparams_2ecs',['SinusoidalPattern_Params.cs',['../_sinusoidal_pattern___params_8cs.html',1,'']]],
   ['size_2ecs',['Size.cs',['../_size_8cs.html',1,'']]],
+  ['size_5fex_2ecs',['Size_Ex.cs',['../_size___ex_8cs.html',1,'']]],
   ['sparsematchinterpolator_2ecs',['SparseMatchInterpolator.cs',['../_sparse_match_interpolator_8cs.html',1,'']]],
   ['sparseopticalflow_2ecs',['SparseOpticalFlow.cs',['../_sparse_optical_flow_8cs.html',1,'']]],
   ['sparsepyrlkopticalflow_2ecs',['SparsePyrLKOpticalFlow.cs',['../_sparse_pyr_l_k_optical_flow_8cs.html',1,'']]],

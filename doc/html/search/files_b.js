@@ -3,6 +3,7 @@ var searchData=
   ['mace_2ecs',['MACE.cs',['../_m_a_c_e_8cs.html',1,'']]],
   ['marrhildrethhash_2ecs',['MarrHildrethHash.cs',['../_marr_hildreth_hash_8cs.html',1,'']]],
   ['mat_2ecs',['Mat.cs',['../_mat_8cs.html',1,'']]],
+  ['mat_5fex_2ecs',['Mat_Ex.cs',['../_mat___ex_8cs.html',1,'']]],
   ['matindexer_2ecs',['MatIndexer.cs',['../_mat_indexer_8cs.html',1,'']]],
   ['matofbyte_2ecs',['MatOfByte.cs',['../_mat_of_byte_8cs.html',1,'']]],
   ['matofdmatch_2ecs',['MatOfDMatch.cs',['../_mat_of_d_match_8cs.html',1,'']]],

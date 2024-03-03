@@ -14,6 +14,7 @@ var searchData=
   ['disposableobject_2ecs',['DisposableObject.cs',['../_disposable_object_8cs.html',1,'']]],
   ['disposableopencvobject_2ecs',['DisposableOpenCVObject.cs',['../_disposable_open_c_v_object_8cs.html',1,'']]],
   ['dmatch_2ecs',['DMatch.cs',['../_d_match_8cs.html',1,'']]],
+  ['dmatch_5fex_2ecs',['DMatch_Ex.cs',['../_d_match___ex_8cs.html',1,'']]],
   ['dnn_2ecs',['Dnn.cs',['../_dnn_8cs.html',1,'']]],
   ['dnn_5fsuperres_2ecs',['Dnn_superres.cs',['../_dnn__superres_8cs.html',1,'']]],
   ['dnnconverters_2ecs',['DnnConverters.cs',['../_dnn_converters_8cs.html',1,'']]],

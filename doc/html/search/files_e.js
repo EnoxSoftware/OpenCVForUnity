@@ -11,5 +11,7 @@ var searchData=
   ['plot2d_2ecs',['Plot2d.cs',['../_plot2d_8cs.html',1,'']]],
   ['point_2ecs',['Point.cs',['../_point_8cs.html',1,'']]],
   ['point3_2ecs',['Point3.cs',['../_point3_8cs.html',1,'']]],
+  ['point3_5fex_2ecs',['Point3_Ex.cs',['../_point3___ex_8cs.html',1,'']]],
+  ['point_5fex_2ecs',['Point_Ex.cs',['../_point___ex_8cs.html',1,'']]],
   ['predictcollector_2ecs',['PredictCollector.cs',['../_predict_collector_8cs.html',1,'']]]
 ];
