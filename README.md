@@ -14,8 +14,9 @@ Setup Guide
 
 Demo
 -----
-- WebGL
-<https://enoxsoftware.github.io/OpenCVForUnity/webgl_example/index.html>
+- WebGL <https://enoxsoftware.github.io/OpenCVForUnity/webgl_example/index.html>
+- WebGL (threads) <https://enoxsoftware.github.io/OpenCVForUnity/webgl_example_threads/index.html>
+- WebGL (threads, simd) <https://enoxsoftware.github.io/OpenCVForUnity/webgl_example_threads_simd/index.html>
 - Android
 <https://github.com/EnoxSoftware/OpenCVForUnity/releases>
 
