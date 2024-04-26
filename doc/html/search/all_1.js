@@ -77,6 +77,7 @@ var searchData=
   ['arutils_2ecs',['ARUtils.cs',['../_a_r_utils_8cs.html',1,'']]],
   ['asgd',['ASGD',['../class_open_c_v_for_unity_1_1_ml_module_1_1_s_v_m_s_g_d.html#a765a3a0b67dd2626e48550011fe897cf',1,'OpenCVForUnity::MlModule::SVMSGD']]],
   ['assignto',['assignTo',['../class_open_c_v_for_unity_1_1_core_module_1_1_mat.html#a246d10f53ef54ba5e4b1c86e46672ccd',1,'OpenCVForUnity.CoreModule.Mat.assignTo(Mat m, int type)'],['../class_open_c_v_for_unity_1_1_core_module_1_1_mat.html#a090860925704d0d3adaadf0150b40395',1,'OpenCVForUnity.CoreModule.Mat.assignTo(Mat m)']]],
+  ['asspan_3c_20t_20_3e',['AsSpan&lt; T &gt;',['../class_open_c_v_for_unity_1_1_core_module_1_1_mat.html#ae0e9df9ee9927ce0f5610235d3b1d07e',1,'OpenCVForUnity::CoreModule::Mat']]],
   ['auto_5fstep',['AUTO_STEP',['../class_open_c_v_for_unity_1_1_core_module_1_1_mat.html#a7cee67ee777c199f7f0b02a32970bad5',1,'OpenCVForUnity::CoreModule::Mat']]],
   ['averagehash',['AverageHash',['../class_open_c_v_for_unity_1_1_img__hash_module_1_1_average_hash.html',1,'OpenCVForUnity.Img_hashModule.AverageHash'],['../class_open_c_v_for_unity_1_1_img__hash_module_1_1_img__hash.html#afd5132e3052665f050ef90ce7ad5f5fd',1,'OpenCVForUnity.Img_hashModule.Img_hash.averageHash()']]],
   ['averagehash_2ecs',['AverageHash.cs',['../_average_hash_8cs.html',1,'']]],

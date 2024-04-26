@@ -50,7 +50,7 @@ MathJax.Hub.Config(
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.5.9</span>
+   &#160;<span id="projectnumber">2.6.0</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.9.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -117,6 +117,10 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a93d39d6c3f457703112e9508620138c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab13955067c3c5cdda46cde3ff8e70740"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_mat_utils.html#ab13955067c3c5cdda46cde3ff8e70740">copyToMat&lt; T &gt;</a> (NativeArray&lt; T &gt; array, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> mat)</td></tr>
 <tr class="separator:ab13955067c3c5cdda46cde3ff8e70740"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a262fa0e135a50b1df20b3e01eee16015"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_mat_utils.html#a262fa0e135a50b1df20b3e01eee16015">copyFromMat&lt; T &gt;</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> mat, Span&lt; T &gt; array)</td></tr>
+<tr class="separator:a262fa0e135a50b1df20b3e01eee16015"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63c5172539830de6f0c73c0ea7a5814e"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_mat_utils.html#a63c5172539830de6f0c73c0ea7a5814e">copyToMat&lt; T &gt;</a> (Span&lt; T &gt; array, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> mat)</td></tr>
+<tr class="separator:a63c5172539830de6f0c73c0ea7a5814e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="af15a15a79e015b9a241e24d144952897"></a>
@@ -169,7 +173,7 @@ This method copies only when mat.isContinuous() is false and mat.dims() = 2. Whe
 </div>
 </div>
 <a id="af20466b290529cd87eac814e4d109af1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af20466b290529cd87eac814e4d109af1">&#9670;&nbsp;</a></span>copyFromMat&lt; T &gt;() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af20466b290529cd87eac814e4d109af1">&#9670;&nbsp;</a></span>copyFromMat&lt; T &gt;() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -217,7 +221,7 @@ This method copies only when mat.isContinuous() is false and mat.dims() = 2. Whe
 <div class="typeconstraint">
 <dl><dt><b>Type Constraints</b></dt><dd>
 <table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>struct</em></td><td>&#160;</td></tr>
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>unmanaged</em></td><td>&#160;</td></tr>
 </table>
 </dd>
 </dl>
@@ -226,7 +230,7 @@ This method copies only when mat.isContinuous() is false and mat.dims() = 2. Whe
 </div>
 </div>
 <a id="a93d39d6c3f457703112e9508620138c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93d39d6c3f457703112e9508620138c2">&#9670;&nbsp;</a></span>copyFromMat&lt; T &gt;() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a93d39d6c3f457703112e9508620138c2">&#9670;&nbsp;</a></span>copyFromMat&lt; T &gt;() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -274,7 +278,80 @@ This method copies only when mat.isContinuous() is false and mat.dims() = 2. Whe
 <div class="typeconstraint">
 <dl><dt><b>Type Constraints</b></dt><dd>
 <table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>struct</em></td><td>&#160;</td></tr>
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>unmanaged</em></td><td>&#160;</td></tr>
+</table>
+</dd>
+</dl>
+</div>
+
+</div>
+</div>
+<a id="a262fa0e135a50b1df20b3e01eee16015"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a262fa0e135a50b1df20b3e01eee16015">&#9670;&nbsp;</a></span>copyFromMat&lt; T &gt;() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_mat_utils.html#af15a15a79e015b9a241e24d144952897">OpenCVForUnity.UnityUtils.MatUtils.copyFromMat</a>&lt; T &gt; </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
+          <td class="paramname"><em>mat</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Span&lt; T &gt;&#160;</td>
+          <td class="paramname"><em>array</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<ul>
+<li>Copies OpenCV Mat data to Pixel Data NativeArray.</li>
+<li></li>
+</ul>
+<ul>
+<li><br />
+This method copies the OpenCV Mat data to the pixel data NativeArray.</li>
+<li><br />
+The pixel data Array must have the same byte size as the Mat data ([total() * elemSize()] byte).</li>
+<li><br />
+Because this method doesn't check bounds, is faster than Mat.get().</li>
+<li><br />
+This method copies only when mat.isContinuous() is false and mat.dims() = 2. When mat.isContinuous() is true, there is no restriction on the number of mat dimensions.</li>
+<li></li>
+<li><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mat</td><td>a Mat object.</td></tr>
+  </table>
+  </dd>
+</dl>
+</li>
+<li><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>the pixel data Array must have the same byte size as the Mat data ([total() * elemSize()] byte). </td></tr>
+  </table>
+  </dd>
+</dl>
+</li>
+</ul>
+<div class="typeconstraint">
+<dl><dt><b>Type Constraints</b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>unmanaged</em></td><td>&#160;</td></tr>
 </table>
 </dd>
 </dl>
@@ -332,7 +409,7 @@ This method copies only when mat.isContinuous() is false and mat.dims() = 2. Whe
 </div>
 </div>
 <a id="a48c14be16726c1775173b6ddf42fdbcf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a48c14be16726c1775173b6ddf42fdbcf">&#9670;&nbsp;</a></span>copyToMat&lt; T &gt;() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a48c14be16726c1775173b6ddf42fdbcf">&#9670;&nbsp;</a></span>copyToMat&lt; T &gt;() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -380,7 +457,7 @@ This method copies only when mat.isContinuous() is false and mat.dims() = 2. Whe
 <div class="typeconstraint">
 <dl><dt><b>Type Constraints</b></dt><dd>
 <table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>struct</em></td><td>&#160;</td></tr>
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>unmanaged</em></td><td>&#160;</td></tr>
 </table>
 </dd>
 </dl>
@@ -389,7 +466,7 @@ This method copies only when mat.isContinuous() is false and mat.dims() = 2. Whe
 </div>
 </div>
 <a id="ab13955067c3c5cdda46cde3ff8e70740"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab13955067c3c5cdda46cde3ff8e70740">&#9670;&nbsp;</a></span>copyToMat&lt; T &gt;() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab13955067c3c5cdda46cde3ff8e70740">&#9670;&nbsp;</a></span>copyToMat&lt; T &gt;() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -437,7 +514,64 @@ This method copies only when mat.isContinuous() is false and mat.dims() = 2. Whe
 <div class="typeconstraint">
 <dl><dt><b>Type Constraints</b></dt><dd>
 <table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>struct</em></td><td>&#160;</td></tr>
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>unmanaged</em></td><td>&#160;</td></tr>
+</table>
+</dd>
+</dl>
+</div>
+
+</div>
+</div>
+<a id="a63c5172539830de6f0c73c0ea7a5814e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63c5172539830de6f0c73c0ea7a5814e">&#9670;&nbsp;</a></span>copyToMat&lt; T &gt;() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_mat_utils.html#ad0f1f06960fab282ce7127d83c7c8e71">OpenCVForUnity.UnityUtils.MatUtils.copyToMat</a>&lt; T &gt; </td>
+          <td>(</td>
+          <td class="paramtype">Span&lt; T &gt;&#160;</td>
+          <td class="paramname"><em>array</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
+          <td class="paramname"><em>mat</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Copies Pixel Data NativeArray to OpenCV Mat data. </p>
+<p><br />
+This method copies the pixel data NativeArray to the OpenCV Mat data. <br />
+The Mat object must have the same byte size as the pixel data Array ([total() * elemSize()] byte). <br />
+Because this method doesn't check bounds, is faster than Mat.put(). <br />
+This method copies only when mat.isContinuous() is false and mat.dims() = 2. When mat.isContinuous() is true, there is no restriction on the number of mat dimensions.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>a pixel data Array. </td></tr>
+    <tr><td class="paramname">mat</td><td>the Mat object must have the same byte size as the pixel data Array ([total() * elemSize()] byte). </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="typeconstraint">
+<dl><dt><b>Type Constraints</b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em>T</em></td><td>&#160;:</td><td valign="top"><em>unmanaged</em></td><td>&#160;</td></tr>
 </table>
 </dd>
 </dl>
