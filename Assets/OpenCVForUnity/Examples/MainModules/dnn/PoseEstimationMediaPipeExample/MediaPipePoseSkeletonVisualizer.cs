@@ -2,7 +2,6 @@
 
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UtilsModule;
 using System.Collections.Generic;
 using UnityEngine;
 using KeyPoint = OpenCVForUnityExample.DnnModel.MediaPipePoseEstimator.KeyPoint;
@@ -125,7 +124,7 @@ namespace OpenCVForUnityExample.DnnModel
                 landmarks_world_buffer = new Vector3[33];
 
             // Copy only world landmarks data from pose data.
-            MatUtils.copyFromMat<Vector3>(result.rowRange(199, 199 + 117), landmarks_world_buffer);
+            MatUtils.copyFromMat<Vector3>(result.rowRange(199, 199 + 99), landmarks_world_buffer);
 
             UpdatePose(landmarks_world_buffer);
         }

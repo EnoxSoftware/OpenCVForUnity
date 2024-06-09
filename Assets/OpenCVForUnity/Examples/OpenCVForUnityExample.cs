@@ -123,6 +123,11 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("WebCamTextureToMatHelperExample");
         }
 
+        public void OnMultiSource2MatHelperExampleButtonClick()
+        {
+            SceneManager.LoadScene("MultiSource2MatHelperExample");
+        }
+
         public void OnMatBasicProcessingExampleButtonClick()
         {
             SceneManager.LoadScene("MatBasicProcessingExample");

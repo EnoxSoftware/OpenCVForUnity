@@ -110,6 +110,7 @@ namespace OpenCVForUnityExample
             // Update GUI state
             maskToggle.isOn = mask;
             showSkeletonToggle.isOn = showSkeleton;
+            if (skeletonVisualizer != null) skeletonVisualizer.showSkeleton = showSkeleton;
 
 #if UNITY_WEBGL
             getFilePath_Coroutine = GetFilePath();
@@ -485,7 +486,7 @@ namespace OpenCVForUnityExample
             if (showSkeletonToggle.isOn != showSkeleton)
             {
                 showSkeleton = showSkeletonToggle.isOn;
-                skeletonVisualizer.showSkeleton = showSkeletonToggle.isOn;
+                if (skeletonVisualizer != null) skeletonVisualizer.showSkeleton = showSkeleton;
             }
         }
     }
