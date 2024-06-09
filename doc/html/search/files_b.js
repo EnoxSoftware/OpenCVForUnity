@@ -30,5 +30,6 @@ var searchData=
   ['model_2ecs',['Model.cs',['../_model_8cs.html',1,'']]],
   ['moments_2ecs',['Moments.cs',['../_moments_8cs.html',1,'']]],
   ['msddetector_2ecs',['MSDDetector.cs',['../_m_s_d_detector_8cs.html',1,'']]],
-  ['mser_2ecs',['MSER.cs',['../_m_s_e_r_8cs.html',1,'']]]
+  ['mser_2ecs',['MSER.cs',['../_m_s_e_r_8cs.html',1,'']]],
+  ['multisource2mathelper_2ecs',['MultiSource2MatHelper.cs',['../_multi_source2_mat_helper_8cs.html',1,'']]]
 ];

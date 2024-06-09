@@ -2,7 +2,7 @@ var searchData=
 [
   ['hasbackend',['hasBackend',['../class_open_c_v_for_unity_1_1_videoio_module_1_1_videoio.html#ace1c9fcb7ed11bb45501549afb39cc55',1,'OpenCVForUnity::VideoioModule::Videoio']]],
   ['hasnonzero',['hasNonZero',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a25b81183018e51bf2871972dd0484a45',1,'OpenCVForUnity::CoreModule::Core']]],
-  ['hasuserauthorizedcamerapermission',['hasUserAuthorizedCameraPermission',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a90510c9a1746c9813069b30bfada6b69',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]],
+  ['hasuserauthorizedcamerapermission',['hasUserAuthorizedCameraPermission',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture2_mat_helper.html#a2293522e82118d722385a974efd0ccea',1,'OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper.hasUserAuthorizedCameraPermission()'],['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a90510c9a1746c9813069b30bfada6b69',1,'OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper.hasUserAuthorizedCameraPermission()']]],
   ['haveimagereader',['haveImageReader',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#af4ebdf34cb787ec2575b6f8c12fdb0da',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
   ['haveimagewriter',['haveImageWriter',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#ae3a9160a96a67dfc4bcc1d9ba752c7d4',1,'OpenCVForUnity::ImgcodecsModule::Imgcodecs']]],
   ['hconcat',['hconcat',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a92e94aeb54835fea90fa1b5ee6798836',1,'OpenCVForUnity::CoreModule::Core']]],

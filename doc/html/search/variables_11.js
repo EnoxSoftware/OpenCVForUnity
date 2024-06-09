@@ -31,7 +31,7 @@ var searchData=
   ['rotate_5f180',['ROTATE_180',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a19210e6d16815fe030e13f2f659b1e4b',1,'OpenCVForUnity::CoreModule::Core']]],
   ['rotate_5f90_5fclockwise',['ROTATE_90_CLOCKWISE',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a20ca470ec0f6eec0aa32d5928878ce2d',1,'OpenCVForUnity::CoreModule::Core']]],
   ['rotate_5f90_5fcounterclockwise',['ROTATE_90_COUNTERCLOCKWISE',['../class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a725f2e773d906cfaf59b89297043a81e',1,'OpenCVForUnity::CoreModule::Core']]],
-  ['rotatedframemat',['rotatedFrameMat',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a0968ceda9c5a1e969d74617544c23333',1,'OpenCVForUnity::UnityUtils::Helper::WebCamTextureToMatHelper']]],
+  ['rotatedframemat',['rotatedFrameMat',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture2_mat_helper.html#ae76bc2a04c690eb8e5573113876e5912',1,'OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper.rotatedFrameMat()'],['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a0968ceda9c5a1e969d74617544c23333',1,'OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper.rotatedFrameMat()']]],
   ['row_5fsample',['ROW_SAMPLE',['../class_open_c_v_for_unity_1_1_ml_module_1_1_ml.html#ac898f3937d73da0a3a36aab3af0bd296',1,'OpenCVForUnity::MlModule::Ml']]],
   ['rprop',['RPROP',['../class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ae34578577f0bb1dfb3e535e1acb373e2',1,'OpenCVForUnity::MlModule::ANN_MLP']]]
 ];

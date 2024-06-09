@@ -17,6 +17,8 @@ var searchData=
   ['sinusoidalpattern',['SinusoidalPattern',['../class_open_c_v_for_unity_1_1_structured__light_module_1_1_sinusoidal_pattern.html',1,'OpenCVForUnity::Structured_lightModule']]],
   ['sinusoidalpattern_5fparams',['SinusoidalPattern_Params',['../class_open_c_v_for_unity_1_1_structured__light_module_1_1_sinusoidal_pattern___params.html',1,'OpenCVForUnity::Structured_lightModule']]],
   ['size',['Size',['../class_open_c_v_for_unity_1_1_core_module_1_1_size.html',1,'OpenCVForUnity::CoreModule']]],
+  ['source2mathelpererrorunityevent',['Source2MatHelperErrorUnityEvent',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_source2_mat_helper_error_unity_event.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
+  ['source2mathelperutils',['Source2MatHelperUtils',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_source2_mat_helper_utils.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
   ['sparsematchinterpolator',['SparseMatchInterpolator',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_sparse_match_interpolator.html',1,'OpenCVForUnity::XimgprocModule']]],
   ['sparseopticalflow',['SparseOpticalFlow',['../class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow.html',1,'OpenCVForUnity::VideoModule']]],
   ['sparsepyrlkopticalflow',['SparsePyrLKOpticalFlow',['../class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html',1,'OpenCVForUnity::VideoModule']]],

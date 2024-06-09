@@ -1,0 +1,105 @@
+#diagnostics-overlay {
+  resize: vertical;
+  overflow: auto;
+  position:fixed;
+  left:0px;
+  bottom:0px;
+  height:20%;
+  width:100%;
+  color: #090909;
+  background:rgba(200, 200, 200, .90);
+  display: flex;
+  align-items: stretch;
+}
+
+#diagnostics-btn {
+  float: left;
+  font-family: arial;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #CCC;
+  background: #DDD;
+  box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
+  cursor: pointer;
+  width: 38px;
+  height: 38px;
+}
+
+#diagnostics-icon {
+  display: flex;
+  float: right;
+  width:38px;
+  height: 38px;
+  cursor:pointer;
+}
+
+#diagnostics-icon:hover {
+  background-color:#D3D3D3;
+}
+#diagnostics-summary {
+  display: inline-flex;
+  font-family: arial;
+  flex-flow: column;
+  column-gap: 1em;
+  margin: 1em;
+  padding: 1em;
+  max-width: 33em;
+  row-gap: 0.2em;
+  width: 20%;
+  resize: horizontal;
+  overflow-y: auto;
+  float: left;
+  border-right: 4px solid gray;
+  min-width: fit-content;  
+  height: 60%;    
+}
+
+#diagnostics-summary::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+#diagnostics-summary::-webkit-scrollbar:vertical {
+  width: 8px;
+}
+
+#diagnostics-summary::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  border: 1px solid white;
+  background-color: rgba(0, 0, 0, .5);
+}
+
+#diagnostics-graph {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: top;
+  height: 100%;
+  margin-left: 2%;
+}
+
+#diagnostics-graph-canvas{
+  width: 210px;
+  height: 120px;
+}
+
+.data-row {
+  display: flex;
+}
+
+.label {
+  display: flex;
+  flex: 2 1 auto;
+}
+
+.indented {
+  display: flex;
+  flex: 2 1 auto;
+  margin-left: 1em;
+}
+
+.data {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: right;
+}

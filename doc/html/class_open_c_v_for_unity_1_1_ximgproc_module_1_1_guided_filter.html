@@ -50,9 +50,9 @@ MathJax.Hub.Config(
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.0</span>
+   &#160;<span id="projectnumber">2.6.1</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.9.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -105,7 +105,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Interface for realizations of Guided Filter.  
+<p>Interface for realizations of (Fast) Guided Filter.  
  <a href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_guided_filter.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for OpenCVForUnity.XimgprocModule.GuidedFilter:</div>
@@ -122,10 +122,10 @@ Inheritance diagram for OpenCVForUnity.XimgprocModule.GuidedFilter:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a301107ba021bedf2b1dcf369a36742e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_guided_filter.html#a301107ba021bedf2b1dcf369a36742e5">filter</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> src, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> dst, int dDepth)</td></tr>
-<tr class="memdesc:a301107ba021bedf2b1dcf369a36742e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply Guided Filter to the filtering image.  <a href="#a301107ba021bedf2b1dcf369a36742e5">More...</a><br /></td></tr>
+<tr class="memdesc:a301107ba021bedf2b1dcf369a36742e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply (Fast) Guided Filter to the filtering image.  <a href="#a301107ba021bedf2b1dcf369a36742e5">More...</a><br /></td></tr>
 <tr class="separator:a301107ba021bedf2b1dcf369a36742e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a864dcf3d2373cf60957164ae194d43c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_guided_filter.html#a864dcf3d2373cf60957164ae194d43c0">filter</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> src, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> dst)</td></tr>
-<tr class="memdesc:a864dcf3d2373cf60957164ae194d43c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply Guided Filter to the filtering image.  <a href="#a864dcf3d2373cf60957164ae194d43c0">More...</a><br /></td></tr>
+<tr class="memdesc:a864dcf3d2373cf60957164ae194d43c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply (Fast) Guided Filter to the filtering image.  <a href="#a864dcf3d2373cf60957164ae194d43c0">More...</a><br /></td></tr>
 <tr class="separator:a864dcf3d2373cf60957164ae194d43c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
 <tr class="memitem:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a8023b07a6a0100bb4c9eccd175bc68df">getNativeObjAddr</a> ()</td></tr>
@@ -185,8 +185,8 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Interface for realizations of Guided Filter. </p>
-<p>For more details about this filter see <b>[Kaiming10]</b> . </p>
+<div class="textblock"><p>Interface for realizations of (Fast) Guided Filter. </p>
+<p>For more details about this filter see <b>[Kaiming10]</b> <b>[Kaiming15]</b> . </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a3a46527af59b695fe9ffc994c2e9e4df"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3a46527af59b695fe9ffc994c2e9e4df">&#9670;&nbsp;</a></span>__fromPtr__()</h2>
@@ -274,7 +274,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Apply Guided Filter to the filtering image. </p>
+<p>Apply (Fast) Guided Filter to the filtering image. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">src</td><td>filtering image with any numbers of channels.</td></tr>
@@ -312,7 +312,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Apply Guided Filter to the filtering image. </p>
+<p>Apply (Fast) Guided Filter to the filtering image. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">src</td><td>filtering image with any numbers of channels.</td></tr>

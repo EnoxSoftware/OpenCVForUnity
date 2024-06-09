@@ -50,9 +50,9 @@ MathJax.Hub.Config(
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.0</span>
+   &#160;<span id="projectnumber">2.6.1</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.9.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -163,6 +163,11 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a26610e3e4b81dcbd161649ea05d1a0e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b4b158948c40d70150aaa2f6013f3c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_d_i_s_optical_flow.html#a4b4b158948c40d70150aaa2f6013f3c1">setVariationalRefinementGamma</a> (float val)</td></tr>
 <tr class="separator:a4b4b158948c40d70150aaa2f6013f3c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36cd34612a104752f5fd65b483120ce7"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_d_i_s_optical_flow.html#a36cd34612a104752f5fd65b483120ce7">getVariationalRefinementEpsilon</a> ()</td></tr>
+<tr class="memdesc:a36cd34612a104752f5fd65b483120ce7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Norm value shift for robust penalizer.  <a href="#a36cd34612a104752f5fd65b483120ce7">More...</a><br /></td></tr>
+<tr class="separator:a36cd34612a104752f5fd65b483120ce7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a552725c5a7723afd63d5a634a95914a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_d_i_s_optical_flow.html#a552725c5a7723afd63d5a634a95914a6">setVariationalRefinementEpsilon</a> (float val)</td></tr>
+<tr class="separator:a552725c5a7723afd63d5a634a95914a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4cbfaf9fa8c68bd58ed4814be8f4cc91"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_d_i_s_optical_flow.html#a4cbfaf9fa8c68bd58ed4814be8f4cc91">getUseMeanNormalization</a> ()</td></tr>
 <tr class="memdesc:a4cbfaf9fa8c68bd58ed4814be8f4cc91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to use mean-normalization of patches when computing patch distance. It is turned on by default as it typically provides a noticeable quality boost because of increased robustness to illumination variations. Turn it off if you are certain that your sequence doesn't contain any changes in illumination.  <a href="#a4cbfaf9fa8c68bd58ed4814be8f4cc91">More...</a><br /></td></tr>
 <tr class="separator:a4cbfaf9fa8c68bd58ed4814be8f4cc91"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -541,6 +546,26 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a36cd34612a104752f5fd65b483120ce7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36cd34612a104752f5fd65b483120ce7">&#9670;&nbsp;</a></span>getVariationalRefinementEpsilon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float OpenCVForUnity.VideoModule.DISOpticalFlow.getVariationalRefinementEpsilon </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Norm value shift for robust penalizer. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_d_i_s_optical_flow.html#a552725c5a7723afd63d5a634a95914a6">setVariationalRefinementEpsilon</a> </dd></dl>
+
+</div>
+</div>
 <a id="a26610e3e4b81dcbd161649ea05d1a0e1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a26610e3e4b81dcbd161649ea05d1a0e1">&#9670;&nbsp;</a></span>getVariationalRefinementGamma()</h2>
 
@@ -730,6 +755,25 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Weight of the color constancy term. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_d_i_s_optical_flow.html#a39e15e40496b059e790454759591210c" title="Weight of the color constancy term. ">getVariationalRefinementDelta</a> </dd></dl>
+
+</div>
+</div>
+<a id="a552725c5a7723afd63d5a634a95914a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a552725c5a7723afd63d5a634a95914a6">&#9670;&nbsp;</a></span>setVariationalRefinementEpsilon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.VideoModule.DISOpticalFlow.setVariationalRefinementEpsilon </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>val</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Norm value shift for robust penalizer. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_d_i_s_optical_flow.html#a36cd34612a104752f5fd65b483120ce7" title="Norm value shift for robust penalizer. ">getVariationalRefinementEpsilon</a> </dd></dl>
 
 </div>
 </div>

@@ -9,5 +9,6 @@ var searchData=
   ['usac_5ffm_5f8pts',['USAC_FM_8PTS',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#ae22e46dd42a6c6ab42c295dfad14573c',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
   ['usac_5fmagsac',['USAC_MAGSAC',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a3b9f8d2475ffe784f64e401de6f1a8b2',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
   ['usac_5fparallel',['USAC_PARALLEL',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a854801c44733883803e9c427de4688f9',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
-  ['usac_5fprosac',['USAC_PROSAC',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#aedd0f1498b58367150d1b433046355ec',1,'OpenCVForUnity::Calib3dModule::Calib3d']]]
+  ['usac_5fprosac',['USAC_PROSAC',['../class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#aedd0f1498b58367150d1b433046355ec',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
+  ['useasyncgpureadback',['useAsyncGPUReadback',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a80626262082a68f5b4dc7a8fec267371',1,'OpenCVForUnity::UnityUtils::Helper::UnityVideoPlayer2MatHelper']]]
 ];

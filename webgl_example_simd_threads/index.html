@@ -3,9 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity Web Player | OpenCVForUnityExample2.6.0</title>
+    <title>Unity Web Player | OpenCVForUnityExample2.6.1</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+    <link rel="stylesheet" href="TemplateData/diagnostics.css">
+    <script src="TemplateData/diagnostics.js"></script>
     <script src="coi-serviceworker.js"></script>
   </head>
   <body>
@@ -21,7 +23,8 @@
       <div id="unity-footer">
         <div id="unity-logo-title-footer"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">OpenCVForUnityExample2.6.0</div>
+        <img id="diagnostics-icon" src="TemplateData/webmemd-icon.png">
+        <div id="unity-build-title">OpenCVForUnityExample2.6.1</div>
       </div>
     </div>
     <script>
@@ -62,8 +65,8 @@
         codeUrl: buildUrl + "/opencvforunityexample.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Enox Software",
-        productName: "OpenCVForUnityExample2.6.0",
-        productVersion: "2.6.0",
+        productName: "OpenCVForUnityExample2.6.1",
+        productVersion: "2.6.1",
         showBanner: unityShowBanner,
       };
 
@@ -88,6 +91,11 @@
         // performance, uncomment the following line:
         // config.devicePixelRatio = 1;
 
+        // position the diagnostics icon in the corner on the canvas
+        diagnostics_icon.style.position = "fixed";
+        diagnostics_icon.style.bottom = "10px";
+        diagnostics_icon.style.right = "0px";
+        canvas.after(diagnostics_icon);
 
       } else {
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
@@ -104,6 +112,9 @@
           document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
               }).then((unityInstance) => {
                 document.querySelector("#unity-loading-bar").style.display = "none";
+                document.getElementById("diagnostics-icon").onclick = () => {
+                  unityDiagnostics.openDiagnosticsDiv(unityInstance.GetMetricsInfo);
+                };
                 document.querySelector("#unity-fullscreen-button").onclick = () => {
                   unityInstance.SetFullscreen(1);
                 };

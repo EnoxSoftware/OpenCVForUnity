@@ -50,9 +50,9 @@ MathJax.Hub.Config(
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.0</span>
+   &#160;<span id="projectnumber">2.6.1</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.9.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -199,7 +199,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This interface class allows to build new Layers - are building blocks of networks. </p>
-<p>Each class, derived from <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_layer.html" title="This interface class allows to build new Layers - are building blocks of networks. ">Layer</a>, must implement allocate() methods to declare own outputs and forward() to compute outputs. Also before using the new layer into networks you must register your layer by using one of LayerFactory macros. </p>
+<p>Each class, derived from <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_layer.html" title="This interface class allows to build new Layers - are building blocks of networks. ">Layer</a>, must implement forward() method to compute outputs. Also before using the new layer into networks you must register your layer by using one of LayerFactory macros. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ac544df3e5eb3650fc454a5fff8ad904e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac544df3e5eb3650fc454a5fff8ad904e">&#9670;&nbsp;</a></span>__fromPtr__()</h2>
@@ -285,7 +285,7 @@ Additional Inherited Members</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">inputs</td><td>vector of already allocated input blobs </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">outputs</td><td>vector of already allocated output blobs <pre class="fragment">       If this method is called after network has allocated all memory for input and output blobs
+    <tr><td class="paramdir">[out]</td><td class="paramname">outputs</td><td>vector of already allocated output blobs <pre class="fragment">       This method is called after network has allocated all memory for input and output blobs
        and before inferencing.</pre> </td></tr>
   </table>
   </dd>
@@ -415,7 +415,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Allocates layer and computes output. </p>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000005">Deprecated:</a></b></dt><dd>This method will be removed in the future release. </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000006">Deprecated:</a></b></dt><dd>This method will be removed in the future release. </dd></dl>
 
 </div>
 </div>

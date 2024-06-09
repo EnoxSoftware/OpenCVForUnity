@@ -50,9 +50,9 @@ MathJax.Hub.Config(
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.0</span>
+   &#160;<span id="projectnumber">2.6.1</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.9.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -175,7 +175,9 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Pose estimation parameters. </p>
-<p>pattern Defines center this system and axes direction (default PatternPositionType::ARUCO_CCW_CENTER). useExtrinsicGuess Parameter used for SOLVEPNP_ITERATIVE. If true (1), the function uses the provided rvec and tvec values as initial approximations of the rotation and translation vectors, respectively, and further optimizes them (default false). solvePnPMethod Method for solving a PnP problem: see calib3d_solvePnP_flags (default SOLVEPNP_ITERATIVE). </p><dl class="section see"><dt>See also</dt><dd>PatternPositionType, solvePnP(), check tutorial_aruco_detection in aruco contrib </dd></dl>
+<p>pattern Defines center this system and axes direction (default PatternPositionType::ARUCO_CCW_CENTER). useExtrinsicGuess Parameter used for SOLVEPNP_ITERATIVE. If true (1), the function uses the provided rvec and tvec values as initial approximations of the rotation and translation vectors, respectively, and further optimizes them (default false). solvePnPMethod Method for solving a PnP problem: see calib3d_solvePnP_flags (default SOLVEPNP_ITERATIVE).</p>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000056">Deprecated:</a></b></dt><dd>Use Board::matchImagePoints and cv::solvePnP</dd></dl>
+<dl class="section see"><dt>See also</dt><dd>PatternPositionType, solvePnP() </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aca89c4609f2523314e407d69ead5f384"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aca89c4609f2523314e407d69ead5f384">&#9670;&nbsp;</a></span>EstimateParameters()</h2>
