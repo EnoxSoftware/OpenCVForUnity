@@ -6,8 +6,6 @@
     <title>Unity Web Player | OpenCVForUnityExample2.6.1</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
-    <link rel="stylesheet" href="TemplateData/diagnostics.css">
-    <script src="TemplateData/diagnostics.js"></script>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -22,7 +20,6 @@
       <div id="unity-footer">
         <div id="unity-logo-title-footer"></div>
         <div id="unity-fullscreen-button"></div>
-        <img id="diagnostics-icon" src="TemplateData/webmemd-icon.png">
         <div id="unity-build-title">OpenCVForUnityExample2.6.1</div>
       </div>
     </div>
@@ -89,11 +86,6 @@
         // performance, uncomment the following line:
         // config.devicePixelRatio = 1;
 
-        // position the diagnostics icon in the corner on the canvas
-        diagnostics_icon.style.position = "fixed";
-        diagnostics_icon.style.bottom = "10px";
-        diagnostics_icon.style.right = "0px";
-        canvas.after(diagnostics_icon);
 
       } else {
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
@@ -110,9 +102,6 @@
           document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
               }).then((unityInstance) => {
                 document.querySelector("#unity-loading-bar").style.display = "none";
-                document.getElementById("diagnostics-icon").onclick = () => {
-                  unityDiagnostics.openDiagnosticsDiv(unityInstance.GetMetricsInfo);
-                };
                 document.querySelector("#unity-fullscreen-button").onclick = () => {
                   unityInstance.SetFullscreen(1);
                 };
