@@ -1,6 +1,7 @@
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.UnityUtils;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -358,12 +359,25 @@ namespace OpenCVForUnityExample
 
         public void OnArUcoExampleButtonClick()
         {
-            SceneManager.LoadScene("ArUcoExample");
+            if (GraphicsSettings.defaultRenderPipeline == null) {
+                SceneManager.LoadScene("ArUcoExample_Built-in");
+            }
+            else
+            {
+                SceneManager.LoadScene("ArUcoExample_SRP");
+            }
         }
 
         public void OnArUcoWebCamExampleButtonClick()
         {
-            SceneManager.LoadScene("ArUcoWebCamExample");
+            if (GraphicsSettings.defaultRenderPipeline == null)
+            {
+                SceneManager.LoadScene("ArUcoWebCamExample_Built-in");
+            }
+            else
+            {
+                SceneManager.LoadScene("ArUcoWebCamExample_SRP");
+            }
         }
 
         public void OnArUcoCreateMarkerExampleButtonClick()
@@ -472,12 +486,26 @@ namespace OpenCVForUnityExample
 
         public void OnPoseEstimationMediaPipeExampleButtonClick()
         {
-            SceneManager.LoadScene("PoseEstimationMediaPipeExample");
+            if (GraphicsSettings.defaultRenderPipeline == null)
+            {
+                SceneManager.LoadScene("PoseEstimationMediaPipeExample_Built-in");
+            }
+            else
+            {
+                SceneManager.LoadScene("PoseEstimationMediaPipeExample_SRP");
+            }
         }
 
         public void OnHandPoseEstimationMediaPipeExampleButtonClick()
         {
-            SceneManager.LoadScene("HandPoseEstimationMediaPipeExample");
+            if (GraphicsSettings.defaultRenderPipeline == null)
+            {
+                SceneManager.LoadScene("HandPoseEstimationMediaPipeExample_Built-in");
+            }
+            else
+            {
+                SceneManager.LoadScene("HandPoseEstimationMediaPipeExample_SRP");
+            }
         }
 
         public void OnHumanSegmentationPPHumanSegExampleButtonClick()

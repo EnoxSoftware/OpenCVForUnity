@@ -22,6 +22,7 @@ namespace OpenCVForUnityExample
             WebCamTexture2MatHelper = 0,
             VideoCapture2MatHelper,
             Image2MatHelper,
+            AsyncGPUReadback2MatHelper,
         }
 
         Source2MatHelperClassNamePreset requestedSource2MatHelperClassName = Source2MatHelperClassNamePreset.WebCamTexture2MatHelper;
@@ -35,6 +36,14 @@ namespace OpenCVForUnityExample
         /// The requested source 2 mat helper class name dropdown.
         /// </summary>
         public Dropdown requestedSource2MatHelperClassNameDropdown;
+
+        //
+        /// <summary>
+        /// The cube.
+        /// </summary>
+        [Space(10)]
+        public GameObject cube;
+        //
 
         /// <summary>
         /// The texture.
@@ -118,6 +127,9 @@ namespace OpenCVForUnityExample
                         fpsMonitor.Add("image path", helper.requestedImageFilePath.ToString());
                         fpsMonitor.Add("repeat", helper.repeat.ToString());
                         break;
+                    case ITextureSource2MatHelper helper:
+                        fpsMonitor.Add("source texture", helper.sourceTexture.ToString());
+                        break;
                 }
 
                 if (multiSourceToMatHelper.source2MatHelper is WebCamTexture2MatHelper webCamHelper)
@@ -192,12 +204,32 @@ namespace OpenCVForUnityExample
                 // Retrieve the current frame as a Mat object
                 Mat rgbaMat = multiSourceToMatHelper.GetMat();
 
+                switch (requestedSource2MatHelperClassName)
+                {
+                    case Source2MatHelperClassNamePreset.WebCamTexture2MatHelper:
+                        Imgproc.putText(rgbaMat, "WebCamTexture => Mat", new Point(5, 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                        break;
+                    case Source2MatHelperClassNamePreset.VideoCapture2MatHelper:
+                        Imgproc.putText(rgbaMat, "Video File => Mat", new Point(5, 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                        break;
+                    case Source2MatHelperClassNamePreset.Image2MatHelper:
+                        Imgproc.putText(rgbaMat, "Image File => Mat", new Point(5, 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                        break;
+                    case Source2MatHelperClassNamePreset.AsyncGPUReadback2MatHelper:
+                        Imgproc.putText(rgbaMat, "Camera => RenderTexture => Mat", new Point(5, 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                        break;
+                }
+
                 // Add text overlay on the frame
-                //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                Imgproc.putText(rgbaMat, "W:" + rgbaMat.width() + " H:" + rgbaMat.height() + " SO:" + Screen.orientation, new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
                 // Convert the Mat to a Texture2D to display it on a texture
                 Utils.matToTexture2D(rgbaMat, texture);
             }
+
+            //
+            cube.transform.Rotate(new Vector3(90, 90, 0) * Time.deltaTime, Space.Self);
+            //
         }
 
         /// <summary>
@@ -269,6 +301,9 @@ namespace OpenCVForUnityExample
                         break;
                     case Source2MatHelperClassNamePreset.Image2MatHelper:
                         multiSourceToMatHelper.requestedSource2MatHelperClassName = MultiSource2MatHelperClassName.Image2MatHelper;
+                        break;
+                    case Source2MatHelperClassNamePreset.AsyncGPUReadback2MatHelper:
+                        multiSourceToMatHelper.requestedSource2MatHelperClassName = MultiSource2MatHelperClassName.AsyncGPUReadback2MatHelper;
                         break;
                 }
 
