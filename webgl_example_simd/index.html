@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity Web Player | OpenCVForUnityExample2.6.1</title>
+    <title>Unity Web Player | OpenCVForUnityExample</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
@@ -20,7 +20,7 @@
       <div id="unity-footer">
         <div id="unity-logo-title-footer"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">OpenCVForUnityExample2.6.1</div>
+        <div id="unity-build-title">OpenCVForUnityExample</div>
       </div>
     </div>
     <script>
@@ -60,8 +60,8 @@
         codeUrl: buildUrl + "/opencvforunityexample.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Enox Software",
-        productName: "OpenCVForUnityExample2.6.1",
-        productVersion: "2.6.1",
+        productName: "OpenCVForUnityExample",
+        productVersion: "2.6.2",
         showBanner: unityShowBanner,
       };
 
@@ -71,6 +71,15 @@
       // happening inside the engine, and you would instead like to size up
       // the canvas DOM size and WebGL render target sizes yourself.
       // config.matchWebGLToCanvasSize = false;
+
+      // If you would like all file writes inside Unity Application.persistentDataPath
+      // directory to automatically persist so that the contents are remembered when
+      // the user revisits the site the next time, uncomment the following line:
+      // config.autoSyncPersistentDataPath = true;
+      // This autosyncing is currently not the default behavior to avoid regressing
+      // existing user projects that might rely on the earlier manual
+      // JS_FileSystem_Sync() behavior, but in future Unity version, this will be
+      // expected to change.
 
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:

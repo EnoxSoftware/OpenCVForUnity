@@ -50,7 +50,7 @@ MathJax.Hub.Config(
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.1</span>
+   &#160;<span id="projectnumber">2.6.2</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -211,8 +211,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Fast converts OpenCV Mat to Unity Texture2D. </p>
 <p><br />
 This method simply copies the mat data to texture2D. Therefore, there are no restrictions on the mat's type and texture2D's format; it is faster than the <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_utils.html#a5372d5ffba5cbeaaf2247d2b2a736653">matToTexture2D()</a> method. <br />
-The Mat object and the Texture2D object must have the same width, height, and data format. <br />
-Enable the "unsafe" code if you want the conversion process to run the fastest; use NativeArray to run the conversion process several times faster with no overhead. If you want to use optimization code using NativeArray class, click the MenuItem[Tools/OpenCV for Unity/Open Setup Tools] - [Enable Use Unsafe Code] button.</p>
+The Mat object and the Texture2D object must have the same width, height, and data format.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mat</td><td></td></tr>
@@ -276,8 +275,7 @@ Enable the "unsafe" code if you want the conversion process to run the fastest; 
 <p>Fast converts Unity Texture2D to OpenCV Mat. </p>
 <p><br />
 This method simply copies the texture2D data to mat. Therefore, there are no restrictions on the mat's type and texture2D's format; it is faster than the <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_utils.html#abb2170473b4fe086083cd51231043e81">texture2DToMat()</a> method. <br />
-The Texture2D object and the Mat object must have the same width, height, and data format. <br />
-Enable the "unsafe" code if you want the conversion process to run the fastest; use NativeArray to run the conversion process several times faster with no overhead. If you want to use optimization code using NativeArray class, click the MenuItem[Tools/OpenCV for Unity/Open Setup Tools] - [Enable Use Unsafe Code] button.</p>
+The Texture2D object and the Mat object must have the same width, height, and data format.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">texture2D</td><td></td></tr>
@@ -997,14 +995,13 @@ Set a relative file path from the starting point of the "StreamingAssets" folder
 </div><div class="memdoc">
 <p>Converts OpenCV Mat to Unity Texture2D. </p>
 <p><br />
-This method converts the OpenCV Mat to the Unity Texture2D image. <br />
-The Mat object must have the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). <br />
+This method converts the OpenCV Mat to the Unity Texture2D image. Conversion is possible even when the number of bytes per pixel is different: 8UC1 -&gt; RGBA32 <br />
+The Mat object must have the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). For other than these types, use fastMatToTexture2D. <br />
 The texture2D object supports the following formats. (<a href="https://docs.unity3d.com/ScriptReference/Texture2D.SetPixels32.html">https://docs.unity3d.com/ScriptReference/Texture2D.SetPixels32.html</a>) <br />
-The Texture2D object must have the same size as the Mat (width * height). <br />
-Enable the "unsafe" code if you want the conversion process to run the fastest; use NativeArray to run the conversion process several times faster with no overhead. If you want to use optimization code using NativeArray class, click the MenuItem[Tools/OpenCV for Unity/Open Setup Tools] - [Enable Use Unsafe Code] button.</p>
+The Texture2D object must have the same size as the Mat (width * height).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mat</td><td>the Mat object must have the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY) </td></tr>
+    <tr><td class="paramname">mat</td><td>the Mat object must have the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). For other than these types, use <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_utils.html#a8cfe3501ab77618c7cd4f49ebe6b4cbd">fastMatToTexture2D</a> . </td></tr>
     <tr><td class="paramname">texture2D</td><td>the texture2D object supports the following formats. (<a href="https://docs.unity3d.com/ScriptReference/Texture2D.SetPixels32.html">https://docs.unity3d.com/ScriptReference/Texture2D.SetPixels32.html</a>) The Texture2D object must have the same size as the Mat (width * height). </td></tr>
     <tr><td class="paramname">flip</td><td>if true, the mat is fliped before converting. </td></tr>
     <tr><td class="paramname">flipCode</td><td>a flag to specify how to flip the array; 0 means flipping around the x-axis and positive value (for example, 1) means flipping around y-axis. Negative value (for example, -1) means flipping around both axes. </td></tr>
@@ -1094,14 +1091,13 @@ Enable the "unsafe" code if you want the conversion process to run the fastest; 
 </div><div class="memdoc">
 <p>Converts OpenCV Mat to Unity Texture2D. </p>
 <p><br />
-This method converts the OpenCV Mat to the Unity Texture2D image. <br />
-The Mat object must have the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). <br />
+This method converts the OpenCV Mat to the Unity Texture2D image. Conversion is possible even when the number of bytes per pixel is different: 8UC1 -&gt; RGBA32 <br />
+The Mat object must have the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). For other than these types, use fastMatToTexture2D. <br />
 The texture2D object supports the following formats. (<a href="https://docs.unity3d.com/ScriptReference/Texture2D.SetPixels32.html">https://docs.unity3d.com/ScriptReference/Texture2D.SetPixels32.html</a>) <br />
-The Texture2D object must have the same size as the Mat (width * height). <br />
-Enable the "unsafe" code if you want the conversion process to run the fastest; use NativeArray to run the conversion process several times faster with no overhead. If you want to use optimization code using NativeArray class, click the MenuItem[Tools/OpenCV for Unity/Open Setup Tools] - [Enable Use Unsafe Code] button.</p>
+The Texture2D object must have the same size as the Mat (width * height).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mat</td><td>the Mat object must have the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY) </td></tr>
+    <tr><td class="paramname">mat</td><td>the Mat object must have the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). For other than these types, use fastMatToTexture2D. </td></tr>
     <tr><td class="paramname">texture2D</td><td>The texture2D object supports the following formats. (<a href="https://docs.unity3d.com/ScriptReference/Texture2D.SetPixels32.html">https://docs.unity3d.com/ScriptReference/Texture2D.SetPixels32.html</a>) The Texture2D object must have the same size as the Mat (width * height). </td></tr>
     <tr><td class="paramname">pixels32Buffer</td><td>the optional array to receive pixels32 data. You can optionally pass in an array of Color32s to avoid allocating new memory each frame. The array needs to be initialized to a length matching width * height of the texture. (<a href="http://docs.unity3d.com/ScriptReference/WebCamTexture.GetPixels32.html">http://docs.unity3d.com/ScriptReference/WebCamTexture.GetPixels32.html</a>) </td></tr>
     <tr><td class="paramname">rawTextureDataBuffer</td><td>the optional array to receive raw texture data. You can optionally pass in an array of bytes to avoid allocating new memory each frame. The array needs to be initialized to a length matching raw data of the texture. (<a href="https://docs.unity3d.com/ScriptReference/Texture2D.GetRawTextureData.html">https://docs.unity3d.com/ScriptReference/Texture2D.GetRawTextureData.html</a>) </td></tr>
@@ -1222,11 +1218,10 @@ Utils.setDebugMode(false);</p>
 </div><div class="memdoc">
 <p>Converts Unity Texture2D to OpenCV Mat. </p>
 <p><br />
-This method converts the Unity Texture2D image to the OpenCV Mat. <br />
+This method converts the Unity Texture2D image to the OpenCV Mat. Conversion is possible even when the number of bytes per pixel is different: RGBA32 -&gt; 8UC1 <br />
 The Texture object must have the read/write enabled flag set in the texture import settings, otherwise this function will fail. (GetPixels32() method is needed.) <br />
 The Mat object must have the same size as the Texture2D (width * height). <br />
-The Mat object must have the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY). <br />
-Enable the "unsafe" code if you want the conversion process to run the fastest; use NativeArray to run the conversion process several times faster with no overhead. If you want to use optimization code using NativeArray class, click the MenuItem[Tools/OpenCV for Unity/Open Setup Tools] - [Enable Use Unsafe Code] button.</p>
+The Mat object must have the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">texture2D</td><td>the Texture2D object must have the read/write enabled flag set in the texture import settings, otherwise this function will fail. (GetPixels32() method is needed.) </td></tr>
@@ -1334,7 +1329,7 @@ The texture2D's TextureFormat needs to be RGBA32, ARGB32, RGB24, RGBAFloat or RG
 </div><div class="memdoc">
 <p>Converts Unity WebCamTexture to OpenCV Mat. </p>
 <p><br />
-This method converts the Unity WebCamTexture image to the OpenCV Mat. <br />
+This method converts the Unity WebCamTexture image to the OpenCV Mat. Conversion is possible even when the number of bytes per pixel is different: RGBA32 -&gt; 8UC1 <br />
 The Mat object must have the same size as the WebCamTexture (width * height). <br />
 The Mat object must have the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY).</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1402,7 +1397,7 @@ The Mat object must have the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC
 </div><div class="memdoc">
 <p>Converts Unity WebCamTexture to OpenCV Mat. </p>
 <p><br />
-This method converts the Unity WebCamTexture image to the OpenCV Mat. <br />
+This method converts the Unity WebCamTexture image to the OpenCV Mat. Conversion is possible even when the number of bytes per pixel is different: RGBA32 -&gt; 8UC1 <br />
 The Mat object must have the same size as the WebCamTexture (width * height). <br />
 The Mat object must have the types 'CV_8UC4' (RGBA) , 'CV_8UC3' (RGB) or 'CV_8UC1' (GRAY).</p>
 <dl class="params"><dt>Parameters</dt><dd>
