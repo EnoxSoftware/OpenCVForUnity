@@ -382,7 +382,7 @@ namespace OpenCVForUnityExample
 
                     Imgproc.cvtColor(bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
 
-                    //personDetector.visualize(bgrMat, persons, false, true);
+                    //personDetector.visualize(rgbaMat, persons, false, true);
 
                     foreach (var mask in masks)
                         poseEstimator.visualize_mask(rgbaMat, mask, true);
