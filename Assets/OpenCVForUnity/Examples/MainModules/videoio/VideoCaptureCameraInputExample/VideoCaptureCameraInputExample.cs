@@ -18,6 +18,14 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class VideoCaptureCameraInputExample : MonoBehaviour
     {
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage resultPreview;
+
+        [Space(10)]
+
         /// <summary>
         /// The open botton.
         /// </summary>
@@ -467,19 +475,8 @@ namespace OpenCVForUnityExample
             rgbMat = new Mat(frameHeight, frameWidth, CvType.CV_8UC3);
             texture = new Texture2D(frameWidth, frameHeight, TextureFormat.RGB24, false);
 
-            gameObject.transform.localScale = new Vector3((float)frameWidth, (float)frameHeight, 1);
-            float widthScale = (float)Screen.width / (float)frameWidth;
-            float heightScale = (float)Screen.height / (float)frameHeight;
-            if (widthScale < heightScale)
-            {
-                Camera.main.orthographicSize = ((float)frameWidth * (float)Screen.height / (float)Screen.width) / 2;
-            }
-            else
-            {
-                Camera.main.orthographicSize = (float)frameHeight / 2;
-            }
-
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
+            resultPreview.texture = texture;
+            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
 
 
             string strFOURCC = "" + (char)((int)ext & 0XFF) + (char)(((int)ext & 0XFF00) >> 8) + (char)(((int)ext & 0XFF0000) >> 16) + (char)(((int)ext & 0XFF000000) >> 24);

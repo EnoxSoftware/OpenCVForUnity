@@ -5,10 +5,10 @@ using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.ObjdetectModule;
 using OpenCVForUnity.UnityUtils;
-using System;
-using System.Collections;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Rect = OpenCVForUnity.CoreModule.Rect;
 
 namespace OpenCVForUnityExample
@@ -21,6 +21,14 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class FaceRecognizerSFExample : MonoBehaviour
     {
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage resultPreview;
+
+        [Space(10)]
+
         /// <summary>
         /// Filter out faces of score < score_threshold.
         /// </summary>
@@ -96,59 +104,36 @@ namespace OpenCVForUnityExample
         /// </summary>
         string sample_image_filepath;
 
-#if UNITY_WEBGL
-        IEnumerator getFilePath_Coroutine;
-#endif
+        /// <summary>
+        /// The FPS monitor.
+        /// </summary>
+        FpsMonitor fpsMonitor;
+
+        /// <summary>
+        /// The CancellationTokenSource.
+        /// </summary>
+        CancellationTokenSource cts = new CancellationTokenSource();
 
         // Use this for initialization
-        void Start()
+        async void Start()
         {
-#if UNITY_WEBGL
-            getFilePath_Coroutine = GetFilePath ();
-            StartCoroutine (getFilePath_Coroutine);
-#else
-            fd_model_filepath = Utils.getFilePath(FD_MODEL_FILENAME);
-            sf_model_filepath = Utils.getFilePath(SF_MODEL_FILENAME);
-            image_0_filepath = Utils.getFilePath(IMAGE_0_FILENAME);
-            image_1_filepath = Utils.getFilePath(IMAGE_1_FILENAME);
-            sample_image_filepath = Utils.getFilePath(SAMPLE_IMAGE_FILENAME);
+            fpsMonitor = GetComponent<FpsMonitor>();
+
+            // Asynchronously retrieves the readable file path from the StreamingAssets directory.
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "Preparing file access...";
+
+            fd_model_filepath = await Utils.getFilePathAsyncTask(FD_MODEL_FILENAME, cancellationToken: cts.Token);
+            sf_model_filepath = await Utils.getFilePathAsyncTask(SF_MODEL_FILENAME, cancellationToken: cts.Token);
+            image_0_filepath = await Utils.getFilePathAsyncTask(IMAGE_0_FILENAME, cancellationToken: cts.Token);
+            image_1_filepath = await Utils.getFilePathAsyncTask(IMAGE_1_FILENAME, cancellationToken: cts.Token);
+            sample_image_filepath = await Utils.getFilePathAsyncTask(SAMPLE_IMAGE_FILENAME, cancellationToken: cts.Token);
+
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "";
+
             Run();
-#endif
         }
-
-#if UNITY_WEBGL
-        private IEnumerator GetFilePath()
-        {
-            var getFilePathAsync_fd_Coroutine = Utils.getFilePathAsync(FD_MODEL_FILENAME, (result) => {
-                fd_model_filepath = result;
-            });
-            yield return getFilePathAsync_fd_Coroutine;
-
-            var getFilePathAsync_sf_Coroutine = Utils.getFilePathAsync(SF_MODEL_FILENAME, (result) => {
-                sf_model_filepath = result;
-            });
-            yield return getFilePathAsync_sf_Coroutine;
-
-            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync (IMAGE_0_FILENAME, (result) => {
-                image_0_filepath = result;
-            });
-            yield return getFilePathAsync_0_Coroutine;
-
-            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync (IMAGE_1_FILENAME, (result) => {
-                image_1_filepath = result;
-            });
-            yield return getFilePathAsync_1_Coroutine;
-
-            var getFilePathAsync_sample_Coroutine = Utils.getFilePathAsync (SAMPLE_IMAGE_FILENAME, (result) => {
-                sample_image_filepath = result;
-            });
-            yield return getFilePathAsync_sample_Coroutine;
-
-            getFilePath_Coroutine = null;
-
-            Run ();
-        }
-#endif
 
         private void Run()
         {
@@ -269,7 +254,8 @@ namespace OpenCVForUnityExample
 
             Utils.matToTexture2D(resultMat, texture);
 
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
+            resultPreview.texture = texture;
+            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
 
 
             Utils.setDebugMode(false);
@@ -286,12 +272,8 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDestroy()
         {
-#if UNITY_WEBGL
-            if (getFilePath_Coroutine != null) {
-                StopCoroutine (getFilePath_Coroutine);
-                ((IDisposable)getFilePath_Coroutine).Dispose ();
-            }
-#endif
+            if (cts != null)
+                cts.Dispose();
         }
 
         /// <summary>

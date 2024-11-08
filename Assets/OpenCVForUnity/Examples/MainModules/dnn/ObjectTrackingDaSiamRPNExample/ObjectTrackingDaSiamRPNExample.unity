@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731704, g: 0.13414727, b: 0.121078536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -190,6 +191,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -226,6 +228,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 767098760}
   m_Father: {fileID: 1812831685}
@@ -384,6 +387,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2136998517}
   m_RootOrder: 0
@@ -467,6 +471,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 338843206}
   m_RootOrder: 0
@@ -608,6 +613,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -692,6 +698,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -707,6 +714,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1812831685}
   m_Father: {fileID: 0}
@@ -729,11 +737,11 @@ GameObject:
   - component: {fileID: 1425214145}
   - component: {fileID: 1425214144}
   - component: {fileID: 1425214143}
-  - component: {fileID: 1425214148}
   - component: {fileID: 1425214142}
+  - component: {fileID: 1425214148}
   - component: {fileID: 1425214147}
   m_Layer: 0
-  m_Name: Quad
+  m_Name: ObjectTrackingDaSiamRPNExample
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -762,6 +770,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -824,6 +833,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 640, y: 480, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -846,7 +856,7 @@ MonoBehaviour:
   boxWidth: 75
   boxHeight: 30
   padding: {x: 8, y: 5}
-  consoleHeight: 50
+  consoleHeight: 100
 --- !u!114 &1425214148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -856,20 +866,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 1425214141}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1cc502785bb1f542879d090531b53bf, type: 3}
+  m_Script: {fileID: 11500000, guid: e564a549956aebc4d9acef3ff91b0981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _requestedVideoFilePath: 
-  _apiPreference: 0
+  _requestedSource2MatHelperClassName: 1
+  _currentSource2MatHelperClassCategory: 1
+  _requestedDeviceName: 
+  _requestedWidth: 640
+  _requestedHeight: 480
+  _requestedIsFrontFacing: 0
+  _requestedFPS: 30
+  _requestedVideoFilePath: OpenCVForUnity/768x576_mjpeg.mjpeg
+  _loop: 1
+  _requestedImageFilePath: 
+  _repeat: 1
+  _sourceTexture: {fileID: 0}
+  _customClassComponent: {fileID: 0}
   _outputColorFormat: 1
   _timeoutFrameCount: 1500
-  _loop: 1
-  onInitialized:
+  _onInitialized:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1425214142}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OnVideoCaptureToMatHelperInitialized
+        m_TargetAssemblyTypeName: OpenCVForUnityExample.ObjectTrackingDaSiamRPNExample,
+          EnoxSoftware.OpenCVForUnity
+        m_MethodName: OnSourceToMatHelperInitialized
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -879,12 +900,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onDisposed:
+  _onDisposed:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1425214142}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OnVideoCaptureToMatHelperDisposed
+        m_TargetAssemblyTypeName: OpenCVForUnityExample.ObjectTrackingDaSiamRPNExample,
+          EnoxSoftware.OpenCVForUnity
+        m_MethodName: OnSourceToMatHelperDisposed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -894,12 +916,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onErrorOccurred:
+  _onErrorOccurred:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1425214142}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OnVideoCaptureToMatHelperErrorOccurred
+        m_TargetAssemblyTypeName: OpenCVForUnityExample.ObjectTrackingDaSiamRPNExample,
+          EnoxSoftware.OpenCVForUnity
+        m_MethodName: OnSourceToMatHelperErrorOccurred
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -938,6 +961,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2136998517}
   - {fileID: 338843206}
@@ -1008,6 +1032,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 351224344}
   m_Father: {fileID: 1812831685}

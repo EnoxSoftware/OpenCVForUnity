@@ -1,12 +1,12 @@
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgcodecsModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
+using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.ImgcodecsModule;
-using OpenCVForUnity.UnityUtils;
+using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {
@@ -17,6 +17,13 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class PCAExample : MonoBehaviour
     {
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage resultPreview;
+
+        [Space(10)]
 
         /// <summary>
         /// IMAGE_FILENAME
@@ -28,25 +35,31 @@ namespace OpenCVForUnityExample
         /// </summary>
         string image_filepath;
 
-#if UNITY_WEBGL
-        IEnumerator getFilePath_Coroutine;
-#endif
+        /// <summary>
+        /// The FPS monitor.
+        /// </summary>
+        FpsMonitor fpsMonitor;
+
+        /// <summary>
+        /// The CancellationTokenSource.
+        /// </summary>
+        CancellationTokenSource cts = new CancellationTokenSource();
 
         // Use this for initialization
-        void Start()
+        async void Start()
         {
-#if UNITY_WEBGL
-            getFilePath_Coroutine = Utils.getFilePathAsync(IMAGE_FILENAME, (result) => {
-                getFilePath_Coroutine = null;
-                
-                image_filepath = result;
-                Run ();
-            });
-            StartCoroutine (getFilePath_Coroutine);
-#else
-            image_filepath = Utils.getFilePath(IMAGE_FILENAME);
+            fpsMonitor = GetComponent<FpsMonitor>();
+
+            // Asynchronously retrieves the readable file path from the StreamingAssets directory.
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "Preparing file access...";
+
+            image_filepath = await Utils.getFilePathAsyncTask(IMAGE_FILENAME, cancellationToken: cts.Token);
+
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "";
+
             Run();
-#endif
         }
 
         private void Run()
@@ -114,8 +127,8 @@ namespace OpenCVForUnityExample
 
             Utils.matToTexture2D(src, texture);
 
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
-
+            resultPreview.texture = texture;
+            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
         }
 
         // Update is called once per frame
@@ -151,12 +164,8 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDisable()
         {
-#if UNITY_WEBGL
-            if (getFilePath_Coroutine != null) {
-                StopCoroutine (getFilePath_Coroutine);
-                ((IDisposable)getFilePath_Coroutine).Dispose ();
-            }
-#endif
+            if (cts != null)
+                cts.Dispose();
         }
 
         /// <summary>

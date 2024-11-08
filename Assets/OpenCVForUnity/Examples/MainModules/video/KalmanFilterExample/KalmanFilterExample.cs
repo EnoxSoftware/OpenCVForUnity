@@ -1,13 +1,13 @@
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.VideoModule;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.VideoModule;
-using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 namespace OpenCVForUnityExample
 {
@@ -71,7 +71,14 @@ namespace OpenCVForUnityExample
             int frameHeight = rgbaMat.rows();
             colors = new Color32[frameWidth * frameHeight];
             texture = new Texture2D(frameWidth, frameHeight, TextureFormat.RGBA32, false);
+
+            // Set the Texture2D as the main texture of the Renderer component attached to the game object
+            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
+
+            // Set the Texture2D as the main texture of the Renderer component attached to the game object
             gameObject.transform.localScale = new Vector3((float)frameWidth, (float)frameHeight, 1);
+
+            // Adjust the scale of the game object to match the dimensions of the texture
             float widthScale = (float)Screen.width / (float)frameWidth;
             float heightScale = (float)Screen.height / (float)frameHeight;
             if (widthScale < heightScale)
@@ -82,8 +89,6 @@ namespace OpenCVForUnityExample
             {
                 Camera.main.orthographicSize = (float)frameHeight / 2;
             }
-
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
 
             KF = new KalmanFilter(4, 2, 0, CvType.CV_32FC1);

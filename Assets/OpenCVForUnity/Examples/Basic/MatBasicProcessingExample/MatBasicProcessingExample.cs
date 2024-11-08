@@ -1,12 +1,11 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.UnityUtils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UtilsModule;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Range = OpenCVForUnity.CoreModule.Range;
 
 namespace OpenCVForUnityExample
@@ -60,6 +59,8 @@ namespace OpenCVForUnityExample
             //
             // initialization example
             //
+            // Showcase initialization methods for different matrix types and sizes.
+            //
 
             // 3x3 matrix (set array value)
             Mat mat1 = new Mat(3, 3, CvType.CV_64FC1);
@@ -102,12 +103,14 @@ namespace OpenCVForUnityExample
             int[] sizes = new int[] { 2, 2, 3, 4 };
             Mat mat9 = new Mat(sizes, CvType.CV_8UC1, Scalar.all(0));
             Debug.Log("mat9.dims=" + mat9.dims());
-            Debug.Log("mat9.rows=" + mat9.rows() + " //For Mats of 3 dimensions or more, rows == cols == -1");
+            Debug.Log("mat9.rows=" + mat9.rows() + " //When the matrix is more than 2-dimensional, the returned size is (-1, -1).");
             Debug.Log("mat9.cols=" + mat9.cols());
 
             exampleCodeText.text = @"
             //
             // initialization example
+            //
+            // Showcase initialization methods for different matrix types and sizes.
             //
 
             // 3x3 matrix (set array value)
@@ -151,7 +154,7 @@ namespace OpenCVForUnityExample
             int[] sizes = new int[]{ 2, 2, 3, 4 };
             Mat mat9 = new Mat (sizes, CvType.CV_8UC1, Scalar.all (0));
             Debug.Log (""mat9.dims="" + mat9.dims());
-            Debug.Log (""mat9.rows="" + mat9.rows () + "" //For Mats of 3 dimensions or more, rows == cols == -1"");
+            Debug.Log (""mat9.rows="" + mat9.rows () + "" //When the matrix is more than 2-dimensional, the returned size is (-1, -1)."");
             Debug.Log (""mat9.cols="" + mat9.cols ());
             ";
 
@@ -164,17 +167,18 @@ namespace OpenCVForUnityExample
             executionResultText.text += "mat7=" + mat7.dump() + "\n";
             executionResultText.text += "mat8=" + mat8.dump() + "\n";
             executionResultText.text += "mat9.dims=" + mat9.dims() + "\n";
-            executionResultText.text += "mat9.rows=" + mat9.rows() + " //For Mats of 3 dimensions or more, rows == cols == -1" + "\n";
+            executionResultText.text += "mat9.rows=" + mat9.rows() + " //When the matrix is more than 2-dimensional, the returned size is (-1, -1)." + "\n";
             executionResultText.text += "mat9.cols=" + mat9.cols() + "\n";
 
             UpdateScrollRect();
         }
 
-
         public void OnMultiChannelExampleButtonClick()
         {
             //
             // multi channel example
+            //
+            // Initialization of matrices with various numbers of channels, including those with four or more channels.
             //
 
             // 64F, channels=1, 3x3
@@ -196,6 +200,8 @@ namespace OpenCVForUnityExample
             exampleCodeText.text = @"
             //
             // multi channel example
+            //
+            // Initialization of matrices with various numbers of channels, including those with four or more channels.
             //
 
             // 64F, channels=1, 3x3
@@ -230,6 +236,8 @@ namespace OpenCVForUnityExample
             //
             // dump example
             //
+            // Output the elements of the matrix as a string.
+            //
 
             // 8U, channels=1, 3x3
             Mat mat1 = new Mat(3, 3, CvType.CV_8UC1, new Scalar(1));
@@ -237,34 +245,50 @@ namespace OpenCVForUnityExample
             // 8U, channels=4, 3x3
             Mat mat2 = new Mat(3, 3, CvType.CV_8UC4, new Scalar(1, 2, 3, 4));
 
+            // 32F, channels=1, 1x3x4x3
+            Mat mat3 = new Mat(new int[] { 1, 3, 4, 3 }, CvType.CV_32FC1);
+            mat3.put(new int[] { 0, 0, 0, 0 }, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+
             // dump
             Debug.Log("mat1=" + mat1);
             Debug.Log("mat1.dump()=" + mat1.dump());
             Debug.Log("mat1=" + mat2);
             Debug.Log("mat2.dump()=" + mat2.dump());
+            Debug.Log("mat3=" + mat3);
+            Debug.Log("mat3.reshape(3, new int[] { 3, 4 }).dump() =" + mat3.reshape(3, new int[] { 3, 4 }).dump() + " // If the matrix is more than 2 dimensional, the dump method is not supported, so the contents can be pseudo-output by reshape it into a 2 dimensional matrix.");
 
             exampleCodeText.text = @"
             //
             // dump example
             //
+            // Output the elements of the matrix as a string.
+            //
 
             // 8U, channels=1, 3x3
-            Mat mat1 = new Mat (3, 3, CvType.CV_8UC1, new Scalar(1));
+            Mat mat1 = new Mat(3, 3, CvType.CV_8UC1, new Scalar(1));
 
             // 8U, channels=4, 3x3
-            Mat mat2 = new Mat (3, 3, CvType.CV_8UC4, new Scalar(1, 2, 3, 4));
+            Mat mat2 = new Mat(3, 3, CvType.CV_8UC4, new Scalar(1, 2, 3, 4));
+
+            // 32F, channels=1, 1x3x4x3
+            Mat mat3 = new Mat(new int[] { 1, 3, 4, 3 }, CvType.CV_32FC1);
+            mat3.put(new int[] { 0, 0, 0, 0 }, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
 
             // dump
-            Debug.Log (""mat1="" + mat1);
-            Debug.Log (""mat1.dump()="" + mat1.dump());
-            Debug.Log (""mat1="" + mat2);
-            Debug.Log (""mat2.dump()="" + mat2.dump());
+            Debug.Log(""mat1 = "" + mat1);
+            Debug.Log(""mat1.dump()="" + mat1.dump());
+            Debug.Log(""mat1="" + mat2);
+            Debug.Log(""mat2.dump()="" + mat2.dump());
+            Debug.Log(""mat3="" + mat3);
+            Debug.Log(""mat3.reshape(3, new int[] { 3, 4 }).dump() ="" + mat3.reshape(3, new int[] { 3, 4 }).dump() + "" // If the matrix is more than 2 dimensional, the dump method is not supported, so the contents can be pseudo-output by reshape it into a 2 dimensional matrix."");
             ";
 
             executionResultText.text = "mat1=" + mat1 + "\n";
             executionResultText.text += "mat1.dump()=" + mat1.dump() + "\n";
             executionResultText.text += "mat2=" + mat2 + "\n";
             executionResultText.text += "mat2.dump()=" + mat2.dump() + "\n";
+            executionResultText.text += "mat3=" + mat3 + "\n";
+            executionResultText.text += "mat3.reshape(3, new int[] { 3, 4 }).dump()=" + mat3.reshape(3, new int[] { 3, 4 }).dump() + " // If the matrix is more than 2 dimensional, the dump method is not supported, so the contents can be pseudo-output by reshape it into a 2 dimensional matrix.";
 
             UpdateScrollRect();
         }
@@ -273,6 +297,8 @@ namespace OpenCVForUnityExample
         {
             //
             // CVException handling example
+            //
+            // How to display Native-side OpenCV error logs in the Unity Editor Console.
             //
 
             // 32F, channels=1, 3x3
@@ -321,8 +347,9 @@ namespace OpenCVForUnityExample
 
 
             exampleCodeText.text = @"
-            //
             // CVException handling example
+            //
+            // How to display Native-side OpenCV error logs in the Unity Editor Console.
             //
 
             // 32F, channels=1, 3x3
@@ -369,6 +396,8 @@ namespace OpenCVForUnityExample
         {
             //
             // property example
+            //
+            // List the properties of an OpenCV matrix.
             //
 
             // 64F, channels=1, 3x4
@@ -490,6 +519,8 @@ namespace OpenCVForUnityExample
             exampleCodeText.text = @"
             //
             // property example
+            //
+            // List the properties of an OpenCV matrix.
             //
 
             // 64F, channels=1, 3x4
@@ -663,129 +694,170 @@ namespace OpenCVForUnityExample
             //
             // four arithmetic operation example
             //
+            // Performs four arithmetic methods on matrices.
+            //
 
-            // 64F, channels=1, 3x3
+            // 3x3 matrix
             Mat m1 = new Mat(3, 3, CvType.CV_64FC1);
-            m1.put(0, 0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0);
+            m1.put(0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+            Mat m2 = new Mat(3, 3, CvType.CV_64FC1);
+            m2.put(0, 0, 10, 11, 12, 13, 14, 15, 16, 17, 18);
+            // Scalar
+            Scalar s = new Scalar(5);
+            // alpha
+            double alpha = 3;
 
             Debug.Log("m1=" + m1.dump());
+            Debug.Log("m2=" + m2.dump());
+            Debug.Log("s=" + s);
+            Debug.Log("alpha=" + alpha);
+
             executionResultText.text = "m1=" + m1.dump() + "\n";
+            executionResultText.text += "m2=" + m2.dump() + "\n";
+            executionResultText.text += "s=" + s + "\n";
+            executionResultText.text += "alpha=" + alpha + "\n";
 
-            // matrix and scalar
-            Mat m2 = m1 + new Scalar(3);
-            Mat m3 = m1 - new Scalar(3);
-            Mat m4 = m1 * 3; //scaling
-            Mat m5 = m1 / 3;
+            Mat m_dst = new Mat();
 
-            Debug.Log("m1+3=" + m2.dump());
-            Debug.Log("m1-3=" + m3.dump());
-            Debug.Log("m1*3=" + m4.dump());
-            Debug.Log("m1/3=" + m5.dump());
+            // Addition, subtraction, negation: A+B, A-B, A+s, A-s, s+A, s-A, -A
+            Core.add(m1, m2, m_dst);
+            Debug.Log("m1+m2=" + m_dst.dump());
+            executionResultText.text += "m1+m2=" + m_dst.dump() + "\n";
+            Core.add(m1, s, m_dst);
+            Debug.Log("m1+s=" + m_dst.dump());
+            executionResultText.text += "m1+s=" + m_dst.dump() + "\n";
 
-            executionResultText.text += "m1+3=" + m2.dump() + "\n";
-            executionResultText.text += "m1-3=" + m3.dump() + "\n";
-            executionResultText.text += "m1*3=" + m4.dump() + "\n";
-            executionResultText.text += "m1/3=" + m5.dump() + "\n";
+            Core.subtract(m1, m2, m_dst);
+            Debug.Log("m1-m2=" + m_dst.dump());
+            executionResultText.text += "m1-m2=" + m_dst.dump() + "\n";
+            Core.subtract(m1, s, m_dst);
+            Debug.Log("m1-s=" + m_dst.dump());
+            executionResultText.text += "m1-s=" + m_dst.dump() + "\n";
 
-            // matrix and matrix
-            Mat m6 = m1 + m1;
-            Mat m7 = m1.mul(m2);
-            Mat m8 = m1.mul(m2, 2); //add scaling factor
-
-            Debug.Log("m1+m1=" + m6.dump());
-            Debug.Log("m1.mul(m2)=" + m7.dump());
-            Debug.Log("m1.mul(m2, 2)=" + m8.dump());
-
-            executionResultText.text += "m1+m1=" + m6.dump() + "\n";
-            executionResultText.text += "m1.mul(m2)=" + m7.dump() + "\n";
-            executionResultText.text += "m1.mul(m2, 2)=" + m8.dump() + "\n";
-
-            // CVException handling
-            // 8U, channels=1, 3x3
-            Mat m9 = new Mat(3, 3, CvType.CV_8UC1);
-            m9.put(0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
-            // 64F, channels=1, 3x3
-            Mat m10 = new Mat(2, 2, CvType.CV_64FC1);
-            m10.put(0, 0, 1.0, 2.0, 3.0, 4.0);
+            Core.multiply(m1, Scalar.all(-1), m_dst);
+            Debug.Log("-m1=" + m_dst.dump());
+            executionResultText.text += "-m1=" + m_dst.dump() + "\n";
 
 
-            // Publish CVException to Debug.LogError.
-            Utils.setDebugMode(true, false);
+            // Scaling: A*alpha A/alpha
+            Core.multiply(m1, Scalar.all(3), m_dst);
+            Debug.Log("m1*alpha=" + m_dst.dump());
+            executionResultText.text += "m1*alpha=" + m_dst.dump() + "\n";
+            Core.divide(m1, Scalar.all(3), m_dst);
+            Debug.Log("m1/alpha=" + m_dst.dump());
+            executionResultText.text += "m1/alpha=" + m_dst.dump() + "\n";
 
-            Mat m11 = m1 / m9; // element type is different.
-            Debug.Log("m1/m9=" + m11);
-            executionResultText.text += "m1/m9=" + m11 + "\n";
 
-            Mat m12 = m1 / m10; // matrix size is different.
-            Debug.Log("m1/m10=" + m12);
-            executionResultText.text += "m1/m10=" + m12 + "\n";
+            // Per-element multiplication and division: A.mul(B), A/B, alpha/A
+            Debug.Log("m1.mul(m2)=" + (m1.mul(m2)).dump());
+            executionResultText.text += "m1.mul(m2)=" + (m1.mul(m2)).dump() + "\n";
 
-            Utils.setDebugMode(false);
+            Core.divide(m1, m2, m_dst);
+            Debug.Log("m1/m2=" + m_dst.dump());
+            executionResultText.text += "m1/m2=" + m_dst.dump() + "\n";
 
+            Core.divide(new Mat(m1.size(), m1.type(), Scalar.all(3)), m1, m_dst);
+            Debug.Log("alpha/m2=" + m_dst.dump());
+            executionResultText.text += "alpha/m2=" + m_dst.dump() + "\n";
+
+
+            // Matrix multiplication: A*B
+            Core.gemm(m1, m2, 1, new Mat(), 0, m_dst);
+            Debug.Log("m1*m2=" + m_dst.dump());
+            executionResultText.text += "m1*m2=" + m_dst.dump() + "\n";
+
+
+            // Bitwise logical operations: A logicop B, A logicop s, s logicop A, ~A, where logicop is one of :  &, |, ^.
+            Core.bitwise_and(m1, m2, m_dst);
+            Debug.Log("m1&m2=" + m_dst.dump());
+            executionResultText.text += "m1&m2=" + m_dst.dump() + "\n";
+
+            Core.bitwise_or(m1, m2, m_dst);
+            Debug.Log("m1|m2=" + m_dst.dump());
+            executionResultText.text += "m1|m2=" + m_dst.dump() + "\n";
+
+            Core.bitwise_xor(m1, m2, m_dst);
+            Debug.Log("m1^m2=" + m_dst.dump());
+            executionResultText.text += "m1^m2=" + m_dst.dump() + "\n";
+
+            Core.bitwise_not(m1, m_dst);
+            Debug.Log("~m1=" + m_dst.dump());
+            executionResultText.text += "~m1=" + m_dst.dump() + "\n";
 
 
             exampleCodeText.text = @"
             //
             // four arithmetic operation example
             //
+            // Performs four arithmetic methods on matrices.
+            //
 
-            // 64F, channels=1, 3x3
-            Mat m1 = new Mat (3, 3, CvType.CV_64FC1);
-            m1.put (0, 0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0);
+            // 3x3 matrix
+            Mat m1 = new Mat(3, 3, CvType.CV_64FC1);
+            m1.put(0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+            Mat m2 = new Mat(3, 3, CvType.CV_64FC1);
+            m2.put(0, 0, 10, 11, 12, 13, 14, 15, 16, 17, 18);
+            // Scalar
+            Scalar s = new Scalar(5);
+            // alpha
+            double alpha = 3;
 
-            Debug.Log (""m1="" + m1.dump ());
-            executionResultText.text = ""m1="" + m1.dump () + ""\n"";
+            Debug.Log(""m1 = "" + m1.dump());
+            Debug.Log(""m2="" + m2.dump());
+            Debug.Log(""s="" + s);
+            Debug.Log(""alpha="" + alpha);
 
-            // matrix and scalar
-            Mat m2 = m1 + new Scalar (3);
-            Mat m3 = m1 - new Scalar (3);
-            Mat m4 = m1 * 3; //scaling
-            Mat m5 = m1 / 3;
+            Mat m_dst = new Mat();
 
-            Debug.Log (""m1+3="" + m2.dump ());
-            Debug.Log (""m1-3="" + m3.dump ());
-            Debug.Log (""m1*3="" + m4.dump ());
-            Debug.Log (""m1/3="" + m5.dump ());
+            // Addition, subtraction, negation: A+B, A-B, A+s, A-s, s+A, s-A, -A
+            Core.add(m1, m2, m_dst);
+            Debug.Log(""m1+m2="" + m_dst.dump());
+            Core.add(m1, s, m_dst);
+            Debug.Log(""m1+s="" + m_dst.dump());
 
-            executionResultText.text += ""m1+3="" + m2.dump () + ""\n"";
-            executionResultText.text += ""m1-3="" + m3.dump () + ""\n"";
-            executionResultText.text += ""m1*3="" + m4.dump () + ""\n"";
-            executionResultText.text += ""m1/3="" + m5.dump () + ""\n"";
+            Core.subtract(m1, m2, m_dst);
+            Debug.Log(""m1-m2="" + m_dst.dump());
+            Core.subtract(m1, s, m_dst);
+            Debug.Log(""m1-s="" + m_dst.dump());
 
-            // matrix and matrix
-            Mat m6 = m1 + m1;
-            Mat m7 = m1.mul (m2);
-            Mat m8 = m1.mul (m2, 2); //add scaling factor
-
-            Debug.Log (""m1+m1="" + m6.dump ());
-            Debug.Log (""m1.mul(m2)="" + m7.dump ());
-            Debug.Log (""m1.mul(m2, 2)="" + m8.dump ());
-
-            executionResultText.text += ""m1+m1="" + m6.dump () + ""\n"";
-            executionResultText.text += ""m1.mul(m2)="" + m7.dump () + ""\n"";
-            executionResultText.text += ""m1.mul(m2, 2)="" + m8.dump () + ""\n"";
-
-            // CVException handling
-            // 8U, channels=1, 3x3
-            Mat m9 = new Mat (3, 3, CvType.CV_8UC1);
-            m9.put (0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
-            // 64F, channels=1, 3x3
-            Mat m10 = new Mat (2, 2, CvType.CV_64FC1);
-            m10.put (0, 0, 1.0, 2.0, 3.0, 4.0);
+            Core.multiply(m1, Scalar.all(-1), m_dst);
+            Debug.Log(""-m1="" + m_dst.dump());
 
 
-            // Publish CVException to Debug.LogError.
-            Utils.setDebugMode (true, false);
+            // Scaling: A*alpha A/alpha
+            Core.multiply(m1, Scalar.all(3), m_dst);
+            Debug.Log(""m1*alpha="" + m_dst.dump());
+            Core.divide(m1, Scalar.all(3), m_dst);
+            Debug.Log(""m1/alpha="" + m_dst.dump());
 
-            Mat m11 = m1 / m9; // element type is different.
-            Debug.Log (""m1/m9="" + m11);
-            executionResultText.text += ""m1/m9="" + m11 + ""\n"";
 
-            Mat m12 = m1 / m10; // matrix size is different.
-            Debug.Log (""m1/m10="" + m12);
-            executionResultText.text += ""m1/m10="" + m12 + ""\n"";
+            // Per-element multiplication and division: A.mul(B), A/B, alpha/A
+            Debug.Log(""m1.mul(m2)="" + (m1.mul(m2)).dump());
 
-            Utils.setDebugMode (false);
+            Core.divide(m1, m2, m_dst);
+            Debug.Log(""m1/m2="" + m_dst.dump());
+
+            Core.divide(new Mat(m1.size(), m1.type(), Scalar.all(3)), m1, m_dst);
+            Debug.Log(""alpha/m2="" + m_dst.dump());
+
+
+            // Matrix multiplication: A*B
+            Core.gemm(m1, m2, 1, new Mat(), 0, m_dst);
+            Debug.Log(""m1*m2="" + m_dst.dump());
+
+
+            // Bitwise logical operations: A logicop B, A logicop s, s logicop A, ~A, where logicop is one of :  &, |, ^.
+            Core.bitwise_and(m1, m2, m_dst);
+            Debug.Log(""m1&m2="" + m_dst.dump());
+
+            Core.bitwise_or(m1, m2, m_dst);
+            Debug.Log(""m1|m2="" + m_dst.dump());
+
+            Core.bitwise_xor(m1, m2, m_dst);
+            Debug.Log(""m1^m2="" + m_dst.dump());
+
+            Core.bitwise_not(m1, m_dst);
+            Debug.Log(""~m1="" + m_dst.dump());
             ";
 
             UpdateScrollRect();
@@ -796,18 +868,21 @@ namespace OpenCVForUnityExample
             //
             // convertTo example
             //
+            // The Core.convertTo function changes the data type or scale of a Mat object.
+            // It is used in various situations in image processing, such as converting between different data types or adjusting the brightness of an image.
+            //
 
             // 64F, channels=1, 3x3
             Mat m1 = new Mat(3, 3, CvType.CV_64FC1);
             m1.put(0, 0, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 3.3);
             Debug.Log("m1=" + m1.dump());
 
-            // dst mat, type
+            // 64F -> 8U (dst mat, type)
             Mat m2 = new Mat();
             m1.convertTo(m2, CvType.CV_8U);
             Debug.Log("m2=" + m2.dump());
 
-            // dst mat, type, scale factor, added to the scaled value
+            // 64F -> 8U (dst mat, type, scale factor, added to the scaled value)
             Mat m3 = new Mat();
             m1.convertTo(m3, CvType.CV_8U, 2, 10);
             Debug.Log("m3=" + m3.dump());
@@ -816,18 +891,21 @@ namespace OpenCVForUnityExample
             //
             // convertTo example
             //
+            // The Core.convertTo function changes the data type or scale of a Mat object.
+            // It is used in various situations in image processing, such as converting between different data types or adjusting the brightness of an image.
+            //
 
             // 64F, channels=1, 3x3
             Mat m1 = new Mat (3, 3, CvType.CV_64FC1);
             m1.put (0, 0, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 3.3);
             Debug.Log (""m1="" + m1.dump());
 
-            // dst mat, type
+            // 64F -> 8U (dst mat, type)
             Mat m2 = new Mat ();
             m1.convertTo (m2, CvType.CV_8U);
             Debug.Log (""m2="" + m2.dump());
 
-            // dst mat, type, scale factor, added to the scaled value
+            // 64F -> 8U (dst mat, type, scale factor, added to the scaled value)
             Mat m3 = new Mat ();
             m1.convertTo (m3, CvType.CV_8U, 2, 10);
             Debug.Log (""m3="" + m3.dump());
@@ -844,6 +922,11 @@ namespace OpenCVForUnityExample
         {
             //
             // reshape example
+            //
+            // Changes the shape and/or the number of channels of a  matrix without copying the data.
+            // The method makes a new matrix header for this elements.The new matrix may have a different size and / or different number of channels.Any combination is possible if:
+            // - No extra elements are included into the new matrix and no elements are excluded.Consequently, the product rows* cols*channels() must stay the same after the transformation.
+            // - No data is copied.That is, this is an O(1) operation.Consequently, if you change the number of rows, or the operation changes the indices of elements row in some other way, the matrix must be continuous.See "Mat.isContinuous".
             //
 
             // 64F, channels=1, 3x4
@@ -883,6 +966,11 @@ namespace OpenCVForUnityExample
             exampleCodeText.text = @"
             //
             // reshape example
+            //
+            // Changes the shape and/or the number of channels of a  matrix without copying the data.
+            // The method makes a new matrix header for this elements.The new matrix may have a different size and / or different number of channels.Any combination is possible if:
+            // - No extra elements are included into the new matrix and no elements are excluded.Consequently, the product rows* cols*channels() must stay the same after the transformation.
+            // - No data is copied.That is, this is an O(1) operation.Consequently, if you change the number of rows, or the operation changes the indices of elements row in some other way, the matrix must be continuous.See ""Mat.isContinuous"".
             //
 
             // 64F, channels=1, 3x4
@@ -934,10 +1022,112 @@ namespace OpenCVForUnityExample
             UpdateScrollRect();
         }
 
+        public void OnTransposeExampleButtonClick()
+        {
+            //
+            // transpose example
+            //
+            // The Core.transpose function can be used for various image processing tasks such as rotating images by 90 degrees and changing the shape of matrices by swapping rows and columns of Mat.
+            // - The Core.transpose function is a function that performs a transposition operation on a two-dimensional matrix.
+            // - The Core.transposeND function is a function that performs a transposition operation on a tensor of arbitrary dimensions.For example, it can be used to swap specific dimensions of a 3D tensor(such as video data).
+            //
+
+            // Transposes a matrix.
+            // 8U, channels=1, 3x4
+            Mat m1 = new Mat(3, 4, CvType.CV_8UC1);
+            m1.put(0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+            Debug.Log("m1=" + m1.dump());
+
+            // [3x4] -> [4x3]
+            Mat m1_t = new Mat();
+            Core.transpose(m1, m1_t);
+            Debug.Log("Core.transpose(m1, m1_t)=" + m1_t.dump());
+
+            // Transpose for n-dimensional matrices.
+            // 32F, channels=1, 1x3x4x3
+            Mat m2 = new Mat(new int[] { 1, 3, 4, 3 }, CvType.CV_32FC1);
+            m2.put(new int[] { 0, 0, 0, 0 }, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+            string m2_size = "";
+            for (int i = 0; i < m2.dims(); ++i)
+            {
+                m2_size += m2.size(i) + ", ";
+            }
+            Debug.Log("m2=" + m2.reshape(3, new int[] { 3, 4 }).dump());
+            Debug.Log("m2 size[]=" + m2_size);
+
+            // [1x3x4x3] -> [1x4x3x3]
+            Mat m2_t = new Mat();
+            MatOfInt order = new MatOfInt(0, 2, 1, 3); // Transpose order
+            Core.transposeND(m2, order, m2_t);
+            string m2_t_size = "";
+            for (int i = 0; i < m2_t.dims(); ++i)
+            {
+                m2_t_size += m2_t.size(i) + ", ";
+            }
+            Debug.Log("Core.transposeND(m2, m2_t)=" + m2_t.reshape(3, new int[] { 4, 3 }).dump());
+            Debug.Log("m2_t size[]=" + m2_t_size);
+
+            exampleCodeText.text = @"
+            //
+            // transpose example
+            //
+            // The Core.transpose function can be used for various image processing tasks such as rotating images by 90 degrees and changing the shape of matrices by swapping rows and columns of Mat.
+            // - The Core.transpose function is a function that performs a transposition operation on a two-dimensional matrix.
+            // - The Core.transposeND function is a function that performs a transposition operation on a tensor of arbitrary dimensions.For example, it can be used to swap specific dimensions of a 3D tensor(such as video data).
+            //
+
+            // Transposes a matrix.
+            // 8U, channels=1, 3x4
+            Mat m1 = new Mat(3, 4, CvType.CV_8UC1);
+            m1.put(0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+            Debug.Log(""m1 = "" + m1.dump());
+
+            // [3x4] -> [4x3]
+            Mat m1_t = new Mat();
+            Core.transpose(m1, m1_t);
+            Debug.Log(""Core.transpose(m1, m1_t)="" + m1_t.dump());
+
+            // Transpose for n-dimensional matrices.
+            // 32F, channels=1, 1x3x4x3
+            Mat m2 = new Mat(new int[] { 1, 3, 4, 3 }, CvType.CV_32FC1);
+            m2.put(new int[] { 0, 0, 0, 0 }, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+            string m2_size = "";
+            for (int i = 0; i < m2.dims(); ++i)
+            {
+                m2_size += m2.size(i) + "", "";
+            }
+            Debug.Log(""m2="" + m2.reshape(3, new int[] { 3, 4 }).dump());
+            Debug.Log(""m2 size[]="" + m2_size);
+
+            // [1x3x4x3] -> [1x4x3x3]
+            Mat m2_t = new Mat();
+            MatOfInt order = new MatOfInt(0, 2, 1, 3); // Transpose order
+            Core.transposeND(m2, order, m2_t);
+            string m2_t_size = "";
+            for (int i = 0; i < m2_t.dims(); ++i)
+            {
+                m2_t_size += m2_t.size(i) + "", "";
+            }
+            Debug.Log(""Core.transposeND(m2, m2_t)="" + m2_t.reshape(3, new int[] { 4, 3 }).dump());
+            Debug.Log(""m2_t size[]="" + m2_t_size);
+            ";
+
+            executionResultText.text = "m1=" + m1.dump() + "\n";
+            executionResultText.text += "Core.transpose(m1, m1_t)=" + m1_t.dump() + "\n";
+            executionResultText.text += "m2=" + m2.reshape(3, new int[] { 3, 4 }).dump() + "\n";
+            executionResultText.text += "m2 size[]=" + m2_size + "\n";
+            executionResultText.text += "Core.transposeND(m2, m2_t)=" + m2_t.reshape(3, new int[] { 4, 3 }).dump() + "\n";
+            executionResultText.text += "m2_t size[]=" + m2_t_size + "\n";
+
+            UpdateScrollRect();
+        }
+
         public void OnRangeExampleButtonClick()
         {
             //
             // range example
+            //
+            // Mat.rowRange and Mat.colRange efficiently extract submatrices from a Mat by creating new Mat headers that point to specified row or column ranges of the original data, without copying the underlying data.
             //
 
             // 64F, channels=1, 3x3
@@ -966,6 +1156,8 @@ namespace OpenCVForUnityExample
             exampleCodeText.text = @"
             //
             // range example
+            //
+            // Mat.rowRange and Mat.colRange efficiently extract submatrices from a Mat by creating new Mat headers that point to specified row or column ranges of the original data, without copying the underlying data.
             //
 
             // 64F, channels=1, 3x3
@@ -1003,10 +1195,87 @@ namespace OpenCVForUnityExample
             UpdateScrollRect();
         }
 
+        public void OnSubmatrixExampleButtonClick()
+        {
+            //
+            // submatrix (ROI) example
+            //
+            // A submatrix (Region of Interest, ROI) is a region cut out of an image or matrix. OpenCV allows you to create a submatrix that manipulates only that region without copying the original data.
+            //
+
+            // 3x3 matrix
+            Mat m1 = new Mat(3, 3, CvType.CV_64FC1);
+            m1.put(0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+            Debug.Log("m1=" + m1.dump());
+
+            executionResultText.text = "m1=" + m1.dump() + "\n";
+
+            // get submatrix (ROI) of range (row[0_2] col[0_2])
+            Mat m2 = new Mat(m1, new OpenCVForUnity.CoreModule.Rect(0, 0, 2, 2));
+            Debug.Log("m2=" + m2.dump());
+            executionResultText.text += "m2=" + m2.dump() + "\n";
+            Debug.Log("m2.submat()=" + m2.submat(0, 2, 0, 2).dump());
+            executionResultText.text += "m2.submat()=" + m2.submat(0, 2, 0, 2).dump() + "\n";
+
+            // find the parent matrix size of the submatrix (ROI) m2 and its position in it
+            Size wholeSize = new Size();
+            Point ofs = new Point();
+            m2.locateROI(wholeSize, ofs);
+            Debug.Log("wholeSize:" + wholeSize.width + "x" + wholeSize.height);
+            Debug.Log("offset:" + ofs.x + ", " + ofs.y);
+
+            executionResultText.text += "wholeSize:" + wholeSize.width + "x" + wholeSize.height + "\n";
+            executionResultText.text += "offset:" + ofs.x + ", " + ofs.y + "\n";
+
+            // expand the range of submatrix (ROI)
+            m2.adjustROI(0, 1, 0, 1);
+            Debug.Log("rows=" + m2.rows() + ", " + "cols=" + m2.cols());
+            Debug.Log("m2=" + m2.dump());
+
+            executionResultText.text += "rows=" + m2.rows() + ", " + "cols=" + m2.cols() + "\n";
+            executionResultText.text += "m2=" + m2.dump() + "\n";
+
+            exampleCodeText.text = @"
+            //
+            // submatrix (ROI) example
+            //
+            // A submatrix (Region of Interest, ROI) is a region cut out of an image or matrix. OpenCV allows you to create a submatrix that manipulates only that region without copying the original data.
+            //
+
+            // 3x3 matrix
+            Mat m1 = new Mat (3, 3, CvType.CV_64FC1);
+            m1.put (0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+            Debug.Log (""m1="" + m1.dump ());
+
+            // get submatrix (ROI) of range (row[0_2] col[0_2])
+            Mat m2 = new Mat (m1, new OpenCVForUnity.CoreModule.Rect(0,0,2,2));
+            Debug.Log (""m2="" + m2.dump());
+            Debug.Log (""m2.submat()="" + m2.submat(0,2,0,2).dump());
+
+            // find the parent matrix size of the submatrix (ROI) m2 and its position in it
+            Size wholeSize = new Size ();
+            Point ofs = new Point ();
+            m2.locateROI (wholeSize, ofs);
+            Debug.Log (""wholeSize:"" + wholeSize.width + ""x"" + wholeSize.height);
+            Debug.Log (""offset:"" + ofs.x + "", "" + ofs.y);
+
+            // expand the range of submatrix (ROI)
+            m2.adjustROI(0, 1, 0, 1);
+            Debug.Log (""rows="" + m2.rows() + "", "" + ""cols="" + m2.cols());
+            Debug.Log (""m2="" + m2.dump());
+            ";
+
+            UpdateScrollRect();
+        }
+
         public void OnShallowCopyAndDeepCopyExampleButtonClick()
         {
             //
             // shallow copy and deep copy example
+            //
+            // When working with image and matrix data in OpenCVForUnity, the concepts of shallow copy and deep copy are important. These two methods differ in how they duplicate data, and can significantly affect the behavior of your program.
+            // - Shallow copy: Creates a new Mat object that references the same memory region as the original data.
+            // - Deep copy: Creates a new Mat object by copying the data into a new memory region, independent of the original data.
             //
 
             // 3x3 matrix
@@ -1056,6 +1325,10 @@ namespace OpenCVForUnityExample
             //
             // shallow copy and deep copy example
             //
+            // When working with image and matrix data in OpenCVForUnity, the concepts of shallow copy and deep copy are important. These two methods differ in how they duplicate data, and can significantly affect the behavior of your program.
+            // - Shallow copy: Creates a new Mat object that references the same memory region as the original data.
+            // - Deep copy: Creates a new Mat object by copying the data into a new memory region, independent of the original data.
+            //
 
             // 3x3 matrix
             Mat mat1 = new Mat (3, 3, CvType.CV_64FC1);
@@ -1093,7 +1366,12 @@ namespace OpenCVForUnityExample
         public void OnMergeExampleButtonClick()
         {
             //
-            // simple composition: Merge example
+            // merge example
+            //
+            // The Core.merge function merges multiple Mat objects into a single Mat object.
+            // - Number of channels: The number of Mat objects to merge is the number of channels in the output Mat object.
+            // - Size: The size(number of rows and columns) of all Mat objects to be combined must match.
+            // - Data Type: The data types of all Mat objects to be combined must match.
             //
 
             // 2x2 matrix
@@ -1118,7 +1396,12 @@ namespace OpenCVForUnityExample
 
             exampleCodeText.text = @"
             //
-            // simple composition: Merge example
+            // merge example
+            //
+            // The Core.merge function merges multiple Mat objects into a single Mat object.
+            // - Number of channels: The number of Mat objects to merge is the number of channels in the output Mat object.
+            // - Size: The size(number of rows and columns) of all Mat objects to be combined must match.
+            // - Data Type: The data types of all Mat objects to be combined must match.
             //
 
             // 2x2 matrix
@@ -1150,7 +1433,10 @@ namespace OpenCVForUnityExample
         public void OnMixChannelsExampleButtonClick()
         {
             //
-            // complex composition: mixChannels example
+            // mixChannels example
+            //
+            // The Core.mixChannels function allows you to freely manipulate the channels of a Mat object.
+            // It is used to reorder channels or to create a new Mat object from multiple Mat objects.
             //
 
             // 2x2 matrix
@@ -1184,7 +1470,10 @@ namespace OpenCVForUnityExample
 
             exampleCodeText.text = @"
             //
-            // complex composition: mixChannels example
+            // mixChannels example
+            //
+            // The Core.mixChannels function allows you to freely manipulate the channels of a Mat object.
+            // It is used to reorder channels or to create a new Mat object from multiple Mat objects.
             //
 
             // 2x2 matrix
@@ -1228,6 +1517,8 @@ namespace OpenCVForUnityExample
             //
             // split example
             //
+            // The Core.split function separates a single multi-channel image (e.g., an RGB image) into its individual channels; it is the counterpart to the Core.merge function.
+            //
 
             // channels=3, 2x3 matrix
             Mat m1 = new Mat(2, 3, CvType.CV_64FC3);
@@ -1247,6 +1538,8 @@ namespace OpenCVForUnityExample
             exampleCodeText.text = @"
             //
             // split example
+            //
+            // The Core.split function separates a single multi-channel image (e.g., an RGB image) into its individual channels; it is the counterpart to the Core.merge function.
             //
 
             // channels=3, 2x3 matrix
@@ -1277,6 +1570,9 @@ namespace OpenCVForUnityExample
         {
             //
             // reduce example
+            //
+            // The Core.reduce function compresses (reduces) a multidimensional array (Mat object) along a specified axis. In other words,
+            // it can compress multidimensional data into lower dimensional data.
             //
 
             // 3x3 matrix
@@ -1330,6 +1626,9 @@ namespace OpenCVForUnityExample
             //
             // reduce example
             //
+            // The Core.reduce function compresses (reduces) a multidimensional array (Mat object) along a specified axis. In other words,
+            // it can compress multidimensional data into lower dimensional data.
+            //
 
             // 3x3 matrix
             Mat m1 = new Mat (3, 3, CvType.CV_64FC1);
@@ -1370,79 +1669,12 @@ namespace OpenCVForUnityExample
             UpdateScrollRect();
         }
 
-        public void OnSubmatrixExampleButtonClick()
-        {
-            //
-            // submatrix (ROI) example
-            //
-
-            // 3x3 matrix
-            Mat m1 = new Mat(3, 3, CvType.CV_64FC1);
-            m1.put(0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
-            Debug.Log("m1=" + m1.dump());
-
-            executionResultText.text = "m1=" + m1.dump() + "\n";
-
-            // get submatrix (ROI) of range (row[0_2] col[0_2])
-            Mat m2 = new Mat(m1, new OpenCVForUnity.CoreModule.Rect(0, 0, 2, 2));
-            Debug.Log("m2=" + m2.dump());
-            executionResultText.text += "m2=" + m2.dump() + "\n";
-            Debug.Log("m2.submat()=" + m2.submat(0, 2, 0, 2).dump());
-            executionResultText.text += "m2.submat()=" + m2.submat(0, 2, 0, 2).dump() + "\n";
-
-            // find the parent matrix size of the submatrix (ROI) m2 and its position in it
-            Size wholeSize = new Size();
-            Point ofs = new Point();
-            m2.locateROI(wholeSize, ofs);
-            Debug.Log("wholeSize:" + wholeSize.width + "x" + wholeSize.height);
-            Debug.Log("offset:" + ofs.x + ", " + ofs.y);
-
-            executionResultText.text += "wholeSize:" + wholeSize.width + "x" + wholeSize.height + "\n";
-            executionResultText.text += "offset:" + ofs.x + ", " + ofs.y + "\n";
-
-            // expand the range of submatrix (ROI)
-            m2.adjustROI(0, 1, 0, 1);
-            Debug.Log("rows=" + m2.rows() + ", " + "cols=" + m2.cols());
-            Debug.Log("m2=" + m2.dump());
-
-            executionResultText.text += "rows=" + m2.rows() + ", " + "cols=" + m2.cols() + "\n";
-            executionResultText.text += "m2=" + m2.dump() + "\n";
-
-            exampleCodeText.text = @"
-            //
-            // submatrix (ROI) example
-            //
-
-            // 3x3 matrix
-            Mat m1 = new Mat (3, 3, CvType.CV_64FC1);
-            m1.put (0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
-            Debug.Log (""m1="" + m1.dump ());
-
-            // get submatrix (ROI) of range (row[0_2] col[0_2])
-            Mat m2 = new Mat (m1, new OpenCVForUnity.CoreModule.Rect(0,0,2,2));
-            Debug.Log (""m2="" + m2.dump());
-            Debug.Log (""m2.submat()="" + m2.submat(0,2,0,2).dump());
-
-            // find the parent matrix size of the submatrix (ROI) m2 and its position in it
-            Size wholeSize = new Size ();
-            Point ofs = new Point ();
-            m2.locateROI (wholeSize, ofs);
-            Debug.Log (""wholeSize:"" + wholeSize.width + ""x"" + wholeSize.height);
-            Debug.Log (""offset:"" + ofs.x + "", "" + ofs.y);
-
-            // expand the range of submatrix (ROI)
-            m2.adjustROI(0, 1, 0, 1);
-            Debug.Log (""rows="" + m2.rows() + "", "" + ""cols="" + m2.cols());
-            Debug.Log (""m2="" + m2.dump());
-            ";
-
-            UpdateScrollRect();
-        }
-
         public void OnRandShuffleExampleButtonClick()
         {
             //
             // randShuffle example
+            //
+            // The Core.randShuffle function randomly shuffles the elements in a Mat object. In other words, it can randomly reorder the order of elements in a Mat object.
             //
 
             // 4x5 matrix
@@ -1475,6 +1707,8 @@ namespace OpenCVForUnityExample
             //
             // randShuffle example
             //
+            // The Core.randShuffle function randomly shuffles the elements in a Mat object. In other words, it can randomly reorder the order of elements in a Mat object.
+            //
 
             // 4x5 matrix
             Mat m1 = new Mat (4, 5, CvType.CV_64FC1);
@@ -1501,6 +1735,9 @@ namespace OpenCVForUnityExample
         {
             //
             // sort example
+            //
+            // The Core.sort function sorts the elements in a Mat object in ascending or descending order.
+            // In other words, it allows you to sort the elements in a Mat object in a specific order.
             //
 
             // 5x5 matrix
@@ -1540,6 +1777,9 @@ namespace OpenCVForUnityExample
             //
             // sort example
             //
+            // The Core.sort function sorts the elements in a Mat object in ascending or descending order.
+            // In other words, it allows you to sort the elements in a Mat object in a specific order.
+            //
 
             // 5x5 matrix
             Mat m1 = new Mat (5, 5, CvType.CV_8UC1);
@@ -1574,6 +1814,9 @@ namespace OpenCVForUnityExample
         {
             //
             // comparison example
+            //
+            // The Core.compare function compares the corresponding elements of two Mat objects and stores the result of the comparison in a new Mat object.
+            // When the comparison result is true, the corresponding element of output array is set to 255.
             //
 
             // 3x3 matrix
@@ -1630,6 +1873,9 @@ namespace OpenCVForUnityExample
             //
             // comparison example
             //
+            // The Core.compare function compares the corresponding elements of two Mat objects and stores the result of the comparison in a new Mat object.
+            // When the comparison result is true, the corresponding element of output array is set to 255.
+            //
 
             // 3x3 matrix
             Mat m1 = new Mat (3, 3, CvType.CV_64FC1);
@@ -1675,13 +1921,23 @@ namespace OpenCVForUnityExample
             //
             // operators example
             //
+            // Note.
+            // The assignment operator behavior is different from OpenCV (c ++). 
+            // For example, C = A + B will not be expanded to cv :: add (A, B, C).
+            // Also cannot assign a scalar to Mat like C = s.
+            // In c#, it is not possible to explicitly overload compound assignment operators such as “A *= B“.
+            // Instead, binary operator overloading is used implicitly.
+            // Therefore, whenever an operator is used, a new mat is created and assigned.
+            //
 
             // 3x3 matrix
             Mat m1 = new Mat(3, 3, CvType.CV_64FC1);
             m1.put(0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
             Mat m2 = new Mat(3, 3, CvType.CV_64FC1);
             m2.put(0, 0, 10, 11, 12, 13, 14, 15, 16, 17, 18);
+            // Scalar
             Scalar s = new Scalar(5);
+            // alpha
             double alpha = 3;
 
             Debug.Log("m1=" + m1.dump());
@@ -1760,6 +2016,10 @@ namespace OpenCVForUnityExample
             Debug.Log("~m1=" + (~m1).dump());
             executionResultText.text += "~m1=" + (~m1).dump() + "\n";
 
+            exampleCodeText.text = @"
+            //
+            // operators example
+            //
             // Note.
             // The assignment operator behavior is different from OpenCV (c ++). 
             // For example, C = A + B will not be expanded to cv :: add (A, B, C).
@@ -1767,11 +2027,6 @@ namespace OpenCVForUnityExample
             // In c#, it is not possible to explicitly overload compound assignment operators such as “A *= B“.
             // Instead, binary operator overloading is used implicitly.
             // Therefore, whenever an operator is used, a new mat is created and assigned.
-
-
-            exampleCodeText.text = @"
-            //
-            // operators example
             //
 
             // 3x3 matrix
@@ -1779,7 +2034,9 @@ namespace OpenCVForUnityExample
             m1.put (0, 0, 1,2,3,4,5,6,7,8,9);
             Mat m2 = new Mat (3, 3, CvType.CV_64FC1);
             m2.put (0, 0, 10,11,12,13,14,15,16,17,18);
-            Scalar s = new Scalar (5);
+            // Scalar
+            Scalar s = new Scalar(5);
+            // alpha
             double alpha = 3;
 
             Debug.Log (""m1="" + m1.dump ());
@@ -1837,15 +2094,6 @@ namespace OpenCVForUnityExample
 
             // (~M1 = Core.bitwise_not (M1, M_dst))
             Debug.Log (""~m1="" + (~m1).dump());
-
-
-            // Note.
-            // The assignment operator behavior is different from OpenCV (c ++). 
-            // For example, C = A + B will not be expanded to cv :: add (A, B, C).
-            // Also cannot assign a scalar to Mat like C = s.
-            // In c#, it is not possible to explicitly overload compound assignment operators such as “A *= B“.
-            // Instead, binary operator overloading is used implicitly.
-            // Therefore, whenever an operator is used, a new mat is created and assigned.
             ";
 
             UpdateScrollRect();
@@ -1856,54 +2104,95 @@ namespace OpenCVForUnityExample
             //
             // get and put example
             //
+            // mat.get() function gets the value of a specific element in a Mat object.
+            // mat.put() function sets a new value for a specific element in a Mat object.
+            //
+            // OpenCVForUnity has several faster and more efficient functions for accessing Mat elements.
+            // - Use the MatUtils.copyFromMat or copyToMat functions to copy through a data array in one go.
+            // - Use the mat.at function to access the element of ​​Mat.
+            // - Use the mat.AsSpan function to access the dara memory area of ​​Mat.
+            //
 
             // channels=4 3x3 matrix
             Mat m1 = new Mat(3, 3, CvType.CV_8UC4, new Scalar(1, 2, 3, 4));
             Debug.Log("m1=" + m1.dump());
-
             executionResultText.text = "m1=" + m1.dump() + "\n";
 
 
+            //
+            // Get elements
+            //
+
             // get an element value.
             double[] m1_1_1 = m1.get(1, 1);
-            Debug.Log("m1[1,1]=" + m1_1_1[0] + ", " + m1_1_1[1] + ", " + m1_1_1[2] + ", " + m1_1_1[3]);
+            Debug.Log("m1[1,1] (use mat.get())=" + m1_1_1[0] + ", " + m1_1_1[1] + ", " + m1_1_1[2] + ", " + m1_1_1[3]);
+            executionResultText.text += "m1[1,1] (use mat.get())=" + m1_1_1[0] + ", " + m1_1_1[1] + ", " + m1_1_1[2] + ", " + m1_1_1[3] + "\n";
 
-            executionResultText.text += "m1[1,1]=" + m1_1_1[0] + ", " + m1_1_1[1] + ", " + m1_1_1[2] + ", " + m1_1_1[3] + "\n";
+#if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
+            // an even faster, more efficient, non-memory-allocated method using the mat.at function.
+            Span<byte> m1_2_2 = m1.at<byte>(2, 2);
+            Debug.Log("m1[2,2] (use mat.at())=" + m1_2_2[0] + ", " + m1_2_2[1] + ", " + m1_2_2[2] + ", " + m1_2_2[3]);
+            executionResultText.text += "m1[2,2](use mat.at())=" + m1_2_2[0] + ", " + m1_2_2[1] + ", " + m1_2_2[2] + ", " + m1_2_2[3] + "\n";
+#endif
 
             // get an array of all element values.
             byte[] m1_array = new byte[m1.total() * m1.channels()];
             m1.get(0, 0, m1_array);
-
             string dump_str = "";
             foreach (var i in m1_array)
             {
                 dump_str += i + ", ";
             }
-            Debug.Log("m1_array=" + dump_str);
+            Debug.Log("m1_array (use mat.get())=" + dump_str);
+            executionResultText.text += "m1_array (use mat.get())=" + dump_str + "\n";
 
-            executionResultText.text += "m1_array=" + dump_str + "\n";
-
-            // another faster way. (use MatUtils.copyFromMat())
+            // a faster and more efficient method using the MatUtils.copyFromMat function.
             MatUtils.copyFromMat(m1, m1_array);
-
             dump_str = "";
             foreach (var i in m1_array)
             {
                 dump_str += i + ", ";
             }
             Debug.Log("m1_array (use MatUtils.copyFromMat())=" + dump_str);
-
             executionResultText.text += "m1_array (use MatUtils.copyFromMat())=" + dump_str + "\n";
 
+#if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
+            // an even faster, more efficient, non-memory-allocated method using the mat.AsSpan function.
+            Span<byte> m1_span = m1.AsSpan<byte>();
+            dump_str = "";
+            for (int i = 0; i < m1_span.Length; i++)
+            {
+                dump_str += m1_span[i] + ", ";
+            }
+            Debug.Log("m1_span (use mat.AsSpan())=" + dump_str);
+            executionResultText.text += "m1_span (use mat.AsSpan())=" + dump_str + "\n";
+#endif
+
+
+            //
+            // Put elements
+            //
 
             // put an element value in a matrix.
             Mat m2 = m1.clone();
             m2.put(1, 1, 5, 6, 7, 8);
-            Debug.Log("m2=" + m2.dump());
+            Debug.Log("m2 (use mat.put())=" + m2.dump());
+            executionResultText.text += "m2 (use mat.put())=" + m2.dump() + "\n";
 
-            executionResultText.text += "m2=" + m2.dump() + "\n";
+#if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
+            // an even faster, more efficient, non-memory-allocated method using the mat.at function.
+            m2.setTo(new Scalar(1, 2, 3, 4));// reset values
+            Span<byte> m2_1_1 = m2.at<byte>(1, 1);
+            m2_1_1[0] = 5;
+            m2_1_1[1] = 6;
+            m2_1_1[2] = 7;
+            m2_1_1[3] = 8;
+            Debug.Log("m2 (use mat.at())=" + m2.dump());
+            executionResultText.text += "m2 (use mat.at())=" + m2.dump() + "\n";
+#endif
 
             // put an array of element values in a matrix.
+            m2.setTo(new Scalar(1, 2, 3, 4));// reset values
             byte[] m2_arr = new byte[] {
                 5,
                 6,
@@ -1943,74 +2232,171 @@ namespace OpenCVForUnityExample
                 8
             };
             m2.put(0, 0, m2_arr);
-            Debug.Log("m2=" + m2.dump());
+            Debug.Log("m2 (use mat.put())=" + m2.dump());
+            executionResultText.text += "m2 (use mat.put())=" + m2.dump() + "\n";
 
-            executionResultText.text += "m2=" + m2.dump() + "\n";
-
-            // another faster way. (use MatUtils.copyToMat())
+            // a faster and more efficient method using the MatUtils.copyToMat function.
+            m2.setTo(new Scalar(1, 2, 3, 4));// reset values
             MatUtils.copyToMat(m2_arr, m2);
             Debug.Log("m2 (use MatUtils.copyToMat())=" + m2.dump());
-
             executionResultText.text += "m2 (use MatUtils.copyToMat())=" + m2.dump() + "\n";
 
+#if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
+            // an even faster, more efficient, non-memory-allocated method using the mat.AsSpan function.
+            m2.setTo(new Scalar(1, 2, 3, 4));// reset values
+            Span<byte> m2_span = m2.AsSpan<byte>();
+            m2_arr.AsSpan<byte>().CopyTo(m2_span);
+            Debug.Log("m2 (use mat.AsSpan())=" + m2.dump());
+            executionResultText.text += "m2 (use mat.AsSpan())=" + m2.dump() + "\n";
+#endif
 
             // fill element values (setTo method)
             m2.setTo(new Scalar(100, 100, 100, 100));
-            Debug.Log("m2=" + m2.dump());
-
-            executionResultText.text += "m2=" + m2.dump() + "\n";
+            Debug.Log("m2 (use mat.setTo())=" + m2.dump());
+            executionResultText.text += "m2 (use mat.setTo())=" + m2.dump() + "\n";
 
             exampleCodeText.text = @"
             //
             // get and put example
             //
+            // mat.get() function gets the value of a specific element in a Mat object.
+            // mat.put() function sets a new value for a specific element in a Mat object.
+            //
+            // OpenCVForUnity has several faster and more efficient functions for accessing Mat elements.
+            // - Use the MatUtils.copyFromMat or copyToMat functions to copy through a data array in one go.
+            // - Use the mat.at function to access the element of ​​Mat.
+            // - Use the mat.AsSpan function to access the data memory area of ​​Mat.
+            //
 
             // channels=4 3x3 matrix
-            Mat m1 = new Mat (3, 3, CvType.CV_8UC4 , new Scalar(1,2,3,4));
-            Debug.Log (""m1="" + m1.dump ());
+            Mat m1 = new Mat(3, 3, CvType.CV_8UC4, new Scalar(1, 2, 3, 4));
+            Debug.Log(""m1 = "" + m1.dump());
+
+
+            //
+            // Get elements
+            //
 
             // get an element value.
-            double[] m1_1_1 = m1.get(1,1);
-            Debug.Log (""m1[1,1]="" + m1_1_1[0] + "", "" + m1_1_1[1] + "", "" + m1_1_1[2] + "", "" + m1_1_1[3]);
+            double[] m1_1_1 = m1.get(1, 1);
+            Debug.Log(""m1[1,1] (use mat.get())="" + m1_1_1[0] + "", "" + m1_1_1[1] + "", "" + m1_1_1[2] + "", "" + m1_1_1[3]);
+
+#if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
+            // an even faster, more efficient, non-memory-allocated method using the mat.at function.
+            Span<byte> m1_2_2 = m1.at<byte>(1, 1);
+            Debug.Log(""m1[2, 2] (use mat.at())= "" + m1_2_2[0] + "", "" + m1_2_2[1] + "", "" + m1_2_2[2] + "", "" + m1_2_2[3]);
+#endif
 
             // get an array of all element values.
-            byte[] m1_array = new byte[m1.total () * m1.channels()];
-            m1.get (0, 0, m1_array);
-
-            string dump_str = """";
-            foreach (var i in m1_array){
+            byte[] m1_array = new byte[m1.total() * m1.channels()];
+            m1.get(0, 0, m1_array);
+            string dump_str = "";
+            foreach (var i in m1_array)
+            {
                 dump_str += i + "", "";
             }
-            Debug.Log (""m1_array="" + dump_str);
+            Debug.Log(""m1_array (use mat.get())="" + dump_str);
 
-            // another faster way. (use MatUtils.copyFromMat())
-            MatUtils.copyFromMat (m1, m1_array);
-
-            dump_str = """";
-            foreach (var i in m1_array) {
+            // a faster and more efficient method using the MatUtils.copyFromMat function.
+            MatUtils.copyFromMat(m1, m1_array);
+            dump_str = "";
+            foreach (var i in m1_array)
+            {
                 dump_str += i + "", "";
             }
-            Debug.Log (""m1_array (use MatUtils.copyFromMat())="" + dump_str);
+            Debug.Log(""m1_array (use MatUtils.copyFromMat())="" + dump_str);
 
+#if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
+            // an even faster, more efficient, non-memory-allocated method using the mat.AsSpan function.
+            Span<byte> m1_span = m1.AsSpan<byte>();
+            dump_str = "";
+            for (int i = 0; i < m1_span.Length; i++)
+            {
+                dump_str += m1_span[i] + "", "";
+            }
+            Debug.Log(""m1_span (use mat.AsSpan())="" + dump_str);
+#endif
+
+
+            //
+            // Put elements
+            //
 
             // put an element value in a matrix.
-            Mat m2 = m1.clone ();
-            m2.put (1, 1, 5,6,7,8);
-            Debug.Log (""m2="" + m2.dump ());
+            Mat m2 = m1.clone();
+            m2.put(1, 1, 5, 6, 7, 8);
+            Debug.Log(""m2 (use mat.put())="" + m2.dump());
+
+#if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
+            // an even faster, more efficient, non-memory-allocated method using the mat.at function.
+            m2.setTo(new Scalar(1, 2, 3, 4));// reset values
+            Span<byte> m2_1_1 = m2.at<byte>(1, 1);
+            m2_1_1[0] = 5;
+            m2_1_1[1] = 6;
+            m2_1_1[2] = 7;
+            m2_1_1[3] = 8;
+            Debug.Log(""m2 (use mat.at())= "" + m2.dump());
+#endif
 
             // put an array of element values in a matrix.
-            byte[] m2_arr = new byte[]{5,6,7,8,5,6,7,8,5,6,7,8,5,6,7,8,5,6,7,8,5,6,7,8,5,6,7,8,5,6,7,8,5,6,7,8};
-            m2.put (0, 0, m2_arr);
-            Debug.Log (""m2="" + m2.dump ());
+            m2.setTo(new Scalar(1, 2, 3, 4));// reset values
+            byte[] m2_arr = new byte[] {
+                5,
+                6,
+                7,
+                8,
+                5,
+                6,
+                7,
+                8,
+                5,
+                6,
+                7,
+                8,
+                5,
+                6,
+                7,
+                8,
+                5,
+                6,
+                7,
+                8,
+                5,
+                6,
+                7,
+                8,
+                5,
+                6,
+                7,
+                8,
+                5,
+                6,
+                7,
+                8,
+                5,
+                6,
+                7,
+                8
+            };
+            m2.put(0, 0, m2_arr);
+            Debug.Log(""m2 (use mat.put())="" + m2.dump());
 
-            // another faster way. (use MatUtils.copyToMat())
-            MatUtils.copyToMat (m2_arr, m2);
-            Debug.Log (""m2 (use MatUtils.copyToMat())="" + m2.dump ());
+            // a faster and more efficient method using the MatUtils.copyToMat function.
+            m2.setTo(new Scalar(1, 2, 3, 4));// reset values
+            MatUtils.copyToMat(m2_arr, m2);
+            Debug.Log(""m2 (use MatUtils.copyToMat())="" + m2.dump());
 
+#if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
+            // an even faster, more efficient, non-memory-allocated method using the mat.AsSpan function.
+            m2.setTo(new Scalar(1, 2, 3, 4));// reset values
+            Span<byte> m2_span = m2.AsSpan<byte>();
+            m2_arr.AsSpan<byte>().CopyTo(m2_span);
+            Debug.Log(""m2(use mat.AsSpan()) = "" + m2.dump());
+#endif
 
             // fill element values (setTo method)
-            m2.setTo(new Scalar(100,100,100,100));
-            Debug.Log (""m2="" + m2.dump ());
+            m2.setTo(new Scalar(100, 100, 100, 100));
+            Debug.Log(""m2 (use mat.setTo())="" + m2.dump());
             ";
 
             UpdateScrollRect();
@@ -2021,8 +2407,13 @@ namespace OpenCVForUnityExample
             //
             // accessing pixel value example
             //
-
-            // How access pixel value in an OpenCV Mat.
+            // How access pixel values in an OpenCV Mat.
+            // - 1. Use get and put method
+            // - 2. Use mat.at method
+            // - 3. Use MatUtils.copyFromMat and MatUtils.copyToMat method
+            // - 4. Use mat.AsSpan method
+            // - 5. Use pointer access (unsafe)
+            //
 
             // channels=4 512x512 matrix (RGBA color image)
             Mat imgMat = new Mat(512, 512, CvType.CV_8UC4, new Scalar(0, 0, 0, 255));
@@ -2031,7 +2422,7 @@ namespace OpenCVForUnityExample
             System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
 
             //
-            // 1. Use get and put method.
+            // 1. Use get and put method
             //
             imgMat.setTo(new Scalar(0, 0, 0, 255));
 
@@ -2059,48 +2450,47 @@ namespace OpenCVForUnityExample
             Debug.Log("1. Use get and put method. time: " + watch.ElapsedMilliseconds + " ms");
             executionResultText.text = "1. Use get and put method. time: " + watch.ElapsedMilliseconds + " ms" + "\n";
 
+#if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
 
             //
-            // 2. Use MatIndexer.
+            // 2. Use mat.at method
             //
             imgMat.setTo(new Scalar(0, 0, 0, 255));
 
             watch.Reset();
             watch.Start();
 
-            MatIndexer indexer = new MatIndexer(imgMat);
             rows = imgMat.rows();
             cols = imgMat.cols();
             for (int i0 = 0; i0 < rows; i0++)
             {
                 for (int i1 = 0; i1 < cols; i1++)
                 {
-                    byte[] p = new byte[4];
-                    indexer.get(i0, i1, p);
+                    // use the mat.at function to access the element of ​​Mat.
+                    Span<byte> p = imgMat.at<byte>(i0, i1);
 
                     p[0] = (byte)(p[0] + 127); // R
                     p[1] = (byte)(p[1] + 127); // G
                     p[2] = (byte)(p[2] + 127); // B
-
-                    indexer.put(i0, i1, p);
                 }
             }
 
             watch.Stop();
 
-            Debug.Log("2. Use MatIndexer. time: " + watch.ElapsedMilliseconds + " ms");
-            executionResultText.text += "2. Use MatIndexer. time: " + watch.ElapsedMilliseconds + " ms" + "\n";
+            Debug.Log("2. Use mat.at method. time: " + watch.ElapsedMilliseconds + " ms");
+            executionResultText.text += "2. Use mat.at method. time: " + watch.ElapsedMilliseconds + " ms" + "\n";
 
+#endif
 
             //
-            // 3. Use MatUtils.copyFromMat and MatUtils.copyToMat method.
+            // 3. Use MatUtils.copyFromMat and MatUtils.copyToMat method
             //
             imgMat.setTo(new Scalar(0, 0, 0, 255));
 
             watch.Reset();
             watch.Start();
 
-            // Copies an OpenCV Mat data to a pixel data Array.
+            // copies an OpenCV Mat data to a pixel data Array.
             byte[] img_array = new byte[imgMat.total() * imgMat.channels()];
             MatUtils.copyFromMat(imgMat, img_array);
 
@@ -2122,7 +2512,7 @@ namespace OpenCVForUnityExample
                     img_array[p3] = (byte)(img_array[p3] + 127); // B
                 }
             }
-            // Copies a pixel data Array to an OpenCV Mat data.
+            // copies a pixel data Array to an OpenCV Mat data.
             MatUtils.copyToMat(img_array, imgMat);
 
             watch.Stop();
@@ -2131,10 +2521,50 @@ namespace OpenCVForUnityExample
             executionResultText.text += "3. Use MatUtils.copyFromMat and MatUtils.copyToMat method. time: " + watch.ElapsedMilliseconds + " ms" + "\n";
 
 
+#if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
+
+            //
+            // 4. Use mat.AsSpan method
+            //
+            imgMat.setTo(new Scalar(0, 0, 0, 255));
+
+            watch.Reset();
+            watch.Start();
+
+            // use the mat.AsSpan function to access the data memory area of ​​Mat.
+            Span<byte> img_span = imgMat.AsSpan<byte>();
+
+            step0 = imgMat.step1(0);
+            step1 = imgMat.step1(1);
+
+            rows = imgMat.rows();
+            cols = imgMat.cols();
+            for (int i0 = 0; i0 < rows; i0++)
+            {
+                for (int i1 = 0; i1 < cols; i1++)
+                {
+                    int p1 = (int)(step0 * i0 + step1 * i1);
+                    int p2 = p1 + 1;
+                    int p3 = p1 + 2;
+
+                    img_span[p1] = (byte)(img_span[p1] + 127); // R
+                    img_span[p2] = (byte)(img_span[p2] + 127); // G
+                    img_span[p3] = (byte)(img_span[p3] + 127); // B
+                }
+            }
+
+            watch.Stop();
+
+            Debug.Log("4. Use mat.AsSpan method. time: " + watch.ElapsedMilliseconds + " ms");
+            executionResultText.text += "4. Use mat.AsSpan method. time: " + watch.ElapsedMilliseconds + " ms" + "\n";
+
+#endif
+
+
 #if !OPENCV_DONT_USE_UNSAFE_CODE
 
             //
-            // 4. Use pointer access.
+            // 5. Use pointer access (unsafe)
             //
 
             imgMat.setTo(new Scalar(0, 0, 0, 255));
@@ -2167,15 +2597,15 @@ namespace OpenCVForUnityExample
 
             watch.Stop();
 
-            Debug.Log("4. Use pointer access. time: " + watch.ElapsedMilliseconds + " ms");
-            executionResultText.text += "4. Use pointer access. time: " + watch.ElapsedMilliseconds + " ms" + "\n";
+            Debug.Log("5. Use pointer access. time: " + watch.ElapsedMilliseconds + " ms");
+            executionResultText.text += "5. Use pointer access. time: " + watch.ElapsedMilliseconds + " ms" + "\n";
 
 #endif
 
 
             exampleCodeText.text = @"
             //
-            // accessing pixel value example
+            // accessing pixel values example (unsafe)
             //
 
             // How access pixel value in an OpenCV Mat.
@@ -2187,7 +2617,7 @@ namespace OpenCVForUnityExample
             System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
 
             //
-            // 1. Use get and put method.
+            // 1. Use get and put method
             //
             imgMat.setTo(new Scalar(0, 0, 0, 255));
 
@@ -2214,47 +2644,46 @@ namespace OpenCVForUnityExample
 
             Debug.Log(""1.Use get and put method. time: "" + watch.ElapsedMilliseconds + "" ms"");
 
+#if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
 
             //
-            // 2. Use MatIndexer.
+            // 2. Use mat.at method
             //
             imgMat.setTo(new Scalar(0, 0, 0, 255));
 
             watch.Reset();
             watch.Start();
 
-            MatIndexer indexer = new MatIndexer(imgMat);
             rows = imgMat.rows();
             cols = imgMat.cols();
             for (int i0 = 0; i0 < rows; i0++)
             {
                 for (int i1 = 0; i1 < cols; i1++)
                 {
-                    byte[] p = new byte[4];
-                    indexer.get(i0, i1, p);
+                    // use the mat.at function to access the element of ​​Mat.
+                    Span<byte> p = imgMat.at<byte>(i0, i1);
 
                     p[0] = (byte)(p[0] + 127); // R
                     p[1] = (byte)(p[1] + 127); // G
                     p[2] = (byte)(p[2] + 127); // B
-
-                    indexer.put(i0, i1, p);
                 }
             }
 
             watch.Stop();
 
-            Debug.Log(""2. Use MatIndexer. time: "" + watch.ElapsedMilliseconds + "" ms"");
+            Debug.Log(""2.Use mat.at method. time: "" + watch.ElapsedMilliseconds + "" ms"");
 
+#endif
 
             //
-            // 3. Use MatUtils.copyFromMat and MatUtils.copyToMat method.
+            // 3. Use MatUtils.copyFromMat and MatUtils.copyToMat method
             //
             imgMat.setTo(new Scalar(0, 0, 0, 255));
 
             watch.Reset();
             watch.Start();
 
-            // Copies an OpenCV Mat data to a pixel data Array.
+            // copies an OpenCV Mat data to a pixel data Array.
             byte[] img_array = new byte[imgMat.total() * imgMat.channels()];
             MatUtils.copyFromMat(imgMat, img_array);
 
@@ -2276,7 +2705,7 @@ namespace OpenCVForUnityExample
                     img_array[p3] = (byte)(img_array[p3] + 127); // B
                 }
             }
-            // Copies a pixel data Array to an OpenCV Mat data.
+            // copies a pixel data Array to an OpenCV Mat data.
             MatUtils.copyToMat(img_array, imgMat);
 
             watch.Stop();
@@ -2284,10 +2713,49 @@ namespace OpenCVForUnityExample
             Debug.Log(""3. Use MatUtils.copyFromMat and MatUtils.copyToMat method. time: "" + watch.ElapsedMilliseconds + "" ms"");
 
 
+#if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
+
+            //
+            // 4. Use mat.AsSpan method
+            //
+            imgMat.setTo(new Scalar(0, 0, 0, 255));
+
+            watch.Reset();
+            watch.Start();
+
+            // use the mat.AsSpan function to access the data memory area of ​​Mat.
+            Span<byte> img_span = imgMat.AsSpan<byte>();
+
+            step0 = imgMat.step1(0);
+            step1 = imgMat.step1(1);
+
+            rows = imgMat.rows();
+            cols = imgMat.cols();
+            for (int i0 = 0; i0 < rows; i0++)
+            {
+                for (int i1 = 0; i1 < cols; i1++)
+                {
+                    int p1 = (int)(step0 * i0 + step1 * i1);
+                    int p2 = p1 + 1;
+                    int p3 = p1 + 2;
+
+                    img_span[p1] = (byte)(img_span[p1] + 127); // R
+                    img_span[p2] = (byte)(img_span[p2] + 127); // G
+                    img_span[p3] = (byte)(img_span[p3] + 127); // B
+                }
+            }
+
+            watch.Stop();
+
+            Debug.Log(""4.Use mat.AsSpan method. time: "" + watch.ElapsedMilliseconds + "" ms"");
+
+#endif
+
+
 #if !OPENCV_DONT_USE_UNSAFE_CODE
 
             //
-            // 4. Use pointer access.
+            // 5. Use pointer access
             //
 
             imgMat.setTo(new Scalar(0, 0, 0, 255));
@@ -2320,7 +2788,7 @@ namespace OpenCVForUnityExample
 
             watch.Stop();
 
-            Debug.Log(""4. Use pointer access. time: "" + watch.ElapsedMilliseconds + "" ms"");
+            Debug.Log(""5. Use pointer access. time: "" + watch.ElapsedMilliseconds + "" ms"");
 
 #endif
             ";

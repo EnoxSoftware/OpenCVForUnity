@@ -18,6 +18,14 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class QRCodeEncoderExample : MonoBehaviour
     {
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage resultPreview;
+
+        [Space(10)]
+
         /// <summary>
         /// The size of the output QRCode image (px).
         /// </summary>
@@ -58,10 +66,12 @@ namespace OpenCVForUnityExample
         {
             qrCodeImg = new Mat(qrCodeSize, qrCodeSize, CvType.CV_8UC3);
             texture = new Texture2D(qrCodeImg.cols(), qrCodeImg.rows(), TextureFormat.RGB24, false);
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
+
+            resultPreview.texture = texture;
+            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+
 
             encodedInfoInputField.text = encodedInfo;
-
 
             qrCodeEncoder = QRCodeEncoder.create();
 
@@ -87,25 +97,6 @@ namespace OpenCVForUnityExample
                 qrCodeImg.setTo(Scalar.all(255));
             }
 
-            gameObject.transform.localScale = new Vector3(qrCodeImg.cols(), qrCodeImg.rows(), 1);
-
-            float width = qrCodeImg.width() / 0.7f;
-            float height = qrCodeImg.height() / 0.7f;
-
-            float widthScale = (float)Screen.width / width;
-            float heightScale = (float)Screen.height / height;
-            if (widthScale < heightScale)
-            {
-                Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
-                gameObject.transform.localPosition = new Vector3(0, -height * 0.1f, 0);
-            }
-            else
-            {
-                Camera.main.orthographicSize = height / 2;
-                gameObject.transform.localPosition = new Vector3(width * 0.1f, 0, 0);
-            }
-
-
             // Encode QRCode.
             using (Mat qrcodeGRAY = new Mat())
             {
@@ -125,7 +116,7 @@ namespace OpenCVForUnityExample
                 }
             }
 
-            Utils.matToTexture2D(qrCodeImg, texture, true, 0, true);
+            Utils.matToTexture2D(qrCodeImg, texture);
         }
 
         private void SaveQRCodeImg()
@@ -175,9 +166,9 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the encoded info input field end edit event.
+        /// Raises the encoded info input field value changed event.
         /// </summary>
-        public void OnEncodedInfoInputFieldEndEdit(string result)
+        public void OnEncodedInfoInputFieldValueChanged(string result)
         {
             encodedInfo = result;
         }

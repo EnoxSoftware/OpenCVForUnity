@@ -12,9 +12,11 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// TransformECC Example
-    /// An example of background movement tracking using ECC algorithm.
+    /// This example demonstrates how to track specific points between consecutive frames in a video sequence using OpenCV’s findTransformECC method.
+    /// By applying the calculated transformation matrix to each frame, the program ensures that designated points remain aligned,
+    /// enabling smooth tracking across a series of frames. This technique is especially useful for stabilizing video or analyzing object motion in changing scenes.
     /// </summary>
-    [RequireComponent(typeof(WebCamTextureToMatHelper))]
+    [RequireComponent(typeof(MultiSource2MatHelper))]
     public class TransformECCExample : MonoBehaviour
     {
         /// <summary>
@@ -33,6 +35,8 @@ namespace OpenCVForUnityExample
         Mat scalingMat;
         Mat grayMat;
         Mat lastGrayMat;
+
+        Mat last_Warp_matrix;
 
         // downscaling ratio.
         const float scaling = 3f;
@@ -58,9 +62,9 @@ namespace OpenCVForUnityExample
         Texture2D texture;
 
         /// <summary>
-        /// The webcam texture to mat helper.
+        /// The multi source to mat helper.
         /// </summary>
-        WebCamTextureToMatHelper webCamTextureToMatHelper;
+        MultiSource2MatHelper multiSource2MatHelper;
 
         /// <summary>
         /// The FPS monitor.
@@ -72,8 +76,9 @@ namespace OpenCVForUnityExample
         {
             fpsMonitor = GetComponent<FpsMonitor>();
 
-            webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper>();
-            webCamTextureToMatHelper.Initialize();
+            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGBA;
+            multiSource2MatHelper.Initialize();
 
             // Update GUI state
             warpModeDropdown.value = (int)warpMode;
@@ -85,33 +90,27 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the webcam texture to mat helper initialized event.
+        /// Raises the source to mat helper initialized event.
         /// </summary>
-        public void OnWebCamTextureToMatHelperInitialized()
+        public void OnSourceToMatHelperInitialized()
         {
-            Debug.Log("OnWebCamTextureToMatHelperInitialized");
+            Debug.Log("OnSourceToMatHelperInitialized");
 
-            Mat webCamTextureMat = webCamTextureToMatHelper.GetMat();
+            Mat rgbaMat = multiSource2MatHelper.GetMat();
 
-            texture = new Texture2D(webCamTextureMat.cols(), webCamTextureMat.rows(), TextureFormat.RGBA32, false);
-            Utils.matToTexture2D(webCamTextureMat, texture);
+            texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
+            Utils.matToTexture2D(rgbaMat, texture);
 
+            // Set the Texture2D as the main texture of the Renderer component attached to the game object
             gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
-            gameObject.transform.localScale = new Vector3(webCamTextureMat.cols(), webCamTextureMat.rows(), 1);
+            // Adjust the scale of the game object to match the dimensions of the texture
+            gameObject.transform.localScale = new Vector3(rgbaMat.cols(), rgbaMat.rows(), 1);
             Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
-            if (fpsMonitor != null)
-            {
-                fpsMonitor.Add("width", webCamTextureMat.width().ToString());
-                fpsMonitor.Add("height", webCamTextureMat.height().ToString());
-                fpsMonitor.Add("orientation", Screen.orientation.ToString());
-            }
-
-
-            float width = webCamTextureMat.width();
-            float height = webCamTextureMat.height();
-
+            // Adjust the orthographic size of the main Camera to fit the aspect ratio of the image
+            float width = rgbaMat.width();
+            float height = rgbaMat.height();
             float widthScale = (float)Screen.width / width;
             float heightScale = (float)Screen.height / height;
             if (widthScale < heightScale)
@@ -124,22 +123,29 @@ namespace OpenCVForUnityExample
             }
 
 
-            scalingMat = new Mat((int)(webCamTextureMat.rows() / scaling), (int)(webCamTextureMat.cols() / scaling), CvType.CV_8SC4);
+            if (fpsMonitor != null)
+            {
+                fpsMonitor.Add("width", rgbaMat.width().ToString());
+                fpsMonitor.Add("height", rgbaMat.height().ToString());
+                fpsMonitor.Add("orientation", Screen.orientation.ToString());
+            }
+
+            scalingMat = new Mat((int)(rgbaMat.rows() / scaling), (int)(rgbaMat.cols() / scaling), CvType.CV_8SC4);
             grayMat = new Mat(scalingMat.size(), CvType.CV_8SC1);
 
             x = scalingMat.cols() / 2f;
             y = scalingMat.rows() / 2f;
 
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
-            Utils.setDebugMode(true);
+            Utils.setDebugMode(true, true);
         }
 
         /// <summary>
-        /// Raises the webcam texture to mat helper disposed event.
+        /// Raises the source to mat helper disposed event.
         /// </summary>
-        public void OnWebCamTextureToMatHelperDisposed()
+        public void OnSourceToMatHelperDisposed()
         {
-            Debug.Log("OnWebCamTextureToMatHelperDisposed");
+            Debug.Log("OnSourceToMatHelperDisposed");
 
             if (scalingMat != null)
             {
@@ -170,16 +176,17 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the webcam texture to mat helper error occurred event.
+        /// Raises the source to mat helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
-        public void OnWebCamTextureToMatHelperErrorOccurred(WebCamTextureToMatHelper.ErrorCode errorCode)
+        /// <param name="message">Message.</param>
+        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
         {
-            Debug.Log("OnWebCamTextureToMatHelperErrorOccurred " + errorCode);
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
 
             if (fpsMonitor != null)
             {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode;
+                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
             }
         }
 
@@ -208,7 +215,7 @@ namespace OpenCVForUnityExample
             }
 #endif
 
-            if (webCamTextureToMatHelper.IsPlaying() && webCamTextureToMatHelper.DidUpdateThisFrame())
+            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
             {
                 if (storedTouchPoint != null)
                 {
@@ -219,7 +226,7 @@ namespace OpenCVForUnityExample
                 }
 
 
-                Mat rgbaMat = webCamTextureToMatHelper.GetMat();
+                Mat rgbaMat = multiSource2MatHelper.GetMat();
 
                 Imgproc.resize(rgbaMat, scalingMat, new Size(rgbaMat.width() / scaling, rgbaMat.height() / scaling));
                 Imgproc.cvtColor(scalingMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
@@ -228,19 +235,37 @@ namespace OpenCVForUnityExample
                 if (lastGrayMat == null)
                     lastGrayMat = grayMat.clone();
 
-                // Define 2x3 or 3x3 matrices and initialize the matrix to identity
-                Mat warp_matrix;
-                if (warpMode == (WarpModePreset)Video.MOTION_HOMOGRAPHY)
+                if (last_Warp_matrix == null)
                 {
-                    warp_matrix = Mat.eye(3, 3, CvType.CV_32F);
-                }
-                else
-                {
-                    warp_matrix = Mat.eye(2, 3, CvType.CV_32F);
+                    // Define 2x3 or 3x3 matrices and initialize the matrix to identity
+                    if (warpMode == (WarpModePreset)Video.MOTION_HOMOGRAPHY)
+                    {
+                        last_Warp_matrix = Mat.eye(3, 3, CvType.CV_32F);
+                    }
+                    else
+                    {
+                        last_Warp_matrix = Mat.eye(2, 3, CvType.CV_32F);
+                    }
                 }
 
-                // Run the ECC algorithm. The results are stored in warp_matrix.
-                double ret = Video.findTransformECC(lastGrayMat, grayMat, warp_matrix, (int)warpMode, criteria);
+                try
+                {
+                    // Run the ECC algorithm. The results are stored in warp_matrix.
+                    double ret = Video.findTransformECC(lastGrayMat, grayMat, last_Warp_matrix, (int)warpMode, criteria);
+                }
+                catch (CvException e)
+                {
+                    Debug.LogWarning("Warning: An error occurred while analyzing frame motion; the transformation did not converge," +
+                        " so this frame will be skipped. Error details: " + e);
+
+                    if (last_Warp_matrix != null)
+                    {
+                        last_Warp_matrix.Dispose();
+                        last_Warp_matrix = null;
+                    }
+                    grayMat.copyTo(lastGrayMat);
+                    return;
+                }
 
                 grayMat.copyTo(lastGrayMat);
 
@@ -249,7 +274,7 @@ namespace OpenCVForUnityExample
                 xyz.put(0, 0, x);
                 xyz.put(1, 0, y);
                 xyz.put(2, 0, 1.0);
-                Mat result = warp_matrix.matMul(xyz);
+                Mat result = last_Warp_matrix.matMul(xyz);
                 x = (float)result.get(0, 0)[0];
                 y = (float)result.get(1, 0)[0];
 
@@ -269,7 +294,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         /// <param name="screenPoint">Screen point.</param>
         /// <param name="dstPoint">Dst point.</param>
-        /// <param name="texturQuad">Texture quad.</param>
+        /// <param name="textureQuad">Texture quad.</param>
         /// <param name="textureWidth">Texture width.</param>
         /// <param name="textureHeight">Texture height.</param>
         /// <param name="camera">Camera.</param>
@@ -324,7 +349,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDestroy()
         {
-            webCamTextureToMatHelper.Dispose();
+            multiSource2MatHelper.Dispose();
         }
 
         /// <summary>
@@ -340,7 +365,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnPlayButtonClick()
         {
-            webCamTextureToMatHelper.Play();
+            multiSource2MatHelper.Play();
         }
 
         /// <summary>
@@ -348,7 +373,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnPauseButtonClick()
         {
-            webCamTextureToMatHelper.Pause();
+            multiSource2MatHelper.Pause();
         }
 
         /// <summary>
@@ -356,7 +381,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnStopButtonClick()
         {
-            webCamTextureToMatHelper.Stop();
+            multiSource2MatHelper.Stop();
         }
 
         /// <summary>
@@ -364,7 +389,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnChangeCameraButtonClick()
         {
-            webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.requestedIsFrontFacing;
+            multiSource2MatHelper.requestedIsFrontFacing = !multiSource2MatHelper.requestedIsFrontFacing;
         }
 
         /// <summary>
@@ -375,6 +400,12 @@ namespace OpenCVForUnityExample
             if ((int)warpMode != result)
             {
                 warpMode = (WarpModePreset)result;
+
+                if (last_Warp_matrix != null)
+                {
+                    last_Warp_matrix.Dispose();
+                    last_Warp_matrix = null;
+                }
             }
         }
 

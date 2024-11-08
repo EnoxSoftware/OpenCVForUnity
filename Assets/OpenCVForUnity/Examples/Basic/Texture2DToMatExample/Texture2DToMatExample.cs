@@ -1,7 +1,7 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.UnityUtils;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace OpenCVForUnityExample
 {

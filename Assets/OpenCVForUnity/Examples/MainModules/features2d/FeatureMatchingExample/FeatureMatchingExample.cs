@@ -3,11 +3,11 @@ using OpenCVForUnity.Features2dModule;
 using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {
@@ -19,6 +19,14 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class FeatureMatchingExample : MonoBehaviour
     {
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage resultPreview;
+
+        [Space(10)]
+
         /// <summary>
         /// IMAGE_0_FILENAME
         /// </summary>
@@ -38,42 +46,34 @@ namespace OpenCVForUnityExample
         /// The image 1 filepath.
         /// </summary>
         string image_1_filepath;
-#if UNITY_WEBGL
-        IEnumerator getFilePath_Coroutine;
-#endif
+
+        /// <summary>
+        /// The FPS monitor.
+        /// </summary>
+        FpsMonitor fpsMonitor;
+
+        /// <summary>
+        /// The CancellationTokenSource.
+        /// </summary>
+        CancellationTokenSource cts = new CancellationTokenSource();
 
         // Use this for initialization
-        void Start()
+        async void Start()
         {
-#if UNITY_WEBGL
-            getFilePath_Coroutine = GetFilePath ();
-            StartCoroutine (getFilePath_Coroutine);
-#else
-            image_0_filepath = Utils.getFilePath(IMAGE_0_FILENAME);
-            image_1_filepath = Utils.getFilePath(IMAGE_1_FILENAME);
-            Run_SIFT_FLANNBASEDMatching();
-#endif
-        }
+            fpsMonitor = GetComponent<FpsMonitor>();
 
-#if UNITY_WEBGL
-        private IEnumerator GetFilePath()
-        {
-            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync (IMAGE_0_FILENAME, (result) => {
-                image_0_filepath = result;
-            });
-            yield return getFilePathAsync_0_Coroutine;
+            // Asynchronously retrieves the readable file path from the StreamingAssets directory.
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "Preparing file access...";
 
-            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync (IMAGE_1_FILENAME, (result) => {
-                image_1_filepath = result;
-            });
-            yield return getFilePathAsync_1_Coroutine;
+            image_0_filepath = await Utils.getFilePathAsyncTask(IMAGE_0_FILENAME, cancellationToken: cts.Token);
+            image_1_filepath = await Utils.getFilePathAsyncTask(IMAGE_1_FILENAME, cancellationToken: cts.Token);
 
-
-            getFilePath_Coroutine = null;
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "";
 
             Run_SIFT_FLANNBASEDMatching();
         }
-#endif
 
         /// The commercial license SURF feature descriptors are no longer included in OpenCV. The example has been changed to use SIFT feature descriptors instead.
         private void Run_SIFT_FLANNBASEDMatching()
@@ -157,7 +157,9 @@ namespace OpenCVForUnityExample
 
             Texture2D texture = new Texture2D(resultImg.cols(), resultImg.rows(), TextureFormat.RGB24, false);
             Utils.matToTexture2D(resultImg, texture);
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;            
+
+            resultPreview.texture = texture;
+            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
 
 
             Utils.setDebugMode(false, false);
@@ -244,7 +246,9 @@ namespace OpenCVForUnityExample
 
             Texture2D texture = new Texture2D(resultImg.cols(), resultImg.rows(), TextureFormat.RGB24, false);
             Utils.matToTexture2D(resultImg, texture);
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
+
+            resultPreview.texture = texture;
+            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
 
 
             Utils.setDebugMode(false, false);
@@ -258,12 +262,8 @@ namespace OpenCVForUnityExample
 
         void OnDestroy()
         {
-#if UNITY_WEBGL
-            if (getFilePath_Coroutine != null) {
-                StopCoroutine (getFilePath_Coroutine);
-                ((IDisposable)getFilePath_Coroutine).Dispose ();
-            }
-#endif
+            if (cts != null)
+                cts.Dispose();
         }
 
         /// <summary>

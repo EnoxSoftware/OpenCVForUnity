@@ -4,6 +4,7 @@ using OpenCVForUnity.TrackingModule;
 using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.UnityUtils.Helper;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -17,7 +18,7 @@ namespace OpenCVForUnityExample
     /// An example of object tracking using the TrackingModule.legacy_Tracker Class.
     /// http://docs.opencv.org/trunk/d5/d07/tutorial_multitracker.html
     /// </summary>
-    [RequireComponent(typeof(VideoCaptureToMatHelper))]
+    [RequireComponent(typeof(MultiSource2MatHelper))]
     public class LegacyTrackingExample : MonoBehaviour
     {
         /// <summary>
@@ -76,9 +77,9 @@ namespace OpenCVForUnityExample
         Point storedTouchPoint;
 
         /// <summary>
-        /// The video capture to mat helper.
+        /// The multi source to mat helper.
         /// </summary>
-        VideoCaptureToMatHelper sourceToMatHelper;
+        MultiSource2MatHelper multiSource2MatHelper;
 
         /// <summary>
         /// The FPS monitor.
@@ -95,34 +96,35 @@ namespace OpenCVForUnityExample
         {
             fpsMonitor = GetComponent<FpsMonitor>();
 
-            sourceToMatHelper = gameObject.GetComponent<VideoCaptureToMatHelper>();
-            if (string.IsNullOrEmpty(sourceToMatHelper.requestedVideoFilePath))
-                sourceToMatHelper.requestedVideoFilePath = VIDEO_FILENAME;
-            sourceToMatHelper.outputColorFormat = VideoCaptureToMatHelper.ColorFormat.RGB; // Tracking API must handle 3 channels Mat image.
-            sourceToMatHelper.Initialize();
+            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            if (string.IsNullOrEmpty(multiSource2MatHelper.requestedVideoFilePath))
+                multiSource2MatHelper.requestedVideoFilePath = VIDEO_FILENAME;
+            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGB; // Tracking API must handle 3 channels Mat image.
+            multiSource2MatHelper.Initialize();
         }
 
         /// <summary>
-        /// Raises the video capture to mat helper initialized event.
+        /// Raises the source to mat helper initialized event.
         /// </summary>
-        public void OnVideoCaptureToMatHelperInitialized()
+        public void OnSourceToMatHelperInitialized()
         {
-            Debug.Log("OnVideoCaptureToMatHelperInitialized");
+            Debug.Log("OnSourceToMatHelperInitialized");
 
-            Mat rgbMat = sourceToMatHelper.GetMat();
+            Mat rgbMat = multiSource2MatHelper.GetMat();
 
             texture = new Texture2D(rgbMat.cols(), rgbMat.rows(), TextureFormat.RGB24, false);
             Utils.matToTexture2D(rgbMat, texture);
 
+            // Set the Texture2D as the main texture of the Renderer component attached to the game object
             gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
+            // Adjust the scale of the game object to match the dimensions of the texture
             gameObject.transform.localScale = new Vector3(rgbMat.cols(), rgbMat.rows(), 1);
             Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
-
+            // Adjust the orthographic size of the main Camera to fit the aspect ratio of the image
             float width = rgbMat.width();
             float height = rgbMat.height();
-
             float widthScale = (float)Screen.width / width;
             float heightScale = (float)Screen.height / height;
             if (widthScale < heightScale)
@@ -141,11 +143,11 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the video capture to mat helper disposed event.
+        /// Raises the source to mat helper disposed event.
         /// </summary>
-        public void OnVideoCaptureToMatHelperDisposed()
+        public void OnSourceToMatHelperDisposed()
         {
-            Debug.Log("OnVideoCaptureToMatHelperDisposed");
+            Debug.Log("OnSourceToMatHelperDisposed");
 
             if (texture != null)
             {
@@ -157,23 +159,24 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the video capture to mat helper error occurred event.
+        /// Raises the source to mat helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
-        public void OnVideoCaptureToMatHelperErrorOccurred(VideoCaptureToMatHelper.ErrorCode errorCode)
+        /// <param name="message">Message.</param>
+        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
         {
-            Debug.Log("OnVideoCaptureToMatHelperErrorOccurred " + errorCode);
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
 
             if (fpsMonitor != null)
             {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode;
+                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
             }
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (!sourceToMatHelper.IsInitialized())
+            if (!multiSource2MatHelper.IsInitialized())
                 return;
 
 #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
@@ -200,12 +203,12 @@ namespace OpenCVForUnityExample
 
             if (selectedPointList.Count != 1)
             {
-                if (!sourceToMatHelper.IsPlaying())
-                    sourceToMatHelper.Play();
+                if (!multiSource2MatHelper.IsPlaying())
+                    multiSource2MatHelper.Play();
 
-                if (sourceToMatHelper.IsPlaying() && sourceToMatHelper.DidUpdateThisFrame())
+                if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
                 {
-                    Mat rgbMat = sourceToMatHelper.GetMat();
+                    Mat rgbMat = multiSource2MatHelper.GetMat();
 
                     if (storedTouchPoint != null)
                     {
@@ -291,8 +294,8 @@ namespace OpenCVForUnityExample
                                 fpsMonitor.consoleText = "";
                             }
 
-                            trackerBoostingToggle.interactable = trackerCSRTToggle.interactable = trackerKCFToggle.interactable = trackerMedianFlowToggle.interactable =
-                                trackerMILToggle.interactable = trackerMOSSEToggle.interactable = trackerTLDToggle.interactable = false;
+                            new[] { trackerBoostingToggle, trackerCSRTToggle, trackerKCFToggle, trackerMedianFlowToggle, trackerMILToggle, trackerMOSSEToggle, trackerTLDToggle }
+                                .ToList().ForEach(toggle => { if (toggle) toggle.interactable = false; });
                         }
                     }
 
@@ -335,8 +338,8 @@ namespace OpenCVForUnityExample
             }
             else
             {
-                if (sourceToMatHelper.IsPlaying())
-                    sourceToMatHelper.Pause();
+                if (multiSource2MatHelper.IsPlaying())
+                    multiSource2MatHelper.Pause();
 
                 if (storedTouchPoint != null)
                 {
@@ -358,8 +361,8 @@ namespace OpenCVForUnityExample
                 trackers.Clear();
             }
 
-            trackerBoostingToggle.interactable = trackerCSRTToggle.interactable = trackerKCFToggle.interactable= trackerMedianFlowToggle.interactable = 
-                    trackerMILToggle.interactable = trackerMOSSEToggle.interactable = trackerTLDToggle.interactable = true;
+            new[] { trackerBoostingToggle, trackerCSRTToggle, trackerKCFToggle, trackerMedianFlowToggle, trackerMILToggle, trackerMOSSEToggle, trackerTLDToggle }
+                .ToList().ForEach(toggle => { if (toggle) toggle.interactable = true; });
         }
 
         private void OnTouch(Point touchPoint, int textureWidth = -1, int textureHeight = -1)
@@ -434,8 +437,8 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDestroy()
         {
-            if (sourceToMatHelper != null)
-                sourceToMatHelper.Dispose();
+            if (multiSource2MatHelper != null)
+                multiSource2MatHelper.Dispose();
         }
 
         /// <summary>

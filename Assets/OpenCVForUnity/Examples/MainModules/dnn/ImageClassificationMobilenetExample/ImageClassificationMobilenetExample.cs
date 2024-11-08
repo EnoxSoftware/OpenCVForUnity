@@ -1,16 +1,15 @@
 #if !UNITY_WSA_10_0
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.DnnModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.UnityUtils.Helper;
+using System.Collections.Generic;
+using System.Threading;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {
@@ -19,18 +18,26 @@ namespace OpenCVForUnityExample
     /// An example of using OpenCV dnn module with Image Classification MobileNet model.
     /// Referring to https://github.com/opencv/opencv_zoo/tree/master/models/image_classification_mobilenet
     /// </summary>
-    [RequireComponent(typeof(WebCamTextureToMatHelper))]
+    [RequireComponent(typeof(MultiSource2MatHelper))]
     public class ImageClassificationMobilenetExample : MonoBehaviour
     {
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage resultPreview;
+
+        [Space(10)]
+
         /// <summary>
         /// The texture.
         /// </summary>
         Texture2D texture;
 
         /// <summary>
-        /// The webcam texture to mat helper.
+        /// The multi source to mat helper.
         /// </summary>
-        WebCamTextureToMatHelper webCamTextureToMatHelper;
+        MultiSource2MatHelper multiSource2MatHelper;
 
         /// <summary>
         /// The rgb mat.
@@ -72,47 +79,31 @@ namespace OpenCVForUnityExample
         /// </summary>
         string classes_filepath;
 
-#if UNITY_WEBGL
-        IEnumerator getFilePath_Coroutine;
-#endif
+        /// <summary>
+        /// The CancellationTokenSource.
+        /// </summary>
+        CancellationTokenSource cts = new CancellationTokenSource();
 
         // Use this for initialization
-        void Start()
+        async void Start()
         {
             fpsMonitor = GetComponent<FpsMonitor>();
 
-            webCamTextureToMatHelper = gameObject.GetComponent<WebCamTextureToMatHelper>();
+            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGBA;
 
-#if UNITY_WEBGL
-            getFilePath_Coroutine = GetFilePath();
-            StartCoroutine(getFilePath_Coroutine);
-#else
-            model_filepath = Utils.getFilePath(MODEL_FILENAME);
-            classes_filepath = Utils.getFilePath(CLASSES_FILENAME);
-            Run();
-#endif
-        }
+            // Asynchronously retrieves the readable file path from the StreamingAssets directory.
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "Preparing file access...";
 
-#if UNITY_WEBGL
-        private IEnumerator GetFilePath()
-        {
-            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync(MODEL_FILENAME, (result) =>
-            {
-                model_filepath = result;
-            });
-            yield return getFilePathAsync_0_Coroutine;
+            model_filepath = await Utils.getFilePathAsyncTask(MODEL_FILENAME, cancellationToken: cts.Token);
+            classes_filepath = await Utils.getFilePathAsyncTask(CLASSES_FILENAME, cancellationToken: cts.Token);
 
-            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync(CLASSES_FILENAME, (result) =>
-            {
-                classes_filepath = result;
-            });
-            yield return getFilePathAsync_1_Coroutine;
-
-            getFilePath_Coroutine = null;
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "";
 
             Run();
         }
-#endif
 
         // Use this for initialization
         void Run()
@@ -136,61 +127,41 @@ namespace OpenCVForUnityExample
                 net = Dnn.readNet(model_filepath);
             }
 
-#if UNITY_ANDROID && !UNITY_EDITOR
-            // Avoids the front camera low light issue that occurs in only some Android devices (e.g. Google Pixel, Pixel2).
-            webCamTextureToMatHelper.avoidAndroidFrontCameraLowLightIssue = true;
-#endif
-            webCamTextureToMatHelper.Initialize();
+            multiSource2MatHelper.Initialize();
         }
 
         /// <summary>
-        /// Raises the webcam texture to mat helper initialized event.
+        /// Raises the source to mat helper initialized event.
         /// </summary>
-        public void OnWebCamTextureToMatHelperInitialized()
+        public void OnSourceToMatHelperInitialized()
         {
-            Debug.Log("OnWebCamTextureToMatHelperInitialized");
+            Debug.Log("OnSourceToMatHelperInitialized");
 
-            Mat webCamTextureMat = webCamTextureToMatHelper.GetMat();
+            Mat rgbaMat = multiSource2MatHelper.GetMat();
 
-            texture = new Texture2D(webCamTextureMat.cols(), webCamTextureMat.rows(), TextureFormat.RGBA32, false);
-            Utils.matToTexture2D(webCamTextureMat, texture);
+            texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
+            Utils.matToTexture2D(rgbaMat, texture);
 
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
+            resultPreview.texture = texture;
+            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
 
-            gameObject.transform.localScale = new Vector3(webCamTextureMat.cols(), webCamTextureMat.rows(), 1);
-            Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
             if (fpsMonitor != null)
             {
-                fpsMonitor.Add("width", webCamTextureMat.width().ToString());
-                fpsMonitor.Add("height", webCamTextureMat.height().ToString());
+                fpsMonitor.Add("width", rgbaMat.width().ToString());
+                fpsMonitor.Add("height", rgbaMat.height().ToString());
                 fpsMonitor.Add("orientation", Screen.orientation.ToString());
             }
 
-
-            float width = webCamTextureMat.width();
-            float height = webCamTextureMat.height();
-
-            float widthScale = (float)Screen.width / width;
-            float heightScale = (float)Screen.height / height;
-            if (widthScale < heightScale)
-            {
-                Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
-            }
-            else
-            {
-                Camera.main.orthographicSize = height / 2;
-            }
-
-            rgbMat = new Mat(webCamTextureMat.rows(), webCamTextureMat.cols(), CvType.CV_8UC3);
+            rgbMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
         }
 
         /// <summary>
-        /// Raises the webcam texture to mat helper disposed event.
+        /// Raises the source to mat helper disposed event.
         /// </summary>
-        public void OnWebCamTextureToMatHelperDisposed()
+        public void OnSourceToMatHelperDisposed()
         {
-            Debug.Log("OnWebCamTextureToMatHelperDisposed");
+            Debug.Log("OnSourceToMatHelperDisposed");
 
             if (rgbMat != null)
                 rgbMat.Dispose();
@@ -203,21 +174,27 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the webcam texture to mat helper error occurred event.
+        /// Raises the source to mat helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
-        public void OnWebCamTextureToMatHelperErrorOccurred(WebCamTextureToMatHelper.ErrorCode errorCode)
+        /// <param name="message">Message.</param>
+        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
         {
-            Debug.Log("OnWebCamTextureToMatHelperErrorOccurred " + errorCode);
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
+
+            if (fpsMonitor != null)
+            {
+                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
+            }
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (webCamTextureToMatHelper.IsPlaying() && webCamTextureToMatHelper.DidUpdateThisFrame())
+            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
             {
 
-                Mat rgbaMat = webCamTextureToMatHelper.GetMat();
+                Mat rgbaMat = multiSource2MatHelper.GetMat();
 
                 if (net == null || classes == null)
                 {
@@ -229,7 +206,7 @@ namespace OpenCVForUnityExample
 
                     Imgproc.cvtColor(rgbaMat, rgbMat, Imgproc.COLOR_RGBA2RGB);
 
-                    Mat blob = Dnn.blobFromImage(rgbMat, 1.0/255.0, new Size(224, 224), new Scalar(0.485, 0.456, 0.406), false, true, CvType.CV_32F);
+                    Mat blob = Dnn.blobFromImage(rgbMat, 1.0 / 255.0, new Size(224, 224), new Scalar(0.485, 0.456, 0.406), false, true, CvType.CV_32F);
                     // Divide blob by std.
                     Core.divide(blob, new Scalar(0.229, 0.224, 0.225), blob);
 
@@ -264,20 +241,15 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDestroy()
         {
-            webCamTextureToMatHelper.Dispose();
+            multiSource2MatHelper.Dispose();
 
             if (net != null)
                 net.Dispose();
 
             Utils.setDebugMode(false);
 
-#if UNITY_WEBGL
-            if (getFilePath_Coroutine != null)
-            {
-                StopCoroutine(getFilePath_Coroutine);
-                ((IDisposable)getFilePath_Coroutine).Dispose();
-            }
-#endif
+            if (cts != null)
+                cts.Dispose();
         }
 
         /// <summary>
@@ -293,7 +265,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnPlayButtonClick()
         {
-            webCamTextureToMatHelper.Play();
+            multiSource2MatHelper.Play();
         }
 
         /// <summary>
@@ -301,7 +273,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnPauseButtonClick()
         {
-            webCamTextureToMatHelper.Pause();
+            multiSource2MatHelper.Pause();
         }
 
         /// <summary>
@@ -309,7 +281,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnStopButtonClick()
         {
-            webCamTextureToMatHelper.Stop();
+            multiSource2MatHelper.Stop();
         }
 
         /// <summary>
@@ -317,7 +289,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnChangeCameraButtonClick()
         {
-            webCamTextureToMatHelper.requestedIsFrontFacing = !webCamTextureToMatHelper.requestedIsFrontFacing;
+            multiSource2MatHelper.requestedIsFrontFacing = !multiSource2MatHelper.requestedIsFrontFacing;
         }
 
         private List<string> readClassNames(string filename)

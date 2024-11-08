@@ -1,12 +1,12 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.VideoioModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.VideoioModule;
 using System.IO;
+using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {
@@ -28,7 +28,7 @@ namespace OpenCVForUnityExample
         /// The capture rect
         /// </summary>
         [TooltipAttribute("The four values indicate which area of the screen screen is to be captured (value 0-1).")]
-        public UnityEngine.Rect captureRect = new UnityEngine.Rect( 0.05f, 0.05f, 0.95f, 0.95f);
+        public UnityEngine.Rect captureRect = new UnityEngine.Rect(0.05f, 0.05f, 0.95f, 0.95f);
 
         /// <summary>
         /// The cube.
@@ -205,7 +205,7 @@ namespace OpenCVForUnityExample
         void Update()
         {
 #if UNITY_EDITOR
-            if(canvasSizeDelta.x != canvasRectTransform.sizeDelta.x || canvasSizeDelta.y != canvasRectTransform.sizeDelta.y)
+            if (canvasSizeDelta.x != canvasRectTransform.sizeDelta.x || canvasSizeDelta.y != canvasRectTransform.sizeDelta.y)
             {
                 canvasSizeDelta = canvasRectTransform.sizeDelta;
                 SetCaptureRectPanel();
@@ -294,7 +294,7 @@ namespace OpenCVForUnityExample
             }
             else
             {
-                captureRectPixel = new UnityEngine.Rect(Screen.width * captureRect.x, Screen.height * captureRect.y, Screen.width * (captureRect.width-captureRect.x), Screen.height * (captureRect.height-captureRect.y));
+                captureRectPixel = new UnityEngine.Rect(Screen.width * captureRect.x, Screen.height * captureRect.y, Screen.width * (captureRect.width - captureRect.x), Screen.height * (captureRect.height - captureRect.y));
 
                 if (captureRectPixel.x < 0 || captureRectPixel.y < 0 || captureRectPixel.width > Screen.width || captureRectPixel.height > Screen.height || captureRectPixel.width < 1 || captureRectPixel.height < 1)
                 {

@@ -1,14 +1,14 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.ObjdetectModule;
+using OpenCVForUnity.TrackingModule;
+using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.VideoioModule;
 using System;
 using System.Collections;
-using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.ObjdetectModule;
-using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.VideoioModule;
-using OpenCVForUnity.TrackingModule;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {
@@ -562,6 +562,9 @@ namespace OpenCVForUnityExample
             DisposeEnumerator();
 
             Texture2D imgTexture = Resources.Load("face") as Texture2D;
+            DebugMatUtils.imshow("imgTexture_all", imgTexture);
+            DebugMatUtils.imshow("imgTexture", imgTexture, true, DebugMatUtils.DumpMode.GetPixels32Mode, new OpenCVForUnity.CoreModule.Rect(180, 230, 20, 20));
+
             Mat imgMat = new Mat(imgTexture.height, imgTexture.width, CvType.CV_8UC4);
             Utils.texture2DToMat(imgTexture, imgMat);
             DebugMatUtils.imshow("imgMat_all", imgMat);
@@ -586,6 +589,9 @@ namespace OpenCVForUnityExample
             //
 
             Texture2D imgTexture = Resources.Load(""face"") as Texture2D;
+            <color=#ff0000>DebugMatUtils.imshow(""imgTexture"", imgTexture);</color>
+            <color=#ff0000>DebugMatUtils.imshow(""imgTexture"", imgTexture, true, DebugMatUtils.DumpMode.GetPixels32Mode, new OpenCVForUnity.CoreModule.Rect(180, 230, 20, 20));</color>
+
             Mat imgMat = new Mat(imgTexture.height, imgTexture.width, CvType.CV_8UC4);
             Utils.texture2DToMat(imgTexture, imgMat);
             <color=#ff0000>DebugMatUtils.imshow(""imgMat_all"", imgMat);</color>

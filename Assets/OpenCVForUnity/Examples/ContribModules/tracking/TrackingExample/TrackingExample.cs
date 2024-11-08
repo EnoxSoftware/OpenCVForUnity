@@ -5,8 +5,9 @@ using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.UnityUtils.Helper;
 using OpenCVForUnity.VideoModule;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -24,7 +25,7 @@ namespace OpenCVForUnityExample
     /// https://github.com/opencv/opencv/blob/4.x/samples/dnn/dasiamrpn_tracker.cpp
     /// https://github.com/opencv/opencv/blob/4.x/samples/dnn/nanotrack_tracker.cpp
     /// </summary>
-    [RequireComponent(typeof(VideoCaptureToMatHelper))]
+    [RequireComponent(typeof(MultiSource2MatHelper))]
     public class TrackingExample : MonoBehaviour
     {
         /// <summary>
@@ -123,10 +124,6 @@ namespace OpenCVForUnityExample
 
         bool disableTrackerNano = false;
 
-#if UNITY_WEBGL
-        IEnumerator getFilePath_Coroutine;
-#endif
-
         /// <summary>
         /// The texture.
         /// </summary>
@@ -148,9 +145,9 @@ namespace OpenCVForUnityExample
         Point storedTouchPoint;
 
         /// <summary>
-        /// The video capture to mat helper.
+        /// The multi source to mat helper.
         /// </summary>
-        VideoCaptureToMatHelper sourceToMatHelper;
+        MultiSource2MatHelper multiSource2MatHelper;
 
         /// <summary>
         /// The FPS monitor.
@@ -162,13 +159,17 @@ namespace OpenCVForUnityExample
         /// </summary>
         protected static readonly string VIDEO_FILENAME = "OpenCVForUnity/768x576_mjpeg.mjpeg";
 
+        /// <summary>
+        /// The CancellationTokenSource.
+        /// </summary>
+        CancellationTokenSource cts = new CancellationTokenSource();
+
         // Use this for initialization
-        void Start()
+        async void Start()
         {
             fpsMonitor = GetComponent<FpsMonitor>();
 
-            sourceToMatHelper = gameObject.GetComponent<VideoCaptureToMatHelper>();
-
+            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
 
 #if UNITY_WSA_10_0
             
@@ -181,70 +182,26 @@ namespace OpenCVForUnityExample
             disableTrackerNano = true;
             Run();
 
-#elif UNITY_WEBGL
-
-            getFilePath_Coroutine = GetFilePath();
-            StartCoroutine(getFilePath_Coroutine);
-
 #else
 
-            Vit_model_filepath = Utils.getFilePath(Vit_MODEL_FILENAME);
-            DaSiamRPN_model_filepath = Utils.getFilePath(DaSiamRPN_MODEL_FILENAME);
-            DaSiamRPN_kernel_r1_filepath = Utils.getFilePath(DaSiamRPN_KERNEL_R1_FILENAME);
-            DaSiamRPN_kernel_cls1_filepath = Utils.getFilePath(DaSiamRPN_KERNEL_CLS1_FILENAME);
-            NANOTRACK_backbone_sim_filepath = Utils.getFilePath(NANOTRACK_BACKBONE_SIM_FILENAME);
-            NANOTRACK_head_sim_filepath = Utils.getFilePath(NANOTRACK_HEAD_SIM_FILENAME);
-            CheckFilePaths();
-            Run();
+            // Asynchronously retrieves the readable file path from the StreamingAssets directory.
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "Preparing file access...";
 
-#endif
-        }
+            Vit_model_filepath = await Utils.getFilePathAsyncTask(Vit_MODEL_FILENAME, cancellationToken: cts.Token);
+            DaSiamRPN_model_filepath = await Utils.getFilePathAsyncTask(DaSiamRPN_MODEL_FILENAME, cancellationToken: cts.Token);
+            DaSiamRPN_kernel_r1_filepath = await Utils.getFilePathAsyncTask(DaSiamRPN_KERNEL_R1_FILENAME, cancellationToken: cts.Token);
+            DaSiamRPN_kernel_cls1_filepath = await Utils.getFilePathAsyncTask(DaSiamRPN_KERNEL_CLS1_FILENAME, cancellationToken: cts.Token);
+            NANOTRACK_backbone_sim_filepath = await Utils.getFilePathAsyncTask(NANOTRACK_BACKBONE_SIM_FILENAME, cancellationToken: cts.Token);
+            NANOTRACK_head_sim_filepath = await Utils.getFilePathAsyncTask(NANOTRACK_HEAD_SIM_FILENAME, cancellationToken: cts.Token);
 
-#if UNITY_WEBGL
-        private IEnumerator GetFilePath()
-        {
-            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync(Vit_MODEL_FILENAME, (result) =>
-            {
-                Vit_model_filepath = result;
-            });
-            yield return getFilePathAsync_0_Coroutine;
-
-            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync(DaSiamRPN_MODEL_FILENAME, (result) =>
-            {
-                DaSiamRPN_model_filepath = result;
-            });
-            yield return getFilePathAsync_1_Coroutine;
-
-            var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync(DaSiamRPN_KERNEL_R1_FILENAME, (result) =>
-            {
-                DaSiamRPN_kernel_r1_filepath = result;
-            });
-            yield return getFilePathAsync_2_Coroutine;
-
-            var getFilePathAsync_3_Coroutine = Utils.getFilePathAsync(DaSiamRPN_KERNEL_CLS1_FILENAME, (result) =>
-            {
-                DaSiamRPN_kernel_cls1_filepath = result;
-            });
-            yield return getFilePathAsync_3_Coroutine;
-
-            var getFilePathAsync_4_Coroutine = Utils.getFilePathAsync(NANOTRACK_BACKBONE_SIM_FILENAME, (result) =>
-            {
-                NANOTRACK_backbone_sim_filepath = result;
-            });
-            yield return getFilePathAsync_4_Coroutine;
-
-            var getFilePathAsync_5_Coroutine = Utils.getFilePathAsync(NANOTRACK_HEAD_SIM_FILENAME, (result) =>
-            {
-                NANOTRACK_head_sim_filepath = result;
-            });
-            yield return getFilePathAsync_5_Coroutine;
-
-            getFilePath_Coroutine = null;
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "";
 
             CheckFilePaths();
             Run();
-        }
 #endif
+        }
 
         void CheckFilePaths()
         {
@@ -275,33 +232,34 @@ namespace OpenCVForUnityExample
 
         void Run()
         {
-            if (string.IsNullOrEmpty(sourceToMatHelper.requestedVideoFilePath))
-                sourceToMatHelper.requestedVideoFilePath = VIDEO_FILENAME;
-            sourceToMatHelper.outputColorFormat = VideoCaptureToMatHelper.ColorFormat.RGB; // Tracking API must handle 3 channels Mat image.
-            sourceToMatHelper.Initialize();
+            if (string.IsNullOrEmpty(multiSource2MatHelper.requestedVideoFilePath))
+                multiSource2MatHelper.requestedVideoFilePath = VIDEO_FILENAME;
+            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGB; // Tracking API must handle 3 channels Mat image.
+            multiSource2MatHelper.Initialize();
         }
 
         /// <summary>
-        /// Raises the video capture to mat helper initialized event.
+        /// Raises the source to mat helper initialized event.
         /// </summary>
-        public void OnVideoCaptureToMatHelperInitialized()
+        public void OnSourceToMatHelperInitialized()
         {
-            Debug.Log("OnVideoCaptureToMatHelperInitialized");
+            Debug.Log("OnSourceToMatHelperInitialized");
 
-            Mat rgbMat = sourceToMatHelper.GetMat();
+            Mat rgbMat = multiSource2MatHelper.GetMat();
 
             texture = new Texture2D(rgbMat.cols(), rgbMat.rows(), TextureFormat.RGB24, false);
             Utils.matToTexture2D(rgbMat, texture);
 
+            // Set the Texture2D as the main texture of the Renderer component attached to the game object
             gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
+            // Adjust the scale of the game object to match the dimensions of the texture
             gameObject.transform.localScale = new Vector3(rgbMat.cols(), rgbMat.rows(), 1);
             Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
-
+            // Adjust the orthographic size of the main Camera to fit the aspect ratio of the image
             float width = rgbMat.width();
             float height = rgbMat.height();
-
             float widthScale = (float)Screen.width / width;
             float heightScale = (float)Screen.height / height;
             if (widthScale < heightScale)
@@ -320,37 +278,40 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the video capture to mat helper disposed event.
+        /// Raises the source to mat helper disposed event.
         /// </summary>
-        public void OnVideoCaptureToMatHelperDisposed()
+        public void OnSourceToMatHelperDisposed()
         {
-            Debug.Log("OnVideoCaptureToMatHelperDisposed");
+            Debug.Log("OnSourceToMatHelperDisposed");
 
             if (texture != null)
             {
                 Texture2D.Destroy(texture);
                 texture = null;
             }
+
+            ResetTrackers();
         }
 
         /// <summary>
-        /// Raises the video capture to mat helper error occurred event.
+        /// Raises the source to mat helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
-        public void OnVideoCaptureToMatHelperErrorOccurred(VideoCaptureToMatHelper.ErrorCode errorCode)
+        /// <param name="message">Message.</param>
+        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
         {
-            Debug.Log("OnVideoCaptureToMatHelperErrorOccurred " + errorCode);
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
 
             if (fpsMonitor != null)
             {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode;
+                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
             }
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (!sourceToMatHelper.IsInitialized())
+            if (!multiSource2MatHelper.IsInitialized())
                 return;
 
 #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
@@ -377,12 +338,12 @@ namespace OpenCVForUnityExample
 
             if (selectedPointList.Count != 1)
             {
-                if (!sourceToMatHelper.IsPlaying())
-                    sourceToMatHelper.Play();
+                if (!multiSource2MatHelper.IsPlaying())
+                    multiSource2MatHelper.Play();
 
-                if (sourceToMatHelper.IsPlaying() && sourceToMatHelper.DidUpdateThisFrame())
+                if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
                 {
-                    Mat rgbMat = sourceToMatHelper.GetMat();
+                    Mat rgbMat = multiSource2MatHelper.GetMat();
 
                     if (storedTouchPoint != null)
                     {
@@ -468,15 +429,16 @@ namespace OpenCVForUnityExample
                                 fpsMonitor.consoleText = "";
                             }
 
-                            trackerKCFToggle.interactable = trackerCSRTToggle.interactable = trackerMILToggle.interactable = false;
+                            new[] { trackerKCFToggle, trackerCSRTToggle, trackerMILToggle }
+                                .ToList().ForEach(toggle => { if (toggle) toggle.interactable = false; });
 
-                            if (!disableTrackerVit)
+                            if (!disableTrackerVit && trackerVitToggle)
                                 trackerVitToggle.interactable = false;
 
-                            if (!disableTrackerDaSiamRPN)
+                            if (!disableTrackerDaSiamRPN && trackerDaSiamRPNToggle)
                                 trackerDaSiamRPNToggle.interactable = false;
 
-                            if (!disableTrackerNano)
+                            if (!disableTrackerNano && trackerNanoToggle)
                                 trackerNanoToggle.interactable = false;
                         }
                     }
@@ -538,8 +500,8 @@ namespace OpenCVForUnityExample
             }
             else
             {
-                if (sourceToMatHelper.IsPlaying())
-                    sourceToMatHelper.Pause();
+                if (multiSource2MatHelper.IsPlaying())
+                    multiSource2MatHelper.Pause();
 
                 if (storedTouchPoint != null)
                 {
@@ -561,15 +523,16 @@ namespace OpenCVForUnityExample
                 trackers.Clear();
             }
 
-            trackerKCFToggle.interactable = trackerCSRTToggle.interactable = trackerMILToggle.interactable = true;
+            new[] { trackerKCFToggle, trackerCSRTToggle, trackerMILToggle }
+                .ToList().ForEach(toggle => { if (toggle) toggle.interactable = true; });
 
-            if (!disableTrackerVit)
+            if (!disableTrackerVit && trackerVitToggle)
                 trackerVitToggle.interactable = true;
 
-            if (!disableTrackerDaSiamRPN)
+            if (!disableTrackerDaSiamRPN && trackerDaSiamRPNToggle)
                 trackerDaSiamRPNToggle.interactable = true;
 
-            if (!disableTrackerNano)
+            if (!disableTrackerNano && trackerNanoToggle)
                 trackerNanoToggle.interactable = true;
         }
 
@@ -645,13 +608,8 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDisable()
         {
-#if UNITY_WEBGL
-            if (getFilePath_Coroutine != null)
-            {
-                StopCoroutine(getFilePath_Coroutine);
-                ((IDisposable)getFilePath_Coroutine).Dispose();
-            }
-#endif
+            if (cts != null)
+                cts.Dispose();
         }
 
         /// <summary>
@@ -659,8 +617,8 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDestroy()
         {
-            if (sourceToMatHelper != null)
-                sourceToMatHelper.Dispose();
+            if (multiSource2MatHelper != null)
+                multiSource2MatHelper.Dispose();
         }
 
         /// <summary>

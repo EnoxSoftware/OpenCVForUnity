@@ -1,11 +1,11 @@
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgcodecsModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityUtils;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.ImgcodecsModule;
-using OpenCVForUnity.UnityUtils;
+using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {

@@ -5,10 +5,9 @@ using OpenCVForUnity.DnnModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.UnityUtils.Helper;
-using OpenCVForUnity.UtilsModule;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -21,7 +20,7 @@ namespace OpenCVForUnityExample
     /// An example of single object tracking using the DaSiamRPN algorithm.
     /// https://github.com/opencv/opencv/blob/master/samples/dnn/dasiamrpn_tracker.py
     /// </summary>
-    [RequireComponent(typeof(VideoCaptureToMatHelper))]
+    [RequireComponent(typeof(MultiSource2MatHelper))]
     public class ObjectTrackingDaSiamRPNExample : MonoBehaviour
     {
         /// <summary>
@@ -54,10 +53,6 @@ namespace OpenCVForUnityExample
         /// </summary>
         string kernel_cls1_filepath;
 
-#if UNITY_WEBGL
-        IEnumerator getFilePath_Coroutine;
-#endif
-
         /// <summary>
         /// The texture.
         /// </summary>
@@ -84,9 +79,9 @@ namespace OpenCVForUnityExample
         Point storedTouchPoint;
 
         /// <summary>
-        /// The video capture to mat helper.
+        /// The multi source to mat helper.
         /// </summary>
-        VideoCaptureToMatHelper sourceToMatHelper;
+        MultiSource2MatHelper multiSource2MatHelper;
 
         /// <summary>
         /// The FPS monitor.
@@ -98,51 +93,31 @@ namespace OpenCVForUnityExample
         /// </summary>
         protected static readonly string VIDEO_FILENAME = "OpenCVForUnity/768x576_mjpeg.mjpeg";
 
+        /// <summary>
+        /// The CancellationTokenSource.
+        /// </summary>
+        CancellationTokenSource cts = new CancellationTokenSource();
+
         // Use this for initialization
-        void Start()
+        async void Start()
         {
             fpsMonitor = GetComponent<FpsMonitor>();
 
-            sourceToMatHelper = gameObject.GetComponent<VideoCaptureToMatHelper>();
+            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
 
-#if UNITY_WEBGL
-            getFilePath_Coroutine = GetFilePath();
-            StartCoroutine(getFilePath_Coroutine);
-#else
-            net_filepath = Utils.getFilePath(NET_FILENAME);
-            kernel_r1_filepath = Utils.getFilePath(KERNEL_R1_FILENAME);
-            kernel_cls1_filepath = Utils.getFilePath(KERNEL_CLS1_FILENAME);
-            Run();
-#endif
+            // Asynchronously retrieves the readable file path from the StreamingAssets directory.
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "Preparing file access...";
 
-        }
+            net_filepath = await Utils.getFilePathAsyncTask(NET_FILENAME, cancellationToken: cts.Token);
+            kernel_r1_filepath = await Utils.getFilePathAsyncTask(KERNEL_R1_FILENAME, cancellationToken: cts.Token);
+            kernel_cls1_filepath = await Utils.getFilePathAsyncTask(KERNEL_CLS1_FILENAME, cancellationToken: cts.Token);
 
-#if UNITY_WEBGL
-        private IEnumerator GetFilePath()
-        {
-            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync(NET_FILENAME, (result) =>
-            {
-                net_filepath = result;
-            });
-            yield return getFilePathAsync_0_Coroutine;
-
-            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync(KERNEL_R1_FILENAME, (result) =>
-            {
-                kernel_r1_filepath = result;
-            });
-            yield return getFilePathAsync_1_Coroutine;
-
-            var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync(KERNEL_CLS1_FILENAME, (result) =>
-            {
-                kernel_cls1_filepath = result;
-            });
-            yield return getFilePathAsync_2_Coroutine;
-
-            getFilePath_Coroutine = null;
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "";
 
             Run();
         }
-#endif
 
         // Use this for initialization
         void Run()
@@ -159,35 +134,36 @@ namespace OpenCVForUnityExample
                 tracker = new DaSiamRPNTracker(net_filepath, kernel_r1_filepath, kernel_cls1_filepath);
             }
 
-            if (string.IsNullOrEmpty(sourceToMatHelper.requestedVideoFilePath))
-                sourceToMatHelper.requestedVideoFilePath = VIDEO_FILENAME;
-            sourceToMatHelper.outputColorFormat = VideoCaptureToMatHelper.ColorFormat.RGB; // DaSiamRPNTracker API must handle 3 channels Mat image.
-            sourceToMatHelper.Initialize();
+            if (string.IsNullOrEmpty(multiSource2MatHelper.requestedVideoFilePath))
+                multiSource2MatHelper.requestedVideoFilePath = VIDEO_FILENAME;
+            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGB; // DaSiamRPNTracker API must handle 3 channels Mat image.
+            multiSource2MatHelper.Initialize();
 
             Utils.setDebugMode(false);
         }
 
         /// <summary>
-        /// Raises the video capture to mat helper initialized event.
+        /// Raises the source to mat helper initialized event.
         /// </summary>
-        public void OnVideoCaptureToMatHelperInitialized()
+        public void OnSourceToMatHelperInitialized()
         {
-            Debug.Log("OnVideoCaptureToMatHelperInitialized");
+            Debug.Log("OnSourceToMatHelperInitialized");
 
-            Mat rgbMat = sourceToMatHelper.GetMat();
+            Mat rgbMat = multiSource2MatHelper.GetMat();
 
             texture = new Texture2D(rgbMat.cols(), rgbMat.rows(), TextureFormat.RGB24, false);
             Utils.matToTexture2D(rgbMat, texture);
 
+            // Set the Texture2D as the main texture of the Renderer component attached to the game object
             gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 
+            // Adjust the scale of the game object to match the dimensions of the texture
             gameObject.transform.localScale = new Vector3(rgbMat.cols(), rgbMat.rows(), 1);
             Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
 
-
+            // Adjust the orthographic size of the main Camera to fit the aspect ratio of the image
             float width = rgbMat.width();
             float height = rgbMat.height();
-
             float widthScale = (float)Screen.width / width;
             float heightScale = (float)Screen.height / height;
             if (widthScale < heightScale)
@@ -204,11 +180,11 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the video capture to mat helper disposed event.
+        /// Raises the source to mat helper disposed event.
         /// </summary>
-        public void OnVideoCaptureToMatHelperDisposed()
+        public void OnSourceToMatHelperDisposed()
         {
-            Debug.Log("OnVideoCaptureToMatHelperDisposed");
+            Debug.Log("OnSourceToMatHelperDisposed");
 
             if (texture != null)
             {
@@ -218,30 +194,31 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the video capture to mat helper error occurred event.
+        /// Raises the source to mat helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
-        public void OnVideoCaptureToMatHelperErrorOccurred(VideoCaptureToMatHelper.ErrorCode errorCode)
+        /// <param name="message">Message.</param>
+        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
         {
-            Debug.Log("OnVideoCaptureToMatHelperErrorOccurred " + errorCode);
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
 
             if (fpsMonitor != null)
             {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode;
+                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
             }
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (!sourceToMatHelper.IsInitialized())
+            if (!multiSource2MatHelper.IsInitialized())
                 return;
 
             if (tracker == null)
             {
-                if (sourceToMatHelper.IsPlaying() && sourceToMatHelper.DidUpdateThisFrame())
+                if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
                 {
-                    Mat rgbMat = sourceToMatHelper.GetMat();
+                    Mat rgbMat = multiSource2MatHelper.GetMat();
 
                     Imgproc.putText(rgbMat, "model file is not loaded.", new Point(5, rgbMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                     Imgproc.putText(rgbMat, "Please read console message.", new Point(5, rgbMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
@@ -276,12 +253,12 @@ namespace OpenCVForUnityExample
 
             if (selectedPointList.Count != 1)
             {
-                if (!sourceToMatHelper.IsPlaying())
-                    sourceToMatHelper.Play();
+                if (!multiSource2MatHelper.IsPlaying())
+                    multiSource2MatHelper.Play();
 
-                if (sourceToMatHelper.IsPlaying() && sourceToMatHelper.DidUpdateThisFrame())
+                if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
                 {
-                    Mat rgbMat = sourceToMatHelper.GetMat();
+                    Mat rgbMat = multiSource2MatHelper.GetMat();
 
                     if (storedTouchPoint != null)
                     {
@@ -352,8 +329,8 @@ namespace OpenCVForUnityExample
             }
             else
             {
-                if (sourceToMatHelper.IsPlaying())
-                    sourceToMatHelper.Pause();
+                if (multiSource2MatHelper.IsPlaying())
+                    multiSource2MatHelper.Pause();
 
                 if (storedTouchPoint != null)
                 {
@@ -446,13 +423,8 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDisable()
         {
-#if UNITY_WEBGL
-            if (getFilePath_Coroutine != null)
-            {
-                StopCoroutine(getFilePath_Coroutine);
-                ((IDisposable)getFilePath_Coroutine).Dispose();
-            }
-#endif
+            if (cts != null)
+                cts.Dispose();
         }
 
         /// <summary>
@@ -460,7 +432,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDestroy()
         {
-            sourceToMatHelper.Dispose();
+            multiSource2MatHelper.Dispose();
 
             if (texture != null)
             {
