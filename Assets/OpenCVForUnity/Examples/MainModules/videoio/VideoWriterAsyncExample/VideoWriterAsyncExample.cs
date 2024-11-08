@@ -1,16 +1,16 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.VideoioModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
-using UnityEngine.Rendering;
 using OpenCVForUnity.UtilsModule;
-using UnityEngine.Experimental.Rendering;
-using System.Linq;
-using UnityEngine.Profiling;
+using OpenCVForUnity.VideoioModule;
 using System.IO;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.Experimental.Rendering;
+using UnityEngine.Profiling;
+using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {
@@ -130,6 +130,8 @@ namespace OpenCVForUnityExample
         /// </summary>
         UnityEngine.Rect captureRectPixel;
 
+        bool isFlipRenderTexture;
+
 #if UNITY_EDITOR
         private RectTransform canvasRectTransform;
 
@@ -179,7 +181,15 @@ namespace OpenCVForUnityExample
             SetCaptureRectPanel();
 #endif
 
+            isFlipRenderTexture = IsFlipRenderTexture();
+
             fpsMonitor = GetComponent<FpsMonitor>();
+            if (fpsMonitor != null)
+            {
+                fpsMonitor.Add("graphicsUVStartsAtTop", SystemInfo.graphicsUVStartsAtTop.ToString());
+                fpsMonitor.Add("defaultRenderPipeline", GraphicsSettings.defaultRenderPipeline == null ? "null" : GraphicsSettings.defaultRenderPipeline.ToString());
+                fpsMonitor.Add("isFlip", isFlipRenderTexture.ToString());
+            }
 
             PlayButton.interactable = false;
             previewPanel.gameObject.SetActive(false);
@@ -239,7 +249,6 @@ namespace OpenCVForUnityExample
 
             if (!isPlaying)
             {
-
                 cube.transform.Rotate(new Vector3(90, 90, 0) * Time.deltaTime, Space.Self);
             }
 
@@ -288,77 +297,63 @@ namespace OpenCVForUnityExample
                 RenderTexture tempRenderTexture = null;
                 RenderTexture tempFlipRenderTexture = null;
 
-                //bool isFlip = !SystemInfo.graphicsUVStartsAtTop;
-                bool isFlip = true;
-#if UNITY_IOS && !UNITY_EDITOR
-                if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.Metal)
-                {
-                    isFlip = false;
-                }
-#elif UNITY_ANDROID && !UNITY_EDITOR
-                if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.Vulkan)
-                {
-                    isFlip = false;
-                }
-#endif
-
                 tempRenderTexture = RenderTexture.GetTemporary(Screen.width, Screen.height, 0, RenderTextureFormat.ARGB32);
 
-                if (isFlip)
+                if (isFlipRenderTexture)
                 {
                     tempFlipRenderTexture = RenderTexture.GetTemporary(Screen.width, Screen.height, 0, RenderTextureFormat.ARGB32);
                     Graphics.Blit(null, tempFlipRenderTexture);
                     //Profiler.BeginSample(name: "Flip Profile");
                     Graphics.Blit(tempFlipRenderTexture, tempRenderTexture, new Vector2(1, -1), new Vector2(0, 1));
                     //Profiler.EndSample();
-                    Graphics.Blit(null, tempRenderTexture);
+                    //Graphics.Blit(null, tempRenderTexture);
                 }
                 else
                 {
                     Graphics.Blit(null, tempRenderTexture);
                 }
 
-                AsyncGPUReadback.Request(tempRenderTexture, 0, (int)captureRectPixel.x, (int)captureRectPixel.width, (int)captureRectPixel.y, (int)captureRectPixel.height,0,1, TextureFormat.RGB24, (request) =>
-                {
+                AsyncGPUReadback.Request(tempRenderTexture, 0, (int)captureRectPixel.x, (int)captureRectPixel.width, (int)captureRectPixel.y, (int)captureRectPixel.height, 0, 1, TextureFormat.RGB24, (request) =>
+                  {
 
-                    if (request.hasError)
-                    {
-                        Debug.Log("GPU readback error detected. ");
+                      if (request.hasError)
+                      {
+                          Debug.Log("GPU readback error detected. ");
 
-                        if (fpsMonitor != null)
-                        {
-                            fpsMonitor.consoleText = "request.hasError: GPU readback error detected.";
-                        }
+                          if (fpsMonitor != null)
+                          {
+                              fpsMonitor.consoleText = "request.hasError: GPU readback error detected.";
+                          }
 
-                    }
-                    else if (request.done)
-                    {
-                        //Debug.Log("Start GPU readback done. ");
+                      }
+                      else if (request.done)
+                      {
+                          //Debug.Log("Start GPU readback done. ");
 
 #if !OPENCV_DONT_USE_UNSAFE_CODE
-                        MatUtils.copyToMat(request.GetData<byte>(), recordingFrameRgbMat);
+                          MatUtils.copyToMat(request.GetData<byte>(), recordingFrameRgbMat);
 #endif
 
-                        Imgproc.cvtColor(recordingFrameRgbMat, recordingFrameRgbMat, Imgproc.COLOR_RGB2BGR);
-                        //Profiler.BeginSample(name: "Flip Profile");
-                        //Core.flip(recordingFrameRgbMat, recordingFrameRgbMat, 0);
-                        //Profiler.EndSample();
+                          Imgproc.cvtColor(recordingFrameRgbMat, recordingFrameRgbMat, Imgproc.COLOR_RGB2BGR);
+                          //Profiler.BeginSample(name: "Flip Profile");
+                          //Core.flip(recordingFrameRgbMat, recordingFrameRgbMat, 0);
+                          //Profiler.EndSample();
 
-                        Imgproc.putText(recordingFrameRgbMat, frameCount.ToString(), new Point(recordingFrameRgbMat.cols() - 70, 30), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar(255, 255, 255), 2, Imgproc.LINE_AA, false);
-                        Imgproc.putText(recordingFrameRgbMat, "SavePath:", new Point(5, recordingFrameRgbMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar(0, 0, 255), 2, Imgproc.LINE_AA, false);
-                        Imgproc.putText(recordingFrameRgbMat, savePath, new Point(5, recordingFrameRgbMat.rows() - 8), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar(255, 255, 255), 0, Imgproc.LINE_AA, false);
+                          Imgproc.putText(recordingFrameRgbMat, frameCount.ToString(), new Point(recordingFrameRgbMat.cols() - 70, 30), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar(255, 255, 255), 2, Imgproc.LINE_AA, false);
+                          Imgproc.putText(recordingFrameRgbMat, "SavePath:", new Point(5, recordingFrameRgbMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar(0, 0, 255), 2, Imgproc.LINE_AA, false);
+                          Imgproc.putText(recordingFrameRgbMat, savePath, new Point(5, recordingFrameRgbMat.rows() - 8), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar(255, 255, 255), 0, Imgproc.LINE_AA, false);
 
-                        writer.write(recordingFrameRgbMat);
+                          writer.write(recordingFrameRgbMat);
 
-                    }
+                      }
 
-                    RenderTexture.ReleaseTemporary(tempRenderTexture);
-                    if (isFlip)
-                    {
-                        RenderTexture.ReleaseTemporary(tempFlipRenderTexture);
-                    }
+                      RenderTexture.ReleaseTemporary(tempRenderTexture);
+                      if (isFlipRenderTexture)
+                      {
+                          RenderTexture.ReleaseTemporary(tempFlipRenderTexture);
+                      }
 
-                });
+                  });
 
                 frameCount++;
             }
@@ -373,7 +368,7 @@ namespace OpenCVForUnityExample
 
             if (File.Exists(savePath))
             {
-                Debug.Log("Delete "+savePath);
+                Debug.Log("Delete " + savePath);
                 File.Delete(savePath);
             }
 
@@ -556,6 +551,37 @@ namespace OpenCVForUnityExample
                 captureRectPanel.gameObject.SetActive(false);
                 previewPanel.gameObject.SetActive(true);
             }
+        }
+
+        /// <summary>
+        /// Whether to flip the captured RenderTexture?
+        /// </summary>
+        /// <returns></returns>
+        private bool IsFlipRenderTexture()
+        {
+            bool isFlip = SystemInfo.graphicsUVStartsAtTop;
+
+            // If the RenderPipeline is SRP.
+            if (GraphicsSettings.defaultRenderPipeline != null)
+            {
+                isFlip = !isFlip;
+            }
+
+#if UNITY_IOS && !UNITY_EDITOR
+            if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.Metal)
+            {
+                isFlip = false;
+            }
+#elif UNITY_ANDROID && !UNITY_EDITOR
+            if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.Vulkan)
+            {
+                isFlip = false;
+            }
+#elif UNITY_WEBGL && !UNITY_EDITOR
+            isFlip = true;
+#endif
+
+            return isFlip;
         }
     }
 }

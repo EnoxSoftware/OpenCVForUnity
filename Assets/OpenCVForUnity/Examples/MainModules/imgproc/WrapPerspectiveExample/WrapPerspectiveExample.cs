@@ -1,9 +1,10 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {
@@ -13,6 +14,12 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class WrapPerspectiveExample : MonoBehaviour
     {
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage resultPreview;
+
         // Use this for initialization
         void Start()
         {
@@ -37,11 +44,12 @@ namespace OpenCVForUnityExample
             Imgproc.warpPerspective(inputMat, outputMat, perspectiveTransform, new Size(inputMat.cols(), inputMat.rows()));
 
 
-            Texture2D outputTexture = new Texture2D(outputMat.cols(), outputMat.rows(), TextureFormat.RGBA32, false);
+            Texture2D texture = new Texture2D(outputMat.cols(), outputMat.rows(), TextureFormat.RGBA32, false);
 
-            Utils.matToTexture2D(outputMat, outputTexture);
+            Utils.matToTexture2D(outputMat, texture);
 
-            gameObject.GetComponent<Renderer>().material.mainTexture = outputTexture;
+            resultPreview.texture = texture;
+            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
         }
 
         // Update is called once per frame

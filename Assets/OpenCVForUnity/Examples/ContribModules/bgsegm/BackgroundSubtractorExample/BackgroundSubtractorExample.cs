@@ -15,9 +15,17 @@ namespace OpenCVForUnityExample
     /// Background Subtractor Example
     /// This example is intended for comparison of different background subtraction algorithms presented in OpenCV.
     /// </summary>
-    [RequireComponent(typeof(VideoCaptureToMatHelper))]
+    [RequireComponent(typeof(MultiSource2MatHelper))]
     public class BackgroundSubtractorExample : MonoBehaviour
     {
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage resultPreview;
+
+        [Space(10)]
+
         /// <summary>
         /// The background subtractor algorithm dropdown.
         /// </summary>
@@ -44,9 +52,9 @@ namespace OpenCVForUnityExample
         Texture2D texture;
 
         /// <summary>
-        /// The video capture to mat helper.
+        /// The multi source to mat helper.
         /// </summary>
-        VideoCaptureToMatHelper sourceToMatHelper;
+        MultiSource2MatHelper multiSource2MatHelper;
 
         /// <summary>
         /// The background substractor.
@@ -83,11 +91,11 @@ namespace OpenCVForUnityExample
         {
             fpsMonitor = GetComponent<FpsMonitor>();
 
-            sourceToMatHelper = gameObject.GetComponent<VideoCaptureToMatHelper>();
-            if (string.IsNullOrEmpty(sourceToMatHelper.requestedVideoFilePath))
-                sourceToMatHelper.requestedVideoFilePath = VIDEO_FILENAME;
-            sourceToMatHelper.outputColorFormat = VideoCaptureToMatHelper.ColorFormat.RGB; // Background Subtractor API must handle 3 channels Mat image.
-            sourceToMatHelper.Initialize();
+            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            if (string.IsNullOrEmpty(multiSource2MatHelper.requestedVideoFilePath))
+                multiSource2MatHelper.requestedVideoFilePath = VIDEO_FILENAME;
+            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGB; // Background Subtractor API must handle 3 channels Mat image.
+            multiSource2MatHelper.Initialize();
 
             // Update GUI state
             backgroundSubtractorAlgorithmDropdown.value = Array.IndexOf(System.Enum.GetNames(typeof(BackgroundSubtractorAlgorithmPreset)), backgroundSubtractorAlgorithm.ToString());
@@ -174,47 +182,30 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the video capture to mat helper initialized event.
+        /// Raises the source to mat helper initialized event.
         /// </summary>
-        public void OnVideoCaptureToMatHelperInitialized()
+        public void OnSourceToMatHelperInitialized()
         {
-            Debug.Log("OnVideoCaptureToMatHelperInitialized");
+            Debug.Log("OnSourceToMatHelperInitialized");
 
-            Mat rgbMat = sourceToMatHelper.GetMat();
+            Mat rgbMat = multiSource2MatHelper.GetMat();
 
             texture = new Texture2D(rgbMat.cols(), rgbMat.rows(), TextureFormat.RGB24, false);
             Utils.matToTexture2D(rgbMat, texture);
 
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
-
-            gameObject.transform.localScale = new Vector3(rgbMat.cols(), rgbMat.rows(), 1);
-            Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
-
-
-            float width = rgbMat.width();
-            float height = rgbMat.height();
-
-            float widthScale = (float)Screen.width / width;
-            float heightScale = (float)Screen.height / height;
-            if (widthScale < heightScale)
-            {
-                Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
-            }
-            else
-            {
-                Camera.main.orthographicSize = height / 2;
-            }
+            resultPreview.texture = texture;
+            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
 
 
             fgmaskMat = new Mat(rgbMat.rows(), rgbMat.cols(), CvType.CV_8UC1);
         }
 
         /// <summary>
-        /// Raises the video capture to mat helper disposed event.
+        /// Raises the source to mat helper disposed event.
         /// </summary>
-        public void OnVideoCaptureToMatHelperDisposed()
+        public void OnSourceToMatHelperDisposed()
         {
-            Debug.Log("OnVideoCaptureToMatHelperDisposed");
+            Debug.Log("OnSourceToMatHelperDisposed");
 
             if (backgroundSubstractor != null)
                 backgroundSubstractor.clear();
@@ -230,25 +221,26 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the video capture to mat helper error occurred event.
+        /// Raises the source to mat helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
-        public void OnVideoCaptureToMatHelperErrorOccurred(VideoCaptureToMatHelper.ErrorCode errorCode)
+        /// <param name="message">Message.</param>
+        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
         {
-            Debug.Log("OnVideoCaptureToMatHelperErrorOccurred " + errorCode);
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
 
             if (fpsMonitor != null)
             {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode;
+                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
             }
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (sourceToMatHelper.IsPlaying() && sourceToMatHelper.DidUpdateThisFrame())
+            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
             {
-                Mat rgbMat = sourceToMatHelper.GetMat();
+                Mat rgbMat = multiSource2MatHelper.GetMat();
 
                 watch.Reset();
                 watch.Start();
@@ -294,11 +286,11 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDestroy()
         {
+            if (multiSource2MatHelper != null)
+                multiSource2MatHelper.Dispose();
+
             if (backgroundSubstractor != null)
                 backgroundSubstractor.Dispose();
-
-            if (sourceToMatHelper != null)
-                sourceToMatHelper.Dispose();
         }
 
         /// <summary>
@@ -326,7 +318,7 @@ namespace OpenCVForUnityExample
 
             CreateBackgroundSubstractor(backgroundSubtractorAlgorithm);
 
-            sourceToMatHelper.Initialize();
+            multiSource2MatHelper.Initialize();
         }
 
         /// <summary>

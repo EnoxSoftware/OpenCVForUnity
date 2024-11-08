@@ -20,6 +20,14 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class ArUcoCreateMarkerExample : MonoBehaviour
     {
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage resultPreview;
+
+        [Space(10)]
+
         /// <summary>
         /// The size of the output marker image (px).
         /// </summary>
@@ -129,7 +137,10 @@ namespace OpenCVForUnityExample
 
             markerImg = new Mat(markerSize, markerSize, CvType.CV_8UC3);
             texture = new Texture2D(markerImg.cols(), markerImg.rows(), TextureFormat.RGB24, false);
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
+
+            resultPreview.texture = texture;
+            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+
 
             markerTypeDropdown.value = (int)markerType;
             markerIdDropdown.value = (int)markerId;
@@ -157,24 +168,6 @@ namespace OpenCVForUnityExample
                 markerImg.setTo(Scalar.all(255));
             }
 
-            gameObject.transform.localScale = new Vector3(markerImg.cols(), markerImg.rows(), 1);
-
-            float width = markerImg.width() / 0.7f;
-            float height = markerImg.height() / 0.7f;
-
-            float widthScale = (float)Screen.width / width;
-            float heightScale = (float)Screen.height / height;
-            if (widthScale < heightScale)
-            {
-                Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
-                gameObject.transform.localPosition = new Vector3(0, -height * 0.1f, 0);
-            }
-            else
-            {
-                Camera.main.orthographicSize = height / 2;
-                gameObject.transform.localPosition = new Vector3(width * 0.1f, 0, 0);
-            }
-
             // create dictinary.
             Dictionary dictionary = Objdetect.getPredefinedDictionary((int)dictionaryId);
 
@@ -195,7 +188,7 @@ namespace OpenCVForUnityExample
                     gridBoard.generateImage(new Size(markerSize, markerSize), markerImg, gridBoradMarginSize, borderBits);
                     gridBoard.Dispose();
                     Debug.Log("draw GridBoard: " + "markersX " + gridBoradMarkersX + " markersY " + gridBoradMarkersY + " markerLength " + gridBoradMarkerLength +
-                    " markerSeparation " + gridBoradMarkerSeparation + " dictionaryId " + (int)dictionaryId + " firstMarkerId " + gridBoradMarkerFirstMarker + 
+                    " markerSeparation " + gridBoradMarkerSeparation + " dictionaryId " + (int)dictionaryId + " firstMarkerId " + gridBoradMarkerFirstMarker +
                     " outSize " + markerSize + " marginSize " + gridBoradMarginSize + " borderBits " + borderBits);
                     break;
                 case MarkerType.ChArUcoBoard:
@@ -208,7 +201,7 @@ namespace OpenCVForUnityExample
                     charucoBoard.generateImage(new Size(markerSize, markerSize), markerImg, chArUcoBoradMarginSize, borderBits);
                     charucoBoard.Dispose();
                     Debug.Log("draw ChArUcoBoard: " + "markersX " + chArUcoBoradMarkersX + " markersY " + chArUcoBoradMarkersY + " squareLength " + chArUcoBoradSquareLength +
-                    " markerLength " + chArUcoBoradMarkerLength + " dictionaryId " + (int)dictionaryId + " firstMarkerId " + chArUcoMarkerFirstMarker + " outSize " + markerSize + 
+                    " markerLength " + chArUcoBoradMarkerLength + " dictionaryId " + (int)dictionaryId + " firstMarkerId " + chArUcoMarkerFirstMarker + " outSize " + markerSize +
                     " marginSize " + chArUcoBoradMarginSize + " borderBits " + borderBits);
                     break;
                 case MarkerType.ChArUcoDiamondMarker:
@@ -217,13 +210,13 @@ namespace OpenCVForUnityExample
                     CharucoBoard charucoDiamondBoard = new CharucoBoard(new Size(diamondMarkersX, diamondMarkersY), diamondSquareLength, diamondMarkerLength, dictionary, diamondIds);
                     charucoDiamondBoard.generateImage(new Size(markerSize, markerSize), markerImg, diamondMarginSize, borderBits);
                     charucoDiamondBoard.Dispose();
-                    Debug.Log("draw ChArUcoDiamondMarker: " + "markersX " + diamondMarkersX + " markersY " + diamondMarkersY + " squareLength " + diamondSquareLength + 
-                        " markerLength " + diamondMarkerLength +" dictionaryId " + (int)dictionaryId + 
+                    Debug.Log("draw ChArUcoDiamondMarker: " + "markersX " + diamondMarkersX + " markersY " + diamondMarkersY + " squareLength " + diamondSquareLength +
+                        " markerLength " + diamondMarkerLength + " dictionaryId " + (int)dictionaryId +
                         " markerIds " + diamondId1 + ", " + diamondId2 + ", " + diamondId3 + ", " + diamondId4 + " outSize " + markerSize + " marginSize " + diamondMarginSize + " borderBits " + borderBits);
                     break;
             }
 
-            Utils.matToTexture2D(markerImg, texture, true, 0, true);
+            Utils.matToTexture2D(markerImg, texture);
         }
 
         private void SaveMarkerImg()
@@ -245,17 +238,17 @@ namespace OpenCVForUnityExample
                     savePath = Path.Combine(saveDirectoryPath, "CanonicalMarker-d" + (int)dictionaryId + "-i" + (int)markerId + "-sp" + markerSize + "-bb" + borderBits + "." + format);
                     break;
                 case MarkerType.GridBoard:
-                    savePath = Path.Combine(saveDirectoryPath, "GridBoard-mx" + gridBoradMarkersX + "-my" + gridBoradMarkersY + "-ml" + gridBoradMarkerLength + "-ms" + 
+                    savePath = Path.Combine(saveDirectoryPath, "GridBoard-mx" + gridBoradMarkersX + "-my" + gridBoradMarkersY + "-ml" + gridBoradMarkerLength + "-ms" +
                         gridBoradMarkerSeparation + "-d" + (int)dictionaryId + "-fi" + gridBoradMarkerFirstMarker + "-os" + markerSize + "-ms" + gridBoradMarginSize + "-bb" + borderBits + "." + format);
                     break;
                 case MarkerType.ChArUcoBoard:
-                    savePath = Path.Combine(saveDirectoryPath, "ChArUcoBoard-mx" + chArUcoBoradMarkersX + "-my" + chArUcoBoradMarkersY + "-sl" + chArUcoBoradSquareLength + 
-                        "-ml" + chArUcoBoradMarkerLength + "-d" + (int)dictionaryId + "-fi" + chArUcoMarkerFirstMarker + "-os" + markerSize + "-ms" + chArUcoBoradMarginSize + 
+                    savePath = Path.Combine(saveDirectoryPath, "ChArUcoBoard-mx" + chArUcoBoradMarkersX + "-my" + chArUcoBoradMarkersY + "-sl" + chArUcoBoradSquareLength +
+                        "-ml" + chArUcoBoradMarkerLength + "-d" + (int)dictionaryId + "-fi" + chArUcoMarkerFirstMarker + "-os" + markerSize + "-ms" + chArUcoBoradMarginSize +
                         "-bb" + borderBits + "." + format);
                     break;
                 case MarkerType.ChArUcoDiamondMarker:
-                    savePath = Path.Combine(saveDirectoryPath, "ChArUcoDiamondMarker-mx" + diamondMarkersX + "-my" + diamondMarkersY + "-sl" + diamondSquareLength + "-ml" + 
-                        diamondMarkerLength + "-d" + (int)dictionaryId + "-i" + diamondId1 + "_" + diamondId2 + "_" + diamondId3 + "_" + diamondId4 + "-os" + markerSize + 
+                    savePath = Path.Combine(saveDirectoryPath, "ChArUcoDiamondMarker-mx" + diamondMarkersX + "-my" + diamondMarkersY + "-sl" + diamondSquareLength + "-ml" +
+                        diamondMarkerLength + "-d" + (int)dictionaryId + "-i" + diamondId1 + "_" + diamondId2 + "_" + diamondId3 + "_" + diamondId4 + "-os" + markerSize +
                         "-ms" + diamondMarginSize + "-bb" + borderBits + "." + format);
                     break;
             }

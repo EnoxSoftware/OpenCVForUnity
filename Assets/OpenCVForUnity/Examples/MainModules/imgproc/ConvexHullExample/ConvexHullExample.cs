@@ -1,9 +1,10 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {
@@ -13,6 +14,12 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class ConvexHullExample : MonoBehaviour
     {
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage resultPreview;
+
         // Use this for initialization
         void Start()
         {
@@ -59,7 +66,8 @@ namespace OpenCVForUnityExample
             Texture2D texture = new Texture2D(imgMat.cols(), imgMat.rows(), TextureFormat.RGBA32, false);
             Utils.matToTexture2D(imgMat, texture);
 
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
+            resultPreview.texture = texture;
+            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
         }
 
         // Update is called once per frame

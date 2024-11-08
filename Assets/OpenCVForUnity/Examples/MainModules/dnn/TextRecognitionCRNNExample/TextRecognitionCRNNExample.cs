@@ -1,17 +1,17 @@
 #if !UNITY_WSA_10_0
 
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using System;
-using System.Collections;
-using System.IO;
-using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.DnnModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
-using System.Text;
+using OpenCVForUnity.UnityUtils.Helper;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {
@@ -22,14 +22,22 @@ namespace OpenCVForUnityExample
     /// https://github.com/opencv/opencv_zoo/tree/master/models/text_recognition_crnn
     /// https://docs.opencv.org/4.x/d4/d43/tutorial_dnn_text_spotting.html
     /// </summary>
+    [RequireComponent(typeof(MultiSource2MatHelper))]
     public class TextRecognitionCRNNExample : MonoBehaviour
     {
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage resultPreview;
+
+        [Space(10)]
 
         // Preprocess input image by resizing to a specific width. It should be multiple by 32.
-        const float detection_inputSize_w = 736f;
+        const float detection_inputSize_w = 320f; // 736f;
 
         // Preprocess input image by resizing to a specific height. It should be multiple by 32.
-        const float detection_inputSize_h = 736f;
+        const float detection_inputSize_h = 320f; // 736f;
 
         const double detection_inputScale = 1.0 / 255.0;
 
@@ -91,107 +99,60 @@ namespace OpenCVForUnityExample
         /// </summary>
         string charsettxt_filepath;
 
-        /// <summary>
-        /// IMAGE_FILENAME
-        /// </summary>
-        string IMAGE_FILENAME = "OpenCVForUnity/text/test_text.jpg";
+        TextDetectionModel_DB detectonModel;
+
+        TextRecognitionModel recognitonModel;
+
+        Mat croppedMat;
+        Mat croppedGrayMat;
 
         /// <summary>
-        /// The image filepath.
+        /// The texture.
         /// </summary>
-        string image_filepath;
+        Texture2D texture;
 
-#if UNITY_WEBGL
-        IEnumerator getFilePath_Coroutine;
-#endif
+        /// <summary>
+        /// The multi source to mat helper.
+        /// </summary>
+        MultiSource2MatHelper multiSource2MatHelper;
+
+        /// <summary>
+        /// The FPS monitor.
+        /// </summary>
+        FpsMonitor fpsMonitor;
+
+        /// <summary>
+        /// The CancellationTokenSource.
+        /// </summary>
+        CancellationTokenSource cts = new CancellationTokenSource();
 
         // Use this for initialization
-        void Start()
+        async void Start()
         {
+            fpsMonitor = GetComponent<FpsMonitor>();
 
-#if UNITY_WEBGL
-            getFilePath_Coroutine = GetFilePath();
-            StartCoroutine(getFilePath_Coroutine);
-#else
-            detectionmodel_filepath = Utils.getFilePath(DETECTIONMODEL_FILENAME);
-            recognitionmodel_filepath = Utils.getFilePath(RECOGNTIONMODEL_FILENAME);
-            charsettxt_filepath = Utils.getFilePath(CHARSETTXT_FILENAME);
-            image_filepath = Utils.getFilePath(IMAGE_FILENAME);
-            Run();
-#endif
-        }
+            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.BGR;
 
-#if UNITY_WEBGL
-        private IEnumerator GetFilePath()
-        {
-            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync(DETECTIONMODEL_FILENAME, (result) =>
-            {
-                detectionmodel_filepath = result;
-            });
-            yield return getFilePathAsync_0_Coroutine;
+            // Asynchronously retrieves the readable file path from the StreamingAssets directory.
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "Preparing file access...";
 
-            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync(RECOGNTIONMODEL_FILENAME, (result) =>
-            {
-                recognitionmodel_filepath = result;
-            });
-            yield return getFilePathAsync_1_Coroutine;
+            detectionmodel_filepath = await Utils.getFilePathAsyncTask(DETECTIONMODEL_FILENAME, cancellationToken: cts.Token);
+            recognitionmodel_filepath = await Utils.getFilePathAsyncTask(RECOGNTIONMODEL_FILENAME, cancellationToken: cts.Token);
+            charsettxt_filepath = await Utils.getFilePathAsyncTask(CHARSETTXT_FILENAME, cancellationToken: cts.Token);
 
-            var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync(CHARSETTXT_FILENAME, (result) =>
-            {
-                charsettxt_filepath = result;
-            });
-            yield return getFilePathAsync_2_Coroutine;
-
-            var getFilePathAsync_3_Coroutine = Utils.getFilePathAsync(IMAGE_FILENAME, (result) =>
-            {
-                image_filepath = result;
-            });
-            yield return getFilePathAsync_3_Coroutine;
-
-            getFilePath_Coroutine = null;
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "";
 
             Run();
         }
-#endif
 
         // Use this for initialization
         void Run()
         {
-
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             Utils.setDebugMode(true);
-
-
-            Mat img = Imgcodecs.imread(image_filepath, Imgcodecs.IMREAD_COLOR);
-            if (img.empty())
-            {
-                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/dnn/setup_dnn_module.pdf” to make the necessary setup.");
-                img = new Mat(368, 368, CvType.CV_8UC3, new Scalar(0, 0, 0));
-            }
-
-            //Adust Quad.transform.localScale.
-            gameObject.transform.localScale = new Vector3(img.width(), img.height(), 1);
-            Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
-
-            float imageWidth = img.width();
-            float imageHeight = img.height();
-
-            float widthScale = (float)Screen.width / imageWidth;
-            float heightScale = (float)Screen.height / imageHeight;
-            if (widthScale < heightScale)
-            {
-                Camera.main.orthographicSize = (imageWidth * (float)Screen.height / (float)Screen.width) / 2;
-            }
-            else
-            {
-                Camera.main.orthographicSize = imageHeight / 2;
-            }
-
-
-            TextDetectionModel_DB detectonModel = null;
-            TextRecognitionModel recognitonModel = null;
-            Mat croppedMat = null;
-            Mat croppedGrayMat = null;
 
             if (string.IsNullOrEmpty(detectionmodel_filepath) || string.IsNullOrEmpty(recognitionmodel_filepath) || string.IsNullOrEmpty(charsettxt_filepath))
             {
@@ -217,113 +178,173 @@ namespace OpenCVForUnityExample
                 croppedGrayMat = new Mat(croppedMat.size(), CvType.CV_8SC1);
             }
 
-            if (detectonModel == null || recognitonModel == null)
-            {
-                Imgproc.putText(img, "model file is not loaded.", new Point(5, img.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255), 2, Imgproc.LINE_AA, false);
-                Imgproc.putText(img, "Please read console message.", new Point(5, img.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255), 2, Imgproc.LINE_AA, false);
-            }
-            else
-            {
-                TickMeter tickMeter = new TickMeter();
-
-                MatOfRotatedRect detectons = new MatOfRotatedRect();
-                MatOfFloat confidences = new MatOfFloat();
-
-                tickMeter.start();
-                detectonModel.detectTextRectangles(img, detectons, confidences);
-                tickMeter.stop();
-
-                RotatedRect[] detectons_arr = detectons.toArray();
-                Array.Reverse(detectons_arr);
-                float[] confidences_arr = new float[detectons_arr.Length];
-                if (confidences.total() > 0)
-                    confidences_arr = confidences.toArray();
-                Array.Reverse(confidences_arr);
-                string[] recognition_arr = new string[detectons_arr.Length];
-
-                for (int i = 0; i < detectons_arr.Length; ++i)
-                {
-                    if (confidences_arr[i] < detection_confidences_threshold)
-                        continue;
-
-                    Point[] vertices = new Point[4];
-                    detectons_arr[i].points(vertices);
-
-                    // Create transformed and cropped image.
-                    fourPointsTransform(img, croppedMat, vertices);
-                    Imgproc.cvtColor(croppedMat, croppedGrayMat, Imgproc.COLOR_BGR2GRAY);
-
-                    //
-                    DebugMatUtils.imshow("croppedMat_" + i, croppedGrayMat);
-                    //
-
-                    tickMeter.start();
-                    string recognitionResult = recognitonModel.recognize(croppedGrayMat);
-                    tickMeter.stop();
-
-                    recognition_arr[i] = recognitionResult;
-                }
-
-                // Draw results.
-                StringBuilder sb = new StringBuilder(1024);
-                for (int i = 0; i < detectons_arr.Length; ++i)
-                {
-                    Point[] vertices = new Point[4];
-                    detectons_arr[i].points(vertices);
-
-                    for (int j = 0; j < 4; ++j)
-                        Imgproc.line(img, vertices[j], vertices[(j + 1) % 4], new Scalar(0, 255, 0), 2);
-
-                    if (confidences_arr[i] < detection_confidences_threshold)
-                    {
-                        for (int j = 0; j < 4; ++j)
-                            Imgproc.line(img, vertices[j], vertices[(j + 1) % 4], new Scalar(0, 255, 255), 2);
-                    }
-
-                    Imgproc.putText(img, recognition_arr[i], vertices[1], Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar(0, 0, 255), 2, Imgproc.LINE_AA, false);
-
-                    sb.Append("[").Append(recognition_arr[i]).Append("] ").Append(confidences_arr[i]).AppendLine();
-                }
-                Debug.Log(sb.ToString());
-
-                Debug.Log("Inference time, ms: " + tickMeter.getTimeMilli());
-
-                detectonModel.Dispose();
-                recognitonModel.Dispose();
-                croppedMat.Dispose();
-                croppedGrayMat.Dispose();
-            }
-
-            Imgproc.cvtColor(img, img, Imgproc.COLOR_BGR2RGB);
-
-            Texture2D texture = new Texture2D(img.cols(), img.rows(), TextureFormat.RGB24, false);
-
-            Utils.matToTexture2D(img, texture);
-
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
-
-
             Utils.setDebugMode(false);
+
+            multiSource2MatHelper.Initialize();
+        }
+
+        /// <summary>
+        /// Raises the source to mat helper initialized event.
+        /// </summary>
+        public void OnSourceToMatHelperInitialized()
+        {
+            Debug.Log("OnSourceToMatHelperInitialized");
+
+            Mat bgrMat = multiSource2MatHelper.GetMat();
+
+            // Fill in the image so that the unprocessed image is not displayed.
+            bgrMat.setTo(new Scalar(0, 0, 0, 255));
+
+            texture = new Texture2D(bgrMat.cols(), bgrMat.rows(), TextureFormat.RGB24, false);
+            Utils.matToTexture2D(bgrMat, texture);
+
+            resultPreview.texture = texture;
+            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+
+
+            if (fpsMonitor != null)
+            {
+                fpsMonitor.Add("width", multiSource2MatHelper.GetWidth().ToString());
+                fpsMonitor.Add("height", multiSource2MatHelper.GetHeight().ToString());
+                fpsMonitor.Add("orientation", Screen.orientation.ToString());
+            }
+
+#if !OPENCV_DONT_USE_WEBCAMTEXTURE_API
+            // If the WebCam is front facing, flip the Mat horizontally. Required for successful detection.
+            if (multiSource2MatHelper.source2MatHelper is WebCamTexture2MatHelper webCamHelper)
+                webCamHelper.flipHorizontal = webCamHelper.IsFrontFacing();
+#endif
+        }
+
+        /// <summary>
+        /// Raises the source to mat helper disposed event.
+        /// </summary>
+        public void OnSourceToMatHelperDisposed()
+        {
+            Debug.Log("OnSourceToMatHelperDisposed");
+
+            if (texture != null)
+            {
+                Texture2D.Destroy(texture);
+                texture = null;
+            }
+        }
+
+        /// <summary>
+        /// Raises the source to mat helper error occurred event.
+        /// </summary>
+        /// <param name="errorCode">Error code.</param>
+        /// <param name="message">Message.</param>
+        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
+        {
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
+
+            if (fpsMonitor != null)
+            {
+                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
+            }
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
+            {
 
+                Mat bgrMat = multiSource2MatHelper.GetMat();
+
+                if (detectonModel == null || recognitonModel == null)
+                {
+                    Imgproc.putText(bgrMat, "model file is not loaded.", new Point(5, bgrMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    Imgproc.putText(bgrMat, "Please read console message.", new Point(5, bgrMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255), 2, Imgproc.LINE_AA, false);
+                }
+                else
+                {
+                    MatOfRotatedRect detectons = new MatOfRotatedRect();
+                    MatOfFloat confidences = new MatOfFloat();
+                    detectonModel.detectTextRectangles(bgrMat, detectons, confidences);
+
+                    RotatedRect[] detectons_arr = detectons.toArray();
+                    Array.Reverse(detectons_arr);
+                    float[] confidences_arr = new float[detectons_arr.Length];
+                    if (confidences.total() > 0)
+                        confidences_arr = confidences.toArray();
+                    Array.Reverse(confidences_arr);
+                    string[] recognition_arr = new string[detectons_arr.Length];
+
+                    for (int i = 0; i < detectons_arr.Length; ++i)
+                    {
+                        if (confidences_arr[i] < detection_confidences_threshold)
+                            continue;
+
+                        Point[] vertices = new Point[4];
+                        detectons_arr[i].points(vertices);
+
+                        // Create transformed and cropped image.
+                        fourPointsTransform(bgrMat, croppedMat, vertices);
+                        Imgproc.cvtColor(croppedMat, croppedGrayMat, Imgproc.COLOR_BGR2GRAY);
+
+                        string recognitionResult = recognitonModel.recognize(croppedGrayMat);
+
+                        recognition_arr[i] = recognitionResult;
+                    }
+
+                    // Draw results.
+                    for (int i = 0; i < detectons_arr.Length; ++i)
+                    {
+                        Point[] vertices = new Point[4];
+                        detectons_arr[i].points(vertices);
+
+                        for (int j = 0; j < 4; ++j)
+                            Imgproc.line(bgrMat, vertices[j], vertices[(j + 1) % 4], new Scalar(0, 255, 0), 2);
+
+                        if (confidences_arr[i] < detection_confidences_threshold)
+                        {
+                            for (int j = 0; j < 4; ++j)
+                                Imgproc.line(bgrMat, vertices[j], vertices[(j + 1) % 4], new Scalar(255, 0, 0), 2);
+                        }
+
+                        Imgproc.putText(bgrMat, recognition_arr[i], vertices[1], Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar(0, 0, 255), 2, Imgproc.LINE_AA, false);
+
+                        //Debug.Log("[" + recognition_arr[i] + "] " + confidences_arr[i]);
+                    }
+                }
+
+                Imgproc.cvtColor(bgrMat, bgrMat, Imgproc.COLOR_BGR2RGB);
+
+                //Imgproc.putText (bgrMat, "W:" + bgrMat.width () + " H:" + bgrMat.height () + " SO:" + Screen.orientation, new Point (5, img.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+
+                Utils.matToTexture2D(bgrMat, texture);
+            }
         }
 
         /// <summary>
-        /// Raises the disable event.
+        /// Raises the destroy event.
         /// </summary>
-        void OnDisable()
+        void OnDestroy()
         {
-#if UNITY_WEBGL
-            if (getFilePath_Coroutine != null)
+            multiSource2MatHelper.Dispose();
+
+            if (detectonModel != null)
+                detectonModel.Dispose();
+
+            if (recognitonModel != null)
+                recognitonModel.Dispose();
+
+            if (croppedMat != null)
             {
-                StopCoroutine(getFilePath_Coroutine);
-                ((IDisposable)getFilePath_Coroutine).Dispose();
+                croppedMat.Dispose();
+                croppedMat = null;
             }
-#endif
+
+            if (croppedGrayMat != null)
+            {
+                croppedGrayMat.Dispose();
+                croppedGrayMat = null;
+            }
+
+            if (cts != null)
+                cts.Dispose();
         }
 
         /// <summary>
@@ -332,6 +353,38 @@ namespace OpenCVForUnityExample
         public void OnBackButtonClick()
         {
             SceneManager.LoadScene("OpenCVForUnityExample");
+        }
+
+        /// <summary>
+        /// Raises the play button click event.
+        /// </summary>
+        public void OnPlayButtonClick()
+        {
+            multiSource2MatHelper.Play();
+        }
+
+        /// <summary>
+        /// Raises the pause button click event.
+        /// </summary>
+        public void OnPauseButtonClick()
+        {
+            multiSource2MatHelper.Pause();
+        }
+
+        /// <summary>
+        /// Raises the stop button click event.
+        /// </summary>
+        public void OnStopButtonClick()
+        {
+            multiSource2MatHelper.Stop();
+        }
+
+        /// <summary>
+        /// Raises the change camera button click event.
+        /// </summary>
+        public void OnChangeCameraButtonClick()
+        {
+            multiSource2MatHelper.requestedIsFrontFacing = !multiSource2MatHelper.requestedIsFrontFacing;
         }
 
         protected void fourPointsTransform(Mat src, Mat dst, Point[] vertices)
@@ -356,4 +409,5 @@ namespace OpenCVForUnityExample
         }
     }
 }
+
 #endif

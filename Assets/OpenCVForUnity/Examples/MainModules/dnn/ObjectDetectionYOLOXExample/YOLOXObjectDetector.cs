@@ -378,7 +378,7 @@ namespace OpenCVForUnityExample.DnnModel
                     sb.AppendLine();
                 }
 
-                Debug.Log(sb.ToString() );
+                Debug.Log(sb.ToString());
             }
         }
 

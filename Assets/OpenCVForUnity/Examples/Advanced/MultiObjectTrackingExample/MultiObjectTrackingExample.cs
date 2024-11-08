@@ -6,9 +6,8 @@ using OpenCVForUnity.UnityUtils.Helper;
 using OpenCVForUnityExample.DnnModel;
 #endif
 using OpenCVForUnityExample.MOT.ByteTrack;
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -21,19 +20,32 @@ namespace OpenCVForUnityExample
     /// 
     /// ByteTrack: https://github.com/ifzhang/ByteTrack
     /// </summary>
-    [RequireComponent(typeof(VideoCaptureToMatHelper))]
+    [RequireComponent(typeof(MultiSource2MatHelper))]
     public class MultiObjectTrackingExample : MonoBehaviour
     {
-        BYTETracker byteTracker;
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage resultPreview;
+
+        [Space(10)]
+
+        public Toggle showObjectDetectorResultToggle;
+
+        public bool showObjectDetectorResult;
+
         public Toggle trackerByteTrackToggle;
+
+        public bool trackerByteTrack;
+
+        BYTETracker byteTracker;
 
         List<Scalar> palette;
 
 #if !UNITY_WSA_10_0
         YOLOXObjectDetector objectDetector;
 #endif
-
-        public Toggle showObjectDetectorResultToggle;
 
         bool disableObjectDetector = false;
 
@@ -65,20 +77,15 @@ namespace OpenCVForUnityExample
         protected string config_filepath;
         protected string model_filepath;
 
-
-#if UNITY_WEBGL
-        IEnumerator getFilePath_Coroutine;
-#endif
-
         /// <summary>
         /// The texture.
         /// </summary>
         Texture2D texture;
 
         /// <summary>
-        /// The video capture to mat helper.
+        /// The multi source to mat helper.
         /// </summary>
-        VideoCaptureToMatHelper sourceToMatHelper;
+        MultiSource2MatHelper multiSource2MatHelper;
 
         /// <summary>
         /// The bgr mat.
@@ -95,91 +102,48 @@ namespace OpenCVForUnityExample
         /// </summary>
         protected static readonly string VIDEO_FILENAME = "OpenCVForUnity/768x576_mjpeg.mjpeg";
 
+        /// <summary>
+        /// The CancellationTokenSource.
+        /// </summary>
+        CancellationTokenSource cts = new CancellationTokenSource();
+
         // Use this for initialization
-        void Start()
+        async void Start()
         {
             fpsMonitor = GetComponent<FpsMonitor>();
 
-            sourceToMatHelper = gameObject.GetComponent<VideoCaptureToMatHelper>();
+            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
 
+            // Update GUI state
+            trackerByteTrackToggle.isOn = trackerByteTrack;
+            showObjectDetectorResultToggle.isOn = showObjectDetectorResult;
 
-#if UNITY_WSA_10_0
-            
-            // Disable the DNN module-dependent Tracker on UWP platforms, as it cannot be used.
-            showObjectDetectorResultToggle.isOn = showObjectDetectorResultToggle.interactable = false;
-            disableObjectDetector = true;
-            Run();
-
-#elif UNITY_WEBGL
-
-            getFilePath_Coroutine = GetFilePath();
-            StartCoroutine(getFilePath_Coroutine);
-
-#else
+            // Asynchronously retrieves the readable file path from the StreamingAssets directory.
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "Preparing file access...";
 
             if (!string.IsNullOrEmpty(classes))
             {
-                classes_filepath = Utils.getFilePath("OpenCVForUnity/dnn/" + classes);
+                classes_filepath = await Utils.getFilePathAsyncTask("OpenCVForUnity/dnn/" + classes, cancellationToken: cts.Token);
                 if (string.IsNullOrEmpty(classes_filepath)) Debug.Log("The file:" + classes + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
             }
             if (!string.IsNullOrEmpty(config))
             {
-                config_filepath = Utils.getFilePath("OpenCVForUnity/dnn/" + config);
+                config_filepath = await Utils.getFilePathAsyncTask("OpenCVForUnity/dnn/" + config, cancellationToken: cts.Token);
                 if (string.IsNullOrEmpty(config_filepath)) Debug.Log("The file:" + config + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
             }
             if (!string.IsNullOrEmpty(model))
             {
-                model_filepath = Utils.getFilePath("OpenCVForUnity/dnn/" + model);
-                if (string.IsNullOrEmpty(model_filepath)) Debug.Log("The file:" + model + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
-            }
-            CheckFilePaths();
-            Run();
-
-#endif
-        }
-
-#if UNITY_WEBGL
-        private IEnumerator GetFilePath()
-        {
-            if (!string.IsNullOrEmpty(classes))
-            {
-                var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync("OpenCVForUnity/dnn/" + classes, (result) =>
-                {
-                    classes_filepath = result;
-                });
-                yield return getFilePathAsync_0_Coroutine;
-
-                if (string.IsNullOrEmpty(classes_filepath)) Debug.Log("The file:" + classes + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
-            }
-
-            if (!string.IsNullOrEmpty(config))
-            {
-                var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync("OpenCVForUnity/dnn/" + config, (result) =>
-                {
-                    config_filepath = result;
-                });
-                yield return getFilePathAsync_1_Coroutine;
-
-                if (string.IsNullOrEmpty(config_filepath)) Debug.Log("The file:" + config + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
-            }
-
-            if (!string.IsNullOrEmpty(model))
-            {
-                var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync("OpenCVForUnity/dnn/" + model, (result) =>
-                {
-                    model_filepath = result;
-                });
-                yield return getFilePathAsync_2_Coroutine;
-
+                model_filepath = await Utils.getFilePathAsyncTask("OpenCVForUnity/dnn/" + model, cancellationToken: cts.Token);
                 if (string.IsNullOrEmpty(model_filepath)) Debug.Log("The file:" + model + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
             }
 
-            getFilePath_Coroutine = null;
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "";
 
             CheckFilePaths();
             Run();
         }
-#endif
 
         void CheckFilePaths()
         {
@@ -203,10 +167,10 @@ namespace OpenCVForUnityExample
 #endif
             }
 
-            if (string.IsNullOrEmpty(sourceToMatHelper.requestedVideoFilePath))
-                sourceToMatHelper.requestedVideoFilePath = VIDEO_FILENAME;
-            sourceToMatHelper.outputColorFormat = VideoCaptureToMatHelper.ColorFormat.RGB; // Tracking API must handle 3 channels Mat image.
-            sourceToMatHelper.Initialize();
+            if (string.IsNullOrEmpty(multiSource2MatHelper.requestedVideoFilePath))
+                multiSource2MatHelper.requestedVideoFilePath = VIDEO_FILENAME;
+            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGB; // Tracking API must handle 3 channels Mat image.
+            multiSource2MatHelper.Initialize();
 
             palette = new List<Scalar>();
             palette.Add(new Scalar(255, 56, 56, 255));
@@ -232,39 +196,31 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the video capture to mat helper initialized event.
+        /// Raises the source to mat helper initialized event.
         /// </summary>
-        public void OnVideoCaptureToMatHelperInitialized()
+        public void OnSourceToMatHelperInitialized()
         {
-            Debug.Log("OnVideoCaptureToMatHelperInitialized");
+            Debug.Log("OnSourceToMatHelperInitialized");
 
-            Mat rgbMat = sourceToMatHelper.GetMat();
+            Mat rgbMat = multiSource2MatHelper.GetMat();
 
             texture = new Texture2D(rgbMat.cols(), rgbMat.rows(), TextureFormat.RGB24, false);
             Utils.matToTexture2D(rgbMat, texture);
 
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
-
-            gameObject.transform.localScale = new Vector3(rgbMat.cols(), rgbMat.rows(), 1);
-            Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
+            resultPreview.texture = texture;
+            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
 
 
-            float width = rgbMat.width();
-            float height = rgbMat.height();
-
-            float widthScale = (float)Screen.width / width;
-            float heightScale = (float)Screen.height / height;
-            if (widthScale < heightScale)
+            int fps = 30;
+            if (multiSource2MatHelper.source2MatHelper is ICameraSource2MatHelper cameraHelper)
             {
-                Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
+                fps = (int)cameraHelper.GetFPS();
             }
-            else
+            else if (multiSource2MatHelper.source2MatHelper is IVideoSource2MatHelper videoHelper)
             {
-                Camera.main.orthographicSize = height / 2;
+                fps = (int)videoHelper.GetFPS();
             }
 
-            int fps = (int)sourceToMatHelper.GetFPS();
-            fps = fps > 0 ? fps : 30;
             byteTracker = new BYTETracker(fps, 30);
             //Debug.Log("fps: " + fps);
 
@@ -272,11 +228,11 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the video capture to mat helper disposed event.
+        /// Raises the source to mat helper disposed event.
         /// </summary>
-        public void OnVideoCaptureToMatHelperDisposed()
+        public void OnSourceToMatHelperDisposed()
         {
-            Debug.Log("OnVideoCaptureToMatHelperDisposed");
+            Debug.Log("OnSourceToMatHelperDisposed");
 
             ResetTrackers();
 
@@ -291,31 +247,32 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Raises the video capture to mat helper error occurred event.
+        /// Raises the source to mat helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
-        public void OnVideoCaptureToMatHelperErrorOccurred(VideoCaptureToMatHelper.ErrorCode errorCode)
+        /// <param name="message">Message.</param>
+        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
         {
-            Debug.Log("OnVideoCaptureToMatHelperErrorOccurred " + errorCode);
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
 
             if (fpsMonitor != null)
             {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode;
+                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
             }
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (!sourceToMatHelper.IsInitialized())
+            if (!multiSource2MatHelper.IsInitialized())
                 return;
 
-            if (!sourceToMatHelper.IsPlaying())
-                sourceToMatHelper.Play();
+            if (!multiSource2MatHelper.IsPlaying())
+                multiSource2MatHelper.Play();
 
-            if (sourceToMatHelper.IsPlaying() && sourceToMatHelper.DidUpdateThisFrame())
+            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
             {
-                Mat rgbMat = sourceToMatHelper.GetMat();
+                Mat rgbMat = multiSource2MatHelper.GetMat();
 
 #if UNITY_WSA_10_0
                 Imgproc.putText(rgbMat, "Disable the DNN module-dependent Tracker on UWP platforms.", new Point(5, rgbMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
@@ -419,21 +376,16 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDestroy()
         {
-            if (sourceToMatHelper != null)
-                sourceToMatHelper.Dispose();
+            if (multiSource2MatHelper != null)
+                multiSource2MatHelper.Dispose();
 
 #if !UNITY_WSA_10_0
             if (objectDetector != null)
                 objectDetector.dispose();
 #endif
 
-#if UNITY_WEBGL
-            if (getFilePath_Coroutine != null)
-            {
-                StopCoroutine(getFilePath_Coroutine);
-                ((IDisposable)getFilePath_Coroutine).Dispose();
-            }
-#endif
+            if (cts != null)
+                cts.Dispose();
         }
 
         /// <summary>

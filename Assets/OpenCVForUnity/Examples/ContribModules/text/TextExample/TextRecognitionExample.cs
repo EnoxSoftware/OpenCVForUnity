@@ -1,16 +1,19 @@
 #if !UNITY_WSA_10_0
 
-using UnityEngine;
-using UnityEngine.SceneManagement;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgcodecsModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.TextModule;
+using OpenCVForUnity.UnityUtils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Xml;
-using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.ImgcodecsModule;
-using OpenCVForUnity.TextModule;
-using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using Text = OpenCVForUnity.TextModule.Text;
 
 namespace OpenCVForUnityExample
 {
@@ -21,6 +24,13 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class TextRecognitionExample : MonoBehaviour
     {
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage resultPreview;
+
+        [Space(10)]
 
         /// <summary>
         /// IMAGE_FILENAME
@@ -77,61 +87,36 @@ namespace OpenCVForUnityExample
         /// </summary>
         string OCRHMM_knn_model_data_filepath;
 
-#if UNITY_WEBGL
-        IEnumerator getFilePath_Coroutine;
-#endif
+        /// <summary>
+        /// The FPS monitor.
+        /// </summary>
+        FpsMonitor fpsMonitor;
 
+        /// <summary>
+        /// The CancellationTokenSource.
+        /// </summary>
+        CancellationTokenSource cts = new CancellationTokenSource();
 
         // Use this for initialization
-        void Start()
+        async void Start()
         {
-#if UNITY_WEBGL
-            getFilePath_Coroutine = GetFilePath ();
-            StartCoroutine (getFilePath_Coroutine);
-#else
-            image_filepath = Utils.getFilePath(IMAGE_FILENAME);
-            trained_classifierNM1_filepath = Utils.getFilePath(TRAINED_CLASSIFIER_NM_1_FILENAME);
-            trained_classifierNM2_filepath = Utils.getFilePath(TRAINED_CLASSIFIER_NM_2_FILENAME);
-            OCRHMM_transitions_table_filepath = Utils.getFilePath(OCRHMM_TRANSITIONS_TABLE_FILENAME);
-            OCRHMM_knn_model_data_filepath = Utils.getFilePath(OCRHMM_KNN_MODEL_FILENAME);
+            fpsMonitor = GetComponent<FpsMonitor>();
+
+            // Asynchronously retrieves the readable file path from the StreamingAssets directory.
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "Preparing file access...";
+
+            image_filepath = await Utils.getFilePathAsyncTask(IMAGE_FILENAME, cancellationToken: cts.Token);
+            trained_classifierNM1_filepath = await Utils.getFilePathAsyncTask(TRAINED_CLASSIFIER_NM_1_FILENAME, cancellationToken: cts.Token);
+            trained_classifierNM2_filepath = await Utils.getFilePathAsyncTask(TRAINED_CLASSIFIER_NM_2_FILENAME, cancellationToken: cts.Token);
+            OCRHMM_transitions_table_filepath = await Utils.getFilePathAsyncTask(OCRHMM_TRANSITIONS_TABLE_FILENAME, cancellationToken: cts.Token);
+            OCRHMM_knn_model_data_filepath = await Utils.getFilePathAsyncTask(OCRHMM_KNN_MODEL_FILENAME, cancellationToken: cts.Token);
+
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "";
 
             Run();
-#endif
         }
-
-#if UNITY_WEBGL
-        private IEnumerator GetFilePath ()
-        {
-            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync (IMAGE_FILENAME, (result) => {
-                image_filepath = result;
-            });
-            yield return getFilePathAsync_0_Coroutine;
-
-            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync (TRAINED_CLASSIFIER_NM_1_FILENAME, (result) => {
-                trained_classifierNM1_filepath = result;
-            });
-            yield return getFilePathAsync_1_Coroutine;
-
-            var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync (TRAINED_CLASSIFIER_NM_2_FILENAME, (result) => {
-                trained_classifierNM2_filepath = result;
-            });
-            yield return getFilePathAsync_2_Coroutine;
-
-            var getFilePathAsync_3_Coroutine = Utils.getFilePathAsync (OCRHMM_TRANSITIONS_TABLE_FILENAME, (result) => {
-                OCRHMM_transitions_table_filepath = result;
-            });
-            yield return getFilePathAsync_3_Coroutine;
-
-            var getFilePathAsync_4_Coroutine = Utils.getFilePathAsync (OCRHMM_KNN_MODEL_FILENAME, (result) => {
-                OCRHMM_knn_model_data_filepath = result;
-            });
-            yield return getFilePathAsync_4_Coroutine;
-
-            getFilePath_Coroutine = null;
-
-            Run ();
-        }
-#endif
 
         private void Run()
         {
@@ -250,7 +235,8 @@ namespace OpenCVForUnityExample
             //
             //Utils.matToTexture2D (detections [0], texture);
 
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
+            resultPreview.texture = texture;
+            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
 
 
             for (int i = 0; i < detections.Count; i++)
@@ -313,12 +299,8 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDestroy()
         {
-#if UNITY_WEBGL
-            if (getFilePath_Coroutine != null) {
-                StopCoroutine (getFilePath_Coroutine);
-                ((IDisposable)getFilePath_Coroutine).Dispose ();
-            }
-#endif
+            if (cts != null)
+                cts.Dispose();
         }
 
         /// <summary>

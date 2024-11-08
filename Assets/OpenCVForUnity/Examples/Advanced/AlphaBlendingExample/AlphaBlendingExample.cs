@@ -1,17 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-
 //using Unity.IL2CPP.CompilerServices;
 
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UtilsModule;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {
@@ -164,10 +162,10 @@ namespace OpenCVForUnityExample
             dstMatROI = new Mat(dstMat, rect);
 
 
-            Utils.matToTexture2D(fgMat, fgTex, true, 0, true);
-            Utils.matToTexture2D(bgMat, bgTex, true, 0, true);
-            Utils.matToTexture2D(alphaMat, alphaTex, true, 0, true);
-            Utils.matToTexture2D(dstMat, dstTex, true, 0, true);
+            Utils.matToTexture2D(fgMat, fgTex);
+            Utils.matToTexture2D(bgMat, bgTex);
+            Utils.matToTexture2D(alphaMat, alphaTex);
+            Utils.matToTexture2D(dstMat, dstTex);
             fgQuad.GetComponent<Renderer>().material.mainTexture = fgTex;
             bgQuad.GetComponent<Renderer>().material.mainTexture = bgTex;
             alphaQuad.GetComponent<Renderer>().material.mainTexture = alphaTex;
@@ -257,6 +255,11 @@ namespace OpenCVForUnityExample
             AlphaBlend_pointerAccess(_fgMat, _bgMat, _alphaMat, _dstMat);
         }
 
+        private void asSpan()
+        {
+            AlphaBlend_AsSpan(_fgMat, _bgMat, _alphaMat, _dstMat);
+        }
+
         private long time(Action action, int count)
         {
             System.GC.Collect();
@@ -283,6 +286,7 @@ namespace OpenCVForUnityExample
             bg.get(0, 0, bg_byte);
             byte[] alpha_byte = new byte[alpha.total() * alpha.channels()];
             alpha.get(0, 0, alpha_byte);
+            byte[] dst_byte = new byte[dst.total() * dst.channels()];
 
             int pixel_i = 0;
             int channels = (int)bg.channels();
@@ -290,25 +294,14 @@ namespace OpenCVForUnityExample
 
             for (int i = 0; i < total; i++)
             {
-                if (alpha_byte[i] == 0)
-                {
-                }
-                else if (alpha_byte[i] == 255)
-                {
-                    bg_byte[pixel_i] = fg_byte[pixel_i];
-                    bg_byte[pixel_i + 1] = fg_byte[pixel_i + 1];
-                    bg_byte[pixel_i + 2] = fg_byte[pixel_i + 2];
-                }
-                else
-                {
-                    bg_byte[pixel_i] = (byte)((fg_byte[pixel_i] * alpha_byte[i] + bg_byte[pixel_i] * (255 - alpha_byte[i])) >> 8);
-                    bg_byte[pixel_i + 1] = (byte)((fg_byte[pixel_i + 1] * alpha_byte[i] + bg_byte[pixel_i + 1] * (255 - alpha_byte[i])) >> 8);
-                    bg_byte[pixel_i + 2] = (byte)((fg_byte[pixel_i + 2] * alpha_byte[i] + bg_byte[pixel_i + 2] * (255 - alpha_byte[i])) >> 8);
-                }
+                byte a = alpha_byte[i];
+                dst_byte[pixel_i] = (byte)((fg_byte[pixel_i] * a + bg_byte[pixel_i] * (255 - a)) >> 8);
+                dst_byte[pixel_i + 1] = (byte)((fg_byte[pixel_i + 1] * a + bg_byte[pixel_i + 1] * (255 - a)) >> 8);
+                dst_byte[pixel_i + 2] = (byte)((fg_byte[pixel_i + 2] * a + bg_byte[pixel_i + 2] * (255 - a)) >> 8);
                 pixel_i += channels;
             }
 
-            dst.put(0, 0, bg_byte);
+            dst.put(0, 0, dst_byte);
         }
 
         // Mat operation
@@ -382,6 +375,7 @@ namespace OpenCVForUnityExample
             MatUtils.copyFromMat<byte>(bg, bg_byte);
             byte[] alpha_byte = new byte[alpha.total() * alpha.channels()];
             MatUtils.copyFromMat<byte>(alpha, alpha_byte);
+            byte[] dst_byte = new byte[dst.total() * dst.channels()];
 
             int pixel_i = 0;
             int channels = (int)bg.channels();
@@ -389,25 +383,14 @@ namespace OpenCVForUnityExample
 
             for (int i = 0; i < total; i++)
             {
-                if (alpha_byte[i] == 0)
-                {
-                }
-                else if (alpha_byte[i] == 255)
-                {
-                    bg_byte[pixel_i] = fg_byte[pixel_i];
-                    bg_byte[pixel_i + 1] = fg_byte[pixel_i + 1];
-                    bg_byte[pixel_i + 2] = fg_byte[pixel_i + 2];
-                }
-                else
-                {
-                    bg_byte[pixel_i] = (byte)((fg_byte[pixel_i] * alpha_byte[i] + bg_byte[pixel_i] * (255 - alpha_byte[i])) >> 8);
-                    bg_byte[pixel_i + 1] = (byte)((fg_byte[pixel_i + 1] * alpha_byte[i] + bg_byte[pixel_i + 1] * (255 - alpha_byte[i])) >> 8);
-                    bg_byte[pixel_i + 2] = (byte)((fg_byte[pixel_i + 2] * alpha_byte[i] + bg_byte[pixel_i + 2] * (255 - alpha_byte[i])) >> 8);
-                }
+                byte a = alpha_byte[i];
+                dst_byte[pixel_i] = (byte)((fg_byte[pixel_i] * a + bg_byte[pixel_i] * (255 - a)) >> 8);
+                dst_byte[pixel_i + 1] = (byte)((fg_byte[pixel_i + 1] * a + bg_byte[pixel_i + 1] * (255 - a)) >> 8);
+                dst_byte[pixel_i + 2] = (byte)((fg_byte[pixel_i + 2] * a + bg_byte[pixel_i + 2] * (255 - a)) >> 8);
                 pixel_i += channels;
             }
 
-            MatUtils.copyToMat(bg_byte, dst);
+            MatUtils.copyToMat(dst_byte, dst);
         }
 
         // Marshal
@@ -416,46 +399,37 @@ namespace OpenCVForUnityExample
         private void AlphaBlend_Marshal(Mat fg, Mat bg, Mat alpha, Mat dst)
         {
             byte[] fg_byte = new byte[fg.total() * fg.channels()];
-            IntPtr fg_ptr = new IntPtr(fg.dataAddr());
             byte[] bg_byte = new byte[bg.total() * bg.channels()];
-            IntPtr bg_ptr = new IntPtr(bg.dataAddr());
             byte[] alpha_byte = new byte[alpha.total() * alpha.channels()];
-            IntPtr alpha_ptr = new IntPtr(alpha.dataAddr());
             byte[] dst_byte = new byte[dst.total() * dst.channels()];
-            IntPtr dst_ptr = new IntPtr(dst.dataAddr());
+
+            long fg_addr = fg.dataAddr();
+            long bg_addr = bg.dataAddr();
+            long alpha_addr = alpha.dataAddr();
+            long dst_addr = dst.dataAddr();
 
             if (fg.isContinuous())
             {
-
-                Marshal.Copy(fg_ptr, fg_byte, 0, fg_byte.Length);
-                Marshal.Copy(bg_ptr, bg_byte, 0, bg_byte.Length);
-                Marshal.Copy(alpha_ptr, alpha_byte, 0, alpha_byte.Length);
-                Marshal.Copy(dst_ptr, dst_byte, 0, dst_byte.Length);
-
+                Marshal.Copy(new IntPtr(fg_addr), fg_byte, 0, fg_byte.Length);
+                Marshal.Copy(new IntPtr(bg_addr), bg_byte, 0, bg_byte.Length);
+                Marshal.Copy(new IntPtr(alpha_addr), alpha_byte, 0, alpha_byte.Length);
             }
             else
             {
-
-                Size wholeSize = new Size();
-                Point ofs = new Point();
-                bg.locateROI(wholeSize, ofs);
-
-                long stride = (long)wholeSize.width * bg.elemSize();
-                int w = bg.cols() * bg.channels();
+                long stride = bg.step1() * bg.elemSize1();
+                int w = bg.cols();
+                int w_c = bg.cols() * bg.channels();
                 int h = bg.rows();
-                long alpha_stride = (long)wholeSize.width * alpha.channels();
-                int alpha_w = alpha.cols() * alpha.channels();
+                long alpha_stride = alpha.step1() * alpha.elemSize1();
                 for (int y = 0; y < h; y++)
                 {
-                    Marshal.Copy(fg_ptr, fg_byte, y * w, w);
-                    Marshal.Copy(bg_ptr, bg_byte, y * w, w);
-                    Marshal.Copy(alpha_ptr, alpha_byte, y * alpha_w, alpha_w);
-                    Marshal.Copy(dst_ptr, dst_byte, y * w, w);
+                    Marshal.Copy(new IntPtr(fg_addr), fg_byte, y * w_c, w_c);
+                    Marshal.Copy(new IntPtr(bg_addr), bg_byte, y * w_c, w_c);
+                    Marshal.Copy(new IntPtr(alpha_addr), alpha_byte, y * w, w);
 
-                    fg_ptr = new IntPtr(fg_ptr.ToInt64() + stride);
-                    bg_ptr = new IntPtr(bg_ptr.ToInt64() + stride);
-                    alpha_ptr = new IntPtr(alpha_ptr.ToInt64() + alpha_stride);
-                    dst_ptr = new IntPtr(dst_ptr.ToInt64() + stride);
+                    fg_addr += stride;
+                    bg_addr += stride;
+                    alpha_addr += alpha_stride;
                 }
             }
 
@@ -466,45 +440,30 @@ namespace OpenCVForUnityExample
 
             for (int i = 0; i < total; i++)
             {
-                if (alpha_byte[i] == 0)
-                {
-                }
-                else if (alpha_byte[i] == 255)
-                {
-                    bg_byte[pixel_i] = fg_byte[pixel_i];
-                    bg_byte[pixel_i + 1] = fg_byte[pixel_i + 1];
-                    bg_byte[pixel_i + 2] = fg_byte[pixel_i + 2];
-                }
-                else
-                {
-                    bg_byte[pixel_i] = (byte)((fg_byte[pixel_i] * alpha_byte[i] + bg_byte[pixel_i] * (255 - alpha_byte[i])) >> 8);
-                    bg_byte[pixel_i + 1] = (byte)((fg_byte[pixel_i + 1] * alpha_byte[i] + bg_byte[pixel_i + 1] * (255 - alpha_byte[i])) >> 8);
-                    bg_byte[pixel_i + 2] = (byte)((fg_byte[pixel_i + 2] * alpha_byte[i] + bg_byte[pixel_i + 2] * (255 - alpha_byte[i])) >> 8);
-                }
+                byte a = alpha_byte[i];
+                dst_byte[pixel_i] = (byte)((fg_byte[pixel_i] * a + bg_byte[pixel_i] * (255 - a)) >> 8);
+                dst_byte[pixel_i + 1] = (byte)((fg_byte[pixel_i + 1] * a + bg_byte[pixel_i + 1] * (255 - a)) >> 8);
+                dst_byte[pixel_i + 2] = (byte)((fg_byte[pixel_i + 2] * a + bg_byte[pixel_i + 2] * (255 - a)) >> 8);
                 pixel_i += channels;
             }
 
 
             if (fg.isContinuous())
             {
-                Marshal.Copy(bg_byte, 0, dst_ptr, bg_byte.Length);
+                Marshal.Copy(dst_byte, 0, new IntPtr(dst_addr), dst_byte.Length);
             }
             else
             {
-                dst_ptr = new IntPtr(dst.dataAddr());
+                dst_addr = dst.dataAddr();
 
-                Size wholeSize = new Size();
-                Point ofs = new Point();
-                bg.locateROI(wholeSize, ofs);
-
-                long stride = (long)wholeSize.width * bg.elemSize();
-                int w = bg.cols() * bg.channels();
+                long stride = bg.step1() * bg.elemSize1();
+                int w_c = bg.cols() * bg.channels();
                 int h = bg.rows();
                 for (int y = 0; y < h; y++)
                 {
-                    Marshal.Copy(bg_byte, y * w, dst_ptr, w);
+                    Marshal.Copy(dst_byte, y * w_c, new IntPtr(dst_addr), w_c);
 
-                    dst_ptr = new IntPtr(dst_ptr.ToInt64() + stride);
+                    dst_addr += stride;
                 }
             }
         }
@@ -548,15 +507,11 @@ namespace OpenCVForUnityExample
             }
             else
             {
-                Size wholeSize = new Size();
-                Point ofs = new Point();
-                bg.locateROI(wholeSize, ofs);
-
-                long stride = (long)wholeSize.width * bg.channels();
-                int w = bg.cols() * bg.channels();
+                long stride = bg.step1() * bg.elemSize1();
+                int w = bg.cols();
+                int w_c = bg.cols() * bg.channels();
                 int h = bg.rows();
-                long alpha_stride = (long)wholeSize.width * alpha.channels();
-                int alpha_w = alpha.cols();
+                long alpha_stride = alpha.step1() * alpha.elemSize1();
 
                 unsafe
                 {
@@ -567,7 +522,7 @@ namespace OpenCVForUnityExample
 
                     for (int y = 0; y < h; y++)
                     {
-                        for (int x = 0; x < alpha_w; x++)
+                        for (int x = 0; x < w; x++)
                         {
                             *dst_p = (byte)(((*fg_p) * (*alpha_p) + (*bg_p) * (255 - *alpha_p)) >> 8);
                             fg_p++; bg_p++; dst_p++;
@@ -579,12 +534,117 @@ namespace OpenCVForUnityExample
                             alpha_p++;
                         }
 
-                        fg_p += stride - w;
-                        bg_p += stride - w;
-                        alpha_p += alpha_stride - alpha_w;
-                        dst_p += stride - w;
+                        fg_p += stride - w_c;
+                        bg_p += stride - w_c;
+                        alpha_p += alpha_stride - w;
+                        dst_p += stride - w_c;
                     }
                 }
+            }
+
+#endif
+
+        }
+
+        // AsSpan
+        //        [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+        //        [Il2CppSetOption(Option.NullChecks, false)]
+        private void AlphaBlend_AsSpan(Mat fg, Mat bg, Mat alpha, Mat dst)
+        {
+
+#if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
+
+            if (fg.isContinuous())
+            {
+
+                ReadOnlySpan<Vec3b> fg_span = fg.AsSpan<Vec3b>();
+                ReadOnlySpan<Vec3b> bg_span = bg.AsSpan<Vec3b>();
+                ReadOnlySpan<byte> alpha_span = alpha.AsSpan<byte>();
+                Span<Vec3b> dst_span = dst.AsSpan<Vec3b>();
+
+                int total = (int)bg.total();
+
+                for (int i = 0; i < total; i++)
+                {
+                    var fg_pixel = fg_span[i];
+                    var bg_pixel = bg_span[i];
+                    var alpha_pixel = alpha_span[i];
+                    dst_span[i].Item1 = (byte)((fg_pixel.Item1 * alpha_pixel + bg_pixel.Item1 * (255 - alpha_pixel)) >> 8);
+                    dst_span[i].Item2 = (byte)((fg_pixel.Item2 * alpha_pixel + bg_pixel.Item2 * (255 - alpha_pixel)) >> 8);
+                    dst_span[i].Item3 = (byte)((fg_pixel.Item3 * alpha_pixel + bg_pixel.Item3 * (255 - alpha_pixel)) >> 8);
+                }
+
+                /*
+                // Row-by-row parallel processing method
+                int w = bg.cols();
+                int h = bg.rows();
+
+                System.Threading.Tasks.Parallel.For(0, h, y =>
+                {
+                    ReadOnlySpan<Vec3b> fg_span = fg.AsSpan<Vec3b>(y);
+                    ReadOnlySpan<Vec3b> bg_span = bg.AsSpan<Vec3b>(y);
+                    ReadOnlySpan<byte> alpha_span = alpha.AsSpan<byte>(y);
+                    Span<Vec3b> dst_span = dst.AsSpan<Vec3b>(y);
+
+                    for (int i = 0; i < w; i++)
+                    {
+                        var fg_pixel = fg_span[i];
+                        var bg_pixel = bg_span[i];
+                        var alpha_pixel = alpha_span[i];
+                        dst_span[i].Item1 = (byte)((fg_pixel.Item1 * alpha_pixel + bg_pixel.Item1 * (255 - alpha_pixel)) >> 8);
+                        dst_span[i].Item2 = (byte)((fg_pixel.Item2 * alpha_pixel + bg_pixel.Item2 * (255 - alpha_pixel)) >> 8);
+                        dst_span[i].Item3 = (byte)((fg_pixel.Item3 * alpha_pixel + bg_pixel.Item3 * (255 - alpha_pixel)) >> 8);
+                    }
+                });
+                */
+            }
+            else
+            {
+
+                int w = bg.cols();
+                int h = bg.rows();
+
+                for (int y = 0; y < h; y++)
+                {
+                    ReadOnlySpan<Vec3b> fg_span = fg.AsSpan<Vec3b>(y);
+                    ReadOnlySpan<Vec3b> bg_span = bg.AsSpan<Vec3b>(y);
+                    ReadOnlySpan<byte> alpha_span = alpha.AsSpan<byte>(y);
+                    Span<Vec3b> dst_span = dst.AsSpan<Vec3b>(y);
+
+                    for (int x = 0; x < w; x++)
+                    {
+                        var fg_pixel = fg_span[x];
+                        var bg_pixel = bg_span[x];
+                        var alpha_pixel = alpha_span[x];
+                        dst_span[x].Item1 = (byte)((fg_pixel.Item1 * alpha_pixel + bg_pixel.Item1 * (255 - alpha_pixel)) >> 8);
+                        dst_span[x].Item2 = (byte)((fg_pixel.Item2 * alpha_pixel + bg_pixel.Item2 * (255 - alpha_pixel)) >> 8);
+                        dst_span[x].Item3 = (byte)((fg_pixel.Item3 * alpha_pixel + bg_pixel.Item3 * (255 - alpha_pixel)) >> 8);
+                    }
+                }
+
+                /*
+                // Row-by-row parallel processing method
+                int w = bg.cols();
+                int h = bg.rows();
+
+                System.Threading.Tasks.Parallel.For(0, h, y =>
+                {
+                    ReadOnlySpan<Vec3b> fg_span = fg.AsSpan<Vec3b>(y);
+                    ReadOnlySpan<Vec3b> bg_span = bg.AsSpan<Vec3b>(y);
+                    ReadOnlySpan<byte> alpha_span = alpha.AsSpan<byte>(y);
+                    Span<Vec3b> dst_span = dst.AsSpan<Vec3b>(y);
+
+                    for (int x = 0; x < w; x++)
+                    {
+                        var fg_pixel = fg_span[x];
+                        var bg_pixel = bg_span[x];
+                        var alpha_pixel = alpha_span[x];
+                        dst_span[x].Item1 = (byte)((fg_pixel.Item1 * alpha_pixel + bg_pixel.Item1 * (255 - alpha_pixel)) >> 8);
+                        dst_span[x].Item2 = (byte)((fg_pixel.Item2 * alpha_pixel + bg_pixel.Item2 * (255 - alpha_pixel)) >> 8);
+                        dst_span[x].Item3 = (byte)((fg_pixel.Item3 * alpha_pixel + bg_pixel.Item3 * (255 - alpha_pixel)) >> 8);
+                    }
+                });
+                */
             }
 
 #endif
@@ -680,7 +740,22 @@ namespace OpenCVForUnityExample
 #if !OPENCV_DONT_USE_UNSAFE_CODE
             StartCoroutine(AlphaBlending(pointerAccess, count));
 #else
-            Debug.LogWarning("Error : Allow 'unsafe' Code is disable. Please enable Allow 'unsafe' Code. [MenuItem]->[Tools]->[OpenCV for Unity]->[Open Setup Tools]->[Enable Use Unsafe Code]");
+            Debug.LogWarning("Error : \"OPENCV_DONT_USE_UNSAFE_CODE\" is enabled. Please switch the UNSAFE setting. [MenuItem]->[Tools]->[OpenCV for Unity]->[Open Setup Tools]->[Enable Use Unsafe Code]");
+            fpsMonitor.consoleText = "Error: \"OPENCV_DONT_USE_UNSAFE_CODE\" is enabled.";
+#endif
+        }
+
+        /// <summary>
+        /// Raises the AsSpan button click event.
+        /// </summary>
+        public void OnAsSpanButtonClick()
+        {
+#if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
+            StartCoroutine(AlphaBlending(asSpan, count));
+#else
+            Debug.LogWarning("Error : \"NET_STANDARD_2_1\" is disabled. Please switch the Api Compatibility Level to \".NET Standard 2.1\". Edit > Project Settings > Player > Other settings");
+            Debug.LogWarning("Error : \"OPENCV_DONT_USE_UNSAFE_CODE\" is enabled. Please switch the UNSAFE setting. [MenuItem]->[Tools]->[OpenCV for Unity]->[Open Setup Tools]->[Enable Use Unsafe Code]");
+            fpsMonitor.consoleText = "Error : \"NET_STANDARD_2_1\" is disabled. \"OPENCV_DONT_USE_UNSAFE_CODE\" is enabled.";
 #endif
         }
     }

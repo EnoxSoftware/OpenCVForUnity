@@ -1,10 +1,11 @@
+using OpenCVForUnity.Calib3dModule;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgcodecsModule;
+using OpenCVForUnity.UnityUtils;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
-using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.Calib3dModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.ImgcodecsModule;
+using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {
@@ -15,6 +16,12 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class StereoBMExample : MonoBehaviour
     {
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage resultPreview;
+
         // Use this for initialization
         void Start()
         {
@@ -49,7 +56,8 @@ namespace OpenCVForUnityExample
 
             Utils.matToTexture2D(imgDisparity8U, texture);
 
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
+            resultPreview.texture = texture;
+            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
         }
 
         // Update is called once per frame

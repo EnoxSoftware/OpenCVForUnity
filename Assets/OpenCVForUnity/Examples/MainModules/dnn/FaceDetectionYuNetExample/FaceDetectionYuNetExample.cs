@@ -18,7 +18,7 @@ namespace OpenCVForUnityExample
     /// Referring to https://github.com/opencv/opencv/blob/131dab774c386217d323c00248b0276bd4033dda/modules/objdetect/src/face_detect.cpp
     /// Model file - face_detection_yunet_2022mar.onnx: https://github.com/opencv/opencv_zoo/raw/4563a91ba98172b14d7af8bce621b6d1ae7ae0c6/models/face_detection_yunet/face_detection_yunet_2022mar.onnx
     /// </summary>
-    public class FaceDetectionYuNetExample : DnnObjectDetectionWebCamTextureExample
+    public class FaceDetectionYuNetExample : DnnObjectDetectionExample
     {
         [TooltipAttribute("Keep keep_top_k for results outputing.")]
         public int keep_top_k = 750;
@@ -39,18 +39,18 @@ namespace OpenCVForUnityExample
         MatOfFloat confidences;
         MatOfInt indices;
 
-        public override void OnWebCamTextureToMatHelperInitialized()
+        public override void OnSourceToMatHelperInitialized()
         {
-            base.OnWebCamTextureToMatHelperInitialized();
+            base.OnSourceToMatHelperInitialized();
 
             Size input_shape = new Size(inpWidth > 0 ? inpWidth : 320, inpHeight > 0 ? inpHeight : 240);
             Size output_shape = bgrMat.size();
             pb = new PriorBox(input_shape, output_shape);
         }
 
-        public override void OnWebCamTextureToMatHelperDisposed()
+        public override void OnSourceToMatHelperDisposed()
         {
-            base.OnWebCamTextureToMatHelperDisposed();
+            base.OnSourceToMatHelperDisposed();
 
             if (pb != null)
             {
@@ -82,10 +82,10 @@ namespace OpenCVForUnityExample
         // Update is called once per frame
         protected override void Update()
         {
-            if (webCamTextureToMatHelper.IsPlaying() && webCamTextureToMatHelper.DidUpdateThisFrame())
+            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
             {
 
-                Mat rgbaMat = webCamTextureToMatHelper.GetMat();
+                Mat rgbaMat = multiSource2MatHelper.GetMat();
 
                 if (net == null)
                 {
@@ -184,7 +184,7 @@ namespace OpenCVForUnityExample
                     new Point(landmarks_arr[4], landmarks_arr[5]), new Point(landmarks_arr[6], landmarks_arr[7]), new Point(landmarks_arr[8], landmarks_arr[9])};
                 drawPredPoints(points, frame);
             }
-            
+
         }
 
         protected virtual void drawPredPoints(Point[] points, Mat frame)

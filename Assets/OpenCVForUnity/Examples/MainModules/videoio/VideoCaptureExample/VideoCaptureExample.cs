@@ -4,6 +4,7 @@ using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.VideoioModule;
 using System;
 using System.Collections;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,6 +18,13 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class VideoCaptureExample : MonoBehaviour
     {
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage resultPreview;
+
+        [Space(10)]
 
         /// <summary>
         /// The seek bar slider.
@@ -70,31 +78,29 @@ namespace OpenCVForUnityExample
         /// </summary>
         protected static readonly string VIDEO_FILENAME = "OpenCVForUnity/768x576_mjpeg.mjpeg";
 
-#if UNITY_WEBGL
-        IEnumerator getFilePath_Coroutine;
-#endif
+        /// <summary>
+        /// The CancellationTokenSource.
+        /// </summary>
+        CancellationTokenSource cts = new CancellationTokenSource();
 
         // Use this for initialization
-        void Start()
+        async void Start()
         {
             fpsMonitor = GetComponent<FpsMonitor>();
 
             capture = new VideoCapture();
 
-#if UNITY_WEBGL
-            getFilePath_Coroutine = Utils.getFilePathAsync(VIDEO_FILENAME, (result) =>
-            {
-                getFilePath_Coroutine = null;
+            // Asynchronously retrieves the readable file path from the StreamingAssets directory.
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "Preparing file access...";
 
-                capture.open(result);
-                Initialize();
-            });
-            StartCoroutine(getFilePath_Coroutine);
-#else
-            capture.open(Utils.getFilePath(VIDEO_FILENAME));
+            var video_filepath = await Utils.getFilePathAsyncTask(VIDEO_FILENAME, cancellationToken: cts.Token);
 
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "";
+
+            capture.open(video_filepath);
             Initialize();
-#endif
         }
 
         private void Initialize()
@@ -133,23 +139,14 @@ namespace OpenCVForUnityExample
 
             capture.grab();
             capture.retrieve(rgbMat);
-            int frameWidth = rgbMat.cols();
-            int frameHeight = rgbMat.rows();
-            texture = new Texture2D(frameWidth, frameHeight, TextureFormat.RGB24, false);
-            gameObject.transform.localScale = new Vector3((float)frameWidth, (float)frameHeight, 1);
-            float widthScale = (float)Screen.width / (float)frameWidth;
-            float heightScale = (float)Screen.height / (float)frameHeight;
-            if (widthScale < heightScale)
-            {
-                Camera.main.orthographicSize = ((float)frameWidth * (float)Screen.height / (float)Screen.width) / 2;
-            }
-            else
-            {
-                Camera.main.orthographicSize = (float)frameHeight / 2;
-            }
-            capture.set(Videoio.CAP_PROP_POS_FRAMES, 0);
 
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
+            texture = new Texture2D(rgbMat.cols(), rgbMat.rows(), TextureFormat.RGB24, false);
+
+            resultPreview.texture = texture;
+            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+
+
+            capture.set(Videoio.CAP_PROP_POS_FRAMES, 0);
 
             StartCoroutine("WaitFrameTime");
 
@@ -233,13 +230,8 @@ namespace OpenCVForUnityExample
             if (rgbMat != null)
                 rgbMat.Dispose();
 
-#if UNITY_WEBGL
-            if (getFilePath_Coroutine != null)
-            {
-                StopCoroutine(getFilePath_Coroutine);
-                ((IDisposable)getFilePath_Coroutine).Dispose();
-            }
-#endif
+            if (cts != null)
+                cts.Dispose();
         }
 
         /// <summary>

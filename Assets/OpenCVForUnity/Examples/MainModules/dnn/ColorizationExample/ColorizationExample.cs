@@ -1,15 +1,15 @@
 #if !UNITY_WSA_10_0
 
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.DnnModule;
+using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
+using System.Collections.Generic;
+using System.Threading;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Range = OpenCVForUnity.CoreModule.Range;
 
 namespace OpenCVForUnityExample
@@ -21,6 +21,13 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class ColorizationExample : MonoBehaviour
     {
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage resultPreview;
+
+        [Space(10)]
 
         const float inWidth = 224;
         const float inHeight = 224;
@@ -56,6 +63,11 @@ namespace OpenCVForUnityExample
         };
 
         /// <summary>
+        /// The FPS monitor.
+        /// </summary>
+        FpsMonitor fpsMonitor;
+
+        /// <summary>
         /// IMAGE_FILENAME
         /// </summary>
         string IMAGE_FILENAME = "OpenCVForUnity/dnn/ansel_adams3.jpg";
@@ -85,51 +97,29 @@ namespace OpenCVForUnityExample
         /// </summary>
         string prototxt_filepath;
 
-#if UNITY_WEBGL
-        IEnumerator getFilePath_Coroutine;
-#endif
+        /// <summary>
+        /// The CancellationTokenSource.
+        /// </summary>
+        CancellationTokenSource cts = new CancellationTokenSource();
 
         // Use this for initialization
-        void Start()
+        async void Start()
         {
+            fpsMonitor = GetComponent<FpsMonitor>();
 
-#if UNITY_WEBGL
-            getFilePath_Coroutine = GetFilePath();
-            StartCoroutine(getFilePath_Coroutine);
-#else
-            image_filepath = Utils.getFilePath(IMAGE_FILENAME);
-            caffemodel_filepath = Utils.getFilePath(CAFFEMODEL_FILENAME);
-            prototxt_filepath = Utils.getFilePath(PROTOTXT_FILENAME);
-            Run();
-#endif
-        }
+            // Asynchronously retrieves the readable file path from the StreamingAssets directory.
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "Preparing file access...";
 
-#if UNITY_WEBGL
-        private IEnumerator GetFilePath()
-        {
-            var getFilePathAsync_0_Coroutine = Utils.getFilePathAsync(IMAGE_FILENAME, (result) =>
-            {
-                image_filepath = result;
-            });
-            yield return getFilePathAsync_0_Coroutine;
+            image_filepath = await Utils.getFilePathAsyncTask(IMAGE_FILENAME, cancellationToken: cts.Token);
+            caffemodel_filepath = await Utils.getFilePathAsyncTask(CAFFEMODEL_FILENAME, cancellationToken: cts.Token);
+            prototxt_filepath = await Utils.getFilePathAsyncTask(PROTOTXT_FILENAME, cancellationToken: cts.Token);
 
-            var getFilePathAsync_1_Coroutine = Utils.getFilePathAsync(CAFFEMODEL_FILENAME, (result) =>
-            {
-                caffemodel_filepath = result;
-            });
-            yield return getFilePathAsync_1_Coroutine;
-
-            var getFilePathAsync_2_Coroutine = Utils.getFilePathAsync(PROTOTXT_FILENAME, (result) =>
-            {
-                prototxt_filepath = result;
-            });
-            yield return getFilePathAsync_2_Coroutine;
-
-            getFilePath_Coroutine = null;
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "";
 
             Run();
         }
-#endif
 
         // Use this for initialization
         void Run()
@@ -246,25 +236,8 @@ namespace OpenCVForUnityExample
 
             Utils.matToTexture2D(display, texture);
 
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
-
-            //Adust Quad.transform.localScale.
-            gameObject.transform.localScale = new Vector3(display.width(), display.height(), 1);
-            Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
-
-            float imageWidth = display.width();
-            float imageHeight = display.height();
-
-            float widthScale = (float)Screen.width / imageWidth;
-            float heightScale = (float)Screen.height / imageHeight;
-            if (widthScale < heightScale)
-            {
-                Camera.main.orthographicSize = (imageWidth * (float)Screen.height / (float)Screen.width) / 2;
-            }
-            else
-            {
-                Camera.main.orthographicSize = imageHeight / 2;
-            }
+            resultPreview.texture = texture;
+            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
 
 
             Utils.setDebugMode(false);
@@ -281,13 +254,8 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDisable()
         {
-#if UNITY_WEBGL
-            if (getFilePath_Coroutine != null)
-            {
-                StopCoroutine(getFilePath_Coroutine);
-                ((IDisposable)getFilePath_Coroutine).Dispose();
-            }
-#endif
+            if (cts != null)
+                cts.Dispose();
         }
 
         /// <summary>

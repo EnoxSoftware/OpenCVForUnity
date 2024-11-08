@@ -1,12 +1,10 @@
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using System;
-
-using UnityEngine.SceneManagement;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.Features2dModule;
 using OpenCVForUnity.UnityUtils;
+using System.Threading;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {
@@ -16,28 +14,41 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class SimpleBlobExample : MonoBehaviour
     {
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage resultPreview;
+
+        [Space(10)]
+
         string blobparams_yml_filepath;
 
-#if UNITY_WEBGL
-        Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
-#endif
+        /// <summary>
+        /// The FPS monitor.
+        /// </summary>
+        FpsMonitor fpsMonitor;
+
+        /// <summary>
+        /// The CancellationTokenSource.
+        /// </summary>
+        CancellationTokenSource cts = new CancellationTokenSource();
 
         // Use this for initialization
-        void Start()
+        async void Start()
         {
-#if UNITY_WEBGL
-            var getFilePath_Coroutine = Utils.getFilePathAsync("OpenCVForUnity/features2d/blobparams.yml", (result) => {
-                coroutines.Clear ();
+            fpsMonitor = GetComponent<FpsMonitor>();
 
-                blobparams_yml_filepath = result;
-                Run ();
-            });
-            coroutines.Push (getFilePath_Coroutine);
-            StartCoroutine (getFilePath_Coroutine);
-#else
-            blobparams_yml_filepath = Utils.getFilePath("OpenCVForUnity/features2d/blobparams.yml");
+            // Asynchronously retrieves the readable file path from the StreamingAssets directory.
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "Preparing file access...";
+
+            blobparams_yml_filepath = await Utils.getFilePathAsyncTask("OpenCVForUnity/features2d/blobparams.yml", cancellationToken: cts.Token);
+
+            if (fpsMonitor != null)
+                fpsMonitor.consoleText = "";
+
             Run();
-#endif
         }
 
         private void Run()
@@ -98,7 +109,8 @@ namespace OpenCVForUnityExample
 
             Utils.matToTexture2D(outImgMat, texture);
 
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
+            resultPreview.texture = texture;
+            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
 
 
             Utils.setDebugMode(false);
@@ -115,12 +127,8 @@ namespace OpenCVForUnityExample
         /// </summary>
         void OnDestroy()
         {
-#if UNITY_WEBGL
-            foreach (var coroutine in coroutines) {
-                StopCoroutine (coroutine);
-                ((IDisposable)coroutine).Dispose ();
-            }
-#endif
+            if (cts != null)
+                cts.Dispose();
         }
 
         /// <summary>

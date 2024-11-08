@@ -1,10 +1,11 @@
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.MlModule;
+using OpenCVForUnity.UnityUtils;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
-using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.MlModule;
-using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
+using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {
@@ -15,6 +16,12 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class SVMExample : MonoBehaviour
     {
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage resultPreview;
+
         // Use this for initialization
         void Start()
         {
@@ -76,7 +83,9 @@ namespace OpenCVForUnityExample
 
             Texture2D texture = new Texture2D(image.width(), image.height(), TextureFormat.RGBA32, false);
             Utils.matToTexture2D(image, texture);
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
+
+            resultPreview.texture = texture;
+            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
         }
 
         // Update is called once per frame
