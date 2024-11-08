@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: OpenCVForUnity.CoreModule.Rect Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,257 +126,231 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_core_module.html">CoreModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="class_open_c_v_for_unity_1_1_core_module_1_1_rect-members.html">List of all members</a>  </div>
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.CoreModule.Rect Class Reference</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.CoreModule.Rect Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Template class for 2D rectangles.  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for OpenCVForUnity.CoreModule.Rect:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="class_open_c_v_for_unity_1_1_core_module_1_1_rect.png" usemap="#OpenCVForUnity.CoreModule.Rect_map" alt=""/>
-  <map id="OpenCVForUnity.CoreModule.Rect_map" name="OpenCVForUnity.CoreModule.Rect_map">
-</map>
+  <img src="class_open_c_v_for_unity_1_1_core_module_1_1_rect.png" alt=""/>
  </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6be5dc158e4c230222f9eea2ff1ea8aa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a6be5dc158e4c230222f9eea2ff1ea8aa">Rect</a> (int <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a781aad576c416ba928556172b3479e21">x</a>, int y, int width, int height)</td></tr>
+<tr class="memitem:a6be5dc158e4c230222f9eea2ff1ea8aa" id="r_a6be5dc158e4c230222f9eea2ff1ea8aa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6be5dc158e4c230222f9eea2ff1ea8aa">Rect</a> (int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>)</td></tr>
 <tr class="separator:a6be5dc158e4c230222f9eea2ff1ea8aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ff7c5dd7b857d90ef9841f49a20891c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a1ff7c5dd7b857d90ef9841f49a20891c">Rect</a> ()</td></tr>
+<tr class="memitem:a1ff7c5dd7b857d90ef9841f49a20891c" id="r_a1ff7c5dd7b857d90ef9841f49a20891c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ff7c5dd7b857d90ef9841f49a20891c">Rect</a> ()</td></tr>
 <tr class="separator:a1ff7c5dd7b857d90ef9841f49a20891c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa20528338346ca9aef6582791ff5a58f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#aa20528338346ca9aef6582791ff5a58f">Rect</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> p1, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> p2)</td></tr>
+<tr class="memitem:aa20528338346ca9aef6582791ff5a58f" id="r_aa20528338346ca9aef6582791ff5a58f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa20528338346ca9aef6582791ff5a58f">Rect</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> p1, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> p2)</td></tr>
 <tr class="separator:aa20528338346ca9aef6582791ff5a58f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2be9b6cb503d9783488ccf5302619f07"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a2be9b6cb503d9783488ccf5302619f07">Rect</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> p, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> s)</td></tr>
+<tr class="memitem:a2be9b6cb503d9783488ccf5302619f07" id="r_a2be9b6cb503d9783488ccf5302619f07"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2be9b6cb503d9783488ccf5302619f07">Rect</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> p, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> s)</td></tr>
 <tr class="separator:a2be9b6cb503d9783488ccf5302619f07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8459b80ce1390a5c3f2c1aea70b3b9f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a8459b80ce1390a5c3f2c1aea70b3b9f8">Rect</a> (double[] vals)</td></tr>
+<tr class="memitem:a8459b80ce1390a5c3f2c1aea70b3b9f8" id="r_a8459b80ce1390a5c3f2c1aea70b3b9f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8459b80ce1390a5c3f2c1aea70b3b9f8">Rect</a> (double[] vals)</td></tr>
 <tr class="separator:a8459b80ce1390a5c3f2c1aea70b3b9f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4ad156b471ca3eb42e2742f73836439"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#ae4ad156b471ca3eb42e2742f73836439">set</a> (double[] vals)</td></tr>
+<tr class="memitem:ae4ad156b471ca3eb42e2742f73836439" id="r_ae4ad156b471ca3eb42e2742f73836439"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae4ad156b471ca3eb42e2742f73836439">set</a> (double[] vals)</td></tr>
 <tr class="separator:ae4ad156b471ca3eb42e2742f73836439"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa61da7235f4d2ecdb972ba021a3367d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#aa61da7235f4d2ecdb972ba021a3367d1">clone</a> ()</td></tr>
+<tr class="memitem:aa61da7235f4d2ecdb972ba021a3367d1" id="r_aa61da7235f4d2ecdb972ba021a3367d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa61da7235f4d2ecdb972ba021a3367d1">clone</a> ()</td></tr>
 <tr class="separator:aa61da7235f4d2ecdb972ba021a3367d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad664acb007b52502f9298bc6ce1153e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#ad664acb007b52502f9298bc6ce1153e1">tl</a> ()</td></tr>
+<tr class="memitem:ad664acb007b52502f9298bc6ce1153e1" id="r_ad664acb007b52502f9298bc6ce1153e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad664acb007b52502f9298bc6ce1153e1">tl</a> ()</td></tr>
 <tr class="separator:ad664acb007b52502f9298bc6ce1153e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50188f057fb8c11023712cc708a15768"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a50188f057fb8c11023712cc708a15768">br</a> ()</td></tr>
+<tr class="memitem:a50188f057fb8c11023712cc708a15768" id="r_a50188f057fb8c11023712cc708a15768"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50188f057fb8c11023712cc708a15768">br</a> ()</td></tr>
 <tr class="separator:a50188f057fb8c11023712cc708a15768"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abaf072b3d0eabf6c36d60bf40ca38e7a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#abaf072b3d0eabf6c36d60bf40ca38e7a">size</a> ()</td></tr>
+<tr class="memitem:abaf072b3d0eabf6c36d60bf40ca38e7a" id="r_abaf072b3d0eabf6c36d60bf40ca38e7a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abaf072b3d0eabf6c36d60bf40ca38e7a">size</a> ()</td></tr>
 <tr class="separator:abaf072b3d0eabf6c36d60bf40ca38e7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b1720c557a151eed73780f71a3bd430"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a5b1720c557a151eed73780f71a3bd430">area</a> ()</td></tr>
+<tr class="memitem:a5b1720c557a151eed73780f71a3bd430" id="r_a5b1720c557a151eed73780f71a3bd430"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b1720c557a151eed73780f71a3bd430">area</a> ()</td></tr>
 <tr class="separator:a5b1720c557a151eed73780f71a3bd430"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7eceec87d06500dedce621fc7492487"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#ad7eceec87d06500dedce621fc7492487">empty</a> ()</td></tr>
+<tr class="memitem:ad7eceec87d06500dedce621fc7492487" id="r_ad7eceec87d06500dedce621fc7492487"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad7eceec87d06500dedce621fc7492487">empty</a> ()</td></tr>
 <tr class="separator:ad7eceec87d06500dedce621fc7492487"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8addff3f8d8762f9926a914fec1026b7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a8addff3f8d8762f9926a914fec1026b7">contains</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> p)</td></tr>
+<tr class="memitem:a8addff3f8d8762f9926a914fec1026b7" id="r_a8addff3f8d8762f9926a914fec1026b7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8addff3f8d8762f9926a914fec1026b7">contains</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> p)</td></tr>
 <tr class="separator:a8addff3f8d8762f9926a914fec1026b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a757f470cf955d724688db9e5bdb63216"><td class="memItemLeft" align="right" valign="top">override int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a757f470cf955d724688db9e5bdb63216">GetHashCode</a> ()</td></tr>
+<tr class="memitem:a757f470cf955d724688db9e5bdb63216" id="r_a757f470cf955d724688db9e5bdb63216"><td class="memItemLeft" align="right" valign="top">override int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a757f470cf955d724688db9e5bdb63216">GetHashCode</a> ()</td></tr>
 <tr class="separator:a757f470cf955d724688db9e5bdb63216"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54f700462a7fd42b3a8312e3a563a267"><td class="memItemLeft" align="right" valign="top">override bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a54f700462a7fd42b3a8312e3a563a267">Equals</a> (Object obj)</td></tr>
+<tr class="memitem:a54f700462a7fd42b3a8312e3a563a267" id="r_a54f700462a7fd42b3a8312e3a563a267"><td class="memItemLeft" align="right" valign="top">override bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54f700462a7fd42b3a8312e3a563a267">Equals</a> (Object obj)</td></tr>
 <tr class="separator:a54f700462a7fd42b3a8312e3a563a267"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeabd033234e8ef3b1b3766eff99f494b"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#aeabd033234e8ef3b1b3766eff99f494b">ToString</a> ()</td></tr>
+<tr class="memitem:aeabd033234e8ef3b1b3766eff99f494b" id="r_aeabd033234e8ef3b1b3766eff99f494b"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeabd033234e8ef3b1b3766eff99f494b">ToString</a> ()</td></tr>
 <tr class="separator:aeabd033234e8ef3b1b3766eff99f494b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7965c5bfc6f68710f0045d19100f0c5d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a7965c5bfc6f68710f0045d19100f0c5d">Equals</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a)</td></tr>
-<tr class="separator:a7965c5bfc6f68710f0045d19100f0c5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab358e24db5832a796b0ad71bac632012"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#ab358e24db5832a796b0ad71bac632012">contains</a> (int <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a781aad576c416ba928556172b3479e21">x</a>, int y)</td></tr>
+<tr class="memitem:a50e5a03708901133621596758048f6e2" id="r_a50e5a03708901133621596758048f6e2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50e5a03708901133621596758048f6e2">Rect</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a> vals)</td></tr>
+<tr class="separator:a50e5a03708901133621596758048f6e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5c989fe8e01ac2e84e9de3deef4e3ac" id="r_af5c989fe8e01ac2e84e9de3deef4e3ac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5c989fe8e01ac2e84e9de3deef4e3ac">Rect</a> (in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>) vals)</td></tr>
+<tr class="separator:af5c989fe8e01ac2e84e9de3deef4e3ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1627b00aa49fd3ec6db5e75ef58c992" id="r_af1627b00aa49fd3ec6db5e75ef58c992"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af1627b00aa49fd3ec6db5e75ef58c992">set</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a> vals)</td></tr>
+<tr class="separator:af1627b00aa49fd3ec6db5e75ef58c992"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49056d0350031a4327dc9f24b7d497e7" id="r_a49056d0350031a4327dc9f24b7d497e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a49056d0350031a4327dc9f24b7d497e7">set</a> (in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>) vals)</td></tr>
+<tr class="separator:a49056d0350031a4327dc9f24b7d497e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac88e28d05c890a66dbc3fd970e6016ec" id="r_ac88e28d05c890a66dbc3fd970e6016ec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac88e28d05c890a66dbc3fd970e6016ec">cloneAsVec4i</a> ()</td></tr>
+<tr class="separator:ac88e28d05c890a66dbc3fd970e6016ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc16cf7a4fa8170c50e41bef42beac09" id="r_acc16cf7a4fa8170c50e41bef42beac09"><td class="memItemLeft" align="right" valign="top">int int int int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acc16cf7a4fa8170c50e41bef42beac09">cloneAsValueTuple</a> ()</td></tr>
+<tr class="separator:acc16cf7a4fa8170c50e41bef42beac09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10bb19859b965cc017efe6da3363ddd1" id="r_a10bb19859b965cc017efe6da3363ddd1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10bb19859b965cc017efe6da3363ddd1">tlAsVec2d</a> ()</td></tr>
+<tr class="separator:a10bb19859b965cc017efe6da3363ddd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14f80f6f7153acc1b217746d8a92d188" id="r_a14f80f6f7153acc1b217746d8a92d188"><td class="memItemLeft" align="right" valign="top">double double <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a14f80f6f7153acc1b217746d8a92d188">tlAsValueTuple</a> ()</td></tr>
+<tr class="separator:a14f80f6f7153acc1b217746d8a92d188"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae79240e78493c730624e5906a1f7867" id="r_aae79240e78493c730624e5906a1f7867"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aae79240e78493c730624e5906a1f7867">brAsVec2d</a> ()</td></tr>
+<tr class="separator:aae79240e78493c730624e5906a1f7867"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2655380e9e8f5e6863427301c2b98c00" id="r_a2655380e9e8f5e6863427301c2b98c00"><td class="memItemLeft" align="right" valign="top">double double <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2655380e9e8f5e6863427301c2b98c00">brAsValueTuple</a> ()</td></tr>
+<tr class="separator:a2655380e9e8f5e6863427301c2b98c00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a273b1450655e6e81cf55af0710547767" id="r_a273b1450655e6e81cf55af0710547767"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a273b1450655e6e81cf55af0710547767">sizeAsVec2d</a> ()</td></tr>
+<tr class="separator:a273b1450655e6e81cf55af0710547767"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd2bef3c8f03a7f34fe5a848c4878600" id="r_afd2bef3c8f03a7f34fe5a848c4878600"><td class="memItemLeft" align="right" valign="top">double double <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd2bef3c8f03a7f34fe5a848c4878600">sizeAsValueTuple</a> ()</td></tr>
+<tr class="separator:afd2bef3c8f03a7f34fe5a848c4878600"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab358e24db5832a796b0ad71bac632012" id="r_ab358e24db5832a796b0ad71bac632012"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab358e24db5832a796b0ad71bac632012">contains</a> (int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>)</td></tr>
 <tr class="separator:ab358e24db5832a796b0ad71bac632012"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91133bfe9270f3fbb7000c0417fed640"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a91133bfe9270f3fbb7000c0417fed640">contains</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> rect)</td></tr>
+<tr class="memitem:a73b1f39718e53f625813d7ae13e8de99" id="r_a73b1f39718e53f625813d7ae13e8de99"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a73b1f39718e53f625813d7ae13e8de99">contains</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a> p)</td></tr>
+<tr class="separator:a73b1f39718e53f625813d7ae13e8de99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f26a35d8bb3da6f9dc7fb5948138478" id="r_a4f26a35d8bb3da6f9dc7fb5948138478"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4f26a35d8bb3da6f9dc7fb5948138478">contains</a> (in(double <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, double <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>) p)</td></tr>
+<tr class="separator:a4f26a35d8bb3da6f9dc7fb5948138478"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57cf1c2fc946af6965ced505e85dd2d5" id="r_a57cf1c2fc946af6965ced505e85dd2d5"><td class="memItemLeft" align="right" valign="top">int int int int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57cf1c2fc946af6965ced505e85dd2d5">ToValueTuple</a> ()</td></tr>
+<tr class="separator:a57cf1c2fc946af6965ced505e85dd2d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc2f49e64b5fda6df4d8e3ce6819d0c4" id="r_acc2f49e64b5fda6df4d8e3ce6819d0c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acc2f49e64b5fda6df4d8e3ce6819d0c4">ToVec4i</a> ()</td></tr>
+<tr class="separator:acc2f49e64b5fda6df4d8e3ce6819d0c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91133bfe9270f3fbb7000c0417fed640" id="r_a91133bfe9270f3fbb7000c0417fed640"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91133bfe9270f3fbb7000c0417fed640">contains</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> rect)</td></tr>
 <tr class="separator:a91133bfe9270f3fbb7000c0417fed640"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c7a5362feb6f93a1f9bd074d7822016"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a5c7a5362feb6f93a1f9bd074d7822016">inflate</a> (int width, int height)</td></tr>
+<tr class="memitem:a7d4607f96219805d5e2d6cfd35c4cc14" id="r_a7d4607f96219805d5e2d6cfd35c4cc14"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d4607f96219805d5e2d6cfd35c4cc14">contains</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a> rect)</td></tr>
+<tr class="separator:a7d4607f96219805d5e2d6cfd35c4cc14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc3967fcae1ff55e5d32c17e7d6043bc" id="r_abc3967fcae1ff55e5d32c17e7d6043bc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc3967fcae1ff55e5d32c17e7d6043bc">contains</a> (in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>) rect)</td></tr>
+<tr class="separator:abc3967fcae1ff55e5d32c17e7d6043bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c7a5362feb6f93a1f9bd074d7822016" id="r_a5c7a5362feb6f93a1f9bd074d7822016"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c7a5362feb6f93a1f9bd074d7822016">inflate</a> (int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>)</td></tr>
+<tr class="memdesc:a5c7a5362feb6f93a1f9bd074d7822016"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expands the rectangle by decreasing its position and increasing its size by the specified width and height.  <br /></td></tr>
 <tr class="separator:a5c7a5362feb6f93a1f9bd074d7822016"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca5ff659e853d57429baab15028480ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#aca5ff659e853d57429baab15028480ae">inflate</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#abaf072b3d0eabf6c36d60bf40ca38e7a">size</a>)</td></tr>
+<tr class="memitem:aca5ff659e853d57429baab15028480ae" id="r_aca5ff659e853d57429baab15028480ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca5ff659e853d57429baab15028480ae">inflate</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> <a class="el" href="#abaf072b3d0eabf6c36d60bf40ca38e7a">size</a>)</td></tr>
+<tr class="memdesc:aca5ff659e853d57429baab15028480ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expands the rectangle by decreasing its position and increasing its size by the specified width and height.  <br /></td></tr>
 <tr class="separator:aca5ff659e853d57429baab15028480ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a369afe7d4cdee04a2f2a89a783b58261"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a369afe7d4cdee04a2f2a89a783b58261">intersect</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> rect)</td></tr>
+<tr class="memitem:a7b675ccd4f6d373a39d71118f0f689fe" id="r_a7b675ccd4f6d373a39d71118f0f689fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b675ccd4f6d373a39d71118f0f689fe">inflate</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a> <a class="el" href="#abaf072b3d0eabf6c36d60bf40ca38e7a">size</a>)</td></tr>
+<tr class="memdesc:a7b675ccd4f6d373a39d71118f0f689fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expands the rectangle by decreasing its position and increasing its size by the specified width and height.  <br /></td></tr>
+<tr class="separator:a7b675ccd4f6d373a39d71118f0f689fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8284364ee13836cc0131d6854bffe093" id="r_a8284364ee13836cc0131d6854bffe093"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8284364ee13836cc0131d6854bffe093">inflate</a> (in(double <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, double <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>) <a class="el" href="#abaf072b3d0eabf6c36d60bf40ca38e7a">size</a>)</td></tr>
+<tr class="memdesc:a8284364ee13836cc0131d6854bffe093"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expands the rectangle by decreasing its position and increasing its size by the specified width and height.  <br /></td></tr>
+<tr class="separator:a8284364ee13836cc0131d6854bffe093"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a369afe7d4cdee04a2f2a89a783b58261" id="r_a369afe7d4cdee04a2f2a89a783b58261"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a369afe7d4cdee04a2f2a89a783b58261">intersect</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> rect)</td></tr>
+<tr class="memdesc:a369afe7d4cdee04a2f2a89a783b58261"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the intersection of the current rectangle with the specified rectangle.  <br /></td></tr>
 <tr class="separator:a369afe7d4cdee04a2f2a89a783b58261"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65838c4a9e61a64fdb5b4f1b7a578ff0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a65838c4a9e61a64fdb5b4f1b7a578ff0">intersectsWith</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> rect)</td></tr>
+<tr class="memitem:a73093c98189b0e3eae010e847d3e223c" id="r_a73093c98189b0e3eae010e847d3e223c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a73093c98189b0e3eae010e847d3e223c">intersectAsVec4i</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a> rect)</td></tr>
+<tr class="memdesc:a73093c98189b0e3eae010e847d3e223c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the intersection of the current rectangle with the specified rectangle.  <br /></td></tr>
+<tr class="separator:a73093c98189b0e3eae010e847d3e223c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1f42f0d30004eacaa720a88c6a82069" id="r_af1f42f0d30004eacaa720a88c6a82069"><td class="memItemLeft" align="right" valign="top">int int int int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af1f42f0d30004eacaa720a88c6a82069">intersectAsValueTuple</a> (in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>) rect)</td></tr>
+<tr class="separator:af1f42f0d30004eacaa720a88c6a82069"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65838c4a9e61a64fdb5b4f1b7a578ff0" id="r_a65838c4a9e61a64fdb5b4f1b7a578ff0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a65838c4a9e61a64fdb5b4f1b7a578ff0">intersectsWith</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> rect)</td></tr>
+<tr class="memdesc:a65838c4a9e61a64fdb5b4f1b7a578ff0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines whether the current rectangle intersects with the specified rectangle.  <br /></td></tr>
 <tr class="separator:a65838c4a9e61a64fdb5b4f1b7a578ff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acdf568d96430add492959ed713ed1c2c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#acdf568d96430add492959ed713ed1c2c">union</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> rect)</td></tr>
+<tr class="memitem:a5c09c30a3ddd8dc46aa34484352cd33c" id="r_a5c09c30a3ddd8dc46aa34484352cd33c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c09c30a3ddd8dc46aa34484352cd33c">intersectsWith</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a> rect)</td></tr>
+<tr class="memdesc:a5c09c30a3ddd8dc46aa34484352cd33c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines whether the current rectangle intersects with the specified rectangle.  <br /></td></tr>
+<tr class="separator:a5c09c30a3ddd8dc46aa34484352cd33c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6330e641b8640a19bccf1b904dbc836" id="r_ae6330e641b8640a19bccf1b904dbc836"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6330e641b8640a19bccf1b904dbc836">intersectsWith</a> (in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>) rect)</td></tr>
+<tr class="memdesc:ae6330e641b8640a19bccf1b904dbc836"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines whether the current rectangle intersects with the specified rectangle.  <br /></td></tr>
+<tr class="separator:ae6330e641b8640a19bccf1b904dbc836"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdf568d96430add492959ed713ed1c2c" id="r_acdf568d96430add492959ed713ed1c2c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acdf568d96430add492959ed713ed1c2c">union</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> rect)</td></tr>
+<tr class="memdesc:acdf568d96430add492959ed713ed1c2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a new rectangle that represents the union of the current rectangle and the specified rectangle.  <br /></td></tr>
 <tr class="separator:acdf568d96430add492959ed713ed1c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cb34f611a45814b4c01584aa5778a5e" id="r_a8cb34f611a45814b4c01584aa5778a5e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8cb34f611a45814b4c01584aa5778a5e">unionAsVec4i</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a> rect)</td></tr>
+<tr class="memdesc:a8cb34f611a45814b4c01584aa5778a5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a new rectangle that represents the union of the current rectangle and the specified rectangle.  <br /></td></tr>
+<tr class="separator:a8cb34f611a45814b4c01584aa5778a5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa154aeb96ed73f451da7c58f4ab1af2e" id="r_aa154aeb96ed73f451da7c58f4ab1af2e"><td class="memItemLeft" align="right" valign="top">int int int int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa154aeb96ed73f451da7c58f4ab1af2e">union</a> (in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>) rect)</td></tr>
+<tr class="separator:aa154aeb96ed73f451da7c58f4ab1af2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7965c5bfc6f68710f0045d19100f0c5d" id="r_a7965c5bfc6f68710f0045d19100f0c5d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7965c5bfc6f68710f0045d19100f0c5d">Equals</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a)</td></tr>
+<tr class="separator:a7965c5bfc6f68710f0045d19100f0c5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ae7bdab52f00d5ec4f5ab52568f84042a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#ae7bdab52f00d5ec4f5ab52568f84042a">operator+</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> b)</td></tr>
-<tr class="separator:ae7bdab52f00d5ec4f5ab52568f84042a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afeeb91e02ab1d38263dc104839740970"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#afeeb91e02ab1d38263dc104839740970">operator+</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> b)</td></tr>
-<tr class="separator:afeeb91e02ab1d38263dc104839740970"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9e83d7a790279c88639c38bd527c8f7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#aa9e83d7a790279c88639c38bd527c8f7">operator-</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> b)</td></tr>
-<tr class="separator:aa9e83d7a790279c88639c38bd527c8f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af578158e83a088794f9a362dd26b94c5"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#af578158e83a088794f9a362dd26b94c5">operator-</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> b)</td></tr>
-<tr class="separator:af578158e83a088794f9a362dd26b94c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70f637862b6b16791558d26796c63446"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a70f637862b6b16791558d26796c63446">operator&amp;</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> b)</td></tr>
-<tr class="separator:a70f637862b6b16791558d26796c63446"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a840babd70afde30293da38408194af84"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a840babd70afde30293da38408194af84">operator|</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> b)</td></tr>
-<tr class="separator:a840babd70afde30293da38408194af84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3d42cfebf4ba8ad9754bd20c535b3d0"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#ac3d42cfebf4ba8ad9754bd20c535b3d0">operator==</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> b)</td></tr>
-<tr class="separator:ac3d42cfebf4ba8ad9754bd20c535b3d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab83e03ac39c7c726e82f3c6d5d2b7d65"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#ab83e03ac39c7c726e82f3c6d5d2b7d65">operator!=</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> b)</td></tr>
-<tr class="separator:ab83e03ac39c7c726e82f3c6d5d2b7d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c4f888d74b7c24fd9376fe10c0f69e8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a2c4f888d74b7c24fd9376fe10c0f69e8">inflate</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> rect, int <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a781aad576c416ba928556172b3479e21">x</a>, int y)</td></tr>
+<tr class="memitem:af18977e04b8ebd93f9b78b5f162bdcb0" id="r_af18977e04b8ebd93f9b78b5f162bdcb0"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af18977e04b8ebd93f9b78b5f162bdcb0">operator Vec4i</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> rect)</td></tr>
+<tr class="separator:af18977e04b8ebd93f9b78b5f162bdcb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14cbc5f6977b7849781d7866693e3546" id="r_a14cbc5f6977b7849781d7866693e3546"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a14cbc5f6977b7849781d7866693e3546">operator</a> (int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>)(<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> rect)</td></tr>
+<tr class="separator:a14cbc5f6977b7849781d7866693e3546"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08da13e9da47ff28362b5a6e89d975a0" id="r_a08da13e9da47ff28362b5a6e89d975a0"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08da13e9da47ff28362b5a6e89d975a0">operator Rect</a> (in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>) valueTuple)</td></tr>
+<tr class="separator:a08da13e9da47ff28362b5a6e89d975a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c4f888d74b7c24fd9376fe10c0f69e8" id="r_a2c4f888d74b7c24fd9376fe10c0f69e8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c4f888d74b7c24fd9376fe10c0f69e8">inflate</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> rect, int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>)</td></tr>
+<tr class="memdesc:a2c4f888d74b7c24fd9376fe10c0f69e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expands the specified rectangle by decreasing its position and increasing its size by the specified amounts.  <br /></td></tr>
 <tr class="separator:a2c4f888d74b7c24fd9376fe10c0f69e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a5462169f9a101104574a0a157262e1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a4a5462169f9a101104574a0a157262e1">intersect</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> b)</td></tr>
+<tr class="memitem:a1ffc91f5eb78766f7aae3ab6d2c260d7" id="r_a1ffc91f5eb78766f7aae3ab6d2c260d7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ffc91f5eb78766f7aae3ab6d2c260d7">inflateAsVec4i</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a> rect, int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>)</td></tr>
+<tr class="memdesc:a1ffc91f5eb78766f7aae3ab6d2c260d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expands the specified rectangle by decreasing its position and increasing its size by the specified amounts.  <br /></td></tr>
+<tr class="separator:a1ffc91f5eb78766f7aae3ab6d2c260d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf7378368940d4eddc37fdccd4adee1b" id="r_aaf7378368940d4eddc37fdccd4adee1b"><td class="memItemLeft" align="right" valign="top">static int int int int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaf7378368940d4eddc37fdccd4adee1b">inflateAsValueTuple</a> (in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>) rect, int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>)</td></tr>
+<tr class="separator:aaf7378368940d4eddc37fdccd4adee1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a5462169f9a101104574a0a157262e1" id="r_a4a5462169f9a101104574a0a157262e1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a5462169f9a101104574a0a157262e1">intersect</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> b)</td></tr>
+<tr class="memdesc:a4a5462169f9a101104574a0a157262e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the intersection of two rectangles.  <br /></td></tr>
 <tr class="separator:a4a5462169f9a101104574a0a157262e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b7eedaaec715c63d88157a0a3e39b2f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a4b7eedaaec715c63d88157a0a3e39b2f">union</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> b)</td></tr>
+<tr class="memitem:aaec6b72c533f4e19337a4a7fee8a3724" id="r_aaec6b72c533f4e19337a4a7fee8a3724"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaec6b72c533f4e19337a4a7fee8a3724">intersectAsVec4i</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a> a, in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a> b)</td></tr>
+<tr class="memdesc:aaec6b72c533f4e19337a4a7fee8a3724"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the intersection of two rectangles.  <br /></td></tr>
+<tr class="separator:aaec6b72c533f4e19337a4a7fee8a3724"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac99f50486e81bf2d924a54d182e415b9" id="r_ac99f50486e81bf2d924a54d182e415b9"><td class="memItemLeft" align="right" valign="top">static int int int int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac99f50486e81bf2d924a54d182e415b9">intersectAsValueTuple</a> (in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>) a, in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>) b)</td></tr>
+<tr class="separator:ac99f50486e81bf2d924a54d182e415b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b7eedaaec715c63d88157a0a3e39b2f" id="r_a4b7eedaaec715c63d88157a0a3e39b2f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b7eedaaec715c63d88157a0a3e39b2f">union</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> b)</td></tr>
+<tr class="memdesc:a4b7eedaaec715c63d88157a0a3e39b2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a new rectangle that represents the union of two specified rectangles.  <br /></td></tr>
 <tr class="separator:a4b7eedaaec715c63d88157a0a3e39b2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a754bf083e1e74e3c5c986b0cefabb287" id="r_a754bf083e1e74e3c5c986b0cefabb287"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a754bf083e1e74e3c5c986b0cefabb287">unionAsVec4i</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a> a, in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a> b)</td></tr>
+<tr class="memdesc:a754bf083e1e74e3c5c986b0cefabb287"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a new rectangle that represents the union of two specified rectangles.  <br /></td></tr>
+<tr class="separator:a754bf083e1e74e3c5c986b0cefabb287"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80eb21f54f1eb4210cdce371cd73b23f" id="r_a80eb21f54f1eb4210cdce371cd73b23f"><td class="memItemLeft" align="right" valign="top">static int int int int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80eb21f54f1eb4210cdce371cd73b23f">union</a> (in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>) a, in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>) b)</td></tr>
+<tr class="separator:a80eb21f54f1eb4210cdce371cd73b23f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7bdab52f00d5ec4f5ab52568f84042a" id="r_ae7bdab52f00d5ec4f5ab52568f84042a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7bdab52f00d5ec4f5ab52568f84042a">operator+</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> b)</td></tr>
+<tr class="separator:ae7bdab52f00d5ec4f5ab52568f84042a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afeeb91e02ab1d38263dc104839740970" id="r_afeeb91e02ab1d38263dc104839740970"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afeeb91e02ab1d38263dc104839740970">operator+</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> b)</td></tr>
+<tr class="separator:afeeb91e02ab1d38263dc104839740970"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9e83d7a790279c88639c38bd527c8f7" id="r_aa9e83d7a790279c88639c38bd527c8f7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa9e83d7a790279c88639c38bd527c8f7">operator-</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> b)</td></tr>
+<tr class="separator:aa9e83d7a790279c88639c38bd527c8f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af578158e83a088794f9a362dd26b94c5" id="r_af578158e83a088794f9a362dd26b94c5"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af578158e83a088794f9a362dd26b94c5">operator-</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> b)</td></tr>
+<tr class="separator:af578158e83a088794f9a362dd26b94c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88a6b9a19432d2838fb4ea6019f6dc21" id="r_a88a6b9a19432d2838fb4ea6019f6dc21"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88a6b9a19432d2838fb4ea6019f6dc21">operator&amp;</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> b)</td></tr>
+<tr class="separator:a88a6b9a19432d2838fb4ea6019f6dc21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a840babd70afde30293da38408194af84" id="r_a840babd70afde30293da38408194af84"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a840babd70afde30293da38408194af84">operator|</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> b)</td></tr>
+<tr class="separator:a840babd70afde30293da38408194af84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3d42cfebf4ba8ad9754bd20c535b3d0" id="r_ac3d42cfebf4ba8ad9754bd20c535b3d0"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac3d42cfebf4ba8ad9754bd20c535b3d0">operator==</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> b)</td></tr>
+<tr class="separator:ac3d42cfebf4ba8ad9754bd20c535b3d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab83e03ac39c7c726e82f3c6d5d2b7d65" id="r_ab83e03ac39c7c726e82f3c6d5d2b7d65"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab83e03ac39c7c726e82f3c6d5d2b7d65">operator!=</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> b)</td></tr>
+<tr class="separator:ab83e03ac39c7c726e82f3c6d5d2b7d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a781aad576c416ba928556172b3479e21"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html#a781aad576c416ba928556172b3479e21">x</a></td></tr>
+<tr class="memitem:aba26f84bb0094cf333768e116b5134d8" id="r_aba26f84bb0094cf333768e116b5134d8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a></td></tr>
+<tr class="memdesc:aba26f84bb0094cf333768e116b5134d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the intersection of the current rectangle with the specified rectangle.  <br /></td></tr>
+<tr class="separator:aba26f84bb0094cf333768e116b5134d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac44b6a76612cbfd8887d487a7d6c4d81" id="r_ac44b6a76612cbfd8887d487a7d6c4d81"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a></td></tr>
+<tr class="separator:ac44b6a76612cbfd8887d487a7d6c4d81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32211d1449b172199b71c132db0130a3" id="r_a32211d1449b172199b71c132db0130a3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a></td></tr>
+<tr class="separator:a32211d1449b172199b71c132db0130a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84c2d86a667d32e7ab599f7e9aaa28b7" id="r_a84c2d86a667d32e7ab599f7e9aaa28b7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a></td></tr>
+<tr class="separator:a84c2d86a667d32e7ab599f7e9aaa28b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32ba7b2c1d5525f2b6ac135c7001c25f" id="r_a32ba7b2c1d5525f2b6ac135c7001c25f"><td class="memItemLeft" align="right" valign="top">int int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a32ba7b2c1d5525f2b6ac135c7001c25f">y</a></td></tr>
+<tr class="separator:a32ba7b2c1d5525f2b6ac135c7001c25f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65a7457f992cbd69e26b33a05c751a12" id="r_a65a7457f992cbd69e26b33a05c751a12"><td class="memItemLeft" align="right" valign="top">int int int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a65a7457f992cbd69e26b33a05c751a12">width</a></td></tr>
+<tr class="separator:a65a7457f992cbd69e26b33a05c751a12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ffe0d133755244589f099248573bb3d" id="r_a6ffe0d133755244589f099248573bb3d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ffe0d133755244589f099248573bb3d">x</a></td></tr>
+<tr class="separator:a6ffe0d133755244589f099248573bb3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2560a6c2dd105d356840f73cdf973b36" id="r_a2560a6c2dd105d356840f73cdf973b36"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2560a6c2dd105d356840f73cdf973b36">width</a></td></tr>
+<tr class="separator:a2560a6c2dd105d356840f73cdf973b36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a781aad576c416ba928556172b3479e21" id="r_a781aad576c416ba928556172b3479e21"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a781aad576c416ba928556172b3479e21">x</a></td></tr>
+<tr class="memdesc:a781aad576c416ba928556172b3479e21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expands the specified rectangle by decreasing its position and increasing its size by the specified amounts.  <br /></td></tr>
 <tr class="separator:a781aad576c416ba928556172b3479e21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32ba7b2c1d5525f2b6ac135c7001c25f" id="r_a32ba7b2c1d5525f2b6ac135c7001c25f"><td class="memItemLeft" align="right" valign="top">static int int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a32ba7b2c1d5525f2b6ac135c7001c25f">y</a></td></tr>
+<tr class="separator:a32ba7b2c1d5525f2b6ac135c7001c25f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65a7457f992cbd69e26b33a05c751a12" id="r_a65a7457f992cbd69e26b33a05c751a12"><td class="memItemLeft" align="right" valign="top">static int int int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a65a7457f992cbd69e26b33a05c751a12">width</a></td></tr>
+<tr class="separator:a65a7457f992cbd69e26b33a05c751a12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>template&lt;typename _Tp&gt; class CV_EXPORTS Rect_ <code></code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>// C++ code:</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>public:</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>typedef _Tp value_type;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>//! various constructors</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Rect_();</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Rect_(_Tp _x, _Tp _y, _Tp _width, _Tp _height);</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Rect_(const Rect_&amp; r);</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Rect_(const CvRect&amp; r);</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Rect_(const Point_&lt;<em>Tp&gt;&amp; org, const <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a></em>&lt;_Tp&gt;&amp; sz);</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Rect_(const Point_&lt;<em>Tp&gt;&amp; pt1, const <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a></em>&lt;_Tp&gt;&amp; pt2);</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Rect_&amp; operator = (const Rect_&amp; r);</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>//! the top-left corner</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Point_&lt;_Tp&gt; tl() const;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>//! the bottom-right corner</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Point_&lt;_Tp&gt; br() const;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>//! size (width, height) of the rectangle</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Size_&lt;_Tp&gt; size() const;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>//! area (width*height) of the rectangle</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>_Tp area() const;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>//! conversion to another data type</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>template&lt;typename _Tp2&gt; operator Rect_&lt;_Tp2&gt;() const;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>//! conversion to the old-style CvRect</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>operator CvRect() const;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>//! checks whether the rectangle contains the point</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>bool contains(const Point_&lt;_Tp&gt;&amp; pt) const;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>_Tp x, y, width, height; //&lt; the top-left corner, as well as width and height of the rectangle</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>};</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Template class for 2D rectangles, described by the following parameters: </code></p>
-<ul>
-<li>
-Coordinates of the top-left corner. This is a default interpretation of <code>Rect_.x</code> and <code>Rect_.y</code> in OpenCV. Though, in your algorithms you may count <code>x</code> and <code>y</code> from the bottom-left corner. </li>
-<li>
-Rectangle width and height. </li>
+<div class="textblock"><p>Template class for 2D rectangles. </p>
+<p>Described by the following parameters:</p><ul>
+<li>Coordinates of the top-left corner. This is a default interpretation of Rect_::x and Rect_::y in OpenCV. Though, in your algorithms you may count x and y from the bottom-left corner.</li>
+<li>Rectangle width and height.</li>
 </ul>
-<p>OpenCV typically assumes that the top and left boundary of the rectangle are inclusive, while the right and bottom boundaries are not. For example, the method <code>Rect_.contains</code> returns <code>true</code> if</p>
-<p><em>x &lt;= pt.x &amp;lt x+width,&amp;ltBR&amp;gty &lt;= pt.y &amp;lt y+height</em></p>
-<p>Virtually every loop over an imageROI in OpenCV (where ROI is specified by <code>Rect_&lt;int&gt;</code>) is implemented as: <code></code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>// C++ code:</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>for(int y = roi.y; y &lt; roi.y + rect.height; y++)</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>for(int x = roi.x; x &lt; roi.x + rect.width; x++)</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>//...</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>In addition to the class members, the following operations on rectangles are implemented: </code></p>
-<ul>
-<li>
-<em>rect = rect +- point</em> (shifting a rectangle by a certain offset) </li>
-<li>
-<em>rect = rect +- size</em> (expanding or shrinking a rectangle by a certain amount) </li>
-<li>
-<code>rect += point, rect -= point, rect += size, rect -= size</code> (augmenting operations) </li>
-<li>
-<code>rect = rect1 &amp; rect2</code> (rectangle intersection) </li>
-<li>
-<code>rect = rect1 | rect2</code> (minimum area rectangle containing <code>rect2</code> and <code>rect3</code>) </li>
-<li>
-<code>rect &amp;= rect1, rect |= rect1</code> (and the corresponding augmenting operations) </li>
-<li>
-<code>rect == rect1, rect != rect1</code> (rectangle comparison) </li>
-</ul>
-<p>This is an example how the partial ordering on rectangles can be established (rect1<em>subseteq</em> rect2): <code></code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>// C++ code:</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>template&lt;typename _Tp&gt; inline bool</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>operator &lt;= (const Rect_&lt;<em>Tp&gt;&amp; r1, const <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></em>&lt;_Tp&gt;&amp; r2)</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>return (r1 &amp; r2) == r1;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>For your convenience, the <code>Rect_&lt;&gt;</code> alias is available:</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>typedef Rect_&lt;int&gt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>;</code></p>
-<p><code></code></p>
-<p><code></p><dl class="section see"><dt>See also</dt><dd><a href="http://docs.opencv.org/modules/core/doc/basic_structures.html#rect">org.opencv.core.Rect_</a> </dd></dl>
-<p></code></p>
+<p>OpenCV typically assumes that the top and left boundary of the rectangle are inclusive, while the right and bottom boundaries are not.</p>
+<p>C++: cv::Rect_&lt;_Tp&gt; Class Template Reference </p><dl class="section see"><dt>See also</dt><dd><a href="https://docs.opencv.org/4.10.0/d2/d44/classcv_1_1Rect__.html">https://docs.opencv.org/4.10.0/d2/d44/classcv_1_1Rect__.html</a> </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a6be5dc158e4c230222f9eea2ff1ea8aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6be5dc158e4c230222f9eea2ff1ea8aa">&#9670;&nbsp;</a></span>Rect() <span class="overload">[1/5]</span></h2>
+<a id="a6be5dc158e4c230222f9eea2ff1ea8aa" name="a6be5dc158e4c230222f9eea2ff1ea8aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6be5dc158e4c230222f9eea2ff1ea8aa">&#9670;&#160;</a></span>Rect() <span class="overload">[1/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -352,39 +358,30 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname">OpenCVForUnity.CoreModule.Rect.Rect </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>y</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>height</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a1ff7c5dd7b857d90ef9841f49a20891c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ff7c5dd7b857d90ef9841f49a20891c">&#9670;&nbsp;</a></span>Rect() <span class="overload">[2/5]</span></h2>
+<a id="a1ff7c5dd7b857d90ef9841f49a20891c" name="a1ff7c5dd7b857d90ef9841f49a20891c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ff7c5dd7b857d90ef9841f49a20891c">&#9670;&#160;</a></span>Rect() <span class="overload">[2/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -392,16 +389,17 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname">OpenCVForUnity.CoreModule.Rect.Rect </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>default constructor </p>
 
 </div>
 </div>
-<a id="aa20528338346ca9aef6582791ff5a58f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa20528338346ca9aef6582791ff5a58f">&#9670;&nbsp;</a></span>Rect() <span class="overload">[3/5]</span></h2>
+<a id="aa20528338346ca9aef6582791ff5a58f" name="aa20528338346ca9aef6582791ff5a58f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa20528338346ca9aef6582791ff5a58f">&#9670;&#160;</a></span>Rect() <span class="overload">[3/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -409,27 +407,20 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname">OpenCVForUnity.CoreModule.Rect.Rect </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a>&#160;</td>
-          <td class="paramname"><em>p1</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a></td>          <td class="paramname"><span class="paramname"><em>p1</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a>&#160;</td>
-          <td class="paramname"><em>p2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a></td>          <td class="paramname"><span class="paramname"><em>p2</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a2be9b6cb503d9783488ccf5302619f07"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2be9b6cb503d9783488ccf5302619f07">&#9670;&nbsp;</a></span>Rect() <span class="overload">[4/5]</span></h2>
+<a id="a2be9b6cb503d9783488ccf5302619f07" name="a2be9b6cb503d9783488ccf5302619f07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2be9b6cb503d9783488ccf5302619f07">&#9670;&#160;</a></span>Rect() <span class="overload">[4/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -437,27 +428,20 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname">OpenCVForUnity.CoreModule.Rect.Rect </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a>&#160;</td>
-          <td class="paramname"><em>p</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a></td>          <td class="paramname"><span class="paramname"><em>p</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a>&#160;</td>
-          <td class="paramname"><em>s</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a></td>          <td class="paramname"><span class="paramname"><em>s</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a8459b80ce1390a5c3f2c1aea70b3b9f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8459b80ce1390a5c3f2c1aea70b3b9f8">&#9670;&nbsp;</a></span>Rect() <span class="overload">[5/5]</span></h2>
+<a id="a8459b80ce1390a5c3f2c1aea70b3b9f8" name="a8459b80ce1390a5c3f2c1aea70b3b9f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8459b80ce1390a5c3f2c1aea70b3b9f8">&#9670;&#160;</a></span>Rect() <span class="overload">[5/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -465,8 +449,41 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname">OpenCVForUnity.CoreModule.Rect.Rect </td>
           <td>(</td>
-          <td class="paramtype">double []&#160;</td>
-          <td class="paramname"><em>vals</em></td><td>)</td>
+          <td class="paramtype">double[]</td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a50e5a03708901133621596758048f6e2" name="a50e5a03708901133621596758048f6e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50e5a03708901133621596758048f6e2">&#9670;&#160;</a></span>Rect() <span class="overload">[6/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OpenCVForUnity.CoreModule.Rect.Rect </td>
+          <td>(</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a></td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af5c989fe8e01ac2e84e9de3deef4e3ac" name="af5c989fe8e01ac2e84e9de3deef4e3ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5c989fe8e01ac2e84e9de3deef4e3ac">&#9670;&#160;</a></span>Rect() <span class="overload">[7/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OpenCVForUnity.CoreModule.Rect.Rect </td>
+          <td>(</td>
+          <td class="paramtype">in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>)</td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -475,8 +492,8 @@ Rectangle width and height. </li>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5b1720c557a151eed73780f71a3bd430"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b1720c557a151eed73780f71a3bd430">&#9670;&nbsp;</a></span>area()</h2>
+<a id="a5b1720c557a151eed73780f71a3bd430" name="a5b1720c557a151eed73780f71a3bd430"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b1720c557a151eed73780f71a3bd430">&#9670;&#160;</a></span>area()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -484,16 +501,17 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname">double OpenCVForUnity.CoreModule.Rect.area </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>area (width*height) of the rectangle </p>
 
 </div>
 </div>
-<a id="a50188f057fb8c11023712cc708a15768"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50188f057fb8c11023712cc708a15768">&#9670;&nbsp;</a></span>br()</h2>
+<a id="a50188f057fb8c11023712cc708a15768" name="a50188f057fb8c11023712cc708a15768"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50188f057fb8c11023712cc708a15768">&#9670;&#160;</a></span>br()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -501,7 +519,25 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> OpenCVForUnity.CoreModule.Rect.br </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>the bottom-right corner </p>
+
+</div>
+</div>
+<a id="a2655380e9e8f5e6863427301c2b98c00" name="a2655380e9e8f5e6863427301c2b98c00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2655380e9e8f5e6863427301c2b98c00">&#9670;&#160;</a></span>brAsValueTuple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double double <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a> OpenCVForUnity.CoreModule.Rect.brAsValueTuple </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -509,8 +545,26 @@ Rectangle width and height. </li>
 
 </div>
 </div>
-<a id="aa61da7235f4d2ecdb972ba021a3367d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa61da7235f4d2ecdb972ba021a3367d1">&#9670;&nbsp;</a></span>clone()</h2>
+<a id="aae79240e78493c730624e5906a1f7867" name="aae79240e78493c730624e5906a1f7867"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae79240e78493c730624e5906a1f7867">&#9670;&#160;</a></span>brAsVec2d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a> OpenCVForUnity.CoreModule.Rect.brAsVec2d </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>the bottom-right corner </p>
+
+</div>
+</div>
+<a id="aa61da7235f4d2ecdb972ba021a3367d1" name="aa61da7235f4d2ecdb972ba021a3367d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa61da7235f4d2ecdb972ba021a3367d1">&#9670;&#160;</a></span>clone()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -518,7 +572,7 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> OpenCVForUnity.CoreModule.Rect.clone </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -526,8 +580,42 @@ Rectangle width and height. </li>
 
 </div>
 </div>
-<a id="ab358e24db5832a796b0ad71bac632012"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab358e24db5832a796b0ad71bac632012">&#9670;&nbsp;</a></span>contains() <span class="overload">[1/3]</span></h2>
+<a id="acc16cf7a4fa8170c50e41bef42beac09" name="acc16cf7a4fa8170c50e41bef42beac09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc16cf7a4fa8170c50e41bef42beac09">&#9670;&#160;</a></span>cloneAsValueTuple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int int int int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a> OpenCVForUnity.CoreModule.Rect.cloneAsValueTuple </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac88e28d05c890a66dbc3fd970e6016ec" name="ac88e28d05c890a66dbc3fd970e6016ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac88e28d05c890a66dbc3fd970e6016ec">&#9670;&#160;</a></span>cloneAsVec4i()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a> OpenCVForUnity.CoreModule.Rect.cloneAsVec4i </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a73b1f39718e53f625813d7ae13e8de99" name="a73b1f39718e53f625813d7ae13e8de99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73b1f39718e53f625813d7ae13e8de99">&#9670;&#160;</a></span>contains() <span class="overload">[1/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -535,27 +623,93 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname">bool OpenCVForUnity.CoreModule.Rect.contains </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a></td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>checks whether the rectangle contains the point </p>
+
+</div>
+</div>
+<a id="a7d4607f96219805d5e2d6cfd35c4cc14" name="a7d4607f96219805d5e2d6cfd35c4cc14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d4607f96219805d5e2d6cfd35c4cc14">&#9670;&#160;</a></span>contains() <span class="overload">[2/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.CoreModule.Rect.contains </td>
+          <td>(</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a></td>          <td class="paramname"><span class="paramname"><em>rect</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>checks whether the rectangle contains the point </p>
+
+</div>
+</div>
+<a id="a4f26a35d8bb3da6f9dc7fb5948138478" name="a4f26a35d8bb3da6f9dc7fb5948138478"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f26a35d8bb3da6f9dc7fb5948138478">&#9670;&#160;</a></span>contains() <span class="overload">[3/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.CoreModule.Rect.contains </td>
+          <td>(</td>
+          <td class="paramtype">in(double <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, double <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>)</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>checks whether the rectangle contains the point </p>
+
+</div>
+</div>
+<a id="abc3967fcae1ff55e5d32c17e7d6043bc" name="abc3967fcae1ff55e5d32c17e7d6043bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc3967fcae1ff55e5d32c17e7d6043bc">&#9670;&#160;</a></span>contains() <span class="overload">[4/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.CoreModule.Rect.contains </td>
+          <td>(</td>
+          <td class="paramtype">in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>)</td>          <td class="paramname"><span class="paramname"><em>rect</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>checks whether the rectangle contains the point </p>
+
+</div>
+</div>
+<a id="ab358e24db5832a796b0ad71bac632012" name="ab358e24db5832a796b0ad71bac632012"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab358e24db5832a796b0ad71bac632012">&#9670;&#160;</a></span>contains() <span class="overload">[5/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.CoreModule.Rect.contains </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>y</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>checks whether the rectangle contains the point </p>
 
 </div>
 </div>
-<a id="a91133bfe9270f3fbb7000c0417fed640"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91133bfe9270f3fbb7000c0417fed640">&#9670;&nbsp;</a></span>contains() <span class="overload">[2/3]</span></h2>
+<a id="a8addff3f8d8762f9926a914fec1026b7" name="a8addff3f8d8762f9926a914fec1026b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8addff3f8d8762f9926a914fec1026b7">&#9670;&#160;</a></span>contains() <span class="overload">[6/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -563,17 +717,17 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname">bool OpenCVForUnity.CoreModule.Rect.contains </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>rect</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a></td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>checks whether the rectangle contains the point </p>
 
 </div>
 </div>
-<a id="a8addff3f8d8762f9926a914fec1026b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8addff3f8d8762f9926a914fec1026b7">&#9670;&nbsp;</a></span>contains() <span class="overload">[3/3]</span></h2>
+<a id="a91133bfe9270f3fbb7000c0417fed640" name="a91133bfe9270f3fbb7000c0417fed640"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91133bfe9270f3fbb7000c0417fed640">&#9670;&#160;</a></span>contains() <span class="overload">[7/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -581,17 +735,17 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname">bool OpenCVForUnity.CoreModule.Rect.contains </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a>&#160;</td>
-          <td class="paramname"><em>p</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>rect</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>checks whether the rectangle contains the point </p>
 
 </div>
 </div>
-<a id="ad7eceec87d06500dedce621fc7492487"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7eceec87d06500dedce621fc7492487">&#9670;&nbsp;</a></span>empty()</h2>
+<a id="ad7eceec87d06500dedce621fc7492487" name="ad7eceec87d06500dedce621fc7492487"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7eceec87d06500dedce621fc7492487">&#9670;&#160;</a></span>empty()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -599,34 +753,17 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname">bool OpenCVForUnity.CoreModule.Rect.empty </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>true if empty </p>
 
 </div>
 </div>
-<a id="a7965c5bfc6f68710f0045d19100f0c5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7965c5bfc6f68710f0045d19100f0c5d">&#9670;&nbsp;</a></span>Equals() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OpenCVForUnity.CoreModule.Rect.Equals </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>a</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a54f700462a7fd42b3a8312e3a563a267"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54f700462a7fd42b3a8312e3a563a267">&#9670;&nbsp;</a></span>Equals() <span class="overload">[2/2]</span></h2>
+<a id="a54f700462a7fd42b3a8312e3a563a267" name="a54f700462a7fd42b3a8312e3a563a267"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54f700462a7fd42b3a8312e3a563a267">&#9670;&#160;</a></span>Equals() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -634,8 +771,7 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname">override bool OpenCVForUnity.CoreModule.Rect.Equals </td>
           <td>(</td>
-          <td class="paramtype">Object&#160;</td>
-          <td class="paramname"><em>obj</em></td><td>)</td>
+          <td class="paramtype">Object</td>          <td class="paramname"><span class="paramname"><em>obj</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -643,8 +779,25 @@ Rectangle width and height. </li>
 
 </div>
 </div>
-<a id="a757f470cf955d724688db9e5bdb63216"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a757f470cf955d724688db9e5bdb63216">&#9670;&nbsp;</a></span>GetHashCode()</h2>
+<a id="a7965c5bfc6f68710f0045d19100f0c5d" name="a7965c5bfc6f68710f0045d19100f0c5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7965c5bfc6f68710f0045d19100f0c5d">&#9670;&#160;</a></span>Equals() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.CoreModule.Rect.Equals </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a757f470cf955d724688db9e5bdb63216" name="a757f470cf955d724688db9e5bdb63216"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a757f470cf955d724688db9e5bdb63216">&#9670;&#160;</a></span>GetHashCode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -652,7 +805,7 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname">override int OpenCVForUnity.CoreModule.Rect.GetHashCode </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -660,8 +813,8 @@ Rectangle width and height. </li>
 
 </div>
 </div>
-<a id="a5c7a5362feb6f93a1f9bd074d7822016"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c7a5362feb6f93a1f9bd074d7822016">&#9670;&nbsp;</a></span>inflate() <span class="overload">[1/3]</span></h2>
+<a id="a7b675ccd4f6d373a39d71118f0f689fe" name="a7b675ccd4f6d373a39d71118f0f689fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b675ccd4f6d373a39d71118f0f689fe">&#9670;&#160;</a></span>inflate() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -669,45 +822,81 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname">void OpenCVForUnity.CoreModule.Rect.inflate </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a></td>          <td class="paramname"><span class="paramname"><em>size</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Expands the rectangle by decreasing its position and increasing its size by the specified width and height. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>The amount to decrease the x-coordinate and increase the width. </td></tr>
+    <tr><td class="paramname">height</td><td>The amount to decrease the y-coordinate and increase the height. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8284364ee13836cc0131d6854bffe093" name="a8284364ee13836cc0131d6854bffe093"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8284364ee13836cc0131d6854bffe093">&#9670;&#160;</a></span>inflate() <span class="overload">[2/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.CoreModule.Rect.inflate </td>
+          <td>(</td>
+          <td class="paramtype">in(double <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, double <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>)</td>          <td class="paramname"><span class="paramname"><em>size</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Expands the rectangle by decreasing its position and increasing its size by the specified width and height. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>The amount to decrease the x-coordinate and increase the width. </td></tr>
+    <tr><td class="paramname">height</td><td>The amount to decrease the y-coordinate and increase the height. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5c7a5362feb6f93a1f9bd074d7822016" name="a5c7a5362feb6f93a1f9bd074d7822016"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c7a5362feb6f93a1f9bd074d7822016">&#9670;&#160;</a></span>inflate() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.CoreModule.Rect.inflate </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>height</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="aca5ff659e853d57429baab15028480ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca5ff659e853d57429baab15028480ae">&#9670;&nbsp;</a></span>inflate() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void OpenCVForUnity.CoreModule.Rect.inflate </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a>&#160;</td>
-          <td class="paramname"><em>size</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Expands the rectangle by decreasing its position and increasing its size by the specified width and height. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>The amount to decrease the x-coordinate and increase the width. </td></tr>
+    <tr><td class="paramname">height</td><td>The amount to decrease the y-coordinate and increase the height. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
-<a id="a2c4f888d74b7c24fd9376fe10c0f69e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c4f888d74b7c24fd9376fe10c0f69e8">&#9670;&nbsp;</a></span>inflate() <span class="overload">[3/3]</span></h2>
+<a id="a2c4f888d74b7c24fd9376fe10c0f69e8" name="a2c4f888d74b7c24fd9376fe10c0f69e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c4f888d74b7c24fd9376fe10c0f69e8">&#9670;&#160;</a></span>inflate() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -718,25 +907,88 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> OpenCVForUnity.CoreModule.Rect.inflate </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>rect</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>rect</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>y</em>&#160;</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Expands the specified rectangle by decreasing its position and increasing its size by the specified amounts. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rect</td><td>The rectangle to be expanded. </td></tr>
+    <tr><td class="paramname">x</td><td>The amount to decrease the x-coordinate and increase the width. </td></tr>
+    <tr><td class="paramname">y</td><td>The amount to decrease the y-coordinate and increase the height. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The expanded rectangle. </dd></dl>
+
+</div>
+</div>
+<a id="aca5ff659e853d57429baab15028480ae" name="aca5ff659e853d57429baab15028480ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca5ff659e853d57429baab15028480ae">&#9670;&#160;</a></span>inflate() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.CoreModule.Rect.inflate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a></td>          <td class="paramname"><span class="paramname"><em>size</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Expands the rectangle by decreasing its position and increasing its size by the specified width and height. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>The amount to decrease the x-coordinate and increase the width. </td></tr>
+    <tr><td class="paramname">height</td><td>The amount to decrease the y-coordinate and increase the height. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aaf7378368940d4eddc37fdccd4adee1b" name="aaf7378368940d4eddc37fdccd4adee1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf7378368940d4eddc37fdccd4adee1b">&#9670;&#160;</a></span>inflateAsValueTuple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int int int int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a> OpenCVForUnity.CoreModule.Rect.inflateAsValueTuple </td>
+          <td>(</td>
+          <td class="paramtype">in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>)</td>          <td class="paramname"><span class="paramname"><em>rect</em></span>, </td>
         </tr>
         <tr>
+          <td class="paramkey"></td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -748,8 +1000,53 @@ Rectangle width and height. </li>
 
 </div>
 </div>
-<a id="a4a5462169f9a101104574a0a157262e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a5462169f9a101104574a0a157262e1">&#9670;&nbsp;</a></span>intersect() <span class="overload">[1/2]</span></h2>
+<a id="a1ffc91f5eb78766f7aae3ab6d2c260d7" name="a1ffc91f5eb78766f7aae3ab6d2c260d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ffc91f5eb78766f7aae3ab6d2c260d7">&#9670;&#160;</a></span>inflateAsVec4i()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a> OpenCVForUnity.CoreModule.Rect.inflateAsVec4i </td>
+          <td>(</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a></td>          <td class="paramname"><span class="paramname"><em>rect</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Expands the specified rectangle by decreasing its position and increasing its size by the specified amounts. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rect</td><td>The rectangle to be expanded. </td></tr>
+    <tr><td class="paramname">x</td><td>The amount to decrease the x-coordinate and increase the width. </td></tr>
+    <tr><td class="paramname">y</td><td>The amount to decrease the y-coordinate and increase the height. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The expanded rectangle. </dd></dl>
+
+</div>
+</div>
+<a id="a4a5462169f9a101104574a0a157262e1" name="a4a5462169f9a101104574a0a157262e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a5462169f9a101104574a0a157262e1">&#9670;&#160;</a></span>intersect() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -760,19 +1057,77 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> OpenCVForUnity.CoreModule.Rect.intersect </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Computes the intersection of two rectangles. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>The first rectangle. </td></tr>
+    <tr><td class="paramname">b</td><td>The second rectangle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A rectangle representing the overlapping area of the two rectangles. If the rectangles do not overlap, an empty rectangle is returned. </dd></dl>
+
+</div>
+</div>
+<a id="a369afe7d4cdee04a2f2a89a783b58261" name="a369afe7d4cdee04a2f2a89a783b58261"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a369afe7d4cdee04a2f2a89a783b58261">&#9670;&#160;</a></span>intersect() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> OpenCVForUnity.CoreModule.Rect.intersect </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>rect</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes the intersection of the current rectangle with the specified rectangle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rect</td><td>The rectangle to intersect with the current rectangle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A rectangle representing the overlapping area of the two rectangles. If the rectangles do not overlap, an empty rectangle is returned. </dd></dl>
+
+</div>
+</div>
+<a id="ac99f50486e81bf2d924a54d182e415b9" name="ac99f50486e81bf2d924a54d182e415b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac99f50486e81bf2d924a54d182e415b9">&#9670;&#160;</a></span>intersectAsValueTuple() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int int int int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a> OpenCVForUnity.CoreModule.Rect.intersectAsValueTuple </td>
+          <td>(</td>
+          <td class="paramtype">in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>)</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
+          <td class="paramkey"></td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>)</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -784,17 +1139,16 @@ Rectangle width and height. </li>
 
 </div>
 </div>
-<a id="a369afe7d4cdee04a2f2a89a783b58261"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a369afe7d4cdee04a2f2a89a783b58261">&#9670;&nbsp;</a></span>intersect() <span class="overload">[2/2]</span></h2>
+<a id="af1f42f0d30004eacaa720a88c6a82069" name="af1f42f0d30004eacaa720a88c6a82069"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1f42f0d30004eacaa720a88c6a82069">&#9670;&#160;</a></span>intersectAsValueTuple() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> OpenCVForUnity.CoreModule.Rect.intersect </td>
+          <td class="memname">int int int int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a> OpenCVForUnity.CoreModule.Rect.intersectAsValueTuple </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>rect</em></td><td>)</td>
+          <td class="paramtype">in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>)</td>          <td class="paramname"><span class="paramname"><em>rect</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -802,8 +1156,73 @@ Rectangle width and height. </li>
 
 </div>
 </div>
-<a id="a65838c4a9e61a64fdb5b4f1b7a578ff0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65838c4a9e61a64fdb5b4f1b7a578ff0">&#9670;&nbsp;</a></span>intersectsWith()</h2>
+<a id="aaec6b72c533f4e19337a4a7fee8a3724" name="aaec6b72c533f4e19337a4a7fee8a3724"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaec6b72c533f4e19337a4a7fee8a3724">&#9670;&#160;</a></span>intersectAsVec4i() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a> OpenCVForUnity.CoreModule.Rect.intersectAsVec4i </td>
+          <td>(</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Computes the intersection of two rectangles. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>The first rectangle. </td></tr>
+    <tr><td class="paramname">b</td><td>The second rectangle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A rectangle representing the overlapping area of the two rectangles. If the rectangles do not overlap, an empty rectangle is returned. </dd></dl>
+
+</div>
+</div>
+<a id="a73093c98189b0e3eae010e847d3e223c" name="a73093c98189b0e3eae010e847d3e223c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73093c98189b0e3eae010e847d3e223c">&#9670;&#160;</a></span>intersectAsVec4i() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a> OpenCVForUnity.CoreModule.Rect.intersectAsVec4i </td>
+          <td>(</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a></td>          <td class="paramname"><span class="paramname"><em>rect</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes the intersection of the current rectangle with the specified rectangle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rect</td><td>The rectangle to intersect with the current rectangle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A rectangle representing the overlapping area of the two rectangles. If the rectangles do not overlap, an empty rectangle is returned. </dd></dl>
+
+</div>
+</div>
+<a id="a5c09c30a3ddd8dc46aa34484352cd33c" name="a5c09c30a3ddd8dc46aa34484352cd33c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c09c30a3ddd8dc46aa34484352cd33c">&#9670;&#160;</a></span>intersectsWith() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -811,17 +1230,166 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname">bool OpenCVForUnity.CoreModule.Rect.intersectsWith </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>rect</em></td><td>)</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a></td>          <td class="paramname"><span class="paramname"><em>rect</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Determines whether the current rectangle intersects with the specified rectangle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rect</td><td>The rectangle to check for intersection with the current rectangle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the rectangles intersect; otherwise, <code>false</code>. </dd></dl>
+
 </div>
 </div>
-<a id="ab83e03ac39c7c726e82f3c6d5d2b7d65"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab83e03ac39c7c726e82f3c6d5d2b7d65">&#9670;&nbsp;</a></span>operator!=()</h2>
+<a id="ae6330e641b8640a19bccf1b904dbc836" name="ae6330e641b8640a19bccf1b904dbc836"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6330e641b8640a19bccf1b904dbc836">&#9670;&#160;</a></span>intersectsWith() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.CoreModule.Rect.intersectsWith </td>
+          <td>(</td>
+          <td class="paramtype">in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>)</td>          <td class="paramname"><span class="paramname"><em>rect</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determines whether the current rectangle intersects with the specified rectangle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rect</td><td>The rectangle to check for intersection with the current rectangle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the rectangles intersect; otherwise, <code>false</code>. </dd></dl>
+
+</div>
+</div>
+<a id="a65838c4a9e61a64fdb5b4f1b7a578ff0" name="a65838c4a9e61a64fdb5b4f1b7a578ff0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65838c4a9e61a64fdb5b4f1b7a578ff0">&#9670;&#160;</a></span>intersectsWith() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.CoreModule.Rect.intersectsWith </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>rect</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determines whether the current rectangle intersects with the specified rectangle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rect</td><td>The rectangle to check for intersection with the current rectangle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the rectangles intersect; otherwise, <code>false</code>. </dd></dl>
+
+</div>
+</div>
+<a id="a14cbc5f6977b7849781d7866693e3546" name="a14cbc5f6977b7849781d7866693e3546"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14cbc5f6977b7849781d7866693e3546">&#9670;&#160;</a></span>operator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static OpenCVForUnity.CoreModule.Rect.operator </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a08da13e9da47ff28362b5a6e89d975a0" name="a08da13e9da47ff28362b5a6e89d975a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08da13e9da47ff28362b5a6e89d975a0">&#9670;&#160;</a></span>operator Rect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="#a14cbc5f6977b7849781d7866693e3546">OpenCVForUnity.CoreModule.Rect.operator</a> <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> </td>
+          <td>(</td>
+          <td class="paramtype">in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>)</td>          <td class="paramname"><span class="paramname"><em>valueTuple</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af18977e04b8ebd93f9b78b5f162bdcb0" name="af18977e04b8ebd93f9b78b5f162bdcb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af18977e04b8ebd93f9b78b5f162bdcb0">&#9670;&#160;</a></span>operator Vec4i()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="#a14cbc5f6977b7849781d7866693e3546">OpenCVForUnity.CoreModule.Rect.operator</a> <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>rect</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab83e03ac39c7c726e82f3c6d5d2b7d65" name="ab83e03ac39c7c726e82f3c6d5d2b7d65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab83e03ac39c7c726e82f3c6d5d2b7d65">&#9670;&#160;</a></span>operator!=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -832,19 +1400,12 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname">static bool OpenCVForUnity.CoreModule.Rect.operator!= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -856,8 +1417,8 @@ Rectangle width and height. </li>
 
 </div>
 </div>
-<a id="a70f637862b6b16791558d26796c63446"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70f637862b6b16791558d26796c63446">&#9670;&nbsp;</a></span>operator&amp;()</h2>
+<a id="a88a6b9a19432d2838fb4ea6019f6dc21" name="a88a6b9a19432d2838fb4ea6019f6dc21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88a6b9a19432d2838fb4ea6019f6dc21">&#9670;&#160;</a></span>operator&amp;()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -866,21 +1427,14 @@ Rectangle width and height. </li>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> OpenCVForUnity.CoreModule.Rect.operator &amp; </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> <a class="el" href="#a14cbc5f6977b7849781d7866693e3546">OpenCVForUnity.CoreModule.Rect.operator</a>&amp; </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -892,8 +1446,8 @@ Rectangle width and height. </li>
 
 </div>
 </div>
-<a id="ae7bdab52f00d5ec4f5ab52568f84042a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae7bdab52f00d5ec4f5ab52568f84042a">&#9670;&nbsp;</a></span>operator+() <span class="overload">[1/2]</span></h2>
+<a id="ae7bdab52f00d5ec4f5ab52568f84042a" name="ae7bdab52f00d5ec4f5ab52568f84042a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7bdab52f00d5ec4f5ab52568f84042a">&#9670;&#160;</a></span>operator+() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -902,21 +1456,14 @@ Rectangle width and height. </li>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> OpenCVForUnity.CoreModule.Rect.operator+ </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> <a class="el" href="#a14cbc5f6977b7849781d7866693e3546">OpenCVForUnity.CoreModule.Rect.operator</a>+ </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -928,8 +1475,8 @@ Rectangle width and height. </li>
 
 </div>
 </div>
-<a id="afeeb91e02ab1d38263dc104839740970"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afeeb91e02ab1d38263dc104839740970">&#9670;&nbsp;</a></span>operator+() <span class="overload">[2/2]</span></h2>
+<a id="afeeb91e02ab1d38263dc104839740970" name="afeeb91e02ab1d38263dc104839740970"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afeeb91e02ab1d38263dc104839740970">&#9670;&#160;</a></span>operator+() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -938,21 +1485,14 @@ Rectangle width and height. </li>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> OpenCVForUnity.CoreModule.Rect.operator+ </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> <a class="el" href="#a14cbc5f6977b7849781d7866693e3546">OpenCVForUnity.CoreModule.Rect.operator</a>+ </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -964,8 +1504,8 @@ Rectangle width and height. </li>
 
 </div>
 </div>
-<a id="aa9e83d7a790279c88639c38bd527c8f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9e83d7a790279c88639c38bd527c8f7">&#9670;&nbsp;</a></span>operator-() <span class="overload">[1/2]</span></h2>
+<a id="aa9e83d7a790279c88639c38bd527c8f7" name="aa9e83d7a790279c88639c38bd527c8f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9e83d7a790279c88639c38bd527c8f7">&#9670;&#160;</a></span>operator-() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -974,21 +1514,14 @@ Rectangle width and height. </li>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> OpenCVForUnity.CoreModule.Rect.operator- </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> <a class="el" href="#a14cbc5f6977b7849781d7866693e3546">OpenCVForUnity.CoreModule.Rect.operator</a>- </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -1000,8 +1533,8 @@ Rectangle width and height. </li>
 
 </div>
 </div>
-<a id="af578158e83a088794f9a362dd26b94c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af578158e83a088794f9a362dd26b94c5">&#9670;&nbsp;</a></span>operator-() <span class="overload">[2/2]</span></h2>
+<a id="af578158e83a088794f9a362dd26b94c5" name="af578158e83a088794f9a362dd26b94c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af578158e83a088794f9a362dd26b94c5">&#9670;&#160;</a></span>operator-() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1010,21 +1543,14 @@ Rectangle width and height. </li>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> OpenCVForUnity.CoreModule.Rect.operator- </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> <a class="el" href="#a14cbc5f6977b7849781d7866693e3546">OpenCVForUnity.CoreModule.Rect.operator</a>- </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -1036,8 +1562,8 @@ Rectangle width and height. </li>
 
 </div>
 </div>
-<a id="ac3d42cfebf4ba8ad9754bd20c535b3d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3d42cfebf4ba8ad9754bd20c535b3d0">&#9670;&nbsp;</a></span>operator==()</h2>
+<a id="ac3d42cfebf4ba8ad9754bd20c535b3d0" name="ac3d42cfebf4ba8ad9754bd20c535b3d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3d42cfebf4ba8ad9754bd20c535b3d0">&#9670;&#160;</a></span>operator==()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1046,21 +1572,14 @@ Rectangle width and height. </li>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool OpenCVForUnity.CoreModule.Rect.operator== </td>
+          <td class="memname">static bool <a class="el" href="#a14cbc5f6977b7849781d7866693e3546">OpenCVForUnity.CoreModule.Rect.operator</a>== </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -1072,8 +1591,8 @@ Rectangle width and height. </li>
 
 </div>
 </div>
-<a id="a840babd70afde30293da38408194af84"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a840babd70afde30293da38408194af84">&#9670;&nbsp;</a></span>operator|()</h2>
+<a id="a840babd70afde30293da38408194af84" name="a840babd70afde30293da38408194af84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a840babd70afde30293da38408194af84">&#9670;&#160;</a></span>operator|()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1082,21 +1601,14 @@ Rectangle width and height. </li>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> OpenCVForUnity.CoreModule.Rect.operator| </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> <a class="el" href="#a14cbc5f6977b7849781d7866693e3546">OpenCVForUnity.CoreModule.Rect.operator</a>| </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -1108,8 +1620,8 @@ Rectangle width and height. </li>
 
 </div>
 </div>
-<a id="ae4ad156b471ca3eb42e2742f73836439"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4ad156b471ca3eb42e2742f73836439">&#9670;&nbsp;</a></span>set()</h2>
+<a id="ae4ad156b471ca3eb42e2742f73836439" name="ae4ad156b471ca3eb42e2742f73836439"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4ad156b471ca3eb42e2742f73836439">&#9670;&#160;</a></span>set() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1117,8 +1629,7 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname">void OpenCVForUnity.CoreModule.Rect.set </td>
           <td>(</td>
-          <td class="paramtype">double []&#160;</td>
-          <td class="paramname"><em>vals</em></td><td>)</td>
+          <td class="paramtype">double[]</td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1126,8 +1637,42 @@ Rectangle width and height. </li>
 
 </div>
 </div>
-<a id="abaf072b3d0eabf6c36d60bf40ca38e7a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abaf072b3d0eabf6c36d60bf40ca38e7a">&#9670;&nbsp;</a></span>size()</h2>
+<a id="af1627b00aa49fd3ec6db5e75ef58c992" name="af1627b00aa49fd3ec6db5e75ef58c992"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1627b00aa49fd3ec6db5e75ef58c992">&#9670;&#160;</a></span>set() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.CoreModule.Rect.set </td>
+          <td>(</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a></td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a49056d0350031a4327dc9f24b7d497e7" name="a49056d0350031a4327dc9f24b7d497e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49056d0350031a4327dc9f24b7d497e7">&#9670;&#160;</a></span>set() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.CoreModule.Rect.set </td>
+          <td>(</td>
+          <td class="paramtype">in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>)</td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abaf072b3d0eabf6c36d60bf40ca38e7a" name="abaf072b3d0eabf6c36d60bf40ca38e7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abaf072b3d0eabf6c36d60bf40ca38e7a">&#9670;&#160;</a></span>size()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1135,7 +1680,25 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> OpenCVForUnity.CoreModule.Rect.size </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>size (width, height) of the rectangle </p>
+
+</div>
+</div>
+<a id="afd2bef3c8f03a7f34fe5a848c4878600" name="afd2bef3c8f03a7f34fe5a848c4878600"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd2bef3c8f03a7f34fe5a848c4878600">&#9670;&#160;</a></span>sizeAsValueTuple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double double <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a> OpenCVForUnity.CoreModule.Rect.sizeAsValueTuple </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1143,8 +1706,26 @@ Rectangle width and height. </li>
 
 </div>
 </div>
-<a id="ad664acb007b52502f9298bc6ce1153e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad664acb007b52502f9298bc6ce1153e1">&#9670;&nbsp;</a></span>tl()</h2>
+<a id="a273b1450655e6e81cf55af0710547767" name="a273b1450655e6e81cf55af0710547767"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a273b1450655e6e81cf55af0710547767">&#9670;&#160;</a></span>sizeAsVec2d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a> OpenCVForUnity.CoreModule.Rect.sizeAsVec2d </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>size (width, height) of the rectangle </p>
+
+</div>
+</div>
+<a id="ad664acb007b52502f9298bc6ce1153e1" name="ad664acb007b52502f9298bc6ce1153e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad664acb007b52502f9298bc6ce1153e1">&#9670;&#160;</a></span>tl()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1152,7 +1733,25 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> OpenCVForUnity.CoreModule.Rect.tl </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>the top-left corner </p>
+
+</div>
+</div>
+<a id="a14f80f6f7153acc1b217746d8a92d188" name="a14f80f6f7153acc1b217746d8a92d188"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14f80f6f7153acc1b217746d8a92d188">&#9670;&#160;</a></span>tlAsValueTuple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double double <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a> OpenCVForUnity.CoreModule.Rect.tlAsValueTuple </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1160,8 +1759,26 @@ Rectangle width and height. </li>
 
 </div>
 </div>
-<a id="aeabd033234e8ef3b1b3766eff99f494b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeabd033234e8ef3b1b3766eff99f494b">&#9670;&nbsp;</a></span>ToString()</h2>
+<a id="a10bb19859b965cc017efe6da3363ddd1" name="a10bb19859b965cc017efe6da3363ddd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10bb19859b965cc017efe6da3363ddd1">&#9670;&#160;</a></span>tlAsVec2d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a> OpenCVForUnity.CoreModule.Rect.tlAsVec2d </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>the top-left corner </p>
+
+</div>
+</div>
+<a id="aeabd033234e8ef3b1b3766eff99f494b" name="aeabd033234e8ef3b1b3766eff99f494b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeabd033234e8ef3b1b3766eff99f494b">&#9670;&#160;</a></span>ToString()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1169,7 +1786,7 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname">override string OpenCVForUnity.CoreModule.Rect.ToString </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1177,17 +1794,16 @@ Rectangle width and height. </li>
 
 </div>
 </div>
-<a id="acdf568d96430add492959ed713ed1c2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acdf568d96430add492959ed713ed1c2c">&#9670;&nbsp;</a></span>union() <span class="overload">[1/2]</span></h2>
+<a id="a57cf1c2fc946af6965ced505e85dd2d5" name="a57cf1c2fc946af6965ced505e85dd2d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57cf1c2fc946af6965ced505e85dd2d5">&#9670;&#160;</a></span>ToValueTuple()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> OpenCVForUnity.CoreModule.Rect.union </td>
+          <td class="memname">int int int int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a> OpenCVForUnity.CoreModule.Rect.ToValueTuple </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>rect</em></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1195,8 +1811,71 @@ Rectangle width and height. </li>
 
 </div>
 </div>
-<a id="a4b7eedaaec715c63d88157a0a3e39b2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b7eedaaec715c63d88157a0a3e39b2f">&#9670;&nbsp;</a></span>union() <span class="overload">[2/2]</span></h2>
+<a id="acc2f49e64b5fda6df4d8e3ce6819d0c4" name="acc2f49e64b5fda6df4d8e3ce6819d0c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc2f49e64b5fda6df4d8e3ce6819d0c4">&#9670;&#160;</a></span>ToVec4i()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a> OpenCVForUnity.CoreModule.Rect.ToVec4i </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a80eb21f54f1eb4210cdce371cd73b23f" name="a80eb21f54f1eb4210cdce371cd73b23f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80eb21f54f1eb4210cdce371cd73b23f">&#9670;&#160;</a></span>union() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int int int int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a> OpenCVForUnity.CoreModule.Rect.union </td>
+          <td>(</td>
+          <td class="paramtype">in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>)</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>)</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa154aeb96ed73f451da7c58f4ab1af2e" name="aa154aeb96ed73f451da7c58f4ab1af2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa154aeb96ed73f451da7c58f4ab1af2e">&#9670;&#160;</a></span>union() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int int int int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a> OpenCVForUnity.CoreModule.Rect.union </td>
+          <td>(</td>
+          <td class="paramtype">in(int <a class="el" href="#aba26f84bb0094cf333768e116b5134d8">x</a>, int <a class="el" href="#ac44b6a76612cbfd8887d487a7d6c4d81">y</a>, int <a class="el" href="#a32211d1449b172199b71c132db0130a3">width</a>, int <a class="el" href="#a84c2d86a667d32e7ab599f7e9aaa28b7">height</a>)</td>          <td class="paramname"><span class="paramname"><em>rect</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4b7eedaaec715c63d88157a0a3e39b2f" name="a4b7eedaaec715c63d88157a0a3e39b2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b7eedaaec715c63d88157a0a3e39b2f">&#9670;&#160;</a></span>union() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1207,19 +1886,195 @@ Rectangle width and height. </li>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> OpenCVForUnity.CoreModule.Rect.union </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a new rectangle that represents the union of two specified rectangles. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>The first rectangle to union. </td></tr>
+    <tr><td class="paramname">b</td><td>The second rectangle to union. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html" title="Template class for 2D rectangles.">Rect</a> that represents the smallest rectangle that can contain both <em>a</em>  and <em>b</em> . </dd></dl>
+
+</div>
+</div>
+<a id="acdf568d96430add492959ed713ed1c2c" name="acdf568d96430add492959ed713ed1c2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdf568d96430add492959ed713ed1c2c">&#9670;&#160;</a></span>union() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a> OpenCVForUnity.CoreModule.Rect.union </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">Rect</a></td>          <td class="paramname"><span class="paramname"><em>rect</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a new rectangle that represents the union of the current rectangle and the specified rectangle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rect</td><td>The rectangle to combine with the current rectangle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html" title="Template class for 2D rectangles.">Rect</a> that represents the smallest rectangle that can contain both the current rectangle and the specified rectangle. </dd></dl>
+
+</div>
+</div>
+<a id="a754bf083e1e74e3c5c986b0cefabb287" name="a754bf083e1e74e3c5c986b0cefabb287"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a754bf083e1e74e3c5c986b0cefabb287">&#9670;&#160;</a></span>unionAsVec4i() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a> OpenCVForUnity.CoreModule.Rect.unionAsVec4i </td>
+          <td>(</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
+          <td class="paramkey"></td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a new rectangle that represents the union of two specified rectangles. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>The first rectangle to union. </td></tr>
+    <tr><td class="paramname">b</td><td>The second rectangle to union. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html" title="Template class for 2D rectangles.">Rect</a> that represents the smallest rectangle that can contain both <em>a</em>  and <em>b</em> . </dd></dl>
+
+</div>
+</div>
+<a id="a8cb34f611a45814b4c01584aa5778a5e" name="a8cb34f611a45814b4c01584aa5778a5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cb34f611a45814b4c01584aa5778a5e">&#9670;&#160;</a></span>unionAsVec4i() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a> OpenCVForUnity.CoreModule.Rect.unionAsVec4i </td>
+          <td>(</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a></td>          <td class="paramname"><span class="paramname"><em>rect</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a new rectangle that represents the union of the current rectangle and the specified rectangle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rect</td><td>The rectangle to combine with the current rectangle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html" title="Template class for 2D rectangles.">Rect</a> that represents the smallest rectangle that can contain both the current rectangle and the specified rectangle. </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a84c2d86a667d32e7ab599f7e9aaa28b7" name="a84c2d86a667d32e7ab599f7e9aaa28b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84c2d86a667d32e7ab599f7e9aaa28b7">&#9670;&#160;</a></span>height</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int OpenCVForUnity.CoreModule.Rect.height</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>height of the rectangle </p>
+
+</div>
+</div>
+<a id="a32211d1449b172199b71c132db0130a3" name="a32211d1449b172199b71c132db0130a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32211d1449b172199b71c132db0130a3">&#9670;&#160;</a></span>width <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int int int OpenCVForUnity.CoreModule.Rect.width</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>width of the rectangle </p>
+
+</div>
+</div>
+<a id="a65a7457f992cbd69e26b33a05c751a12" name="a65a7457f992cbd69e26b33a05c751a12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65a7457f992cbd69e26b33a05c751a12">&#9670;&#160;</a></span>width <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int int int OpenCVForUnity.CoreModule.Rect.width</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2560a6c2dd105d356840f73cdf973b36" name="a2560a6c2dd105d356840f73cdf973b36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2560a6c2dd105d356840f73cdf973b36">&#9670;&#160;</a></span>width <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double OpenCVForUnity.CoreModule.Rect.width</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>size (width, height) of the rectangle </p>
+
+</div>
+</div>
+<a id="a65a7457f992cbd69e26b33a05c751a12" name="a65a7457f992cbd69e26b33a05c751a12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65a7457f992cbd69e26b33a05c751a12">&#9670;&#160;</a></span>width <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int int int OpenCVForUnity.CoreModule.Rect.width</td>
         </tr>
       </table>
   </td>
@@ -1231,17 +2086,171 @@ Rectangle width and height. </li>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a781aad576c416ba928556172b3479e21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a781aad576c416ba928556172b3479e21">&#9670;&nbsp;</a></span>x</h2>
+<a id="aba26f84bb0094cf333768e116b5134d8" name="aba26f84bb0094cf333768e116b5134d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba26f84bb0094cf333768e116b5134d8">&#9670;&#160;</a></span>x <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
+          <td class="memname">static int OpenCVForUnity.CoreModule.Rect.x</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes the intersection of the current rectangle with the specified rectangle. </p>
+<p>Returns a new rectangle that represents the union of two specified rectangles.</p>
+<p>Computes the intersection of two rectangles.</p>
+<p>Returns a new rectangle that represents the union of the current rectangle and the specified rectangle.</p>
+<p>x coordinate of the top-left corner </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rect</td><td>The rectangle to intersect with the current rectangle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A rectangle representing the overlapping area of the two rectangles. If the rectangles do not overlap, an empty rectangle is returned. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rect</td><td>The rectangle to combine with the current rectangle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html" title="Template class for 2D rectangles.">Rect</a> that represents the smallest rectangle that can contain both the current rectangle and the specified rectangle. </dd></dl>
+<p>the bottom-right corner </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>The first rectangle. </td></tr>
+    <tr><td class="paramname">b</td><td>The second rectangle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A rectangle representing the overlapping area of the two rectangles. If the rectangles do not overlap, an empty rectangle is returned. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>The first rectangle to union. </td></tr>
+    <tr><td class="paramname">b</td><td>The second rectangle to union. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html" title="Template class for 2D rectangles.">Rect</a> that represents the smallest rectangle that can contain both <em>a</em>  and <em>b</em> . </dd></dl>
+
+</div>
+</div>
+<a id="a6ffe0d133755244589f099248573bb3d" name="a6ffe0d133755244589f099248573bb3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ffe0d133755244589f099248573bb3d">&#9670;&#160;</a></span>x <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double OpenCVForUnity.CoreModule.Rect.x</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>the top-left corner </p>
+<p>the bottom-right corner </p>
+
+</div>
+</div>
+<a id="a781aad576c416ba928556172b3479e21" name="a781aad576c416ba928556172b3479e21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a781aad576c416ba928556172b3479e21">&#9670;&#160;</a></span>x <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
           <td class="memname">int OpenCVForUnity.CoreModule.Rect.x</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Expands the specified rectangle by decreasing its position and increasing its size by the specified amounts. </p>
+<p>Returns a new rectangle that represents the union of two specified rectangles.</p>
+<p>Computes the intersection of two rectangles.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rect</td><td>The rectangle to be expanded. </td></tr>
+    <tr><td class="paramname">x</td><td>The amount to decrease the x-coordinate and increase the width. </td></tr>
+    <tr><td class="paramname">y</td><td>The amount to decrease the y-coordinate and increase the height. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The expanded rectangle. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>The first rectangle. </td></tr>
+    <tr><td class="paramname">b</td><td>The second rectangle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A rectangle representing the overlapping area of the two rectangles. If the rectangles do not overlap, an empty rectangle is returned. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>The first rectangle to union. </td></tr>
+    <tr><td class="paramname">b</td><td>The second rectangle to union. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html" title="Template class for 2D rectangles.">Rect</a> that represents the smallest rectangle that can contain both <em>a</em>  and <em>b</em> . </dd></dl>
+
+</div>
+</div>
+<a id="ac44b6a76612cbfd8887d487a7d6c4d81" name="ac44b6a76612cbfd8887d487a7d6c4d81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac44b6a76612cbfd8887d487a7d6c4d81">&#9670;&#160;</a></span>y <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int int OpenCVForUnity.CoreModule.Rect.y</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>y coordinate of the top-left corner </p>
+
+</div>
+</div>
+<a id="a32ba7b2c1d5525f2b6ac135c7001c25f" name="a32ba7b2c1d5525f2b6ac135c7001c25f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32ba7b2c1d5525f2b6ac135c7001c25f">&#9670;&#160;</a></span>y <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int int OpenCVForUnity.CoreModule.Rect.y</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a32ba7b2c1d5525f2b6ac135c7001c25f" name="a32ba7b2c1d5525f2b6ac135c7001c25f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32ba7b2c1d5525f2b6ac135c7001c25f">&#9670;&#160;</a></span>y <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int int OpenCVForUnity.CoreModule.Rect.y</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -1253,9 +2262,8 @@ Rectangle width and height. </li>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

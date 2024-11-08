@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,74 +126,74 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_unity_utils.html">UnityUtils</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_unity_utils_1_1_helper.html">Helper</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">UnityVideoPlayer2MatHelper</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper Member List</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper Member List</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>This is the complete list of members for <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>, including all inherited members.</p>
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a8ad585ef0f00461d7a1b133f0bb37a9f">_Initialize</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#abdc96ffd2fd0dc95c888f3131604e221">_loop</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#abdc96ffd2fd0dc95c888f3131604e221">_loop</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a67f854c42cf3f598e940e30a8beb091d">_onDisposed</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a053bcc3916166920575e49fea71fcc73">_onErrorOccurred</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a053bcc3916166920575e49fea71fcc73">_onErrorOccurred</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#abdf5559b469f30ce7fc8ede22fa202b1">_onInitialized</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a9a2b0141c24830240f4be535bcb846ef">_outputColorFormat</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a9a2b0141c24830240f4be535bcb846ef">_outputColorFormat</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a52a1536b4acd991bc2879cba9362485f">_requestedVideoFilePath</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#add4d05184a0e5ae18d5d7faa6eb9cbfd">_timeoutFrameCount</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#add4d05184a0e5ae18d5d7faa6eb9cbfd">_timeoutFrameCount</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a9e48becc40b8becd907cdd8096328624">autoPlayAfterInitialize</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#ad5f300a2185077258d792c604e610724">baseColorFormat</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#ad5f300a2185077258d792c604e610724">baseColorFormat</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a12029b440ec301f48d11697145cb9fbc">baseMat</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#ae20c9dd84ae829dce92fc75206b8d60c">CancelInitCoroutine</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#aedc64fa0e0ef876bf1e426136634ec37">didUpdateThisFrame</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a99a9f0228440e0655869711ea95648af">DidUpdateThisFrame</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#ae20c9dd84ae829dce92fc75206b8d60c">CancelInitCoroutine</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a99a9f0228440e0655869711ea95648af">DidUpdateThisFrame</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#aedc64fa0e0ef876bf1e426136634ec37">didUpdateThisFrame</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a6e97c99c898b90fab10a466fba0a9964">Dispose</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a1665dcc46b13983ef7592f70738fc306">frameIndex</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a1665dcc46b13983ef7592f70738fc306">frameIndex</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a163920aafb8b4ca870cdff5bcf0fe0d5">frameMat</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a75db69133ca759d4da741f28d5501307">GetBaseColorFormat</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a75db69133ca759d4da741f28d5501307">GetBaseColorFormat</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a2d338bf4b902959bde3c62ac2dfb5ec7">GetDeviceName</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a3a71bc27a3ad287951f76012af67aa89">GetFPS</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a7d6aa598cfb2de563959f5f15a4af785">GetFrameCount</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#aa0dae7a22ce771929cee390333bca192">GetFrameIndex</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#abbe2c197103b66f4358376315a978698">GetFramePosRatio</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a152de71b04f3c417bddf90289f907856">GetHeight</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#adfb93443318900ba474ed2a4cffdcc43">GetMat</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a062ceac2ba4651ebd9de6d15b09dcb38">GetVideoPlayer</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a8cf41bde674d49907c881db8f41dcf04">GetWidth</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#aa521cae0cba8229cf9b79e94a9df36d9">hasInitDone</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#ae767e1a7b6b31d05d1261175475d58c1">initCoroutine</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#ae69805152ef1057e7540e01e0f9015b8">Initialize</a>(bool autoPlay=true)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#abac77222acf875f7ce7bbfa3c17aec29">Initialize</a>(string requestedVideoFilePath, bool autoPlay=true)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a5ea3f77dd28ea1faec148f595d3744d0">IsInitialized</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a81effdcdc73c09fe98e4c1c8554e100e">isInitWaiting</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#af642fb64b98224917f763f3ad14c971f">IsPaused</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a3c39e5a772baae4d74c8d2b8672b7675">IsPlaying</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a68f206d4d80b2c675e60c4d8a75c1cf2">LateUpdate</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a5d48a3c853144769d1232d658a14ee13">loop</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a96175c7cb26e3a1c8110a12d0805f835">OnDestroy</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a9ce3de119bb1a1e57b35ca9c174a15fe">onDisposed</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a2ba2d7754599ebc45877636473437558">onErrorOccurred</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a5998df4599548f1cdcdc1a0b0cc5a797">onInitialized</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a889a9c55f3faa8a1cd2dc92eca399587">OnValidate</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a68921fe1bc01847421c37e03650453b9">outputColorFormat</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a3b97649db609b2e9835b801a6cf145d9">Pause</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a7fadc8cc663e422b16e85a079fb5ea73">Play</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a58015118cfafafcdf201663ef3cb8d7a">ReleaseResources</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a4d2864c9dda14ef858fe56a5f8191b88">requestedVideoFilePath</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#abad15715c931e981e41df09c75d86abf">SetFrameIndex</a>(int index)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a9b9688212e0c225a81894f085296745e">SetFramePosRatio</a>(float ratio)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#ae0b51c6b86691db53c5e8c988e023fcc">Stop</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a1c9f0d8f7500cd5bb5ef4a5693ae1c4a">texture</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#aeb993eef404171e78a9de962b52c3739">timeoutFrameCount</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a80626262082a68f5b4dc7a8fec267371">useAsyncGPUReadback</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a68b78d871d2bb08b022b7635ffcc45da">videoPlayer</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#ad4f7c246a73d19dca8db87c543239aa5">getFilePathCoroutine</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a3a71bc27a3ad287951f76012af67aa89">GetFPS</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a7d6aa598cfb2de563959f5f15a4af785">GetFrameCount</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#aa0dae7a22ce771929cee390333bca192">GetFrameIndex</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#abbe2c197103b66f4358376315a978698">GetFramePosRatio</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a152de71b04f3c417bddf90289f907856">GetHeight</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#adfb93443318900ba474ed2a4cffdcc43">GetMat</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a062ceac2ba4651ebd9de6d15b09dcb38">GetVideoPlayer</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a8cf41bde674d49907c881db8f41dcf04">GetWidth</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#aa521cae0cba8229cf9b79e94a9df36d9">hasInitDone</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#ae767e1a7b6b31d05d1261175475d58c1">initCoroutine</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#ae69805152ef1057e7540e01e0f9015b8">Initialize</a>(bool autoPlay=true)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#abac77222acf875f7ce7bbfa3c17aec29">Initialize</a>(string requestedVideoFilePath, bool autoPlay=true)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a5ea3f77dd28ea1faec148f595d3744d0">IsInitialized</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a81effdcdc73c09fe98e4c1c8554e100e">isInitWaiting</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#af642fb64b98224917f763f3ad14c971f">IsPaused</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a3c39e5a772baae4d74c8d2b8672b7675">IsPlaying</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a68f206d4d80b2c675e60c4d8a75c1cf2">LateUpdate</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a5d48a3c853144769d1232d658a14ee13">loop</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a96175c7cb26e3a1c8110a12d0805f835">OnDestroy</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a9ce3de119bb1a1e57b35ca9c174a15fe">onDisposed</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a2ba2d7754599ebc45877636473437558">onErrorOccurred</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a5998df4599548f1cdcdc1a0b0cc5a797">onInitialized</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a889a9c55f3faa8a1cd2dc92eca399587">OnValidate</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a68921fe1bc01847421c37e03650453b9">outputColorFormat</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a3b97649db609b2e9835b801a6cf145d9">Pause</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a7fadc8cc663e422b16e85a079fb5ea73">Play</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a58015118cfafafcdf201663ef3cb8d7a">ReleaseResources</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a4d2864c9dda14ef858fe56a5f8191b88">requestedVideoFilePath</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#abad15715c931e981e41df09c75d86abf">SetFrameIndex</a>(int index)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a9b9688212e0c225a81894f085296745e">SetFramePosRatio</a>(float ratio)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#ae0b51c6b86691db53c5e8c988e023fcc">Stop</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a1c9f0d8f7500cd5bb5ef4a5693ae1c4a">texture</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#aeb993eef404171e78a9de962b52c3739">timeoutFrameCount</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a80626262082a68f5b4dc7a8fec267371">useAsyncGPUReadback</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a68b78d871d2bb08b022b7635ffcc45da">videoPlayer</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

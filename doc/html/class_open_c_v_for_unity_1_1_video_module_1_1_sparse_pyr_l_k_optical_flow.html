@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,131 +126,190 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_video_module.html">VideoModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow-members.html">List of all members</a>  </div>
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow Class Reference</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>Class used for calculating a sparse optical flow.  
- <a href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html#details">More...</a></p>
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.png" usemap="#OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow_map" alt=""/>
   <map id="OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow_map" name="OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow_map">
-<area href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow.html" title="Base interface for sparse optical flow algorithms. " alt="OpenCVForUnity.VideoModule.SparseOpticalFlow" shape="rect" coords="0,224,334,248"/>
-<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV. " alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="0,168,334,192"/>
+<area href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow.html" title="Base interface for sparse optical flow algorithms." alt="OpenCVForUnity.VideoModule.SparseOpticalFlow" shape="rect" coords="0,224,334,248"/>
+<area href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow.html" title="Base interface for sparse optical flow algorithms." alt="OpenCVForUnity.VideoModule.SparseOpticalFlow" shape="rect" coords="344,224,678,248"/>
+<area href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow.html" title="Base interface for sparse optical flow algorithms." alt="OpenCVForUnity.VideoModule.SparseOpticalFlow" shape="rect" coords="688,224,1022,248"/>
+<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV." alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="0,168,334,192"/>
+<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV." alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="344,168,678,192"/>
+<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV." alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="688,168,1022,192"/>
 <area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="0,112,334,136"/>
+<area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="344,112,678,136"/>
+<area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="688,112,1022,136"/>
 <area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="0,56,334,80"/>
-</map>
- </div></div>
+<area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="344,56,678,80"/>
+<area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="688,56,1022,80"/>
+  </map>
+</div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aef257b872e958ee4059b13783b563ab8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html#aef257b872e958ee4059b13783b563ab8">getWinSize</a> ()</td></tr>
+<tr class="memitem:aef257b872e958ee4059b13783b563ab8" id="r_aef257b872e958ee4059b13783b563ab8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef257b872e958ee4059b13783b563ab8">getWinSize</a> ()</td></tr>
 <tr class="separator:aef257b872e958ee4059b13783b563ab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59d7c42b838dba441c5110b6a66080ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html#a59d7c42b838dba441c5110b6a66080ea">setWinSize</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> winSize)</td></tr>
+<tr class="memitem:a59d7c42b838dba441c5110b6a66080ea" id="r_a59d7c42b838dba441c5110b6a66080ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59d7c42b838dba441c5110b6a66080ea">setWinSize</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> winSize)</td></tr>
 <tr class="separator:a59d7c42b838dba441c5110b6a66080ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad63604a31473856d7e6326fa55ea67c9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html#ad63604a31473856d7e6326fa55ea67c9">getMaxLevel</a> ()</td></tr>
+<tr class="memitem:ad63604a31473856d7e6326fa55ea67c9" id="r_ad63604a31473856d7e6326fa55ea67c9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad63604a31473856d7e6326fa55ea67c9">getMaxLevel</a> ()</td></tr>
 <tr class="separator:ad63604a31473856d7e6326fa55ea67c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeef68ebb660b05e2ee2842f804c9f40a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html#aeef68ebb660b05e2ee2842f804c9f40a">setMaxLevel</a> (int maxLevel)</td></tr>
+<tr class="memitem:aeef68ebb660b05e2ee2842f804c9f40a" id="r_aeef68ebb660b05e2ee2842f804c9f40a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeef68ebb660b05e2ee2842f804c9f40a">setMaxLevel</a> (int maxLevel)</td></tr>
 <tr class="separator:aeef68ebb660b05e2ee2842f804c9f40a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adaf44d32c734cfef337e27ad8fbd2a5d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html#adaf44d32c734cfef337e27ad8fbd2a5d">getTermCriteria</a> ()</td></tr>
+<tr class="memitem:adaf44d32c734cfef337e27ad8fbd2a5d" id="r_adaf44d32c734cfef337e27ad8fbd2a5d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adaf44d32c734cfef337e27ad8fbd2a5d">getTermCriteria</a> ()</td></tr>
 <tr class="separator:adaf44d32c734cfef337e27ad8fbd2a5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a56ef014d0011e98328dee09f684d2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html#a3a56ef014d0011e98328dee09f684d2d">setTermCriteria</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a> crit)</td></tr>
+<tr class="memitem:a3a56ef014d0011e98328dee09f684d2d" id="r_a3a56ef014d0011e98328dee09f684d2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a56ef014d0011e98328dee09f684d2d">setTermCriteria</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a> crit)</td></tr>
 <tr class="separator:a3a56ef014d0011e98328dee09f684d2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb299873277caed80b9167e04c10f552"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html#adb299873277caed80b9167e04c10f552">getFlags</a> ()</td></tr>
+<tr class="memitem:adb299873277caed80b9167e04c10f552" id="r_adb299873277caed80b9167e04c10f552"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb299873277caed80b9167e04c10f552">getFlags</a> ()</td></tr>
 <tr class="separator:adb299873277caed80b9167e04c10f552"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab31ab8553f8641cdee7895efd512c70b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html#ab31ab8553f8641cdee7895efd512c70b">setFlags</a> (int flags)</td></tr>
+<tr class="memitem:ab31ab8553f8641cdee7895efd512c70b" id="r_ab31ab8553f8641cdee7895efd512c70b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab31ab8553f8641cdee7895efd512c70b">setFlags</a> (int flags)</td></tr>
 <tr class="separator:ab31ab8553f8641cdee7895efd512c70b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae315fa641abcb9733260425a21424d5e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html#ae315fa641abcb9733260425a21424d5e">getMinEigThreshold</a> ()</td></tr>
+<tr class="memitem:ae315fa641abcb9733260425a21424d5e" id="r_ae315fa641abcb9733260425a21424d5e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae315fa641abcb9733260425a21424d5e">getMinEigThreshold</a> ()</td></tr>
 <tr class="separator:ae315fa641abcb9733260425a21424d5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5add10ebef6370dc01dcbf015f933382"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html#a5add10ebef6370dc01dcbf015f933382">setMinEigThreshold</a> (double minEigThreshold)</td></tr>
+<tr class="memitem:a5add10ebef6370dc01dcbf015f933382" id="r_a5add10ebef6370dc01dcbf015f933382"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5add10ebef6370dc01dcbf015f933382">setMinEigThreshold</a> (double minEigThreshold)</td></tr>
 <tr class="separator:a5add10ebef6370dc01dcbf015f933382"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow.html">OpenCVForUnity.VideoModule.SparseOpticalFlow</a></td></tr>
-<tr class="memitem:ab4cd4d1185d82cb93376599f62b0460f inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow.html#ab4cd4d1185d82cb93376599f62b0460f">calc</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> prevImg, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> nextImg, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> prevPts, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> nextPts, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> status, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> err)</td></tr>
-<tr class="memdesc:ab4cd4d1185d82cb93376599f62b0460f inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates a sparse optical flow.  <a href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow.html#ab4cd4d1185d82cb93376599f62b0460f">More...</a><br /></td></tr>
+<tr class="memitem:ae9787e6275cb74e8eec11baacdbaf71c" id="r_ae9787e6275cb74e8eec11baacdbaf71c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9787e6275cb74e8eec11baacdbaf71c">getWinSizeAsVec2d</a> ()</td></tr>
+<tr class="separator:ae9787e6275cb74e8eec11baacdbaf71c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a012bddd9c0c11cd07f48a9c857d95b53" id="r_a012bddd9c0c11cd07f48a9c857d95b53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a012bddd9c0c11cd07f48a9c857d95b53">setWinSize</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a> winSize)</td></tr>
+<tr class="separator:a012bddd9c0c11cd07f48a9c857d95b53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5043d1b0810900663eb2fcfa2e9faca0" id="r_a5043d1b0810900663eb2fcfa2e9faca0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5043d1b0810900663eb2fcfa2e9faca0">getTermCriteriaAsVec3d</a> ()</td></tr>
+<tr class="separator:a5043d1b0810900663eb2fcfa2e9faca0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d985341b27ea21adaa261480021e67b" id="r_a1d985341b27ea21adaa261480021e67b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d985341b27ea21adaa261480021e67b">setTermCriteria</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a> crit)</td></tr>
+<tr class="separator:a1d985341b27ea21adaa261480021e67b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7e0fb2bfef250d735c65db33d253e4d" id="r_aa7e0fb2bfef250d735c65db33d253e4d"><td class="memItemLeft" align="right" valign="top">double double height&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa7e0fb2bfef250d735c65db33d253e4d">getWinSizeAsValueTuple</a> ()</td></tr>
+<tr class="separator:aa7e0fb2bfef250d735c65db33d253e4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c0db315d3aeeb18f8e55a7fe52970c0" id="r_a2c0db315d3aeeb18f8e55a7fe52970c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c0db315d3aeeb18f8e55a7fe52970c0">setWinSize</a> (in(double <a class="el" href="#a04cb57fcba57afbd5f56e401cd4200c7">width</a>, double height) winSize)</td></tr>
+<tr class="separator:a2c0db315d3aeeb18f8e55a7fe52970c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71f57c6406d006b1e7258116e8f1d52e" id="r_a71f57c6406d006b1e7258116e8f1d52e"><td class="memItemLeft" align="right" valign="top">double double double epsilon&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71f57c6406d006b1e7258116e8f1d52e">getTermCriteriaAsValueTuple</a> ()</td></tr>
+<tr class="separator:a71f57c6406d006b1e7258116e8f1d52e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54b8af6be93bc1cb72634a01afb90830" id="r_a54b8af6be93bc1cb72634a01afb90830"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54b8af6be93bc1cb72634a01afb90830">setTermCriteria</a> (in(double <a class="el" href="#ad6d685dc9a2e63b35e93bd869ea453db">type</a>, double <a class="el" href="#ac84a590e3b80ad7de61aa3c805fa55d3">maxCount</a>, double epsilon) crit)</td></tr>
+<tr class="separator:a54b8af6be93bc1cb72634a01afb90830"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow.html">OpenCVForUnity.VideoModule.SparseOpticalFlow</a></td></tr>
+<tr class="memitem:ab4cd4d1185d82cb93376599f62b0460f inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow" id="r_ab4cd4d1185d82cb93376599f62b0460f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow.html#ab4cd4d1185d82cb93376599f62b0460f">calc</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> prevImg, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> nextImg, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> prevPts, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> nextPts, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> status, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> err)</td></tr>
+<tr class="memdesc:ab4cd4d1185d82cb93376599f62b0460f inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates a sparse optical flow.  <br /></td></tr>
 <tr class="separator:ab4cd4d1185d82cb93376599f62b0460f inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bacfc90e1fff68c716a35e71539b767 inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow.html#a6bacfc90e1fff68c716a35e71539b767">calc</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> prevImg, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> nextImg, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> prevPts, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> nextPts, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> status)</td></tr>
-<tr class="memdesc:a6bacfc90e1fff68c716a35e71539b767 inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates a sparse optical flow.  <a href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow.html#a6bacfc90e1fff68c716a35e71539b767">More...</a><br /></td></tr>
+<tr class="memitem:a6bacfc90e1fff68c716a35e71539b767 inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow" id="r_a6bacfc90e1fff68c716a35e71539b767"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow.html#a6bacfc90e1fff68c716a35e71539b767">calc</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> prevImg, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> nextImg, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> prevPts, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> nextPts, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> status)</td></tr>
+<tr class="memdesc:a6bacfc90e1fff68c716a35e71539b767 inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates a sparse optical flow.  <br /></td></tr>
 <tr class="separator:a6bacfc90e1fff68c716a35e71539b767 inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
-<tr class="memitem:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a8023b07a6a0100bb4c9eccd175bc68df">getNativeObjAddr</a> ()</td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="memitem:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a8023b07a6a0100bb4c9eccd175bc68df"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a8023b07a6a0100bb4c9eccd175bc68df">getNativeObjAddr</a> ()</td></tr>
 <tr class="separator:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a54f71b05d21ec0abc593bb50cf66ce12">clear</a> ()</td></tr>
-<tr class="memdesc:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the algorithm state.  <a href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a54f71b05d21ec0abc593bb50cf66ce12">More...</a><br /></td></tr>
+<tr class="memitem:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a54f71b05d21ec0abc593bb50cf66ce12"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a54f71b05d21ec0abc593bb50cf66ce12">clear</a> ()</td></tr>
+<tr class="memdesc:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the algorithm state.  <br /></td></tr>
 <tr class="separator:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86154915a2c596ce62de420e4f7a8d7b inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86154915a2c596ce62de420e4f7a8d7b">empty</a> ()</td></tr>
-<tr class="memdesc:a86154915a2c596ce62de420e4f7a8d7b inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV. ">Algorithm</a> is empty (e.g. in the very beginning or after unsuccessful read.  <a href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86154915a2c596ce62de420e4f7a8d7b">More...</a><br /></td></tr>
+<tr class="memitem:a86154915a2c596ce62de420e4f7a8d7b inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a86154915a2c596ce62de420e4f7a8d7b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86154915a2c596ce62de420e4f7a8d7b">empty</a> ()</td></tr>
+<tr class="memdesc:a86154915a2c596ce62de420e4f7a8d7b inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV.">Algorithm</a> is empty (e.g. in the very beginning or after unsuccessful read.  <br /></td></tr>
 <tr class="separator:a86154915a2c596ce62de420e4f7a8d7b inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4c0ad9f8fd5975a8dbf9209115495db inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#af4c0ad9f8fd5975a8dbf9209115495db">save</a> (string filename)</td></tr>
+<tr class="memitem:af4c0ad9f8fd5975a8dbf9209115495db inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_af4c0ad9f8fd5975a8dbf9209115495db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#af4c0ad9f8fd5975a8dbf9209115495db">save</a> (string filename)</td></tr>
 <tr class="separator:af4c0ad9f8fd5975a8dbf9209115495db inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9f5751351974d69a3a98510d3856518 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#aa9f5751351974d69a3a98510d3856518">getDefaultName</a> ()</td></tr>
+<tr class="memitem:aa9f5751351974d69a3a98510d3856518 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_aa9f5751351974d69a3a98510d3856518"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#aa9f5751351974d69a3a98510d3856518">getDefaultName</a> ()</td></tr>
 <tr class="separator:aa9f5751351974d69a3a98510d3856518 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a68dd6362a65b5bf2f2b8828bef0b7dc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
 <tr class="separator:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
+<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a620f073ff3aa1bcee28fb00edb01dc11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
 <tr class="separator:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a51b3578838e9ea9c0d2ca65256d07f4d"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html#a51b3578838e9ea9c0d2ca65256d07f4d">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="memitem:a51b3578838e9ea9c0d2ca65256d07f4d" id="r_a51b3578838e9ea9c0d2ca65256d07f4d"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a51b3578838e9ea9c0d2ca65256d07f4d">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:a51b3578838e9ea9c0d2ca65256d07f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a505f6ca5c6816912c22fc9b18e750616"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html#a505f6ca5c6816912c22fc9b18e750616">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> winSize, int maxLevel, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a> crit, int flags, double minEigThreshold)</td></tr>
+<tr class="memitem:a505f6ca5c6816912c22fc9b18e750616" id="r_a505f6ca5c6816912c22fc9b18e750616"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a505f6ca5c6816912c22fc9b18e750616">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> winSize, int maxLevel, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a> crit, int flags, double minEigThreshold)</td></tr>
 <tr class="separator:a505f6ca5c6816912c22fc9b18e750616"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af60995d0403822affcc2cdf4fb880147"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html#af60995d0403822affcc2cdf4fb880147">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> winSize, int maxLevel, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a> crit, int flags)</td></tr>
+<tr class="memitem:af60995d0403822affcc2cdf4fb880147" id="r_af60995d0403822affcc2cdf4fb880147"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af60995d0403822affcc2cdf4fb880147">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> winSize, int maxLevel, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a> crit, int flags)</td></tr>
 <tr class="separator:af60995d0403822affcc2cdf4fb880147"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad217a84f36f6383a4df19ceeaf794240"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html#ad217a84f36f6383a4df19ceeaf794240">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> winSize, int maxLevel, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a> crit)</td></tr>
+<tr class="memitem:ad217a84f36f6383a4df19ceeaf794240" id="r_ad217a84f36f6383a4df19ceeaf794240"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad217a84f36f6383a4df19ceeaf794240">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> winSize, int maxLevel, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a> crit)</td></tr>
 <tr class="separator:ad217a84f36f6383a4df19ceeaf794240"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab6a15aa27bdb8f164dbbea42e53727f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html#aab6a15aa27bdb8f164dbbea42e53727f">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> winSize, int maxLevel)</td></tr>
+<tr class="memitem:aab6a15aa27bdb8f164dbbea42e53727f" id="r_aab6a15aa27bdb8f164dbbea42e53727f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aab6a15aa27bdb8f164dbbea42e53727f">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> winSize, int maxLevel)</td></tr>
 <tr class="separator:aab6a15aa27bdb8f164dbbea42e53727f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e803c1fdf32a7ec4d5f69ed75cff8e5"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html#a1e803c1fdf32a7ec4d5f69ed75cff8e5">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> winSize)</td></tr>
+<tr class="memitem:a1e803c1fdf32a7ec4d5f69ed75cff8e5" id="r_a1e803c1fdf32a7ec4d5f69ed75cff8e5"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1e803c1fdf32a7ec4d5f69ed75cff8e5">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> winSize)</td></tr>
 <tr class="separator:a1e803c1fdf32a7ec4d5f69ed75cff8e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47439f86d8161aa5519367dc1b802f2d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html#a47439f86d8161aa5519367dc1b802f2d">create</a> ()</td></tr>
+<tr class="memitem:a47439f86d8161aa5519367dc1b802f2d" id="r_a47439f86d8161aa5519367dc1b802f2d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47439f86d8161aa5519367dc1b802f2d">create</a> ()</td></tr>
 <tr class="separator:a47439f86d8161aa5519367dc1b802f2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow.html">OpenCVForUnity.VideoModule.SparseOpticalFlow</a></td></tr>
-<tr class="memitem:ae2b7285ac2d08f356d50f9a7b302275c inherit pub_static_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow.html">SparseOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow.html#ae2b7285ac2d08f356d50f9a7b302275c">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="memitem:a20d838fc3144ad70d78ecb1715b714fc" id="r_a20d838fc3144ad70d78ecb1715b714fc"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a20d838fc3144ad70d78ecb1715b714fc">create</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a> winSize, int maxLevel, in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a> crit, int flags, double minEigThreshold)</td></tr>
+<tr class="separator:a20d838fc3144ad70d78ecb1715b714fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb4966245847b3bfb69d4f58417bbb1d" id="r_acb4966245847b3bfb69d4f58417bbb1d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb4966245847b3bfb69d4f58417bbb1d">create</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a> winSize, int maxLevel, in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a> crit, int flags)</td></tr>
+<tr class="separator:acb4966245847b3bfb69d4f58417bbb1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd392e99529f636e6b27f8b1deb7811b" id="r_acd392e99529f636e6b27f8b1deb7811b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acd392e99529f636e6b27f8b1deb7811b">create</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a> winSize, int maxLevel, in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a> crit)</td></tr>
+<tr class="separator:acd392e99529f636e6b27f8b1deb7811b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae18a3c67493bf2f62317be70b0f06620" id="r_ae18a3c67493bf2f62317be70b0f06620"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae18a3c67493bf2f62317be70b0f06620">create</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a> winSize, int maxLevel)</td></tr>
+<tr class="separator:ae18a3c67493bf2f62317be70b0f06620"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13ee431e46c5190f0b6169ab19c48399" id="r_a13ee431e46c5190f0b6169ab19c48399"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a13ee431e46c5190f0b6169ab19c48399">create</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a> winSize)</td></tr>
+<tr class="separator:a13ee431e46c5190f0b6169ab19c48399"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53211311ab97ae3231a8930304f8a248" id="r_a53211311ab97ae3231a8930304f8a248"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53211311ab97ae3231a8930304f8a248">create</a> (in(double <a class="el" href="#a04cb57fcba57afbd5f56e401cd4200c7">width</a>, double height) winSize, int maxLevel, in(double <a class="el" href="#ad6d685dc9a2e63b35e93bd869ea453db">type</a>, double <a class="el" href="#ac84a590e3b80ad7de61aa3c805fa55d3">maxCount</a>, double epsilon) crit, int flags, double minEigThreshold)</td></tr>
+<tr class="separator:a53211311ab97ae3231a8930304f8a248"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4aa9e2caa46fa1de80b3e9f735f39f7b" id="r_a4aa9e2caa46fa1de80b3e9f735f39f7b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4aa9e2caa46fa1de80b3e9f735f39f7b">create</a> (in(double <a class="el" href="#a04cb57fcba57afbd5f56e401cd4200c7">width</a>, double height) winSize, int maxLevel, in(double <a class="el" href="#ad6d685dc9a2e63b35e93bd869ea453db">type</a>, double <a class="el" href="#ac84a590e3b80ad7de61aa3c805fa55d3">maxCount</a>, double epsilon) crit, int flags)</td></tr>
+<tr class="separator:a4aa9e2caa46fa1de80b3e9f735f39f7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a6f426f0ed783b037332b101df19ec1" id="r_a3a6f426f0ed783b037332b101df19ec1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a6f426f0ed783b037332b101df19ec1">create</a> (in(double <a class="el" href="#a04cb57fcba57afbd5f56e401cd4200c7">width</a>, double height) winSize, int maxLevel, in(double <a class="el" href="#ad6d685dc9a2e63b35e93bd869ea453db">type</a>, double <a class="el" href="#ac84a590e3b80ad7de61aa3c805fa55d3">maxCount</a>, double epsilon) crit)</td></tr>
+<tr class="separator:a3a6f426f0ed783b037332b101df19ec1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cd5445aac3501145b264801227e49c0" id="r_a0cd5445aac3501145b264801227e49c0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0cd5445aac3501145b264801227e49c0">create</a> (in(double <a class="el" href="#a04cb57fcba57afbd5f56e401cd4200c7">width</a>, double height) winSize, int maxLevel)</td></tr>
+<tr class="separator:a0cd5445aac3501145b264801227e49c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a144ae1fab040a4cce4898d488b22f755" id="r_a144ae1fab040a4cce4898d488b22f755"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a144ae1fab040a4cce4898d488b22f755">create</a> (in(double <a class="el" href="#a04cb57fcba57afbd5f56e401cd4200c7">width</a>, double height) winSize)</td></tr>
+<tr class="separator:a144ae1fab040a4cce4898d488b22f755"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow.html">OpenCVForUnity.VideoModule.SparseOpticalFlow</a></td></tr>
+<tr class="memitem:ae2b7285ac2d08f356d50f9a7b302275c inherit pub_static_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow" id="r_ae2b7285ac2d08f356d50f9a7b302275c"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow.html">SparseOpticalFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow.html#ae2b7285ac2d08f356d50f9a7b302275c">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:ae2b7285ac2d08f356d50f9a7b302275c inherit pub_static_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
-<tr class="memitem:a86d037d927276dadd66bdb102a74b53a inherit pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">Algorithm</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86d037d927276dadd66bdb102a74b53a">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="memitem:a86d037d927276dadd66bdb102a74b53a inherit pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a86d037d927276dadd66bdb102a74b53a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">Algorithm</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86d037d927276dadd66bdb102a74b53a">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:a86d037d927276dadd66bdb102a74b53a inherit pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a4b998ab4293ee3fb7cdc494ed9375fc3"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a04cb57fcba57afbd5f56e401cd4200c7" id="r_a04cb57fcba57afbd5f56e401cd4200c7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a04cb57fcba57afbd5f56e401cd4200c7">width</a></td></tr>
+<tr class="separator:a04cb57fcba57afbd5f56e401cd4200c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6d685dc9a2e63b35e93bd869ea453db" id="r_ad6d685dc9a2e63b35e93bd869ea453db"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6d685dc9a2e63b35e93bd869ea453db">type</a></td></tr>
+<tr class="separator:ad6d685dc9a2e63b35e93bd869ea453db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac84a590e3b80ad7de61aa3c805fa55d3" id="r_ac84a590e3b80ad7de61aa3c805fa55d3"><td class="memItemLeft" align="right" valign="top">double double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac84a590e3b80ad7de61aa3c805fa55d3">maxCount</a></td></tr>
+<tr class="separator:ac84a590e3b80ad7de61aa3c805fa55d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:af5cd979c6afef2cc935f1a96fbb9f444"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html#af5cd979c6afef2cc935f1a96fbb9f444">Dispose</a> (bool disposing)</td></tr>
+<tr class="memitem:af5cd979c6afef2cc935f1a96fbb9f444" id="r_af5cd979c6afef2cc935f1a96fbb9f444"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5cd979c6afef2cc935f1a96fbb9f444">Dispose</a> (bool disposing)</td></tr>
 <tr class="separator:af5cd979c6afef2cc935f1a96fbb9f444"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
-<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow.html">OpenCVForUnity.VideoModule.SparseOpticalFlow</a></td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_aab50d94cc702503eac045ca7042624ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
 <tr class="separator:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
+<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a6dc5923de5bd43795c72dd7f581ad832"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a1fb2523312e8a423889a1d160e755e7d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
+<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a739b223f2008fae0966c43d0c6f0f72f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
 <tr class="separator:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_ae924d4d77a5929e39abca6ef9daf6330"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
 <tr class="separator:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a1e47724d49556061a5ba400577be2a13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
+<tr class="inherit_header pac_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_methods_class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow')"><img src="closed.png" alt="-"/>&#160;Package Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_optical_flow.html">OpenCVForUnity.VideoModule.SparseOpticalFlow</a></td></tr>
+<tr class="inherit_header pac_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Package Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="inherit_header pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Package Attributes inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a056e69daaa9ea20e563c5e41b28c1525"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
 <tr class="separator:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
+<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a8e287e3cb5995f483cb64dd6c3b19a7f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -226,8 +317,8 @@ Additional Inherited Members</h2></td></tr>
 <p>The class can calculate an optical flow for a sparse feature set using the iterative Lucas-Kanade method with pyramids.</p>
 <dl class="section see"><dt>See also</dt><dd>calcOpticalFlowPyrLK </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a51b3578838e9ea9c0d2ca65256d07f4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a51b3578838e9ea9c0d2ca65256d07f4d">&#9670;&nbsp;</a></span>__fromPtr__()</h2>
+<a id="a51b3578838e9ea9c0d2ca65256d07f4d" name="a51b3578838e9ea9c0d2ca65256d07f4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51b3578838e9ea9c0d2ca65256d07f4d">&#9670;&#160;</a></span>__fromPtr__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -238,8 +329,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static new <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a> OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.__fromPtr__ </td>
           <td>(</td>
-          <td class="paramtype">IntPtr&#160;</td>
-          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td class="paramtype">IntPtr</td>          <td class="paramname"><span class="paramname"><em>addr</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -252,8 +342,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a505f6ca5c6816912c22fc9b18e750616"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a505f6ca5c6816912c22fc9b18e750616">&#9670;&nbsp;</a></span>create() <span class="overload">[1/6]</span></h2>
+<a id="a47439f86d8161aa5519367dc1b802f2d" name="a47439f86d8161aa5519367dc1b802f2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47439f86d8161aa5519367dc1b802f2d">&#9670;&#160;</a></span>create() <span class="overload">[1/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -264,37 +354,8 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a> OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.create </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a>&#160;</td>
-          <td class="paramname"><em>winSize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>maxLevel</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a>&#160;</td>
-          <td class="paramname"><em>crit</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>flags</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>minEigThreshold</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -306,8 +367,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="af60995d0403822affcc2cdf4fb880147"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af60995d0403822affcc2cdf4fb880147">&#9670;&nbsp;</a></span>create() <span class="overload">[2/6]</span></h2>
+<a id="a13ee431e46c5190f0b6169ab19c48399" name="a13ee431e46c5190f0b6169ab19c48399"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13ee431e46c5190f0b6169ab19c48399">&#9670;&#160;</a></span>create() <span class="overload">[2/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -318,31 +379,8 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a> OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.create </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a>&#160;</td>
-          <td class="paramname"><em>winSize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a></td>          <td class="paramname"><span class="paramname"><em>winSize</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>maxLevel</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a>&#160;</td>
-          <td class="paramname"><em>crit</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>flags</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -354,8 +392,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ad217a84f36f6383a4df19ceeaf794240"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad217a84f36f6383a4df19ceeaf794240">&#9670;&nbsp;</a></span>create() <span class="overload">[3/6]</span></h2>
+<a id="ae18a3c67493bf2f62317be70b0f06620" name="ae18a3c67493bf2f62317be70b0f06620"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae18a3c67493bf2f62317be70b0f06620">&#9670;&#160;</a></span>create() <span class="overload">[3/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -366,25 +404,12 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a> OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.create </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a>&#160;</td>
-          <td class="paramname"><em>winSize</em>, </td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a></td>          <td class="paramname"><span class="paramname"><em>winSize</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>maxLevel</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a>&#160;</td>
-          <td class="paramname"><em>crit</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxLevel</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -396,8 +421,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aab6a15aa27bdb8f164dbbea42e53727f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab6a15aa27bdb8f164dbbea42e53727f">&#9670;&nbsp;</a></span>create() <span class="overload">[4/6]</span></h2>
+<a id="acd392e99529f636e6b27f8b1deb7811b" name="acd392e99529f636e6b27f8b1deb7811b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd392e99529f636e6b27f8b1deb7811b">&#9670;&#160;</a></span>create() <span class="overload">[4/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -408,19 +433,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a> OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.create </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a>&#160;</td>
-          <td class="paramname"><em>winSize</em>, </td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a></td>          <td class="paramname"><span class="paramname"><em>winSize</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>maxLevel</em>&#160;</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxLevel</em></span>, </td>
         </tr>
         <tr>
+          <td class="paramkey"></td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a></td>          <td class="paramname"><span class="paramname"><em>crit</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -432,8 +455,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a1e803c1fdf32a7ec4d5f69ed75cff8e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e803c1fdf32a7ec4d5f69ed75cff8e5">&#9670;&nbsp;</a></span>create() <span class="overload">[5/6]</span></h2>
+<a id="acb4966245847b3bfb69d4f58417bbb1d" name="acb4966245847b3bfb69d4f58417bbb1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb4966245847b3bfb69d4f58417bbb1d">&#9670;&#160;</a></span>create() <span class="overload">[5/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -444,9 +467,22 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a> OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.create </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a>&#160;</td>
-          <td class="paramname"><em>winSize</em></td><td>)</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a></td>          <td class="paramname"><span class="paramname"><em>winSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxLevel</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a></td>          <td class="paramname"><span class="paramname"><em>crit</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -458,8 +494,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a47439f86d8161aa5519367dc1b802f2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47439f86d8161aa5519367dc1b802f2d">&#9670;&nbsp;</a></span>create() <span class="overload">[6/6]</span></h2>
+<a id="a20d838fc3144ad70d78ecb1715b714fc" name="a20d838fc3144ad70d78ecb1715b714fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20d838fc3144ad70d78ecb1715b714fc">&#9670;&#160;</a></span>create() <span class="overload">[6/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -470,7 +506,51 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a> OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.create </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a></td>          <td class="paramname"><span class="paramname"><em>winSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxLevel</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a></td>          <td class="paramname"><span class="paramname"><em>crit</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>minEigThreshold</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a144ae1fab040a4cce4898d488b22f755" name="a144ae1fab040a4cce4898d488b22f755"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a144ae1fab040a4cce4898d488b22f755">&#9670;&#160;</a></span>create() <span class="overload">[7/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a> OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.create </td>
+          <td>(</td>
+          <td class="paramtype">in(double <a class="el" href="#a04cb57fcba57afbd5f56e401cd4200c7">width</a>, double height)</td>          <td class="paramname"><span class="paramname"><em>winSize</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -483,8 +563,325 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="af5cd979c6afef2cc935f1a96fbb9f444"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5cd979c6afef2cc935f1a96fbb9f444">&#9670;&nbsp;</a></span>Dispose()</h2>
+<a id="a0cd5445aac3501145b264801227e49c0" name="a0cd5445aac3501145b264801227e49c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cd5445aac3501145b264801227e49c0">&#9670;&#160;</a></span>create() <span class="overload">[8/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a> OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.create </td>
+          <td>(</td>
+          <td class="paramtype">in(double <a class="el" href="#a04cb57fcba57afbd5f56e401cd4200c7">width</a>, double height)</td>          <td class="paramname"><span class="paramname"><em>winSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxLevel</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3a6f426f0ed783b037332b101df19ec1" name="a3a6f426f0ed783b037332b101df19ec1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a6f426f0ed783b037332b101df19ec1">&#9670;&#160;</a></span>create() <span class="overload">[9/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a> OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.create </td>
+          <td>(</td>
+          <td class="paramtype">in(double <a class="el" href="#a04cb57fcba57afbd5f56e401cd4200c7">width</a>, double height)</td>          <td class="paramname"><span class="paramname"><em>winSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxLevel</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">in(double <a class="el" href="#ad6d685dc9a2e63b35e93bd869ea453db">type</a>, double <a class="el" href="#ac84a590e3b80ad7de61aa3c805fa55d3">maxCount</a>, double epsilon)</td>          <td class="paramname"><span class="paramname"><em>crit</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4aa9e2caa46fa1de80b3e9f735f39f7b" name="a4aa9e2caa46fa1de80b3e9f735f39f7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4aa9e2caa46fa1de80b3e9f735f39f7b">&#9670;&#160;</a></span>create() <span class="overload">[10/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a> OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.create </td>
+          <td>(</td>
+          <td class="paramtype">in(double <a class="el" href="#a04cb57fcba57afbd5f56e401cd4200c7">width</a>, double height)</td>          <td class="paramname"><span class="paramname"><em>winSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxLevel</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">in(double <a class="el" href="#ad6d685dc9a2e63b35e93bd869ea453db">type</a>, double <a class="el" href="#ac84a590e3b80ad7de61aa3c805fa55d3">maxCount</a>, double epsilon)</td>          <td class="paramname"><span class="paramname"><em>crit</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a53211311ab97ae3231a8930304f8a248" name="a53211311ab97ae3231a8930304f8a248"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53211311ab97ae3231a8930304f8a248">&#9670;&#160;</a></span>create() <span class="overload">[11/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a> OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.create </td>
+          <td>(</td>
+          <td class="paramtype">in(double <a class="el" href="#a04cb57fcba57afbd5f56e401cd4200c7">width</a>, double height)</td>          <td class="paramname"><span class="paramname"><em>winSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxLevel</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">in(double <a class="el" href="#ad6d685dc9a2e63b35e93bd869ea453db">type</a>, double <a class="el" href="#ac84a590e3b80ad7de61aa3c805fa55d3">maxCount</a>, double epsilon)</td>          <td class="paramname"><span class="paramname"><em>crit</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>minEigThreshold</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1e803c1fdf32a7ec4d5f69ed75cff8e5" name="a1e803c1fdf32a7ec4d5f69ed75cff8e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e803c1fdf32a7ec4d5f69ed75cff8e5">&#9670;&#160;</a></span>create() <span class="overload">[12/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a> OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a></td>          <td class="paramname"><span class="paramname"><em>winSize</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aab6a15aa27bdb8f164dbbea42e53727f" name="aab6a15aa27bdb8f164dbbea42e53727f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab6a15aa27bdb8f164dbbea42e53727f">&#9670;&#160;</a></span>create() <span class="overload">[13/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a> OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a></td>          <td class="paramname"><span class="paramname"><em>winSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxLevel</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad217a84f36f6383a4df19ceeaf794240" name="ad217a84f36f6383a4df19ceeaf794240"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad217a84f36f6383a4df19ceeaf794240">&#9670;&#160;</a></span>create() <span class="overload">[14/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a> OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a></td>          <td class="paramname"><span class="paramname"><em>winSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxLevel</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a></td>          <td class="paramname"><span class="paramname"><em>crit</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af60995d0403822affcc2cdf4fb880147" name="af60995d0403822affcc2cdf4fb880147"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af60995d0403822affcc2cdf4fb880147">&#9670;&#160;</a></span>create() <span class="overload">[15/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a> OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a></td>          <td class="paramname"><span class="paramname"><em>winSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxLevel</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a></td>          <td class="paramname"><span class="paramname"><em>crit</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a505f6ca5c6816912c22fc9b18e750616" name="a505f6ca5c6816912c22fc9b18e750616"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a505f6ca5c6816912c22fc9b18e750616">&#9670;&#160;</a></span>create() <span class="overload">[16/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_sparse_pyr_l_k_optical_flow.html">SparsePyrLKOpticalFlow</a> OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a></td>          <td class="paramname"><span class="paramname"><em>winSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxLevel</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a></td>          <td class="paramname"><span class="paramname"><em>crit</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>minEigThreshold</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af5cd979c6afef2cc935f1a96fbb9f444" name="af5cd979c6afef2cc935f1a96fbb9f444"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5cd979c6afef2cc935f1a96fbb9f444">&#9670;&#160;</a></span>Dispose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -495,8 +892,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">override void OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.Dispose </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>disposing</em></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>disposing</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -511,8 +907,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="adb299873277caed80b9167e04c10f552"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb299873277caed80b9167e04c10f552">&#9670;&nbsp;</a></span>getFlags()</h2>
+<a id="adb299873277caed80b9167e04c10f552" name="adb299873277caed80b9167e04c10f552"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb299873277caed80b9167e04c10f552">&#9670;&#160;</a></span>getFlags()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -520,7 +916,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.getFlags </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -528,8 +924,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ad63604a31473856d7e6326fa55ea67c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad63604a31473856d7e6326fa55ea67c9">&#9670;&nbsp;</a></span>getMaxLevel()</h2>
+<a id="ad63604a31473856d7e6326fa55ea67c9" name="ad63604a31473856d7e6326fa55ea67c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad63604a31473856d7e6326fa55ea67c9">&#9670;&#160;</a></span>getMaxLevel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -537,7 +933,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.getMaxLevel </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -545,8 +941,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ae315fa641abcb9733260425a21424d5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae315fa641abcb9733260425a21424d5e">&#9670;&nbsp;</a></span>getMinEigThreshold()</h2>
+<a id="ae315fa641abcb9733260425a21424d5e" name="ae315fa641abcb9733260425a21424d5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae315fa641abcb9733260425a21424d5e">&#9670;&#160;</a></span>getMinEigThreshold()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -554,7 +950,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.getMinEigThreshold </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -562,8 +958,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="adaf44d32c734cfef337e27ad8fbd2a5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adaf44d32c734cfef337e27ad8fbd2a5d">&#9670;&nbsp;</a></span>getTermCriteria()</h2>
+<a id="adaf44d32c734cfef337e27ad8fbd2a5d" name="adaf44d32c734cfef337e27ad8fbd2a5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adaf44d32c734cfef337e27ad8fbd2a5d">&#9670;&#160;</a></span>getTermCriteria()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -571,7 +967,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a> OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.getTermCriteria </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -579,8 +975,42 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aef257b872e958ee4059b13783b563ab8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef257b872e958ee4059b13783b563ab8">&#9670;&nbsp;</a></span>getWinSize()</h2>
+<a id="a71f57c6406d006b1e7258116e8f1d52e" name="a71f57c6406d006b1e7258116e8f1d52e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71f57c6406d006b1e7258116e8f1d52e">&#9670;&#160;</a></span>getTermCriteriaAsValueTuple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double double double epsilon OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.getTermCriteriaAsValueTuple </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5043d1b0810900663eb2fcfa2e9faca0" name="a5043d1b0810900663eb2fcfa2e9faca0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5043d1b0810900663eb2fcfa2e9faca0">&#9670;&#160;</a></span>getTermCriteriaAsVec3d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a> OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.getTermCriteriaAsVec3d </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aef257b872e958ee4059b13783b563ab8" name="aef257b872e958ee4059b13783b563ab8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef257b872e958ee4059b13783b563ab8">&#9670;&#160;</a></span>getWinSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -588,7 +1018,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.getWinSize </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -596,8 +1026,42 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ab31ab8553f8641cdee7895efd512c70b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab31ab8553f8641cdee7895efd512c70b">&#9670;&nbsp;</a></span>setFlags()</h2>
+<a id="aa7e0fb2bfef250d735c65db33d253e4d" name="aa7e0fb2bfef250d735c65db33d253e4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7e0fb2bfef250d735c65db33d253e4d">&#9670;&#160;</a></span>getWinSizeAsValueTuple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double double height OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.getWinSizeAsValueTuple </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae9787e6275cb74e8eec11baacdbaf71c" name="ae9787e6275cb74e8eec11baacdbaf71c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9787e6275cb74e8eec11baacdbaf71c">&#9670;&#160;</a></span>getWinSizeAsVec2d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a> OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.getWinSizeAsVec2d </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab31ab8553f8641cdee7895efd512c70b" name="ab31ab8553f8641cdee7895efd512c70b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab31ab8553f8641cdee7895efd512c70b">&#9670;&#160;</a></span>setFlags()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -605,8 +1069,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.setFlags </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>flags</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>flags</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -614,8 +1077,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aeef68ebb660b05e2ee2842f804c9f40a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeef68ebb660b05e2ee2842f804c9f40a">&#9670;&nbsp;</a></span>setMaxLevel()</h2>
+<a id="aeef68ebb660b05e2ee2842f804c9f40a" name="aeef68ebb660b05e2ee2842f804c9f40a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeef68ebb660b05e2ee2842f804c9f40a">&#9670;&#160;</a></span>setMaxLevel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -623,8 +1086,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.setMaxLevel </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>maxLevel</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxLevel</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -632,8 +1094,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a5add10ebef6370dc01dcbf015f933382"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5add10ebef6370dc01dcbf015f933382">&#9670;&nbsp;</a></span>setMinEigThreshold()</h2>
+<a id="a5add10ebef6370dc01dcbf015f933382" name="a5add10ebef6370dc01dcbf015f933382"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5add10ebef6370dc01dcbf015f933382">&#9670;&#160;</a></span>setMinEigThreshold()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -641,8 +1103,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.setMinEigThreshold </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>minEigThreshold</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>minEigThreshold</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -650,8 +1111,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a3a56ef014d0011e98328dee09f684d2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a56ef014d0011e98328dee09f684d2d">&#9670;&nbsp;</a></span>setTermCriteria()</h2>
+<a id="a1d985341b27ea21adaa261480021e67b" name="a1d985341b27ea21adaa261480021e67b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d985341b27ea21adaa261480021e67b">&#9670;&#160;</a></span>setTermCriteria() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -659,8 +1120,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.setTermCriteria </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a>&#160;</td>
-          <td class="paramname"><em>crit</em></td><td>)</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a></td>          <td class="paramname"><span class="paramname"><em>crit</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -668,8 +1128,42 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a59d7c42b838dba441c5110b6a66080ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59d7c42b838dba441c5110b6a66080ea">&#9670;&nbsp;</a></span>setWinSize()</h2>
+<a id="a54b8af6be93bc1cb72634a01afb90830" name="a54b8af6be93bc1cb72634a01afb90830"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54b8af6be93bc1cb72634a01afb90830">&#9670;&#160;</a></span>setTermCriteria() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.setTermCriteria </td>
+          <td>(</td>
+          <td class="paramtype">in(double <a class="el" href="#ad6d685dc9a2e63b35e93bd869ea453db">type</a>, double <a class="el" href="#ac84a590e3b80ad7de61aa3c805fa55d3">maxCount</a>, double epsilon)</td>          <td class="paramname"><span class="paramname"><em>crit</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3a56ef014d0011e98328dee09f684d2d" name="a3a56ef014d0011e98328dee09f684d2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a56ef014d0011e98328dee09f684d2d">&#9670;&#160;</a></span>setTermCriteria() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.setTermCriteria </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a></td>          <td class="paramname"><span class="paramname"><em>crit</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a012bddd9c0c11cd07f48a9c857d95b53" name="a012bddd9c0c11cd07f48a9c857d95b53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a012bddd9c0c11cd07f48a9c857d95b53">&#9670;&#160;</a></span>setWinSize() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -677,8 +1171,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.setWinSize </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a>&#160;</td>
-          <td class="paramname"><em>winSize</em></td><td>)</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a></td>          <td class="paramname"><span class="paramname"><em>winSize</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -686,15 +1179,93 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<a id="a2c0db315d3aeeb18f8e55a7fe52970c0" name="a2c0db315d3aeeb18f8e55a7fe52970c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c0db315d3aeeb18f8e55a7fe52970c0">&#9670;&#160;</a></span>setWinSize() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.setWinSize </td>
+          <td>(</td>
+          <td class="paramtype">in(double <a class="el" href="#a04cb57fcba57afbd5f56e401cd4200c7">width</a>, double height)</td>          <td class="paramname"><span class="paramname"><em>winSize</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a59d7c42b838dba441c5110b6a66080ea" name="a59d7c42b838dba441c5110b6a66080ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59d7c42b838dba441c5110b6a66080ea">&#9670;&#160;</a></span>setWinSize() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.setWinSize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a></td>          <td class="paramname"><span class="paramname"><em>winSize</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ac84a590e3b80ad7de61aa3c805fa55d3" name="ac84a590e3b80ad7de61aa3c805fa55d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac84a590e3b80ad7de61aa3c805fa55d3">&#9670;&#160;</a></span>maxCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double double OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.maxCount</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad6d685dc9a2e63b35e93bd869ea453db" name="ad6d685dc9a2e63b35e93bd869ea453db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6d685dc9a2e63b35e93bd869ea453db">&#9670;&#160;</a></span>type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a04cb57fcba57afbd5f56e401cd4200c7" name="a04cb57fcba57afbd5f56e401cd4200c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04cb57fcba57afbd5f56e401cd4200c7">&#9670;&#160;</a></span>width</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double OpenCVForUnity.VideoModule.SparsePyrLKOpticalFlow.width</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/video/<a class="el" href="_sparse_pyr_l_k_optical_flow_8cs.html">SparsePyrLKOpticalFlow.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/video/<a class="el" href="_sparse_pyr_l_k_optical_flow___struct_8cs.html">SparsePyrLKOpticalFlow_Struct.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/video/<a class="el" href="_sparse_pyr_l_k_optical_flow___value_tuple_8cs.html">SparsePyrLKOpticalFlow_ValueTuple.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

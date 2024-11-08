@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: OpenCVForUnity.TrackingModule.legacy_Tracker Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,108 +126,129 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_tracking_module.html">TrackingModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker.html">legacy_Tracker</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker-members.html">List of all members</a>  </div>
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.TrackingModule.legacy_Tracker Class Reference</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.TrackingModule.legacy_Tracker Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>Base abstract class for the long-term tracker:  
- <a href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker.html#details">More...</a></p>
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for OpenCVForUnity.TrackingModule.legacy_Tracker:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker.png" usemap="#OpenCVForUnity.TrackingModule.legacy_5FTracker_map" alt=""/>
   <map id="OpenCVForUnity.TrackingModule.legacy_5FTracker_map" name="OpenCVForUnity.TrackingModule.legacy_5FTracker_map">
-<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV. " alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="1128,168,1494,192"/>
+<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV." alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="752,168,1118,192"/>
+<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV." alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="1128,168,1494,192"/>
+<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV." alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="1504,168,1870,192"/>
+<area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="752,112,1118,136"/>
 <area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="1128,112,1494,136"/>
+<area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="1504,112,1870,136"/>
+<area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="752,56,1118,80"/>
 <area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="1128,56,1494,80"/>
-<area href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_boosting.html" title="the Boosting tracker " alt="OpenCVForUnity.TrackingModule.legacy_TrackerBoosting" shape="rect" coords="0,280,366,304"/>
-<area href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_c_s_r_t.html" title="the CSRT tracker " alt="OpenCVForUnity.TrackingModule.legacy_TrackerCSRT" shape="rect" coords="376,280,742,304"/>
-<area href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_k_c_f.html" title="the KCF (Kernelized Correlation Filter) tracker " alt="OpenCVForUnity.TrackingModule.legacy_TrackerKCF" shape="rect" coords="752,280,1118,304"/>
-<area href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_median_flow.html" title="the Median Flow tracker " alt="OpenCVForUnity.TrackingModule.legacy_TrackerMedianFlow" shape="rect" coords="1128,280,1494,304"/>
-<area href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_m_i_l.html" title="The MIL algorithm trains a classifier in an online manner to separate the object from the background..." alt="OpenCVForUnity.TrackingModule.legacy_TrackerMIL" shape="rect" coords="1504,280,1870,304"/>
-<area href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_m_o_s_s_e.html" title="the MOSSE (Minimum Output Sum of Squared Error) tracker " alt="OpenCVForUnity.TrackingModule.legacy_TrackerMOSSE" shape="rect" coords="1880,280,2246,304"/>
-<area href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_t_l_d.html" title="the TLD (Tracking, learning and detection) tracker " alt="OpenCVForUnity.TrackingModule.legacy_TrackerTLD" shape="rect" coords="2256,280,2622,304"/>
-</map>
- </div></div>
+<area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="1504,56,1870,80"/>
+<area href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_boosting.html" title="the Boosting tracker" alt="OpenCVForUnity.TrackingModule.legacy_TrackerBoosting" shape="rect" coords="0,280,366,304"/>
+<area href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_c_s_r_t.html" title="the CSRT tracker" alt="OpenCVForUnity.TrackingModule.legacy_TrackerCSRT" shape="rect" coords="376,280,742,304"/>
+<area href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_k_c_f.html" title="the KCF (Kernelized Correlation Filter) tracker" alt="OpenCVForUnity.TrackingModule.legacy_TrackerKCF" shape="rect" coords="752,280,1118,304"/>
+<area href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_m_i_l.html" title="The MIL algorithm trains a classifier in an online manner to separate the object from the background." alt="OpenCVForUnity.TrackingModule.legacy_TrackerMIL" shape="rect" coords="1128,280,1494,304"/>
+<area href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_m_o_s_s_e.html" title="the MOSSE (Minimum Output Sum of Squared Error) tracker" alt="OpenCVForUnity.TrackingModule.legacy_TrackerMOSSE" shape="rect" coords="1504,280,1870,304"/>
+<area href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_median_flow.html" title="the Median Flow tracker" alt="OpenCVForUnity.TrackingModule.legacy_TrackerMedianFlow" shape="rect" coords="1880,280,2246,304"/>
+<area href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_t_l_d.html" title="the TLD (Tracking, learning and detection) tracker" alt="OpenCVForUnity.TrackingModule.legacy_TrackerTLD" shape="rect" coords="2256,280,2622,304"/>
+  </map>
+</div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4c10f76cc4f5773923f944370df4b477"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker.html#a4c10f76cc4f5773923f944370df4b477">init</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">Rect2d</a> boundingBox)</td></tr>
-<tr class="memdesc:a4c10f76cc4f5773923f944370df4b477"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the tracker with a known bounding box that surrounded the target.  <a href="#a4c10f76cc4f5773923f944370df4b477">More...</a><br /></td></tr>
+<tr class="memitem:a4c10f76cc4f5773923f944370df4b477" id="r_a4c10f76cc4f5773923f944370df4b477"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c10f76cc4f5773923f944370df4b477">init</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">Rect2d</a> boundingBox)</td></tr>
+<tr class="memdesc:a4c10f76cc4f5773923f944370df4b477"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the tracker with a known bounding box that surrounded the target.  <br /></td></tr>
 <tr class="separator:a4c10f76cc4f5773923f944370df4b477"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff6c71f95e9bd20fddca04c633905fa8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker.html#aff6c71f95e9bd20fddca04c633905fa8">update</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">Rect2d</a> boundingBox)</td></tr>
-<tr class="memdesc:aff6c71f95e9bd20fddca04c633905fa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the tracker, find the new most likely bounding box for the target.  <a href="#aff6c71f95e9bd20fddca04c633905fa8">More...</a><br /></td></tr>
+<tr class="memitem:aff6c71f95e9bd20fddca04c633905fa8" id="r_aff6c71f95e9bd20fddca04c633905fa8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff6c71f95e9bd20fddca04c633905fa8">update</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">Rect2d</a> boundingBox)</td></tr>
+<tr class="memdesc:aff6c71f95e9bd20fddca04c633905fa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the tracker, find the new most likely bounding box for the target.  <br /></td></tr>
 <tr class="separator:aff6c71f95e9bd20fddca04c633905fa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
-<tr class="memitem:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a8023b07a6a0100bb4c9eccd175bc68df">getNativeObjAddr</a> ()</td></tr>
+<tr class="memitem:a218834dc58af3c9eaa641c9b93633261" id="r_a218834dc58af3c9eaa641c9b93633261"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a218834dc58af3c9eaa641c9b93633261">init</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> boundingBox)</td></tr>
+<tr class="memdesc:a218834dc58af3c9eaa641c9b93633261"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the tracker with a known bounding box that surrounded the target.  <br /></td></tr>
+<tr class="separator:a218834dc58af3c9eaa641c9b93633261"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea2d90c4dea35d58f3d154656dad4e39" id="r_aea2d90c4dea35d58f3d154656dad4e39"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aea2d90c4dea35d58f3d154656dad4e39">update</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, out <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> boundingBox)</td></tr>
+<tr class="memdesc:aea2d90c4dea35d58f3d154656dad4e39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the tracker, find the new most likely bounding box for the target.  <br /></td></tr>
+<tr class="separator:aea2d90c4dea35d58f3d154656dad4e39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b0dfcd593619acaa996d18ef62ebb2f" id="r_a3b0dfcd593619acaa996d18ef62ebb2f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b0dfcd593619acaa996d18ef62ebb2f">init</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, in(double x, double y, double width, double height) boundingBox)</td></tr>
+<tr class="memdesc:a3b0dfcd593619acaa996d18ef62ebb2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the tracker with a known bounding box that surrounded the target.  <br /></td></tr>
+<tr class="separator:a3b0dfcd593619acaa996d18ef62ebb2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f5a7f145ea6c303057a8df6e9131826" id="r_a1f5a7f145ea6c303057a8df6e9131826"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1f5a7f145ea6c303057a8df6e9131826">update</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, out(double x, double y, double width, double height) boundingBox)</td></tr>
+<tr class="memdesc:a1f5a7f145ea6c303057a8df6e9131826"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the tracker, find the new most likely bounding box for the target.  <br /></td></tr>
+<tr class="separator:a1f5a7f145ea6c303057a8df6e9131826"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="memitem:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a8023b07a6a0100bb4c9eccd175bc68df"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a8023b07a6a0100bb4c9eccd175bc68df">getNativeObjAddr</a> ()</td></tr>
 <tr class="separator:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a54f71b05d21ec0abc593bb50cf66ce12">clear</a> ()</td></tr>
-<tr class="memdesc:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the algorithm state.  <a href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a54f71b05d21ec0abc593bb50cf66ce12">More...</a><br /></td></tr>
+<tr class="memitem:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a54f71b05d21ec0abc593bb50cf66ce12"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a54f71b05d21ec0abc593bb50cf66ce12">clear</a> ()</td></tr>
+<tr class="memdesc:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the algorithm state.  <br /></td></tr>
 <tr class="separator:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86154915a2c596ce62de420e4f7a8d7b inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86154915a2c596ce62de420e4f7a8d7b">empty</a> ()</td></tr>
-<tr class="memdesc:a86154915a2c596ce62de420e4f7a8d7b inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV. ">Algorithm</a> is empty (e.g. in the very beginning or after unsuccessful read.  <a href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86154915a2c596ce62de420e4f7a8d7b">More...</a><br /></td></tr>
+<tr class="memitem:a86154915a2c596ce62de420e4f7a8d7b inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a86154915a2c596ce62de420e4f7a8d7b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86154915a2c596ce62de420e4f7a8d7b">empty</a> ()</td></tr>
+<tr class="memdesc:a86154915a2c596ce62de420e4f7a8d7b inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV.">Algorithm</a> is empty (e.g. in the very beginning or after unsuccessful read.  <br /></td></tr>
 <tr class="separator:a86154915a2c596ce62de420e4f7a8d7b inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4c0ad9f8fd5975a8dbf9209115495db inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#af4c0ad9f8fd5975a8dbf9209115495db">save</a> (string filename)</td></tr>
+<tr class="memitem:af4c0ad9f8fd5975a8dbf9209115495db inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_af4c0ad9f8fd5975a8dbf9209115495db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#af4c0ad9f8fd5975a8dbf9209115495db">save</a> (string filename)</td></tr>
 <tr class="separator:af4c0ad9f8fd5975a8dbf9209115495db inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9f5751351974d69a3a98510d3856518 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#aa9f5751351974d69a3a98510d3856518">getDefaultName</a> ()</td></tr>
+<tr class="memitem:aa9f5751351974d69a3a98510d3856518 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_aa9f5751351974d69a3a98510d3856518"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#aa9f5751351974d69a3a98510d3856518">getDefaultName</a> ()</td></tr>
 <tr class="separator:aa9f5751351974d69a3a98510d3856518 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a68dd6362a65b5bf2f2b8828bef0b7dc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
 <tr class="separator:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
+<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a620f073ff3aa1bcee28fb00edb01dc11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
 <tr class="separator:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a9aab42479ea21cba3ca1cefa9c17a9b9"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker.html">legacy_Tracker</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker.html#a9aab42479ea21cba3ca1cefa9c17a9b9">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="memitem:a9aab42479ea21cba3ca1cefa9c17a9b9" id="r_a9aab42479ea21cba3ca1cefa9c17a9b9"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker.html">legacy_Tracker</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9aab42479ea21cba3ca1cefa9c17a9b9">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:a9aab42479ea21cba3ca1cefa9c17a9b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
-<tr class="memitem:a86d037d927276dadd66bdb102a74b53a inherit pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">Algorithm</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86d037d927276dadd66bdb102a74b53a">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="memitem:a86d037d927276dadd66bdb102a74b53a inherit pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a86d037d927276dadd66bdb102a74b53a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">Algorithm</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86d037d927276dadd66bdb102a74b53a">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:a86d037d927276dadd66bdb102a74b53a inherit pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a4b998ab4293ee3fb7cdc494ed9375fc3"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:aa2f729d7c6b3667de766f2138b7751fe"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker.html#aa2f729d7c6b3667de766f2138b7751fe">Dispose</a> (bool disposing)</td></tr>
+<tr class="memitem:aa2f729d7c6b3667de766f2138b7751fe" id="r_aa2f729d7c6b3667de766f2138b7751fe"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa2f729d7c6b3667de766f2138b7751fe">Dispose</a> (bool disposing)</td></tr>
 <tr class="separator:aa2f729d7c6b3667de766f2138b7751fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
-<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_aab50d94cc702503eac045ca7042624ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
 <tr class="separator:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
+<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a6dc5923de5bd43795c72dd7f581ad832"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a1fb2523312e8a423889a1d160e755e7d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
+<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a739b223f2008fae0966c43d0c6f0f72f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
 <tr class="separator:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_ae924d4d77a5929e39abca6ef9daf6330"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
 <tr class="separator:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a1e47724d49556061a5ba400577be2a13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
+<tr class="inherit_header pac_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Package Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="inherit_header pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Package Attributes inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a056e69daaa9ea20e563c5e41b28c1525"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
 <tr class="separator:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
+<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a8e287e3cb5995f483cb64dd6c3b19a7f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base abstract class for the long-term tracker: </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9aab42479ea21cba3ca1cefa9c17a9b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9aab42479ea21cba3ca1cefa9c17a9b9">&#9670;&nbsp;</a></span>__fromPtr__()</h2>
+<a id="a9aab42479ea21cba3ca1cefa9c17a9b9" name="a9aab42479ea21cba3ca1cefa9c17a9b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9aab42479ea21cba3ca1cefa9c17a9b9">&#9670;&#160;</a></span>__fromPtr__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -206,8 +259,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static new <a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker.html">legacy_Tracker</a> OpenCVForUnity.TrackingModule.legacy_Tracker.__fromPtr__ </td>
           <td>(</td>
-          <td class="paramtype">IntPtr&#160;</td>
-          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td class="paramtype">IntPtr</td>          <td class="paramname"><span class="paramname"><em>addr</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -220,8 +272,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aa2f729d7c6b3667de766f2138b7751fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2f729d7c6b3667de766f2138b7751fe">&#9670;&nbsp;</a></span>Dispose()</h2>
+<a id="aa2f729d7c6b3667de766f2138b7751fe" name="aa2f729d7c6b3667de766f2138b7751fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2f729d7c6b3667de766f2138b7751fe">&#9670;&#160;</a></span>Dispose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -232,8 +284,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">override void OpenCVForUnity.TrackingModule.legacy_Tracker.Dispose </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>disposing</em></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>disposing</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -246,12 +297,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#ae1fddfb613d636778b282ee027a872f6">OpenCVForUnity.CoreModule.Algorithm</a>.</p>
 
-<p>Reimplemented in <a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_t_l_d.html#aa7f866de63826a2aa99e6d7792a8e726">OpenCVForUnity.TrackingModule.legacy_TrackerTLD</a>, <a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_median_flow.html#ab4b7b0d83884d6854b27fba6cba7ed2c">OpenCVForUnity.TrackingModule.legacy_TrackerMedianFlow</a>, <a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_k_c_f.html#a41b4c22377cd4eb2c75ba220d8bb8909">OpenCVForUnity.TrackingModule.legacy_TrackerKCF</a>, <a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_m_i_l.html#aabd94e3e0596083d7e30c7b140d4b2a0">OpenCVForUnity.TrackingModule.legacy_TrackerMIL</a>, <a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_boosting.html#a040da2e3602d9f71f3ab5127ed1c2a8d">OpenCVForUnity.TrackingModule.legacy_TrackerBoosting</a>, <a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_m_o_s_s_e.html#aade68b9fcec99a3c04c7602bb2b49294">OpenCVForUnity.TrackingModule.legacy_TrackerMOSSE</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_c_s_r_t.html#a88465b1901fb43cf8cb208a2e5c4b19d">OpenCVForUnity.TrackingModule.legacy_TrackerCSRT</a>.</p>
+<p>Reimplemented in <a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_boosting.html#a040da2e3602d9f71f3ab5127ed1c2a8d">OpenCVForUnity.TrackingModule.legacy_TrackerBoosting</a>, <a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_c_s_r_t.html#a88465b1901fb43cf8cb208a2e5c4b19d">OpenCVForUnity.TrackingModule.legacy_TrackerCSRT</a>, <a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_k_c_f.html#a41b4c22377cd4eb2c75ba220d8bb8909">OpenCVForUnity.TrackingModule.legacy_TrackerKCF</a>, <a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_median_flow.html#ab4b7b0d83884d6854b27fba6cba7ed2c">OpenCVForUnity.TrackingModule.legacy_TrackerMedianFlow</a>, <a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_m_i_l.html#aabd94e3e0596083d7e30c7b140d4b2a0">OpenCVForUnity.TrackingModule.legacy_TrackerMIL</a>, <a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_m_o_s_s_e.html#aade68b9fcec99a3c04c7602bb2b49294">OpenCVForUnity.TrackingModule.legacy_TrackerMOSSE</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_tracking_module_1_1legacy___tracker_t_l_d.html#aa7f866de63826a2aa99e6d7792a8e726">OpenCVForUnity.TrackingModule.legacy_TrackerTLD</a>.</p>
 
 </div>
 </div>
-<a id="a4c10f76cc4f5773923f944370df4b477"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c10f76cc4f5773923f944370df4b477">&#9670;&nbsp;</a></span>init()</h2>
+<a id="a218834dc58af3c9eaa641c9b93633261" name="a218834dc58af3c9eaa641c9b93633261"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a218834dc58af3c9eaa641c9b93633261">&#9670;&#160;</a></span>init() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -259,19 +310,12 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">bool OpenCVForUnity.TrackingModule.legacy_Tracker.init </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>image</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">Rect2d</a>&#160;</td>
-          <td class="paramname"><em>boundingBox</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a></td>          <td class="paramname"><span class="paramname"><em>boundingBox</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -280,15 +324,78 @@ Additional Inherited Members</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">image</td><td>The initial frame </td></tr>
-    <tr><td class="paramname">boundingBox</td><td>The initial bounding box <pre class="fragment">@return True if initialization went succesfully, false otherwise</pre> </td></tr>
+    <tr><td class="paramname">boundingBox</td><td>The initial bounding box </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>True if initialization went succesfully, false otherwise </dd></dl>
 
 </div>
 </div>
-<a id="aff6c71f95e9bd20fddca04c633905fa8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff6c71f95e9bd20fddca04c633905fa8">&#9670;&nbsp;</a></span>update()</h2>
+<a id="a3b0dfcd593619acaa996d18ef62ebb2f" name="a3b0dfcd593619acaa996d18ef62ebb2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b0dfcd593619acaa996d18ef62ebb2f">&#9670;&#160;</a></span>init() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.TrackingModule.legacy_Tracker.init </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">in(double x, double y, double width, double height)</td>          <td class="paramname"><span class="paramname"><em>boundingBox</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize the tracker with a known bounding box that surrounded the target. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>The initial frame </td></tr>
+    <tr><td class="paramname">boundingBox</td><td>The initial bounding box </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if initialization went succesfully, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a4c10f76cc4f5773923f944370df4b477" name="a4c10f76cc4f5773923f944370df4b477"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c10f76cc4f5773923f944370df4b477">&#9670;&#160;</a></span>init() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.TrackingModule.legacy_Tracker.init </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">Rect2d</a></td>          <td class="paramname"><span class="paramname"><em>boundingBox</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize the tracker with a known bounding box that surrounded the target. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>The initial frame </td></tr>
+    <tr><td class="paramname">boundingBox</td><td>The initial bounding box </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if initialization went succesfully, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="aea2d90c4dea35d58f3d154656dad4e39" name="aea2d90c4dea35d58f3d154656dad4e39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea2d90c4dea35d58f3d154656dad4e39">&#9670;&#160;</a></span>update() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -296,19 +403,12 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">bool OpenCVForUnity.TrackingModule.legacy_Tracker.update </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>image</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">Rect2d</a>&#160;</td>
-          <td class="paramname"><em>boundingBox</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">out <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a></td>          <td class="paramname"><span class="paramname"><em>boundingBox</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -317,7 +417,7 @@ Additional Inherited Members</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">image</td><td>The current frame </td></tr>
-    <tr><td class="paramname">boundingBox</td><td>The bounding box that represent the new target location, if true was returned, not modified otherwise</td></tr>
+    <tr><td class="paramname">boundingBox</td><td>The bounding box that represent the new target location, if true was returned, not modified otherwise </td></tr>
   </table>
   </dd>
 </dl>
@@ -325,15 +425,78 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<a id="a1f5a7f145ea6c303057a8df6e9131826" name="a1f5a7f145ea6c303057a8df6e9131826"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f5a7f145ea6c303057a8df6e9131826">&#9670;&#160;</a></span>update() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.TrackingModule.legacy_Tracker.update </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">out(double x, double y, double width, double height)</td>          <td class="paramname"><span class="paramname"><em>boundingBox</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Update the tracker, find the new most likely bounding box for the target. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>The current frame </td></tr>
+    <tr><td class="paramname">boundingBox</td><td>The bounding box that represent the new target location, if true was returned, not modified otherwise </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True means that target was located and false means that tracker cannot locate target in current frame. Note, that latter <em>does not</em> imply that tracker has failed, maybe target is indeed missing from the frame (say, out of sight) </dd></dl>
+
+</div>
+</div>
+<a id="aff6c71f95e9bd20fddca04c633905fa8" name="aff6c71f95e9bd20fddca04c633905fa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff6c71f95e9bd20fddca04c633905fa8">&#9670;&#160;</a></span>update() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.TrackingModule.legacy_Tracker.update </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">Rect2d</a></td>          <td class="paramname"><span class="paramname"><em>boundingBox</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Update the tracker, find the new most likely bounding box for the target. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>The current frame </td></tr>
+    <tr><td class="paramname">boundingBox</td><td>The bounding box that represent the new target location, if true was returned, not modified otherwise </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True means that target was located and false means that tracker cannot locate target in current frame. Note, that latter <em>does not</em> imply that tracker has failed, maybe target is indeed missing from the frame (say, out of sight) </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv_contrib/tracking/<a class="el" href="legacy___tracker_8cs.html">legacy_Tracker.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv_contrib/tracking/<a class="el" href="legacy___tracker___struct_8cs.html">legacy_Tracker_Struct.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv_contrib/tracking/<a class="el" href="legacy___tracker___value_tuple_8cs.html">legacy_Tracker_ValueTuple.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

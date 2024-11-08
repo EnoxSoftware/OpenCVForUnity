@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: OpenCVForUnity.MlModule.ANN_MLP Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,245 +126,273 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_ml_module.html">MlModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html">ANN_MLP</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p-members.html">List of all members</a>  </div>
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.MlModule.ANN_MLP Class Reference</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.MlModule.ANN_MLP Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>Artificial Neural Networks - Multi-Layer Perceptrons.  
- <a href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#details">More...</a></p>
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for OpenCVForUnity.MlModule.ANN_MLP:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.png" usemap="#OpenCVForUnity.MlModule.ANN_5FMLP_map" alt=""/>
   <map id="OpenCVForUnity.MlModule.ANN_5FMLP_map" name="OpenCVForUnity.MlModule.ANN_5FMLP_map">
-<area href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html" title="Base class for statistical models in OpenCV ML. " alt="OpenCVForUnity.MlModule.StatModel" shape="rect" coords="0,224,261,248"/>
-<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV. " alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="0,168,261,192"/>
+<area href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html" title="Base class for statistical models in OpenCV ML." alt="OpenCVForUnity.MlModule.StatModel" shape="rect" coords="0,224,261,248"/>
+<area href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html" title="Base class for statistical models in OpenCV ML." alt="OpenCVForUnity.MlModule.StatModel" shape="rect" coords="271,224,532,248"/>
+<area href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html" title="Base class for statistical models in OpenCV ML." alt="OpenCVForUnity.MlModule.StatModel" shape="rect" coords="542,224,803,248"/>
+<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV." alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="0,168,261,192"/>
+<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV." alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="271,168,532,192"/>
+<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV." alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="542,168,803,192"/>
 <area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="0,112,261,136"/>
+<area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="271,112,532,136"/>
+<area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="542,112,803,136"/>
 <area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="0,56,261,80"/>
-</map>
- </div></div>
+<area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="271,56,532,80"/>
+<area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="542,56,803,80"/>
+  </map>
+</div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad2852daed391713d9e9500d66413b2f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ad2852daed391713d9e9500d66413b2f8">setTrainMethod</a> (int method, double param1, double param2)</td></tr>
+<tr class="memitem:ad2852daed391713d9e9500d66413b2f8" id="r_ad2852daed391713d9e9500d66413b2f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad2852daed391713d9e9500d66413b2f8">setTrainMethod</a> (int method, double param1, double param2)</td></tr>
 <tr class="separator:ad2852daed391713d9e9500d66413b2f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63c8b04f2e88537c2bdf3af915d2d084"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a63c8b04f2e88537c2bdf3af915d2d084">setTrainMethod</a> (int method, double param1)</td></tr>
+<tr class="memitem:a63c8b04f2e88537c2bdf3af915d2d084" id="r_a63c8b04f2e88537c2bdf3af915d2d084"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a63c8b04f2e88537c2bdf3af915d2d084">setTrainMethod</a> (int method, double param1)</td></tr>
 <tr class="separator:a63c8b04f2e88537c2bdf3af915d2d084"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d4f2889835a484a1cc18df192327185"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a4d4f2889835a484a1cc18df192327185">setTrainMethod</a> (int method)</td></tr>
+<tr class="memitem:a4d4f2889835a484a1cc18df192327185" id="r_a4d4f2889835a484a1cc18df192327185"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d4f2889835a484a1cc18df192327185">setTrainMethod</a> (int method)</td></tr>
 <tr class="separator:a4d4f2889835a484a1cc18df192327185"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1619c762b2fc514a57c6a4b9423c1dd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ab1619c762b2fc514a57c6a4b9423c1dd">getTrainMethod</a> ()</td></tr>
+<tr class="memitem:ab1619c762b2fc514a57c6a4b9423c1dd" id="r_ab1619c762b2fc514a57c6a4b9423c1dd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1619c762b2fc514a57c6a4b9423c1dd">getTrainMethod</a> ()</td></tr>
 <tr class="separator:ab1619c762b2fc514a57c6a4b9423c1dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c80de936fc480c33df38f351821ef3c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a0c80de936fc480c33df38f351821ef3c">setActivationFunction</a> (int type, double param1, double param2)</td></tr>
+<tr class="memitem:a0c80de936fc480c33df38f351821ef3c" id="r_a0c80de936fc480c33df38f351821ef3c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c80de936fc480c33df38f351821ef3c">setActivationFunction</a> (int <a class="el" href="#a5f1ab9590ca86d5354c9b489d16248a8">type</a>, double param1, double param2)</td></tr>
 <tr class="separator:a0c80de936fc480c33df38f351821ef3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9dd193d5fa47d86d06a734783a756dbd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a9dd193d5fa47d86d06a734783a756dbd">setActivationFunction</a> (int type, double param1)</td></tr>
+<tr class="memitem:a9dd193d5fa47d86d06a734783a756dbd" id="r_a9dd193d5fa47d86d06a734783a756dbd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9dd193d5fa47d86d06a734783a756dbd">setActivationFunction</a> (int <a class="el" href="#a5f1ab9590ca86d5354c9b489d16248a8">type</a>, double param1)</td></tr>
 <tr class="separator:a9dd193d5fa47d86d06a734783a756dbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38ef3535e93e920966b40c578e63908b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a38ef3535e93e920966b40c578e63908b">setActivationFunction</a> (int type)</td></tr>
+<tr class="memitem:a38ef3535e93e920966b40c578e63908b" id="r_a38ef3535e93e920966b40c578e63908b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a38ef3535e93e920966b40c578e63908b">setActivationFunction</a> (int <a class="el" href="#a5f1ab9590ca86d5354c9b489d16248a8">type</a>)</td></tr>
 <tr class="separator:a38ef3535e93e920966b40c578e63908b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a441658f2f3e974d44cdd83d6dc134e93"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a441658f2f3e974d44cdd83d6dc134e93">setLayerSizes</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> _layer_sizes)</td></tr>
+<tr class="memitem:a441658f2f3e974d44cdd83d6dc134e93" id="r_a441658f2f3e974d44cdd83d6dc134e93"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a441658f2f3e974d44cdd83d6dc134e93">setLayerSizes</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> _layer_sizes)</td></tr>
 <tr class="separator:a441658f2f3e974d44cdd83d6dc134e93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73a5728736fbdc60d03fb32b3f14c181"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a73a5728736fbdc60d03fb32b3f14c181">getLayerSizes</a> ()</td></tr>
+<tr class="memitem:a73a5728736fbdc60d03fb32b3f14c181" id="r_a73a5728736fbdc60d03fb32b3f14c181"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a73a5728736fbdc60d03fb32b3f14c181">getLayerSizes</a> ()</td></tr>
 <tr class="separator:a73a5728736fbdc60d03fb32b3f14c181"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a317e9ef8cfa586eb4233ca365c72775c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a317e9ef8cfa586eb4233ca365c72775c">getTermCriteria</a> ()</td></tr>
+<tr class="memitem:a317e9ef8cfa586eb4233ca365c72775c" id="r_a317e9ef8cfa586eb4233ca365c72775c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a317e9ef8cfa586eb4233ca365c72775c">getTermCriteria</a> ()</td></tr>
 <tr class="separator:a317e9ef8cfa586eb4233ca365c72775c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1eda3602658683ceb05a0d8dd5213028"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a1eda3602658683ceb05a0d8dd5213028">setTermCriteria</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a> val)</td></tr>
+<tr class="memitem:a1eda3602658683ceb05a0d8dd5213028" id="r_a1eda3602658683ceb05a0d8dd5213028"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1eda3602658683ceb05a0d8dd5213028">setTermCriteria</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a> val)</td></tr>
 <tr class="separator:a1eda3602658683ceb05a0d8dd5213028"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a955ecce54bc9695439b147b257d57465"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a955ecce54bc9695439b147b257d57465">getBackpropWeightScale</a> ()</td></tr>
+<tr class="memitem:a955ecce54bc9695439b147b257d57465" id="r_a955ecce54bc9695439b147b257d57465"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a955ecce54bc9695439b147b257d57465">getBackpropWeightScale</a> ()</td></tr>
 <tr class="separator:a955ecce54bc9695439b147b257d57465"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a391110073233ec548eac0dc733747df7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a391110073233ec548eac0dc733747df7">setBackpropWeightScale</a> (double val)</td></tr>
+<tr class="memitem:a391110073233ec548eac0dc733747df7" id="r_a391110073233ec548eac0dc733747df7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a391110073233ec548eac0dc733747df7">setBackpropWeightScale</a> (double val)</td></tr>
 <tr class="separator:a391110073233ec548eac0dc733747df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6592837694522ed134420b7bfcf191d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#af6592837694522ed134420b7bfcf191d">getBackpropMomentumScale</a> ()</td></tr>
+<tr class="memitem:af6592837694522ed134420b7bfcf191d" id="r_af6592837694522ed134420b7bfcf191d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6592837694522ed134420b7bfcf191d">getBackpropMomentumScale</a> ()</td></tr>
 <tr class="separator:af6592837694522ed134420b7bfcf191d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d10bf3f12f0a34a0e6baac27e3ab2e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a8d10bf3f12f0a34a0e6baac27e3ab2e4">setBackpropMomentumScale</a> (double val)</td></tr>
+<tr class="memitem:a8d10bf3f12f0a34a0e6baac27e3ab2e4" id="r_a8d10bf3f12f0a34a0e6baac27e3ab2e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d10bf3f12f0a34a0e6baac27e3ab2e4">setBackpropMomentumScale</a> (double val)</td></tr>
 <tr class="separator:a8d10bf3f12f0a34a0e6baac27e3ab2e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae37656afadf885b6d2eb1b579ecb54c9"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ae37656afadf885b6d2eb1b579ecb54c9">getRpropDW0</a> ()</td></tr>
+<tr class="memitem:ae37656afadf885b6d2eb1b579ecb54c9" id="r_ae37656afadf885b6d2eb1b579ecb54c9"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae37656afadf885b6d2eb1b579ecb54c9">getRpropDW0</a> ()</td></tr>
 <tr class="separator:ae37656afadf885b6d2eb1b579ecb54c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a003c9ae4ef4494f8af8db42c108d5245"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a003c9ae4ef4494f8af8db42c108d5245">setRpropDW0</a> (double val)</td></tr>
+<tr class="memitem:a003c9ae4ef4494f8af8db42c108d5245" id="r_a003c9ae4ef4494f8af8db42c108d5245"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a003c9ae4ef4494f8af8db42c108d5245">setRpropDW0</a> (double val)</td></tr>
 <tr class="separator:a003c9ae4ef4494f8af8db42c108d5245"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0c5b723bae4cfc82e0b3cd8ef41a5dd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ad0c5b723bae4cfc82e0b3cd8ef41a5dd">getRpropDWPlus</a> ()</td></tr>
+<tr class="memitem:ad0c5b723bae4cfc82e0b3cd8ef41a5dd" id="r_ad0c5b723bae4cfc82e0b3cd8ef41a5dd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad0c5b723bae4cfc82e0b3cd8ef41a5dd">getRpropDWPlus</a> ()</td></tr>
 <tr class="separator:ad0c5b723bae4cfc82e0b3cd8ef41a5dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5f9187625fb7c157875af7bc808182a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#aa5f9187625fb7c157875af7bc808182a">setRpropDWPlus</a> (double val)</td></tr>
+<tr class="memitem:aa5f9187625fb7c157875af7bc808182a" id="r_aa5f9187625fb7c157875af7bc808182a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa5f9187625fb7c157875af7bc808182a">setRpropDWPlus</a> (double val)</td></tr>
 <tr class="separator:aa5f9187625fb7c157875af7bc808182a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec5a810451ba939f6781739d99843c6f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#aec5a810451ba939f6781739d99843c6f">getRpropDWMinus</a> ()</td></tr>
+<tr class="memitem:aec5a810451ba939f6781739d99843c6f" id="r_aec5a810451ba939f6781739d99843c6f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec5a810451ba939f6781739d99843c6f">getRpropDWMinus</a> ()</td></tr>
 <tr class="separator:aec5a810451ba939f6781739d99843c6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aede4c2a924032062882ba9c14a2ec0e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#aede4c2a924032062882ba9c14a2ec0e9">setRpropDWMinus</a> (double val)</td></tr>
+<tr class="memitem:aede4c2a924032062882ba9c14a2ec0e9" id="r_aede4c2a924032062882ba9c14a2ec0e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aede4c2a924032062882ba9c14a2ec0e9">setRpropDWMinus</a> (double val)</td></tr>
 <tr class="separator:aede4c2a924032062882ba9c14a2ec0e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35c59e70429aaed2b90b82b06a9e1f0c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a35c59e70429aaed2b90b82b06a9e1f0c">getRpropDWMin</a> ()</td></tr>
+<tr class="memitem:a35c59e70429aaed2b90b82b06a9e1f0c" id="r_a35c59e70429aaed2b90b82b06a9e1f0c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35c59e70429aaed2b90b82b06a9e1f0c">getRpropDWMin</a> ()</td></tr>
 <tr class="separator:a35c59e70429aaed2b90b82b06a9e1f0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ddb44137b6aedeb3020da0ad4b4a176"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a3ddb44137b6aedeb3020da0ad4b4a176">setRpropDWMin</a> (double val)</td></tr>
+<tr class="memitem:a3ddb44137b6aedeb3020da0ad4b4a176" id="r_a3ddb44137b6aedeb3020da0ad4b4a176"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3ddb44137b6aedeb3020da0ad4b4a176">setRpropDWMin</a> (double val)</td></tr>
 <tr class="separator:a3ddb44137b6aedeb3020da0ad4b4a176"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7536d6a0b4eaeed8d05b51cbeaf58c88"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a7536d6a0b4eaeed8d05b51cbeaf58c88">getRpropDWMax</a> ()</td></tr>
+<tr class="memitem:a7536d6a0b4eaeed8d05b51cbeaf58c88" id="r_a7536d6a0b4eaeed8d05b51cbeaf58c88"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7536d6a0b4eaeed8d05b51cbeaf58c88">getRpropDWMax</a> ()</td></tr>
 <tr class="separator:a7536d6a0b4eaeed8d05b51cbeaf58c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea2c2048a9dbbbed31e767cba26b338c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#aea2c2048a9dbbbed31e767cba26b338c">setRpropDWMax</a> (double val)</td></tr>
+<tr class="memitem:aea2c2048a9dbbbed31e767cba26b338c" id="r_aea2c2048a9dbbbed31e767cba26b338c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aea2c2048a9dbbbed31e767cba26b338c">setRpropDWMax</a> (double val)</td></tr>
 <tr class="separator:aea2c2048a9dbbbed31e767cba26b338c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a8eafdd67212bfbbc859758eefc7d26"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a9a8eafdd67212bfbbc859758eefc7d26">getAnnealInitialT</a> ()</td></tr>
+<tr class="memitem:a9a8eafdd67212bfbbc859758eefc7d26" id="r_a9a8eafdd67212bfbbc859758eefc7d26"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a8eafdd67212bfbbc859758eefc7d26">getAnnealInitialT</a> ()</td></tr>
 <tr class="separator:a9a8eafdd67212bfbbc859758eefc7d26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d0dbf2a92c77d68cc7e3df29db8538a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a1d0dbf2a92c77d68cc7e3df29db8538a">setAnnealInitialT</a> (double val)</td></tr>
+<tr class="memitem:a1d0dbf2a92c77d68cc7e3df29db8538a" id="r_a1d0dbf2a92c77d68cc7e3df29db8538a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d0dbf2a92c77d68cc7e3df29db8538a">setAnnealInitialT</a> (double val)</td></tr>
 <tr class="separator:a1d0dbf2a92c77d68cc7e3df29db8538a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43b9af82f4dc89976f557335261f930c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a43b9af82f4dc89976f557335261f930c">getAnnealFinalT</a> ()</td></tr>
+<tr class="memitem:a43b9af82f4dc89976f557335261f930c" id="r_a43b9af82f4dc89976f557335261f930c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a43b9af82f4dc89976f557335261f930c">getAnnealFinalT</a> ()</td></tr>
 <tr class="separator:a43b9af82f4dc89976f557335261f930c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7158a49922620e1f5761d0dbf84c0a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ab7158a49922620e1f5761d0dbf84c0a6">setAnnealFinalT</a> (double val)</td></tr>
+<tr class="memitem:ab7158a49922620e1f5761d0dbf84c0a6" id="r_ab7158a49922620e1f5761d0dbf84c0a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab7158a49922620e1f5761d0dbf84c0a6">setAnnealFinalT</a> (double val)</td></tr>
 <tr class="separator:ab7158a49922620e1f5761d0dbf84c0a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34c0828bdb9f3f0f2d8ff48c52e09026"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a34c0828bdb9f3f0f2d8ff48c52e09026">getAnnealCoolingRatio</a> ()</td></tr>
+<tr class="memitem:a34c0828bdb9f3f0f2d8ff48c52e09026" id="r_a34c0828bdb9f3f0f2d8ff48c52e09026"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a34c0828bdb9f3f0f2d8ff48c52e09026">getAnnealCoolingRatio</a> ()</td></tr>
 <tr class="separator:a34c0828bdb9f3f0f2d8ff48c52e09026"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebd7ead5519a38b8c8c8f7f8e0ae0f1a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#aebd7ead5519a38b8c8c8f7f8e0ae0f1a">setAnnealCoolingRatio</a> (double val)</td></tr>
+<tr class="memitem:aebd7ead5519a38b8c8c8f7f8e0ae0f1a" id="r_aebd7ead5519a38b8c8c8f7f8e0ae0f1a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aebd7ead5519a38b8c8c8f7f8e0ae0f1a">setAnnealCoolingRatio</a> (double val)</td></tr>
 <tr class="separator:aebd7ead5519a38b8c8c8f7f8e0ae0f1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac78c847ac57548e932cbaafead46b020"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ac78c847ac57548e932cbaafead46b020">getAnnealItePerStep</a> ()</td></tr>
+<tr class="memitem:ac78c847ac57548e932cbaafead46b020" id="r_ac78c847ac57548e932cbaafead46b020"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac78c847ac57548e932cbaafead46b020">getAnnealItePerStep</a> ()</td></tr>
 <tr class="separator:ac78c847ac57548e932cbaafead46b020"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace089e605ef0935ba0abf707952b0b29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ace089e605ef0935ba0abf707952b0b29">setAnnealItePerStep</a> (int val)</td></tr>
+<tr class="memitem:ace089e605ef0935ba0abf707952b0b29" id="r_ace089e605ef0935ba0abf707952b0b29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace089e605ef0935ba0abf707952b0b29">setAnnealItePerStep</a> (int val)</td></tr>
 <tr class="separator:ace089e605ef0935ba0abf707952b0b29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c0399bdbabc4db07517e02c6db8f744"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a8c0399bdbabc4db07517e02c6db8f744">getWeights</a> (int layerIdx)</td></tr>
+<tr class="memitem:a8c0399bdbabc4db07517e02c6db8f744" id="r_a8c0399bdbabc4db07517e02c6db8f744"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c0399bdbabc4db07517e02c6db8f744">getWeights</a> (int layerIdx)</td></tr>
 <tr class="separator:a8c0399bdbabc4db07517e02c6db8f744"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html">OpenCVForUnity.MlModule.StatModel</a></td></tr>
-<tr class="memitem:af55ea95cb4f4e5a2a76366da1fa2149d inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#af55ea95cb4f4e5a2a76366da1fa2149d">getVarCount</a> ()</td></tr>
-<tr class="memdesc:af55ea95cb4f4e5a2a76366da1fa2149d inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of variables in training samples.  <a href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#af55ea95cb4f4e5a2a76366da1fa2149d">More...</a><br /></td></tr>
+<tr class="memitem:a87ead7d2c685e531f3db00a20f031c0b" id="r_a87ead7d2c685e531f3db00a20f031c0b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87ead7d2c685e531f3db00a20f031c0b">getTermCriteriaAsVec3d</a> ()</td></tr>
+<tr class="separator:a87ead7d2c685e531f3db00a20f031c0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af446b572844ff175fce7850d10da3cc3" id="r_af446b572844ff175fce7850d10da3cc3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af446b572844ff175fce7850d10da3cc3">setTermCriteria</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a> val)</td></tr>
+<tr class="separator:af446b572844ff175fce7850d10da3cc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf3e912379fb3781b622e40c5a24f968" id="r_acf3e912379fb3781b622e40c5a24f968"><td class="memItemLeft" align="right" valign="top">double double double epsilon&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acf3e912379fb3781b622e40c5a24f968">getTermCriteriaAsValueTuple</a> ()</td></tr>
+<tr class="separator:acf3e912379fb3781b622e40c5a24f968"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82e47f231f1bc7367af3564804a95ce1" id="r_a82e47f231f1bc7367af3564804a95ce1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a82e47f231f1bc7367af3564804a95ce1">setTermCriteria</a> (in(double <a class="el" href="#a5f1ab9590ca86d5354c9b489d16248a8">type</a>, double <a class="el" href="#a3e3f4aa478b225bda6c876bfba322f11">maxCount</a>, double epsilon) val)</td></tr>
+<tr class="separator:a82e47f231f1bc7367af3564804a95ce1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html">OpenCVForUnity.MlModule.StatModel</a></td></tr>
+<tr class="memitem:af55ea95cb4f4e5a2a76366da1fa2149d inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model" id="r_af55ea95cb4f4e5a2a76366da1fa2149d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#af55ea95cb4f4e5a2a76366da1fa2149d">getVarCount</a> ()</td></tr>
+<tr class="memdesc:af55ea95cb4f4e5a2a76366da1fa2149d inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of variables in training samples.  <br /></td></tr>
 <tr class="separator:af55ea95cb4f4e5a2a76366da1fa2149d inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3aac0bf27f00bc0822391f6c4220e362 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memItemLeft" align="right" valign="top">override bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a3aac0bf27f00bc0822391f6c4220e362">empty</a> ()</td></tr>
-<tr class="memdesc:a3aac0bf27f00bc0822391f6c4220e362 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the Algorithm is empty (e.g. in the very beginning or after unsuccessful read.  <a href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a3aac0bf27f00bc0822391f6c4220e362">More...</a><br /></td></tr>
+<tr class="memitem:a3aac0bf27f00bc0822391f6c4220e362 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model" id="r_a3aac0bf27f00bc0822391f6c4220e362"><td class="memItemLeft" align="right" valign="top">override bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a3aac0bf27f00bc0822391f6c4220e362">empty</a> ()</td></tr>
+<tr class="memdesc:a3aac0bf27f00bc0822391f6c4220e362 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the Algorithm is empty (e.g. in the very beginning or after unsuccessful read.  <br /></td></tr>
 <tr class="separator:a3aac0bf27f00bc0822391f6c4220e362 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace404707f61f7ef211bbb3915bccafa2 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#ace404707f61f7ef211bbb3915bccafa2">isTrained</a> ()</td></tr>
-<tr class="memdesc:ace404707f61f7ef211bbb3915bccafa2 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the model is trained.  <a href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#ace404707f61f7ef211bbb3915bccafa2">More...</a><br /></td></tr>
+<tr class="memitem:ace404707f61f7ef211bbb3915bccafa2 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model" id="r_ace404707f61f7ef211bbb3915bccafa2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#ace404707f61f7ef211bbb3915bccafa2">isTrained</a> ()</td></tr>
+<tr class="memdesc:ace404707f61f7ef211bbb3915bccafa2 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the model is trained.  <br /></td></tr>
 <tr class="separator:ace404707f61f7ef211bbb3915bccafa2 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dae2ab335a5184ab7d92116b6652c88 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a6dae2ab335a5184ab7d92116b6652c88">isClassifier</a> ()</td></tr>
-<tr class="memdesc:a6dae2ab335a5184ab7d92116b6652c88 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the model is classifier.  <a href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a6dae2ab335a5184ab7d92116b6652c88">More...</a><br /></td></tr>
+<tr class="memitem:a6dae2ab335a5184ab7d92116b6652c88 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model" id="r_a6dae2ab335a5184ab7d92116b6652c88"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a6dae2ab335a5184ab7d92116b6652c88">isClassifier</a> ()</td></tr>
+<tr class="memdesc:a6dae2ab335a5184ab7d92116b6652c88 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the model is classifier.  <br /></td></tr>
 <tr class="separator:a6dae2ab335a5184ab7d92116b6652c88 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb89b426c076f2958db2a2d8d8ff8401 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#acb89b426c076f2958db2a2d8d8ff8401">train</a> (<a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a> trainData, int flags)</td></tr>
-<tr class="memdesc:acb89b426c076f2958db2a2d8d8ff8401 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trains the statistical model.  <a href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#acb89b426c076f2958db2a2d8d8ff8401">More...</a><br /></td></tr>
+<tr class="memitem:acb89b426c076f2958db2a2d8d8ff8401 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model" id="r_acb89b426c076f2958db2a2d8d8ff8401"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#acb89b426c076f2958db2a2d8d8ff8401">train</a> (<a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a> trainData, int flags)</td></tr>
+<tr class="memdesc:acb89b426c076f2958db2a2d8d8ff8401 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trains the statistical model.  <br /></td></tr>
 <tr class="separator:acb89b426c076f2958db2a2d8d8ff8401 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92041808ea64a707f1789506d583994c inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a92041808ea64a707f1789506d583994c">train</a> (<a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a> trainData)</td></tr>
-<tr class="memdesc:a92041808ea64a707f1789506d583994c inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trains the statistical model.  <a href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a92041808ea64a707f1789506d583994c">More...</a><br /></td></tr>
+<tr class="memitem:a92041808ea64a707f1789506d583994c inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model" id="r_a92041808ea64a707f1789506d583994c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a92041808ea64a707f1789506d583994c">train</a> (<a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a> trainData)</td></tr>
+<tr class="memdesc:a92041808ea64a707f1789506d583994c inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trains the statistical model.  <br /></td></tr>
 <tr class="separator:a92041808ea64a707f1789506d583994c inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a735e7bc1e8422ab769510c1afca3dd00 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a735e7bc1e8422ab769510c1afca3dd00">train</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> samples, int layout, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> responses)</td></tr>
-<tr class="memdesc:a735e7bc1e8422ab769510c1afca3dd00 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trains the statistical model.  <a href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a735e7bc1e8422ab769510c1afca3dd00">More...</a><br /></td></tr>
+<tr class="memitem:a735e7bc1e8422ab769510c1afca3dd00 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model" id="r_a735e7bc1e8422ab769510c1afca3dd00"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a735e7bc1e8422ab769510c1afca3dd00">train</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> samples, int layout, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> responses)</td></tr>
+<tr class="memdesc:a735e7bc1e8422ab769510c1afca3dd00 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trains the statistical model.  <br /></td></tr>
 <tr class="separator:a735e7bc1e8422ab769510c1afca3dd00 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92565adabff00c993babbc14574a788f inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a92565adabff00c993babbc14574a788f">calcError</a> (<a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a> data, bool test, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> resp)</td></tr>
-<tr class="memdesc:a92565adabff00c993babbc14574a788f inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes error on the training or test dataset.  <a href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a92565adabff00c993babbc14574a788f">More...</a><br /></td></tr>
+<tr class="memitem:a92565adabff00c993babbc14574a788f inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model" id="r_a92565adabff00c993babbc14574a788f"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a92565adabff00c993babbc14574a788f">calcError</a> (<a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a> data, bool test, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> resp)</td></tr>
+<tr class="memdesc:a92565adabff00c993babbc14574a788f inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes error on the training or test dataset.  <br /></td></tr>
 <tr class="separator:a92565adabff00c993babbc14574a788f inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a347dd694c4251234f8894f0bd697b900 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a347dd694c4251234f8894f0bd697b900">predict</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> samples, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> results, int flags)</td></tr>
-<tr class="memdesc:a347dd694c4251234f8894f0bd697b900 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicts response(s) for the provided sample(s)  <a href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a347dd694c4251234f8894f0bd697b900">More...</a><br /></td></tr>
+<tr class="memitem:a347dd694c4251234f8894f0bd697b900 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model" id="r_a347dd694c4251234f8894f0bd697b900"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a347dd694c4251234f8894f0bd697b900">predict</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> samples, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> results, int flags)</td></tr>
+<tr class="memdesc:a347dd694c4251234f8894f0bd697b900 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicts response(s) for the provided sample(s)  <br /></td></tr>
 <tr class="separator:a347dd694c4251234f8894f0bd697b900 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa036a830a2115024c82d5717b494d72 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#afa036a830a2115024c82d5717b494d72">predict</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> samples, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> results)</td></tr>
-<tr class="memdesc:afa036a830a2115024c82d5717b494d72 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicts response(s) for the provided sample(s)  <a href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#afa036a830a2115024c82d5717b494d72">More...</a><br /></td></tr>
+<tr class="memitem:afa036a830a2115024c82d5717b494d72 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model" id="r_afa036a830a2115024c82d5717b494d72"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#afa036a830a2115024c82d5717b494d72">predict</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> samples, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> results)</td></tr>
+<tr class="memdesc:afa036a830a2115024c82d5717b494d72 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicts response(s) for the provided sample(s)  <br /></td></tr>
 <tr class="separator:afa036a830a2115024c82d5717b494d72 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc4edb10a1f4cb309a54c6c8cfcb4655 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#abc4edb10a1f4cb309a54c6c8cfcb4655">predict</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> samples)</td></tr>
-<tr class="memdesc:abc4edb10a1f4cb309a54c6c8cfcb4655 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicts response(s) for the provided sample(s)  <a href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#abc4edb10a1f4cb309a54c6c8cfcb4655">More...</a><br /></td></tr>
+<tr class="memitem:abc4edb10a1f4cb309a54c6c8cfcb4655 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model" id="r_abc4edb10a1f4cb309a54c6c8cfcb4655"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#abc4edb10a1f4cb309a54c6c8cfcb4655">predict</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> samples)</td></tr>
+<tr class="memdesc:abc4edb10a1f4cb309a54c6c8cfcb4655 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicts response(s) for the provided sample(s)  <br /></td></tr>
 <tr class="separator:abc4edb10a1f4cb309a54c6c8cfcb4655 inherit pub_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
-<tr class="memitem:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a8023b07a6a0100bb4c9eccd175bc68df">getNativeObjAddr</a> ()</td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="memitem:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a8023b07a6a0100bb4c9eccd175bc68df"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a8023b07a6a0100bb4c9eccd175bc68df">getNativeObjAddr</a> ()</td></tr>
 <tr class="separator:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a54f71b05d21ec0abc593bb50cf66ce12">clear</a> ()</td></tr>
-<tr class="memdesc:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the algorithm state.  <a href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a54f71b05d21ec0abc593bb50cf66ce12">More...</a><br /></td></tr>
+<tr class="memitem:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a54f71b05d21ec0abc593bb50cf66ce12"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a54f71b05d21ec0abc593bb50cf66ce12">clear</a> ()</td></tr>
+<tr class="memdesc:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the algorithm state.  <br /></td></tr>
 <tr class="separator:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4c0ad9f8fd5975a8dbf9209115495db inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#af4c0ad9f8fd5975a8dbf9209115495db">save</a> (string filename)</td></tr>
+<tr class="memitem:af4c0ad9f8fd5975a8dbf9209115495db inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_af4c0ad9f8fd5975a8dbf9209115495db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#af4c0ad9f8fd5975a8dbf9209115495db">save</a> (string filename)</td></tr>
 <tr class="separator:af4c0ad9f8fd5975a8dbf9209115495db inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9f5751351974d69a3a98510d3856518 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#aa9f5751351974d69a3a98510d3856518">getDefaultName</a> ()</td></tr>
+<tr class="memitem:aa9f5751351974d69a3a98510d3856518 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_aa9f5751351974d69a3a98510d3856518"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#aa9f5751351974d69a3a98510d3856518">getDefaultName</a> ()</td></tr>
 <tr class="separator:aa9f5751351974d69a3a98510d3856518 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a68dd6362a65b5bf2f2b8828bef0b7dc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
 <tr class="separator:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
+<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a620f073ff3aa1bcee28fb00edb01dc11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
 <tr class="separator:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a7cdf98486636188cdc77fedfb4e29455"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html">ANN_MLP</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a7cdf98486636188cdc77fedfb4e29455">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="memitem:a7cdf98486636188cdc77fedfb4e29455" id="r_a7cdf98486636188cdc77fedfb4e29455"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html">ANN_MLP</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7cdf98486636188cdc77fedfb4e29455">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:a7cdf98486636188cdc77fedfb4e29455"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae6902c9111977dca58f011daf8400f2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html">ANN_MLP</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#aae6902c9111977dca58f011daf8400f2">create</a> ()</td></tr>
-<tr class="memdesc:aae6902c9111977dca58f011daf8400f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates empty model.  <a href="#aae6902c9111977dca58f011daf8400f2">More...</a><br /></td></tr>
+<tr class="memitem:aae6902c9111977dca58f011daf8400f2" id="r_aae6902c9111977dca58f011daf8400f2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html">ANN_MLP</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aae6902c9111977dca58f011daf8400f2">create</a> ()</td></tr>
+<tr class="memdesc:aae6902c9111977dca58f011daf8400f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates empty model.  <br /></td></tr>
 <tr class="separator:aae6902c9111977dca58f011daf8400f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8157da6af49b816f5653526f5f65aa8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html">ANN_MLP</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ab8157da6af49b816f5653526f5f65aa8">load</a> (string filepath)</td></tr>
-<tr class="memdesc:ab8157da6af49b816f5653526f5f65aa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads and creates a serialized ANN from a file.  <a href="#ab8157da6af49b816f5653526f5f65aa8">More...</a><br /></td></tr>
+<tr class="memitem:ab8157da6af49b816f5653526f5f65aa8" id="r_ab8157da6af49b816f5653526f5f65aa8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html">ANN_MLP</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab8157da6af49b816f5653526f5f65aa8">load</a> (string filepath)</td></tr>
+<tr class="memdesc:ab8157da6af49b816f5653526f5f65aa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads and creates a serialized ANN from a file.  <br /></td></tr>
 <tr class="separator:ab8157da6af49b816f5653526f5f65aa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html">OpenCVForUnity.MlModule.StatModel</a></td></tr>
-<tr class="memitem:a21a47cca4cebb93a54cc8707f12352a6 inherit pub_static_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html">StatModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a21a47cca4cebb93a54cc8707f12352a6">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html">OpenCVForUnity.MlModule.StatModel</a></td></tr>
+<tr class="memitem:a21a47cca4cebb93a54cc8707f12352a6 inherit pub_static_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model" id="r_a21a47cca4cebb93a54cc8707f12352a6"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html">StatModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a21a47cca4cebb93a54cc8707f12352a6">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:a21a47cca4cebb93a54cc8707f12352a6 inherit pub_static_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
-<tr class="memitem:a86d037d927276dadd66bdb102a74b53a inherit pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">Algorithm</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86d037d927276dadd66bdb102a74b53a">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="memitem:a86d037d927276dadd66bdb102a74b53a inherit pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a86d037d927276dadd66bdb102a74b53a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">Algorithm</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86d037d927276dadd66bdb102a74b53a">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:a86d037d927276dadd66bdb102a74b53a inherit pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a4b998ab4293ee3fb7cdc494ed9375fc3"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a3fb0016e7d360bedcba1a88e32265826"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a3fb0016e7d360bedcba1a88e32265826">IDENTITY</a> = 0</td></tr>
-<tr class="separator:a3fb0016e7d360bedcba1a88e32265826"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acee59490f9c88a5db0046ccfa8840bbd"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#acee59490f9c88a5db0046ccfa8840bbd">SIGMOID_SYM</a> = 1</td></tr>
-<tr class="separator:acee59490f9c88a5db0046ccfa8840bbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0658b0d0cab5cd435157370e2bca6b38"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a0658b0d0cab5cd435157370e2bca6b38">GAUSSIAN</a> = 2</td></tr>
-<tr class="separator:a0658b0d0cab5cd435157370e2bca6b38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7248d5bf533f239d13e0e2f7e28ad975"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a7248d5bf533f239d13e0e2f7e28ad975">RELU</a> = 3</td></tr>
-<tr class="separator:a7248d5bf533f239d13e0e2f7e28ad975"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0bf932f9031f88c715320755fb870cf2"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a0bf932f9031f88c715320755fb870cf2">LEAKYRELU</a> = 4</td></tr>
-<tr class="separator:a0bf932f9031f88c715320755fb870cf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a15bf15c1c57a752391ad34785f6962"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a1a15bf15c1c57a752391ad34785f6962">UPDATE_WEIGHTS</a> = 1</td></tr>
-<tr class="separator:a1a15bf15c1c57a752391ad34785f6962"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afda37f061f7616d2e30cefc1f5223844"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#afda37f061f7616d2e30cefc1f5223844">NO_INPUT_SCALE</a> = 2</td></tr>
-<tr class="separator:afda37f061f7616d2e30cefc1f5223844"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7e8e84a3586989c5aa7314fc38a7b0b"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ad7e8e84a3586989c5aa7314fc38a7b0b">NO_OUTPUT_SCALE</a> = 4</td></tr>
-<tr class="separator:ad7e8e84a3586989c5aa7314fc38a7b0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86071216d34c271b99d0ae0815ce1765"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a86071216d34c271b99d0ae0815ce1765">BACKPROP</a> = 0</td></tr>
-<tr class="separator:a86071216d34c271b99d0ae0815ce1765"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae34578577f0bb1dfb3e535e1acb373e2"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ae34578577f0bb1dfb3e535e1acb373e2">RPROP</a> = 1</td></tr>
-<tr class="separator:ae34578577f0bb1dfb3e535e1acb373e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb64d8fd3c179b1e2b659f06d41d3e96"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#afb64d8fd3c179b1e2b659f06d41d3e96">ANNEAL</a> = 2</td></tr>
-<tr class="separator:afb64d8fd3c179b1e2b659f06d41d3e96"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_attribs_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html">OpenCVForUnity.MlModule.StatModel</a></td></tr>
-<tr class="memitem:aae7ecb0e9dbd94916db12022fb37884f inherit pub_attribs_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#aae7ecb0e9dbd94916db12022fb37884f">UPDATE_MODEL</a> = 1</td></tr>
-<tr class="separator:aae7ecb0e9dbd94916db12022fb37884f inherit pub_attribs_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98f72b10a95419acdf751d35f6bc5cf2 inherit pub_attribs_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a98f72b10a95419acdf751d35f6bc5cf2">RAW_OUTPUT</a> = 1</td></tr>
-<tr class="separator:a98f72b10a95419acdf751d35f6bc5cf2 inherit pub_attribs_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07ce374907fab1e3aaa47e17b1109bbf inherit pub_attribs_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a07ce374907fab1e3aaa47e17b1109bbf">COMPRESSED_INPUT</a> = 2</td></tr>
-<tr class="separator:a07ce374907fab1e3aaa47e17b1109bbf inherit pub_attribs_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6769ec142de418ca9f1ee5860f24f30a inherit pub_attribs_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a6769ec142de418ca9f1ee5860f24f30a">PREPROCESSED_INPUT</a> = 4</td></tr>
-<tr class="separator:a6769ec142de418ca9f1ee5860f24f30a inherit pub_attribs_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f1ab9590ca86d5354c9b489d16248a8" id="r_a5f1ab9590ca86d5354c9b489d16248a8"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f1ab9590ca86d5354c9b489d16248a8">type</a></td></tr>
+<tr class="separator:a5f1ab9590ca86d5354c9b489d16248a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e3f4aa478b225bda6c876bfba322f11" id="r_a3e3f4aa478b225bda6c876bfba322f11"><td class="memItemLeft" align="right" valign="top">double double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3e3f4aa478b225bda6c876bfba322f11">maxCount</a></td></tr>
+<tr class="separator:a3e3f4aa478b225bda6c876bfba322f11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a3fb0016e7d360bedcba1a88e32265826" id="r_a3fb0016e7d360bedcba1a88e32265826"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3fb0016e7d360bedcba1a88e32265826">IDENTITY</a> = 0</td></tr>
+<tr class="separator:a3fb0016e7d360bedcba1a88e32265826"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acee59490f9c88a5db0046ccfa8840bbd" id="r_acee59490f9c88a5db0046ccfa8840bbd"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acee59490f9c88a5db0046ccfa8840bbd">SIGMOID_SYM</a> = 1</td></tr>
+<tr class="separator:acee59490f9c88a5db0046ccfa8840bbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0658b0d0cab5cd435157370e2bca6b38" id="r_a0658b0d0cab5cd435157370e2bca6b38"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0658b0d0cab5cd435157370e2bca6b38">GAUSSIAN</a> = 2</td></tr>
+<tr class="separator:a0658b0d0cab5cd435157370e2bca6b38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7248d5bf533f239d13e0e2f7e28ad975" id="r_a7248d5bf533f239d13e0e2f7e28ad975"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7248d5bf533f239d13e0e2f7e28ad975">RELU</a> = 3</td></tr>
+<tr class="separator:a7248d5bf533f239d13e0e2f7e28ad975"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bf932f9031f88c715320755fb870cf2" id="r_a0bf932f9031f88c715320755fb870cf2"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0bf932f9031f88c715320755fb870cf2">LEAKYRELU</a> = 4</td></tr>
+<tr class="separator:a0bf932f9031f88c715320755fb870cf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a15bf15c1c57a752391ad34785f6962" id="r_a1a15bf15c1c57a752391ad34785f6962"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1a15bf15c1c57a752391ad34785f6962">UPDATE_WEIGHTS</a> = 1</td></tr>
+<tr class="separator:a1a15bf15c1c57a752391ad34785f6962"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afda37f061f7616d2e30cefc1f5223844" id="r_afda37f061f7616d2e30cefc1f5223844"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afda37f061f7616d2e30cefc1f5223844">NO_INPUT_SCALE</a> = 2</td></tr>
+<tr class="separator:afda37f061f7616d2e30cefc1f5223844"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7e8e84a3586989c5aa7314fc38a7b0b" id="r_ad7e8e84a3586989c5aa7314fc38a7b0b"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad7e8e84a3586989c5aa7314fc38a7b0b">NO_OUTPUT_SCALE</a> = 4</td></tr>
+<tr class="separator:ad7e8e84a3586989c5aa7314fc38a7b0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86071216d34c271b99d0ae0815ce1765" id="r_a86071216d34c271b99d0ae0815ce1765"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a86071216d34c271b99d0ae0815ce1765">BACKPROP</a> = 0</td></tr>
+<tr class="separator:a86071216d34c271b99d0ae0815ce1765"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae34578577f0bb1dfb3e535e1acb373e2" id="r_ae34578577f0bb1dfb3e535e1acb373e2"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae34578577f0bb1dfb3e535e1acb373e2">RPROP</a> = 1</td></tr>
+<tr class="separator:ae34578577f0bb1dfb3e535e1acb373e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb64d8fd3c179b1e2b659f06d41d3e96" id="r_afb64d8fd3c179b1e2b659f06d41d3e96"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afb64d8fd3c179b1e2b659f06d41d3e96">ANNEAL</a> = 2</td></tr>
+<tr class="separator:afb64d8fd3c179b1e2b659f06d41d3e96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_attribs_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_attribs_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html">OpenCVForUnity.MlModule.StatModel</a></td></tr>
+<tr class="memitem:aae7ecb0e9dbd94916db12022fb37884f inherit pub_static_attribs_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model" id="r_aae7ecb0e9dbd94916db12022fb37884f"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#aae7ecb0e9dbd94916db12022fb37884f">UPDATE_MODEL</a> = 1</td></tr>
+<tr class="separator:aae7ecb0e9dbd94916db12022fb37884f inherit pub_static_attribs_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98f72b10a95419acdf751d35f6bc5cf2 inherit pub_static_attribs_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model" id="r_a98f72b10a95419acdf751d35f6bc5cf2"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a98f72b10a95419acdf751d35f6bc5cf2">RAW_OUTPUT</a> = 1</td></tr>
+<tr class="separator:a98f72b10a95419acdf751d35f6bc5cf2 inherit pub_static_attribs_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07ce374907fab1e3aaa47e17b1109bbf inherit pub_static_attribs_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model" id="r_a07ce374907fab1e3aaa47e17b1109bbf"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a07ce374907fab1e3aaa47e17b1109bbf">COMPRESSED_INPUT</a> = 2</td></tr>
+<tr class="separator:a07ce374907fab1e3aaa47e17b1109bbf inherit pub_static_attribs_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6769ec142de418ca9f1ee5860f24f30a inherit pub_static_attribs_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model" id="r_a6769ec142de418ca9f1ee5860f24f30a"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a6769ec142de418ca9f1ee5860f24f30a">PREPROCESSED_INPUT</a> = 4</td></tr>
+<tr class="separator:a6769ec142de418ca9f1ee5860f24f30a inherit pub_static_attribs_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a04d1231aa69b80441162ec408d2bdd68"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a04d1231aa69b80441162ec408d2bdd68">Dispose</a> (bool disposing)</td></tr>
+<tr class="memitem:a04d1231aa69b80441162ec408d2bdd68" id="r_a04d1231aa69b80441162ec408d2bdd68"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a04d1231aa69b80441162ec408d2bdd68">Dispose</a> (bool disposing)</td></tr>
 <tr class="separator:a04d1231aa69b80441162ec408d2bdd68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html">OpenCVForUnity.MlModule.StatModel</a></td></tr>
-<tr class="memitem:a38fc8b8623a363e7ef2774c569fd2b08 inherit pro_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a38fc8b8623a363e7ef2774c569fd2b08">Dispose</a> (bool disposing)</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html">OpenCVForUnity.MlModule.StatModel</a></td></tr>
+<tr class="memitem:a38fc8b8623a363e7ef2774c569fd2b08 inherit pro_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model" id="r_a38fc8b8623a363e7ef2774c569fd2b08"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#a38fc8b8623a363e7ef2774c569fd2b08">Dispose</a> (bool disposing)</td></tr>
 <tr class="separator:a38fc8b8623a363e7ef2774c569fd2b08 inherit pro_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
-<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_aab50d94cc702503eac045ca7042624ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
 <tr class="separator:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
+<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a6dc5923de5bd43795c72dd7f581ad832"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a1fb2523312e8a423889a1d160e755e7d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
+<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a739b223f2008fae0966c43d0c6f0f72f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
 <tr class="separator:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_ae924d4d77a5929e39abca6ef9daf6330"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
 <tr class="separator:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a1e47724d49556061a5ba400577be2a13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
+<tr class="inherit_header pac_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_methods_class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model')"><img src="closed.png" alt="-"/>&#160;Package Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html">OpenCVForUnity.MlModule.StatModel</a></td></tr>
+<tr class="inherit_header pac_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Package Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="inherit_header pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Package Attributes inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a056e69daaa9ea20e563c5e41b28c1525"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
 <tr class="separator:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
+<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a8e287e3cb5995f483cb64dd6c3b19a7f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Artificial Neural Networks - Multi-Layer Perceptrons. </p>
-<p>Unlike many other models in ML that are constructed and trained at once, in the MLP model these steps are separated. First, a network with the specified topology is created using the non-default constructor or the method <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#aae6902c9111977dca58f011daf8400f2" title="Creates empty model. ">ANN_MLP::create</a>. All the weights are set to zeros. Then, the network is trained using a set of input and output vectors. The training procedure can be repeated more than once, that is, the weights can be adjusted based on the new training data.</p>
-<p>Additional flags for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#acb89b426c076f2958db2a2d8d8ff8401" title="Trains the statistical model. ">StatModel::train</a> are available: ANN_MLP::TrainFlags.</p>
+<p>Unlike many other models in ML that are constructed and trained at once, in the MLP model these steps are separated. First, a network with the specified topology is created using the non-default constructor or the method <a class="el" href="#aae6902c9111977dca58f011daf8400f2" title="Creates empty model.">ANN_MLP.create</a>. All the weights are set to zeros. Then, the network is trained using a set of input and output vectors. The training procedure can be repeated more than once, that is, the weights can be adjusted based on the new training data.</p>
+<p>Additional flags for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#acb89b426c076f2958db2a2d8d8ff8401" title="Trains the statistical model.">StatModel.train</a> are available: ANN_MLP::TrainFlags.</p>
 <dl class="section see"><dt>See also</dt><dd>ml_intro_ann </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7cdf98486636188cdc77fedfb4e29455"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7cdf98486636188cdc77fedfb4e29455">&#9670;&nbsp;</a></span>__fromPtr__()</h2>
+<a id="a7cdf98486636188cdc77fedfb4e29455" name="a7cdf98486636188cdc77fedfb4e29455"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cdf98486636188cdc77fedfb4e29455">&#9670;&#160;</a></span>__fromPtr__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -343,8 +403,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static new <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html">ANN_MLP</a> OpenCVForUnity.MlModule.ANN_MLP.__fromPtr__ </td>
           <td>(</td>
-          <td class="paramtype">IntPtr&#160;</td>
-          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td class="paramtype">IntPtr</td>          <td class="paramname"><span class="paramname"><em>addr</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -357,8 +416,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aae6902c9111977dca58f011daf8400f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae6902c9111977dca58f011daf8400f2">&#9670;&nbsp;</a></span>create()</h2>
+<a id="aae6902c9111977dca58f011daf8400f2" name="aae6902c9111977dca58f011daf8400f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae6902c9111977dca58f011daf8400f2">&#9670;&#160;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -369,7 +428,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html">ANN_MLP</a> OpenCVForUnity.MlModule.ANN_MLP.create </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -381,12 +440,12 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Creates empty model. </p>
-<p>Use <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#acb89b426c076f2958db2a2d8d8ff8401" title="Trains the statistical model. ">StatModel::train</a> to train the model, Algorithm::load&lt;<a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html" title="Artificial Neural Networks - Multi-Layer Perceptrons. ">ANN_MLP</a>&gt;(filename) to load the pre-trained model. Note that the train method has optional flags: ANN_MLP::TrainFlags. </p>
+<p>Use <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#acb89b426c076f2958db2a2d8d8ff8401" title="Trains the statistical model.">StatModel.train</a> to train the model, Algorithm::load&lt;<a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html" title="Artificial Neural Networks - Multi-Layer Perceptrons.">ANN_MLP</a>&gt;(filename) to load the pre-trained model. Note that the train method has optional flags: ANN_MLP::TrainFlags. </p>
 
 </div>
 </div>
-<a id="a04d1231aa69b80441162ec408d2bdd68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04d1231aa69b80441162ec408d2bdd68">&#9670;&nbsp;</a></span>Dispose()</h2>
+<a id="a04d1231aa69b80441162ec408d2bdd68" name="a04d1231aa69b80441162ec408d2bdd68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04d1231aa69b80441162ec408d2bdd68">&#9670;&#160;</a></span>Dispose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -397,8 +456,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">override void OpenCVForUnity.MlModule.ANN_MLP.Dispose </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>disposing</em></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>disposing</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -413,8 +471,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a34c0828bdb9f3f0f2d8ff48c52e09026"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34c0828bdb9f3f0f2d8ff48c52e09026">&#9670;&nbsp;</a></span>getAnnealCoolingRatio()</h2>
+<a id="a34c0828bdb9f3f0f2d8ff48c52e09026" name="a34c0828bdb9f3f0f2d8ff48c52e09026"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34c0828bdb9f3f0f2d8ff48c52e09026">&#9670;&#160;</a></span>getAnnealCoolingRatio()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -422,17 +480,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double OpenCVForUnity.MlModule.ANN_MLP.getAnnealCoolingRatio </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#aebd7ead5519a38b8c8c8f7f8e0ae0f1a">setAnnealCoolingRatio</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#aebd7ead5519a38b8c8c8f7f8e0ae0f1a">setAnnealCoolingRatio</a> </dd></dl>
 
 </div>
 </div>
-<a id="a43b9af82f4dc89976f557335261f930c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43b9af82f4dc89976f557335261f930c">&#9670;&nbsp;</a></span>getAnnealFinalT()</h2>
+<a id="a43b9af82f4dc89976f557335261f930c" name="a43b9af82f4dc89976f557335261f930c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43b9af82f4dc89976f557335261f930c">&#9670;&#160;</a></span>getAnnealFinalT()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -440,17 +498,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double OpenCVForUnity.MlModule.ANN_MLP.getAnnealFinalT </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ab7158a49922620e1f5761d0dbf84c0a6">setAnnealFinalT</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ab7158a49922620e1f5761d0dbf84c0a6">setAnnealFinalT</a> </dd></dl>
 
 </div>
 </div>
-<a id="a9a8eafdd67212bfbbc859758eefc7d26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a8eafdd67212bfbbc859758eefc7d26">&#9670;&nbsp;</a></span>getAnnealInitialT()</h2>
+<a id="a9a8eafdd67212bfbbc859758eefc7d26" name="a9a8eafdd67212bfbbc859758eefc7d26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a8eafdd67212bfbbc859758eefc7d26">&#9670;&#160;</a></span>getAnnealInitialT()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -458,17 +516,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double OpenCVForUnity.MlModule.ANN_MLP.getAnnealInitialT </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a1d0dbf2a92c77d68cc7e3df29db8538a">setAnnealInitialT</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a1d0dbf2a92c77d68cc7e3df29db8538a">setAnnealInitialT</a> </dd></dl>
 
 </div>
 </div>
-<a id="ac78c847ac57548e932cbaafead46b020"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac78c847ac57548e932cbaafead46b020">&#9670;&nbsp;</a></span>getAnnealItePerStep()</h2>
+<a id="ac78c847ac57548e932cbaafead46b020" name="ac78c847ac57548e932cbaafead46b020"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac78c847ac57548e932cbaafead46b020">&#9670;&#160;</a></span>getAnnealItePerStep()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -476,17 +534,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.MlModule.ANN_MLP.getAnnealItePerStep </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ace089e605ef0935ba0abf707952b0b29">setAnnealItePerStep</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ace089e605ef0935ba0abf707952b0b29">setAnnealItePerStep</a> </dd></dl>
 
 </div>
 </div>
-<a id="af6592837694522ed134420b7bfcf191d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6592837694522ed134420b7bfcf191d">&#9670;&nbsp;</a></span>getBackpropMomentumScale()</h2>
+<a id="af6592837694522ed134420b7bfcf191d" name="af6592837694522ed134420b7bfcf191d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6592837694522ed134420b7bfcf191d">&#9670;&#160;</a></span>getBackpropMomentumScale()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -494,17 +552,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double OpenCVForUnity.MlModule.ANN_MLP.getBackpropMomentumScale </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a8d10bf3f12f0a34a0e6baac27e3ab2e4">setBackpropMomentumScale</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a8d10bf3f12f0a34a0e6baac27e3ab2e4">setBackpropMomentumScale</a> </dd></dl>
 
 </div>
 </div>
-<a id="a955ecce54bc9695439b147b257d57465"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a955ecce54bc9695439b147b257d57465">&#9670;&nbsp;</a></span>getBackpropWeightScale()</h2>
+<a id="a955ecce54bc9695439b147b257d57465" name="a955ecce54bc9695439b147b257d57465"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a955ecce54bc9695439b147b257d57465">&#9670;&#160;</a></span>getBackpropWeightScale()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -512,17 +570,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double OpenCVForUnity.MlModule.ANN_MLP.getBackpropWeightScale </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a391110073233ec548eac0dc733747df7">setBackpropWeightScale</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a391110073233ec548eac0dc733747df7">setBackpropWeightScale</a> </dd></dl>
 
 </div>
 </div>
-<a id="a73a5728736fbdc60d03fb32b3f14c181"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73a5728736fbdc60d03fb32b3f14c181">&#9670;&nbsp;</a></span>getLayerSizes()</h2>
+<a id="a73a5728736fbdc60d03fb32b3f14c181" name="a73a5728736fbdc60d03fb32b3f14c181"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73a5728736fbdc60d03fb32b3f14c181">&#9670;&#160;</a></span>getLayerSizes()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -530,17 +588,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.ANN_MLP.getLayerSizes </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Integer vector specifying the number of neurons in each layer including the input and output layers. The very first element specifies the number of elements in the input layer. The last element - number of elements in the output layer. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a441658f2f3e974d44cdd83d6dc134e93">setLayerSizes</a> </dd></dl>
+<p>Integer vector specifying the number of neurons in each layer including the input and output layers. The very first element specifies the number of elements in the input layer. The last element - number of elements in the output layer. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="#a441658f2f3e974d44cdd83d6dc134e93">setLayerSizes</a> </dd></dl>
 
 </div>
 </div>
-<a id="ae37656afadf885b6d2eb1b579ecb54c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae37656afadf885b6d2eb1b579ecb54c9">&#9670;&nbsp;</a></span>getRpropDW0()</h2>
+<a id="ae37656afadf885b6d2eb1b579ecb54c9" name="ae37656afadf885b6d2eb1b579ecb54c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae37656afadf885b6d2eb1b579ecb54c9">&#9670;&#160;</a></span>getRpropDW0()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -548,17 +606,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double OpenCVForUnity.MlModule.ANN_MLP.getRpropDW0 </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a003c9ae4ef4494f8af8db42c108d5245">setRpropDW0</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a003c9ae4ef4494f8af8db42c108d5245">setRpropDW0</a> </dd></dl>
 
 </div>
 </div>
-<a id="a7536d6a0b4eaeed8d05b51cbeaf58c88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7536d6a0b4eaeed8d05b51cbeaf58c88">&#9670;&nbsp;</a></span>getRpropDWMax()</h2>
+<a id="a7536d6a0b4eaeed8d05b51cbeaf58c88" name="a7536d6a0b4eaeed8d05b51cbeaf58c88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7536d6a0b4eaeed8d05b51cbeaf58c88">&#9670;&#160;</a></span>getRpropDWMax()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -566,17 +624,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double OpenCVForUnity.MlModule.ANN_MLP.getRpropDWMax </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#aea2c2048a9dbbbed31e767cba26b338c">setRpropDWMax</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#aea2c2048a9dbbbed31e767cba26b338c">setRpropDWMax</a> </dd></dl>
 
 </div>
 </div>
-<a id="a35c59e70429aaed2b90b82b06a9e1f0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35c59e70429aaed2b90b82b06a9e1f0c">&#9670;&nbsp;</a></span>getRpropDWMin()</h2>
+<a id="a35c59e70429aaed2b90b82b06a9e1f0c" name="a35c59e70429aaed2b90b82b06a9e1f0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35c59e70429aaed2b90b82b06a9e1f0c">&#9670;&#160;</a></span>getRpropDWMin()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -584,17 +642,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double OpenCVForUnity.MlModule.ANN_MLP.getRpropDWMin </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a3ddb44137b6aedeb3020da0ad4b4a176">setRpropDWMin</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a3ddb44137b6aedeb3020da0ad4b4a176">setRpropDWMin</a> </dd></dl>
 
 </div>
 </div>
-<a id="aec5a810451ba939f6781739d99843c6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec5a810451ba939f6781739d99843c6f">&#9670;&nbsp;</a></span>getRpropDWMinus()</h2>
+<a id="aec5a810451ba939f6781739d99843c6f" name="aec5a810451ba939f6781739d99843c6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec5a810451ba939f6781739d99843c6f">&#9670;&#160;</a></span>getRpropDWMinus()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -602,17 +660,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double OpenCVForUnity.MlModule.ANN_MLP.getRpropDWMinus </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#aede4c2a924032062882ba9c14a2ec0e9">setRpropDWMinus</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#aede4c2a924032062882ba9c14a2ec0e9">setRpropDWMinus</a> </dd></dl>
 
 </div>
 </div>
-<a id="ad0c5b723bae4cfc82e0b3cd8ef41a5dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0c5b723bae4cfc82e0b3cd8ef41a5dd">&#9670;&nbsp;</a></span>getRpropDWPlus()</h2>
+<a id="ad0c5b723bae4cfc82e0b3cd8ef41a5dd" name="ad0c5b723bae4cfc82e0b3cd8ef41a5dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0c5b723bae4cfc82e0b3cd8ef41a5dd">&#9670;&#160;</a></span>getRpropDWPlus()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -620,17 +678,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double OpenCVForUnity.MlModule.ANN_MLP.getRpropDWPlus </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#aa5f9187625fb7c157875af7bc808182a">setRpropDWPlus</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#aa5f9187625fb7c157875af7bc808182a">setRpropDWPlus</a> </dd></dl>
 
 </div>
 </div>
-<a id="a317e9ef8cfa586eb4233ca365c72775c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a317e9ef8cfa586eb4233ca365c72775c">&#9670;&nbsp;</a></span>getTermCriteria()</h2>
+<a id="a317e9ef8cfa586eb4233ca365c72775c" name="a317e9ef8cfa586eb4233ca365c72775c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a317e9ef8cfa586eb4233ca365c72775c">&#9670;&#160;</a></span>getTermCriteria()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -638,17 +696,52 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a> OpenCVForUnity.MlModule.ANN_MLP.getTermCriteria </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a1eda3602658683ceb05a0d8dd5213028">setTermCriteria</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a1eda3602658683ceb05a0d8dd5213028">setTermCriteria</a> </dd></dl>
 
 </div>
 </div>
-<a id="ab1619c762b2fc514a57c6a4b9423c1dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1619c762b2fc514a57c6a4b9423c1dd">&#9670;&nbsp;</a></span>getTrainMethod()</h2>
+<a id="acf3e912379fb3781b622e40c5a24f968" name="acf3e912379fb3781b622e40c5a24f968"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf3e912379fb3781b622e40c5a24f968">&#9670;&#160;</a></span>getTermCriteriaAsValueTuple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double double double epsilon OpenCVForUnity.MlModule.ANN_MLP.getTermCriteriaAsValueTuple </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a87ead7d2c685e531f3db00a20f031c0b" name="a87ead7d2c685e531f3db00a20f031c0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87ead7d2c685e531f3db00a20f031c0b">&#9670;&#160;</a></span>getTermCriteriaAsVec3d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a> OpenCVForUnity.MlModule.ANN_MLP.getTermCriteriaAsVec3d </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a1eda3602658683ceb05a0d8dd5213028">setTermCriteria</a> </dd></dl>
+
+</div>
+</div>
+<a id="ab1619c762b2fc514a57c6a4b9423c1dd" name="ab1619c762b2fc514a57c6a4b9423c1dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1619c762b2fc514a57c6a4b9423c1dd">&#9670;&#160;</a></span>getTrainMethod()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -656,7 +749,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.MlModule.ANN_MLP.getTrainMethod </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -665,8 +758,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a8c0399bdbabc4db07517e02c6db8f744"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c0399bdbabc4db07517e02c6db8f744">&#9670;&nbsp;</a></span>getWeights()</h2>
+<a id="a8c0399bdbabc4db07517e02c6db8f744" name="a8c0399bdbabc4db07517e02c6db8f744"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c0399bdbabc4db07517e02c6db8f744">&#9670;&#160;</a></span>getWeights()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -674,8 +767,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.ANN_MLP.getWeights </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>layerIdx</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>layerIdx</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -683,8 +775,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ab8157da6af49b816f5653526f5f65aa8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8157da6af49b816f5653526f5f65aa8">&#9670;&nbsp;</a></span>load()</h2>
+<a id="ab8157da6af49b816f5653526f5f65aa8" name="ab8157da6af49b816f5653526f5f65aa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8157da6af49b816f5653526f5f65aa8">&#9670;&#160;</a></span>load()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -695,8 +787,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html">ANN_MLP</a> OpenCVForUnity.MlModule.ANN_MLP.load </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>filepath</em></td><td>)</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>filepath</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -708,7 +799,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Loads and creates a serialized ANN from a file. </p>
-<p>Use ANN::save to serialize and store an ANN to disk. Load the ANN from this file again, by calling this function with the path to the file.</p>
+<p>Use ANN::save to serialize and store an ANN to disk. Load the ANN from this file again, by calling this function with the path to the file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filepath</td><td>path to serialized ANN </td></tr>
@@ -718,8 +809,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a0c80de936fc480c33df38f351821ef3c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c80de936fc480c33df38f351821ef3c">&#9670;&nbsp;</a></span>setActivationFunction() <span class="overload">[1/3]</span></h2>
+<a id="a38ef3535e93e920966b40c578e63908b" name="a38ef3535e93e920966b40c578e63908b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38ef3535e93e920966b40c578e63908b">&#9670;&#160;</a></span>setActivationFunction() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -727,29 +818,13 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.ANN_MLP.setActivationFunction </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>param1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>param2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Initialize the activation function for each neuron. Currently the default and the only fully supported activation function is <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#acee59490f9c88a5db0046ccfa8840bbd">ANN_MLP::SIGMOID_SYM</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Initialize the activation function for each neuron. Currently the default and the only fully supported activation function is <a class="el" href="#acee59490f9c88a5db0046ccfa8840bbd">ANN_MLP.SIGMOID_SYM</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">type</td><td>The type of activation function. See ANN_MLP::ActivationFunctions. </td></tr>
     <tr><td class="paramname">param1</td><td>The first parameter of the activation function, \(\alpha\). Default value is 0. </td></tr>
@@ -760,8 +835,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a9dd193d5fa47d86d06a734783a756dbd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9dd193d5fa47d86d06a734783a756dbd">&#9670;&nbsp;</a></span>setActivationFunction() <span class="overload">[2/3]</span></h2>
+<a id="a9dd193d5fa47d86d06a734783a756dbd" name="a9dd193d5fa47d86d06a734783a756dbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9dd193d5fa47d86d06a734783a756dbd">&#9670;&#160;</a></span>setActivationFunction() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -769,23 +844,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.ANN_MLP.setActivationFunction </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>type</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>param1</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>param1</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Initialize the activation function for each neuron. Currently the default and the only fully supported activation function is <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#acee59490f9c88a5db0046ccfa8840bbd">ANN_MLP::SIGMOID_SYM</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Initialize the activation function for each neuron. Currently the default and the only fully supported activation function is <a class="el" href="#acee59490f9c88a5db0046ccfa8840bbd">ANN_MLP.SIGMOID_SYM</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">type</td><td>The type of activation function. See ANN_MLP::ActivationFunctions. </td></tr>
     <tr><td class="paramname">param1</td><td>The first parameter of the activation function, \(\alpha\). Default value is 0. </td></tr>
@@ -796,8 +865,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a38ef3535e93e920966b40c578e63908b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38ef3535e93e920966b40c578e63908b">&#9670;&nbsp;</a></span>setActivationFunction() <span class="overload">[3/3]</span></h2>
+<a id="a0c80de936fc480c33df38f351821ef3c" name="a0c80de936fc480c33df38f351821ef3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c80de936fc480c33df38f351821ef3c">&#9670;&#160;</a></span>setActivationFunction() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -805,13 +874,22 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.ANN_MLP.setActivationFunction </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>type</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>type</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>param1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>param2</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Initialize the activation function for each neuron. Currently the default and the only fully supported activation function is <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#acee59490f9c88a5db0046ccfa8840bbd">ANN_MLP::SIGMOID_SYM</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Initialize the activation function for each neuron. Currently the default and the only fully supported activation function is <a class="el" href="#acee59490f9c88a5db0046ccfa8840bbd">ANN_MLP.SIGMOID_SYM</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">type</td><td>The type of activation function. See ANN_MLP::ActivationFunctions. </td></tr>
     <tr><td class="paramname">param1</td><td>The first parameter of the activation function, \(\alpha\). Default value is 0. </td></tr>
@@ -822,8 +900,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aebd7ead5519a38b8c8c8f7f8e0ae0f1a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aebd7ead5519a38b8c8c8f7f8e0ae0f1a">&#9670;&nbsp;</a></span>setAnnealCoolingRatio()</h2>
+<a id="aebd7ead5519a38b8c8c8f7f8e0ae0f1a" name="aebd7ead5519a38b8c8c8f7f8e0ae0f1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebd7ead5519a38b8c8c8f7f8e0ae0f1a">&#9670;&#160;</a></span>setAnnealCoolingRatio()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -831,18 +909,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.ANN_MLP.setAnnealCoolingRatio </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a34c0828bdb9f3f0f2d8ff48c52e09026">getAnnealCoolingRatio</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a34c0828bdb9f3f0f2d8ff48c52e09026">getAnnealCoolingRatio</a> </dd></dl>
 
 </div>
 </div>
-<a id="ab7158a49922620e1f5761d0dbf84c0a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7158a49922620e1f5761d0dbf84c0a6">&#9670;&nbsp;</a></span>setAnnealFinalT()</h2>
+<a id="ab7158a49922620e1f5761d0dbf84c0a6" name="ab7158a49922620e1f5761d0dbf84c0a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7158a49922620e1f5761d0dbf84c0a6">&#9670;&#160;</a></span>setAnnealFinalT()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -850,18 +927,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.ANN_MLP.setAnnealFinalT </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a43b9af82f4dc89976f557335261f930c">getAnnealFinalT</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a43b9af82f4dc89976f557335261f930c">getAnnealFinalT</a> </dd></dl>
 
 </div>
 </div>
-<a id="a1d0dbf2a92c77d68cc7e3df29db8538a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d0dbf2a92c77d68cc7e3df29db8538a">&#9670;&nbsp;</a></span>setAnnealInitialT()</h2>
+<a id="a1d0dbf2a92c77d68cc7e3df29db8538a" name="a1d0dbf2a92c77d68cc7e3df29db8538a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d0dbf2a92c77d68cc7e3df29db8538a">&#9670;&#160;</a></span>setAnnealInitialT()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -869,18 +945,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.ANN_MLP.setAnnealInitialT </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a9a8eafdd67212bfbbc859758eefc7d26">getAnnealInitialT</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a9a8eafdd67212bfbbc859758eefc7d26">getAnnealInitialT</a> </dd></dl>
 
 </div>
 </div>
-<a id="ace089e605ef0935ba0abf707952b0b29"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace089e605ef0935ba0abf707952b0b29">&#9670;&nbsp;</a></span>setAnnealItePerStep()</h2>
+<a id="ace089e605ef0935ba0abf707952b0b29" name="ace089e605ef0935ba0abf707952b0b29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace089e605ef0935ba0abf707952b0b29">&#9670;&#160;</a></span>setAnnealItePerStep()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -888,18 +963,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.ANN_MLP.setAnnealItePerStep </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ac78c847ac57548e932cbaafead46b020">getAnnealItePerStep</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ac78c847ac57548e932cbaafead46b020">getAnnealItePerStep</a> </dd></dl>
 
 </div>
 </div>
-<a id="a8d10bf3f12f0a34a0e6baac27e3ab2e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d10bf3f12f0a34a0e6baac27e3ab2e4">&#9670;&nbsp;</a></span>setBackpropMomentumScale()</h2>
+<a id="a8d10bf3f12f0a34a0e6baac27e3ab2e4" name="a8d10bf3f12f0a34a0e6baac27e3ab2e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d10bf3f12f0a34a0e6baac27e3ab2e4">&#9670;&#160;</a></span>setBackpropMomentumScale()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -907,18 +981,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.ANN_MLP.setBackpropMomentumScale </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#af6592837694522ed134420b7bfcf191d">getBackpropMomentumScale</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#af6592837694522ed134420b7bfcf191d">getBackpropMomentumScale</a> </dd></dl>
 
 </div>
 </div>
-<a id="a391110073233ec548eac0dc733747df7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a391110073233ec548eac0dc733747df7">&#9670;&nbsp;</a></span>setBackpropWeightScale()</h2>
+<a id="a391110073233ec548eac0dc733747df7" name="a391110073233ec548eac0dc733747df7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a391110073233ec548eac0dc733747df7">&#9670;&#160;</a></span>setBackpropWeightScale()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -926,18 +999,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.ANN_MLP.setBackpropWeightScale </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a955ecce54bc9695439b147b257d57465">getBackpropWeightScale</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a955ecce54bc9695439b147b257d57465">getBackpropWeightScale</a> </dd></dl>
 
 </div>
 </div>
-<a id="a441658f2f3e974d44cdd83d6dc134e93"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a441658f2f3e974d44cdd83d6dc134e93">&#9670;&nbsp;</a></span>setLayerSizes()</h2>
+<a id="a441658f2f3e974d44cdd83d6dc134e93" name="a441658f2f3e974d44cdd83d6dc134e93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a441658f2f3e974d44cdd83d6dc134e93">&#9670;&#160;</a></span>setLayerSizes()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -945,18 +1017,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.ANN_MLP.setLayerSizes </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>_layer_sizes</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>_layer_sizes</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Integer vector specifying the number of neurons in each layer including the input and output layers. The very first element specifies the number of elements in the input layer. The last element - number of elements in the output layer. Default value is empty Mat. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a73a5728736fbdc60d03fb32b3f14c181">getLayerSizes</a> </dd></dl>
+<p>Integer vector specifying the number of neurons in each layer including the input and output layers. The very first element specifies the number of elements in the input layer. The last element - number of elements in the output layer. Default value is empty Mat. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="#a73a5728736fbdc60d03fb32b3f14c181">getLayerSizes</a> </dd></dl>
 
 </div>
 </div>
-<a id="a003c9ae4ef4494f8af8db42c108d5245"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a003c9ae4ef4494f8af8db42c108d5245">&#9670;&nbsp;</a></span>setRpropDW0()</h2>
+<a id="a003c9ae4ef4494f8af8db42c108d5245" name="a003c9ae4ef4494f8af8db42c108d5245"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a003c9ae4ef4494f8af8db42c108d5245">&#9670;&#160;</a></span>setRpropDW0()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -964,18 +1035,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.ANN_MLP.setRpropDW0 </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ae37656afadf885b6d2eb1b579ecb54c9">getRpropDW0</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ae37656afadf885b6d2eb1b579ecb54c9">getRpropDW0</a> </dd></dl>
 
 </div>
 </div>
-<a id="aea2c2048a9dbbbed31e767cba26b338c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea2c2048a9dbbbed31e767cba26b338c">&#9670;&nbsp;</a></span>setRpropDWMax()</h2>
+<a id="aea2c2048a9dbbbed31e767cba26b338c" name="aea2c2048a9dbbbed31e767cba26b338c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea2c2048a9dbbbed31e767cba26b338c">&#9670;&#160;</a></span>setRpropDWMax()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -983,18 +1053,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.ANN_MLP.setRpropDWMax </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a7536d6a0b4eaeed8d05b51cbeaf58c88">getRpropDWMax</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a7536d6a0b4eaeed8d05b51cbeaf58c88">getRpropDWMax</a> </dd></dl>
 
 </div>
 </div>
-<a id="a3ddb44137b6aedeb3020da0ad4b4a176"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ddb44137b6aedeb3020da0ad4b4a176">&#9670;&nbsp;</a></span>setRpropDWMin()</h2>
+<a id="a3ddb44137b6aedeb3020da0ad4b4a176" name="a3ddb44137b6aedeb3020da0ad4b4a176"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ddb44137b6aedeb3020da0ad4b4a176">&#9670;&#160;</a></span>setRpropDWMin()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1002,18 +1071,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.ANN_MLP.setRpropDWMin </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a35c59e70429aaed2b90b82b06a9e1f0c">getRpropDWMin</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a35c59e70429aaed2b90b82b06a9e1f0c">getRpropDWMin</a> </dd></dl>
 
 </div>
 </div>
-<a id="aede4c2a924032062882ba9c14a2ec0e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aede4c2a924032062882ba9c14a2ec0e9">&#9670;&nbsp;</a></span>setRpropDWMinus()</h2>
+<a id="aede4c2a924032062882ba9c14a2ec0e9" name="aede4c2a924032062882ba9c14a2ec0e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aede4c2a924032062882ba9c14a2ec0e9">&#9670;&#160;</a></span>setRpropDWMinus()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1021,18 +1089,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.ANN_MLP.setRpropDWMinus </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#aec5a810451ba939f6781739d99843c6f">getRpropDWMinus</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#aec5a810451ba939f6781739d99843c6f">getRpropDWMinus</a> </dd></dl>
 
 </div>
 </div>
-<a id="aa5f9187625fb7c157875af7bc808182a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5f9187625fb7c157875af7bc808182a">&#9670;&nbsp;</a></span>setRpropDWPlus()</h2>
+<a id="aa5f9187625fb7c157875af7bc808182a" name="aa5f9187625fb7c157875af7bc808182a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5f9187625fb7c157875af7bc808182a">&#9670;&#160;</a></span>setRpropDWPlus()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1040,18 +1107,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.ANN_MLP.setRpropDWPlus </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ad0c5b723bae4cfc82e0b3cd8ef41a5dd">getRpropDWPlus</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ad0c5b723bae4cfc82e0b3cd8ef41a5dd">getRpropDWPlus</a> </dd></dl>
 
 </div>
 </div>
-<a id="a1eda3602658683ceb05a0d8dd5213028"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1eda3602658683ceb05a0d8dd5213028">&#9670;&nbsp;</a></span>setTermCriteria()</h2>
+<a id="af446b572844ff175fce7850d10da3cc3" name="af446b572844ff175fce7850d10da3cc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af446b572844ff175fce7850d10da3cc3">&#9670;&#160;</a></span>setTermCriteria() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1059,18 +1125,53 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.ANN_MLP.setTermCriteria </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a>&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a></td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a317e9ef8cfa586eb4233ca365c72775c">getTermCriteria</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a317e9ef8cfa586eb4233ca365c72775c">getTermCriteria</a> </dd></dl>
 
 </div>
 </div>
-<a id="ad2852daed391713d9e9500d66413b2f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2852daed391713d9e9500d66413b2f8">&#9670;&nbsp;</a></span>setTrainMethod() <span class="overload">[1/3]</span></h2>
+<a id="a82e47f231f1bc7367af3564804a95ce1" name="a82e47f231f1bc7367af3564804a95ce1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82e47f231f1bc7367af3564804a95ce1">&#9670;&#160;</a></span>setTermCriteria() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.MlModule.ANN_MLP.setTermCriteria </td>
+          <td>(</td>
+          <td class="paramtype">in(double <a class="el" href="#a5f1ab9590ca86d5354c9b489d16248a8">type</a>, double <a class="el" href="#a3e3f4aa478b225bda6c876bfba322f11">maxCount</a>, double epsilon)</td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a317e9ef8cfa586eb4233ca365c72775c">getTermCriteria</a> </dd></dl>
+
+</div>
+</div>
+<a id="a1eda3602658683ceb05a0d8dd5213028" name="a1eda3602658683ceb05a0d8dd5213028"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1eda3602658683ceb05a0d8dd5213028">&#9670;&#160;</a></span>setTermCriteria() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.MlModule.ANN_MLP.setTermCriteria </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_term_criteria.html">TermCriteria</a></td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a317e9ef8cfa586eb4233ca365c72775c">getTermCriteria</a> </dd></dl>
+
+</div>
+</div>
+<a id="a4d4f2889835a484a1cc18df192327185" name="a4d4f2889835a484a1cc18df192327185"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d4f2889835a484a1cc18df192327185">&#9670;&#160;</a></span>setTrainMethod() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1078,41 +1179,25 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.ANN_MLP.setTrainMethod </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>method</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>method</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>param1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>param2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Sets training method and common parameters. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets training method and common parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">method</td><td>Default value is <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP::RPROP</a>. See ANN_MLP::TrainingMethods. </td></tr>
-    <tr><td class="paramname">param1</td><td>passed to setRpropDW0 for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP::RPROP</a> and to setBackpropWeightScale for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a86071216d34c271b99d0ae0815ce1765">ANN_MLP::BACKPROP</a> and to initialT for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#afb64d8fd3c179b1e2b659f06d41d3e96">ANN_MLP::ANNEAL</a>. </td></tr>
-    <tr><td class="paramname">param2</td><td>passed to setRpropDWMin for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP::RPROP</a> and to setBackpropMomentumScale for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a86071216d34c271b99d0ae0815ce1765">ANN_MLP::BACKPROP</a> and to finalT for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#afb64d8fd3c179b1e2b659f06d41d3e96">ANN_MLP::ANNEAL</a>. </td></tr>
+    <tr><td class="paramname">method</td><td>Default value is <a class="el" href="#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP.RPROP</a>. See ANN_MLP::TrainingMethods. </td></tr>
+    <tr><td class="paramname">param1</td><td>passed to setRpropDW0 for <a class="el" href="#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP.RPROP</a> and to setBackpropWeightScale for <a class="el" href="#a86071216d34c271b99d0ae0815ce1765">ANN_MLP.BACKPROP</a> and to initialT for <a class="el" href="#afb64d8fd3c179b1e2b659f06d41d3e96">ANN_MLP.ANNEAL</a>. </td></tr>
+    <tr><td class="paramname">param2</td><td>passed to setRpropDWMin for <a class="el" href="#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP.RPROP</a> and to setBackpropMomentumScale for <a class="el" href="#a86071216d34c271b99d0ae0815ce1765">ANN_MLP.BACKPROP</a> and to finalT for <a class="el" href="#afb64d8fd3c179b1e2b659f06d41d3e96">ANN_MLP.ANNEAL</a>. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a63c8b04f2e88537c2bdf3af915d2d084"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63c8b04f2e88537c2bdf3af915d2d084">&#9670;&nbsp;</a></span>setTrainMethod() <span class="overload">[2/3]</span></h2>
+<a id="a63c8b04f2e88537c2bdf3af915d2d084" name="a63c8b04f2e88537c2bdf3af915d2d084"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63c8b04f2e88537c2bdf3af915d2d084">&#9670;&#160;</a></span>setTrainMethod() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1120,35 +1205,29 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.ANN_MLP.setTrainMethod </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>method</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>method</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>param1</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>param1</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Sets training method and common parameters. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets training method and common parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">method</td><td>Default value is <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP::RPROP</a>. See ANN_MLP::TrainingMethods. </td></tr>
-    <tr><td class="paramname">param1</td><td>passed to setRpropDW0 for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP::RPROP</a> and to setBackpropWeightScale for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a86071216d34c271b99d0ae0815ce1765">ANN_MLP::BACKPROP</a> and to initialT for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#afb64d8fd3c179b1e2b659f06d41d3e96">ANN_MLP::ANNEAL</a>. </td></tr>
-    <tr><td class="paramname">param2</td><td>passed to setRpropDWMin for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP::RPROP</a> and to setBackpropMomentumScale for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a86071216d34c271b99d0ae0815ce1765">ANN_MLP::BACKPROP</a> and to finalT for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#afb64d8fd3c179b1e2b659f06d41d3e96">ANN_MLP::ANNEAL</a>. </td></tr>
+    <tr><td class="paramname">method</td><td>Default value is <a class="el" href="#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP.RPROP</a>. See ANN_MLP::TrainingMethods. </td></tr>
+    <tr><td class="paramname">param1</td><td>passed to setRpropDW0 for <a class="el" href="#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP.RPROP</a> and to setBackpropWeightScale for <a class="el" href="#a86071216d34c271b99d0ae0815ce1765">ANN_MLP.BACKPROP</a> and to initialT for <a class="el" href="#afb64d8fd3c179b1e2b659f06d41d3e96">ANN_MLP.ANNEAL</a>. </td></tr>
+    <tr><td class="paramname">param2</td><td>passed to setRpropDWMin for <a class="el" href="#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP.RPROP</a> and to setBackpropMomentumScale for <a class="el" href="#a86071216d34c271b99d0ae0815ce1765">ANN_MLP.BACKPROP</a> and to finalT for <a class="el" href="#afb64d8fd3c179b1e2b659f06d41d3e96">ANN_MLP.ANNEAL</a>. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a4d4f2889835a484a1cc18df192327185"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d4f2889835a484a1cc18df192327185">&#9670;&nbsp;</a></span>setTrainMethod() <span class="overload">[3/3]</span></h2>
+<a id="ad2852daed391713d9e9500d66413b2f8" name="ad2852daed391713d9e9500d66413b2f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2852daed391713d9e9500d66413b2f8">&#9670;&#160;</a></span>setTrainMethod() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1156,17 +1235,26 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.ANN_MLP.setTrainMethod </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>method</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>method</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>param1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>param2</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Sets training method and common parameters. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets training method and common parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">method</td><td>Default value is <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP::RPROP</a>. See ANN_MLP::TrainingMethods. </td></tr>
-    <tr><td class="paramname">param1</td><td>passed to setRpropDW0 for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP::RPROP</a> and to setBackpropWeightScale for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a86071216d34c271b99d0ae0815ce1765">ANN_MLP::BACKPROP</a> and to initialT for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#afb64d8fd3c179b1e2b659f06d41d3e96">ANN_MLP::ANNEAL</a>. </td></tr>
-    <tr><td class="paramname">param2</td><td>passed to setRpropDWMin for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP::RPROP</a> and to setBackpropMomentumScale for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a86071216d34c271b99d0ae0815ce1765">ANN_MLP::BACKPROP</a> and to finalT for <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#afb64d8fd3c179b1e2b659f06d41d3e96">ANN_MLP::ANNEAL</a>. </td></tr>
+    <tr><td class="paramname">method</td><td>Default value is <a class="el" href="#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP.RPROP</a>. See ANN_MLP::TrainingMethods. </td></tr>
+    <tr><td class="paramname">param1</td><td>passed to setRpropDW0 for <a class="el" href="#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP.RPROP</a> and to setBackpropWeightScale for <a class="el" href="#a86071216d34c271b99d0ae0815ce1765">ANN_MLP.BACKPROP</a> and to initialT for <a class="el" href="#afb64d8fd3c179b1e2b659f06d41d3e96">ANN_MLP.ANNEAL</a>. </td></tr>
+    <tr><td class="paramname">param2</td><td>passed to setRpropDWMin for <a class="el" href="#ae34578577f0bb1dfb3e535e1acb373e2">ANN_MLP.RPROP</a> and to setBackpropMomentumScale for <a class="el" href="#a86071216d34c271b99d0ae0815ce1765">ANN_MLP.BACKPROP</a> and to finalT for <a class="el" href="#afb64d8fd3c179b1e2b659f06d41d3e96">ANN_MLP.ANNEAL</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1174,169 +1262,287 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="afb64d8fd3c179b1e2b659f06d41d3e96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb64d8fd3c179b1e2b659f06d41d3e96">&#9670;&nbsp;</a></span>ANNEAL</h2>
+<a id="afb64d8fd3c179b1e2b659f06d41d3e96" name="afb64d8fd3c179b1e2b659f06d41d3e96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb64d8fd3c179b1e2b659f06d41d3e96">&#9670;&#160;</a></span>ANNEAL</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.MlModule.ANN_MLP.ANNEAL = 2</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a86071216d34c271b99d0ae0815ce1765"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86071216d34c271b99d0ae0815ce1765">&#9670;&nbsp;</a></span>BACKPROP</h2>
+<a id="a86071216d34c271b99d0ae0815ce1765" name="a86071216d34c271b99d0ae0815ce1765"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86071216d34c271b99d0ae0815ce1765">&#9670;&#160;</a></span>BACKPROP</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.MlModule.ANN_MLP.BACKPROP = 0</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a0658b0d0cab5cd435157370e2bca6b38"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0658b0d0cab5cd435157370e2bca6b38">&#9670;&nbsp;</a></span>GAUSSIAN</h2>
+<a id="a0658b0d0cab5cd435157370e2bca6b38" name="a0658b0d0cab5cd435157370e2bca6b38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0658b0d0cab5cd435157370e2bca6b38">&#9670;&#160;</a></span>GAUSSIAN</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.MlModule.ANN_MLP.GAUSSIAN = 2</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a3fb0016e7d360bedcba1a88e32265826"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3fb0016e7d360bedcba1a88e32265826">&#9670;&nbsp;</a></span>IDENTITY</h2>
+<a id="a3fb0016e7d360bedcba1a88e32265826" name="a3fb0016e7d360bedcba1a88e32265826"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fb0016e7d360bedcba1a88e32265826">&#9670;&#160;</a></span>IDENTITY</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.MlModule.ANN_MLP.IDENTITY = 0</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a0bf932f9031f88c715320755fb870cf2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0bf932f9031f88c715320755fb870cf2">&#9670;&nbsp;</a></span>LEAKYRELU</h2>
+<a id="a0bf932f9031f88c715320755fb870cf2" name="a0bf932f9031f88c715320755fb870cf2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bf932f9031f88c715320755fb870cf2">&#9670;&#160;</a></span>LEAKYRELU</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.MlModule.ANN_MLP.LEAKYRELU = 4</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="afda37f061f7616d2e30cefc1f5223844"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afda37f061f7616d2e30cefc1f5223844">&#9670;&nbsp;</a></span>NO_INPUT_SCALE</h2>
+<a id="a3e3f4aa478b225bda6c876bfba322f11" name="a3e3f4aa478b225bda6c876bfba322f11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e3f4aa478b225bda6c876bfba322f11">&#9670;&#160;</a></span>maxCount</h2>
 
 <div class="memitem">
 <div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double double OpenCVForUnity.MlModule.ANN_MLP.maxCount</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afda37f061f7616d2e30cefc1f5223844" name="afda37f061f7616d2e30cefc1f5223844"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afda37f061f7616d2e30cefc1f5223844">&#9670;&#160;</a></span>NO_INPUT_SCALE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.MlModule.ANN_MLP.NO_INPUT_SCALE = 2</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ad7e8e84a3586989c5aa7314fc38a7b0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7e8e84a3586989c5aa7314fc38a7b0b">&#9670;&nbsp;</a></span>NO_OUTPUT_SCALE</h2>
+<a id="ad7e8e84a3586989c5aa7314fc38a7b0b" name="ad7e8e84a3586989c5aa7314fc38a7b0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7e8e84a3586989c5aa7314fc38a7b0b">&#9670;&#160;</a></span>NO_OUTPUT_SCALE</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.MlModule.ANN_MLP.NO_OUTPUT_SCALE = 4</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a7248d5bf533f239d13e0e2f7e28ad975"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7248d5bf533f239d13e0e2f7e28ad975">&#9670;&nbsp;</a></span>RELU</h2>
+<a id="a7248d5bf533f239d13e0e2f7e28ad975" name="a7248d5bf533f239d13e0e2f7e28ad975"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7248d5bf533f239d13e0e2f7e28ad975">&#9670;&#160;</a></span>RELU</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.MlModule.ANN_MLP.RELU = 3</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ae34578577f0bb1dfb3e535e1acb373e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae34578577f0bb1dfb3e535e1acb373e2">&#9670;&nbsp;</a></span>RPROP</h2>
+<a id="ae34578577f0bb1dfb3e535e1acb373e2" name="ae34578577f0bb1dfb3e535e1acb373e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae34578577f0bb1dfb3e535e1acb373e2">&#9670;&#160;</a></span>RPROP</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.MlModule.ANN_MLP.RPROP = 1</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="acee59490f9c88a5db0046ccfa8840bbd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acee59490f9c88a5db0046ccfa8840bbd">&#9670;&nbsp;</a></span>SIGMOID_SYM</h2>
+<a id="acee59490f9c88a5db0046ccfa8840bbd" name="acee59490f9c88a5db0046ccfa8840bbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acee59490f9c88a5db0046ccfa8840bbd">&#9670;&#160;</a></span>SIGMOID_SYM</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.MlModule.ANN_MLP.SIGMOID_SYM = 1</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a1a15bf15c1c57a752391ad34785f6962"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a15bf15c1c57a752391ad34785f6962">&#9670;&nbsp;</a></span>UPDATE_WEIGHTS</h2>
+<a id="a5f1ab9590ca86d5354c9b489d16248a8" name="a5f1ab9590ca86d5354c9b489d16248a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f1ab9590ca86d5354c9b489d16248a8">&#9670;&#160;</a></span>type</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
+          <td class="memname">double OpenCVForUnity.MlModule.ANN_MLP.type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a1eda3602658683ceb05a0d8dd5213028">setTermCriteria</a> </dd></dl>
+
+</div>
+</div>
+<a id="a1a15bf15c1c57a752391ad34785f6962" name="a1a15bf15c1c57a752391ad34785f6962"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a15bf15c1c57a752391ad34785f6962">&#9670;&#160;</a></span>UPDATE_WEIGHTS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
           <td class="memname">const int OpenCVForUnity.MlModule.ANN_MLP.UPDATE_WEIGHTS = 1</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/ml/<a class="el" href="_a_n_n___m_l_p_8cs.html">ANN_MLP.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/ml/<a class="el" href="_a_n_n___m_l_p___struct_8cs.html">ANN_MLP_Struct.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/ml/<a class="el" href="_a_n_n___m_l_p___value_tuple_8cs.html">ANN_MLP_ValueTuple.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

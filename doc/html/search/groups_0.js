@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['plot_20function_20for_20mat_20data',['Plot function for Mat data',['../group__plot.html',1,'']]]
+  ['data_0',['Plot function for Mat data',['../db/dfe/group__plot.html',1,'']]]
 ];

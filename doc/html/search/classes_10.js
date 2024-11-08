@@ -1,15 +1,15 @@
 var searchData=
 [
-  ['radialvariancehash',['RadialVarianceHash',['../class_open_c_v_for_unity_1_1_img__hash_module_1_1_radial_variance_hash.html',1,'OpenCVForUnity::Img_hashModule']]],
-  ['range',['Range',['../class_open_c_v_for_unity_1_1_core_module_1_1_range.html',1,'OpenCVForUnity::CoreModule']]],
-  ['rect',['Rect',['../class_open_c_v_for_unity_1_1_core_module_1_1_rect.html',1,'OpenCVForUnity::CoreModule']]],
-  ['rect2d',['Rect2d',['../class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html',1,'OpenCVForUnity::CoreModule']]],
-  ['refineparameters',['RefineParameters',['../class_open_c_v_for_unity_1_1_objdetect_module_1_1_refine_parameters.html',1,'OpenCVForUnity::ObjdetectModule']]],
-  ['retina',['Retina',['../class_open_c_v_for_unity_1_1_bioinspired_module_1_1_retina.html',1,'OpenCVForUnity::BioinspiredModule']]],
-  ['retinafasttonemapping',['RetinaFastToneMapping',['../class_open_c_v_for_unity_1_1_bioinspired_module_1_1_retina_fast_tone_mapping.html',1,'OpenCVForUnity::BioinspiredModule']]],
-  ['rffeaturegetter',['RFFeatureGetter',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_r_f_feature_getter.html',1,'OpenCVForUnity::XimgprocModule']]],
-  ['ricinterpolator',['RICInterpolator',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_r_i_c_interpolator.html',1,'OpenCVForUnity::XimgprocModule']]],
-  ['ridgedetectionfilter',['RidgeDetectionFilter',['../class_open_c_v_for_unity_1_1_ximgproc_module_1_1_ridge_detection_filter.html',1,'OpenCVForUnity::XimgprocModule']]],
-  ['rotatedrect',['RotatedRect',['../class_open_c_v_for_unity_1_1_core_module_1_1_rotated_rect.html',1,'OpenCVForUnity::CoreModule']]],
-  ['rtrees',['RTrees',['../class_open_c_v_for_unity_1_1_ml_module_1_1_r_trees.html',1,'OpenCVForUnity::MlModule']]]
+  ['radialvariancehash_0',['RadialVarianceHash',['../d2/d21/classOpenCVForUnity_1_1Img__hashModule_1_1RadialVarianceHash.html',1,'OpenCVForUnity::Img_hashModule']]],
+  ['range_1',['Range',['../d3/d53/classOpenCVForUnity_1_1CoreModule_1_1Range.html',1,'OpenCVForUnity::CoreModule']]],
+  ['rect_2',['Rect',['../d0/d13/classOpenCVForUnity_1_1CoreModule_1_1Rect.html',1,'OpenCVForUnity::CoreModule']]],
+  ['rect2d_3',['Rect2d',['../d6/d40/classOpenCVForUnity_1_1CoreModule_1_1Rect2d.html',1,'OpenCVForUnity::CoreModule']]],
+  ['refineparameters_4',['RefineParameters',['../d7/dc2/classOpenCVForUnity_1_1ObjdetectModule_1_1RefineParameters.html',1,'OpenCVForUnity::ObjdetectModule']]],
+  ['retina_5',['Retina',['../d7/d13/classOpenCVForUnity_1_1BioinspiredModule_1_1Retina.html',1,'OpenCVForUnity::BioinspiredModule']]],
+  ['retinafasttonemapping_6',['RetinaFastToneMapping',['../d6/d38/classOpenCVForUnity_1_1BioinspiredModule_1_1RetinaFastToneMapping.html',1,'OpenCVForUnity::BioinspiredModule']]],
+  ['rffeaturegetter_7',['RFFeatureGetter',['../d9/d27/classOpenCVForUnity_1_1XimgprocModule_1_1RFFeatureGetter.html',1,'OpenCVForUnity::XimgprocModule']]],
+  ['ricinterpolator_8',['RICInterpolator',['../db/d00/classOpenCVForUnity_1_1XimgprocModule_1_1RICInterpolator.html',1,'OpenCVForUnity::XimgprocModule']]],
+  ['ridgedetectionfilter_9',['RidgeDetectionFilter',['../d8/d86/classOpenCVForUnity_1_1XimgprocModule_1_1RidgeDetectionFilter.html',1,'OpenCVForUnity::XimgprocModule']]],
+  ['rotatedrect_10',['RotatedRect',['../dc/dd9/classOpenCVForUnity_1_1CoreModule_1_1RotatedRect.html',1,'OpenCVForUnity::CoreModule']]],
+  ['rtrees_11',['RTrees',['../dd/d61/classOpenCVForUnity_1_1MlModule_1_1RTrees.html',1,'OpenCVForUnity::MlModule']]]
 ];

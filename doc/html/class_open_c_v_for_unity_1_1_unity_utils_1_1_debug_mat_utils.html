@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: OpenCVForUnity.UnityUtils.DebugMatUtils Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,73 +126,122 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_unity_utils.html">UnityUtils</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html">DebugMatUtils</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils-members.html">List of all members</a>  </div>
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.UnityUtils.DebugMatUtils Class Reference</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.UnityUtils.DebugMatUtils Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a59c95729f869f22c24f64f3c45155d11"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html#a59c95729f869f22c24f64f3c45155d11">LayoutType</a> { <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html#a59c95729f869f22c24f64f3c45155d11a6705777b712ee811e76fb07162081d63">LayoutType.TOP</a>, 
-<a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html#a59c95729f869f22c24f64f3c45155d11a684d325a7303f52e64011467ff5c5758">LayoutType.LEFT</a>, 
-<a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html#a59c95729f869f22c24f64f3c45155d11a21507b40c80068eda19865706fdc2403">LayoutType.RIGHT</a>, 
-<a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html#a59c95729f869f22c24f64f3c45155d11a1fabf63de5c96c78e2a40805bcdeb73b">LayoutType.BOTTOM</a>
+<tr class="memitem:a59c95729f869f22c24f64f3c45155d11" id="r_a59c95729f869f22c24f64f3c45155d11"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59c95729f869f22c24f64f3c45155d11">LayoutType</a> { <a class="el" href="#a59c95729f869f22c24f64f3c45155d11a6705777b712ee811e76fb07162081d63">TOP</a>
+, <a class="el" href="#a59c95729f869f22c24f64f3c45155d11a684d325a7303f52e64011467ff5c5758">LEFT</a>
+, <a class="el" href="#a59c95729f869f22c24f64f3c45155d11a21507b40c80068eda19865706fdc2403">RIGHT</a>
+, <a class="el" href="#a59c95729f869f22c24f64f3c45155d11a1fabf63de5c96c78e2a40805bcdeb73b">BOTTOM</a>
  }</td></tr>
+<tr class="memdesc:a59c95729f869f22c24f64f3c45155d11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum representing layout positions for displaying a group of images using the imshow method.  <a href="#a59c95729f869f22c24f64f3c45155d11">More...</a><br /></td></tr>
 <tr class="separator:a59c95729f869f22c24f64f3c45155d11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a29ab0ef18e9f09b17e48dc929b1ac5" id="r_a3a29ab0ef18e9f09b17e48dc929b1ac5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a29ab0ef18e9f09b17e48dc929b1ac5">DumpMode</a> { <a class="el" href="#a3a29ab0ef18e9f09b17e48dc929b1ac5a040a2c2fb00a3d44e6a9613fcea535bb">GetRawTextureDataMode</a>
+, <a class="el" href="#a3a29ab0ef18e9f09b17e48dc929b1ac5aa7836a98b546dbec2dc217c33ee693d0">GetPixels32Mode</a>
+ }</td></tr>
+<tr class="memdesc:a3a29ab0ef18e9f09b17e48dc929b1ac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum representing the methods for dumping texture data.  <a href="#a3a29ab0ef18e9f09b17e48dc929b1ac5">More...</a><br /></td></tr>
+<tr class="separator:a3a29ab0ef18e9f09b17e48dc929b1ac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a415fad5bbe7e053ab38eaf310a79366a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html#a415fad5bbe7e053ab38eaf310a79366a">clear</a> ()</td></tr>
+<tr class="memitem:a415fad5bbe7e053ab38eaf310a79366a" id="r_a415fad5bbe7e053ab38eaf310a79366a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a415fad5bbe7e053ab38eaf310a79366a">clear</a> ()</td></tr>
+<tr class="memdesc:a415fad5bbe7e053ab38eaf310a79366a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html">DebugMatUtils</a> GameObjects.  <br /></td></tr>
 <tr class="separator:a415fad5bbe7e053ab38eaf310a79366a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35bd1973830813c6662aaf7fb9b718d9"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html#a35bd1973830813c6662aaf7fb9b718d9">setup</a> (<a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html#a59c95729f869f22c24f64f3c45155d11">LayoutType</a> type=<a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html#a59c95729f869f22c24f64f3c45155d11a21507b40c80068eda19865706fdc2403">LayoutType.RIGHT</a>)</td></tr>
+<tr class="memitem:a35bd1973830813c6662aaf7fb9b718d9" id="r_a35bd1973830813c6662aaf7fb9b718d9"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35bd1973830813c6662aaf7fb9b718d9">setup</a> (<a class="el" href="#a59c95729f869f22c24f64f3c45155d11">LayoutType</a> type=<a class="el" href="#a59c95729f869f22c24f64f3c45155d11a21507b40c80068eda19865706fdc2403">LayoutType.RIGHT</a>)</td></tr>
+<tr class="memdesc:a35bd1973830813c6662aaf7fb9b718d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html">DebugMatUtils</a> GameObject.  <br /></td></tr>
 <tr class="separator:a35bd1973830813c6662aaf7fb9b718d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7eff7d330cee3a5dbcf0f7a0ea26673"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html#af7eff7d330cee3a5dbcf0f7a0ea26673">imshow</a> (string winname, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> img, bool dump=false, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">CoreModule.Rect</a> roi=null, string debugText=null)</td></tr>
-<tr class="separator:af7eff7d330cee3a5dbcf0f7a0ea26673"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6cb5b1ec3b3ba7ee9211cb2c7aaf7e7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html#af6cb5b1ec3b3ba7ee9211cb2c7aaf7e7">imshow</a> (string winname, string debugText)</td></tr>
+<tr class="memitem:a805e07792c3fee9c924e49b1f65c57e3" id="r_a805e07792c3fee9c924e49b1f65c57e3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a805e07792c3fee9c924e49b1f65c57e3">imshow</a> (string winname, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> img, bool dump=false, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">CoreModule.Rect</a> roi=null, string debugText=null, bool isDataSRGB=true)</td></tr>
+<tr class="memdesc:a805e07792c3fee9c924e49b1f65c57e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays a Mat image.  <br /></td></tr>
+<tr class="separator:a805e07792c3fee9c924e49b1f65c57e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac532d276d8209e340f619f38f5519202" id="r_ac532d276d8209e340f619f38f5519202"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac532d276d8209e340f619f38f5519202">imshow</a> (string winname, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> img, bool isDataSRGB)</td></tr>
+<tr class="memdesc:ac532d276d8209e340f619f38f5519202"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays a Mat image.  <br /></td></tr>
+<tr class="separator:ac532d276d8209e340f619f38f5519202"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a640f2b2a4001fcf9f152bbe8d94822c5" id="r_a640f2b2a4001fcf9f152bbe8d94822c5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a640f2b2a4001fcf9f152bbe8d94822c5">imshow</a> (string winname, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> img, bool dump, in(int x, int y, int width, int height) roi, string debugText=null, bool isDataSRGB=true)</td></tr>
+<tr class="memdesc:a640f2b2a4001fcf9f152bbe8d94822c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays a Mat image.  <br /></td></tr>
+<tr class="separator:a640f2b2a4001fcf9f152bbe8d94822c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a253bab131c835db13d5b4ace70727460" id="r_a253bab131c835db13d5b4ace70727460"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a253bab131c835db13d5b4ace70727460">imshow</a> (string winname, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> img, bool dump, in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a> roi, string debugText=null, bool isDataSRGB=true)</td></tr>
+<tr class="memdesc:a253bab131c835db13d5b4ace70727460"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays a Mat image.  <br /></td></tr>
+<tr class="separator:a253bab131c835db13d5b4ace70727460"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6cb5b1ec3b3ba7ee9211cb2c7aaf7e7" id="r_af6cb5b1ec3b3ba7ee9211cb2c7aaf7e7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6cb5b1ec3b3ba7ee9211cb2c7aaf7e7">imshow</a> (string winname, string debugText)</td></tr>
+<tr class="memdesc:af6cb5b1ec3b3ba7ee9211cb2c7aaf7e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays debug text.  <br /></td></tr>
 <tr class="separator:af6cb5b1ec3b3ba7ee9211cb2c7aaf7e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bdfbf9014bf6cee74422d5c99cdbe31"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html#a4bdfbf9014bf6cee74422d5c99cdbe31">destroyWindow</a> (string winname)</td></tr>
+<tr class="memitem:ad80f147fc5712fc08b6e2906af5405ef" id="r_ad80f147fc5712fc08b6e2906af5405ef"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad80f147fc5712fc08b6e2906af5405ef">imshow</a> (string winname, Texture img, bool dump=false, <a class="el" href="#a3a29ab0ef18e9f09b17e48dc929b1ac5">DumpMode</a> dumpMode=<a class="el" href="#a3a29ab0ef18e9f09b17e48dc929b1ac5a040a2c2fb00a3d44e6a9613fcea535bb">DumpMode.GetRawTextureDataMode</a>, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">CoreModule.Rect</a> roi=null, string debugText=null)</td></tr>
+<tr class="memdesc:ad80f147fc5712fc08b6e2906af5405ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays a Texture image.  <br /></td></tr>
+<tr class="separator:ad80f147fc5712fc08b6e2906af5405ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf8d284b274cde92c5a836973d641cd1" id="r_adf8d284b274cde92c5a836973d641cd1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf8d284b274cde92c5a836973d641cd1">imshow</a> (string winname, Texture img, bool dump, <a class="el" href="#a3a29ab0ef18e9f09b17e48dc929b1ac5">DumpMode</a> dumpMode, in(int x, int y, int width, int height) roi, string debugText=null)</td></tr>
+<tr class="memdesc:adf8d284b274cde92c5a836973d641cd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays a Texture image.  <br /></td></tr>
+<tr class="separator:adf8d284b274cde92c5a836973d641cd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8038b8f760027680dc344312fc4d891" id="r_ae8038b8f760027680dc344312fc4d891"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8038b8f760027680dc344312fc4d891">imshow</a> (string winname, Texture img, bool dump, <a class="el" href="#a3a29ab0ef18e9f09b17e48dc929b1ac5">DumpMode</a> dumpMode, in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a> roi, string debugText=null)</td></tr>
+<tr class="memdesc:ae8038b8f760027680dc344312fc4d891"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays a Texture image.  <br /></td></tr>
+<tr class="separator:ae8038b8f760027680dc344312fc4d891"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bdfbf9014bf6cee74422d5c99cdbe31" id="r_a4bdfbf9014bf6cee74422d5c99cdbe31"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4bdfbf9014bf6cee74422d5c99cdbe31">destroyWindow</a> (string winname)</td></tr>
+<tr class="memdesc:a4bdfbf9014bf6cee74422d5c99cdbe31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the specified window.  <br /></td></tr>
 <tr class="separator:a4bdfbf9014bf6cee74422d5c99cdbe31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67aac492be2eeedc5db528241cf05482"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html#a67aac492be2eeedc5db528241cf05482">destroyAllWindows</a> ()</td></tr>
+<tr class="memitem:a67aac492be2eeedc5db528241cf05482" id="r_a67aac492be2eeedc5db528241cf05482"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a67aac492be2eeedc5db528241cf05482">destroyAllWindows</a> ()</td></tr>
+<tr class="memdesc:a67aac492be2eeedc5db528241cf05482"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys all opened windows.  <br /></td></tr>
 <tr class="separator:a67aac492be2eeedc5db528241cf05482"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a59c95729f869f22c24f64f3c45155d11"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59c95729f869f22c24f64f3c45155d11">&#9670;&nbsp;</a></span>LayoutType</h2>
+<a id="a3a29ab0ef18e9f09b17e48dc929b1ac5" name="a3a29ab0ef18e9f09b17e48dc929b1ac5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a29ab0ef18e9f09b17e48dc929b1ac5">&#9670;&#160;</a></span>DumpMode</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html#a59c95729f869f22c24f64f3c45155d11">OpenCVForUnity.UnityUtils.DebugMatUtils.LayoutType</a></td>
+          <td class="memname">enum <a class="el" href="#a3a29ab0ef18e9f09b17e48dc929b1ac5">OpenCVForUnity.UnityUtils.DebugMatUtils.DumpMode</a></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-<p>LayoutType </p>
+
+<p>Enum representing the methods for dumping texture data. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a59c95729f869f22c24f64f3c45155d11a6705777b712ee811e76fb07162081d63"></a>TOP&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a59c95729f869f22c24f64f3c45155d11a684d325a7303f52e64011467ff5c5758"></a>LEFT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a59c95729f869f22c24f64f3c45155d11a21507b40c80068eda19865706fdc2403"></a>RIGHT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a59c95729f869f22c24f64f3c45155d11a1fabf63de5c96c78e2a40805bcdeb73b"></a>BOTTOM&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a3a29ab0ef18e9f09b17e48dc929b1ac5a040a2c2fb00a3d44e6a9613fcea535bb" name="a3a29ab0ef18e9f09b17e48dc929b1ac5a040a2c2fb00a3d44e6a9613fcea535bb"></a>GetRawTextureDataMode&#160;</td><td class="fielddoc"><p>Mode for retrieving texture data using the GetRawTextureData method. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a3a29ab0ef18e9f09b17e48dc929b1ac5aa7836a98b546dbec2dc217c33ee693d0" name="a3a29ab0ef18e9f09b17e48dc929b1ac5aa7836a98b546dbec2dc217c33ee693d0"></a>GetPixels32Mode&#160;</td><td class="fielddoc"><p>Mode for retrieving pixel data using the GetPixels32 method. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a59c95729f869f22c24f64f3c45155d11" name="a59c95729f869f22c24f64f3c45155d11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59c95729f869f22c24f64f3c45155d11">&#9670;&#160;</a></span>LayoutType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a59c95729f869f22c24f64f3c45155d11">OpenCVForUnity.UnityUtils.DebugMatUtils.LayoutType</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enum representing layout positions for displaying a group of images using the imshow method. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a59c95729f869f22c24f64f3c45155d11a6705777b712ee811e76fb07162081d63" name="a59c95729f869f22c24f64f3c45155d11a6705777b712ee811e76fb07162081d63"></a>TOP&#160;</td><td class="fielddoc"><p>Represents the top layout position. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a59c95729f869f22c24f64f3c45155d11a684d325a7303f52e64011467ff5c5758" name="a59c95729f869f22c24f64f3c45155d11a684d325a7303f52e64011467ff5c5758"></a>LEFT&#160;</td><td class="fielddoc"><p>Represents the left layout position. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a59c95729f869f22c24f64f3c45155d11a21507b40c80068eda19865706fdc2403" name="a59c95729f869f22c24f64f3c45155d11a21507b40c80068eda19865706fdc2403"></a>RIGHT&#160;</td><td class="fielddoc"><p>Represents the right layout position. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a59c95729f869f22c24f64f3c45155d11a1fabf63de5c96c78e2a40805bcdeb73b" name="a59c95729f869f22c24f64f3c45155d11a1fabf63de5c96c78e2a40805bcdeb73b"></a>BOTTOM&#160;</td><td class="fielddoc"><p>Represents the bottom layout position. </p>
+</td></tr>
 </table>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a415fad5bbe7e053ab38eaf310a79366a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a415fad5bbe7e053ab38eaf310a79366a">&#9670;&nbsp;</a></span>clear()</h2>
+<a id="a415fad5bbe7e053ab38eaf310a79366a" name="a415fad5bbe7e053ab38eaf310a79366a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a415fad5bbe7e053ab38eaf310a79366a">&#9670;&#160;</a></span>clear()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -171,7 +252,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static void OpenCVForUnity.UnityUtils.DebugMatUtils.clear </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -181,13 +262,14 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Destroys the <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html">DebugMatUtils</a> GameObjects.</p>
-<p>The method clear destroys DebugMatUtils-related GameObjects from the hierarchy. </p>
+
+<p>Destroys the <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html">DebugMatUtils</a> GameObjects. </p>
+<p>The clear method destroys GameObjects related to <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html">DebugMatUtils</a> from the hierarchy. </p>
 
 </div>
 </div>
-<a id="a67aac492be2eeedc5db528241cf05482"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67aac492be2eeedc5db528241cf05482">&#9670;&nbsp;</a></span>destroyAllWindows()</h2>
+<a id="a67aac492be2eeedc5db528241cf05482" name="a67aac492be2eeedc5db528241cf05482"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67aac492be2eeedc5db528241cf05482">&#9670;&#160;</a></span>destroyAllWindows()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,7 +280,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static void OpenCVForUnity.UnityUtils.DebugMatUtils.destroyAllWindows </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -208,13 +290,14 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Destroys all of the windows.</p>
-<p>The method destroyAllWindows destroys all of the opened windows. </p>
+
+<p>Destroys all opened windows. </p>
+<p>The destroyAllWindows method removes all windows that are currently open. This is useful for cleaning up the display when no longer needed. </p>
 
 </div>
 </div>
-<a id="a4bdfbf9014bf6cee74422d5c99cdbe31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4bdfbf9014bf6cee74422d5c99cdbe31">&#9670;&nbsp;</a></span>destroyWindow()</h2>
+<a id="a4bdfbf9014bf6cee74422d5c99cdbe31" name="a4bdfbf9014bf6cee74422d5c99cdbe31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bdfbf9014bf6cee74422d5c99cdbe31">&#9670;&#160;</a></span>destroyWindow()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,8 +308,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static void OpenCVForUnity.UnityUtils.DebugMatUtils.destroyWindow </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>winname</em></td><td>)</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>winname</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -236,19 +318,20 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Destroys the specified window.</p>
-<p>The method destroyWindow destroys the window with the given name.</p>
+
+<p>Destroys the specified window. </p>
+<p>The destroyWindow method removes the window identified by the provided name from the display. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">winname</td><td>Name of the window to be destroyed. </td></tr>
+    <tr><td class="paramname">winname</td><td>The name of the window to be destroyed. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="af7eff7d330cee3a5dbcf0f7a0ea26673"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7eff7d330cee3a5dbcf0f7a0ea26673">&#9670;&nbsp;</a></span>imshow() <span class="overload">[1/2]</span></h2>
+<a id="a253bab131c835db13d5b4ace70727460" name="a253bab131c835db13d5b4ace70727460"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a253bab131c835db13d5b4ace70727460">&#9670;&#160;</a></span>imshow() <span class="overload">[1/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -259,37 +342,32 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static void OpenCVForUnity.UnityUtils.DebugMatUtils.imshow </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>winname</em>, </td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>winname</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>img</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>img</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>dump</em> = <code>false</code>, </td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>dump</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">CoreModule.Rect</a>&#160;</td>
-          <td class="paramname"><em>roi</em> = <code>null</code>, </td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a></td>          <td class="paramname"><span class="paramname"><em>roi</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>debugText</em> = <code>null</code>&#160;</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>debugText</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
         </tr>
         <tr>
+          <td class="paramkey"></td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>isDataSRGB</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -298,24 +376,26 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Displays an image in the specified window.</p>
-<p>The method imshow displays an image in the specified window.</p>
-<p>If the image is 8-bit unsigned, it is displayed as is. If the image is 16-bit unsigned, the pixels are divided by 256. That is, the value range [0,255*256] is mapped to [0,255]. If the image is 32-bit or 64-bit floating-point, the pixel values are multiplied by 255. That is, the value range [0,1] is mapped to [0,255]. 32-bit integer images are not processed anymore due to ambiguouty of required transform. Convert to 8-bit unsigned matrix using a custom preprocessing specific to image's context.</p>
+
+<p>Displays a Mat image. </p>
+<p>This method displays a Mat image.</p>
+<p>If the image is 8-bit unsigned, it is displayed as is. If the image is 16-bit unsigned, the pixel values are divided by 256, mapping the value range [0, 255*256] to [0, 255]. If the image is 32-bit or 64-bit floating-point, the pixel values are multiplied by 255, mapping the value range [0, 1] to [0, 255]. 32-bit integer images are not supported due to ambiguity in the required transformation. If necessary, please preprocess the image to convert it to an 8-bit unsigned matrix. A new window will not be created if the number of image windows exceeds 50. Additionally, if a LayoutType is specified, please call the setup method() before the imshow method() is invoked for the first time. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">winname</td><td>Name of the window. </td></tr>
-    <tr><td class="paramname">mat</td><td>Image to be shown. </td></tr>
-    <tr><td class="paramname">dump</td><td>Whether to display the result of mat.dump() method? </td></tr>
-    <tr><td class="paramname">roi</td><td>Extract the intersecting rectangle of img and roi. </td></tr>
-    <tr><td class="paramname">debugText</td><td>Displays the specified string in the InputField. </td></tr>
+    <tr><td class="paramname">winname</td><td>The name of the window. If the same name is already added, it will be overwritten. </td></tr>
+    <tr><td class="paramname">img</td><td>The Mat image to be displayed. </td></tr>
+    <tr><td class="paramname">dump</td><td>Specifies whether to display the result of the mat.dump() method. </td></tr>
+    <tr><td class="paramname">roi</td><td>The part of the image to be displayed (extracts the intersecting area of img and roi). </td></tr>
+    <tr><td class="paramname">debugText</td><td>The debug text to be displayed in the InputField. </td></tr>
+    <tr><td class="paramname">isDataSRGB</td><td>The isDataSRGB property of the Texture2D used when displaying the Mat image. If true, the data is assumed to be in sRGB color space. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="af6cb5b1ec3b3ba7ee9211cb2c7aaf7e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6cb5b1ec3b3ba7ee9211cb2c7aaf7e7">&#9670;&nbsp;</a></span>imshow() <span class="overload">[2/2]</span></h2>
+<a id="a640f2b2a4001fcf9f152bbe8d94822c5" name="a640f2b2a4001fcf9f152bbe8d94822c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a640f2b2a4001fcf9f152bbe8d94822c5">&#9670;&#160;</a></span>imshow() <span class="overload">[2/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -326,19 +406,32 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static void OpenCVForUnity.UnityUtils.DebugMatUtils.imshow </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>winname</em>, </td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>winname</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>debugText</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>img</em></span>, </td>
         </tr>
         <tr>
+          <td class="paramkey"></td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>dump</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">in(int x, int y, int width, int height)</td>          <td class="paramname"><span class="paramname"><em>roi</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>debugText</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>isDataSRGB</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -347,20 +440,367 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Displays debug text in the specified window.</p>
-<p>The method imshow displays debug text in the specified window.</p>
+
+<p>Displays a Mat image. </p>
+<p>This method displays a Mat image.</p>
+<p>If the image is 8-bit unsigned, it is displayed as is. If the image is 16-bit unsigned, the pixel values are divided by 256, mapping the value range [0, 255*256] to [0, 255]. If the image is 32-bit or 64-bit floating-point, the pixel values are multiplied by 255, mapping the value range [0, 1] to [0, 255]. 32-bit integer images are not supported due to ambiguity in the required transformation. If necessary, please preprocess the image to convert it to an 8-bit unsigned matrix. A new window will not be created if the number of image windows exceeds 50. Additionally, if a LayoutType is specified, please call the setup method() before the imshow method() is invoked for the first time. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">winname</td><td>Name of the window. </td></tr>
-    <tr><td class="paramname">debugText</td><td>Displays the specified string in the InputField. </td></tr>
+    <tr><td class="paramname">winname</td><td>The name of the window. If the same name is already added, it will be overwritten. </td></tr>
+    <tr><td class="paramname">img</td><td>The Mat image to be displayed. </td></tr>
+    <tr><td class="paramname">dump</td><td>Specifies whether to display the result of the mat.dump() method. </td></tr>
+    <tr><td class="paramname">roi</td><td>The part of the image to be displayed (extracts the intersecting area of img and roi). </td></tr>
+    <tr><td class="paramname">debugText</td><td>The debug text to be displayed in the InputField. </td></tr>
+    <tr><td class="paramname">isDataSRGB</td><td>The isDataSRGB property of the Texture2D used when displaying the Mat image. If true, the data is assumed to be in sRGB color space. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a35bd1973830813c6662aaf7fb9b718d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35bd1973830813c6662aaf7fb9b718d9">&#9670;&nbsp;</a></span>setup()</h2>
+<a id="a805e07792c3fee9c924e49b1f65c57e3" name="a805e07792c3fee9c924e49b1f65c57e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a805e07792c3fee9c924e49b1f65c57e3">&#9670;&#160;</a></span>imshow() <span class="overload">[3/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void OpenCVForUnity.UnityUtils.DebugMatUtils.imshow </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>winname</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>img</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>dump</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">CoreModule.Rect</a></td>          <td class="paramname"><span class="paramname"><em>roi</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>debugText</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>isDataSRGB</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Displays a Mat image. </p>
+<p>This method displays a Mat image.</p>
+<p>If the image is 8-bit unsigned, it is displayed as is. If the image is 16-bit unsigned, the pixel values are divided by 256, mapping the value range [0, 255*256] to [0, 255]. If the image is 32-bit or 64-bit floating-point, the pixel values are multiplied by 255, mapping the value range [0, 1] to [0, 255]. 32-bit integer images are not supported due to ambiguity in the required transformation. If necessary, please preprocess the image to convert it to an 8-bit unsigned matrix. A new window will not be created if the number of image windows exceeds 50. Additionally, if a LayoutType is specified, please call the setup method() before the imshow method() is invoked for the first time. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">winname</td><td>The name of the window. If the same name is already added, it will be overwritten. </td></tr>
+    <tr><td class="paramname">img</td><td>The Mat image to be displayed. </td></tr>
+    <tr><td class="paramname">dump</td><td>Specifies whether to display the result of the mat.dump() method. </td></tr>
+    <tr><td class="paramname">roi</td><td>The part of the image to be displayed (extracts the intersecting area of img and roi). </td></tr>
+    <tr><td class="paramname">debugText</td><td>The debug text to be displayed in the InputField. </td></tr>
+    <tr><td class="paramname">isDataSRGB</td><td>The isDataSRGB property of the Texture2D used when displaying the Mat image. If true, the data is assumed to be in sRGB color space. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac532d276d8209e340f619f38f5519202" name="ac532d276d8209e340f619f38f5519202"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac532d276d8209e340f619f38f5519202">&#9670;&#160;</a></span>imshow() <span class="overload">[4/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void OpenCVForUnity.UnityUtils.DebugMatUtils.imshow </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>winname</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>img</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>isDataSRGB</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Displays a Mat image. </p>
+<p>This method displays a Mat image.</p>
+<p>If the image is 8-bit unsigned, it is displayed as is. If the image is 16-bit unsigned, the pixel values are divided by 256, mapping the value range [0, 255*256] to [0, 255]. If the image is 32-bit or 64-bit floating-point, the pixel values are multiplied by 255, mapping the value range [0, 1] to [0, 255]. 32-bit integer images are not supported due to ambiguity in the required transformation. If necessary, please preprocess the image to convert it to an 8-bit unsigned matrix. A new window will not be created if the number of image windows exceeds 50. Additionally, if a LayoutType is specified, please call the setup method() before the imshow method() is invoked for the first time. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">winname</td><td>The name of the window. If the same name is already added, it will be overwritten. </td></tr>
+    <tr><td class="paramname">img</td><td>The Mat image to be displayed. </td></tr>
+    <tr><td class="paramname">isDataSRGB</td><td>The isDataSRGB property of the Texture2D used when displaying the Mat image. If true, the data is assumed to be in sRGB color space. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af6cb5b1ec3b3ba7ee9211cb2c7aaf7e7" name="af6cb5b1ec3b3ba7ee9211cb2c7aaf7e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6cb5b1ec3b3ba7ee9211cb2c7aaf7e7">&#9670;&#160;</a></span>imshow() <span class="overload">[5/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void OpenCVForUnity.UnityUtils.DebugMatUtils.imshow </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>winname</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>debugText</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Displays debug text. </p>
+<p>The imshow method displays the provided debug text in the InputField. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">winname</td><td>The name of the window. </td></tr>
+    <tr><td class="paramname">debugText</td><td>The debug text to be displayed in the InputField. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae8038b8f760027680dc344312fc4d891" name="ae8038b8f760027680dc344312fc4d891"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8038b8f760027680dc344312fc4d891">&#9670;&#160;</a></span>imshow() <span class="overload">[6/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void OpenCVForUnity.UnityUtils.DebugMatUtils.imshow </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>winname</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Texture</td>          <td class="paramname"><span class="paramname"><em>img</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>dump</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a3a29ab0ef18e9f09b17e48dc929b1ac5">DumpMode</a></td>          <td class="paramname"><span class="paramname"><em>dumpMode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4i.html">Vec4i</a></td>          <td class="paramname"><span class="paramname"><em>roi</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>debugText</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Displays a Texture image. </p>
+<p>This method displays a Texture image.</p>
+<p>The supported texture classes are Texture2D and RenderTexture. A new window will not be created if the number of image windows exceeds 50. Additionally, if a LayoutType is specified, please call the setup method to initialize before invoking the imshow method for the first time. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">winname</td><td>The name of the window. If the same name is already added, it will be overwritten. </td></tr>
+    <tr><td class="paramname">img</td><td>The Texture to be displayed. </td></tr>
+    <tr><td class="paramname">dump</td><td>Specifies whether to dump the pixel data of the Texture. The pixel data will be reordered to match the format returned by the mat.dump() method, with the origin located at the top-right corner. </td></tr>
+    <tr><td class="paramname">dumpMode</td><td>Specifies the dump mode (default is GetRawTextureDataMode). In GetRawTextureDataMode, if the TextureFormat is a compressed format, the raw byte data from the GetRawTextureData() method will be dumped as-is. Otherwise, the data will be reordered and dumped as pixel data with the origin in the top-right corner. In GetTexture32Mode, the Color32 array obtained via the GetPixels32() method will be reordered and dumped as pixel data with the origin in the top-right corner. If RenderTexture is specified for img, dumpMode is ignored and the data is always dumped in 4 channels per pixel. </td></tr>
+    <tr><td class="paramname">roi</td><td>The part of the image to be displayed (extracts the intersecting area of img and roi). </td></tr>
+    <tr><td class="paramname">debugText</td><td>The debug text to be displayed in the InputField. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="adf8d284b274cde92c5a836973d641cd1" name="adf8d284b274cde92c5a836973d641cd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf8d284b274cde92c5a836973d641cd1">&#9670;&#160;</a></span>imshow() <span class="overload">[7/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void OpenCVForUnity.UnityUtils.DebugMatUtils.imshow </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>winname</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Texture</td>          <td class="paramname"><span class="paramname"><em>img</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>dump</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a3a29ab0ef18e9f09b17e48dc929b1ac5">DumpMode</a></td>          <td class="paramname"><span class="paramname"><em>dumpMode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">in(int x, int y, int width, int height)</td>          <td class="paramname"><span class="paramname"><em>roi</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>debugText</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Displays a Texture image. </p>
+<p>This method displays a Texture image.</p>
+<p>The supported texture classes are Texture2D and RenderTexture. A new window will not be created if the number of image windows exceeds 50. Additionally, if a LayoutType is specified, please call the setup method to initialize before invoking the imshow method for the first time. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">winname</td><td>The name of the window. If the same name is already added, it will be overwritten. </td></tr>
+    <tr><td class="paramname">img</td><td>The Texture to be displayed. </td></tr>
+    <tr><td class="paramname">dump</td><td>Specifies whether to dump the pixel data of the Texture. The pixel data will be reordered to match the format returned by the mat.dump() method, with the origin located at the top-right corner. </td></tr>
+    <tr><td class="paramname">dumpMode</td><td>Specifies the dump mode (default is GetRawTextureDataMode). In GetRawTextureDataMode, if the TextureFormat is a compressed format, the raw byte data from the GetRawTextureData() method will be dumped as-is. Otherwise, the data will be reordered and dumped as pixel data with the origin in the top-right corner. In GetTexture32Mode, the Color32 array obtained via the GetPixels32() method will be reordered and dumped as pixel data with the origin in the top-right corner. If RenderTexture is specified for img, dumpMode is ignored and the data is always dumped in 4 channels per pixel. </td></tr>
+    <tr><td class="paramname">roi</td><td>The part of the image to be displayed (extracts the intersecting area of img and roi). </td></tr>
+    <tr><td class="paramname">debugText</td><td>The debug text to be displayed in the InputField. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad80f147fc5712fc08b6e2906af5405ef" name="ad80f147fc5712fc08b6e2906af5405ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad80f147fc5712fc08b6e2906af5405ef">&#9670;&#160;</a></span>imshow() <span class="overload">[8/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void OpenCVForUnity.UnityUtils.DebugMatUtils.imshow </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>winname</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Texture</td>          <td class="paramname"><span class="paramname"><em>img</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>dump</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a3a29ab0ef18e9f09b17e48dc929b1ac5">DumpMode</a></td>          <td class="paramname"><span class="paramname"><em>dumpMode</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a3a29ab0ef18e9f09b17e48dc929b1ac5a040a2c2fb00a3d44e6a9613fcea535bb">DumpMode::GetRawTextureDataMode</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect.html">CoreModule.Rect</a></td>          <td class="paramname"><span class="paramname"><em>roi</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>debugText</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Displays a Texture image. </p>
+<p>This method displays a Texture image.</p>
+<p>The supported texture classes are Texture2D and RenderTexture. A new window will not be created if the number of image windows exceeds 50. Additionally, if a LayoutType is specified, please call the setup method to initialize before invoking the imshow method for the first time. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">winname</td><td>The name of the window. If the same name is already added, it will be overwritten. </td></tr>
+    <tr><td class="paramname">img</td><td>The Texture to be displayed. </td></tr>
+    <tr><td class="paramname">dump</td><td>Specifies whether to dump the pixel data of the Texture. The pixel data will be reordered to match the format returned by the mat.dump() method, with the origin located at the top-right corner. </td></tr>
+    <tr><td class="paramname">dumpMode</td><td>Specifies the dump mode (default is GetRawTextureDataMode). In GetRawTextureDataMode, if the TextureFormat is a compressed format, the raw byte data from the GetRawTextureData() method will be dumped as-is. Otherwise, the data will be reordered and dumped as pixel data with the origin in the top-right corner. In GetTexture32Mode, the Color32 array obtained via the GetPixels32() method will be reordered and dumped as pixel data with the origin in the top-right corner. If RenderTexture is specified for img, dumpMode is ignored and the data is always dumped in 4 channels per pixel. </td></tr>
+    <tr><td class="paramname">roi</td><td>The part of the image to be displayed (extracts the intersecting area of img and roi). </td></tr>
+    <tr><td class="paramname">debugText</td><td>The debug text to be displayed in the InputField. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a35bd1973830813c6662aaf7fb9b718d9" name="a35bd1973830813c6662aaf7fb9b718d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35bd1973830813c6662aaf7fb9b718d9">&#9670;&#160;</a></span>setup()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -371,8 +811,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static void OpenCVForUnity.UnityUtils.DebugMatUtils.setup </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html#a59c95729f869f22c24f64f3c45155d11">LayoutType</a>&#160;</td>
-          <td class="paramname"><em>type</em> = <code><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html#a59c95729f869f22c24f64f3c45155d11a21507b40c80068eda19865706fdc2403">LayoutType.RIGHT</a></code></td><td>)</td>
+          <td class="paramtype"><a class="el" href="#a59c95729f869f22c24f64f3c45155d11">LayoutType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a59c95729f869f22c24f64f3c45155d11a21507b40c80068eda19865706fdc2403">LayoutType::RIGHT</a></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -382,11 +821,12 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Setup the <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html">DebugMatUtils</a> GameObject.</p>
-<p>The method setup sets up DebugMatUtils-related GameObjects to the hierarchy. By calling this method, the initialization process that occurs when the <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html#af7eff7d330cee3a5dbcf0f7a0ea26673">imshow()</a> method is called for the first time can be performed in advance.</p>
+
+<p>Sets up the <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_debug_mat_utils.html">DebugMatUtils</a> GameObject. </p>
+<p>The setup method adds DebugMatUtils-related GameObjects to the hierarchy. By calling this method, the initialization process that normally occurs when the <a class="el" href="#a805e07792c3fee9c924e49b1f65c57e3" title="Displays a Mat image.">imshow()</a> method is called for the first time can be performed in advance. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">type</td><td>LayoutType </td></tr>
+    <tr><td class="paramname">type</td><td>The layout type for the setup. </td></tr>
   </table>
   </dd>
 </dl>
@@ -399,9 +839,8 @@ Static Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

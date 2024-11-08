@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,42 +126,69 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_features2d_module.html">Features2dModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">Features2d</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.Features2dModule.Features2d Member List</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.Features2dModule.Features2d Member List</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>This is the complete list of members for <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a>, including all inherited members.</p>
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#af242b8949b96b04d39dfa0e7cef9cee1">drawKeypoints</a>(Mat image, MatOfKeyPoint keypoints, Mat outImage, Scalar color, int flags)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a41ac87a20c22eaa0f1b0018481e18c76">drawKeypoints</a>(Mat image, MatOfKeyPoint keypoints, Mat outImage, Scalar color)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a41ac87a20c22eaa0f1b0018481e18c76">drawKeypoints</a>(Mat image, MatOfKeyPoint keypoints, Mat outImage, Scalar color)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a77f10c48f4d45edf1a4ffc0a58a18692">drawKeypoints</a>(Mat image, MatOfKeyPoint keypoints, Mat outImage)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#ada16f0ac530d35e9af3b9c1997bbd295">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, Scalar matchColor, Scalar singlePointColor, MatOfByte matchesMask, int flags)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a69921ca04df55591caf9689550e2d8f7">drawKeypoints</a>(Mat image, MatOfKeyPoint keypoints, Mat outImage, in Vec4d color, int flags)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a88240876f5aaafaaa8c7bdad5badcb61">drawKeypoints</a>(Mat image, MatOfKeyPoint keypoints, Mat outImage, in Vec4d color)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a725bda71bbc080b192dc02073221a273">drawKeypoints</a>(Mat image, MatOfKeyPoint keypoints, Mat outImage, in(double v0, double v1, double v2, double v3) color, int flags)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#aa0043efc84c4fb06378c9b72138bd041">drawKeypoints</a>(Mat image, MatOfKeyPoint keypoints, Mat outImage, in(double v0, double v1, double v2, double v3) color)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#ada16f0ac530d35e9af3b9c1997bbd295">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, Scalar matchColor, Scalar singlePointColor, MatOfByte matchesMask, int flags)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a81d40dc98d86434fb0f02f0142e877e7">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, Scalar matchColor, Scalar singlePointColor, MatOfByte matchesMask)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#ad289bfffe260e9b58f60c1d95b8b9ee3">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, Scalar matchColor, Scalar singlePointColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#ad289bfffe260e9b58f60c1d95b8b9ee3">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, Scalar matchColor, Scalar singlePointColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#ac727045670c3cc9051a3082e7e2346d3">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, Scalar matchColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#af90e69f5f8732004a7e06982e231fc82">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#af90e69f5f8732004a7e06982e231fc82">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#aca4572e3ed500b004ea20603ba292c52">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, int matchesThickness, Scalar matchColor, Scalar singlePointColor, MatOfByte matchesMask, int flags)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#afc445d8d9beb84b4310c1702d4ea1e42">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, int matchesThickness, Scalar matchColor, Scalar singlePointColor, MatOfByte matchesMask)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#afc445d8d9beb84b4310c1702d4ea1e42">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, int matchesThickness, Scalar matchColor, Scalar singlePointColor, MatOfByte matchesMask)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a92a3859912c8e09248de6b84639b2105">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, int matchesThickness, Scalar matchColor, Scalar singlePointColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a455fed5412918d767f081365fe23739b">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, int matchesThickness, Scalar matchColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a455fed5412918d767f081365fe23739b">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, int matchesThickness, Scalar matchColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#ae7b8ca65f4127c0eb5984581c0e99337">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, int matchesThickness)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a4593c52c823cbb942c8a6258bf248cdd">DrawMatchesFlags_DEFAULT</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a6b1d968656f389c55078e19bb152d75d">DrawMatchesFlags_DRAW_OVER_OUTIMG</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#ae420a4e897c00fc558b0e21a77eaac18">DrawMatchesFlags_DRAW_RICH_KEYPOINTS</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a1e0467eebe5d4b40ded8ff70d9fe5e9f">DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a1a1646e2368b1b33762ea3983152be76">drawMatchesKnn</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, List&lt; MatOfDMatch &gt; matches1to2, Mat outImg, Scalar matchColor, Scalar singlePointColor, List&lt; MatOfByte &gt; matchesMask, int flags)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a0bab68dcf085684f575b2d55df0775d8">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, in Vec4d matchColor, in Vec4d singlePointColor, MatOfByte matchesMask, int flags)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#af855cd1e82b5f9c5a9e6274bbbe38235">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, in Vec4d matchColor, in Vec4d singlePointColor, MatOfByte matchesMask)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a15e02cb34b92b8b06bb2f6e24f158fe2">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, in Vec4d matchColor, in Vec4d singlePointColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a26e4f738159729e51620fd23d034e613">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, in Vec4d matchColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a24aec5ae105c5faf5cc1357c041dcd3d">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, int matchesThickness, in Vec4d matchColor, in Vec4d singlePointColor, MatOfByte matchesMask, int flags)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a07ada859416b57ad1e24246d7011dd52">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, int matchesThickness, in Vec4d matchColor, in Vec4d singlePointColor, MatOfByte matchesMask)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a09daa1fe00e83b9fbd2a9235cbe024bd">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, int matchesThickness, in Vec4d matchColor, in Vec4d singlePointColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a7d218f7dd2aa8b3a694543aa41ad3fd5">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, int matchesThickness, in Vec4d matchColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a52e8fe28d66ad9592aa62db6381e6eca">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, in(double v0, double v1, double v2, double v3) matchColor, in(double v0, double v1, double v2, double v3) singlePointColor, MatOfByte matchesMask, int flags)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a5eac13a260a50b6b3019021f733fb182">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, in(double v0, double v1, double v2, double v3) matchColor, in(double v0, double v1, double v2, double v3) singlePointColor, MatOfByte matchesMask)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a0b36be554861d6535a46d66730ae91ce">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, in(double v0, double v1, double v2, double v3) matchColor, in(double v0, double v1, double v2, double v3) singlePointColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a4f7b0b5810a9fa59abaab0bacbf82b18">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, in(double v0, double v1, double v2, double v3) matchColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#ae59c1e3b1a26443995eaa0d2430bc698">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, int matchesThickness, in(double v0, double v1, double v2, double v3) matchColor, in(double v0, double v1, double v2, double v3) singlePointColor, MatOfByte matchesMask, int flags)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a60d9d215167ed7e1136cda8837c353d9">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, int matchesThickness, in(double v0, double v1, double v2, double v3) matchColor, in(double v0, double v1, double v2, double v3) singlePointColor, MatOfByte matchesMask)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a182f639ea49fee0568bb237eb2c32e38">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, int matchesThickness, in(double v0, double v1, double v2, double v3) matchColor, in(double v0, double v1, double v2, double v3) singlePointColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a4d7ec622c31fd5a8b2da12a043d846de">drawMatches</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, int matchesThickness, in(double v0, double v1, double v2, double v3) matchColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a4593c52c823cbb942c8a6258bf248cdd">DrawMatchesFlags_DEFAULT</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a6b1d968656f389c55078e19bb152d75d">DrawMatchesFlags_DRAW_OVER_OUTIMG</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#ae420a4e897c00fc558b0e21a77eaac18">DrawMatchesFlags_DRAW_RICH_KEYPOINTS</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a1e0467eebe5d4b40ded8ff70d9fe5e9f">DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a1a1646e2368b1b33762ea3983152be76">drawMatchesKnn</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, List&lt; MatOfDMatch &gt; matches1to2, Mat outImg, Scalar matchColor, Scalar singlePointColor, List&lt; MatOfByte &gt; matchesMask, int flags)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a1a5ab7665160fa92c70d35d1ad66c8f0">drawMatchesKnn</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, List&lt; MatOfDMatch &gt; matches1to2, Mat outImg, Scalar matchColor, Scalar singlePointColor, List&lt; MatOfByte &gt; matchesMask)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a74ee45e924b761ef39d84cb41e8cf074">drawMatchesKnn</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, List&lt; MatOfDMatch &gt; matches1to2, Mat outImg, Scalar matchColor, Scalar singlePointColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a74ee45e924b761ef39d84cb41e8cf074">drawMatchesKnn</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, List&lt; MatOfDMatch &gt; matches1to2, Mat outImg, Scalar matchColor, Scalar singlePointColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#ac04bbe58b4d8a2d70542fcf3a6c1b6b4">drawMatchesKnn</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, List&lt; MatOfDMatch &gt; matches1to2, Mat outImg, Scalar matchColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a9c5e3a3d47db3b7d86b9ec6cd759c878">drawMatchesKnn</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, List&lt; MatOfDMatch &gt; matches1to2, Mat outImg)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a9c5e3a3d47db3b7d86b9ec6cd759c878">drawMatchesKnn</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, List&lt; MatOfDMatch &gt; matches1to2, Mat outImg)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#aa2d7edd6a99ab36f4b9c5d11b52dee2c">drawMatchesKnn</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, List&lt; MatOfDMatch &gt; matches1to2, Mat outImg, in Vec4d matchColor, in Vec4d singlePointColor, List&lt; MatOfByte &gt; matchesMask, int flags)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a96b4944e360d73ad5e9062a3c5b81fd8">drawMatchesKnn</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, List&lt; MatOfDMatch &gt; matches1to2, Mat outImg, in Vec4d matchColor, in Vec4d singlePointColor, List&lt; MatOfByte &gt; matchesMask)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#aaf30402dc5d5ad0dacf5065f8154b254">drawMatchesKnn</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, List&lt; MatOfDMatch &gt; matches1to2, Mat outImg, in Vec4d matchColor, in Vec4d singlePointColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a95adf64b121fda9aa37ff62837457099">drawMatchesKnn</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, List&lt; MatOfDMatch &gt; matches1to2, Mat outImg, in Vec4d matchColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#afe5b97de9794c9ed085ea3ea28c916ff">drawMatchesKnn</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, List&lt; MatOfDMatch &gt; matches1to2, Mat outImg, in(double v0, double v1, double v2, double v3) matchColor, in(double v0, double v1, double v2, double v3) singlePointColor, List&lt; MatOfByte &gt; matchesMask, int flags)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a67b58e781721b5c9196d1c1b2081a445">drawMatchesKnn</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, List&lt; MatOfDMatch &gt; matches1to2, Mat outImg, in(double v0, double v1, double v2, double v3) matchColor, in(double v0, double v1, double v2, double v3) singlePointColor, List&lt; MatOfByte &gt; matchesMask)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#acd1cb8aa9c8d02e417720e68adaa8a97">drawMatchesKnn</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, List&lt; MatOfDMatch &gt; matches1to2, Mat outImg, in(double v0, double v1, double v2, double v3) matchColor, in(double v0, double v1, double v2, double v3) singlePointColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#ad6ec9b031a72d8c3f9dd9c80d98dcf12">drawMatchesKnn</a>(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, List&lt; MatOfDMatch &gt; matches1to2, Mat outImg, in(double v0, double v1, double v2, double v3) matchColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html">OpenCVForUnity.Features2dModule.Features2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

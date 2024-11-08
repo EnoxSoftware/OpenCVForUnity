@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['image',['Image',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_multi_source2_mat_helper.html#a13aea4743cd5b965c9fd28f18e4568f7abe53a0541a6d36f6ecb879fa2c584b08',1,'OpenCVForUnity::UnityUtils::Helper::MultiSource2MatHelper']]],
-  ['image2mathelper',['Image2MatHelper',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_multi_source2_mat_helper.html#a84423854864b1a99d0f9ceb17730b48ca37b04ff48cdcf0381cd896eb8197bc65',1,'OpenCVForUnity::UnityUtils::Helper::MultiSource2MatHelper']]],
-  ['image_5ffile_5fcant_5fopen',['IMAGE_FILE_CANT_OPEN',['../namespace_open_c_v_for_unity_1_1_unity_utils_1_1_helper.html#ac283df908027046b84a3da281db1f84ca2bc8c6eb3c9fef28d36b50bbb23b9404',1,'OpenCVForUnity::UnityUtils::Helper']]],
-  ['image_5ffile_5fnot_5fexist',['IMAGE_FILE_NOT_EXIST',['../namespace_open_c_v_for_unity_1_1_unity_utils_1_1_helper.html#ac283df908027046b84a3da281db1f84ca551a6d2a7cbc33651647509f191472f4',1,'OpenCVForUnity::UnityUtils::Helper']]]
+  ['getpixels32mode_0',['GetPixels32Mode',['../d2/db1/classOpenCVForUnity_1_1UnityUtils_1_1DebugMatUtils.html#a3a29ab0ef18e9f09b17e48dc929b1ac5aa7836a98b546dbec2dc217c33ee693d0',1,'OpenCVForUnity::UnityUtils::DebugMatUtils']]],
+  ['getrawtexturedatamode_1',['GetRawTextureDataMode',['../d2/db1/classOpenCVForUnity_1_1UnityUtils_1_1DebugMatUtils.html#a3a29ab0ef18e9f09b17e48dc929b1ac5a040a2c2fb00a3d44e6a9613fcea535bb',1,'OpenCVForUnity::UnityUtils::DebugMatUtils']]],
+  ['gray_2',['GRAY',['../d3/d8d/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureToMatHelper.html#af1626c5067f7216ebea838462a46f00ca48bf014c704c9eaae100a98006a37bf7',1,'OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper.GRAY'],['../dc/d5a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTextureToMatHelper.html#aa14e2a9539c5c369479cce1c79838ce3a48bf014c704c9eaae100a98006a37bf7',1,'OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper.GRAY'],['../d2/d62/namespaceOpenCVForUnity_1_1UnityUtils_1_1Helper.html#aa72968e344f92c2e8bcd432bdce5940ca48bf014c704c9eaae100a98006a37bf7',1,'OpenCVForUnity.UnityUtils.Helper.GRAY']]]
 ];

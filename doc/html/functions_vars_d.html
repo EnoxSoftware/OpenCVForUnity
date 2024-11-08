@@ -1,45 +1,61 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: Class Members - Variables</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
+<script type="text/javascript" src="darkmode_toggle.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +63,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.4</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,23 +74,35 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="doc-content">
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -85,359 +112,140 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div class="contents">
-&#160;
+<div class="textblock">Here is a list of all variables with links to the classes they belong to:</div>
 
-<h3><a id="index_d"></a>- d -</h3><ul>
-<li>DCT_INVERSE
-: <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a9af8231d95e29adf18d44f8548fa24fa">OpenCVForUnity.CoreModule.Core</a>
-</li>
-<li>DCT_ROWS
-: <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a32cc5f0d908ec03cfa6215697d0b1ec5">OpenCVForUnity.CoreModule.Core</a>
-</li>
-<li>DECODE_3D_UNDERWORLD
-: <a class="el" href="class_open_c_v_for_unity_1_1_structured__light_module_1_1_structured__light.html#aea237a19f04fed5ae3612024a98a21e2">OpenCVForUnity.Structured_lightModule.Structured_light</a>
-</li>
-<li>DECOMP_CHOLESKY
-: <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a53f88f83a383fc769f459b8c7f7f4191">OpenCVForUnity.CoreModule.Core</a>
-</li>
-<li>DECOMP_EIG
-: <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_core.html#af3cae8d8b4ac62063a788d8480949c51">OpenCVForUnity.CoreModule.Core</a>
-</li>
-<li>DECOMP_LU
-: <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a63de797ce590a1fd08b2a84a9af1c1b7">OpenCVForUnity.CoreModule.Core</a>
-</li>
-<li>DECOMP_NORMAL
-: <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a430c9780821bb4cf861c919343c7d694">OpenCVForUnity.CoreModule.Core</a>
-</li>
-<li>DECOMP_QR
-: <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_core.html#ae17bb61ddd8e1322016a91a9138f2d7e">OpenCVForUnity.CoreModule.Core</a>
-</li>
-<li>DECOMP_SVD
-: <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_core.html#ae8a16e6c8d4785ce2d627fcdae6aed83">OpenCVForUnity.CoreModule.Core</a>
-</li>
-<li>DEFAULT_MAX_ITERS
-: <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_e_m.html#a86631b7520d63a5a91e69001b15af23c">OpenCVForUnity.MlModule.EM</a>
-</li>
-<li>DEFAULT_NCLUSTERS
-: <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_e_m.html#ae04b22b87ad15d8c256122096f66bfe3">OpenCVForUnity.MlModule.EM</a>
-</li>
-<li>DEFAULT_NLEVELS
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_h_o_g_descriptor.html#a0749ea8e25694fd5277520fe099d8fd3">OpenCVForUnity.ObjdetectModule.HOGDescriptor</a>
-</li>
-<li>DEGREE
-: <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_s_v_m.html#a91ccaf0b3ff6fd302e2acdd0a504061c">OpenCVForUnity.MlModule.SVM</a>
-</li>
-<li>DESCR_FORMAT_COL_BY_COL
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_h_o_g_descriptor.html#ad2cac1c3a05ebcd7efe900d16cb9d32c">OpenCVForUnity.ObjdetectModule.HOGDescriptor</a>
-</li>
-<li>DESCR_FORMAT_ROW_BY_ROW
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_h_o_g_descriptor.html#a99c26b6028cea9666b804e6373239bb7">OpenCVForUnity.ObjdetectModule.HOGDescriptor</a>
-</li>
-<li>DESCRIPTOR_KAZE
-: <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_a_k_a_z_e.html#a0cdfe6ae426979b2bd91b9450f562de7">OpenCVForUnity.Features2dModule.AKAZE</a>
-</li>
-<li>DESCRIPTOR_KAZE_UPRIGHT
-: <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_a_k_a_z_e.html#aaa54df7c1ddf936097e291e8b206d7eb">OpenCVForUnity.Features2dModule.AKAZE</a>
-</li>
-<li>DESCRIPTOR_MLDB
-: <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_a_k_a_z_e.html#ad64bf66c1090aad66233093d82ab6172">OpenCVForUnity.Features2dModule.AKAZE</a>
-</li>
-<li>DESCRIPTOR_MLDB_UPRIGHT
-: <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_a_k_a_z_e.html#a5dcc17d47cc970ff67459a027d203de5">OpenCVForUnity.Features2dModule.AKAZE</a>
-</li>
-<li>DetectionBasedTracker_DETECTED
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#a2981ec2339714691bac461e4ccce604c">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DetectionBasedTracker_DETECTED_NOT_SHOWN_YET
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#aedc04c167a285762c756b6ecfb69ce30">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DetectionBasedTracker_DETECTED_TEMPORARY_LOST
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#a41579b48f8bf892fc51d0206b3cdd97f">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DetectionBasedTracker_WRONG_OBJECT
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#ac16c5f6cf785f52acc889a1a43a53923">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DFT_COMPLEX_INPUT
-: <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a45f190257e535e93b9e5d889d2a28897">OpenCVForUnity.CoreModule.Core</a>
-</li>
-<li>DFT_COMPLEX_OUTPUT
-: <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a0910f497f735b83cbf02f40d8cbede98">OpenCVForUnity.CoreModule.Core</a>
-</li>
-<li>DFT_INVERSE
-: <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a8f93feabe44e4c2e62fc33daddb3e057">OpenCVForUnity.CoreModule.Core</a>
-</li>
-<li>DFT_REAL_OUTPUT
-: <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a5afda64a7880e084d74eeb7d9ec520f5">OpenCVForUnity.CoreModule.Core</a>
-</li>
-<li>DFT_ROWS
-: <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_core.html#adf1d8d366d4b6a6a6ed8d2f60f95b8ee">OpenCVForUnity.CoreModule.Core</a>
-</li>
-<li>DFT_SCALE
-: <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_core.html#ac5b6cafe67cb86f13fa99b3557761dc0">OpenCVForUnity.CoreModule.Core</a>
-</li>
-<li>DICT_4X4_100
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#a647adb0dde7c7085b5cdb2393afe2193">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DICT_4X4_1000
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#aeb9584a52fb2f4b42ce06389812ba7e1">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DICT_4X4_250
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#a9318074a49b22270a819bc85cd238e01">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DICT_4X4_50
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#ac9829ec425492f17c03917c0605af236">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DICT_5X5_100
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#a296ddd17539bbdd49bb0b473e23f63ff">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DICT_5X5_1000
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#ab7a8e81937253a17446789bba95cf324">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DICT_5X5_250
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#a5f96822189b68a3b9c53b8e6190147b8">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DICT_5X5_50
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#a010cac92367be06e4bf9041c737f0865">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DICT_6X6_100
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#ade4a5a84cc0f17635480b6789a20d796">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DICT_6X6_1000
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#aeef8e00b0efc508460a75df5ef247b00">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DICT_6X6_250
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#ab0156c00bc539a88acbc1aeb2ad99bc7">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DICT_6X6_50
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#a77bc3e6fe8f9e7d032e8ac171bbddd13">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DICT_7X7_100
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#ace9bd64dc76ae6a4598424a3a025742c">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DICT_7X7_1000
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#a351f299836f13d26412caa546e0be5cb">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DICT_7X7_250
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#a4b52984a53d91be624c8feac8296fefa">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DICT_7X7_50
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#a2f313ecb7e36f139abaa4885dd3e86e9">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DICT_APRILTAG_16h5
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#a73c060a1b3e2233b22824736d4c089c5">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DICT_APRILTAG_25h9
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#aea7b8e6a7af888dab646d9cf54d9037c">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DICT_APRILTAG_36h10
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#a67ce04b5255ae8b20996236223fcfb31">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DICT_APRILTAG_36h11
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#a07f6f5ca97ddcbc31dd084f3f36a056f">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DICT_ARUCO_MIP_36h12
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#af61fb0cd5db28c9e1ce3cdb1704dd1e7">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>DICT_ARUCO_ORIGINAL
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_objdetect.html#a8fb3e435bc234ade28cfb92f257f42b6">OpenCVForUnity.ObjdetectModule.Objdetect</a>
-</li>
-<li>didUpdateImageBufferInCurrentFrame
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a904ad6e2ba40792c7eb64dedf0481c5c">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>
-</li>
-<li>didUpdateThisFrame
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a86dca0d82c1d21a815cc91fe669337ad">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#aedc64fa0e0ef876bf1e426136634ec37">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>
-</li>
-<li>DIFF_CHARBONNIER
-: <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_k_a_z_e.html#a22dd13268f6dc5367e3173fbdc6a1f93">OpenCVForUnity.Features2dModule.KAZE</a>
-</li>
-<li>DIFF_PM_G1
-: <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_k_a_z_e.html#a96458ca658d79d941aae7ad30bbd1bb3">OpenCVForUnity.Features2dModule.KAZE</a>
-</li>
-<li>DIFF_PM_G2
-: <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_k_a_z_e.html#af8d037b17080555981f897b48d4eb03e">OpenCVForUnity.Features2dModule.KAZE</a>
-</li>
-<li>DIFF_WEICKERT
-: <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_k_a_z_e.html#ae6ea453f798c4c43f5ee01785dcdd36a">OpenCVForUnity.Features2dModule.KAZE</a>
-</li>
-<li>DISCRETE
-: <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_boost.html#ae8618405fd22be5f59863f3c511943c7">OpenCVForUnity.MlModule.Boost</a>
-</li>
-<li>DISP_SCALE
-: <a class="el" href="class_open_c_v_for_unity_1_1_calib3d_module_1_1_stereo_matcher.html#acf17c4efdac0ac9dd11ec8342007174d">OpenCVForUnity.Calib3dModule.StereoMatcher</a>
-</li>
-<li>DISP_SHIFT
-: <a class="el" href="class_open_c_v_for_unity_1_1_calib3d_module_1_1_stereo_matcher.html#a5ee8550bbca61e9ae7cf048b5f1240c7">OpenCVForUnity.Calib3dModule.StereoMatcher</a>
-</li>
-<li>DIST_C
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#af53efa51944b46f35adfc5e8fcd98239">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>DIST_FAIR
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a1c5416ceb661cd69ed1b34a4674c65ef">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>DIST_HUBER
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a8169f59f9adbc674ba6e58520c18fe51">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>DIST_L1
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a70bb7cb6ad4718189a1a0e21301db0f9">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>DIST_L12
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#ab8ed21bd40fb4b159befa421ea4ab6e9">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>DIST_L2
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a79f924e45d33bd7e53b2750de0d726b9">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>DIST_LABEL_CCOMP
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a0bf1162f90c793f443e484c8b15b7503">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>DIST_LABEL_PIXEL
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a4c35a92d0283d14951426c724eb07d9a">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>DIST_MASK_3
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#ad6062f7a81793d9cd9efd09f15c3b5be">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>DIST_MASK_5
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a4e3ecd8a3cd87cbcc208b79ddee6bb27">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>DIST_MASK_PRECISE
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a2bef27846422c2eaf1ddadf0f3a8f1fc">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>DIST_USER
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#ac517f80cb65682792ec110864490d4eb">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>DIST_WELSCH
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#ae0280258898e9271ba0a56b979faff15">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>distance
-: <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_d_match.html#ac86d03ec0a9d18721aa1603774934cb5">OpenCVForUnity.CoreModule.DMatch</a>
-</li>
-<li>DNN_BACKEND_CANN
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#afcc82939cb8da7300501d7de793d05e5">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_BACKEND_CUDA
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#aed3c8aa41fc39f6b487cfa16ea1d2c9e">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_BACKEND_DEFAULT
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#ad09ea3617dd9fcfd9d6307e0f7f83bb3">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_BACKEND_HALIDE
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a1c065286e272e2f550dbc167b3e25a8c">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_BACKEND_INFERENCE_ENGINE
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#aec12aa14443c6c0fe5d63dfeb677cfce">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_BACKEND_OPENCV
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#aca67426c9a6c1b0aea1648e96d408bdf">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_BACKEND_TIMVX
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a60699a61d90747aaa5616d7e39e3313b">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_BACKEND_VKCOM
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a719329bdbed8bcac32da31518a104425">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_BACKEND_WEBNN
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a10a4ef834f6c008f20c60d2629bf97b0">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_LAYOUT_NCDHW
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a47fbf8d71b598a1e7a7c9ff987f65ea1">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_LAYOUT_NCHW
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#aa5708985c82964f7eb9ac19ceba61fb3">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_LAYOUT_ND
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a8dc4abdf193098ee7475dbc004438538">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_LAYOUT_NDHWC
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a89ceded720436ff387a79638fe5c4800">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_LAYOUT_NHWC
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#abfe4ea07f80a7ad77a031308cda25a9c">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_LAYOUT_PLANAR
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#aea480db818b3f421aad648059b7a4580">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_LAYOUT_UNKNOWN
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a0189297953e1dd618cb382b2931e1bc1">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_PMODE_CROP_CENTER
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a3f001a4b45f9824101b9e01f87ca1c71">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_PMODE_LETTERBOX
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a32cce609623e697993f609e38e5130f3">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_PMODE_NULL
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a4f852d25eaf592ef0be9c6f8b3d88a36">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_TARGET_CPU
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#ac503ed74367afdd729bb8daa8ceaf394">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_TARGET_CPU_FP16
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a5efe30becfb2c75c372d6b31b285de6a">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_TARGET_CUDA
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#afe4300185fda7ad87d5040cefed4fa73">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_TARGET_CUDA_FP16
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a8f021881491eb3e88053690bf8a0ac8d">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_TARGET_FPGA
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a3c055cf32bfa25be20daf4c9caf558d9">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_TARGET_HDDL
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a5f50582a9f1d5aba2847cf921eb18605">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_TARGET_MYRIAD
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#ab09dd29b8eb0e1d3b9a15d86a6275adf">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_TARGET_NPU
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a39dde08217c374e36234a25374fcbd0d">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_TARGET_OPENCL
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a0f393d12f5c6fd35ac231d1e970a94c5">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_TARGET_OPENCL_FP16
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#a19a0889c411613c77e14267846736b2b">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>DNN_TARGET_VULKAN
-: <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_dnn.html#ac6379bd8124d0bc4736ec80cf6c8d6ec">OpenCVForUnity.DnnModule.Dnn</a>
-</li>
-<li>downScaleFrameMat
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.html#a5efca4430d1f066be0e201055e5635b8">OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper</a>
-</li>
-<li>DrawMatchesFlags_DEFAULT
-: <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a4593c52c823cbb942c8a6258bf248cdd">OpenCVForUnity.Features2dModule.Features2d</a>
-</li>
-<li>DrawMatchesFlags_DRAW_OVER_OUTIMG
-: <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a6b1d968656f389c55078e19bb152d75d">OpenCVForUnity.Features2dModule.Features2d</a>
-</li>
-<li>DrawMatchesFlags_DRAW_RICH_KEYPOINTS
-: <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#ae420a4e897c00fc558b0e21a77eaac18">OpenCVForUnity.Features2dModule.Features2d</a>
-</li>
-<li>DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS
-: <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_features2d.html#a1e0467eebe5d4b40ded8ff70d9fe5e9f">OpenCVForUnity.Features2dModule.Features2d</a>
-</li>
-<li>DTF_IC
-: <a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_ximgproc.html#a705f549db516b2def76fe6be583ed29f">OpenCVForUnity.XimgprocModule.Ximgproc</a>
-</li>
-<li>DTF_NC
-: <a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_ximgproc.html#afbf094b4ac9dfa469f881e2e5213eb8c">OpenCVForUnity.XimgprocModule.Ximgproc</a>
-</li>
-<li>DTF_RF
-: <a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_ximgproc.html#a2255b0b4ea7dffaf0356eb99af8d7737">OpenCVForUnity.XimgprocModule.Ximgproc</a>
-</li>
+<h3><a id="index_d" name="index_d"></a>- d -</h3><ul>
+<li>DCT_INVERSE&#160;:&#160;<a class="el" href="da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html#a9af8231d95e29adf18d44f8548fa24fa">OpenCVForUnity.CoreModule.Core</a></li>
+<li>DCT_ROWS&#160;:&#160;<a class="el" href="da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html#a32cc5f0d908ec03cfa6215697d0b1ec5">OpenCVForUnity.CoreModule.Core</a></li>
+<li>DECODE_3D_UNDERWORLD&#160;:&#160;<a class="el" href="dd/df0/classOpenCVForUnity_1_1Structured__lightModule_1_1Structured__light.html#aea237a19f04fed5ae3612024a98a21e2">OpenCVForUnity.Structured_lightModule.Structured_light</a></li>
+<li>DECOMP_CHOLESKY&#160;:&#160;<a class="el" href="da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html#a53f88f83a383fc769f459b8c7f7f4191">OpenCVForUnity.CoreModule.Core</a></li>
+<li>DECOMP_EIG&#160;:&#160;<a class="el" href="da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html#af3cae8d8b4ac62063a788d8480949c51">OpenCVForUnity.CoreModule.Core</a></li>
+<li>DECOMP_LU&#160;:&#160;<a class="el" href="da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html#a63de797ce590a1fd08b2a84a9af1c1b7">OpenCVForUnity.CoreModule.Core</a></li>
+<li>DECOMP_NORMAL&#160;:&#160;<a class="el" href="da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html#a430c9780821bb4cf861c919343c7d694">OpenCVForUnity.CoreModule.Core</a></li>
+<li>DECOMP_QR&#160;:&#160;<a class="el" href="da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html#ae17bb61ddd8e1322016a91a9138f2d7e">OpenCVForUnity.CoreModule.Core</a></li>
+<li>DECOMP_SVD&#160;:&#160;<a class="el" href="da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html#ae8a16e6c8d4785ce2d627fcdae6aed83">OpenCVForUnity.CoreModule.Core</a></li>
+<li>DEFAULT_MAX_ITERS&#160;:&#160;<a class="el" href="dc/d6d/classOpenCVForUnity_1_1MlModule_1_1EM.html#a86631b7520d63a5a91e69001b15af23c">OpenCVForUnity.MlModule.EM</a></li>
+<li>DEFAULT_NCLUSTERS&#160;:&#160;<a class="el" href="dc/d6d/classOpenCVForUnity_1_1MlModule_1_1EM.html#ae04b22b87ad15d8c256122096f66bfe3">OpenCVForUnity.MlModule.EM</a></li>
+<li>DEFAULT_NLEVELS&#160;:&#160;<a class="el" href="dd/d35/classOpenCVForUnity_1_1ObjdetectModule_1_1HOGDescriptor.html#a0749ea8e25694fd5277520fe099d8fd3">OpenCVForUnity.ObjdetectModule.HOGDescriptor</a></li>
+<li>DEGREE&#160;:&#160;<a class="el" href="d9/d13/classOpenCVForUnity_1_1MlModule_1_1SVM.html#a91ccaf0b3ff6fd302e2acdd0a504061c">OpenCVForUnity.MlModule.SVM</a></li>
+<li>DESCR_FORMAT_COL_BY_COL&#160;:&#160;<a class="el" href="dd/d35/classOpenCVForUnity_1_1ObjdetectModule_1_1HOGDescriptor.html#ad2cac1c3a05ebcd7efe900d16cb9d32c">OpenCVForUnity.ObjdetectModule.HOGDescriptor</a></li>
+<li>DESCR_FORMAT_ROW_BY_ROW&#160;:&#160;<a class="el" href="dd/d35/classOpenCVForUnity_1_1ObjdetectModule_1_1HOGDescriptor.html#a99c26b6028cea9666b804e6373239bb7">OpenCVForUnity.ObjdetectModule.HOGDescriptor</a></li>
+<li>DESCRIPTOR_KAZE&#160;:&#160;<a class="el" href="de/dc2/classOpenCVForUnity_1_1Features2dModule_1_1AKAZE.html#a0cdfe6ae426979b2bd91b9450f562de7">OpenCVForUnity.Features2dModule.AKAZE</a></li>
+<li>DESCRIPTOR_KAZE_UPRIGHT&#160;:&#160;<a class="el" href="de/dc2/classOpenCVForUnity_1_1Features2dModule_1_1AKAZE.html#aaa54df7c1ddf936097e291e8b206d7eb">OpenCVForUnity.Features2dModule.AKAZE</a></li>
+<li>DESCRIPTOR_MLDB&#160;:&#160;<a class="el" href="de/dc2/classOpenCVForUnity_1_1Features2dModule_1_1AKAZE.html#ad64bf66c1090aad66233093d82ab6172">OpenCVForUnity.Features2dModule.AKAZE</a></li>
+<li>DESCRIPTOR_MLDB_UPRIGHT&#160;:&#160;<a class="el" href="de/dc2/classOpenCVForUnity_1_1Features2dModule_1_1AKAZE.html#a5dcc17d47cc970ff67459a027d203de5">OpenCVForUnity.Features2dModule.AKAZE</a></li>
+<li>DetectionBasedTracker_DETECTED&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#a2981ec2339714691bac461e4ccce604c">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DetectionBasedTracker_DETECTED_NOT_SHOWN_YET&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#aedc04c167a285762c756b6ecfb69ce30">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DetectionBasedTracker_DETECTED_TEMPORARY_LOST&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#a41579b48f8bf892fc51d0206b3cdd97f">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DetectionBasedTracker_WRONG_OBJECT&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#ac16c5f6cf785f52acc889a1a43a53923">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DFT_COMPLEX_INPUT&#160;:&#160;<a class="el" href="da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html#a45f190257e535e93b9e5d889d2a28897">OpenCVForUnity.CoreModule.Core</a></li>
+<li>DFT_COMPLEX_OUTPUT&#160;:&#160;<a class="el" href="da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html#a0910f497f735b83cbf02f40d8cbede98">OpenCVForUnity.CoreModule.Core</a></li>
+<li>DFT_INVERSE&#160;:&#160;<a class="el" href="da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html#a8f93feabe44e4c2e62fc33daddb3e057">OpenCVForUnity.CoreModule.Core</a></li>
+<li>DFT_REAL_OUTPUT&#160;:&#160;<a class="el" href="da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html#a5afda64a7880e084d74eeb7d9ec520f5">OpenCVForUnity.CoreModule.Core</a></li>
+<li>DFT_ROWS&#160;:&#160;<a class="el" href="da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html#adf1d8d366d4b6a6a6ed8d2f60f95b8ee">OpenCVForUnity.CoreModule.Core</a></li>
+<li>DFT_SCALE&#160;:&#160;<a class="el" href="da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html#ac5b6cafe67cb86f13fa99b3557761dc0">OpenCVForUnity.CoreModule.Core</a></li>
+<li>DICT_4X4_100&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#a647adb0dde7c7085b5cdb2393afe2193">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DICT_4X4_1000&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#aeb9584a52fb2f4b42ce06389812ba7e1">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DICT_4X4_250&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#a9318074a49b22270a819bc85cd238e01">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DICT_4X4_50&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#ac9829ec425492f17c03917c0605af236">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DICT_5X5_100&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#a296ddd17539bbdd49bb0b473e23f63ff">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DICT_5X5_1000&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#ab7a8e81937253a17446789bba95cf324">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DICT_5X5_250&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#a5f96822189b68a3b9c53b8e6190147b8">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DICT_5X5_50&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#a010cac92367be06e4bf9041c737f0865">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DICT_6X6_100&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#ade4a5a84cc0f17635480b6789a20d796">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DICT_6X6_1000&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#aeef8e00b0efc508460a75df5ef247b00">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DICT_6X6_250&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#ab0156c00bc539a88acbc1aeb2ad99bc7">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DICT_6X6_50&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#a77bc3e6fe8f9e7d032e8ac171bbddd13">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DICT_7X7_100&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#ace9bd64dc76ae6a4598424a3a025742c">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DICT_7X7_1000&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#a351f299836f13d26412caa546e0be5cb">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DICT_7X7_250&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#a4b52984a53d91be624c8feac8296fefa">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DICT_7X7_50&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#a2f313ecb7e36f139abaa4885dd3e86e9">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DICT_APRILTAG_16h5&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#a73c060a1b3e2233b22824736d4c089c5">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DICT_APRILTAG_25h9&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#aea7b8e6a7af888dab646d9cf54d9037c">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DICT_APRILTAG_36h10&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#a67ce04b5255ae8b20996236223fcfb31">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DICT_APRILTAG_36h11&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#a07f6f5ca97ddcbc31dd084f3f36a056f">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DICT_ARUCO_MIP_36h12&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#af61fb0cd5db28c9e1ce3cdb1704dd1e7">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>DICT_ARUCO_ORIGINAL&#160;:&#160;<a class="el" href="d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html#a8fb3e435bc234ade28cfb92f257f42b6">OpenCVForUnity.ObjdetectModule.Objdetect</a></li>
+<li>didUpdateImageBufferInCurrentFrame&#160;:&#160;<a class="el" href="d8/dba/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1AsyncGPUReadback2MatHelper.html#a140dfa8cd3631d98f6e20ef624a8f847">OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper</a>, <a class="el" href="d6/de0/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Image2MatHelper.html#a904ad6e2ba40792c7eb64dedf0481c5c">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>, <a class="el" href="d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#a720b6a7cb214af9cc138550406d113a3">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a></li>
+<li>didUpdateThisFrame&#160;:&#160;<a class="el" href="d8/dba/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1AsyncGPUReadback2MatHelper.html#a6dc78c08c3603e2f613d9dedf3e9be7f">OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper</a>, <a class="el" href="d6/de0/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Image2MatHelper.html#a86dca0d82c1d21a815cc91fe669337ad">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>, <a class="el" href="d1/d25/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1UnityVideoPlayer2MatHelper.html#aedc64fa0e0ef876bf1e426136634ec37">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>, <a class="el" href="d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#a3127c104ea24f9665950979c942dd12c">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a></li>
+<li>DIFF_CHARBONNIER&#160;:&#160;<a class="el" href="d1/dc2/classOpenCVForUnity_1_1Features2dModule_1_1KAZE.html#a22dd13268f6dc5367e3173fbdc6a1f93">OpenCVForUnity.Features2dModule.KAZE</a></li>
+<li>DIFF_PM_G1&#160;:&#160;<a class="el" href="d1/dc2/classOpenCVForUnity_1_1Features2dModule_1_1KAZE.html#a96458ca658d79d941aae7ad30bbd1bb3">OpenCVForUnity.Features2dModule.KAZE</a></li>
+<li>DIFF_PM_G2&#160;:&#160;<a class="el" href="d1/dc2/classOpenCVForUnity_1_1Features2dModule_1_1KAZE.html#af8d037b17080555981f897b48d4eb03e">OpenCVForUnity.Features2dModule.KAZE</a></li>
+<li>DIFF_WEICKERT&#160;:&#160;<a class="el" href="d1/dc2/classOpenCVForUnity_1_1Features2dModule_1_1KAZE.html#ae6ea453f798c4c43f5ee01785dcdd36a">OpenCVForUnity.Features2dModule.KAZE</a></li>
+<li>DISCRETE&#160;:&#160;<a class="el" href="d0/d69/classOpenCVForUnity_1_1MlModule_1_1Boost.html#ae8618405fd22be5f59863f3c511943c7">OpenCVForUnity.MlModule.Boost</a></li>
+<li>DISP_SCALE&#160;:&#160;<a class="el" href="da/d96/classOpenCVForUnity_1_1Calib3dModule_1_1StereoMatcher.html#acf17c4efdac0ac9dd11ec8342007174d">OpenCVForUnity.Calib3dModule.StereoMatcher</a></li>
+<li>DISP_SHIFT&#160;:&#160;<a class="el" href="da/d96/classOpenCVForUnity_1_1Calib3dModule_1_1StereoMatcher.html#a5ee8550bbca61e9ae7cf048b5f1240c7">OpenCVForUnity.Calib3dModule.StereoMatcher</a></li>
+<li>DIST_C&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#af53efa51944b46f35adfc5e8fcd98239">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>DIST_FAIR&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#a1c5416ceb661cd69ed1b34a4674c65ef">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>DIST_HUBER&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#a8169f59f9adbc674ba6e58520c18fe51">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>DIST_L1&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#a70bb7cb6ad4718189a1a0e21301db0f9">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>DIST_L12&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#ab8ed21bd40fb4b159befa421ea4ab6e9">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>DIST_L2&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#a79f924e45d33bd7e53b2750de0d726b9">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>DIST_LABEL_CCOMP&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#a0bf1162f90c793f443e484c8b15b7503">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>DIST_LABEL_PIXEL&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#a4c35a92d0283d14951426c724eb07d9a">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>DIST_MASK_3&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#ad6062f7a81793d9cd9efd09f15c3b5be">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>DIST_MASK_5&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#a4e3ecd8a3cd87cbcc208b79ddee6bb27">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>DIST_MASK_PRECISE&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#a2bef27846422c2eaf1ddadf0f3a8f1fc">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>DIST_USER&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#ac517f80cb65682792ec110864490d4eb">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>DIST_WELSCH&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#ae0280258898e9271ba0a56b979faff15">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>distance&#160;:&#160;<a class="el" href="da/dc6/classOpenCVForUnity_1_1CoreModule_1_1DMatch.html#ac86d03ec0a9d18721aa1603774934cb5">OpenCVForUnity.CoreModule.DMatch</a></li>
+<li>DNN_BACKEND_CANN&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#afcc82939cb8da7300501d7de793d05e5">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_BACKEND_CUDA&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#aed3c8aa41fc39f6b487cfa16ea1d2c9e">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_BACKEND_DEFAULT&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#ad09ea3617dd9fcfd9d6307e0f7f83bb3">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_BACKEND_HALIDE&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#a1c065286e272e2f550dbc167b3e25a8c">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_BACKEND_INFERENCE_ENGINE&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#aec12aa14443c6c0fe5d63dfeb677cfce">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_BACKEND_OPENCV&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#aca67426c9a6c1b0aea1648e96d408bdf">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_BACKEND_TIMVX&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#a60699a61d90747aaa5616d7e39e3313b">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_BACKEND_VKCOM&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#a719329bdbed8bcac32da31518a104425">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_BACKEND_WEBNN&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#a10a4ef834f6c008f20c60d2629bf97b0">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_LAYOUT_NCDHW&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#a47fbf8d71b598a1e7a7c9ff987f65ea1">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_LAYOUT_NCHW&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#aa5708985c82964f7eb9ac19ceba61fb3">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_LAYOUT_ND&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#a8dc4abdf193098ee7475dbc004438538">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_LAYOUT_NDHWC&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#a89ceded720436ff387a79638fe5c4800">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_LAYOUT_NHWC&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#abfe4ea07f80a7ad77a031308cda25a9c">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_LAYOUT_PLANAR&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#aea480db818b3f421aad648059b7a4580">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_LAYOUT_UNKNOWN&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#a0189297953e1dd618cb382b2931e1bc1">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_PMODE_CROP_CENTER&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#a3f001a4b45f9824101b9e01f87ca1c71">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_PMODE_LETTERBOX&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#a32cce609623e697993f609e38e5130f3">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_PMODE_NULL&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#a4f852d25eaf592ef0be9c6f8b3d88a36">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_TARGET_CPU&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#ac503ed74367afdd729bb8daa8ceaf394">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_TARGET_CPU_FP16&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#a5efe30becfb2c75c372d6b31b285de6a">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_TARGET_CUDA&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#afe4300185fda7ad87d5040cefed4fa73">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_TARGET_CUDA_FP16&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#a8f021881491eb3e88053690bf8a0ac8d">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_TARGET_FPGA&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#a3c055cf32bfa25be20daf4c9caf558d9">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_TARGET_HDDL&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#a5f50582a9f1d5aba2847cf921eb18605">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_TARGET_MYRIAD&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#ab09dd29b8eb0e1d3b9a15d86a6275adf">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_TARGET_NPU&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#a39dde08217c374e36234a25374fcbd0d">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_TARGET_OPENCL&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#a0f393d12f5c6fd35ac231d1e970a94c5">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_TARGET_OPENCL_FP16&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#a19a0889c411613c77e14267846736b2b">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>DNN_TARGET_VULKAN&#160;:&#160;<a class="el" href="dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#ac6379bd8124d0bc4736ec80cf6c8d6ec">OpenCVForUnity.DnnModule.Dnn</a></li>
+<li>downScaleFrameMat&#160;:&#160;<a class="el" href="df/dc9/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ImageOptimizationHelper.html#a5efca4430d1f066be0e201055e5635b8">OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper</a></li>
+<li>DrawMatchesFlags_DEFAULT&#160;:&#160;<a class="el" href="d8/d72/classOpenCVForUnity_1_1Features2dModule_1_1Features2d.html#a4593c52c823cbb942c8a6258bf248cdd">OpenCVForUnity.Features2dModule.Features2d</a></li>
+<li>DrawMatchesFlags_DRAW_OVER_OUTIMG&#160;:&#160;<a class="el" href="d8/d72/classOpenCVForUnity_1_1Features2dModule_1_1Features2d.html#a6b1d968656f389c55078e19bb152d75d">OpenCVForUnity.Features2dModule.Features2d</a></li>
+<li>DrawMatchesFlags_DRAW_RICH_KEYPOINTS&#160;:&#160;<a class="el" href="d8/d72/classOpenCVForUnity_1_1Features2dModule_1_1Features2d.html#ae420a4e897c00fc558b0e21a77eaac18">OpenCVForUnity.Features2dModule.Features2d</a></li>
+<li>DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS&#160;:&#160;<a class="el" href="d8/d72/classOpenCVForUnity_1_1Features2dModule_1_1Features2d.html#a1e0467eebe5d4b40ded8ff70d9fe5e9f">OpenCVForUnity.Features2dModule.Features2d</a></li>
+<li>DTF_IC&#160;:&#160;<a class="el" href="d0/df6/classOpenCVForUnity_1_1XimgprocModule_1_1Ximgproc.html#a705f549db516b2def76fe6be583ed29f">OpenCVForUnity.XimgprocModule.Ximgproc</a></li>
+<li>DTF_NC&#160;:&#160;<a class="el" href="d0/df6/classOpenCVForUnity_1_1XimgprocModule_1_1Ximgproc.html#afbf094b4ac9dfa469f881e2e5213eb8c">OpenCVForUnity.XimgprocModule.Ximgproc</a></li>
+<li>DTF_RF&#160;:&#160;<a class="el" href="d0/df6/classOpenCVForUnity_1_1XimgprocModule_1_1Ximgproc.html#a2255b0b4ea7dffaf0356eb99af8d7737">OpenCVForUnity.XimgprocModule.Ximgproc</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

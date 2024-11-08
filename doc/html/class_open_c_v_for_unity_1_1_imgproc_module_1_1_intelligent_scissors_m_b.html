@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: OpenCVForUnity.ImgprocModule.IntelligentScissorsMB Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,19 +126,19 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_imgproc_module.html">ImgprocModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b-members.html">List of all members</a>  </div>
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.ImgprocModule.IntelligentScissorsMB Class Reference</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.ImgprocModule.IntelligentScissorsMB Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>Intelligent Scissors image segmentation.  
- <a href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#details">More...</a></p>
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for OpenCVForUnity.ImgprocModule.IntelligentScissorsMB:</div>
 <div class="dyncontent">
@@ -114,106 +146,129 @@ Inheritance diagram for OpenCVForUnity.ImgprocModule.IntelligentScissorsMB:</div
   <img src="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.png" usemap="#OpenCVForUnity.ImgprocModule.IntelligentScissorsMB_map" alt=""/>
   <map id="OpenCVForUnity.ImgprocModule.IntelligentScissorsMB_map" name="OpenCVForUnity.ImgprocModule.IntelligentScissorsMB_map">
 <area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="0,112,324,136"/>
+<area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="334,112,658,136"/>
+<area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="668,112,992,136"/>
 <area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="0,56,324,80"/>
-</map>
- </div></div>
+<area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="334,56,658,80"/>
+<area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="668,56,992,80"/>
+  </map>
+</div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a095b26871de9f35fe180422fdb1d6550"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a095b26871de9f35fe180422fdb1d6550">getNativeObjAddr</a> ()</td></tr>
+<tr class="memitem:a095b26871de9f35fe180422fdb1d6550" id="r_a095b26871de9f35fe180422fdb1d6550"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a095b26871de9f35fe180422fdb1d6550">getNativeObjAddr</a> ()</td></tr>
 <tr class="separator:a095b26871de9f35fe180422fdb1d6550"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57182f21bfd74727cf479c02d79cb54f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a57182f21bfd74727cf479c02d79cb54f">IntelligentScissorsMB</a> ()</td></tr>
+<tr class="memitem:a57182f21bfd74727cf479c02d79cb54f" id="r_a57182f21bfd74727cf479c02d79cb54f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57182f21bfd74727cf479c02d79cb54f">IntelligentScissorsMB</a> ()</td></tr>
 <tr class="separator:a57182f21bfd74727cf479c02d79cb54f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89d8c5adf6c361afb5ebd9ea5fe8b50c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a89d8c5adf6c361afb5ebd9ea5fe8b50c">setWeights</a> (float weight_non_edge, float weight_gradient_direction, float weight_gradient_magnitude)</td></tr>
-<tr class="memdesc:a89d8c5adf6c361afb5ebd9ea5fe8b50c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify weights of feature functions.  <a href="#a89d8c5adf6c361afb5ebd9ea5fe8b50c">More...</a><br /></td></tr>
+<tr class="memitem:a89d8c5adf6c361afb5ebd9ea5fe8b50c" id="r_a89d8c5adf6c361afb5ebd9ea5fe8b50c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89d8c5adf6c361afb5ebd9ea5fe8b50c">setWeights</a> (float weight_non_edge, float weight_gradient_direction, float weight_gradient_magnitude)</td></tr>
+<tr class="memdesc:a89d8c5adf6c361afb5ebd9ea5fe8b50c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify weights of feature functions.  <br /></td></tr>
 <tr class="separator:a89d8c5adf6c361afb5ebd9ea5fe8b50c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0d6a379a7d77eafbca37747ea326424"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#ad0d6a379a7d77eafbca37747ea326424">setGradientMagnitudeMaxLimit</a> (float gradient_magnitude_threshold_max)</td></tr>
-<tr class="memdesc:ad0d6a379a7d77eafbca37747ea326424"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify gradient magnitude max value threshold.  <a href="#ad0d6a379a7d77eafbca37747ea326424">More...</a><br /></td></tr>
+<tr class="memitem:ad0d6a379a7d77eafbca37747ea326424" id="r_ad0d6a379a7d77eafbca37747ea326424"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad0d6a379a7d77eafbca37747ea326424">setGradientMagnitudeMaxLimit</a> (float gradient_magnitude_threshold_max)</td></tr>
+<tr class="memdesc:ad0d6a379a7d77eafbca37747ea326424"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify gradient magnitude max value threshold.  <br /></td></tr>
 <tr class="separator:ad0d6a379a7d77eafbca37747ea326424"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ae0bda0fa9d1050f8b9481ea0b37c42"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a1ae0bda0fa9d1050f8b9481ea0b37c42">setGradientMagnitudeMaxLimit</a> ()</td></tr>
-<tr class="memdesc:a1ae0bda0fa9d1050f8b9481ea0b37c42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify gradient magnitude max value threshold.  <a href="#a1ae0bda0fa9d1050f8b9481ea0b37c42">More...</a><br /></td></tr>
+<tr class="memitem:a1ae0bda0fa9d1050f8b9481ea0b37c42" id="r_a1ae0bda0fa9d1050f8b9481ea0b37c42"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ae0bda0fa9d1050f8b9481ea0b37c42">setGradientMagnitudeMaxLimit</a> ()</td></tr>
+<tr class="memdesc:a1ae0bda0fa9d1050f8b9481ea0b37c42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify gradient magnitude max value threshold.  <br /></td></tr>
 <tr class="separator:a1ae0bda0fa9d1050f8b9481ea0b37c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f8ccbaf8c31ae144104b95a69499125"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a5f8ccbaf8c31ae144104b95a69499125">setEdgeFeatureZeroCrossingParameters</a> (float gradient_magnitude_min_value)</td></tr>
-<tr class="memdesc:a5f8ccbaf8c31ae144104b95a69499125"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch to "Laplacian Zero-Crossing" edge feature extractor and specify its parameters.  <a href="#a5f8ccbaf8c31ae144104b95a69499125">More...</a><br /></td></tr>
+<tr class="memitem:a5f8ccbaf8c31ae144104b95a69499125" id="r_a5f8ccbaf8c31ae144104b95a69499125"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f8ccbaf8c31ae144104b95a69499125">setEdgeFeatureZeroCrossingParameters</a> (float gradient_magnitude_min_value)</td></tr>
+<tr class="memdesc:a5f8ccbaf8c31ae144104b95a69499125"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch to "Laplacian Zero-Crossing" edge feature extractor and specify its parameters.  <br /></td></tr>
 <tr class="separator:a5f8ccbaf8c31ae144104b95a69499125"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29e661889366422010a8e52dd09942a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a29e661889366422010a8e52dd09942a4">setEdgeFeatureZeroCrossingParameters</a> ()</td></tr>
-<tr class="memdesc:a29e661889366422010a8e52dd09942a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch to "Laplacian Zero-Crossing" edge feature extractor and specify its parameters.  <a href="#a29e661889366422010a8e52dd09942a4">More...</a><br /></td></tr>
+<tr class="memitem:a29e661889366422010a8e52dd09942a4" id="r_a29e661889366422010a8e52dd09942a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a29e661889366422010a8e52dd09942a4">setEdgeFeatureZeroCrossingParameters</a> ()</td></tr>
+<tr class="memdesc:a29e661889366422010a8e52dd09942a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch to "Laplacian Zero-Crossing" edge feature extractor and specify its parameters.  <br /></td></tr>
 <tr class="separator:a29e661889366422010a8e52dd09942a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ec8a0bfd5aebbc8fa287036a41f3536"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a4ec8a0bfd5aebbc8fa287036a41f3536">setEdgeFeatureCannyParameters</a> (double threshold1, double threshold2, int apertureSize, bool L2gradient)</td></tr>
-<tr class="memdesc:a4ec8a0bfd5aebbc8fa287036a41f3536"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch edge feature extractor to use Canny edge detector.  <a href="#a4ec8a0bfd5aebbc8fa287036a41f3536">More...</a><br /></td></tr>
+<tr class="memitem:a4ec8a0bfd5aebbc8fa287036a41f3536" id="r_a4ec8a0bfd5aebbc8fa287036a41f3536"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ec8a0bfd5aebbc8fa287036a41f3536">setEdgeFeatureCannyParameters</a> (double threshold1, double threshold2, int apertureSize, bool L2gradient)</td></tr>
+<tr class="memdesc:a4ec8a0bfd5aebbc8fa287036a41f3536"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch edge feature extractor to use Canny edge detector.  <br /></td></tr>
 <tr class="separator:a4ec8a0bfd5aebbc8fa287036a41f3536"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6db38f3d91f3ff972e8276d4ccf476a9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a6db38f3d91f3ff972e8276d4ccf476a9">setEdgeFeatureCannyParameters</a> (double threshold1, double threshold2, int apertureSize)</td></tr>
-<tr class="memdesc:a6db38f3d91f3ff972e8276d4ccf476a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch edge feature extractor to use Canny edge detector.  <a href="#a6db38f3d91f3ff972e8276d4ccf476a9">More...</a><br /></td></tr>
+<tr class="memitem:a6db38f3d91f3ff972e8276d4ccf476a9" id="r_a6db38f3d91f3ff972e8276d4ccf476a9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6db38f3d91f3ff972e8276d4ccf476a9">setEdgeFeatureCannyParameters</a> (double threshold1, double threshold2, int apertureSize)</td></tr>
+<tr class="memdesc:a6db38f3d91f3ff972e8276d4ccf476a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch edge feature extractor to use Canny edge detector.  <br /></td></tr>
 <tr class="separator:a6db38f3d91f3ff972e8276d4ccf476a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad33a807603a38576056c157a3ef72081"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#ad33a807603a38576056c157a3ef72081">setEdgeFeatureCannyParameters</a> (double threshold1, double threshold2)</td></tr>
-<tr class="memdesc:ad33a807603a38576056c157a3ef72081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch edge feature extractor to use Canny edge detector.  <a href="#ad33a807603a38576056c157a3ef72081">More...</a><br /></td></tr>
+<tr class="memitem:ad33a807603a38576056c157a3ef72081" id="r_ad33a807603a38576056c157a3ef72081"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad33a807603a38576056c157a3ef72081">setEdgeFeatureCannyParameters</a> (double threshold1, double threshold2)</td></tr>
+<tr class="memdesc:ad33a807603a38576056c157a3ef72081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch edge feature extractor to use Canny edge detector.  <br /></td></tr>
 <tr class="separator:ad33a807603a38576056c157a3ef72081"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d61b80893bae010aa77b5b2b58965aa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a0d61b80893bae010aa77b5b2b58965aa">applyImage</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image)</td></tr>
-<tr class="memdesc:a0d61b80893bae010aa77b5b2b58965aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify input image and extract image features.  <a href="#a0d61b80893bae010aa77b5b2b58965aa">More...</a><br /></td></tr>
+<tr class="memitem:a0d61b80893bae010aa77b5b2b58965aa" id="r_a0d61b80893bae010aa77b5b2b58965aa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0d61b80893bae010aa77b5b2b58965aa">applyImage</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image)</td></tr>
+<tr class="memdesc:a0d61b80893bae010aa77b5b2b58965aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify input image and extract image features.  <br /></td></tr>
 <tr class="separator:a0d61b80893bae010aa77b5b2b58965aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4cfe102912e3eb9437b3b37bb05bb679"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a4cfe102912e3eb9437b3b37bb05bb679">applyImageFeatures</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> non_edge, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> gradient_direction, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> gradient_magnitude, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image)</td></tr>
-<tr class="memdesc:a4cfe102912e3eb9437b3b37bb05bb679"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify custom features of input image.  <a href="#a4cfe102912e3eb9437b3b37bb05bb679">More...</a><br /></td></tr>
+<tr class="memitem:a4cfe102912e3eb9437b3b37bb05bb679" id="r_a4cfe102912e3eb9437b3b37bb05bb679"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4cfe102912e3eb9437b3b37bb05bb679">applyImageFeatures</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> non_edge, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> gradient_direction, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> gradient_magnitude, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image)</td></tr>
+<tr class="memdesc:a4cfe102912e3eb9437b3b37bb05bb679"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify custom features of input image.  <br /></td></tr>
 <tr class="separator:a4cfe102912e3eb9437b3b37bb05bb679"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab9485e14cdc6262e405eee30ea82a4f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#aab9485e14cdc6262e405eee30ea82a4f">applyImageFeatures</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> non_edge, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> gradient_direction, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> gradient_magnitude)</td></tr>
-<tr class="memdesc:aab9485e14cdc6262e405eee30ea82a4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify custom features of input image.  <a href="#aab9485e14cdc6262e405eee30ea82a4f">More...</a><br /></td></tr>
+<tr class="memitem:aab9485e14cdc6262e405eee30ea82a4f" id="r_aab9485e14cdc6262e405eee30ea82a4f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aab9485e14cdc6262e405eee30ea82a4f">applyImageFeatures</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> non_edge, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> gradient_direction, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> gradient_magnitude)</td></tr>
+<tr class="memdesc:aab9485e14cdc6262e405eee30ea82a4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify custom features of input image.  <br /></td></tr>
 <tr class="separator:aab9485e14cdc6262e405eee30ea82a4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b4cbbc8224cfddc460d27a5ae79b5a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a4b4cbbc8224cfddc460d27a5ae79b5a1">buildMap</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> sourcePt)</td></tr>
-<tr class="memdesc:a4b4cbbc8224cfddc460d27a5ae79b5a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares a map of optimal paths for the given source point on the image.  <a href="#a4b4cbbc8224cfddc460d27a5ae79b5a1">More...</a><br /></td></tr>
+<tr class="memitem:a4b4cbbc8224cfddc460d27a5ae79b5a1" id="r_a4b4cbbc8224cfddc460d27a5ae79b5a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b4cbbc8224cfddc460d27a5ae79b5a1">buildMap</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> sourcePt)</td></tr>
+<tr class="memdesc:a4b4cbbc8224cfddc460d27a5ae79b5a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares a map of optimal paths for the given source point on the image.  <br /></td></tr>
 <tr class="separator:a4b4cbbc8224cfddc460d27a5ae79b5a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ebf7a7a179ff42129155b7956cda0f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a0ebf7a7a179ff42129155b7956cda0f4">getContour</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> targetPt, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> contour, bool backward)</td></tr>
-<tr class="memdesc:a0ebf7a7a179ff42129155b7956cda0f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts optimal contour for the given target point on the image.  <a href="#a0ebf7a7a179ff42129155b7956cda0f4">More...</a><br /></td></tr>
+<tr class="memitem:a0ebf7a7a179ff42129155b7956cda0f4" id="r_a0ebf7a7a179ff42129155b7956cda0f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0ebf7a7a179ff42129155b7956cda0f4">getContour</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> targetPt, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> contour, bool backward)</td></tr>
+<tr class="memdesc:a0ebf7a7a179ff42129155b7956cda0f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts optimal contour for the given target point on the image.  <br /></td></tr>
 <tr class="separator:a0ebf7a7a179ff42129155b7956cda0f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a522697b1a5182b364c5ba1950aec13c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a522697b1a5182b364c5ba1950aec13c6">getContour</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> targetPt, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> contour)</td></tr>
-<tr class="memdesc:a522697b1a5182b364c5ba1950aec13c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts optimal contour for the given target point on the image.  <a href="#a522697b1a5182b364c5ba1950aec13c6">More...</a><br /></td></tr>
+<tr class="memitem:a522697b1a5182b364c5ba1950aec13c6" id="r_a522697b1a5182b364c5ba1950aec13c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a522697b1a5182b364c5ba1950aec13c6">getContour</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> targetPt, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> contour)</td></tr>
+<tr class="memdesc:a522697b1a5182b364c5ba1950aec13c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts optimal contour for the given target point on the image.  <br /></td></tr>
 <tr class="separator:a522697b1a5182b364c5ba1950aec13c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
+<tr class="memitem:a44397f9bb62b4fcc21b5bf938becda23" id="r_a44397f9bb62b4fcc21b5bf938becda23"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a44397f9bb62b4fcc21b5bf938becda23">buildMap</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a> sourcePt)</td></tr>
+<tr class="memdesc:a44397f9bb62b4fcc21b5bf938becda23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares a map of optimal paths for the given source point on the image.  <br /></td></tr>
+<tr class="separator:a44397f9bb62b4fcc21b5bf938becda23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc69de5da7b50a216f91cc0439cd8bb5" id="r_acc69de5da7b50a216f91cc0439cd8bb5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acc69de5da7b50a216f91cc0439cd8bb5">getContour</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a> targetPt, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> contour, bool backward)</td></tr>
+<tr class="memdesc:acc69de5da7b50a216f91cc0439cd8bb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts optimal contour for the given target point on the image.  <br /></td></tr>
+<tr class="separator:acc69de5da7b50a216f91cc0439cd8bb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d4f029e1a9043777343529ae5f5f372" id="r_a4d4f029e1a9043777343529ae5f5f372"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d4f029e1a9043777343529ae5f5f372">getContour</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a> targetPt, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> contour)</td></tr>
+<tr class="memdesc:a4d4f029e1a9043777343529ae5f5f372"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts optimal contour for the given target point on the image.  <br /></td></tr>
+<tr class="separator:a4d4f029e1a9043777343529ae5f5f372"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23cee8a897a13e78f3b6c6edc443431d" id="r_a23cee8a897a13e78f3b6c6edc443431d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23cee8a897a13e78f3b6c6edc443431d">buildMap</a> (in(double x, double y) sourcePt)</td></tr>
+<tr class="memdesc:a23cee8a897a13e78f3b6c6edc443431d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares a map of optimal paths for the given source point on the image.  <br /></td></tr>
+<tr class="separator:a23cee8a897a13e78f3b6c6edc443431d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27254ca4a40f83006c94eac627f85f07" id="r_a27254ca4a40f83006c94eac627f85f07"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a27254ca4a40f83006c94eac627f85f07">getContour</a> (in(double x, double y) targetPt, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> contour, bool backward)</td></tr>
+<tr class="memdesc:a27254ca4a40f83006c94eac627f85f07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts optimal contour for the given target point on the image.  <br /></td></tr>
+<tr class="separator:a27254ca4a40f83006c94eac627f85f07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21ff62a4dae81c0c2208a5395920eb53" id="r_a21ff62a4dae81c0c2208a5395920eb53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a21ff62a4dae81c0c2208a5395920eb53">getContour</a> (in(double x, double y) targetPt, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> contour)</td></tr>
+<tr class="memdesc:a21ff62a4dae81c0c2208a5395920eb53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts optimal contour for the given target point on the image.  <br /></td></tr>
+<tr class="separator:a21ff62a4dae81c0c2208a5395920eb53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a68dd6362a65b5bf2f2b8828bef0b7dc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
 <tr class="separator:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
+<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a620f073ff3aa1bcee28fb00edb01dc11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
 <tr class="separator:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aadf37072a403b8610dfcfe8682178ad0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#aadf37072a403b8610dfcfe8682178ad0">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="memitem:aadf37072a403b8610dfcfe8682178ad0" id="r_aadf37072a403b8610dfcfe8682178ad0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aadf37072a403b8610dfcfe8682178ad0">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:aadf37072a403b8610dfcfe8682178ad0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a4b998ab4293ee3fb7cdc494ed9375fc3"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a4b399c42b9c72c5416879af41c6f1051"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a4b399c42b9c72c5416879af41c6f1051">Dispose</a> (bool disposing)</td></tr>
+<tr class="memitem:a4b399c42b9c72c5416879af41c6f1051" id="r_a4b399c42b9c72c5416879af41c6f1051"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b399c42b9c72c5416879af41c6f1051">Dispose</a> (bool disposing)</td></tr>
 <tr class="separator:a4b399c42b9c72c5416879af41c6f1051"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
-<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_aab50d94cc702503eac045ca7042624ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
 <tr class="separator:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
+<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a6dc5923de5bd43795c72dd7f581ad832"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a1fb2523312e8a423889a1d160e755e7d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
+<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a739b223f2008fae0966c43d0c6f0f72f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
 <tr class="separator:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_ae924d4d77a5929e39abca6ef9daf6330"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
 <tr class="separator:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a1e47724d49556061a5ba400577be2a13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
+<tr class="inherit_header pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Package Attributes inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a056e69daaa9ea20e563c5e41b28c1525"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
 <tr class="separator:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
+<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a8e287e3cb5995f483cb64dd6c3b19a7f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Intelligent Scissors image segmentation. </p>
 <p>This class is used to find the path (contour) between two points which can be used for image segmentation.</p>
-<p>Usage example: </p><div class="fragment"></div><!-- fragment --><p> Reference: &lt;a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.138.3811&amp;amp;rep=rep1&amp;amp;type=pdf"&gt;"Intelligent Scissors for Image Composition"&lt;/a&gt; algorithm designed by Eric N. Mortensen and William A. Barrett, Brigham Young University <b>[Mortensen95intelligentscissors]</b> </p>
+<p>Usage example: </p><div class="fragment"></div><!-- fragment --><p>Reference: &lt;a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.138.3811&amp;amp;rep=rep1&amp;amp;type=pdf"&gt;"Intelligent Scissors for Image Composition"&lt;/a&gt; algorithm designed by Eric N. Mortensen and William A. Barrett, Brigham Young University <b>[Mortensen95intelligentscissors]</b> </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a57182f21bfd74727cf479c02d79cb54f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57182f21bfd74727cf479c02d79cb54f">&#9670;&nbsp;</a></span>IntelligentScissorsMB()</h2>
+<a id="a57182f21bfd74727cf479c02d79cb54f" name="a57182f21bfd74727cf479c02d79cb54f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57182f21bfd74727cf479c02d79cb54f">&#9670;&#160;</a></span>IntelligentScissorsMB()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -221,7 +276,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.IntelligentScissorsMB </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -230,8 +285,8 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aadf37072a403b8610dfcfe8682178ad0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadf37072a403b8610dfcfe8682178ad0">&#9670;&nbsp;</a></span>__fromPtr__()</h2>
+<a id="aadf37072a403b8610dfcfe8682178ad0" name="aadf37072a403b8610dfcfe8682178ad0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadf37072a403b8610dfcfe8682178ad0">&#9670;&#160;</a></span>__fromPtr__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -242,8 +297,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a> OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.__fromPtr__ </td>
           <td>(</td>
-          <td class="paramtype">IntPtr&#160;</td>
-          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td class="paramtype">IntPtr</td>          <td class="paramname"><span class="paramname"><em>addr</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -256,8 +310,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a0d61b80893bae010aa77b5b2b58965aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d61b80893bae010aa77b5b2b58965aa">&#9670;&nbsp;</a></span>applyImage()</h2>
+<a id="a0d61b80893bae010aa77b5b2b58965aa" name="a0d61b80893bae010aa77b5b2b58965aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d61b80893bae010aa77b5b2b58965aa">&#9670;&#160;</a></span>applyImage()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -265,8 +319,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a> OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.applyImage </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>image</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>image</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -282,8 +335,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a4cfe102912e3eb9437b3b37bb05bb679"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4cfe102912e3eb9437b3b37bb05bb679">&#9670;&nbsp;</a></span>applyImageFeatures() <span class="overload">[1/2]</span></h2>
+<a id="aab9485e14cdc6262e405eee30ea82a4f" name="aab9485e14cdc6262e405eee30ea82a4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab9485e14cdc6262e405eee30ea82a4f">&#9670;&#160;</a></span>applyImageFeatures() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -291,37 +344,23 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a> OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.applyImageFeatures </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>non_edge</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>non_edge</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>gradient_direction</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>gradient_direction</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>gradient_magnitude</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>image</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>gradient_magnitude</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Specify custom features of input image. </p>
-<p>Customized advanced variant of <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a0d61b80893bae010aa77b5b2b58965aa" title="Specify input image and extract image features. ">applyImage()</a> call.</p>
+<p>Customized advanced variant of <a class="el" href="#a0d61b80893bae010aa77b5b2b58965aa" title="Specify input image and extract image features.">applyImage()</a> call. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">non_edge</td><td>Specify cost of non-edge pixels. Type is CV_8UC1. Expected values are <code>{0, 1}</code>. </td></tr>
@@ -334,8 +373,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aab9485e14cdc6262e405eee30ea82a4f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab9485e14cdc6262e405eee30ea82a4f">&#9670;&nbsp;</a></span>applyImageFeatures() <span class="overload">[2/2]</span></h2>
+<a id="a4cfe102912e3eb9437b3b37bb05bb679" name="a4cfe102912e3eb9437b3b37bb05bb679"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cfe102912e3eb9437b3b37bb05bb679">&#9670;&#160;</a></span>applyImageFeatures() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -343,31 +382,28 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a> OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.applyImageFeatures </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>non_edge</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>non_edge</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>gradient_direction</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>gradient_direction</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>gradient_magnitude</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>gradient_magnitude</em></span>, </td>
         </tr>
         <tr>
+          <td class="paramkey"></td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>image</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Specify custom features of input image. </p>
-<p>Customized advanced variant of <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a0d61b80893bae010aa77b5b2b58965aa" title="Specify input image and extract image features. ">applyImage()</a> call.</p>
+<p>Customized advanced variant of <a class="el" href="#a0d61b80893bae010aa77b5b2b58965aa" title="Specify input image and extract image features.">applyImage()</a> call. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">non_edge</td><td>Specify cost of non-edge pixels. Type is CV_8UC1. Expected values are <code>{0, 1}</code>. </td></tr>
@@ -380,8 +416,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a4b4cbbc8224cfddc460d27a5ae79b5a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b4cbbc8224cfddc460d27a5ae79b5a1">&#9670;&nbsp;</a></span>buildMap()</h2>
+<a id="a44397f9bb62b4fcc21b5bf938becda23" name="a44397f9bb62b4fcc21b5bf938becda23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44397f9bb62b4fcc21b5bf938becda23">&#9670;&#160;</a></span>buildMap() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -389,15 +425,14 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.buildMap </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a>&#160;</td>
-          <td class="paramname"><em>sourcePt</em></td><td>)</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a></td>          <td class="paramname"><span class="paramname"><em>sourcePt</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Prepares a map of optimal paths for the given source point on the image. </p>
-<dl class="section note"><dt>Note</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a0d61b80893bae010aa77b5b2b58965aa" title="Specify input image and extract image features. ">applyImage()</a> / <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a4cfe102912e3eb9437b3b37bb05bb679" title="Specify custom features of input image. ">applyImageFeatures()</a> must be called before this call</dd></dl>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="#a0d61b80893bae010aa77b5b2b58965aa" title="Specify input image and extract image features.">applyImage()</a> / <a class="el" href="#a4cfe102912e3eb9437b3b37bb05bb679" title="Specify custom features of input image.">applyImageFeatures()</a> must be called before this call </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sourcePt</td><td>The source point used to find the paths </td></tr>
@@ -407,8 +442,60 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a4b399c42b9c72c5416879af41c6f1051"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b399c42b9c72c5416879af41c6f1051">&#9670;&nbsp;</a></span>Dispose()</h2>
+<a id="a23cee8a897a13e78f3b6c6edc443431d" name="a23cee8a897a13e78f3b6c6edc443431d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23cee8a897a13e78f3b6c6edc443431d">&#9670;&#160;</a></span>buildMap() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.buildMap </td>
+          <td>(</td>
+          <td class="paramtype">in(double x, double y)</td>          <td class="paramname"><span class="paramname"><em>sourcePt</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prepares a map of optimal paths for the given source point on the image. </p>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="#a0d61b80893bae010aa77b5b2b58965aa" title="Specify input image and extract image features.">applyImage()</a> / <a class="el" href="#a4cfe102912e3eb9437b3b37bb05bb679" title="Specify custom features of input image.">applyImageFeatures()</a> must be called before this call </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sourcePt</td><td>The source point used to find the paths </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4b4cbbc8224cfddc460d27a5ae79b5a1" name="a4b4cbbc8224cfddc460d27a5ae79b5a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b4cbbc8224cfddc460d27a5ae79b5a1">&#9670;&#160;</a></span>buildMap() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.buildMap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a></td>          <td class="paramname"><span class="paramname"><em>sourcePt</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prepares a map of optimal paths for the given source point on the image. </p>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="#a0d61b80893bae010aa77b5b2b58965aa" title="Specify input image and extract image features.">applyImage()</a> / <a class="el" href="#a4cfe102912e3eb9437b3b37bb05bb679" title="Specify custom features of input image.">applyImageFeatures()</a> must be called before this call </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sourcePt</td><td>The source point used to find the paths </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4b399c42b9c72c5416879af41c6f1051" name="a4b399c42b9c72c5416879af41c6f1051"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b399c42b9c72c5416879af41c6f1051">&#9670;&#160;</a></span>Dispose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -419,8 +506,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">override void OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.Dispose </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>disposing</em></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>disposing</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -435,8 +521,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a0ebf7a7a179ff42129155b7956cda0f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ebf7a7a179ff42129155b7956cda0f4">&#9670;&nbsp;</a></span>getContour() <span class="overload">[1/2]</span></h2>
+<a id="a4d4f029e1a9043777343529ae5f5f372" name="a4d4f029e1a9043777343529ae5f5f372"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d4f029e1a9043777343529ae5f5f372">&#9670;&#160;</a></span>getContour() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -444,44 +530,30 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.getContour </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a>&#160;</td>
-          <td class="paramname"><em>targetPt</em>, </td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a></td>          <td class="paramname"><span class="paramname"><em>targetPt</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>contour</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>backward</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>contour</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Extracts optimal contour for the given target point on the image. </p>
-<dl class="section note"><dt>Note</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a4b4cbbc8224cfddc460d27a5ae79b5a1" title="Prepares a map of optimal paths for the given source point on the image. ">buildMap()</a> must be called before this call</dd></dl>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="#a4b4cbbc8224cfddc460d27a5ae79b5a1" title="Prepares a map of optimal paths for the given source point on the image.">buildMap()</a> must be called before this call </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir"></td><td class="paramname">targetPt</td><td>The target point </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">contour</td><td>The list of pixels which contains optimal path between the source and the target points of the image. Type is CV_32SC2 (compatible with <code>std::vector&lt;Point&gt;</code>) </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">backward</td><td>Flag to indicate reverse order of retrived pixels (use "true" value to fetch points from the target to the source point) </td></tr>
+    <tr><td class="paramname">targetPt</td><td>The target point </td></tr>
+    <tr><td class="paramname">backward</td><td>Flag to indicate reverse order of retrived pixels (use "true" value to fetch points from the target to the source point) </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a522697b1a5182b364c5ba1950aec13c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a522697b1a5182b364c5ba1950aec13c6">&#9670;&nbsp;</a></span>getContour() <span class="overload">[2/2]</span></h2>
+<a id="acc69de5da7b50a216f91cc0439cd8bb5" name="acc69de5da7b50a216f91cc0439cd8bb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc69de5da7b50a216f91cc0439cd8bb5">&#9670;&#160;</a></span>getContour() <span class="overload">[2/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -489,38 +561,169 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.getContour </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a>&#160;</td>
-          <td class="paramname"><em>targetPt</em>, </td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a></td>          <td class="paramname"><span class="paramname"><em>targetPt</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>contour</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>contour</em></span>, </td>
         </tr>
         <tr>
+          <td class="paramkey"></td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>backward</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Extracts optimal contour for the given target point on the image. </p>
-<dl class="section note"><dt>Note</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a4b4cbbc8224cfddc460d27a5ae79b5a1" title="Prepares a map of optimal paths for the given source point on the image. ">buildMap()</a> must be called before this call</dd></dl>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="#a4b4cbbc8224cfddc460d27a5ae79b5a1" title="Prepares a map of optimal paths for the given source point on the image.">buildMap()</a> must be called before this call </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir"></td><td class="paramname">targetPt</td><td>The target point </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">contour</td><td>The list of pixels which contains optimal path between the source and the target points of the image. Type is CV_32SC2 (compatible with <code>std::vector&lt;Point&gt;</code>) </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">backward</td><td>Flag to indicate reverse order of retrived pixels (use "true" value to fetch points from the target to the source point) </td></tr>
+    <tr><td class="paramname">targetPt</td><td>The target point </td></tr>
+    <tr><td class="paramname">backward</td><td>Flag to indicate reverse order of retrived pixels (use "true" value to fetch points from the target to the source point) </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a095b26871de9f35fe180422fdb1d6550"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a095b26871de9f35fe180422fdb1d6550">&#9670;&nbsp;</a></span>getNativeObjAddr()</h2>
+<a id="a21ff62a4dae81c0c2208a5395920eb53" name="a21ff62a4dae81c0c2208a5395920eb53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21ff62a4dae81c0c2208a5395920eb53">&#9670;&#160;</a></span>getContour() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.getContour </td>
+          <td>(</td>
+          <td class="paramtype">in(double x, double y)</td>          <td class="paramname"><span class="paramname"><em>targetPt</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>contour</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extracts optimal contour for the given target point on the image. </p>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="#a4b4cbbc8224cfddc460d27a5ae79b5a1" title="Prepares a map of optimal paths for the given source point on the image.">buildMap()</a> must be called before this call </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">targetPt</td><td>The target point </td></tr>
+    <tr><td class="paramname">backward</td><td>Flag to indicate reverse order of retrived pixels (use "true" value to fetch points from the target to the source point) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a27254ca4a40f83006c94eac627f85f07" name="a27254ca4a40f83006c94eac627f85f07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27254ca4a40f83006c94eac627f85f07">&#9670;&#160;</a></span>getContour() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.getContour </td>
+          <td>(</td>
+          <td class="paramtype">in(double x, double y)</td>          <td class="paramname"><span class="paramname"><em>targetPt</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>contour</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>backward</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extracts optimal contour for the given target point on the image. </p>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="#a4b4cbbc8224cfddc460d27a5ae79b5a1" title="Prepares a map of optimal paths for the given source point on the image.">buildMap()</a> must be called before this call </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">targetPt</td><td>The target point </td></tr>
+    <tr><td class="paramname">backward</td><td>Flag to indicate reverse order of retrived pixels (use "true" value to fetch points from the target to the source point) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a522697b1a5182b364c5ba1950aec13c6" name="a522697b1a5182b364c5ba1950aec13c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a522697b1a5182b364c5ba1950aec13c6">&#9670;&#160;</a></span>getContour() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.getContour </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a></td>          <td class="paramname"><span class="paramname"><em>targetPt</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>contour</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extracts optimal contour for the given target point on the image. </p>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="#a4b4cbbc8224cfddc460d27a5ae79b5a1" title="Prepares a map of optimal paths for the given source point on the image.">buildMap()</a> must be called before this call </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">targetPt</td><td>The target point </td></tr>
+    <tr><td class="paramname">backward</td><td>Flag to indicate reverse order of retrived pixels (use "true" value to fetch points from the target to the source point) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0ebf7a7a179ff42129155b7956cda0f4" name="a0ebf7a7a179ff42129155b7956cda0f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ebf7a7a179ff42129155b7956cda0f4">&#9670;&#160;</a></span>getContour() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.getContour </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a></td>          <td class="paramname"><span class="paramname"><em>targetPt</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>contour</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>backward</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extracts optimal contour for the given target point on the image. </p>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="#a4b4cbbc8224cfddc460d27a5ae79b5a1" title="Prepares a map of optimal paths for the given source point on the image.">buildMap()</a> must be called before this call </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">targetPt</td><td>The target point </td></tr>
+    <tr><td class="paramname">backward</td><td>Flag to indicate reverse order of retrived pixels (use "true" value to fetch points from the target to the source point) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a095b26871de9f35fe180422fdb1d6550" name="a095b26871de9f35fe180422fdb1d6550"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a095b26871de9f35fe180422fdb1d6550">&#9670;&#160;</a></span>getNativeObjAddr()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -528,7 +731,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">IntPtr OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.getNativeObjAddr </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -536,8 +739,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a4ec8a0bfd5aebbc8fa287036a41f3536"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ec8a0bfd5aebbc8fa287036a41f3536">&#9670;&nbsp;</a></span>setEdgeFeatureCannyParameters() <span class="overload">[1/3]</span></h2>
+<a id="ad33a807603a38576056c157a3ef72081" name="ad33a807603a38576056c157a3ef72081"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad33a807603a38576056c157a3ef72081">&#9670;&#160;</a></span>setEdgeFeatureCannyParameters() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -545,31 +748,12 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a> OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.setEdgeFeatureCannyParameters </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>threshold1</em>, </td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>threshold1</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>threshold2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>apertureSize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>L2gradient</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>threshold2</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -580,8 +764,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a6db38f3d91f3ff972e8276d4ccf476a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6db38f3d91f3ff972e8276d4ccf476a9">&#9670;&nbsp;</a></span>setEdgeFeatureCannyParameters() <span class="overload">[2/3]</span></h2>
+<a id="a6db38f3d91f3ff972e8276d4ccf476a9" name="a6db38f3d91f3ff972e8276d4ccf476a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6db38f3d91f3ff972e8276d4ccf476a9">&#9670;&#160;</a></span>setEdgeFeatureCannyParameters() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -589,25 +773,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a> OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.setEdgeFeatureCannyParameters </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>threshold1</em>, </td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>threshold1</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>threshold2</em>, </td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>threshold2</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>apertureSize</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>apertureSize</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -618,8 +794,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ad33a807603a38576056c157a3ef72081"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad33a807603a38576056c157a3ef72081">&#9670;&nbsp;</a></span>setEdgeFeatureCannyParameters() <span class="overload">[3/3]</span></h2>
+<a id="a4ec8a0bfd5aebbc8fa287036a41f3536" name="a4ec8a0bfd5aebbc8fa287036a41f3536"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ec8a0bfd5aebbc8fa287036a41f3536">&#9670;&#160;</a></span>setEdgeFeatureCannyParameters() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -627,19 +803,22 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a> OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.setEdgeFeatureCannyParameters </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>threshold1</em>, </td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>threshold1</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>threshold2</em>&#160;</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>threshold2</em></span>, </td>
         </tr>
         <tr>
+          <td class="paramkey"></td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>apertureSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>L2gradient</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -650,8 +829,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a5f8ccbaf8c31ae144104b95a69499125"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f8ccbaf8c31ae144104b95a69499125">&#9670;&nbsp;</a></span>setEdgeFeatureZeroCrossingParameters() <span class="overload">[1/2]</span></h2>
+<a id="a29e661889366422010a8e52dd09942a4" name="a29e661889366422010a8e52dd09942a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29e661889366422010a8e52dd09942a4">&#9670;&#160;</a></span>setEdgeFeatureZeroCrossingParameters() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -659,8 +838,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a> OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.setEdgeFeatureZeroCrossingParameters </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>gradient_magnitude_min_value</em></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -671,7 +849,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Implementation has additional filtering for regions with low-amplitude noise. This filtering is enabled through parameter of minimal gradient amplitude (use some small value 4, 8, 16).</p>
 <dl class="section note"><dt>Note</dt><dd>Current implementation of this feature extractor is based on processing of grayscale images (color image is converted to grayscale image first).</dd>
 <dd>
-Canny edge detector is a bit slower, but provides better results (especially on color images): use <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a4ec8a0bfd5aebbc8fa287036a41f3536" title="Switch edge feature extractor to use Canny edge detector. ">setEdgeFeatureCannyParameters()</a>.</dd></dl>
+Canny edge detector is a bit slower, but provides better results (especially on color images): use <a class="el" href="#a4ec8a0bfd5aebbc8fa287036a41f3536" title="Switch edge feature extractor to use Canny edge detector.">setEdgeFeatureCannyParameters()</a>. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gradient_magnitude_min_value</td><td>Minimal gradient magnitude value for edge pixels (default: 0, check is disabled) </td></tr>
@@ -681,8 +859,8 @@ Canny edge detector is a bit slower, but provides better results (especially on 
 
 </div>
 </div>
-<a id="a29e661889366422010a8e52dd09942a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29e661889366422010a8e52dd09942a4">&#9670;&nbsp;</a></span>setEdgeFeatureZeroCrossingParameters() <span class="overload">[2/2]</span></h2>
+<a id="a5f8ccbaf8c31ae144104b95a69499125" name="a5f8ccbaf8c31ae144104b95a69499125"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f8ccbaf8c31ae144104b95a69499125">&#9670;&#160;</a></span>setEdgeFeatureZeroCrossingParameters() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -690,7 +868,7 @@ Canny edge detector is a bit slower, but provides better results (especially on 
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a> OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.setEdgeFeatureZeroCrossingParameters </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>gradient_magnitude_min_value</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -701,7 +879,7 @@ Canny edge detector is a bit slower, but provides better results (especially on 
 <p>Implementation has additional filtering for regions with low-amplitude noise. This filtering is enabled through parameter of minimal gradient amplitude (use some small value 4, 8, 16).</p>
 <dl class="section note"><dt>Note</dt><dd>Current implementation of this feature extractor is based on processing of grayscale images (color image is converted to grayscale image first).</dd>
 <dd>
-Canny edge detector is a bit slower, but provides better results (especially on color images): use <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html#a4ec8a0bfd5aebbc8fa287036a41f3536" title="Switch edge feature extractor to use Canny edge detector. ">setEdgeFeatureCannyParameters()</a>.</dd></dl>
+Canny edge detector is a bit slower, but provides better results (especially on color images): use <a class="el" href="#a4ec8a0bfd5aebbc8fa287036a41f3536" title="Switch edge feature extractor to use Canny edge detector.">setEdgeFeatureCannyParameters()</a>. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gradient_magnitude_min_value</td><td>Minimal gradient magnitude value for edge pixels (default: 0, check is disabled) </td></tr>
@@ -711,8 +889,8 @@ Canny edge detector is a bit slower, but provides better results (especially on 
 
 </div>
 </div>
-<a id="ad0d6a379a7d77eafbca37747ea326424"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0d6a379a7d77eafbca37747ea326424">&#9670;&nbsp;</a></span>setGradientMagnitudeMaxLimit() <span class="overload">[1/2]</span></h2>
+<a id="a1ae0bda0fa9d1050f8b9481ea0b37c42" name="a1ae0bda0fa9d1050f8b9481ea0b37c42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ae0bda0fa9d1050f8b9481ea0b37c42">&#9670;&#160;</a></span>setGradientMagnitudeMaxLimit() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -720,16 +898,15 @@ Canny edge detector is a bit slower, but provides better results (especially on 
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a> OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.setGradientMagnitudeMaxLimit </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>gradient_magnitude_threshold_max</em></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Specify gradient magnitude max value threshold. </p>
-<p>Zero limit value is used to disable gradient magnitude thresholding (default behavior, as described in original article). Otherwize pixels with <code>gradient magnitude &gt;= threshold</code> have zero cost.</p>
-<dl class="section note"><dt>Note</dt><dd>Thresholding should be used for images with irregular regions (to avoid stuck on parameters from high-contract areas, like embedded logos).</dd></dl>
+<p>Zero limit value is used to disable gradient magnitude thresholding (default behavior, as described in original article). Otherwize pixels with <code>gradient magnitude &amp;gt;= threshold</code> have zero cost.</p>
+<dl class="section note"><dt>Note</dt><dd>Thresholding should be used for images with irregular regions (to avoid stuck on parameters from high-contract areas, like embedded logos). </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gradient_magnitude_threshold_max</td><td>Specify gradient magnitude max value threshold (default: 0, disabled) </td></tr>
@@ -739,8 +916,8 @@ Canny edge detector is a bit slower, but provides better results (especially on 
 
 </div>
 </div>
-<a id="a1ae0bda0fa9d1050f8b9481ea0b37c42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ae0bda0fa9d1050f8b9481ea0b37c42">&#9670;&nbsp;</a></span>setGradientMagnitudeMaxLimit() <span class="overload">[2/2]</span></h2>
+<a id="ad0d6a379a7d77eafbca37747ea326424" name="ad0d6a379a7d77eafbca37747ea326424"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0d6a379a7d77eafbca37747ea326424">&#9670;&#160;</a></span>setGradientMagnitudeMaxLimit() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -748,15 +925,15 @@ Canny edge detector is a bit slower, but provides better results (especially on 
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a> OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.setGradientMagnitudeMaxLimit </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>gradient_magnitude_threshold_max</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Specify gradient magnitude max value threshold. </p>
-<p>Zero limit value is used to disable gradient magnitude thresholding (default behavior, as described in original article). Otherwize pixels with <code>gradient magnitude &gt;= threshold</code> have zero cost.</p>
-<dl class="section note"><dt>Note</dt><dd>Thresholding should be used for images with irregular regions (to avoid stuck on parameters from high-contract areas, like embedded logos).</dd></dl>
+<p>Zero limit value is used to disable gradient magnitude thresholding (default behavior, as described in original article). Otherwize pixels with <code>gradient magnitude &amp;gt;= threshold</code> have zero cost.</p>
+<dl class="section note"><dt>Note</dt><dd>Thresholding should be used for images with irregular regions (to avoid stuck on parameters from high-contract areas, like embedded logos). </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gradient_magnitude_threshold_max</td><td>Specify gradient magnitude max value threshold (default: 0, disabled) </td></tr>
@@ -766,8 +943,8 @@ Canny edge detector is a bit slower, but provides better results (especially on 
 
 </div>
 </div>
-<a id="a89d8c5adf6c361afb5ebd9ea5fe8b50c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89d8c5adf6c361afb5ebd9ea5fe8b50c">&#9670;&nbsp;</a></span>setWeights()</h2>
+<a id="a89d8c5adf6c361afb5ebd9ea5fe8b50c" name="a89d8c5adf6c361afb5ebd9ea5fe8b50c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89d8c5adf6c361afb5ebd9ea5fe8b50c">&#9670;&#160;</a></span>setWeights()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -775,31 +952,23 @@ Canny edge detector is a bit slower, but provides better results (especially on 
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html">IntelligentScissorsMB</a> OpenCVForUnity.ImgprocModule.IntelligentScissorsMB.setWeights </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>weight_non_edge</em>, </td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>weight_non_edge</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>weight_gradient_direction</em>, </td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>weight_gradient_direction</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>weight_gradient_magnitude</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>weight_gradient_magnitude</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Specify weights of feature functions. </p>
-<p>Consider keeping weights normalized (sum of weights equals to 1.0) Discrete dynamic programming (DP) goal is minimization of costs between pixels.</p>
+<p>Consider keeping weights normalized (sum of weights equals to 1.0) Discrete dynamic programming (DP) goal is minimization of costs between pixels. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">weight_non_edge</td><td>Specify cost of non-edge pixels (default: 0.43f) </td></tr>
@@ -811,15 +980,16 @@ Canny edge detector is a bit slower, but provides better results (especially on 
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/imgproc/<a class="el" href="_intelligent_scissors_m_b_8cs.html">IntelligentScissorsMB.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/imgproc/<a class="el" href="_intelligent_scissors_m_b___struct_8cs.html">IntelligentScissorsMB_Struct.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/imgproc/<a class="el" href="_intelligent_scissors_m_b___value_tuple_8cs.html">IntelligentScissorsMB_ValueTuple.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

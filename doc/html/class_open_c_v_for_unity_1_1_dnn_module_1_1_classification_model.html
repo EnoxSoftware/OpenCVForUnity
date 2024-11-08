@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: OpenCVForUnity.DnnModule.ClassificationModel Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,162 +126,210 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_dnn_module.html">DnnModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html">ClassificationModel</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model-members.html">List of all members</a>  </div>
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.DnnModule.ClassificationModel Class Reference</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.DnnModule.ClassificationModel Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>This class represents high-level API for classification models.  
- <a href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html#details">More...</a></p>
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for OpenCVForUnity.DnnModule.ClassificationModel:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.png" usemap="#OpenCVForUnity.DnnModule.ClassificationModel_map" alt=""/>
   <map id="OpenCVForUnity.DnnModule.ClassificationModel_map" name="OpenCVForUnity.DnnModule.ClassificationModel_map">
-<area href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html" title="This class is presented high-level API for neural networks. " alt="OpenCVForUnity.DnnModule.Model" shape="rect" coords="0,168,292,192"/>
+<area href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html" title="This class is presented high-level API for neural networks." alt="OpenCVForUnity.DnnModule.Model" shape="rect" coords="302,168,594,192"/>
 <area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="0,112,292,136"/>
+<area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="302,112,594,136"/>
+<area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="604,112,896,136"/>
 <area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="0,56,292,80"/>
-</map>
- </div></div>
+<area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="302,56,594,80"/>
+<area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="604,56,896,80"/>
+  </map>
+</div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a445d5879a9098ea54592da9ddeab0706"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html#a445d5879a9098ea54592da9ddeab0706">ClassificationModel</a> (string model, string config)</td></tr>
-<tr class="memdesc:a445d5879a9098ea54592da9ddeab0706"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create classification model from network represented in one of the supported formats. An order of <code>model</code> and <code>config</code> arguments does not matter.  <a href="#a445d5879a9098ea54592da9ddeab0706">More...</a><br /></td></tr>
+<tr class="memitem:a445d5879a9098ea54592da9ddeab0706" id="r_a445d5879a9098ea54592da9ddeab0706"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a445d5879a9098ea54592da9ddeab0706">ClassificationModel</a> (string model, string config)</td></tr>
+<tr class="memdesc:a445d5879a9098ea54592da9ddeab0706"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create classification model from network represented in one of the supported formats. An order of <code>model</code> and <code>config</code> arguments does not matter.  <br /></td></tr>
 <tr class="separator:a445d5879a9098ea54592da9ddeab0706"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e178d440554cd3879bd547f546c16d0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html#a1e178d440554cd3879bd547f546c16d0">ClassificationModel</a> (string model)</td></tr>
-<tr class="memdesc:a1e178d440554cd3879bd547f546c16d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create classification model from network represented in one of the supported formats. An order of <code>model</code> and <code>config</code> arguments does not matter.  <a href="#a1e178d440554cd3879bd547f546c16d0">More...</a><br /></td></tr>
+<tr class="memitem:a1e178d440554cd3879bd547f546c16d0" id="r_a1e178d440554cd3879bd547f546c16d0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1e178d440554cd3879bd547f546c16d0">ClassificationModel</a> (string model)</td></tr>
+<tr class="memdesc:a1e178d440554cd3879bd547f546c16d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create classification model from network represented in one of the supported formats. An order of <code>model</code> and <code>config</code> arguments does not matter.  <br /></td></tr>
 <tr class="separator:a1e178d440554cd3879bd547f546c16d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b17574a1e70b782bddd3411da69bf50"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html#a8b17574a1e70b782bddd3411da69bf50">ClassificationModel</a> (<a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_net.html">Net</a> network)</td></tr>
-<tr class="memdesc:a8b17574a1e70b782bddd3411da69bf50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create model from deep learning network.  <a href="#a8b17574a1e70b782bddd3411da69bf50">More...</a><br /></td></tr>
+<tr class="memitem:a8b17574a1e70b782bddd3411da69bf50" id="r_a8b17574a1e70b782bddd3411da69bf50"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b17574a1e70b782bddd3411da69bf50">ClassificationModel</a> (<a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_net.html">Net</a> network)</td></tr>
+<tr class="memdesc:a8b17574a1e70b782bddd3411da69bf50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create model from deep learning network.  <br /></td></tr>
 <tr class="separator:a8b17574a1e70b782bddd3411da69bf50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47ee1243071d8acf957c7ad67b8968e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html">ClassificationModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html#a47ee1243071d8acf957c7ad67b8968e6">setEnableSoftmaxPostProcessing</a> (bool enable)</td></tr>
-<tr class="memdesc:a47ee1243071d8acf957c7ad67b8968e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set enable/disable softmax post processing option.  <a href="#a47ee1243071d8acf957c7ad67b8968e6">More...</a><br /></td></tr>
+<tr class="memitem:a47ee1243071d8acf957c7ad67b8968e6" id="r_a47ee1243071d8acf957c7ad67b8968e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html">ClassificationModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47ee1243071d8acf957c7ad67b8968e6">setEnableSoftmaxPostProcessing</a> (bool enable)</td></tr>
+<tr class="memdesc:a47ee1243071d8acf957c7ad67b8968e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set enable/disable softmax post processing option.  <br /></td></tr>
 <tr class="separator:a47ee1243071d8acf957c7ad67b8968e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad66f32dd0788794f2b469a89b70f654e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html#ad66f32dd0788794f2b469a89b70f654e">getEnableSoftmaxPostProcessing</a> ()</td></tr>
-<tr class="memdesc:ad66f32dd0788794f2b469a89b70f654e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get enable/disable softmax post processing option.  <a href="#ad66f32dd0788794f2b469a89b70f654e">More...</a><br /></td></tr>
+<tr class="memitem:ad66f32dd0788794f2b469a89b70f654e" id="r_ad66f32dd0788794f2b469a89b70f654e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad66f32dd0788794f2b469a89b70f654e">getEnableSoftmaxPostProcessing</a> ()</td></tr>
+<tr class="memdesc:ad66f32dd0788794f2b469a89b70f654e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get enable/disable softmax post processing option.  <br /></td></tr>
 <tr class="separator:ad66f32dd0788794f2b469a89b70f654e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21fe88f7a986090eb167b3fcef0fc1e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html#a21fe88f7a986090eb167b3fcef0fc1e1">classify</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> frame, int[] classId, float[] conf)</td></tr>
+<tr class="memitem:a21fe88f7a986090eb167b3fcef0fc1e1" id="r_a21fe88f7a986090eb167b3fcef0fc1e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a21fe88f7a986090eb167b3fcef0fc1e1">classify</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> frame, int[] classId, float[] conf)</td></tr>
 <tr class="separator:a21fe88f7a986090eb167b3fcef0fc1e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">OpenCVForUnity.DnnModule.Model</a></td></tr>
-<tr class="memitem:a15493ef6a3647cd013ef63b43df0dd1b inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a15493ef6a3647cd013ef63b43df0dd1b">getNativeObjAddr</a> ()</td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">OpenCVForUnity.DnnModule.Model</a></td></tr>
+<tr class="memitem:a15493ef6a3647cd013ef63b43df0dd1b inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a15493ef6a3647cd013ef63b43df0dd1b"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a15493ef6a3647cd013ef63b43df0dd1b">getNativeObjAddr</a> ()</td></tr>
 <tr class="separator:a15493ef6a3647cd013ef63b43df0dd1b inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9a0404e9f7749b3e87ef31f218baa0b inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#ad9a0404e9f7749b3e87ef31f218baa0b">Model</a> (string model, string config)</td></tr>
-<tr class="memdesc:ad9a0404e9f7749b3e87ef31f218baa0b inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create model from deep learning network represented in one of the supported formats. An order of <code>model</code> and <code>config</code> arguments does not matter.  <a href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#ad9a0404e9f7749b3e87ef31f218baa0b">More...</a><br /></td></tr>
+<tr class="memitem:ad9a0404e9f7749b3e87ef31f218baa0b inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_ad9a0404e9f7749b3e87ef31f218baa0b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#ad9a0404e9f7749b3e87ef31f218baa0b">Model</a> (string model, string config)</td></tr>
+<tr class="memdesc:ad9a0404e9f7749b3e87ef31f218baa0b inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create model from deep learning network represented in one of the supported formats. An order of <code>model</code> and <code>config</code> arguments does not matter.  <br /></td></tr>
 <tr class="separator:ad9a0404e9f7749b3e87ef31f218baa0b inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad32b7f344e3a3987148fe7f1b860a1e0 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#ad32b7f344e3a3987148fe7f1b860a1e0">Model</a> (string model)</td></tr>
-<tr class="memdesc:ad32b7f344e3a3987148fe7f1b860a1e0 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create model from deep learning network represented in one of the supported formats. An order of <code>model</code> and <code>config</code> arguments does not matter.  <a href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#ad32b7f344e3a3987148fe7f1b860a1e0">More...</a><br /></td></tr>
+<tr class="memitem:ad32b7f344e3a3987148fe7f1b860a1e0 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_ad32b7f344e3a3987148fe7f1b860a1e0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#ad32b7f344e3a3987148fe7f1b860a1e0">Model</a> (string model)</td></tr>
+<tr class="memdesc:ad32b7f344e3a3987148fe7f1b860a1e0 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create model from deep learning network represented in one of the supported formats. An order of <code>model</code> and <code>config</code> arguments does not matter.  <br /></td></tr>
 <tr class="separator:ad32b7f344e3a3987148fe7f1b860a1e0 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97ddb9f41a15c4f854c60989bdecc45f inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a97ddb9f41a15c4f854c60989bdecc45f">Model</a> (<a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_net.html">Net</a> network)</td></tr>
-<tr class="memdesc:a97ddb9f41a15c4f854c60989bdecc45f inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create model from deep learning network.  <a href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a97ddb9f41a15c4f854c60989bdecc45f">More...</a><br /></td></tr>
+<tr class="memitem:a97ddb9f41a15c4f854c60989bdecc45f inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a97ddb9f41a15c4f854c60989bdecc45f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a97ddb9f41a15c4f854c60989bdecc45f">Model</a> (<a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_net.html">Net</a> network)</td></tr>
+<tr class="memdesc:a97ddb9f41a15c4f854c60989bdecc45f inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create model from deep learning network.  <br /></td></tr>
 <tr class="separator:a97ddb9f41a15c4f854c60989bdecc45f inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe8d21a8cc08483672454d72ba8f417f inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#abe8d21a8cc08483672454d72ba8f417f">setInputSize</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> size)</td></tr>
-<tr class="memdesc:abe8d21a8cc08483672454d72ba8f417f inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set input size for frame.  <a href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#abe8d21a8cc08483672454d72ba8f417f">More...</a><br /></td></tr>
+<tr class="memitem:abe8d21a8cc08483672454d72ba8f417f inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_abe8d21a8cc08483672454d72ba8f417f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#abe8d21a8cc08483672454d72ba8f417f">setInputSize</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> size)</td></tr>
+<tr class="memdesc:abe8d21a8cc08483672454d72ba8f417f inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set input size for frame.  <br /></td></tr>
 <tr class="separator:abe8d21a8cc08483672454d72ba8f417f inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae06eade8e2afc7be0b0fc17131df45b inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#aae06eade8e2afc7be0b0fc17131df45b">setInputSize</a> (int width, int height)</td></tr>
+<tr class="memitem:aae06eade8e2afc7be0b0fc17131df45b inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_aae06eade8e2afc7be0b0fc17131df45b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#aae06eade8e2afc7be0b0fc17131df45b">setInputSize</a> (int width, int height)</td></tr>
 <tr class="separator:aae06eade8e2afc7be0b0fc17131df45b inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b97e9202ddeb8755864da023a9f1b92 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a5b97e9202ddeb8755864da023a9f1b92">setInputMean</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> mean)</td></tr>
-<tr class="memdesc:a5b97e9202ddeb8755864da023a9f1b92 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set mean value for frame.  <a href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a5b97e9202ddeb8755864da023a9f1b92">More...</a><br /></td></tr>
+<tr class="memitem:a5b97e9202ddeb8755864da023a9f1b92 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a5b97e9202ddeb8755864da023a9f1b92"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a5b97e9202ddeb8755864da023a9f1b92">setInputMean</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> mean)</td></tr>
+<tr class="memdesc:a5b97e9202ddeb8755864da023a9f1b92 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set mean value for frame.  <br /></td></tr>
 <tr class="separator:a5b97e9202ddeb8755864da023a9f1b92 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7faca163a6ffbd6116f460addf4d4650 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a7faca163a6ffbd6116f460addf4d4650">setInputScale</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> scale)</td></tr>
-<tr class="memdesc:a7faca163a6ffbd6116f460addf4d4650 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set scalefactor value for frame.  <a href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a7faca163a6ffbd6116f460addf4d4650">More...</a><br /></td></tr>
+<tr class="memitem:a7faca163a6ffbd6116f460addf4d4650 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a7faca163a6ffbd6116f460addf4d4650"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a7faca163a6ffbd6116f460addf4d4650">setInputScale</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> scale)</td></tr>
+<tr class="memdesc:a7faca163a6ffbd6116f460addf4d4650 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set scalefactor value for frame.  <br /></td></tr>
 <tr class="separator:a7faca163a6ffbd6116f460addf4d4650 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c8747d2628ff77ac9e990ee90c88239 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a8c8747d2628ff77ac9e990ee90c88239">setInputCrop</a> (bool crop)</td></tr>
-<tr class="memdesc:a8c8747d2628ff77ac9e990ee90c88239 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set flag crop for frame.  <a href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a8c8747d2628ff77ac9e990ee90c88239">More...</a><br /></td></tr>
+<tr class="memitem:a8c8747d2628ff77ac9e990ee90c88239 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a8c8747d2628ff77ac9e990ee90c88239"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a8c8747d2628ff77ac9e990ee90c88239">setInputCrop</a> (bool crop)</td></tr>
+<tr class="memdesc:a8c8747d2628ff77ac9e990ee90c88239 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set flag crop for frame.  <br /></td></tr>
 <tr class="separator:a8c8747d2628ff77ac9e990ee90c88239 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25249c87f871df07b815e7a713593007 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a25249c87f871df07b815e7a713593007">setInputSwapRB</a> (bool swapRB)</td></tr>
-<tr class="memdesc:a25249c87f871df07b815e7a713593007 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set flag swapRB for frame.  <a href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a25249c87f871df07b815e7a713593007">More...</a><br /></td></tr>
+<tr class="memitem:a25249c87f871df07b815e7a713593007 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a25249c87f871df07b815e7a713593007"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a25249c87f871df07b815e7a713593007">setInputSwapRB</a> (bool swapRB)</td></tr>
+<tr class="memdesc:a25249c87f871df07b815e7a713593007 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set flag swapRB for frame.  <br /></td></tr>
 <tr class="separator:a25249c87f871df07b815e7a713593007 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4a604a8a2bf547cf8e363dc7ff3eaf0 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#ab4a604a8a2bf547cf8e363dc7ff3eaf0">setOutputNames</a> (List&lt; string &gt; outNames)</td></tr>
-<tr class="memdesc:ab4a604a8a2bf547cf8e363dc7ff3eaf0 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set output names for frame.  <a href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#ab4a604a8a2bf547cf8e363dc7ff3eaf0">More...</a><br /></td></tr>
+<tr class="memitem:ab4a604a8a2bf547cf8e363dc7ff3eaf0 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_ab4a604a8a2bf547cf8e363dc7ff3eaf0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#ab4a604a8a2bf547cf8e363dc7ff3eaf0">setOutputNames</a> (List&lt; string &gt; outNames)</td></tr>
+<tr class="memdesc:ab4a604a8a2bf547cf8e363dc7ff3eaf0 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set output names for frame.  <br /></td></tr>
 <tr class="separator:ab4a604a8a2bf547cf8e363dc7ff3eaf0 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ac370b137e53ca22a4a8ae0f04057df inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a2ac370b137e53ca22a4a8ae0f04057df">setInputParams</a> (double scale, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> size, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> mean, bool swapRB, bool crop)</td></tr>
-<tr class="memdesc:a2ac370b137e53ca22a4a8ae0f04057df inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set preprocessing parameters for frame.  <a href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a2ac370b137e53ca22a4a8ae0f04057df">More...</a><br /></td></tr>
+<tr class="memitem:a2ac370b137e53ca22a4a8ae0f04057df inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a2ac370b137e53ca22a4a8ae0f04057df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a2ac370b137e53ca22a4a8ae0f04057df">setInputParams</a> (double scale, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> size, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> mean, bool swapRB, bool crop)</td></tr>
+<tr class="memdesc:a2ac370b137e53ca22a4a8ae0f04057df inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set preprocessing parameters for frame.  <br /></td></tr>
 <tr class="separator:a2ac370b137e53ca22a4a8ae0f04057df inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6b749da94e9e17a6565305bdae31b8d inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#ab6b749da94e9e17a6565305bdae31b8d">setInputParams</a> (double scale, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> size, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> mean, bool swapRB)</td></tr>
-<tr class="memdesc:ab6b749da94e9e17a6565305bdae31b8d inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set preprocessing parameters for frame.  <a href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#ab6b749da94e9e17a6565305bdae31b8d">More...</a><br /></td></tr>
+<tr class="memitem:ab6b749da94e9e17a6565305bdae31b8d inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_ab6b749da94e9e17a6565305bdae31b8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#ab6b749da94e9e17a6565305bdae31b8d">setInputParams</a> (double scale, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> size, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> mean, bool swapRB)</td></tr>
+<tr class="memdesc:ab6b749da94e9e17a6565305bdae31b8d inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set preprocessing parameters for frame.  <br /></td></tr>
 <tr class="separator:ab6b749da94e9e17a6565305bdae31b8d inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7149be514e79194fcc1fc2f7c18a7204 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a7149be514e79194fcc1fc2f7c18a7204">setInputParams</a> (double scale, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> size, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> mean)</td></tr>
-<tr class="memdesc:a7149be514e79194fcc1fc2f7c18a7204 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set preprocessing parameters for frame.  <a href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a7149be514e79194fcc1fc2f7c18a7204">More...</a><br /></td></tr>
+<tr class="memitem:a7149be514e79194fcc1fc2f7c18a7204 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a7149be514e79194fcc1fc2f7c18a7204"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a7149be514e79194fcc1fc2f7c18a7204">setInputParams</a> (double scale, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> size, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> mean)</td></tr>
+<tr class="memdesc:a7149be514e79194fcc1fc2f7c18a7204 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set preprocessing parameters for frame.  <br /></td></tr>
 <tr class="separator:a7149be514e79194fcc1fc2f7c18a7204 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a570a51ac44e7148fdcc585a346930dfd inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a570a51ac44e7148fdcc585a346930dfd">setInputParams</a> (double scale, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> size)</td></tr>
-<tr class="memdesc:a570a51ac44e7148fdcc585a346930dfd inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set preprocessing parameters for frame.  <a href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a570a51ac44e7148fdcc585a346930dfd">More...</a><br /></td></tr>
+<tr class="memitem:a570a51ac44e7148fdcc585a346930dfd inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a570a51ac44e7148fdcc585a346930dfd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a570a51ac44e7148fdcc585a346930dfd">setInputParams</a> (double scale, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_size.html">Size</a> size)</td></tr>
+<tr class="memdesc:a570a51ac44e7148fdcc585a346930dfd inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set preprocessing parameters for frame.  <br /></td></tr>
 <tr class="separator:a570a51ac44e7148fdcc585a346930dfd inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf9dd34e1d4dc8b802d3953e39df0a57 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#acf9dd34e1d4dc8b802d3953e39df0a57">setInputParams</a> (double scale)</td></tr>
-<tr class="memdesc:acf9dd34e1d4dc8b802d3953e39df0a57 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set preprocessing parameters for frame.  <a href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#acf9dd34e1d4dc8b802d3953e39df0a57">More...</a><br /></td></tr>
+<tr class="memitem:acf9dd34e1d4dc8b802d3953e39df0a57 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_acf9dd34e1d4dc8b802d3953e39df0a57"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#acf9dd34e1d4dc8b802d3953e39df0a57">setInputParams</a> (double scale)</td></tr>
+<tr class="memdesc:acf9dd34e1d4dc8b802d3953e39df0a57 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set preprocessing parameters for frame.  <br /></td></tr>
 <tr class="separator:acf9dd34e1d4dc8b802d3953e39df0a57 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af50376ab4dd278784275bb3951d422f8 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#af50376ab4dd278784275bb3951d422f8">setInputParams</a> ()</td></tr>
-<tr class="memdesc:af50376ab4dd278784275bb3951d422f8 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set preprocessing parameters for frame.  <a href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#af50376ab4dd278784275bb3951d422f8">More...</a><br /></td></tr>
+<tr class="memitem:af50376ab4dd278784275bb3951d422f8 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_af50376ab4dd278784275bb3951d422f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#af50376ab4dd278784275bb3951d422f8">setInputParams</a> ()</td></tr>
+<tr class="memdesc:af50376ab4dd278784275bb3951d422f8 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set preprocessing parameters for frame.  <br /></td></tr>
 <tr class="separator:af50376ab4dd278784275bb3951d422f8 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06a942cadcba418ef35b095b33cd3d04 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a06a942cadcba418ef35b095b33cd3d04">predict</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> frame, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; outs)</td></tr>
-<tr class="memdesc:a06a942cadcba418ef35b095b33cd3d04 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given the <code>input</code> frame, create input blob, run net and return the output <code>blobs</code>.  <a href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a06a942cadcba418ef35b095b33cd3d04">More...</a><br /></td></tr>
+<tr class="memitem:a06a942cadcba418ef35b095b33cd3d04 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a06a942cadcba418ef35b095b33cd3d04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a06a942cadcba418ef35b095b33cd3d04">predict</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> frame, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; outs)</td></tr>
+<tr class="memdesc:a06a942cadcba418ef35b095b33cd3d04 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given the <code>input</code> frame, create input blob, run net and return the output <code>blobs</code>.  <br /></td></tr>
 <tr class="separator:a06a942cadcba418ef35b095b33cd3d04 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06325aeb6582bfc672bbb41fdcd409d0 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a06325aeb6582bfc672bbb41fdcd409d0">setPreferableBackend</a> (int backendId)</td></tr>
+<tr class="memitem:a06325aeb6582bfc672bbb41fdcd409d0 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a06325aeb6582bfc672bbb41fdcd409d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a06325aeb6582bfc672bbb41fdcd409d0">setPreferableBackend</a> (int backendId)</td></tr>
 <tr class="separator:a06325aeb6582bfc672bbb41fdcd409d0 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f3652bcc961049ca7a6751c59c9d670 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a5f3652bcc961049ca7a6751c59c9d670">setPreferableTarget</a> (int targetId)</td></tr>
+<tr class="memitem:a5f3652bcc961049ca7a6751c59c9d670 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a5f3652bcc961049ca7a6751c59c9d670"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a5f3652bcc961049ca7a6751c59c9d670">setPreferableTarget</a> (int targetId)</td></tr>
 <tr class="separator:a5f3652bcc961049ca7a6751c59c9d670 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae385093d0dc452593eb8351e820198e5 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#ae385093d0dc452593eb8351e820198e5">enableWinograd</a> (bool useWinograd)</td></tr>
+<tr class="memitem:ae385093d0dc452593eb8351e820198e5 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_ae385093d0dc452593eb8351e820198e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#ae385093d0dc452593eb8351e820198e5">enableWinograd</a> (bool useWinograd)</td></tr>
 <tr class="separator:ae385093d0dc452593eb8351e820198e5 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
+<tr class="memitem:adb1a12a225c738f65f864b3db5bca1ac inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_adb1a12a225c738f65f864b3db5bca1ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#adb1a12a225c738f65f864b3db5bca1ac">setInputSize</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a> size)</td></tr>
+<tr class="memdesc:adb1a12a225c738f65f864b3db5bca1ac inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set input size for frame.  <br /></td></tr>
+<tr class="separator:adb1a12a225c738f65f864b3db5bca1ac inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20e31653c8ed3a89cc5c96cafeb93ee6 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a20e31653c8ed3a89cc5c96cafeb93ee6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a20e31653c8ed3a89cc5c96cafeb93ee6">setInputMean</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> mean)</td></tr>
+<tr class="memdesc:a20e31653c8ed3a89cc5c96cafeb93ee6 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set mean value for frame.  <br /></td></tr>
+<tr class="separator:a20e31653c8ed3a89cc5c96cafeb93ee6 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1c3681cfc59be70bd7cf4b390db21be inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_aa1c3681cfc59be70bd7cf4b390db21be"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#aa1c3681cfc59be70bd7cf4b390db21be">setInputScale</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> scale)</td></tr>
+<tr class="memdesc:aa1c3681cfc59be70bd7cf4b390db21be inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set scalefactor value for frame.  <br /></td></tr>
+<tr class="separator:aa1c3681cfc59be70bd7cf4b390db21be inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a8c6fc13ac61e57e6c6a136a61e7663 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a0a8c6fc13ac61e57e6c6a136a61e7663"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a0a8c6fc13ac61e57e6c6a136a61e7663">setInputParams</a> (double scale, in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a> size, in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> mean, bool swapRB, bool crop)</td></tr>
+<tr class="memdesc:a0a8c6fc13ac61e57e6c6a136a61e7663 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set preprocessing parameters for frame.  <br /></td></tr>
+<tr class="separator:a0a8c6fc13ac61e57e6c6a136a61e7663 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d39ec698646d3d48499f399dce648c7 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a7d39ec698646d3d48499f399dce648c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a7d39ec698646d3d48499f399dce648c7">setInputParams</a> (double scale, in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a> size, in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> mean, bool swapRB)</td></tr>
+<tr class="memdesc:a7d39ec698646d3d48499f399dce648c7 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set preprocessing parameters for frame.  <br /></td></tr>
+<tr class="separator:a7d39ec698646d3d48499f399dce648c7 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a414ec072252577574c7969cc97d15463 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a414ec072252577574c7969cc97d15463"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a414ec072252577574c7969cc97d15463">setInputParams</a> (double scale, in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a> size, in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> mean)</td></tr>
+<tr class="memdesc:a414ec072252577574c7969cc97d15463 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set preprocessing parameters for frame.  <br /></td></tr>
+<tr class="separator:a414ec072252577574c7969cc97d15463 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adefd82a1ff016d1b495d5db594d3409b inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_adefd82a1ff016d1b495d5db594d3409b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#adefd82a1ff016d1b495d5db594d3409b">setInputParams</a> (double scale, in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2d.html">Vec2d</a> size)</td></tr>
+<tr class="memdesc:adefd82a1ff016d1b495d5db594d3409b inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set preprocessing parameters for frame.  <br /></td></tr>
+<tr class="separator:adefd82a1ff016d1b495d5db594d3409b inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae59037d6a583305cbcf2b59007b0e78f inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_ae59037d6a583305cbcf2b59007b0e78f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#ae59037d6a583305cbcf2b59007b0e78f">setInputSize</a> (in(double width, double height) size)</td></tr>
+<tr class="memdesc:ae59037d6a583305cbcf2b59007b0e78f inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set input size for frame.  <br /></td></tr>
+<tr class="separator:ae59037d6a583305cbcf2b59007b0e78f inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc215fcb407f1954925c17ea5ca7d618 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_adc215fcb407f1954925c17ea5ca7d618"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#adc215fcb407f1954925c17ea5ca7d618">setInputMean</a> (in(double v0, double v1, double v2, double v3) mean)</td></tr>
+<tr class="memdesc:adc215fcb407f1954925c17ea5ca7d618 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set mean value for frame.  <br /></td></tr>
+<tr class="separator:adc215fcb407f1954925c17ea5ca7d618 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a510c4580f3020fb455bece51939f9c38 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a510c4580f3020fb455bece51939f9c38"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a510c4580f3020fb455bece51939f9c38">setInputScale</a> (in(double v0, double v1, double v2, double v3) scale)</td></tr>
+<tr class="memdesc:a510c4580f3020fb455bece51939f9c38 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set scalefactor value for frame.  <br /></td></tr>
+<tr class="separator:a510c4580f3020fb455bece51939f9c38 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21d800a0f9ebad59e4f80e0e631a9da3 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a21d800a0f9ebad59e4f80e0e631a9da3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a21d800a0f9ebad59e4f80e0e631a9da3">setInputParams</a> (double scale, in(double width, double height) size, in(double v0, double v1, double v2, double v3) mean, bool swapRB, bool crop)</td></tr>
+<tr class="memdesc:a21d800a0f9ebad59e4f80e0e631a9da3 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set preprocessing parameters for frame.  <br /></td></tr>
+<tr class="separator:a21d800a0f9ebad59e4f80e0e631a9da3 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a554ff61689c9f314ec52f447f7a16c28 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a554ff61689c9f314ec52f447f7a16c28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a554ff61689c9f314ec52f447f7a16c28">setInputParams</a> (double scale, in(double width, double height) size, in(double v0, double v1, double v2, double v3) mean, bool swapRB)</td></tr>
+<tr class="memdesc:a554ff61689c9f314ec52f447f7a16c28 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set preprocessing parameters for frame.  <br /></td></tr>
+<tr class="separator:a554ff61689c9f314ec52f447f7a16c28 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3597dc827f78bdc571ac9964faadf6ad inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a3597dc827f78bdc571ac9964faadf6ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a3597dc827f78bdc571ac9964faadf6ad">setInputParams</a> (double scale, in(double width, double height) size, in(double v0, double v1, double v2, double v3) mean)</td></tr>
+<tr class="memdesc:a3597dc827f78bdc571ac9964faadf6ad inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set preprocessing parameters for frame.  <br /></td></tr>
+<tr class="separator:a3597dc827f78bdc571ac9964faadf6ad inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bc765b63069bf020b65ae2c6006c604 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a4bc765b63069bf020b65ae2c6006c604"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a4bc765b63069bf020b65ae2c6006c604">setInputParams</a> (double scale, in(double width, double height) size)</td></tr>
+<tr class="memdesc:a4bc765b63069bf020b65ae2c6006c604 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set preprocessing parameters for frame.  <br /></td></tr>
+<tr class="separator:a4bc765b63069bf020b65ae2c6006c604 inherit pub_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a68dd6362a65b5bf2f2b8828bef0b7dc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
 <tr class="separator:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
+<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a620f073ff3aa1bcee28fb00edb01dc11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
 <tr class="separator:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a9590fdaeb9f33e80f6bc924e776c32c7"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html">ClassificationModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html#a9590fdaeb9f33e80f6bc924e776c32c7">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="memitem:a9590fdaeb9f33e80f6bc924e776c32c7" id="r_a9590fdaeb9f33e80f6bc924e776c32c7"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html">ClassificationModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9590fdaeb9f33e80f6bc924e776c32c7">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:a9590fdaeb9f33e80f6bc924e776c32c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">OpenCVForUnity.DnnModule.Model</a></td></tr>
-<tr class="memitem:ab8be7a26bab962291c46e1f84e8f0be7 inherit pub_static_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#ab8be7a26bab962291c46e1f84e8f0be7">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">OpenCVForUnity.DnnModule.Model</a></td></tr>
+<tr class="memitem:ab8be7a26bab962291c46e1f84e8f0be7 inherit pub_static_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_ab8be7a26bab962291c46e1f84e8f0be7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#ab8be7a26bab962291c46e1f84e8f0be7">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:ab8be7a26bab962291c46e1f84e8f0be7 inherit pub_static_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a4b998ab4293ee3fb7cdc494ed9375fc3"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a2abb252113282ce929245a8ae8899c78"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html#a2abb252113282ce929245a8ae8899c78">Dispose</a> (bool disposing)</td></tr>
+<tr class="memitem:a2abb252113282ce929245a8ae8899c78" id="r_a2abb252113282ce929245a8ae8899c78"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2abb252113282ce929245a8ae8899c78">Dispose</a> (bool disposing)</td></tr>
 <tr class="separator:a2abb252113282ce929245a8ae8899c78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">OpenCVForUnity.DnnModule.Model</a></td></tr>
-<tr class="memitem:a147eadcc2e339dbb9f2f6d68145ad095 inherit pro_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a147eadcc2e339dbb9f2f6d68145ad095">Dispose</a> (bool disposing)</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">OpenCVForUnity.DnnModule.Model</a></td></tr>
+<tr class="memitem:a147eadcc2e339dbb9f2f6d68145ad095 inherit pro_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model" id="r_a147eadcc2e339dbb9f2f6d68145ad095"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html#a147eadcc2e339dbb9f2f6d68145ad095">Dispose</a> (bool disposing)</td></tr>
 <tr class="separator:a147eadcc2e339dbb9f2f6d68145ad095 inherit pro_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
-<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_aab50d94cc702503eac045ca7042624ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
 <tr class="separator:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
+<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a6dc5923de5bd43795c72dd7f581ad832"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a1fb2523312e8a423889a1d160e755e7d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
+<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a739b223f2008fae0966c43d0c6f0f72f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
 <tr class="separator:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_ae924d4d77a5929e39abca6ef9daf6330"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
 <tr class="separator:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a1e47724d49556061a5ba400577be2a13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
+<tr class="inherit_header pac_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_methods_class_open_c_v_for_unity_1_1_dnn_module_1_1_model')"><img src="closed.png" alt="-"/>&#160;Package Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_model.html">OpenCVForUnity.DnnModule.Model</a></td></tr>
+<tr class="inherit_header pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Package Attributes inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a056e69daaa9ea20e563c5e41b28c1525"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
 <tr class="separator:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
+<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a8e287e3cb5995f483cb64dd6c3b19a7f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class represents high-level API for classification models. </p>
-<p><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html" title="This class represents high-level API for classification models. ">ClassificationModel</a> allows to set params for preprocessing input image. <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html" title="This class represents high-level API for classification models. ">ClassificationModel</a> creates net from file with trained weights and config, sets preprocessing input, runs forward pass and return top-1 prediction. </p>
+<p><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html" title="This class represents high-level API for classification models.">ClassificationModel</a> allows to set params for preprocessing input image. <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html" title="This class represents high-level API for classification models.">ClassificationModel</a> creates net from file with trained weights and config, sets preprocessing input, runs forward pass and return top-1 prediction. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a445d5879a9098ea54592da9ddeab0706"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a445d5879a9098ea54592da9ddeab0706">&#9670;&nbsp;</a></span>ClassificationModel() <span class="overload">[1/3]</span></h2>
+<a id="a445d5879a9098ea54592da9ddeab0706" name="a445d5879a9098ea54592da9ddeab0706"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a445d5879a9098ea54592da9ddeab0706">&#9670;&#160;</a></span>ClassificationModel() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -257,36 +337,22 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.DnnModule.ClassificationModel.ClassificationModel </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>model</em>, </td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>model</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>config</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>config</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Create classification model from network represented in one of the supported formats. An order of <code>model</code> and <code>config</code> arguments does not matter. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">model</td><td>Binary file contains trained weights. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">config</td><td>Text file contains network configuration. </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
-<a id="a1e178d440554cd3879bd547f546c16d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e178d440554cd3879bd547f546c16d0">&#9670;&nbsp;</a></span>ClassificationModel() <span class="overload">[2/3]</span></h2>
+<a id="a1e178d440554cd3879bd547f546c16d0" name="a1e178d440554cd3879bd547f546c16d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e178d440554cd3879bd547f546c16d0">&#9670;&#160;</a></span>ClassificationModel() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -294,26 +360,18 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.DnnModule.ClassificationModel.ClassificationModel </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>model</em></td><td>)</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>model</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Create classification model from network represented in one of the supported formats. An order of <code>model</code> and <code>config</code> arguments does not matter. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">model</td><td>Binary file contains trained weights. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">config</td><td>Text file contains network configuration. </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
-<a id="a8b17574a1e70b782bddd3411da69bf50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b17574a1e70b782bddd3411da69bf50">&#9670;&nbsp;</a></span>ClassificationModel() <span class="overload">[3/3]</span></h2>
+<a id="a8b17574a1e70b782bddd3411da69bf50" name="a8b17574a1e70b782bddd3411da69bf50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b17574a1e70b782bddd3411da69bf50">&#9670;&#160;</a></span>ClassificationModel() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -321,26 +379,19 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.DnnModule.ClassificationModel.ClassificationModel </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_net.html">Net</a>&#160;</td>
-          <td class="paramname"><em>network</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_net.html">Net</a></td>          <td class="paramname"><span class="paramname"><em>network</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Create model from deep learning network. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">network</td><td><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_net.html" title="This class allows to create and manipulate comprehensive artificial neural networks. ">Net</a> object. </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9590fdaeb9f33e80f6bc924e776c32c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9590fdaeb9f33e80f6bc924e776c32c7">&#9670;&nbsp;</a></span>__fromPtr__()</h2>
+<a id="a9590fdaeb9f33e80f6bc924e776c32c7" name="a9590fdaeb9f33e80f6bc924e776c32c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9590fdaeb9f33e80f6bc924e776c32c7">&#9670;&#160;</a></span>__fromPtr__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -351,8 +402,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static new <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html">ClassificationModel</a> OpenCVForUnity.DnnModule.ClassificationModel.__fromPtr__ </td>
           <td>(</td>
-          <td class="paramtype">IntPtr&#160;</td>
-          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td class="paramtype">IntPtr</td>          <td class="paramname"><span class="paramname"><em>addr</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -365,8 +415,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a21fe88f7a986090eb167b3fcef0fc1e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21fe88f7a986090eb167b3fcef0fc1e1">&#9670;&nbsp;</a></span>classify()</h2>
+<a id="a21fe88f7a986090eb167b3fcef0fc1e1" name="a21fe88f7a986090eb167b3fcef0fc1e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21fe88f7a986090eb167b3fcef0fc1e1">&#9670;&#160;</a></span>classify()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -374,25 +424,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.DnnModule.ClassificationModel.classify </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>frame</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>frame</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int []&#160;</td>
-          <td class="paramname"><em>classId</em>, </td>
+          <td class="paramtype">int[]</td>          <td class="paramname"><span class="paramname"><em>classId</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float []&#160;</td>
-          <td class="paramname"><em>conf</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">float[]</td>          <td class="paramname"><span class="paramname"><em>conf</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -400,8 +442,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a2abb252113282ce929245a8ae8899c78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2abb252113282ce929245a8ae8899c78">&#9670;&nbsp;</a></span>Dispose()</h2>
+<a id="a2abb252113282ce929245a8ae8899c78" name="a2abb252113282ce929245a8ae8899c78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2abb252113282ce929245a8ae8899c78">&#9670;&#160;</a></span>Dispose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -412,8 +454,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">override void OpenCVForUnity.DnnModule.ClassificationModel.Dispose </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>disposing</em></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>disposing</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -424,12 +465,12 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#af60676d60f2ec562a162ff126628c8d5">OpenCVForUnity.DisposableOpenCVObject</a>.</p>
+<p>Reimplemented from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a805759e0851e017f986c578cbac1bef0">OpenCVForUnity.DisposableObject</a>.</p>
 
 </div>
 </div>
-<a id="ad66f32dd0788794f2b469a89b70f654e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad66f32dd0788794f2b469a89b70f654e">&#9670;&nbsp;</a></span>getEnableSoftmaxPostProcessing()</h2>
+<a id="ad66f32dd0788794f2b469a89b70f654e" name="ad66f32dd0788794f2b469a89b70f654e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad66f32dd0788794f2b469a89b70f654e">&#9670;&#160;</a></span>getEnableSoftmaxPostProcessing()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -437,19 +478,19 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">bool OpenCVForUnity.DnnModule.ClassificationModel.getEnableSoftmaxPostProcessing </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Get enable/disable softmax post processing option. </p>
-<p>This option defaults to false, softmax post processing is not applied within the <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html#a21fe88f7a986090eb167b3fcef0fc1e1">classify()</a> function. </p>
+<p>This option defaults to false, softmax post processing is not applied within the <a class="el" href="#a21fe88f7a986090eb167b3fcef0fc1e1">classify()</a> function. </p>
 
 </div>
 </div>
-<a id="a47ee1243071d8acf957c7ad67b8968e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47ee1243071d8acf957c7ad67b8968e6">&#9670;&nbsp;</a></span>setEnableSoftmaxPostProcessing()</h2>
+<a id="a47ee1243071d8acf957c7ad67b8968e6" name="a47ee1243071d8acf957c7ad67b8968e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47ee1243071d8acf957c7ad67b8968e6">&#9670;&#160;</a></span>setEnableSoftmaxPostProcessing()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -457,20 +498,14 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html">ClassificationModel</a> OpenCVForUnity.DnnModule.ClassificationModel.setEnableSoftmaxPostProcessing </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>enable</em></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>enable</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Set enable/disable softmax post processing option. </p>
-<p>If this option is true, softmax is applied after forward inference within the <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html#a21fe88f7a986090eb167b3fcef0fc1e1">classify()</a> function to convert the confidences range to [0.0-1.0]. This function allows you to toggle this behavior. Please turn true when not contain softmax layer in model. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">enable</td><td>Set enable softmax post processing within the <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_classification_model.html#a21fe88f7a986090eb167b3fcef0fc1e1">classify()</a> function. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>If this option is true, softmax is applied after forward inference within the <a class="el" href="#a21fe88f7a986090eb167b3fcef0fc1e1">classify()</a> function to convert the confidences range to [0.0-1.0]. This function allows you to toggle this behavior. Please turn true when not contain softmax layer in model. </p>
 
 </div>
 </div>
@@ -480,9 +515,8 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

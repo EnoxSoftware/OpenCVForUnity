@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: OpenCVForUnity.FaceModule.Face Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,63 +126,69 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_face_module.html">FaceModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html">Face</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="class_open_c_v_for_unity_1_1_face_module_1_1_face-members.html">List of all members</a>  </div>
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.FaceModule.Face Class Reference</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.FaceModule.Face Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:abd9de3e86c2caa81eb0216184b66229a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_facemark.html">Facemark</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html#abd9de3e86c2caa81eb0216184b66229a">createFacemarkAAM</a> ()</td></tr>
+<tr class="memitem:abd9de3e86c2caa81eb0216184b66229a" id="r_abd9de3e86c2caa81eb0216184b66229a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_facemark.html">Facemark</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd9de3e86c2caa81eb0216184b66229a">createFacemarkAAM</a> ()</td></tr>
 <tr class="separator:abd9de3e86c2caa81eb0216184b66229a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c71225c9592e7ae89ef1cafffa8fcf0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_facemark.html">Facemark</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html#a7c71225c9592e7ae89ef1cafffa8fcf0">createFacemarkLBF</a> ()</td></tr>
+<tr class="memitem:a7c71225c9592e7ae89ef1cafffa8fcf0" id="r_a7c71225c9592e7ae89ef1cafffa8fcf0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_facemark.html">Facemark</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c71225c9592e7ae89ef1cafffa8fcf0">createFacemarkLBF</a> ()</td></tr>
 <tr class="separator:a7c71225c9592e7ae89ef1cafffa8fcf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf545a7d4322fac7f96c0e8ee3547e7f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_facemark.html">Facemark</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html#adf545a7d4322fac7f96c0e8ee3547e7f">createFacemarkKazemi</a> ()</td></tr>
+<tr class="memitem:adf545a7d4322fac7f96c0e8ee3547e7f" id="r_adf545a7d4322fac7f96c0e8ee3547e7f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_facemark.html">Facemark</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf545a7d4322fac7f96c0e8ee3547e7f">createFacemarkKazemi</a> ()</td></tr>
 <tr class="separator:adf545a7d4322fac7f96c0e8ee3547e7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f6df9b56145df12c77386f9aead589a"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html#a0f6df9b56145df12c77386f9aead589a">getFacesHAAR</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> faces, string face_cascade_name)</td></tr>
-<tr class="memdesc:a0f6df9b56145df12c77386f9aead589a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default face detector This function is mainly utilized by the implementation of a <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_facemark.html" title="Abstract base class for all facemark models. ">Facemark</a> Algorithm. End users are advised to use function Facemark::getFaces which can be manually defined and circumvented to the algorithm by Facemark::setFaceDetector.  <a href="#a0f6df9b56145df12c77386f9aead589a">More...</a><br /></td></tr>
+<tr class="memitem:a0f6df9b56145df12c77386f9aead589a" id="r_a0f6df9b56145df12c77386f9aead589a"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0f6df9b56145df12c77386f9aead589a">getFacesHAAR</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> faces, string face_cascade_name)</td></tr>
+<tr class="memdesc:a0f6df9b56145df12c77386f9aead589a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default face detector This function is mainly utilized by the implementation of a <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_facemark.html" title="Abstract base class for all facemark models.">Facemark</a> Algorithm. End users are advised to use function Facemark::getFaces which can be manually defined and circumvented to the algorithm by Facemark::setFaceDetector.  <br /></td></tr>
 <tr class="separator:a0f6df9b56145df12c77386f9aead589a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78c8e9c93bb5407ff27f10462b808bc7"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html#a78c8e9c93bb5407ff27f10462b808bc7">loadDatasetList</a> (string imageList, string annotationList, List&lt; string &gt; images, List&lt; string &gt; annotations)</td></tr>
-<tr class="memdesc:a78c8e9c93bb5407ff27f10462b808bc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">A utility to load list of paths to training image and annotation file.  <a href="#a78c8e9c93bb5407ff27f10462b808bc7">More...</a><br /></td></tr>
+<tr class="memitem:a78c8e9c93bb5407ff27f10462b808bc7" id="r_a78c8e9c93bb5407ff27f10462b808bc7"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78c8e9c93bb5407ff27f10462b808bc7">loadDatasetList</a> (string imageList, string annotationList, List&lt; string &gt; images, List&lt; string &gt; annotations)</td></tr>
+<tr class="memdesc:a78c8e9c93bb5407ff27f10462b808bc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">A utility to load list of paths to training image and annotation file.  <br /></td></tr>
 <tr class="separator:a78c8e9c93bb5407ff27f10462b808bc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab85e3de960f7c76ffe9fd810e926f3e6"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html#ab85e3de960f7c76ffe9fd810e926f3e6">loadTrainingData</a> (string filename, List&lt; string &gt; images, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> facePoints, char delim, float offset)</td></tr>
-<tr class="memdesc:ab85e3de960f7c76ffe9fd810e926f3e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">A utility to load facial landmark dataset from a single file.  <a href="#ab85e3de960f7c76ffe9fd810e926f3e6">More...</a><br /></td></tr>
+<tr class="memitem:ab85e3de960f7c76ffe9fd810e926f3e6" id="r_ab85e3de960f7c76ffe9fd810e926f3e6"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab85e3de960f7c76ffe9fd810e926f3e6">loadTrainingData</a> (string filename, List&lt; string &gt; images, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> facePoints, char delim, float offset)</td></tr>
+<tr class="memdesc:ab85e3de960f7c76ffe9fd810e926f3e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">A utility to load facial landmark dataset from a single file.  <br /></td></tr>
 <tr class="separator:ab85e3de960f7c76ffe9fd810e926f3e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63c53611bee0af924673f99ade404bc0"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html#a63c53611bee0af924673f99ade404bc0">loadTrainingData</a> (string filename, List&lt; string &gt; images, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> facePoints, char delim)</td></tr>
-<tr class="memdesc:a63c53611bee0af924673f99ade404bc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">A utility to load facial landmark dataset from a single file.  <a href="#a63c53611bee0af924673f99ade404bc0">More...</a><br /></td></tr>
+<tr class="memitem:a63c53611bee0af924673f99ade404bc0" id="r_a63c53611bee0af924673f99ade404bc0"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a63c53611bee0af924673f99ade404bc0">loadTrainingData</a> (string filename, List&lt; string &gt; images, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> facePoints, char delim)</td></tr>
+<tr class="memdesc:a63c53611bee0af924673f99ade404bc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">A utility to load facial landmark dataset from a single file.  <br /></td></tr>
 <tr class="separator:a63c53611bee0af924673f99ade404bc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d7941db4be1449b21bdee4bd6fcd231"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html#a1d7941db4be1449b21bdee4bd6fcd231">loadTrainingData</a> (string filename, List&lt; string &gt; images, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> facePoints)</td></tr>
-<tr class="memdesc:a1d7941db4be1449b21bdee4bd6fcd231"><td class="mdescLeft">&#160;</td><td class="mdescRight">A utility to load facial landmark dataset from a single file.  <a href="#a1d7941db4be1449b21bdee4bd6fcd231">More...</a><br /></td></tr>
+<tr class="memitem:a1d7941db4be1449b21bdee4bd6fcd231" id="r_a1d7941db4be1449b21bdee4bd6fcd231"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d7941db4be1449b21bdee4bd6fcd231">loadTrainingData</a> (string filename, List&lt; string &gt; images, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> facePoints)</td></tr>
+<tr class="memdesc:a1d7941db4be1449b21bdee4bd6fcd231"><td class="mdescLeft">&#160;</td><td class="mdescRight">A utility to load facial landmark dataset from a single file.  <br /></td></tr>
 <tr class="separator:a1d7941db4be1449b21bdee4bd6fcd231"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d31dd445f0a9f591c9a4f22cc431a7d"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html#a8d31dd445f0a9f591c9a4f22cc431a7d">loadTrainingData</a> (string imageList, string groundTruth, List&lt; string &gt; images, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> facePoints, float offset)</td></tr>
-<tr class="memdesc:a8d31dd445f0a9f591c9a4f22cc431a7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A utility to load facial landmark information from the dataset.  <a href="#a8d31dd445f0a9f591c9a4f22cc431a7d">More...</a><br /></td></tr>
+<tr class="memitem:a8d31dd445f0a9f591c9a4f22cc431a7d" id="r_a8d31dd445f0a9f591c9a4f22cc431a7d"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d31dd445f0a9f591c9a4f22cc431a7d">loadTrainingData</a> (string imageList, string groundTruth, List&lt; string &gt; images, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> facePoints, float offset)</td></tr>
+<tr class="memdesc:a8d31dd445f0a9f591c9a4f22cc431a7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A utility to load facial landmark information from the dataset.  <br /></td></tr>
 <tr class="separator:a8d31dd445f0a9f591c9a4f22cc431a7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1eb145aed81ca0c941c434a916d1782"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html#ae1eb145aed81ca0c941c434a916d1782">loadTrainingData</a> (string imageList, string groundTruth, List&lt; string &gt; images, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> facePoints)</td></tr>
-<tr class="memdesc:ae1eb145aed81ca0c941c434a916d1782"><td class="mdescLeft">&#160;</td><td class="mdescRight">A utility to load facial landmark information from the dataset.  <a href="#ae1eb145aed81ca0c941c434a916d1782">More...</a><br /></td></tr>
+<tr class="memitem:ae1eb145aed81ca0c941c434a916d1782" id="r_ae1eb145aed81ca0c941c434a916d1782"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae1eb145aed81ca0c941c434a916d1782">loadTrainingData</a> (string imageList, string groundTruth, List&lt; string &gt; images, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> facePoints)</td></tr>
+<tr class="memdesc:ae1eb145aed81ca0c941c434a916d1782"><td class="mdescLeft">&#160;</td><td class="mdescRight">A utility to load facial landmark information from the dataset.  <br /></td></tr>
 <tr class="separator:ae1eb145aed81ca0c941c434a916d1782"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0964389d42118aa94da7e21861764549"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html#a0964389d42118aa94da7e21861764549">loadTrainingData</a> (List&lt; string &gt; filename, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_point2f.html">MatOfPoint2f</a> &gt; trainlandmarks, List&lt; string &gt; trainimages)</td></tr>
-<tr class="memdesc:a0964389d42118aa94da7e21861764549"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function extracts the data for training from .txt files which contains the corresponding image name and landmarks. The first file in each file should give the path of the image whose landmarks are being described in the file. Then in the subsequent lines there should be coordinates of the landmarks in the image i.e each line should be of the form x,y where x represents the x coordinate of the landmark and y represents the y coordinate of the landmark.  <a href="#a0964389d42118aa94da7e21861764549">More...</a><br /></td></tr>
+<tr class="memitem:a0964389d42118aa94da7e21861764549" id="r_a0964389d42118aa94da7e21861764549"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0964389d42118aa94da7e21861764549">loadTrainingData</a> (List&lt; string &gt; filename, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_point2f.html">MatOfPoint2f</a> &gt; trainlandmarks, List&lt; string &gt; trainimages)</td></tr>
+<tr class="memdesc:a0964389d42118aa94da7e21861764549"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function extracts the data for training from .txt files which contains the corresponding image name and landmarks. The first file in each file should give the path of the image whose landmarks are being described in the file. Then in the subsequent lines there should be coordinates of the landmarks in the image i.e each line should be of the form x,y where x represents the x coordinate of the landmark and y represents the y coordinate of the landmark.  <br /></td></tr>
 <tr class="separator:a0964389d42118aa94da7e21861764549"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a567663c2ef07442eaf2e2c443599de05"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html#a567663c2ef07442eaf2e2c443599de05">loadFacePoints</a> (string filename, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> points, float offset)</td></tr>
-<tr class="memdesc:a567663c2ef07442eaf2e2c443599de05"><td class="mdescLeft">&#160;</td><td class="mdescRight">A utility to load facial landmark information from a given file.  <a href="#a567663c2ef07442eaf2e2c443599de05">More...</a><br /></td></tr>
+<tr class="memitem:a567663c2ef07442eaf2e2c443599de05" id="r_a567663c2ef07442eaf2e2c443599de05"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a567663c2ef07442eaf2e2c443599de05">loadFacePoints</a> (string filename, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> points, float offset)</td></tr>
+<tr class="memdesc:a567663c2ef07442eaf2e2c443599de05"><td class="mdescLeft">&#160;</td><td class="mdescRight">A utility to load facial landmark information from a given file.  <br /></td></tr>
 <tr class="separator:a567663c2ef07442eaf2e2c443599de05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9664d12ccc3d27363ef4de5ce8cdbdd6"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html#a9664d12ccc3d27363ef4de5ce8cdbdd6">loadFacePoints</a> (string filename, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> points)</td></tr>
-<tr class="memdesc:a9664d12ccc3d27363ef4de5ce8cdbdd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">A utility to load facial landmark information from a given file.  <a href="#a9664d12ccc3d27363ef4de5ce8cdbdd6">More...</a><br /></td></tr>
+<tr class="memitem:a9664d12ccc3d27363ef4de5ce8cdbdd6" id="r_a9664d12ccc3d27363ef4de5ce8cdbdd6"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9664d12ccc3d27363ef4de5ce8cdbdd6">loadFacePoints</a> (string filename, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> points)</td></tr>
+<tr class="memdesc:a9664d12ccc3d27363ef4de5ce8cdbdd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">A utility to load facial landmark information from a given file.  <br /></td></tr>
 <tr class="separator:a9664d12ccc3d27363ef4de5ce8cdbdd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23e7c2f63b3d31df37bae44c7c167000"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html#a23e7c2f63b3d31df37bae44c7c167000">drawFacemarks</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> points, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> color)</td></tr>
-<tr class="memdesc:a23e7c2f63b3d31df37bae44c7c167000"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility to draw the detected facial landmark points.  <a href="#a23e7c2f63b3d31df37bae44c7c167000">More...</a><br /></td></tr>
+<tr class="memitem:a23e7c2f63b3d31df37bae44c7c167000" id="r_a23e7c2f63b3d31df37bae44c7c167000"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23e7c2f63b3d31df37bae44c7c167000">drawFacemarks</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> points, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> color)</td></tr>
+<tr class="memdesc:a23e7c2f63b3d31df37bae44c7c167000"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility to draw the detected facial landmark points.  <br /></td></tr>
 <tr class="separator:a23e7c2f63b3d31df37bae44c7c167000"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c2ed74d320f536a574487498d98d358"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html#a4c2ed74d320f536a574487498d98d358">drawFacemarks</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> points)</td></tr>
-<tr class="memdesc:a4c2ed74d320f536a574487498d98d358"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility to draw the detected facial landmark points.  <a href="#a4c2ed74d320f536a574487498d98d358">More...</a><br /></td></tr>
+<tr class="memitem:a4c2ed74d320f536a574487498d98d358" id="r_a4c2ed74d320f536a574487498d98d358"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c2ed74d320f536a574487498d98d358">drawFacemarks</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> points)</td></tr>
+<tr class="memdesc:a4c2ed74d320f536a574487498d98d358"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility to draw the detected facial landmark points.  <br /></td></tr>
 <tr class="separator:a4c2ed74d320f536a574487498d98d358"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4244fe38abf8eeb8fe4e397332da3c7d" id="r_a4244fe38abf8eeb8fe4e397332da3c7d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4244fe38abf8eeb8fe4e397332da3c7d">drawFacemarks</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> points, in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> color)</td></tr>
+<tr class="memdesc:a4244fe38abf8eeb8fe4e397332da3c7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility to draw the detected facial landmark points.  <br /></td></tr>
+<tr class="separator:a4244fe38abf8eeb8fe4e397332da3c7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61873ef85f5ffabec1148553c0699039" id="r_a61873ef85f5ffabec1148553c0699039"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61873ef85f5ffabec1148553c0699039">drawFacemarks</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> points, in(double v0, double v1, double v2, double v3) color)</td></tr>
+<tr class="memdesc:a61873ef85f5ffabec1148553c0699039"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility to draw the detected facial landmark points.  <br /></td></tr>
+<tr class="separator:a61873ef85f5ffabec1148553c0699039"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="abd9de3e86c2caa81eb0216184b66229a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd9de3e86c2caa81eb0216184b66229a">&#9670;&nbsp;</a></span>createFacemarkAAM()</h2>
+<a id="abd9de3e86c2caa81eb0216184b66229a" name="abd9de3e86c2caa81eb0216184b66229a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd9de3e86c2caa81eb0216184b66229a">&#9670;&#160;</a></span>createFacemarkAAM()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -161,7 +199,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_facemark.html">Facemark</a> OpenCVForUnity.FaceModule.Face.createFacemarkAAM </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -174,8 +212,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="adf545a7d4322fac7f96c0e8ee3547e7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf545a7d4322fac7f96c0e8ee3547e7f">&#9670;&nbsp;</a></span>createFacemarkKazemi()</h2>
+<a id="adf545a7d4322fac7f96c0e8ee3547e7f" name="adf545a7d4322fac7f96c0e8ee3547e7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf545a7d4322fac7f96c0e8ee3547e7f">&#9670;&#160;</a></span>createFacemarkKazemi()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -186,7 +224,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_facemark.html">Facemark</a> OpenCVForUnity.FaceModule.Face.createFacemarkKazemi </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -199,8 +237,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a7c71225c9592e7ae89ef1cafffa8fcf0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c71225c9592e7ae89ef1cafffa8fcf0">&#9670;&nbsp;</a></span>createFacemarkLBF()</h2>
+<a id="a7c71225c9592e7ae89ef1cafffa8fcf0" name="a7c71225c9592e7ae89ef1cafffa8fcf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c71225c9592e7ae89ef1cafffa8fcf0">&#9670;&#160;</a></span>createFacemarkLBF()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -211,7 +249,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_facemark.html">Facemark</a> OpenCVForUnity.FaceModule.Face.createFacemarkLBF </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -224,8 +262,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a23e7c2f63b3d31df37bae44c7c167000"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23e7c2f63b3d31df37bae44c7c167000">&#9670;&nbsp;</a></span>drawFacemarks() <span class="overload">[1/2]</span></h2>
+<a id="a4c2ed74d320f536a574487498d98d358" name="a4c2ed74d320f536a574487498d98d358"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c2ed74d320f536a574487498d98d358">&#9670;&#160;</a></span>drawFacemarks() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -236,25 +274,12 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static void OpenCVForUnity.FaceModule.Face.drawFacemarks </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>image</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>points</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>color</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>points</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -269,15 +294,24 @@ Static Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">image</td><td>The input image to be processed. </td></tr>
     <tr><td class="paramname">points</td><td>Contains the data of points which will be drawn. </td></tr>
-    <tr><td class="paramname">color</td><td>The color of points in BGR format represented by cv::Scalar.</td></tr>
+    <tr><td class="paramname">color</td><td>The color of points in BGR format represented by cv::Scalar. </td></tr>
   </table>
   </dd>
 </dl>
-<p>&lt;B&gt;Example of usage&lt;/B&gt; </p><div class="fragment"><div class="line">std::vector&amp;lt;Rect&amp;gt; faces;</div><div class="line">std::vector&amp;lt;std::vector&amp;lt;Point2f&amp;gt; &amp;gt; landmarks;</div><div class="line">facemark-&amp;gt;getFaces(img, faces);</div><div class="line">facemark-&amp;gt;fit(img, faces, landmarks);</div><div class="line"><span class="keywordflow">for</span>(<span class="keywordtype">int</span> j=0;j&amp;lt;rects.size();j++){</div><div class="line">    face::drawFacemarks(frame, landmarks[j], Scalar(0,0,255));</div><div class="line">}</div></div><!-- fragment --> 
+<p>&lt;B&gt;Example of usage&lt;/B&gt; </p>
+<div class="fragment"><div class="line">std::vector&lt;Rect&gt; faces;</div>
+<div class="line">std::vector&lt;std::vector&lt;Point2f&gt; &gt; landmarks;</div>
+<div class="line">facemark-&gt;getFaces(img, faces);</div>
+<div class="line">facemark-&gt;fit(img, faces, landmarks);</div>
+<div class="line"><span class="keywordflow">for</span>(<span class="keywordtype">int</span> j=0;j&lt;rects.size();j++){</div>
+<div class="line">    face::drawFacemarks(frame, landmarks[j], <a class="code hl_class" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>(0,0,255));</div>
+<div class="line">}</div>
+<div class="ttc" id="aclass_open_c_v_for_unity_1_1_core_module_1_1_scalar_html"><div class="ttname"><a href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></div><div class="ttdoc">Template class for a 4-element vector derived from Vec.</div><div class="ttdef"><b>Definition</b> Scalar_Ex.cs:9</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
-<a id="a4c2ed74d320f536a574487498d98d358"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c2ed74d320f536a574487498d98d358">&#9670;&nbsp;</a></span>drawFacemarks() <span class="overload">[2/2]</span></h2>
+<a id="a4244fe38abf8eeb8fe4e397332da3c7d" name="a4244fe38abf8eeb8fe4e397332da3c7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4244fe38abf8eeb8fe4e397332da3c7d">&#9670;&#160;</a></span>drawFacemarks() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -288,19 +322,17 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static void OpenCVForUnity.FaceModule.Face.drawFacemarks </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>image</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>points</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>points</em></span>, </td>
         </tr>
         <tr>
+          <td class="paramkey"></td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a></td>          <td class="paramname"><span class="paramname"><em>color</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -315,15 +347,127 @@ Static Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">image</td><td>The input image to be processed. </td></tr>
     <tr><td class="paramname">points</td><td>Contains the data of points which will be drawn. </td></tr>
-    <tr><td class="paramname">color</td><td>The color of points in BGR format represented by cv::Scalar.</td></tr>
+    <tr><td class="paramname">color</td><td>The color of points in BGR format represented by cv::Scalar. </td></tr>
   </table>
   </dd>
 </dl>
-<p>&lt;B&gt;Example of usage&lt;/B&gt; </p><div class="fragment"><div class="line">std::vector&amp;lt;Rect&amp;gt; faces;</div><div class="line">std::vector&amp;lt;std::vector&amp;lt;Point2f&amp;gt; &amp;gt; landmarks;</div><div class="line">facemark-&amp;gt;getFaces(img, faces);</div><div class="line">facemark-&amp;gt;fit(img, faces, landmarks);</div><div class="line"><span class="keywordflow">for</span>(<span class="keywordtype">int</span> j=0;j&amp;lt;rects.size();j++){</div><div class="line">    face::drawFacemarks(frame, landmarks[j], Scalar(0,0,255));</div><div class="line">}</div></div><!-- fragment --> 
+<p>&lt;B&gt;Example of usage&lt;/B&gt; </p>
+<div class="fragment"><div class="line">std::vector&lt;Rect&gt; faces;</div>
+<div class="line">std::vector&lt;std::vector&lt;Point2f&gt; &gt; landmarks;</div>
+<div class="line">facemark-&gt;getFaces(img, faces);</div>
+<div class="line">facemark-&gt;fit(img, faces, landmarks);</div>
+<div class="line"><span class="keywordflow">for</span>(<span class="keywordtype">int</span> j=0;j&lt;rects.size();j++){</div>
+<div class="line">    face::drawFacemarks(frame, landmarks[j], <a class="code hl_class" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>(0,0,255));</div>
+<div class="line">}</div>
+</div><!-- fragment --> 
 </div>
 </div>
-<a id="a0f6df9b56145df12c77386f9aead589a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f6df9b56145df12c77386f9aead589a">&#9670;&nbsp;</a></span>getFacesHAAR()</h2>
+<a id="a61873ef85f5ffabec1148553c0699039" name="a61873ef85f5ffabec1148553c0699039"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61873ef85f5ffabec1148553c0699039">&#9670;&#160;</a></span>drawFacemarks() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void OpenCVForUnity.FaceModule.Face.drawFacemarks </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>points</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">in(double v0, double v1, double v2, double v3)</td>          <td class="paramname"><span class="paramname"><em>color</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Utility to draw the detected facial landmark points. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>The input image to be processed. </td></tr>
+    <tr><td class="paramname">points</td><td>Contains the data of points which will be drawn. </td></tr>
+    <tr><td class="paramname">color</td><td>The color of points in BGR format represented by cv::Scalar. </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt;B&gt;Example of usage&lt;/B&gt; </p>
+<div class="fragment"><div class="line">std::vector&lt;Rect&gt; faces;</div>
+<div class="line">std::vector&lt;std::vector&lt;Point2f&gt; &gt; landmarks;</div>
+<div class="line">facemark-&gt;getFaces(img, faces);</div>
+<div class="line">facemark-&gt;fit(img, faces, landmarks);</div>
+<div class="line"><span class="keywordflow">for</span>(<span class="keywordtype">int</span> j=0;j&lt;rects.size();j++){</div>
+<div class="line">    face::drawFacemarks(frame, landmarks[j], <a class="code hl_class" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>(0,0,255));</div>
+<div class="line">}</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a id="a23e7c2f63b3d31df37bae44c7c167000" name="a23e7c2f63b3d31df37bae44c7c167000"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23e7c2f63b3d31df37bae44c7c167000">&#9670;&#160;</a></span>drawFacemarks() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void OpenCVForUnity.FaceModule.Face.drawFacemarks </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>points</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>color</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Utility to draw the detected facial landmark points. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>The input image to be processed. </td></tr>
+    <tr><td class="paramname">points</td><td>Contains the data of points which will be drawn. </td></tr>
+    <tr><td class="paramname">color</td><td>The color of points in BGR format represented by cv::Scalar. </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt;B&gt;Example of usage&lt;/B&gt; </p>
+<div class="fragment"><div class="line">std::vector&lt;Rect&gt; faces;</div>
+<div class="line">std::vector&lt;std::vector&lt;Point2f&gt; &gt; landmarks;</div>
+<div class="line">facemark-&gt;getFaces(img, faces);</div>
+<div class="line">facemark-&gt;fit(img, faces, landmarks);</div>
+<div class="line"><span class="keywordflow">for</span>(<span class="keywordtype">int</span> j=0;j&lt;rects.size();j++){</div>
+<div class="line">    face::drawFacemarks(frame, landmarks[j], <a class="code hl_class" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>(0,0,255));</div>
+<div class="line">}</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a id="a0f6df9b56145df12c77386f9aead589a" name="a0f6df9b56145df12c77386f9aead589a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f6df9b56145df12c77386f9aead589a">&#9670;&#160;</a></span>getFacesHAAR()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -334,25 +478,17 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static bool OpenCVForUnity.FaceModule.Face.getFacesHAAR </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>image</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>faces</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>faces</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>face_cascade_name</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>face_cascade_name</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -362,20 +498,28 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Default face detector This function is mainly utilized by the implementation of a <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_facemark.html" title="Abstract base class for all facemark models. ">Facemark</a> Algorithm. End users are advised to use function Facemark::getFaces which can be manually defined and circumvented to the algorithm by Facemark::setFaceDetector. </p>
+<p>Default face detector This function is mainly utilized by the implementation of a <a class="el" href="class_open_c_v_for_unity_1_1_face_module_1_1_facemark.html" title="Abstract base class for all facemark models.">Facemark</a> Algorithm. End users are advised to use function Facemark::getFaces which can be manually defined and circumvented to the algorithm by Facemark::setFaceDetector. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">image</td><td>The input image to be processed. </td></tr>
     <tr><td class="paramname">faces</td><td>Output of the function which represent region of interest of the detected faces. Each face is stored in cv::Rect container. </td></tr>
-    <tr><td class="paramname">params</td><td>detector parameters</td></tr>
+    <tr><td class="paramname">params</td><td>detector parameters </td></tr>
   </table>
   </dd>
 </dl>
-<p>&lt;B&gt;Example of usage&lt;/B&gt; </p><div class="fragment"><div class="line">std::vector&amp;lt;cv::Rect&amp;gt; faces;</div><div class="line">CParams params(<span class="stringliteral">&quot;haarcascade_frontalface_alt.xml&quot;</span>);</div><div class="line">cv::face::getFaces(frame, faces, &amp;amp;params);</div><div class="line"><span class="keywordflow">for</span>(<span class="keywordtype">int</span> j=0;j&amp;lt;faces.size();j++){</div><div class="line">    cv::rectangle(frame, faces[j], cv::Scalar(255,0,255));</div><div class="line">}</div><div class="line">cv::imshow(<span class="stringliteral">&quot;detection&quot;</span>, frame);</div></div><!-- fragment --> 
+<p>&lt;B&gt;Example of usage&lt;/B&gt; </p>
+<div class="fragment"><div class="line">std::vector&lt;cv::Rect&gt; faces;</div>
+<div class="line">CParams params(<span class="stringliteral">&quot;haarcascade_frontalface_alt.xml&quot;</span>);</div>
+<div class="line">cv::face::getFaces(frame, faces, &amp;amp;params);</div>
+<div class="line"><span class="keywordflow">for</span>(<span class="keywordtype">int</span> j=0;j&lt;faces.size();j++){</div>
+<div class="line">    cv::rectangle(frame, faces[j], cv::Scalar(255,0,255));</div>
+<div class="line">}</div>
+<div class="line">cv::imshow(<span class="stringliteral">&quot;detection&quot;</span>, frame);</div>
+</div><!-- fragment --> 
 </div>
 </div>
-<a id="a78c8e9c93bb5407ff27f10462b808bc7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78c8e9c93bb5407ff27f10462b808bc7">&#9670;&nbsp;</a></span>loadDatasetList()</h2>
+<a id="a78c8e9c93bb5407ff27f10462b808bc7" name="a78c8e9c93bb5407ff27f10462b808bc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78c8e9c93bb5407ff27f10462b808bc7">&#9670;&#160;</a></span>loadDatasetList()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -386,31 +530,22 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static bool OpenCVForUnity.FaceModule.Face.loadDatasetList </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>imageList</em>, </td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>imageList</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>annotationList</em>, </td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>annotationList</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">List&lt; string &gt;&#160;</td>
-          <td class="paramname"><em>images</em>, </td>
+          <td class="paramtype">List&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>images</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">List&lt; string &gt;&#160;</td>
-          <td class="paramname"><em>annotations</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">List&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>annotations</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -426,15 +561,22 @@ Static Public Member Functions</h2></td></tr>
     <tr><td class="paramname">imageList</td><td>The specified file contains paths to the training images. </td></tr>
     <tr><td class="paramname">annotationList</td><td>The specified file contains paths to the training annotations. </td></tr>
     <tr><td class="paramname">images</td><td>The loaded paths of training images. </td></tr>
-    <tr><td class="paramname">annotations</td><td>The loaded paths of annotation files.</td></tr>
+    <tr><td class="paramname">annotations</td><td>The loaded paths of annotation files. </td></tr>
   </table>
   </dd>
 </dl>
-<p>Example of usage: </p><div class="fragment"><div class="line">String imageFiles = <span class="stringliteral">&quot;images_path.txt&quot;</span>;</div><div class="line">String ptsFiles = <span class="stringliteral">&quot;annotations_path.txt&quot;</span>;</div><div class="line">std::vector&amp;lt;String&amp;gt; images_train;</div><div class="line">std::vector&amp;lt;String&amp;gt; landmarks_train;</div><div class="line"><a class="code" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html#a78c8e9c93bb5407ff27f10462b808bc7">loadDatasetList</a>(imageFiles,ptsFiles,images_train,landmarks_train);</div></div><!-- fragment --> 
+<p>Example of usage: </p>
+<div class="fragment"><div class="line">String imageFiles = <span class="stringliteral">&quot;images_path.txt&quot;</span>;</div>
+<div class="line">String ptsFiles = <span class="stringliteral">&quot;annotations_path.txt&quot;</span>;</div>
+<div class="line">std::vector&lt;String&gt; images_train;</div>
+<div class="line">std::vector&lt;String&gt; landmarks_train;</div>
+<div class="line"><a class="code hl_function" href="#a78c8e9c93bb5407ff27f10462b808bc7">loadDatasetList</a>(imageFiles,ptsFiles,images_train,landmarks_train);</div>
+<div class="ttc" id="aclass_open_c_v_for_unity_1_1_face_module_1_1_face_html_a78c8e9c93bb5407ff27f10462b808bc7"><div class="ttname"><a href="#a78c8e9c93bb5407ff27f10462b808bc7">OpenCVForUnity.FaceModule.Face.loadDatasetList</a></div><div class="ttdeci">static bool loadDatasetList(string imageList, string annotationList, List&lt; string &gt; images, List&lt; string &gt; annotations)</div><div class="ttdoc">A utility to load list of paths to training image and annotation file.</div><div class="ttdef"><b>Definition</b> Face.cs:130</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
-<a id="a567663c2ef07442eaf2e2c443599de05"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a567663c2ef07442eaf2e2c443599de05">&#9670;&nbsp;</a></span>loadFacePoints() <span class="overload">[1/2]</span></h2>
+<a id="a9664d12ccc3d27363ef4de5ce8cdbdd6" name="a9664d12ccc3d27363ef4de5ce8cdbdd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9664d12ccc3d27363ef4de5ce8cdbdd6">&#9670;&#160;</a></span>loadFacePoints() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -445,25 +587,12 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static bool OpenCVForUnity.FaceModule.Face.loadFacePoints </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>filename</em>, </td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>filename</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>points</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>offset</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>points</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -478,16 +607,27 @@ Static Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">filename</td><td>The filename of file contains the facial landmarks data. </td></tr>
     <tr><td class="paramname">points</td><td>The loaded facial landmark points. </td></tr>
-    <tr><td class="paramname">offset</td><td>An offset value to adjust the loaded points.</td></tr>
+    <tr><td class="paramname">offset</td><td>An offset value to adjust the loaded points. </td></tr>
   </table>
   </dd>
 </dl>
-<p>&lt;B&gt;Example of usage&lt;/B&gt; </p><div class="fragment"><div class="line">std::vector&amp;lt;Point2f&amp;gt; points;</div><div class="line">face::loadFacePoints(<span class="stringliteral">&quot;filename.txt&quot;</span>, points, 0.0f);</div></div><!-- fragment --><p>The annotation file should follow the default format which is </p><div class="fragment"><div class="line">version: 1</div><div class="line">n_points:  68</div><div class="line">{</div><div class="line">212.716603 499.771793</div><div class="line">230.232816 566.290071</div><div class="line">...</div><div class="line">}</div></div><!-- fragment --><p> where n_points is the number of points considered and each point is represented as its position in x and y. </p>
+<p>&lt;B&gt;Example of usage&lt;/B&gt; </p>
+<div class="fragment"><div class="line">std::vector&lt;Point2f&gt; points;</div>
+<div class="line">face::loadFacePoints(<span class="stringliteral">&quot;filename.txt&quot;</span>, points, 0.0f);</div>
+</div><!-- fragment --> <p>The annotation file should follow the default format which is </p>
+<div class="fragment"><div class="line">version: 1</div>
+<div class="line">n_points:  68</div>
+<div class="line">{</div>
+<div class="line">212.716603 499.771793</div>
+<div class="line">230.232816 566.290071</div>
+<div class="line">...</div>
+<div class="line">}</div>
+</div><!-- fragment --> <p>where n_points is the number of points considered and each point is represented as its position in x and y. </p>
 
 </div>
 </div>
-<a id="a9664d12ccc3d27363ef4de5ce8cdbdd6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9664d12ccc3d27363ef4de5ce8cdbdd6">&#9670;&nbsp;</a></span>loadFacePoints() <span class="overload">[2/2]</span></h2>
+<a id="a567663c2ef07442eaf2e2c443599de05" name="a567663c2ef07442eaf2e2c443599de05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a567663c2ef07442eaf2e2c443599de05">&#9670;&#160;</a></span>loadFacePoints() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -498,19 +638,17 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static bool OpenCVForUnity.FaceModule.Face.loadFacePoints </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>filename</em>, </td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>filename</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>points</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>points</em></span>, </td>
         </tr>
         <tr>
+          <td class="paramkey"></td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>offset</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -525,16 +663,27 @@ Static Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">filename</td><td>The filename of file contains the facial landmarks data. </td></tr>
     <tr><td class="paramname">points</td><td>The loaded facial landmark points. </td></tr>
-    <tr><td class="paramname">offset</td><td>An offset value to adjust the loaded points.</td></tr>
+    <tr><td class="paramname">offset</td><td>An offset value to adjust the loaded points. </td></tr>
   </table>
   </dd>
 </dl>
-<p>&lt;B&gt;Example of usage&lt;/B&gt; </p><div class="fragment"><div class="line">std::vector&amp;lt;Point2f&amp;gt; points;</div><div class="line">face::loadFacePoints(<span class="stringliteral">&quot;filename.txt&quot;</span>, points, 0.0f);</div></div><!-- fragment --><p>The annotation file should follow the default format which is </p><div class="fragment"><div class="line">version: 1</div><div class="line">n_points:  68</div><div class="line">{</div><div class="line">212.716603 499.771793</div><div class="line">230.232816 566.290071</div><div class="line">...</div><div class="line">}</div></div><!-- fragment --><p> where n_points is the number of points considered and each point is represented as its position in x and y. </p>
+<p>&lt;B&gt;Example of usage&lt;/B&gt; </p>
+<div class="fragment"><div class="line">std::vector&lt;Point2f&gt; points;</div>
+<div class="line">face::loadFacePoints(<span class="stringliteral">&quot;filename.txt&quot;</span>, points, 0.0f);</div>
+</div><!-- fragment --> <p>The annotation file should follow the default format which is </p>
+<div class="fragment"><div class="line">version: 1</div>
+<div class="line">n_points:  68</div>
+<div class="line">{</div>
+<div class="line">212.716603 499.771793</div>
+<div class="line">230.232816 566.290071</div>
+<div class="line">...</div>
+<div class="line">}</div>
+</div><!-- fragment --> <p>where n_points is the number of points considered and each point is represented as its position in x and y. </p>
 
 </div>
 </div>
-<a id="ab85e3de960f7c76ffe9fd810e926f3e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab85e3de960f7c76ffe9fd810e926f3e6">&#9670;&nbsp;</a></span>loadTrainingData() <span class="overload">[1/6]</span></h2>
+<a id="a0964389d42118aa94da7e21861764549" name="a0964389d42118aa94da7e21861764549"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0964389d42118aa94da7e21861764549">&#9670;&#160;</a></span>loadTrainingData() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -545,331 +694,17 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static bool OpenCVForUnity.FaceModule.Face.loadTrainingData </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>filename</em>, </td>
+          <td class="paramtype">List&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>filename</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">List&lt; string &gt;&#160;</td>
-          <td class="paramname"><em>images</em>, </td>
+          <td class="paramtype">List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_point2f.html">MatOfPoint2f</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>trainlandmarks</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>facePoints</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>delim</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>offset</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>A utility to load facial landmark dataset from a single file. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">filename</td><td>The filename of a file that contains the dataset information. Each line contains the filename of an image followed by pairs of x and y values of facial landmarks points separated by a space. Example <div class="fragment"><div class="line">/home/user/ibug/image_003_1.jpg 336.820955 240.864510 334.238298 260.922709 335.266918 ...</div><div class="line">/home/user/ibug/image_005_1.jpg 376.158428 230.845712 376.736984 254.924635 383.265403 ...</div></div><!-- fragment --> </td></tr>
-    <tr><td class="paramname">images</td><td>A vector where each element represent the filename of image in the dataset. Images are not loaded by default to save the memory. </td></tr>
-    <tr><td class="paramname">facePoints</td><td>The loaded landmark points for all training data. </td></tr>
-    <tr><td class="paramname">delim</td><td>Delimiter between each element, the default value is a whitespace. </td></tr>
-    <tr><td class="paramname">offset</td><td>An offset value to adjust the loaded points.</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>&lt;B&gt;Example of usage&lt;/B&gt; </p><div class="fragment"><div class="line">cv::String imageFiles = <span class="stringliteral">&quot;../data/images_train.txt&quot;</span>;</div><div class="line">cv::String ptsFiles = <span class="stringliteral">&quot;../data/points_train.txt&quot;</span>;</div><div class="line">std::vector&amp;lt;String&amp;gt; images;</div><div class="line">std::vector&amp;lt;std::vector&amp;lt;Point2f&amp;gt; &amp;gt; facePoints;</div><div class="line"><a class="code" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html#ab85e3de960f7c76ffe9fd810e926f3e6">loadTrainingData</a>(imageFiles, ptsFiles, images, facePoints, 0.0f);</div></div><!-- fragment --> 
-</div>
-</div>
-<a id="a63c53611bee0af924673f99ade404bc0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63c53611bee0af924673f99ade404bc0">&#9670;&nbsp;</a></span>loadTrainingData() <span class="overload">[2/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bool OpenCVForUnity.FaceModule.Face.loadTrainingData </td>
-          <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>filename</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">List&lt; string &gt;&#160;</td>
-          <td class="paramname"><em>images</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>facePoints</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>delim</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>A utility to load facial landmark dataset from a single file. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">filename</td><td>The filename of a file that contains the dataset information. Each line contains the filename of an image followed by pairs of x and y values of facial landmarks points separated by a space. Example <div class="fragment"><div class="line">/home/user/ibug/image_003_1.jpg 336.820955 240.864510 334.238298 260.922709 335.266918 ...</div><div class="line">/home/user/ibug/image_005_1.jpg 376.158428 230.845712 376.736984 254.924635 383.265403 ...</div></div><!-- fragment --> </td></tr>
-    <tr><td class="paramname">images</td><td>A vector where each element represent the filename of image in the dataset. Images are not loaded by default to save the memory. </td></tr>
-    <tr><td class="paramname">facePoints</td><td>The loaded landmark points for all training data. </td></tr>
-    <tr><td class="paramname">delim</td><td>Delimiter between each element, the default value is a whitespace. </td></tr>
-    <tr><td class="paramname">offset</td><td>An offset value to adjust the loaded points.</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>&lt;B&gt;Example of usage&lt;/B&gt; </p><div class="fragment"><div class="line">cv::String imageFiles = <span class="stringliteral">&quot;../data/images_train.txt&quot;</span>;</div><div class="line">cv::String ptsFiles = <span class="stringliteral">&quot;../data/points_train.txt&quot;</span>;</div><div class="line">std::vector&amp;lt;String&amp;gt; images;</div><div class="line">std::vector&amp;lt;std::vector&amp;lt;Point2f&amp;gt; &amp;gt; facePoints;</div><div class="line"><a class="code" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html#ab85e3de960f7c76ffe9fd810e926f3e6">loadTrainingData</a>(imageFiles, ptsFiles, images, facePoints, 0.0f);</div></div><!-- fragment --> 
-</div>
-</div>
-<a id="a1d7941db4be1449b21bdee4bd6fcd231"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d7941db4be1449b21bdee4bd6fcd231">&#9670;&nbsp;</a></span>loadTrainingData() <span class="overload">[3/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bool OpenCVForUnity.FaceModule.Face.loadTrainingData </td>
-          <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>filename</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">List&lt; string &gt;&#160;</td>
-          <td class="paramname"><em>images</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>facePoints</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>A utility to load facial landmark dataset from a single file. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">filename</td><td>The filename of a file that contains the dataset information. Each line contains the filename of an image followed by pairs of x and y values of facial landmarks points separated by a space. Example <div class="fragment"><div class="line">/home/user/ibug/image_003_1.jpg 336.820955 240.864510 334.238298 260.922709 335.266918 ...</div><div class="line">/home/user/ibug/image_005_1.jpg 376.158428 230.845712 376.736984 254.924635 383.265403 ...</div></div><!-- fragment --> </td></tr>
-    <tr><td class="paramname">images</td><td>A vector where each element represent the filename of image in the dataset. Images are not loaded by default to save the memory. </td></tr>
-    <tr><td class="paramname">facePoints</td><td>The loaded landmark points for all training data. </td></tr>
-    <tr><td class="paramname">delim</td><td>Delimiter between each element, the default value is a whitespace. </td></tr>
-    <tr><td class="paramname">offset</td><td>An offset value to adjust the loaded points.</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>&lt;B&gt;Example of usage&lt;/B&gt; </p><div class="fragment"><div class="line">cv::String imageFiles = <span class="stringliteral">&quot;../data/images_train.txt&quot;</span>;</div><div class="line">cv::String ptsFiles = <span class="stringliteral">&quot;../data/points_train.txt&quot;</span>;</div><div class="line">std::vector&amp;lt;String&amp;gt; images;</div><div class="line">std::vector&amp;lt;std::vector&amp;lt;Point2f&amp;gt; &amp;gt; facePoints;</div><div class="line"><a class="code" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html#ab85e3de960f7c76ffe9fd810e926f3e6">loadTrainingData</a>(imageFiles, ptsFiles, images, facePoints, 0.0f);</div></div><!-- fragment --> 
-</div>
-</div>
-<a id="a8d31dd445f0a9f591c9a4f22cc431a7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d31dd445f0a9f591c9a4f22cc431a7d">&#9670;&nbsp;</a></span>loadTrainingData() <span class="overload">[4/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bool OpenCVForUnity.FaceModule.Face.loadTrainingData </td>
-          <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>imageList</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>groundTruth</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">List&lt; string &gt;&#160;</td>
-          <td class="paramname"><em>images</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>facePoints</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>offset</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>A utility to load facial landmark information from the dataset. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">imageList</td><td>A file contains the list of image filenames in the training dataset. </td></tr>
-    <tr><td class="paramname">groundTruth</td><td>A file contains the list of filenames where the landmarks points information are stored. The content in each file should follow the standard format (see face::loadFacePoints). </td></tr>
-    <tr><td class="paramname">images</td><td>A vector where each element represent the filename of image in the dataset. Images are not loaded by default to save the memory. </td></tr>
-    <tr><td class="paramname">facePoints</td><td>The loaded landmark points for all training data. </td></tr>
-    <tr><td class="paramname">offset</td><td>An offset value to adjust the loaded points.</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>&lt;B&gt;Example of usage&lt;/B&gt; </p><div class="fragment"><div class="line">cv::String imageFiles = <span class="stringliteral">&quot;../data/images_train.txt&quot;</span>;</div><div class="line">cv::String ptsFiles = <span class="stringliteral">&quot;../data/points_train.txt&quot;</span>;</div><div class="line">std::vector&amp;lt;String&amp;gt; images;</div><div class="line">std::vector&amp;lt;std::vector&amp;lt;Point2f&amp;gt; &amp;gt; facePoints;</div><div class="line"><a class="code" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html#ab85e3de960f7c76ffe9fd810e926f3e6">loadTrainingData</a>(imageFiles, ptsFiles, images, facePoints, 0.0f);</div></div><!-- fragment --><p>example of content in the images_train.txt </p><div class="fragment"><div class="line">/home/user/ibug/image_003_1.jpg</div><div class="line">/home/user/ibug/image_004_1.jpg</div><div class="line">/home/user/ibug/image_005_1.jpg</div><div class="line">/home/user/ibug/image_006.jpg</div></div><!-- fragment --><p>example of content in the points_train.txt </p><div class="fragment"><div class="line">/home/user/ibug/image_003_1.pts</div><div class="line">/home/user/ibug/image_004_1.pts</div><div class="line">/home/user/ibug/image_005_1.pts</div><div class="line">/home/user/ibug/image_006.pts</div></div><!-- fragment --> 
-</div>
-</div>
-<a id="ae1eb145aed81ca0c941c434a916d1782"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1eb145aed81ca0c941c434a916d1782">&#9670;&nbsp;</a></span>loadTrainingData() <span class="overload">[5/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bool OpenCVForUnity.FaceModule.Face.loadTrainingData </td>
-          <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>imageList</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>groundTruth</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">List&lt; string &gt;&#160;</td>
-          <td class="paramname"><em>images</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>facePoints</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>A utility to load facial landmark information from the dataset. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">imageList</td><td>A file contains the list of image filenames in the training dataset. </td></tr>
-    <tr><td class="paramname">groundTruth</td><td>A file contains the list of filenames where the landmarks points information are stored. The content in each file should follow the standard format (see face::loadFacePoints). </td></tr>
-    <tr><td class="paramname">images</td><td>A vector where each element represent the filename of image in the dataset. Images are not loaded by default to save the memory. </td></tr>
-    <tr><td class="paramname">facePoints</td><td>The loaded landmark points for all training data. </td></tr>
-    <tr><td class="paramname">offset</td><td>An offset value to adjust the loaded points.</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>&lt;B&gt;Example of usage&lt;/B&gt; </p><div class="fragment"><div class="line">cv::String imageFiles = <span class="stringliteral">&quot;../data/images_train.txt&quot;</span>;</div><div class="line">cv::String ptsFiles = <span class="stringliteral">&quot;../data/points_train.txt&quot;</span>;</div><div class="line">std::vector&amp;lt;String&amp;gt; images;</div><div class="line">std::vector&amp;lt;std::vector&amp;lt;Point2f&amp;gt; &amp;gt; facePoints;</div><div class="line"><a class="code" href="class_open_c_v_for_unity_1_1_face_module_1_1_face.html#ab85e3de960f7c76ffe9fd810e926f3e6">loadTrainingData</a>(imageFiles, ptsFiles, images, facePoints, 0.0f);</div></div><!-- fragment --><p>example of content in the images_train.txt </p><div class="fragment"><div class="line">/home/user/ibug/image_003_1.jpg</div><div class="line">/home/user/ibug/image_004_1.jpg</div><div class="line">/home/user/ibug/image_005_1.jpg</div><div class="line">/home/user/ibug/image_006.jpg</div></div><!-- fragment --><p>example of content in the points_train.txt </p><div class="fragment"><div class="line">/home/user/ibug/image_003_1.pts</div><div class="line">/home/user/ibug/image_004_1.pts</div><div class="line">/home/user/ibug/image_005_1.pts</div><div class="line">/home/user/ibug/image_006.pts</div></div><!-- fragment --> 
-</div>
-</div>
-<a id="a0964389d42118aa94da7e21861764549"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0964389d42118aa94da7e21861764549">&#9670;&nbsp;</a></span>loadTrainingData() <span class="overload">[6/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bool OpenCVForUnity.FaceModule.Face.loadTrainingData </td>
-          <td>(</td>
-          <td class="paramtype">List&lt; string &gt;&#160;</td>
-          <td class="paramname"><em>filename</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_point2f.html">MatOfPoint2f</a> &gt;&#160;</td>
-          <td class="paramname"><em>trainlandmarks</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">List&lt; string &gt;&#160;</td>
-          <td class="paramname"><em>trainimages</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">List&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>trainimages</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -880,7 +715,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This function extracts the data for training from .txt files which contains the corresponding image name and landmarks. The first file in each file should give the path of the image whose landmarks are being described in the file. Then in the subsequent lines there should be coordinates of the landmarks in the image i.e each line should be of the form x,y where x represents the x coordinate of the landmark and y represents the y coordinate of the landmark. </p>
-<p>For reference you can see the files as provided in the &lt;a href="http://www.ifp.illinois.edu/~vuongle2/helen/"&gt;HELEN dataset&lt;/a&gt;</p>
+<p>For reference you can see the files as provided in the &lt;a href="http://www.ifp.illinois.edu/~vuongle2/helen/"&gt;HELEN dataset&lt;/a&gt; </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filename</td><td>A vector of type cv::String containing name of the .txt files. </td></tr>
@@ -893,15 +728,348 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<a id="a1d7941db4be1449b21bdee4bd6fcd231" name="a1d7941db4be1449b21bdee4bd6fcd231"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d7941db4be1449b21bdee4bd6fcd231">&#9670;&#160;</a></span>loadTrainingData() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool OpenCVForUnity.FaceModule.Face.loadTrainingData </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>filename</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>images</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>facePoints</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A utility to load facial landmark dataset from a single file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>The filename of a file that contains the dataset information. Each line contains the filename of an image followed by pairs of x and y values of facial landmarks points separated by a space. Example </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line">/home/user/ibug/image_003_1.jpg 336.820955 240.864510 334.238298 260.922709 335.266918 ...</div>
+<div class="line">/home/user/ibug/image_005_1.jpg 376.158428 230.845712 376.736984 254.924635 383.265403 ...</div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">images</td><td>A vector where each element represent the filename of image in the dataset. Images are not loaded by default to save the memory. </td></tr>
+    <tr><td class="paramname">facePoints</td><td>The loaded landmark points for all training data. </td></tr>
+    <tr><td class="paramname">delim</td><td>Delimiter between each element, the default value is a whitespace. </td></tr>
+    <tr><td class="paramname">offset</td><td>An offset value to adjust the loaded points. </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt;B&gt;Example of usage&lt;/B&gt; </p>
+<div class="fragment"><div class="line">cv::String imageFiles = <span class="stringliteral">&quot;../data/images_train.txt&quot;</span>;</div>
+<div class="line">cv::String ptsFiles = <span class="stringliteral">&quot;../data/points_train.txt&quot;</span>;</div>
+<div class="line">std::vector&lt;String&gt; images;</div>
+<div class="line">std::vector&lt;std::vector&lt;Point2f&gt; &gt; facePoints;</div>
+<div class="line"><a class="code hl_function" href="#ab85e3de960f7c76ffe9fd810e926f3e6">loadTrainingData</a>(imageFiles, ptsFiles, images, facePoints, 0.0f);</div>
+<div class="ttc" id="aclass_open_c_v_for_unity_1_1_face_module_1_1_face_html_ab85e3de960f7c76ffe9fd810e926f3e6"><div class="ttname"><a href="#ab85e3de960f7c76ffe9fd810e926f3e6">OpenCVForUnity.FaceModule.Face.loadTrainingData</a></div><div class="ttdeci">static bool loadTrainingData(string filename, List&lt; string &gt; images, Mat facePoints, char delim, float offset)</div><div class="ttdoc">A utility to load facial landmark dataset from a single file.</div><div class="ttdef"><b>Definition</b> Face.cs:181</div></div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a id="a63c53611bee0af924673f99ade404bc0" name="a63c53611bee0af924673f99ade404bc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63c53611bee0af924673f99ade404bc0">&#9670;&#160;</a></span>loadTrainingData() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool OpenCVForUnity.FaceModule.Face.loadTrainingData </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>filename</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>images</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>facePoints</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>delim</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A utility to load facial landmark dataset from a single file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>The filename of a file that contains the dataset information. Each line contains the filename of an image followed by pairs of x and y values of facial landmarks points separated by a space. Example </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line">/home/user/ibug/image_003_1.jpg 336.820955 240.864510 334.238298 260.922709 335.266918 ...</div>
+<div class="line">/home/user/ibug/image_005_1.jpg 376.158428 230.845712 376.736984 254.924635 383.265403 ...</div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">images</td><td>A vector where each element represent the filename of image in the dataset. Images are not loaded by default to save the memory. </td></tr>
+    <tr><td class="paramname">facePoints</td><td>The loaded landmark points for all training data. </td></tr>
+    <tr><td class="paramname">delim</td><td>Delimiter between each element, the default value is a whitespace. </td></tr>
+    <tr><td class="paramname">offset</td><td>An offset value to adjust the loaded points. </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt;B&gt;Example of usage&lt;/B&gt; </p>
+<div class="fragment"><div class="line">cv::String imageFiles = <span class="stringliteral">&quot;../data/images_train.txt&quot;</span>;</div>
+<div class="line">cv::String ptsFiles = <span class="stringliteral">&quot;../data/points_train.txt&quot;</span>;</div>
+<div class="line">std::vector&lt;String&gt; images;</div>
+<div class="line">std::vector&lt;std::vector&lt;Point2f&gt; &gt; facePoints;</div>
+<div class="line"><a class="code hl_function" href="#ab85e3de960f7c76ffe9fd810e926f3e6">loadTrainingData</a>(imageFiles, ptsFiles, images, facePoints, 0.0f);</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a id="ab85e3de960f7c76ffe9fd810e926f3e6" name="ab85e3de960f7c76ffe9fd810e926f3e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab85e3de960f7c76ffe9fd810e926f3e6">&#9670;&#160;</a></span>loadTrainingData() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool OpenCVForUnity.FaceModule.Face.loadTrainingData </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>filename</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>images</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>facePoints</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>delim</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>offset</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A utility to load facial landmark dataset from a single file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>The filename of a file that contains the dataset information. Each line contains the filename of an image followed by pairs of x and y values of facial landmarks points separated by a space. Example </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line">/home/user/ibug/image_003_1.jpg 336.820955 240.864510 334.238298 260.922709 335.266918 ...</div>
+<div class="line">/home/user/ibug/image_005_1.jpg 376.158428 230.845712 376.736984 254.924635 383.265403 ...</div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">images</td><td>A vector where each element represent the filename of image in the dataset. Images are not loaded by default to save the memory. </td></tr>
+    <tr><td class="paramname">facePoints</td><td>The loaded landmark points for all training data. </td></tr>
+    <tr><td class="paramname">delim</td><td>Delimiter between each element, the default value is a whitespace. </td></tr>
+    <tr><td class="paramname">offset</td><td>An offset value to adjust the loaded points. </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt;B&gt;Example of usage&lt;/B&gt; </p>
+<div class="fragment"><div class="line">cv::String imageFiles = <span class="stringliteral">&quot;../data/images_train.txt&quot;</span>;</div>
+<div class="line">cv::String ptsFiles = <span class="stringliteral">&quot;../data/points_train.txt&quot;</span>;</div>
+<div class="line">std::vector&lt;String&gt; images;</div>
+<div class="line">std::vector&lt;std::vector&lt;Point2f&gt; &gt; facePoints;</div>
+<div class="line"><a class="code hl_function" href="#ab85e3de960f7c76ffe9fd810e926f3e6">loadTrainingData</a>(imageFiles, ptsFiles, images, facePoints, 0.0f);</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a id="ae1eb145aed81ca0c941c434a916d1782" name="ae1eb145aed81ca0c941c434a916d1782"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1eb145aed81ca0c941c434a916d1782">&#9670;&#160;</a></span>loadTrainingData() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool OpenCVForUnity.FaceModule.Face.loadTrainingData </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>imageList</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>groundTruth</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>images</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>facePoints</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A utility to load facial landmark information from the dataset. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">imageList</td><td>A file contains the list of image filenames in the training dataset. </td></tr>
+    <tr><td class="paramname">groundTruth</td><td>A file contains the list of filenames where the landmarks points information are stored. The content in each file should follow the standard format (see face::loadFacePoints). </td></tr>
+    <tr><td class="paramname">images</td><td>A vector where each element represent the filename of image in the dataset. Images are not loaded by default to save the memory. </td></tr>
+    <tr><td class="paramname">facePoints</td><td>The loaded landmark points for all training data. </td></tr>
+    <tr><td class="paramname">offset</td><td>An offset value to adjust the loaded points. </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt;B&gt;Example of usage&lt;/B&gt; </p>
+<div class="fragment"><div class="line">cv::String imageFiles = <span class="stringliteral">&quot;../data/images_train.txt&quot;</span>;</div>
+<div class="line">cv::String ptsFiles = <span class="stringliteral">&quot;../data/points_train.txt&quot;</span>;</div>
+<div class="line">std::vector&lt;String&gt; images;</div>
+<div class="line">std::vector&lt;std::vector&lt;Point2f&gt; &gt; facePoints;</div>
+<div class="line"><a class="code hl_function" href="#ab85e3de960f7c76ffe9fd810e926f3e6">loadTrainingData</a>(imageFiles, ptsFiles, images, facePoints, 0.0f);</div>
+</div><!-- fragment --> <p>example of content in the images_train.txt </p>
+<div class="fragment"><div class="line">/home/user/ibug/image_003_1.jpg</div>
+<div class="line">/home/user/ibug/image_004_1.jpg</div>
+<div class="line">/home/user/ibug/image_005_1.jpg</div>
+<div class="line">/home/user/ibug/image_006.jpg</div>
+</div><!-- fragment --> <p>example of content in the points_train.txt </p>
+<div class="fragment"><div class="line">/home/user/ibug/image_003_1.pts</div>
+<div class="line">/home/user/ibug/image_004_1.pts</div>
+<div class="line">/home/user/ibug/image_005_1.pts</div>
+<div class="line">/home/user/ibug/image_006.pts</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a id="a8d31dd445f0a9f591c9a4f22cc431a7d" name="a8d31dd445f0a9f591c9a4f22cc431a7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d31dd445f0a9f591c9a4f22cc431a7d">&#9670;&#160;</a></span>loadTrainingData() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool OpenCVForUnity.FaceModule.Face.loadTrainingData </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>imageList</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>groundTruth</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>images</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>facePoints</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>offset</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A utility to load facial landmark information from the dataset. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">imageList</td><td>A file contains the list of image filenames in the training dataset. </td></tr>
+    <tr><td class="paramname">groundTruth</td><td>A file contains the list of filenames where the landmarks points information are stored. The content in each file should follow the standard format (see face::loadFacePoints). </td></tr>
+    <tr><td class="paramname">images</td><td>A vector where each element represent the filename of image in the dataset. Images are not loaded by default to save the memory. </td></tr>
+    <tr><td class="paramname">facePoints</td><td>The loaded landmark points for all training data. </td></tr>
+    <tr><td class="paramname">offset</td><td>An offset value to adjust the loaded points. </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt;B&gt;Example of usage&lt;/B&gt; </p>
+<div class="fragment"><div class="line">cv::String imageFiles = <span class="stringliteral">&quot;../data/images_train.txt&quot;</span>;</div>
+<div class="line">cv::String ptsFiles = <span class="stringliteral">&quot;../data/points_train.txt&quot;</span>;</div>
+<div class="line">std::vector&lt;String&gt; images;</div>
+<div class="line">std::vector&lt;std::vector&lt;Point2f&gt; &gt; facePoints;</div>
+<div class="line"><a class="code hl_function" href="#ab85e3de960f7c76ffe9fd810e926f3e6">loadTrainingData</a>(imageFiles, ptsFiles, images, facePoints, 0.0f);</div>
+</div><!-- fragment --> <p>example of content in the images_train.txt </p>
+<div class="fragment"><div class="line">/home/user/ibug/image_003_1.jpg</div>
+<div class="line">/home/user/ibug/image_004_1.jpg</div>
+<div class="line">/home/user/ibug/image_005_1.jpg</div>
+<div class="line">/home/user/ibug/image_006.jpg</div>
+</div><!-- fragment --> <p>example of content in the points_train.txt </p>
+<div class="fragment"><div class="line">/home/user/ibug/image_003_1.pts</div>
+<div class="line">/home/user/ibug/image_004_1.pts</div>
+<div class="line">/home/user/ibug/image_005_1.pts</div>
+<div class="line">/home/user/ibug/image_006.pts</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv_contrib/face/<a class="el" href="_face_8cs.html">Face.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv_contrib/face/<a class="el" href="_face___struct_8cs.html">Face_Struct.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv_contrib/face/<a class="el" href="_face___value_tuple_8cs.html">Face_ValueTuple.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

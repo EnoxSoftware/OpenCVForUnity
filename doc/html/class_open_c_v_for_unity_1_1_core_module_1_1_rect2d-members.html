@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,56 +126,98 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_core_module.html">CoreModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">Rect2d</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.CoreModule.Rect2d Member List</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.CoreModule.Rect2d Member List</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>This is the complete list of members for <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a>, including all inherited members.</p>
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#abcdfb9255526d116bf48352dadc27756">area</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#ae62e7a0535da02b7441607ecede60c01">br</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#ae62e7a0535da02b7441607ecede60c01">br</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a1007800c7681c79aaf802c4fe1c779ab">brAsValueTuple</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#abf838fe058c02de174db73a17c193734">brAsVec2d</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a52c77fc66052d0e8a829327aa3e6d55e">clone</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a6ad450fabdb50f825a02654295459b6b">contains</a>(Point p)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a5425574cb2267ff65ab05564de48ce64">cloneAsValueTuple</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a8c122ac15a3d893a05199533d0197b56">cloneAsVec4d</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a6ad450fabdb50f825a02654295459b6b">contains</a>(Point p)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a89b435a2656b9947ae044eda006d4f59">contains</a>(double x, double y)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a15f5d9d76f651670e1d8f51f527fbfce">contains</a>(Rect2d rect)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#ac7253189fb35406ef647c6eb776fe534">contains</a>(in Vec2d p)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a0fea1f7b5ebe447e14d57d3384be2777">contains</a>(in(double x, double y) p)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a15f5d9d76f651670e1d8f51f527fbfce">contains</a>(Rect2d rect)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a7542ab96177285289b8dc1f4f291538c">contains</a>(in Vec4d rect)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#af57c53d7ba5049c84abe4471fe4c9b35">contains</a>(in(double x, double y, double width, double height) rect)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#ae8a8906e25ad4ba750b63656a7e5bc9d">empty</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#aad84e39275508bc645b154c04ef5d439">Equals</a>(Object obj)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#aad84e39275508bc645b154c04ef5d439">Equals</a>(Object obj)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a8bba0553cead780382498b257d9299d9">Equals</a>(Rect2d a)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a8a03be49c1195cf77d1e9c927a8da979">GetHashCode</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a65ff5ac91ac153258f9deb5b15f5f988">inflate</a>(double width, double height)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#adcc7b52318549f5b111bdf175c062b3f">inflate</a>(Size size)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#aa8b3110c6b587d2f2e8377f54ad1d1e1">inflate</a>(Rect2d rect, double x, double y)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#ae3486dfacc04023dad7966a22c3afb46">intersect</a>(Rect2d a, Rect2d b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a61fba6434177c769a133dd1b1d3b03ad">intersect</a>(Rect2d rect)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a9490d54bc85bd9f3f81b2ca2cee45da0">intersectsWith</a>(Rect2d rect)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a8a03be49c1195cf77d1e9c927a8da979">GetHashCode</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a940de500fcaf7847e6629aff40591555">height</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a65ff5ac91ac153258f9deb5b15f5f988">inflate</a>(double width, double height)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#adcc7b52318549f5b111bdf175c062b3f">inflate</a>(Size size)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#aff202892c97b3ef592ddcd413debb60c">inflate</a>(in Vec2d size)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#aeeb7921ae4ed007b95c3b54a81275227">inflate</a>(in(double width, double height) size)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#aa8b3110c6b587d2f2e8377f54ad1d1e1">inflate</a>(Rect2d rect, double x, double y)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#aa8c72779625c22fda3b4e0cdfc4a7eda">inflateAsValueTuple</a>(in(double x, double y, double width, double height) rect, double x, double y)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#ad39208bff9dc3f9ee9f7aaffa3044c2a">inflateAsVec4d</a>(in Vec4d rect, double x, double y)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#ae3486dfacc04023dad7966a22c3afb46">intersect</a>(Rect2d a, Rect2d b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a61fba6434177c769a133dd1b1d3b03ad">intersect</a>(Rect2d rect)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a0baf431a4a6cc7f832bac48c61497041">intersectAsValueTuple</a>(in(double x, double y, double width, double height) a, in(double x, double y, double width, double height) b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a3f1586780c20cbe896162137f1ef697f">intersectAsValueTuple</a>(in(double x, double y, double width, double height) rect)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a0716a8dfdde6edb8fc7f8035f4f91e55">intersectAsVec4d</a>(in Vec4d a, in Vec4d b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a54354c410614393331f61784deee4dc0">intersectAsVec4d</a>(in Vec4d rect)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a9490d54bc85bd9f3f81b2ca2cee45da0">intersectsWith</a>(Rect2d rect)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#ad221da4984d7ce9e0f1e429ea3e9123b">intersectsWith</a>(in Vec4d rect)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a955a2d8d56ae0f1dd660dcbf128e47ab">intersectsWith</a>(in(double x, double y, double width, double height) rect)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a93385f45b1e469c85d4753706cd8f2cd">operator</a>(double x, double y, double width, double height)(Rect2d rect)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">explicit</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#add64867810be0368486740224cd152b7">operator Rect2d</a>(in(double x, double y, double width, double height) valueTuple)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">explicit</span><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a5e26f1e73838657102a2234936fac636">operator Vec4d</a>(Rect2d rect)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">explicit</span><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#addca04829a40d355deeeda60f1232f29">operator!=</a>(Rect2d a, Rect2d b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a13887c0f42d143094c902975680c9719">operator&amp;</a>(Rect2d a, Rect2d b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a9fa6f4f971e9ab1833ea3517bebdcab2">operator&amp;</a>(Rect2d a, Rect2d b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a753b81d0da12ad128c047fb88aacbe54">operator+</a>(Rect2d a, Point b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#acda5e616d92a78b9d9e78f0b653f2bd8">operator+</a>(Rect2d a, Size b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#acda5e616d92a78b9d9e78f0b653f2bd8">operator+</a>(Rect2d a, Size b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a03c19f4c01a75f69ec0d982e9957b8bc">operator-</a>(Rect2d a, Point b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#aa6a0fc7bfdd64fe3b0db6d680cce8744">operator-</a>(Rect2d a, Size b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#aa6a0fc7bfdd64fe3b0db6d680cce8744">operator-</a>(Rect2d a, Size b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a7e2202011f81cf231545fab5ce5da998">operator==</a>(Rect2d a, Rect2d b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#aa692e43a94acf9c3d3b18e2e912b2f23">operator|</a>(Rect2d a, Rect2d b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#aa692e43a94acf9c3d3b18e2e912b2f23">operator|</a>(Rect2d a, Rect2d b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#aade6c8ff24203511b80cf7710e979b64">Rect2d</a>(double x, double y, double width, double height)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a61cf3464543d71dcc0b30395eead317c">Rect2d</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a61cf3464543d71dcc0b30395eead317c">Rect2d</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a14c6609900434c77f8c9d9bb52d6ca04">Rect2d</a>(Point p1, Point p2)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a35b41a39b2a673548e357fb66991abd7">Rect2d</a>(Point p, Size s)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a35b41a39b2a673548e357fb66991abd7">Rect2d</a>(Point p, Size s)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a9effc03c0825b972eb00b3f465eda945">Rect2d</a>(double[] vals)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#ad277023fa2bf7f5879ce8aab943006b3">set</a>(double[] vals)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#aecc6b64ab0e824091adc838f945b7b7e">Rect2d</a>(in Vec4d vals)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a0f0f3d0db34d51523f8eb9edf05e971a">Rect2d</a>(in(double x, double y, double width, double height) vals)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#ad277023fa2bf7f5879ce8aab943006b3">set</a>(double[] vals)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#acab0ac11080552e0bd246b6e6b5c9c18">set</a>(in Vec4d vals)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a4b09313d5340ce1a861ec6897451f4f3">set</a>(in(double x, double y, double width, double height) vals)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a91276789ff10ed04f9c9b7c77a764013">size</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a1e9b1a48a57aa2d4896d0e2bc1521154">tl</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a4cb5fe2efee006c89289b96e402eaead">sizeAsValueTuple</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#ac97020956fe8092c6c67b7dd47af3f80">sizeAsVec2d</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a1e9b1a48a57aa2d4896d0e2bc1521154">tl</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#aeb0240a2b5a0fad7e72528cb63348bcc">tlAsValueTuple</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#af86c642af23cf10387c56386c0c311f9">tlAsVec2d</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#ac62cc2801d0ea39434ffb549fd067219">ToString</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a3629eba30e298119f9195ac6c9b85dea">union</a>(Rect2d rect)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a619f10c90c45aea5a875abd510834a31">union</a>(Rect2d a, Rect2d b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a3721c3418305981e1a0df4699dcb0e5a">x</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a313a7e0e533d415410f86bde05bb8f42">ToValueTuple</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#adbb928bf21880ca22158a2c8223d43ca">ToVec4d</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a3629eba30e298119f9195ac6c9b85dea">union</a>(Rect2d rect)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a69a70443fb9c4d04cb4db07aea6369de">union</a>(in(double x, double y, double width, double height) rect)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a619f10c90c45aea5a875abd510834a31">union</a>(Rect2d a, Rect2d b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#ac3429735a6f4c6bde2fd3bad9bb087cc">unionAsValueTuple</a>(in(double x, double y, double width, double height) a, in(double x, double y, double width, double height) b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a3d33d176d73899b73adbb14912de8e62">unionAsVec4d</a>(in Vec4d rect)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a6d778a93649566e763cbd25a95fc7e02">unionAsVec4d</a>(in Vec4d a, in Vec4d b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a6b876175cc89681685a540e12aee22d1">width</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a9df05e94491f7118256ef4578b659f3f">width</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a9df05e94491f7118256ef4578b659f3f">width</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#ac0fabc84e7b82972c436ab42f611515c">x</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#a3721c3418305981e1a0df4699dcb0e5a">x</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#aa5b2411840955f28caa01643de33c418">y</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#ab8cb975ade5029cf82bf202678974745">y</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html#ab8cb975ade5029cf82bf202678974745">y</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_rect2d.html">OpenCVForUnity.CoreModule.Rect2d</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

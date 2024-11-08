@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: OpenCVForUnity.CoreModule.CvType Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,139 +126,135 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_core_module.html">CoreModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html">CvType</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type-members.html">List of all members</a>  </div>
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.CoreModule.CvType Class Reference</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.CoreModule.CvType Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a26e76aac1d6e59b8c7d4ddea98240607"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a26e76aac1d6e59b8c7d4ddea98240607">makeType</a> (int <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#ae5e6101c72532aad0c6b59a7ba3fff7a">depth</a>, int <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#afc19bf1048fe9229c4c249cb9a56264b">channels</a>)</td></tr>
+<tr class="memitem:a26e76aac1d6e59b8c7d4ddea98240607" id="r_a26e76aac1d6e59b8c7d4ddea98240607"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a26e76aac1d6e59b8c7d4ddea98240607">makeType</a> (int <a class="el" href="#ae5e6101c72532aad0c6b59a7ba3fff7a">depth</a>, int <a class="el" href="#afc19bf1048fe9229c4c249cb9a56264b">channels</a>)</td></tr>
 <tr class="separator:a26e76aac1d6e59b8c7d4ddea98240607"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33c09f7bacec075781a8b4b81b8e9e83"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a33c09f7bacec075781a8b4b81b8e9e83">CV_8UC</a> (int ch)</td></tr>
+<tr class="memitem:a33c09f7bacec075781a8b4b81b8e9e83" id="r_a33c09f7bacec075781a8b4b81b8e9e83"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a33c09f7bacec075781a8b4b81b8e9e83">CV_8UC</a> (int ch)</td></tr>
 <tr class="separator:a33c09f7bacec075781a8b4b81b8e9e83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d42720c7ded42778fd859ec97871f49"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a8d42720c7ded42778fd859ec97871f49">CV_8SC</a> (int ch)</td></tr>
+<tr class="memitem:a8d42720c7ded42778fd859ec97871f49" id="r_a8d42720c7ded42778fd859ec97871f49"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d42720c7ded42778fd859ec97871f49">CV_8SC</a> (int ch)</td></tr>
 <tr class="separator:a8d42720c7ded42778fd859ec97871f49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4065e2042ce25ef8e5084b576637963c"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a4065e2042ce25ef8e5084b576637963c">CV_16UC</a> (int ch)</td></tr>
+<tr class="memitem:a4065e2042ce25ef8e5084b576637963c" id="r_a4065e2042ce25ef8e5084b576637963c"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4065e2042ce25ef8e5084b576637963c">CV_16UC</a> (int ch)</td></tr>
 <tr class="separator:a4065e2042ce25ef8e5084b576637963c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a793b45366d6f424cdc4855d6914976f4"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a793b45366d6f424cdc4855d6914976f4">CV_16SC</a> (int ch)</td></tr>
+<tr class="memitem:a793b45366d6f424cdc4855d6914976f4" id="r_a793b45366d6f424cdc4855d6914976f4"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a793b45366d6f424cdc4855d6914976f4">CV_16SC</a> (int ch)</td></tr>
 <tr class="separator:a793b45366d6f424cdc4855d6914976f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef0424d7c3cd723202a612c4bcf02746"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#aef0424d7c3cd723202a612c4bcf02746">CV_32SC</a> (int ch)</td></tr>
+<tr class="memitem:aef0424d7c3cd723202a612c4bcf02746" id="r_aef0424d7c3cd723202a612c4bcf02746"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef0424d7c3cd723202a612c4bcf02746">CV_32SC</a> (int ch)</td></tr>
 <tr class="separator:aef0424d7c3cd723202a612c4bcf02746"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7213ffd0439a545c14805918c61318a"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#af7213ffd0439a545c14805918c61318a">CV_32FC</a> (int ch)</td></tr>
+<tr class="memitem:af7213ffd0439a545c14805918c61318a" id="r_af7213ffd0439a545c14805918c61318a"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af7213ffd0439a545c14805918c61318a">CV_32FC</a> (int ch)</td></tr>
 <tr class="separator:af7213ffd0439a545c14805918c61318a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55fa06c4b30b25cce8bc3d329031c6af"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a55fa06c4b30b25cce8bc3d329031c6af">CV_64FC</a> (int ch)</td></tr>
+<tr class="memitem:a55fa06c4b30b25cce8bc3d329031c6af" id="r_a55fa06c4b30b25cce8bc3d329031c6af"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a55fa06c4b30b25cce8bc3d329031c6af">CV_64FC</a> (int ch)</td></tr>
 <tr class="separator:a55fa06c4b30b25cce8bc3d329031c6af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:addab420b3d0769ac26400e707fee7f1d"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#addab420b3d0769ac26400e707fee7f1d">CV_16FC</a> (int ch)</td></tr>
+<tr class="memitem:addab420b3d0769ac26400e707fee7f1d" id="r_addab420b3d0769ac26400e707fee7f1d"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#addab420b3d0769ac26400e707fee7f1d">CV_16FC</a> (int ch)</td></tr>
 <tr class="separator:addab420b3d0769ac26400e707fee7f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc19bf1048fe9229c4c249cb9a56264b"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#afc19bf1048fe9229c4c249cb9a56264b">channels</a> (int type)</td></tr>
+<tr class="memitem:afc19bf1048fe9229c4c249cb9a56264b" id="r_afc19bf1048fe9229c4c249cb9a56264b"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afc19bf1048fe9229c4c249cb9a56264b">channels</a> (int type)</td></tr>
 <tr class="separator:afc19bf1048fe9229c4c249cb9a56264b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5e6101c72532aad0c6b59a7ba3fff7a"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#ae5e6101c72532aad0c6b59a7ba3fff7a">depth</a> (int type)</td></tr>
+<tr class="memitem:ae5e6101c72532aad0c6b59a7ba3fff7a" id="r_ae5e6101c72532aad0c6b59a7ba3fff7a"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae5e6101c72532aad0c6b59a7ba3fff7a">depth</a> (int type)</td></tr>
 <tr class="separator:ae5e6101c72532aad0c6b59a7ba3fff7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37e6643ea7ced52206788931ca252e35"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a37e6643ea7ced52206788931ca252e35">isInteger</a> (int type)</td></tr>
+<tr class="memitem:a37e6643ea7ced52206788931ca252e35" id="r_a37e6643ea7ced52206788931ca252e35"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37e6643ea7ced52206788931ca252e35">isInteger</a> (int type)</td></tr>
 <tr class="separator:a37e6643ea7ced52206788931ca252e35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0dab0e4834afe270bc005db3e522aa5"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#ab0dab0e4834afe270bc005db3e522aa5">ELEM_SIZE</a> (int type)</td></tr>
+<tr class="memitem:ab0dab0e4834afe270bc005db3e522aa5" id="r_ab0dab0e4834afe270bc005db3e522aa5"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab0dab0e4834afe270bc005db3e522aa5">ELEM_SIZE</a> (int type)</td></tr>
 <tr class="separator:ab0dab0e4834afe270bc005db3e522aa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c4dcbcdacd8881f22943a7ffffba699"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a6c4dcbcdacd8881f22943a7ffffba699">typeToString</a> (int type)</td></tr>
+<tr class="memitem:a6c4dcbcdacd8881f22943a7ffffba699" id="r_a6c4dcbcdacd8881f22943a7ffffba699"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c4dcbcdacd8881f22943a7ffffba699">typeToString</a> (int type)</td></tr>
 <tr class="separator:a6c4dcbcdacd8881f22943a7ffffba699"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a0df2204123dddc0dabc0c4442577af44"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a0df2204123dddc0dabc0c4442577af44">CV_8U</a> = 0</td></tr>
-<tr class="separator:a0df2204123dddc0dabc0c4442577af44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0dd32c518400be8fe81dde7aeb6b337"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#ab0dd32c518400be8fe81dde7aeb6b337">CV_8S</a> = 1</td></tr>
-<tr class="separator:ab0dd32c518400be8fe81dde7aeb6b337"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1020a4b5fa3ee2f26e78b6e5948b23c8"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a1020a4b5fa3ee2f26e78b6e5948b23c8">CV_16U</a> = 2</td></tr>
-<tr class="separator:a1020a4b5fa3ee2f26e78b6e5948b23c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8782e017b4b7f6e6670a54b74a4c3fc"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#ad8782e017b4b7f6e6670a54b74a4c3fc">CV_16S</a> = 3</td></tr>
-<tr class="separator:ad8782e017b4b7f6e6670a54b74a4c3fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae49c4257a92589b050561260314ddc28"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#ae49c4257a92589b050561260314ddc28">CV_32S</a> = 4</td></tr>
-<tr class="separator:ae49c4257a92589b050561260314ddc28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaef27e3dcca9058d4f9ed4130bd8fa2b"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#aaef27e3dcca9058d4f9ed4130bd8fa2b">CV_32F</a> = 5</td></tr>
-<tr class="separator:aaef27e3dcca9058d4f9ed4130bd8fa2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7a75d5c7b71b3243f531c45bd7d1415"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#ad7a75d5c7b71b3243f531c45bd7d1415">CV_64F</a> = 6</td></tr>
-<tr class="separator:ad7a75d5c7b71b3243f531c45bd7d1415"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a619a96b57e26b83e11a7a8ff4d7d42d9"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a619a96b57e26b83e11a7a8ff4d7d42d9">CV_16F</a> = 7</td></tr>
-<tr class="separator:a619a96b57e26b83e11a7a8ff4d7d42d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a861835a4bd97270a8c47a8f199a4e87f"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a861835a4bd97270a8c47a8f199a4e87f">CV_USRTYPE1</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a619a96b57e26b83e11a7a8ff4d7d42d9">CV_16F</a></td></tr>
-<tr class="separator:a861835a4bd97270a8c47a8f199a4e87f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a938ee0c3b34a721172800f7b8ba4804b"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a938ee0c3b34a721172800f7b8ba4804b">CV_8UC1</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a33c09f7bacec075781a8b4b81b8e9e83">CV_8UC</a>(1)</td></tr>
+<tr class="memitem:a0df2204123dddc0dabc0c4442577af44" id="r_a0df2204123dddc0dabc0c4442577af44"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0df2204123dddc0dabc0c4442577af44">CV_8U</a> = 0</td></tr>
+<tr class="separator:a0df2204123dddc0dabc0c4442577af44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0dd32c518400be8fe81dde7aeb6b337" id="r_ab0dd32c518400be8fe81dde7aeb6b337"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab0dd32c518400be8fe81dde7aeb6b337">CV_8S</a> = 1</td></tr>
+<tr class="separator:ab0dd32c518400be8fe81dde7aeb6b337"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1020a4b5fa3ee2f26e78b6e5948b23c8" id="r_a1020a4b5fa3ee2f26e78b6e5948b23c8"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1020a4b5fa3ee2f26e78b6e5948b23c8">CV_16U</a> = 2</td></tr>
+<tr class="separator:a1020a4b5fa3ee2f26e78b6e5948b23c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8782e017b4b7f6e6670a54b74a4c3fc" id="r_ad8782e017b4b7f6e6670a54b74a4c3fc"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad8782e017b4b7f6e6670a54b74a4c3fc">CV_16S</a> = 3</td></tr>
+<tr class="separator:ad8782e017b4b7f6e6670a54b74a4c3fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae49c4257a92589b050561260314ddc28" id="r_ae49c4257a92589b050561260314ddc28"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae49c4257a92589b050561260314ddc28">CV_32S</a> = 4</td></tr>
+<tr class="separator:ae49c4257a92589b050561260314ddc28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaef27e3dcca9058d4f9ed4130bd8fa2b" id="r_aaef27e3dcca9058d4f9ed4130bd8fa2b"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaef27e3dcca9058d4f9ed4130bd8fa2b">CV_32F</a> = 5</td></tr>
+<tr class="separator:aaef27e3dcca9058d4f9ed4130bd8fa2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7a75d5c7b71b3243f531c45bd7d1415" id="r_ad7a75d5c7b71b3243f531c45bd7d1415"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad7a75d5c7b71b3243f531c45bd7d1415">CV_64F</a> = 6</td></tr>
+<tr class="separator:ad7a75d5c7b71b3243f531c45bd7d1415"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a619a96b57e26b83e11a7a8ff4d7d42d9" id="r_a619a96b57e26b83e11a7a8ff4d7d42d9"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a619a96b57e26b83e11a7a8ff4d7d42d9">CV_16F</a> = 7</td></tr>
+<tr class="separator:a619a96b57e26b83e11a7a8ff4d7d42d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a861835a4bd97270a8c47a8f199a4e87f" id="r_a861835a4bd97270a8c47a8f199a4e87f"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a861835a4bd97270a8c47a8f199a4e87f">CV_USRTYPE1</a> = <a class="el" href="#a619a96b57e26b83e11a7a8ff4d7d42d9">CV_16F</a></td></tr>
+<tr class="separator:a861835a4bd97270a8c47a8f199a4e87f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a938ee0c3b34a721172800f7b8ba4804b" id="r_a938ee0c3b34a721172800f7b8ba4804b"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a938ee0c3b34a721172800f7b8ba4804b">CV_8UC1</a> = <a class="el" href="#a33c09f7bacec075781a8b4b81b8e9e83">CV_8UC</a>(1)</td></tr>
 <tr class="separator:a938ee0c3b34a721172800f7b8ba4804b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace23c3fe83cef89f9cafc0aa401fba0e"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#ace23c3fe83cef89f9cafc0aa401fba0e">CV_8UC2</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a33c09f7bacec075781a8b4b81b8e9e83">CV_8UC</a>(2)</td></tr>
+<tr class="memitem:ace23c3fe83cef89f9cafc0aa401fba0e" id="r_ace23c3fe83cef89f9cafc0aa401fba0e"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace23c3fe83cef89f9cafc0aa401fba0e">CV_8UC2</a> = <a class="el" href="#a33c09f7bacec075781a8b4b81b8e9e83">CV_8UC</a>(2)</td></tr>
 <tr class="separator:ace23c3fe83cef89f9cafc0aa401fba0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adef973caf3c4e35ed86bd5cee158187a"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#adef973caf3c4e35ed86bd5cee158187a">CV_8UC3</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a33c09f7bacec075781a8b4b81b8e9e83">CV_8UC</a>(3)</td></tr>
+<tr class="memitem:adef973caf3c4e35ed86bd5cee158187a" id="r_adef973caf3c4e35ed86bd5cee158187a"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adef973caf3c4e35ed86bd5cee158187a">CV_8UC3</a> = <a class="el" href="#a33c09f7bacec075781a8b4b81b8e9e83">CV_8UC</a>(3)</td></tr>
 <tr class="separator:adef973caf3c4e35ed86bd5cee158187a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91b5e03835164729579082b669bc6eac"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a91b5e03835164729579082b669bc6eac">CV_8UC4</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a33c09f7bacec075781a8b4b81b8e9e83">CV_8UC</a>(4)</td></tr>
+<tr class="memitem:a91b5e03835164729579082b669bc6eac" id="r_a91b5e03835164729579082b669bc6eac"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91b5e03835164729579082b669bc6eac">CV_8UC4</a> = <a class="el" href="#a33c09f7bacec075781a8b4b81b8e9e83">CV_8UC</a>(4)</td></tr>
 <tr class="separator:a91b5e03835164729579082b669bc6eac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab185920ed1d74e2106c8ee90b7a43fa0"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#ab185920ed1d74e2106c8ee90b7a43fa0">CV_8SC1</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a8d42720c7ded42778fd859ec97871f49">CV_8SC</a>(1)</td></tr>
+<tr class="memitem:ab185920ed1d74e2106c8ee90b7a43fa0" id="r_ab185920ed1d74e2106c8ee90b7a43fa0"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab185920ed1d74e2106c8ee90b7a43fa0">CV_8SC1</a> = <a class="el" href="#a8d42720c7ded42778fd859ec97871f49">CV_8SC</a>(1)</td></tr>
 <tr class="separator:ab185920ed1d74e2106c8ee90b7a43fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49def778466fdabc233bede9f3d20d25"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a49def778466fdabc233bede9f3d20d25">CV_8SC2</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a8d42720c7ded42778fd859ec97871f49">CV_8SC</a>(2)</td></tr>
+<tr class="memitem:a49def778466fdabc233bede9f3d20d25" id="r_a49def778466fdabc233bede9f3d20d25"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a49def778466fdabc233bede9f3d20d25">CV_8SC2</a> = <a class="el" href="#a8d42720c7ded42778fd859ec97871f49">CV_8SC</a>(2)</td></tr>
 <tr class="separator:a49def778466fdabc233bede9f3d20d25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abeec8ed74bec3eb836b987db6aa37f0d"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#abeec8ed74bec3eb836b987db6aa37f0d">CV_8SC3</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a8d42720c7ded42778fd859ec97871f49">CV_8SC</a>(3)</td></tr>
+<tr class="memitem:abeec8ed74bec3eb836b987db6aa37f0d" id="r_abeec8ed74bec3eb836b987db6aa37f0d"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abeec8ed74bec3eb836b987db6aa37f0d">CV_8SC3</a> = <a class="el" href="#a8d42720c7ded42778fd859ec97871f49">CV_8SC</a>(3)</td></tr>
 <tr class="separator:abeec8ed74bec3eb836b987db6aa37f0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1cd61348370c78eae66b52e13dff994"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#ab1cd61348370c78eae66b52e13dff994">CV_8SC4</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a8d42720c7ded42778fd859ec97871f49">CV_8SC</a>(4)</td></tr>
+<tr class="memitem:ab1cd61348370c78eae66b52e13dff994" id="r_ab1cd61348370c78eae66b52e13dff994"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1cd61348370c78eae66b52e13dff994">CV_8SC4</a> = <a class="el" href="#a8d42720c7ded42778fd859ec97871f49">CV_8SC</a>(4)</td></tr>
 <tr class="separator:ab1cd61348370c78eae66b52e13dff994"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c658b381bf5ffb033309e21281e1a15"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a0c658b381bf5ffb033309e21281e1a15">CV_16UC1</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a4065e2042ce25ef8e5084b576637963c">CV_16UC</a>(1)</td></tr>
+<tr class="memitem:a0c658b381bf5ffb033309e21281e1a15" id="r_a0c658b381bf5ffb033309e21281e1a15"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c658b381bf5ffb033309e21281e1a15">CV_16UC1</a> = <a class="el" href="#a4065e2042ce25ef8e5084b576637963c">CV_16UC</a>(1)</td></tr>
 <tr class="separator:a0c658b381bf5ffb033309e21281e1a15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c4b0bbeac4c043a2b921f799f774101"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a2c4b0bbeac4c043a2b921f799f774101">CV_16UC2</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a4065e2042ce25ef8e5084b576637963c">CV_16UC</a>(2)</td></tr>
+<tr class="memitem:a2c4b0bbeac4c043a2b921f799f774101" id="r_a2c4b0bbeac4c043a2b921f799f774101"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c4b0bbeac4c043a2b921f799f774101">CV_16UC2</a> = <a class="el" href="#a4065e2042ce25ef8e5084b576637963c">CV_16UC</a>(2)</td></tr>
 <tr class="separator:a2c4b0bbeac4c043a2b921f799f774101"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad281e7c8b29941a3bdc32ba6feb12cef"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#ad281e7c8b29941a3bdc32ba6feb12cef">CV_16UC3</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a4065e2042ce25ef8e5084b576637963c">CV_16UC</a>(3)</td></tr>
+<tr class="memitem:ad281e7c8b29941a3bdc32ba6feb12cef" id="r_ad281e7c8b29941a3bdc32ba6feb12cef"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad281e7c8b29941a3bdc32ba6feb12cef">CV_16UC3</a> = <a class="el" href="#a4065e2042ce25ef8e5084b576637963c">CV_16UC</a>(3)</td></tr>
 <tr class="separator:ad281e7c8b29941a3bdc32ba6feb12cef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af23d78ea942525841ea5c7fe74ce9472"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#af23d78ea942525841ea5c7fe74ce9472">CV_16UC4</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a4065e2042ce25ef8e5084b576637963c">CV_16UC</a>(4)</td></tr>
+<tr class="memitem:af23d78ea942525841ea5c7fe74ce9472" id="r_af23d78ea942525841ea5c7fe74ce9472"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af23d78ea942525841ea5c7fe74ce9472">CV_16UC4</a> = <a class="el" href="#a4065e2042ce25ef8e5084b576637963c">CV_16UC</a>(4)</td></tr>
 <tr class="separator:af23d78ea942525841ea5c7fe74ce9472"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a566545783671af8cf0f1374c71df28d0"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a566545783671af8cf0f1374c71df28d0">CV_16SC1</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a793b45366d6f424cdc4855d6914976f4">CV_16SC</a>(1)</td></tr>
+<tr class="memitem:a566545783671af8cf0f1374c71df28d0" id="r_a566545783671af8cf0f1374c71df28d0"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a566545783671af8cf0f1374c71df28d0">CV_16SC1</a> = <a class="el" href="#a793b45366d6f424cdc4855d6914976f4">CV_16SC</a>(1)</td></tr>
 <tr class="separator:a566545783671af8cf0f1374c71df28d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d0282f4bbf51ab2b3171e11a871c0ed"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a7d0282f4bbf51ab2b3171e11a871c0ed">CV_16SC2</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a793b45366d6f424cdc4855d6914976f4">CV_16SC</a>(2)</td></tr>
+<tr class="memitem:a7d0282f4bbf51ab2b3171e11a871c0ed" id="r_a7d0282f4bbf51ab2b3171e11a871c0ed"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d0282f4bbf51ab2b3171e11a871c0ed">CV_16SC2</a> = <a class="el" href="#a793b45366d6f424cdc4855d6914976f4">CV_16SC</a>(2)</td></tr>
 <tr class="separator:a7d0282f4bbf51ab2b3171e11a871c0ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ad005808115efebcff95869fb150129"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a8ad005808115efebcff95869fb150129">CV_16SC3</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a793b45366d6f424cdc4855d6914976f4">CV_16SC</a>(3)</td></tr>
+<tr class="memitem:a8ad005808115efebcff95869fb150129" id="r_a8ad005808115efebcff95869fb150129"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8ad005808115efebcff95869fb150129">CV_16SC3</a> = <a class="el" href="#a793b45366d6f424cdc4855d6914976f4">CV_16SC</a>(3)</td></tr>
 <tr class="separator:a8ad005808115efebcff95869fb150129"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a710647bf84b8035ea3349f3d4a9b3243"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a710647bf84b8035ea3349f3d4a9b3243">CV_16SC4</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a793b45366d6f424cdc4855d6914976f4">CV_16SC</a>(4)</td></tr>
+<tr class="memitem:a710647bf84b8035ea3349f3d4a9b3243" id="r_a710647bf84b8035ea3349f3d4a9b3243"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a710647bf84b8035ea3349f3d4a9b3243">CV_16SC4</a> = <a class="el" href="#a793b45366d6f424cdc4855d6914976f4">CV_16SC</a>(4)</td></tr>
 <tr class="separator:a710647bf84b8035ea3349f3d4a9b3243"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af41cbec3e5ed912c864361e3038fa081"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#af41cbec3e5ed912c864361e3038fa081">CV_32SC1</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#aef0424d7c3cd723202a612c4bcf02746">CV_32SC</a>(1)</td></tr>
+<tr class="memitem:af41cbec3e5ed912c864361e3038fa081" id="r_af41cbec3e5ed912c864361e3038fa081"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af41cbec3e5ed912c864361e3038fa081">CV_32SC1</a> = <a class="el" href="#aef0424d7c3cd723202a612c4bcf02746">CV_32SC</a>(1)</td></tr>
 <tr class="separator:af41cbec3e5ed912c864361e3038fa081"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09450344470e87590802ab02a738b018"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a09450344470e87590802ab02a738b018">CV_32SC2</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#aef0424d7c3cd723202a612c4bcf02746">CV_32SC</a>(2)</td></tr>
+<tr class="memitem:a09450344470e87590802ab02a738b018" id="r_a09450344470e87590802ab02a738b018"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a09450344470e87590802ab02a738b018">CV_32SC2</a> = <a class="el" href="#aef0424d7c3cd723202a612c4bcf02746">CV_32SC</a>(2)</td></tr>
 <tr class="separator:a09450344470e87590802ab02a738b018"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b2a18649cd18984fd67f20d17d8e201"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a9b2a18649cd18984fd67f20d17d8e201">CV_32SC3</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#aef0424d7c3cd723202a612c4bcf02746">CV_32SC</a>(3)</td></tr>
+<tr class="memitem:a9b2a18649cd18984fd67f20d17d8e201" id="r_a9b2a18649cd18984fd67f20d17d8e201"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b2a18649cd18984fd67f20d17d8e201">CV_32SC3</a> = <a class="el" href="#aef0424d7c3cd723202a612c4bcf02746">CV_32SC</a>(3)</td></tr>
 <tr class="separator:a9b2a18649cd18984fd67f20d17d8e201"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f15fc9f6785dd6373a7ad55e652e906"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a6f15fc9f6785dd6373a7ad55e652e906">CV_32SC4</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#aef0424d7c3cd723202a612c4bcf02746">CV_32SC</a>(4)</td></tr>
+<tr class="memitem:a6f15fc9f6785dd6373a7ad55e652e906" id="r_a6f15fc9f6785dd6373a7ad55e652e906"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f15fc9f6785dd6373a7ad55e652e906">CV_32SC4</a> = <a class="el" href="#aef0424d7c3cd723202a612c4bcf02746">CV_32SC</a>(4)</td></tr>
 <tr class="separator:a6f15fc9f6785dd6373a7ad55e652e906"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1989f9746df5b204485eff7de6c0e24"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#ae1989f9746df5b204485eff7de6c0e24">CV_32FC1</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#af7213ffd0439a545c14805918c61318a">CV_32FC</a>(1)</td></tr>
+<tr class="memitem:ae1989f9746df5b204485eff7de6c0e24" id="r_ae1989f9746df5b204485eff7de6c0e24"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae1989f9746df5b204485eff7de6c0e24">CV_32FC1</a> = <a class="el" href="#af7213ffd0439a545c14805918c61318a">CV_32FC</a>(1)</td></tr>
 <tr class="separator:ae1989f9746df5b204485eff7de6c0e24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1d39aae3daab3c84cc528384ce5aa21"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#ab1d39aae3daab3c84cc528384ce5aa21">CV_32FC2</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#af7213ffd0439a545c14805918c61318a">CV_32FC</a>(2)</td></tr>
+<tr class="memitem:ab1d39aae3daab3c84cc528384ce5aa21" id="r_ab1d39aae3daab3c84cc528384ce5aa21"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1d39aae3daab3c84cc528384ce5aa21">CV_32FC2</a> = <a class="el" href="#af7213ffd0439a545c14805918c61318a">CV_32FC</a>(2)</td></tr>
 <tr class="separator:ab1d39aae3daab3c84cc528384ce5aa21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa44ac59f8bb1b793e0e6403b5901cdba"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#aa44ac59f8bb1b793e0e6403b5901cdba">CV_32FC3</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#af7213ffd0439a545c14805918c61318a">CV_32FC</a>(3)</td></tr>
+<tr class="memitem:aa44ac59f8bb1b793e0e6403b5901cdba" id="r_aa44ac59f8bb1b793e0e6403b5901cdba"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa44ac59f8bb1b793e0e6403b5901cdba">CV_32FC3</a> = <a class="el" href="#af7213ffd0439a545c14805918c61318a">CV_32FC</a>(3)</td></tr>
 <tr class="separator:aa44ac59f8bb1b793e0e6403b5901cdba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3d78bab8d454e4b06f6e982a7578443"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#aa3d78bab8d454e4b06f6e982a7578443">CV_32FC4</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#af7213ffd0439a545c14805918c61318a">CV_32FC</a>(4)</td></tr>
+<tr class="memitem:aa3d78bab8d454e4b06f6e982a7578443" id="r_aa3d78bab8d454e4b06f6e982a7578443"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3d78bab8d454e4b06f6e982a7578443">CV_32FC4</a> = <a class="el" href="#af7213ffd0439a545c14805918c61318a">CV_32FC</a>(4)</td></tr>
 <tr class="separator:aa3d78bab8d454e4b06f6e982a7578443"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8fdf0d6856aaadfee6d58d81efcb14b"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#ae8fdf0d6856aaadfee6d58d81efcb14b">CV_64FC1</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a55fa06c4b30b25cce8bc3d329031c6af">CV_64FC</a>(1)</td></tr>
+<tr class="memitem:ae8fdf0d6856aaadfee6d58d81efcb14b" id="r_ae8fdf0d6856aaadfee6d58d81efcb14b"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8fdf0d6856aaadfee6d58d81efcb14b">CV_64FC1</a> = <a class="el" href="#a55fa06c4b30b25cce8bc3d329031c6af">CV_64FC</a>(1)</td></tr>
 <tr class="separator:ae8fdf0d6856aaadfee6d58d81efcb14b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbacf34bcef37151a91fb8315c237b53"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#afbacf34bcef37151a91fb8315c237b53">CV_64FC2</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a55fa06c4b30b25cce8bc3d329031c6af">CV_64FC</a>(2)</td></tr>
+<tr class="memitem:afbacf34bcef37151a91fb8315c237b53" id="r_afbacf34bcef37151a91fb8315c237b53"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afbacf34bcef37151a91fb8315c237b53">CV_64FC2</a> = <a class="el" href="#a55fa06c4b30b25cce8bc3d329031c6af">CV_64FC</a>(2)</td></tr>
 <tr class="separator:afbacf34bcef37151a91fb8315c237b53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a408fa551f3e8bae00bd97686c12d396b"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a408fa551f3e8bae00bd97686c12d396b">CV_64FC3</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a55fa06c4b30b25cce8bc3d329031c6af">CV_64FC</a>(3)</td></tr>
+<tr class="memitem:a408fa551f3e8bae00bd97686c12d396b" id="r_a408fa551f3e8bae00bd97686c12d396b"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a408fa551f3e8bae00bd97686c12d396b">CV_64FC3</a> = <a class="el" href="#a55fa06c4b30b25cce8bc3d329031c6af">CV_64FC</a>(3)</td></tr>
 <tr class="separator:a408fa551f3e8bae00bd97686c12d396b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fd0ce3dc8df5d51d8cb132fee23d571"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a6fd0ce3dc8df5d51d8cb132fee23d571">CV_64FC4</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a55fa06c4b30b25cce8bc3d329031c6af">CV_64FC</a>(4)</td></tr>
+<tr class="memitem:a6fd0ce3dc8df5d51d8cb132fee23d571" id="r_a6fd0ce3dc8df5d51d8cb132fee23d571"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6fd0ce3dc8df5d51d8cb132fee23d571">CV_64FC4</a> = <a class="el" href="#a55fa06c4b30b25cce8bc3d329031c6af">CV_64FC</a>(4)</td></tr>
 <tr class="separator:a6fd0ce3dc8df5d51d8cb132fee23d571"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52ead9c225e1a69cec1001815951253e"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a52ead9c225e1a69cec1001815951253e">CV_16FC1</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#addab420b3d0769ac26400e707fee7f1d">CV_16FC</a>(1)</td></tr>
+<tr class="memitem:a52ead9c225e1a69cec1001815951253e" id="r_a52ead9c225e1a69cec1001815951253e"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a52ead9c225e1a69cec1001815951253e">CV_16FC1</a> = <a class="el" href="#addab420b3d0769ac26400e707fee7f1d">CV_16FC</a>(1)</td></tr>
 <tr class="separator:a52ead9c225e1a69cec1001815951253e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60ae30995bbbc6986f4a1ea276d37a71"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a60ae30995bbbc6986f4a1ea276d37a71">CV_16FC2</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#addab420b3d0769ac26400e707fee7f1d">CV_16FC</a>(2)</td></tr>
+<tr class="memitem:a60ae30995bbbc6986f4a1ea276d37a71" id="r_a60ae30995bbbc6986f4a1ea276d37a71"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60ae30995bbbc6986f4a1ea276d37a71">CV_16FC2</a> = <a class="el" href="#addab420b3d0769ac26400e707fee7f1d">CV_16FC</a>(2)</td></tr>
 <tr class="separator:a60ae30995bbbc6986f4a1ea276d37a71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcdfb893a3a25c5388c96db9c02ced13"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#afcdfb893a3a25c5388c96db9c02ced13">CV_16FC3</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#addab420b3d0769ac26400e707fee7f1d">CV_16FC</a>(3)</td></tr>
+<tr class="memitem:afcdfb893a3a25c5388c96db9c02ced13" id="r_afcdfb893a3a25c5388c96db9c02ced13"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afcdfb893a3a25c5388c96db9c02ced13">CV_16FC3</a> = <a class="el" href="#addab420b3d0769ac26400e707fee7f1d">CV_16FC</a>(3)</td></tr>
 <tr class="separator:afcdfb893a3a25c5388c96db9c02ced13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76c393ce5ed20a398e453fff65aaaaef"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a76c393ce5ed20a398e453fff65aaaaef">CV_16FC4</a> = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#addab420b3d0769ac26400e707fee7f1d">CV_16FC</a>(4)</td></tr>
+<tr class="memitem:a76c393ce5ed20a398e453fff65aaaaef" id="r_a76c393ce5ed20a398e453fff65aaaaef"><td class="memItemLeft" align="right" valign="top">static readonly int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a76c393ce5ed20a398e453fff65aaaaef">CV_16FC4</a> = <a class="el" href="#addab420b3d0769ac26400e707fee7f1d">CV_16FC</a>(4)</td></tr>
 <tr class="separator:a76c393ce5ed20a398e453fff65aaaaef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="afc19bf1048fe9229c4c249cb9a56264b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc19bf1048fe9229c4c249cb9a56264b">&#9670;&nbsp;</a></span>channels()</h2>
+<a id="afc19bf1048fe9229c4c249cb9a56264b" name="afc19bf1048fe9229c4c249cb9a56264b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc19bf1048fe9229c4c249cb9a56264b">&#9670;&#160;</a></span>channels()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -237,8 +265,7 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static int OpenCVForUnity.CoreModule.CvType.channels </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>type</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -251,8 +278,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="addab420b3d0769ac26400e707fee7f1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#addab420b3d0769ac26400e707fee7f1d">&#9670;&nbsp;</a></span>CV_16FC()</h2>
+<a id="addab420b3d0769ac26400e707fee7f1d" name="addab420b3d0769ac26400e707fee7f1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addab420b3d0769ac26400e707fee7f1d">&#9670;&#160;</a></span>CV_16FC()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -263,8 +290,7 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static int OpenCVForUnity.CoreModule.CvType.CV_16FC </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>ch</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>ch</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -277,8 +303,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a793b45366d6f424cdc4855d6914976f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a793b45366d6f424cdc4855d6914976f4">&#9670;&nbsp;</a></span>CV_16SC()</h2>
+<a id="a793b45366d6f424cdc4855d6914976f4" name="a793b45366d6f424cdc4855d6914976f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a793b45366d6f424cdc4855d6914976f4">&#9670;&#160;</a></span>CV_16SC()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -289,8 +315,7 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static int OpenCVForUnity.CoreModule.CvType.CV_16SC </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>ch</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>ch</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -303,8 +328,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a4065e2042ce25ef8e5084b576637963c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4065e2042ce25ef8e5084b576637963c">&#9670;&nbsp;</a></span>CV_16UC()</h2>
+<a id="a4065e2042ce25ef8e5084b576637963c" name="a4065e2042ce25ef8e5084b576637963c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4065e2042ce25ef8e5084b576637963c">&#9670;&#160;</a></span>CV_16UC()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -315,8 +340,7 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static int OpenCVForUnity.CoreModule.CvType.CV_16UC </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>ch</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>ch</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -329,8 +353,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="af7213ffd0439a545c14805918c61318a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7213ffd0439a545c14805918c61318a">&#9670;&nbsp;</a></span>CV_32FC()</h2>
+<a id="af7213ffd0439a545c14805918c61318a" name="af7213ffd0439a545c14805918c61318a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7213ffd0439a545c14805918c61318a">&#9670;&#160;</a></span>CV_32FC()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -341,8 +365,7 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static int OpenCVForUnity.CoreModule.CvType.CV_32FC </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>ch</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>ch</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -355,8 +378,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aef0424d7c3cd723202a612c4bcf02746"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef0424d7c3cd723202a612c4bcf02746">&#9670;&nbsp;</a></span>CV_32SC()</h2>
+<a id="aef0424d7c3cd723202a612c4bcf02746" name="aef0424d7c3cd723202a612c4bcf02746"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef0424d7c3cd723202a612c4bcf02746">&#9670;&#160;</a></span>CV_32SC()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -367,8 +390,7 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static int OpenCVForUnity.CoreModule.CvType.CV_32SC </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>ch</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>ch</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -381,8 +403,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a55fa06c4b30b25cce8bc3d329031c6af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55fa06c4b30b25cce8bc3d329031c6af">&#9670;&nbsp;</a></span>CV_64FC()</h2>
+<a id="a55fa06c4b30b25cce8bc3d329031c6af" name="a55fa06c4b30b25cce8bc3d329031c6af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55fa06c4b30b25cce8bc3d329031c6af">&#9670;&#160;</a></span>CV_64FC()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -393,8 +415,7 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static int OpenCVForUnity.CoreModule.CvType.CV_64FC </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>ch</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>ch</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -407,8 +428,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a8d42720c7ded42778fd859ec97871f49"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d42720c7ded42778fd859ec97871f49">&#9670;&nbsp;</a></span>CV_8SC()</h2>
+<a id="a8d42720c7ded42778fd859ec97871f49" name="a8d42720c7ded42778fd859ec97871f49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d42720c7ded42778fd859ec97871f49">&#9670;&#160;</a></span>CV_8SC()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -419,8 +440,7 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static int OpenCVForUnity.CoreModule.CvType.CV_8SC </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>ch</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>ch</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -433,8 +453,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a33c09f7bacec075781a8b4b81b8e9e83"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33c09f7bacec075781a8b4b81b8e9e83">&#9670;&nbsp;</a></span>CV_8UC()</h2>
+<a id="a33c09f7bacec075781a8b4b81b8e9e83" name="a33c09f7bacec075781a8b4b81b8e9e83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33c09f7bacec075781a8b4b81b8e9e83">&#9670;&#160;</a></span>CV_8UC()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -445,8 +465,7 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static int OpenCVForUnity.CoreModule.CvType.CV_8UC </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>ch</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>ch</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -459,8 +478,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ae5e6101c72532aad0c6b59a7ba3fff7a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5e6101c72532aad0c6b59a7ba3fff7a">&#9670;&nbsp;</a></span>depth()</h2>
+<a id="ae5e6101c72532aad0c6b59a7ba3fff7a" name="ae5e6101c72532aad0c6b59a7ba3fff7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5e6101c72532aad0c6b59a7ba3fff7a">&#9670;&#160;</a></span>depth()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -471,8 +490,7 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static int OpenCVForUnity.CoreModule.CvType.depth </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>type</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -485,8 +503,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ab0dab0e4834afe270bc005db3e522aa5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0dab0e4834afe270bc005db3e522aa5">&#9670;&nbsp;</a></span>ELEM_SIZE()</h2>
+<a id="ab0dab0e4834afe270bc005db3e522aa5" name="ab0dab0e4834afe270bc005db3e522aa5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0dab0e4834afe270bc005db3e522aa5">&#9670;&#160;</a></span>ELEM_SIZE()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -497,8 +515,7 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static int OpenCVForUnity.CoreModule.CvType.ELEM_SIZE </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>type</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -511,8 +528,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a37e6643ea7ced52206788931ca252e35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a37e6643ea7ced52206788931ca252e35">&#9670;&nbsp;</a></span>isInteger()</h2>
+<a id="a37e6643ea7ced52206788931ca252e35" name="a37e6643ea7ced52206788931ca252e35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37e6643ea7ced52206788931ca252e35">&#9670;&#160;</a></span>isInteger()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -523,8 +540,7 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static bool OpenCVForUnity.CoreModule.CvType.isInteger </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>type</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -537,8 +553,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a26e76aac1d6e59b8c7d4ddea98240607"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26e76aac1d6e59b8c7d4ddea98240607">&#9670;&nbsp;</a></span>makeType()</h2>
+<a id="a26e76aac1d6e59b8c7d4ddea98240607" name="a26e76aac1d6e59b8c7d4ddea98240607"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26e76aac1d6e59b8c7d4ddea98240607">&#9670;&#160;</a></span>makeType()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -549,19 +565,12 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static int OpenCVForUnity.CoreModule.CvType.makeType </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>depth</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>depth</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>channels</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>channels</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -573,8 +582,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a6c4dcbcdacd8881f22943a7ffffba699"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c4dcbcdacd8881f22943a7ffffba699">&#9670;&nbsp;</a></span>typeToString()</h2>
+<a id="a6c4dcbcdacd8881f22943a7ffffba699" name="a6c4dcbcdacd8881f22943a7ffffba699"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c4dcbcdacd8881f22943a7ffffba699">&#9670;&#160;</a></span>typeToString()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -585,8 +594,7 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static string OpenCVForUnity.CoreModule.CvType.typeToString </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>type</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -600,22 +608,30 @@ Static Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a619a96b57e26b83e11a7a8ff4d7d42d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a619a96b57e26b83e11a7a8ff4d7d42d9">&#9670;&nbsp;</a></span>CV_16F</h2>
+<a id="a619a96b57e26b83e11a7a8ff4d7d42d9" name="a619a96b57e26b83e11a7a8ff4d7d42d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a619a96b57e26b83e11a7a8ff4d7d42d9">&#9670;&#160;</a></span>CV_16F</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.CoreModule.CvType.CV_16F = 7</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a52ead9c225e1a69cec1001815951253e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52ead9c225e1a69cec1001815951253e">&#9670;&nbsp;</a></span>CV_16FC1</h2>
+<a id="a52ead9c225e1a69cec1001815951253e" name="a52ead9c225e1a69cec1001815951253e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52ead9c225e1a69cec1001815951253e">&#9670;&#160;</a></span>CV_16FC1</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -624,7 +640,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16FC1 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#addab420b3d0769ac26400e707fee7f1d">CV_16FC</a>(1)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16FC1 = <a class="el" href="#addab420b3d0769ac26400e707fee7f1d">CV_16FC</a>(1)</td>
         </tr>
       </table>
   </td>
@@ -636,8 +652,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a60ae30995bbbc6986f4a1ea276d37a71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60ae30995bbbc6986f4a1ea276d37a71">&#9670;&nbsp;</a></span>CV_16FC2</h2>
+<a id="a60ae30995bbbc6986f4a1ea276d37a71" name="a60ae30995bbbc6986f4a1ea276d37a71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60ae30995bbbc6986f4a1ea276d37a71">&#9670;&#160;</a></span>CV_16FC2</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -646,7 +662,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16FC2 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#addab420b3d0769ac26400e707fee7f1d">CV_16FC</a>(2)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16FC2 = <a class="el" href="#addab420b3d0769ac26400e707fee7f1d">CV_16FC</a>(2)</td>
         </tr>
       </table>
   </td>
@@ -658,8 +674,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="afcdfb893a3a25c5388c96db9c02ced13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afcdfb893a3a25c5388c96db9c02ced13">&#9670;&nbsp;</a></span>CV_16FC3</h2>
+<a id="afcdfb893a3a25c5388c96db9c02ced13" name="afcdfb893a3a25c5388c96db9c02ced13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcdfb893a3a25c5388c96db9c02ced13">&#9670;&#160;</a></span>CV_16FC3</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -668,7 +684,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16FC3 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#addab420b3d0769ac26400e707fee7f1d">CV_16FC</a>(3)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16FC3 = <a class="el" href="#addab420b3d0769ac26400e707fee7f1d">CV_16FC</a>(3)</td>
         </tr>
       </table>
   </td>
@@ -680,8 +696,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a76c393ce5ed20a398e453fff65aaaaef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76c393ce5ed20a398e453fff65aaaaef">&#9670;&nbsp;</a></span>CV_16FC4</h2>
+<a id="a76c393ce5ed20a398e453fff65aaaaef" name="a76c393ce5ed20a398e453fff65aaaaef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76c393ce5ed20a398e453fff65aaaaef">&#9670;&#160;</a></span>CV_16FC4</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -690,7 +706,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16FC4 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#addab420b3d0769ac26400e707fee7f1d">CV_16FC</a>(4)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16FC4 = <a class="el" href="#addab420b3d0769ac26400e707fee7f1d">CV_16FC</a>(4)</td>
         </tr>
       </table>
   </td>
@@ -702,22 +718,30 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ad8782e017b4b7f6e6670a54b74a4c3fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8782e017b4b7f6e6670a54b74a4c3fc">&#9670;&nbsp;</a></span>CV_16S</h2>
+<a id="ad8782e017b4b7f6e6670a54b74a4c3fc" name="ad8782e017b4b7f6e6670a54b74a4c3fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8782e017b4b7f6e6670a54b74a4c3fc">&#9670;&#160;</a></span>CV_16S</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.CoreModule.CvType.CV_16S = 3</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a566545783671af8cf0f1374c71df28d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a566545783671af8cf0f1374c71df28d0">&#9670;&nbsp;</a></span>CV_16SC1</h2>
+<a id="a566545783671af8cf0f1374c71df28d0" name="a566545783671af8cf0f1374c71df28d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a566545783671af8cf0f1374c71df28d0">&#9670;&#160;</a></span>CV_16SC1</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -726,7 +750,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16SC1 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a793b45366d6f424cdc4855d6914976f4">CV_16SC</a>(1)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16SC1 = <a class="el" href="#a793b45366d6f424cdc4855d6914976f4">CV_16SC</a>(1)</td>
         </tr>
       </table>
   </td>
@@ -738,8 +762,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a7d0282f4bbf51ab2b3171e11a871c0ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d0282f4bbf51ab2b3171e11a871c0ed">&#9670;&nbsp;</a></span>CV_16SC2</h2>
+<a id="a7d0282f4bbf51ab2b3171e11a871c0ed" name="a7d0282f4bbf51ab2b3171e11a871c0ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d0282f4bbf51ab2b3171e11a871c0ed">&#9670;&#160;</a></span>CV_16SC2</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -748,7 +772,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16SC2 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a793b45366d6f424cdc4855d6914976f4">CV_16SC</a>(2)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16SC2 = <a class="el" href="#a793b45366d6f424cdc4855d6914976f4">CV_16SC</a>(2)</td>
         </tr>
       </table>
   </td>
@@ -760,8 +784,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a8ad005808115efebcff95869fb150129"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ad005808115efebcff95869fb150129">&#9670;&nbsp;</a></span>CV_16SC3</h2>
+<a id="a8ad005808115efebcff95869fb150129" name="a8ad005808115efebcff95869fb150129"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ad005808115efebcff95869fb150129">&#9670;&#160;</a></span>CV_16SC3</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -770,7 +794,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16SC3 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a793b45366d6f424cdc4855d6914976f4">CV_16SC</a>(3)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16SC3 = <a class="el" href="#a793b45366d6f424cdc4855d6914976f4">CV_16SC</a>(3)</td>
         </tr>
       </table>
   </td>
@@ -782,8 +806,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a710647bf84b8035ea3349f3d4a9b3243"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a710647bf84b8035ea3349f3d4a9b3243">&#9670;&nbsp;</a></span>CV_16SC4</h2>
+<a id="a710647bf84b8035ea3349f3d4a9b3243" name="a710647bf84b8035ea3349f3d4a9b3243"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a710647bf84b8035ea3349f3d4a9b3243">&#9670;&#160;</a></span>CV_16SC4</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -792,7 +816,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16SC4 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a793b45366d6f424cdc4855d6914976f4">CV_16SC</a>(4)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16SC4 = <a class="el" href="#a793b45366d6f424cdc4855d6914976f4">CV_16SC</a>(4)</td>
         </tr>
       </table>
   </td>
@@ -804,22 +828,30 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a1020a4b5fa3ee2f26e78b6e5948b23c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1020a4b5fa3ee2f26e78b6e5948b23c8">&#9670;&nbsp;</a></span>CV_16U</h2>
+<a id="a1020a4b5fa3ee2f26e78b6e5948b23c8" name="a1020a4b5fa3ee2f26e78b6e5948b23c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1020a4b5fa3ee2f26e78b6e5948b23c8">&#9670;&#160;</a></span>CV_16U</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.CoreModule.CvType.CV_16U = 2</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a0c658b381bf5ffb033309e21281e1a15"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c658b381bf5ffb033309e21281e1a15">&#9670;&nbsp;</a></span>CV_16UC1</h2>
+<a id="a0c658b381bf5ffb033309e21281e1a15" name="a0c658b381bf5ffb033309e21281e1a15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c658b381bf5ffb033309e21281e1a15">&#9670;&#160;</a></span>CV_16UC1</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -828,7 +860,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16UC1 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a4065e2042ce25ef8e5084b576637963c">CV_16UC</a>(1)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16UC1 = <a class="el" href="#a4065e2042ce25ef8e5084b576637963c">CV_16UC</a>(1)</td>
         </tr>
       </table>
   </td>
@@ -840,8 +872,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a2c4b0bbeac4c043a2b921f799f774101"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c4b0bbeac4c043a2b921f799f774101">&#9670;&nbsp;</a></span>CV_16UC2</h2>
+<a id="a2c4b0bbeac4c043a2b921f799f774101" name="a2c4b0bbeac4c043a2b921f799f774101"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c4b0bbeac4c043a2b921f799f774101">&#9670;&#160;</a></span>CV_16UC2</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -850,7 +882,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16UC2 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a4065e2042ce25ef8e5084b576637963c">CV_16UC</a>(2)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16UC2 = <a class="el" href="#a4065e2042ce25ef8e5084b576637963c">CV_16UC</a>(2)</td>
         </tr>
       </table>
   </td>
@@ -862,8 +894,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ad281e7c8b29941a3bdc32ba6feb12cef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad281e7c8b29941a3bdc32ba6feb12cef">&#9670;&nbsp;</a></span>CV_16UC3</h2>
+<a id="ad281e7c8b29941a3bdc32ba6feb12cef" name="ad281e7c8b29941a3bdc32ba6feb12cef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad281e7c8b29941a3bdc32ba6feb12cef">&#9670;&#160;</a></span>CV_16UC3</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -872,7 +904,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16UC3 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a4065e2042ce25ef8e5084b576637963c">CV_16UC</a>(3)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16UC3 = <a class="el" href="#a4065e2042ce25ef8e5084b576637963c">CV_16UC</a>(3)</td>
         </tr>
       </table>
   </td>
@@ -884,8 +916,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="af23d78ea942525841ea5c7fe74ce9472"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af23d78ea942525841ea5c7fe74ce9472">&#9670;&nbsp;</a></span>CV_16UC4</h2>
+<a id="af23d78ea942525841ea5c7fe74ce9472" name="af23d78ea942525841ea5c7fe74ce9472"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af23d78ea942525841ea5c7fe74ce9472">&#9670;&#160;</a></span>CV_16UC4</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -894,7 +926,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16UC4 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a4065e2042ce25ef8e5084b576637963c">CV_16UC</a>(4)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_16UC4 = <a class="el" href="#a4065e2042ce25ef8e5084b576637963c">CV_16UC</a>(4)</td>
         </tr>
       </table>
   </td>
@@ -906,22 +938,30 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aaef27e3dcca9058d4f9ed4130bd8fa2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaef27e3dcca9058d4f9ed4130bd8fa2b">&#9670;&nbsp;</a></span>CV_32F</h2>
+<a id="aaef27e3dcca9058d4f9ed4130bd8fa2b" name="aaef27e3dcca9058d4f9ed4130bd8fa2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaef27e3dcca9058d4f9ed4130bd8fa2b">&#9670;&#160;</a></span>CV_32F</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.CoreModule.CvType.CV_32F = 5</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ae1989f9746df5b204485eff7de6c0e24"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1989f9746df5b204485eff7de6c0e24">&#9670;&nbsp;</a></span>CV_32FC1</h2>
+<a id="ae1989f9746df5b204485eff7de6c0e24" name="ae1989f9746df5b204485eff7de6c0e24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1989f9746df5b204485eff7de6c0e24">&#9670;&#160;</a></span>CV_32FC1</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -930,7 +970,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_32FC1 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#af7213ffd0439a545c14805918c61318a">CV_32FC</a>(1)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_32FC1 = <a class="el" href="#af7213ffd0439a545c14805918c61318a">CV_32FC</a>(1)</td>
         </tr>
       </table>
   </td>
@@ -942,8 +982,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ab1d39aae3daab3c84cc528384ce5aa21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1d39aae3daab3c84cc528384ce5aa21">&#9670;&nbsp;</a></span>CV_32FC2</h2>
+<a id="ab1d39aae3daab3c84cc528384ce5aa21" name="ab1d39aae3daab3c84cc528384ce5aa21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1d39aae3daab3c84cc528384ce5aa21">&#9670;&#160;</a></span>CV_32FC2</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -952,7 +992,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_32FC2 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#af7213ffd0439a545c14805918c61318a">CV_32FC</a>(2)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_32FC2 = <a class="el" href="#af7213ffd0439a545c14805918c61318a">CV_32FC</a>(2)</td>
         </tr>
       </table>
   </td>
@@ -964,8 +1004,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aa44ac59f8bb1b793e0e6403b5901cdba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa44ac59f8bb1b793e0e6403b5901cdba">&#9670;&nbsp;</a></span>CV_32FC3</h2>
+<a id="aa44ac59f8bb1b793e0e6403b5901cdba" name="aa44ac59f8bb1b793e0e6403b5901cdba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa44ac59f8bb1b793e0e6403b5901cdba">&#9670;&#160;</a></span>CV_32FC3</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -974,7 +1014,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_32FC3 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#af7213ffd0439a545c14805918c61318a">CV_32FC</a>(3)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_32FC3 = <a class="el" href="#af7213ffd0439a545c14805918c61318a">CV_32FC</a>(3)</td>
         </tr>
       </table>
   </td>
@@ -986,8 +1026,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aa3d78bab8d454e4b06f6e982a7578443"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3d78bab8d454e4b06f6e982a7578443">&#9670;&nbsp;</a></span>CV_32FC4</h2>
+<a id="aa3d78bab8d454e4b06f6e982a7578443" name="aa3d78bab8d454e4b06f6e982a7578443"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3d78bab8d454e4b06f6e982a7578443">&#9670;&#160;</a></span>CV_32FC4</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -996,7 +1036,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_32FC4 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#af7213ffd0439a545c14805918c61318a">CV_32FC</a>(4)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_32FC4 = <a class="el" href="#af7213ffd0439a545c14805918c61318a">CV_32FC</a>(4)</td>
         </tr>
       </table>
   </td>
@@ -1008,22 +1048,30 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ae49c4257a92589b050561260314ddc28"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae49c4257a92589b050561260314ddc28">&#9670;&nbsp;</a></span>CV_32S</h2>
+<a id="ae49c4257a92589b050561260314ddc28" name="ae49c4257a92589b050561260314ddc28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae49c4257a92589b050561260314ddc28">&#9670;&#160;</a></span>CV_32S</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.CoreModule.CvType.CV_32S = 4</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="af41cbec3e5ed912c864361e3038fa081"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af41cbec3e5ed912c864361e3038fa081">&#9670;&nbsp;</a></span>CV_32SC1</h2>
+<a id="af41cbec3e5ed912c864361e3038fa081" name="af41cbec3e5ed912c864361e3038fa081"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af41cbec3e5ed912c864361e3038fa081">&#9670;&#160;</a></span>CV_32SC1</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1032,7 +1080,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_32SC1 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#aef0424d7c3cd723202a612c4bcf02746">CV_32SC</a>(1)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_32SC1 = <a class="el" href="#aef0424d7c3cd723202a612c4bcf02746">CV_32SC</a>(1)</td>
         </tr>
       </table>
   </td>
@@ -1044,8 +1092,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a09450344470e87590802ab02a738b018"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09450344470e87590802ab02a738b018">&#9670;&nbsp;</a></span>CV_32SC2</h2>
+<a id="a09450344470e87590802ab02a738b018" name="a09450344470e87590802ab02a738b018"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09450344470e87590802ab02a738b018">&#9670;&#160;</a></span>CV_32SC2</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1054,7 +1102,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_32SC2 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#aef0424d7c3cd723202a612c4bcf02746">CV_32SC</a>(2)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_32SC2 = <a class="el" href="#aef0424d7c3cd723202a612c4bcf02746">CV_32SC</a>(2)</td>
         </tr>
       </table>
   </td>
@@ -1066,8 +1114,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a9b2a18649cd18984fd67f20d17d8e201"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b2a18649cd18984fd67f20d17d8e201">&#9670;&nbsp;</a></span>CV_32SC3</h2>
+<a id="a9b2a18649cd18984fd67f20d17d8e201" name="a9b2a18649cd18984fd67f20d17d8e201"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b2a18649cd18984fd67f20d17d8e201">&#9670;&#160;</a></span>CV_32SC3</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1076,7 +1124,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_32SC3 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#aef0424d7c3cd723202a612c4bcf02746">CV_32SC</a>(3)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_32SC3 = <a class="el" href="#aef0424d7c3cd723202a612c4bcf02746">CV_32SC</a>(3)</td>
         </tr>
       </table>
   </td>
@@ -1088,8 +1136,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a6f15fc9f6785dd6373a7ad55e652e906"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f15fc9f6785dd6373a7ad55e652e906">&#9670;&nbsp;</a></span>CV_32SC4</h2>
+<a id="a6f15fc9f6785dd6373a7ad55e652e906" name="a6f15fc9f6785dd6373a7ad55e652e906"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f15fc9f6785dd6373a7ad55e652e906">&#9670;&#160;</a></span>CV_32SC4</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1098,7 +1146,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_32SC4 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#aef0424d7c3cd723202a612c4bcf02746">CV_32SC</a>(4)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_32SC4 = <a class="el" href="#aef0424d7c3cd723202a612c4bcf02746">CV_32SC</a>(4)</td>
         </tr>
       </table>
   </td>
@@ -1110,22 +1158,30 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ad7a75d5c7b71b3243f531c45bd7d1415"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7a75d5c7b71b3243f531c45bd7d1415">&#9670;&nbsp;</a></span>CV_64F</h2>
+<a id="ad7a75d5c7b71b3243f531c45bd7d1415" name="ad7a75d5c7b71b3243f531c45bd7d1415"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7a75d5c7b71b3243f531c45bd7d1415">&#9670;&#160;</a></span>CV_64F</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.CoreModule.CvType.CV_64F = 6</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ae8fdf0d6856aaadfee6d58d81efcb14b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8fdf0d6856aaadfee6d58d81efcb14b">&#9670;&nbsp;</a></span>CV_64FC1</h2>
+<a id="ae8fdf0d6856aaadfee6d58d81efcb14b" name="ae8fdf0d6856aaadfee6d58d81efcb14b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8fdf0d6856aaadfee6d58d81efcb14b">&#9670;&#160;</a></span>CV_64FC1</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1134,7 +1190,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_64FC1 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a55fa06c4b30b25cce8bc3d329031c6af">CV_64FC</a>(1)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_64FC1 = <a class="el" href="#a55fa06c4b30b25cce8bc3d329031c6af">CV_64FC</a>(1)</td>
         </tr>
       </table>
   </td>
@@ -1146,8 +1202,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="afbacf34bcef37151a91fb8315c237b53"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbacf34bcef37151a91fb8315c237b53">&#9670;&nbsp;</a></span>CV_64FC2</h2>
+<a id="afbacf34bcef37151a91fb8315c237b53" name="afbacf34bcef37151a91fb8315c237b53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbacf34bcef37151a91fb8315c237b53">&#9670;&#160;</a></span>CV_64FC2</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1156,7 +1212,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_64FC2 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a55fa06c4b30b25cce8bc3d329031c6af">CV_64FC</a>(2)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_64FC2 = <a class="el" href="#a55fa06c4b30b25cce8bc3d329031c6af">CV_64FC</a>(2)</td>
         </tr>
       </table>
   </td>
@@ -1168,8 +1224,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a408fa551f3e8bae00bd97686c12d396b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a408fa551f3e8bae00bd97686c12d396b">&#9670;&nbsp;</a></span>CV_64FC3</h2>
+<a id="a408fa551f3e8bae00bd97686c12d396b" name="a408fa551f3e8bae00bd97686c12d396b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a408fa551f3e8bae00bd97686c12d396b">&#9670;&#160;</a></span>CV_64FC3</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1178,7 +1234,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_64FC3 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a55fa06c4b30b25cce8bc3d329031c6af">CV_64FC</a>(3)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_64FC3 = <a class="el" href="#a55fa06c4b30b25cce8bc3d329031c6af">CV_64FC</a>(3)</td>
         </tr>
       </table>
   </td>
@@ -1190,8 +1246,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a6fd0ce3dc8df5d51d8cb132fee23d571"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6fd0ce3dc8df5d51d8cb132fee23d571">&#9670;&nbsp;</a></span>CV_64FC4</h2>
+<a id="a6fd0ce3dc8df5d51d8cb132fee23d571" name="a6fd0ce3dc8df5d51d8cb132fee23d571"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fd0ce3dc8df5d51d8cb132fee23d571">&#9670;&#160;</a></span>CV_64FC4</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1200,7 +1256,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_64FC4 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a55fa06c4b30b25cce8bc3d329031c6af">CV_64FC</a>(4)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_64FC4 = <a class="el" href="#a55fa06c4b30b25cce8bc3d329031c6af">CV_64FC</a>(4)</td>
         </tr>
       </table>
   </td>
@@ -1212,22 +1268,30 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ab0dd32c518400be8fe81dde7aeb6b337"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0dd32c518400be8fe81dde7aeb6b337">&#9670;&nbsp;</a></span>CV_8S</h2>
+<a id="ab0dd32c518400be8fe81dde7aeb6b337" name="ab0dd32c518400be8fe81dde7aeb6b337"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0dd32c518400be8fe81dde7aeb6b337">&#9670;&#160;</a></span>CV_8S</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.CoreModule.CvType.CV_8S = 1</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ab185920ed1d74e2106c8ee90b7a43fa0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab185920ed1d74e2106c8ee90b7a43fa0">&#9670;&nbsp;</a></span>CV_8SC1</h2>
+<a id="ab185920ed1d74e2106c8ee90b7a43fa0" name="ab185920ed1d74e2106c8ee90b7a43fa0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab185920ed1d74e2106c8ee90b7a43fa0">&#9670;&#160;</a></span>CV_8SC1</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1236,7 +1300,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_8SC1 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a8d42720c7ded42778fd859ec97871f49">CV_8SC</a>(1)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_8SC1 = <a class="el" href="#a8d42720c7ded42778fd859ec97871f49">CV_8SC</a>(1)</td>
         </tr>
       </table>
   </td>
@@ -1248,8 +1312,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a49def778466fdabc233bede9f3d20d25"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49def778466fdabc233bede9f3d20d25">&#9670;&nbsp;</a></span>CV_8SC2</h2>
+<a id="a49def778466fdabc233bede9f3d20d25" name="a49def778466fdabc233bede9f3d20d25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49def778466fdabc233bede9f3d20d25">&#9670;&#160;</a></span>CV_8SC2</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1258,7 +1322,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_8SC2 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a8d42720c7ded42778fd859ec97871f49">CV_8SC</a>(2)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_8SC2 = <a class="el" href="#a8d42720c7ded42778fd859ec97871f49">CV_8SC</a>(2)</td>
         </tr>
       </table>
   </td>
@@ -1270,8 +1334,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="abeec8ed74bec3eb836b987db6aa37f0d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abeec8ed74bec3eb836b987db6aa37f0d">&#9670;&nbsp;</a></span>CV_8SC3</h2>
+<a id="abeec8ed74bec3eb836b987db6aa37f0d" name="abeec8ed74bec3eb836b987db6aa37f0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abeec8ed74bec3eb836b987db6aa37f0d">&#9670;&#160;</a></span>CV_8SC3</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1280,7 +1344,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_8SC3 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a8d42720c7ded42778fd859ec97871f49">CV_8SC</a>(3)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_8SC3 = <a class="el" href="#a8d42720c7ded42778fd859ec97871f49">CV_8SC</a>(3)</td>
         </tr>
       </table>
   </td>
@@ -1292,8 +1356,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ab1cd61348370c78eae66b52e13dff994"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1cd61348370c78eae66b52e13dff994">&#9670;&nbsp;</a></span>CV_8SC4</h2>
+<a id="ab1cd61348370c78eae66b52e13dff994" name="ab1cd61348370c78eae66b52e13dff994"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1cd61348370c78eae66b52e13dff994">&#9670;&#160;</a></span>CV_8SC4</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1302,7 +1366,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_8SC4 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a8d42720c7ded42778fd859ec97871f49">CV_8SC</a>(4)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_8SC4 = <a class="el" href="#a8d42720c7ded42778fd859ec97871f49">CV_8SC</a>(4)</td>
         </tr>
       </table>
   </td>
@@ -1314,22 +1378,30 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a0df2204123dddc0dabc0c4442577af44"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0df2204123dddc0dabc0c4442577af44">&#9670;&nbsp;</a></span>CV_8U</h2>
+<a id="a0df2204123dddc0dabc0c4442577af44" name="a0df2204123dddc0dabc0c4442577af44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0df2204123dddc0dabc0c4442577af44">&#9670;&#160;</a></span>CV_8U</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.CoreModule.CvType.CV_8U = 0</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a938ee0c3b34a721172800f7b8ba4804b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a938ee0c3b34a721172800f7b8ba4804b">&#9670;&nbsp;</a></span>CV_8UC1</h2>
+<a id="a938ee0c3b34a721172800f7b8ba4804b" name="a938ee0c3b34a721172800f7b8ba4804b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a938ee0c3b34a721172800f7b8ba4804b">&#9670;&#160;</a></span>CV_8UC1</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1338,7 +1410,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_8UC1 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a33c09f7bacec075781a8b4b81b8e9e83">CV_8UC</a>(1)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_8UC1 = <a class="el" href="#a33c09f7bacec075781a8b4b81b8e9e83">CV_8UC</a>(1)</td>
         </tr>
       </table>
   </td>
@@ -1350,8 +1422,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ace23c3fe83cef89f9cafc0aa401fba0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace23c3fe83cef89f9cafc0aa401fba0e">&#9670;&nbsp;</a></span>CV_8UC2</h2>
+<a id="ace23c3fe83cef89f9cafc0aa401fba0e" name="ace23c3fe83cef89f9cafc0aa401fba0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace23c3fe83cef89f9cafc0aa401fba0e">&#9670;&#160;</a></span>CV_8UC2</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1360,7 +1432,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_8UC2 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a33c09f7bacec075781a8b4b81b8e9e83">CV_8UC</a>(2)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_8UC2 = <a class="el" href="#a33c09f7bacec075781a8b4b81b8e9e83">CV_8UC</a>(2)</td>
         </tr>
       </table>
   </td>
@@ -1372,8 +1444,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="adef973caf3c4e35ed86bd5cee158187a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adef973caf3c4e35ed86bd5cee158187a">&#9670;&nbsp;</a></span>CV_8UC3</h2>
+<a id="adef973caf3c4e35ed86bd5cee158187a" name="adef973caf3c4e35ed86bd5cee158187a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adef973caf3c4e35ed86bd5cee158187a">&#9670;&#160;</a></span>CV_8UC3</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1382,7 +1454,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_8UC3 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a33c09f7bacec075781a8b4b81b8e9e83">CV_8UC</a>(3)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_8UC3 = <a class="el" href="#a33c09f7bacec075781a8b4b81b8e9e83">CV_8UC</a>(3)</td>
         </tr>
       </table>
   </td>
@@ -1394,8 +1466,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a91b5e03835164729579082b669bc6eac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91b5e03835164729579082b669bc6eac">&#9670;&nbsp;</a></span>CV_8UC4</h2>
+<a id="a91b5e03835164729579082b669bc6eac" name="a91b5e03835164729579082b669bc6eac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91b5e03835164729579082b669bc6eac">&#9670;&#160;</a></span>CV_8UC4</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1404,7 +1476,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_8UC4 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a33c09f7bacec075781a8b4b81b8e9e83">CV_8UC</a>(4)</td>
+          <td class="memname">readonly int OpenCVForUnity.CoreModule.CvType.CV_8UC4 = <a class="el" href="#a33c09f7bacec075781a8b4b81b8e9e83">CV_8UC</a>(4)</td>
         </tr>
       </table>
   </td>
@@ -1416,18 +1488,26 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a861835a4bd97270a8c47a8f199a4e87f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a861835a4bd97270a8c47a8f199a4e87f">&#9670;&nbsp;</a></span>CV_USRTYPE1</h2>
+<a id="a861835a4bd97270a8c47a8f199a4e87f" name="a861835a4bd97270a8c47a8f199a4e87f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a861835a4bd97270a8c47a8f199a4e87f">&#9670;&#160;</a></span>CV_USRTYPE1</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const int OpenCVForUnity.CoreModule.CvType.CV_USRTYPE1 = <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a619a96b57e26b83e11a7a8ff4d7d42d9">CV_16F</a></td>
+          <td class="memname">const int OpenCVForUnity.CoreModule.CvType.CV_USRTYPE1 = <a class="el" href="#a619a96b57e26b83e11a7a8ff4d7d42d9">CV_16F</a></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000003">Deprecated:</a></b></dt><dd>please use <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_type.html#a619a96b57e26b83e11a7a8ff4d7d42d9">CV_16F</a> </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000003">Deprecated</a></b></dt><dd>please use <code><a class="el" href="#a619a96b57e26b83e11a7a8ff4d7d42d9">CV_16F</a></code> </dd></dl>
 
 </div>
 </div>
@@ -1437,9 +1517,8 @@ Static Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

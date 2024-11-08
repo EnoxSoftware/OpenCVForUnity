@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: OpenCVForUnity.CoreModule.Range Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,143 +126,140 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_core_module.html">CoreModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="class_open_c_v_for_unity_1_1_core_module_1_1_range-members.html">List of all members</a>  </div>
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.CoreModule.Range Class Reference</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.CoreModule.Range Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Template class specifying a continuous subsequence (slice) of a sequence.  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for OpenCVForUnity.CoreModule.Range:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="class_open_c_v_for_unity_1_1_core_module_1_1_range.png" usemap="#OpenCVForUnity.CoreModule.Range_map" alt=""/>
-  <map id="OpenCVForUnity.CoreModule.Range_map" name="OpenCVForUnity.CoreModule.Range_map">
-</map>
+  <img src="class_open_c_v_for_unity_1_1_core_module_1_1_range.png" alt=""/>
  </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad3b8e9c70259539640e10447df383753"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#ad3b8e9c70259539640e10447df383753">Range</a> (int s, int e)</td></tr>
+<tr class="memitem:ad3b8e9c70259539640e10447df383753" id="r_ad3b8e9c70259539640e10447df383753"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad3b8e9c70259539640e10447df383753">Range</a> (int s, int e)</td></tr>
 <tr class="separator:ad3b8e9c70259539640e10447df383753"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70518cfaf2b148857cbf934d1db28a0a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#a70518cfaf2b148857cbf934d1db28a0a">Range</a> ()</td></tr>
+<tr class="memitem:a70518cfaf2b148857cbf934d1db28a0a" id="r_a70518cfaf2b148857cbf934d1db28a0a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70518cfaf2b148857cbf934d1db28a0a">Range</a> ()</td></tr>
 <tr class="separator:a70518cfaf2b148857cbf934d1db28a0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a62fe5ff3b2fa29e2e7f97c255eb12e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#a2a62fe5ff3b2fa29e2e7f97c255eb12e">Range</a> (double[] vals)</td></tr>
+<tr class="memitem:a2a62fe5ff3b2fa29e2e7f97c255eb12e" id="r_a2a62fe5ff3b2fa29e2e7f97c255eb12e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a62fe5ff3b2fa29e2e7f97c255eb12e">Range</a> (double[] vals)</td></tr>
 <tr class="separator:a2a62fe5ff3b2fa29e2e7f97c255eb12e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a696be74cbc622c9e9868ae431f58c834"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#a696be74cbc622c9e9868ae431f58c834">set</a> (double[] vals)</td></tr>
+<tr class="memitem:a696be74cbc622c9e9868ae431f58c834" id="r_a696be74cbc622c9e9868ae431f58c834"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a696be74cbc622c9e9868ae431f58c834">set</a> (double[] vals)</td></tr>
 <tr class="separator:a696be74cbc622c9e9868ae431f58c834"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c8e593519f28ff928b041b7b545661b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#a7c8e593519f28ff928b041b7b545661b">size</a> ()</td></tr>
+<tr class="memitem:a7c8e593519f28ff928b041b7b545661b" id="r_a7c8e593519f28ff928b041b7b545661b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c8e593519f28ff928b041b7b545661b">size</a> ()</td></tr>
 <tr class="separator:a7c8e593519f28ff928b041b7b545661b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b0dafd3cc5b5806015786386c4aa2a7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#a9b0dafd3cc5b5806015786386c4aa2a7">empty</a> ()</td></tr>
+<tr class="memitem:a9b0dafd3cc5b5806015786386c4aa2a7" id="r_a9b0dafd3cc5b5806015786386c4aa2a7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b0dafd3cc5b5806015786386c4aa2a7">empty</a> ()</td></tr>
 <tr class="separator:a9b0dafd3cc5b5806015786386c4aa2a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20c4900b8d5fd90a7cc8bb5fce8d7917"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#a20c4900b8d5fd90a7cc8bb5fce8d7917">intersection</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> r1)</td></tr>
+<tr class="memitem:a20c4900b8d5fd90a7cc8bb5fce8d7917" id="r_a20c4900b8d5fd90a7cc8bb5fce8d7917"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a20c4900b8d5fd90a7cc8bb5fce8d7917">intersection</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> r1)</td></tr>
 <tr class="separator:a20c4900b8d5fd90a7cc8bb5fce8d7917"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d0ea648b5675bf36b5069d36c5eebc7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#a5d0ea648b5675bf36b5069d36c5eebc7">shift</a> (int delta)</td></tr>
+<tr class="memitem:a5d0ea648b5675bf36b5069d36c5eebc7" id="r_a5d0ea648b5675bf36b5069d36c5eebc7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d0ea648b5675bf36b5069d36c5eebc7">shift</a> (int delta)</td></tr>
 <tr class="separator:a5d0ea648b5675bf36b5069d36c5eebc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af847ecfc8a1427a400ddacbe9a1c2179"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#af847ecfc8a1427a400ddacbe9a1c2179">clone</a> ()</td></tr>
+<tr class="memitem:af847ecfc8a1427a400ddacbe9a1c2179" id="r_af847ecfc8a1427a400ddacbe9a1c2179"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af847ecfc8a1427a400ddacbe9a1c2179">clone</a> ()</td></tr>
 <tr class="separator:af847ecfc8a1427a400ddacbe9a1c2179"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f39d2ba406d86a7e61f73c5b3663289"><td class="memItemLeft" align="right" valign="top">override int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#a7f39d2ba406d86a7e61f73c5b3663289">GetHashCode</a> ()</td></tr>
+<tr class="memitem:a7f39d2ba406d86a7e61f73c5b3663289" id="r_a7f39d2ba406d86a7e61f73c5b3663289"><td class="memItemLeft" align="right" valign="top">override int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f39d2ba406d86a7e61f73c5b3663289">GetHashCode</a> ()</td></tr>
 <tr class="separator:a7f39d2ba406d86a7e61f73c5b3663289"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63204b067d53570851f5c95ec1d30721"><td class="memItemLeft" align="right" valign="top">override bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#a63204b067d53570851f5c95ec1d30721">Equals</a> (Object obj)</td></tr>
+<tr class="memitem:a63204b067d53570851f5c95ec1d30721" id="r_a63204b067d53570851f5c95ec1d30721"><td class="memItemLeft" align="right" valign="top">override bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a63204b067d53570851f5c95ec1d30721">Equals</a> (Object obj)</td></tr>
 <tr class="separator:a63204b067d53570851f5c95ec1d30721"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4110a1f585a943db5176a88305c1e420"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#a4110a1f585a943db5176a88305c1e420">ToString</a> ()</td></tr>
+<tr class="memitem:a4110a1f585a943db5176a88305c1e420" id="r_a4110a1f585a943db5176a88305c1e420"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4110a1f585a943db5176a88305c1e420">ToString</a> ()</td></tr>
 <tr class="separator:a4110a1f585a943db5176a88305c1e420"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0400df3335a9534827ad0d7362c4e9a6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#a0400df3335a9534827ad0d7362c4e9a6">Equals</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> a)</td></tr>
+<tr class="memitem:abbd4508943253116d8b918be1147d70a" id="r_abbd4508943253116d8b918be1147d70a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abbd4508943253116d8b918be1147d70a">Range</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2i.html">Vec2i</a> vals)</td></tr>
+<tr class="separator:abbd4508943253116d8b918be1147d70a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af07dbdecd30ace7a1e0cc11980383564" id="r_af07dbdecd30ace7a1e0cc11980383564"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af07dbdecd30ace7a1e0cc11980383564">Range</a> (in(int <a class="el" href="#a3d1474a7d0ee2662205cc9e76ea13394">start</a>, int <a class="el" href="#a65dbe16e091bc84fc13606cce54e84cf">end</a>) vals)</td></tr>
+<tr class="separator:af07dbdecd30ace7a1e0cc11980383564"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb0ebebe68eb80521714debf91c653b4" id="r_acb0ebebe68eb80521714debf91c653b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb0ebebe68eb80521714debf91c653b4">set</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2i.html">Vec2i</a> vals)</td></tr>
+<tr class="separator:acb0ebebe68eb80521714debf91c653b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7014d13e9eeb8a8636e93ab7c53227a" id="r_ae7014d13e9eeb8a8636e93ab7c53227a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7014d13e9eeb8a8636e93ab7c53227a">set</a> (in(int <a class="el" href="#a3d1474a7d0ee2662205cc9e76ea13394">start</a>, int <a class="el" href="#a65dbe16e091bc84fc13606cce54e84cf">end</a>) vals)</td></tr>
+<tr class="separator:ae7014d13e9eeb8a8636e93ab7c53227a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c3431bc7fff2e2f0bcb430dc2687613" id="r_a6c3431bc7fff2e2f0bcb430dc2687613"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2i.html">Vec2i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c3431bc7fff2e2f0bcb430dc2687613">intersectionAsVec2i</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2i.html">Vec2i</a> r1)</td></tr>
+<tr class="separator:a6c3431bc7fff2e2f0bcb430dc2687613"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a147983fb3f250a7dabcfa568b062a883" id="r_a147983fb3f250a7dabcfa568b062a883"><td class="memItemLeft" align="right" valign="top">int int <a class="el" href="#a65dbe16e091bc84fc13606cce54e84cf">end</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a147983fb3f250a7dabcfa568b062a883">intersectionAsValueTuple</a> (in(int <a class="el" href="#a3d1474a7d0ee2662205cc9e76ea13394">start</a>, int <a class="el" href="#a65dbe16e091bc84fc13606cce54e84cf">end</a>) r1)</td></tr>
+<tr class="separator:a147983fb3f250a7dabcfa568b062a883"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8246a645d03d0b33bb12aabba9d6ddc" id="r_ab8246a645d03d0b33bb12aabba9d6ddc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2i.html">Vec2i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab8246a645d03d0b33bb12aabba9d6ddc">shiftAsVec2i</a> (int delta)</td></tr>
+<tr class="separator:ab8246a645d03d0b33bb12aabba9d6ddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a331a5d5ccaf6cb7b4e6cf911ad68b959" id="r_a331a5d5ccaf6cb7b4e6cf911ad68b959"><td class="memItemLeft" align="right" valign="top">int int <a class="el" href="#a65dbe16e091bc84fc13606cce54e84cf">end</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a331a5d5ccaf6cb7b4e6cf911ad68b959">shiftAsValueTuple</a> (int delta)</td></tr>
+<tr class="separator:a331a5d5ccaf6cb7b4e6cf911ad68b959"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9283487712c4363966ad5e3878dfa13" id="r_ad9283487712c4363966ad5e3878dfa13"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2i.html">Vec2i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad9283487712c4363966ad5e3878dfa13">cloneAsVec2i</a> ()</td></tr>
+<tr class="separator:ad9283487712c4363966ad5e3878dfa13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25b38806618bc17c555075f679512543" id="r_a25b38806618bc17c555075f679512543"><td class="memItemLeft" align="right" valign="top">int int <a class="el" href="#a65dbe16e091bc84fc13606cce54e84cf">end</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25b38806618bc17c555075f679512543">cloneAsValueTuple</a> ()</td></tr>
+<tr class="separator:a25b38806618bc17c555075f679512543"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b2b4586563eac39763f7a17492a10f1" id="r_a0b2b4586563eac39763f7a17492a10f1"><td class="memItemLeft" align="right" valign="top">int int <a class="el" href="#a65dbe16e091bc84fc13606cce54e84cf">end</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0b2b4586563eac39763f7a17492a10f1">ToValueTuple</a> ()</td></tr>
+<tr class="separator:a0b2b4586563eac39763f7a17492a10f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a123f5b3688839ce9c28caf7f6cb0a665" id="r_a123f5b3688839ce9c28caf7f6cb0a665"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2i.html">Vec2i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a123f5b3688839ce9c28caf7f6cb0a665">ToVec2i</a> ()</td></tr>
+<tr class="separator:a123f5b3688839ce9c28caf7f6cb0a665"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0400df3335a9534827ad0d7362c4e9a6" id="r_a0400df3335a9534827ad0d7362c4e9a6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0400df3335a9534827ad0d7362c4e9a6">Equals</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> a)</td></tr>
 <tr class="separator:a0400df3335a9534827ad0d7362c4e9a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aa1b79e9077ea22a9790ec5567f4864ac"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#aa1b79e9077ea22a9790ec5567f4864ac">all</a> ()</td></tr>
+<tr class="memitem:aa1b79e9077ea22a9790ec5567f4864ac" id="r_aa1b79e9077ea22a9790ec5567f4864ac"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1b79e9077ea22a9790ec5567f4864ac">all</a> ()</td></tr>
 <tr class="separator:aa1b79e9077ea22a9790ec5567f4864ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c192c2386cfd29eeabc0436f9d958ec"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#a6c192c2386cfd29eeabc0436f9d958ec">operator!</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> r)</td></tr>
+<tr class="memitem:a5dda01744a8a246487e120d61691f983" id="r_a5dda01744a8a246487e120d61691f983"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2i.html">Vec2i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5dda01744a8a246487e120d61691f983">allAsVec2i</a> ()</td></tr>
+<tr class="separator:a5dda01744a8a246487e120d61691f983"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd8d8852e1e8393378a64be1ef335f80" id="r_abd8d8852e1e8393378a64be1ef335f80"><td class="memItemLeft" align="right" valign="top">static int int <a class="el" href="#a65dbe16e091bc84fc13606cce54e84cf">end</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd8d8852e1e8393378a64be1ef335f80">allAsValueTuple</a> ()</td></tr>
+<tr class="separator:abd8d8852e1e8393378a64be1ef335f80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9faab60c6eca54fbfd1db6c557159e2a" id="r_a9faab60c6eca54fbfd1db6c557159e2a"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9faab60c6eca54fbfd1db6c557159e2a">operator Vec2i</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> range)</td></tr>
+<tr class="separator:a9faab60c6eca54fbfd1db6c557159e2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85134a7e2fb7c20fd72b10c7bc9c2aa3" id="r_a85134a7e2fb7c20fd72b10c7bc9c2aa3"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a85134a7e2fb7c20fd72b10c7bc9c2aa3">operator</a> (int <a class="el" href="#a3d1474a7d0ee2662205cc9e76ea13394">start</a>, int <a class="el" href="#a65dbe16e091bc84fc13606cce54e84cf">end</a>)(<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> range)</td></tr>
+<tr class="separator:a85134a7e2fb7c20fd72b10c7bc9c2aa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a576fbdbc38dacd37a3266b75f067a68c" id="r_a576fbdbc38dacd37a3266b75f067a68c"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a576fbdbc38dacd37a3266b75f067a68c">operator Range</a> (in(int <a class="el" href="#a3d1474a7d0ee2662205cc9e76ea13394">start</a>, int <a class="el" href="#a65dbe16e091bc84fc13606cce54e84cf">end</a>) valueTuple)</td></tr>
+<tr class="separator:a576fbdbc38dacd37a3266b75f067a68c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c192c2386cfd29eeabc0436f9d958ec" id="r_a6c192c2386cfd29eeabc0436f9d958ec"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c192c2386cfd29eeabc0436f9d958ec">operator!</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> r)</td></tr>
 <tr class="separator:a6c192c2386cfd29eeabc0436f9d958ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af44f2ab602a31f7bcb6edde79b7a0657"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#af44f2ab602a31f7bcb6edde79b7a0657">operator+</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> r1, int delta)</td></tr>
+<tr class="memitem:af44f2ab602a31f7bcb6edde79b7a0657" id="r_af44f2ab602a31f7bcb6edde79b7a0657"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af44f2ab602a31f7bcb6edde79b7a0657">operator+</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> r1, int delta)</td></tr>
 <tr class="separator:af44f2ab602a31f7bcb6edde79b7a0657"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8b70a9251c444a1c20d7fb1abe1920b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#ad8b70a9251c444a1c20d7fb1abe1920b">operator+</a> (int delta, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> r1)</td></tr>
+<tr class="memitem:ad8b70a9251c444a1c20d7fb1abe1920b" id="r_ad8b70a9251c444a1c20d7fb1abe1920b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad8b70a9251c444a1c20d7fb1abe1920b">operator+</a> (int delta, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> r1)</td></tr>
 <tr class="separator:ad8b70a9251c444a1c20d7fb1abe1920b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff9aa0ebb031db075493d33b43b9504c"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#aff9aa0ebb031db075493d33b43b9504c">operator-</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> r1, int delta)</td></tr>
+<tr class="memitem:aff9aa0ebb031db075493d33b43b9504c" id="r_aff9aa0ebb031db075493d33b43b9504c"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff9aa0ebb031db075493d33b43b9504c">operator-</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> r1, int delta)</td></tr>
 <tr class="separator:aff9aa0ebb031db075493d33b43b9504c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5153af4ebf1da34568281de3470c43b4"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#a5153af4ebf1da34568281de3470c43b4">operator&amp;</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> r1, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> r2)</td></tr>
-<tr class="separator:a5153af4ebf1da34568281de3470c43b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b66ffaaa7f378043e1aacbaacb16e7f"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#a7b66ffaaa7f378043e1aacbaacb16e7f">operator==</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> b)</td></tr>
+<tr class="memitem:a89662deba5752140586a25960f4021fb" id="r_a89662deba5752140586a25960f4021fb"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89662deba5752140586a25960f4021fb">operator&amp;</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> r1, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> r2)</td></tr>
+<tr class="separator:a89662deba5752140586a25960f4021fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b66ffaaa7f378043e1aacbaacb16e7f" id="r_a7b66ffaaa7f378043e1aacbaacb16e7f"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b66ffaaa7f378043e1aacbaacb16e7f">operator==</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> b)</td></tr>
 <tr class="separator:a7b66ffaaa7f378043e1aacbaacb16e7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8682c06dce6a42494c26697bf886bc26"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#a8682c06dce6a42494c26697bf886bc26">operator!=</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> b)</td></tr>
+<tr class="memitem:a8682c06dce6a42494c26697bf886bc26" id="r_a8682c06dce6a42494c26697bf886bc26"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8682c06dce6a42494c26697bf886bc26">operator!=</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> b)</td></tr>
 <tr class="separator:a8682c06dce6a42494c26697bf886bc26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a74d06d3f9511add6ef010c2beb8513b0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#a74d06d3f9511add6ef010c2beb8513b0">start</a></td></tr>
+<tr class="memitem:a3d1474a7d0ee2662205cc9e76ea13394" id="r_a3d1474a7d0ee2662205cc9e76ea13394"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3d1474a7d0ee2662205cc9e76ea13394">start</a></td></tr>
+<tr class="separator:a3d1474a7d0ee2662205cc9e76ea13394"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65dbe16e091bc84fc13606cce54e84cf" id="r_a65dbe16e091bc84fc13606cce54e84cf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a65dbe16e091bc84fc13606cce54e84cf">end</a></td></tr>
+<tr class="separator:a65dbe16e091bc84fc13606cce54e84cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a74d06d3f9511add6ef010c2beb8513b0" id="r_a74d06d3f9511add6ef010c2beb8513b0"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a74d06d3f9511add6ef010c2beb8513b0">start</a></td></tr>
 <tr class="separator:a74d06d3f9511add6ef010c2beb8513b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Template class specifying a continuous subsequence (slice) of a sequence.</p>
-<p>class CV_EXPORTS <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> <code></code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>// C++ code:</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>public:</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#a70518cfaf2b148857cbf934d1db28a0a">Range()</a>;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#ad3b8e9c70259539640e10447df383753">Range(int _start, int _end)</a>;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Range(const CvSlice&amp; slice);</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>int size() const;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>bool empty() const;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#aa1b79e9077ea22a9790ec5567f4864ac">all()</a>;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>operator CvSlice() const;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>int start, end;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>};</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>The class is used to specify a row or a column span in a matrix (</code></p>
-<p>"Mat") and for many other purposes. <code>Range(a,b)</code> is basically the same as <code>a:b</code> in Matlab or <code>a..b</code> in Python. As in Python, <code>start</code> is an inclusive left boundary of the range and <code>end</code> is an exclusive right boundary of the range. Such a half-opened interval is usually denoted as <em>[start,end)</em>. The static method <code><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#aa1b79e9077ea22a9790ec5567f4864ac">Range.all()</a></code> returns a special variable that means "the whole sequence" or "the whole range", just like " &lt;code&gt;:&lt;/code&gt; " in Matlab or " &lt;code&gt;...&lt;/code&gt; " in Python. All the methods and functions in OpenCV that take <code><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a></code> support this special <code><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#aa1b79e9077ea22a9790ec5567f4864ac">Range.all()</a></code> value. But, of course, in case of your own custom processing, you will probably have to check and handle it explicitly: <code></code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>// C++ code:</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>void my_function(..., const <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&amp; r,....)</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>if(r == <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#aa1b79e9077ea22a9790ec5567f4864ac">Range.all()</a>) {</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>// process all the data</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>else {</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>// process [r.start, r.end)</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code></code></p>
-<dl class="section see"><dt>See also</dt><dd><a href="http://docs.opencv.org/modules/core/doc/basic_structures.html#range">org.opencv.core.Range</a> </dd></dl>
+<div class="textblock"><p>Template class specifying a continuous subsequence (slice) of a sequence. </p>
+<p>The class is used to specify a row or a column span in a matrix ( <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html" title="n-dimensional dense array class">Mat</a> ) and for many other purposes. <a class="el" href="_imgcodecs_8cs.html#a95a9660ae50043791ee5175022933c91">Range(a,b)</a> is basically the same as a:b in Matlab or a..b in Python. As in Python, start is an inclusive left boundary of the range and end is an exclusive right boundary of the range. Such a half-opened interval is usually denoted as \([start,end)\).</p>
+<p>The static method Range::all() returns a special variable that means "the whole sequence" or "the
+whole range", just like " : " in Matlab or " ... " in Python. All the methods and functions in OpenCV that take <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html" title="Template class specifying a continuous subsequence (slice) of a sequence.">Range</a> support this special Range::all() value. But, of course, in case of your own custom processing, you will probably have to check and handle it explicitly: </p>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> my_function(..., <span class="keyword">const</span> <a class="code hl_class" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&amp;amp; r, ....)</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordflow">if</span>(r == Range::all()) {</div>
+<div class="line">        <span class="comment">// process all the data</span></div>
+<div class="line">    }</div>
+<div class="line">    <span class="keywordflow">else</span> {</div>
+<div class="line">        <span class="comment">// process [r.start, r.end)</span></div>
+<div class="line">    }</div>
+<div class="line">}</div>
+<div class="ttc" id="aclass_open_c_v_for_unity_1_1_core_module_1_1_range_html"><div class="ttname"><a href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">OpenCVForUnity.CoreModule.Range</a></div><div class="ttdoc">Template class specifying a continuous subsequence (slice) of a sequence.</div><div class="ttdef"><b>Definition</b> Range_Ex.cs:8</div></div>
+</div><!-- fragment --> <p>C++: cv::Range Class Reference </p><dl class="section see"><dt>See also</dt><dd><a href="https://docs.opencv.org/4.10.0/da/d35/classcv_1_1Range.html">https://docs.opencv.org/4.10.0/da/d35/classcv_1_1Range.html</a> </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad3b8e9c70259539640e10447df383753"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3b8e9c70259539640e10447df383753">&#9670;&nbsp;</a></span>Range() <span class="overload">[1/3]</span></h2>
+<a id="ad3b8e9c70259539640e10447df383753" name="ad3b8e9c70259539640e10447df383753"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3b8e9c70259539640e10447df383753">&#9670;&#160;</a></span>Range() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -238,27 +267,20 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.CoreModule.Range.Range </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>s</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>s</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>e</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>e</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a70518cfaf2b148857cbf934d1db28a0a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70518cfaf2b148857cbf934d1db28a0a">&#9670;&nbsp;</a></span>Range() <span class="overload">[2/3]</span></h2>
+<a id="a70518cfaf2b148857cbf934d1db28a0a" name="a70518cfaf2b148857cbf934d1db28a0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70518cfaf2b148857cbf934d1db28a0a">&#9670;&#160;</a></span>Range() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -266,16 +288,17 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.CoreModule.Range.Range </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>default constructor </p>
 
 </div>
 </div>
-<a id="a2a62fe5ff3b2fa29e2e7f97c255eb12e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a62fe5ff3b2fa29e2e7f97c255eb12e">&#9670;&nbsp;</a></span>Range() <span class="overload">[3/3]</span></h2>
+<a id="a2a62fe5ff3b2fa29e2e7f97c255eb12e" name="a2a62fe5ff3b2fa29e2e7f97c255eb12e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a62fe5ff3b2fa29e2e7f97c255eb12e">&#9670;&#160;</a></span>Range() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -283,8 +306,41 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.CoreModule.Range.Range </td>
           <td>(</td>
-          <td class="paramtype">double []&#160;</td>
-          <td class="paramname"><em>vals</em></td><td>)</td>
+          <td class="paramtype">double[]</td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abbd4508943253116d8b918be1147d70a" name="abbd4508943253116d8b918be1147d70a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbd4508943253116d8b918be1147d70a">&#9670;&#160;</a></span>Range() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OpenCVForUnity.CoreModule.Range.Range </td>
+          <td>(</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2i.html">Vec2i</a></td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af07dbdecd30ace7a1e0cc11980383564" name="af07dbdecd30ace7a1e0cc11980383564"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af07dbdecd30ace7a1e0cc11980383564">&#9670;&#160;</a></span>Range() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OpenCVForUnity.CoreModule.Range.Range </td>
+          <td>(</td>
+          <td class="paramtype">in(int <a class="el" href="#a3d1474a7d0ee2662205cc9e76ea13394">start</a>, int <a class="el" href="#a65dbe16e091bc84fc13606cce54e84cf">end</a>)</td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -293,8 +349,8 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa1b79e9077ea22a9790ec5567f4864ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1b79e9077ea22a9790ec5567f4864ac">&#9670;&nbsp;</a></span>all()</h2>
+<a id="aa1b79e9077ea22a9790ec5567f4864ac" name="aa1b79e9077ea22a9790ec5567f4864ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1b79e9077ea22a9790ec5567f4864ac">&#9670;&#160;</a></span>all()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -305,7 +361,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> OpenCVForUnity.CoreModule.Range.all </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -318,8 +374,58 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="af847ecfc8a1427a400ddacbe9a1c2179"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af847ecfc8a1427a400ddacbe9a1c2179">&#9670;&nbsp;</a></span>clone()</h2>
+<a id="abd8d8852e1e8393378a64be1ef335f80" name="abd8d8852e1e8393378a64be1ef335f80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd8d8852e1e8393378a64be1ef335f80">&#9670;&#160;</a></span>allAsValueTuple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int int <a class="el" href="#a65dbe16e091bc84fc13606cce54e84cf">end</a> OpenCVForUnity.CoreModule.Range.allAsValueTuple </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5dda01744a8a246487e120d61691f983" name="a5dda01744a8a246487e120d61691f983"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5dda01744a8a246487e120d61691f983">&#9670;&#160;</a></span>allAsVec2i()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2i.html">Vec2i</a> OpenCVForUnity.CoreModule.Range.allAsVec2i </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af847ecfc8a1427a400ddacbe9a1c2179" name="af847ecfc8a1427a400ddacbe9a1c2179"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af847ecfc8a1427a400ddacbe9a1c2179">&#9670;&#160;</a></span>clone()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -327,7 +433,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> OpenCVForUnity.CoreModule.Range.clone </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -335,8 +441,42 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a9b0dafd3cc5b5806015786386c4aa2a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b0dafd3cc5b5806015786386c4aa2a7">&#9670;&nbsp;</a></span>empty()</h2>
+<a id="a25b38806618bc17c555075f679512543" name="a25b38806618bc17c555075f679512543"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25b38806618bc17c555075f679512543">&#9670;&#160;</a></span>cloneAsValueTuple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int int <a class="el" href="#a65dbe16e091bc84fc13606cce54e84cf">end</a> OpenCVForUnity.CoreModule.Range.cloneAsValueTuple </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad9283487712c4363966ad5e3878dfa13" name="ad9283487712c4363966ad5e3878dfa13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9283487712c4363966ad5e3878dfa13">&#9670;&#160;</a></span>cloneAsVec2i()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2i.html">Vec2i</a> OpenCVForUnity.CoreModule.Range.cloneAsVec2i </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9b0dafd3cc5b5806015786386c4aa2a7" name="a9b0dafd3cc5b5806015786386c4aa2a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b0dafd3cc5b5806015786386c4aa2a7">&#9670;&#160;</a></span>empty()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -344,7 +484,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">bool OpenCVForUnity.CoreModule.Range.empty </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -352,26 +492,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a0400df3335a9534827ad0d7362c4e9a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0400df3335a9534827ad0d7362c4e9a6">&#9670;&nbsp;</a></span>Equals() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OpenCVForUnity.CoreModule.Range.Equals </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td>
-          <td class="paramname"><em>a</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a63204b067d53570851f5c95ec1d30721"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63204b067d53570851f5c95ec1d30721">&#9670;&nbsp;</a></span>Equals() <span class="overload">[2/2]</span></h2>
+<a id="a63204b067d53570851f5c95ec1d30721" name="a63204b067d53570851f5c95ec1d30721"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63204b067d53570851f5c95ec1d30721">&#9670;&#160;</a></span>Equals() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -379,8 +501,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">override bool OpenCVForUnity.CoreModule.Range.Equals </td>
           <td>(</td>
-          <td class="paramtype">Object&#160;</td>
-          <td class="paramname"><em>obj</em></td><td>)</td>
+          <td class="paramtype">Object</td>          <td class="paramname"><span class="paramname"><em>obj</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -388,8 +509,25 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a7f39d2ba406d86a7e61f73c5b3663289"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f39d2ba406d86a7e61f73c5b3663289">&#9670;&nbsp;</a></span>GetHashCode()</h2>
+<a id="a0400df3335a9534827ad0d7362c4e9a6" name="a0400df3335a9534827ad0d7362c4e9a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0400df3335a9534827ad0d7362c4e9a6">&#9670;&#160;</a></span>Equals() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.CoreModule.Range.Equals </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7f39d2ba406d86a7e61f73c5b3663289" name="a7f39d2ba406d86a7e61f73c5b3663289"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f39d2ba406d86a7e61f73c5b3663289">&#9670;&#160;</a></span>GetHashCode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -397,7 +535,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">override int OpenCVForUnity.CoreModule.Range.GetHashCode </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -405,8 +543,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a20c4900b8d5fd90a7cc8bb5fce8d7917"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20c4900b8d5fd90a7cc8bb5fce8d7917">&#9670;&nbsp;</a></span>intersection()</h2>
+<a id="a20c4900b8d5fd90a7cc8bb5fce8d7917" name="a20c4900b8d5fd90a7cc8bb5fce8d7917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20c4900b8d5fd90a7cc8bb5fce8d7917">&#9670;&#160;</a></span>intersection()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -414,8 +552,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> OpenCVForUnity.CoreModule.Range.intersection </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td>
-          <td class="paramname"><em>r1</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a></td>          <td class="paramname"><span class="paramname"><em>r1</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -423,8 +560,121 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a6c192c2386cfd29eeabc0436f9d958ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c192c2386cfd29eeabc0436f9d958ec">&#9670;&nbsp;</a></span>operator!()</h2>
+<a id="a147983fb3f250a7dabcfa568b062a883" name="a147983fb3f250a7dabcfa568b062a883"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a147983fb3f250a7dabcfa568b062a883">&#9670;&#160;</a></span>intersectionAsValueTuple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int int <a class="el" href="#a65dbe16e091bc84fc13606cce54e84cf">end</a> OpenCVForUnity.CoreModule.Range.intersectionAsValueTuple </td>
+          <td>(</td>
+          <td class="paramtype">in(int <a class="el" href="#a3d1474a7d0ee2662205cc9e76ea13394">start</a>, int <a class="el" href="#a65dbe16e091bc84fc13606cce54e84cf">end</a>)</td>          <td class="paramname"><span class="paramname"><em>r1</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6c3431bc7fff2e2f0bcb430dc2687613" name="a6c3431bc7fff2e2f0bcb430dc2687613"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c3431bc7fff2e2f0bcb430dc2687613">&#9670;&#160;</a></span>intersectionAsVec2i()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2i.html">Vec2i</a> OpenCVForUnity.CoreModule.Range.intersectionAsVec2i </td>
+          <td>(</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2i.html">Vec2i</a></td>          <td class="paramname"><span class="paramname"><em>r1</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a85134a7e2fb7c20fd72b10c7bc9c2aa3" name="a85134a7e2fb7c20fd72b10c7bc9c2aa3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85134a7e2fb7c20fd72b10c7bc9c2aa3">&#9670;&#160;</a></span>operator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static OpenCVForUnity.CoreModule.Range.operator </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>start</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>end</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a576fbdbc38dacd37a3266b75f067a68c" name="a576fbdbc38dacd37a3266b75f067a68c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a576fbdbc38dacd37a3266b75f067a68c">&#9670;&#160;</a></span>operator Range()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static OpenCVForUnity.CoreModule.Range.operator <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> </td>
+          <td>(</td>
+          <td class="paramtype">in(int <a class="el" href="#a3d1474a7d0ee2662205cc9e76ea13394">start</a>, int <a class="el" href="#a65dbe16e091bc84fc13606cce54e84cf">end</a>)</td>          <td class="paramname"><span class="paramname"><em>valueTuple</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9faab60c6eca54fbfd1db6c557159e2a" name="a9faab60c6eca54fbfd1db6c557159e2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9faab60c6eca54fbfd1db6c557159e2a">&#9670;&#160;</a></span>operator Vec2i()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static OpenCVForUnity.CoreModule.Range.operator <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2i.html">Vec2i</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a></td>          <td class="paramname"><span class="paramname"><em>range</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6c192c2386cfd29eeabc0436f9d958ec" name="a6c192c2386cfd29eeabc0436f9d958ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c192c2386cfd29eeabc0436f9d958ec">&#9670;&#160;</a></span>operator!()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -435,8 +685,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static bool OpenCVForUnity.CoreModule.Range.operator! </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td>
-          <td class="paramname"><em>r</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a></td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -449,8 +698,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a8682c06dce6a42494c26697bf886bc26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8682c06dce6a42494c26697bf886bc26">&#9670;&nbsp;</a></span>operator!=()</h2>
+<a id="a8682c06dce6a42494c26697bf886bc26" name="a8682c06dce6a42494c26697bf886bc26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8682c06dce6a42494c26697bf886bc26">&#9670;&#160;</a></span>operator!=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -459,21 +708,14 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html#a6c192c2386cfd29eeabc0436f9d958ec">OpenCVForUnity.CoreModule.Range.operator!</a>= </td>
+          <td class="memname">static bool OpenCVForUnity.CoreModule.Range.operator!= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -485,8 +727,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a5153af4ebf1da34568281de3470c43b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5153af4ebf1da34568281de3470c43b4">&#9670;&nbsp;</a></span>operator&amp;()</h2>
+<a id="a89662deba5752140586a25960f4021fb" name="a89662deba5752140586a25960f4021fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89662deba5752140586a25960f4021fb">&#9670;&#160;</a></span>operator&amp;()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -495,21 +737,14 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> OpenCVForUnity.CoreModule.Range.operator &amp; </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> OpenCVForUnity.CoreModule.Range.operator&amp; </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td>
-          <td class="paramname"><em>r1</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a></td>          <td class="paramname"><span class="paramname"><em>r1</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td>
-          <td class="paramname"><em>r2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a></td>          <td class="paramname"><span class="paramname"><em>r2</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -521,8 +756,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="af44f2ab602a31f7bcb6edde79b7a0657"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af44f2ab602a31f7bcb6edde79b7a0657">&#9670;&nbsp;</a></span>operator+() <span class="overload">[1/2]</span></h2>
+<a id="ad8b70a9251c444a1c20d7fb1abe1920b" name="ad8b70a9251c444a1c20d7fb1abe1920b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8b70a9251c444a1c20d7fb1abe1920b">&#9670;&#160;</a></span>operator+() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -533,19 +768,12 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> OpenCVForUnity.CoreModule.Range.operator+ </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td>
-          <td class="paramname"><em>r1</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>delta</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>delta</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a></td>          <td class="paramname"><span class="paramname"><em>r1</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -557,8 +785,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ad8b70a9251c444a1c20d7fb1abe1920b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8b70a9251c444a1c20d7fb1abe1920b">&#9670;&nbsp;</a></span>operator+() <span class="overload">[2/2]</span></h2>
+<a id="af44f2ab602a31f7bcb6edde79b7a0657" name="af44f2ab602a31f7bcb6edde79b7a0657"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af44f2ab602a31f7bcb6edde79b7a0657">&#9670;&#160;</a></span>operator+() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -569,19 +797,12 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> OpenCVForUnity.CoreModule.Range.operator+ </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>delta</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a></td>          <td class="paramname"><span class="paramname"><em>r1</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td>
-          <td class="paramname"><em>r1</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>delta</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -593,8 +814,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aff9aa0ebb031db075493d33b43b9504c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff9aa0ebb031db075493d33b43b9504c">&#9670;&nbsp;</a></span>operator-()</h2>
+<a id="aff9aa0ebb031db075493d33b43b9504c" name="aff9aa0ebb031db075493d33b43b9504c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff9aa0ebb031db075493d33b43b9504c">&#9670;&#160;</a></span>operator-()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -605,19 +826,12 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> OpenCVForUnity.CoreModule.Range.operator- </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td>
-          <td class="paramname"><em>r1</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a></td>          <td class="paramname"><span class="paramname"><em>r1</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>delta</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>delta</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -629,8 +843,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a7b66ffaaa7f378043e1aacbaacb16e7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b66ffaaa7f378043e1aacbaacb16e7f">&#9670;&nbsp;</a></span>operator==()</h2>
+<a id="a7b66ffaaa7f378043e1aacbaacb16e7f" name="a7b66ffaaa7f378043e1aacbaacb16e7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b66ffaaa7f378043e1aacbaacb16e7f">&#9670;&#160;</a></span>operator==()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -641,19 +855,12 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static bool OpenCVForUnity.CoreModule.Range.operator== </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -665,8 +872,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a696be74cbc622c9e9868ae431f58c834"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a696be74cbc622c9e9868ae431f58c834">&#9670;&nbsp;</a></span>set()</h2>
+<a id="a696be74cbc622c9e9868ae431f58c834" name="a696be74cbc622c9e9868ae431f58c834"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a696be74cbc622c9e9868ae431f58c834">&#9670;&#160;</a></span>set() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -674,8 +881,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.CoreModule.Range.set </td>
           <td>(</td>
-          <td class="paramtype">double []&#160;</td>
-          <td class="paramname"><em>vals</em></td><td>)</td>
+          <td class="paramtype">double[]</td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -683,8 +889,42 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a5d0ea648b5675bf36b5069d36c5eebc7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d0ea648b5675bf36b5069d36c5eebc7">&#9670;&nbsp;</a></span>shift()</h2>
+<a id="acb0ebebe68eb80521714debf91c653b4" name="acb0ebebe68eb80521714debf91c653b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb0ebebe68eb80521714debf91c653b4">&#9670;&#160;</a></span>set() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.CoreModule.Range.set </td>
+          <td>(</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2i.html">Vec2i</a></td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae7014d13e9eeb8a8636e93ab7c53227a" name="ae7014d13e9eeb8a8636e93ab7c53227a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7014d13e9eeb8a8636e93ab7c53227a">&#9670;&#160;</a></span>set() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.CoreModule.Range.set </td>
+          <td>(</td>
+          <td class="paramtype">in(int <a class="el" href="#a3d1474a7d0ee2662205cc9e76ea13394">start</a>, int <a class="el" href="#a65dbe16e091bc84fc13606cce54e84cf">end</a>)</td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5d0ea648b5675bf36b5069d36c5eebc7" name="a5d0ea648b5675bf36b5069d36c5eebc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d0ea648b5675bf36b5069d36c5eebc7">&#9670;&#160;</a></span>shift()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -692,8 +932,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_range.html">Range</a> OpenCVForUnity.CoreModule.Range.shift </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>delta</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>delta</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -701,8 +940,42 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a7c8e593519f28ff928b041b7b545661b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c8e593519f28ff928b041b7b545661b">&#9670;&nbsp;</a></span>size()</h2>
+<a id="a331a5d5ccaf6cb7b4e6cf911ad68b959" name="a331a5d5ccaf6cb7b4e6cf911ad68b959"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a331a5d5ccaf6cb7b4e6cf911ad68b959">&#9670;&#160;</a></span>shiftAsValueTuple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int int <a class="el" href="#a65dbe16e091bc84fc13606cce54e84cf">end</a> OpenCVForUnity.CoreModule.Range.shiftAsValueTuple </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>delta</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab8246a645d03d0b33bb12aabba9d6ddc" name="ab8246a645d03d0b33bb12aabba9d6ddc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8246a645d03d0b33bb12aabba9d6ddc">&#9670;&#160;</a></span>shiftAsVec2i()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2i.html">Vec2i</a> OpenCVForUnity.CoreModule.Range.shiftAsVec2i </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>delta</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7c8e593519f28ff928b041b7b545661b" name="a7c8e593519f28ff928b041b7b545661b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c8e593519f28ff928b041b7b545661b">&#9670;&#160;</a></span>size()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -710,7 +983,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.CoreModule.Range.size </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -718,8 +991,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a4110a1f585a943db5176a88305c1e420"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4110a1f585a943db5176a88305c1e420">&#9670;&nbsp;</a></span>ToString()</h2>
+<a id="a4110a1f585a943db5176a88305c1e420" name="a4110a1f585a943db5176a88305c1e420"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4110a1f585a943db5176a88305c1e420">&#9670;&#160;</a></span>ToString()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -727,7 +1000,41 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">override string OpenCVForUnity.CoreModule.Range.ToString </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0b2b4586563eac39763f7a17492a10f1" name="a0b2b4586563eac39763f7a17492a10f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b2b4586563eac39763f7a17492a10f1">&#9670;&#160;</a></span>ToValueTuple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int int <a class="el" href="#a65dbe16e091bc84fc13606cce54e84cf">end</a> OpenCVForUnity.CoreModule.Range.ToValueTuple </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a123f5b3688839ce9c28caf7f6cb0a665" name="a123f5b3688839ce9c28caf7f6cb0a665"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a123f5b3688839ce9c28caf7f6cb0a665">&#9670;&#160;</a></span>ToVec2i()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec2i.html">Vec2i</a> OpenCVForUnity.CoreModule.Range.ToVec2i </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -736,8 +1043,22 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a74d06d3f9511add6ef010c2beb8513b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a74d06d3f9511add6ef010c2beb8513b0">&#9670;&nbsp;</a></span>start</h2>
+<a id="a65dbe16e091bc84fc13606cce54e84cf" name="a65dbe16e091bc84fc13606cce54e84cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65dbe16e091bc84fc13606cce54e84cf">&#9670;&#160;</a></span>end</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int OpenCVForUnity.CoreModule.Range.end</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3d1474a7d0ee2662205cc9e76ea13394" name="a3d1474a7d0ee2662205cc9e76ea13394"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d1474a7d0ee2662205cc9e76ea13394">&#9670;&#160;</a></span>start <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -750,6 +1071,28 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a74d06d3f9511add6ef010c2beb8513b0" name="a74d06d3f9511add6ef010c2beb8513b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74d06d3f9511add6ef010c2beb8513b0">&#9670;&#160;</a></span>start <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int OpenCVForUnity.CoreModule.Range.start</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/core/<a class="el" href="_range_8cs.html">Range.cs</a></li>
 <li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/core/<a class="el" href="_range___ex_8cs.html">Range_Ex.cs</a></li>
@@ -757,9 +1100,8 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

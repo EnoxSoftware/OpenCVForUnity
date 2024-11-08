@@ -1,45 +1,61 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: Class Members - Variables</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
+<script type="text/javascript" src="darkmode_toggle.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +63,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.4</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,23 +74,35 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="doc-content">
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -85,175 +112,62 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div class="contents">
-&#160;
+<div class="textblock">Here is a list of all variables with links to the classes they belong to:</div>
 
-<h3><a id="index__"></a>- _ -</h3><ul>
-<li>_apiPreference
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#acd3a1a88b9165012524185f10c98e675">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#abf3aa5c2cef3f40611a2e338a5880c87">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a>
-</li>
-<li>_currentSource2MatHelperClassCategory
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_multi_source2_mat_helper.html#a84dfcd6e0fbbecab8d91e5e742c7c040">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>
-</li>
-<li>_currentSource2MatHelperClassName
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_multi_source2_mat_helper.html#a252c5e51c2245289c244c31b83008bba">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>
-</li>
-<li>_customClassComponent
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_multi_source2_mat_helper.html#aaadcdca9fc8e6c5eceaefe2c6597d812">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>
-</li>
-<li>_didUpdateImageBufferInCurrentFrame
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#a153352fdc6bdb974e7de573cc1720b56">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#af46116b4b268dd192b37b27c5fc6701f">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a>
-</li>
-<li>_didUpdateThisFrame
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#af1f6a6775abf364fc8087cac754c1c18">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#a6f0de7838d0e9afb8969767716cab847">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a>
-</li>
-<li>_downscaleRatio
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.html#ae634ed8f5a849559c39206a61f5bc997">OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper</a>
-</li>
-<li>_flipHorizontal
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture2_mat_helper.html#a1770b4baf4d3f903a62589098b1e4d78">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#aa1e60f416d70abf988805b01dc47682c">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a>
-</li>
-<li>_flipVertical
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture2_mat_helper.html#a2cb714fb97f02f2ac959134a680b240a">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a59f58291cd82afaf36ec244604abd4ad">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a>
-</li>
-<li>_frameSkippingRatio
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.html#a87d3178742cd1ee2b3d706b2635e77bd">OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper</a>
-</li>
-<li>_imageBufferMat
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#a9a5c219a79314e2c0611417828724f34">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#a867b2bcdf9927e25eb6356c36f47c75d">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a>
-</li>
-<li>_isPlaying
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#a080e55e11a4ffbab92ed89ff327df2f5">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#a809f5b32296376cc5aa38205811d438d">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a>
-</li>
-<li>_isReading
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#aef6df45ad141ab6a335ce30645bc0cbb">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#ade3f549f23ad91d93a1f98adedf32eca">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a>
-</li>
-<li>_isThreadRunning
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#aa1a95e71279ebfd785fa96e0154732ab">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#a9120f4a1ac081766b7e1af6e7c457da3">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a>
-</li>
-<li>_loop
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_multi_source2_mat_helper.html#a4980c19aefc762a0e8b7268d2a1590df">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#abdc96ffd2fd0dc95c888f3131604e221">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#a350e42e167b31cfd65f6ef0a1a1723ed">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#a2bf2c1abe3a2bab7ac7ea794611b7646">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a>
-</li>
-<li>_onDisposed
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a3ceba4589018d438a4a861143773e32c">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_multi_source2_mat_helper.html#af5c14424aa386eba08b98b9d9e5f5473">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a67f854c42cf3f598e940e30a8beb091d">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#ac2c0504661cd963e6eb708c98f0db3eb">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture2_mat_helper.html#aaeed483aaa6d6b5a3a45062c4dddeaa4">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>
-</li>
-<li>_onErrorOccurred
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#acb8128882ae62868be5a5fc1f66ef5b0">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_multi_source2_mat_helper.html#a467cc95599126c63bb147aa7dedc640c">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a053bcc3916166920575e49fea71fcc73">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#a538dc8a40f4729aa1bc0f94db8684a6f">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture2_mat_helper.html#a6e7f8bef3681b1a6984e12dd5213d50d">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>
-</li>
-<li>_onInitialized
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a05310698290269cc97cfcd9af20938cf">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_multi_source2_mat_helper.html#a5c0f9defbe7ccfad64ed6f0d5b3f4cff">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#abdf5559b469f30ce7fc8ede22fa202b1">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#af71ed06b79057fbded8c5aea619277b0">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture2_mat_helper.html#a3696e79b3d3a938db0c945ea1f6036de">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>
-</li>
-<li>_outputColorFormat
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#abbd02507bdb2469c3fb1045c94d66799">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_multi_source2_mat_helper.html#a88e1c789783a258f6b7f463c473b7f04">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a9a2b0141c24830240f4be535bcb846ef">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#a72a6ec25034c96735e63652358dde297">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#a620b4491e9289692d147097589c7d7d4">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture2_mat_helper.html#a234b1847a5384ccddb56cec5f48d23b4">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a8c475c30b3d073a5700d1b6db9a55534">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a>
-</li>
-<li>_repeat
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a9a5d60da06c521f9daa424886ba77910">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_multi_source2_mat_helper.html#ad582163f46d4995ca33f72bf4e77f7f6">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>
-</li>
-<li>_requestedDeviceName
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_multi_source2_mat_helper.html#a2975cdf97078291b35f241358b12ea15">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture2_mat_helper.html#ac0b8d138e88182e67390a96b997029c1">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a1c9b9eed37b91e492ae6e14c52c2f2a1">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a>
-</li>
-<li>_requestedFPS
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_multi_source2_mat_helper.html#a3e670101aa06aa69c57f9acecff060f9">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture2_mat_helper.html#a88b14badccc2078b7dc092ed1d9a2f6c">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a936884a9ccd26558b3184299599ccfea">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a>
-</li>
-<li>_requestedHeight
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_multi_source2_mat_helper.html#a1962286622c910dec4c7e6d58e8901d6">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture2_mat_helper.html#a2bd2d6eb97151668659ab8055b2ebb84">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#aa9c569edbd905ed9999b375cdac22576">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a>
-</li>
-<li>_requestedImageFilePath
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#ae8e403b5bfbc23d22b9304830d8328d1">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_multi_source2_mat_helper.html#afa91b15dbb91d9a60cc200443ec38eb8">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>
-</li>
-<li>_requestedIsFrontFacing
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_multi_source2_mat_helper.html#a2faa392b402ccd2dfa4828c4e67e399a">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture2_mat_helper.html#a76fd23cc9419feb248cdc7821877cf80">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a6e99a85722345518662c7dd8c7270313">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a>
-</li>
-<li>_requestedSource2MatHelperClassName
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_multi_source2_mat_helper.html#ac4e4b53e8cffc43c233e96413939ec20">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>
-</li>
-<li>_requestedVideoFilePath
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_multi_source2_mat_helper.html#aa14b5e5efd1a922892c65bd506fdb841">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a52a1536b4acd991bc2879cba9362485f">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#a812ff23e109df2e1c070ccc0e314ff4d">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#a7be041ae53477121d596462f2eaf8711">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a>
-</li>
-<li>_requestedWidth
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_multi_source2_mat_helper.html#a97bd47b96b913ee6190240640c8c171a">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture2_mat_helper.html#ab773590dd780127c00a0da5c93803996">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#af165fae6660236131086bc7944008b5f">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a>
-</li>
-<li>_rotate90Degree
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture2_mat_helper.html#aa4d2f7c322d98753dd3fcb6b994dd38a">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a9c6462a0b47ae575943baf4eb6d765f9">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a>
-</li>
-<li>_shouldStopThread
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#aad861b5856445dcfe063a720d5ef3532">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#aa2e8f45a89578c76967cc05272d77588">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a>
-</li>
-<li>_source2MatHelper
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_multi_source2_mat_helper.html#a81d0eeeb202bff6391c59a16a61799a6">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>
-</li>
-<li>_timeoutFrameCount
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a5214a42f5c85969adfaa9e98c22913c7">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_multi_source2_mat_helper.html#abca72e267419ce6ab2e0a6dd39ae1516">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#add4d05184a0e5ae18d5d7faa6eb9cbfd">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#a1a56b1bd716c00d3e48751ccf495ccc7">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#ad5b5dcd00589b3fbae8b428242902c0b">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture2_mat_helper.html#a0517ecd911935348ed3de2397e13f625">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a32dfd8180eb5d8dfecb92c9f8e4b4d7d">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a>
-</li>
-<li>_videoCapture
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#a62d4a5d388d2fabca5c8e9a242dda52c">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#a801d8b4d2232c1db20cfceb65329799b">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a>
-</li>
+<h3><a id="index__5F" name="index__5F"></a>- _ -</h3><ul>
+<li>_apiPreference&#160;:&#160;<a class="el" href="dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html#acd3a1a88b9165012524185f10c98e675">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, <a class="el" href="d3/d8d/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureToMatHelper.html#abf3aa5c2cef3f40611a2e338a5880c87">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a></li>
+<li>_currentSource2MatHelperClassCategory&#160;:&#160;<a class="el" href="df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#a84dfcd6e0fbbecab8d91e5e742c7c040">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a></li>
+<li>_currentSource2MatHelperClassName&#160;:&#160;<a class="el" href="df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#a252c5e51c2245289c244c31b83008bba">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a></li>
+<li>_customClassComponent&#160;:&#160;<a class="el" href="df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#aaadcdca9fc8e6c5eceaefe2c6597d812">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a></li>
+<li>_didUpdateImageBufferInCurrentFrame&#160;:&#160;<a class="el" href="dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html#a153352fdc6bdb974e7de573cc1720b56">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, <a class="el" href="d3/d8d/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureToMatHelper.html#af46116b4b268dd192b37b27c5fc6701f">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a></li>
+<li>_didUpdateThisFrame&#160;:&#160;<a class="el" href="dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html#af1f6a6775abf364fc8087cac754c1c18">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, <a class="el" href="d3/d8d/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureToMatHelper.html#a6f0de7838d0e9afb8969767716cab847">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a></li>
+<li>_downscaleRatio&#160;:&#160;<a class="el" href="df/dc9/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ImageOptimizationHelper.html#ae634ed8f5a849559c39206a61f5bc997">OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper</a></li>
+<li>_flipHorizontal&#160;:&#160;<a class="el" href="d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#a156282f965557fe422f380852fd55561">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>, <a class="el" href="d5/d0c/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatHelper.html#a1770b4baf4d3f903a62589098b1e4d78">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>, <a class="el" href="dc/d5a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTextureToMatHelper.html#aa1e60f416d70abf988805b01dc47682c">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a></li>
+<li>_flipVertical&#160;:&#160;<a class="el" href="d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#a76775598bbb829f0052fd6ed82f4f210">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>, <a class="el" href="d5/d0c/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatHelper.html#a2cb714fb97f02f2ac959134a680b240a">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>, <a class="el" href="dc/d5a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTextureToMatHelper.html#a59f58291cd82afaf36ec244604abd4ad">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a></li>
+<li>_frameSkippingRatio&#160;:&#160;<a class="el" href="df/dc9/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ImageOptimizationHelper.html#a87d3178742cd1ee2b3d706b2635e77bd">OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper</a></li>
+<li>_imageBufferMat&#160;:&#160;<a class="el" href="dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html#a9a5c219a79314e2c0611417828724f34">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, <a class="el" href="d3/d8d/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureToMatHelper.html#a867b2bcdf9927e25eb6356c36f47c75d">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a></li>
+<li>_isPlaying&#160;:&#160;<a class="el" href="dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html#a080e55e11a4ffbab92ed89ff327df2f5">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, <a class="el" href="d3/d8d/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureToMatHelper.html#a809f5b32296376cc5aa38205811d438d">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a></li>
+<li>_isReading&#160;:&#160;<a class="el" href="dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html#aef6df45ad141ab6a335ce30645bc0cbb">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, <a class="el" href="d3/d8d/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureToMatHelper.html#ade3f549f23ad91d93a1f98adedf32eca">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a></li>
+<li>_isThreadRunning&#160;:&#160;<a class="el" href="dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html#aa1a95e71279ebfd785fa96e0154732ab">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, <a class="el" href="d3/d8d/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureToMatHelper.html#a9120f4a1ac081766b7e1af6e7c457da3">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a></li>
+<li>_loop&#160;:&#160;<a class="el" href="df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#a4980c19aefc762a0e8b7268d2a1590df">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>, <a class="el" href="d1/d25/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1UnityVideoPlayer2MatHelper.html#abdc96ffd2fd0dc95c888f3131604e221">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>, <a class="el" href="dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html#a350e42e167b31cfd65f6ef0a1a1723ed">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, <a class="el" href="d3/d8d/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureToMatHelper.html#a2bf2c1abe3a2bab7ac7ea794611b7646">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a></li>
+<li>_onDisposed&#160;:&#160;<a class="el" href="d8/dba/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1AsyncGPUReadback2MatHelper.html#a8e664a7bf6628339dfa0e796e7e83d0d">OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper</a>, <a class="el" href="d6/de0/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Image2MatHelper.html#a3ceba4589018d438a4a861143773e32c">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>, <a class="el" href="df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#af5c14424aa386eba08b98b9d9e5f5473">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>, <a class="el" href="d1/d25/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1UnityVideoPlayer2MatHelper.html#a67f854c42cf3f598e940e30a8beb091d">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>, <a class="el" href="dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html#ac2c0504661cd963e6eb708c98f0db3eb">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, <a class="el" href="d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#ac50f281f38a3d361a7e17450c1fc81c6">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>, <a class="el" href="d5/d0c/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatHelper.html#aaeed483aaa6d6b5a3a45062c4dddeaa4">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a></li>
+<li>_onErrorOccurred&#160;:&#160;<a class="el" href="d8/dba/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1AsyncGPUReadback2MatHelper.html#a419592bf79946a14bab242b96c1fdead">OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper</a>, <a class="el" href="d6/de0/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Image2MatHelper.html#acb8128882ae62868be5a5fc1f66ef5b0">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>, <a class="el" href="df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#a467cc95599126c63bb147aa7dedc640c">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>, <a class="el" href="d1/d25/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1UnityVideoPlayer2MatHelper.html#a053bcc3916166920575e49fea71fcc73">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>, <a class="el" href="dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html#a538dc8a40f4729aa1bc0f94db8684a6f">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, <a class="el" href="d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#a586acbe7e7beb87d9c4e1dec9009fafc">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>, <a class="el" href="d5/d0c/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatHelper.html#a6e7f8bef3681b1a6984e12dd5213d50d">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a></li>
+<li>_onInitialized&#160;:&#160;<a class="el" href="d8/dba/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1AsyncGPUReadback2MatHelper.html#a7065cb7cfaeeb16edb479be0d45e980e">OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper</a>, <a class="el" href="d6/de0/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Image2MatHelper.html#a05310698290269cc97cfcd9af20938cf">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>, <a class="el" href="df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#a5c0f9defbe7ccfad64ed6f0d5b3f4cff">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>, <a class="el" href="d1/d25/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1UnityVideoPlayer2MatHelper.html#abdf5559b469f30ce7fc8ede22fa202b1">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>, <a class="el" href="dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html#af71ed06b79057fbded8c5aea619277b0">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, <a class="el" href="d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#ab1efc7cfba9a581d102fc9437516e8bd">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>, <a class="el" href="d5/d0c/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatHelper.html#a3696e79b3d3a938db0c945ea1f6036de">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a></li>
+<li>_outputColorFormat&#160;:&#160;<a class="el" href="d8/dba/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1AsyncGPUReadback2MatHelper.html#a39ea60f8bd2e9799e4f84df2c75c8e36">OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper</a>, <a class="el" href="d6/de0/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Image2MatHelper.html#abbd02507bdb2469c3fb1045c94d66799">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>, <a class="el" href="df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#a88e1c789783a258f6b7f463c473b7f04">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>, <a class="el" href="d1/d25/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1UnityVideoPlayer2MatHelper.html#a9a2b0141c24830240f4be535bcb846ef">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>, <a class="el" href="dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html#a72a6ec25034c96735e63652358dde297">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, <a class="el" href="d3/d8d/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureToMatHelper.html#a620b4491e9289692d147097589c7d7d4">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a>, <a class="el" href="d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#af72ead75125a3e70607ae9b236b78399">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>, <a class="el" href="d5/d0c/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatHelper.html#a234b1847a5384ccddb56cec5f48d23b4">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>, <a class="el" href="dc/d5a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTextureToMatHelper.html#a8c475c30b3d073a5700d1b6db9a55534">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a></li>
+<li>_repeat&#160;:&#160;<a class="el" href="d6/de0/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Image2MatHelper.html#a9a5d60da06c521f9daa424886ba77910">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>, <a class="el" href="df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#ad582163f46d4995ca33f72bf4e77f7f6">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a></li>
+<li>_requestedDeviceName&#160;:&#160;<a class="el" href="df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#a2975cdf97078291b35f241358b12ea15">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>, <a class="el" href="d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#ac4210bf18d1a5265980e965fcaa3b9e6">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>, <a class="el" href="d5/d0c/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatHelper.html#ac0b8d138e88182e67390a96b997029c1">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>, <a class="el" href="dc/d5a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTextureToMatHelper.html#a1c9b9eed37b91e492ae6e14c52c2f2a1">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a></li>
+<li>_requestedFPS&#160;:&#160;<a class="el" href="df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#a3e670101aa06aa69c57f9acecff060f9">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>, <a class="el" href="d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#a965bd389bb1e249ab332283dfeb1101a">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>, <a class="el" href="d5/d0c/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatHelper.html#a88b14badccc2078b7dc092ed1d9a2f6c">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>, <a class="el" href="dc/d5a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTextureToMatHelper.html#a936884a9ccd26558b3184299599ccfea">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a></li>
+<li>_requestedHeight&#160;:&#160;<a class="el" href="df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#a1962286622c910dec4c7e6d58e8901d6">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>, <a class="el" href="d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#a74448681186ca4379c447866e3c7dffe">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>, <a class="el" href="d5/d0c/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatHelper.html#a2bd2d6eb97151668659ab8055b2ebb84">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>, <a class="el" href="dc/d5a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTextureToMatHelper.html#aa9c569edbd905ed9999b375cdac22576">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a></li>
+<li>_requestedImageFilePath&#160;:&#160;<a class="el" href="d6/de0/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Image2MatHelper.html#ae8e403b5bfbc23d22b9304830d8328d1">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>, <a class="el" href="df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#afa91b15dbb91d9a60cc200443ec38eb8">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a></li>
+<li>_requestedIsFrontFacing&#160;:&#160;<a class="el" href="df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#a2faa392b402ccd2dfa4828c4e67e399a">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>, <a class="el" href="d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#a277dbefda726b2af220f5df05b1d0620">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>, <a class="el" href="d5/d0c/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatHelper.html#a76fd23cc9419feb248cdc7821877cf80">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>, <a class="el" href="dc/d5a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTextureToMatHelper.html#a6e99a85722345518662c7dd8c7270313">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a></li>
+<li>_requestedSource2MatHelperClassName&#160;:&#160;<a class="el" href="df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#ac4e4b53e8cffc43c233e96413939ec20">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a></li>
+<li>_requestedVideoFilePath&#160;:&#160;<a class="el" href="df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#aa14b5e5efd1a922892c65bd506fdb841">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>, <a class="el" href="d1/d25/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1UnityVideoPlayer2MatHelper.html#a52a1536b4acd991bc2879cba9362485f">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>, <a class="el" href="dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html#a812ff23e109df2e1c070ccc0e314ff4d">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, <a class="el" href="d3/d8d/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureToMatHelper.html#a7be041ae53477121d596462f2eaf8711">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a></li>
+<li>_requestedWidth&#160;:&#160;<a class="el" href="df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#a97bd47b96b913ee6190240640c8c171a">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>, <a class="el" href="d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#a4a6600dd968952d5a0ab81c90588136c">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>, <a class="el" href="d5/d0c/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatHelper.html#ab773590dd780127c00a0da5c93803996">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>, <a class="el" href="dc/d5a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTextureToMatHelper.html#af165fae6660236131086bc7944008b5f">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a></li>
+<li>_rotate90Degree&#160;:&#160;<a class="el" href="d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#ad491f66130547653e47178277b42d46d">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>, <a class="el" href="d5/d0c/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatHelper.html#aa4d2f7c322d98753dd3fcb6b994dd38a">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>, <a class="el" href="dc/d5a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTextureToMatHelper.html#a9c6462a0b47ae575943baf4eb6d765f9">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a></li>
+<li>_shouldStopThread&#160;:&#160;<a class="el" href="dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html#aad861b5856445dcfe063a720d5ef3532">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, <a class="el" href="d3/d8d/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureToMatHelper.html#aa2e8f45a89578c76967cc05272d77588">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a></li>
+<li>_source2MatHelper&#160;:&#160;<a class="el" href="df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#a81d0eeeb202bff6391c59a16a61799a6">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a></li>
+<li>_sourceTexture&#160;:&#160;<a class="el" href="d8/dba/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1AsyncGPUReadback2MatHelper.html#a35ecb9d9f46ac5a264b59f3f396ae575">OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper</a>, <a class="el" href="df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#ac582572a8b66a54943939eb81fe5e5b4">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a></li>
+<li>_timeoutFrameCount&#160;:&#160;<a class="el" href="d8/dba/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1AsyncGPUReadback2MatHelper.html#a33d4b0bd2cbb858dbad50e954b32a4cc">OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper</a>, <a class="el" href="d6/de0/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Image2MatHelper.html#a5214a42f5c85969adfaa9e98c22913c7">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>, <a class="el" href="df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#abca72e267419ce6ab2e0a6dd39ae1516">OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper</a>, <a class="el" href="d1/d25/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1UnityVideoPlayer2MatHelper.html#add4d05184a0e5ae18d5d7faa6eb9cbfd">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>, <a class="el" href="dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html#a1a56b1bd716c00d3e48751ccf495ccc7">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, <a class="el" href="d3/d8d/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureToMatHelper.html#ad5b5dcd00589b3fbae8b428242902c0b">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a>, <a class="el" href="d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#a66ba60e01b2d844c736d39e16a7b1643">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>, <a class="el" href="d5/d0c/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatHelper.html#a0517ecd911935348ed3de2397e13f625">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>, <a class="el" href="dc/d5a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTextureToMatHelper.html#a32dfd8180eb5d8dfecb92c9f8e4b4d7d">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a></li>
+<li>_videoCapture&#160;:&#160;<a class="el" href="dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html#a62d4a5d388d2fabca5c8e9a242dda52c">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, <a class="el" href="d3/d8d/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureToMatHelper.html#a801d8b4d2232c1db20cfceb65329799b">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

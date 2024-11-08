@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: OpenCVForUnity.UnityUtils.Helper.IVideoSource2MatHelper Interface Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,13 +126,13 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_unity_utils.html">UnityUtils</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_unity_utils_1_1_helper.html">Helper</a></li><li class="navelem"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_video_source2_mat_helper.html">IVideoSource2MatHelper</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#properties">Properties</a> &#124;
 <a href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_video_source2_mat_helper-members.html">List of all members</a>  </div>
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.UnityUtils.Helper.IVideoSource2MatHelper Interface Reference</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.UnityUtils.Helper.IVideoSource2MatHelper Interface Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="dynheader">
@@ -110,76 +142,76 @@ Inheritance diagram for OpenCVForUnity.UnityUtils.Helper.IVideoSource2MatHelper:
   <img src="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_video_source2_mat_helper.png" usemap="#OpenCVForUnity.UnityUtils.Helper.IVideoSource2MatHelper_map" alt=""/>
   <map id="OpenCVForUnity.UnityUtils.Helper.IVideoSource2MatHelper_map" name="OpenCVForUnity.UnityUtils.Helper.IVideoSource2MatHelper_map">
 <area href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html" alt="OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper" shape="rect" coords="192,0,566,24"/>
-<area href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html" title="UnityVideoPlayer 2 mat helper. v 1.0.0 " alt="OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper" shape="rect" coords="0,112,374,136"/>
-<area href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html" title="VideoCapture 2 mat helper. v 1.0.0 " alt="OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper" shape="rect" coords="384,112,758,136"/>
-</map>
- </div></div>
+<area href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html" title="UnityVideoPlayer 2 mat helper. v 1.0.2." alt="OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper" shape="rect" coords="0,112,374,136"/>
+<area href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html" title="VideoCapture 2 mat helper. v 1.0.1." alt="OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper" shape="rect" coords="384,112,758,136"/>
+  </map>
+</div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac88272436989a56c3e7ecc8d53ae66cc"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_video_source2_mat_helper.html#ac88272436989a56c3e7ecc8d53ae66cc">GetFPS</a> ()</td></tr>
+<tr class="memitem:ac88272436989a56c3e7ecc8d53ae66cc" id="r_ac88272436989a56c3e7ecc8d53ae66cc"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac88272436989a56c3e7ecc8d53ae66cc">GetFPS</a> ()</td></tr>
 <tr class="separator:ac88272436989a56c3e7ecc8d53ae66cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5a838d1a0aa8ac3cc4e10606d86ad00"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_video_source2_mat_helper.html#ab5a838d1a0aa8ac3cc4e10606d86ad00">GetFramePosRatio</a> ()</td></tr>
+<tr class="memitem:ab5a838d1a0aa8ac3cc4e10606d86ad00" id="r_ab5a838d1a0aa8ac3cc4e10606d86ad00"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5a838d1a0aa8ac3cc4e10606d86ad00">GetFramePosRatio</a> ()</td></tr>
 <tr class="separator:ab5a838d1a0aa8ac3cc4e10606d86ad00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb1d1ee75e15b91f2b14e7c2766ecf33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_video_source2_mat_helper.html#acb1d1ee75e15b91f2b14e7c2766ecf33">SetFramePosRatio</a> (float ratio)</td></tr>
+<tr class="memitem:acb1d1ee75e15b91f2b14e7c2766ecf33" id="r_acb1d1ee75e15b91f2b14e7c2766ecf33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb1d1ee75e15b91f2b14e7c2766ecf33">SetFramePosRatio</a> (float ratio)</td></tr>
 <tr class="separator:acb1d1ee75e15b91f2b14e7c2766ecf33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a455434cc08f8ca3138f8700b33bda1b4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_video_source2_mat_helper.html#a455434cc08f8ca3138f8700b33bda1b4">GetFrameIndex</a> ()</td></tr>
+<tr class="memitem:a455434cc08f8ca3138f8700b33bda1b4" id="r_a455434cc08f8ca3138f8700b33bda1b4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a455434cc08f8ca3138f8700b33bda1b4">GetFrameIndex</a> ()</td></tr>
 <tr class="separator:a455434cc08f8ca3138f8700b33bda1b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44dbc12351e4158da3ad09029a9b2da8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_video_source2_mat_helper.html#a44dbc12351e4158da3ad09029a9b2da8">SetFrameIndex</a> (int index)</td></tr>
+<tr class="memitem:a44dbc12351e4158da3ad09029a9b2da8" id="r_a44dbc12351e4158da3ad09029a9b2da8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a44dbc12351e4158da3ad09029a9b2da8">SetFrameIndex</a> (int index)</td></tr>
 <tr class="separator:a44dbc12351e4158da3ad09029a9b2da8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cc4f07c60a8b7e23ea57c4b6be3be2a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_video_source2_mat_helper.html#a1cc4f07c60a8b7e23ea57c4b6be3be2a">GetFrameCount</a> ()</td></tr>
+<tr class="memitem:a1cc4f07c60a8b7e23ea57c4b6be3be2a" id="r_a1cc4f07c60a8b7e23ea57c4b6be3be2a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1cc4f07c60a8b7e23ea57c4b6be3be2a">GetFrameCount</a> ()</td></tr>
 <tr class="separator:a1cc4f07c60a8b7e23ea57c4b6be3be2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a></td></tr>
-<tr class="memitem:a0e7b4f9a57bf4f709fb1031011cebb11 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a0e7b4f9a57bf4f709fb1031011cebb11">Initialize</a> (bool autoPlay)</td></tr>
+<tr class="inherit_header pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a></td></tr>
+<tr class="memitem:a0e7b4f9a57bf4f709fb1031011cebb11 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper" id="r_a0e7b4f9a57bf4f709fb1031011cebb11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a0e7b4f9a57bf4f709fb1031011cebb11">Initialize</a> (bool autoPlay)</td></tr>
 <tr class="separator:a0e7b4f9a57bf4f709fb1031011cebb11 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a017aca75cbd528dfcf190074cf3ad4ef inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a017aca75cbd528dfcf190074cf3ad4ef">IsInitialized</a> ()</td></tr>
+<tr class="memitem:a017aca75cbd528dfcf190074cf3ad4ef inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper" id="r_a017aca75cbd528dfcf190074cf3ad4ef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a017aca75cbd528dfcf190074cf3ad4ef">IsInitialized</a> ()</td></tr>
 <tr class="separator:a017aca75cbd528dfcf190074cf3ad4ef inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:accd6ab4ffcc3924208e3bb429f5c2695 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#accd6ab4ffcc3924208e3bb429f5c2695">Play</a> ()</td></tr>
+<tr class="memitem:accd6ab4ffcc3924208e3bb429f5c2695 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper" id="r_accd6ab4ffcc3924208e3bb429f5c2695"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#accd6ab4ffcc3924208e3bb429f5c2695">Play</a> ()</td></tr>
 <tr class="separator:accd6ab4ffcc3924208e3bb429f5c2695 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10dd0b5d69329f6e2e973b3fc234ae50 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a10dd0b5d69329f6e2e973b3fc234ae50">Pause</a> ()</td></tr>
+<tr class="memitem:a10dd0b5d69329f6e2e973b3fc234ae50 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper" id="r_a10dd0b5d69329f6e2e973b3fc234ae50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a10dd0b5d69329f6e2e973b3fc234ae50">Pause</a> ()</td></tr>
 <tr class="separator:a10dd0b5d69329f6e2e973b3fc234ae50 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99a370562e8bebcec4b38074457909f9 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a99a370562e8bebcec4b38074457909f9">Stop</a> ()</td></tr>
+<tr class="memitem:a99a370562e8bebcec4b38074457909f9 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper" id="r_a99a370562e8bebcec4b38074457909f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a99a370562e8bebcec4b38074457909f9">Stop</a> ()</td></tr>
 <tr class="separator:a99a370562e8bebcec4b38074457909f9 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13efafa9d9c0e24348a7c01a08c7c245 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a13efafa9d9c0e24348a7c01a08c7c245">IsPlaying</a> ()</td></tr>
+<tr class="memitem:a13efafa9d9c0e24348a7c01a08c7c245 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper" id="r_a13efafa9d9c0e24348a7c01a08c7c245"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a13efafa9d9c0e24348a7c01a08c7c245">IsPlaying</a> ()</td></tr>
 <tr class="separator:a13efafa9d9c0e24348a7c01a08c7c245 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afff45f1521eee3061ddd09e0a5ece4cb inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#afff45f1521eee3061ddd09e0a5ece4cb">IsPaused</a> ()</td></tr>
+<tr class="memitem:afff45f1521eee3061ddd09e0a5ece4cb inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper" id="r_afff45f1521eee3061ddd09e0a5ece4cb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#afff45f1521eee3061ddd09e0a5ece4cb">IsPaused</a> ()</td></tr>
 <tr class="separator:afff45f1521eee3061ddd09e0a5ece4cb inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6c1be1d2a6453c09c9e827e34df84b0 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#ad6c1be1d2a6453c09c9e827e34df84b0">GetDeviceName</a> ()</td></tr>
+<tr class="memitem:ad6c1be1d2a6453c09c9e827e34df84b0 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper" id="r_ad6c1be1d2a6453c09c9e827e34df84b0"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#ad6c1be1d2a6453c09c9e827e34df84b0">GetDeviceName</a> ()</td></tr>
 <tr class="separator:ad6c1be1d2a6453c09c9e827e34df84b0 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d048e7b6bb06870ba9a92db8df5fac1 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a0d048e7b6bb06870ba9a92db8df5fac1">GetWidth</a> ()</td></tr>
+<tr class="memitem:a0d048e7b6bb06870ba9a92db8df5fac1 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper" id="r_a0d048e7b6bb06870ba9a92db8df5fac1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a0d048e7b6bb06870ba9a92db8df5fac1">GetWidth</a> ()</td></tr>
 <tr class="separator:a0d048e7b6bb06870ba9a92db8df5fac1 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a13e2df835a9b70f8f0c6dc355f1ff8 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a3a13e2df835a9b70f8f0c6dc355f1ff8">GetHeight</a> ()</td></tr>
+<tr class="memitem:a3a13e2df835a9b70f8f0c6dc355f1ff8 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper" id="r_a3a13e2df835a9b70f8f0c6dc355f1ff8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a3a13e2df835a9b70f8f0c6dc355f1ff8">GetHeight</a> ()</td></tr>
 <tr class="separator:a3a13e2df835a9b70f8f0c6dc355f1ff8 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29ff7d2423a5be3a643e7740a4d8d1a8 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_open_c_v_for_unity_1_1_unity_utils_1_1_helper.html#aa72968e344f92c2e8bcd432bdce5940c">Source2MatHelperColorFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a29ff7d2423a5be3a643e7740a4d8d1a8">GetBaseColorFormat</a> ()</td></tr>
+<tr class="memitem:a29ff7d2423a5be3a643e7740a4d8d1a8 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper" id="r_a29ff7d2423a5be3a643e7740a4d8d1a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_open_c_v_for_unity_1_1_unity_utils_1_1_helper.html#aa72968e344f92c2e8bcd432bdce5940c">Source2MatHelperColorFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a29ff7d2423a5be3a643e7740a4d8d1a8">GetBaseColorFormat</a> ()</td></tr>
 <tr class="separator:a29ff7d2423a5be3a643e7740a4d8d1a8 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87b0ea4573aa1a5cbb12735a93edaa4c inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a87b0ea4573aa1a5cbb12735a93edaa4c">DidUpdateThisFrame</a> ()</td></tr>
+<tr class="memitem:a87b0ea4573aa1a5cbb12735a93edaa4c inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper" id="r_a87b0ea4573aa1a5cbb12735a93edaa4c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a87b0ea4573aa1a5cbb12735a93edaa4c">DidUpdateThisFrame</a> ()</td></tr>
 <tr class="separator:a87b0ea4573aa1a5cbb12735a93edaa4c inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a6323e110b85750ed4310ccacb461e3 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a6a6323e110b85750ed4310ccacb461e3">GetMat</a> ()</td></tr>
+<tr class="memitem:a6a6323e110b85750ed4310ccacb461e3 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper" id="r_a6a6323e110b85750ed4310ccacb461e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a6a6323e110b85750ed4310ccacb461e3">GetMat</a> ()</td></tr>
 <tr class="separator:a6a6323e110b85750ed4310ccacb461e3 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a553d3bd39667841c154ceacd8cdedca7 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a553d3bd39667841c154ceacd8cdedca7">Dispose</a> ()</td></tr>
+<tr class="memitem:a553d3bd39667841c154ceacd8cdedca7 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper" id="r_a553d3bd39667841c154ceacd8cdedca7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a553d3bd39667841c154ceacd8cdedca7">Dispose</a> ()</td></tr>
 <tr class="separator:a553d3bd39667841c154ceacd8cdedca7 inherit pub_methods_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a31c0cda30570cea6b906a3f9e7adc95b"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_video_source2_mat_helper.html#a31c0cda30570cea6b906a3f9e7adc95b">requestedVideoFilePath</a><code> [get, set]</code></td></tr>
+<tr class="memitem:a31c0cda30570cea6b906a3f9e7adc95b" id="r_a31c0cda30570cea6b906a3f9e7adc95b"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a31c0cda30570cea6b906a3f9e7adc95b">requestedVideoFilePath</a><code> [get, set]</code></td></tr>
 <tr class="separator:a31c0cda30570cea6b906a3f9e7adc95b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf73a37789a80679ab2e8f004110836b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_video_source2_mat_helper.html#acf73a37789a80679ab2e8f004110836b">loop</a><code> [get, set]</code></td></tr>
+<tr class="memitem:acf73a37789a80679ab2e8f004110836b" id="r_acf73a37789a80679ab2e8f004110836b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acf73a37789a80679ab2e8f004110836b">loop</a><code> [get, set]</code></td></tr>
 <tr class="separator:acf73a37789a80679ab2e8f004110836b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header properties_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td colspan="2" onclick="javascript:toggleInherit('properties_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a></td></tr>
-<tr class="memitem:a937e72be9fbbc2321fd12c3acee6fce1 inherit properties_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_open_c_v_for_unity_1_1_unity_utils_1_1_helper.html#aa72968e344f92c2e8bcd432bdce5940c">Source2MatHelperColorFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a937e72be9fbbc2321fd12c3acee6fce1">outputColorFormat</a><code> [get, set]</code></td></tr>
+<tr class="inherit_header properties_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a></td></tr>
+<tr class="memitem:a937e72be9fbbc2321fd12c3acee6fce1 inherit properties_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper" id="r_a937e72be9fbbc2321fd12c3acee6fce1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_open_c_v_for_unity_1_1_unity_utils_1_1_helper.html#aa72968e344f92c2e8bcd432bdce5940c">Source2MatHelperColorFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a937e72be9fbbc2321fd12c3acee6fce1">outputColorFormat</a><code> [get, set]</code></td></tr>
 <tr class="separator:a937e72be9fbbc2321fd12c3acee6fce1 inherit properties_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af01316741278d08fd91c95d4986f44e2 inherit properties_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#af01316741278d08fd91c95d4986f44e2">timeoutFrameCount</a><code> [get, set]</code></td></tr>
+<tr class="memitem:af01316741278d08fd91c95d4986f44e2 inherit properties_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper" id="r_af01316741278d08fd91c95d4986f44e2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#af01316741278d08fd91c95d4986f44e2">timeoutFrameCount</a><code> [get, set]</code></td></tr>
 <tr class="separator:af01316741278d08fd91c95d4986f44e2 inherit properties_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb95da6332d82565f33eaeacbcf81599 inherit properties_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#afb95da6332d82565f33eaeacbcf81599">onInitialized</a><code> [get, set]</code></td></tr>
+<tr class="memitem:afb95da6332d82565f33eaeacbcf81599 inherit properties_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper" id="r_afb95da6332d82565f33eaeacbcf81599"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#afb95da6332d82565f33eaeacbcf81599">onInitialized</a><code> [get, set]</code></td></tr>
 <tr class="separator:afb95da6332d82565f33eaeacbcf81599 inherit properties_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe5053d7fd5479671cb5e1f5b0baeb0a inherit properties_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#afe5053d7fd5479671cb5e1f5b0baeb0a">onDisposed</a><code> [get, set]</code></td></tr>
+<tr class="memitem:afe5053d7fd5479671cb5e1f5b0baeb0a inherit properties_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper" id="r_afe5053d7fd5479671cb5e1f5b0baeb0a"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#afe5053d7fd5479671cb5e1f5b0baeb0a">onDisposed</a><code> [get, set]</code></td></tr>
 <tr class="separator:afe5053d7fd5479671cb5e1f5b0baeb0a inherit properties_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19b37a72d191eba31c9e3ccc74fe7be2 inherit properties_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_source2_mat_helper_error_unity_event.html">Source2MatHelperErrorUnityEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a19b37a72d191eba31c9e3ccc74fe7be2">onErrorOccurred</a><code> [get, set]</code></td></tr>
+<tr class="memitem:a19b37a72d191eba31c9e3ccc74fe7be2 inherit properties_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper" id="r_a19b37a72d191eba31c9e3ccc74fe7be2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_source2_mat_helper_error_unity_event.html">Source2MatHelperErrorUnityEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html#a19b37a72d191eba31c9e3ccc74fe7be2">onErrorOccurred</a><code> [get, set]</code></td></tr>
 <tr class="separator:a19b37a72d191eba31c9e3ccc74fe7be2 inherit properties_interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac88272436989a56c3e7ecc8d53ae66cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac88272436989a56c3e7ecc8d53ae66cc">&#9670;&nbsp;</a></span>GetFPS()</h2>
+<a id="ac88272436989a56c3e7ecc8d53ae66cc" name="ac88272436989a56c3e7ecc8d53ae66cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac88272436989a56c3e7ecc8d53ae66cc">&#9670;&#160;</a></span>GetFPS()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -187,18 +219,18 @@ Properties</h2></td></tr>
         <tr>
           <td class="memname">float OpenCVForUnity.UnityUtils.Helper.IVideoSource2MatHelper.GetFPS </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#a77207e168e0fb8b8e5fe6aa7e2b49020">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a3a71bc27a3ad287951f76012af67aa89">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>.</p>
+<p>Implemented in <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a3a71bc27a3ad287951f76012af67aa89">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#a77207e168e0fb8b8e5fe6aa7e2b49020">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>.</p>
 
 </div>
 </div>
-<a id="a1cc4f07c60a8b7e23ea57c4b6be3be2a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1cc4f07c60a8b7e23ea57c4b6be3be2a">&#9670;&nbsp;</a></span>GetFrameCount()</h2>
+<a id="a1cc4f07c60a8b7e23ea57c4b6be3be2a" name="a1cc4f07c60a8b7e23ea57c4b6be3be2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cc4f07c60a8b7e23ea57c4b6be3be2a">&#9670;&#160;</a></span>GetFrameCount()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -206,18 +238,18 @@ Properties</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.UnityUtils.Helper.IVideoSource2MatHelper.GetFrameCount </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#a950659687a75a441a83078f99712012b">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a7d6aa598cfb2de563959f5f15a4af785">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>.</p>
+<p>Implemented in <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a7d6aa598cfb2de563959f5f15a4af785">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#a950659687a75a441a83078f99712012b">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>.</p>
 
 </div>
 </div>
-<a id="a455434cc08f8ca3138f8700b33bda1b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a455434cc08f8ca3138f8700b33bda1b4">&#9670;&nbsp;</a></span>GetFrameIndex()</h2>
+<a id="a455434cc08f8ca3138f8700b33bda1b4" name="a455434cc08f8ca3138f8700b33bda1b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a455434cc08f8ca3138f8700b33bda1b4">&#9670;&#160;</a></span>GetFrameIndex()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,18 +257,18 @@ Properties</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.UnityUtils.Helper.IVideoSource2MatHelper.GetFrameIndex </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#a67d114380e3b71772db22e2d08131ed4">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#aa0dae7a22ce771929cee390333bca192">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>.</p>
+<p>Implemented in <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#aa0dae7a22ce771929cee390333bca192">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#a67d114380e3b71772db22e2d08131ed4">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>.</p>
 
 </div>
 </div>
-<a id="ab5a838d1a0aa8ac3cc4e10606d86ad00"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5a838d1a0aa8ac3cc4e10606d86ad00">&#9670;&nbsp;</a></span>GetFramePosRatio()</h2>
+<a id="ab5a838d1a0aa8ac3cc4e10606d86ad00" name="ab5a838d1a0aa8ac3cc4e10606d86ad00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5a838d1a0aa8ac3cc4e10606d86ad00">&#9670;&#160;</a></span>GetFramePosRatio()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -244,18 +276,18 @@ Properties</h2></td></tr>
         <tr>
           <td class="memname">float OpenCVForUnity.UnityUtils.Helper.IVideoSource2MatHelper.GetFramePosRatio </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#a61775c0e01c309f33af8f0ae91b9343a">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#abbe2c197103b66f4358376315a978698">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>.</p>
+<p>Implemented in <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#abbe2c197103b66f4358376315a978698">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#a61775c0e01c309f33af8f0ae91b9343a">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>.</p>
 
 </div>
 </div>
-<a id="a44dbc12351e4158da3ad09029a9b2da8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44dbc12351e4158da3ad09029a9b2da8">&#9670;&nbsp;</a></span>SetFrameIndex()</h2>
+<a id="a44dbc12351e4158da3ad09029a9b2da8" name="a44dbc12351e4158da3ad09029a9b2da8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44dbc12351e4158da3ad09029a9b2da8">&#9670;&#160;</a></span>SetFrameIndex()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -263,19 +295,18 @@ Properties</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.UnityUtils.Helper.IVideoSource2MatHelper.SetFrameIndex </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#aa01cab742a48211685bcf886e4edab96">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#abad15715c931e981e41df09c75d86abf">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>.</p>
+<p>Implemented in <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#abad15715c931e981e41df09c75d86abf">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#aa01cab742a48211685bcf886e4edab96">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>.</p>
 
 </div>
 </div>
-<a id="acb1d1ee75e15b91f2b14e7c2766ecf33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb1d1ee75e15b91f2b14e7c2766ecf33">&#9670;&nbsp;</a></span>SetFramePosRatio()</h2>
+<a id="acb1d1ee75e15b91f2b14e7c2766ecf33" name="acb1d1ee75e15b91f2b14e7c2766ecf33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb1d1ee75e15b91f2b14e7c2766ecf33">&#9670;&#160;</a></span>SetFramePosRatio()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -283,20 +314,19 @@ Properties</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.UnityUtils.Helper.IVideoSource2MatHelper.SetFramePosRatio </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>ratio</em></td><td>)</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>ratio</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#adbaaff20f8b70b6cd654c3c25ab3cb67">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a9b9688212e0c225a81894f085296745e">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>.</p>
+<p>Implemented in <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a9b9688212e0c225a81894f085296745e">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#adbaaff20f8b70b6cd654c3c25ab3cb67">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
-<a id="acf73a37789a80679ab2e8f004110836b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf73a37789a80679ab2e8f004110836b">&#9670;&nbsp;</a></span>loop</h2>
+<a id="acf73a37789a80679ab2e8f004110836b" name="acf73a37789a80679ab2e8f004110836b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf73a37789a80679ab2e8f004110836b">&#9670;&#160;</a></span>loop</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -315,10 +345,12 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Implemented in <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a5d48a3c853144769d1232d658a14ee13">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#afc6a376c277becd3947b38c6ca706466">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>.</p>
+
 </div>
 </div>
-<a id="a31c0cda30570cea6b906a3f9e7adc95b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31c0cda30570cea6b906a3f9e7adc95b">&#9670;&nbsp;</a></span>requestedVideoFilePath</h2>
+<a id="a31c0cda30570cea6b906a3f9e7adc95b" name="a31c0cda30570cea6b906a3f9e7adc95b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31c0cda30570cea6b906a3f9e7adc95b">&#9670;&#160;</a></span>requestedVideoFilePath</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -337,17 +369,18 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Implemented in <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a4d2864c9dda14ef858fe56a5f8191b88">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>, and <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#ab1e4e34d7c03c4fa4bee61b19e5fe91b">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this interface was generated from the following file:<ul>
-<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/helper/Source2MatHelper/<a class="el" href="_i_video_source2_mat_helper_8cs.html">IVideoSource2MatHelper.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/Helper/Source2MatHelper/<a class="el" href="_i_video_source2_mat_helper_8cs.html">IVideoSource2MatHelper.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

@@ -1,15 +1,21 @@
 var searchData=
 [
-  ['icamerasource2mathelper',['ICameraSource2MatHelper',['../interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_camera_source2_mat_helper.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
-  ['iimagesource2mathelper',['IImageSource2MatHelper',['../interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_image_source2_mat_helper.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
-  ['image2blobparams',['Image2BlobParams',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html',1,'OpenCVForUnity::DnnModule']]],
-  ['image2mathelper',['Image2MatHelper',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
-  ['imageoptimizationhelper',['ImageOptimizationHelper',['../class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
-  ['img_5fhash',['Img_hash',['../class_open_c_v_for_unity_1_1_img__hash_module_1_1_img__hash.html',1,'OpenCVForUnity::Img_hashModule']]],
-  ['imgcodecs',['Imgcodecs',['../class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html',1,'OpenCVForUnity::ImgcodecsModule']]],
-  ['imghashbase',['ImgHashBase',['../class_open_c_v_for_unity_1_1_img__hash_module_1_1_img_hash_base.html',1,'OpenCVForUnity::Img_hashModule']]],
-  ['imgproc',['Imgproc',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html',1,'OpenCVForUnity::ImgprocModule']]],
-  ['intelligentscissorsmb',['IntelligentScissorsMB',['../class_open_c_v_for_unity_1_1_imgproc_module_1_1_intelligent_scissors_m_b.html',1,'OpenCVForUnity::ImgprocModule']]],
-  ['isource2mathelper',['ISource2MatHelper',['../interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_source2_mat_helper.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
-  ['ivideosource2mathelper',['IVideoSource2MatHelper',['../interface_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_i_video_source2_mat_helper.html',1,'OpenCVForUnity::UnityUtils::Helper']]]
+  ['icamerasource2mathelper_0',['ICameraSource2MatHelper',['../d1/df3/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ICameraSource2MatHelper.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
+  ['icomparable_1',['IComparable',['../d9/d6f/classIComparable.html',1,'']]],
+  ['idisposable_2',['IDisposable',['../d0/d07/classIDisposable.html',1,'']]],
+  ['iequatable_3',['IEquatable',['../d9/d1c/classIEquatable.html',1,'']]],
+  ['iimagesource2mathelper_4',['IImageSource2MatHelper',['../d6/d88/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IImageSource2MatHelper.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
+  ['image2blobparams_5',['Image2BlobParams',['../d8/d4b/classOpenCVForUnity_1_1DnnModule_1_1Image2BlobParams.html',1,'OpenCVForUnity::DnnModule']]],
+  ['image2mathelper_6',['Image2MatHelper',['../d6/de0/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Image2MatHelper.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
+  ['imageoptimizationhelper_7',['ImageOptimizationHelper',['../df/dc9/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ImageOptimizationHelper.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
+  ['img_5fhash_8',['Img_hash',['../d7/d6d/classOpenCVForUnity_1_1Img__hashModule_1_1Img__hash.html',1,'OpenCVForUnity::Img_hashModule']]],
+  ['imgcodecs_9',['Imgcodecs',['../d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html',1,'OpenCVForUnity::ImgcodecsModule']]],
+  ['imghashbase_10',['ImgHashBase',['../df/dfc/classOpenCVForUnity_1_1Img__hashModule_1_1ImgHashBase.html',1,'OpenCVForUnity::Img_hashModule']]],
+  ['imgproc_11',['Imgproc',['../df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html',1,'OpenCVForUnity::ImgprocModule']]],
+  ['intelligentscissorsmb_12',['IntelligentScissorsMB',['../da/dda/classOpenCVForUnity_1_1ImgprocModule_1_1IntelligentScissorsMB.html',1,'OpenCVForUnity::ImgprocModule']]],
+  ['isource2mathelper_13',['ISource2MatHelper',['../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
+  ['istructuralcomparable_14',['IStructuralComparable',['../d2/d91/classIStructuralComparable.html',1,'']]],
+  ['istructuralequatable_15',['IStructuralEquatable',['../da/d55/classIStructuralEquatable.html',1,'']]],
+  ['itexturesource2mathelper_16',['ITextureSource2MatHelper',['../d0/de2/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ITextureSource2MatHelper.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
+  ['ivideosource2mathelper_17',['IVideoSource2MatHelper',['../d1/d89/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IVideoSource2MatHelper.html',1,'OpenCVForUnity::UnityUtils::Helper']]]
 ];

@@ -1,0 +1,5 @@
+var searchData=
+[
+  ['z_0',['z',['../da/d46/classOpenCVForUnity_1_1CoreModule_1_1Point3.html#a43b195b6c7dcd657679569641c6d7748',1,'OpenCVForUnity::CoreModule::Point3']]],
+  ['zeros_1',['zeros',['../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html#a415b6818d16ea2a7a1dcd571e04e14ab',1,'OpenCVForUnity.CoreModule.Mat.zeros(int rows, int cols, int type)'],['../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html#a13c168ba93b5458263423bba80d7e12b',1,'OpenCVForUnity.CoreModule.Mat.zeros(Size size, int type)'],['../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html#a834aad696a6dff0391b449dba8d233b1',1,'OpenCVForUnity.CoreModule.Mat.zeros(int[] sizes, int type)'],['../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html#a4380ecf416bf0e066926a359a5ca08ef',1,'OpenCVForUnity.CoreModule.Mat.zeros(in Vec2d size, int type)'],['../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html#ac550f7252eadad76b2d5945b85b37d99',1,'OpenCVForUnity.CoreModule.Mat.zeros(in(double width, double height) size, int type)']]]
+];

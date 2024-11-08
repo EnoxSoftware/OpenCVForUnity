@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,55 +126,93 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_dnn_module.html">DnnModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">Image2BlobParams</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.DnnModule.Image2BlobParams Member List</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.DnnModule.Image2BlobParams Member List</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>This is the complete list of members for <a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a>, including all inherited members.</p>
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#ae73d95ed674b3c185dc1c1d7c6700659">__fromPtr__</a>(IntPtr addr)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a4f54086ec5c77c6873a0933a17ac6cd8">blobRectsToImageRects</a>(MatOfRect rBlob, MatOfRect rImg, Size size)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a4f54086ec5c77c6873a0933a17ac6cd8">blobRectsToImageRects</a>(MatOfRect rBlob, MatOfRect rImg, Size size)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a5e040fc554ad2596552635bfcffa509b">blobRectsToImageRects</a>(MatOfRect rBlob, MatOfRect rImg, in Vec2d size)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#afabe62c003cd06c5319c0b5223bdfc22">blobRectsToImageRects</a>(MatOfRect rBlob, MatOfRect rImg, in(double width, double height) size)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#adaf4e15d8de2ea44617db15aeb2751d8">blobRectToImageRect</a>(Rect rBlob, Size size)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a41c17fbc26faa9577341dee36a69662c">blobRectToImageRectAsValueTuple</a>(in(int x, int y, int width, int height) rBlob, in(double width, double height) size)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#abeeecbb98f7e86162ab99906583859c7">blobRectToImageRectAsVec4i</a>(in Vec4i rBlob, in Vec2d size)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a>(bool isEnabledDispose)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a>(IntPtr ptr)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a>(bool isEnabledDispose)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a>(bool isEnabledDispose)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a>(IntPtr ptr, bool isEnabledDispose)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#ab5a048911b262919f28a2cbbf70acaa2">Dispose</a>(bool disposing)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#ab5a048911b262919f28a2cbbf70acaa2">Dispose</a>(bool disposing)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">OpenCVForUnity::DisposableObject.Dispose</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a6830d625bee00b2f26c682d70fe71d41">get_borderValue</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a6830d625bee00b2f26c682d70fe71d41">get_borderValue</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#afefaf88c2e22da6923e4d4fdab8b3841">get_borderValueAsValueTuple</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a5c0d14b4cff210230b61192515663001">get_borderValueAsVec4d</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a9960620079c30f4fa10c8d0a44bf2560">get_ddepth</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a658caeb0cb8c683f577fc0eebe4029fe">get_mean</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a658caeb0cb8c683f577fc0eebe4029fe">get_mean</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a27b1d958bf89c768acb5d31feb7ac0ea">get_meanAsValueTuple</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#aeaad0851a764b753bd8c44aad7215a8b">get_meanAsVec4d</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#aedacf6ca44094526b0024e0e5df13a85">get_scalefactor</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#acf28697d75be158be1122f27ac5c4a59">get_size</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#ab51c093f613422879dcfce04cab25fdf">get_scalefactorAsValueTuple</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a06313ac99e669be146218660ced2e196">get_scalefactorAsVec4d</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#acf28697d75be158be1122f27ac5c4a59">get_size</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a7bc78f62dc94196bb698f906747ae971">get_sizeAsValueTuple</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a39822d41fb7687d95103e0c08597feee">get_sizeAsVec2d</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a2a809af41e4566dd049b580eb35382aa">get_swapRB</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#ab6b9d167c51b90c9bf89e4a242502314">getNativeObjAddr</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#ab6b9d167c51b90c9bf89e4a242502314">getNativeObjAddr</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#afd2fb6b94c3adad2ac893ece046ee577">Image2BlobParams</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#ad17b81cfc9622ba0e4d894e75f1a73f6">Image2BlobParams</a>(Scalar scalefactor, Size size, Scalar mean, bool swapRB, int ddepth, Scalar borderValue)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#ad17b81cfc9622ba0e4d894e75f1a73f6">Image2BlobParams</a>(Scalar scalefactor, Size size, Scalar mean, bool swapRB, int ddepth, Scalar borderValue)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a29c1bf959f586125c3bdca97ea38bde5">Image2BlobParams</a>(Scalar scalefactor, Size size, Scalar mean, bool swapRB, int ddepth)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#ab4b67afdb0985e30a79356f30d9aa011">Image2BlobParams</a>(Scalar scalefactor, Size size, Scalar mean, bool swapRB)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#ab4b67afdb0985e30a79356f30d9aa011">Image2BlobParams</a>(Scalar scalefactor, Size size, Scalar mean, bool swapRB)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a1164f851eea6a9d75a2387c4f390d67d">Image2BlobParams</a>(Scalar scalefactor, Size size, Scalar mean)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a177e0fa0968b5c578d59f0e79a48dbf2">Image2BlobParams</a>(Scalar scalefactor, Size size)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a177e0fa0968b5c578d59f0e79a48dbf2">Image2BlobParams</a>(Scalar scalefactor, Size size)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a4aadde704cb435f9887fc3168cf20143">Image2BlobParams</a>(Scalar scalefactor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a909dc6f87af6acfac48b1b3584cbad5e">Image2BlobParams</a>(in Vec4d scalefactor, in Vec2d size, in Vec4d mean, bool swapRB, int ddepth, in Vec4d borderValue)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a328c00a2b096fb550848026ac0f36465">Image2BlobParams</a>(in Vec4d scalefactor, in Vec2d size, in Vec4d mean, bool swapRB, int ddepth)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a826e54749587192ccc42f06b4708c24d">Image2BlobParams</a>(in Vec4d scalefactor, in Vec2d size, in Vec4d mean, bool swapRB)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#ab0e4b208b665926e2c6dbd41e535bd40">Image2BlobParams</a>(in Vec4d scalefactor, in Vec2d size, in Vec4d mean)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a48d73e87f89e04c1e6a4e78b1b77439d">Image2BlobParams</a>(in Vec4d scalefactor, in Vec2d size)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a8999ce93248b74d5fcd3d6ef5cedce7a">Image2BlobParams</a>(in Vec4d scalefactor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a202bc7599984a5e2a05a822372d7cf25">Image2BlobParams</a>(in(double v0, double v1, double v2, double v3) scalefactor, in(double width, double height) size, in(double v0, double v1, double v2, double v3) mean, bool swapRB, int ddepth, in(double v0, double v1, double v2, double v3) borderValue)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a79e3ecb586aeca62fb79b8413b34afe3">Image2BlobParams</a>(in(double v0, double v1, double v2, double v3) scalefactor, in(double width, double height) size, in(double v0, double v1, double v2, double v3) mean, bool swapRB, int ddepth)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a5166e93ac9ae13b9e8b6aefa86857a34">Image2BlobParams</a>(in(double v0, double v1, double v2, double v3) scalefactor, in(double width, double height) size, in(double v0, double v1, double v2, double v3) mean, bool swapRB)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a1e8a47b52181d10c2bec4dac0a65caa4">Image2BlobParams</a>(in(double v0, double v1, double v2, double v3) scalefactor, in(double width, double height) size, in(double v0, double v1, double v2, double v3) mean)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#ab465a060d1059189c7cbc261aa852812">Image2BlobParams</a>(in(double v0, double v1, double v2, double v3) scalefactor, in(double width, double height) size)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a4df359a01481605193f7d1f51a87304e">Image2BlobParams</a>(in(double v0, double v1, double v2, double v3) scalefactor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#ad6551e0d6025db93eb0f66a8c75b9607">set_borderValue</a>(Scalar borderValue)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#ad6551e0d6025db93eb0f66a8c75b9607">set_borderValue</a>(Scalar borderValue)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a7515c6d4f0f166a0714712734bd5956c">set_borderValue</a>(in Vec4d borderValue)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a67482de8ff9b48a2657693df99dd46f0">set_borderValue</a>(in(double v0, double v1, double v2, double v3) borderValue)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a5e70663638d047f4e10cacd0a5008128">set_ddepth</a>(int ddepth)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a659b04446f7b5c29ee3d01f0c492ef94">set_mean</a>(Scalar mean)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a659b04446f7b5c29ee3d01f0c492ef94">set_mean</a>(Scalar mean)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a16c82b8a7f9a22654826c520b8982135">set_mean</a>(in Vec4d mean)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a8a07d3de80db84249934511402226458">set_mean</a>(in(double v0, double v1, double v2, double v3) mean)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a9f4321ed6b3c003dc6a7f26c71355b9d">set_scalefactor</a>(Scalar scalefactor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#af44d3c42ade35b884e0fbea043a014ca">set_size</a>(Size size)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a05c92c5ce89ed1900a80bcca20f25434">set_scalefactor</a>(in Vec4d scalefactor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#ab96b619b641effd60b90e7fdf04bef44">set_scalefactor</a>(in(double v0, double v1, double v2, double v3) scalefactor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#af44d3c42ade35b884e0fbea043a014ca">set_size</a>(Size size)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a65da3044a7287c755949f7a07de0adfc">set_size</a>(in Vec2d size)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#ad84adcb01fc51543d93a4c71f39654cc">set_size</a>(in(double width, double height) size)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a6f933dc09a958e231e73adfb04e63f73">set_swapRB</a>(bool swapRB)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a>(IntPtr ptr)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#aae05408e7919909c2cd1e9c3587e3fb1">v0</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a4e2866eea1fcbf92805c7765b45797e9">v1</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a912b93a9af1873bf82ff0d6f95f4c1b8">v2</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a7bd270e78d363512688b2f358ca3471c">width</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a4bbc4edc7a1f87d9f4598af52caf3af2">width</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#ada7302d82be5db87074d14382064142a">x</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html#a33138e61c506977b38698cca7ccc5d08">y</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_dnn_module_1_1_image2_blob_params.html">OpenCVForUnity.DnnModule.Image2BlobParams</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

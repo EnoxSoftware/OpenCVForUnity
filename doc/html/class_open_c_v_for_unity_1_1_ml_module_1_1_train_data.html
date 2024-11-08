@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: OpenCVForUnity.MlModule.TrainData Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,19 +126,19 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_ml_module.html">MlModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data-members.html">List of all members</a>  </div>
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.MlModule.TrainData Class Reference</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.MlModule.TrainData Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>Class encapsulating training data.  
- <a href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#details">More...</a></p>
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for OpenCVForUnity.MlModule.TrainData:</div>
 <div class="dyncontent">
@@ -115,177 +147,178 @@ Inheritance diagram for OpenCVForUnity.MlModule.TrainData:</div>
   <map id="OpenCVForUnity.MlModule.TrainData_map" name="OpenCVForUnity.MlModule.TrainData_map">
 <area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="0,112,261,136"/>
 <area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="0,56,261,80"/>
-</map>
- </div></div>
+  </map>
+</div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aee961f9bf117e375d90f673563c0347e"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#aee961f9bf117e375d90f673563c0347e">getNativeObjAddr</a> ()</td></tr>
+<tr class="memitem:aee961f9bf117e375d90f673563c0347e" id="r_aee961f9bf117e375d90f673563c0347e"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee961f9bf117e375d90f673563c0347e">getNativeObjAddr</a> ()</td></tr>
 <tr class="separator:aee961f9bf117e375d90f673563c0347e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8cf971c84d41f280d00f674a80ecb73a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a8cf971c84d41f280d00f674a80ecb73a">getLayout</a> ()</td></tr>
+<tr class="memitem:a8cf971c84d41f280d00f674a80ecb73a" id="r_a8cf971c84d41f280d00f674a80ecb73a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8cf971c84d41f280d00f674a80ecb73a">getLayout</a> ()</td></tr>
 <tr class="separator:a8cf971c84d41f280d00f674a80ecb73a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c81e196b585d3969e1c1620e2d50a74"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a1c81e196b585d3969e1c1620e2d50a74">getNTrainSamples</a> ()</td></tr>
+<tr class="memitem:a1c81e196b585d3969e1c1620e2d50a74" id="r_a1c81e196b585d3969e1c1620e2d50a74"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1c81e196b585d3969e1c1620e2d50a74">getNTrainSamples</a> ()</td></tr>
 <tr class="separator:a1c81e196b585d3969e1c1620e2d50a74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adddab4b13e39472fbdc1251e36c02e03"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#adddab4b13e39472fbdc1251e36c02e03">getNTestSamples</a> ()</td></tr>
+<tr class="memitem:adddab4b13e39472fbdc1251e36c02e03" id="r_adddab4b13e39472fbdc1251e36c02e03"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adddab4b13e39472fbdc1251e36c02e03">getNTestSamples</a> ()</td></tr>
 <tr class="separator:adddab4b13e39472fbdc1251e36c02e03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab233c365d645da6c6151b9b209c1b3dd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#ab233c365d645da6c6151b9b209c1b3dd">getNSamples</a> ()</td></tr>
+<tr class="memitem:ab233c365d645da6c6151b9b209c1b3dd" id="r_ab233c365d645da6c6151b9b209c1b3dd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab233c365d645da6c6151b9b209c1b3dd">getNSamples</a> ()</td></tr>
 <tr class="separator:ab233c365d645da6c6151b9b209c1b3dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f1def8e3782a9beb9a1f605960f3466"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a9f1def8e3782a9beb9a1f605960f3466">getNVars</a> ()</td></tr>
+<tr class="memitem:a9f1def8e3782a9beb9a1f605960f3466" id="r_a9f1def8e3782a9beb9a1f605960f3466"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f1def8e3782a9beb9a1f605960f3466">getNVars</a> ()</td></tr>
 <tr class="separator:a9f1def8e3782a9beb9a1f605960f3466"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0e53dcc96b0fbc22e38048472d1035b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#ad0e53dcc96b0fbc22e38048472d1035b">getNAllVars</a> ()</td></tr>
+<tr class="memitem:ad0e53dcc96b0fbc22e38048472d1035b" id="r_ad0e53dcc96b0fbc22e38048472d1035b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad0e53dcc96b0fbc22e38048472d1035b">getNAllVars</a> ()</td></tr>
 <tr class="separator:ad0e53dcc96b0fbc22e38048472d1035b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa27f43907d942f79e7bf7e3b449b90ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#aa27f43907d942f79e7bf7e3b449b90ec">getSample</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> varIdx, int sidx, float buf)</td></tr>
+<tr class="memitem:aa27f43907d942f79e7bf7e3b449b90ec" id="r_aa27f43907d942f79e7bf7e3b449b90ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa27f43907d942f79e7bf7e3b449b90ec">getSample</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> varIdx, int sidx, float buf)</td></tr>
 <tr class="separator:aa27f43907d942f79e7bf7e3b449b90ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a858074e92fdc6444c0c98e20a3797c0d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a858074e92fdc6444c0c98e20a3797c0d">getSamples</a> ()</td></tr>
+<tr class="memitem:a858074e92fdc6444c0c98e20a3797c0d" id="r_a858074e92fdc6444c0c98e20a3797c0d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a858074e92fdc6444c0c98e20a3797c0d">getSamples</a> ()</td></tr>
 <tr class="separator:a858074e92fdc6444c0c98e20a3797c0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7eef1e74717047c155098a627fb008b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#af7eef1e74717047c155098a627fb008b">getMissing</a> ()</td></tr>
+<tr class="memitem:af7eef1e74717047c155098a627fb008b" id="r_af7eef1e74717047c155098a627fb008b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af7eef1e74717047c155098a627fb008b">getMissing</a> ()</td></tr>
 <tr class="separator:af7eef1e74717047c155098a627fb008b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e057f734afd77a63ed613dd24ce2b67"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a6e057f734afd77a63ed613dd24ce2b67">getTrainSamples</a> (int layout, bool compressSamples, bool compressVars)</td></tr>
-<tr class="memdesc:a6e057f734afd77a63ed613dd24ce2b67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns matrix of train samples.  <a href="#a6e057f734afd77a63ed613dd24ce2b67">More...</a><br /></td></tr>
+<tr class="memitem:a6e057f734afd77a63ed613dd24ce2b67" id="r_a6e057f734afd77a63ed613dd24ce2b67"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6e057f734afd77a63ed613dd24ce2b67">getTrainSamples</a> (int layout, bool compressSamples, bool compressVars)</td></tr>
+<tr class="memdesc:a6e057f734afd77a63ed613dd24ce2b67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns matrix of train samples.  <br /></td></tr>
 <tr class="separator:a6e057f734afd77a63ed613dd24ce2b67"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34c64e56ec5e573e276be6fca67e70a0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a34c64e56ec5e573e276be6fca67e70a0">getTrainSamples</a> (int layout, bool compressSamples)</td></tr>
-<tr class="memdesc:a34c64e56ec5e573e276be6fca67e70a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns matrix of train samples.  <a href="#a34c64e56ec5e573e276be6fca67e70a0">More...</a><br /></td></tr>
+<tr class="memitem:a34c64e56ec5e573e276be6fca67e70a0" id="r_a34c64e56ec5e573e276be6fca67e70a0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a34c64e56ec5e573e276be6fca67e70a0">getTrainSamples</a> (int layout, bool compressSamples)</td></tr>
+<tr class="memdesc:a34c64e56ec5e573e276be6fca67e70a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns matrix of train samples.  <br /></td></tr>
 <tr class="separator:a34c64e56ec5e573e276be6fca67e70a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0101f8e38590b59281d37bedb0ff2337"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a0101f8e38590b59281d37bedb0ff2337">getTrainSamples</a> (int layout)</td></tr>
-<tr class="memdesc:a0101f8e38590b59281d37bedb0ff2337"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns matrix of train samples.  <a href="#a0101f8e38590b59281d37bedb0ff2337">More...</a><br /></td></tr>
+<tr class="memitem:a0101f8e38590b59281d37bedb0ff2337" id="r_a0101f8e38590b59281d37bedb0ff2337"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0101f8e38590b59281d37bedb0ff2337">getTrainSamples</a> (int layout)</td></tr>
+<tr class="memdesc:a0101f8e38590b59281d37bedb0ff2337"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns matrix of train samples.  <br /></td></tr>
 <tr class="separator:a0101f8e38590b59281d37bedb0ff2337"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c9432627c7e4207b773cc6ba2fdf13a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a0c9432627c7e4207b773cc6ba2fdf13a">getTrainSamples</a> ()</td></tr>
-<tr class="memdesc:a0c9432627c7e4207b773cc6ba2fdf13a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns matrix of train samples.  <a href="#a0c9432627c7e4207b773cc6ba2fdf13a">More...</a><br /></td></tr>
+<tr class="memitem:a0c9432627c7e4207b773cc6ba2fdf13a" id="r_a0c9432627c7e4207b773cc6ba2fdf13a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c9432627c7e4207b773cc6ba2fdf13a">getTrainSamples</a> ()</td></tr>
+<tr class="memdesc:a0c9432627c7e4207b773cc6ba2fdf13a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns matrix of train samples.  <br /></td></tr>
 <tr class="separator:a0c9432627c7e4207b773cc6ba2fdf13a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a875cae7cc1e64210afd0505af09a5ed2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a875cae7cc1e64210afd0505af09a5ed2">getTrainResponses</a> ()</td></tr>
-<tr class="memdesc:a875cae7cc1e64210afd0505af09a5ed2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the vector of responses.  <a href="#a875cae7cc1e64210afd0505af09a5ed2">More...</a><br /></td></tr>
+<tr class="memitem:a875cae7cc1e64210afd0505af09a5ed2" id="r_a875cae7cc1e64210afd0505af09a5ed2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a875cae7cc1e64210afd0505af09a5ed2">getTrainResponses</a> ()</td></tr>
+<tr class="memdesc:a875cae7cc1e64210afd0505af09a5ed2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the vector of responses.  <br /></td></tr>
 <tr class="separator:a875cae7cc1e64210afd0505af09a5ed2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9175f50c1d240a693291262407f3c02e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a9175f50c1d240a693291262407f3c02e">getTrainNormCatResponses</a> ()</td></tr>
-<tr class="memdesc:a9175f50c1d240a693291262407f3c02e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the vector of normalized categorical responses.  <a href="#a9175f50c1d240a693291262407f3c02e">More...</a><br /></td></tr>
+<tr class="memitem:a9175f50c1d240a693291262407f3c02e" id="r_a9175f50c1d240a693291262407f3c02e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9175f50c1d240a693291262407f3c02e">getTrainNormCatResponses</a> ()</td></tr>
+<tr class="memdesc:a9175f50c1d240a693291262407f3c02e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the vector of normalized categorical responses.  <br /></td></tr>
 <tr class="separator:a9175f50c1d240a693291262407f3c02e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72c155c35102ff9e6f592818d6cd2f2b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a72c155c35102ff9e6f592818d6cd2f2b">getTestResponses</a> ()</td></tr>
+<tr class="memitem:a72c155c35102ff9e6f592818d6cd2f2b" id="r_a72c155c35102ff9e6f592818d6cd2f2b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a72c155c35102ff9e6f592818d6cd2f2b">getTestResponses</a> ()</td></tr>
 <tr class="separator:a72c155c35102ff9e6f592818d6cd2f2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef36bfc179024a6a6e9bd9c0485cb116"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#aef36bfc179024a6a6e9bd9c0485cb116">getTestNormCatResponses</a> ()</td></tr>
+<tr class="memitem:aef36bfc179024a6a6e9bd9c0485cb116" id="r_aef36bfc179024a6a6e9bd9c0485cb116"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef36bfc179024a6a6e9bd9c0485cb116">getTestNormCatResponses</a> ()</td></tr>
 <tr class="separator:aef36bfc179024a6a6e9bd9c0485cb116"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41ec8814c0017a767dbef51139bc9bb4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a41ec8814c0017a767dbef51139bc9bb4">getResponses</a> ()</td></tr>
+<tr class="memitem:a41ec8814c0017a767dbef51139bc9bb4" id="r_a41ec8814c0017a767dbef51139bc9bb4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a41ec8814c0017a767dbef51139bc9bb4">getResponses</a> ()</td></tr>
 <tr class="separator:a41ec8814c0017a767dbef51139bc9bb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f49f760c0e4033b6ab8a40cee1b3167"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a7f49f760c0e4033b6ab8a40cee1b3167">getNormCatResponses</a> ()</td></tr>
+<tr class="memitem:a7f49f760c0e4033b6ab8a40cee1b3167" id="r_a7f49f760c0e4033b6ab8a40cee1b3167"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f49f760c0e4033b6ab8a40cee1b3167">getNormCatResponses</a> ()</td></tr>
 <tr class="separator:a7f49f760c0e4033b6ab8a40cee1b3167"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a285d9bef326106c7c8b948da8d19c9ba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a285d9bef326106c7c8b948da8d19c9ba">getSampleWeights</a> ()</td></tr>
+<tr class="memitem:a285d9bef326106c7c8b948da8d19c9ba" id="r_a285d9bef326106c7c8b948da8d19c9ba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a285d9bef326106c7c8b948da8d19c9ba">getSampleWeights</a> ()</td></tr>
 <tr class="separator:a285d9bef326106c7c8b948da8d19c9ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad55bdd7f5125eac7945cf4486b8dbb0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#ad55bdd7f5125eac7945cf4486b8dbb0a">getTrainSampleWeights</a> ()</td></tr>
+<tr class="memitem:ad55bdd7f5125eac7945cf4486b8dbb0a" id="r_ad55bdd7f5125eac7945cf4486b8dbb0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad55bdd7f5125eac7945cf4486b8dbb0a">getTrainSampleWeights</a> ()</td></tr>
 <tr class="separator:ad55bdd7f5125eac7945cf4486b8dbb0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b003a5156d606ff40105debb3a0533e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a3b003a5156d606ff40105debb3a0533e">getTestSampleWeights</a> ()</td></tr>
+<tr class="memitem:a3b003a5156d606ff40105debb3a0533e" id="r_a3b003a5156d606ff40105debb3a0533e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b003a5156d606ff40105debb3a0533e">getTestSampleWeights</a> ()</td></tr>
 <tr class="separator:a3b003a5156d606ff40105debb3a0533e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a313cc9aba26f13832e49038b1cb9d940"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a313cc9aba26f13832e49038b1cb9d940">getVarIdx</a> ()</td></tr>
+<tr class="memitem:a313cc9aba26f13832e49038b1cb9d940" id="r_a313cc9aba26f13832e49038b1cb9d940"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a313cc9aba26f13832e49038b1cb9d940">getVarIdx</a> ()</td></tr>
 <tr class="separator:a313cc9aba26f13832e49038b1cb9d940"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0196928ab99c36423d2425621442908"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#ae0196928ab99c36423d2425621442908">getVarType</a> ()</td></tr>
+<tr class="memitem:ae0196928ab99c36423d2425621442908" id="r_ae0196928ab99c36423d2425621442908"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae0196928ab99c36423d2425621442908">getVarType</a> ()</td></tr>
 <tr class="separator:ae0196928ab99c36423d2425621442908"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65f87c2e649ac3b422b90dadd678615a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a65f87c2e649ac3b422b90dadd678615a">getVarSymbolFlags</a> ()</td></tr>
+<tr class="memitem:a65f87c2e649ac3b422b90dadd678615a" id="r_a65f87c2e649ac3b422b90dadd678615a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a65f87c2e649ac3b422b90dadd678615a">getVarSymbolFlags</a> ()</td></tr>
 <tr class="separator:a65f87c2e649ac3b422b90dadd678615a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a01b120a8cd3b00d88bd88abd533fd0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a8a01b120a8cd3b00d88bd88abd533fd0">getResponseType</a> ()</td></tr>
+<tr class="memitem:a8a01b120a8cd3b00d88bd88abd533fd0" id="r_a8a01b120a8cd3b00d88bd88abd533fd0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8a01b120a8cd3b00d88bd88abd533fd0">getResponseType</a> ()</td></tr>
 <tr class="separator:a8a01b120a8cd3b00d88bd88abd533fd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a995be370c822f0255b61b8126df9177f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a995be370c822f0255b61b8126df9177f">getTrainSampleIdx</a> ()</td></tr>
+<tr class="memitem:a995be370c822f0255b61b8126df9177f" id="r_a995be370c822f0255b61b8126df9177f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a995be370c822f0255b61b8126df9177f">getTrainSampleIdx</a> ()</td></tr>
 <tr class="separator:a995be370c822f0255b61b8126df9177f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae556a836bc6ca4421e6b42c6eaed8fda"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#ae556a836bc6ca4421e6b42c6eaed8fda">getTestSampleIdx</a> ()</td></tr>
+<tr class="memitem:ae556a836bc6ca4421e6b42c6eaed8fda" id="r_ae556a836bc6ca4421e6b42c6eaed8fda"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae556a836bc6ca4421e6b42c6eaed8fda">getTestSampleIdx</a> ()</td></tr>
 <tr class="separator:ae556a836bc6ca4421e6b42c6eaed8fda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a545ce665d7e5098a76ea1157b03b9d3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a545ce665d7e5098a76ea1157b03b9d3e">getValues</a> (int vi, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> sidx, float values)</td></tr>
+<tr class="memitem:a545ce665d7e5098a76ea1157b03b9d3e" id="r_a545ce665d7e5098a76ea1157b03b9d3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a545ce665d7e5098a76ea1157b03b9d3e">getValues</a> (int vi, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> sidx, float values)</td></tr>
 <tr class="separator:a545ce665d7e5098a76ea1157b03b9d3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4d9864a0dcb0fc57292f55f1ee46c7e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#ad4d9864a0dcb0fc57292f55f1ee46c7e">getDefaultSubstValues</a> ()</td></tr>
+<tr class="memitem:ad4d9864a0dcb0fc57292f55f1ee46c7e" id="r_ad4d9864a0dcb0fc57292f55f1ee46c7e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4d9864a0dcb0fc57292f55f1ee46c7e">getDefaultSubstValues</a> ()</td></tr>
 <tr class="separator:ad4d9864a0dcb0fc57292f55f1ee46c7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fb1c0b370b8d18c7de6d338daf4003e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a9fb1c0b370b8d18c7de6d338daf4003e">getCatCount</a> (int vi)</td></tr>
+<tr class="memitem:a9fb1c0b370b8d18c7de6d338daf4003e" id="r_a9fb1c0b370b8d18c7de6d338daf4003e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9fb1c0b370b8d18c7de6d338daf4003e">getCatCount</a> (int vi)</td></tr>
 <tr class="separator:a9fb1c0b370b8d18c7de6d338daf4003e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a191501ff36dd653dc8ed3cf933fecda1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a191501ff36dd653dc8ed3cf933fecda1">getClassLabels</a> ()</td></tr>
-<tr class="memdesc:a191501ff36dd653dc8ed3cf933fecda1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the vector of class labels.  <a href="#a191501ff36dd653dc8ed3cf933fecda1">More...</a><br /></td></tr>
+<tr class="memitem:a191501ff36dd653dc8ed3cf933fecda1" id="r_a191501ff36dd653dc8ed3cf933fecda1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a191501ff36dd653dc8ed3cf933fecda1">getClassLabels</a> ()</td></tr>
+<tr class="memdesc:a191501ff36dd653dc8ed3cf933fecda1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the vector of class labels.  <br /></td></tr>
 <tr class="separator:a191501ff36dd653dc8ed3cf933fecda1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8e01bc317981d9d5485d0d6efbefd25"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#ac8e01bc317981d9d5485d0d6efbefd25">getCatOfs</a> ()</td></tr>
+<tr class="memitem:ac8e01bc317981d9d5485d0d6efbefd25" id="r_ac8e01bc317981d9d5485d0d6efbefd25"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac8e01bc317981d9d5485d0d6efbefd25">getCatOfs</a> ()</td></tr>
 <tr class="separator:ac8e01bc317981d9d5485d0d6efbefd25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa32a46c7b8e23296c104f133d9aec470"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#aa32a46c7b8e23296c104f133d9aec470">getCatMap</a> ()</td></tr>
+<tr class="memitem:aa32a46c7b8e23296c104f133d9aec470" id="r_aa32a46c7b8e23296c104f133d9aec470"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa32a46c7b8e23296c104f133d9aec470">getCatMap</a> ()</td></tr>
 <tr class="separator:aa32a46c7b8e23296c104f133d9aec470"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8229be3c5b4f2376faed76e781c3cb5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a8229be3c5b4f2376faed76e781c3cb5d">setTrainTestSplit</a> (int count, bool shuffle)</td></tr>
-<tr class="memdesc:a8229be3c5b4f2376faed76e781c3cb5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits the training data into the training and test parts.  <a href="#a8229be3c5b4f2376faed76e781c3cb5d">More...</a><br /></td></tr>
+<tr class="memitem:a8229be3c5b4f2376faed76e781c3cb5d" id="r_a8229be3c5b4f2376faed76e781c3cb5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8229be3c5b4f2376faed76e781c3cb5d">setTrainTestSplit</a> (int count, bool shuffle)</td></tr>
+<tr class="memdesc:a8229be3c5b4f2376faed76e781c3cb5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits the training data into the training and test parts.  <br /></td></tr>
 <tr class="separator:a8229be3c5b4f2376faed76e781c3cb5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99008f3922fd479517c78d9e697aaa59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a99008f3922fd479517c78d9e697aaa59">setTrainTestSplit</a> (int count)</td></tr>
-<tr class="memdesc:a99008f3922fd479517c78d9e697aaa59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits the training data into the training and test parts.  <a href="#a99008f3922fd479517c78d9e697aaa59">More...</a><br /></td></tr>
+<tr class="memitem:a99008f3922fd479517c78d9e697aaa59" id="r_a99008f3922fd479517c78d9e697aaa59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99008f3922fd479517c78d9e697aaa59">setTrainTestSplit</a> (int count)</td></tr>
+<tr class="memdesc:a99008f3922fd479517c78d9e697aaa59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits the training data into the training and test parts.  <br /></td></tr>
 <tr class="separator:a99008f3922fd479517c78d9e697aaa59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4646728796ea1a204480bc898174013a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a4646728796ea1a204480bc898174013a">setTrainTestSplitRatio</a> (double ratio, bool shuffle)</td></tr>
-<tr class="memdesc:a4646728796ea1a204480bc898174013a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits the training data into the training and test parts.  <a href="#a4646728796ea1a204480bc898174013a">More...</a><br /></td></tr>
+<tr class="memitem:a4646728796ea1a204480bc898174013a" id="r_a4646728796ea1a204480bc898174013a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4646728796ea1a204480bc898174013a">setTrainTestSplitRatio</a> (double ratio, bool shuffle)</td></tr>
+<tr class="memdesc:a4646728796ea1a204480bc898174013a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits the training data into the training and test parts.  <br /></td></tr>
 <tr class="separator:a4646728796ea1a204480bc898174013a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5e940763633f82042771013949cc993"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#ab5e940763633f82042771013949cc993">setTrainTestSplitRatio</a> (double ratio)</td></tr>
-<tr class="memdesc:ab5e940763633f82042771013949cc993"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits the training data into the training and test parts.  <a href="#ab5e940763633f82042771013949cc993">More...</a><br /></td></tr>
+<tr class="memitem:ab5e940763633f82042771013949cc993" id="r_ab5e940763633f82042771013949cc993"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5e940763633f82042771013949cc993">setTrainTestSplitRatio</a> (double ratio)</td></tr>
+<tr class="memdesc:ab5e940763633f82042771013949cc993"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits the training data into the training and test parts.  <br /></td></tr>
 <tr class="separator:ab5e940763633f82042771013949cc993"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeab9419c25690d08163504821bc04808"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#aeab9419c25690d08163504821bc04808">shuffleTrainTest</a> ()</td></tr>
+<tr class="memitem:aeab9419c25690d08163504821bc04808" id="r_aeab9419c25690d08163504821bc04808"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeab9419c25690d08163504821bc04808">shuffleTrainTest</a> ()</td></tr>
 <tr class="separator:aeab9419c25690d08163504821bc04808"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a731c567b5632da3e78b973998808fc77"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a731c567b5632da3e78b973998808fc77">getTestSamples</a> ()</td></tr>
-<tr class="memdesc:a731c567b5632da3e78b973998808fc77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns matrix of test samples.  <a href="#a731c567b5632da3e78b973998808fc77">More...</a><br /></td></tr>
+<tr class="memitem:a731c567b5632da3e78b973998808fc77" id="r_a731c567b5632da3e78b973998808fc77"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a731c567b5632da3e78b973998808fc77">getTestSamples</a> ()</td></tr>
+<tr class="memdesc:a731c567b5632da3e78b973998808fc77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns matrix of test samples.  <br /></td></tr>
 <tr class="separator:a731c567b5632da3e78b973998808fc77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad531361cdac0137cb7d7fe041bd030c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#ad531361cdac0137cb7d7fe041bd030c5">getNames</a> (List&lt; string &gt; names)</td></tr>
-<tr class="memdesc:ad531361cdac0137cb7d7fe041bd030c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns vector of symbolic names captured in loadFromCSV()  <a href="#ad531361cdac0137cb7d7fe041bd030c5">More...</a><br /></td></tr>
+<tr class="memitem:ad531361cdac0137cb7d7fe041bd030c5" id="r_ad531361cdac0137cb7d7fe041bd030c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad531361cdac0137cb7d7fe041bd030c5">getNames</a> (List&lt; string &gt; names)</td></tr>
+<tr class="memdesc:ad531361cdac0137cb7d7fe041bd030c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns vector of symbolic names captured in loadFromCSV()  <br /></td></tr>
 <tr class="separator:ad531361cdac0137cb7d7fe041bd030c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a68dd6362a65b5bf2f2b8828bef0b7dc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
 <tr class="separator:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
+<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a620f073ff3aa1bcee28fb00edb01dc11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
 <tr class="separator:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a6977d9ac17ecfff7c599e03ed1ba4e72"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a6977d9ac17ecfff7c599e03ed1ba4e72">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="memitem:a6977d9ac17ecfff7c599e03ed1ba4e72" id="r_a6977d9ac17ecfff7c599e03ed1ba4e72"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6977d9ac17ecfff7c599e03ed1ba4e72">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:a6977d9ac17ecfff7c599e03ed1ba4e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a46c2aacce246e7406b391acf90ca2d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a6a46c2aacce246e7406b391acf90ca2d">getSubVector</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> vec, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> idx)</td></tr>
-<tr class="memdesc:a6a46c2aacce246e7406b391acf90ca2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract from 1D vector elements specified by passed indexes.  <a href="#a6a46c2aacce246e7406b391acf90ca2d">More...</a><br /></td></tr>
+<tr class="memitem:a6a46c2aacce246e7406b391acf90ca2d" id="r_a6a46c2aacce246e7406b391acf90ca2d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a46c2aacce246e7406b391acf90ca2d">getSubVector</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> vec, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> idx)</td></tr>
+<tr class="memdesc:a6a46c2aacce246e7406b391acf90ca2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract from 1D vector elements specified by passed indexes.  <br /></td></tr>
 <tr class="separator:a6a46c2aacce246e7406b391acf90ca2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b08471d508b52ceaff1e734bfbcd955"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a1b08471d508b52ceaff1e734bfbcd955">getSubMatrix</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> matrix, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> idx, int layout)</td></tr>
-<tr class="memdesc:a1b08471d508b52ceaff1e734bfbcd955"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract from matrix rows/cols specified by passed indexes.  <a href="#a1b08471d508b52ceaff1e734bfbcd955">More...</a><br /></td></tr>
+<tr class="memitem:a1b08471d508b52ceaff1e734bfbcd955" id="r_a1b08471d508b52ceaff1e734bfbcd955"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1b08471d508b52ceaff1e734bfbcd955">getSubMatrix</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> matrix, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> idx, int layout)</td></tr>
+<tr class="memdesc:a1b08471d508b52ceaff1e734bfbcd955"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract from matrix rows/cols specified by passed indexes.  <br /></td></tr>
 <tr class="separator:a1b08471d508b52ceaff1e734bfbcd955"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afac3aa4a5f8093d518277fa4c71e9e9d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#afac3aa4a5f8093d518277fa4c71e9e9d">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> samples, int layout, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> responses, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> varIdx, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> sampleIdx, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> sampleWeights, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> varType)</td></tr>
-<tr class="memdesc:afac3aa4a5f8093d518277fa4c71e9e9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates training data from in-memory arrays.  <a href="#afac3aa4a5f8093d518277fa4c71e9e9d">More...</a><br /></td></tr>
+<tr class="memitem:afac3aa4a5f8093d518277fa4c71e9e9d" id="r_afac3aa4a5f8093d518277fa4c71e9e9d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afac3aa4a5f8093d518277fa4c71e9e9d">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> samples, int layout, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> responses, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> varIdx, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> sampleIdx, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> sampleWeights, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> varType)</td></tr>
+<tr class="memdesc:afac3aa4a5f8093d518277fa4c71e9e9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates training data from in-memory arrays.  <br /></td></tr>
 <tr class="separator:afac3aa4a5f8093d518277fa4c71e9e9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefa0c3e5ae8e48d9e86b9e316caeac1f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#aefa0c3e5ae8e48d9e86b9e316caeac1f">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> samples, int layout, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> responses, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> varIdx, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> sampleIdx, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> sampleWeights)</td></tr>
-<tr class="memdesc:aefa0c3e5ae8e48d9e86b9e316caeac1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates training data from in-memory arrays.  <a href="#aefa0c3e5ae8e48d9e86b9e316caeac1f">More...</a><br /></td></tr>
+<tr class="memitem:aefa0c3e5ae8e48d9e86b9e316caeac1f" id="r_aefa0c3e5ae8e48d9e86b9e316caeac1f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aefa0c3e5ae8e48d9e86b9e316caeac1f">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> samples, int layout, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> responses, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> varIdx, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> sampleIdx, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> sampleWeights)</td></tr>
+<tr class="memdesc:aefa0c3e5ae8e48d9e86b9e316caeac1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates training data from in-memory arrays.  <br /></td></tr>
 <tr class="separator:aefa0c3e5ae8e48d9e86b9e316caeac1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af03759f96c228fcef910a9342cb8ae62"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#af03759f96c228fcef910a9342cb8ae62">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> samples, int layout, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> responses, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> varIdx, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> sampleIdx)</td></tr>
-<tr class="memdesc:af03759f96c228fcef910a9342cb8ae62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates training data from in-memory arrays.  <a href="#af03759f96c228fcef910a9342cb8ae62">More...</a><br /></td></tr>
+<tr class="memitem:af03759f96c228fcef910a9342cb8ae62" id="r_af03759f96c228fcef910a9342cb8ae62"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af03759f96c228fcef910a9342cb8ae62">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> samples, int layout, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> responses, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> varIdx, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> sampleIdx)</td></tr>
+<tr class="memdesc:af03759f96c228fcef910a9342cb8ae62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates training data from in-memory arrays.  <br /></td></tr>
 <tr class="separator:af03759f96c228fcef910a9342cb8ae62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaba235f4c702549dbc33a8f81dc53de2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#aaba235f4c702549dbc33a8f81dc53de2">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> samples, int layout, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> responses, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> varIdx)</td></tr>
-<tr class="memdesc:aaba235f4c702549dbc33a8f81dc53de2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates training data from in-memory arrays.  <a href="#aaba235f4c702549dbc33a8f81dc53de2">More...</a><br /></td></tr>
+<tr class="memitem:aaba235f4c702549dbc33a8f81dc53de2" id="r_aaba235f4c702549dbc33a8f81dc53de2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaba235f4c702549dbc33a8f81dc53de2">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> samples, int layout, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> responses, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> varIdx)</td></tr>
+<tr class="memdesc:aaba235f4c702549dbc33a8f81dc53de2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates training data from in-memory arrays.  <br /></td></tr>
 <tr class="separator:aaba235f4c702549dbc33a8f81dc53de2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad53a3c235c2b610f14145466ed3ee960"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#ad53a3c235c2b610f14145466ed3ee960">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> samples, int layout, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> responses)</td></tr>
-<tr class="memdesc:ad53a3c235c2b610f14145466ed3ee960"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates training data from in-memory arrays.  <a href="#ad53a3c235c2b610f14145466ed3ee960">More...</a><br /></td></tr>
+<tr class="memitem:ad53a3c235c2b610f14145466ed3ee960" id="r_ad53a3c235c2b610f14145466ed3ee960"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad53a3c235c2b610f14145466ed3ee960">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> samples, int layout, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> responses)</td></tr>
+<tr class="memdesc:ad53a3c235c2b610f14145466ed3ee960"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates training data from in-memory arrays.  <br /></td></tr>
 <tr class="separator:ad53a3c235c2b610f14145466ed3ee960"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a4b998ab4293ee3fb7cdc494ed9375fc3"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a327067f693b537f3be64b68e4bbeb39c"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a327067f693b537f3be64b68e4bbeb39c">Dispose</a> (bool disposing)</td></tr>
+<tr class="memitem:a327067f693b537f3be64b68e4bbeb39c" id="r_a327067f693b537f3be64b68e4bbeb39c"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a327067f693b537f3be64b68e4bbeb39c">Dispose</a> (bool disposing)</td></tr>
 <tr class="separator:a327067f693b537f3be64b68e4bbeb39c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
-<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_aab50d94cc702503eac045ca7042624ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
 <tr class="separator:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
+<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a6dc5923de5bd43795c72dd7f581ad832"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a1fb2523312e8a423889a1d160e755e7d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
+<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a739b223f2008fae0966c43d0c6f0f72f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
 <tr class="separator:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_ae924d4d77a5929e39abca6ef9daf6330"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
 <tr class="separator:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a1e47724d49556061a5ba400577be2a13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
+<tr class="inherit_header pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Package Attributes inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a056e69daaa9ea20e563c5e41b28c1525"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
 <tr class="separator:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
+<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a8e287e3cb5995f483cb64dd6c3b19a7f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class encapsulating training data. </p>
-<p>Please note that the class only specifies the interface of training data, but not implementation. All the statistical model classes in <em>ml</em> module accepts Ptr&lt;<a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html" title="Class encapsulating training data. ">TrainData</a>&gt; as parameter. In other words, you can create your own class derived from <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html" title="Class encapsulating training data. ">TrainData</a> and pass smart pointer to the instance of this class into <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#acb89b426c076f2958db2a2d8d8ff8401" title="Trains the statistical model. ">StatModel::train</a>.</p>
+<p>Please note that the class only specifies the interface of training data, but not implementation. All the statistical model classes in <em>ml</em> module accepts Ptr&lt;<a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html" title="Class encapsulating training data.">TrainData</a>&gt; as parameter. In other words, you can create your own class derived from <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html" title="Class encapsulating training data.">TrainData</a> and pass smart pointer to the instance of this class into <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_stat_model.html#acb89b426c076f2958db2a2d8d8ff8401" title="Trains the statistical model.">StatModel.train</a>.</p>
 <dl class="section see"><dt>See also</dt><dd>ml_intro_data </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6977d9ac17ecfff7c599e03ed1ba4e72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6977d9ac17ecfff7c599e03ed1ba4e72">&#9670;&nbsp;</a></span>__fromPtr__()</h2>
+<a id="a6977d9ac17ecfff7c599e03ed1ba4e72" name="a6977d9ac17ecfff7c599e03ed1ba4e72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6977d9ac17ecfff7c599e03ed1ba4e72">&#9670;&#160;</a></span>__fromPtr__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -296,8 +329,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a> OpenCVForUnity.MlModule.TrainData.__fromPtr__ </td>
           <td>(</td>
-          <td class="paramtype">IntPtr&#160;</td>
-          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td class="paramtype">IntPtr</td>          <td class="paramname"><span class="paramname"><em>addr</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -310,8 +342,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="afac3aa4a5f8093d518277fa4c71e9e9d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afac3aa4a5f8093d518277fa4c71e9e9d">&#9670;&nbsp;</a></span>create() <span class="overload">[1/5]</span></h2>
+<a id="ad53a3c235c2b610f14145466ed3ee960" name="ad53a3c235c2b610f14145466ed3ee960"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad53a3c235c2b610f14145466ed3ee960">&#9670;&#160;</a></span>create() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -322,49 +354,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a> OpenCVForUnity.MlModule.TrainData.create </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>samples</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>samples</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>layout</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>layout</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>responses</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>varIdx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>sampleIdx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>sampleWeights</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>varType</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>responses</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -383,15 +383,15 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">varIdx</td><td>vector specifying which variables to use for training. It can be an integer vector (CV_32S) containing 0-based variable indices or byte vector (CV_8U) containing a mask of active variables. </td></tr>
     <tr><td class="paramname">sampleIdx</td><td>vector specifying which samples to use for training. It can be an integer vector (CV_32S) containing 0-based sample indices or byte vector (CV_8U) containing a mask of training samples. </td></tr>
     <tr><td class="paramname">sampleWeights</td><td>optional vector with weights for each sample. It should have CV_32F type. </td></tr>
-    <tr><td class="paramname">varType</td><td>optional vector of type CV_8U and size <code>&lt;number_of_variables_in_samples&gt; + &lt;number_of_variables_in_responses&gt;</code>, containing types of each input and output variable. See ml::VariableTypes. </td></tr>
+    <tr><td class="paramname">varType</td><td>optional vector of type CV_8U and size <code>&amp;lt;number_of_variables_in_samples&amp;gt; + / &amp;lt;number_of_variables_in_responses&amp;gt;</code>, containing types of each input and output variable. See ml::VariableTypes. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="aefa0c3e5ae8e48d9e86b9e316caeac1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aefa0c3e5ae8e48d9e86b9e316caeac1f">&#9670;&nbsp;</a></span>create() <span class="overload">[2/5]</span></h2>
+<a id="aaba235f4c702549dbc33a8f81dc53de2" name="aaba235f4c702549dbc33a8f81dc53de2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaba235f4c702549dbc33a8f81dc53de2">&#9670;&#160;</a></span>create() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -402,43 +402,22 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a> OpenCVForUnity.MlModule.TrainData.create </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>samples</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>samples</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>layout</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>layout</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>responses</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>responses</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>varIdx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>sampleIdx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>sampleWeights</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>varIdx</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -457,15 +436,15 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">varIdx</td><td>vector specifying which variables to use for training. It can be an integer vector (CV_32S) containing 0-based variable indices or byte vector (CV_8U) containing a mask of active variables. </td></tr>
     <tr><td class="paramname">sampleIdx</td><td>vector specifying which samples to use for training. It can be an integer vector (CV_32S) containing 0-based sample indices or byte vector (CV_8U) containing a mask of training samples. </td></tr>
     <tr><td class="paramname">sampleWeights</td><td>optional vector with weights for each sample. It should have CV_32F type. </td></tr>
-    <tr><td class="paramname">varType</td><td>optional vector of type CV_8U and size <code>&lt;number_of_variables_in_samples&gt; + &lt;number_of_variables_in_responses&gt;</code>, containing types of each input and output variable. See ml::VariableTypes. </td></tr>
+    <tr><td class="paramname">varType</td><td>optional vector of type CV_8U and size <code>&amp;lt;number_of_variables_in_samples&amp;gt; + / &amp;lt;number_of_variables_in_responses&amp;gt;</code>, containing types of each input and output variable. See ml::VariableTypes. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="af03759f96c228fcef910a9342cb8ae62"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af03759f96c228fcef910a9342cb8ae62">&#9670;&nbsp;</a></span>create() <span class="overload">[3/5]</span></h2>
+<a id="af03759f96c228fcef910a9342cb8ae62" name="af03759f96c228fcef910a9342cb8ae62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af03759f96c228fcef910a9342cb8ae62">&#9670;&#160;</a></span>create() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -476,37 +455,27 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a> OpenCVForUnity.MlModule.TrainData.create </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>samples</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>samples</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>layout</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>layout</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>responses</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>responses</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>varIdx</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>varIdx</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>sampleIdx</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>sampleIdx</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -525,15 +494,15 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">varIdx</td><td>vector specifying which variables to use for training. It can be an integer vector (CV_32S) containing 0-based variable indices or byte vector (CV_8U) containing a mask of active variables. </td></tr>
     <tr><td class="paramname">sampleIdx</td><td>vector specifying which samples to use for training. It can be an integer vector (CV_32S) containing 0-based sample indices or byte vector (CV_8U) containing a mask of training samples. </td></tr>
     <tr><td class="paramname">sampleWeights</td><td>optional vector with weights for each sample. It should have CV_32F type. </td></tr>
-    <tr><td class="paramname">varType</td><td>optional vector of type CV_8U and size <code>&lt;number_of_variables_in_samples&gt; + &lt;number_of_variables_in_responses&gt;</code>, containing types of each input and output variable. See ml::VariableTypes. </td></tr>
+    <tr><td class="paramname">varType</td><td>optional vector of type CV_8U and size <code>&amp;lt;number_of_variables_in_samples&amp;gt; + / &amp;lt;number_of_variables_in_responses&amp;gt;</code>, containing types of each input and output variable. See ml::VariableTypes. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="aaba235f4c702549dbc33a8f81dc53de2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaba235f4c702549dbc33a8f81dc53de2">&#9670;&nbsp;</a></span>create() <span class="overload">[4/5]</span></h2>
+<a id="aefa0c3e5ae8e48d9e86b9e316caeac1f" name="aefa0c3e5ae8e48d9e86b9e316caeac1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefa0c3e5ae8e48d9e86b9e316caeac1f">&#9670;&#160;</a></span>create() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -544,31 +513,32 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a> OpenCVForUnity.MlModule.TrainData.create </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>samples</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>samples</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>layout</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>layout</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>responses</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>responses</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>varIdx</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>varIdx</em></span>, </td>
         </tr>
         <tr>
+          <td class="paramkey"></td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>sampleIdx</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>sampleWeights</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -587,15 +557,15 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">varIdx</td><td>vector specifying which variables to use for training. It can be an integer vector (CV_32S) containing 0-based variable indices or byte vector (CV_8U) containing a mask of active variables. </td></tr>
     <tr><td class="paramname">sampleIdx</td><td>vector specifying which samples to use for training. It can be an integer vector (CV_32S) containing 0-based sample indices or byte vector (CV_8U) containing a mask of training samples. </td></tr>
     <tr><td class="paramname">sampleWeights</td><td>optional vector with weights for each sample. It should have CV_32F type. </td></tr>
-    <tr><td class="paramname">varType</td><td>optional vector of type CV_8U and size <code>&lt;number_of_variables_in_samples&gt; + &lt;number_of_variables_in_responses&gt;</code>, containing types of each input and output variable. See ml::VariableTypes. </td></tr>
+    <tr><td class="paramname">varType</td><td>optional vector of type CV_8U and size <code>&amp;lt;number_of_variables_in_samples&amp;gt; + / &amp;lt;number_of_variables_in_responses&amp;gt;</code>, containing types of each input and output variable. See ml::VariableTypes. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="ad53a3c235c2b610f14145466ed3ee960"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad53a3c235c2b610f14145466ed3ee960">&#9670;&nbsp;</a></span>create() <span class="overload">[5/5]</span></h2>
+<a id="afac3aa4a5f8093d518277fa4c71e9e9d" name="afac3aa4a5f8093d518277fa4c71e9e9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afac3aa4a5f8093d518277fa4c71e9e9d">&#9670;&#160;</a></span>create() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -606,25 +576,37 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html">TrainData</a> OpenCVForUnity.MlModule.TrainData.create </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>samples</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>samples</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>layout</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>layout</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>responses</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>responses</em></span>, </td>
         </tr>
         <tr>
+          <td class="paramkey"></td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>varIdx</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>sampleIdx</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>sampleWeights</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>varType</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -643,15 +625,15 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">varIdx</td><td>vector specifying which variables to use for training. It can be an integer vector (CV_32S) containing 0-based variable indices or byte vector (CV_8U) containing a mask of active variables. </td></tr>
     <tr><td class="paramname">sampleIdx</td><td>vector specifying which samples to use for training. It can be an integer vector (CV_32S) containing 0-based sample indices or byte vector (CV_8U) containing a mask of training samples. </td></tr>
     <tr><td class="paramname">sampleWeights</td><td>optional vector with weights for each sample. It should have CV_32F type. </td></tr>
-    <tr><td class="paramname">varType</td><td>optional vector of type CV_8U and size <code>&lt;number_of_variables_in_samples&gt; + &lt;number_of_variables_in_responses&gt;</code>, containing types of each input and output variable. See ml::VariableTypes. </td></tr>
+    <tr><td class="paramname">varType</td><td>optional vector of type CV_8U and size <code>&amp;lt;number_of_variables_in_samples&amp;gt; + / &amp;lt;number_of_variables_in_responses&amp;gt;</code>, containing types of each input and output variable. See ml::VariableTypes. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a327067f693b537f3be64b68e4bbeb39c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a327067f693b537f3be64b68e4bbeb39c">&#9670;&nbsp;</a></span>Dispose()</h2>
+<a id="a327067f693b537f3be64b68e4bbeb39c" name="a327067f693b537f3be64b68e4bbeb39c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a327067f693b537f3be64b68e4bbeb39c">&#9670;&#160;</a></span>Dispose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -662,8 +644,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">override void OpenCVForUnity.MlModule.TrainData.Dispose </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>disposing</em></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>disposing</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -678,8 +659,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a9fb1c0b370b8d18c7de6d338daf4003e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9fb1c0b370b8d18c7de6d338daf4003e">&#9670;&nbsp;</a></span>getCatCount()</h2>
+<a id="a9fb1c0b370b8d18c7de6d338daf4003e" name="a9fb1c0b370b8d18c7de6d338daf4003e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fb1c0b370b8d18c7de6d338daf4003e">&#9670;&#160;</a></span>getCatCount()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -687,8 +668,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.MlModule.TrainData.getCatCount </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>vi</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>vi</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -696,8 +676,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aa32a46c7b8e23296c104f133d9aec470"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa32a46c7b8e23296c104f133d9aec470">&#9670;&nbsp;</a></span>getCatMap()</h2>
+<a id="aa32a46c7b8e23296c104f133d9aec470" name="aa32a46c7b8e23296c104f133d9aec470"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa32a46c7b8e23296c104f133d9aec470">&#9670;&#160;</a></span>getCatMap()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -705,7 +685,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getCatMap </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -713,8 +693,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ac8e01bc317981d9d5485d0d6efbefd25"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8e01bc317981d9d5485d0d6efbefd25">&#9670;&nbsp;</a></span>getCatOfs()</h2>
+<a id="ac8e01bc317981d9d5485d0d6efbefd25" name="ac8e01bc317981d9d5485d0d6efbefd25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8e01bc317981d9d5485d0d6efbefd25">&#9670;&#160;</a></span>getCatOfs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -722,7 +702,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getCatOfs </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -730,8 +710,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a191501ff36dd653dc8ed3cf933fecda1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a191501ff36dd653dc8ed3cf933fecda1">&#9670;&nbsp;</a></span>getClassLabels()</h2>
+<a id="a191501ff36dd653dc8ed3cf933fecda1" name="a191501ff36dd653dc8ed3cf933fecda1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a191501ff36dd653dc8ed3cf933fecda1">&#9670;&#160;</a></span>getClassLabels()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -739,7 +719,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getClassLabels </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -750,8 +730,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ad4d9864a0dcb0fc57292f55f1ee46c7e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4d9864a0dcb0fc57292f55f1ee46c7e">&#9670;&nbsp;</a></span>getDefaultSubstValues()</h2>
+<a id="ad4d9864a0dcb0fc57292f55f1ee46c7e" name="ad4d9864a0dcb0fc57292f55f1ee46c7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4d9864a0dcb0fc57292f55f1ee46c7e">&#9670;&#160;</a></span>getDefaultSubstValues()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -759,7 +739,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getDefaultSubstValues </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -767,8 +747,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a8cf971c84d41f280d00f674a80ecb73a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8cf971c84d41f280d00f674a80ecb73a">&#9670;&nbsp;</a></span>getLayout()</h2>
+<a id="a8cf971c84d41f280d00f674a80ecb73a" name="a8cf971c84d41f280d00f674a80ecb73a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cf971c84d41f280d00f674a80ecb73a">&#9670;&#160;</a></span>getLayout()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -776,7 +756,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.MlModule.TrainData.getLayout </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -784,8 +764,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="af7eef1e74717047c155098a627fb008b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7eef1e74717047c155098a627fb008b">&#9670;&nbsp;</a></span>getMissing()</h2>
+<a id="af7eef1e74717047c155098a627fb008b" name="af7eef1e74717047c155098a627fb008b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7eef1e74717047c155098a627fb008b">&#9670;&#160;</a></span>getMissing()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -793,7 +773,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getMissing </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -801,8 +781,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ad0e53dcc96b0fbc22e38048472d1035b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0e53dcc96b0fbc22e38048472d1035b">&#9670;&nbsp;</a></span>getNAllVars()</h2>
+<a id="ad0e53dcc96b0fbc22e38048472d1035b" name="ad0e53dcc96b0fbc22e38048472d1035b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0e53dcc96b0fbc22e38048472d1035b">&#9670;&#160;</a></span>getNAllVars()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -810,7 +790,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.MlModule.TrainData.getNAllVars </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -818,8 +798,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ad531361cdac0137cb7d7fe041bd030c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad531361cdac0137cb7d7fe041bd030c5">&#9670;&nbsp;</a></span>getNames()</h2>
+<a id="ad531361cdac0137cb7d7fe041bd030c5" name="ad531361cdac0137cb7d7fe041bd030c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad531361cdac0137cb7d7fe041bd030c5">&#9670;&#160;</a></span>getNames()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -827,8 +807,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.TrainData.getNames </td>
           <td>(</td>
-          <td class="paramtype">List&lt; string &gt;&#160;</td>
-          <td class="paramname"><em>names</em></td><td>)</td>
+          <td class="paramtype">List&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>names</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -838,8 +817,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aee961f9bf117e375d90f673563c0347e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee961f9bf117e375d90f673563c0347e">&#9670;&nbsp;</a></span>getNativeObjAddr()</h2>
+<a id="aee961f9bf117e375d90f673563c0347e" name="aee961f9bf117e375d90f673563c0347e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee961f9bf117e375d90f673563c0347e">&#9670;&#160;</a></span>getNativeObjAddr()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -847,7 +826,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">IntPtr OpenCVForUnity.MlModule.TrainData.getNativeObjAddr </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -855,8 +834,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a7f49f760c0e4033b6ab8a40cee1b3167"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f49f760c0e4033b6ab8a40cee1b3167">&#9670;&nbsp;</a></span>getNormCatResponses()</h2>
+<a id="a7f49f760c0e4033b6ab8a40cee1b3167" name="a7f49f760c0e4033b6ab8a40cee1b3167"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f49f760c0e4033b6ab8a40cee1b3167">&#9670;&#160;</a></span>getNormCatResponses()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -864,7 +843,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getNormCatResponses </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -872,8 +851,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ab233c365d645da6c6151b9b209c1b3dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab233c365d645da6c6151b9b209c1b3dd">&#9670;&nbsp;</a></span>getNSamples()</h2>
+<a id="ab233c365d645da6c6151b9b209c1b3dd" name="ab233c365d645da6c6151b9b209c1b3dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab233c365d645da6c6151b9b209c1b3dd">&#9670;&#160;</a></span>getNSamples()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -881,7 +860,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.MlModule.TrainData.getNSamples </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -889,8 +868,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="adddab4b13e39472fbdc1251e36c02e03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adddab4b13e39472fbdc1251e36c02e03">&#9670;&nbsp;</a></span>getNTestSamples()</h2>
+<a id="adddab4b13e39472fbdc1251e36c02e03" name="adddab4b13e39472fbdc1251e36c02e03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adddab4b13e39472fbdc1251e36c02e03">&#9670;&#160;</a></span>getNTestSamples()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -898,7 +877,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.MlModule.TrainData.getNTestSamples </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -906,8 +885,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a1c81e196b585d3969e1c1620e2d50a74"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c81e196b585d3969e1c1620e2d50a74">&#9670;&nbsp;</a></span>getNTrainSamples()</h2>
+<a id="a1c81e196b585d3969e1c1620e2d50a74" name="a1c81e196b585d3969e1c1620e2d50a74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c81e196b585d3969e1c1620e2d50a74">&#9670;&#160;</a></span>getNTrainSamples()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -915,7 +894,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.MlModule.TrainData.getNTrainSamples </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -923,8 +902,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a9f1def8e3782a9beb9a1f605960f3466"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f1def8e3782a9beb9a1f605960f3466">&#9670;&nbsp;</a></span>getNVars()</h2>
+<a id="a9f1def8e3782a9beb9a1f605960f3466" name="a9f1def8e3782a9beb9a1f605960f3466"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f1def8e3782a9beb9a1f605960f3466">&#9670;&#160;</a></span>getNVars()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -932,7 +911,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.MlModule.TrainData.getNVars </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -940,8 +919,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a41ec8814c0017a767dbef51139bc9bb4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41ec8814c0017a767dbef51139bc9bb4">&#9670;&nbsp;</a></span>getResponses()</h2>
+<a id="a41ec8814c0017a767dbef51139bc9bb4" name="a41ec8814c0017a767dbef51139bc9bb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41ec8814c0017a767dbef51139bc9bb4">&#9670;&#160;</a></span>getResponses()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -949,7 +928,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getResponses </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -957,8 +936,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a8a01b120a8cd3b00d88bd88abd533fd0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a01b120a8cd3b00d88bd88abd533fd0">&#9670;&nbsp;</a></span>getResponseType()</h2>
+<a id="a8a01b120a8cd3b00d88bd88abd533fd0" name="a8a01b120a8cd3b00d88bd88abd533fd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a01b120a8cd3b00d88bd88abd533fd0">&#9670;&#160;</a></span>getResponseType()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -966,7 +945,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.MlModule.TrainData.getResponseType </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -974,8 +953,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aa27f43907d942f79e7bf7e3b449b90ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa27f43907d942f79e7bf7e3b449b90ec">&#9670;&nbsp;</a></span>getSample()</h2>
+<a id="aa27f43907d942f79e7bf7e3b449b90ec" name="aa27f43907d942f79e7bf7e3b449b90ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa27f43907d942f79e7bf7e3b449b90ec">&#9670;&#160;</a></span>getSample()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -983,33 +962,25 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.TrainData.getSample </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>varIdx</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>varIdx</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>sidx</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>sidx</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>buf</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>buf</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a858074e92fdc6444c0c98e20a3797c0d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a858074e92fdc6444c0c98e20a3797c0d">&#9670;&nbsp;</a></span>getSamples()</h2>
+<a id="a858074e92fdc6444c0c98e20a3797c0d" name="a858074e92fdc6444c0c98e20a3797c0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a858074e92fdc6444c0c98e20a3797c0d">&#9670;&#160;</a></span>getSamples()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1017,7 +988,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getSamples </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1025,8 +996,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a285d9bef326106c7c8b948da8d19c9ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a285d9bef326106c7c8b948da8d19c9ba">&#9670;&nbsp;</a></span>getSampleWeights()</h2>
+<a id="a285d9bef326106c7c8b948da8d19c9ba" name="a285d9bef326106c7c8b948da8d19c9ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a285d9bef326106c7c8b948da8d19c9ba">&#9670;&#160;</a></span>getSampleWeights()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1034,7 +1005,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getSampleWeights </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1042,8 +1013,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a1b08471d508b52ceaff1e734bfbcd955"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b08471d508b52ceaff1e734bfbcd955">&#9670;&nbsp;</a></span>getSubMatrix()</h2>
+<a id="a1b08471d508b52ceaff1e734bfbcd955" name="a1b08471d508b52ceaff1e734bfbcd955"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b08471d508b52ceaff1e734bfbcd955">&#9670;&#160;</a></span>getSubMatrix()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1054,25 +1025,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getSubMatrix </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>matrix</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>matrix</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>idx</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>idx</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>layout</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>layout</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -1094,8 +1057,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a6a46c2aacce246e7406b391acf90ca2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a46c2aacce246e7406b391acf90ca2d">&#9670;&nbsp;</a></span>getSubVector()</h2>
+<a id="a6a46c2aacce246e7406b391acf90ca2d" name="a6a46c2aacce246e7406b391acf90ca2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a46c2aacce246e7406b391acf90ca2d">&#9670;&#160;</a></span>getSubVector()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1106,19 +1069,12 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getSubVector </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>vec</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>vec</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>idx</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>idx</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -1139,8 +1095,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aef36bfc179024a6a6e9bd9c0485cb116"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef36bfc179024a6a6e9bd9c0485cb116">&#9670;&nbsp;</a></span>getTestNormCatResponses()</h2>
+<a id="aef36bfc179024a6a6e9bd9c0485cb116" name="aef36bfc179024a6a6e9bd9c0485cb116"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef36bfc179024a6a6e9bd9c0485cb116">&#9670;&#160;</a></span>getTestNormCatResponses()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1148,7 +1104,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getTestNormCatResponses </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1156,8 +1112,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a72c155c35102ff9e6f592818d6cd2f2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72c155c35102ff9e6f592818d6cd2f2b">&#9670;&nbsp;</a></span>getTestResponses()</h2>
+<a id="a72c155c35102ff9e6f592818d6cd2f2b" name="a72c155c35102ff9e6f592818d6cd2f2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72c155c35102ff9e6f592818d6cd2f2b">&#9670;&#160;</a></span>getTestResponses()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1165,7 +1121,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getTestResponses </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1173,8 +1129,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ae556a836bc6ca4421e6b42c6eaed8fda"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae556a836bc6ca4421e6b42c6eaed8fda">&#9670;&nbsp;</a></span>getTestSampleIdx()</h2>
+<a id="ae556a836bc6ca4421e6b42c6eaed8fda" name="ae556a836bc6ca4421e6b42c6eaed8fda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae556a836bc6ca4421e6b42c6eaed8fda">&#9670;&#160;</a></span>getTestSampleIdx()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1182,7 +1138,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getTestSampleIdx </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1190,8 +1146,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a731c567b5632da3e78b973998808fc77"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a731c567b5632da3e78b973998808fc77">&#9670;&nbsp;</a></span>getTestSamples()</h2>
+<a id="a731c567b5632da3e78b973998808fc77" name="a731c567b5632da3e78b973998808fc77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a731c567b5632da3e78b973998808fc77">&#9670;&#160;</a></span>getTestSamples()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1199,7 +1155,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getTestSamples </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1209,8 +1165,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a3b003a5156d606ff40105debb3a0533e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b003a5156d606ff40105debb3a0533e">&#9670;&nbsp;</a></span>getTestSampleWeights()</h2>
+<a id="a3b003a5156d606ff40105debb3a0533e" name="a3b003a5156d606ff40105debb3a0533e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b003a5156d606ff40105debb3a0533e">&#9670;&#160;</a></span>getTestSampleWeights()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1218,7 +1174,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getTestSampleWeights </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1226,8 +1182,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a9175f50c1d240a693291262407f3c02e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9175f50c1d240a693291262407f3c02e">&#9670;&nbsp;</a></span>getTrainNormCatResponses()</h2>
+<a id="a9175f50c1d240a693291262407f3c02e" name="a9175f50c1d240a693291262407f3c02e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9175f50c1d240a693291262407f3c02e">&#9670;&#160;</a></span>getTrainNormCatResponses()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1235,19 +1191,19 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getTrainNormCatResponses </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Returns the vector of normalized categorical responses. </p>
-<p>The function returns vector of responses. Each response is integer from <code>0</code> to <code>&lt;number of classes&gt;-1</code>. The actual label value can be retrieved then from the class label vector, see <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a191501ff36dd653dc8ed3cf933fecda1" title="Returns the vector of class labels. ">TrainData::getClassLabels</a>. </p>
+<p>The function returns vector of responses. Each response is integer from <code>0</code> to <code>&amp;lt;number of / classes&amp;gt;-1</code>. The actual label value can be retrieved then from the class label vector, see <a class="el" href="#a191501ff36dd653dc8ed3cf933fecda1" title="Returns the vector of class labels.">TrainData.getClassLabels</a>. </p>
 
 </div>
 </div>
-<a id="a875cae7cc1e64210afd0505af09a5ed2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a875cae7cc1e64210afd0505af09a5ed2">&#9670;&nbsp;</a></span>getTrainResponses()</h2>
+<a id="a875cae7cc1e64210afd0505af09a5ed2" name="a875cae7cc1e64210afd0505af09a5ed2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a875cae7cc1e64210afd0505af09a5ed2">&#9670;&#160;</a></span>getTrainResponses()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1255,7 +1211,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getTrainResponses </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1266,8 +1222,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a995be370c822f0255b61b8126df9177f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a995be370c822f0255b61b8126df9177f">&#9670;&nbsp;</a></span>getTrainSampleIdx()</h2>
+<a id="a995be370c822f0255b61b8126df9177f" name="a995be370c822f0255b61b8126df9177f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a995be370c822f0255b61b8126df9177f">&#9670;&#160;</a></span>getTrainSampleIdx()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1275,7 +1231,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getTrainSampleIdx </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1283,8 +1239,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a6e057f734afd77a63ed613dd24ce2b67"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e057f734afd77a63ed613dd24ce2b67">&#9670;&nbsp;</a></span>getTrainSamples() <span class="overload">[1/4]</span></h2>
+<a id="a0c9432627c7e4207b773cc6ba2fdf13a" name="a0c9432627c7e4207b773cc6ba2fdf13a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c9432627c7e4207b773cc6ba2fdf13a">&#9670;&#160;</a></span>getTrainSamples() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1292,64 +1248,105 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getTrainSamples </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>layout</em>, </td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns matrix of train samples. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">layout</td><td>The requested layout. If it's different from the initial one, the matrix is transposed. See ml::SampleTypes. </td></tr>
+    <tr><td class="paramname">compressSamples</td><td>if true, the function returns only the training samples (specified by sampleIdx) </td></tr>
+    <tr><td class="paramname">compressVars</td><td>if true, the function returns the shorter training samples, containing only the active variables. </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>In current implementation the function tries to avoid physical data copying and returns the matrix stored inside <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html" title="Class encapsulating training data.">TrainData</a> (unless the transposition or compression is needed). </p>
+
+</div>
+</div>
+<a id="a0101f8e38590b59281d37bedb0ff2337" name="a0101f8e38590b59281d37bedb0ff2337"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0101f8e38590b59281d37bedb0ff2337">&#9670;&#160;</a></span>getTrainSamples() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getTrainSamples </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>layout</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns matrix of train samples. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">layout</td><td>The requested layout. If it's different from the initial one, the matrix is transposed. See ml::SampleTypes. </td></tr>
+    <tr><td class="paramname">compressSamples</td><td>if true, the function returns only the training samples (specified by sampleIdx) </td></tr>
+    <tr><td class="paramname">compressVars</td><td>if true, the function returns the shorter training samples, containing only the active variables. </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>In current implementation the function tries to avoid physical data copying and returns the matrix stored inside <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html" title="Class encapsulating training data.">TrainData</a> (unless the transposition or compression is needed). </p>
+
+</div>
+</div>
+<a id="a34c64e56ec5e573e276be6fca67e70a0" name="a34c64e56ec5e573e276be6fca67e70a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34c64e56ec5e573e276be6fca67e70a0">&#9670;&#160;</a></span>getTrainSamples() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getTrainSamples </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>layout</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>compressSamples</em>, </td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>compressSamples</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns matrix of train samples. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">layout</td><td>The requested layout. If it's different from the initial one, the matrix is transposed. See ml::SampleTypes. </td></tr>
+    <tr><td class="paramname">compressSamples</td><td>if true, the function returns only the training samples (specified by sampleIdx) </td></tr>
+    <tr><td class="paramname">compressVars</td><td>if true, the function returns the shorter training samples, containing only the active variables. </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>In current implementation the function tries to avoid physical data copying and returns the matrix stored inside <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html" title="Class encapsulating training data.">TrainData</a> (unless the transposition or compression is needed). </p>
+
+</div>
+</div>
+<a id="a6e057f734afd77a63ed613dd24ce2b67" name="a6e057f734afd77a63ed613dd24ce2b67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e057f734afd77a63ed613dd24ce2b67">&#9670;&#160;</a></span>getTrainSamples() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getTrainSamples </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>layout</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>compressVars</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns matrix of train samples. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">layout</td><td>The requested layout. If it's different from the initial one, the matrix is transposed. See ml::SampleTypes. </td></tr>
-    <tr><td class="paramname">compressSamples</td><td>if true, the function returns only the training samples (specified by sampleIdx) </td></tr>
-    <tr><td class="paramname">compressVars</td><td>if true, the function returns the shorter training samples, containing only the active variables.</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>In current implementation the function tries to avoid physical data copying and returns the matrix stored inside <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html" title="Class encapsulating training data. ">TrainData</a> (unless the transposition or compression is needed). </p>
-
-</div>
-</div>
-<a id="a34c64e56ec5e573e276be6fca67e70a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34c64e56ec5e573e276be6fca67e70a0">&#9670;&nbsp;</a></span>getTrainSamples() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getTrainSamples </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>layout</em>, </td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>compressSamples</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>compressSamples</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>compressVars</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1359,73 +1356,16 @@ Additional Inherited Members</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">layout</td><td>The requested layout. If it's different from the initial one, the matrix is transposed. See ml::SampleTypes. </td></tr>
     <tr><td class="paramname">compressSamples</td><td>if true, the function returns only the training samples (specified by sampleIdx) </td></tr>
-    <tr><td class="paramname">compressVars</td><td>if true, the function returns the shorter training samples, containing only the active variables.</td></tr>
+    <tr><td class="paramname">compressVars</td><td>if true, the function returns the shorter training samples, containing only the active variables. </td></tr>
   </table>
   </dd>
 </dl>
-<p>In current implementation the function tries to avoid physical data copying and returns the matrix stored inside <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html" title="Class encapsulating training data. ">TrainData</a> (unless the transposition or compression is needed). </p>
+<p>In current implementation the function tries to avoid physical data copying and returns the matrix stored inside <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html" title="Class encapsulating training data.">TrainData</a> (unless the transposition or compression is needed). </p>
 
 </div>
 </div>
-<a id="a0101f8e38590b59281d37bedb0ff2337"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0101f8e38590b59281d37bedb0ff2337">&#9670;&nbsp;</a></span>getTrainSamples() <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getTrainSamples </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>layout</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns matrix of train samples. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">layout</td><td>The requested layout. If it's different from the initial one, the matrix is transposed. See ml::SampleTypes. </td></tr>
-    <tr><td class="paramname">compressSamples</td><td>if true, the function returns only the training samples (specified by sampleIdx) </td></tr>
-    <tr><td class="paramname">compressVars</td><td>if true, the function returns the shorter training samples, containing only the active variables.</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>In current implementation the function tries to avoid physical data copying and returns the matrix stored inside <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html" title="Class encapsulating training data. ">TrainData</a> (unless the transposition or compression is needed). </p>
-
-</div>
-</div>
-<a id="a0c9432627c7e4207b773cc6ba2fdf13a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c9432627c7e4207b773cc6ba2fdf13a">&#9670;&nbsp;</a></span>getTrainSamples() <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getTrainSamples </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns matrix of train samples. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">layout</td><td>The requested layout. If it's different from the initial one, the matrix is transposed. See ml::SampleTypes. </td></tr>
-    <tr><td class="paramname">compressSamples</td><td>if true, the function returns only the training samples (specified by sampleIdx) </td></tr>
-    <tr><td class="paramname">compressVars</td><td>if true, the function returns the shorter training samples, containing only the active variables.</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>In current implementation the function tries to avoid physical data copying and returns the matrix stored inside <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html" title="Class encapsulating training data. ">TrainData</a> (unless the transposition or compression is needed). </p>
-
-</div>
-</div>
-<a id="ad55bdd7f5125eac7945cf4486b8dbb0a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad55bdd7f5125eac7945cf4486b8dbb0a">&#9670;&nbsp;</a></span>getTrainSampleWeights()</h2>
+<a id="ad55bdd7f5125eac7945cf4486b8dbb0a" name="ad55bdd7f5125eac7945cf4486b8dbb0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad55bdd7f5125eac7945cf4486b8dbb0a">&#9670;&#160;</a></span>getTrainSampleWeights()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1433,7 +1373,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getTrainSampleWeights </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1441,8 +1381,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a545ce665d7e5098a76ea1157b03b9d3e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a545ce665d7e5098a76ea1157b03b9d3e">&#9670;&nbsp;</a></span>getValues()</h2>
+<a id="a545ce665d7e5098a76ea1157b03b9d3e" name="a545ce665d7e5098a76ea1157b03b9d3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a545ce665d7e5098a76ea1157b03b9d3e">&#9670;&#160;</a></span>getValues()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1450,33 +1390,25 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.TrainData.getValues </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>vi</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>vi</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>sidx</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>sidx</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>values</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>values</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a313cc9aba26f13832e49038b1cb9d940"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a313cc9aba26f13832e49038b1cb9d940">&#9670;&nbsp;</a></span>getVarIdx()</h2>
+<a id="a313cc9aba26f13832e49038b1cb9d940" name="a313cc9aba26f13832e49038b1cb9d940"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a313cc9aba26f13832e49038b1cb9d940">&#9670;&#160;</a></span>getVarIdx()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1484,7 +1416,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getVarIdx </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1492,8 +1424,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a65f87c2e649ac3b422b90dadd678615a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65f87c2e649ac3b422b90dadd678615a">&#9670;&nbsp;</a></span>getVarSymbolFlags()</h2>
+<a id="a65f87c2e649ac3b422b90dadd678615a" name="a65f87c2e649ac3b422b90dadd678615a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65f87c2e649ac3b422b90dadd678615a">&#9670;&#160;</a></span>getVarSymbolFlags()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1501,7 +1433,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getVarSymbolFlags </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1509,8 +1441,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ae0196928ab99c36423d2425621442908"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0196928ab99c36423d2425621442908">&#9670;&nbsp;</a></span>getVarType()</h2>
+<a id="ae0196928ab99c36423d2425621442908" name="ae0196928ab99c36423d2425621442908"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0196928ab99c36423d2425621442908">&#9670;&#160;</a></span>getVarType()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1518,7 +1450,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.MlModule.TrainData.getVarType </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1526,8 +1458,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a8229be3c5b4f2376faed76e781c3cb5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8229be3c5b4f2376faed76e781c3cb5d">&#9670;&nbsp;</a></span>setTrainTestSplit() <span class="overload">[1/2]</span></h2>
+<a id="a99008f3922fd479517c78d9e697aaa59" name="a99008f3922fd479517c78d9e697aaa59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99008f3922fd479517c78d9e697aaa59">&#9670;&#160;</a></span>setTrainTestSplit() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1535,30 +1467,19 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.TrainData.setTrainTestSplit </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>count</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>count</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>shuffle</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Splits the training data into the training and test parts. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a4646728796ea1a204480bc898174013a" title="Splits the training data into the training and test parts. ">TrainData::setTrainTestSplitRatio</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a4646728796ea1a204480bc898174013a" title="Splits the training data into the training and test parts.">TrainData.setTrainTestSplitRatio</a> </dd></dl>
 
 </div>
 </div>
-<a id="a99008f3922fd479517c78d9e697aaa59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99008f3922fd479517c78d9e697aaa59">&#9670;&nbsp;</a></span>setTrainTestSplit() <span class="overload">[2/2]</span></h2>
+<a id="a8229be3c5b4f2376faed76e781c3cb5d" name="a8229be3c5b4f2376faed76e781c3cb5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8229be3c5b4f2376faed76e781c3cb5d">&#9670;&#160;</a></span>setTrainTestSplit() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1566,51 +1487,23 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.TrainData.setTrainTestSplit </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>count</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Splits the training data into the training and test parts. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a4646728796ea1a204480bc898174013a" title="Splits the training data into the training and test parts. ">TrainData::setTrainTestSplitRatio</a> </dd></dl>
-
-</div>
-</div>
-<a id="a4646728796ea1a204480bc898174013a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4646728796ea1a204480bc898174013a">&#9670;&nbsp;</a></span>setTrainTestSplitRatio() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void OpenCVForUnity.MlModule.TrainData.setTrainTestSplitRatio </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>ratio</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>count</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>shuffle</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>shuffle</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Splits the training data into the training and test parts. </p>
-<p>The function selects a subset of specified relative size and then returns it as the training set. If the function is not called, all the data is used for training. Please, note that for each of TrainData::getTrain* there is corresponding TrainData::getTest*, so that the test subset can be retrieved and processed as well. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a8229be3c5b4f2376faed76e781c3cb5d" title="Splits the training data into the training and test parts. ">TrainData::setTrainTestSplit</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a4646728796ea1a204480bc898174013a" title="Splits the training data into the training and test parts.">TrainData.setTrainTestSplitRatio</a> </dd></dl>
 
 </div>
 </div>
-<a id="ab5e940763633f82042771013949cc993"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5e940763633f82042771013949cc993">&#9670;&nbsp;</a></span>setTrainTestSplitRatio() <span class="overload">[2/2]</span></h2>
+<a id="ab5e940763633f82042771013949cc993" name="ab5e940763633f82042771013949cc993"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5e940763633f82042771013949cc993">&#9670;&#160;</a></span>setTrainTestSplitRatio() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1618,20 +1511,43 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.TrainData.setTrainTestSplitRatio </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>ratio</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>ratio</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Splits the training data into the training and test parts. </p>
-<p>The function selects a subset of specified relative size and then returns it as the training set. If the function is not called, all the data is used for training. Please, note that for each of TrainData::getTrain* there is corresponding TrainData::getTest*, so that the test subset can be retrieved and processed as well. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_train_data.html#a8229be3c5b4f2376faed76e781c3cb5d" title="Splits the training data into the training and test parts. ">TrainData::setTrainTestSplit</a> </dd></dl>
+<p>The function selects a subset of specified relative size and then returns it as the training set. If the function is not called, all the data is used for training. Please, note that for each of TrainData::getTrain* there is corresponding TrainData::getTest*, so that the test subset can be retrieved and processed as well. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="#a8229be3c5b4f2376faed76e781c3cb5d" title="Splits the training data into the training and test parts.">TrainData.setTrainTestSplit</a> </dd></dl>
 
 </div>
 </div>
-<a id="aeab9419c25690d08163504821bc04808"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeab9419c25690d08163504821bc04808">&#9670;&nbsp;</a></span>shuffleTrainTest()</h2>
+<a id="a4646728796ea1a204480bc898174013a" name="a4646728796ea1a204480bc898174013a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4646728796ea1a204480bc898174013a">&#9670;&#160;</a></span>setTrainTestSplitRatio() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.MlModule.TrainData.setTrainTestSplitRatio </td>
+          <td>(</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>ratio</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>shuffle</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Splits the training data into the training and test parts. </p>
+<p>The function selects a subset of specified relative size and then returns it as the training set. If the function is not called, all the data is used for training. Please, note that for each of TrainData::getTrain* there is corresponding TrainData::getTest*, so that the test subset can be retrieved and processed as well. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="#a8229be3c5b4f2376faed76e781c3cb5d" title="Splits the training data into the training and test parts.">TrainData.setTrainTestSplit</a> </dd></dl>
+
+</div>
+</div>
+<a id="aeab9419c25690d08163504821bc04808" name="aeab9419c25690d08163504821bc04808"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeab9419c25690d08163504821bc04808">&#9670;&#160;</a></span>shuffleTrainTest()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1639,7 +1555,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.MlModule.TrainData.shuffleTrainTest </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1653,9 +1569,8 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

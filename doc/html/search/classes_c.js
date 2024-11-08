@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['net',['Net',['../class_open_c_v_for_unity_1_1_dnn_module_1_1_net.html',1,'OpenCVForUnity::DnnModule']]],
-  ['normalbayesclassifier',['NormalBayesClassifier',['../class_open_c_v_for_unity_1_1_ml_module_1_1_normal_bayes_classifier.html',1,'OpenCVForUnity::MlModule']]]
+  ['net_0',['Net',['../d2/d28/classOpenCVForUnity_1_1DnnModule_1_1Net.html',1,'OpenCVForUnity::DnnModule']]],
+  ['normalbayesclassifier_1',['NormalBayesClassifier',['../d6/d43/classOpenCVForUnity_1_1MlModule_1_1NormalBayesClassifier.html',1,'OpenCVForUnity::MlModule']]]
 ];

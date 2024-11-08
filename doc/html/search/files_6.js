@@ -1,13 +1,19 @@
 var searchData=
 [
-  ['generalizedhough_2ecs',['GeneralizedHough.cs',['../_generalized_hough_8cs.html',1,'']]],
-  ['generalizedhoughballard_2ecs',['GeneralizedHoughBallard.cs',['../_generalized_hough_ballard_8cs.html',1,'']]],
-  ['generalizedhoughguil_2ecs',['GeneralizedHoughGuil.cs',['../_generalized_hough_guil_8cs.html',1,'']]],
-  ['gfttdetector_2ecs',['GFTTDetector.cs',['../_g_f_t_t_detector_8cs.html',1,'']]],
-  ['graphicalcodedetector_2ecs',['GraphicalCodeDetector.cs',['../_graphical_code_detector_8cs.html',1,'']]],
-  ['graphsegmentation_2ecs',['GraphSegmentation.cs',['../_graph_segmentation_8cs.html',1,'']]],
-  ['graycodepattern_2ecs',['GrayCodePattern.cs',['../_gray_code_pattern_8cs.html',1,'']]],
-  ['grayworldwb_2ecs',['GrayworldWB.cs',['../_grayworld_w_b_8cs.html',1,'']]],
-  ['gridboard_2ecs',['GridBoard.cs',['../_grid_board_8cs.html',1,'']]],
-  ['guidedfilter_2ecs',['GuidedFilter.cs',['../_guided_filter_8cs.html',1,'']]]
+  ['generalizedhough_2ecs_0',['GeneralizedHough.cs',['../d2/ddb/GeneralizedHough_8cs.html',1,'']]],
+  ['generalizedhough_5fstruct_2ecs_1',['GeneralizedHough_Struct.cs',['../d1/d8f/GeneralizedHough__Struct_8cs.html',1,'']]],
+  ['generalizedhough_5fvaluetuple_2ecs_2',['GeneralizedHough_ValueTuple.cs',['../dc/d68/GeneralizedHough__ValueTuple_8cs.html',1,'']]],
+  ['generalizedhoughballard_2ecs_3',['GeneralizedHoughBallard.cs',['../d1/db4/GeneralizedHoughBallard_8cs.html',1,'']]],
+  ['generalizedhoughguil_2ecs_4',['GeneralizedHoughGuil.cs',['../dd/d7e/GeneralizedHoughGuil_8cs.html',1,'']]],
+  ['gfttdetector_2ecs_5',['GFTTDetector.cs',['../d6/d27/GFTTDetector_8cs.html',1,'']]],
+  ['graphicalcodedetector_2ecs_6',['GraphicalCodeDetector.cs',['../d8/d7b/GraphicalCodeDetector_8cs.html',1,'']]],
+  ['graphsegmentation_2ecs_7',['GraphSegmentation.cs',['../de/d0c/GraphSegmentation_8cs.html',1,'']]],
+  ['graycodepattern_2ecs_8',['GrayCodePattern.cs',['../d9/daa/GrayCodePattern_8cs.html',1,'']]],
+  ['graycodepattern_5fstruct_2ecs_9',['GrayCodePattern_Struct.cs',['../d4/da5/GrayCodePattern__Struct_8cs.html',1,'']]],
+  ['graycodepattern_5fvaluetuple_2ecs_10',['GrayCodePattern_ValueTuple.cs',['../de/d9e/GrayCodePattern__ValueTuple_8cs.html',1,'']]],
+  ['grayworldwb_2ecs_11',['GrayworldWB.cs',['../d6/d67/GrayworldWB_8cs.html',1,'']]],
+  ['gridboard_2ecs_12',['GridBoard.cs',['../d3/d9e/GridBoard_8cs.html',1,'']]],
+  ['gridboard_5fstruct_2ecs_13',['GridBoard_Struct.cs',['../db/d29/GridBoard__Struct_8cs.html',1,'']]],
+  ['gridboard_5fvaluetuple_2ecs_14',['GridBoard_ValueTuple.cs',['../d1/d8f/GridBoard__ValueTuple_8cs.html',1,'']]],
+  ['guidedfilter_2ecs_15',['GuidedFilter.cs',['../df/dc1/GuidedFilter_8cs.html',1,'']]]
 ];

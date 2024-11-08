@@ -1,45 +1,61 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: Class Members - Variables</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
+<script type="text/javascript" src="darkmode_toggle.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +63,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.4</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,23 +74,35 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="doc-content">
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -85,442 +112,174 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div class="contents">
-&#160;
+<div class="textblock">Here is a list of all variables with links to the classes they belong to:</div>
 
-<h3><a id="index_i"></a>- i -</h3><ul>
-<li>IDENTITY
-: <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a3fb0016e7d360bedcba1a88e32265826">OpenCVForUnity.MlModule.ANN_MLP</a>
-</li>
-<li>imageBufferMatLockObject
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#a635295221c0e9d89d4e6b0744c244dbe">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#a79b823385b42eeed6eda2c8070173f97">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a>
-</li>
-<li>imageFileFullPath
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a4e12abcd5a3678ad6c21332866672479">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>
-</li>
-<li>imgIdx
-: <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_d_match.html#a64b744108964425de4350ca60ccd3929">OpenCVForUnity.CoreModule.DMatch</a>
-</li>
-<li>IMREAD_ANYCOLOR
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a829ca7b900a1ff90f1edd3d45e446c35">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMREAD_ANYDEPTH
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a9569701903bcc153895dcb4589e4bab7">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMREAD_COLOR
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a1b0b5c00a0bbdab86d5345d6c83b970d">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMREAD_GRAYSCALE
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a9017049a86ddd0df517dc315660bbc49">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMREAD_IGNORE_ORIENTATION
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a3ed2685fe05da6e22523fefeb2e1e206">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMREAD_LOAD_GDAL
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a654c7a8ed089fe9a0701bebb65cf1972">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMREAD_REDUCED_COLOR_2
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a05b6ff6720e6f29fd83d307707627018">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMREAD_REDUCED_COLOR_4
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#afb402f286f4c2248f4ac905cf7f43c36">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMREAD_REDUCED_COLOR_8
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#aa8f5f42ae847c07dcb60acd97ea6c7bf">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMREAD_REDUCED_GRAYSCALE_2
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a36cdbfec547d8674a967569167379090">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMREAD_REDUCED_GRAYSCALE_4
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#adaa71ea4edb4c111637d34c05bb4ddd9">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMREAD_REDUCED_GRAYSCALE_8
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a16477ce0755c58922e38e461c6890be6">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMREAD_UNCHANGED
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#abae3b0d3ca4db7491437231d3f0bd570">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_AVIF_DEPTH
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#aa51a3f7a5ef8bfa27482751e0c46a97f">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_AVIF_QUALITY
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#abb0a700af51cbed5585eecb2cab9ea85">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_AVIF_SPEED
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a44cb916321ebf8a6b592e9db71ccf2b6">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_EXR_COMPRESSION
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#ac9b8f1d1328e8935e4fcd210aba64a87">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_EXR_COMPRESSION_B44
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a918d1e7166ed99b564a0b3f254162a28">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_EXR_COMPRESSION_B44A
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a4ce0df852db384f02b1b1759f2cfa492">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_EXR_COMPRESSION_DWAA
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#ab2e44f13d54ab40e0f68409e336938ee">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_EXR_COMPRESSION_DWAB
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a80da84e2244f398b750ebdf532678d99">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_EXR_COMPRESSION_NO
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a68663e0fdc27ef20ed6206694c12c410">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_EXR_COMPRESSION_PIZ
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a1dab044b98b1b23c2bf45c953ef3c8ea">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_EXR_COMPRESSION_PXR24
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#acd74445c06181cf540d47e9a911d8f35">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_EXR_COMPRESSION_RLE
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#ad86d5f955a9c9d0b84e1307aefc54178">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_EXR_COMPRESSION_ZIP
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#ad951224da80248b6a2a22ec11043f081">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_EXR_COMPRESSION_ZIPS
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a2560c5b5245b84870132b8578cd3ac2c">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_EXR_DWA_COMPRESSION_LEVEL
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a5d01b9d30e178856bfe01190a35d2e47">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_EXR_TYPE
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a9c04a48ea62cf54f741a1e64b065c291">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_EXR_TYPE_FLOAT
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a302fce5ddb16d24af22227c39f2398a3">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_EXR_TYPE_HALF
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#ae1df6911fb2a514ccd26c04002977c96">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_HDR_COMPRESSION
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#ae20e59cd31f48b69279ac0840deab89c">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_HDR_COMPRESSION_NONE
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a7262979b2b7a51e96968deb702435b1d">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_HDR_COMPRESSION_RLE
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#aec43421c17c516149a3aaf42d6418424">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_JPEG2000_COMPRESSION_X1000
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a002fe8733ff912f6bde965762435ff85">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_JPEG_CHROMA_QUALITY
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a37c8df94fea321bfd619171a10b3429d">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_JPEG_LUMA_QUALITY
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a4783ac127cd6309691a4e70063370811">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_JPEG_OPTIMIZE
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a1bc8d0da4e46da8538363cf508804876">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_JPEG_PROGRESSIVE
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#afdd8740e54559c6608587d547077764a">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_JPEG_QUALITY
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#afe397160cd3c42bb4c08bdb016e2538c">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_JPEG_RST_INTERVAL
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#aab6e0172f5db6da41552d9bd5f86753b">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_JPEG_SAMPLING_FACTOR
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#af552f24119fa4c18f844fbc651ea4e3f">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_JPEG_SAMPLING_FACTOR_411
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a2b6f46b0ed93000f1689742ba33f8e65">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_JPEG_SAMPLING_FACTOR_420
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#aee6ed20bba4fdbb78bc340f46a0722c9">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_JPEG_SAMPLING_FACTOR_422
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a3e0daaa10c06660abb534728e38b03d0">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_JPEG_SAMPLING_FACTOR_440
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a63a8c936fea178d7de03b49c5c7295a6">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_JPEG_SAMPLING_FACTOR_444
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a3b2cfcb8f80bc0684f6e4cdedf6fd0c2">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_PAM_FORMAT_BLACKANDWHITE
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a4f2d19fd9ff32547957dae37132c845a">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_PAM_FORMAT_GRAYSCALE
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a1604b91a2dea8c5a52169fa5c0eb1ef6">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_PAM_FORMAT_GRAYSCALE_ALPHA
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a8b0550f512154892571a5a98a116a01b">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_PAM_FORMAT_NULL
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a08e2b4469ca0ba8b4b479764b59e3ae0">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_PAM_FORMAT_RGB
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a2784bd64fcefcf88dc24baf6fabd4b2f">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_PAM_FORMAT_RGB_ALPHA
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a1692e2547a8b477fec78bf73e558dc72">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_PAM_TUPLETYPE
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a7f55d37f5049ab03bf47db258f23f70e">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_PNG_BILEVEL
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a32050333bc325dc9007987aa8b202430">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_PNG_COMPRESSION
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a38c1fb353ef4450efe38c737a1a9221d">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_PNG_STRATEGY
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#ae234aba7598b3265d15aa90ebfeaf56c">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_PNG_STRATEGY_DEFAULT
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a809839f98579e186ff73aa568bec1d04">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_PNG_STRATEGY_FILTERED
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a5f71b0fc05c07438058b41bbe7079c84">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_PNG_STRATEGY_FIXED
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#ade094e79f360f1ae388d1e7bbd1cc4f6">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_PNG_STRATEGY_HUFFMAN_ONLY
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#aaea7e321f9bb2e7ccbfdba61f2be18ae">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_PNG_STRATEGY_RLE
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#aa8511571e14906b1f5904fbd99d6dacf">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_PXM_BINARY
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a786f5e643fcd6e93104809fe3bed9083">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a3923cbe6d2e97c483ff7dc5d55353e84">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_ADOBE_DEFLATE
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a388e9fffb84118f2fb0c321da96b3a47">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_CCITT_T4
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a2b760ad8fb02ed750158e1ccca20c292">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_CCITT_T6
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a257c192c36d8131a827eb538381300bc">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_CCITTFAX3
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a694e32bcc41e45408ac65d9a1230fc60">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_CCITTFAX4
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a3bcd0dd8ac9be67b745f7324ffcbfaa9">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_CCITTRLE
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a3a0d8c57a9ac3fc06574652727e50ec7">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_CCITTRLEW
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a82dd1ef32514aec6c5adaba157a9cb94">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_DCS
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a497f6b3a2c756b4762826dbf80d59aec">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_DEFLATE
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a6af9669f600d5c934e4389448a1b26fc">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_IT8BL
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#afaf634e8cbd7ce562a60d390650c7446">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_IT8CTPAD
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#ae07a53dd9a1129fd63cd169d6f2ca5f8">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_IT8LW
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a90f15ada88c18730f319279ee48fad8b">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_IT8MP
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a6005b494127d3816fdc5b6b58f53c10d">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_JBIG
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#aeb5cbe14dcd51902e133ba11afbcfcf5">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_JP2000
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a82519c41bebc44d80ac68882571b30a5">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_JPEG
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a64dc50af855d62a0f385766957dc254a">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_JXL
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#aa14ca0f2ac104822797a048b48dc218f">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_LERC
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a47c6c678e4183b66e4caedee4f672a0d">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_LZMA
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a2e8784f72ff130cadbeff19914d2bdb4">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_LZW
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a72779d37b5502949219405dda822c3d2">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_NEXT
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#ad57b1500a3874cca23fb17d48f5e98cd">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_NONE
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#ad31340010eee04b60ed755b1ddb3248b">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_OJPEG
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#abd4e0af0d2e2a03521764ef1dea3d942">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_PACKBITS
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a783937fa2a27d464db355fc3213b410b">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_PIXARFILM
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#ab0fbdad32aaaf6eaf7822683fc7bb0e0">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_PIXARLOG
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a177ae4a5b06b66ef0172778f60fc4752">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_SGILOG
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a6f23f37dd34ed09835dc8f4c491970ff">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_SGILOG24
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a06746afdb06af03bf046c546c8a0f8b6">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_T43
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a85e14bff2d47a223301a4963817a651f">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_T85
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a8915653403357aedd4738b9adc3c9a67">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_THUNDERSCAN
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#ad8132d5a510239c604d30ce09edf30de">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_WEBP
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a7dbccddb2ce5bdb82f470936cd4e4427">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_COMPRESSION_ZSTD
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a03c29c1c891189c11cd6271d60ca5407">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_PREDICTOR
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#ab8218f8c71260e27df3ff8dda5da4433">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_PREDICTOR_FLOATINGPOINT
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a381d34f1114738fcdb86002f68b6cc8f">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_PREDICTOR_HORIZONTAL
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a87241d149a206ae750644e9aef08b7e7">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_PREDICTOR_NONE
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a182322caa1a068bf72f8ba970a50d5e2">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_RESUNIT
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a1ec597ebd80a6dde64c42fd7385c8e43">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_ROWSPERSTRIP
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a5ecf085e1902dae2ffb68d910921b333">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_XDPI
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a3bc3f254d414a1bb170f3b77824fac78">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_TIFF_YDPI
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#a7732ccd703b8a45d4d9d0d4abeeee759">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>IMWRITE_WEBP_QUALITY
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgcodecs_module_1_1_imgcodecs.html#ad8348c88e3d0a4c34032d334328cc7ee">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a>
-</li>
-<li>initCoroutine
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#ac55aa4bb44944d7ac9a0b816f89a5237">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#ae767e1a7b6b31d05d1261175475d58c1">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#a1038046092d473f4c6af687da2ac364c">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#a43e793ff9ec291effdab54ad9a75da9a">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture2_mat_helper.html#aae1b8d7b7c7837bd1eb5b0ce9bbed6dc">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#adb72dc450d8b0e048d19d475716a2ef9">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a>
-</li>
-<li>INPAINT_FSR_BEST
-: <a class="el" href="class_open_c_v_for_unity_1_1_xphoto_module_1_1_xphoto.html#acbc453dbdd64be24c2a1ec50ce93cabf">OpenCVForUnity.XphotoModule.Xphoto</a>
-</li>
-<li>INPAINT_FSR_FAST
-: <a class="el" href="class_open_c_v_for_unity_1_1_xphoto_module_1_1_xphoto.html#a5e8a434c0248e04ace81cb66b810be8c">OpenCVForUnity.XphotoModule.Xphoto</a>
-</li>
-<li>INPAINT_NS
-: <a class="el" href="class_open_c_v_for_unity_1_1_photo_module_1_1_photo.html#a9f63276fa7685b68fd4489ea8775a801">OpenCVForUnity.PhotoModule.Photo</a>
-</li>
-<li>INPAINT_SHIFTMAP
-: <a class="el" href="class_open_c_v_for_unity_1_1_xphoto_module_1_1_xphoto.html#a0d0809d2cfb024c720836b957974951f">OpenCVForUnity.XphotoModule.Xphoto</a>
-</li>
-<li>INPAINT_TELEA
-: <a class="el" href="class_open_c_v_for_unity_1_1_photo_module_1_1_photo.html#a77516899522ddf40f268617655737d97">OpenCVForUnity.PhotoModule.Photo</a>
-</li>
-<li>INTER
-: <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_s_v_m.html#aa2477c704c30acde64836490e7fbbd0e">OpenCVForUnity.MlModule.SVM</a>
-</li>
-<li>INTER_AREA
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#acd8569717c58401af4a264b98bcdcb47">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>INTER_BITS
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a253450ffe54d8a9bf3d34c796dc27713">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>INTER_BITS2
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a73f23c8eb9e03493ce5061d7da6fe628">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>INTER_CUBIC
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a8443c77973c8c7be0cfe6ac37016773f">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>INTER_LANCZOS4
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a1a72412472a5833860a5c8e7b0bcfc72">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>INTER_LINEAR
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a7e16d35f425f556033afeef60210a02c">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>INTER_LINEAR_EXACT
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#ac360ea8f45d858397dc8060717c5c9ab">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>INTER_MAX
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#ad11fdbab00115af0f1375c897662635b">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>INTER_NEAREST
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a74743d222b543bc6f12feb87f31a9c55">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>INTER_NEAREST_EXACT
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#ac6182daf93684d7d7d7dae04a7e82fd4">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>INTER_TAB_SIZE
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a6849f3fbbb982c2376a78126dd20c053">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>INTER_TAB_SIZE2
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a6969f22a03fa5da2d886d0148efeebd6">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>INTERSECT_FULL
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#aaa7fa64d95abed6c8365bb6feffb522b">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>INTERSECT_NONE
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#aa79ab77335a6507eef9d43279b68d561">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>INTERSECT_PARTIAL
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a96cba858171fdb252f77b6ea0c61b7de">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>isInitWaiting
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a7f65870734526841e9d79007e67fa5f2">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_unity_video_player2_mat_helper.html#a81effdcdc73c09fe98e4c1c8554e100e">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture2_mat_helper.html#ac0a96f79d74cdcb6904e7a0204002cb2">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_video_capture_to_mat_helper.html#af275cb7aaeee606399334e5c48d5755b">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture2_mat_helper.html#a5c7776f7559d3fc6aac6a247f8370974">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#acb86284163e63814276b8d6ca30c4cef">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a>
-</li>
-<li>isPlaying
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#ab326f334b7c6c6d8d0df143342fc8d06">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>
-</li>
-<li>isScreenSizeChangeWaiting
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture2_mat_helper.html#aa9164d438d86913ace08d8e3e15fb224">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>
-, <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_web_cam_texture_to_mat_helper.html#a9788777878170db178f55ee5bbfbfebc">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a>
-</li>
-<li>isThreadRunning
-: <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a85e8bba4a18fbfb540149f076f898c65">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>
-</li>
+<h3><a id="index_i" name="index_i"></a>- i -</h3><ul>
+<li>IDENTITY&#160;:&#160;<a class="el" href="d6/dfe/classOpenCVForUnity_1_1MlModule_1_1ANN__MLP.html#a3fb0016e7d360bedcba1a88e32265826">OpenCVForUnity.MlModule.ANN_MLP</a></li>
+<li>imageBufferMatLockObject&#160;:&#160;<a class="el" href="dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html#a635295221c0e9d89d4e6b0744c244dbe">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, <a class="el" href="d3/d8d/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureToMatHelper.html#a79b823385b42eeed6eda2c8070173f97">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a></li>
+<li>imageFileFullPath&#160;:&#160;<a class="el" href="d6/de0/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Image2MatHelper.html#a4e12abcd5a3678ad6c21332866672479">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></li>
+<li>imgIdx&#160;:&#160;<a class="el" href="da/dc6/classOpenCVForUnity_1_1CoreModule_1_1DMatch.html#a64b744108964425de4350ca60ccd3929">OpenCVForUnity.CoreModule.DMatch</a>, <a class="el" href="d9/d1e/classOpenCVForUnity_1_1CoreModule_1_1MatOfDMatch.html#a9944b5ba7b40dd0f7f081d551e4f84e5">OpenCVForUnity.CoreModule.MatOfDMatch</a></li>
+<li>IMREAD_ANYCOLOR&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a829ca7b900a1ff90f1edd3d45e446c35">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMREAD_ANYDEPTH&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a9569701903bcc153895dcb4589e4bab7">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMREAD_COLOR&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a1b0b5c00a0bbdab86d5345d6c83b970d">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMREAD_GRAYSCALE&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a9017049a86ddd0df517dc315660bbc49">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMREAD_IGNORE_ORIENTATION&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a3ed2685fe05da6e22523fefeb2e1e206">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMREAD_LOAD_GDAL&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a654c7a8ed089fe9a0701bebb65cf1972">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMREAD_REDUCED_COLOR_2&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a05b6ff6720e6f29fd83d307707627018">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMREAD_REDUCED_COLOR_4&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#afb402f286f4c2248f4ac905cf7f43c36">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMREAD_REDUCED_COLOR_8&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#aa8f5f42ae847c07dcb60acd97ea6c7bf">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMREAD_REDUCED_GRAYSCALE_2&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a36cdbfec547d8674a967569167379090">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMREAD_REDUCED_GRAYSCALE_4&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#adaa71ea4edb4c111637d34c05bb4ddd9">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMREAD_REDUCED_GRAYSCALE_8&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a16477ce0755c58922e38e461c6890be6">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMREAD_UNCHANGED&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#abae3b0d3ca4db7491437231d3f0bd570">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_AVIF_DEPTH&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#aa51a3f7a5ef8bfa27482751e0c46a97f">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_AVIF_QUALITY&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#abb0a700af51cbed5585eecb2cab9ea85">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_AVIF_SPEED&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a44cb916321ebf8a6b592e9db71ccf2b6">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_EXR_COMPRESSION&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#ac9b8f1d1328e8935e4fcd210aba64a87">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_EXR_COMPRESSION_B44&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a918d1e7166ed99b564a0b3f254162a28">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_EXR_COMPRESSION_B44A&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a4ce0df852db384f02b1b1759f2cfa492">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_EXR_COMPRESSION_DWAA&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#ab2e44f13d54ab40e0f68409e336938ee">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_EXR_COMPRESSION_DWAB&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a80da84e2244f398b750ebdf532678d99">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_EXR_COMPRESSION_NO&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a68663e0fdc27ef20ed6206694c12c410">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_EXR_COMPRESSION_PIZ&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a1dab044b98b1b23c2bf45c953ef3c8ea">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_EXR_COMPRESSION_PXR24&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#acd74445c06181cf540d47e9a911d8f35">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_EXR_COMPRESSION_RLE&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#ad86d5f955a9c9d0b84e1307aefc54178">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_EXR_COMPRESSION_ZIP&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#ad951224da80248b6a2a22ec11043f081">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_EXR_COMPRESSION_ZIPS&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a2560c5b5245b84870132b8578cd3ac2c">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_EXR_DWA_COMPRESSION_LEVEL&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a5d01b9d30e178856bfe01190a35d2e47">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_EXR_TYPE&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a9c04a48ea62cf54f741a1e64b065c291">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_EXR_TYPE_FLOAT&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a302fce5ddb16d24af22227c39f2398a3">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_EXR_TYPE_HALF&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#ae1df6911fb2a514ccd26c04002977c96">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_HDR_COMPRESSION&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#ae20e59cd31f48b69279ac0840deab89c">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_HDR_COMPRESSION_NONE&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a7262979b2b7a51e96968deb702435b1d">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_HDR_COMPRESSION_RLE&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#aec43421c17c516149a3aaf42d6418424">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_JPEG2000_COMPRESSION_X1000&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a002fe8733ff912f6bde965762435ff85">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_JPEG_CHROMA_QUALITY&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a37c8df94fea321bfd619171a10b3429d">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_JPEG_LUMA_QUALITY&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a4783ac127cd6309691a4e70063370811">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_JPEG_OPTIMIZE&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a1bc8d0da4e46da8538363cf508804876">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_JPEG_PROGRESSIVE&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#afdd8740e54559c6608587d547077764a">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_JPEG_QUALITY&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#afe397160cd3c42bb4c08bdb016e2538c">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_JPEG_RST_INTERVAL&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#aab6e0172f5db6da41552d9bd5f86753b">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_JPEG_SAMPLING_FACTOR&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#af552f24119fa4c18f844fbc651ea4e3f">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_JPEG_SAMPLING_FACTOR_411&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a2b6f46b0ed93000f1689742ba33f8e65">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_JPEG_SAMPLING_FACTOR_420&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#aee6ed20bba4fdbb78bc340f46a0722c9">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_JPEG_SAMPLING_FACTOR_422&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a3e0daaa10c06660abb534728e38b03d0">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_JPEG_SAMPLING_FACTOR_440&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a63a8c936fea178d7de03b49c5c7295a6">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_JPEG_SAMPLING_FACTOR_444&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a3b2cfcb8f80bc0684f6e4cdedf6fd0c2">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_PAM_FORMAT_BLACKANDWHITE&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a4f2d19fd9ff32547957dae37132c845a">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_PAM_FORMAT_GRAYSCALE&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a1604b91a2dea8c5a52169fa5c0eb1ef6">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_PAM_FORMAT_GRAYSCALE_ALPHA&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a8b0550f512154892571a5a98a116a01b">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_PAM_FORMAT_NULL&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a08e2b4469ca0ba8b4b479764b59e3ae0">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_PAM_FORMAT_RGB&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a2784bd64fcefcf88dc24baf6fabd4b2f">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_PAM_FORMAT_RGB_ALPHA&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a1692e2547a8b477fec78bf73e558dc72">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_PAM_TUPLETYPE&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a7f55d37f5049ab03bf47db258f23f70e">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_PNG_BILEVEL&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a32050333bc325dc9007987aa8b202430">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_PNG_COMPRESSION&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a38c1fb353ef4450efe38c737a1a9221d">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_PNG_STRATEGY&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#ae234aba7598b3265d15aa90ebfeaf56c">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_PNG_STRATEGY_DEFAULT&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a809839f98579e186ff73aa568bec1d04">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_PNG_STRATEGY_FILTERED&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a5f71b0fc05c07438058b41bbe7079c84">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_PNG_STRATEGY_FIXED&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#ade094e79f360f1ae388d1e7bbd1cc4f6">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_PNG_STRATEGY_HUFFMAN_ONLY&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#aaea7e321f9bb2e7ccbfdba61f2be18ae">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_PNG_STRATEGY_RLE&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#aa8511571e14906b1f5904fbd99d6dacf">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_PXM_BINARY&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a786f5e643fcd6e93104809fe3bed9083">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a3923cbe6d2e97c483ff7dc5d55353e84">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_ADOBE_DEFLATE&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a388e9fffb84118f2fb0c321da96b3a47">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_CCITT_T4&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a2b760ad8fb02ed750158e1ccca20c292">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_CCITT_T6&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a257c192c36d8131a827eb538381300bc">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_CCITTFAX3&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a694e32bcc41e45408ac65d9a1230fc60">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_CCITTFAX4&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a3bcd0dd8ac9be67b745f7324ffcbfaa9">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_CCITTRLE&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a3a0d8c57a9ac3fc06574652727e50ec7">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_CCITTRLEW&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a82dd1ef32514aec6c5adaba157a9cb94">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_DCS&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a497f6b3a2c756b4762826dbf80d59aec">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_DEFLATE&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a6af9669f600d5c934e4389448a1b26fc">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_IT8BL&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#afaf634e8cbd7ce562a60d390650c7446">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_IT8CTPAD&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#ae07a53dd9a1129fd63cd169d6f2ca5f8">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_IT8LW&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a90f15ada88c18730f319279ee48fad8b">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_IT8MP&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a6005b494127d3816fdc5b6b58f53c10d">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_JBIG&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#aeb5cbe14dcd51902e133ba11afbcfcf5">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_JP2000&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a82519c41bebc44d80ac68882571b30a5">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_JPEG&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a64dc50af855d62a0f385766957dc254a">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_JXL&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#aa14ca0f2ac104822797a048b48dc218f">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_LERC&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a47c6c678e4183b66e4caedee4f672a0d">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_LZMA&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a2e8784f72ff130cadbeff19914d2bdb4">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_LZW&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a72779d37b5502949219405dda822c3d2">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_NEXT&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#ad57b1500a3874cca23fb17d48f5e98cd">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_NONE&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#ad31340010eee04b60ed755b1ddb3248b">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_OJPEG&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#abd4e0af0d2e2a03521764ef1dea3d942">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_PACKBITS&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a783937fa2a27d464db355fc3213b410b">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_PIXARFILM&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#ab0fbdad32aaaf6eaf7822683fc7bb0e0">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_PIXARLOG&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a177ae4a5b06b66ef0172778f60fc4752">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_SGILOG&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a6f23f37dd34ed09835dc8f4c491970ff">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_SGILOG24&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a06746afdb06af03bf046c546c8a0f8b6">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_T43&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a85e14bff2d47a223301a4963817a651f">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_T85&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a8915653403357aedd4738b9adc3c9a67">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_THUNDERSCAN&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#ad8132d5a510239c604d30ce09edf30de">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_WEBP&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a7dbccddb2ce5bdb82f470936cd4e4427">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_COMPRESSION_ZSTD&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a03c29c1c891189c11cd6271d60ca5407">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_PREDICTOR&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#ab8218f8c71260e27df3ff8dda5da4433">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_PREDICTOR_FLOATINGPOINT&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a381d34f1114738fcdb86002f68b6cc8f">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_PREDICTOR_HORIZONTAL&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a87241d149a206ae750644e9aef08b7e7">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_PREDICTOR_NONE&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a182322caa1a068bf72f8ba970a50d5e2">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_RESUNIT&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a1ec597ebd80a6dde64c42fd7385c8e43">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_ROWSPERSTRIP&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a5ecf085e1902dae2ffb68d910921b333">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_XDPI&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a3bc3f254d414a1bb170f3b77824fac78">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_TIFF_YDPI&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a7732ccd703b8a45d4d9d0d4abeeee759">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>IMWRITE_WEBP_QUALITY&#160;:&#160;<a class="el" href="d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#ad8348c88e3d0a4c34032d334328cc7ee">OpenCVForUnity.ImgcodecsModule.Imgcodecs</a></li>
+<li>initCoroutine&#160;:&#160;<a class="el" href="d8/dba/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1AsyncGPUReadback2MatHelper.html#ab9db9dccff90ec63c832abfd3350a359">OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper</a>, <a class="el" href="d6/de0/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Image2MatHelper.html#ac55aa4bb44944d7ac9a0b816f89a5237">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>, <a class="el" href="d1/d25/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1UnityVideoPlayer2MatHelper.html#ae767e1a7b6b31d05d1261175475d58c1">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>, <a class="el" href="dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html#a1038046092d473f4c6af687da2ac364c">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, <a class="el" href="d3/d8d/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureToMatHelper.html#a43e793ff9ec291effdab54ad9a75da9a">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a>, <a class="el" href="d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#a72b8a9cdde8492cd694d3aa3d3cf57ee">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>, <a class="el" href="d5/d0c/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatHelper.html#aae1b8d7b7c7837bd1eb5b0ce9bbed6dc">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>, <a class="el" href="dc/d5a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTextureToMatHelper.html#adb72dc450d8b0e048d19d475716a2ef9">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a></li>
+<li>INPAINT_FSR_BEST&#160;:&#160;<a class="el" href="d8/dca/classOpenCVForUnity_1_1XphotoModule_1_1Xphoto.html#acbc453dbdd64be24c2a1ec50ce93cabf">OpenCVForUnity.XphotoModule.Xphoto</a></li>
+<li>INPAINT_FSR_FAST&#160;:&#160;<a class="el" href="d8/dca/classOpenCVForUnity_1_1XphotoModule_1_1Xphoto.html#a5e8a434c0248e04ace81cb66b810be8c">OpenCVForUnity.XphotoModule.Xphoto</a></li>
+<li>INPAINT_NS&#160;:&#160;<a class="el" href="da/d0a/classOpenCVForUnity_1_1PhotoModule_1_1Photo.html#a9f63276fa7685b68fd4489ea8775a801">OpenCVForUnity.PhotoModule.Photo</a></li>
+<li>INPAINT_SHIFTMAP&#160;:&#160;<a class="el" href="d8/dca/classOpenCVForUnity_1_1XphotoModule_1_1Xphoto.html#a0d0809d2cfb024c720836b957974951f">OpenCVForUnity.XphotoModule.Xphoto</a></li>
+<li>INPAINT_TELEA&#160;:&#160;<a class="el" href="da/d0a/classOpenCVForUnity_1_1PhotoModule_1_1Photo.html#a77516899522ddf40f268617655737d97">OpenCVForUnity.PhotoModule.Photo</a></li>
+<li>INTER&#160;:&#160;<a class="el" href="d9/d13/classOpenCVForUnity_1_1MlModule_1_1SVM.html#aa2477c704c30acde64836490e7fbbd0e">OpenCVForUnity.MlModule.SVM</a></li>
+<li>INTER_AREA&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#acd8569717c58401af4a264b98bcdcb47">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>INTER_BITS&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#a253450ffe54d8a9bf3d34c796dc27713">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>INTER_BITS2&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#a73f23c8eb9e03493ce5061d7da6fe628">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>INTER_CUBIC&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#a8443c77973c8c7be0cfe6ac37016773f">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>INTER_LANCZOS4&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#a1a72412472a5833860a5c8e7b0bcfc72">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>INTER_LINEAR&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#a7e16d35f425f556033afeef60210a02c">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>INTER_LINEAR_EXACT&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#ac360ea8f45d858397dc8060717c5c9ab">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>INTER_MAX&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#ad11fdbab00115af0f1375c897662635b">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>INTER_NEAREST&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#a74743d222b543bc6f12feb87f31a9c55">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>INTER_NEAREST_EXACT&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#ac6182daf93684d7d7d7dae04a7e82fd4">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>INTER_TAB_SIZE&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#a6849f3fbbb982c2376a78126dd20c053">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>INTER_TAB_SIZE2&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#a6969f22a03fa5da2d886d0148efeebd6">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>INTERSECT_FULL&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#aaa7fa64d95abed6c8365bb6feffb522b">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>INTERSECT_NONE&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#aa79ab77335a6507eef9d43279b68d561">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>INTERSECT_PARTIAL&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#a96cba858171fdb252f77b6ea0c61b7de">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>isInitWaiting&#160;:&#160;<a class="el" href="d8/dba/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1AsyncGPUReadback2MatHelper.html#ac07a093f66d66b0ae7cf28506ef889a2">OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper</a>, <a class="el" href="d6/de0/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Image2MatHelper.html#a7f65870734526841e9d79007e67fa5f2">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>, <a class="el" href="d1/d25/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1UnityVideoPlayer2MatHelper.html#a81effdcdc73c09fe98e4c1c8554e100e">OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper</a>, <a class="el" href="dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html#ac0a96f79d74cdcb6904e7a0204002cb2">OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper</a>, <a class="el" href="d3/d8d/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureToMatHelper.html#af275cb7aaeee606399334e5c48d5755b">OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper</a>, <a class="el" href="d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#a5720d921aa66b60e79429d3ecb2d2050">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>, <a class="el" href="d5/d0c/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatHelper.html#a5c7776f7559d3fc6aac6a247f8370974">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>, <a class="el" href="dc/d5a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTextureToMatHelper.html#acb86284163e63814276b8d6ca30c4cef">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a></li>
+<li>isPlaying&#160;:&#160;<a class="el" href="d8/dba/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1AsyncGPUReadback2MatHelper.html#a37ca37b5ff207a10392b26a06f8a8b2a">OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper</a>, <a class="el" href="d6/de0/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Image2MatHelper.html#ab326f334b7c6c6d8d0df143342fc8d06">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></li>
+<li>isScreenSizeChangeWaiting&#160;:&#160;<a class="el" href="d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#a01783097acfc7dcc96730e173e86177e">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>, <a class="el" href="d5/d0c/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatHelper.html#aa9164d438d86913ace08d8e3e15fb224">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper</a>, <a class="el" href="dc/d5a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTextureToMatHelper.html#a9788777878170db178f55ee5bbfbfebc">OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper</a></li>
+<li>isThreadRunning&#160;:&#160;<a class="el" href="d6/de0/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Image2MatHelper.html#a85e8bba4a18fbfb540149f076f898c65">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></li>
+<li>Item1&#160;:&#160;<a class="el" href="d8/d01/structOpenCVForUnity_1_1UnityUtils_1_1Vec10d.html#aaa5c2776ef2082c4e4f376f5c6391129">OpenCVForUnity.UnityUtils.Vec10d</a>, <a class="el" href="dc/d56/structOpenCVForUnity_1_1UnityUtils_1_1Vec2b.html#a3dd6ba97a287dace69d8e752d28beb30">OpenCVForUnity.UnityUtils.Vec2b</a>, <a class="el" href="d9/d30/structOpenCVForUnity_1_1UnityUtils_1_1Vec2c.html#aae8468c243b1b305146c6af3adfbd59b">OpenCVForUnity.UnityUtils.Vec2c</a>, <a class="el" href="db/deb/structOpenCVForUnity_1_1UnityUtils_1_1Vec2d.html#a5edaa72e2b8d4499dee3d24fe0be995d">OpenCVForUnity.UnityUtils.Vec2d</a>, <a class="el" href="dc/d97/structOpenCVForUnity_1_1UnityUtils_1_1Vec2f.html#aa3e7d297150cb4ff26937e78aab83f9e">OpenCVForUnity.UnityUtils.Vec2f</a>, <a class="el" href="d4/dd4/structOpenCVForUnity_1_1UnityUtils_1_1Vec2i.html#a0cfd990e4cc3f53046126e4bf7211876">OpenCVForUnity.UnityUtils.Vec2i</a>, <a class="el" href="d8/d92/structOpenCVForUnity_1_1UnityUtils_1_1Vec2s.html#a44870e9c1b3021ac6626adbfd715efe6">OpenCVForUnity.UnityUtils.Vec2s</a>, <a class="el" href="d1/dc4/structOpenCVForUnity_1_1UnityUtils_1_1Vec2w.html#afc56d4fea2dc985d42e10b67f1afede6">OpenCVForUnity.UnityUtils.Vec2w</a>, <a class="el" href="d6/d2f/structOpenCVForUnity_1_1UnityUtils_1_1Vec3b.html#a841e14c1db20edf075674e71dc996f21">OpenCVForUnity.UnityUtils.Vec3b</a>, <a class="el" href="d5/d81/structOpenCVForUnity_1_1UnityUtils_1_1Vec3c.html#aa52a576c620ba0314bca909f93a57617">OpenCVForUnity.UnityUtils.Vec3c</a>, <a class="el" href="dc/dd6/structOpenCVForUnity_1_1UnityUtils_1_1Vec3d.html#a1d3870c00cec72fe9a1b5e3f38cfd43b">OpenCVForUnity.UnityUtils.Vec3d</a>, <a class="el" href="d9/d81/structOpenCVForUnity_1_1UnityUtils_1_1Vec3f.html#a6da859258fa59e5d93daf269077b75d1">OpenCVForUnity.UnityUtils.Vec3f</a>, <a class="el" href="dd/d1f/structOpenCVForUnity_1_1UnityUtils_1_1Vec3i.html#a78a24782aecf386e82a066d07cf879fd">OpenCVForUnity.UnityUtils.Vec3i</a>, <a class="el" href="d6/d77/structOpenCVForUnity_1_1UnityUtils_1_1Vec3s.html#acfd13143e77fb8bbf4b68b60d22a6461">OpenCVForUnity.UnityUtils.Vec3s</a>, <a class="el" href="d9/d33/structOpenCVForUnity_1_1UnityUtils_1_1Vec3w.html#a177478f39d2791ad1f9499dcf2b7fbe6">OpenCVForUnity.UnityUtils.Vec3w</a>, <a class="el" href="da/dd3/structOpenCVForUnity_1_1UnityUtils_1_1Vec4b.html#a40f1eb9e632df0106913c8954c5ecd3d">OpenCVForUnity.UnityUtils.Vec4b</a>, <a class="el" href="de/d4b/structOpenCVForUnity_1_1UnityUtils_1_1Vec4c.html#a556f6934bdc7b3e4c8c08a110c882cd8">OpenCVForUnity.UnityUtils.Vec4c</a>, <a class="el" href="db/d51/structOpenCVForUnity_1_1UnityUtils_1_1Vec4d.html#a90b299c4ec44c4f28ae5444c00c81c64">OpenCVForUnity.UnityUtils.Vec4d</a>, <a class="el" href="de/dd8/structOpenCVForUnity_1_1UnityUtils_1_1Vec4f.html#aae60cab7ba46e42697127ec6a08c604b">OpenCVForUnity.UnityUtils.Vec4f</a>, <a class="el" href="d0/d43/structOpenCVForUnity_1_1UnityUtils_1_1Vec4i.html#af9b381ca69d6f88a33eea92726dbc24f">OpenCVForUnity.UnityUtils.Vec4i</a>, <a class="el" href="db/dbc/structOpenCVForUnity_1_1UnityUtils_1_1Vec4s.html#a0d5ec6f7783b6d02145c2864ab48c7b9">OpenCVForUnity.UnityUtils.Vec4s</a>, <a class="el" href="da/d7d/structOpenCVForUnity_1_1UnityUtils_1_1Vec4w.html#a640f88817d36edfca384aee99c5749ce">OpenCVForUnity.UnityUtils.Vec4w</a>, <a class="el" href="d8/d64/structOpenCVForUnity_1_1UnityUtils_1_1Vec5d.html#a168031a7d48daef191ef2feaaa3dc716">OpenCVForUnity.UnityUtils.Vec5d</a>, <a class="el" href="d4/daf/structOpenCVForUnity_1_1UnityUtils_1_1Vec5f.html#a80299873d0cb9f5a7794e22835b94fd1">OpenCVForUnity.UnityUtils.Vec5f</a>, <a class="el" href="d1/d66/structOpenCVForUnity_1_1UnityUtils_1_1Vec6f.html#aec004bac66a834b498037c8e0fd3f80e">OpenCVForUnity.UnityUtils.Vec6f</a>, <a class="el" href="d9/df5/structOpenCVForUnity_1_1UnityUtils_1_1Vec7d.html#a721aa1d1615bf9f362dcbce13506dd02">OpenCVForUnity.UnityUtils.Vec7d</a>, <a class="el" href="d2/d59/structOpenCVForUnity_1_1UnityUtils_1_1Vec7f.html#a9b2043c042034ff636ef47cdddd57c0c">OpenCVForUnity.UnityUtils.Vec7f</a></li>
+<li>Item10&#160;:&#160;<a class="el" href="d8/d01/structOpenCVForUnity_1_1UnityUtils_1_1Vec10d.html#ad5bf29dd19f9c570dda3c37fbd4773a3">OpenCVForUnity.UnityUtils.Vec10d</a></li>
+<li>Item2&#160;:&#160;<a class="el" href="d8/d01/structOpenCVForUnity_1_1UnityUtils_1_1Vec10d.html#a12e319f8cc5355b3ea3c12ad652628cd">OpenCVForUnity.UnityUtils.Vec10d</a>, <a class="el" href="dc/d56/structOpenCVForUnity_1_1UnityUtils_1_1Vec2b.html#aad402443e4537281f44641f8553b2842">OpenCVForUnity.UnityUtils.Vec2b</a>, <a class="el" href="d9/d30/structOpenCVForUnity_1_1UnityUtils_1_1Vec2c.html#ad939f3e6c73319e1a8ad4ad7ba70d31c">OpenCVForUnity.UnityUtils.Vec2c</a>, <a class="el" href="db/deb/structOpenCVForUnity_1_1UnityUtils_1_1Vec2d.html#ac08966cabc4aa5115084deabc0779646">OpenCVForUnity.UnityUtils.Vec2d</a>, <a class="el" href="dc/d97/structOpenCVForUnity_1_1UnityUtils_1_1Vec2f.html#a1b3deb2a15340f42b44193bf56210654">OpenCVForUnity.UnityUtils.Vec2f</a>, <a class="el" href="d4/dd4/structOpenCVForUnity_1_1UnityUtils_1_1Vec2i.html#a07ef1f6277ba8deca62001b5e75288fa">OpenCVForUnity.UnityUtils.Vec2i</a>, <a class="el" href="d8/d92/structOpenCVForUnity_1_1UnityUtils_1_1Vec2s.html#aeceb300330796f61bef264fb53abc054">OpenCVForUnity.UnityUtils.Vec2s</a>, <a class="el" href="d1/dc4/structOpenCVForUnity_1_1UnityUtils_1_1Vec2w.html#a4c960e6b6b5069b443adbb1b9e257d93">OpenCVForUnity.UnityUtils.Vec2w</a>, <a class="el" href="d6/d2f/structOpenCVForUnity_1_1UnityUtils_1_1Vec3b.html#a0d919e69c9a1116efd8817eefcbe9d19">OpenCVForUnity.UnityUtils.Vec3b</a>, <a class="el" href="d5/d81/structOpenCVForUnity_1_1UnityUtils_1_1Vec3c.html#a533bc53162ccf952903e8f98881149ce">OpenCVForUnity.UnityUtils.Vec3c</a>, <a class="el" href="dc/dd6/structOpenCVForUnity_1_1UnityUtils_1_1Vec3d.html#a3546572452402ac224ab08f437495cf3">OpenCVForUnity.UnityUtils.Vec3d</a>, <a class="el" href="d9/d81/structOpenCVForUnity_1_1UnityUtils_1_1Vec3f.html#afa00eb40772597d10e6230a0a7cf3e38">OpenCVForUnity.UnityUtils.Vec3f</a>, <a class="el" href="dd/d1f/structOpenCVForUnity_1_1UnityUtils_1_1Vec3i.html#a895447abd8e0283a6a878b53f6397b6b">OpenCVForUnity.UnityUtils.Vec3i</a>, <a class="el" href="d6/d77/structOpenCVForUnity_1_1UnityUtils_1_1Vec3s.html#ab2ed8bbb890252d339a373070f5364b8">OpenCVForUnity.UnityUtils.Vec3s</a>, <a class="el" href="d9/d33/structOpenCVForUnity_1_1UnityUtils_1_1Vec3w.html#a7f58cf03cb61e550448735a16b2a9365">OpenCVForUnity.UnityUtils.Vec3w</a>, <a class="el" href="da/dd3/structOpenCVForUnity_1_1UnityUtils_1_1Vec4b.html#ae95a836bdf8a150af94feffb0c7027be">OpenCVForUnity.UnityUtils.Vec4b</a>, <a class="el" href="de/d4b/structOpenCVForUnity_1_1UnityUtils_1_1Vec4c.html#a42f6ae0db0fd41fa7ae4907ccc6f0838">OpenCVForUnity.UnityUtils.Vec4c</a>, <a class="el" href="db/d51/structOpenCVForUnity_1_1UnityUtils_1_1Vec4d.html#a4f777fa6cca703f3ddd126f2dd6a0eac">OpenCVForUnity.UnityUtils.Vec4d</a>, <a class="el" href="de/dd8/structOpenCVForUnity_1_1UnityUtils_1_1Vec4f.html#a118a64baf1b9022c5f883a93b4c4fe95">OpenCVForUnity.UnityUtils.Vec4f</a>, <a class="el" href="d0/d43/structOpenCVForUnity_1_1UnityUtils_1_1Vec4i.html#ad3fdd5dc32b853e38ed52db041f4f8f1">OpenCVForUnity.UnityUtils.Vec4i</a>, <a class="el" href="db/dbc/structOpenCVForUnity_1_1UnityUtils_1_1Vec4s.html#abefc293caaf0fe7dbb5dede3beb9a3a2">OpenCVForUnity.UnityUtils.Vec4s</a>, <a class="el" href="da/d7d/structOpenCVForUnity_1_1UnityUtils_1_1Vec4w.html#afe49b31721805db672bfb8a7e9a564fa">OpenCVForUnity.UnityUtils.Vec4w</a>, <a class="el" href="d8/d64/structOpenCVForUnity_1_1UnityUtils_1_1Vec5d.html#a9da824e81846332cc16e29e9dda5ef22">OpenCVForUnity.UnityUtils.Vec5d</a>, <a class="el" href="d4/daf/structOpenCVForUnity_1_1UnityUtils_1_1Vec5f.html#a094207bb5c0396ff1aa7a60e83f0ee5c">OpenCVForUnity.UnityUtils.Vec5f</a>, <a class="el" href="d1/d66/structOpenCVForUnity_1_1UnityUtils_1_1Vec6f.html#adb9286612e7c0187f91d71092757c7d9">OpenCVForUnity.UnityUtils.Vec6f</a>, <a class="el" href="d9/df5/structOpenCVForUnity_1_1UnityUtils_1_1Vec7d.html#a82cfa6eb9d5d8f8f4a75e7a8378249f1">OpenCVForUnity.UnityUtils.Vec7d</a>, <a class="el" href="d2/d59/structOpenCVForUnity_1_1UnityUtils_1_1Vec7f.html#ace9f1ff4fd1ffd44c059d51271d2b2fd">OpenCVForUnity.UnityUtils.Vec7f</a></li>
+<li>Item3&#160;:&#160;<a class="el" href="d8/d01/structOpenCVForUnity_1_1UnityUtils_1_1Vec10d.html#a3cf33514514d3b9d46990fbc631b2a1b">OpenCVForUnity.UnityUtils.Vec10d</a>, <a class="el" href="d6/d2f/structOpenCVForUnity_1_1UnityUtils_1_1Vec3b.html#a1dce86ffc52e8603713f445a87f8e5df">OpenCVForUnity.UnityUtils.Vec3b</a>, <a class="el" href="d5/d81/structOpenCVForUnity_1_1UnityUtils_1_1Vec3c.html#aa1b3ddb920549463bcd998a4697aeec5">OpenCVForUnity.UnityUtils.Vec3c</a>, <a class="el" href="dc/dd6/structOpenCVForUnity_1_1UnityUtils_1_1Vec3d.html#a7f7a4ebce36c09a581174e6f64882c46">OpenCVForUnity.UnityUtils.Vec3d</a>, <a class="el" href="d9/d81/structOpenCVForUnity_1_1UnityUtils_1_1Vec3f.html#a08d16e5826f544518af98cc3485f404f">OpenCVForUnity.UnityUtils.Vec3f</a>, <a class="el" href="dd/d1f/structOpenCVForUnity_1_1UnityUtils_1_1Vec3i.html#aa6a347596ce779943a0da3037d4732af">OpenCVForUnity.UnityUtils.Vec3i</a>, <a class="el" href="d6/d77/structOpenCVForUnity_1_1UnityUtils_1_1Vec3s.html#a14996e0c7b0a8dd9e3be42874ac2a99a">OpenCVForUnity.UnityUtils.Vec3s</a>, <a class="el" href="d9/d33/structOpenCVForUnity_1_1UnityUtils_1_1Vec3w.html#a1aab5544d3efb8b319bd5fe46e59eebb">OpenCVForUnity.UnityUtils.Vec3w</a>, <a class="el" href="da/dd3/structOpenCVForUnity_1_1UnityUtils_1_1Vec4b.html#ae5d5508db10fb1e8b59daada537afd56">OpenCVForUnity.UnityUtils.Vec4b</a>, <a class="el" href="de/d4b/structOpenCVForUnity_1_1UnityUtils_1_1Vec4c.html#a64fc9ed2c35f87d89e88a30d31194eb8">OpenCVForUnity.UnityUtils.Vec4c</a>, <a class="el" href="db/d51/structOpenCVForUnity_1_1UnityUtils_1_1Vec4d.html#a93f27a5cdf2ebd2d493eee9d1139614b">OpenCVForUnity.UnityUtils.Vec4d</a>, <a class="el" href="de/dd8/structOpenCVForUnity_1_1UnityUtils_1_1Vec4f.html#a2fb609a0f1e36d39dd35bd1ca6a66011">OpenCVForUnity.UnityUtils.Vec4f</a>, <a class="el" href="d0/d43/structOpenCVForUnity_1_1UnityUtils_1_1Vec4i.html#ac0b81eb77ea32856e9d51c7a74056791">OpenCVForUnity.UnityUtils.Vec4i</a>, <a class="el" href="db/dbc/structOpenCVForUnity_1_1UnityUtils_1_1Vec4s.html#aa9bdad92693b9875948b6792714be3eb">OpenCVForUnity.UnityUtils.Vec4s</a>, <a class="el" href="da/d7d/structOpenCVForUnity_1_1UnityUtils_1_1Vec4w.html#a2820c771d794811d6b54ec6f115aa952">OpenCVForUnity.UnityUtils.Vec4w</a>, <a class="el" href="d8/d64/structOpenCVForUnity_1_1UnityUtils_1_1Vec5d.html#a95cc6594bcfc5dca9c36ab79887396d9">OpenCVForUnity.UnityUtils.Vec5d</a>, <a class="el" href="d4/daf/structOpenCVForUnity_1_1UnityUtils_1_1Vec5f.html#a3da308f3631c2c281dfb745fc4c56f85">OpenCVForUnity.UnityUtils.Vec5f</a>, <a class="el" href="d1/d66/structOpenCVForUnity_1_1UnityUtils_1_1Vec6f.html#a6e81cabe5b33865ba677c34bc5d62092">OpenCVForUnity.UnityUtils.Vec6f</a>, <a class="el" href="d9/df5/structOpenCVForUnity_1_1UnityUtils_1_1Vec7d.html#ac2de89e9e715cb711a8e432452eda372">OpenCVForUnity.UnityUtils.Vec7d</a>, <a class="el" href="d2/d59/structOpenCVForUnity_1_1UnityUtils_1_1Vec7f.html#adecf0f29a3b89dc0f1efa4c836f13c05">OpenCVForUnity.UnityUtils.Vec7f</a></li>
+<li>Item4&#160;:&#160;<a class="el" href="d8/d01/structOpenCVForUnity_1_1UnityUtils_1_1Vec10d.html#a4121ce48cfc36b0ba39b988cae1896a4">OpenCVForUnity.UnityUtils.Vec10d</a>, <a class="el" href="da/dd3/structOpenCVForUnity_1_1UnityUtils_1_1Vec4b.html#a723ee27cf11b2e5441401ffcbd1f790d">OpenCVForUnity.UnityUtils.Vec4b</a>, <a class="el" href="de/d4b/structOpenCVForUnity_1_1UnityUtils_1_1Vec4c.html#abf87615bd2612b8ee0b27a5bbc72f00f">OpenCVForUnity.UnityUtils.Vec4c</a>, <a class="el" href="db/d51/structOpenCVForUnity_1_1UnityUtils_1_1Vec4d.html#ac314287ff69e0458a4379d1f85636f77">OpenCVForUnity.UnityUtils.Vec4d</a>, <a class="el" href="de/dd8/structOpenCVForUnity_1_1UnityUtils_1_1Vec4f.html#ad8d909ead1b8fb944896a1c25bf3db4b">OpenCVForUnity.UnityUtils.Vec4f</a>, <a class="el" href="d0/d43/structOpenCVForUnity_1_1UnityUtils_1_1Vec4i.html#ad83556c98a76674a8caef33e22706e38">OpenCVForUnity.UnityUtils.Vec4i</a>, <a class="el" href="db/dbc/structOpenCVForUnity_1_1UnityUtils_1_1Vec4s.html#ab8e72b6f125953d9e3d10aa0f6245431">OpenCVForUnity.UnityUtils.Vec4s</a>, <a class="el" href="da/d7d/structOpenCVForUnity_1_1UnityUtils_1_1Vec4w.html#a5fdb499757ad80782caa5dfb731caca0">OpenCVForUnity.UnityUtils.Vec4w</a>, <a class="el" href="d8/d64/structOpenCVForUnity_1_1UnityUtils_1_1Vec5d.html#abd1a3a75c51132b8e9e8c425222d7514">OpenCVForUnity.UnityUtils.Vec5d</a>, <a class="el" href="d4/daf/structOpenCVForUnity_1_1UnityUtils_1_1Vec5f.html#acb9f0e6dc5ee6ebb675b5363f792837e">OpenCVForUnity.UnityUtils.Vec5f</a>, <a class="el" href="d1/d66/structOpenCVForUnity_1_1UnityUtils_1_1Vec6f.html#aff7a64040629db6467f960ed3fb8ac4e">OpenCVForUnity.UnityUtils.Vec6f</a>, <a class="el" href="d9/df5/structOpenCVForUnity_1_1UnityUtils_1_1Vec7d.html#a5441634508bd04f48075c09c2c103ba4">OpenCVForUnity.UnityUtils.Vec7d</a>, <a class="el" href="d2/d59/structOpenCVForUnity_1_1UnityUtils_1_1Vec7f.html#a8fb74709c2e90ee54b178649de19739a">OpenCVForUnity.UnityUtils.Vec7f</a></li>
+<li>Item5&#160;:&#160;<a class="el" href="d8/d01/structOpenCVForUnity_1_1UnityUtils_1_1Vec10d.html#ab500bbbac60a7d1eab51a0023ffb3424">OpenCVForUnity.UnityUtils.Vec10d</a>, <a class="el" href="d8/d64/structOpenCVForUnity_1_1UnityUtils_1_1Vec5d.html#ac31d59b28b7d678f885efd49ad47618d">OpenCVForUnity.UnityUtils.Vec5d</a>, <a class="el" href="d4/daf/structOpenCVForUnity_1_1UnityUtils_1_1Vec5f.html#aa158e4e0430e1efc95b28331fd533ee5">OpenCVForUnity.UnityUtils.Vec5f</a>, <a class="el" href="d1/d66/structOpenCVForUnity_1_1UnityUtils_1_1Vec6f.html#ae6fc5cb7b054a066dd7a9cb8f4c2fa0e">OpenCVForUnity.UnityUtils.Vec6f</a>, <a class="el" href="d9/df5/structOpenCVForUnity_1_1UnityUtils_1_1Vec7d.html#a862f6209f4f35d248ea69c1cc1fb12fb">OpenCVForUnity.UnityUtils.Vec7d</a>, <a class="el" href="d2/d59/structOpenCVForUnity_1_1UnityUtils_1_1Vec7f.html#a7289f3d2415e413a5aed751e6019628a">OpenCVForUnity.UnityUtils.Vec7f</a></li>
+<li>Item6&#160;:&#160;<a class="el" href="d8/d01/structOpenCVForUnity_1_1UnityUtils_1_1Vec10d.html#ac16b996806dd51a16794038cff5a1dfb">OpenCVForUnity.UnityUtils.Vec10d</a>, <a class="el" href="d1/d66/structOpenCVForUnity_1_1UnityUtils_1_1Vec6f.html#a094deb72e420ea95b8a577e30b6e359c">OpenCVForUnity.UnityUtils.Vec6f</a>, <a class="el" href="d9/df5/structOpenCVForUnity_1_1UnityUtils_1_1Vec7d.html#a108cf0544121300789247dc656df09a9">OpenCVForUnity.UnityUtils.Vec7d</a>, <a class="el" href="d2/d59/structOpenCVForUnity_1_1UnityUtils_1_1Vec7f.html#a72bdeb39faa159613f487bd9237c958b">OpenCVForUnity.UnityUtils.Vec7f</a></li>
+<li>Item7&#160;:&#160;<a class="el" href="d8/d01/structOpenCVForUnity_1_1UnityUtils_1_1Vec10d.html#a5fe455b9b131117ebf1b9f116210881a">OpenCVForUnity.UnityUtils.Vec10d</a>, <a class="el" href="d9/df5/structOpenCVForUnity_1_1UnityUtils_1_1Vec7d.html#afffcbb5d029c7ad3d4ae3c7934e5cb49">OpenCVForUnity.UnityUtils.Vec7d</a>, <a class="el" href="d2/d59/structOpenCVForUnity_1_1UnityUtils_1_1Vec7f.html#af56e4848cc25b2362ba8cc66aaaf057f">OpenCVForUnity.UnityUtils.Vec7f</a></li>
+<li>Item8&#160;:&#160;<a class="el" href="d8/d01/structOpenCVForUnity_1_1UnityUtils_1_1Vec10d.html#afc5e93aac5d89cae332581e861168417">OpenCVForUnity.UnityUtils.Vec10d</a></li>
+<li>Item9&#160;:&#160;<a class="el" href="d8/d01/structOpenCVForUnity_1_1UnityUtils_1_1Vec10d.html#a888e96ec3cfcd00cc6ef120a8ee7648f">OpenCVForUnity.UnityUtils.Vec10d</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

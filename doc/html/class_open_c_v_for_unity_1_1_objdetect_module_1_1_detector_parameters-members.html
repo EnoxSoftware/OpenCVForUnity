@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,103 +126,102 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_objdetect_module.html">ObjdetectModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">DetectorParameters</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.ObjdetectModule.DetectorParameters Member List</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.ObjdetectModule.DetectorParameters Member List</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>This is the complete list of members for <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a>, including all inherited members.</p>
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a2ab70458113775ad8b3c719f19359ba7">__fromPtr__</a>(IntPtr addr)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#aeab93c1980fc1901dbbc06e1cea617ba">DetectorParameters</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#aeab93c1980fc1901dbbc06e1cea617ba">DetectorParameters</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a>(bool isEnabledDispose)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a>(bool isEnabledDispose)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a>(IntPtr ptr)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a>(IntPtr ptr)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a>(bool isEnabledDispose)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a>(IntPtr ptr, bool isEnabledDispose)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a>(IntPtr ptr, bool isEnabledDispose)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a29f8c71bfb0661c4d75a37458ac92133">Dispose</a>(bool disposing)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">OpenCVForUnity::DisposableObject.Dispose</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">OpenCVForUnity::DisposableObject.Dispose</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a266ca8aa3603461681429dbc64b68445">get_adaptiveThreshConstant</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#aee2613f9c1a54ab1c2d5a376bfb1952e">get_adaptiveThreshWinSizeMax</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#aee2613f9c1a54ab1c2d5a376bfb1952e">get_adaptiveThreshWinSizeMax</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a3b9547f48d50f7be8cb0b03cbb85f0af">get_adaptiveThreshWinSizeMin</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#af1057e0ae0b66c6256e42d6cbfccfd8c">get_adaptiveThreshWinSizeStep</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#af1057e0ae0b66c6256e42d6cbfccfd8c">get_adaptiveThreshWinSizeStep</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a6cdb748151a1395218d9a6cdb8073635">get_aprilTagCriticalRad</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ae86f571c8e18492ebec1389a978c64e9">get_aprilTagDeglitch</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ae86f571c8e18492ebec1389a978c64e9">get_aprilTagDeglitch</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#afff8c68f21cf250080e090f49006a95e">get_aprilTagMaxLineFitMse</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a46c8e7667c23cd2fa15fb1e31ec1d9e2">get_aprilTagMaxNmaxima</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a46c8e7667c23cd2fa15fb1e31ec1d9e2">get_aprilTagMaxNmaxima</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#aa20e72873b1997fab0a3f31dcf820c27">get_aprilTagMinClusterPixels</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a67e524dc60045b260713d01acd7939d8">get_aprilTagMinWhiteBlackDiff</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a67e524dc60045b260713d01acd7939d8">get_aprilTagMinWhiteBlackDiff</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#aac12ef5e4fbd6f1f8189de4b4eb217ef">get_aprilTagQuadDecimate</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a1dc807be9764c802655373ba8bacbac9">get_aprilTagQuadSigma</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a1dc807be9764c802655373ba8bacbac9">get_aprilTagQuadSigma</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ad003498ca5997f52596b7e7cb85445cc">get_cornerRefinementMaxIterations</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a260f326e246e78de4171e929eccd0e08">get_cornerRefinementMethod</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a260f326e246e78de4171e929eccd0e08">get_cornerRefinementMethod</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#aca40b83f5919ac7ea0fb6d4c5389b36c">get_cornerRefinementMinAccuracy</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ae18b28e157f3310f332a16cdbd1875d8">get_cornerRefinementWinSize</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ae18b28e157f3310f332a16cdbd1875d8">get_cornerRefinementWinSize</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a976daa36e31dcb57a551814c15b8dbbf">get_detectInvertedMarker</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ae330d943bc1ad3138d6909eb19439f57">get_errorCorrectionRate</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ae330d943bc1ad3138d6909eb19439f57">get_errorCorrectionRate</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a84c7b7132346f7a699c8aee4f149ddd5">get_markerBorderBits</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#aad97dd072ea293514eb575fe5979d867">get_maxErroneousBitsInBorderRate</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#aad97dd072ea293514eb575fe5979d867">get_maxErroneousBitsInBorderRate</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a600b09329ad51152b3c47d9ca0a1461d">get_maxMarkerPerimeterRate</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a0951e1378e4789ae573e07738be5b931">get_minCornerDistanceRate</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a0951e1378e4789ae573e07738be5b931">get_minCornerDistanceRate</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a300920312e17d0fb21991849468a2544">get_minDistanceToBorder</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a990a5cf6640527a9404f752cff0187c6">get_minGroupDistance</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a990a5cf6640527a9404f752cff0187c6">get_minGroupDistance</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a2ce9ff91dffe63e2b580c8c94d107e11">get_minMarkerDistanceRate</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#abb49b8e5c716ef03203b197e594427a5">get_minMarkerLengthRatioOriginalImg</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#abb49b8e5c716ef03203b197e594427a5">get_minMarkerLengthRatioOriginalImg</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a1405e8a8497f67327250c53bcbafa6c5">get_minMarkerPerimeterRate</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#aa4d8490efde850f17838332dab0391f4">get_minOtsuStdDev</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#aa4d8490efde850f17838332dab0391f4">get_minOtsuStdDev</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a2ebe59197fd8b0fcf8db9b512a04b74f">get_minSideLengthCanonicalImg</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ac3b1c66a4213304439da13dbf6db2632">get_perspectiveRemoveIgnoredMarginPerCell</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ac3b1c66a4213304439da13dbf6db2632">get_perspectiveRemoveIgnoredMarginPerCell</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a22c5c5573aa9ed37de18db58b4777317">get_perspectiveRemovePixelPerCell</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ab176b242e8dc2349f08870c576e2995f">get_polygonalApproxAccuracyRate</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ab176b242e8dc2349f08870c576e2995f">get_polygonalApproxAccuracyRate</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a4516827ddc4656b413aee9b305fa5506">get_relativeCornerRefinmentWinSize</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a5f65faa4f4c63d2672a25ae34de1943d">get_useAruco3Detection</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a5f65faa4f4c63d2672a25ae34de1943d">get_useAruco3Detection</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a7be12495902a0073d81723b230580b2f">getNativeObjAddr</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ada95dfb4e347f39b897b22a66d41a418">set_adaptiveThreshConstant</a>(double adaptiveThreshConstant)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ada95dfb4e347f39b897b22a66d41a418">set_adaptiveThreshConstant</a>(double adaptiveThreshConstant)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a770ec847af78dabba00aca8be264670d">set_adaptiveThreshWinSizeMax</a>(int adaptiveThreshWinSizeMax)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ad7271ef310ed967d123da5e9371aad4b">set_adaptiveThreshWinSizeMin</a>(int adaptiveThreshWinSizeMin)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ad7271ef310ed967d123da5e9371aad4b">set_adaptiveThreshWinSizeMin</a>(int adaptiveThreshWinSizeMin)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a9b6de1a8403b0af4d9230c72d023d19b">set_adaptiveThreshWinSizeStep</a>(int adaptiveThreshWinSizeStep)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a31db43c5a9765828c68cade75eeb7be5">set_aprilTagCriticalRad</a>(float aprilTagCriticalRad)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a31db43c5a9765828c68cade75eeb7be5">set_aprilTagCriticalRad</a>(float aprilTagCriticalRad)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a787f52d4fc5174261cf5e55b4bb52d9a">set_aprilTagDeglitch</a>(int aprilTagDeglitch)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a06fb639188542bebd5329d3f640df948">set_aprilTagMaxLineFitMse</a>(float aprilTagMaxLineFitMse)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a06fb639188542bebd5329d3f640df948">set_aprilTagMaxLineFitMse</a>(float aprilTagMaxLineFitMse)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a9e978e89a1c4b786502f1ce4b18fbbf9">set_aprilTagMaxNmaxima</a>(int aprilTagMaxNmaxima)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a99352bbefd8abde792d720de34b0c346">set_aprilTagMinClusterPixels</a>(int aprilTagMinClusterPixels)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a99352bbefd8abde792d720de34b0c346">set_aprilTagMinClusterPixels</a>(int aprilTagMinClusterPixels)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ac50fa10bdc83f3ca85e5f9b664161a0a">set_aprilTagMinWhiteBlackDiff</a>(int aprilTagMinWhiteBlackDiff)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a738bde0fa986d1c3b35305829aab912b">set_aprilTagQuadDecimate</a>(float aprilTagQuadDecimate)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a738bde0fa986d1c3b35305829aab912b">set_aprilTagQuadDecimate</a>(float aprilTagQuadDecimate)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ae93db3a165db923fe4059c18ce63caf7">set_aprilTagQuadSigma</a>(float aprilTagQuadSigma)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ad9401cd163b40425015f638f37c4eb12">set_cornerRefinementMaxIterations</a>(int cornerRefinementMaxIterations)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ad9401cd163b40425015f638f37c4eb12">set_cornerRefinementMaxIterations</a>(int cornerRefinementMaxIterations)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a93e3391ad1d59da809fcb7e96324ae75">set_cornerRefinementMethod</a>(int cornerRefinementMethod)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ad7ea9bcc2af25ac21a0b7908b6ce7f59">set_cornerRefinementMinAccuracy</a>(double cornerRefinementMinAccuracy)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ad7ea9bcc2af25ac21a0b7908b6ce7f59">set_cornerRefinementMinAccuracy</a>(double cornerRefinementMinAccuracy)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a33637514ba1139b4be35d0eaebfc2026">set_cornerRefinementWinSize</a>(int cornerRefinementWinSize)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a65fbb21b719ca35af7763603b3c9fb1f">set_detectInvertedMarker</a>(bool detectInvertedMarker)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a65fbb21b719ca35af7763603b3c9fb1f">set_detectInvertedMarker</a>(bool detectInvertedMarker)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a16306d38d1d17cd6747a579807e5990e">set_errorCorrectionRate</a>(double errorCorrectionRate)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a2697d8804cc1c14d3c0fba2db37f0d5c">set_markerBorderBits</a>(int markerBorderBits)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a2697d8804cc1c14d3c0fba2db37f0d5c">set_markerBorderBits</a>(int markerBorderBits)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a0fc66742c2adc2f67dd492117f6ce2cd">set_maxErroneousBitsInBorderRate</a>(double maxErroneousBitsInBorderRate)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#aef9e6e9688a83db1189a741cfafce392">set_maxMarkerPerimeterRate</a>(double maxMarkerPerimeterRate)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#aef9e6e9688a83db1189a741cfafce392">set_maxMarkerPerimeterRate</a>(double maxMarkerPerimeterRate)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a6fd6a3040701ccddb248d11b41ec3a27">set_minCornerDistanceRate</a>(double minCornerDistanceRate)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a36d31bfa9e20d431c5340fecb2c6332e">set_minDistanceToBorder</a>(int minDistanceToBorder)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a36d31bfa9e20d431c5340fecb2c6332e">set_minDistanceToBorder</a>(int minDistanceToBorder)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a4832939fa89af5fb4c06bf1ea46634e6">set_minGroupDistance</a>(float minGroupDistance)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a36e5d89678d1619b6bb1ad23e12b39b4">set_minMarkerDistanceRate</a>(double minMarkerDistanceRate)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a36e5d89678d1619b6bb1ad23e12b39b4">set_minMarkerDistanceRate</a>(double minMarkerDistanceRate)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a562200bdf9c6453434b50b3ec731f45f">set_minMarkerLengthRatioOriginalImg</a>(float minMarkerLengthRatioOriginalImg)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#af90981bcc95d13f93e2ad8d1fb5a7cd6">set_minMarkerPerimeterRate</a>(double minMarkerPerimeterRate)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#af90981bcc95d13f93e2ad8d1fb5a7cd6">set_minMarkerPerimeterRate</a>(double minMarkerPerimeterRate)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#aa52fb7cfa349fd1a5472db7d18be99c7">set_minOtsuStdDev</a>(double minOtsuStdDev)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#af7fa41d204bd958fbd19a548e141ecb0">set_minSideLengthCanonicalImg</a>(int minSideLengthCanonicalImg)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#af7fa41d204bd958fbd19a548e141ecb0">set_minSideLengthCanonicalImg</a>(int minSideLengthCanonicalImg)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#ada353202fb16f662c47c687ff1702194">set_perspectiveRemoveIgnoredMarginPerCell</a>(double perspectiveRemoveIgnoredMarginPerCell)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a0e41f22469a27b2bfddb32b0560a42c4">set_perspectiveRemovePixelPerCell</a>(int perspectiveRemovePixelPerCell)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a0e41f22469a27b2bfddb32b0560a42c4">set_perspectiveRemovePixelPerCell</a>(int perspectiveRemovePixelPerCell)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a51f8cb01b1b4697b085d9a5b4f39f1a3">set_polygonalApproxAccuracyRate</a>(double polygonalApproxAccuracyRate)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#aedd0a22cd3a84063e2248eff798625af">set_relativeCornerRefinmentWinSize</a>(float relativeCornerRefinmentWinSize)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#aedd0a22cd3a84063e2248eff798625af">set_relativeCornerRefinmentWinSize</a>(float relativeCornerRefinmentWinSize)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html#a39f6ba1e1aa2a3b6859e378f14fa0edd">set_useAruco3Detection</a>(bool useAruco3Detection)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_detector_parameters.html">OpenCVForUnity.ObjdetectModule.DetectorParameters</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a>(IntPtr ptr)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

@@ -1,45 +1,61 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: Class Members - Functions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
+<script type="text/javascript" src="darkmode_toggle.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +63,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.4</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,23 +74,35 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="doc-content">
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -85,112 +112,85 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div class="contents">
-&#160;
+<div class="textblock">Here is a list of all functions with links to the classes they belong to:</div>
 
-<h3><a id="index_v"></a>- v -</h3><ul>
-<li>validateDisparity()
-: <a class="el" href="class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#afd479b0e9b736810374aa0a4ced49a67">OpenCVForUnity.Calib3dModule.Calib3d</a>
-</li>
-<li>vconcat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_core.html#a6435b1a999402987596e62ae4fbf46fb">OpenCVForUnity.CoreModule.Core</a>
-</li>
-<li>vector_char_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#ae8a9377cc66dbc1e7477ee27a0611ba9">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_DMatch_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#a2f28cbe7771816f1205ac70b0f013069">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_double_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#aed42a7c5fba7384fe7681183abe39ed4">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_float_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#ac2606476db3f86cdd3d8de630beea7b5">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_int_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#adb695a87e45a86d1c4ed3a0bbdb582fb">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_KeyPoint_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#a8de62b42021346aa6389c743d0eb4b65">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_Mat_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#a8520c186aaea86da6a12ebd5efd9dd42">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_MatShape_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#aeef5412bd106294ce23cb5a0ce8d4de4">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_Point2d_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#aec7bf3787d1814f70e23b029bc9e2d6a">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_Point2f_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#aab647ebca92b5722ad087c5895e365fd">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_Point3_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#aaaa213bb5a68593a31d5465aaedcbff8">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_Point3d_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#a803d7444f2a1b36ff6f844c497c4d5c8">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_Point3f_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#af560e76c4f1dedb863938028a452be31">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_Point3i_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#a5b28ed8590ca0690ecafbda48fb692e2">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_Point_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#a91999513e4c5d59edffff7ba85394e29">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_Rect_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#ad048b23c707fbed1bdfd2e44a882bb12">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_RotatedRect_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#aaff89303cf42cd2b0692a86205208540">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_String_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#a77a0cd5c80bfdf355400dbbba648c435">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_string_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#ac5acc8c4ea52b7e4cb7c7f85d8ef0092">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_uchar_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#a3e84638b5bb832a542ba8df90fea1ed3">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_vector_char_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#ac5246b93132b702fa33279411a69f0f2">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_vector_DMatch_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#a15db74487b11cb6fb60513ffb9c1dfb2">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_vector_KeyPoint_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#a5f74f3966f5317d74fe9da5cf1c1a01e">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_vector_Point2f_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#a9fb106ae96e9bdc7c893f976e4b3da11">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_vector_Point3f_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#a3fddd5afdf52472cae800d2cb29acede">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>vector_vector_Point_to_Mat()
-: <a class="el" href="class_open_c_v_for_unity_1_1_utils_module_1_1_converters.html#a90466fd0cd0a8d6b810426686808ef0a">OpenCVForUnity.UtilsModule.Converters</a>
-</li>
-<li>VideoCapture()
-: <a class="el" href="class_open_c_v_for_unity_1_1_videoio_module_1_1_video_capture.html#ab90b8db49f94eae18ffc26bdf1f76946">OpenCVForUnity.VideoioModule.VideoCapture</a>
-</li>
-<li>VideoWriter()
-: <a class="el" href="class_open_c_v_for_unity_1_1_videoio_module_1_1_video_writer.html#a1308d1978007ec39c0b8d1c121fb832e">OpenCVForUnity.VideoioModule.VideoWriter</a>
-</li>
+<h3><a id="index_v" name="index_v"></a>- v -</h3><ul>
+<li>validateDisparity()&#160;:&#160;<a class="el" href="df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#afd479b0e9b736810374aa0a4ced49a67">OpenCVForUnity.Calib3dModule.Calib3d</a></li>
+<li>vconcat()&#160;:&#160;<a class="el" href="da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html#a6435b1a999402987596e62ae4fbf46fb">OpenCVForUnity.CoreModule.Core</a></li>
+<li>Vec10d()&#160;:&#160;<a class="el" href="d8/d01/structOpenCVForUnity_1_1UnityUtils_1_1Vec10d.html#a61c84bb15dee3749b94e8f30a8f24a3b">OpenCVForUnity.UnityUtils.Vec10d</a></li>
+<li>Vec2b()&#160;:&#160;<a class="el" href="dc/d56/structOpenCVForUnity_1_1UnityUtils_1_1Vec2b.html#a14659a2b09055741062d73cd8e066588">OpenCVForUnity.UnityUtils.Vec2b</a></li>
+<li>Vec2c()&#160;:&#160;<a class="el" href="d9/d30/structOpenCVForUnity_1_1UnityUtils_1_1Vec2c.html#af42214c680a2a7a2def028c452dd9a3a">OpenCVForUnity.UnityUtils.Vec2c</a></li>
+<li>Vec2d()&#160;:&#160;<a class="el" href="db/deb/structOpenCVForUnity_1_1UnityUtils_1_1Vec2d.html#aad9aa3c13b8dcd933d855b401e423429">OpenCVForUnity.UnityUtils.Vec2d</a></li>
+<li>Vec2f()&#160;:&#160;<a class="el" href="dc/d97/structOpenCVForUnity_1_1UnityUtils_1_1Vec2f.html#acb36a914c8213b600d376260b2671462">OpenCVForUnity.UnityUtils.Vec2f</a></li>
+<li>Vec2i()&#160;:&#160;<a class="el" href="d4/dd4/structOpenCVForUnity_1_1UnityUtils_1_1Vec2i.html#afb1607d5b43fbf55a7f208c187540e35">OpenCVForUnity.UnityUtils.Vec2i</a></li>
+<li>Vec2s()&#160;:&#160;<a class="el" href="d8/d92/structOpenCVForUnity_1_1UnityUtils_1_1Vec2s.html#adeae4c393a6d4fc38e90af7ce4661703">OpenCVForUnity.UnityUtils.Vec2s</a></li>
+<li>Vec2w()&#160;:&#160;<a class="el" href="d1/dc4/structOpenCVForUnity_1_1UnityUtils_1_1Vec2w.html#aff8416e1e72f5b8430637b4f3021fdce">OpenCVForUnity.UnityUtils.Vec2w</a></li>
+<li>Vec3b()&#160;:&#160;<a class="el" href="d6/d2f/structOpenCVForUnity_1_1UnityUtils_1_1Vec3b.html#a7972f295f4701ac6768bffb6fdc98a9c">OpenCVForUnity.UnityUtils.Vec3b</a></li>
+<li>Vec3c()&#160;:&#160;<a class="el" href="d5/d81/structOpenCVForUnity_1_1UnityUtils_1_1Vec3c.html#a2534cb60118925ede17f7549d2e3fbc9">OpenCVForUnity.UnityUtils.Vec3c</a></li>
+<li>Vec3d()&#160;:&#160;<a class="el" href="dc/dd6/structOpenCVForUnity_1_1UnityUtils_1_1Vec3d.html#a4ecb1017c5cf04e94e57bb4a8b91f500">OpenCVForUnity.UnityUtils.Vec3d</a></li>
+<li>Vec3f()&#160;:&#160;<a class="el" href="d9/d81/structOpenCVForUnity_1_1UnityUtils_1_1Vec3f.html#a655256fa6717d97b8686f497766ae21f">OpenCVForUnity.UnityUtils.Vec3f</a></li>
+<li>Vec3i()&#160;:&#160;<a class="el" href="dd/d1f/structOpenCVForUnity_1_1UnityUtils_1_1Vec3i.html#a7e202721ab9a19fb37e557ddc09eba27">OpenCVForUnity.UnityUtils.Vec3i</a></li>
+<li>Vec3s()&#160;:&#160;<a class="el" href="d6/d77/structOpenCVForUnity_1_1UnityUtils_1_1Vec3s.html#a4b3a6b5f9de0260789fee5aa1dae478b">OpenCVForUnity.UnityUtils.Vec3s</a></li>
+<li>Vec3w()&#160;:&#160;<a class="el" href="d9/d33/structOpenCVForUnity_1_1UnityUtils_1_1Vec3w.html#a36cead234b06289e0503f49b0e6f24a8">OpenCVForUnity.UnityUtils.Vec3w</a></li>
+<li>Vec4b()&#160;:&#160;<a class="el" href="da/dd3/structOpenCVForUnity_1_1UnityUtils_1_1Vec4b.html#a88438ee5123b76aa17336bae831ad350">OpenCVForUnity.UnityUtils.Vec4b</a></li>
+<li>Vec4c()&#160;:&#160;<a class="el" href="de/d4b/structOpenCVForUnity_1_1UnityUtils_1_1Vec4c.html#a2b6ba137bd584d1586ec30f5c0e7ec6a">OpenCVForUnity.UnityUtils.Vec4c</a></li>
+<li>Vec4d()&#160;:&#160;<a class="el" href="db/d51/structOpenCVForUnity_1_1UnityUtils_1_1Vec4d.html#ab101fc9248d47cc75deea46293b68795">OpenCVForUnity.UnityUtils.Vec4d</a></li>
+<li>Vec4f()&#160;:&#160;<a class="el" href="de/dd8/structOpenCVForUnity_1_1UnityUtils_1_1Vec4f.html#a28eb13809a4401ed835236580814ef9d">OpenCVForUnity.UnityUtils.Vec4f</a></li>
+<li>Vec4i()&#160;:&#160;<a class="el" href="d0/d43/structOpenCVForUnity_1_1UnityUtils_1_1Vec4i.html#a59027c56cb2f1170ce1acfbacc7c4b50">OpenCVForUnity.UnityUtils.Vec4i</a></li>
+<li>Vec4s()&#160;:&#160;<a class="el" href="db/dbc/structOpenCVForUnity_1_1UnityUtils_1_1Vec4s.html#a35b8c0c60d16b17f3af0473409ad0abb">OpenCVForUnity.UnityUtils.Vec4s</a></li>
+<li>Vec4w()&#160;:&#160;<a class="el" href="da/d7d/structOpenCVForUnity_1_1UnityUtils_1_1Vec4w.html#a5eed2d5427dec87d18624b8d09520fa6">OpenCVForUnity.UnityUtils.Vec4w</a></li>
+<li>Vec5d()&#160;:&#160;<a class="el" href="d8/d64/structOpenCVForUnity_1_1UnityUtils_1_1Vec5d.html#aefe1180ac9b766845c91151184f437ce">OpenCVForUnity.UnityUtils.Vec5d</a></li>
+<li>Vec5f()&#160;:&#160;<a class="el" href="d4/daf/structOpenCVForUnity_1_1UnityUtils_1_1Vec5f.html#a48d6d953620eab42c793f6111a48ecca">OpenCVForUnity.UnityUtils.Vec5f</a></li>
+<li>Vec6f()&#160;:&#160;<a class="el" href="d1/d66/structOpenCVForUnity_1_1UnityUtils_1_1Vec6f.html#a4159ed47a1e62f331c7b163038471135">OpenCVForUnity.UnityUtils.Vec6f</a></li>
+<li>Vec7d()&#160;:&#160;<a class="el" href="d9/df5/structOpenCVForUnity_1_1UnityUtils_1_1Vec7d.html#ad8d596912986038f7a12f00a47ed68f2">OpenCVForUnity.UnityUtils.Vec7d</a></li>
+<li>Vec7f()&#160;:&#160;<a class="el" href="d2/d59/structOpenCVForUnity_1_1UnityUtils_1_1Vec7f.html#aa70129066a47c5c5290af27d62871e92">OpenCVForUnity.UnityUtils.Vec7f</a></li>
+<li>vector_char_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#ae8a9377cc66dbc1e7477ee27a0611ba9">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_DMatch_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#a2f28cbe7771816f1205ac70b0f013069">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_double_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#aed42a7c5fba7384fe7681183abe39ed4">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_float_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#ac2606476db3f86cdd3d8de630beea7b5">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_int_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#adb695a87e45a86d1c4ed3a0bbdb582fb">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_KeyPoint_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#a8de62b42021346aa6389c743d0eb4b65">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_Mat_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#a8520c186aaea86da6a12ebd5efd9dd42">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_MatShape_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#aeef5412bd106294ce23cb5a0ce8d4de4">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_Point2d_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#aec7bf3787d1814f70e23b029bc9e2d6a">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_Point2f_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#aab647ebca92b5722ad087c5895e365fd">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_Point3_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#aaaa213bb5a68593a31d5465aaedcbff8">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_Point3d_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#a803d7444f2a1b36ff6f844c497c4d5c8">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_Point3f_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#af560e76c4f1dedb863938028a452be31">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_Point3i_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#a5b28ed8590ca0690ecafbda48fb692e2">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_Point_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#a91999513e4c5d59edffff7ba85394e29">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_Rect_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#ad048b23c707fbed1bdfd2e44a882bb12">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_RotatedRect_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#aaff89303cf42cd2b0692a86205208540">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_String_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#a77a0cd5c80bfdf355400dbbba648c435">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_string_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#ac5acc8c4ea52b7e4cb7c7f85d8ef0092">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_uchar_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#a3e84638b5bb832a542ba8df90fea1ed3">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_vector_char_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#ac5246b93132b702fa33279411a69f0f2">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_vector_DMatch_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#a15db74487b11cb6fb60513ffb9c1dfb2">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_vector_KeyPoint_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#a5f74f3966f5317d74fe9da5cf1c1a01e">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_vector_Point2f_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#a9fb106ae96e9bdc7c893f976e4b3da11">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_vector_Point3f_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#a3fddd5afdf52472cae800d2cb29acede">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>vector_vector_Point_to_Mat()&#160;:&#160;<a class="el" href="dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html#a90466fd0cd0a8d6b810426686808ef0a">OpenCVForUnity.UtilsModule.Converters</a></li>
+<li>VideoCapture()&#160;:&#160;<a class="el" href="df/df8/classOpenCVForUnity_1_1VideoioModule_1_1VideoCapture.html#ab90b8db49f94eae18ffc26bdf1f76946">OpenCVForUnity.VideoioModule.VideoCapture</a></li>
+<li>VideoWriter()&#160;:&#160;<a class="el" href="d9/d3c/classOpenCVForUnity_1_1VideoioModule_1_1VideoWriter.html#a5a361e7324a0621ae6b3fc490220db4f">OpenCVForUnity.VideoioModule.VideoWriter</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

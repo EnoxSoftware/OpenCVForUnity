@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: OpenCVForUnity.CoreModule.Point3 Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,175 +126,123 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_core_module.html">CoreModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="class_open_c_v_for_unity_1_1_core_module_1_1_point3-members.html">List of all members</a>  </div>
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.CoreModule.Point3 Class Reference</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.CoreModule.Point3 Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Template class for 3D points specified by its coordinates x, y and z.  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for OpenCVForUnity.CoreModule.Point3:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="class_open_c_v_for_unity_1_1_core_module_1_1_point3.png" usemap="#OpenCVForUnity.CoreModule.Point3_map" alt=""/>
-  <map id="OpenCVForUnity.CoreModule.Point3_map" name="OpenCVForUnity.CoreModule.Point3_map">
-</map>
+  <img src="class_open_c_v_for_unity_1_1_core_module_1_1_point3.png" alt=""/>
  </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:acac9ee88056aa13898ee64b27485bf81"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#acac9ee88056aa13898ee64b27485bf81">Point3</a> (double <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#adb19d155eaac37ec82d7a4b2ffd6667c">x</a>, double y, double z)</td></tr>
+<tr class="memitem:acac9ee88056aa13898ee64b27485bf81" id="r_acac9ee88056aa13898ee64b27485bf81"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acac9ee88056aa13898ee64b27485bf81">Point3</a> (double <a class="el" href="#adf5ff7b76cef1b92631f0426fcecdf72">x</a>, double <a class="el" href="#ab84e94ee486007fd3b7f64c2b6690fb5">y</a>, double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a>)</td></tr>
 <tr class="separator:acac9ee88056aa13898ee64b27485bf81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b42b671807918f53ba90bc4351e0918"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#a3b42b671807918f53ba90bc4351e0918">Point3</a> ()</td></tr>
+<tr class="memitem:a3b42b671807918f53ba90bc4351e0918" id="r_a3b42b671807918f53ba90bc4351e0918"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b42b671807918f53ba90bc4351e0918">Point3</a> ()</td></tr>
 <tr class="separator:a3b42b671807918f53ba90bc4351e0918"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7613447b47decbe079ac3abc1fbd4de"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#ac7613447b47decbe079ac3abc1fbd4de">Point3</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> p)</td></tr>
+<tr class="memitem:ac7613447b47decbe079ac3abc1fbd4de" id="r_ac7613447b47decbe079ac3abc1fbd4de"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac7613447b47decbe079ac3abc1fbd4de">Point3</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a> p)</td></tr>
 <tr class="separator:ac7613447b47decbe079ac3abc1fbd4de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f543d0a49ad9f0e8b15a8b4a9f88182"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#a2f543d0a49ad9f0e8b15a8b4a9f88182">Point3</a> (double[] vals)</td></tr>
+<tr class="memitem:a2f543d0a49ad9f0e8b15a8b4a9f88182" id="r_a2f543d0a49ad9f0e8b15a8b4a9f88182"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f543d0a49ad9f0e8b15a8b4a9f88182">Point3</a> (double[] vals)</td></tr>
 <tr class="separator:a2f543d0a49ad9f0e8b15a8b4a9f88182"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b4cead9a04c5c13bf4de61ab0a5a087"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#a0b4cead9a04c5c13bf4de61ab0a5a087">set</a> (double[] vals)</td></tr>
+<tr class="memitem:a0b4cead9a04c5c13bf4de61ab0a5a087" id="r_a0b4cead9a04c5c13bf4de61ab0a5a087"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0b4cead9a04c5c13bf4de61ab0a5a087">set</a> (double[] vals)</td></tr>
 <tr class="separator:a0b4cead9a04c5c13bf4de61ab0a5a087"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08cf528a819a75a3c66843a726b63180"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#a08cf528a819a75a3c66843a726b63180">clone</a> ()</td></tr>
+<tr class="memitem:a08cf528a819a75a3c66843a726b63180" id="r_a08cf528a819a75a3c66843a726b63180"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08cf528a819a75a3c66843a726b63180">clone</a> ()</td></tr>
 <tr class="separator:a08cf528a819a75a3c66843a726b63180"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2be95e7ec95d3b8068bdb4e3d2420458"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#a2be95e7ec95d3b8068bdb4e3d2420458">dot</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> p)</td></tr>
+<tr class="memitem:a2be95e7ec95d3b8068bdb4e3d2420458" id="r_a2be95e7ec95d3b8068bdb4e3d2420458"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2be95e7ec95d3b8068bdb4e3d2420458">dot</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> p)</td></tr>
 <tr class="separator:a2be95e7ec95d3b8068bdb4e3d2420458"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a544fcfa047629f4ea564f369804eaa5f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#a544fcfa047629f4ea564f369804eaa5f">cross</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> p)</td></tr>
+<tr class="memitem:a544fcfa047629f4ea564f369804eaa5f" id="r_a544fcfa047629f4ea564f369804eaa5f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a544fcfa047629f4ea564f369804eaa5f">cross</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> p)</td></tr>
 <tr class="separator:a544fcfa047629f4ea564f369804eaa5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5545afa723d3a8dbceaf4fbded2b808"><td class="memItemLeft" align="right" valign="top">override int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#af5545afa723d3a8dbceaf4fbded2b808">GetHashCode</a> ()</td></tr>
+<tr class="memitem:af5545afa723d3a8dbceaf4fbded2b808" id="r_af5545afa723d3a8dbceaf4fbded2b808"><td class="memItemLeft" align="right" valign="top">override int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5545afa723d3a8dbceaf4fbded2b808">GetHashCode</a> ()</td></tr>
 <tr class="separator:af5545afa723d3a8dbceaf4fbded2b808"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa36920c5907183cf0b130901523430ee"><td class="memItemLeft" align="right" valign="top">override bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#aa36920c5907183cf0b130901523430ee">Equals</a> (Object obj)</td></tr>
+<tr class="memitem:aa36920c5907183cf0b130901523430ee" id="r_aa36920c5907183cf0b130901523430ee"><td class="memItemLeft" align="right" valign="top">override bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa36920c5907183cf0b130901523430ee">Equals</a> (Object obj)</td></tr>
 <tr class="separator:aa36920c5907183cf0b130901523430ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6f3f81f98f522e254bddfed3b74e86a"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#aa6f3f81f98f522e254bddfed3b74e86a">ToString</a> ()</td></tr>
+<tr class="memitem:aa6f3f81f98f522e254bddfed3b74e86a" id="r_aa6f3f81f98f522e254bddfed3b74e86a"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa6f3f81f98f522e254bddfed3b74e86a">ToString</a> ()</td></tr>
 <tr class="separator:aa6f3f81f98f522e254bddfed3b74e86a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3142adaa19ac931ad7b77cc9cb8f9f98"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#a3142adaa19ac931ad7b77cc9cb8f9f98">Equals</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> a)</td></tr>
+<tr class="memitem:a152ebac4e01e8364de72fe284d4c5688" id="r_a152ebac4e01e8364de72fe284d4c5688"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a152ebac4e01e8364de72fe284d4c5688">Point3</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a> vals)</td></tr>
+<tr class="separator:a152ebac4e01e8364de72fe284d4c5688"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b7142b0b6bac8b3dbe42557e01fde45" id="r_a4b7142b0b6bac8b3dbe42557e01fde45"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b7142b0b6bac8b3dbe42557e01fde45">Point3</a> (in(double <a class="el" href="#adf5ff7b76cef1b92631f0426fcecdf72">x</a>, double <a class="el" href="#ab84e94ee486007fd3b7f64c2b6690fb5">y</a>, double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a>) vals)</td></tr>
+<tr class="separator:a4b7142b0b6bac8b3dbe42557e01fde45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6173484f451bf5f4f7b5dfb6f0cdbd6" id="r_ae6173484f451bf5f4f7b5dfb6f0cdbd6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6173484f451bf5f4f7b5dfb6f0cdbd6">set</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a> vals)</td></tr>
+<tr class="separator:ae6173484f451bf5f4f7b5dfb6f0cdbd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6725969c27db05f8f78710533a9ba4f9" id="r_a6725969c27db05f8f78710533a9ba4f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6725969c27db05f8f78710533a9ba4f9">set</a> (in(double <a class="el" href="#adf5ff7b76cef1b92631f0426fcecdf72">x</a>, double <a class="el" href="#ab84e94ee486007fd3b7f64c2b6690fb5">y</a>, double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a>) vals)</td></tr>
+<tr class="separator:a6725969c27db05f8f78710533a9ba4f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62824685bf36a193648e16c0cf320701" id="r_a62824685bf36a193648e16c0cf320701"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a62824685bf36a193648e16c0cf320701">cloneAsVec3d</a> ()</td></tr>
+<tr class="separator:a62824685bf36a193648e16c0cf320701"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42130d3f0562e6f90cd9798f99507a7d" id="r_a42130d3f0562e6f90cd9798f99507a7d"><td class="memItemLeft" align="right" valign="top">double double double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a42130d3f0562e6f90cd9798f99507a7d">cloneAsValueTuple</a> ()</td></tr>
+<tr class="separator:a42130d3f0562e6f90cd9798f99507a7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bbf61b6d07f2e256b1f5c1cb14f4258" id="r_a6bbf61b6d07f2e256b1f5c1cb14f4258"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6bbf61b6d07f2e256b1f5c1cb14f4258">dot</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a> p)</td></tr>
+<tr class="separator:a6bbf61b6d07f2e256b1f5c1cb14f4258"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada9b33a5f49f066ef98e9fe7706c216e" id="r_ada9b33a5f49f066ef98e9fe7706c216e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada9b33a5f49f066ef98e9fe7706c216e">dot</a> (in(double <a class="el" href="#adf5ff7b76cef1b92631f0426fcecdf72">x</a>, double <a class="el" href="#ab84e94ee486007fd3b7f64c2b6690fb5">y</a>, double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a>) p)</td></tr>
+<tr class="separator:ada9b33a5f49f066ef98e9fe7706c216e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c3d33862cf5990a881a5141e33dabdd" id="r_a9c3d33862cf5990a881a5141e33dabdd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c3d33862cf5990a881a5141e33dabdd">crossAsVec3d</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a> p)</td></tr>
+<tr class="separator:a9c3d33862cf5990a881a5141e33dabdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3b3ebe042948e1f343423585a9d9e83" id="r_ab3b3ebe042948e1f343423585a9d9e83"><td class="memItemLeft" align="right" valign="top">double double double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3b3ebe042948e1f343423585a9d9e83">crossAsValueTuple</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a> p)</td></tr>
+<tr class="separator:ab3b3ebe042948e1f343423585a9d9e83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a918649128ecada1546fdb91b40dbdd54" id="r_a918649128ecada1546fdb91b40dbdd54"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a918649128ecada1546fdb91b40dbdd54">crossAsVec3d</a> (in(double <a class="el" href="#adf5ff7b76cef1b92631f0426fcecdf72">x</a>, double <a class="el" href="#ab84e94ee486007fd3b7f64c2b6690fb5">y</a>, double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a>) p)</td></tr>
+<tr class="separator:a918649128ecada1546fdb91b40dbdd54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69cc1a0f66d62f2720bc30a5e0675f78" id="r_a69cc1a0f66d62f2720bc30a5e0675f78"><td class="memItemLeft" align="right" valign="top">double double double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a69cc1a0f66d62f2720bc30a5e0675f78">crossAsValueTuple</a> (in(double <a class="el" href="#adf5ff7b76cef1b92631f0426fcecdf72">x</a>, double <a class="el" href="#ab84e94ee486007fd3b7f64c2b6690fb5">y</a>, double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a>) p)</td></tr>
+<tr class="separator:a69cc1a0f66d62f2720bc30a5e0675f78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7684868d1400bab7b02951b6e630300" id="r_ad7684868d1400bab7b02951b6e630300"><td class="memItemLeft" align="right" valign="top">double double double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad7684868d1400bab7b02951b6e630300">ToValueTuple</a> ()</td></tr>
+<tr class="separator:ad7684868d1400bab7b02951b6e630300"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a745f25d5a6a3794d072091c1a70edcd5" id="r_a745f25d5a6a3794d072091c1a70edcd5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a745f25d5a6a3794d072091c1a70edcd5">ToVec3d</a> ()</td></tr>
+<tr class="separator:a745f25d5a6a3794d072091c1a70edcd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3142adaa19ac931ad7b77cc9cb8f9f98" id="r_a3142adaa19ac931ad7b77cc9cb8f9f98"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3142adaa19ac931ad7b77cc9cb8f9f98">Equals</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> a)</td></tr>
 <tr class="separator:a3142adaa19ac931ad7b77cc9cb8f9f98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ab5d97598263b0d5a7547bd36d7588266"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#ab5d97598263b0d5a7547bd36d7588266">operator-</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> a)</td></tr>
+<tr class="memitem:a1bf432898706c99c283cb79f051eba4b" id="r_a1bf432898706c99c283cb79f051eba4b"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1bf432898706c99c283cb79f051eba4b">operator Vec3d</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> point3)</td></tr>
+<tr class="separator:a1bf432898706c99c283cb79f051eba4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a470b44b87685ef31c96c27c697db6a85" id="r_a470b44b87685ef31c96c27c697db6a85"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a470b44b87685ef31c96c27c697db6a85">operator</a> (double <a class="el" href="#adf5ff7b76cef1b92631f0426fcecdf72">x</a>, double <a class="el" href="#ab84e94ee486007fd3b7f64c2b6690fb5">y</a>, double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a>)(<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> point3)</td></tr>
+<tr class="separator:a470b44b87685ef31c96c27c697db6a85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adca3c19f00b23f60bcbbb142de3a22e8" id="r_adca3c19f00b23f60bcbbb142de3a22e8"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adca3c19f00b23f60bcbbb142de3a22e8">operator Point3</a> (in(double <a class="el" href="#adf5ff7b76cef1b92631f0426fcecdf72">x</a>, double <a class="el" href="#ab84e94ee486007fd3b7f64c2b6690fb5">y</a>, double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a>) valueTuple)</td></tr>
+<tr class="separator:adca3c19f00b23f60bcbbb142de3a22e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5d97598263b0d5a7547bd36d7588266" id="r_ab5d97598263b0d5a7547bd36d7588266"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5d97598263b0d5a7547bd36d7588266">operator-</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> a)</td></tr>
 <tr class="separator:ab5d97598263b0d5a7547bd36d7588266"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26463a3f333dc0507d629c10cea8dbed"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#a26463a3f333dc0507d629c10cea8dbed">operator+</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> b)</td></tr>
+<tr class="memitem:a26463a3f333dc0507d629c10cea8dbed" id="r_a26463a3f333dc0507d629c10cea8dbed"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a26463a3f333dc0507d629c10cea8dbed">operator+</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> b)</td></tr>
 <tr class="separator:a26463a3f333dc0507d629c10cea8dbed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ab04629e85de3760e400bd2a439f494"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#a0ab04629e85de3760e400bd2a439f494">operator-</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> b)</td></tr>
+<tr class="memitem:a0ab04629e85de3760e400bd2a439f494" id="r_a0ab04629e85de3760e400bd2a439f494"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0ab04629e85de3760e400bd2a439f494">operator-</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> b)</td></tr>
 <tr class="separator:a0ab04629e85de3760e400bd2a439f494"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1474bfa27a18424e511b54c6e2ca0e79"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#a1474bfa27a18424e511b54c6e2ca0e79">operator*</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> a, double b)</td></tr>
+<tr class="memitem:a1474bfa27a18424e511b54c6e2ca0e79" id="r_a1474bfa27a18424e511b54c6e2ca0e79"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1474bfa27a18424e511b54c6e2ca0e79">operator*</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> a, double b)</td></tr>
 <tr class="separator:a1474bfa27a18424e511b54c6e2ca0e79"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9fbfe222b3da3aa4e63860eced84474"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#ad9fbfe222b3da3aa4e63860eced84474">operator*</a> (double a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> b)</td></tr>
+<tr class="memitem:ad9fbfe222b3da3aa4e63860eced84474" id="r_ad9fbfe222b3da3aa4e63860eced84474"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad9fbfe222b3da3aa4e63860eced84474">operator*</a> (double a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> b)</td></tr>
 <tr class="separator:ad9fbfe222b3da3aa4e63860eced84474"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15a6931f037d349ac881cecc43c00b25"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#a15a6931f037d349ac881cecc43c00b25">operator/</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> a, double b)</td></tr>
+<tr class="memitem:a15a6931f037d349ac881cecc43c00b25" id="r_a15a6931f037d349ac881cecc43c00b25"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a15a6931f037d349ac881cecc43c00b25">operator/</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> a, double b)</td></tr>
 <tr class="separator:a15a6931f037d349ac881cecc43c00b25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99db4ddacec2534da61dd0c52eb8390b"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#a99db4ddacec2534da61dd0c52eb8390b">operator==</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> b)</td></tr>
+<tr class="memitem:a99db4ddacec2534da61dd0c52eb8390b" id="r_a99db4ddacec2534da61dd0c52eb8390b"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99db4ddacec2534da61dd0c52eb8390b">operator==</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> b)</td></tr>
 <tr class="separator:a99db4ddacec2534da61dd0c52eb8390b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9645910101f914174e70d3f108306db"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#ad9645910101f914174e70d3f108306db">operator!=</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> b)</td></tr>
+<tr class="memitem:ad9645910101f914174e70d3f108306db" id="r_ad9645910101f914174e70d3f108306db"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad9645910101f914174e70d3f108306db">operator!=</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> b)</td></tr>
 <tr class="separator:ad9645910101f914174e70d3f108306db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:adb19d155eaac37ec82d7a4b2ffd6667c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html#adb19d155eaac37ec82d7a4b2ffd6667c">x</a></td></tr>
-<tr class="separator:adb19d155eaac37ec82d7a4b2ffd6667c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf5ff7b76cef1b92631f0426fcecdf72" id="r_adf5ff7b76cef1b92631f0426fcecdf72"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf5ff7b76cef1b92631f0426fcecdf72">x</a></td></tr>
+<tr class="separator:adf5ff7b76cef1b92631f0426fcecdf72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab84e94ee486007fd3b7f64c2b6690fb5" id="r_ab84e94ee486007fd3b7f64c2b6690fb5"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab84e94ee486007fd3b7f64c2b6690fb5">y</a></td></tr>
+<tr class="separator:ab84e94ee486007fd3b7f64c2b6690fb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43b195b6c7dcd657679569641c6d7748" id="r_a43b195b6c7dcd657679569641c6d7748"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a></td></tr>
+<tr class="separator:a43b195b6c7dcd657679569641c6d7748"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a471010b361e6f641688f6e50349083e8" id="r_a471010b361e6f641688f6e50349083e8"><td class="memItemLeft" align="right" valign="top">double double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a471010b361e6f641688f6e50349083e8">y</a></td></tr>
+<tr class="separator:a471010b361e6f641688f6e50349083e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>template&lt;typename _Tp&gt; class CV_EXPORTS Point3_ <code></code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>// C++ code:</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>public:</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>typedef _Tp value_type;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>// various constructors</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Point3_();</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Point3_(_Tp _x, _Tp _y, _Tp _z);</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Point3_(const Point3_&amp; pt);</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>explicit Point3_(const Point_&lt;_Tp&gt;&amp; pt);</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Point3_(const CvPoint3D32f&amp; pt);</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Point3_(const Vec&lt;_Tp, 3&gt;&amp; v);</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Point3_&amp; operator = (const Point3_&amp; pt);</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>//! conversion to another data type</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>template&lt;typename _Tp2&gt; operator Point3_&lt;_Tp2&gt;() const;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>//! conversion to the old-style CvPoint...</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>operator CvPoint3D32f() const;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>//! conversion to cv.Vec&lt;&gt;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>operator Vec&lt;_Tp, 3&gt;() const;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>//! dot product</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>_Tp dot(const Point3_&amp; pt) const;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>//! dot product computed in double-precision arithmetics</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>double ddot(const Point3_&amp; pt) const;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>//! cross product of the 2 3D points</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Point3_ cross(const Point3_&amp; pt) const;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>_Tp x, y, z; //&lt; the point coordinates</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>};</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Template class for 3D points specified by its coordinates </code></p>
-<p><em>x</em>, <em>y</em> and <em>z</em>. An instance of the class is interchangeable with the C structure <code>CvPoint2D32f</code>. Similarly to <code>Point_</code>, the coordinates of 3D points can be converted to another type. The vector arithmetic and comparison operations are also supported. The following <code>Point3_&lt;&gt;</code> aliases are available: <code></code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>// C++ code:</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>typedef Point3_&lt;int&gt; Point3i;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>typedef Point3_&lt;float&gt; Point3f;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>typedef Point3_&lt;double&gt; Point3d;</code></p>
-<p><code></code></p>
-<p><code></p><dl class="section see"><dt>See also</dt><dd><a href="http://docs.opencv.org/modules/core/doc/basic_structures.html#point3">org.opencv.core.Point3_</a> </dd></dl>
-<p></code></p>
+<div class="textblock"><p>Template class for 3D points specified by its coordinates x, y and z. </p>
+<p>C++: cv::Point3_&lt;_Tp&gt; Class Template Reference </p><dl class="section see"><dt>See also</dt><dd><a href="https://docs.opencv.org/4.10.0/df/d6c/classcv_1_1Point3__.html">https://docs.opencv.org/4.10.0/df/d6c/classcv_1_1Point3__.html</a> </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="acac9ee88056aa13898ee64b27485bf81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acac9ee88056aa13898ee64b27485bf81">&#9670;&nbsp;</a></span>Point3() <span class="overload">[1/4]</span></h2>
+<a id="acac9ee88056aa13898ee64b27485bf81" name="acac9ee88056aa13898ee64b27485bf81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acac9ee88056aa13898ee64b27485bf81">&#9670;&#160;</a></span>Point3() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -270,33 +250,25 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.CoreModule.Point3.Point3 </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>y</em>, </td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>z</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>z</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a3b42b671807918f53ba90bc4351e0918"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b42b671807918f53ba90bc4351e0918">&#9670;&nbsp;</a></span>Point3() <span class="overload">[2/4]</span></h2>
+<a id="a3b42b671807918f53ba90bc4351e0918" name="a3b42b671807918f53ba90bc4351e0918"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b42b671807918f53ba90bc4351e0918">&#9670;&#160;</a></span>Point3() <span class="overload">[2/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -304,16 +276,17 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.CoreModule.Point3.Point3 </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>default constructor </p>
 
 </div>
 </div>
-<a id="ac7613447b47decbe079ac3abc1fbd4de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7613447b47decbe079ac3abc1fbd4de">&#9670;&nbsp;</a></span>Point3() <span class="overload">[3/4]</span></h2>
+<a id="ac7613447b47decbe079ac3abc1fbd4de" name="ac7613447b47decbe079ac3abc1fbd4de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7613447b47decbe079ac3abc1fbd4de">&#9670;&#160;</a></span>Point3() <span class="overload">[3/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -321,8 +294,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.CoreModule.Point3.Point3 </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a>&#160;</td>
-          <td class="paramname"><em>p</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point.html">Point</a></td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -330,8 +302,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a2f543d0a49ad9f0e8b15a8b4a9f88182"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f543d0a49ad9f0e8b15a8b4a9f88182">&#9670;&nbsp;</a></span>Point3() <span class="overload">[4/4]</span></h2>
+<a id="a2f543d0a49ad9f0e8b15a8b4a9f88182" name="a2f543d0a49ad9f0e8b15a8b4a9f88182"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f543d0a49ad9f0e8b15a8b4a9f88182">&#9670;&#160;</a></span>Point3() <span class="overload">[4/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -339,8 +311,41 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.CoreModule.Point3.Point3 </td>
           <td>(</td>
-          <td class="paramtype">double []&#160;</td>
-          <td class="paramname"><em>vals</em></td><td>)</td>
+          <td class="paramtype">double[]</td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a152ebac4e01e8364de72fe284d4c5688" name="a152ebac4e01e8364de72fe284d4c5688"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a152ebac4e01e8364de72fe284d4c5688">&#9670;&#160;</a></span>Point3() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OpenCVForUnity.CoreModule.Point3.Point3 </td>
+          <td>(</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a></td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4b7142b0b6bac8b3dbe42557e01fde45" name="a4b7142b0b6bac8b3dbe42557e01fde45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b7142b0b6bac8b3dbe42557e01fde45">&#9670;&#160;</a></span>Point3() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OpenCVForUnity.CoreModule.Point3.Point3 </td>
+          <td>(</td>
+          <td class="paramtype">in(double <a class="el" href="#adf5ff7b76cef1b92631f0426fcecdf72">x</a>, double <a class="el" href="#ab84e94ee486007fd3b7f64c2b6690fb5">y</a>, double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a>)</td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -349,8 +354,8 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a08cf528a819a75a3c66843a726b63180"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08cf528a819a75a3c66843a726b63180">&#9670;&nbsp;</a></span>clone()</h2>
+<a id="a08cf528a819a75a3c66843a726b63180" name="a08cf528a819a75a3c66843a726b63180"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08cf528a819a75a3c66843a726b63180">&#9670;&#160;</a></span>clone()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -358,7 +363,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> OpenCVForUnity.CoreModule.Point3.clone </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -366,8 +371,42 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a544fcfa047629f4ea564f369804eaa5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a544fcfa047629f4ea564f369804eaa5f">&#9670;&nbsp;</a></span>cross()</h2>
+<a id="a42130d3f0562e6f90cd9798f99507a7d" name="a42130d3f0562e6f90cd9798f99507a7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42130d3f0562e6f90cd9798f99507a7d">&#9670;&#160;</a></span>cloneAsValueTuple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double double double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a> OpenCVForUnity.CoreModule.Point3.cloneAsValueTuple </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a62824685bf36a193648e16c0cf320701" name="a62824685bf36a193648e16c0cf320701"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62824685bf36a193648e16c0cf320701">&#9670;&#160;</a></span>cloneAsVec3d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a> OpenCVForUnity.CoreModule.Point3.cloneAsVec3d </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a544fcfa047629f4ea564f369804eaa5f" name="a544fcfa047629f4ea564f369804eaa5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a544fcfa047629f4ea564f369804eaa5f">&#9670;&#160;</a></span>cross()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -375,8 +414,25 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> OpenCVForUnity.CoreModule.Point3.cross </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td>
-          <td class="paramname"><em>p</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a></td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>cross product of the 2 3D points </p>
+
+</div>
+</div>
+<a id="ab3b3ebe042948e1f343423585a9d9e83" name="ab3b3ebe042948e1f343423585a9d9e83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3b3ebe042948e1f343423585a9d9e83">&#9670;&#160;</a></span>crossAsValueTuple() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double double double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a> OpenCVForUnity.CoreModule.Point3.crossAsValueTuple </td>
+          <td>(</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a></td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -384,8 +440,61 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a2be95e7ec95d3b8068bdb4e3d2420458"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2be95e7ec95d3b8068bdb4e3d2420458">&#9670;&nbsp;</a></span>dot()</h2>
+<a id="a69cc1a0f66d62f2720bc30a5e0675f78" name="a69cc1a0f66d62f2720bc30a5e0675f78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69cc1a0f66d62f2720bc30a5e0675f78">&#9670;&#160;</a></span>crossAsValueTuple() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double double double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a> OpenCVForUnity.CoreModule.Point3.crossAsValueTuple </td>
+          <td>(</td>
+          <td class="paramtype">in(double <a class="el" href="#adf5ff7b76cef1b92631f0426fcecdf72">x</a>, double <a class="el" href="#ab84e94ee486007fd3b7f64c2b6690fb5">y</a>, double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a>)</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9c3d33862cf5990a881a5141e33dabdd" name="a9c3d33862cf5990a881a5141e33dabdd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c3d33862cf5990a881a5141e33dabdd">&#9670;&#160;</a></span>crossAsVec3d() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a> OpenCVForUnity.CoreModule.Point3.crossAsVec3d </td>
+          <td>(</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a></td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>cross product of the 2 3D points </p>
+
+</div>
+</div>
+<a id="a918649128ecada1546fdb91b40dbdd54" name="a918649128ecada1546fdb91b40dbdd54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a918649128ecada1546fdb91b40dbdd54">&#9670;&#160;</a></span>crossAsVec3d() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a> OpenCVForUnity.CoreModule.Point3.crossAsVec3d </td>
+          <td>(</td>
+          <td class="paramtype">in(double <a class="el" href="#adf5ff7b76cef1b92631f0426fcecdf72">x</a>, double <a class="el" href="#ab84e94ee486007fd3b7f64c2b6690fb5">y</a>, double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a>)</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>cross product of the 2 3D points </p>
+
+</div>
+</div>
+<a id="a6bbf61b6d07f2e256b1f5c1cb14f4258" name="a6bbf61b6d07f2e256b1f5c1cb14f4258"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bbf61b6d07f2e256b1f5c1cb14f4258">&#9670;&#160;</a></span>dot() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -393,35 +502,53 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">double OpenCVForUnity.CoreModule.Point3.dot </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td>
-          <td class="paramname"><em>p</em></td><td>)</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a></td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>dot product </p>
 
 </div>
 </div>
-<a id="a3142adaa19ac931ad7b77cc9cb8f9f98"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3142adaa19ac931ad7b77cc9cb8f9f98">&#9670;&nbsp;</a></span>Equals() <span class="overload">[1/2]</span></h2>
+<a id="ada9b33a5f49f066ef98e9fe7706c216e" name="ada9b33a5f49f066ef98e9fe7706c216e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada9b33a5f49f066ef98e9fe7706c216e">&#9670;&#160;</a></span>dot() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool OpenCVForUnity.CoreModule.Point3.Equals </td>
+          <td class="memname">double OpenCVForUnity.CoreModule.Point3.dot </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td>
-          <td class="paramname"><em>a</em></td><td>)</td>
+          <td class="paramtype">in(double <a class="el" href="#adf5ff7b76cef1b92631f0426fcecdf72">x</a>, double <a class="el" href="#ab84e94ee486007fd3b7f64c2b6690fb5">y</a>, double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a>)</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>dot product </p>
 
 </div>
 </div>
-<a id="aa36920c5907183cf0b130901523430ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa36920c5907183cf0b130901523430ee">&#9670;&nbsp;</a></span>Equals() <span class="overload">[2/2]</span></h2>
+<a id="a2be95e7ec95d3b8068bdb4e3d2420458" name="a2be95e7ec95d3b8068bdb4e3d2420458"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2be95e7ec95d3b8068bdb4e3d2420458">&#9670;&#160;</a></span>dot() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double OpenCVForUnity.CoreModule.Point3.dot </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a></td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>dot product </p>
+
+</div>
+</div>
+<a id="aa36920c5907183cf0b130901523430ee" name="aa36920c5907183cf0b130901523430ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa36920c5907183cf0b130901523430ee">&#9670;&#160;</a></span>Equals() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -429,8 +556,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">override bool OpenCVForUnity.CoreModule.Point3.Equals </td>
           <td>(</td>
-          <td class="paramtype">Object&#160;</td>
-          <td class="paramname"><em>obj</em></td><td>)</td>
+          <td class="paramtype">Object</td>          <td class="paramname"><span class="paramname"><em>obj</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -438,8 +564,25 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="af5545afa723d3a8dbceaf4fbded2b808"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5545afa723d3a8dbceaf4fbded2b808">&#9670;&nbsp;</a></span>GetHashCode()</h2>
+<a id="a3142adaa19ac931ad7b77cc9cb8f9f98" name="a3142adaa19ac931ad7b77cc9cb8f9f98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3142adaa19ac931ad7b77cc9cb8f9f98">&#9670;&#160;</a></span>Equals() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.CoreModule.Point3.Equals </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af5545afa723d3a8dbceaf4fbded2b808" name="af5545afa723d3a8dbceaf4fbded2b808"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5545afa723d3a8dbceaf4fbded2b808">&#9670;&#160;</a></span>GetHashCode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -447,7 +590,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">override int OpenCVForUnity.CoreModule.Point3.GetHashCode </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -455,8 +598,92 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ad9645910101f914174e70d3f108306db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad9645910101f914174e70d3f108306db">&#9670;&nbsp;</a></span>operator!=()</h2>
+<a id="a470b44b87685ef31c96c27c697db6a85" name="a470b44b87685ef31c96c27c697db6a85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a470b44b87685ef31c96c27c697db6a85">&#9670;&#160;</a></span>operator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static OpenCVForUnity.CoreModule.Point3.operator </td>
+          <td>(</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>z</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adca3c19f00b23f60bcbbb142de3a22e8" name="adca3c19f00b23f60bcbbb142de3a22e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adca3c19f00b23f60bcbbb142de3a22e8">&#9670;&#160;</a></span>operator Point3()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="#a470b44b87685ef31c96c27c697db6a85">OpenCVForUnity.CoreModule.Point3.operator</a> <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> </td>
+          <td>(</td>
+          <td class="paramtype">in(double <a class="el" href="#adf5ff7b76cef1b92631f0426fcecdf72">x</a>, double <a class="el" href="#ab84e94ee486007fd3b7f64c2b6690fb5">y</a>, double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a>)</td>          <td class="paramname"><span class="paramname"><em>valueTuple</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1bf432898706c99c283cb79f051eba4b" name="a1bf432898706c99c283cb79f051eba4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bf432898706c99c283cb79f051eba4b">&#9670;&#160;</a></span>operator Vec3d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="#a470b44b87685ef31c96c27c697db6a85">OpenCVForUnity.CoreModule.Point3.operator</a> <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a></td>          <td class="paramname"><span class="paramname"><em>point3</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad9645910101f914174e70d3f108306db" name="ad9645910101f914174e70d3f108306db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9645910101f914174e70d3f108306db">&#9670;&#160;</a></span>operator!=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -467,19 +694,12 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static bool OpenCVForUnity.CoreModule.Point3.operator!= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -491,8 +711,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a1474bfa27a18424e511b54c6e2ca0e79"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1474bfa27a18424e511b54c6e2ca0e79">&#9670;&nbsp;</a></span>operator*() <span class="overload">[1/2]</span></h2>
+<a id="ad9fbfe222b3da3aa4e63860eced84474" name="ad9fbfe222b3da3aa4e63860eced84474"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9fbfe222b3da3aa4e63860eced84474">&#9670;&#160;</a></span>operator*() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -501,21 +721,14 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> OpenCVForUnity.CoreModule.Point3.operator* </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> <a class="el" href="#a470b44b87685ef31c96c27c697db6a85">OpenCVForUnity.CoreModule.Point3.operator</a>* </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -527,8 +740,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ad9fbfe222b3da3aa4e63860eced84474"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad9fbfe222b3da3aa4e63860eced84474">&#9670;&nbsp;</a></span>operator*() <span class="overload">[2/2]</span></h2>
+<a id="a1474bfa27a18424e511b54c6e2ca0e79" name="a1474bfa27a18424e511b54c6e2ca0e79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1474bfa27a18424e511b54c6e2ca0e79">&#9670;&#160;</a></span>operator*() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -537,21 +750,14 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> OpenCVForUnity.CoreModule.Point3.operator* </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> <a class="el" href="#a470b44b87685ef31c96c27c697db6a85">OpenCVForUnity.CoreModule.Point3.operator</a>* </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -563,8 +769,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a26463a3f333dc0507d629c10cea8dbed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26463a3f333dc0507d629c10cea8dbed">&#9670;&nbsp;</a></span>operator+()</h2>
+<a id="a26463a3f333dc0507d629c10cea8dbed" name="a26463a3f333dc0507d629c10cea8dbed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26463a3f333dc0507d629c10cea8dbed">&#9670;&#160;</a></span>operator+()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -573,21 +779,14 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> OpenCVForUnity.CoreModule.Point3.operator+ </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> <a class="el" href="#a470b44b87685ef31c96c27c697db6a85">OpenCVForUnity.CoreModule.Point3.operator</a>+ </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -599,8 +798,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ab5d97598263b0d5a7547bd36d7588266"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5d97598263b0d5a7547bd36d7588266">&#9670;&nbsp;</a></span>operator-() <span class="overload">[1/2]</span></h2>
+<a id="ab5d97598263b0d5a7547bd36d7588266" name="ab5d97598263b0d5a7547bd36d7588266"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5d97598263b0d5a7547bd36d7588266">&#9670;&#160;</a></span>operator-() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -609,10 +808,9 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> OpenCVForUnity.CoreModule.Point3.operator- </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> <a class="el" href="#a470b44b87685ef31c96c27c697db6a85">OpenCVForUnity.CoreModule.Point3.operator</a>- </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td>
-          <td class="paramname"><em>a</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -625,8 +823,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a0ab04629e85de3760e400bd2a439f494"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ab04629e85de3760e400bd2a439f494">&#9670;&nbsp;</a></span>operator-() <span class="overload">[2/2]</span></h2>
+<a id="a0ab04629e85de3760e400bd2a439f494" name="a0ab04629e85de3760e400bd2a439f494"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ab04629e85de3760e400bd2a439f494">&#9670;&#160;</a></span>operator-() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -635,21 +833,14 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> OpenCVForUnity.CoreModule.Point3.operator- </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> <a class="el" href="#a470b44b87685ef31c96c27c697db6a85">OpenCVForUnity.CoreModule.Point3.operator</a>- </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -661,8 +852,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a15a6931f037d349ac881cecc43c00b25"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a15a6931f037d349ac881cecc43c00b25">&#9670;&nbsp;</a></span>operator/()</h2>
+<a id="a15a6931f037d349ac881cecc43c00b25" name="a15a6931f037d349ac881cecc43c00b25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15a6931f037d349ac881cecc43c00b25">&#9670;&#160;</a></span>operator/()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -671,21 +862,14 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> OpenCVForUnity.CoreModule.Point3.operator/ </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a> <a class="el" href="#a470b44b87685ef31c96c27c697db6a85">OpenCVForUnity.CoreModule.Point3.operator</a>/ </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -697,8 +881,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a99db4ddacec2534da61dd0c52eb8390b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99db4ddacec2534da61dd0c52eb8390b">&#9670;&nbsp;</a></span>operator==()</h2>
+<a id="a99db4ddacec2534da61dd0c52eb8390b" name="a99db4ddacec2534da61dd0c52eb8390b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99db4ddacec2534da61dd0c52eb8390b">&#9670;&#160;</a></span>operator==()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -707,21 +891,14 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool OpenCVForUnity.CoreModule.Point3.operator== </td>
+          <td class="memname">static bool <a class="el" href="#a470b44b87685ef31c96c27c697db6a85">OpenCVForUnity.CoreModule.Point3.operator</a>== </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_point3.html">Point3</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -733,8 +910,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a0b4cead9a04c5c13bf4de61ab0a5a087"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b4cead9a04c5c13bf4de61ab0a5a087">&#9670;&nbsp;</a></span>set()</h2>
+<a id="a0b4cead9a04c5c13bf4de61ab0a5a087" name="a0b4cead9a04c5c13bf4de61ab0a5a087"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b4cead9a04c5c13bf4de61ab0a5a087">&#9670;&#160;</a></span>set() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -742,8 +919,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.CoreModule.Point3.set </td>
           <td>(</td>
-          <td class="paramtype">double []&#160;</td>
-          <td class="paramname"><em>vals</em></td><td>)</td>
+          <td class="paramtype">double[]</td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -751,8 +927,42 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aa6f3f81f98f522e254bddfed3b74e86a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa6f3f81f98f522e254bddfed3b74e86a">&#9670;&nbsp;</a></span>ToString()</h2>
+<a id="ae6173484f451bf5f4f7b5dfb6f0cdbd6" name="ae6173484f451bf5f4f7b5dfb6f0cdbd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6173484f451bf5f4f7b5dfb6f0cdbd6">&#9670;&#160;</a></span>set() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.CoreModule.Point3.set </td>
+          <td>(</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a></td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6725969c27db05f8f78710533a9ba4f9" name="a6725969c27db05f8f78710533a9ba4f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6725969c27db05f8f78710533a9ba4f9">&#9670;&#160;</a></span>set() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.CoreModule.Point3.set </td>
+          <td>(</td>
+          <td class="paramtype">in(double <a class="el" href="#adf5ff7b76cef1b92631f0426fcecdf72">x</a>, double <a class="el" href="#ab84e94ee486007fd3b7f64c2b6690fb5">y</a>, double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a>)</td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa6f3f81f98f522e254bddfed3b74e86a" name="aa6f3f81f98f522e254bddfed3b74e86a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6f3f81f98f522e254bddfed3b74e86a">&#9670;&#160;</a></span>ToString()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -760,7 +970,41 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">override string OpenCVForUnity.CoreModule.Point3.ToString </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad7684868d1400bab7b02951b6e630300" name="ad7684868d1400bab7b02951b6e630300"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7684868d1400bab7b02951b6e630300">&#9670;&#160;</a></span>ToValueTuple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double double double <a class="el" href="#a43b195b6c7dcd657679569641c6d7748">z</a> OpenCVForUnity.CoreModule.Point3.ToValueTuple </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a745f25d5a6a3794d072091c1a70edcd5" name="a745f25d5a6a3794d072091c1a70edcd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a745f25d5a6a3794d072091c1a70edcd5">&#9670;&#160;</a></span>ToVec3d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec3d.html">Vec3d</a> OpenCVForUnity.CoreModule.Point3.ToVec3d </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -769,8 +1013,8 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="adb19d155eaac37ec82d7a4b2ffd6667c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb19d155eaac37ec82d7a4b2ffd6667c">&#9670;&nbsp;</a></span>x</h2>
+<a id="adf5ff7b76cef1b92631f0426fcecdf72" name="adf5ff7b76cef1b92631f0426fcecdf72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf5ff7b76cef1b92631f0426fcecdf72">&#9670;&#160;</a></span>x</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -780,6 +1024,52 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>x coordinate of the 3D point </p>
+<p>cross product of the 2 3D points </p>
+
+</div>
+</div>
+<a id="ab84e94ee486007fd3b7f64c2b6690fb5" name="ab84e94ee486007fd3b7f64c2b6690fb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab84e94ee486007fd3b7f64c2b6690fb5">&#9670;&#160;</a></span>y <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double double OpenCVForUnity.CoreModule.Point3.y</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>y coordinate of the 3D point </p>
+
+</div>
+</div>
+<a id="a471010b361e6f641688f6e50349083e8" name="a471010b361e6f641688f6e50349083e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a471010b361e6f641688f6e50349083e8">&#9670;&#160;</a></span>y <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double double OpenCVForUnity.CoreModule.Point3.y</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a43b195b6c7dcd657679569641c6d7748" name="a43b195b6c7dcd657679569641c6d7748"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43b195b6c7dcd657679569641c6d7748">&#9670;&#160;</a></span>z</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double OpenCVForUnity.CoreModule.Point3.z</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>z coordinate of the 3D point </p>
 
 </div>
 </div>
@@ -790,9 +1080,8 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

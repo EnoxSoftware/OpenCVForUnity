@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: OpenCVForUnity.PlotModule.Plot2d Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,14 +126,14 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_plot_module.html">PlotModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html">Plot2d</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d-members.html">List of all members</a>  </div>
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.PlotModule.Plot2d Class Reference</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.PlotModule.Plot2d Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="dynheader">
@@ -110,118 +142,147 @@ Inheritance diagram for OpenCVForUnity.PlotModule.Plot2d:</div>
  <div class="center">
   <img src="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.png" usemap="#OpenCVForUnity.PlotModule.Plot2d_map" alt=""/>
   <map id="OpenCVForUnity.PlotModule.Plot2d_map" name="OpenCVForUnity.PlotModule.Plot2d_map">
-<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV. " alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="0,168,261,192"/>
+<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV." alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="0,168,261,192"/>
+<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV." alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="271,168,532,192"/>
+<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV." alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="542,168,803,192"/>
 <area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="0,112,261,136"/>
+<area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="271,112,532,136"/>
+<area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="542,112,803,136"/>
 <area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="0,56,261,80"/>
-</map>
- </div></div>
+<area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="271,56,532,80"/>
+<area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="542,56,803,80"/>
+  </map>
+</div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a06bef30ce58aae37821f7b0a741818de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#a06bef30ce58aae37821f7b0a741818de">setMinX</a> (double _plotMinX)</td></tr>
+<tr class="memitem:a06bef30ce58aae37821f7b0a741818de" id="r_a06bef30ce58aae37821f7b0a741818de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a06bef30ce58aae37821f7b0a741818de">setMinX</a> (double _plotMinX)</td></tr>
 <tr class="separator:a06bef30ce58aae37821f7b0a741818de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea97b5b0c992c40623a47acc3121f9c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#aea97b5b0c992c40623a47acc3121f9c8">setMinY</a> (double _plotMinY)</td></tr>
+<tr class="memitem:aea97b5b0c992c40623a47acc3121f9c8" id="r_aea97b5b0c992c40623a47acc3121f9c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aea97b5b0c992c40623a47acc3121f9c8">setMinY</a> (double _plotMinY)</td></tr>
 <tr class="separator:aea97b5b0c992c40623a47acc3121f9c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63317fe84dc0b25595eced4a6dc46aff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#a63317fe84dc0b25595eced4a6dc46aff">setMaxX</a> (double _plotMaxX)</td></tr>
+<tr class="memitem:a63317fe84dc0b25595eced4a6dc46aff" id="r_a63317fe84dc0b25595eced4a6dc46aff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a63317fe84dc0b25595eced4a6dc46aff">setMaxX</a> (double _plotMaxX)</td></tr>
 <tr class="separator:a63317fe84dc0b25595eced4a6dc46aff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd85bc853c7df25d5d03240684fae581"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#acd85bc853c7df25d5d03240684fae581">setMaxY</a> (double _plotMaxY)</td></tr>
+<tr class="memitem:acd85bc853c7df25d5d03240684fae581" id="r_acd85bc853c7df25d5d03240684fae581"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acd85bc853c7df25d5d03240684fae581">setMaxY</a> (double _plotMaxY)</td></tr>
 <tr class="separator:acd85bc853c7df25d5d03240684fae581"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64c83064de05eda63ef24318b33fab51"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#a64c83064de05eda63ef24318b33fab51">setPlotLineWidth</a> (int _plotLineWidth)</td></tr>
+<tr class="memitem:a64c83064de05eda63ef24318b33fab51" id="r_a64c83064de05eda63ef24318b33fab51"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64c83064de05eda63ef24318b33fab51">setPlotLineWidth</a> (int _plotLineWidth)</td></tr>
 <tr class="separator:a64c83064de05eda63ef24318b33fab51"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20bb097664c90e65172e83c81fadea5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#a20bb097664c90e65172e83c81fadea5a">setNeedPlotLine</a> (bool _needPlotLine)</td></tr>
-<tr class="memdesc:a20bb097664c90e65172e83c81fadea5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switches data visualization mode.  <a href="#a20bb097664c90e65172e83c81fadea5a">More...</a><br /></td></tr>
+<tr class="memitem:a20bb097664c90e65172e83c81fadea5a" id="r_a20bb097664c90e65172e83c81fadea5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a20bb097664c90e65172e83c81fadea5a">setNeedPlotLine</a> (bool _needPlotLine)</td></tr>
+<tr class="memdesc:a20bb097664c90e65172e83c81fadea5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switches data visualization mode.  <br /></td></tr>
 <tr class="separator:a20bb097664c90e65172e83c81fadea5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27fd26d2d8f6092101b6a477bc3c3520"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#a27fd26d2d8f6092101b6a477bc3c3520">setPlotLineColor</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> _plotLineColor)</td></tr>
+<tr class="memitem:a27fd26d2d8f6092101b6a477bc3c3520" id="r_a27fd26d2d8f6092101b6a477bc3c3520"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a27fd26d2d8f6092101b6a477bc3c3520">setPlotLineColor</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> _plotLineColor)</td></tr>
 <tr class="separator:a27fd26d2d8f6092101b6a477bc3c3520"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0552479c6870c25a887505909611b219"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#a0552479c6870c25a887505909611b219">setPlotBackgroundColor</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> _plotBackgroundColor)</td></tr>
+<tr class="memitem:a0552479c6870c25a887505909611b219" id="r_a0552479c6870c25a887505909611b219"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0552479c6870c25a887505909611b219">setPlotBackgroundColor</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> _plotBackgroundColor)</td></tr>
 <tr class="separator:a0552479c6870c25a887505909611b219"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c91add5b55fb01666d7deea9f92db04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#a7c91add5b55fb01666d7deea9f92db04">setPlotAxisColor</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> _plotAxisColor)</td></tr>
+<tr class="memitem:a7c91add5b55fb01666d7deea9f92db04" id="r_a7c91add5b55fb01666d7deea9f92db04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c91add5b55fb01666d7deea9f92db04">setPlotAxisColor</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> _plotAxisColor)</td></tr>
 <tr class="separator:a7c91add5b55fb01666d7deea9f92db04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab77d3f41770e8d12528c78fc141bd3bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#ab77d3f41770e8d12528c78fc141bd3bf">setPlotGridColor</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> _plotGridColor)</td></tr>
+<tr class="memitem:ab77d3f41770e8d12528c78fc141bd3bf" id="r_ab77d3f41770e8d12528c78fc141bd3bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab77d3f41770e8d12528c78fc141bd3bf">setPlotGridColor</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> _plotGridColor)</td></tr>
 <tr class="separator:ab77d3f41770e8d12528c78fc141bd3bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf88c32abb51f6d7843b3c5131a695ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#aaf88c32abb51f6d7843b3c5131a695ad">setPlotTextColor</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> _plotTextColor)</td></tr>
+<tr class="memitem:aaf88c32abb51f6d7843b3c5131a695ad" id="r_aaf88c32abb51f6d7843b3c5131a695ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaf88c32abb51f6d7843b3c5131a695ad">setPlotTextColor</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> _plotTextColor)</td></tr>
 <tr class="separator:aaf88c32abb51f6d7843b3c5131a695ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd95929167e8023371d6a3a4ae507ef5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#abd95929167e8023371d6a3a4ae507ef5">setPlotSize</a> (int _plotSizeWidth, int _plotSizeHeight)</td></tr>
+<tr class="memitem:abd95929167e8023371d6a3a4ae507ef5" id="r_abd95929167e8023371d6a3a4ae507ef5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd95929167e8023371d6a3a4ae507ef5">setPlotSize</a> (int _plotSizeWidth, int _plotSizeHeight)</td></tr>
 <tr class="separator:abd95929167e8023371d6a3a4ae507ef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9619fbc734bf0af1c094d247e8552cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#af9619fbc734bf0af1c094d247e8552cd">setShowGrid</a> (bool needShowGrid)</td></tr>
+<tr class="memitem:af9619fbc734bf0af1c094d247e8552cd" id="r_af9619fbc734bf0af1c094d247e8552cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9619fbc734bf0af1c094d247e8552cd">setShowGrid</a> (bool needShowGrid)</td></tr>
 <tr class="separator:af9619fbc734bf0af1c094d247e8552cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc9e5355a66bab2cc2dec4bbcf1385e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#abc9e5355a66bab2cc2dec4bbcf1385e8">setShowText</a> (bool needShowText)</td></tr>
+<tr class="memitem:abc9e5355a66bab2cc2dec4bbcf1385e8" id="r_abc9e5355a66bab2cc2dec4bbcf1385e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc9e5355a66bab2cc2dec4bbcf1385e8">setShowText</a> (bool needShowText)</td></tr>
 <tr class="separator:abc9e5355a66bab2cc2dec4bbcf1385e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9187036b9525fe68d175bc65c148b3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#aa9187036b9525fe68d175bc65c148b3d">setGridLinesNumber</a> (int gridLinesNumber)</td></tr>
+<tr class="memitem:aa9187036b9525fe68d175bc65c148b3d" id="r_aa9187036b9525fe68d175bc65c148b3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa9187036b9525fe68d175bc65c148b3d">setGridLinesNumber</a> (int gridLinesNumber)</td></tr>
 <tr class="separator:aa9187036b9525fe68d175bc65c148b3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a4e26a970f8154369bb2769ba7a731e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#a2a4e26a970f8154369bb2769ba7a731e">setInvertOrientation</a> (bool _invertOrientation)</td></tr>
+<tr class="memitem:a2a4e26a970f8154369bb2769ba7a731e" id="r_a2a4e26a970f8154369bb2769ba7a731e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a4e26a970f8154369bb2769ba7a731e">setInvertOrientation</a> (bool _invertOrientation)</td></tr>
 <tr class="separator:a2a4e26a970f8154369bb2769ba7a731e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b467663b2e8619761aca5892242efac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#a6b467663b2e8619761aca5892242efac">setPointIdxToPrint</a> (int pointIdx)</td></tr>
-<tr class="memdesc:a6b467663b2e8619761aca5892242efac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the index of a point which coordinates will be printed on the top left corner of the plot (if ShowText flag is true).  <a href="#a6b467663b2e8619761aca5892242efac">More...</a><br /></td></tr>
+<tr class="memitem:a6b467663b2e8619761aca5892242efac" id="r_a6b467663b2e8619761aca5892242efac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b467663b2e8619761aca5892242efac">setPointIdxToPrint</a> (int pointIdx)</td></tr>
+<tr class="memdesc:a6b467663b2e8619761aca5892242efac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the index of a point which coordinates will be printed on the top left corner of the plot (if ShowText flag is true).  <br /></td></tr>
 <tr class="separator:a6b467663b2e8619761aca5892242efac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66fbf2ba4c1b681c9ce59fb19c6b816c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#a66fbf2ba4c1b681c9ce59fb19c6b816c">render</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> _plotResult)</td></tr>
+<tr class="memitem:a66fbf2ba4c1b681c9ce59fb19c6b816c" id="r_a66fbf2ba4c1b681c9ce59fb19c6b816c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a66fbf2ba4c1b681c9ce59fb19c6b816c">render</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> _plotResult)</td></tr>
 <tr class="separator:a66fbf2ba4c1b681c9ce59fb19c6b816c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
-<tr class="memitem:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a8023b07a6a0100bb4c9eccd175bc68df">getNativeObjAddr</a> ()</td></tr>
+<tr class="memitem:aabb6502d07f6e64e29d6e5f6c43b79bc" id="r_aabb6502d07f6e64e29d6e5f6c43b79bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aabb6502d07f6e64e29d6e5f6c43b79bc">setPlotLineColor</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> _plotLineColor)</td></tr>
+<tr class="separator:aabb6502d07f6e64e29d6e5f6c43b79bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2af0b308840504258ceded980a741f49" id="r_a2af0b308840504258ceded980a741f49"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2af0b308840504258ceded980a741f49">setPlotBackgroundColor</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> _plotBackgroundColor)</td></tr>
+<tr class="separator:a2af0b308840504258ceded980a741f49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6417ccd1e5c6ebdd083514cc3b4d620" id="r_ab6417ccd1e5c6ebdd083514cc3b4d620"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6417ccd1e5c6ebdd083514cc3b4d620">setPlotAxisColor</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> _plotAxisColor)</td></tr>
+<tr class="separator:ab6417ccd1e5c6ebdd083514cc3b4d620"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32f9eb7d761c92cd0dfb508a6efc9c9d" id="r_a32f9eb7d761c92cd0dfb508a6efc9c9d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a32f9eb7d761c92cd0dfb508a6efc9c9d">setPlotGridColor</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> _plotGridColor)</td></tr>
+<tr class="separator:a32f9eb7d761c92cd0dfb508a6efc9c9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a660bdc7df367672f2da67668647013c5" id="r_a660bdc7df367672f2da67668647013c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a660bdc7df367672f2da67668647013c5">setPlotTextColor</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> _plotTextColor)</td></tr>
+<tr class="separator:a660bdc7df367672f2da67668647013c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a277c9385342afb461ff09d73245599fb" id="r_a277c9385342afb461ff09d73245599fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a277c9385342afb461ff09d73245599fb">setPlotLineColor</a> (in(double v0, double v1, double v2, double v3) _plotLineColor)</td></tr>
+<tr class="separator:a277c9385342afb461ff09d73245599fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe67160e09b094016871e7fd3a7017fb" id="r_afe67160e09b094016871e7fd3a7017fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe67160e09b094016871e7fd3a7017fb">setPlotBackgroundColor</a> (in(double v0, double v1, double v2, double v3) _plotBackgroundColor)</td></tr>
+<tr class="separator:afe67160e09b094016871e7fd3a7017fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a929813447f059aa2cd5bde1996071fa3" id="r_a929813447f059aa2cd5bde1996071fa3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a929813447f059aa2cd5bde1996071fa3">setPlotAxisColor</a> (in(double v0, double v1, double v2, double v3) _plotAxisColor)</td></tr>
+<tr class="separator:a929813447f059aa2cd5bde1996071fa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aece3cbdd1d3b7006378f700a1bc4faef" id="r_aece3cbdd1d3b7006378f700a1bc4faef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aece3cbdd1d3b7006378f700a1bc4faef">setPlotGridColor</a> (in(double v0, double v1, double v2, double v3) _plotGridColor)</td></tr>
+<tr class="separator:aece3cbdd1d3b7006378f700a1bc4faef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8106a251a7835c3d819b148ed7cfc11" id="r_ac8106a251a7835c3d819b148ed7cfc11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac8106a251a7835c3d819b148ed7cfc11">setPlotTextColor</a> (in(double v0, double v1, double v2, double v3) _plotTextColor)</td></tr>
+<tr class="separator:ac8106a251a7835c3d819b148ed7cfc11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="memitem:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a8023b07a6a0100bb4c9eccd175bc68df"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a8023b07a6a0100bb4c9eccd175bc68df">getNativeObjAddr</a> ()</td></tr>
 <tr class="separator:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a54f71b05d21ec0abc593bb50cf66ce12">clear</a> ()</td></tr>
-<tr class="memdesc:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the algorithm state.  <a href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a54f71b05d21ec0abc593bb50cf66ce12">More...</a><br /></td></tr>
+<tr class="memitem:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a54f71b05d21ec0abc593bb50cf66ce12"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a54f71b05d21ec0abc593bb50cf66ce12">clear</a> ()</td></tr>
+<tr class="memdesc:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the algorithm state.  <br /></td></tr>
 <tr class="separator:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86154915a2c596ce62de420e4f7a8d7b inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86154915a2c596ce62de420e4f7a8d7b">empty</a> ()</td></tr>
-<tr class="memdesc:a86154915a2c596ce62de420e4f7a8d7b inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV. ">Algorithm</a> is empty (e.g. in the very beginning or after unsuccessful read.  <a href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86154915a2c596ce62de420e4f7a8d7b">More...</a><br /></td></tr>
+<tr class="memitem:a86154915a2c596ce62de420e4f7a8d7b inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a86154915a2c596ce62de420e4f7a8d7b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86154915a2c596ce62de420e4f7a8d7b">empty</a> ()</td></tr>
+<tr class="memdesc:a86154915a2c596ce62de420e4f7a8d7b inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV.">Algorithm</a> is empty (e.g. in the very beginning or after unsuccessful read.  <br /></td></tr>
 <tr class="separator:a86154915a2c596ce62de420e4f7a8d7b inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4c0ad9f8fd5975a8dbf9209115495db inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#af4c0ad9f8fd5975a8dbf9209115495db">save</a> (string filename)</td></tr>
+<tr class="memitem:af4c0ad9f8fd5975a8dbf9209115495db inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_af4c0ad9f8fd5975a8dbf9209115495db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#af4c0ad9f8fd5975a8dbf9209115495db">save</a> (string filename)</td></tr>
 <tr class="separator:af4c0ad9f8fd5975a8dbf9209115495db inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9f5751351974d69a3a98510d3856518 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#aa9f5751351974d69a3a98510d3856518">getDefaultName</a> ()</td></tr>
+<tr class="memitem:aa9f5751351974d69a3a98510d3856518 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_aa9f5751351974d69a3a98510d3856518"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#aa9f5751351974d69a3a98510d3856518">getDefaultName</a> ()</td></tr>
 <tr class="separator:aa9f5751351974d69a3a98510d3856518 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a68dd6362a65b5bf2f2b8828bef0b7dc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
 <tr class="separator:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
+<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a620f073ff3aa1bcee28fb00edb01dc11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
 <tr class="separator:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a05ee5fbaa09b6e30bcc2c219915fbdb8"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html">Plot2d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#a05ee5fbaa09b6e30bcc2c219915fbdb8">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="memitem:a05ee5fbaa09b6e30bcc2c219915fbdb8" id="r_a05ee5fbaa09b6e30bcc2c219915fbdb8"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html">Plot2d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a05ee5fbaa09b6e30bcc2c219915fbdb8">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:a05ee5fbaa09b6e30bcc2c219915fbdb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c1d67508fa46245d17871dc090fea06"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html">Plot2d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#a3c1d67508fa46245d17871dc090fea06">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> data)</td></tr>
-<tr class="memdesc:a3c1d67508fa46245d17871dc090fea06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html">Plot2d</a> object.  <a href="#a3c1d67508fa46245d17871dc090fea06">More...</a><br /></td></tr>
+<tr class="memitem:a3c1d67508fa46245d17871dc090fea06" id="r_a3c1d67508fa46245d17871dc090fea06"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html">Plot2d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3c1d67508fa46245d17871dc090fea06">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> data)</td></tr>
+<tr class="memdesc:a3c1d67508fa46245d17871dc090fea06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html">Plot2d</a> object.  <br /></td></tr>
 <tr class="separator:a3c1d67508fa46245d17871dc090fea06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade2ae2fda87ace7c4ea93f62361915fc"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html">Plot2d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#ade2ae2fda87ace7c4ea93f62361915fc">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> dataX, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> dataY)</td></tr>
-<tr class="memdesc:ade2ae2fda87ace7c4ea93f62361915fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html">Plot2d</a> object.  <a href="#ade2ae2fda87ace7c4ea93f62361915fc">More...</a><br /></td></tr>
+<tr class="memitem:ade2ae2fda87ace7c4ea93f62361915fc" id="r_ade2ae2fda87ace7c4ea93f62361915fc"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html">Plot2d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade2ae2fda87ace7c4ea93f62361915fc">create</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> dataX, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> dataY)</td></tr>
+<tr class="memdesc:ade2ae2fda87ace7c4ea93f62361915fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html">Plot2d</a> object.  <br /></td></tr>
 <tr class="separator:ade2ae2fda87ace7c4ea93f62361915fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
-<tr class="memitem:a86d037d927276dadd66bdb102a74b53a inherit pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">Algorithm</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86d037d927276dadd66bdb102a74b53a">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="memitem:a86d037d927276dadd66bdb102a74b53a inherit pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a86d037d927276dadd66bdb102a74b53a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">Algorithm</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86d037d927276dadd66bdb102a74b53a">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:a86d037d927276dadd66bdb102a74b53a inherit pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a4b998ab4293ee3fb7cdc494ed9375fc3"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a7ce68971e2291525b5e7963372271b65"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html#a7ce68971e2291525b5e7963372271b65">Dispose</a> (bool disposing)</td></tr>
+<tr class="memitem:a7ce68971e2291525b5e7963372271b65" id="r_a7ce68971e2291525b5e7963372271b65"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ce68971e2291525b5e7963372271b65">Dispose</a> (bool disposing)</td></tr>
 <tr class="separator:a7ce68971e2291525b5e7963372271b65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
-<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_aab50d94cc702503eac045ca7042624ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
 <tr class="separator:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
+<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a6dc5923de5bd43795c72dd7f581ad832"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a1fb2523312e8a423889a1d160e755e7d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
+<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a739b223f2008fae0966c43d0c6f0f72f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
 <tr class="separator:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_ae924d4d77a5929e39abca6ef9daf6330"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
 <tr class="separator:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a1e47724d49556061a5ba400577be2a13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
+<tr class="inherit_header pac_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Package Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="inherit_header pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Package Attributes inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a056e69daaa9ea20e563c5e41b28c1525"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
 <tr class="separator:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
+<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a8e287e3cb5995f483cb64dd6c3b19a7f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a05ee5fbaa09b6e30bcc2c219915fbdb8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05ee5fbaa09b6e30bcc2c219915fbdb8">&#9670;&nbsp;</a></span>__fromPtr__()</h2>
+<a id="a05ee5fbaa09b6e30bcc2c219915fbdb8" name="a05ee5fbaa09b6e30bcc2c219915fbdb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05ee5fbaa09b6e30bcc2c219915fbdb8">&#9670;&#160;</a></span>__fromPtr__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -232,8 +293,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static new <a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html">Plot2d</a> OpenCVForUnity.PlotModule.Plot2d.__fromPtr__ </td>
           <td>(</td>
-          <td class="paramtype">IntPtr&#160;</td>
-          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td class="paramtype">IntPtr</td>          <td class="paramname"><span class="paramname"><em>addr</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -246,8 +306,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a3c1d67508fa46245d17871dc090fea06"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c1d67508fa46245d17871dc090fea06">&#9670;&nbsp;</a></span>create() <span class="overload">[1/2]</span></h2>
+<a id="a3c1d67508fa46245d17871dc090fea06" name="a3c1d67508fa46245d17871dc090fea06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c1d67508fa46245d17871dc090fea06">&#9670;&#160;</a></span>create() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,8 +318,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html">Plot2d</a> OpenCVForUnity.PlotModule.Plot2d.create </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>data</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -280,8 +339,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ade2ae2fda87ace7c4ea93f62361915fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade2ae2fda87ace7c4ea93f62361915fc">&#9670;&nbsp;</a></span>create() <span class="overload">[2/2]</span></h2>
+<a id="ade2ae2fda87ace7c4ea93f62361915fc" name="ade2ae2fda87ace7c4ea93f62361915fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade2ae2fda87ace7c4ea93f62361915fc">&#9670;&#160;</a></span>create() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -292,19 +351,12 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_plot_module_1_1_plot2d.html">Plot2d</a> OpenCVForUnity.PlotModule.Plot2d.create </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>dataX</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>dataX</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>dataY</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>dataY</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -325,8 +377,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a7ce68971e2291525b5e7963372271b65"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ce68971e2291525b5e7963372271b65">&#9670;&nbsp;</a></span>Dispose()</h2>
+<a id="a7ce68971e2291525b5e7963372271b65" name="a7ce68971e2291525b5e7963372271b65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ce68971e2291525b5e7963372271b65">&#9670;&#160;</a></span>Dispose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -337,8 +389,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">override void OpenCVForUnity.PlotModule.Plot2d.Dispose </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>disposing</em></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>disposing</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -353,8 +404,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a66fbf2ba4c1b681c9ce59fb19c6b816c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66fbf2ba4c1b681c9ce59fb19c6b816c">&#9670;&nbsp;</a></span>render()</h2>
+<a id="a66fbf2ba4c1b681c9ce59fb19c6b816c" name="a66fbf2ba4c1b681c9ce59fb19c6b816c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66fbf2ba4c1b681c9ce59fb19c6b816c">&#9670;&#160;</a></span>render()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -362,8 +413,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.render </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>_plotResult</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>_plotResult</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -371,8 +421,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aa9187036b9525fe68d175bc65c148b3d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9187036b9525fe68d175bc65c148b3d">&#9670;&nbsp;</a></span>setGridLinesNumber()</h2>
+<a id="aa9187036b9525fe68d175bc65c148b3d" name="aa9187036b9525fe68d175bc65c148b3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9187036b9525fe68d175bc65c148b3d">&#9670;&#160;</a></span>setGridLinesNumber()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -380,8 +430,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setGridLinesNumber </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>gridLinesNumber</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>gridLinesNumber</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -389,8 +438,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a2a4e26a970f8154369bb2769ba7a731e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a4e26a970f8154369bb2769ba7a731e">&#9670;&nbsp;</a></span>setInvertOrientation()</h2>
+<a id="a2a4e26a970f8154369bb2769ba7a731e" name="a2a4e26a970f8154369bb2769ba7a731e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a4e26a970f8154369bb2769ba7a731e">&#9670;&#160;</a></span>setInvertOrientation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -398,8 +447,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setInvertOrientation </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>_invertOrientation</em></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>_invertOrientation</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -407,8 +455,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a63317fe84dc0b25595eced4a6dc46aff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63317fe84dc0b25595eced4a6dc46aff">&#9670;&nbsp;</a></span>setMaxX()</h2>
+<a id="a63317fe84dc0b25595eced4a6dc46aff" name="a63317fe84dc0b25595eced4a6dc46aff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63317fe84dc0b25595eced4a6dc46aff">&#9670;&#160;</a></span>setMaxX()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -416,8 +464,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setMaxX </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>_plotMaxX</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>_plotMaxX</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -425,8 +472,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="acd85bc853c7df25d5d03240684fae581"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd85bc853c7df25d5d03240684fae581">&#9670;&nbsp;</a></span>setMaxY()</h2>
+<a id="acd85bc853c7df25d5d03240684fae581" name="acd85bc853c7df25d5d03240684fae581"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd85bc853c7df25d5d03240684fae581">&#9670;&#160;</a></span>setMaxY()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -434,8 +481,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setMaxY </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>_plotMaxY</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>_plotMaxY</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -443,8 +489,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a06bef30ce58aae37821f7b0a741818de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a06bef30ce58aae37821f7b0a741818de">&#9670;&nbsp;</a></span>setMinX()</h2>
+<a id="a06bef30ce58aae37821f7b0a741818de" name="a06bef30ce58aae37821f7b0a741818de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06bef30ce58aae37821f7b0a741818de">&#9670;&#160;</a></span>setMinX()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -452,8 +498,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setMinX </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>_plotMinX</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>_plotMinX</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -461,8 +506,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aea97b5b0c992c40623a47acc3121f9c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea97b5b0c992c40623a47acc3121f9c8">&#9670;&nbsp;</a></span>setMinY()</h2>
+<a id="aea97b5b0c992c40623a47acc3121f9c8" name="aea97b5b0c992c40623a47acc3121f9c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea97b5b0c992c40623a47acc3121f9c8">&#9670;&#160;</a></span>setMinY()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -470,8 +515,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setMinY </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>_plotMinY</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>_plotMinY</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -479,8 +523,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a20bb097664c90e65172e83c81fadea5a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20bb097664c90e65172e83c81fadea5a">&#9670;&nbsp;</a></span>setNeedPlotLine()</h2>
+<a id="a20bb097664c90e65172e83c81fadea5a" name="a20bb097664c90e65172e83c81fadea5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20bb097664c90e65172e83c81fadea5a">&#9670;&#160;</a></span>setNeedPlotLine()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -488,8 +532,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setNeedPlotLine </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>_needPlotLine</em></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>_needPlotLine</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -505,8 +548,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a7c91add5b55fb01666d7deea9f92db04"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c91add5b55fb01666d7deea9f92db04">&#9670;&nbsp;</a></span>setPlotAxisColor()</h2>
+<a id="ab6417ccd1e5c6ebdd083514cc3b4d620" name="ab6417ccd1e5c6ebdd083514cc3b4d620"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6417ccd1e5c6ebdd083514cc3b4d620">&#9670;&#160;</a></span>setPlotAxisColor() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -514,8 +557,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setPlotAxisColor </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>_plotAxisColor</em></td><td>)</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a></td>          <td class="paramname"><span class="paramname"><em>_plotAxisColor</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -523,8 +565,42 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a0552479c6870c25a887505909611b219"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0552479c6870c25a887505909611b219">&#9670;&nbsp;</a></span>setPlotBackgroundColor()</h2>
+<a id="a929813447f059aa2cd5bde1996071fa3" name="a929813447f059aa2cd5bde1996071fa3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a929813447f059aa2cd5bde1996071fa3">&#9670;&#160;</a></span>setPlotAxisColor() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setPlotAxisColor </td>
+          <td>(</td>
+          <td class="paramtype">in(double v0, double v1, double v2, double v3)</td>          <td class="paramname"><span class="paramname"><em>_plotAxisColor</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7c91add5b55fb01666d7deea9f92db04" name="a7c91add5b55fb01666d7deea9f92db04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c91add5b55fb01666d7deea9f92db04">&#9670;&#160;</a></span>setPlotAxisColor() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setPlotAxisColor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>_plotAxisColor</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2af0b308840504258ceded980a741f49" name="a2af0b308840504258ceded980a741f49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2af0b308840504258ceded980a741f49">&#9670;&#160;</a></span>setPlotBackgroundColor() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -532,8 +608,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setPlotBackgroundColor </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>_plotBackgroundColor</em></td><td>)</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a></td>          <td class="paramname"><span class="paramname"><em>_plotBackgroundColor</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -541,8 +616,42 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ab77d3f41770e8d12528c78fc141bd3bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab77d3f41770e8d12528c78fc141bd3bf">&#9670;&nbsp;</a></span>setPlotGridColor()</h2>
+<a id="afe67160e09b094016871e7fd3a7017fb" name="afe67160e09b094016871e7fd3a7017fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe67160e09b094016871e7fd3a7017fb">&#9670;&#160;</a></span>setPlotBackgroundColor() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setPlotBackgroundColor </td>
+          <td>(</td>
+          <td class="paramtype">in(double v0, double v1, double v2, double v3)</td>          <td class="paramname"><span class="paramname"><em>_plotBackgroundColor</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0552479c6870c25a887505909611b219" name="a0552479c6870c25a887505909611b219"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0552479c6870c25a887505909611b219">&#9670;&#160;</a></span>setPlotBackgroundColor() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setPlotBackgroundColor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>_plotBackgroundColor</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a32f9eb7d761c92cd0dfb508a6efc9c9d" name="a32f9eb7d761c92cd0dfb508a6efc9c9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32f9eb7d761c92cd0dfb508a6efc9c9d">&#9670;&#160;</a></span>setPlotGridColor() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -550,8 +659,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setPlotGridColor </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>_plotGridColor</em></td><td>)</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a></td>          <td class="paramname"><span class="paramname"><em>_plotGridColor</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -559,8 +667,42 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a27fd26d2d8f6092101b6a477bc3c3520"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27fd26d2d8f6092101b6a477bc3c3520">&#9670;&nbsp;</a></span>setPlotLineColor()</h2>
+<a id="aece3cbdd1d3b7006378f700a1bc4faef" name="aece3cbdd1d3b7006378f700a1bc4faef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aece3cbdd1d3b7006378f700a1bc4faef">&#9670;&#160;</a></span>setPlotGridColor() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setPlotGridColor </td>
+          <td>(</td>
+          <td class="paramtype">in(double v0, double v1, double v2, double v3)</td>          <td class="paramname"><span class="paramname"><em>_plotGridColor</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab77d3f41770e8d12528c78fc141bd3bf" name="ab77d3f41770e8d12528c78fc141bd3bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab77d3f41770e8d12528c78fc141bd3bf">&#9670;&#160;</a></span>setPlotGridColor() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setPlotGridColor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>_plotGridColor</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aabb6502d07f6e64e29d6e5f6c43b79bc" name="aabb6502d07f6e64e29d6e5f6c43b79bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabb6502d07f6e64e29d6e5f6c43b79bc">&#9670;&#160;</a></span>setPlotLineColor() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -568,8 +710,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setPlotLineColor </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>_plotLineColor</em></td><td>)</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a></td>          <td class="paramname"><span class="paramname"><em>_plotLineColor</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -577,8 +718,42 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a64c83064de05eda63ef24318b33fab51"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64c83064de05eda63ef24318b33fab51">&#9670;&nbsp;</a></span>setPlotLineWidth()</h2>
+<a id="a277c9385342afb461ff09d73245599fb" name="a277c9385342afb461ff09d73245599fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a277c9385342afb461ff09d73245599fb">&#9670;&#160;</a></span>setPlotLineColor() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setPlotLineColor </td>
+          <td>(</td>
+          <td class="paramtype">in(double v0, double v1, double v2, double v3)</td>          <td class="paramname"><span class="paramname"><em>_plotLineColor</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a27fd26d2d8f6092101b6a477bc3c3520" name="a27fd26d2d8f6092101b6a477bc3c3520"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27fd26d2d8f6092101b6a477bc3c3520">&#9670;&#160;</a></span>setPlotLineColor() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setPlotLineColor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>_plotLineColor</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a64c83064de05eda63ef24318b33fab51" name="a64c83064de05eda63ef24318b33fab51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64c83064de05eda63ef24318b33fab51">&#9670;&#160;</a></span>setPlotLineWidth()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -586,8 +761,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setPlotLineWidth </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>_plotLineWidth</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>_plotLineWidth</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -595,8 +769,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="abd95929167e8023371d6a3a4ae507ef5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd95929167e8023371d6a3a4ae507ef5">&#9670;&nbsp;</a></span>setPlotSize()</h2>
+<a id="abd95929167e8023371d6a3a4ae507ef5" name="abd95929167e8023371d6a3a4ae507ef5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd95929167e8023371d6a3a4ae507ef5">&#9670;&#160;</a></span>setPlotSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -604,27 +778,20 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setPlotSize </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>_plotSizeWidth</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>_plotSizeWidth</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>_plotSizeHeight</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>_plotSizeHeight</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="aaf88c32abb51f6d7843b3c5131a695ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf88c32abb51f6d7843b3c5131a695ad">&#9670;&nbsp;</a></span>setPlotTextColor()</h2>
+<a id="a660bdc7df367672f2da67668647013c5" name="a660bdc7df367672f2da67668647013c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a660bdc7df367672f2da67668647013c5">&#9670;&#160;</a></span>setPlotTextColor() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -632,8 +799,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setPlotTextColor </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>_plotTextColor</em></td><td>)</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a></td>          <td class="paramname"><span class="paramname"><em>_plotTextColor</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -641,8 +807,42 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a6b467663b2e8619761aca5892242efac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b467663b2e8619761aca5892242efac">&#9670;&nbsp;</a></span>setPointIdxToPrint()</h2>
+<a id="ac8106a251a7835c3d819b148ed7cfc11" name="ac8106a251a7835c3d819b148ed7cfc11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8106a251a7835c3d819b148ed7cfc11">&#9670;&#160;</a></span>setPlotTextColor() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setPlotTextColor </td>
+          <td>(</td>
+          <td class="paramtype">in(double v0, double v1, double v2, double v3)</td>          <td class="paramname"><span class="paramname"><em>_plotTextColor</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaf88c32abb51f6d7843b3c5131a695ad" name="aaf88c32abb51f6d7843b3c5131a695ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf88c32abb51f6d7843b3c5131a695ad">&#9670;&#160;</a></span>setPlotTextColor() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setPlotTextColor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>_plotTextColor</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6b467663b2e8619761aca5892242efac" name="a6b467663b2e8619761aca5892242efac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b467663b2e8619761aca5892242efac">&#9670;&#160;</a></span>setPointIdxToPrint()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -650,8 +850,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setPointIdxToPrint </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>pointIdx</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>pointIdx</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -667,8 +866,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="af9619fbc734bf0af1c094d247e8552cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9619fbc734bf0af1c094d247e8552cd">&#9670;&nbsp;</a></span>setShowGrid()</h2>
+<a id="af9619fbc734bf0af1c094d247e8552cd" name="af9619fbc734bf0af1c094d247e8552cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9619fbc734bf0af1c094d247e8552cd">&#9670;&#160;</a></span>setShowGrid()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -676,8 +875,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setShowGrid </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>needShowGrid</em></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>needShowGrid</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -685,8 +883,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="abc9e5355a66bab2cc2dec4bbcf1385e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc9e5355a66bab2cc2dec4bbcf1385e8">&#9670;&nbsp;</a></span>setShowText()</h2>
+<a id="abc9e5355a66bab2cc2dec4bbcf1385e8" name="abc9e5355a66bab2cc2dec4bbcf1385e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc9e5355a66bab2cc2dec4bbcf1385e8">&#9670;&#160;</a></span>setShowText()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -694,8 +892,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.PlotModule.Plot2d.setShowText </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>needShowText</em></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>needShowText</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -703,15 +900,16 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv_contrib/plot/<a class="el" href="_plot2d_8cs.html">Plot2d.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv_contrib/plot/<a class="el" href="_plot2d___struct_8cs.html">Plot2d_Struct.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv_contrib/plot/<a class="el" href="_plot2d___value_tuple_8cs.html">Plot2d_ValueTuple.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>
