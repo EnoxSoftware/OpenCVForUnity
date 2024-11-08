@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,6 +126,7 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_unity_utils.html">UnityUtils</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_unity_utils_1_1_helper.html">Helper</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.html">ImageOptimizationHelper</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -101,66 +134,63 @@ $(function() {
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#properties">Properties</a> &#124;
 <a href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper-members.html">List of all members</a>  </div>
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper Class Reference</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Image optimization helper. v 1.1.0  
- <a href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.html#details">More...</a></p>
+<p>Image optimization helper. v 1.1.0.  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.png" usemap="#OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper_map" alt=""/>
-  <map id="OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper_map" name="OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper_map">
-</map>
+  <img src="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.png" alt=""/>
  </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:abe8cbf37c948b5ea70805bcbbffd7ca1"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.html#abe8cbf37c948b5ea70805bcbbffd7ca1">IsCurrentFrameSkipped</a> ()</td></tr>
-<tr class="memdesc:abe8cbf37c948b5ea70805bcbbffd7ca1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether the current frame is skipped.  <a href="#abe8cbf37c948b5ea70805bcbbffd7ca1">More...</a><br /></td></tr>
+<tr class="memitem:abe8cbf37c948b5ea70805bcbbffd7ca1" id="r_abe8cbf37c948b5ea70805bcbbffd7ca1"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe8cbf37c948b5ea70805bcbbffd7ca1">IsCurrentFrameSkipped</a> ()</td></tr>
+<tr class="memdesc:abe8cbf37c948b5ea70805bcbbffd7ca1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether the current frame is skipped.  <br /></td></tr>
 <tr class="separator:abe8cbf37c948b5ea70805bcbbffd7ca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abafe626f990ea022ea49042c5eb8749d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.html#abafe626f990ea022ea49042c5eb8749d">GetDownScaleMat</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> originalMat)</td></tr>
-<tr class="memdesc:abafe626f990ea022ea49042c5eb8749d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the mat that downscaled the original mat. if downscaleRatio == 1 , return originalMat.  <a href="#abafe626f990ea022ea49042c5eb8749d">More...</a><br /></td></tr>
+<tr class="memitem:abafe626f990ea022ea49042c5eb8749d" id="r_abafe626f990ea022ea49042c5eb8749d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abafe626f990ea022ea49042c5eb8749d">GetDownScaleMat</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> originalMat)</td></tr>
+<tr class="memdesc:abafe626f990ea022ea49042c5eb8749d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the mat that downscaled the original mat. if downscaleRatio == 1 , return originalMat.  <br /></td></tr>
 <tr class="separator:abafe626f990ea022ea49042c5eb8749d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa77e79f4081cff2f4bfbfd01526d3986"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.html#aa77e79f4081cff2f4bfbfd01526d3986">Dispose</a> ()</td></tr>
-<tr class="memdesc:aa77e79f4081cff2f4bfbfd01526d3986"><td class="mdescLeft">&#160;</td><td class="mdescRight">To release the resources for the initialized method.  <a href="#aa77e79f4081cff2f4bfbfd01526d3986">More...</a><br /></td></tr>
+<tr class="memitem:aa77e79f4081cff2f4bfbfd01526d3986" id="r_aa77e79f4081cff2f4bfbfd01526d3986"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa77e79f4081cff2f4bfbfd01526d3986">Dispose</a> ()</td></tr>
+<tr class="memdesc:aa77e79f4081cff2f4bfbfd01526d3986"><td class="mdescLeft">&#160;</td><td class="mdescRight">To release the resources for the initialized method.  <br /></td></tr>
 <tr class="separator:aa77e79f4081cff2f4bfbfd01526d3986"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a5ef939a383d7ff65b2dcb3ee32142945"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.html#a5ef939a383d7ff65b2dcb3ee32142945">OnValidate</a> ()</td></tr>
+<tr class="memitem:a5ef939a383d7ff65b2dcb3ee32142945" id="r_a5ef939a383d7ff65b2dcb3ee32142945"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ef939a383d7ff65b2dcb3ee32142945">OnValidate</a> ()</td></tr>
 <tr class="separator:a5ef939a383d7ff65b2dcb3ee32142945"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:ae634ed8f5a849559c39206a61f5bc997"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.html#ae634ed8f5a849559c39206a61f5bc997">_downscaleRatio</a> = 2f</td></tr>
-<tr class="memdesc:ae634ed8f5a849559c39206a61f5bc997"><td class="mdescLeft">&#160;</td><td class="mdescRight">The downscale ratio.  <a href="#ae634ed8f5a849559c39206a61f5bc997">More...</a><br /></td></tr>
+<tr class="memitem:ae634ed8f5a849559c39206a61f5bc997" id="r_ae634ed8f5a849559c39206a61f5bc997"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae634ed8f5a849559c39206a61f5bc997">_downscaleRatio</a> = 2f</td></tr>
+<tr class="memdesc:ae634ed8f5a849559c39206a61f5bc997"><td class="mdescLeft">&#160;</td><td class="mdescRight">The downscale ratio.  <br /></td></tr>
 <tr class="separator:ae634ed8f5a849559c39206a61f5bc997"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87d3178742cd1ee2b3d706b2635e77bd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.html#a87d3178742cd1ee2b3d706b2635e77bd">_frameSkippingRatio</a> = 2</td></tr>
-<tr class="memdesc:a87d3178742cd1ee2b3d706b2635e77bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The frame skipping ratio.  <a href="#a87d3178742cd1ee2b3d706b2635e77bd">More...</a><br /></td></tr>
+<tr class="memitem:a87d3178742cd1ee2b3d706b2635e77bd" id="r_a87d3178742cd1ee2b3d706b2635e77bd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87d3178742cd1ee2b3d706b2635e77bd">_frameSkippingRatio</a> = 2</td></tr>
+<tr class="memdesc:a87d3178742cd1ee2b3d706b2635e77bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The frame skipping ratio.  <br /></td></tr>
 <tr class="separator:a87d3178742cd1ee2b3d706b2635e77bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4cc8258b81e7eb4c588fdf5f615bcfa8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.html#a4cc8258b81e7eb4c588fdf5f615bcfa8">frameCount</a> = 0</td></tr>
-<tr class="memdesc:a4cc8258b81e7eb4c588fdf5f615bcfa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The frame count.  <a href="#a4cc8258b81e7eb4c588fdf5f615bcfa8">More...</a><br /></td></tr>
+<tr class="memitem:a4cc8258b81e7eb4c588fdf5f615bcfa8" id="r_a4cc8258b81e7eb4c588fdf5f615bcfa8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4cc8258b81e7eb4c588fdf5f615bcfa8">frameCount</a> = 0</td></tr>
+<tr class="memdesc:a4cc8258b81e7eb4c588fdf5f615bcfa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The frame count.  <br /></td></tr>
 <tr class="separator:a4cc8258b81e7eb4c588fdf5f615bcfa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5efca4430d1f066be0e201055e5635b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.html#a5efca4430d1f066be0e201055e5635b8">downScaleFrameMat</a></td></tr>
-<tr class="memdesc:a5efca4430d1f066be0e201055e5635b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The downscale frame mat.  <a href="#a5efca4430d1f066be0e201055e5635b8">More...</a><br /></td></tr>
+<tr class="memitem:a5efca4430d1f066be0e201055e5635b8" id="r_a5efca4430d1f066be0e201055e5635b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5efca4430d1f066be0e201055e5635b8">downScaleFrameMat</a></td></tr>
+<tr class="memdesc:a5efca4430d1f066be0e201055e5635b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The downscale frame mat.  <br /></td></tr>
 <tr class="separator:a5efca4430d1f066be0e201055e5635b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a16daf3d57f0677b1f79d32f4edee4ffb"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.html#a16daf3d57f0677b1f79d32f4edee4ffb">downscaleRatio</a><code> [get, set]</code></td></tr>
+<tr class="memitem:a16daf3d57f0677b1f79d32f4edee4ffb" id="r_a16daf3d57f0677b1f79d32f4edee4ffb"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16daf3d57f0677b1f79d32f4edee4ffb">downscaleRatio</a><code> [get, set]</code></td></tr>
 <tr class="separator:a16daf3d57f0677b1f79d32f4edee4ffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a097b54445fba8510bcfac069b057546f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image_optimization_helper.html#a097b54445fba8510bcfac069b057546f">frameSkippingRatio</a><code> [get, set]</code></td></tr>
+<tr class="memitem:a097b54445fba8510bcfac069b057546f" id="r_a097b54445fba8510bcfac069b057546f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a097b54445fba8510bcfac069b057546f">frameSkippingRatio</a><code> [get, set]</code></td></tr>
 <tr class="separator:a097b54445fba8510bcfac069b057546f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Image optimization helper. v 1.1.0 </p>
+<div class="textblock"><p>Image optimization helper. v 1.1.0. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa77e79f4081cff2f4bfbfd01526d3986"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa77e79f4081cff2f4bfbfd01526d3986">&#9670;&nbsp;</a></span>Dispose()</h2>
+<a id="aa77e79f4081cff2f4bfbfd01526d3986" name="aa77e79f4081cff2f4bfbfd01526d3986"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa77e79f4081cff2f4bfbfd01526d3986">&#9670;&#160;</a></span>Dispose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -171,7 +201,7 @@ Properties</h2></td></tr>
         <tr>
           <td class="memname">virtual void OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper.Dispose </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -186,8 +216,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="abafe626f990ea022ea49042c5eb8749d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abafe626f990ea022ea49042c5eb8749d">&#9670;&nbsp;</a></span>GetDownScaleMat()</h2>
+<a id="abafe626f990ea022ea49042c5eb8749d" name="abafe626f990ea022ea49042c5eb8749d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abafe626f990ea022ea49042c5eb8749d">&#9670;&#160;</a></span>GetDownScaleMat()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,8 +228,7 @@ Properties</h2></td></tr>
         <tr>
           <td class="memname">virtual <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper.GetDownScaleMat </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>originalMat</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>originalMat</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -221,8 +250,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="abe8cbf37c948b5ea70805bcbbffd7ca1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe8cbf37c948b5ea70805bcbbffd7ca1">&#9670;&nbsp;</a></span>IsCurrentFrameSkipped()</h2>
+<a id="abe8cbf37c948b5ea70805bcbbffd7ca1" name="abe8cbf37c948b5ea70805bcbbffd7ca1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe8cbf37c948b5ea70805bcbbffd7ca1">&#9670;&#160;</a></span>IsCurrentFrameSkipped()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -233,7 +262,7 @@ Properties</h2></td></tr>
         <tr>
           <td class="memname">virtual bool OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper.IsCurrentFrameSkipped </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -249,8 +278,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a5ef939a383d7ff65b2dcb3ee32142945"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ef939a383d7ff65b2dcb3ee32142945">&#9670;&nbsp;</a></span>OnValidate()</h2>
+<a id="a5ef939a383d7ff65b2dcb3ee32142945" name="a5ef939a383d7ff65b2dcb3ee32142945"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ef939a383d7ff65b2dcb3ee32142945">&#9670;&#160;</a></span>OnValidate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -261,7 +290,7 @@ Properties</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper.OnValidate </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -275,8 +304,8 @@ Properties</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="ae634ed8f5a849559c39206a61f5bc997"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae634ed8f5a849559c39206a61f5bc997">&#9670;&nbsp;</a></span>_downscaleRatio</h2>
+<a id="ae634ed8f5a849559c39206a61f5bc997" name="ae634ed8f5a849559c39206a61f5bc997"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae634ed8f5a849559c39206a61f5bc997">&#9670;&#160;</a></span>_downscaleRatio</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -299,8 +328,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a87d3178742cd1ee2b3d706b2635e77bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87d3178742cd1ee2b3d706b2635e77bd">&#9670;&nbsp;</a></span>_frameSkippingRatio</h2>
+<a id="a87d3178742cd1ee2b3d706b2635e77bd" name="a87d3178742cd1ee2b3d706b2635e77bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87d3178742cd1ee2b3d706b2635e77bd">&#9670;&#160;</a></span>_frameSkippingRatio</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -323,8 +352,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a5efca4430d1f066be0e201055e5635b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5efca4430d1f066be0e201055e5635b8">&#9670;&nbsp;</a></span>downScaleFrameMat</h2>
+<a id="a5efca4430d1f066be0e201055e5635b8" name="a5efca4430d1f066be0e201055e5635b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5efca4430d1f066be0e201055e5635b8">&#9670;&#160;</a></span>downScaleFrameMat</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -347,8 +376,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a4cc8258b81e7eb4c588fdf5f615bcfa8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4cc8258b81e7eb4c588fdf5f615bcfa8">&#9670;&nbsp;</a></span>frameCount</h2>
+<a id="a4cc8258b81e7eb4c588fdf5f615bcfa8" name="a4cc8258b81e7eb4c588fdf5f615bcfa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cc8258b81e7eb4c588fdf5f615bcfa8">&#9670;&#160;</a></span>frameCount</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -372,8 +401,8 @@ Properties</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
-<a id="a16daf3d57f0677b1f79d32f4edee4ffb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16daf3d57f0677b1f79d32f4edee4ffb">&#9670;&nbsp;</a></span>downscaleRatio</h2>
+<a id="a16daf3d57f0677b1f79d32f4edee4ffb" name="a16daf3d57f0677b1f79d32f4edee4ffb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16daf3d57f0677b1f79d32f4edee4ffb">&#9670;&#160;</a></span>downscaleRatio</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -394,8 +423,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a097b54445fba8510bcfac069b057546f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a097b54445fba8510bcfac069b057546f">&#9670;&nbsp;</a></span>frameSkippingRatio</h2>
+<a id="a097b54445fba8510bcfac069b057546f" name="a097b54445fba8510bcfac069b057546f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a097b54445fba8510bcfac069b057546f">&#9670;&#160;</a></span>frameSkippingRatio</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -417,14 +446,13 @@ Properties</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/helper/<a class="el" href="_image_optimization_helper_8cs.html">ImageOptimizationHelper.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/Helper/<a class="el" href="_image_optimization_helper_8cs.html">ImageOptimizationHelper.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

@@ -1,45 +1,61 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OpenCV for Unity: Packages</title>
+<title>OpenCV for Unity: Package List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
+<script type="text/javascript" src="darkmode_toggle.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +63,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.4</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,23 +74,35 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="doc-content">
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -85,56 +112,61 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div class="header">
-  <div class="headertitle">
-<div class="title">Packages</div>  </div>
+  <div class="headertitle"><div class="title">Package List</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock">Here are the packages with brief descriptions (if available):</div><div class="directory">
-<div class="levels">[detail level <span onclick="javascript:toggleLevel(1);">1</span><span onclick="javascript:toggleLevel(2);">2</span><span onclick="javascript:toggleLevel(3);">3</span>]</div><table class="directory">
-<tr id="row_0_" class="even"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_0_" class="arrow" onclick="toggleFolder('0_')">&#9660;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity.html" target="_self">OpenCVForUnity</a></td><td class="desc"></td></tr>
-<tr id="row_0_0_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_aruco_module.html" target="_self">ArucoModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_1_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_bgsegm_module.html" target="_self">BgsegmModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_2_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_bioinspired_module.html" target="_self">BioinspiredModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_3_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_calib3d_module.html" target="_self">Calib3dModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_4_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_core_module.html" target="_self">CoreModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_5_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_dnn__superres_module.html" target="_self">Dnn_superresModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_6_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_dnn_module.html" target="_self">DnnModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_7_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_face_module.html" target="_self">FaceModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_8_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_features2d_module.html" target="_self">Features2dModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_9_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_img__hash_module.html" target="_self">Img_hashModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_10_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_imgcodecs_module.html" target="_self">ImgcodecsModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_11_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_imgproc_module.html" target="_self">ImgprocModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_12_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_ml_module.html" target="_self">MlModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_13_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_objdetect_module.html" target="_self">ObjdetectModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_14_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_phase__unwrapping_module.html" target="_self">Phase_unwrappingModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_15_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_photo_module.html" target="_self">PhotoModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_16_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_plot_module.html" target="_self">PlotModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_17_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_structured__light_module.html" target="_self">Structured_lightModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_18_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_text_module.html" target="_self">TextModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_19_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_tracking_module.html" target="_self">TrackingModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_20_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_0_20_" class="arrow" onclick="toggleFolder('0_20_')">&#9660;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_unity_utils.html" target="_self">UnityUtils</a></td><td class="desc"></td></tr>
-<tr id="row_0_20_0_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_unity_utils_1_1_helper.html" target="_self">Helper</a></td><td class="desc"></td></tr>
-<tr id="row_0_21_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_utils_module.html" target="_self">UtilsModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_22_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_videoio_module.html" target="_self">VideoioModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_23_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_video_module.html" target="_self">VideoModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_24_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_wechat__qrcode_module.html" target="_self">Wechat_qrcodeModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_25_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_xfeatures2d_module.html" target="_self">Xfeatures2dModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_26_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_ximgproc_module.html" target="_self">XimgprocModule</a></td><td class="desc"></td></tr>
-<tr id="row_0_27_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespace_open_c_v_for_unity_1_1_xphoto_module.html" target="_self">XphotoModule</a></td><td class="desc"></td></tr>
+<div class="levels">[detail level <span onclick="javascript:dynsection.toggleLevel(1);">1</span><span onclick="javascript:dynsection.toggleLevel(2);">2</span><span onclick="javascript:dynsection.toggleLevel(3);">3</span>]</div><table class="directory">
+<tr id="row_0_" class="even"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_0_" class="arrow" onclick="dynsection.toggleFolder('0_')">&#9660;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="dd/da5/namespaceOpenCVForUnity.html" target="_self">OpenCVForUnity</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="dc/d31/namespaceOpenCVForUnity_1_1ArucoModule.html" target="_self">ArucoModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_1_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d7/db1/namespaceOpenCVForUnity_1_1BgsegmModule.html" target="_self">BgsegmModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_2_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d7/d6c/namespaceOpenCVForUnity_1_1BioinspiredModule.html" target="_self">BioinspiredModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_3_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="da/d56/namespaceOpenCVForUnity_1_1Calib3dModule.html" target="_self">Calib3dModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_4_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d1/d65/namespaceOpenCVForUnity_1_1CoreModule.html" target="_self">CoreModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_5_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d1/d83/namespaceOpenCVForUnity_1_1Dnn__superresModule.html" target="_self">Dnn_superresModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_6_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d5/d54/namespaceOpenCVForUnity_1_1DnnModule.html" target="_self">DnnModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_7_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d0/d58/namespaceOpenCVForUnity_1_1FaceModule.html" target="_self">FaceModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_8_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d2/d05/namespaceOpenCVForUnity_1_1Features2dModule.html" target="_self">Features2dModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_9_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d7/d4a/namespaceOpenCVForUnity_1_1Img__hashModule.html" target="_self">Img_hashModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_10_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d2/dcb/namespaceOpenCVForUnity_1_1ImgcodecsModule.html" target="_self">ImgcodecsModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_11_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="da/ddb/namespaceOpenCVForUnity_1_1ImgprocModule.html" target="_self">ImgprocModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_12_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d4/d65/namespaceOpenCVForUnity_1_1MlModule.html" target="_self">MlModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_13_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d0/ddc/namespaceOpenCVForUnity_1_1ObjdetectModule.html" target="_self">ObjdetectModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_14_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d8/d24/namespaceOpenCVForUnity_1_1Phase__unwrappingModule.html" target="_self">Phase_unwrappingModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_15_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d2/dca/namespaceOpenCVForUnity_1_1PhotoModule.html" target="_self">PhotoModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_16_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d5/d69/namespaceOpenCVForUnity_1_1PlotModule.html" target="_self">PlotModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_17_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="df/de6/namespaceOpenCVForUnity_1_1Structured__lightModule.html" target="_self">Structured_lightModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_18_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="dc/d12/namespaceOpenCVForUnity_1_1TextModule.html" target="_self">TextModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_19_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d0/d99/namespaceOpenCVForUnity_1_1TrackingModule.html" target="_self">TrackingModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_20_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_0_20_" class="arrow" onclick="dynsection.toggleFolder('0_20_')">&#9660;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="dd/d85/namespaceOpenCVForUnity_1_1UnityUtils.html" target="_self">UnityUtils</a></td><td class="desc"></td></tr>
+<tr id="row_0_20_0_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d2/d62/namespaceOpenCVForUnity_1_1UnityUtils_1_1Helper.html" target="_self">Helper</a></td><td class="desc"></td></tr>
+<tr id="row_0_21_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d6/db5/namespaceOpenCVForUnity_1_1UtilsModule.html" target="_self">UtilsModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_22_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="de/df2/namespaceOpenCVForUnity_1_1VideoioModule.html" target="_self">VideoioModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_23_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d5/dce/namespaceOpenCVForUnity_1_1VideoModule.html" target="_self">VideoModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_24_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d2/d58/namespaceOpenCVForUnity_1_1Wechat__qrcodeModule.html" target="_self">Wechat_qrcodeModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_25_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d4/d6f/namespaceOpenCVForUnity_1_1Xfeatures2dModule.html" target="_self">Xfeatures2dModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_26_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d9/d00/namespaceOpenCVForUnity_1_1XimgprocModule.html" target="_self">XimgprocModule</a></td><td class="desc"></td></tr>
+<tr id="row_0_27_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="d8/dbd/namespaceOpenCVForUnity_1_1XphotoModule.html" target="_self">XphotoModule</a></td><td class="desc"></td></tr>
 </table>
 </div><!-- directory -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

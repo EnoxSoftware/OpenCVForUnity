@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: OpenCVForUnity.CoreModule.Scalar Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,165 +126,152 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_core_module.html">CoreModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar-members.html">List of all members</a>  </div>
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.CoreModule.Scalar Class Reference</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.CoreModule.Scalar Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Template class for a 4-element vector derived from Vec.  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for OpenCVForUnity.CoreModule.Scalar:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.png" usemap="#OpenCVForUnity.CoreModule.Scalar_map" alt=""/>
-  <map id="OpenCVForUnity.CoreModule.Scalar_map" name="OpenCVForUnity.CoreModule.Scalar_map">
-</map>
+  <img src="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.png" alt=""/>
  </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a147c6399b4c2fc0497eccefa7971d21c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a147c6399b4c2fc0497eccefa7971d21c">Scalar</a> (double v0, double v1, double v2, double v3)</td></tr>
+<tr class="memitem:a147c6399b4c2fc0497eccefa7971d21c" id="r_a147c6399b4c2fc0497eccefa7971d21c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a147c6399b4c2fc0497eccefa7971d21c">Scalar</a> (double <a class="el" href="#a0aa3e432f8fd1b771670d10376a0deec">v0</a>, double <a class="el" href="#ae36f5a3b9cff26b961df911d52e3b809">v1</a>, double <a class="el" href="#ac218633271c9be0576510e537ecd1cc9">v2</a>, double v3)</td></tr>
 <tr class="separator:a147c6399b4c2fc0497eccefa7971d21c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9a0fbb6f1a7856100e7d3e89fbff4df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#af9a0fbb6f1a7856100e7d3e89fbff4df">Scalar</a> (double v0, double v1, double v2)</td></tr>
+<tr class="memitem:af9a0fbb6f1a7856100e7d3e89fbff4df" id="r_af9a0fbb6f1a7856100e7d3e89fbff4df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9a0fbb6f1a7856100e7d3e89fbff4df">Scalar</a> (double <a class="el" href="#a0aa3e432f8fd1b771670d10376a0deec">v0</a>, double <a class="el" href="#ae36f5a3b9cff26b961df911d52e3b809">v1</a>, double <a class="el" href="#ac218633271c9be0576510e537ecd1cc9">v2</a>)</td></tr>
 <tr class="separator:af9a0fbb6f1a7856100e7d3e89fbff4df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af075d1a36ddb6a26dc0fb25829af7b2c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#af075d1a36ddb6a26dc0fb25829af7b2c">Scalar</a> (double v0, double v1)</td></tr>
+<tr class="memitem:af075d1a36ddb6a26dc0fb25829af7b2c" id="r_af075d1a36ddb6a26dc0fb25829af7b2c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af075d1a36ddb6a26dc0fb25829af7b2c">Scalar</a> (double <a class="el" href="#a0aa3e432f8fd1b771670d10376a0deec">v0</a>, double <a class="el" href="#ae36f5a3b9cff26b961df911d52e3b809">v1</a>)</td></tr>
 <tr class="separator:af075d1a36ddb6a26dc0fb25829af7b2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae993d73a9dc5c867e4fef98df3d6dd65"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#ae993d73a9dc5c867e4fef98df3d6dd65">Scalar</a> (double v0)</td></tr>
+<tr class="memitem:ae993d73a9dc5c867e4fef98df3d6dd65" id="r_ae993d73a9dc5c867e4fef98df3d6dd65"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae993d73a9dc5c867e4fef98df3d6dd65">Scalar</a> (double <a class="el" href="#a0aa3e432f8fd1b771670d10376a0deec">v0</a>)</td></tr>
 <tr class="separator:ae993d73a9dc5c867e4fef98df3d6dd65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf4c5b95ed4ab51f169560844ccbec36"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#acf4c5b95ed4ab51f169560844ccbec36">Scalar</a> (double[] vals)</td></tr>
+<tr class="memitem:acf4c5b95ed4ab51f169560844ccbec36" id="r_acf4c5b95ed4ab51f169560844ccbec36"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acf4c5b95ed4ab51f169560844ccbec36">Scalar</a> (double[] vals)</td></tr>
 <tr class="separator:acf4c5b95ed4ab51f169560844ccbec36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15f9080df4bc64ce9f8e2b1f78150e18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a15f9080df4bc64ce9f8e2b1f78150e18">set</a> (double[] vals)</td></tr>
+<tr class="memitem:a15f9080df4bc64ce9f8e2b1f78150e18" id="r_a15f9080df4bc64ce9f8e2b1f78150e18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a15f9080df4bc64ce9f8e2b1f78150e18">set</a> (double[] vals)</td></tr>
 <tr class="separator:a15f9080df4bc64ce9f8e2b1f78150e18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59874684deac86f85e9e8c216add05f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a59874684deac86f85e9e8c216add05f9">clone</a> ()</td></tr>
+<tr class="memitem:a59874684deac86f85e9e8c216add05f9" id="r_a59874684deac86f85e9e8c216add05f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59874684deac86f85e9e8c216add05f9">clone</a> ()</td></tr>
 <tr class="separator:a59874684deac86f85e9e8c216add05f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ad697512297f61e403c984bbcdf5111"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a7ad697512297f61e403c984bbcdf5111">mul</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> it, double scale)</td></tr>
+<tr class="memitem:a7ad697512297f61e403c984bbcdf5111" id="r_a7ad697512297f61e403c984bbcdf5111"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ad697512297f61e403c984bbcdf5111">mul</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> it, double scale)</td></tr>
 <tr class="separator:a7ad697512297f61e403c984bbcdf5111"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1f47353bcc2e68273aee57ae7b69e29"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#ae1f47353bcc2e68273aee57ae7b69e29">mul</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> it)</td></tr>
+<tr class="memitem:ae1f47353bcc2e68273aee57ae7b69e29" id="r_ae1f47353bcc2e68273aee57ae7b69e29"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae1f47353bcc2e68273aee57ae7b69e29">mul</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> it)</td></tr>
 <tr class="separator:ae1f47353bcc2e68273aee57ae7b69e29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc975a9c608715f41e45f298858c04be"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#acc975a9c608715f41e45f298858c04be">conj</a> ()</td></tr>
+<tr class="memitem:acc975a9c608715f41e45f298858c04be" id="r_acc975a9c608715f41e45f298858c04be"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acc975a9c608715f41e45f298858c04be">conj</a> ()</td></tr>
 <tr class="separator:acc975a9c608715f41e45f298858c04be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5009df59e802b137980edb7fe8d3533d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a5009df59e802b137980edb7fe8d3533d">isReal</a> ()</td></tr>
+<tr class="memitem:a5009df59e802b137980edb7fe8d3533d" id="r_a5009df59e802b137980edb7fe8d3533d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5009df59e802b137980edb7fe8d3533d">isReal</a> ()</td></tr>
 <tr class="separator:a5009df59e802b137980edb7fe8d3533d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e75ea79b2de9886462c9afb809ee9aa"><td class="memItemLeft" align="right" valign="top">override int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a6e75ea79b2de9886462c9afb809ee9aa">GetHashCode</a> ()</td></tr>
+<tr class="memitem:a6e75ea79b2de9886462c9afb809ee9aa" id="r_a6e75ea79b2de9886462c9afb809ee9aa"><td class="memItemLeft" align="right" valign="top">override int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6e75ea79b2de9886462c9afb809ee9aa">GetHashCode</a> ()</td></tr>
 <tr class="separator:a6e75ea79b2de9886462c9afb809ee9aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0e5ee0f01d03babb54b517dceef5c48"><td class="memItemLeft" align="right" valign="top">override bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#ae0e5ee0f01d03babb54b517dceef5c48">Equals</a> (Object obj)</td></tr>
+<tr class="memitem:ae0e5ee0f01d03babb54b517dceef5c48" id="r_ae0e5ee0f01d03babb54b517dceef5c48"><td class="memItemLeft" align="right" valign="top">override bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae0e5ee0f01d03babb54b517dceef5c48">Equals</a> (Object obj)</td></tr>
 <tr class="separator:ae0e5ee0f01d03babb54b517dceef5c48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16acee4047de76798d0c4279b9742023"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a16acee4047de76798d0c4279b9742023">ToString</a> ()</td></tr>
+<tr class="memitem:a16acee4047de76798d0c4279b9742023" id="r_a16acee4047de76798d0c4279b9742023"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16acee4047de76798d0c4279b9742023">ToString</a> ()</td></tr>
 <tr class="separator:a16acee4047de76798d0c4279b9742023"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d661c5dd4551a90be1584debf69a4e7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a1d661c5dd4551a90be1584debf69a4e7">Equals</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a)</td></tr>
+<tr class="memitem:ae81d09a6a0ad0bed599a50a43c8026f9" id="r_ae81d09a6a0ad0bed599a50a43c8026f9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae81d09a6a0ad0bed599a50a43c8026f9">Scalar</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> vals)</td></tr>
+<tr class="separator:ae81d09a6a0ad0bed599a50a43c8026f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d38c2648428bca51d4c3d5c9697d59e" id="r_a2d38c2648428bca51d4c3d5c9697d59e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2d38c2648428bca51d4c3d5c9697d59e">Scalar</a> (in(double <a class="el" href="#a0aa3e432f8fd1b771670d10376a0deec">v0</a>, double <a class="el" href="#ae36f5a3b9cff26b961df911d52e3b809">v1</a>, double <a class="el" href="#ac218633271c9be0576510e537ecd1cc9">v2</a>, double v3) vals)</td></tr>
+<tr class="separator:a2d38c2648428bca51d4c3d5c9697d59e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ff8e174003821757da5c9bcda5d5412" id="r_a4ff8e174003821757da5c9bcda5d5412"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ff8e174003821757da5c9bcda5d5412">set</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> vals)</td></tr>
+<tr class="separator:a4ff8e174003821757da5c9bcda5d5412"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0d9b0b033123b12a892adc6fc1dacca" id="r_aa0d9b0b033123b12a892adc6fc1dacca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa0d9b0b033123b12a892adc6fc1dacca">set</a> (in(double <a class="el" href="#a0aa3e432f8fd1b771670d10376a0deec">v0</a>, double <a class="el" href="#ae36f5a3b9cff26b961df911d52e3b809">v1</a>, double <a class="el" href="#ac218633271c9be0576510e537ecd1cc9">v2</a>, double v3) vals)</td></tr>
+<tr class="separator:aa0d9b0b033123b12a892adc6fc1dacca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f861b4b9ea26c1beda00e3b83571bf5" id="r_a0f861b4b9ea26c1beda00e3b83571bf5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0f861b4b9ea26c1beda00e3b83571bf5">cloneAsVec4d</a> ()</td></tr>
+<tr class="separator:a0f861b4b9ea26c1beda00e3b83571bf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a558b6936e716087675e143444b3cae62" id="r_a558b6936e716087675e143444b3cae62"><td class="memItemLeft" align="right" valign="top">double double double double v3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a558b6936e716087675e143444b3cae62">cloneAsValueTuple</a> ()</td></tr>
+<tr class="separator:a558b6936e716087675e143444b3cae62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adaf4c09b2fb1d2d51421762728f0bacf" id="r_adaf4c09b2fb1d2d51421762728f0bacf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adaf4c09b2fb1d2d51421762728f0bacf">mulAsVec4d</a> (in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> it, double scale)</td></tr>
+<tr class="separator:adaf4c09b2fb1d2d51421762728f0bacf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0740f5b381763da4fdc36628029d5c72" id="r_a0740f5b381763da4fdc36628029d5c72"><td class="memItemLeft" align="right" valign="top">double double double double v3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0740f5b381763da4fdc36628029d5c72">mulAsValueTuple</a> (in(double <a class="el" href="#a0aa3e432f8fd1b771670d10376a0deec">v0</a>, double <a class="el" href="#ae36f5a3b9cff26b961df911d52e3b809">v1</a>, double <a class="el" href="#ac218633271c9be0576510e537ecd1cc9">v2</a>, double v3) it, double scale)</td></tr>
+<tr class="separator:a0740f5b381763da4fdc36628029d5c72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99cf0ff085035ec679a0fc222324a921" id="r_a99cf0ff085035ec679a0fc222324a921"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99cf0ff085035ec679a0fc222324a921">mulAsVec4d</a> (<a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> it)</td></tr>
+<tr class="separator:a99cf0ff085035ec679a0fc222324a921"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad046412ea5fd825fd7e63956f19a7534" id="r_ad046412ea5fd825fd7e63956f19a7534"><td class="memItemLeft" align="right" valign="top">double double double double v3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad046412ea5fd825fd7e63956f19a7534">mulAsValueTuple</a> (in(double <a class="el" href="#a0aa3e432f8fd1b771670d10376a0deec">v0</a>, double <a class="el" href="#ae36f5a3b9cff26b961df911d52e3b809">v1</a>, double <a class="el" href="#ac218633271c9be0576510e537ecd1cc9">v2</a>, double v3) it)</td></tr>
+<tr class="separator:ad046412ea5fd825fd7e63956f19a7534"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2415b025e794c65f8b91583b96a00122" id="r_a2415b025e794c65f8b91583b96a00122"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2415b025e794c65f8b91583b96a00122">conjAsVec4d</a> ()</td></tr>
+<tr class="separator:a2415b025e794c65f8b91583b96a00122"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46d5484d32d0dc94dda041e0b21fc603" id="r_a46d5484d32d0dc94dda041e0b21fc603"><td class="memItemLeft" align="right" valign="top">double double double double v3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46d5484d32d0dc94dda041e0b21fc603">conjAsValueTuple</a> ()</td></tr>
+<tr class="separator:a46d5484d32d0dc94dda041e0b21fc603"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5d00a2b9a20876c4002b3af413974e2" id="r_ac5d00a2b9a20876c4002b3af413974e2"><td class="memItemLeft" align="right" valign="top">double double double double v3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5d00a2b9a20876c4002b3af413974e2">ToValueTuple</a> ()</td></tr>
+<tr class="separator:ac5d00a2b9a20876c4002b3af413974e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55ddc2b07147f27c08cb397abd0e7d0d" id="r_a55ddc2b07147f27c08cb397abd0e7d0d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a55ddc2b07147f27c08cb397abd0e7d0d">ToVec4d</a> ()</td></tr>
+<tr class="separator:a55ddc2b07147f27c08cb397abd0e7d0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d661c5dd4551a90be1584debf69a4e7" id="r_a1d661c5dd4551a90be1584debf69a4e7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d661c5dd4551a90be1584debf69a4e7">Equals</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a)</td></tr>
 <tr class="separator:a1d661c5dd4551a90be1584debf69a4e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a794076c5d68dd9b9cb70aecef45a52af"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a794076c5d68dd9b9cb70aecef45a52af">all</a> (double v)</td></tr>
+<tr class="memitem:a794076c5d68dd9b9cb70aecef45a52af" id="r_a794076c5d68dd9b9cb70aecef45a52af"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a794076c5d68dd9b9cb70aecef45a52af">all</a> (double v)</td></tr>
 <tr class="separator:a794076c5d68dd9b9cb70aecef45a52af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44b07a6f2e7ec5cbf6fc2a6b70f65895"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a44b07a6f2e7ec5cbf6fc2a6b70f65895">operator-</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a)</td></tr>
+<tr class="memitem:acd3a9b5e1d4ad1e91bac6a87b5d956eb" id="r_acd3a9b5e1d4ad1e91bac6a87b5d956eb"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acd3a9b5e1d4ad1e91bac6a87b5d956eb">allAsVec4d</a> (double v)</td></tr>
+<tr class="separator:acd3a9b5e1d4ad1e91bac6a87b5d956eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d095b698fcf7605a2269b663ac45d78" id="r_a9d095b698fcf7605a2269b663ac45d78"><td class="memItemLeft" align="right" valign="top">static double double double double v3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9d095b698fcf7605a2269b663ac45d78">allAsValueTuple</a> (double v)</td></tr>
+<tr class="separator:a9d095b698fcf7605a2269b663ac45d78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25b3b7f7e431fea83d4e0d98c728591b" id="r_a25b3b7f7e431fea83d4e0d98c728591b"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25b3b7f7e431fea83d4e0d98c728591b">operator Vec4d</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> scalar)</td></tr>
+<tr class="separator:a25b3b7f7e431fea83d4e0d98c728591b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c4e3753ddb874160bafc994a333472b" id="r_a4c4e3753ddb874160bafc994a333472b"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c4e3753ddb874160bafc994a333472b">operator</a> (double <a class="el" href="#a0aa3e432f8fd1b771670d10376a0deec">v0</a>, double <a class="el" href="#ae36f5a3b9cff26b961df911d52e3b809">v1</a>, double <a class="el" href="#ac218633271c9be0576510e537ecd1cc9">v2</a>, double v3)(<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> scalar)</td></tr>
+<tr class="separator:a4c4e3753ddb874160bafc994a333472b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1de886c1c20bde10230273469878c874" id="r_a1de886c1c20bde10230273469878c874"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1de886c1c20bde10230273469878c874">operator Scalar</a> (in(double <a class="el" href="#a0aa3e432f8fd1b771670d10376a0deec">v0</a>, double <a class="el" href="#ae36f5a3b9cff26b961df911d52e3b809">v1</a>, double <a class="el" href="#ac218633271c9be0576510e537ecd1cc9">v2</a>, double v3) valueTuple)</td></tr>
+<tr class="separator:a1de886c1c20bde10230273469878c874"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44b07a6f2e7ec5cbf6fc2a6b70f65895" id="r_a44b07a6f2e7ec5cbf6fc2a6b70f65895"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a44b07a6f2e7ec5cbf6fc2a6b70f65895">operator-</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a)</td></tr>
 <tr class="separator:a44b07a6f2e7ec5cbf6fc2a6b70f65895"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaeb966582765624d1b742c6f210142d0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#aaeb966582765624d1b742c6f210142d0">operator+</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> b)</td></tr>
+<tr class="memitem:aaeb966582765624d1b742c6f210142d0" id="r_aaeb966582765624d1b742c6f210142d0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaeb966582765624d1b742c6f210142d0">operator+</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> b)</td></tr>
 <tr class="separator:aaeb966582765624d1b742c6f210142d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9353ba311946fe475dd7b7f2c7e226f0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a9353ba311946fe475dd7b7f2c7e226f0">operator-</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> b)</td></tr>
+<tr class="memitem:a9353ba311946fe475dd7b7f2c7e226f0" id="r_a9353ba311946fe475dd7b7f2c7e226f0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9353ba311946fe475dd7b7f2c7e226f0">operator-</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> b)</td></tr>
 <tr class="separator:a9353ba311946fe475dd7b7f2c7e226f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c0634daa3da4a2993a535df521a6e9b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a9c0634daa3da4a2993a535df521a6e9b">operator*</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> b)</td></tr>
+<tr class="memitem:a9c0634daa3da4a2993a535df521a6e9b" id="r_a9c0634daa3da4a2993a535df521a6e9b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c0634daa3da4a2993a535df521a6e9b">operator*</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> b)</td></tr>
 <tr class="separator:a9c0634daa3da4a2993a535df521a6e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a689a1318f319479ed3ad81689e44b871"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a689a1318f319479ed3ad81689e44b871">operator*</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a, double alpha)</td></tr>
+<tr class="memitem:a689a1318f319479ed3ad81689e44b871" id="r_a689a1318f319479ed3ad81689e44b871"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a689a1318f319479ed3ad81689e44b871">operator*</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a, double alpha)</td></tr>
 <tr class="separator:a689a1318f319479ed3ad81689e44b871"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbce88bc1b2a78c431a2ef4d587a7c00"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#afbce88bc1b2a78c431a2ef4d587a7c00">operator*</a> (double alpha, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a)</td></tr>
+<tr class="memitem:afbce88bc1b2a78c431a2ef4d587a7c00" id="r_afbce88bc1b2a78c431a2ef4d587a7c00"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afbce88bc1b2a78c431a2ef4d587a7c00">operator*</a> (double alpha, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a)</td></tr>
 <tr class="separator:afbce88bc1b2a78c431a2ef4d587a7c00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ae248c34cc22cd1fa7fc85fc4d8bf4a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a8ae248c34cc22cd1fa7fc85fc4d8bf4a">operator/</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> b)</td></tr>
+<tr class="memitem:a8ae248c34cc22cd1fa7fc85fc4d8bf4a" id="r_a8ae248c34cc22cd1fa7fc85fc4d8bf4a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8ae248c34cc22cd1fa7fc85fc4d8bf4a">operator/</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> b)</td></tr>
 <tr class="separator:a8ae248c34cc22cd1fa7fc85fc4d8bf4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a429d183ce907c4ecbfafaa19a16d0d29"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a429d183ce907c4ecbfafaa19a16d0d29">operator/</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a, double alpha)</td></tr>
+<tr class="memitem:a429d183ce907c4ecbfafaa19a16d0d29" id="r_a429d183ce907c4ecbfafaa19a16d0d29"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a429d183ce907c4ecbfafaa19a16d0d29">operator/</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a, double alpha)</td></tr>
 <tr class="separator:a429d183ce907c4ecbfafaa19a16d0d29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0cc0aaaa4f904265ba9c650f548efa99"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a0cc0aaaa4f904265ba9c650f548efa99">operator/</a> (double a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> b)</td></tr>
+<tr class="memitem:a0cc0aaaa4f904265ba9c650f548efa99" id="r_a0cc0aaaa4f904265ba9c650f548efa99"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0cc0aaaa4f904265ba9c650f548efa99">operator/</a> (double a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> b)</td></tr>
 <tr class="separator:a0cc0aaaa4f904265ba9c650f548efa99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af56645ac2c694f5abfc81db8b3725d7c"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#af56645ac2c694f5abfc81db8b3725d7c">operator==</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> b)</td></tr>
+<tr class="memitem:af56645ac2c694f5abfc81db8b3725d7c" id="r_af56645ac2c694f5abfc81db8b3725d7c"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af56645ac2c694f5abfc81db8b3725d7c">operator==</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> b)</td></tr>
 <tr class="separator:af56645ac2c694f5abfc81db8b3725d7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a540d41a5cb5bcb78dbe9036d8a11d65e"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a540d41a5cb5bcb78dbe9036d8a11d65e">operator!=</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> b)</td></tr>
+<tr class="memitem:a540d41a5cb5bcb78dbe9036d8a11d65e" id="r_a540d41a5cb5bcb78dbe9036d8a11d65e"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a540d41a5cb5bcb78dbe9036d8a11d65e">operator!=</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> a, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> b)</td></tr>
 <tr class="separator:a540d41a5cb5bcb78dbe9036d8a11d65e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a04763df216fc8d2a7a0d700bdd53fa0f"><td class="memItemLeft" align="right" valign="top">double []&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a04763df216fc8d2a7a0d700bdd53fa0f">val</a></td></tr>
+<tr class="memitem:a04763df216fc8d2a7a0d700bdd53fa0f" id="r_a04763df216fc8d2a7a0d700bdd53fa0f"><td class="memItemLeft" align="right" valign="top">double[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a04763df216fc8d2a7a0d700bdd53fa0f">val</a></td></tr>
 <tr class="separator:a04763df216fc8d2a7a0d700bdd53fa0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cf54226dfaedbc273ecf70c3acfcaae" id="r_a5cf54226dfaedbc273ecf70c3acfcaae"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5cf54226dfaedbc273ecf70c3acfcaae">v0</a></td></tr>
+<tr class="separator:a5cf54226dfaedbc273ecf70c3acfcaae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50640bdc23902e508cd3d22f5492ecbc" id="r_a50640bdc23902e508cd3d22f5492ecbc"><td class="memItemLeft" align="right" valign="top">double double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50640bdc23902e508cd3d22f5492ecbc">v1</a></td></tr>
+<tr class="separator:a50640bdc23902e508cd3d22f5492ecbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d12d4535515ae4f3201b7dacff7d93b" id="r_a4d12d4535515ae4f3201b7dacff7d93b"><td class="memItemLeft" align="right" valign="top">double double double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d12d4535515ae4f3201b7dacff7d93b">v2</a></td></tr>
+<tr class="separator:a4d12d4535515ae4f3201b7dacff7d93b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a0aa3e432f8fd1b771670d10376a0deec" id="r_a0aa3e432f8fd1b771670d10376a0deec"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0aa3e432f8fd1b771670d10376a0deec">v0</a></td></tr>
+<tr class="separator:a0aa3e432f8fd1b771670d10376a0deec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae36f5a3b9cff26b961df911d52e3b809" id="r_ae36f5a3b9cff26b961df911d52e3b809"><td class="memItemLeft" align="right" valign="top">static double double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae36f5a3b9cff26b961df911d52e3b809">v1</a></td></tr>
+<tr class="separator:ae36f5a3b9cff26b961df911d52e3b809"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac218633271c9be0576510e537ecd1cc9" id="r_ac218633271c9be0576510e537ecd1cc9"><td class="memItemLeft" align="right" valign="top">static double double double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac218633271c9be0576510e537ecd1cc9">v2</a></td></tr>
+<tr class="separator:ac218633271c9be0576510e537ecd1cc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Template class for a 4-element vector derived from Vec.</p>
-<p>template&lt;typename _Tp&gt; class CV_EXPORTS Scalar_ : public Vec&lt;_Tp, 4&gt; <code></code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>// C++ code:</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>public:</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>//! various constructors</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Scalar_();</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Scalar_(_Tp v0, _Tp v1, _Tp v2=0, _Tp v3=0);</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Scalar_(const CvScalar&amp; s);</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Scalar_(_Tp v0);</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>//! returns a scalar with all elements set to v0</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>static Scalar_&lt;_Tp&gt; all(_Tp v0);</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>//! conversion to the old-style CvScalar</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>operator CvScalar() const;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>//! conversion to another data type</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>template&lt;typename T2&gt; operator Scalar_&lt;T2&gt;() const;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>//! per-element product</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Scalar_&lt;<em>Tp&gt; mul(const <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></em>&lt;_Tp&gt;&amp; t, double scale=1) const;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>// returns (v0, -v1, -v2, -v3)</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Scalar_&lt;_Tp&gt; conj() const;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>// returns true iff v1 == v2 == v3 == 0</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>bool isReal() const;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>};</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>typedef Scalar_&lt;double&gt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>;</code></p>
-<p><code></code></p>
-<p><code></code></p>
-<p><code>Being derived from <code>Vec&lt;<em>Tp, 4&gt;, <code><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></code> and <code><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></code> can be used just as typical 4-element vectors. In addition, they can be converted to/from <code>CvScalar</code>. The type <code><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></code> is widely used in OpenCV to pass pixel values. </em></code></code></p>
-<p><code><code><em></em></code></code></p>
-<p><code><code><em></p><dl class="section see"><dt>See also</dt><dd><a href="http://docs.opencv.org/modules/core/doc/basic_structures.html#scalar">org.opencv.core.Scalar_</a> </dd></dl>
-<p></em></code></code></p>
+<div class="textblock"><p>Template class for a 4-element vector derived from Vec. </p>
+<p>Being derived from Vec&lt;<em>Tp, 4&gt;, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html" title="Template class for a 4-element vector derived from Vec.">Scalar</a></em> and <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html" title="Template class for a 4-element vector derived from Vec.">Scalar</a> can be used just as typical 4-element vectors. In addition, they can be converted to/from CvScalar. The type <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html" title="Template class for a 4-element vector derived from Vec.">Scalar</a> is widely used in OpenCV to pass pixel values.</p>
+<p>C++: cv::Scalar_&lt;_Tp&gt; Class Template Reference </p><dl class="section see"><dt>See also</dt><dd><a href="https://docs.opencv.org/4.10.0/d1/da0/classcv_1_1Scalar__.html">https://docs.opencv.org/4.10.0/d1/da0/classcv_1_1Scalar__.html</a> </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a147c6399b4c2fc0497eccefa7971d21c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a147c6399b4c2fc0497eccefa7971d21c">&#9670;&nbsp;</a></span>Scalar() <span class="overload">[1/5]</span></h2>
+<a id="a147c6399b4c2fc0497eccefa7971d21c" name="a147c6399b4c2fc0497eccefa7971d21c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a147c6399b4c2fc0497eccefa7971d21c">&#9670;&#160;</a></span>Scalar() <span class="overload">[1/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -260,39 +279,30 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.CoreModule.Scalar.Scalar </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>v0</em>, </td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>v0</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>v1</em>, </td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>v1</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>v2</em>, </td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>v2</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>v3</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>v3</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="af9a0fbb6f1a7856100e7d3e89fbff4df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9a0fbb6f1a7856100e7d3e89fbff4df">&#9670;&nbsp;</a></span>Scalar() <span class="overload">[2/5]</span></h2>
+<a id="af9a0fbb6f1a7856100e7d3e89fbff4df" name="af9a0fbb6f1a7856100e7d3e89fbff4df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9a0fbb6f1a7856100e7d3e89fbff4df">&#9670;&#160;</a></span>Scalar() <span class="overload">[2/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -300,33 +310,25 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.CoreModule.Scalar.Scalar </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>v0</em>, </td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>v0</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>v1</em>, </td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>v1</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>v2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>v2</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="af075d1a36ddb6a26dc0fb25829af7b2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af075d1a36ddb6a26dc0fb25829af7b2c">&#9670;&nbsp;</a></span>Scalar() <span class="overload">[3/5]</span></h2>
+<a id="af075d1a36ddb6a26dc0fb25829af7b2c" name="af075d1a36ddb6a26dc0fb25829af7b2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af075d1a36ddb6a26dc0fb25829af7b2c">&#9670;&#160;</a></span>Scalar() <span class="overload">[3/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -334,27 +336,20 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.CoreModule.Scalar.Scalar </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>v0</em>, </td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>v0</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>v1</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>v1</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ae993d73a9dc5c867e4fef98df3d6dd65"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae993d73a9dc5c867e4fef98df3d6dd65">&#9670;&nbsp;</a></span>Scalar() <span class="overload">[4/5]</span></h2>
+<a id="ae993d73a9dc5c867e4fef98df3d6dd65" name="ae993d73a9dc5c867e4fef98df3d6dd65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae993d73a9dc5c867e4fef98df3d6dd65">&#9670;&#160;</a></span>Scalar() <span class="overload">[4/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -362,8 +357,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.CoreModule.Scalar.Scalar </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>v0</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>v0</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -371,8 +365,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="acf4c5b95ed4ab51f169560844ccbec36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf4c5b95ed4ab51f169560844ccbec36">&#9670;&nbsp;</a></span>Scalar() <span class="overload">[5/5]</span></h2>
+<a id="acf4c5b95ed4ab51f169560844ccbec36" name="acf4c5b95ed4ab51f169560844ccbec36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf4c5b95ed4ab51f169560844ccbec36">&#9670;&#160;</a></span>Scalar() <span class="overload">[5/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -380,8 +374,41 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.CoreModule.Scalar.Scalar </td>
           <td>(</td>
-          <td class="paramtype">double []&#160;</td>
-          <td class="paramname"><em>vals</em></td><td>)</td>
+          <td class="paramtype">double[]</td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae81d09a6a0ad0bed599a50a43c8026f9" name="ae81d09a6a0ad0bed599a50a43c8026f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae81d09a6a0ad0bed599a50a43c8026f9">&#9670;&#160;</a></span>Scalar() <span class="overload">[6/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OpenCVForUnity.CoreModule.Scalar.Scalar </td>
+          <td>(</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a></td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2d38c2648428bca51d4c3d5c9697d59e" name="a2d38c2648428bca51d4c3d5c9697d59e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d38c2648428bca51d4c3d5c9697d59e">&#9670;&#160;</a></span>Scalar() <span class="overload">[7/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OpenCVForUnity.CoreModule.Scalar.Scalar </td>
+          <td>(</td>
+          <td class="paramtype">in(double <a class="el" href="#a0aa3e432f8fd1b771670d10376a0deec">v0</a>, double <a class="el" href="#ae36f5a3b9cff26b961df911d52e3b809">v1</a>, double <a class="el" href="#ac218633271c9be0576510e537ecd1cc9">v2</a>, double v3)</td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -390,8 +417,8 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a794076c5d68dd9b9cb70aecef45a52af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a794076c5d68dd9b9cb70aecef45a52af">&#9670;&nbsp;</a></span>all()</h2>
+<a id="a794076c5d68dd9b9cb70aecef45a52af" name="a794076c5d68dd9b9cb70aecef45a52af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a794076c5d68dd9b9cb70aecef45a52af">&#9670;&#160;</a></span>all()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -402,8 +429,33 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> OpenCVForUnity.CoreModule.Scalar.all </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>v</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>v</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>returns a scalar with all elements set to v0 </p>
+
+</div>
+</div>
+<a id="a9d095b698fcf7605a2269b663ac45d78" name="a9d095b698fcf7605a2269b663ac45d78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d095b698fcf7605a2269b663ac45d78">&#9670;&#160;</a></span>allAsValueTuple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static double double double double v3 OpenCVForUnity.CoreModule.Scalar.allAsValueTuple </td>
+          <td>(</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>v</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -416,8 +468,34 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a59874684deac86f85e9e8c216add05f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59874684deac86f85e9e8c216add05f9">&#9670;&nbsp;</a></span>clone()</h2>
+<a id="acd3a9b5e1d4ad1e91bac6a87b5d956eb" name="acd3a9b5e1d4ad1e91bac6a87b5d956eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd3a9b5e1d4ad1e91bac6a87b5d956eb">&#9670;&#160;</a></span>allAsVec4d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> OpenCVForUnity.CoreModule.Scalar.allAsVec4d </td>
+          <td>(</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>v</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>returns a scalar with all elements set to v0 </p>
+
+</div>
+</div>
+<a id="a59874684deac86f85e9e8c216add05f9" name="a59874684deac86f85e9e8c216add05f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59874684deac86f85e9e8c216add05f9">&#9670;&#160;</a></span>clone()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -425,7 +503,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> OpenCVForUnity.CoreModule.Scalar.clone </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -433,8 +511,42 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="acc975a9c608715f41e45f298858c04be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acc975a9c608715f41e45f298858c04be">&#9670;&nbsp;</a></span>conj()</h2>
+<a id="a558b6936e716087675e143444b3cae62" name="a558b6936e716087675e143444b3cae62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a558b6936e716087675e143444b3cae62">&#9670;&#160;</a></span>cloneAsValueTuple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double double double double v3 OpenCVForUnity.CoreModule.Scalar.cloneAsValueTuple </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0f861b4b9ea26c1beda00e3b83571bf5" name="a0f861b4b9ea26c1beda00e3b83571bf5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f861b4b9ea26c1beda00e3b83571bf5">&#9670;&#160;</a></span>cloneAsVec4d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> OpenCVForUnity.CoreModule.Scalar.cloneAsVec4d </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acc975a9c608715f41e45f298858c04be" name="acc975a9c608715f41e45f298858c04be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc975a9c608715f41e45f298858c04be">&#9670;&#160;</a></span>conj()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -442,25 +554,25 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> OpenCVForUnity.CoreModule.Scalar.conj </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>returns (v0, -v1, -v2, -v3) </p>
 
 </div>
 </div>
-<a id="a1d661c5dd4551a90be1584debf69a4e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d661c5dd4551a90be1584debf69a4e7">&#9670;&nbsp;</a></span>Equals() <span class="overload">[1/2]</span></h2>
+<a id="a46d5484d32d0dc94dda041e0b21fc603" name="a46d5484d32d0dc94dda041e0b21fc603"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46d5484d32d0dc94dda041e0b21fc603">&#9670;&#160;</a></span>conjAsValueTuple()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool OpenCVForUnity.CoreModule.Scalar.Equals </td>
+          <td class="memname">double double double double v3 OpenCVForUnity.CoreModule.Scalar.conjAsValueTuple </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>a</em></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -468,8 +580,26 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ae0e5ee0f01d03babb54b517dceef5c48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0e5ee0f01d03babb54b517dceef5c48">&#9670;&nbsp;</a></span>Equals() <span class="overload">[2/2]</span></h2>
+<a id="a2415b025e794c65f8b91583b96a00122" name="a2415b025e794c65f8b91583b96a00122"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2415b025e794c65f8b91583b96a00122">&#9670;&#160;</a></span>conjAsVec4d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> OpenCVForUnity.CoreModule.Scalar.conjAsVec4d </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>returns (v0, -v1, -v2, -v3) </p>
+
+</div>
+</div>
+<a id="ae0e5ee0f01d03babb54b517dceef5c48" name="ae0e5ee0f01d03babb54b517dceef5c48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0e5ee0f01d03babb54b517dceef5c48">&#9670;&#160;</a></span>Equals() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -477,8 +607,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">override bool OpenCVForUnity.CoreModule.Scalar.Equals </td>
           <td>(</td>
-          <td class="paramtype">Object&#160;</td>
-          <td class="paramname"><em>obj</em></td><td>)</td>
+          <td class="paramtype">Object</td>          <td class="paramname"><span class="paramname"><em>obj</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -486,8 +615,25 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a6e75ea79b2de9886462c9afb809ee9aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e75ea79b2de9886462c9afb809ee9aa">&#9670;&nbsp;</a></span>GetHashCode()</h2>
+<a id="a1d661c5dd4551a90be1584debf69a4e7" name="a1d661c5dd4551a90be1584debf69a4e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d661c5dd4551a90be1584debf69a4e7">&#9670;&#160;</a></span>Equals() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.CoreModule.Scalar.Equals </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6e75ea79b2de9886462c9afb809ee9aa" name="a6e75ea79b2de9886462c9afb809ee9aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e75ea79b2de9886462c9afb809ee9aa">&#9670;&#160;</a></span>GetHashCode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -495,7 +641,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">override int OpenCVForUnity.CoreModule.Scalar.GetHashCode </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -503,8 +649,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a5009df59e802b137980edb7fe8d3533d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5009df59e802b137980edb7fe8d3533d">&#9670;&nbsp;</a></span>isReal()</h2>
+<a id="a5009df59e802b137980edb7fe8d3533d" name="a5009df59e802b137980edb7fe8d3533d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5009df59e802b137980edb7fe8d3533d">&#9670;&#160;</a></span>isReal()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -512,16 +658,17 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">bool OpenCVForUnity.CoreModule.Scalar.isReal </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>returns true iff v1 == v2 == v3 == 0 </p>
 
 </div>
 </div>
-<a id="a7ad697512297f61e403c984bbcdf5111"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ad697512297f61e403c984bbcdf5111">&#9670;&nbsp;</a></span>mul() <span class="overload">[1/2]</span></h2>
+<a id="ae1f47353bcc2e68273aee57ae7b69e29" name="ae1f47353bcc2e68273aee57ae7b69e29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1f47353bcc2e68273aee57ae7b69e29">&#9670;&#160;</a></span>mul() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -529,36 +676,47 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> OpenCVForUnity.CoreModule.Scalar.mul </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>it</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>it</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>per-element product </p>
+
+</div>
+</div>
+<a id="a7ad697512297f61e403c984bbcdf5111" name="a7ad697512297f61e403c984bbcdf5111"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ad697512297f61e403c984bbcdf5111">&#9670;&#160;</a></span>mul() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> OpenCVForUnity.CoreModule.Scalar.mul </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>it</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>scale</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>scale</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>per-element product </p>
 
 </div>
 </div>
-<a id="ae1f47353bcc2e68273aee57ae7b69e29"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1f47353bcc2e68273aee57ae7b69e29">&#9670;&nbsp;</a></span>mul() <span class="overload">[2/2]</span></h2>
+<a id="ad046412ea5fd825fd7e63956f19a7534" name="ad046412ea5fd825fd7e63956f19a7534"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad046412ea5fd825fd7e63956f19a7534">&#9670;&#160;</a></span>mulAsValueTuple() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> OpenCVForUnity.CoreModule.Scalar.mul </td>
+          <td class="memname">double double double double v3 OpenCVForUnity.CoreModule.Scalar.mulAsValueTuple </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>it</em></td><td>)</td>
+          <td class="paramtype">in(double <a class="el" href="#a0aa3e432f8fd1b771670d10376a0deec">v0</a>, double <a class="el" href="#ae36f5a3b9cff26b961df911d52e3b809">v1</a>, double <a class="el" href="#ac218633271c9be0576510e537ecd1cc9">v2</a>, double v3)</td>          <td class="paramname"><span class="paramname"><em>it</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -566,8 +724,158 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a540d41a5cb5bcb78dbe9036d8a11d65e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a540d41a5cb5bcb78dbe9036d8a11d65e">&#9670;&nbsp;</a></span>operator!=()</h2>
+<a id="a0740f5b381763da4fdc36628029d5c72" name="a0740f5b381763da4fdc36628029d5c72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0740f5b381763da4fdc36628029d5c72">&#9670;&#160;</a></span>mulAsValueTuple() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double double double double v3 OpenCVForUnity.CoreModule.Scalar.mulAsValueTuple </td>
+          <td>(</td>
+          <td class="paramtype">in(double <a class="el" href="#a0aa3e432f8fd1b771670d10376a0deec">v0</a>, double <a class="el" href="#ae36f5a3b9cff26b961df911d52e3b809">v1</a>, double <a class="el" href="#ac218633271c9be0576510e537ecd1cc9">v2</a>, double v3)</td>          <td class="paramname"><span class="paramname"><em>it</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>scale</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adaf4c09b2fb1d2d51421762728f0bacf" name="adaf4c09b2fb1d2d51421762728f0bacf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adaf4c09b2fb1d2d51421762728f0bacf">&#9670;&#160;</a></span>mulAsVec4d() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> OpenCVForUnity.CoreModule.Scalar.mulAsVec4d </td>
+          <td>(</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a></td>          <td class="paramname"><span class="paramname"><em>it</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>scale</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>per-element product </p>
+
+</div>
+</div>
+<a id="a99cf0ff085035ec679a0fc222324a921" name="a99cf0ff085035ec679a0fc222324a921"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99cf0ff085035ec679a0fc222324a921">&#9670;&#160;</a></span>mulAsVec4d() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> OpenCVForUnity.CoreModule.Scalar.mulAsVec4d </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a></td>          <td class="paramname"><span class="paramname"><em>it</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>per-element product </p>
+
+</div>
+</div>
+<a id="a4c4e3753ddb874160bafc994a333472b" name="a4c4e3753ddb874160bafc994a333472b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c4e3753ddb874160bafc994a333472b">&#9670;&#160;</a></span>operator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static OpenCVForUnity.CoreModule.Scalar.operator </td>
+          <td>(</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>v0</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>v1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>v2</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>v3</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1de886c1c20bde10230273469878c874" name="a1de886c1c20bde10230273469878c874"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1de886c1c20bde10230273469878c874">&#9670;&#160;</a></span>operator Scalar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="#a4c4e3753ddb874160bafc994a333472b">OpenCVForUnity.CoreModule.Scalar.operator</a> <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> </td>
+          <td>(</td>
+          <td class="paramtype">in(double <a class="el" href="#a0aa3e432f8fd1b771670d10376a0deec">v0</a>, double <a class="el" href="#ae36f5a3b9cff26b961df911d52e3b809">v1</a>, double <a class="el" href="#ac218633271c9be0576510e537ecd1cc9">v2</a>, double v3)</td>          <td class="paramname"><span class="paramname"><em>valueTuple</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a25b3b7f7e431fea83d4e0d98c728591b" name="a25b3b7f7e431fea83d4e0d98c728591b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25b3b7f7e431fea83d4e0d98c728591b">&#9670;&#160;</a></span>operator Vec4d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="#a4c4e3753ddb874160bafc994a333472b">OpenCVForUnity.CoreModule.Scalar.operator</a> <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>scalar</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a540d41a5cb5bcb78dbe9036d8a11d65e" name="a540d41a5cb5bcb78dbe9036d8a11d65e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a540d41a5cb5bcb78dbe9036d8a11d65e">&#9670;&#160;</a></span>operator!=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -578,19 +886,12 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">static bool OpenCVForUnity.CoreModule.Scalar.operator!= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -602,8 +903,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a9c0634daa3da4a2993a535df521a6e9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c0634daa3da4a2993a535df521a6e9b">&#9670;&nbsp;</a></span>operator*() <span class="overload">[1/3]</span></h2>
+<a id="afbce88bc1b2a78c431a2ef4d587a7c00" name="afbce88bc1b2a78c431a2ef4d587a7c00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbce88bc1b2a78c431a2ef4d587a7c00">&#9670;&#160;</a></span>operator*() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -612,21 +913,14 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> OpenCVForUnity.CoreModule.Scalar.operator* </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> <a class="el" href="#a4c4e3753ddb874160bafc994a333472b">OpenCVForUnity.CoreModule.Scalar.operator</a>* </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>alpha</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -638,8 +932,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a689a1318f319479ed3ad81689e44b871"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a689a1318f319479ed3ad81689e44b871">&#9670;&nbsp;</a></span>operator*() <span class="overload">[2/3]</span></h2>
+<a id="a689a1318f319479ed3ad81689e44b871" name="a689a1318f319479ed3ad81689e44b871"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a689a1318f319479ed3ad81689e44b871">&#9670;&#160;</a></span>operator*() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -648,21 +942,14 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> OpenCVForUnity.CoreModule.Scalar.operator* </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> <a class="el" href="#a4c4e3753ddb874160bafc994a333472b">OpenCVForUnity.CoreModule.Scalar.operator</a>* </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>alpha</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>alpha</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -674,8 +961,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="afbce88bc1b2a78c431a2ef4d587a7c00"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbce88bc1b2a78c431a2ef4d587a7c00">&#9670;&nbsp;</a></span>operator*() <span class="overload">[3/3]</span></h2>
+<a id="a9c0634daa3da4a2993a535df521a6e9b" name="a9c0634daa3da4a2993a535df521a6e9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c0634daa3da4a2993a535df521a6e9b">&#9670;&#160;</a></span>operator*() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -684,21 +971,14 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> OpenCVForUnity.CoreModule.Scalar.operator* </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> <a class="el" href="#a4c4e3753ddb874160bafc994a333472b">OpenCVForUnity.CoreModule.Scalar.operator</a>* </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>alpha</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>a</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -710,8 +990,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aaeb966582765624d1b742c6f210142d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaeb966582765624d1b742c6f210142d0">&#9670;&nbsp;</a></span>operator+()</h2>
+<a id="aaeb966582765624d1b742c6f210142d0" name="aaeb966582765624d1b742c6f210142d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaeb966582765624d1b742c6f210142d0">&#9670;&#160;</a></span>operator+()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -720,21 +1000,14 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> OpenCVForUnity.CoreModule.Scalar.operator+ </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> <a class="el" href="#a4c4e3753ddb874160bafc994a333472b">OpenCVForUnity.CoreModule.Scalar.operator</a>+ </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -746,8 +1019,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a44b07a6f2e7ec5cbf6fc2a6b70f65895"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44b07a6f2e7ec5cbf6fc2a6b70f65895">&#9670;&nbsp;</a></span>operator-() <span class="overload">[1/2]</span></h2>
+<a id="a44b07a6f2e7ec5cbf6fc2a6b70f65895" name="a44b07a6f2e7ec5cbf6fc2a6b70f65895"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44b07a6f2e7ec5cbf6fc2a6b70f65895">&#9670;&#160;</a></span>operator-() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -756,10 +1029,9 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> OpenCVForUnity.CoreModule.Scalar.operator- </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> <a class="el" href="#a4c4e3753ddb874160bafc994a333472b">OpenCVForUnity.CoreModule.Scalar.operator</a>- </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>a</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -772,8 +1044,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a9353ba311946fe475dd7b7f2c7e226f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9353ba311946fe475dd7b7f2c7e226f0">&#9670;&nbsp;</a></span>operator-() <span class="overload">[2/2]</span></h2>
+<a id="a9353ba311946fe475dd7b7f2c7e226f0" name="a9353ba311946fe475dd7b7f2c7e226f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9353ba311946fe475dd7b7f2c7e226f0">&#9670;&#160;</a></span>operator-() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -782,21 +1054,14 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> OpenCVForUnity.CoreModule.Scalar.operator- </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> <a class="el" href="#a4c4e3753ddb874160bafc994a333472b">OpenCVForUnity.CoreModule.Scalar.operator</a>- </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -808,8 +1073,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a8ae248c34cc22cd1fa7fc85fc4d8bf4a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ae248c34cc22cd1fa7fc85fc4d8bf4a">&#9670;&nbsp;</a></span>operator/() <span class="overload">[1/3]</span></h2>
+<a id="a0cc0aaaa4f904265ba9c650f548efa99" name="a0cc0aaaa4f904265ba9c650f548efa99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cc0aaaa4f904265ba9c650f548efa99">&#9670;&#160;</a></span>operator/() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -818,21 +1083,14 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> OpenCVForUnity.CoreModule.Scalar.operator/ </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> <a class="el" href="#a4c4e3753ddb874160bafc994a333472b">OpenCVForUnity.CoreModule.Scalar.operator</a>/ </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -844,8 +1102,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a429d183ce907c4ecbfafaa19a16d0d29"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a429d183ce907c4ecbfafaa19a16d0d29">&#9670;&nbsp;</a></span>operator/() <span class="overload">[2/3]</span></h2>
+<a id="a429d183ce907c4ecbfafaa19a16d0d29" name="a429d183ce907c4ecbfafaa19a16d0d29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a429d183ce907c4ecbfafaa19a16d0d29">&#9670;&#160;</a></span>operator/() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -854,21 +1112,14 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> OpenCVForUnity.CoreModule.Scalar.operator/ </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> <a class="el" href="#a4c4e3753ddb874160bafc994a333472b">OpenCVForUnity.CoreModule.Scalar.operator</a>/ </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>alpha</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>alpha</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -880,8 +1131,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a0cc0aaaa4f904265ba9c650f548efa99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0cc0aaaa4f904265ba9c650f548efa99">&#9670;&nbsp;</a></span>operator/() <span class="overload">[3/3]</span></h2>
+<a id="a8ae248c34cc22cd1fa7fc85fc4d8bf4a" name="a8ae248c34cc22cd1fa7fc85fc4d8bf4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ae248c34cc22cd1fa7fc85fc4d8bf4a">&#9670;&#160;</a></span>operator/() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -890,21 +1141,14 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> OpenCVForUnity.CoreModule.Scalar.operator/ </td>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a> <a class="el" href="#a4c4e3753ddb874160bafc994a333472b">OpenCVForUnity.CoreModule.Scalar.operator</a>/ </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -916,8 +1160,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="af56645ac2c694f5abfc81db8b3725d7c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af56645ac2c694f5abfc81db8b3725d7c">&#9670;&nbsp;</a></span>operator==()</h2>
+<a id="af56645ac2c694f5abfc81db8b3725d7c" name="af56645ac2c694f5abfc81db8b3725d7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af56645ac2c694f5abfc81db8b3725d7c">&#9670;&#160;</a></span>operator==()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -926,21 +1170,14 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool OpenCVForUnity.CoreModule.Scalar.operator== </td>
+          <td class="memname">static bool <a class="el" href="#a4c4e3753ddb874160bafc994a333472b">OpenCVForUnity.CoreModule.Scalar.operator</a>== </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a>&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -952,8 +1189,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a15f9080df4bc64ce9f8e2b1f78150e18"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a15f9080df4bc64ce9f8e2b1f78150e18">&#9670;&nbsp;</a></span>set()</h2>
+<a id="a15f9080df4bc64ce9f8e2b1f78150e18" name="a15f9080df4bc64ce9f8e2b1f78150e18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15f9080df4bc64ce9f8e2b1f78150e18">&#9670;&#160;</a></span>set() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -961,8 +1198,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.CoreModule.Scalar.set </td>
           <td>(</td>
-          <td class="paramtype">double []&#160;</td>
-          <td class="paramname"><em>vals</em></td><td>)</td>
+          <td class="paramtype">double[]</td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -970,8 +1206,42 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a16acee4047de76798d0c4279b9742023"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16acee4047de76798d0c4279b9742023">&#9670;&nbsp;</a></span>ToString()</h2>
+<a id="a4ff8e174003821757da5c9bcda5d5412" name="a4ff8e174003821757da5c9bcda5d5412"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ff8e174003821757da5c9bcda5d5412">&#9670;&#160;</a></span>set() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.CoreModule.Scalar.set </td>
+          <td>(</td>
+          <td class="paramtype">in <a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a></td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa0d9b0b033123b12a892adc6fc1dacca" name="aa0d9b0b033123b12a892adc6fc1dacca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0d9b0b033123b12a892adc6fc1dacca">&#9670;&#160;</a></span>set() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.CoreModule.Scalar.set </td>
+          <td>(</td>
+          <td class="paramtype">in(double <a class="el" href="#a0aa3e432f8fd1b771670d10376a0deec">v0</a>, double <a class="el" href="#ae36f5a3b9cff26b961df911d52e3b809">v1</a>, double <a class="el" href="#ac218633271c9be0576510e537ecd1cc9">v2</a>, double v3)</td>          <td class="paramname"><span class="paramname"><em>vals</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a16acee4047de76798d0c4279b9742023" name="a16acee4047de76798d0c4279b9742023"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16acee4047de76798d0c4279b9742023">&#9670;&#160;</a></span>ToString()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -979,7 +1249,41 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">override string OpenCVForUnity.CoreModule.Scalar.ToString </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac5d00a2b9a20876c4002b3af413974e2" name="ac5d00a2b9a20876c4002b3af413974e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5d00a2b9a20876c4002b3af413974e2">&#9670;&#160;</a></span>ToValueTuple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double double double double v3 OpenCVForUnity.CoreModule.Scalar.ToValueTuple </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a55ddc2b07147f27c08cb397abd0e7d0d" name="a55ddc2b07147f27c08cb397abd0e7d0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55ddc2b07147f27c08cb397abd0e7d0d">&#9670;&#160;</a></span>ToVec4d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_open_c_v_for_unity_1_1_unity_utils_1_1_vec4d.html">Vec4d</a> OpenCVForUnity.CoreModule.Scalar.ToVec4d </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -988,8 +1292,121 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a04763df216fc8d2a7a0d700bdd53fa0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04763df216fc8d2a7a0d700bdd53fa0f">&#9670;&nbsp;</a></span>val</h2>
+<a id="a0aa3e432f8fd1b771670d10376a0deec" name="a0aa3e432f8fd1b771670d10376a0deec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0aa3e432f8fd1b771670d10376a0deec">&#9670;&#160;</a></span>v0 <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double OpenCVForUnity.CoreModule.Scalar.v0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>returns a scalar with all elements set to v0 </p>
+<p>per-element product </p>
+<p>returns (v0, -v1, -v2, -v3) </p>
+
+</div>
+</div>
+<a id="a5cf54226dfaedbc273ecf70c3acfcaae" name="a5cf54226dfaedbc273ecf70c3acfcaae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cf54226dfaedbc273ecf70c3acfcaae">&#9670;&#160;</a></span>v0 <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double OpenCVForUnity.CoreModule.Scalar.v0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>per-element product </p>
+<p>returns (v0, -v1, -v2, -v3) </p>
+
+</div>
+</div>
+<a id="ae36f5a3b9cff26b961df911d52e3b809" name="ae36f5a3b9cff26b961df911d52e3b809"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae36f5a3b9cff26b961df911d52e3b809">&#9670;&#160;</a></span>v1 <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double double OpenCVForUnity.CoreModule.Scalar.v1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a50640bdc23902e508cd3d22f5492ecbc" name="a50640bdc23902e508cd3d22f5492ecbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50640bdc23902e508cd3d22f5492ecbc">&#9670;&#160;</a></span>v1 <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double double OpenCVForUnity.CoreModule.Scalar.v1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac218633271c9be0576510e537ecd1cc9" name="ac218633271c9be0576510e537ecd1cc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac218633271c9be0576510e537ecd1cc9">&#9670;&#160;</a></span>v2 <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double double double OpenCVForUnity.CoreModule.Scalar.v2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4d12d4535515ae4f3201b7dacff7d93b" name="a4d12d4535515ae4f3201b7dacff7d93b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d12d4535515ae4f3201b7dacff7d93b">&#9670;&#160;</a></span>v2 <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double double double OpenCVForUnity.CoreModule.Scalar.v2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a04763df216fc8d2a7a0d700bdd53fa0f" name="a04763df216fc8d2a7a0d700bdd53fa0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04763df216fc8d2a7a0d700bdd53fa0f">&#9670;&#160;</a></span>val</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1009,9 +1426,8 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

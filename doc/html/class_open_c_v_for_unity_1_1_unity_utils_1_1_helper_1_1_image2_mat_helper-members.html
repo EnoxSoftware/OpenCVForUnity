@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,72 +126,71 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_unity_utils.html">UnityUtils</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_unity_utils_1_1_helper.html">Helper</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">Image2MatHelper</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper Member List</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper Member List</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>This is the complete list of members for <a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>, including all inherited members.</p>
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#acce63011e2cdf2687aa1fdc0b59e12fe">_Initialize</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a3ceba4589018d438a4a861143773e32c">_onDisposed</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a3ceba4589018d438a4a861143773e32c">_onDisposed</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#acb8128882ae62868be5a5fc1f66ef5b0">_onErrorOccurred</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a05310698290269cc97cfcd9af20938cf">_onInitialized</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a05310698290269cc97cfcd9af20938cf">_onInitialized</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#abbd02507bdb2469c3fb1045c94d66799">_outputColorFormat</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a9a5d60da06c521f9daa424886ba77910">_repeat</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a9a5d60da06c521f9daa424886ba77910">_repeat</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#ae8e403b5bfbc23d22b9304830d8328d1">_requestedImageFilePath</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a5214a42f5c85969adfaa9e98c22913c7">_timeoutFrameCount</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a5214a42f5c85969adfaa9e98c22913c7">_timeoutFrameCount</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a3f2f0ad70ab7ce97acb2a1e2c4d32812">autoPlayAfterInitialize</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#ae0449949e857350b466847e340cd153a">baseColorFormat</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#ae0449949e857350b466847e340cd153a">baseColorFormat</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a2d8866cc6b2cb283868b21b1265f7b49">CancelInitCoroutine</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a904ad6e2ba40792c7eb64dedf0481c5c">didUpdateImageBufferInCurrentFrame</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a86dca0d82c1d21a815cc91fe669337ad">didUpdateThisFrame</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#aa97e98e111225123583875bb9a131290">DidUpdateThisFrame</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a904ad6e2ba40792c7eb64dedf0481c5c">didUpdateImageBufferInCurrentFrame</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#aa97e98e111225123583875bb9a131290">DidUpdateThisFrame</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a86dca0d82c1d21a815cc91fe669337ad">didUpdateThisFrame</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a58cd988efc2f26f49df3df77ab8c38b7">Dispose</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a43a850d4544b63903b6fecf8db774ca0">frameMat</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a43a850d4544b63903b6fecf8db774ca0">frameMat</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a7dade9995631cb9cef40a89a33feb6ba">GetBaseColorFormat</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a03283fb139a750c71e4f27c7e2be5c74">GetDeviceName</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a03283fb139a750c71e4f27c7e2be5c74">GetDeviceName</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#aeafe4082ac43648070e1bd4782b39fbd">getFilePathCoroutine</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a0b0330883c64a59b8c5883821115a6ca">GetHeight</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a0b0330883c64a59b8c5883821115a6ca">GetHeight</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#af9a9b2089b8dd91152d64f502f9a14d7">GetMat</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a61f8cef58f9a34bf9d03322b4ee398cf">GetWidth</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a61f8cef58f9a34bf9d03322b4ee398cf">GetWidth</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a2102b0bd71918bddbd98a23e42d3eada">hasInitDone</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a4e12abcd5a3678ad6c21332866672479">imageFileFullPath</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a4e12abcd5a3678ad6c21332866672479">imageFileFullPath</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#ac55aa4bb44944d7ac9a0b816f89a5237">initCoroutine</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a9a27f6b3bdcc76ee858ede90a6f4437d">Initialize</a>(bool autoPlay=true)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a9a27f6b3bdcc76ee858ede90a6f4437d">Initialize</a>(bool autoPlay=true)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a38589e6f0566a56cd182d9e61e687fb8">Initialize</a>(string requestedImageFilePath, bool autoPlay=true)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a0b0d2372c5d5592f531bbf6a2603c5d0">IsInitialized</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a0b0d2372c5d5592f531bbf6a2603c5d0">IsInitialized</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a7f65870734526841e9d79007e67fa5f2">isInitWaiting</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a5cb1b6a39eaffeb81e8086a6b1a1e685">IsPaused</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a5cb1b6a39eaffeb81e8086a6b1a1e685">IsPaused</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a7f616935cc476237a0a1c730a4b4ddda">IsPlaying</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#ab326f334b7c6c6d8d0df143342fc8d06">isPlaying</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#ab326f334b7c6c6d8d0df143342fc8d06">isPlaying</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a85e8bba4a18fbfb540149f076f898c65">isThreadRunning</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a4cdd6ef787dcf14117a65866c5f001b6">LateUpdate</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a4cdd6ef787dcf14117a65866c5f001b6">LateUpdate</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#af83ce1a4ba6219c1667efe58f16bee15">OnDestroy</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a8052da777159c01a527adbfc0c39e004">onDisposed</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a8052da777159c01a527adbfc0c39e004">onDisposed</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#aa052f91e1874568678174801821fdad5">onErrorOccurred</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a3a58c4e43f2e21f609ef5506acfb9d74">onInitialized</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a3a58c4e43f2e21f609ef5506acfb9d74">onInitialized</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a8939b9e20ccd5d00567e08368d5321dd">OnValidate</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a35cb230498ea85d35167dbf34ce28360">outputColorFormat</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a35cb230498ea85d35167dbf34ce28360">outputColorFormat</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a128fdbbea0d75b791c2608af33a66cfe">Pause</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a2dfe430f6e768aed4227ead337ca5676">Play</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a2dfe430f6e768aed4227ead337ca5676">Play</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a1c9f5ee609505f991283b5a62f846caa">ReleaseResources</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a2f7b3b6eaa4625872ae532ffb865496f">repeat</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a2f7b3b6eaa4625872ae532ffb865496f">repeat</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a5a3c68ca12bd364a6d87d621b01ecc8b">requestedImageFilePath</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#aa6a7c7a12ba874398988144b848d3aeb">shouldStopThread</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#aa6a7c7a12ba874398988144b848d3aeb">shouldStopThread</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a23c1d935c098319f69d3cfea9d5190f8">StartWaitFrameTimeThread</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a99412052d3a22bee222791bfc0c1f6a0">Stop</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a99412052d3a22bee222791bfc0c1f6a0">Stop</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#adcb54ea8929b3c51a6e92e8626e18e1e">StopWaitFrameTimeThread</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a03c073e4214ae2d279249ec6abed8f3c">timeoutFrameCount</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a03c073e4214ae2d279249ec6abed8f3c">timeoutFrameCount</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#a26724037935be1192c187a2e9451a2ff">waitFrameTimeCoroutine</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#abfd1357e9fe0cb375ad02053ad2483dc">WaitFrameTimeThreadWorker</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html#abfd1357e9fe0cb375ad02053ad2483dc">WaitFrameTimeThreadWorker</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_unity_utils_1_1_helper_1_1_image2_mat_helper.html">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,171 +126,178 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_bgsegm_module.html">BgsegmModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html">BackgroundSubtractorGMG</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g-members.html">List of all members</a>  </div>
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG Class Reference</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>Background Subtractor module based on the algorithm given in <b>[Gold2012]</b> .  
- <a href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#details">More...</a></p>
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.png" usemap="#OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG_map" alt=""/>
   <map id="OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG_map" name="OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG_map">
-<area href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html" title="Base class for background/foreground segmentation. : " alt="OpenCVForUnity.VideoModule.BackgroundSubtractor" shape="rect" coords="0,224,359,248"/>
-<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV. " alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="0,168,359,192"/>
+<area href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html" title="Base class for background/foreground segmentation. :" alt="OpenCVForUnity.VideoModule.BackgroundSubtractor" shape="rect" coords="0,224,359,248"/>
+<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV." alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="0,168,359,192"/>
 <area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="0,112,359,136"/>
 <area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="0,56,359,80"/>
-</map>
- </div></div>
+  </map>
+</div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a06c65f6f375dfb6c910a0d6d92db3d7d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#a06c65f6f375dfb6c910a0d6d92db3d7d">getMaxFeatures</a> ()</td></tr>
-<tr class="memdesc:a06c65f6f375dfb6c910a0d6d92db3d7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns total number of distinct colors to maintain in histogram.  <a href="#a06c65f6f375dfb6c910a0d6d92db3d7d">More...</a><br /></td></tr>
+<tr class="memitem:a06c65f6f375dfb6c910a0d6d92db3d7d" id="r_a06c65f6f375dfb6c910a0d6d92db3d7d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a06c65f6f375dfb6c910a0d6d92db3d7d">getMaxFeatures</a> ()</td></tr>
+<tr class="memdesc:a06c65f6f375dfb6c910a0d6d92db3d7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns total number of distinct colors to maintain in histogram.  <br /></td></tr>
 <tr class="separator:a06c65f6f375dfb6c910a0d6d92db3d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c228e9de84772be6a6e5a35322a9a79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#a5c228e9de84772be6a6e5a35322a9a79">setMaxFeatures</a> (int maxFeatures)</td></tr>
-<tr class="memdesc:a5c228e9de84772be6a6e5a35322a9a79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets total number of distinct colors to maintain in histogram.  <a href="#a5c228e9de84772be6a6e5a35322a9a79">More...</a><br /></td></tr>
+<tr class="memitem:a5c228e9de84772be6a6e5a35322a9a79" id="r_a5c228e9de84772be6a6e5a35322a9a79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c228e9de84772be6a6e5a35322a9a79">setMaxFeatures</a> (int maxFeatures)</td></tr>
+<tr class="memdesc:a5c228e9de84772be6a6e5a35322a9a79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets total number of distinct colors to maintain in histogram.  <br /></td></tr>
 <tr class="separator:a5c228e9de84772be6a6e5a35322a9a79"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd55841a975d9f4e7fbb468480f2b1f2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#acd55841a975d9f4e7fbb468480f2b1f2">getDefaultLearningRate</a> ()</td></tr>
-<tr class="memdesc:acd55841a975d9f4e7fbb468480f2b1f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the learning rate of the algorithm.  <a href="#acd55841a975d9f4e7fbb468480f2b1f2">More...</a><br /></td></tr>
+<tr class="memitem:acd55841a975d9f4e7fbb468480f2b1f2" id="r_acd55841a975d9f4e7fbb468480f2b1f2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acd55841a975d9f4e7fbb468480f2b1f2">getDefaultLearningRate</a> ()</td></tr>
+<tr class="memdesc:acd55841a975d9f4e7fbb468480f2b1f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the learning rate of the algorithm.  <br /></td></tr>
 <tr class="separator:acd55841a975d9f4e7fbb468480f2b1f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a642df480f63e7990db8f28450ffdb4db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#a642df480f63e7990db8f28450ffdb4db">setDefaultLearningRate</a> (double lr)</td></tr>
-<tr class="memdesc:a642df480f63e7990db8f28450ffdb4db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the learning rate of the algorithm.  <a href="#a642df480f63e7990db8f28450ffdb4db">More...</a><br /></td></tr>
+<tr class="memitem:a642df480f63e7990db8f28450ffdb4db" id="r_a642df480f63e7990db8f28450ffdb4db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a642df480f63e7990db8f28450ffdb4db">setDefaultLearningRate</a> (double lr)</td></tr>
+<tr class="memdesc:a642df480f63e7990db8f28450ffdb4db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the learning rate of the algorithm.  <br /></td></tr>
 <tr class="separator:a642df480f63e7990db8f28450ffdb4db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2f18eeeceb72ae521611c9e73e091fa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#ad2f18eeeceb72ae521611c9e73e091fa">getNumFrames</a> ()</td></tr>
-<tr class="memdesc:ad2f18eeeceb72ae521611c9e73e091fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of frames used to initialize background model.  <a href="#ad2f18eeeceb72ae521611c9e73e091fa">More...</a><br /></td></tr>
+<tr class="memitem:ad2f18eeeceb72ae521611c9e73e091fa" id="r_ad2f18eeeceb72ae521611c9e73e091fa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad2f18eeeceb72ae521611c9e73e091fa">getNumFrames</a> ()</td></tr>
+<tr class="memdesc:ad2f18eeeceb72ae521611c9e73e091fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of frames used to initialize background model.  <br /></td></tr>
 <tr class="separator:ad2f18eeeceb72ae521611c9e73e091fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f8bb4f76cef89d6847feea14bea9a90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#a6f8bb4f76cef89d6847feea14bea9a90">setNumFrames</a> (int nframes)</td></tr>
-<tr class="memdesc:a6f8bb4f76cef89d6847feea14bea9a90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the number of frames used to initialize background model.  <a href="#a6f8bb4f76cef89d6847feea14bea9a90">More...</a><br /></td></tr>
+<tr class="memitem:a6f8bb4f76cef89d6847feea14bea9a90" id="r_a6f8bb4f76cef89d6847feea14bea9a90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f8bb4f76cef89d6847feea14bea9a90">setNumFrames</a> (int nframes)</td></tr>
+<tr class="memdesc:a6f8bb4f76cef89d6847feea14bea9a90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the number of frames used to initialize background model.  <br /></td></tr>
 <tr class="separator:a6f8bb4f76cef89d6847feea14bea9a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac64dcc7291c23eae29190e4e2c635edf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#ac64dcc7291c23eae29190e4e2c635edf">getQuantizationLevels</a> ()</td></tr>
-<tr class="memdesc:ac64dcc7291c23eae29190e4e2c635edf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the parameter used for quantization of color-space.  <a href="#ac64dcc7291c23eae29190e4e2c635edf">More...</a><br /></td></tr>
+<tr class="memitem:ac64dcc7291c23eae29190e4e2c635edf" id="r_ac64dcc7291c23eae29190e4e2c635edf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac64dcc7291c23eae29190e4e2c635edf">getQuantizationLevels</a> ()</td></tr>
+<tr class="memdesc:ac64dcc7291c23eae29190e4e2c635edf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the parameter used for quantization of color-space.  <br /></td></tr>
 <tr class="separator:ac64dcc7291c23eae29190e4e2c635edf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7130a91c102243ea7db4d6cd06433277"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#a7130a91c102243ea7db4d6cd06433277">setQuantizationLevels</a> (int nlevels)</td></tr>
-<tr class="memdesc:a7130a91c102243ea7db4d6cd06433277"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the parameter used for quantization of color-space.  <a href="#a7130a91c102243ea7db4d6cd06433277">More...</a><br /></td></tr>
+<tr class="memitem:a7130a91c102243ea7db4d6cd06433277" id="r_a7130a91c102243ea7db4d6cd06433277"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7130a91c102243ea7db4d6cd06433277">setQuantizationLevels</a> (int nlevels)</td></tr>
+<tr class="memdesc:a7130a91c102243ea7db4d6cd06433277"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the parameter used for quantization of color-space.  <br /></td></tr>
 <tr class="separator:a7130a91c102243ea7db4d6cd06433277"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2561d20606c1f438ed6b0451aa85711f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#a2561d20606c1f438ed6b0451aa85711f">getBackgroundPrior</a> ()</td></tr>
-<tr class="memdesc:a2561d20606c1f438ed6b0451aa85711f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the prior probability that each individual pixel is a background pixel.  <a href="#a2561d20606c1f438ed6b0451aa85711f">More...</a><br /></td></tr>
+<tr class="memitem:a2561d20606c1f438ed6b0451aa85711f" id="r_a2561d20606c1f438ed6b0451aa85711f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2561d20606c1f438ed6b0451aa85711f">getBackgroundPrior</a> ()</td></tr>
+<tr class="memdesc:a2561d20606c1f438ed6b0451aa85711f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the prior probability that each individual pixel is a background pixel.  <br /></td></tr>
 <tr class="separator:a2561d20606c1f438ed6b0451aa85711f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51a87e86a9520d007a642cc661673999"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#a51a87e86a9520d007a642cc661673999">setBackgroundPrior</a> (double bgprior)</td></tr>
-<tr class="memdesc:a51a87e86a9520d007a642cc661673999"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the prior probability that each individual pixel is a background pixel.  <a href="#a51a87e86a9520d007a642cc661673999">More...</a><br /></td></tr>
+<tr class="memitem:a51a87e86a9520d007a642cc661673999" id="r_a51a87e86a9520d007a642cc661673999"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a51a87e86a9520d007a642cc661673999">setBackgroundPrior</a> (double bgprior)</td></tr>
+<tr class="memdesc:a51a87e86a9520d007a642cc661673999"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the prior probability that each individual pixel is a background pixel.  <br /></td></tr>
 <tr class="separator:a51a87e86a9520d007a642cc661673999"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e14c8d67eb164fabfd35639e27dbbb4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#a9e14c8d67eb164fabfd35639e27dbbb4">getSmoothingRadius</a> ()</td></tr>
-<tr class="memdesc:a9e14c8d67eb164fabfd35639e27dbbb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the kernel radius used for morphological operations.  <a href="#a9e14c8d67eb164fabfd35639e27dbbb4">More...</a><br /></td></tr>
+<tr class="memitem:a9e14c8d67eb164fabfd35639e27dbbb4" id="r_a9e14c8d67eb164fabfd35639e27dbbb4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9e14c8d67eb164fabfd35639e27dbbb4">getSmoothingRadius</a> ()</td></tr>
+<tr class="memdesc:a9e14c8d67eb164fabfd35639e27dbbb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the kernel radius used for morphological operations.  <br /></td></tr>
 <tr class="separator:a9e14c8d67eb164fabfd35639e27dbbb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ba80622cad975783c6a42d73195b307"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#a1ba80622cad975783c6a42d73195b307">setSmoothingRadius</a> (int radius)</td></tr>
-<tr class="memdesc:a1ba80622cad975783c6a42d73195b307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the kernel radius used for morphological operations.  <a href="#a1ba80622cad975783c6a42d73195b307">More...</a><br /></td></tr>
+<tr class="memitem:a1ba80622cad975783c6a42d73195b307" id="r_a1ba80622cad975783c6a42d73195b307"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ba80622cad975783c6a42d73195b307">setSmoothingRadius</a> (int radius)</td></tr>
+<tr class="memdesc:a1ba80622cad975783c6a42d73195b307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the kernel radius used for morphological operations.  <br /></td></tr>
 <tr class="separator:a1ba80622cad975783c6a42d73195b307"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4cfbebde62992829b061e73f14e4780"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#ac4cfbebde62992829b061e73f14e4780">getDecisionThreshold</a> ()</td></tr>
-<tr class="memdesc:ac4cfbebde62992829b061e73f14e4780"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of decision threshold.  <a href="#ac4cfbebde62992829b061e73f14e4780">More...</a><br /></td></tr>
+<tr class="memitem:ac4cfbebde62992829b061e73f14e4780" id="r_ac4cfbebde62992829b061e73f14e4780"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac4cfbebde62992829b061e73f14e4780">getDecisionThreshold</a> ()</td></tr>
+<tr class="memdesc:ac4cfbebde62992829b061e73f14e4780"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of decision threshold.  <br /></td></tr>
 <tr class="separator:ac4cfbebde62992829b061e73f14e4780"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c9d64ad6cf555fce7a63f74bd2a35de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#a1c9d64ad6cf555fce7a63f74bd2a35de">setDecisionThreshold</a> (double thresh)</td></tr>
-<tr class="memdesc:a1c9d64ad6cf555fce7a63f74bd2a35de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of decision threshold.  <a href="#a1c9d64ad6cf555fce7a63f74bd2a35de">More...</a><br /></td></tr>
+<tr class="memitem:a1c9d64ad6cf555fce7a63f74bd2a35de" id="r_a1c9d64ad6cf555fce7a63f74bd2a35de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1c9d64ad6cf555fce7a63f74bd2a35de">setDecisionThreshold</a> (double thresh)</td></tr>
+<tr class="memdesc:a1c9d64ad6cf555fce7a63f74bd2a35de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of decision threshold.  <br /></td></tr>
 <tr class="separator:a1c9d64ad6cf555fce7a63f74bd2a35de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ea0821283460fc19d78451c62ba6bca"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#a5ea0821283460fc19d78451c62ba6bca">getUpdateBackgroundModel</a> ()</td></tr>
-<tr class="memdesc:a5ea0821283460fc19d78451c62ba6bca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the status of background model update.  <a href="#a5ea0821283460fc19d78451c62ba6bca">More...</a><br /></td></tr>
+<tr class="memitem:a5ea0821283460fc19d78451c62ba6bca" id="r_a5ea0821283460fc19d78451c62ba6bca"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ea0821283460fc19d78451c62ba6bca">getUpdateBackgroundModel</a> ()</td></tr>
+<tr class="memdesc:a5ea0821283460fc19d78451c62ba6bca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the status of background model update.  <br /></td></tr>
 <tr class="separator:a5ea0821283460fc19d78451c62ba6bca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8a7399b77bb86d431e90c779aa3218e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#af8a7399b77bb86d431e90c779aa3218e">setUpdateBackgroundModel</a> (bool update)</td></tr>
-<tr class="memdesc:af8a7399b77bb86d431e90c779aa3218e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the status of background model update.  <a href="#af8a7399b77bb86d431e90c779aa3218e">More...</a><br /></td></tr>
+<tr class="memitem:af8a7399b77bb86d431e90c779aa3218e" id="r_af8a7399b77bb86d431e90c779aa3218e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8a7399b77bb86d431e90c779aa3218e">setUpdateBackgroundModel</a> (bool update)</td></tr>
+<tr class="memdesc:af8a7399b77bb86d431e90c779aa3218e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the status of background model update.  <br /></td></tr>
 <tr class="separator:af8a7399b77bb86d431e90c779aa3218e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbb77180c6c8a63d9e5b6583c7fbad35"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#adbb77180c6c8a63d9e5b6583c7fbad35">getMinVal</a> ()</td></tr>
-<tr class="memdesc:adbb77180c6c8a63d9e5b6583c7fbad35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the minimum value taken on by pixels in image sequence. Usually 0.  <a href="#adbb77180c6c8a63d9e5b6583c7fbad35">More...</a><br /></td></tr>
+<tr class="memitem:adbb77180c6c8a63d9e5b6583c7fbad35" id="r_adbb77180c6c8a63d9e5b6583c7fbad35"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adbb77180c6c8a63d9e5b6583c7fbad35">getMinVal</a> ()</td></tr>
+<tr class="memdesc:adbb77180c6c8a63d9e5b6583c7fbad35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the minimum value taken on by pixels in image sequence. Usually 0.  <br /></td></tr>
 <tr class="separator:adbb77180c6c8a63d9e5b6583c7fbad35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b6223d0ddcfd313aee7575220cd69e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#a9b6223d0ddcfd313aee7575220cd69e1">setMinVal</a> (double val)</td></tr>
-<tr class="memdesc:a9b6223d0ddcfd313aee7575220cd69e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the minimum value taken on by pixels in image sequence.  <a href="#a9b6223d0ddcfd313aee7575220cd69e1">More...</a><br /></td></tr>
+<tr class="memitem:a9b6223d0ddcfd313aee7575220cd69e1" id="r_a9b6223d0ddcfd313aee7575220cd69e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b6223d0ddcfd313aee7575220cd69e1">setMinVal</a> (double val)</td></tr>
+<tr class="memdesc:a9b6223d0ddcfd313aee7575220cd69e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the minimum value taken on by pixels in image sequence.  <br /></td></tr>
 <tr class="separator:a9b6223d0ddcfd313aee7575220cd69e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4fc164480e7f784bd68305063fa3dc2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#ad4fc164480e7f784bd68305063fa3dc2">getMaxVal</a> ()</td></tr>
-<tr class="memdesc:ad4fc164480e7f784bd68305063fa3dc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the maximum value taken on by pixels in image sequence. e.g. 1.0 or 255.  <a href="#ad4fc164480e7f784bd68305063fa3dc2">More...</a><br /></td></tr>
+<tr class="memitem:ad4fc164480e7f784bd68305063fa3dc2" id="r_ad4fc164480e7f784bd68305063fa3dc2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4fc164480e7f784bd68305063fa3dc2">getMaxVal</a> ()</td></tr>
+<tr class="memdesc:ad4fc164480e7f784bd68305063fa3dc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the maximum value taken on by pixels in image sequence. e.g. 1.0 or 255.  <br /></td></tr>
 <tr class="separator:ad4fc164480e7f784bd68305063fa3dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d37af69d42a333edced34da541636ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#a6d37af69d42a333edced34da541636ff">setMaxVal</a> (double val)</td></tr>
-<tr class="memdesc:a6d37af69d42a333edced34da541636ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the maximum value taken on by pixels in image sequence.  <a href="#a6d37af69d42a333edced34da541636ff">More...</a><br /></td></tr>
+<tr class="memitem:a6d37af69d42a333edced34da541636ff" id="r_a6d37af69d42a333edced34da541636ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d37af69d42a333edced34da541636ff">setMaxVal</a> (double val)</td></tr>
+<tr class="memdesc:a6d37af69d42a333edced34da541636ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the maximum value taken on by pixels in image sequence.  <br /></td></tr>
 <tr class="separator:a6d37af69d42a333edced34da541636ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html">OpenCVForUnity.VideoModule.BackgroundSubtractor</a></td></tr>
-<tr class="memitem:ac9610e4e91eca8e534c44d64654ff9a2 inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html#ac9610e4e91eca8e534c44d64654ff9a2">apply</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> fgmask, double learningRate)</td></tr>
-<tr class="memdesc:ac9610e4e91eca8e534c44d64654ff9a2 inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a foreground mask.  <a href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html#ac9610e4e91eca8e534c44d64654ff9a2">More...</a><br /></td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html">OpenCVForUnity.VideoModule.BackgroundSubtractor</a></td></tr>
+<tr class="memitem:ac9610e4e91eca8e534c44d64654ff9a2 inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor" id="r_ac9610e4e91eca8e534c44d64654ff9a2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html#ac9610e4e91eca8e534c44d64654ff9a2">apply</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> fgmask, double learningRate)</td></tr>
+<tr class="memdesc:ac9610e4e91eca8e534c44d64654ff9a2 inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a foreground mask.  <br /></td></tr>
 <tr class="separator:ac9610e4e91eca8e534c44d64654ff9a2 inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2308f6394518c11b22e8ffe9de917a8b inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html#a2308f6394518c11b22e8ffe9de917a8b">apply</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> fgmask)</td></tr>
-<tr class="memdesc:a2308f6394518c11b22e8ffe9de917a8b inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a foreground mask.  <a href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html#a2308f6394518c11b22e8ffe9de917a8b">More...</a><br /></td></tr>
+<tr class="memitem:a2308f6394518c11b22e8ffe9de917a8b inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor" id="r_a2308f6394518c11b22e8ffe9de917a8b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html#a2308f6394518c11b22e8ffe9de917a8b">apply</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> fgmask)</td></tr>
+<tr class="memdesc:a2308f6394518c11b22e8ffe9de917a8b inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a foreground mask.  <br /></td></tr>
 <tr class="separator:a2308f6394518c11b22e8ffe9de917a8b inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a095cec51080b4f91bdcb1c96a9febe2f inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html#a095cec51080b4f91bdcb1c96a9febe2f">getBackgroundImage</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> backgroundImage)</td></tr>
-<tr class="memdesc:a095cec51080b4f91bdcb1c96a9febe2f inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a background image.  <a href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html#a095cec51080b4f91bdcb1c96a9febe2f">More...</a><br /></td></tr>
+<tr class="memitem:a095cec51080b4f91bdcb1c96a9febe2f inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor" id="r_a095cec51080b4f91bdcb1c96a9febe2f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html#a095cec51080b4f91bdcb1c96a9febe2f">getBackgroundImage</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> backgroundImage)</td></tr>
+<tr class="memdesc:a095cec51080b4f91bdcb1c96a9febe2f inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a background image.  <br /></td></tr>
 <tr class="separator:a095cec51080b4f91bdcb1c96a9febe2f inherit pub_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
-<tr class="memitem:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a8023b07a6a0100bb4c9eccd175bc68df">getNativeObjAddr</a> ()</td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="memitem:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a8023b07a6a0100bb4c9eccd175bc68df"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a8023b07a6a0100bb4c9eccd175bc68df">getNativeObjAddr</a> ()</td></tr>
 <tr class="separator:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a54f71b05d21ec0abc593bb50cf66ce12">clear</a> ()</td></tr>
-<tr class="memdesc:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the algorithm state.  <a href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a54f71b05d21ec0abc593bb50cf66ce12">More...</a><br /></td></tr>
+<tr class="memitem:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a54f71b05d21ec0abc593bb50cf66ce12"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a54f71b05d21ec0abc593bb50cf66ce12">clear</a> ()</td></tr>
+<tr class="memdesc:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the algorithm state.  <br /></td></tr>
 <tr class="separator:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86154915a2c596ce62de420e4f7a8d7b inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86154915a2c596ce62de420e4f7a8d7b">empty</a> ()</td></tr>
-<tr class="memdesc:a86154915a2c596ce62de420e4f7a8d7b inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV. ">Algorithm</a> is empty (e.g. in the very beginning or after unsuccessful read.  <a href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86154915a2c596ce62de420e4f7a8d7b">More...</a><br /></td></tr>
+<tr class="memitem:a86154915a2c596ce62de420e4f7a8d7b inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a86154915a2c596ce62de420e4f7a8d7b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86154915a2c596ce62de420e4f7a8d7b">empty</a> ()</td></tr>
+<tr class="memdesc:a86154915a2c596ce62de420e4f7a8d7b inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV.">Algorithm</a> is empty (e.g. in the very beginning or after unsuccessful read.  <br /></td></tr>
 <tr class="separator:a86154915a2c596ce62de420e4f7a8d7b inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4c0ad9f8fd5975a8dbf9209115495db inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#af4c0ad9f8fd5975a8dbf9209115495db">save</a> (string filename)</td></tr>
+<tr class="memitem:af4c0ad9f8fd5975a8dbf9209115495db inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_af4c0ad9f8fd5975a8dbf9209115495db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#af4c0ad9f8fd5975a8dbf9209115495db">save</a> (string filename)</td></tr>
 <tr class="separator:af4c0ad9f8fd5975a8dbf9209115495db inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9f5751351974d69a3a98510d3856518 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#aa9f5751351974d69a3a98510d3856518">getDefaultName</a> ()</td></tr>
+<tr class="memitem:aa9f5751351974d69a3a98510d3856518 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_aa9f5751351974d69a3a98510d3856518"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#aa9f5751351974d69a3a98510d3856518">getDefaultName</a> ()</td></tr>
 <tr class="separator:aa9f5751351974d69a3a98510d3856518 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a68dd6362a65b5bf2f2b8828bef0b7dc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
 <tr class="separator:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
+<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a620f073ff3aa1bcee28fb00edb01dc11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
 <tr class="separator:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a0fd447b1005a31f35e2a4c51ba38db45"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html">BackgroundSubtractorGMG</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#a0fd447b1005a31f35e2a4c51ba38db45">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="memitem:a0fd447b1005a31f35e2a4c51ba38db45" id="r_a0fd447b1005a31f35e2a4c51ba38db45"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html">BackgroundSubtractorGMG</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0fd447b1005a31f35e2a4c51ba38db45">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:a0fd447b1005a31f35e2a4c51ba38db45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html">OpenCVForUnity.VideoModule.BackgroundSubtractor</a></td></tr>
-<tr class="memitem:a390fd233a916289367fb04933d9e2f57 inherit pub_static_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html">BackgroundSubtractor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html#a390fd233a916289367fb04933d9e2f57">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html">OpenCVForUnity.VideoModule.BackgroundSubtractor</a></td></tr>
+<tr class="memitem:a390fd233a916289367fb04933d9e2f57 inherit pub_static_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor" id="r_a390fd233a916289367fb04933d9e2f57"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html">BackgroundSubtractor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html#a390fd233a916289367fb04933d9e2f57">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:a390fd233a916289367fb04933d9e2f57 inherit pub_static_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
-<tr class="memitem:a86d037d927276dadd66bdb102a74b53a inherit pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">Algorithm</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86d037d927276dadd66bdb102a74b53a">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="memitem:a86d037d927276dadd66bdb102a74b53a inherit pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a86d037d927276dadd66bdb102a74b53a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">Algorithm</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86d037d927276dadd66bdb102a74b53a">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:a86d037d927276dadd66bdb102a74b53a inherit pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a4b998ab4293ee3fb7cdc494ed9375fc3"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:ae76d1c5279829852e3410aa65b008e07"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html#ae76d1c5279829852e3410aa65b008e07">Dispose</a> (bool disposing)</td></tr>
+<tr class="memitem:ae76d1c5279829852e3410aa65b008e07" id="r_ae76d1c5279829852e3410aa65b008e07"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae76d1c5279829852e3410aa65b008e07">Dispose</a> (bool disposing)</td></tr>
 <tr class="separator:ae76d1c5279829852e3410aa65b008e07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
-<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html">OpenCVForUnity.VideoModule.BackgroundSubtractor</a></td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_aab50d94cc702503eac045ca7042624ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
 <tr class="separator:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
+<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a6dc5923de5bd43795c72dd7f581ad832"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a1fb2523312e8a423889a1d160e755e7d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
+<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a739b223f2008fae0966c43d0c6f0f72f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
 <tr class="separator:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
+<tr class="memitem:af60676d60f2ec562a162ff126628c8d5 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_af60676d60f2ec562a162ff126628c8d5"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#af60676d60f2ec562a162ff126628c8d5">Dispose</a> (bool disposing)</td></tr>
+<tr class="separator:af60676d60f2ec562a162ff126628c8d5 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_ae924d4d77a5929e39abca6ef9daf6330"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
 <tr class="separator:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a1e47724d49556061a5ba400577be2a13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
+<tr class="inherit_header pac_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_methods_class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor')"><img src="closed.png" alt="-"/>&#160;Package Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_video_module_1_1_background_subtractor.html">OpenCVForUnity.VideoModule.BackgroundSubtractor</a></td></tr>
+<tr class="inherit_header pac_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Package Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="inherit_header pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Package Attributes inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a056e69daaa9ea20e563c5e41b28c1525"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
 <tr class="separator:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
+<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a8e287e3cb5995f483cb64dd6c3b19a7f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Background Subtractor module based on the algorithm given in <b>[Gold2012]</b> . </p>
 <p>Takes a series of images and returns a sequence of mask (8UC1) images of the same size, where 255 indicates Foreground and 0 represents Background. This class implements an algorithm described in "Visual Tracking of Human Visitors under
- Variable-Lighting Conditions for a Responsive Audio Art Installation," A. Godbehere, A. Matsukawa, K. Goldberg, American Control Conference, Montreal, June 2012. </p>
+  Variable-Lighting Conditions for a Responsive Audio Art Installation," A. Godbehere, A. Matsukawa, K. Goldberg, American Control Conference, Montreal, June 2012. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0fd447b1005a31f35e2a4c51ba38db45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0fd447b1005a31f35e2a4c51ba38db45">&#9670;&nbsp;</a></span>__fromPtr__()</h2>
+<a id="a0fd447b1005a31f35e2a4c51ba38db45" name="a0fd447b1005a31f35e2a4c51ba38db45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fd447b1005a31f35e2a4c51ba38db45">&#9670;&#160;</a></span>__fromPtr__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -269,8 +308,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static new <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_background_subtractor_g_m_g.html">BackgroundSubtractorGMG</a> OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.__fromPtr__ </td>
           <td>(</td>
-          <td class="paramtype">IntPtr&#160;</td>
-          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td class="paramtype">IntPtr</td>          <td class="paramname"><span class="paramname"><em>addr</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -283,8 +321,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ae76d1c5279829852e3410aa65b008e07"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae76d1c5279829852e3410aa65b008e07">&#9670;&nbsp;</a></span>Dispose()</h2>
+<a id="ae76d1c5279829852e3410aa65b008e07" name="ae76d1c5279829852e3410aa65b008e07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae76d1c5279829852e3410aa65b008e07">&#9670;&#160;</a></span>Dispose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -295,8 +333,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">override void OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.Dispose </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>disposing</em></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>disposing</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -311,8 +348,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a2561d20606c1f438ed6b0451aa85711f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2561d20606c1f438ed6b0451aa85711f">&#9670;&nbsp;</a></span>getBackgroundPrior()</h2>
+<a id="a2561d20606c1f438ed6b0451aa85711f" name="a2561d20606c1f438ed6b0451aa85711f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2561d20606c1f438ed6b0451aa85711f">&#9670;&#160;</a></span>getBackgroundPrior()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -320,7 +357,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.getBackgroundPrior </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -330,8 +367,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ac4cfbebde62992829b061e73f14e4780"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4cfbebde62992829b061e73f14e4780">&#9670;&nbsp;</a></span>getDecisionThreshold()</h2>
+<a id="ac4cfbebde62992829b061e73f14e4780" name="ac4cfbebde62992829b061e73f14e4780"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4cfbebde62992829b061e73f14e4780">&#9670;&#160;</a></span>getDecisionThreshold()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -339,7 +376,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.getDecisionThreshold </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -350,8 +387,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="acd55841a975d9f4e7fbb468480f2b1f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd55841a975d9f4e7fbb468480f2b1f2">&#9670;&nbsp;</a></span>getDefaultLearningRate()</h2>
+<a id="acd55841a975d9f4e7fbb468480f2b1f2" name="acd55841a975d9f4e7fbb468480f2b1f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd55841a975d9f4e7fbb468480f2b1f2">&#9670;&#160;</a></span>getDefaultLearningRate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -359,7 +396,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.getDefaultLearningRate </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -370,8 +407,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a06c65f6f375dfb6c910a0d6d92db3d7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a06c65f6f375dfb6c910a0d6d92db3d7d">&#9670;&nbsp;</a></span>getMaxFeatures()</h2>
+<a id="a06c65f6f375dfb6c910a0d6d92db3d7d" name="a06c65f6f375dfb6c910a0d6d92db3d7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06c65f6f375dfb6c910a0d6d92db3d7d">&#9670;&#160;</a></span>getMaxFeatures()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -379,7 +416,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.getMaxFeatures </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -389,8 +426,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ad4fc164480e7f784bd68305063fa3dc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4fc164480e7f784bd68305063fa3dc2">&#9670;&nbsp;</a></span>getMaxVal()</h2>
+<a id="ad4fc164480e7f784bd68305063fa3dc2" name="ad4fc164480e7f784bd68305063fa3dc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4fc164480e7f784bd68305063fa3dc2">&#9670;&#160;</a></span>getMaxVal()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -398,7 +435,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.getMaxVal </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -408,8 +445,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="adbb77180c6c8a63d9e5b6583c7fbad35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adbb77180c6c8a63d9e5b6583c7fbad35">&#9670;&nbsp;</a></span>getMinVal()</h2>
+<a id="adbb77180c6c8a63d9e5b6583c7fbad35" name="adbb77180c6c8a63d9e5b6583c7fbad35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbb77180c6c8a63d9e5b6583c7fbad35">&#9670;&#160;</a></span>getMinVal()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -417,7 +454,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.getMinVal </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -427,8 +464,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ad2f18eeeceb72ae521611c9e73e091fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2f18eeeceb72ae521611c9e73e091fa">&#9670;&nbsp;</a></span>getNumFrames()</h2>
+<a id="ad2f18eeeceb72ae521611c9e73e091fa" name="ad2f18eeeceb72ae521611c9e73e091fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2f18eeeceb72ae521611c9e73e091fa">&#9670;&#160;</a></span>getNumFrames()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -436,7 +473,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.getNumFrames </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -446,8 +483,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ac64dcc7291c23eae29190e4e2c635edf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac64dcc7291c23eae29190e4e2c635edf">&#9670;&nbsp;</a></span>getQuantizationLevels()</h2>
+<a id="ac64dcc7291c23eae29190e4e2c635edf" name="ac64dcc7291c23eae29190e4e2c635edf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac64dcc7291c23eae29190e4e2c635edf">&#9670;&#160;</a></span>getQuantizationLevels()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -455,7 +492,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.getQuantizationLevels </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -466,8 +503,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a9e14c8d67eb164fabfd35639e27dbbb4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e14c8d67eb164fabfd35639e27dbbb4">&#9670;&nbsp;</a></span>getSmoothingRadius()</h2>
+<a id="a9e14c8d67eb164fabfd35639e27dbbb4" name="a9e14c8d67eb164fabfd35639e27dbbb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e14c8d67eb164fabfd35639e27dbbb4">&#9670;&#160;</a></span>getSmoothingRadius()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -475,7 +512,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.getSmoothingRadius </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -485,8 +522,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a5ea0821283460fc19d78451c62ba6bca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ea0821283460fc19d78451c62ba6bca">&#9670;&nbsp;</a></span>getUpdateBackgroundModel()</h2>
+<a id="a5ea0821283460fc19d78451c62ba6bca" name="a5ea0821283460fc19d78451c62ba6bca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ea0821283460fc19d78451c62ba6bca">&#9670;&#160;</a></span>getUpdateBackgroundModel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -494,7 +531,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">bool OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.getUpdateBackgroundModel </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -504,8 +541,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a51a87e86a9520d007a642cc661673999"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a51a87e86a9520d007a642cc661673999">&#9670;&nbsp;</a></span>setBackgroundPrior()</h2>
+<a id="a51a87e86a9520d007a642cc661673999" name="a51a87e86a9520d007a642cc661673999"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51a87e86a9520d007a642cc661673999">&#9670;&#160;</a></span>setBackgroundPrior()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -513,8 +550,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.setBackgroundPrior </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>bgprior</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>bgprior</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -524,8 +560,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a1c9d64ad6cf555fce7a63f74bd2a35de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c9d64ad6cf555fce7a63f74bd2a35de">&#9670;&nbsp;</a></span>setDecisionThreshold()</h2>
+<a id="a1c9d64ad6cf555fce7a63f74bd2a35de" name="a1c9d64ad6cf555fce7a63f74bd2a35de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c9d64ad6cf555fce7a63f74bd2a35de">&#9670;&#160;</a></span>setDecisionThreshold()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -533,8 +569,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.setDecisionThreshold </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>thresh</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>thresh</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -544,8 +579,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a642df480f63e7990db8f28450ffdb4db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a642df480f63e7990db8f28450ffdb4db">&#9670;&nbsp;</a></span>setDefaultLearningRate()</h2>
+<a id="a642df480f63e7990db8f28450ffdb4db" name="a642df480f63e7990db8f28450ffdb4db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a642df480f63e7990db8f28450ffdb4db">&#9670;&#160;</a></span>setDefaultLearningRate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -553,8 +588,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.setDefaultLearningRate </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>lr</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>lr</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -564,8 +598,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a5c228e9de84772be6a6e5a35322a9a79"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c228e9de84772be6a6e5a35322a9a79">&#9670;&nbsp;</a></span>setMaxFeatures()</h2>
+<a id="a5c228e9de84772be6a6e5a35322a9a79" name="a5c228e9de84772be6a6e5a35322a9a79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c228e9de84772be6a6e5a35322a9a79">&#9670;&#160;</a></span>setMaxFeatures()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -573,8 +607,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.setMaxFeatures </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>maxFeatures</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxFeatures</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -584,8 +617,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a6d37af69d42a333edced34da541636ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d37af69d42a333edced34da541636ff">&#9670;&nbsp;</a></span>setMaxVal()</h2>
+<a id="a6d37af69d42a333edced34da541636ff" name="a6d37af69d42a333edced34da541636ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d37af69d42a333edced34da541636ff">&#9670;&#160;</a></span>setMaxVal()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -593,8 +626,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.setMaxVal </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -604,8 +636,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a9b6223d0ddcfd313aee7575220cd69e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b6223d0ddcfd313aee7575220cd69e1">&#9670;&nbsp;</a></span>setMinVal()</h2>
+<a id="a9b6223d0ddcfd313aee7575220cd69e1" name="a9b6223d0ddcfd313aee7575220cd69e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b6223d0ddcfd313aee7575220cd69e1">&#9670;&#160;</a></span>setMinVal()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -613,8 +645,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.setMinVal </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -624,8 +655,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a6f8bb4f76cef89d6847feea14bea9a90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f8bb4f76cef89d6847feea14bea9a90">&#9670;&nbsp;</a></span>setNumFrames()</h2>
+<a id="a6f8bb4f76cef89d6847feea14bea9a90" name="a6f8bb4f76cef89d6847feea14bea9a90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f8bb4f76cef89d6847feea14bea9a90">&#9670;&#160;</a></span>setNumFrames()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -633,8 +664,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.setNumFrames </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nframes</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nframes</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -644,8 +674,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a7130a91c102243ea7db4d6cd06433277"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7130a91c102243ea7db4d6cd06433277">&#9670;&nbsp;</a></span>setQuantizationLevels()</h2>
+<a id="a7130a91c102243ea7db4d6cd06433277" name="a7130a91c102243ea7db4d6cd06433277"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7130a91c102243ea7db4d6cd06433277">&#9670;&#160;</a></span>setQuantizationLevels()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -653,8 +683,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.setQuantizationLevels </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nlevels</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nlevels</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -664,8 +693,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a1ba80622cad975783c6a42d73195b307"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ba80622cad975783c6a42d73195b307">&#9670;&nbsp;</a></span>setSmoothingRadius()</h2>
+<a id="a1ba80622cad975783c6a42d73195b307" name="a1ba80622cad975783c6a42d73195b307"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ba80622cad975783c6a42d73195b307">&#9670;&#160;</a></span>setSmoothingRadius()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -673,8 +702,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.setSmoothingRadius </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>radius</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>radius</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -684,8 +712,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="af8a7399b77bb86d431e90c779aa3218e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8a7399b77bb86d431e90c779aa3218e">&#9670;&nbsp;</a></span>setUpdateBackgroundModel()</h2>
+<a id="af8a7399b77bb86d431e90c779aa3218e" name="af8a7399b77bb86d431e90c779aa3218e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8a7399b77bb86d431e90c779aa3218e">&#9670;&#160;</a></span>setUpdateBackgroundModel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -693,8 +721,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.BgsegmModule.BackgroundSubtractorGMG.setUpdateBackgroundModel </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>update</em></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>update</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -710,9 +737,8 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

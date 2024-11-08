@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: OpenCVForUnity.Xfeatures2dModule.DAISY Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,190 +126,199 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_xfeatures2d_module.html">Xfeatures2dModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y-members.html">List of all members</a>  </div>
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.Xfeatures2dModule.DAISY Class Reference</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.Xfeatures2dModule.DAISY Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Class implementing <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html" title="Class implementing DAISY descriptor, described in . ">DAISY</a> descriptor, described in <b>[Tola10]</b>.  
- <a href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#details">More...</a></p>
+<p>Class implementing <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html" title="Class implementing DAISY descriptor, described in Tola10.">DAISY</a> descriptor, described in <b>[Tola10]</b>.  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for OpenCVForUnity.Xfeatures2dModule.DAISY:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.png" usemap="#OpenCVForUnity.Xfeatures2dModule.DAISY_map" alt=""/>
   <map id="OpenCVForUnity.Xfeatures2dModule.DAISY_map" name="OpenCVForUnity.Xfeatures2dModule.DAISY_map">
-<area href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html" title="Abstract base class for 2D image feature detectors and descriptor extractors. " alt="OpenCVForUnity.Features2dModule.Feature2D" shape="rect" coords="0,224,283,248"/>
-<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV. " alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="0,168,283,192"/>
+<area href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html" title="Abstract base class for 2D image feature detectors and descriptor extractors." alt="OpenCVForUnity.Features2dModule.Feature2D" shape="rect" coords="0,224,283,248"/>
+<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV." alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="0,168,283,192"/>
 <area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="0,112,283,136"/>
 <area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="0,56,283,80"/>
-</map>
- </div></div>
+  </map>
+</div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:afcb2335525d4dea8eff930aaf18569c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#afcb2335525d4dea8eff930aaf18569c6">setRadius</a> (float radius)</td></tr>
+<tr class="memitem:afcb2335525d4dea8eff930aaf18569c6" id="r_afcb2335525d4dea8eff930aaf18569c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afcb2335525d4dea8eff930aaf18569c6">setRadius</a> (float radius)</td></tr>
 <tr class="separator:afcb2335525d4dea8eff930aaf18569c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f4a8b16d61f20b6a843cb6f4c57b735"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#a4f4a8b16d61f20b6a843cb6f4c57b735">getRadius</a> ()</td></tr>
+<tr class="memitem:a4f4a8b16d61f20b6a843cb6f4c57b735" id="r_a4f4a8b16d61f20b6a843cb6f4c57b735"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4f4a8b16d61f20b6a843cb6f4c57b735">getRadius</a> ()</td></tr>
 <tr class="separator:a4f4a8b16d61f20b6a843cb6f4c57b735"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41a9691034ea571257114aeb0cc4e589"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#a41a9691034ea571257114aeb0cc4e589">setQRadius</a> (int q_radius)</td></tr>
+<tr class="memitem:a41a9691034ea571257114aeb0cc4e589" id="r_a41a9691034ea571257114aeb0cc4e589"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a41a9691034ea571257114aeb0cc4e589">setQRadius</a> (int q_radius)</td></tr>
 <tr class="separator:a41a9691034ea571257114aeb0cc4e589"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99080c02c902ab2ea187a49c42d76cc1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#a99080c02c902ab2ea187a49c42d76cc1">getQRadius</a> ()</td></tr>
+<tr class="memitem:a99080c02c902ab2ea187a49c42d76cc1" id="r_a99080c02c902ab2ea187a49c42d76cc1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99080c02c902ab2ea187a49c42d76cc1">getQRadius</a> ()</td></tr>
 <tr class="separator:a99080c02c902ab2ea187a49c42d76cc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3dc4350cea7d2661fa2b86fadf90b5e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#ab3dc4350cea7d2661fa2b86fadf90b5e">setQTheta</a> (int q_theta)</td></tr>
+<tr class="memitem:ab3dc4350cea7d2661fa2b86fadf90b5e" id="r_ab3dc4350cea7d2661fa2b86fadf90b5e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3dc4350cea7d2661fa2b86fadf90b5e">setQTheta</a> (int q_theta)</td></tr>
 <tr class="separator:ab3dc4350cea7d2661fa2b86fadf90b5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac0b1738acbe2d24404043b850b94c70"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#aac0b1738acbe2d24404043b850b94c70">getQTheta</a> ()</td></tr>
+<tr class="memitem:aac0b1738acbe2d24404043b850b94c70" id="r_aac0b1738acbe2d24404043b850b94c70"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac0b1738acbe2d24404043b850b94c70">getQTheta</a> ()</td></tr>
 <tr class="separator:aac0b1738acbe2d24404043b850b94c70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab13bc27a3b114dd64812b4d3084f9142"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#ab13bc27a3b114dd64812b4d3084f9142">setQHist</a> (int q_hist)</td></tr>
+<tr class="memitem:ab13bc27a3b114dd64812b4d3084f9142" id="r_ab13bc27a3b114dd64812b4d3084f9142"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab13bc27a3b114dd64812b4d3084f9142">setQHist</a> (int q_hist)</td></tr>
 <tr class="separator:ab13bc27a3b114dd64812b4d3084f9142"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae37aa079c74f55ae727637f541395ee0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#ae37aa079c74f55ae727637f541395ee0">getQHist</a> ()</td></tr>
+<tr class="memitem:ae37aa079c74f55ae727637f541395ee0" id="r_ae37aa079c74f55ae727637f541395ee0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae37aa079c74f55ae727637f541395ee0">getQHist</a> ()</td></tr>
 <tr class="separator:ae37aa079c74f55ae727637f541395ee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af484b4b8c59123e341ba4bd471c387b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#af484b4b8c59123e341ba4bd471c387b3">setNorm</a> (int norm)</td></tr>
+<tr class="memitem:af484b4b8c59123e341ba4bd471c387b3" id="r_af484b4b8c59123e341ba4bd471c387b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af484b4b8c59123e341ba4bd471c387b3">setNorm</a> (int norm)</td></tr>
 <tr class="separator:af484b4b8c59123e341ba4bd471c387b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85764598cb6ebae29628a05b8b6f61ec"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#a85764598cb6ebae29628a05b8b6f61ec">getNorm</a> ()</td></tr>
+<tr class="memitem:a85764598cb6ebae29628a05b8b6f61ec" id="r_a85764598cb6ebae29628a05b8b6f61ec"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a85764598cb6ebae29628a05b8b6f61ec">getNorm</a> ()</td></tr>
 <tr class="separator:a85764598cb6ebae29628a05b8b6f61ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a550239c351f7dd5fb4f7d4e2c24c6dc1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#a550239c351f7dd5fb4f7d4e2c24c6dc1">setH</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> H)</td></tr>
+<tr class="memitem:a550239c351f7dd5fb4f7d4e2c24c6dc1" id="r_a550239c351f7dd5fb4f7d4e2c24c6dc1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a550239c351f7dd5fb4f7d4e2c24c6dc1">setH</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> H)</td></tr>
 <tr class="separator:a550239c351f7dd5fb4f7d4e2c24c6dc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9409cf8b4765de1e456e99097cfd6393"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#a9409cf8b4765de1e456e99097cfd6393">getH</a> ()</td></tr>
+<tr class="memitem:a9409cf8b4765de1e456e99097cfd6393" id="r_a9409cf8b4765de1e456e99097cfd6393"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9409cf8b4765de1e456e99097cfd6393">getH</a> ()</td></tr>
 <tr class="separator:a9409cf8b4765de1e456e99097cfd6393"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5ac3207916942e0810a69aaa3b750d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#aa5ac3207916942e0810a69aaa3b750d7">setInterpolation</a> (bool interpolation)</td></tr>
+<tr class="memitem:aa5ac3207916942e0810a69aaa3b750d7" id="r_aa5ac3207916942e0810a69aaa3b750d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa5ac3207916942e0810a69aaa3b750d7">setInterpolation</a> (bool interpolation)</td></tr>
 <tr class="separator:aa5ac3207916942e0810a69aaa3b750d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28db67a036c754f2ea57b05c5431ece3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#a28db67a036c754f2ea57b05c5431ece3">getInterpolation</a> ()</td></tr>
+<tr class="memitem:a28db67a036c754f2ea57b05c5431ece3" id="r_a28db67a036c754f2ea57b05c5431ece3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a28db67a036c754f2ea57b05c5431ece3">getInterpolation</a> ()</td></tr>
 <tr class="separator:a28db67a036c754f2ea57b05c5431ece3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab28e3aff90366952880d70cd63f94821"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#ab28e3aff90366952880d70cd63f94821">setUseOrientation</a> (bool use_orientation)</td></tr>
+<tr class="memitem:ab28e3aff90366952880d70cd63f94821" id="r_ab28e3aff90366952880d70cd63f94821"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab28e3aff90366952880d70cd63f94821">setUseOrientation</a> (bool use_orientation)</td></tr>
 <tr class="separator:ab28e3aff90366952880d70cd63f94821"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae336384202da91f790785668e6b3a1ba"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#ae336384202da91f790785668e6b3a1ba">getUseOrientation</a> ()</td></tr>
+<tr class="memitem:ae336384202da91f790785668e6b3a1ba" id="r_ae336384202da91f790785668e6b3a1ba"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae336384202da91f790785668e6b3a1ba">getUseOrientation</a> ()</td></tr>
 <tr class="separator:ae336384202da91f790785668e6b3a1ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f828eb9508f406c9b2610f4aa9c0f23"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#a8f828eb9508f406c9b2610f4aa9c0f23">getDefaultName</a> ()</td></tr>
+<tr class="memitem:a8f828eb9508f406c9b2610f4aa9c0f23" id="r_a8f828eb9508f406c9b2610f4aa9c0f23"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f828eb9508f406c9b2610f4aa9c0f23">getDefaultName</a> ()</td></tr>
 <tr class="separator:a8f828eb9508f406c9b2610f4aa9c0f23"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html">OpenCVForUnity.Features2dModule.Feature2D</a></td></tr>
-<tr class="memitem:ac176e0bc67ca4802321365eae0d075fb inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#ac176e0bc67ca4802321365eae0d075fb">detect</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> mask)</td></tr>
-<tr class="memdesc:ac176e0bc67ca4802321365eae0d075fb inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects keypoints in an image (first variant) or image set (second variant).  <a href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#ac176e0bc67ca4802321365eae0d075fb">More...</a><br /></td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html">OpenCVForUnity.Features2dModule.Feature2D</a></td></tr>
+<tr class="memitem:ac176e0bc67ca4802321365eae0d075fb inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_ac176e0bc67ca4802321365eae0d075fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#ac176e0bc67ca4802321365eae0d075fb">detect</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> mask)</td></tr>
+<tr class="memdesc:ac176e0bc67ca4802321365eae0d075fb inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects keypoints in an image (first variant) or image set (second variant).  <br /></td></tr>
 <tr class="separator:ac176e0bc67ca4802321365eae0d075fb inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab61b17ab6811c313ab5a946710737aa2 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#ab61b17ab6811c313ab5a946710737aa2">detect</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints)</td></tr>
-<tr class="memdesc:ab61b17ab6811c313ab5a946710737aa2 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects keypoints in an image (first variant) or image set (second variant).  <a href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#ab61b17ab6811c313ab5a946710737aa2">More...</a><br /></td></tr>
+<tr class="memitem:ab61b17ab6811c313ab5a946710737aa2 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_ab61b17ab6811c313ab5a946710737aa2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#ab61b17ab6811c313ab5a946710737aa2">detect</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints)</td></tr>
+<tr class="memdesc:ab61b17ab6811c313ab5a946710737aa2 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects keypoints in an image (first variant) or image set (second variant).  <br /></td></tr>
 <tr class="separator:ab61b17ab6811c313ab5a946710737aa2 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f131e39706646d72e2beabcf5a8c519 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a5f131e39706646d72e2beabcf5a8c519">detect</a> (List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; images, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> &gt; keypoints, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; masks)</td></tr>
+<tr class="memitem:a5f131e39706646d72e2beabcf5a8c519 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_a5f131e39706646d72e2beabcf5a8c519"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a5f131e39706646d72e2beabcf5a8c519">detect</a> (List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; images, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> &gt; keypoints, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; masks)</td></tr>
 <tr class="separator:a5f131e39706646d72e2beabcf5a8c519 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41ac7c65882c8b980b3d199ad25f5ff7 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a41ac7c65882c8b980b3d199ad25f5ff7">detect</a> (List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; images, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> &gt; keypoints)</td></tr>
+<tr class="memitem:a41ac7c65882c8b980b3d199ad25f5ff7 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_a41ac7c65882c8b980b3d199ad25f5ff7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a41ac7c65882c8b980b3d199ad25f5ff7">detect</a> (List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; images, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> &gt; keypoints)</td></tr>
 <tr class="separator:a41ac7c65882c8b980b3d199ad25f5ff7 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16239271dcab53a6f02a8321fcfb1e2c inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a16239271dcab53a6f02a8321fcfb1e2c">compute</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> descriptors)</td></tr>
-<tr class="memdesc:a16239271dcab53a6f02a8321fcfb1e2c inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the descriptors for a set of keypoints detected in an image (first variant) or image set (second variant).  <a href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a16239271dcab53a6f02a8321fcfb1e2c">More...</a><br /></td></tr>
+<tr class="memitem:a16239271dcab53a6f02a8321fcfb1e2c inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_a16239271dcab53a6f02a8321fcfb1e2c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a16239271dcab53a6f02a8321fcfb1e2c">compute</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> descriptors)</td></tr>
+<tr class="memdesc:a16239271dcab53a6f02a8321fcfb1e2c inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the descriptors for a set of keypoints detected in an image (first variant) or image set (second variant).  <br /></td></tr>
 <tr class="separator:a16239271dcab53a6f02a8321fcfb1e2c inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1964b15a071be635fc0561f8dec5db8e inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a1964b15a071be635fc0561f8dec5db8e">compute</a> (List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; images, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> &gt; keypoints, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; descriptors)</td></tr>
+<tr class="memitem:a1964b15a071be635fc0561f8dec5db8e inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_a1964b15a071be635fc0561f8dec5db8e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a1964b15a071be635fc0561f8dec5db8e">compute</a> (List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; images, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> &gt; keypoints, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; descriptors)</td></tr>
 <tr class="separator:a1964b15a071be635fc0561f8dec5db8e inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ab82d79d0b2d93015f60fde4bacfd6c inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a4ab82d79d0b2d93015f60fde4bacfd6c">detectAndCompute</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> mask, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> descriptors, bool useProvidedKeypoints)</td></tr>
+<tr class="memitem:a4ab82d79d0b2d93015f60fde4bacfd6c inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_a4ab82d79d0b2d93015f60fde4bacfd6c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a4ab82d79d0b2d93015f60fde4bacfd6c">detectAndCompute</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> mask, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> descriptors, bool useProvidedKeypoints)</td></tr>
 <tr class="separator:a4ab82d79d0b2d93015f60fde4bacfd6c inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0cc28e879834e66c60544d9c3a8f38a4 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a0cc28e879834e66c60544d9c3a8f38a4">detectAndCompute</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> mask, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> descriptors)</td></tr>
+<tr class="memitem:a0cc28e879834e66c60544d9c3a8f38a4 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_a0cc28e879834e66c60544d9c3a8f38a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a0cc28e879834e66c60544d9c3a8f38a4">detectAndCompute</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> mask, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> descriptors)</td></tr>
 <tr class="separator:a0cc28e879834e66c60544d9c3a8f38a4 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af278c8d850e874fd034d7b5ba7f985da inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#af278c8d850e874fd034d7b5ba7f985da">descriptorSize</a> ()</td></tr>
+<tr class="memitem:af278c8d850e874fd034d7b5ba7f985da inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_af278c8d850e874fd034d7b5ba7f985da"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#af278c8d850e874fd034d7b5ba7f985da">descriptorSize</a> ()</td></tr>
 <tr class="separator:af278c8d850e874fd034d7b5ba7f985da inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8053af7ef8be1576089149c5ac898c36 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a8053af7ef8be1576089149c5ac898c36">descriptorType</a> ()</td></tr>
+<tr class="memitem:a8053af7ef8be1576089149c5ac898c36 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_a8053af7ef8be1576089149c5ac898c36"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a8053af7ef8be1576089149c5ac898c36">descriptorType</a> ()</td></tr>
 <tr class="separator:a8053af7ef8be1576089149c5ac898c36 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89180b7bf419c689107c3b2a2790f860 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a89180b7bf419c689107c3b2a2790f860">defaultNorm</a> ()</td></tr>
+<tr class="memitem:a89180b7bf419c689107c3b2a2790f860 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_a89180b7bf419c689107c3b2a2790f860"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a89180b7bf419c689107c3b2a2790f860">defaultNorm</a> ()</td></tr>
 <tr class="separator:a89180b7bf419c689107c3b2a2790f860 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabe757ce596a39cb7f0561cf3abb6ece inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#aabe757ce596a39cb7f0561cf3abb6ece">write</a> (string fileName)</td></tr>
+<tr class="memitem:aabe757ce596a39cb7f0561cf3abb6ece inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_aabe757ce596a39cb7f0561cf3abb6ece"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#aabe757ce596a39cb7f0561cf3abb6ece">write</a> (string fileName)</td></tr>
 <tr class="separator:aabe757ce596a39cb7f0561cf3abb6ece inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2937efb55677667981f64704df3d90a3 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a2937efb55677667981f64704df3d90a3">read</a> (string fileName)</td></tr>
+<tr class="memitem:a2937efb55677667981f64704df3d90a3 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_a2937efb55677667981f64704df3d90a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a2937efb55677667981f64704df3d90a3">read</a> (string fileName)</td></tr>
 <tr class="separator:a2937efb55677667981f64704df3d90a3 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d9cebd6e4f7f083b521fb1c03f987bc inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">override bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a2d9cebd6e4f7f083b521fb1c03f987bc">empty</a> ()</td></tr>
-<tr class="memdesc:a2d9cebd6e4f7f083b521fb1c03f987bc inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the Algorithm is empty (e.g. in the very beginning or after unsuccessful read.  <a href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a2d9cebd6e4f7f083b521fb1c03f987bc">More...</a><br /></td></tr>
+<tr class="memitem:a2d9cebd6e4f7f083b521fb1c03f987bc inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_a2d9cebd6e4f7f083b521fb1c03f987bc"><td class="memItemLeft" align="right" valign="top">override bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a2d9cebd6e4f7f083b521fb1c03f987bc">empty</a> ()</td></tr>
+<tr class="memdesc:a2d9cebd6e4f7f083b521fb1c03f987bc inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the Algorithm is empty (e.g. in the very beginning or after unsuccessful read.  <br /></td></tr>
 <tr class="separator:a2d9cebd6e4f7f083b521fb1c03f987bc inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
-<tr class="memitem:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a8023b07a6a0100bb4c9eccd175bc68df">getNativeObjAddr</a> ()</td></tr>
+<tr class="memitem:ac70b90fd9e439811ec89d198dea84a25 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_ac70b90fd9e439811ec89d198dea84a25"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#ac70b90fd9e439811ec89d198dea84a25">getDefaultName</a> ()</td></tr>
+<tr class="separator:ac70b90fd9e439811ec89d198dea84a25 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="memitem:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a8023b07a6a0100bb4c9eccd175bc68df"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a8023b07a6a0100bb4c9eccd175bc68df">getNativeObjAddr</a> ()</td></tr>
 <tr class="separator:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a54f71b05d21ec0abc593bb50cf66ce12">clear</a> ()</td></tr>
-<tr class="memdesc:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the algorithm state.  <a href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a54f71b05d21ec0abc593bb50cf66ce12">More...</a><br /></td></tr>
+<tr class="memitem:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a54f71b05d21ec0abc593bb50cf66ce12"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a54f71b05d21ec0abc593bb50cf66ce12">clear</a> ()</td></tr>
+<tr class="memdesc:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the algorithm state.  <br /></td></tr>
 <tr class="separator:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4c0ad9f8fd5975a8dbf9209115495db inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#af4c0ad9f8fd5975a8dbf9209115495db">save</a> (string filename)</td></tr>
+<tr class="memitem:af4c0ad9f8fd5975a8dbf9209115495db inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_af4c0ad9f8fd5975a8dbf9209115495db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#af4c0ad9f8fd5975a8dbf9209115495db">save</a> (string filename)</td></tr>
 <tr class="separator:af4c0ad9f8fd5975a8dbf9209115495db inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a68dd6362a65b5bf2f2b8828bef0b7dc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
 <tr class="separator:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
+<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a620f073ff3aa1bcee28fb00edb01dc11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
 <tr class="separator:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ab0207133fe763feb8ab521e12ad61f99"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#ab0207133fe763feb8ab521e12ad61f99">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="memitem:ab0207133fe763feb8ab521e12ad61f99" id="r_ab0207133fe763feb8ab521e12ad61f99"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab0207133fe763feb8ab521e12ad61f99">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:ab0207133fe763feb8ab521e12ad61f99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40a048e3ca2737bd753dc7909f24d0d1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#a40a048e3ca2737bd753dc7909f24d0d1">create</a> (float radius, int q_radius, int q_theta, int q_hist, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> H, bool interpolation, bool use_orientation)</td></tr>
+<tr class="memitem:a40a048e3ca2737bd753dc7909f24d0d1" id="r_a40a048e3ca2737bd753dc7909f24d0d1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a40a048e3ca2737bd753dc7909f24d0d1">create</a> (float radius, int q_radius, int q_theta, int q_hist, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> H, bool interpolation, bool use_orientation)</td></tr>
 <tr class="separator:a40a048e3ca2737bd753dc7909f24d0d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ad633e8d37f48c55982b7d3eeb13afe"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#a8ad633e8d37f48c55982b7d3eeb13afe">create</a> (float radius, int q_radius, int q_theta, int q_hist, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> H, bool interpolation)</td></tr>
+<tr class="memitem:a8ad633e8d37f48c55982b7d3eeb13afe" id="r_a8ad633e8d37f48c55982b7d3eeb13afe"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8ad633e8d37f48c55982b7d3eeb13afe">create</a> (float radius, int q_radius, int q_theta, int q_hist, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> H, bool interpolation)</td></tr>
 <tr class="separator:a8ad633e8d37f48c55982b7d3eeb13afe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33b07c5f11716801bf7344c6abf7b1a7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#a33b07c5f11716801bf7344c6abf7b1a7">create</a> (float radius, int q_radius, int q_theta, int q_hist, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> H)</td></tr>
+<tr class="memitem:a33b07c5f11716801bf7344c6abf7b1a7" id="r_a33b07c5f11716801bf7344c6abf7b1a7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a33b07c5f11716801bf7344c6abf7b1a7">create</a> (float radius, int q_radius, int q_theta, int q_hist, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> H)</td></tr>
 <tr class="separator:a33b07c5f11716801bf7344c6abf7b1a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad2f813158bb96fd9cf71c7fe001b1ca"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#aad2f813158bb96fd9cf71c7fe001b1ca">create</a> (float radius, int q_radius, int q_theta, int q_hist)</td></tr>
+<tr class="memitem:aad2f813158bb96fd9cf71c7fe001b1ca" id="r_aad2f813158bb96fd9cf71c7fe001b1ca"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad2f813158bb96fd9cf71c7fe001b1ca">create</a> (float radius, int q_radius, int q_theta, int q_hist)</td></tr>
 <tr class="separator:aad2f813158bb96fd9cf71c7fe001b1ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa45ffa60282efefc8191de9e37702161"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#aa45ffa60282efefc8191de9e37702161">create</a> (float radius, int q_radius, int q_theta)</td></tr>
+<tr class="memitem:aa45ffa60282efefc8191de9e37702161" id="r_aa45ffa60282efefc8191de9e37702161"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa45ffa60282efefc8191de9e37702161">create</a> (float radius, int q_radius, int q_theta)</td></tr>
 <tr class="separator:aa45ffa60282efefc8191de9e37702161"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe558dac6ca577f40166492b49fac431"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#afe558dac6ca577f40166492b49fac431">create</a> (float radius, int q_radius)</td></tr>
+<tr class="memitem:afe558dac6ca577f40166492b49fac431" id="r_afe558dac6ca577f40166492b49fac431"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe558dac6ca577f40166492b49fac431">create</a> (float radius, int q_radius)</td></tr>
 <tr class="separator:afe558dac6ca577f40166492b49fac431"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92035d6419185147a48b832e4e5962bf"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#a92035d6419185147a48b832e4e5962bf">create</a> (float radius)</td></tr>
+<tr class="memitem:a92035d6419185147a48b832e4e5962bf" id="r_a92035d6419185147a48b832e4e5962bf"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a92035d6419185147a48b832e4e5962bf">create</a> (float radius)</td></tr>
 <tr class="separator:a92035d6419185147a48b832e4e5962bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fc76896271aebb6d942fe123423f2fc"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#a8fc76896271aebb6d942fe123423f2fc">create</a> ()</td></tr>
+<tr class="memitem:a8fc76896271aebb6d942fe123423f2fc" id="r_a8fc76896271aebb6d942fe123423f2fc"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8fc76896271aebb6d942fe123423f2fc">create</a> ()</td></tr>
 <tr class="separator:a8fc76896271aebb6d942fe123423f2fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html">OpenCVForUnity.Features2dModule.Feature2D</a></td></tr>
-<tr class="memitem:ae1fa0839c535453a3ef8509783d3bd65 inherit pub_static_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html">Feature2D</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#ae1fa0839c535453a3ef8509783d3bd65">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html">OpenCVForUnity.Features2dModule.Feature2D</a></td></tr>
+<tr class="memitem:ae1fa0839c535453a3ef8509783d3bd65 inherit pub_static_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_ae1fa0839c535453a3ef8509783d3bd65"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html">Feature2D</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#ae1fa0839c535453a3ef8509783d3bd65">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:ae1fa0839c535453a3ef8509783d3bd65 inherit pub_static_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
-<tr class="memitem:a86d037d927276dadd66bdb102a74b53a inherit pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">Algorithm</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86d037d927276dadd66bdb102a74b53a">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="memitem:a86d037d927276dadd66bdb102a74b53a inherit pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a86d037d927276dadd66bdb102a74b53a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">Algorithm</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86d037d927276dadd66bdb102a74b53a">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:a86d037d927276dadd66bdb102a74b53a inherit pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a4b998ab4293ee3fb7cdc494ed9375fc3"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:ad77689b59f34440da411cdd2bd290b0a"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#ad77689b59f34440da411cdd2bd290b0a">NRM_NONE</a> = 100</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:ad77689b59f34440da411cdd2bd290b0a" id="r_ad77689b59f34440da411cdd2bd290b0a"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad77689b59f34440da411cdd2bd290b0a">NRM_NONE</a> = 100</td></tr>
 <tr class="separator:ad77689b59f34440da411cdd2bd290b0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a186528212dea4205a57b98bae4e14c10"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#a186528212dea4205a57b98bae4e14c10">NRM_PARTIAL</a> = 101</td></tr>
+<tr class="memitem:a186528212dea4205a57b98bae4e14c10" id="r_a186528212dea4205a57b98bae4e14c10"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a186528212dea4205a57b98bae4e14c10">NRM_PARTIAL</a> = 101</td></tr>
 <tr class="separator:a186528212dea4205a57b98bae4e14c10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a634468a2dbc2af0f42ef85995f8957"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#a7a634468a2dbc2af0f42ef85995f8957">NRM_FULL</a> = 102</td></tr>
+<tr class="memitem:a7a634468a2dbc2af0f42ef85995f8957" id="r_a7a634468a2dbc2af0f42ef85995f8957"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7a634468a2dbc2af0f42ef85995f8957">NRM_FULL</a> = 102</td></tr>
 <tr class="separator:a7a634468a2dbc2af0f42ef85995f8957"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8e3648bd23f4b27696b5d0d2b01f9cf"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#ae8e3648bd23f4b27696b5d0d2b01f9cf">NRM_SIFT</a> = 103</td></tr>
+<tr class="memitem:ae8e3648bd23f4b27696b5d0d2b01f9cf" id="r_ae8e3648bd23f4b27696b5d0d2b01f9cf"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8e3648bd23f4b27696b5d0d2b01f9cf">NRM_SIFT</a> = 103</td></tr>
 <tr class="separator:ae8e3648bd23f4b27696b5d0d2b01f9cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a37fc8bf7e87a972949e9c6980b06f583"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#a37fc8bf7e87a972949e9c6980b06f583">Dispose</a> (bool disposing)</td></tr>
+<tr class="memitem:a37fc8bf7e87a972949e9c6980b06f583" id="r_a37fc8bf7e87a972949e9c6980b06f583"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37fc8bf7e87a972949e9c6980b06f583">Dispose</a> (bool disposing)</td></tr>
 <tr class="separator:a37fc8bf7e87a972949e9c6980b06f583"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
-<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html">OpenCVForUnity.Features2dModule.Feature2D</a></td></tr>
+<tr class="memitem:aa4107203f4cc9c871adf34a7d0c701fc inherit pro_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_aa4107203f4cc9c871adf34a7d0c701fc"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#aa4107203f4cc9c871adf34a7d0c701fc">Dispose</a> (bool disposing)</td></tr>
+<tr class="separator:aa4107203f4cc9c871adf34a7d0c701fc inherit pro_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_aab50d94cc702503eac045ca7042624ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
 <tr class="separator:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
+<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a6dc5923de5bd43795c72dd7f581ad832"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a1fb2523312e8a423889a1d160e755e7d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
+<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a739b223f2008fae0966c43d0c6f0f72f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
 <tr class="separator:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_ae924d4d77a5929e39abca6ef9daf6330"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
 <tr class="separator:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a1e47724d49556061a5ba400577be2a13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
+<tr class="inherit_header pac_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d')"><img src="closed.png" alt="-"/>&#160;Package Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html">OpenCVForUnity.Features2dModule.Feature2D</a></td></tr>
+<tr class="inherit_header pac_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Package Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="inherit_header pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Package Attributes inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a056e69daaa9ea20e563c5e41b28c1525"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
 <tr class="separator:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
+<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a8e287e3cb5995f483cb64dd6c3b19a7f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class implementing <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html" title="Class implementing DAISY descriptor, described in . ">DAISY</a> descriptor, described in <b>[Tola10]</b>. </p>
-<p>radius radius of the descriptor at the initial scale q_radius amount of radial range division quantity q_theta amount of angular range division quantity q_hist amount of gradient orientations range division quantity norm choose descriptors normalization type, where <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#ad77689b59f34440da411cdd2bd290b0a">DAISY::NRM_NONE</a> will not do any normalization (default), <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#a186528212dea4205a57b98bae4e14c10">DAISY::NRM_PARTIAL</a> mean that histograms are normalized independently for L2 norm equal to 1.0, <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#a7a634468a2dbc2af0f42ef85995f8957">DAISY::NRM_FULL</a> mean that descriptors are normalized for L2 norm equal to 1.0, <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html#ae8e3648bd23f4b27696b5d0d2b01f9cf">DAISY::NRM_SIFT</a> mean that descriptors are normalized for L2 norm equal to 1.0 but no individual one is bigger than 0.154 as in SIFT H optional 3x3 homography matrix used to warp the grid of daisy but sampling keypoints remains unwarped on image interpolation switch to disable interpolation for speed improvement at minor quality loss use_orientation sample patterns using keypoints orientation, disabled by default. </p>
+<div class="textblock"><p>Class implementing <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html" title="Class implementing DAISY descriptor, described in Tola10.">DAISY</a> descriptor, described in <b>[Tola10]</b>. </p>
+<p>radius radius of the descriptor at the initial scale q_radius amount of radial range division quantity q_theta amount of angular range division quantity q_hist amount of gradient orientations range division quantity norm choose descriptors normalization type, where <a class="el" href="#ad77689b59f34440da411cdd2bd290b0a">DAISY.NRM_NONE</a> will not do any normalization (default), <a class="el" href="#a186528212dea4205a57b98bae4e14c10">DAISY.NRM_PARTIAL</a> mean that histograms are normalized independently for L2 norm equal to 1.0, <a class="el" href="#a7a634468a2dbc2af0f42ef85995f8957">DAISY.NRM_FULL</a> mean that descriptors are normalized for L2 norm equal to 1.0, <a class="el" href="#ae8e3648bd23f4b27696b5d0d2b01f9cf">DAISY.NRM_SIFT</a> mean that descriptors are normalized for L2 norm equal to 1.0 but no individual one is bigger than 0.154 as in SIFT H optional 3x3 homography matrix used to warp the grid of daisy but sampling keypoints remains unwarped on image interpolation switch to disable interpolation for speed improvement at minor quality loss use_orientation sample patterns using keypoints orientation, disabled by default. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab0207133fe763feb8ab521e12ad61f99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0207133fe763feb8ab521e12ad61f99">&#9670;&nbsp;</a></span>__fromPtr__()</h2>
+<a id="ab0207133fe763feb8ab521e12ad61f99" name="ab0207133fe763feb8ab521e12ad61f99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0207133fe763feb8ab521e12ad61f99">&#9670;&#160;</a></span>__fromPtr__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -288,8 +329,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static new <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a> OpenCVForUnity.Xfeatures2dModule.DAISY.__fromPtr__ </td>
           <td>(</td>
-          <td class="paramtype">IntPtr&#160;</td>
-          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td class="paramtype">IntPtr</td>          <td class="paramname"><span class="paramname"><em>addr</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -302,8 +342,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a40a048e3ca2737bd753dc7909f24d0d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40a048e3ca2737bd753dc7909f24d0d1">&#9670;&nbsp;</a></span>create() <span class="overload">[1/8]</span></h2>
+<a id="a8fc76896271aebb6d942fe123423f2fc" name="a8fc76896271aebb6d942fe123423f2fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fc76896271aebb6d942fe123423f2fc">&#9670;&#160;</a></span>create() <span class="overload">[1/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -314,49 +354,8 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a> OpenCVForUnity.Xfeatures2dModule.DAISY.create </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>radius</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>q_radius</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>q_theta</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>q_hist</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>H</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>interpolation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>use_orientation</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -368,8 +367,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a8ad633e8d37f48c55982b7d3eeb13afe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ad633e8d37f48c55982b7d3eeb13afe">&#9670;&nbsp;</a></span>create() <span class="overload">[2/8]</span></h2>
+<a id="a92035d6419185147a48b832e4e5962bf" name="a92035d6419185147a48b832e4e5962bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92035d6419185147a48b832e4e5962bf">&#9670;&#160;</a></span>create() <span class="overload">[2/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -380,43 +379,8 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a> OpenCVForUnity.Xfeatures2dModule.DAISY.create </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>radius</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>radius</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>q_radius</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>q_theta</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>q_hist</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>H</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>interpolation</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -428,8 +392,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a33b07c5f11716801bf7344c6abf7b1a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33b07c5f11716801bf7344c6abf7b1a7">&#9670;&nbsp;</a></span>create() <span class="overload">[3/8]</span></h2>
+<a id="afe558dac6ca577f40166492b49fac431" name="afe558dac6ca577f40166492b49fac431"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe558dac6ca577f40166492b49fac431">&#9670;&#160;</a></span>create() <span class="overload">[3/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -440,37 +404,12 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a> OpenCVForUnity.Xfeatures2dModule.DAISY.create </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>radius</em>, </td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>radius</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>q_radius</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>q_theta</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>q_hist</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>H</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>q_radius</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -482,8 +421,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aad2f813158bb96fd9cf71c7fe001b1ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad2f813158bb96fd9cf71c7fe001b1ca">&#9670;&nbsp;</a></span>create() <span class="overload">[4/8]</span></h2>
+<a id="aa45ffa60282efefc8191de9e37702161" name="aa45ffa60282efefc8191de9e37702161"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa45ffa60282efefc8191de9e37702161">&#9670;&#160;</a></span>create() <span class="overload">[4/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -494,31 +433,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a> OpenCVForUnity.Xfeatures2dModule.DAISY.create </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>radius</em>, </td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>radius</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>q_radius</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>q_radius</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>q_theta</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>q_hist</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>q_theta</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -530,8 +455,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aa45ffa60282efefc8191de9e37702161"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa45ffa60282efefc8191de9e37702161">&#9670;&nbsp;</a></span>create() <span class="overload">[5/8]</span></h2>
+<a id="aad2f813158bb96fd9cf71c7fe001b1ca" name="aad2f813158bb96fd9cf71c7fe001b1ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad2f813158bb96fd9cf71c7fe001b1ca">&#9670;&#160;</a></span>create() <span class="overload">[5/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -542,25 +467,22 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a> OpenCVForUnity.Xfeatures2dModule.DAISY.create </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>radius</em>, </td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>radius</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>q_radius</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>q_radius</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>q_theta</em>&#160;</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>q_theta</em></span>, </td>
         </tr>
         <tr>
+          <td class="paramkey"></td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>q_hist</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -572,8 +494,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="afe558dac6ca577f40166492b49fac431"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afe558dac6ca577f40166492b49fac431">&#9670;&nbsp;</a></span>create() <span class="overload">[6/8]</span></h2>
+<a id="a33b07c5f11716801bf7344c6abf7b1a7" name="a33b07c5f11716801bf7344c6abf7b1a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33b07c5f11716801bf7344c6abf7b1a7">&#9670;&#160;</a></span>create() <span class="overload">[6/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -584,19 +506,27 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a> OpenCVForUnity.Xfeatures2dModule.DAISY.create </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>radius</em>, </td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>radius</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>q_radius</em>&#160;</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>q_radius</em></span>, </td>
         </tr>
         <tr>
+          <td class="paramkey"></td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>q_theta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>q_hist</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>H</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -608,8 +538,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a92035d6419185147a48b832e4e5962bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92035d6419185147a48b832e4e5962bf">&#9670;&nbsp;</a></span>create() <span class="overload">[7/8]</span></h2>
+<a id="a8ad633e8d37f48c55982b7d3eeb13afe" name="a8ad633e8d37f48c55982b7d3eeb13afe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ad633e8d37f48c55982b7d3eeb13afe">&#9670;&#160;</a></span>create() <span class="overload">[7/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -620,9 +550,32 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a> OpenCVForUnity.Xfeatures2dModule.DAISY.create </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>radius</em></td><td>)</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>radius</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>q_radius</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>q_theta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>q_hist</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>H</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>interpolation</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -634,8 +587,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a8fc76896271aebb6d942fe123423f2fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8fc76896271aebb6d942fe123423f2fc">&#9670;&nbsp;</a></span>create() <span class="overload">[8/8]</span></h2>
+<a id="a40a048e3ca2737bd753dc7909f24d0d1" name="a40a048e3ca2737bd753dc7909f24d0d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40a048e3ca2737bd753dc7909f24d0d1">&#9670;&#160;</a></span>create() <span class="overload">[8/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -646,8 +599,37 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_d_a_i_s_y.html">DAISY</a> OpenCVForUnity.Xfeatures2dModule.DAISY.create </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>radius</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>q_radius</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>q_theta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>q_hist</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>H</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>interpolation</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>use_orientation</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -659,8 +641,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a37fc8bf7e87a972949e9c6980b06f583"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a37fc8bf7e87a972949e9c6980b06f583">&#9670;&nbsp;</a></span>Dispose()</h2>
+<a id="a37fc8bf7e87a972949e9c6980b06f583" name="a37fc8bf7e87a972949e9c6980b06f583"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37fc8bf7e87a972949e9c6980b06f583">&#9670;&#160;</a></span>Dispose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -671,8 +653,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">override void OpenCVForUnity.Xfeatures2dModule.DAISY.Dispose </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>disposing</em></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>disposing</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -683,12 +664,12 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented from <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#aa4107203f4cc9c871adf34a7d0c701fc">OpenCVForUnity.Features2dModule.Feature2D</a>.</p>
+<p>Reimplemented from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#ae1fddfb613d636778b282ee027a872f6">OpenCVForUnity.CoreModule.Algorithm</a>.</p>
 
 </div>
 </div>
-<a id="a8f828eb9508f406c9b2610f4aa9c0f23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f828eb9508f406c9b2610f4aa9c0f23">&#9670;&nbsp;</a></span>getDefaultName()</h2>
+<a id="a8f828eb9508f406c9b2610f4aa9c0f23" name="a8f828eb9508f406c9b2610f4aa9c0f23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f828eb9508f406c9b2610f4aa9c0f23">&#9670;&#160;</a></span>getDefaultName()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -699,7 +680,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">override string OpenCVForUnity.Xfeatures2dModule.DAISY.getDefaultName </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -711,12 +692,12 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns the algorithm string identifier. This string is used as top level xml/yml node tag when the object is saved to a file or string. </p>
 
-<p>Reimplemented from <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#ac70b90fd9e439811ec89d198dea84a25">OpenCVForUnity.Features2dModule.Feature2D</a>.</p>
+<p>Reimplemented from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#aa9f5751351974d69a3a98510d3856518">OpenCVForUnity.CoreModule.Algorithm</a>.</p>
 
 </div>
 </div>
-<a id="a9409cf8b4765de1e456e99097cfd6393"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9409cf8b4765de1e456e99097cfd6393">&#9670;&nbsp;</a></span>getH()</h2>
+<a id="a9409cf8b4765de1e456e99097cfd6393" name="a9409cf8b4765de1e456e99097cfd6393"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9409cf8b4765de1e456e99097cfd6393">&#9670;&#160;</a></span>getH()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -724,7 +705,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> OpenCVForUnity.Xfeatures2dModule.DAISY.getH </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -732,8 +713,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a28db67a036c754f2ea57b05c5431ece3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28db67a036c754f2ea57b05c5431ece3">&#9670;&nbsp;</a></span>getInterpolation()</h2>
+<a id="a28db67a036c754f2ea57b05c5431ece3" name="a28db67a036c754f2ea57b05c5431ece3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28db67a036c754f2ea57b05c5431ece3">&#9670;&#160;</a></span>getInterpolation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -741,7 +722,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">bool OpenCVForUnity.Xfeatures2dModule.DAISY.getInterpolation </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -749,8 +730,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a85764598cb6ebae29628a05b8b6f61ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85764598cb6ebae29628a05b8b6f61ec">&#9670;&nbsp;</a></span>getNorm()</h2>
+<a id="a85764598cb6ebae29628a05b8b6f61ec" name="a85764598cb6ebae29628a05b8b6f61ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85764598cb6ebae29628a05b8b6f61ec">&#9670;&#160;</a></span>getNorm()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -758,7 +739,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.Xfeatures2dModule.DAISY.getNorm </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -766,8 +747,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ae37aa079c74f55ae727637f541395ee0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae37aa079c74f55ae727637f541395ee0">&#9670;&nbsp;</a></span>getQHist()</h2>
+<a id="ae37aa079c74f55ae727637f541395ee0" name="ae37aa079c74f55ae727637f541395ee0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae37aa079c74f55ae727637f541395ee0">&#9670;&#160;</a></span>getQHist()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -775,7 +756,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.Xfeatures2dModule.DAISY.getQHist </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -783,8 +764,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a99080c02c902ab2ea187a49c42d76cc1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99080c02c902ab2ea187a49c42d76cc1">&#9670;&nbsp;</a></span>getQRadius()</h2>
+<a id="a99080c02c902ab2ea187a49c42d76cc1" name="a99080c02c902ab2ea187a49c42d76cc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99080c02c902ab2ea187a49c42d76cc1">&#9670;&#160;</a></span>getQRadius()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -792,7 +773,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.Xfeatures2dModule.DAISY.getQRadius </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -800,8 +781,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aac0b1738acbe2d24404043b850b94c70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac0b1738acbe2d24404043b850b94c70">&#9670;&nbsp;</a></span>getQTheta()</h2>
+<a id="aac0b1738acbe2d24404043b850b94c70" name="aac0b1738acbe2d24404043b850b94c70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac0b1738acbe2d24404043b850b94c70">&#9670;&#160;</a></span>getQTheta()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -809,7 +790,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.Xfeatures2dModule.DAISY.getQTheta </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -817,8 +798,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a4f4a8b16d61f20b6a843cb6f4c57b735"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f4a8b16d61f20b6a843cb6f4c57b735">&#9670;&nbsp;</a></span>getRadius()</h2>
+<a id="a4f4a8b16d61f20b6a843cb6f4c57b735" name="a4f4a8b16d61f20b6a843cb6f4c57b735"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f4a8b16d61f20b6a843cb6f4c57b735">&#9670;&#160;</a></span>getRadius()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -826,7 +807,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">float OpenCVForUnity.Xfeatures2dModule.DAISY.getRadius </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -834,8 +815,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ae336384202da91f790785668e6b3a1ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae336384202da91f790785668e6b3a1ba">&#9670;&nbsp;</a></span>getUseOrientation()</h2>
+<a id="ae336384202da91f790785668e6b3a1ba" name="ae336384202da91f790785668e6b3a1ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae336384202da91f790785668e6b3a1ba">&#9670;&#160;</a></span>getUseOrientation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -843,7 +824,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">bool OpenCVForUnity.Xfeatures2dModule.DAISY.getUseOrientation </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -851,8 +832,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a550239c351f7dd5fb4f7d4e2c24c6dc1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a550239c351f7dd5fb4f7d4e2c24c6dc1">&#9670;&nbsp;</a></span>setH()</h2>
+<a id="a550239c351f7dd5fb4f7d4e2c24c6dc1" name="a550239c351f7dd5fb4f7d4e2c24c6dc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a550239c351f7dd5fb4f7d4e2c24c6dc1">&#9670;&#160;</a></span>setH()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -860,8 +841,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.Xfeatures2dModule.DAISY.setH </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>H</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>H</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -869,8 +849,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aa5ac3207916942e0810a69aaa3b750d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5ac3207916942e0810a69aaa3b750d7">&#9670;&nbsp;</a></span>setInterpolation()</h2>
+<a id="aa5ac3207916942e0810a69aaa3b750d7" name="aa5ac3207916942e0810a69aaa3b750d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5ac3207916942e0810a69aaa3b750d7">&#9670;&#160;</a></span>setInterpolation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -878,8 +858,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.Xfeatures2dModule.DAISY.setInterpolation </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>interpolation</em></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>interpolation</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -887,8 +866,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="af484b4b8c59123e341ba4bd471c387b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af484b4b8c59123e341ba4bd471c387b3">&#9670;&nbsp;</a></span>setNorm()</h2>
+<a id="af484b4b8c59123e341ba4bd471c387b3" name="af484b4b8c59123e341ba4bd471c387b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af484b4b8c59123e341ba4bd471c387b3">&#9670;&#160;</a></span>setNorm()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -896,8 +875,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.Xfeatures2dModule.DAISY.setNorm </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>norm</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>norm</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -905,8 +883,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ab13bc27a3b114dd64812b4d3084f9142"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab13bc27a3b114dd64812b4d3084f9142">&#9670;&nbsp;</a></span>setQHist()</h2>
+<a id="ab13bc27a3b114dd64812b4d3084f9142" name="ab13bc27a3b114dd64812b4d3084f9142"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab13bc27a3b114dd64812b4d3084f9142">&#9670;&#160;</a></span>setQHist()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -914,8 +892,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.Xfeatures2dModule.DAISY.setQHist </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>q_hist</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>q_hist</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -923,8 +900,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a41a9691034ea571257114aeb0cc4e589"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41a9691034ea571257114aeb0cc4e589">&#9670;&nbsp;</a></span>setQRadius()</h2>
+<a id="a41a9691034ea571257114aeb0cc4e589" name="a41a9691034ea571257114aeb0cc4e589"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41a9691034ea571257114aeb0cc4e589">&#9670;&#160;</a></span>setQRadius()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -932,8 +909,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.Xfeatures2dModule.DAISY.setQRadius </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>q_radius</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>q_radius</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -941,8 +917,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ab3dc4350cea7d2661fa2b86fadf90b5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3dc4350cea7d2661fa2b86fadf90b5e">&#9670;&nbsp;</a></span>setQTheta()</h2>
+<a id="ab3dc4350cea7d2661fa2b86fadf90b5e" name="ab3dc4350cea7d2661fa2b86fadf90b5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3dc4350cea7d2661fa2b86fadf90b5e">&#9670;&#160;</a></span>setQTheta()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -950,8 +926,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.Xfeatures2dModule.DAISY.setQTheta </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>q_theta</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>q_theta</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -959,8 +934,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="afcb2335525d4dea8eff930aaf18569c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afcb2335525d4dea8eff930aaf18569c6">&#9670;&nbsp;</a></span>setRadius()</h2>
+<a id="afcb2335525d4dea8eff930aaf18569c6" name="afcb2335525d4dea8eff930aaf18569c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcb2335525d4dea8eff930aaf18569c6">&#9670;&#160;</a></span>setRadius()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -968,8 +943,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.Xfeatures2dModule.DAISY.setRadius </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>radius</em></td><td>)</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>radius</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -977,8 +951,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ab28e3aff90366952880d70cd63f94821"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab28e3aff90366952880d70cd63f94821">&#9670;&nbsp;</a></span>setUseOrientation()</h2>
+<a id="ab28e3aff90366952880d70cd63f94821" name="ab28e3aff90366952880d70cd63f94821"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab28e3aff90366952880d70cd63f94821">&#9670;&#160;</a></span>setUseOrientation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -986,8 +960,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.Xfeatures2dModule.DAISY.setUseOrientation </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>use_orientation</em></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>use_orientation</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -996,58 +969,90 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a7a634468a2dbc2af0f42ef85995f8957"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a634468a2dbc2af0f42ef85995f8957">&#9670;&nbsp;</a></span>NRM_FULL</h2>
+<a id="a7a634468a2dbc2af0f42ef85995f8957" name="a7a634468a2dbc2af0f42ef85995f8957"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a634468a2dbc2af0f42ef85995f8957">&#9670;&#160;</a></span>NRM_FULL</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.Xfeatures2dModule.DAISY.NRM_FULL = 102</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ad77689b59f34440da411cdd2bd290b0a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad77689b59f34440da411cdd2bd290b0a">&#9670;&nbsp;</a></span>NRM_NONE</h2>
+<a id="ad77689b59f34440da411cdd2bd290b0a" name="ad77689b59f34440da411cdd2bd290b0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad77689b59f34440da411cdd2bd290b0a">&#9670;&#160;</a></span>NRM_NONE</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.Xfeatures2dModule.DAISY.NRM_NONE = 100</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a186528212dea4205a57b98bae4e14c10"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a186528212dea4205a57b98bae4e14c10">&#9670;&nbsp;</a></span>NRM_PARTIAL</h2>
+<a id="a186528212dea4205a57b98bae4e14c10" name="a186528212dea4205a57b98bae4e14c10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a186528212dea4205a57b98bae4e14c10">&#9670;&#160;</a></span>NRM_PARTIAL</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.Xfeatures2dModule.DAISY.NRM_PARTIAL = 101</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ae8e3648bd23f4b27696b5d0d2b01f9cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8e3648bd23f4b27696b5d0d2b01f9cf">&#9670;&nbsp;</a></span>NRM_SIFT</h2>
+<a id="ae8e3648bd23f4b27696b5d0d2b01f9cf" name="ae8e3648bd23f4b27696b5d0d2b01f9cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8e3648bd23f4b27696b5d0d2b01f9cf">&#9670;&#160;</a></span>NRM_SIFT</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const int OpenCVForUnity.Xfeatures2dModule.DAISY.NRM_SIFT = 103</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -1058,9 +1063,8 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

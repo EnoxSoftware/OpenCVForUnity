@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: OpenCVForUnity.Wechat_qrcodeModule.WeChatQRCode Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,19 +126,19 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_wechat__qrcode_module.html">Wechat_qrcodeModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html">WeChatQRCode</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code-members.html">List of all members</a>  </div>
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.Wechat_qrcodeModule.WeChatQRCode Class Reference</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.Wechat_qrcodeModule.WeChatQRCode Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model. Object detection model is applied to detect QRCode with the bounding box. super resolution model is applied to zoom in QRCode when it is small.  
- <a href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html#details">More...</a></p>
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for OpenCVForUnity.Wechat_qrcodeModule.WeChatQRCode:</div>
 <div class="dyncontent">
@@ -115,85 +147,86 @@ Inheritance diagram for OpenCVForUnity.Wechat_qrcodeModule.WeChatQRCode:</div>
   <map id="OpenCVForUnity.Wechat_5FqrcodeModule.WeChatQRCode_map" name="OpenCVForUnity.Wechat_5FqrcodeModule.WeChatQRCode_map">
 <area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="0,112,339,136"/>
 <area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="0,56,339,80"/>
-</map>
- </div></div>
+  </map>
+</div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6427eaada5ad5105eb280f1eb6cb6f61"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html#a6427eaada5ad5105eb280f1eb6cb6f61">getNativeObjAddr</a> ()</td></tr>
+<tr class="memitem:a6427eaada5ad5105eb280f1eb6cb6f61" id="r_a6427eaada5ad5105eb280f1eb6cb6f61"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6427eaada5ad5105eb280f1eb6cb6f61">getNativeObjAddr</a> ()</td></tr>
 <tr class="separator:a6427eaada5ad5105eb280f1eb6cb6f61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e39846c8bea1ce7a6fafc59de31b6a8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html#a9e39846c8bea1ce7a6fafc59de31b6a8">WeChatQRCode</a> (string detector_prototxt_path, string detector_caffe_model_path, string super_resolution_prototxt_path, string super_resolution_caffe_model_path)</td></tr>
-<tr class="memdesc:a9e39846c8bea1ce7a6fafc59de31b6a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html" title="WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model...">WeChatQRCode</a>. It includes two models, which are packaged with caffe format. Therefore, there are prototxt and caffe models (In total, four paramenters).  <a href="#a9e39846c8bea1ce7a6fafc59de31b6a8">More...</a><br /></td></tr>
+<tr class="memitem:a9e39846c8bea1ce7a6fafc59de31b6a8" id="r_a9e39846c8bea1ce7a6fafc59de31b6a8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9e39846c8bea1ce7a6fafc59de31b6a8">WeChatQRCode</a> (string detector_prototxt_path, string detector_caffe_model_path, string super_resolution_prototxt_path, string super_resolution_caffe_model_path)</td></tr>
+<tr class="memdesc:a9e39846c8bea1ce7a6fafc59de31b6a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html" title="WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model....">WeChatQRCode</a>. It includes two models, which are packaged with caffe format. Therefore, there are prototxt and caffe models (In total, four paramenters).  <br /></td></tr>
 <tr class="separator:a9e39846c8bea1ce7a6fafc59de31b6a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71f81d86a0a577159b90369e5f21905f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html#a71f81d86a0a577159b90369e5f21905f">WeChatQRCode</a> (string detector_prototxt_path, string detector_caffe_model_path, string super_resolution_prototxt_path)</td></tr>
-<tr class="memdesc:a71f81d86a0a577159b90369e5f21905f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html" title="WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model...">WeChatQRCode</a>. It includes two models, which are packaged with caffe format. Therefore, there are prototxt and caffe models (In total, four paramenters).  <a href="#a71f81d86a0a577159b90369e5f21905f">More...</a><br /></td></tr>
+<tr class="memitem:a71f81d86a0a577159b90369e5f21905f" id="r_a71f81d86a0a577159b90369e5f21905f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71f81d86a0a577159b90369e5f21905f">WeChatQRCode</a> (string detector_prototxt_path, string detector_caffe_model_path, string super_resolution_prototxt_path)</td></tr>
+<tr class="memdesc:a71f81d86a0a577159b90369e5f21905f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html" title="WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model....">WeChatQRCode</a>. It includes two models, which are packaged with caffe format. Therefore, there are prototxt and caffe models (In total, four paramenters).  <br /></td></tr>
 <tr class="separator:a71f81d86a0a577159b90369e5f21905f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34df5a936d39e4bd9ad34733062fad24"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html#a34df5a936d39e4bd9ad34733062fad24">WeChatQRCode</a> (string detector_prototxt_path, string detector_caffe_model_path)</td></tr>
-<tr class="memdesc:a34df5a936d39e4bd9ad34733062fad24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html" title="WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model...">WeChatQRCode</a>. It includes two models, which are packaged with caffe format. Therefore, there are prototxt and caffe models (In total, four paramenters).  <a href="#a34df5a936d39e4bd9ad34733062fad24">More...</a><br /></td></tr>
+<tr class="memitem:a34df5a936d39e4bd9ad34733062fad24" id="r_a34df5a936d39e4bd9ad34733062fad24"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a34df5a936d39e4bd9ad34733062fad24">WeChatQRCode</a> (string detector_prototxt_path, string detector_caffe_model_path)</td></tr>
+<tr class="memdesc:a34df5a936d39e4bd9ad34733062fad24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html" title="WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model....">WeChatQRCode</a>. It includes two models, which are packaged with caffe format. Therefore, there are prototxt and caffe models (In total, four paramenters).  <br /></td></tr>
 <tr class="separator:a34df5a936d39e4bd9ad34733062fad24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e734b741d9365107feb6270be846d7c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html#a1e734b741d9365107feb6270be846d7c">WeChatQRCode</a> (string detector_prototxt_path)</td></tr>
-<tr class="memdesc:a1e734b741d9365107feb6270be846d7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html" title="WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model...">WeChatQRCode</a>. It includes two models, which are packaged with caffe format. Therefore, there are prototxt and caffe models (In total, four paramenters).  <a href="#a1e734b741d9365107feb6270be846d7c">More...</a><br /></td></tr>
+<tr class="memitem:a1e734b741d9365107feb6270be846d7c" id="r_a1e734b741d9365107feb6270be846d7c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1e734b741d9365107feb6270be846d7c">WeChatQRCode</a> (string detector_prototxt_path)</td></tr>
+<tr class="memdesc:a1e734b741d9365107feb6270be846d7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html" title="WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model....">WeChatQRCode</a>. It includes two models, which are packaged with caffe format. Therefore, there are prototxt and caffe models (In total, four paramenters).  <br /></td></tr>
 <tr class="separator:a1e734b741d9365107feb6270be846d7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23fd1b6c8b551c37e0898c42e3606fb8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html#a23fd1b6c8b551c37e0898c42e3606fb8">WeChatQRCode</a> ()</td></tr>
-<tr class="memdesc:a23fd1b6c8b551c37e0898c42e3606fb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html" title="WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model...">WeChatQRCode</a>. It includes two models, which are packaged with caffe format. Therefore, there are prototxt and caffe models (In total, four paramenters).  <a href="#a23fd1b6c8b551c37e0898c42e3606fb8">More...</a><br /></td></tr>
+<tr class="memitem:a23fd1b6c8b551c37e0898c42e3606fb8" id="r_a23fd1b6c8b551c37e0898c42e3606fb8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23fd1b6c8b551c37e0898c42e3606fb8">WeChatQRCode</a> ()</td></tr>
+<tr class="memdesc:a23fd1b6c8b551c37e0898c42e3606fb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html" title="WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model....">WeChatQRCode</a>. It includes two models, which are packaged with caffe format. Therefore, there are prototxt and caffe models (In total, four paramenters).  <br /></td></tr>
 <tr class="separator:a23fd1b6c8b551c37e0898c42e3606fb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01ca9d656f43234201f9a14732bcb371"><td class="memItemLeft" align="right" valign="top">List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html#a01ca9d656f43234201f9a14732bcb371">detectAndDecode</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> img, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; points)</td></tr>
-<tr class="memdesc:a01ca9d656f43234201f9a14732bcb371"><td class="mdescLeft">&#160;</td><td class="mdescRight">Both detects and decodes QR code. To simplify the usage, there is a only API: detectAndDecode.  <a href="#a01ca9d656f43234201f9a14732bcb371">More...</a><br /></td></tr>
-<tr class="separator:a01ca9d656f43234201f9a14732bcb371"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae154b53f254de99e5bb4a9c55d2eccb9"><td class="memItemLeft" align="right" valign="top">List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html#ae154b53f254de99e5bb4a9c55d2eccb9">detectAndDecode</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> img)</td></tr>
-<tr class="memdesc:ae154b53f254de99e5bb4a9c55d2eccb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Both detects and decodes QR code. To simplify the usage, there is a only API: detectAndDecode.  <a href="#ae154b53f254de99e5bb4a9c55d2eccb9">More...</a><br /></td></tr>
-<tr class="separator:ae154b53f254de99e5bb4a9c55d2eccb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75e892ca1e9f3fe81214985016068c04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html#a75e892ca1e9f3fe81214985016068c04">setScaleFactor</a> (float _scalingFactor)</td></tr>
-<tr class="memdesc:a75e892ca1e9f3fe81214985016068c04"><td class="mdescLeft">&#160;</td><td class="mdescRight">set scale factor QR code detector use neural network to detect QR. Before running the neural network, the input image is pre-processed by scaling. By default, the input image is scaled to an image with an area of 160000 pixels. The scale factor allows to use custom scale the input image: width = scaleFactor*width height = scaleFactor*width  <a href="#a75e892ca1e9f3fe81214985016068c04">More...</a><br /></td></tr>
+<tr class="memitem:acc1394ad27be731ac582c46d6cb56a1b" id="r_acc1394ad27be731ac582c46d6cb56a1b"><td class="memItemLeft" align="right" valign="top">List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acc1394ad27be731ac582c46d6cb56a1b">detectAndDecode</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> img, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; points)</td></tr>
+<tr class="memdesc:acc1394ad27be731ac582c46d6cb56a1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Both detects and decodes QR code. To simplify the usage, there is a only API: detectAndDecode.  <br /></td></tr>
+<tr class="separator:acc1394ad27be731ac582c46d6cb56a1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af20f0af2987ba0a644f177836c42e756" id="r_af20f0af2987ba0a644f177836c42e756"><td class="memItemLeft" align="right" valign="top">List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af20f0af2987ba0a644f177836c42e756">detectAndDecode</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> img)</td></tr>
+<tr class="memdesc:af20f0af2987ba0a644f177836c42e756"><td class="mdescLeft">&#160;</td><td class="mdescRight">Both detects and decodes QR code. To simplify the usage, there is a only API: detectAndDecode.  <br /></td></tr>
+<tr class="separator:af20f0af2987ba0a644f177836c42e756"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75e892ca1e9f3fe81214985016068c04" id="r_a75e892ca1e9f3fe81214985016068c04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a75e892ca1e9f3fe81214985016068c04">setScaleFactor</a> (float _scalingFactor)</td></tr>
+<tr class="memdesc:a75e892ca1e9f3fe81214985016068c04"><td class="mdescLeft">&#160;</td><td class="mdescRight">set scale factor QR code detector use neural network to detect QR. Before running the neural network, the input image is pre-processed by scaling. By default, the input image is scaled to an image with an area of 160000 pixels. The scale factor allows to use custom scale the input image: width = scaleFactor*width height = scaleFactor*width  <br /></td></tr>
 <tr class="separator:a75e892ca1e9f3fe81214985016068c04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c3963fc42d50f74f61a91fb747c83fb"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html#a4c3963fc42d50f74f61a91fb747c83fb">getScaleFactor</a> ()</td></tr>
+<tr class="memitem:a4c3963fc42d50f74f61a91fb747c83fb" id="r_a4c3963fc42d50f74f61a91fb747c83fb"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c3963fc42d50f74f61a91fb747c83fb">getScaleFactor</a> ()</td></tr>
 <tr class="separator:a4c3963fc42d50f74f61a91fb747c83fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a68dd6362a65b5bf2f2b8828bef0b7dc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
 <tr class="separator:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
+<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a620f073ff3aa1bcee28fb00edb01dc11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
 <tr class="separator:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a3b651404bf2880967862bc90f6b03db6"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html">WeChatQRCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html#a3b651404bf2880967862bc90f6b03db6">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="memitem:a3b651404bf2880967862bc90f6b03db6" id="r_a3b651404bf2880967862bc90f6b03db6"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html">WeChatQRCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b651404bf2880967862bc90f6b03db6">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:a3b651404bf2880967862bc90f6b03db6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a4b998ab4293ee3fb7cdc494ed9375fc3"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:aaeb70ced28f4c3e5b4a83aa02a1987b1"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html#aaeb70ced28f4c3e5b4a83aa02a1987b1">Dispose</a> (bool disposing)</td></tr>
+<tr class="memitem:aaeb70ced28f4c3e5b4a83aa02a1987b1" id="r_aaeb70ced28f4c3e5b4a83aa02a1987b1"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaeb70ced28f4c3e5b4a83aa02a1987b1">Dispose</a> (bool disposing)</td></tr>
 <tr class="separator:aaeb70ced28f4c3e5b4a83aa02a1987b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
-<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_aab50d94cc702503eac045ca7042624ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
 <tr class="separator:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
+<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a6dc5923de5bd43795c72dd7f581ad832"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a1fb2523312e8a423889a1d160e755e7d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
+<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a739b223f2008fae0966c43d0c6f0f72f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
 <tr class="separator:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_ae924d4d77a5929e39abca6ef9daf6330"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
 <tr class="separator:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a1e47724d49556061a5ba400577be2a13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
+<tr class="inherit_header pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Package Attributes inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a056e69daaa9ea20e563c5e41b28c1525"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
 <tr class="separator:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
+<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a8e287e3cb5995f483cb64dd6c3b19a7f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model. Object detection model is applied to detect QRCode with the bounding box. super resolution model is applied to zoom in QRCode when it is small. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a9e39846c8bea1ce7a6fafc59de31b6a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e39846c8bea1ce7a6fafc59de31b6a8">&#9670;&nbsp;</a></span>WeChatQRCode() <span class="overload">[1/5]</span></h2>
+<a id="a9e39846c8bea1ce7a6fafc59de31b6a8" name="a9e39846c8bea1ce7a6fafc59de31b6a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e39846c8bea1ce7a6fafc59de31b6a8">&#9670;&#160;</a></span>WeChatQRCode() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,36 +234,27 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.Wechat_qrcodeModule.WeChatQRCode.WeChatQRCode </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>detector_prototxt_path</em>, </td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>detector_prototxt_path</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>detector_caffe_model_path</em>, </td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>detector_caffe_model_path</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>super_resolution_prototxt_path</em>, </td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>super_resolution_prototxt_path</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>super_resolution_caffe_model_path</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>super_resolution_caffe_model_path</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initialize the <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html" title="WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model...">WeChatQRCode</a>. It includes two models, which are packaged with caffe format. Therefore, there are prototxt and caffe models (In total, four paramenters). </p>
+<p>Initialize the <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html" title="WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model....">WeChatQRCode</a>. It includes two models, which are packaged with caffe format. Therefore, there are prototxt and caffe models (In total, four paramenters). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">detector_prototxt_path</td><td>prototxt file path for the detector </td></tr>
@@ -243,8 +267,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a71f81d86a0a577159b90369e5f21905f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71f81d86a0a577159b90369e5f21905f">&#9670;&nbsp;</a></span>WeChatQRCode() <span class="overload">[2/5]</span></h2>
+<a id="a71f81d86a0a577159b90369e5f21905f" name="a71f81d86a0a577159b90369e5f21905f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71f81d86a0a577159b90369e5f21905f">&#9670;&#160;</a></span>WeChatQRCode() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -252,30 +276,22 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.Wechat_qrcodeModule.WeChatQRCode.WeChatQRCode </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>detector_prototxt_path</em>, </td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>detector_prototxt_path</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>detector_caffe_model_path</em>, </td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>detector_caffe_model_path</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>super_resolution_prototxt_path</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>super_resolution_prototxt_path</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initialize the <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html" title="WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model...">WeChatQRCode</a>. It includes two models, which are packaged with caffe format. Therefore, there are prototxt and caffe models (In total, four paramenters). </p>
+<p>Initialize the <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html" title="WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model....">WeChatQRCode</a>. It includes two models, which are packaged with caffe format. Therefore, there are prototxt and caffe models (In total, four paramenters). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">detector_prototxt_path</td><td>prototxt file path for the detector </td></tr>
@@ -288,8 +304,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a34df5a936d39e4bd9ad34733062fad24"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34df5a936d39e4bd9ad34733062fad24">&#9670;&nbsp;</a></span>WeChatQRCode() <span class="overload">[3/5]</span></h2>
+<a id="a34df5a936d39e4bd9ad34733062fad24" name="a34df5a936d39e4bd9ad34733062fad24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34df5a936d39e4bd9ad34733062fad24">&#9670;&#160;</a></span>WeChatQRCode() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -297,24 +313,17 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.Wechat_qrcodeModule.WeChatQRCode.WeChatQRCode </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>detector_prototxt_path</em>, </td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>detector_prototxt_path</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>detector_caffe_model_path</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>detector_caffe_model_path</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initialize the <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html" title="WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model...">WeChatQRCode</a>. It includes two models, which are packaged with caffe format. Therefore, there are prototxt and caffe models (In total, four paramenters). </p>
+<p>Initialize the <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html" title="WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model....">WeChatQRCode</a>. It includes two models, which are packaged with caffe format. Therefore, there are prototxt and caffe models (In total, four paramenters). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">detector_prototxt_path</td><td>prototxt file path for the detector </td></tr>
@@ -327,8 +336,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a1e734b741d9365107feb6270be846d7c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e734b741d9365107feb6270be846d7c">&#9670;&nbsp;</a></span>WeChatQRCode() <span class="overload">[4/5]</span></h2>
+<a id="a1e734b741d9365107feb6270be846d7c" name="a1e734b741d9365107feb6270be846d7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e734b741d9365107feb6270be846d7c">&#9670;&#160;</a></span>WeChatQRCode() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -336,14 +345,13 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.Wechat_qrcodeModule.WeChatQRCode.WeChatQRCode </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>detector_prototxt_path</em></td><td>)</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>detector_prototxt_path</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initialize the <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html" title="WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model...">WeChatQRCode</a>. It includes two models, which are packaged with caffe format. Therefore, there are prototxt and caffe models (In total, four paramenters). </p>
+<p>Initialize the <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html" title="WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model....">WeChatQRCode</a>. It includes two models, which are packaged with caffe format. Therefore, there are prototxt and caffe models (In total, four paramenters). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">detector_prototxt_path</td><td>prototxt file path for the detector </td></tr>
@@ -356,8 +364,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a23fd1b6c8b551c37e0898c42e3606fb8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23fd1b6c8b551c37e0898c42e3606fb8">&#9670;&nbsp;</a></span>WeChatQRCode() <span class="overload">[5/5]</span></h2>
+<a id="a23fd1b6c8b551c37e0898c42e3606fb8" name="a23fd1b6c8b551c37e0898c42e3606fb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23fd1b6c8b551c37e0898c42e3606fb8">&#9670;&#160;</a></span>WeChatQRCode() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -365,13 +373,13 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.Wechat_qrcodeModule.WeChatQRCode.WeChatQRCode </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initialize the <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html" title="WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model...">WeChatQRCode</a>. It includes two models, which are packaged with caffe format. Therefore, there are prototxt and caffe models (In total, four paramenters). </p>
+<p>Initialize the <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html" title="WeChat QRCode includes two CNN-based models: A object detection model and a super resolution model....">WeChatQRCode</a>. It includes two models, which are packaged with caffe format. Therefore, there are prototxt and caffe models (In total, four paramenters). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">detector_prototxt_path</td><td>prototxt file path for the detector </td></tr>
@@ -385,8 +393,8 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a3b651404bf2880967862bc90f6b03db6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b651404bf2880967862bc90f6b03db6">&#9670;&nbsp;</a></span>__fromPtr__()</h2>
+<a id="a3b651404bf2880967862bc90f6b03db6" name="a3b651404bf2880967862bc90f6b03db6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b651404bf2880967862bc90f6b03db6">&#9670;&#160;</a></span>__fromPtr__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -397,8 +405,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_wechat__qrcode_module_1_1_we_chat_q_r_code.html">WeChatQRCode</a> OpenCVForUnity.Wechat_qrcodeModule.WeChatQRCode.__fromPtr__ </td>
           <td>(</td>
-          <td class="paramtype">IntPtr&#160;</td>
-          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td class="paramtype">IntPtr</td>          <td class="paramname"><span class="paramname"><em>addr</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -411,28 +418,48 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a01ca9d656f43234201f9a14732bcb371"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01ca9d656f43234201f9a14732bcb371">&#9670;&nbsp;</a></span>detectAndDecode() <span class="overload">[1/2]</span></h2>
+<a id="af20f0af2987ba0a644f177836c42e756" name="af20f0af2987ba0a644f177836c42e756"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af20f0af2987ba0a644f177836c42e756">&#9670;&#160;</a></span>detectAndDecode() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">List&lt;string&gt; OpenCVForUnity.Wechat_qrcodeModule.WeChatQRCode.detectAndDecode </td>
+          <td class="memname">List&lt; string &gt; OpenCVForUnity.Wechat_qrcodeModule.WeChatQRCode.detectAndDecode </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>img</em>, </td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>img</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Both detects and decodes QR code. To simplify the usage, there is a only API: detectAndDecode. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">img</td><td>supports grayscale or color (BGR) image. </td></tr>
+    <tr><td class="paramname">points</td><td>optional output array of vertices of the found QR code quadrangle. Will be empty if not found. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>list of decoded string. </dd></dl>
+
+</div>
+</div>
+<a id="acc1394ad27be731ac582c46d6cb56a1b" name="acc1394ad27be731ac582c46d6cb56a1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc1394ad27be731ac582c46d6cb56a1b">&#9670;&#160;</a></span>detectAndDecode() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">List&lt; string &gt; OpenCVForUnity.Wechat_qrcodeModule.WeChatQRCode.detectAndDecode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>img</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt;&#160;</td>
-          <td class="paramname"><em>points</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>points</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -449,36 +476,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ae154b53f254de99e5bb4a9c55d2eccb9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae154b53f254de99e5bb4a9c55d2eccb9">&#9670;&nbsp;</a></span>detectAndDecode() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">List&lt;string&gt; OpenCVForUnity.Wechat_qrcodeModule.WeChatQRCode.detectAndDecode </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a>&#160;</td>
-          <td class="paramname"><em>img</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Both detects and decodes QR code. To simplify the usage, there is a only API: detectAndDecode. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">img</td><td>supports grayscale or color (BGR) image. </td></tr>
-    <tr><td class="paramname">points</td><td>optional output array of vertices of the found QR code quadrangle. Will be empty if not found. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>list of decoded string. </dd></dl>
-
-</div>
-</div>
-<a id="aaeb70ced28f4c3e5b4a83aa02a1987b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaeb70ced28f4c3e5b4a83aa02a1987b1">&#9670;&nbsp;</a></span>Dispose()</h2>
+<a id="aaeb70ced28f4c3e5b4a83aa02a1987b1" name="aaeb70ced28f4c3e5b4a83aa02a1987b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaeb70ced28f4c3e5b4a83aa02a1987b1">&#9670;&#160;</a></span>Dispose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -489,8 +488,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">override void OpenCVForUnity.Wechat_qrcodeModule.WeChatQRCode.Dispose </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>disposing</em></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>disposing</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -505,8 +503,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a6427eaada5ad5105eb280f1eb6cb6f61"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6427eaada5ad5105eb280f1eb6cb6f61">&#9670;&nbsp;</a></span>getNativeObjAddr()</h2>
+<a id="a6427eaada5ad5105eb280f1eb6cb6f61" name="a6427eaada5ad5105eb280f1eb6cb6f61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6427eaada5ad5105eb280f1eb6cb6f61">&#9670;&#160;</a></span>getNativeObjAddr()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -514,7 +512,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">IntPtr OpenCVForUnity.Wechat_qrcodeModule.WeChatQRCode.getNativeObjAddr </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -522,8 +520,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a4c3963fc42d50f74f61a91fb747c83fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c3963fc42d50f74f61a91fb747c83fb">&#9670;&nbsp;</a></span>getScaleFactor()</h2>
+<a id="a4c3963fc42d50f74f61a91fb747c83fb" name="a4c3963fc42d50f74f61a91fb747c83fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c3963fc42d50f74f61a91fb747c83fb">&#9670;&#160;</a></span>getScaleFactor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -531,7 +529,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">float OpenCVForUnity.Wechat_qrcodeModule.WeChatQRCode.getScaleFactor </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -539,8 +537,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a75e892ca1e9f3fe81214985016068c04"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75e892ca1e9f3fe81214985016068c04">&#9670;&nbsp;</a></span>setScaleFactor()</h2>
+<a id="a75e892ca1e9f3fe81214985016068c04" name="a75e892ca1e9f3fe81214985016068c04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75e892ca1e9f3fe81214985016068c04">&#9670;&#160;</a></span>setScaleFactor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -548,8 +546,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.Wechat_qrcodeModule.WeChatQRCode.setScaleFactor </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>_scalingFactor</em></td><td>)</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>_scalingFactor</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -566,9 +563,8 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

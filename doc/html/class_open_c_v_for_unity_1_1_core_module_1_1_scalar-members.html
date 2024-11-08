@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,48 +126,72 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_core_module.html">CoreModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">Scalar</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.CoreModule.Scalar Member List</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.CoreModule.Scalar Member List</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>This is the complete list of members for <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a>, including all inherited members.</p>
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a794076c5d68dd9b9cb70aecef45a52af">all</a>(double v)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a59874684deac86f85e9e8c216add05f9">clone</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a9d095b698fcf7605a2269b663ac45d78">allAsValueTuple</a>(double v)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#acd3a9b5e1d4ad1e91bac6a87b5d956eb">allAsVec4d</a>(double v)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a59874684deac86f85e9e8c216add05f9">clone</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a558b6936e716087675e143444b3cae62">cloneAsValueTuple</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a0f861b4b9ea26c1beda00e3b83571bf5">cloneAsVec4d</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#acc975a9c608715f41e45f298858c04be">conj</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#ae0e5ee0f01d03babb54b517dceef5c48">Equals</a>(Object obj)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a46d5484d32d0dc94dda041e0b21fc603">conjAsValueTuple</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a2415b025e794c65f8b91583b96a00122">conjAsVec4d</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#ae0e5ee0f01d03babb54b517dceef5c48">Equals</a>(Object obj)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a1d661c5dd4551a90be1584debf69a4e7">Equals</a>(Scalar a)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a6e75ea79b2de9886462c9afb809ee9aa">GetHashCode</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a6e75ea79b2de9886462c9afb809ee9aa">GetHashCode</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a5009df59e802b137980edb7fe8d3533d">isReal</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a7ad697512297f61e403c984bbcdf5111">mul</a>(Scalar it, double scale)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a7ad697512297f61e403c984bbcdf5111">mul</a>(Scalar it, double scale)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#ae1f47353bcc2e68273aee57ae7b69e29">mul</a>(Scalar it)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a540d41a5cb5bcb78dbe9036d8a11d65e">operator!=</a>(Scalar a, Scalar b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a9c0634daa3da4a2993a535df521a6e9b">operator*</a>(Scalar a, Scalar b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a689a1318f319479ed3ad81689e44b871">operator*</a>(Scalar a, double alpha)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#afbce88bc1b2a78c431a2ef4d587a7c00">operator*</a>(double alpha, Scalar a)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#aaeb966582765624d1b742c6f210142d0">operator+</a>(Scalar a, Scalar b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a44b07a6f2e7ec5cbf6fc2a6b70f65895">operator-</a>(Scalar a)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a9353ba311946fe475dd7b7f2c7e226f0">operator-</a>(Scalar a, Scalar b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a8ae248c34cc22cd1fa7fc85fc4d8bf4a">operator/</a>(Scalar a, Scalar b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a429d183ce907c4ecbfafaa19a16d0d29">operator/</a>(Scalar a, double alpha)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a0cc0aaaa4f904265ba9c650f548efa99">operator/</a>(double a, Scalar b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#af56645ac2c694f5abfc81db8b3725d7c">operator==</a>(Scalar a, Scalar b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a147c6399b4c2fc0497eccefa7971d21c">Scalar</a>(double v0, double v1, double v2, double v3)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#af9a0fbb6f1a7856100e7d3e89fbff4df">Scalar</a>(double v0, double v1, double v2)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#af075d1a36ddb6a26dc0fb25829af7b2c">Scalar</a>(double v0, double v1)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#ae993d73a9dc5c867e4fef98df3d6dd65">Scalar</a>(double v0)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#acf4c5b95ed4ab51f169560844ccbec36">Scalar</a>(double[] vals)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a15f9080df4bc64ce9f8e2b1f78150e18">set</a>(double[] vals)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a16acee4047de76798d0c4279b9742023">ToString</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a04763df216fc8d2a7a0d700bdd53fa0f">val</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a0740f5b381763da4fdc36628029d5c72">mulAsValueTuple</a>(in(double v0, double v1, double v2, double v3) it, double scale)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#ad046412ea5fd825fd7e63956f19a7534">mulAsValueTuple</a>(in(double v0, double v1, double v2, double v3) it)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#adaf4c09b2fb1d2d51421762728f0bacf">mulAsVec4d</a>(in Vec4d it, double scale)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a99cf0ff085035ec679a0fc222324a921">mulAsVec4d</a>(Vec4d it)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a4c4e3753ddb874160bafc994a333472b">operator</a>(double v0, double v1, double v2, double v3)(Scalar scalar)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">explicit</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a1de886c1c20bde10230273469878c874">operator Scalar</a>(in(double v0, double v1, double v2, double v3) valueTuple)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">explicit</span><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a25b3b7f7e431fea83d4e0d98c728591b">operator Vec4d</a>(Scalar scalar)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">explicit</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a540d41a5cb5bcb78dbe9036d8a11d65e">operator!=</a>(Scalar a, Scalar b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a9c0634daa3da4a2993a535df521a6e9b">operator*</a>(Scalar a, Scalar b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a689a1318f319479ed3ad81689e44b871">operator*</a>(Scalar a, double alpha)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#afbce88bc1b2a78c431a2ef4d587a7c00">operator*</a>(double alpha, Scalar a)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#aaeb966582765624d1b742c6f210142d0">operator+</a>(Scalar a, Scalar b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a44b07a6f2e7ec5cbf6fc2a6b70f65895">operator-</a>(Scalar a)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a9353ba311946fe475dd7b7f2c7e226f0">operator-</a>(Scalar a, Scalar b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a8ae248c34cc22cd1fa7fc85fc4d8bf4a">operator/</a>(Scalar a, Scalar b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a429d183ce907c4ecbfafaa19a16d0d29">operator/</a>(Scalar a, double alpha)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a0cc0aaaa4f904265ba9c650f548efa99">operator/</a>(double a, Scalar b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#af56645ac2c694f5abfc81db8b3725d7c">operator==</a>(Scalar a, Scalar b)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a147c6399b4c2fc0497eccefa7971d21c">Scalar</a>(double v0, double v1, double v2, double v3)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#af9a0fbb6f1a7856100e7d3e89fbff4df">Scalar</a>(double v0, double v1, double v2)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#af075d1a36ddb6a26dc0fb25829af7b2c">Scalar</a>(double v0, double v1)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#ae993d73a9dc5c867e4fef98df3d6dd65">Scalar</a>(double v0)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#acf4c5b95ed4ab51f169560844ccbec36">Scalar</a>(double[] vals)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#ae81d09a6a0ad0bed599a50a43c8026f9">Scalar</a>(in Vec4d vals)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a2d38c2648428bca51d4c3d5c9697d59e">Scalar</a>(in(double v0, double v1, double v2, double v3) vals)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a15f9080df4bc64ce9f8e2b1f78150e18">set</a>(double[] vals)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a4ff8e174003821757da5c9bcda5d5412">set</a>(in Vec4d vals)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#aa0d9b0b033123b12a892adc6fc1dacca">set</a>(in(double v0, double v1, double v2, double v3) vals)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a16acee4047de76798d0c4279b9742023">ToString</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#ac5d00a2b9a20876c4002b3af413974e2">ToValueTuple</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a55ddc2b07147f27c08cb397abd0e7d0d">ToVec4d</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a0aa3e432f8fd1b771670d10376a0deec">v0</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a5cf54226dfaedbc273ecf70c3acfcaae">v0</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#ae36f5a3b9cff26b961df911d52e3b809">v1</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a50640bdc23902e508cd3d22f5492ecbc">v1</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#ac218633271c9be0576510e537ecd1cc9">v2</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a4d12d4535515ae4f3201b7dacff7d93b">v2</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html#a04763df216fc8d2a7a0d700bdd53fa0f">val</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_scalar.html">OpenCVForUnity.CoreModule.Scalar</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

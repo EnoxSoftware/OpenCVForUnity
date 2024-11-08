@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: OpenCVForUnity.Features2dModule.SIFT Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,169 +126,174 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_features2d_module.html">Features2dModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t-members.html">List of all members</a>  </div>
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.Features2dModule.SIFT Class Reference</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.Features2dModule.SIFT Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform (<a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a>) algorithm by D. Lowe <b>[Lowe04]</b> .  
- <a href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#details">More...</a></p>
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for OpenCVForUnity.Features2dModule.SIFT:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.png" usemap="#OpenCVForUnity.Features2dModule.SIFT_map" alt=""/>
   <map id="OpenCVForUnity.Features2dModule.SIFT_map" name="OpenCVForUnity.Features2dModule.SIFT_map">
-<area href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html" title="Abstract base class for 2D image feature detectors and descriptor extractors. " alt="OpenCVForUnity.Features2dModule.Feature2D" shape="rect" coords="0,224,283,248"/>
-<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV. " alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="0,168,283,192"/>
+<area href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html" title="Abstract base class for 2D image feature detectors and descriptor extractors." alt="OpenCVForUnity.Features2dModule.Feature2D" shape="rect" coords="0,224,283,248"/>
+<area href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html" title="This is a base class for all more or less complex algorithms in OpenCV." alt="OpenCVForUnity.CoreModule.Algorithm" shape="rect" coords="0,168,283,192"/>
 <area href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html" alt="OpenCVForUnity.DisposableOpenCVObject" shape="rect" coords="0,112,283,136"/>
 <area href="class_open_c_v_for_unity_1_1_disposable_object.html" alt="OpenCVForUnity.DisposableObject" shape="rect" coords="0,56,283,80"/>
-</map>
- </div></div>
+  </map>
+</div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0115ce3ae73d5efb8a108a202287bd35"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#a0115ce3ae73d5efb8a108a202287bd35">getDefaultName</a> ()</td></tr>
+<tr class="memitem:a0115ce3ae73d5efb8a108a202287bd35" id="r_a0115ce3ae73d5efb8a108a202287bd35"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0115ce3ae73d5efb8a108a202287bd35">getDefaultName</a> ()</td></tr>
 <tr class="separator:a0115ce3ae73d5efb8a108a202287bd35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f26b080a4bbfb741eb8902c5d8f3393"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#a6f26b080a4bbfb741eb8902c5d8f3393">setNFeatures</a> (int maxFeatures)</td></tr>
+<tr class="memitem:a6f26b080a4bbfb741eb8902c5d8f3393" id="r_a6f26b080a4bbfb741eb8902c5d8f3393"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f26b080a4bbfb741eb8902c5d8f3393">setNFeatures</a> (int maxFeatures)</td></tr>
 <tr class="separator:a6f26b080a4bbfb741eb8902c5d8f3393"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39ff350da2e844c5027849f95bb91dc8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#a39ff350da2e844c5027849f95bb91dc8">getNFeatures</a> ()</td></tr>
+<tr class="memitem:a39ff350da2e844c5027849f95bb91dc8" id="r_a39ff350da2e844c5027849f95bb91dc8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a39ff350da2e844c5027849f95bb91dc8">getNFeatures</a> ()</td></tr>
 <tr class="separator:a39ff350da2e844c5027849f95bb91dc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ffa99b5c0399efbda9b92608d6e8181"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#a5ffa99b5c0399efbda9b92608d6e8181">setNOctaveLayers</a> (int nOctaveLayers)</td></tr>
+<tr class="memitem:a5ffa99b5c0399efbda9b92608d6e8181" id="r_a5ffa99b5c0399efbda9b92608d6e8181"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ffa99b5c0399efbda9b92608d6e8181">setNOctaveLayers</a> (int nOctaveLayers)</td></tr>
 <tr class="separator:a5ffa99b5c0399efbda9b92608d6e8181"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc00c0890d8eed001c7fceb24f5adb07"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#abc00c0890d8eed001c7fceb24f5adb07">getNOctaveLayers</a> ()</td></tr>
+<tr class="memitem:abc00c0890d8eed001c7fceb24f5adb07" id="r_abc00c0890d8eed001c7fceb24f5adb07"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc00c0890d8eed001c7fceb24f5adb07">getNOctaveLayers</a> ()</td></tr>
 <tr class="separator:abc00c0890d8eed001c7fceb24f5adb07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e96fc81bdb3f816d39c95932b7e7385"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#a5e96fc81bdb3f816d39c95932b7e7385">setContrastThreshold</a> (double contrastThreshold)</td></tr>
+<tr class="memitem:a5e96fc81bdb3f816d39c95932b7e7385" id="r_a5e96fc81bdb3f816d39c95932b7e7385"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e96fc81bdb3f816d39c95932b7e7385">setContrastThreshold</a> (double contrastThreshold)</td></tr>
 <tr class="separator:a5e96fc81bdb3f816d39c95932b7e7385"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f24d0b4de763fb2e1cd12fb5e45ff2f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#a9f24d0b4de763fb2e1cd12fb5e45ff2f">getContrastThreshold</a> ()</td></tr>
+<tr class="memitem:a9f24d0b4de763fb2e1cd12fb5e45ff2f" id="r_a9f24d0b4de763fb2e1cd12fb5e45ff2f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f24d0b4de763fb2e1cd12fb5e45ff2f">getContrastThreshold</a> ()</td></tr>
 <tr class="separator:a9f24d0b4de763fb2e1cd12fb5e45ff2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75c17aa4d9028faf4133a642d7838275"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#a75c17aa4d9028faf4133a642d7838275">setEdgeThreshold</a> (double edgeThreshold)</td></tr>
+<tr class="memitem:a75c17aa4d9028faf4133a642d7838275" id="r_a75c17aa4d9028faf4133a642d7838275"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a75c17aa4d9028faf4133a642d7838275">setEdgeThreshold</a> (double edgeThreshold)</td></tr>
 <tr class="separator:a75c17aa4d9028faf4133a642d7838275"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28667983cb4769601fefeda65d3360f1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#a28667983cb4769601fefeda65d3360f1">getEdgeThreshold</a> ()</td></tr>
+<tr class="memitem:a28667983cb4769601fefeda65d3360f1" id="r_a28667983cb4769601fefeda65d3360f1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a28667983cb4769601fefeda65d3360f1">getEdgeThreshold</a> ()</td></tr>
 <tr class="separator:a28667983cb4769601fefeda65d3360f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeeb61560cd7dab9975c9e6ac4e566781"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#aeeb61560cd7dab9975c9e6ac4e566781">setSigma</a> (double sigma)</td></tr>
+<tr class="memitem:aeeb61560cd7dab9975c9e6ac4e566781" id="r_aeeb61560cd7dab9975c9e6ac4e566781"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeeb61560cd7dab9975c9e6ac4e566781">setSigma</a> (double sigma)</td></tr>
 <tr class="separator:aeeb61560cd7dab9975c9e6ac4e566781"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54b134b026a2b6f8e3ff26a393c98a2e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#a54b134b026a2b6f8e3ff26a393c98a2e">getSigma</a> ()</td></tr>
+<tr class="memitem:a54b134b026a2b6f8e3ff26a393c98a2e" id="r_a54b134b026a2b6f8e3ff26a393c98a2e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54b134b026a2b6f8e3ff26a393c98a2e">getSigma</a> ()</td></tr>
 <tr class="separator:a54b134b026a2b6f8e3ff26a393c98a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html">OpenCVForUnity.Features2dModule.Feature2D</a></td></tr>
-<tr class="memitem:ac176e0bc67ca4802321365eae0d075fb inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#ac176e0bc67ca4802321365eae0d075fb">detect</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> mask)</td></tr>
-<tr class="memdesc:ac176e0bc67ca4802321365eae0d075fb inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects keypoints in an image (first variant) or image set (second variant).  <a href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#ac176e0bc67ca4802321365eae0d075fb">More...</a><br /></td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html">OpenCVForUnity.Features2dModule.Feature2D</a></td></tr>
+<tr class="memitem:ac176e0bc67ca4802321365eae0d075fb inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_ac176e0bc67ca4802321365eae0d075fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#ac176e0bc67ca4802321365eae0d075fb">detect</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> mask)</td></tr>
+<tr class="memdesc:ac176e0bc67ca4802321365eae0d075fb inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects keypoints in an image (first variant) or image set (second variant).  <br /></td></tr>
 <tr class="separator:ac176e0bc67ca4802321365eae0d075fb inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab61b17ab6811c313ab5a946710737aa2 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#ab61b17ab6811c313ab5a946710737aa2">detect</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints)</td></tr>
-<tr class="memdesc:ab61b17ab6811c313ab5a946710737aa2 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects keypoints in an image (first variant) or image set (second variant).  <a href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#ab61b17ab6811c313ab5a946710737aa2">More...</a><br /></td></tr>
+<tr class="memitem:ab61b17ab6811c313ab5a946710737aa2 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_ab61b17ab6811c313ab5a946710737aa2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#ab61b17ab6811c313ab5a946710737aa2">detect</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints)</td></tr>
+<tr class="memdesc:ab61b17ab6811c313ab5a946710737aa2 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects keypoints in an image (first variant) or image set (second variant).  <br /></td></tr>
 <tr class="separator:ab61b17ab6811c313ab5a946710737aa2 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f131e39706646d72e2beabcf5a8c519 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a5f131e39706646d72e2beabcf5a8c519">detect</a> (List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; images, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> &gt; keypoints, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; masks)</td></tr>
+<tr class="memitem:a5f131e39706646d72e2beabcf5a8c519 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_a5f131e39706646d72e2beabcf5a8c519"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a5f131e39706646d72e2beabcf5a8c519">detect</a> (List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; images, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> &gt; keypoints, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; masks)</td></tr>
 <tr class="separator:a5f131e39706646d72e2beabcf5a8c519 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41ac7c65882c8b980b3d199ad25f5ff7 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a41ac7c65882c8b980b3d199ad25f5ff7">detect</a> (List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; images, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> &gt; keypoints)</td></tr>
+<tr class="memitem:a41ac7c65882c8b980b3d199ad25f5ff7 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_a41ac7c65882c8b980b3d199ad25f5ff7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a41ac7c65882c8b980b3d199ad25f5ff7">detect</a> (List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; images, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> &gt; keypoints)</td></tr>
 <tr class="separator:a41ac7c65882c8b980b3d199ad25f5ff7 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16239271dcab53a6f02a8321fcfb1e2c inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a16239271dcab53a6f02a8321fcfb1e2c">compute</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> descriptors)</td></tr>
-<tr class="memdesc:a16239271dcab53a6f02a8321fcfb1e2c inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the descriptors for a set of keypoints detected in an image (first variant) or image set (second variant).  <a href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a16239271dcab53a6f02a8321fcfb1e2c">More...</a><br /></td></tr>
+<tr class="memitem:a16239271dcab53a6f02a8321fcfb1e2c inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_a16239271dcab53a6f02a8321fcfb1e2c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a16239271dcab53a6f02a8321fcfb1e2c">compute</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> descriptors)</td></tr>
+<tr class="memdesc:a16239271dcab53a6f02a8321fcfb1e2c inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the descriptors for a set of keypoints detected in an image (first variant) or image set (second variant).  <br /></td></tr>
 <tr class="separator:a16239271dcab53a6f02a8321fcfb1e2c inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1964b15a071be635fc0561f8dec5db8e inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a1964b15a071be635fc0561f8dec5db8e">compute</a> (List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; images, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> &gt; keypoints, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; descriptors)</td></tr>
+<tr class="memitem:a1964b15a071be635fc0561f8dec5db8e inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_a1964b15a071be635fc0561f8dec5db8e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a1964b15a071be635fc0561f8dec5db8e">compute</a> (List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; images, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> &gt; keypoints, List&lt; <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> &gt; descriptors)</td></tr>
 <tr class="separator:a1964b15a071be635fc0561f8dec5db8e inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ab82d79d0b2d93015f60fde4bacfd6c inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a4ab82d79d0b2d93015f60fde4bacfd6c">detectAndCompute</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> mask, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> descriptors, bool useProvidedKeypoints)</td></tr>
+<tr class="memitem:a4ab82d79d0b2d93015f60fde4bacfd6c inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_a4ab82d79d0b2d93015f60fde4bacfd6c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a4ab82d79d0b2d93015f60fde4bacfd6c">detectAndCompute</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> mask, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> descriptors, bool useProvidedKeypoints)</td></tr>
 <tr class="separator:a4ab82d79d0b2d93015f60fde4bacfd6c inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0cc28e879834e66c60544d9c3a8f38a4 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a0cc28e879834e66c60544d9c3a8f38a4">detectAndCompute</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> mask, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> descriptors)</td></tr>
+<tr class="memitem:a0cc28e879834e66c60544d9c3a8f38a4 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_a0cc28e879834e66c60544d9c3a8f38a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a0cc28e879834e66c60544d9c3a8f38a4">detectAndCompute</a> (<a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> image, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> mask, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat_of_key_point.html">MatOfKeyPoint</a> keypoints, <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_mat.html">Mat</a> descriptors)</td></tr>
 <tr class="separator:a0cc28e879834e66c60544d9c3a8f38a4 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af278c8d850e874fd034d7b5ba7f985da inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#af278c8d850e874fd034d7b5ba7f985da">descriptorSize</a> ()</td></tr>
+<tr class="memitem:af278c8d850e874fd034d7b5ba7f985da inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_af278c8d850e874fd034d7b5ba7f985da"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#af278c8d850e874fd034d7b5ba7f985da">descriptorSize</a> ()</td></tr>
 <tr class="separator:af278c8d850e874fd034d7b5ba7f985da inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8053af7ef8be1576089149c5ac898c36 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a8053af7ef8be1576089149c5ac898c36">descriptorType</a> ()</td></tr>
+<tr class="memitem:a8053af7ef8be1576089149c5ac898c36 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_a8053af7ef8be1576089149c5ac898c36"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a8053af7ef8be1576089149c5ac898c36">descriptorType</a> ()</td></tr>
 <tr class="separator:a8053af7ef8be1576089149c5ac898c36 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89180b7bf419c689107c3b2a2790f860 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a89180b7bf419c689107c3b2a2790f860">defaultNorm</a> ()</td></tr>
+<tr class="memitem:a89180b7bf419c689107c3b2a2790f860 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_a89180b7bf419c689107c3b2a2790f860"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a89180b7bf419c689107c3b2a2790f860">defaultNorm</a> ()</td></tr>
 <tr class="separator:a89180b7bf419c689107c3b2a2790f860 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabe757ce596a39cb7f0561cf3abb6ece inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#aabe757ce596a39cb7f0561cf3abb6ece">write</a> (string fileName)</td></tr>
+<tr class="memitem:aabe757ce596a39cb7f0561cf3abb6ece inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_aabe757ce596a39cb7f0561cf3abb6ece"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#aabe757ce596a39cb7f0561cf3abb6ece">write</a> (string fileName)</td></tr>
 <tr class="separator:aabe757ce596a39cb7f0561cf3abb6ece inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2937efb55677667981f64704df3d90a3 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a2937efb55677667981f64704df3d90a3">read</a> (string fileName)</td></tr>
+<tr class="memitem:a2937efb55677667981f64704df3d90a3 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_a2937efb55677667981f64704df3d90a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a2937efb55677667981f64704df3d90a3">read</a> (string fileName)</td></tr>
 <tr class="separator:a2937efb55677667981f64704df3d90a3 inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d9cebd6e4f7f083b521fb1c03f987bc inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">override bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a2d9cebd6e4f7f083b521fb1c03f987bc">empty</a> ()</td></tr>
-<tr class="memdesc:a2d9cebd6e4f7f083b521fb1c03f987bc inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the Algorithm is empty (e.g. in the very beginning or after unsuccessful read.  <a href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a2d9cebd6e4f7f083b521fb1c03f987bc">More...</a><br /></td></tr>
+<tr class="memitem:a2d9cebd6e4f7f083b521fb1c03f987bc inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_a2d9cebd6e4f7f083b521fb1c03f987bc"><td class="memItemLeft" align="right" valign="top">override bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a2d9cebd6e4f7f083b521fb1c03f987bc">empty</a> ()</td></tr>
+<tr class="memdesc:a2d9cebd6e4f7f083b521fb1c03f987bc inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the Algorithm is empty (e.g. in the very beginning or after unsuccessful read.  <br /></td></tr>
 <tr class="separator:a2d9cebd6e4f7f083b521fb1c03f987bc inherit pub_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
-<tr class="memitem:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a8023b07a6a0100bb4c9eccd175bc68df">getNativeObjAddr</a> ()</td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="memitem:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a8023b07a6a0100bb4c9eccd175bc68df"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a8023b07a6a0100bb4c9eccd175bc68df">getNativeObjAddr</a> ()</td></tr>
 <tr class="separator:a8023b07a6a0100bb4c9eccd175bc68df inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a54f71b05d21ec0abc593bb50cf66ce12">clear</a> ()</td></tr>
-<tr class="memdesc:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the algorithm state.  <a href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a54f71b05d21ec0abc593bb50cf66ce12">More...</a><br /></td></tr>
+<tr class="memitem:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a54f71b05d21ec0abc593bb50cf66ce12"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a54f71b05d21ec0abc593bb50cf66ce12">clear</a> ()</td></tr>
+<tr class="memdesc:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the algorithm state.  <br /></td></tr>
 <tr class="separator:a54f71b05d21ec0abc593bb50cf66ce12 inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4c0ad9f8fd5975a8dbf9209115495db inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#af4c0ad9f8fd5975a8dbf9209115495db">save</a> (string filename)</td></tr>
+<tr class="memitem:af4c0ad9f8fd5975a8dbf9209115495db inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_af4c0ad9f8fd5975a8dbf9209115495db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#af4c0ad9f8fd5975a8dbf9209115495db">save</a> (string filename)</td></tr>
 <tr class="separator:af4c0ad9f8fd5975a8dbf9209115495db inherit pub_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
+<tr class="inherit_header pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a68dd6362a65b5bf2f2b8828bef0b7dc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
 <tr class="separator:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
+<tr class="memitem:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a620f073ff3aa1bcee28fb00edb01dc11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a> ()</td></tr>
 <tr class="separator:a620f073ff3aa1bcee28fb00edb01dc11 inherit pub_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a18219ccf92108db3c52d83b6a7e97a0d"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#a18219ccf92108db3c52d83b6a7e97a0d">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="memitem:a18219ccf92108db3c52d83b6a7e97a0d" id="r_a18219ccf92108db3c52d83b6a7e97a0d"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a18219ccf92108db3c52d83b6a7e97a0d">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:a18219ccf92108db3c52d83b6a7e97a0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32c4721ed6f0c7d13b26d43ccc9a53a7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#a32c4721ed6f0c7d13b26d43ccc9a53a7">create</a> (int nfeatures, int nOctaveLayers, double contrastThreshold, double edgeThreshold, double sigma, bool enable_precise_upscale)</td></tr>
+<tr class="memitem:a32c4721ed6f0c7d13b26d43ccc9a53a7" id="r_a32c4721ed6f0c7d13b26d43ccc9a53a7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a32c4721ed6f0c7d13b26d43ccc9a53a7">create</a> (int nfeatures, int nOctaveLayers, double contrastThreshold, double edgeThreshold, double sigma, bool enable_precise_upscale)</td></tr>
 <tr class="separator:a32c4721ed6f0c7d13b26d43ccc9a53a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a644bdf5467c239b061f7f9837a544047"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#a644bdf5467c239b061f7f9837a544047">create</a> (int nfeatures, int nOctaveLayers, double contrastThreshold, double edgeThreshold, double sigma)</td></tr>
+<tr class="memitem:a644bdf5467c239b061f7f9837a544047" id="r_a644bdf5467c239b061f7f9837a544047"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a644bdf5467c239b061f7f9837a544047">create</a> (int nfeatures, int nOctaveLayers, double contrastThreshold, double edgeThreshold, double sigma)</td></tr>
 <tr class="separator:a644bdf5467c239b061f7f9837a544047"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f7fc3c1f686a8c408228986113bc590"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#a9f7fc3c1f686a8c408228986113bc590">create</a> (int nfeatures, int nOctaveLayers, double contrastThreshold, double edgeThreshold)</td></tr>
+<tr class="memitem:a9f7fc3c1f686a8c408228986113bc590" id="r_a9f7fc3c1f686a8c408228986113bc590"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f7fc3c1f686a8c408228986113bc590">create</a> (int nfeatures, int nOctaveLayers, double contrastThreshold, double edgeThreshold)</td></tr>
 <tr class="separator:a9f7fc3c1f686a8c408228986113bc590"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60e33eb5b13631ed9f918a2d659aa1b8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#a60e33eb5b13631ed9f918a2d659aa1b8">create</a> (int nfeatures, int nOctaveLayers, double contrastThreshold)</td></tr>
+<tr class="memitem:a60e33eb5b13631ed9f918a2d659aa1b8" id="r_a60e33eb5b13631ed9f918a2d659aa1b8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60e33eb5b13631ed9f918a2d659aa1b8">create</a> (int nfeatures, int nOctaveLayers, double contrastThreshold)</td></tr>
 <tr class="separator:a60e33eb5b13631ed9f918a2d659aa1b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad23c8e4c585dac1a1a508a9a51295bdf"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#ad23c8e4c585dac1a1a508a9a51295bdf">create</a> (int nfeatures, int nOctaveLayers)</td></tr>
+<tr class="memitem:ad23c8e4c585dac1a1a508a9a51295bdf" id="r_ad23c8e4c585dac1a1a508a9a51295bdf"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad23c8e4c585dac1a1a508a9a51295bdf">create</a> (int nfeatures, int nOctaveLayers)</td></tr>
 <tr class="separator:ad23c8e4c585dac1a1a508a9a51295bdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb63517b7341ac4199cd7b0920fa4a49"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#adb63517b7341ac4199cd7b0920fa4a49">create</a> (int nfeatures)</td></tr>
+<tr class="memitem:adb63517b7341ac4199cd7b0920fa4a49" id="r_adb63517b7341ac4199cd7b0920fa4a49"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb63517b7341ac4199cd7b0920fa4a49">create</a> (int nfeatures)</td></tr>
 <tr class="separator:adb63517b7341ac4199cd7b0920fa4a49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac05bf9c8c4f35163bd8f7a1d6da2cdc4"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#ac05bf9c8c4f35163bd8f7a1d6da2cdc4">create</a> ()</td></tr>
+<tr class="memitem:ac05bf9c8c4f35163bd8f7a1d6da2cdc4" id="r_ac05bf9c8c4f35163bd8f7a1d6da2cdc4"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac05bf9c8c4f35163bd8f7a1d6da2cdc4">create</a> ()</td></tr>
 <tr class="separator:ac05bf9c8c4f35163bd8f7a1d6da2cdc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a920b87d03ed52f0b87ab28bed1162851"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#a920b87d03ed52f0b87ab28bed1162851">create</a> (int nfeatures, int nOctaveLayers, double contrastThreshold, double edgeThreshold, double sigma, int <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a8053af7ef8be1576089149c5ac898c36">descriptorType</a>, bool enable_precise_upscale)</td></tr>
-<tr class="memdesc:a920b87d03ed52f0b87ab28bed1162851"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> with specified descriptorType.  <a href="#a920b87d03ed52f0b87ab28bed1162851">More...</a><br /></td></tr>
+<tr class="memitem:a920b87d03ed52f0b87ab28bed1162851" id="r_a920b87d03ed52f0b87ab28bed1162851"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a920b87d03ed52f0b87ab28bed1162851">create</a> (int nfeatures, int nOctaveLayers, double contrastThreshold, double edgeThreshold, double sigma, int <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a8053af7ef8be1576089149c5ac898c36">descriptorType</a>, bool enable_precise_upscale)</td></tr>
+<tr class="memdesc:a920b87d03ed52f0b87ab28bed1162851"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> with specified descriptorType.  <br /></td></tr>
 <tr class="separator:a920b87d03ed52f0b87ab28bed1162851"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a992155fcfc03adc45e0349f1200fdbe8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#a992155fcfc03adc45e0349f1200fdbe8">create</a> (int nfeatures, int nOctaveLayers, double contrastThreshold, double edgeThreshold, double sigma, int <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a8053af7ef8be1576089149c5ac898c36">descriptorType</a>)</td></tr>
-<tr class="memdesc:a992155fcfc03adc45e0349f1200fdbe8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> with specified descriptorType.  <a href="#a992155fcfc03adc45e0349f1200fdbe8">More...</a><br /></td></tr>
+<tr class="memitem:a992155fcfc03adc45e0349f1200fdbe8" id="r_a992155fcfc03adc45e0349f1200fdbe8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a992155fcfc03adc45e0349f1200fdbe8">create</a> (int nfeatures, int nOctaveLayers, double contrastThreshold, double edgeThreshold, double sigma, int <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#a8053af7ef8be1576089149c5ac898c36">descriptorType</a>)</td></tr>
+<tr class="memdesc:a992155fcfc03adc45e0349f1200fdbe8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> with specified descriptorType.  <br /></td></tr>
 <tr class="separator:a992155fcfc03adc45e0349f1200fdbe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html">OpenCVForUnity.Features2dModule.Feature2D</a></td></tr>
-<tr class="memitem:ae1fa0839c535453a3ef8509783d3bd65 inherit pub_static_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html">Feature2D</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#ae1fa0839c535453a3ef8509783d3bd65">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html">OpenCVForUnity.Features2dModule.Feature2D</a></td></tr>
+<tr class="memitem:ae1fa0839c535453a3ef8509783d3bd65 inherit pub_static_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d" id="r_ae1fa0839c535453a3ef8509783d3bd65"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html">Feature2D</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html#ae1fa0839c535453a3ef8509783d3bd65">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:ae1fa0839c535453a3ef8509783d3bd65 inherit pub_static_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
-<tr class="memitem:a86d037d927276dadd66bdb102a74b53a inherit pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">Algorithm</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86d037d927276dadd66bdb102a74b53a">__fromPtr__</a> (IntPtr addr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="memitem:a86d037d927276dadd66bdb102a74b53a inherit pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm" id="r_a86d037d927276dadd66bdb102a74b53a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">Algorithm</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html#a86d037d927276dadd66bdb102a74b53a">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:a86d037d927276dadd66bdb102a74b53a inherit pub_static_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
+<tr class="inherit_header pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a4b998ab4293ee3fb7cdc494ed9375fc3"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:ac94c557000362d8c15127853f911790d"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html#ac94c557000362d8c15127853f911790d">Dispose</a> (bool disposing)</td></tr>
+<tr class="memitem:ac94c557000362d8c15127853f911790d" id="r_ac94c557000362d8c15127853f911790d"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac94c557000362d8c15127853f911790d">Dispose</a> (bool disposing)</td></tr>
 <tr class="separator:ac94c557000362d8c15127853f911790d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
-<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html">OpenCVForUnity.Features2dModule.Feature2D</a></td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="memitem:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_aab50d94cc702503eac045ca7042624ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a> ()</td></tr>
 <tr class="separator:aab50d94cc702503eac045ca7042624ae inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
+<tr class="memitem:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a6dc5923de5bd43795c72dd7f581ad832"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a> (IntPtr ptr)</td></tr>
 <tr class="separator:a6dc5923de5bd43795c72dd7f581ad832 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a1fb2523312e8a423889a1d160e755e7d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1fb2523312e8a423889a1d160e755e7d inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
+<tr class="memitem:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object" id="r_a739b223f2008fae0966c43d0c6f0f72f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a> (IntPtr ptr, bool isEnabledDispose)</td></tr>
 <tr class="separator:a739b223f2008fae0966c43d0c6f0f72f inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
+<tr class="inherit_header pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_ae924d4d77a5929e39abca6ef9daf6330"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a> ()</td></tr>
 <tr class="separator:ae924d4d77a5929e39abca6ef9daf6330 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
+<tr class="memitem:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object" id="r_a1e47724d49556061a5ba400577be2a13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a> (bool isEnabledDispose)</td></tr>
 <tr class="separator:a1e47724d49556061a5ba400577be2a13 inherit pro_methods_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
-<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
+<tr class="inherit_header pac_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_methods_class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d')"><img src="closed.png" alt="-"/>&#160;Package Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_feature2_d.html">OpenCVForUnity.Features2dModule.Feature2D</a></td></tr>
+<tr class="inherit_header pac_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_methods_class_open_c_v_for_unity_1_1_core_module_1_1_algorithm')"><img src="closed.png" alt="-"/>&#160;Package Functions inherited from <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_algorithm.html">OpenCVForUnity.CoreModule.Algorithm</a></td></tr>
+<tr class="inherit_header pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pac_attribs_class_open_c_v_for_unity_1_1_disposable_open_c_v_object')"><img src="closed.png" alt="-"/>&#160;Package Attributes inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td></tr>
+<tr class="inherit_header properties_class_open_c_v_for_unity_1_1_disposable_object"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_class_open_c_v_for_unity_1_1_disposable_object')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td></tr>
+<tr class="memitem:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a056e69daaa9ea20e563c5e41b28c1525"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a><code> [get, protected set]</code></td></tr>
 <tr class="separator:a056e69daaa9ea20e563c5e41b28c1525 inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
+<tr class="memitem:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object" id="r_a8e287e3cb5995f483cb64dd6c3b19a7f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a><code> [get, set]</code></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_class_open_c_v_for_unity_1_1_disposable_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform (<a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a>) algorithm by D. Lowe <b>[Lowe04]</b> . </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a18219ccf92108db3c52d83b6a7e97a0d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18219ccf92108db3c52d83b6a7e97a0d">&#9670;&nbsp;</a></span>__fromPtr__()</h2>
+<a id="a18219ccf92108db3c52d83b6a7e97a0d" name="a18219ccf92108db3c52d83b6a7e97a0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18219ccf92108db3c52d83b6a7e97a0d">&#9670;&#160;</a></span>__fromPtr__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -267,8 +304,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static new <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a> OpenCVForUnity.Features2dModule.SIFT.__fromPtr__ </td>
           <td>(</td>
-          <td class="paramtype">IntPtr&#160;</td>
-          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td class="paramtype">IntPtr</td>          <td class="paramname"><span class="paramname"><em>addr</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -281,8 +317,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a32c4721ed6f0c7d13b26d43ccc9a53a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32c4721ed6f0c7d13b26d43ccc9a53a7">&#9670;&nbsp;</a></span>create() <span class="overload">[1/9]</span></h2>
+<a id="ac05bf9c8c4f35163bd8f7a1d6da2cdc4" name="ac05bf9c8c4f35163bd8f7a1d6da2cdc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac05bf9c8c4f35163bd8f7a1d6da2cdc4">&#9670;&#160;</a></span>create() <span class="overload">[1/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -293,43 +329,8 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a> OpenCVForUnity.Features2dModule.SIFT.create </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nfeatures</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nOctaveLayers</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>contrastThreshold</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>edgeThreshold</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>sigma</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>enable_precise_upscale</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -340,17 +341,17 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">nfeatures</td><td>The number of best features to retain. The features are ranked by their scores (measured in <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> algorithm as the local contrast)</td></tr>
-    <tr><td class="paramname">nOctaveLayers</td><td>The number of layers in each octave. 3 is the value used in D. Lowe paper. The number of octaves is computed automatically from the image resolution.</td></tr>
-    <tr><td class="paramname">contrastThreshold</td><td>The contrast threshold used to filter out weak features in semi-uniform (low-contrast) regions. The larger the threshold, the less features are produced by the detector.</td></tr>
+    <tr><td class="paramname">nfeatures</td><td>The number of best features to retain. The features are ranked by their scores (measured in <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> algorithm as the local contrast) </td></tr>
+    <tr><td class="paramname">nOctaveLayers</td><td>The number of layers in each octave. 3 is the value used in D. Lowe paper. The number of octaves is computed automatically from the image resolution. </td></tr>
+    <tr><td class="paramname">contrastThreshold</td><td>The contrast threshold used to filter out weak features in semi-uniform (low-contrast) regions. The larger the threshold, the less features are produced by the detector. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set this argument to 0.09.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set this argument to 0.09. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">edgeThreshold</td><td>The threshold used to filter out edge-like features. Note that the its meaning is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are filtered out (more features are retained).</td></tr>
-    <tr><td class="paramname">sigma</td><td>The sigma of the Gaussian applied to the input image at the octave #0. If your image is captured with a weak camera with soft lenses, you might want to reduce the number.</td></tr>
+    <tr><td class="paramname">edgeThreshold</td><td>The threshold used to filter out edge-like features. Note that the its meaning is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are filtered out (more features are retained). </td></tr>
+    <tr><td class="paramname">sigma</td><td>The sigma of the Gaussian applied to the input image at the octave #0. If your image is captured with a weak camera with soft lenses, you might want to reduce the number. </td></tr>
     <tr><td class="paramname">enable_precise_upscale</td><td>Whether to enable precise upscaling in the scale pyramid, which maps index \(\texttt{x}\) to \(\texttt{2x}\). This prevents localization bias. The option is disabled by default. </td></tr>
   </table>
   </dd>
@@ -358,8 +359,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a644bdf5467c239b061f7f9837a544047"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a644bdf5467c239b061f7f9837a544047">&#9670;&nbsp;</a></span>create() <span class="overload">[2/9]</span></h2>
+<a id="adb63517b7341ac4199cd7b0920fa4a49" name="adb63517b7341ac4199cd7b0920fa4a49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb63517b7341ac4199cd7b0920fa4a49">&#9670;&#160;</a></span>create() <span class="overload">[2/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -370,256 +371,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a> OpenCVForUnity.Features2dModule.SIFT.create </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nfeatures</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nOctaveLayers</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>contrastThreshold</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>edgeThreshold</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>sigma</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">nfeatures</td><td>The number of best features to retain. The features are ranked by their scores (measured in <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> algorithm as the local contrast)</td></tr>
-    <tr><td class="paramname">nOctaveLayers</td><td>The number of layers in each octave. 3 is the value used in D. Lowe paper. The number of octaves is computed automatically from the image resolution.</td></tr>
-    <tr><td class="paramname">contrastThreshold</td><td>The contrast threshold used to filter out weak features in semi-uniform (low-contrast) regions. The larger the threshold, the less features are produced by the detector.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set this argument to 0.09.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">edgeThreshold</td><td>The threshold used to filter out edge-like features. Note that the its meaning is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are filtered out (more features are retained).</td></tr>
-    <tr><td class="paramname">sigma</td><td>The sigma of the Gaussian applied to the input image at the octave #0. If your image is captured with a weak camera with soft lenses, you might want to reduce the number.</td></tr>
-    <tr><td class="paramname">enable_precise_upscale</td><td>Whether to enable precise upscaling in the scale pyramid, which maps index \(\texttt{x}\) to \(\texttt{2x}\). This prevents localization bias. The option is disabled by default. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a9f7fc3c1f686a8c408228986113bc590"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f7fc3c1f686a8c408228986113bc590">&#9670;&nbsp;</a></span>create() <span class="overload">[3/9]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a> OpenCVForUnity.Features2dModule.SIFT.create </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nfeatures</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nOctaveLayers</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>contrastThreshold</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>edgeThreshold</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">nfeatures</td><td>The number of best features to retain. The features are ranked by their scores (measured in <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> algorithm as the local contrast)</td></tr>
-    <tr><td class="paramname">nOctaveLayers</td><td>The number of layers in each octave. 3 is the value used in D. Lowe paper. The number of octaves is computed automatically from the image resolution.</td></tr>
-    <tr><td class="paramname">contrastThreshold</td><td>The contrast threshold used to filter out weak features in semi-uniform (low-contrast) regions. The larger the threshold, the less features are produced by the detector.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set this argument to 0.09.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">edgeThreshold</td><td>The threshold used to filter out edge-like features. Note that the its meaning is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are filtered out (more features are retained).</td></tr>
-    <tr><td class="paramname">sigma</td><td>The sigma of the Gaussian applied to the input image at the octave #0. If your image is captured with a weak camera with soft lenses, you might want to reduce the number.</td></tr>
-    <tr><td class="paramname">enable_precise_upscale</td><td>Whether to enable precise upscaling in the scale pyramid, which maps index \(\texttt{x}\) to \(\texttt{2x}\). This prevents localization bias. The option is disabled by default. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a60e33eb5b13631ed9f918a2d659aa1b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60e33eb5b13631ed9f918a2d659aa1b8">&#9670;&nbsp;</a></span>create() <span class="overload">[4/9]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a> OpenCVForUnity.Features2dModule.SIFT.create </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nfeatures</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nOctaveLayers</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>contrastThreshold</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">nfeatures</td><td>The number of best features to retain. The features are ranked by their scores (measured in <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> algorithm as the local contrast)</td></tr>
-    <tr><td class="paramname">nOctaveLayers</td><td>The number of layers in each octave. 3 is the value used in D. Lowe paper. The number of octaves is computed automatically from the image resolution.</td></tr>
-    <tr><td class="paramname">contrastThreshold</td><td>The contrast threshold used to filter out weak features in semi-uniform (low-contrast) regions. The larger the threshold, the less features are produced by the detector.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set this argument to 0.09.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">edgeThreshold</td><td>The threshold used to filter out edge-like features. Note that the its meaning is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are filtered out (more features are retained).</td></tr>
-    <tr><td class="paramname">sigma</td><td>The sigma of the Gaussian applied to the input image at the octave #0. If your image is captured with a weak camera with soft lenses, you might want to reduce the number.</td></tr>
-    <tr><td class="paramname">enable_precise_upscale</td><td>Whether to enable precise upscaling in the scale pyramid, which maps index \(\texttt{x}\) to \(\texttt{2x}\). This prevents localization bias. The option is disabled by default. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ad23c8e4c585dac1a1a508a9a51295bdf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad23c8e4c585dac1a1a508a9a51295bdf">&#9670;&nbsp;</a></span>create() <span class="overload">[5/9]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a> OpenCVForUnity.Features2dModule.SIFT.create </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nfeatures</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nOctaveLayers</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">nfeatures</td><td>The number of best features to retain. The features are ranked by their scores (measured in <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> algorithm as the local contrast)</td></tr>
-    <tr><td class="paramname">nOctaveLayers</td><td>The number of layers in each octave. 3 is the value used in D. Lowe paper. The number of octaves is computed automatically from the image resolution.</td></tr>
-    <tr><td class="paramname">contrastThreshold</td><td>The contrast threshold used to filter out weak features in semi-uniform (low-contrast) regions. The larger the threshold, the less features are produced by the detector.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set this argument to 0.09.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">edgeThreshold</td><td>The threshold used to filter out edge-like features. Note that the its meaning is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are filtered out (more features are retained).</td></tr>
-    <tr><td class="paramname">sigma</td><td>The sigma of the Gaussian applied to the input image at the octave #0. If your image is captured with a weak camera with soft lenses, you might want to reduce the number.</td></tr>
-    <tr><td class="paramname">enable_precise_upscale</td><td>Whether to enable precise upscaling in the scale pyramid, which maps index \(\texttt{x}\) to \(\texttt{2x}\). This prevents localization bias. The option is disabled by default. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="adb63517b7341ac4199cd7b0920fa4a49"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb63517b7341ac4199cd7b0920fa4a49">&#9670;&nbsp;</a></span>create() <span class="overload">[6/9]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a> OpenCVForUnity.Features2dModule.SIFT.create </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nfeatures</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nfeatures</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -631,17 +383,17 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">nfeatures</td><td>The number of best features to retain. The features are ranked by their scores (measured in <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> algorithm as the local contrast)</td></tr>
-    <tr><td class="paramname">nOctaveLayers</td><td>The number of layers in each octave. 3 is the value used in D. Lowe paper. The number of octaves is computed automatically from the image resolution.</td></tr>
-    <tr><td class="paramname">contrastThreshold</td><td>The contrast threshold used to filter out weak features in semi-uniform (low-contrast) regions. The larger the threshold, the less features are produced by the detector.</td></tr>
+    <tr><td class="paramname">nfeatures</td><td>The number of best features to retain. The features are ranked by their scores (measured in <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> algorithm as the local contrast) </td></tr>
+    <tr><td class="paramname">nOctaveLayers</td><td>The number of layers in each octave. 3 is the value used in D. Lowe paper. The number of octaves is computed automatically from the image resolution. </td></tr>
+    <tr><td class="paramname">contrastThreshold</td><td>The contrast threshold used to filter out weak features in semi-uniform (low-contrast) regions. The larger the threshold, the less features are produced by the detector. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set this argument to 0.09.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set this argument to 0.09. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">edgeThreshold</td><td>The threshold used to filter out edge-like features. Note that the its meaning is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are filtered out (more features are retained).</td></tr>
-    <tr><td class="paramname">sigma</td><td>The sigma of the Gaussian applied to the input image at the octave #0. If your image is captured with a weak camera with soft lenses, you might want to reduce the number.</td></tr>
+    <tr><td class="paramname">edgeThreshold</td><td>The threshold used to filter out edge-like features. Note that the its meaning is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are filtered out (more features are retained). </td></tr>
+    <tr><td class="paramname">sigma</td><td>The sigma of the Gaussian applied to the input image at the octave #0. If your image is captured with a weak camera with soft lenses, you might want to reduce the number. </td></tr>
     <tr><td class="paramname">enable_precise_upscale</td><td>Whether to enable precise upscaling in the scale pyramid, which maps index \(\texttt{x}\) to \(\texttt{2x}\). This prevents localization bias. The option is disabled by default. </td></tr>
   </table>
   </dd>
@@ -649,8 +401,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ac05bf9c8c4f35163bd8f7a1d6da2cdc4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac05bf9c8c4f35163bd8f7a1d6da2cdc4">&#9670;&nbsp;</a></span>create() <span class="overload">[7/9]</span></h2>
+<a id="ad23c8e4c585dac1a1a508a9a51295bdf" name="ad23c8e4c585dac1a1a508a9a51295bdf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad23c8e4c585dac1a1a508a9a51295bdf">&#9670;&#160;</a></span>create() <span class="overload">[3/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -661,8 +413,12 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a> OpenCVForUnity.Features2dModule.SIFT.create </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nfeatures</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nOctaveLayers</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -673,17 +429,17 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">nfeatures</td><td>The number of best features to retain. The features are ranked by their scores (measured in <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> algorithm as the local contrast)</td></tr>
-    <tr><td class="paramname">nOctaveLayers</td><td>The number of layers in each octave. 3 is the value used in D. Lowe paper. The number of octaves is computed automatically from the image resolution.</td></tr>
-    <tr><td class="paramname">contrastThreshold</td><td>The contrast threshold used to filter out weak features in semi-uniform (low-contrast) regions. The larger the threshold, the less features are produced by the detector.</td></tr>
+    <tr><td class="paramname">nfeatures</td><td>The number of best features to retain. The features are ranked by their scores (measured in <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> algorithm as the local contrast) </td></tr>
+    <tr><td class="paramname">nOctaveLayers</td><td>The number of layers in each octave. 3 is the value used in D. Lowe paper. The number of octaves is computed automatically from the image resolution. </td></tr>
+    <tr><td class="paramname">contrastThreshold</td><td>The contrast threshold used to filter out weak features in semi-uniform (low-contrast) regions. The larger the threshold, the less features are produced by the detector. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set this argument to 0.09.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set this argument to 0.09. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">edgeThreshold</td><td>The threshold used to filter out edge-like features. Note that the its meaning is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are filtered out (more features are retained).</td></tr>
-    <tr><td class="paramname">sigma</td><td>The sigma of the Gaussian applied to the input image at the octave #0. If your image is captured with a weak camera with soft lenses, you might want to reduce the number.</td></tr>
+    <tr><td class="paramname">edgeThreshold</td><td>The threshold used to filter out edge-like features. Note that the its meaning is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are filtered out (more features are retained). </td></tr>
+    <tr><td class="paramname">sigma</td><td>The sigma of the Gaussian applied to the input image at the octave #0. If your image is captured with a weak camera with soft lenses, you might want to reduce the number. </td></tr>
     <tr><td class="paramname">enable_precise_upscale</td><td>Whether to enable precise upscaling in the scale pyramid, which maps index \(\texttt{x}\) to \(\texttt{2x}\). This prevents localization bias. The option is disabled by default. </td></tr>
   </table>
   </dd>
@@ -691,8 +447,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a920b87d03ed52f0b87ab28bed1162851"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a920b87d03ed52f0b87ab28bed1162851">&#9670;&nbsp;</a></span>create() <span class="overload">[8/9]</span></h2>
+<a id="a60e33eb5b13631ed9f918a2d659aa1b8" name="a60e33eb5b13631ed9f918a2d659aa1b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60e33eb5b13631ed9f918a2d659aa1b8">&#9670;&#160;</a></span>create() <span class="overload">[4/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -703,49 +459,266 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a> OpenCVForUnity.Features2dModule.SIFT.create </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nfeatures</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nfeatures</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nOctaveLayers</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nOctaveLayers</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>contrastThreshold</em>, </td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>contrastThreshold</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nfeatures</td><td>The number of best features to retain. The features are ranked by their scores (measured in <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> algorithm as the local contrast) </td></tr>
+    <tr><td class="paramname">nOctaveLayers</td><td>The number of layers in each octave. 3 is the value used in D. Lowe paper. The number of octaves is computed automatically from the image resolution. </td></tr>
+    <tr><td class="paramname">contrastThreshold</td><td>The contrast threshold used to filter out weak features in semi-uniform (low-contrast) regions. The larger the threshold, the less features are produced by the detector. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set this argument to 0.09. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">edgeThreshold</td><td>The threshold used to filter out edge-like features. Note that the its meaning is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are filtered out (more features are retained). </td></tr>
+    <tr><td class="paramname">sigma</td><td>The sigma of the Gaussian applied to the input image at the octave #0. If your image is captured with a weak camera with soft lenses, you might want to reduce the number. </td></tr>
+    <tr><td class="paramname">enable_precise_upscale</td><td>Whether to enable precise upscaling in the scale pyramid, which maps index \(\texttt{x}\) to \(\texttt{2x}\). This prevents localization bias. The option is disabled by default. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9f7fc3c1f686a8c408228986113bc590" name="a9f7fc3c1f686a8c408228986113bc590"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f7fc3c1f686a8c408228986113bc590">&#9670;&#160;</a></span>create() <span class="overload">[5/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a> OpenCVForUnity.Features2dModule.SIFT.create </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nfeatures</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>edgeThreshold</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nOctaveLayers</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>sigma</em>, </td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>contrastThreshold</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>descriptorType</em>, </td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>edgeThreshold</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nfeatures</td><td>The number of best features to retain. The features are ranked by their scores (measured in <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> algorithm as the local contrast) </td></tr>
+    <tr><td class="paramname">nOctaveLayers</td><td>The number of layers in each octave. 3 is the value used in D. Lowe paper. The number of octaves is computed automatically from the image resolution. </td></tr>
+    <tr><td class="paramname">contrastThreshold</td><td>The contrast threshold used to filter out weak features in semi-uniform (low-contrast) regions. The larger the threshold, the less features are produced by the detector. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set this argument to 0.09. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">edgeThreshold</td><td>The threshold used to filter out edge-like features. Note that the its meaning is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are filtered out (more features are retained). </td></tr>
+    <tr><td class="paramname">sigma</td><td>The sigma of the Gaussian applied to the input image at the octave #0. If your image is captured with a weak camera with soft lenses, you might want to reduce the number. </td></tr>
+    <tr><td class="paramname">enable_precise_upscale</td><td>Whether to enable precise upscaling in the scale pyramid, which maps index \(\texttt{x}\) to \(\texttt{2x}\). This prevents localization bias. The option is disabled by default. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a644bdf5467c239b061f7f9837a544047" name="a644bdf5467c239b061f7f9837a544047"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a644bdf5467c239b061f7f9837a544047">&#9670;&#160;</a></span>create() <span class="overload">[6/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a> OpenCVForUnity.Features2dModule.SIFT.create </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nfeatures</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>enable_precise_upscale</em>&#160;</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nOctaveLayers</em></span>, </td>
         </tr>
         <tr>
+          <td class="paramkey"></td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>contrastThreshold</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>edgeThreshold</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>sigma</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nfeatures</td><td>The number of best features to retain. The features are ranked by their scores (measured in <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> algorithm as the local contrast) </td></tr>
+    <tr><td class="paramname">nOctaveLayers</td><td>The number of layers in each octave. 3 is the value used in D. Lowe paper. The number of octaves is computed automatically from the image resolution. </td></tr>
+    <tr><td class="paramname">contrastThreshold</td><td>The contrast threshold used to filter out weak features in semi-uniform (low-contrast) regions. The larger the threshold, the less features are produced by the detector. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set this argument to 0.09. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">edgeThreshold</td><td>The threshold used to filter out edge-like features. Note that the its meaning is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are filtered out (more features are retained). </td></tr>
+    <tr><td class="paramname">sigma</td><td>The sigma of the Gaussian applied to the input image at the octave #0. If your image is captured with a weak camera with soft lenses, you might want to reduce the number. </td></tr>
+    <tr><td class="paramname">enable_precise_upscale</td><td>Whether to enable precise upscaling in the scale pyramid, which maps index \(\texttt{x}\) to \(\texttt{2x}\). This prevents localization bias. The option is disabled by default. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a32c4721ed6f0c7d13b26d43ccc9a53a7" name="a32c4721ed6f0c7d13b26d43ccc9a53a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32c4721ed6f0c7d13b26d43ccc9a53a7">&#9670;&#160;</a></span>create() <span class="overload">[7/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a> OpenCVForUnity.Features2dModule.SIFT.create </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nfeatures</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nOctaveLayers</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>contrastThreshold</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>edgeThreshold</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>sigma</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>enable_precise_upscale</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nfeatures</td><td>The number of best features to retain. The features are ranked by their scores (measured in <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> algorithm as the local contrast) </td></tr>
+    <tr><td class="paramname">nOctaveLayers</td><td>The number of layers in each octave. 3 is the value used in D. Lowe paper. The number of octaves is computed automatically from the image resolution. </td></tr>
+    <tr><td class="paramname">contrastThreshold</td><td>The contrast threshold used to filter out weak features in semi-uniform (low-contrast) regions. The larger the threshold, the less features are produced by the detector. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set this argument to 0.09. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">edgeThreshold</td><td>The threshold used to filter out edge-like features. Note that the its meaning is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are filtered out (more features are retained). </td></tr>
+    <tr><td class="paramname">sigma</td><td>The sigma of the Gaussian applied to the input image at the octave #0. If your image is captured with a weak camera with soft lenses, you might want to reduce the number. </td></tr>
+    <tr><td class="paramname">enable_precise_upscale</td><td>Whether to enable precise upscaling in the scale pyramid, which maps index \(\texttt{x}\) to \(\texttt{2x}\). This prevents localization bias. The option is disabled by default. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a992155fcfc03adc45e0349f1200fdbe8" name="a992155fcfc03adc45e0349f1200fdbe8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a992155fcfc03adc45e0349f1200fdbe8">&#9670;&#160;</a></span>create() <span class="overload">[8/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a> OpenCVForUnity.Features2dModule.SIFT.create </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nfeatures</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nOctaveLayers</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>contrastThreshold</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>edgeThreshold</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>sigma</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>descriptorType</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -758,18 +731,18 @@ Additional Inherited Members</h2></td></tr>
 <p>Create <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> with specified descriptorType. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">nfeatures</td><td>The number of best features to retain. The features are ranked by their scores (measured in <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> algorithm as the local contrast)</td></tr>
-    <tr><td class="paramname">nOctaveLayers</td><td>The number of layers in each octave. 3 is the value used in D. Lowe paper. The number of octaves is computed automatically from the image resolution.</td></tr>
-    <tr><td class="paramname">contrastThreshold</td><td>The contrast threshold used to filter out weak features in semi-uniform (low-contrast) regions. The larger the threshold, the less features are produced by the detector.</td></tr>
+    <tr><td class="paramname">nfeatures</td><td>The number of best features to retain. The features are ranked by their scores (measured in <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> algorithm as the local contrast) </td></tr>
+    <tr><td class="paramname">nOctaveLayers</td><td>The number of layers in each octave. 3 is the value used in D. Lowe paper. The number of octaves is computed automatically from the image resolution. </td></tr>
+    <tr><td class="paramname">contrastThreshold</td><td>The contrast threshold used to filter out weak features in semi-uniform (low-contrast) regions. The larger the threshold, the less features are produced by the detector. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set this argument to 0.09.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set this argument to 0.09. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">edgeThreshold</td><td>The threshold used to filter out edge-like features. Note that the its meaning is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are filtered out (more features are retained).</td></tr>
-    <tr><td class="paramname">sigma</td><td>The sigma of the Gaussian applied to the input image at the octave #0. If your image is captured with a weak camera with soft lenses, you might want to reduce the number.</td></tr>
-    <tr><td class="paramname">descriptorType</td><td>The type of descriptors. Only CV_32F and CV_8U are supported.</td></tr>
+    <tr><td class="paramname">edgeThreshold</td><td>The threshold used to filter out edge-like features. Note that the its meaning is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are filtered out (more features are retained). </td></tr>
+    <tr><td class="paramname">sigma</td><td>The sigma of the Gaussian applied to the input image at the octave #0. If your image is captured with a weak camera with soft lenses, you might want to reduce the number. </td></tr>
+    <tr><td class="paramname">descriptorType</td><td>The type of descriptors. Only CV_32F and CV_8U are supported. </td></tr>
     <tr><td class="paramname">enable_precise_upscale</td><td>Whether to enable precise upscaling in the scale pyramid, which maps index \(\texttt{x}\) to \(\texttt{2x}\). This prevents localization bias. The option is disabled by default. </td></tr>
   </table>
   </dd>
@@ -777,8 +750,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a992155fcfc03adc45e0349f1200fdbe8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a992155fcfc03adc45e0349f1200fdbe8">&#9670;&nbsp;</a></span>create() <span class="overload">[9/9]</span></h2>
+<a id="a920b87d03ed52f0b87ab28bed1162851" name="a920b87d03ed52f0b87ab28bed1162851"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a920b87d03ed52f0b87ab28bed1162851">&#9670;&#160;</a></span>create() <span class="overload">[9/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -789,43 +762,37 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">static <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html">SIFT</a> OpenCVForUnity.Features2dModule.SIFT.create </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nfeatures</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nfeatures</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nOctaveLayers</em>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nOctaveLayers</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>contrastThreshold</em>, </td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>contrastThreshold</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>edgeThreshold</em>, </td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>edgeThreshold</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>sigma</em>, </td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>sigma</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>descriptorType</em>&#160;</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>descriptorType</em></span>, </td>
         </tr>
         <tr>
+          <td class="paramkey"></td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>enable_precise_upscale</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -838,18 +805,18 @@ Additional Inherited Members</h2></td></tr>
 <p>Create <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> with specified descriptorType. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">nfeatures</td><td>The number of best features to retain. The features are ranked by their scores (measured in <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> algorithm as the local contrast)</td></tr>
-    <tr><td class="paramname">nOctaveLayers</td><td>The number of layers in each octave. 3 is the value used in D. Lowe paper. The number of octaves is computed automatically from the image resolution.</td></tr>
-    <tr><td class="paramname">contrastThreshold</td><td>The contrast threshold used to filter out weak features in semi-uniform (low-contrast) regions. The larger the threshold, the less features are produced by the detector.</td></tr>
+    <tr><td class="paramname">nfeatures</td><td>The number of best features to retain. The features are ranked by their scores (measured in <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_s_i_f_t.html" title="Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform ...">SIFT</a> algorithm as the local contrast) </td></tr>
+    <tr><td class="paramname">nOctaveLayers</td><td>The number of layers in each octave. 3 is the value used in D. Lowe paper. The number of octaves is computed automatically from the image resolution. </td></tr>
+    <tr><td class="paramname">contrastThreshold</td><td>The contrast threshold used to filter out weak features in semi-uniform (low-contrast) regions. The larger the threshold, the less features are produced by the detector. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set this argument to 0.09.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set this argument to 0.09. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">edgeThreshold</td><td>The threshold used to filter out edge-like features. Note that the its meaning is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are filtered out (more features are retained).</td></tr>
-    <tr><td class="paramname">sigma</td><td>The sigma of the Gaussian applied to the input image at the octave #0. If your image is captured with a weak camera with soft lenses, you might want to reduce the number.</td></tr>
-    <tr><td class="paramname">descriptorType</td><td>The type of descriptors. Only CV_32F and CV_8U are supported.</td></tr>
+    <tr><td class="paramname">edgeThreshold</td><td>The threshold used to filter out edge-like features. Note that the its meaning is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are filtered out (more features are retained). </td></tr>
+    <tr><td class="paramname">sigma</td><td>The sigma of the Gaussian applied to the input image at the octave #0. If your image is captured with a weak camera with soft lenses, you might want to reduce the number. </td></tr>
+    <tr><td class="paramname">descriptorType</td><td>The type of descriptors. Only CV_32F and CV_8U are supported. </td></tr>
     <tr><td class="paramname">enable_precise_upscale</td><td>Whether to enable precise upscaling in the scale pyramid, which maps index \(\texttt{x}\) to \(\texttt{2x}\). This prevents localization bias. The option is disabled by default. </td></tr>
   </table>
   </dd>
@@ -857,8 +824,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ac94c557000362d8c15127853f911790d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac94c557000362d8c15127853f911790d">&#9670;&nbsp;</a></span>Dispose()</h2>
+<a id="ac94c557000362d8c15127853f911790d" name="ac94c557000362d8c15127853f911790d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac94c557000362d8c15127853f911790d">&#9670;&#160;</a></span>Dispose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -869,8 +836,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">override void OpenCVForUnity.Features2dModule.SIFT.Dispose </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>disposing</em></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>disposing</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -885,8 +851,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a9f24d0b4de763fb2e1cd12fb5e45ff2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f24d0b4de763fb2e1cd12fb5e45ff2f">&#9670;&nbsp;</a></span>getContrastThreshold()</h2>
+<a id="a9f24d0b4de763fb2e1cd12fb5e45ff2f" name="a9f24d0b4de763fb2e1cd12fb5e45ff2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f24d0b4de763fb2e1cd12fb5e45ff2f">&#9670;&#160;</a></span>getContrastThreshold()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -894,7 +860,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double OpenCVForUnity.Features2dModule.SIFT.getContrastThreshold </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -902,8 +868,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a0115ce3ae73d5efb8a108a202287bd35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0115ce3ae73d5efb8a108a202287bd35">&#9670;&nbsp;</a></span>getDefaultName()</h2>
+<a id="a0115ce3ae73d5efb8a108a202287bd35" name="a0115ce3ae73d5efb8a108a202287bd35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0115ce3ae73d5efb8a108a202287bd35">&#9670;&#160;</a></span>getDefaultName()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -914,7 +880,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">override string OpenCVForUnity.Features2dModule.SIFT.getDefaultName </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -930,8 +896,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a28667983cb4769601fefeda65d3360f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28667983cb4769601fefeda65d3360f1">&#9670;&nbsp;</a></span>getEdgeThreshold()</h2>
+<a id="a28667983cb4769601fefeda65d3360f1" name="a28667983cb4769601fefeda65d3360f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28667983cb4769601fefeda65d3360f1">&#9670;&#160;</a></span>getEdgeThreshold()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -939,7 +905,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double OpenCVForUnity.Features2dModule.SIFT.getEdgeThreshold </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -947,8 +913,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a39ff350da2e844c5027849f95bb91dc8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39ff350da2e844c5027849f95bb91dc8">&#9670;&nbsp;</a></span>getNFeatures()</h2>
+<a id="a39ff350da2e844c5027849f95bb91dc8" name="a39ff350da2e844c5027849f95bb91dc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39ff350da2e844c5027849f95bb91dc8">&#9670;&#160;</a></span>getNFeatures()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -956,7 +922,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.Features2dModule.SIFT.getNFeatures </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -964,8 +930,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="abc00c0890d8eed001c7fceb24f5adb07"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc00c0890d8eed001c7fceb24f5adb07">&#9670;&nbsp;</a></span>getNOctaveLayers()</h2>
+<a id="abc00c0890d8eed001c7fceb24f5adb07" name="abc00c0890d8eed001c7fceb24f5adb07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc00c0890d8eed001c7fceb24f5adb07">&#9670;&#160;</a></span>getNOctaveLayers()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -973,7 +939,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">int OpenCVForUnity.Features2dModule.SIFT.getNOctaveLayers </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -981,8 +947,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a54b134b026a2b6f8e3ff26a393c98a2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54b134b026a2b6f8e3ff26a393c98a2e">&#9670;&nbsp;</a></span>getSigma()</h2>
+<a id="a54b134b026a2b6f8e3ff26a393c98a2e" name="a54b134b026a2b6f8e3ff26a393c98a2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54b134b026a2b6f8e3ff26a393c98a2e">&#9670;&#160;</a></span>getSigma()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -990,7 +956,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double OpenCVForUnity.Features2dModule.SIFT.getSigma </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -998,8 +964,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a5e96fc81bdb3f816d39c95932b7e7385"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e96fc81bdb3f816d39c95932b7e7385">&#9670;&nbsp;</a></span>setContrastThreshold()</h2>
+<a id="a5e96fc81bdb3f816d39c95932b7e7385" name="a5e96fc81bdb3f816d39c95932b7e7385"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e96fc81bdb3f816d39c95932b7e7385">&#9670;&#160;</a></span>setContrastThreshold()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1007,8 +973,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.Features2dModule.SIFT.setContrastThreshold </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>contrastThreshold</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>contrastThreshold</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1016,8 +981,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a75c17aa4d9028faf4133a642d7838275"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75c17aa4d9028faf4133a642d7838275">&#9670;&nbsp;</a></span>setEdgeThreshold()</h2>
+<a id="a75c17aa4d9028faf4133a642d7838275" name="a75c17aa4d9028faf4133a642d7838275"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75c17aa4d9028faf4133a642d7838275">&#9670;&#160;</a></span>setEdgeThreshold()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1025,8 +990,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.Features2dModule.SIFT.setEdgeThreshold </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>edgeThreshold</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>edgeThreshold</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1034,8 +998,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a6f26b080a4bbfb741eb8902c5d8f3393"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f26b080a4bbfb741eb8902c5d8f3393">&#9670;&nbsp;</a></span>setNFeatures()</h2>
+<a id="a6f26b080a4bbfb741eb8902c5d8f3393" name="a6f26b080a4bbfb741eb8902c5d8f3393"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f26b080a4bbfb741eb8902c5d8f3393">&#9670;&#160;</a></span>setNFeatures()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1043,8 +1007,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.Features2dModule.SIFT.setNFeatures </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>maxFeatures</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxFeatures</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1052,8 +1015,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a5ffa99b5c0399efbda9b92608d6e8181"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ffa99b5c0399efbda9b92608d6e8181">&#9670;&nbsp;</a></span>setNOctaveLayers()</h2>
+<a id="a5ffa99b5c0399efbda9b92608d6e8181" name="a5ffa99b5c0399efbda9b92608d6e8181"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ffa99b5c0399efbda9b92608d6e8181">&#9670;&#160;</a></span>setNOctaveLayers()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1061,8 +1024,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.Features2dModule.SIFT.setNOctaveLayers </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nOctaveLayers</em></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nOctaveLayers</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1070,8 +1032,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aeeb61560cd7dab9975c9e6ac4e566781"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeeb61560cd7dab9975c9e6ac4e566781">&#9670;&nbsp;</a></span>setSigma()</h2>
+<a id="aeeb61560cd7dab9975c9e6ac4e566781" name="aeeb61560cd7dab9975c9e6ac4e566781"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeeb61560cd7dab9975c9e6ac4e566781">&#9670;&#160;</a></span>setSigma()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1079,8 +1041,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void OpenCVForUnity.Features2dModule.SIFT.setSigma </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>sigma</em></td><td>)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>sigma</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1094,9 +1055,8 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

@@ -1,45 +1,61 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: Class Members - Variables</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
+<script type="text/javascript" src="darkmode_toggle.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +63,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.4</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,23 +74,35 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="doc-content">
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -85,106 +112,56 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div class="contents">
-&#160;
+<div class="textblock">Here is a list of all variables with links to the classes they belong to:</div>
 
-<h3><a id="index_l"></a>- l -</h3><ul>
-<li>L0_25
-: <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_p_c_t_signatures.html#afabde931da234b3e5acd3c2739c26872">OpenCVForUnity.Xfeatures2dModule.PCTSignatures</a>
-</li>
-<li>L0_5
-: <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_p_c_t_signatures.html#a21f31767ab73ebbb9e8f2084677dae4e">OpenCVForUnity.Xfeatures2dModule.PCTSignatures</a>
-</li>
-<li>L1
-: <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_p_c_t_signatures.html#a5b72c867198b6a52a07ba9eaeeb67db4">OpenCVForUnity.Xfeatures2dModule.PCTSignatures</a>
-</li>
-<li>L2
-: <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_p_c_t_signatures.html#a6b7bc53a817b869da0089ca23dcadf59">OpenCVForUnity.Xfeatures2dModule.PCTSignatures</a>
-</li>
-<li>L2Hys
-: <a class="el" href="class_open_c_v_for_unity_1_1_objdetect_module_1_1_h_o_g_descriptor.html#a9b052aac1d9a2bc448fe6b2316a0d3b8">OpenCVForUnity.ObjdetectModule.HOGDescriptor</a>
-</li>
-<li>L2SQUARED
-: <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_p_c_t_signatures.html#a0bec45303267e1334966ae16769d4d82">OpenCVForUnity.Xfeatures2dModule.PCTSignatures</a>
-</li>
-<li>L5
-: <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_p_c_t_signatures.html#a28b8ccceb09ee7f2db589b679bdbf65f">OpenCVForUnity.Xfeatures2dModule.PCTSignatures</a>
-</li>
-<li>L_INFINITY
-: <a class="el" href="class_open_c_v_for_unity_1_1_xfeatures2d_module_1_1_p_c_t_signatures.html#acb77111d670f9cb13bdb4e722388566a">OpenCVForUnity.Xfeatures2dModule.PCTSignatures</a>
-</li>
-<li>LDR_SIZE
-: <a class="el" href="class_open_c_v_for_unity_1_1_photo_module_1_1_photo.html#a0ac7589d965876c0b0b0a26169b65dd2">OpenCVForUnity.PhotoModule.Photo</a>
-</li>
-<li>LEAKYRELU
-: <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_a_n_n___m_l_p.html#a0bf932f9031f88c715320755fb870cf2">OpenCVForUnity.MlModule.ANN_MLP</a>
-</li>
-<li>LINE_4
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#af310012e1cbe3bd4832d7b89bd108838">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>LINE_8
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a92adc2426a0e2b9e74e5b027bd43be7d">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>LINE_AA
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#ae6b7230423630026dafc311e7d8d21b8">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>LINEAR
-: <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_s_v_m.html#a57658238d42b35004d03f5061373cf24">OpenCVForUnity.MlModule.SVM</a>
-</li>
-<li>LMEDS
-: <a class="el" href="class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a733c7411eea7b8f4d9504c2436168cb4">OpenCVForUnity.Calib3dModule.Calib3d</a>
-</li>
-<li>LOCAL_OPTIM_GC
-: <a class="el" href="class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a5c8cab147accdd316f3ea1d442c2dfaa">OpenCVForUnity.Calib3dModule.Calib3d</a>
-</li>
-<li>LOCAL_OPTIM_INNER_AND_ITER_LO
-: <a class="el" href="class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#ad821547549c4efec9a4721949b69cf7c">OpenCVForUnity.Calib3dModule.Calib3d</a>
-</li>
-<li>LOCAL_OPTIM_INNER_LO
-: <a class="el" href="class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a798414d90bc9e703a68245fedc570fcd">OpenCVForUnity.Calib3dModule.Calib3d</a>
-</li>
-<li>LOCAL_OPTIM_NULL
-: <a class="el" href="class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a82ce563e76188d30c73e99fb6e78778a">OpenCVForUnity.Calib3dModule.Calib3d</a>
-</li>
-<li>LOCAL_OPTIM_SIGMA
-: <a class="el" href="class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a84de08a427b5f3b5935a9186eb6f4e5b">OpenCVForUnity.Calib3dModule.Calib3d</a>
-</li>
-<li>LOGIT
-: <a class="el" href="class_open_c_v_for_unity_1_1_ml_module_1_1_boost.html#abd70c82c28fb7e1c0b5485cff39029c9">OpenCVForUnity.MlModule.Boost</a>
-</li>
-<li>LSBP_CAMERA_MOTION_COMPENSATION_LK
-: <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_bgsegm.html#a1e3cdc386f71e21753c132685da648ff">OpenCVForUnity.BgsegmModule.Bgsegm</a>
-</li>
-<li>LSBP_CAMERA_MOTION_COMPENSATION_NONE
-: <a class="el" href="class_open_c_v_for_unity_1_1_bgsegm_module_1_1_bgsegm.html#a1b1fd58ba5e9984a3b3e43ba7026ca0b">OpenCVForUnity.BgsegmModule.Bgsegm</a>
-</li>
-<li>LSD
-: <a class="el" href="class_open_c_v_for_unity_1_1_ximgproc_module_1_1_edge_drawing.html#a964e0dbf3cb9abe9c97a932e37ce3cf4">OpenCVForUnity.XimgprocModule.EdgeDrawing</a>
-</li>
-<li>LSD_REFINE_ADV
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a44217d6ecd9000c2c6b3e256fdf1caa5">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>LSD_REFINE_NONE
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#a81418ddcb76acaf6142fdeed7fa5bd96">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>LSD_REFINE_STD
-: <a class="el" href="class_open_c_v_for_unity_1_1_imgproc_module_1_1_imgproc.html#ab9f88e74247d3f2484f28e569d159d50">OpenCVForUnity.ImgprocModule.Imgproc</a>
-</li>
-<li>LSQ_POLISHER
-: <a class="el" href="class_open_c_v_for_unity_1_1_calib3d_module_1_1_calib3d.html#a3e2c7bfca0a7160a06093fa9f13f2460">OpenCVForUnity.Calib3dModule.Calib3d</a>
-</li>
+<h3><a id="index_l" name="index_l"></a>- l -</h3><ul>
+<li>L0_25&#160;:&#160;<a class="el" href="d8/d1b/classOpenCVForUnity_1_1Xfeatures2dModule_1_1PCTSignatures.html#afabde931da234b3e5acd3c2739c26872">OpenCVForUnity.Xfeatures2dModule.PCTSignatures</a></li>
+<li>L0_5&#160;:&#160;<a class="el" href="d8/d1b/classOpenCVForUnity_1_1Xfeatures2dModule_1_1PCTSignatures.html#a21f31767ab73ebbb9e8f2084677dae4e">OpenCVForUnity.Xfeatures2dModule.PCTSignatures</a></li>
+<li>L1&#160;:&#160;<a class="el" href="d8/d1b/classOpenCVForUnity_1_1Xfeatures2dModule_1_1PCTSignatures.html#a5b72c867198b6a52a07ba9eaeeb67db4">OpenCVForUnity.Xfeatures2dModule.PCTSignatures</a></li>
+<li>L2&#160;:&#160;<a class="el" href="d8/d1b/classOpenCVForUnity_1_1Xfeatures2dModule_1_1PCTSignatures.html#a6b7bc53a817b869da0089ca23dcadf59">OpenCVForUnity.Xfeatures2dModule.PCTSignatures</a></li>
+<li>L2Hys&#160;:&#160;<a class="el" href="dd/d35/classOpenCVForUnity_1_1ObjdetectModule_1_1HOGDescriptor.html#a9b052aac1d9a2bc448fe6b2316a0d3b8">OpenCVForUnity.ObjdetectModule.HOGDescriptor</a></li>
+<li>L2SQUARED&#160;:&#160;<a class="el" href="d8/d1b/classOpenCVForUnity_1_1Xfeatures2dModule_1_1PCTSignatures.html#a0bec45303267e1334966ae16769d4d82">OpenCVForUnity.Xfeatures2dModule.PCTSignatures</a></li>
+<li>L5&#160;:&#160;<a class="el" href="d8/d1b/classOpenCVForUnity_1_1Xfeatures2dModule_1_1PCTSignatures.html#a28b8ccceb09ee7f2db589b679bdbf65f">OpenCVForUnity.Xfeatures2dModule.PCTSignatures</a></li>
+<li>L_INFINITY&#160;:&#160;<a class="el" href="d8/d1b/classOpenCVForUnity_1_1Xfeatures2dModule_1_1PCTSignatures.html#acb77111d670f9cb13bdb4e722388566a">OpenCVForUnity.Xfeatures2dModule.PCTSignatures</a></li>
+<li>LDR_SIZE&#160;:&#160;<a class="el" href="da/d0a/classOpenCVForUnity_1_1PhotoModule_1_1Photo.html#a0ac7589d965876c0b0b0a26169b65dd2">OpenCVForUnity.PhotoModule.Photo</a></li>
+<li>LEAKYRELU&#160;:&#160;<a class="el" href="d6/dfe/classOpenCVForUnity_1_1MlModule_1_1ANN__MLP.html#a0bf932f9031f88c715320755fb870cf2">OpenCVForUnity.MlModule.ANN_MLP</a></li>
+<li>LINE_4&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#af310012e1cbe3bd4832d7b89bd108838">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>LINE_8&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#a92adc2426a0e2b9e74e5b027bd43be7d">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>LINE_AA&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#ae6b7230423630026dafc311e7d8d21b8">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>LINEAR&#160;:&#160;<a class="el" href="d9/d13/classOpenCVForUnity_1_1MlModule_1_1SVM.html#a57658238d42b35004d03f5061373cf24">OpenCVForUnity.MlModule.SVM</a></li>
+<li>LMEDS&#160;:&#160;<a class="el" href="df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a733c7411eea7b8f4d9504c2436168cb4">OpenCVForUnity.Calib3dModule.Calib3d</a></li>
+<li>LOCAL_OPTIM_GC&#160;:&#160;<a class="el" href="df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a5c8cab147accdd316f3ea1d442c2dfaa">OpenCVForUnity.Calib3dModule.Calib3d</a></li>
+<li>LOCAL_OPTIM_INNER_AND_ITER_LO&#160;:&#160;<a class="el" href="df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#ad821547549c4efec9a4721949b69cf7c">OpenCVForUnity.Calib3dModule.Calib3d</a></li>
+<li>LOCAL_OPTIM_INNER_LO&#160;:&#160;<a class="el" href="df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a798414d90bc9e703a68245fedc570fcd">OpenCVForUnity.Calib3dModule.Calib3d</a></li>
+<li>LOCAL_OPTIM_NULL&#160;:&#160;<a class="el" href="df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a82ce563e76188d30c73e99fb6e78778a">OpenCVForUnity.Calib3dModule.Calib3d</a></li>
+<li>LOCAL_OPTIM_SIGMA&#160;:&#160;<a class="el" href="df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a84de08a427b5f3b5935a9186eb6f4e5b">OpenCVForUnity.Calib3dModule.Calib3d</a></li>
+<li>LOGIT&#160;:&#160;<a class="el" href="d0/d69/classOpenCVForUnity_1_1MlModule_1_1Boost.html#abd70c82c28fb7e1c0b5485cff39029c9">OpenCVForUnity.MlModule.Boost</a></li>
+<li>LSBP_CAMERA_MOTION_COMPENSATION_LK&#160;:&#160;<a class="el" href="df/d6a/classOpenCVForUnity_1_1BgsegmModule_1_1Bgsegm.html#a1e3cdc386f71e21753c132685da648ff">OpenCVForUnity.BgsegmModule.Bgsegm</a></li>
+<li>LSBP_CAMERA_MOTION_COMPENSATION_NONE&#160;:&#160;<a class="el" href="df/d6a/classOpenCVForUnity_1_1BgsegmModule_1_1Bgsegm.html#a1b1fd58ba5e9984a3b3e43ba7026ca0b">OpenCVForUnity.BgsegmModule.Bgsegm</a></li>
+<li>LSD&#160;:&#160;<a class="el" href="d5/d60/classOpenCVForUnity_1_1XimgprocModule_1_1EdgeDrawing.html#a964e0dbf3cb9abe9c97a932e37ce3cf4">OpenCVForUnity.XimgprocModule.EdgeDrawing</a></li>
+<li>LSD_REFINE_ADV&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#a44217d6ecd9000c2c6b3e256fdf1caa5">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>LSD_REFINE_NONE&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#a81418ddcb76acaf6142fdeed7fa5bd96">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>LSD_REFINE_STD&#160;:&#160;<a class="el" href="df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#ab9f88e74247d3f2484f28e569d159d50">OpenCVForUnity.ImgprocModule.Imgproc</a></li>
+<li>LSQ_POLISHER&#160;:&#160;<a class="el" href="df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a3e2c7bfca0a7160a06093fa9f13f2460">OpenCVForUnity.Calib3dModule.Calib3d</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: OpenCVForUnity.CoreModule.CvException Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,42 +126,44 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_core_module.html">CoreModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_exception.html">CvException</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_exception-members.html">List of all members</a>  </div>
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.CoreModule.CvException Class Reference</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.CoreModule.CvException Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>The exception that is thrown by OpenCVForUntiy.  
- <a href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_exception.html#details">More...</a></p>
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for OpenCVForUnity.CoreModule.CvException:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="class_open_c_v_for_unity_1_1_core_module_1_1_cv_exception.png" usemap="#OpenCVForUnity.CoreModule.CvException_map" alt=""/>
-  <map id="OpenCVForUnity.CoreModule.CvException_map" name="OpenCVForUnity.CoreModule.CvException_map">
-</map>
+  <img src="class_open_c_v_for_unity_1_1_core_module_1_1_cv_exception.png" alt=""/>
  </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6bafe1c9530ff9ef54b9afd49d2b869d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_exception.html#a6bafe1c9530ff9ef54b9afd49d2b869d">CvException</a> ()</td></tr>
+<tr class="memitem:a6bafe1c9530ff9ef54b9afd49d2b869d" id="r_a6bafe1c9530ff9ef54b9afd49d2b869d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6bafe1c9530ff9ef54b9afd49d2b869d">CvException</a> ()</td></tr>
+<tr class="memdesc:a6bafe1c9530ff9ef54b9afd49d2b869d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_exception.html" title="The exception that is thrown by OpenCVForUntiy.">CvException</a> class.  <br /></td></tr>
 <tr class="separator:a6bafe1c9530ff9ef54b9afd49d2b869d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c58b96fd721d5a5a6021029c8ec8509"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_exception.html#a0c58b96fd721d5a5a6021029c8ec8509">CvException</a> (string message)</td></tr>
+<tr class="memitem:a0c58b96fd721d5a5a6021029c8ec8509" id="r_a0c58b96fd721d5a5a6021029c8ec8509"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c58b96fd721d5a5a6021029c8ec8509">CvException</a> (string message)</td></tr>
+<tr class="memdesc:a0c58b96fd721d5a5a6021029c8ec8509"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_exception.html" title="The exception that is thrown by OpenCVForUntiy.">CvException</a> class with a specified error message.  <br /></td></tr>
 <tr class="separator:a0c58b96fd721d5a5a6021029c8ec8509"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0aa0d10f1479bef14438215b963d305"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_exception.html#ac0aa0d10f1479bef14438215b963d305">CvException</a> (string messageFormat, params object[] args)</td></tr>
+<tr class="memitem:ac0aa0d10f1479bef14438215b963d305" id="r_ac0aa0d10f1479bef14438215b963d305"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac0aa0d10f1479bef14438215b963d305">CvException</a> (string messageFormat, params object[] args)</td></tr>
+<tr class="memdesc:ac0aa0d10f1479bef14438215b963d305"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_exception.html" title="The exception that is thrown by OpenCVForUntiy.">CvException</a> class with a formatted error message.  <br /></td></tr>
 <tr class="separator:ac0aa0d10f1479bef14438215b963d305"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a001842cf12511e71f8b0a94a328786e3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_exception.html#a001842cf12511e71f8b0a94a328786e3">CvException</a> (string message, Exception innerException)</td></tr>
+<tr class="memitem:a001842cf12511e71f8b0a94a328786e3" id="r_a001842cf12511e71f8b0a94a328786e3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a001842cf12511e71f8b0a94a328786e3">CvException</a> (string message, Exception innerException)</td></tr>
+<tr class="memdesc:a001842cf12511e71f8b0a94a328786e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_exception.html" title="The exception that is thrown by OpenCVForUntiy.">CvException</a> class with a specified error message and a reference to the inner exception that caused this exception.  <br /></td></tr>
 <tr class="separator:a001842cf12511e71f8b0a94a328786e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The exception that is thrown by OpenCVForUntiy. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a6bafe1c9530ff9ef54b9afd49d2b869d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bafe1c9530ff9ef54b9afd49d2b869d">&#9670;&nbsp;</a></span>CvException() <span class="overload">[1/4]</span></h2>
+<a id="a6bafe1c9530ff9ef54b9afd49d2b869d" name="a6bafe1c9530ff9ef54b9afd49d2b869d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bafe1c9530ff9ef54b9afd49d2b869d">&#9670;&#160;</a></span>CvException() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -137,18 +171,18 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.CoreModule.CvException.CvException </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Initializes a new instance of the <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_exception.html" title="The exception that is thrown by OpenCVForUntiy.">CvException</a> class. </p>
 
 </div>
 </div>
-<a id="a0c58b96fd721d5a5a6021029c8ec8509"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c58b96fd721d5a5a6021029c8ec8509">&#9670;&nbsp;</a></span>CvException() <span class="overload">[2/4]</span></h2>
+<a id="a0c58b96fd721d5a5a6021029c8ec8509" name="a0c58b96fd721d5a5a6021029c8ec8509"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c58b96fd721d5a5a6021029c8ec8509">&#9670;&#160;</a></span>CvException() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -156,25 +190,24 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.CoreModule.CvException.CvException </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>message</em></td><td>)</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>message</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Initializes a new instance of the <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_exception.html" title="The exception that is thrown by OpenCVForUntiy.">CvException</a> class with a specified error message. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">message</td><td></td></tr>
+    <tr><td class="paramname">message</td><td>The message that describes the error. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="ac0aa0d10f1479bef14438215b963d305"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0aa0d10f1479bef14438215b963d305">&#9670;&nbsp;</a></span>CvException() <span class="overload">[3/4]</span></h2>
+<a id="ac0aa0d10f1479bef14438215b963d305" name="ac0aa0d10f1479bef14438215b963d305"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0aa0d10f1479bef14438215b963d305">&#9670;&#160;</a></span>CvException() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -182,36 +215,29 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.CoreModule.CvException.CvException </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>messageFormat</em>, </td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>messageFormat</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">params object []&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">params object[]</td>          <td class="paramname"><span class="paramname"><em>args</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Initializes a new instance of the <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_exception.html" title="The exception that is thrown by OpenCVForUntiy.">CvException</a> class with a formatted error message. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">messageFormat</td><td></td></tr>
-    <tr><td class="paramname">args</td><td></td></tr>
+    <tr><td class="paramname">messageFormat</td><td>The composite format string that contains text intermixed with format items. </td></tr>
+    <tr><td class="paramname">args</td><td>An array of objects to format. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a001842cf12511e71f8b0a94a328786e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a001842cf12511e71f8b0a94a328786e3">&#9670;&nbsp;</a></span>CvException() <span class="overload">[4/4]</span></h2>
+<a id="a001842cf12511e71f8b0a94a328786e3" name="a001842cf12511e71f8b0a94a328786e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a001842cf12511e71f8b0a94a328786e3">&#9670;&#160;</a></span>CvException() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -219,28 +245,21 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">OpenCVForUnity.CoreModule.CvException.CvException </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>message</em>, </td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>message</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Exception&#160;</td>
-          <td class="paramname"><em>innerException</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">Exception</td>          <td class="paramname"><span class="paramname"><em>innerException</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Initializes a new instance of the <a class="el" href="class_open_c_v_for_unity_1_1_core_module_1_1_cv_exception.html" title="The exception that is thrown by OpenCVForUntiy.">CvException</a> class with a specified error message and a reference to the inner exception that caused this exception. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">message</td><td></td></tr>
-    <tr><td class="paramname">innerException</td><td></td></tr>
+    <tr><td class="paramname">message</td><td>The message that describes the error. </td></tr>
+    <tr><td class="paramname">innerException</td><td>The exception that is the cause of the current exception, or a null reference if no inner exception is specified. </td></tr>
   </table>
   </dd>
 </dl>
@@ -253,9 +272,8 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OpenCV for Unity: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-//<![CDATA[
-MathJax.Hub.Config(
-{
-  TeX: {
-      Macros: {
-          matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
-          fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
-          forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
-          forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
-          vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
-          vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
-          cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
-          distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
-          distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
-          hdotsfor: ["\\dots", 1],
-          mathbbm: ["\\mathbb{#1}", 1],
-          bordermatrix: ["\\matrix{#1}", 1]
-      }
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/ams']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','ams']
   }
-}
-);
+};
+//<![CDATA[
+window.MathJax = {
+    loader: {load: ['[tex]/ams']},
+    tex: {
+        packages: {'[+]': ['ams']},
+        macros: {
+            matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],
+            fork: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ \\end{array} \\right.", 4],
+            forkthree: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ \\end{array} \\right.", 6],
+            forkfour: ["\\left\\{ \\begin{array}{l l} #1 & \\mbox{#2}\\\\ #3 & \\mbox{#4}\\\\ #5 & \\mbox{#6}\\\\ #7 & \\mbox{#8}\\\\ \\end{array} \\right.", 8],
+            vecthree: ["\\begin{bmatrix} #1\\\\ #2\\\\ #3 \\end{bmatrix}", 3],
+            vecthreethree: ["\\begin{bmatrix} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{bmatrix}", 9],
+            cameramatrix: ["#1 = \\begin{bmatrix} f_x & 0 & c_x\\\\ 0 & f_y & c_y\\\\ 0 & 0 & 1 \\end{bmatrix}", 1],
+            distcoeffs: ["(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]]) \\text{ of 4, 5, 8, 12 or 14 elements}"],
+            distcoeffsfisheye: ["(k_1, k_2, k_3, k_4)"],
+            hdotsfor: ["\\dots", 1],
+            mathbbm: ["\\mathbb{#1}", 1],
+            bordermatrix: ["\\matrix{#1}", 1]
+        },
+        processEscapes: false
+    }
+};
 //]]>
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script>
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -47,10 +62,9 @@ MathJax.Hub.Config(
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCV for Unity
-   &#160;<span id="projectnumber">2.6.3</span>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -59,22 +73,33 @@ MathJax.Hub.Config(
 </table>
 </div>
 <!-- end header part -->
-<!-- Generated by Doxygen 1.8.14 -->
+<!-- Generated by Doxygen 1.12.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -84,9 +109,16 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="nav-path" class="navpath">
@@ -94,73 +126,72 @@ $(function() {
 <li class="navelem"><a class="el" href="namespace_open_c_v_for_unity.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="namespace_open_c_v_for_unity_1_1_features2d_module.html">Features2dModule</a></li><li class="navelem"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">SimpleBlobDetector_Params</a></li>  </ul>
 </div>
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
-  <div class="headertitle">
-<div class="title">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params Member List</div>  </div>
+  <div class="headertitle"><div class="title">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params Member List</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>This is the complete list of members for <a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a>, including all inherited members.</p>
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#ac2165d88129d21e583ff43f84f692813">__fromPtr__</a>(IntPtr addr)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#ae924d4d77a5929e39abca6ef9daf6330">DisposableObject</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a1e47724d49556061a5ba400577be2a13">DisposableObject</a>(bool isEnabledDispose)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#aab50d94cc702503eac045ca7042624ae">DisposableOpenCVObject</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a6dc5923de5bd43795c72dd7f581ad832">DisposableOpenCVObject</a>(IntPtr ptr)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a>(bool isEnabledDispose)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a1fb2523312e8a423889a1d160e755e7d">DisposableOpenCVObject</a>(bool isEnabledDispose)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html#a739b223f2008fae0966c43d0c6f0f72f">DisposableOpenCVObject</a>(IntPtr ptr, bool isEnabledDispose)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_open_c_v_object.html">OpenCVForUnity.DisposableOpenCVObject</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a794afe50492b27352a128442a68bd52d">Dispose</a>(bool disposing)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a794afe50492b27352a128442a68bd52d">Dispose</a>(bool disposing)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">OpenCVForUnity::DisposableObject.Dispose</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a4ab5e3aa2f728e81b19008237a9058c1">get_collectContours</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a4ab5e3aa2f728e81b19008237a9058c1">get_collectContours</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#af67ada746dad1a0ee3e08e89d82f3dd0">get_filterByArea</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#ad0b5a1f37e8e650e3e5ccb8a52777a8e">get_filterByCircularity</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#ad0b5a1f37e8e650e3e5ccb8a52777a8e">get_filterByCircularity</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a646441a00e2010e8da0d4484920174e5">get_filterByColor</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a6a1e03402f20984e622747934522d9fc">get_filterByConvexity</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a6a1e03402f20984e622747934522d9fc">get_filterByConvexity</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a721db0c0b5346bb3045c20e7d54ddec0">get_filterByInertia</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a3f0aca277c50a1ac5f9434446cd8c29e">get_maxArea</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a3f0aca277c50a1ac5f9434446cd8c29e">get_maxArea</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a9f602708534e0b53bfec65547ed3880f">get_maxCircularity</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#acdbf886937e82dd88771bced99d84d46">get_maxConvexity</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#acdbf886937e82dd88771bced99d84d46">get_maxConvexity</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#aec7af25d77c5052eaafe907a6ca14ded">get_maxInertiaRatio</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a78724d83c4a70b1ecca9a58113dd1987">get_maxThreshold</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a78724d83c4a70b1ecca9a58113dd1987">get_maxThreshold</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#aa291da80465eeb45b8ba79d7139b8efe">get_minArea</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a8039a795334c0f699a5fe950b6216b76">get_minCircularity</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a8039a795334c0f699a5fe950b6216b76">get_minCircularity</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a774f30a7748011e065dbcbda547faef5">get_minConvexity</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#ae8698173cf0c43f3a2fdda74296cb764">get_minDistBetweenBlobs</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#ae8698173cf0c43f3a2fdda74296cb764">get_minDistBetweenBlobs</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a0fd0854a85241fce19ac4471bec37035">get_minInertiaRatio</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#ae3d8ccdebd0c0fec7b043b3d39b58884">get_minRepeatability</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#ae3d8ccdebd0c0fec7b043b3d39b58884">get_minRepeatability</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a4546d2105bbab2d38df87adc6e976ec9">get_minThreshold</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a1e0d7d3a3b691c10b30afec326d5e2f4">get_thresholdStep</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a1e0d7d3a3b691c10b30afec326d5e2f4">get_thresholdStep</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#adb1a1bcf2d372cd36487f57412df52ba">getNativeObjAddr</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a056e69daaa9ea20e563c5e41b28c1525">IsDisposed</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a8e287e3cb5995f483cb64dd6c3b19a7f">IsEnabledDispose</a></td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#ace096cc80c8031270c3338b6eeebb40e">set_collectContours</a>(bool collectContours)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#ace096cc80c8031270c3338b6eeebb40e">set_collectContours</a>(bool collectContours)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a3e511286156005bdadab4f34a6d23546">set_filterByArea</a>(bool filterByArea)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a1348e0c4bde438df607d2c9aceb6f6b8">set_filterByCircularity</a>(bool filterByCircularity)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a1348e0c4bde438df607d2c9aceb6f6b8">set_filterByCircularity</a>(bool filterByCircularity)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a29abc67800a774e67fdaf292245fb703">set_filterByColor</a>(bool filterByColor)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a601ea0c4f58fa755f5098acc4c0945d8">set_filterByConvexity</a>(bool filterByConvexity)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a601ea0c4f58fa755f5098acc4c0945d8">set_filterByConvexity</a>(bool filterByConvexity)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a814b2c05950e3f21579d05e4f713d9df">set_filterByInertia</a>(bool filterByInertia)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#ab74ce1101021aa7edfb32932b962c59b">set_maxArea</a>(float maxArea)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#ab74ce1101021aa7edfb32932b962c59b">set_maxArea</a>(float maxArea)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#afff8d8453667d353a558cafe8fe3194a">set_maxCircularity</a>(float maxCircularity)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#af7ae41ae3fe426c484c8c6066ea910d4">set_maxConvexity</a>(float maxConvexity)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#af7ae41ae3fe426c484c8c6066ea910d4">set_maxConvexity</a>(float maxConvexity)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a9c98dcdd018aaacb54e11e30966f7b4b">set_maxInertiaRatio</a>(float maxInertiaRatio)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a316c32425d4f3b07439faf8d4a7a19e1">set_maxThreshold</a>(float maxThreshold)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a316c32425d4f3b07439faf8d4a7a19e1">set_maxThreshold</a>(float maxThreshold)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#ac88d2c24bbf31e540c32b2750131a404">set_minArea</a>(float minArea)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a989a672ef05bc6522486c08b9494b170">set_minCircularity</a>(float minCircularity)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a989a672ef05bc6522486c08b9494b170">set_minCircularity</a>(float minCircularity)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#abaf41501dbf21e500e6fde89d077b67f">set_minConvexity</a>(float minConvexity)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#aaeb33116ae8dc30545e528e6fd584f99">set_minDistBetweenBlobs</a>(float minDistBetweenBlobs)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#aaeb33116ae8dc30545e528e6fd584f99">set_minDistBetweenBlobs</a>(float minDistBetweenBlobs)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a040d32f5e78c944952c87168608216ec">set_minInertiaRatio</a>(float minInertiaRatio)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#ab7149882772f33ce681d7b040a15e50e">set_minRepeatability</a>(long minRepeatability)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#ab7149882772f33ce681d7b040a15e50e">set_minRepeatability</a>(long minRepeatability)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#a81d869d5c42fc20088b32d3b4b697bdd">set_minThreshold</a>(float minThreshold)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#aaf6586a67f5d8243ed50a3ad3c340dad">set_thresholdStep</a>(float thresholdStep)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#aaf6586a67f5d8243ed50a3ad3c340dad">set_thresholdStep</a>(float thresholdStep)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html#ad9583a11e00f2065e76634ecb4470546">SimpleBlobDetector_Params</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_features2d_module_1_1_simple_blob_detector___params.html">OpenCVForUnity.Features2dModule.SimpleBlobDetector_Params</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a620f073ff3aa1bcee28fb00edb01dc11">ThrowIfDisposed</a>()</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a>(IntPtr ptr)</td><td class="entry"><a class="el" href="class_open_c_v_for_unity_1_1_disposable_object.html">OpenCVForUnity.DisposableObject</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>
