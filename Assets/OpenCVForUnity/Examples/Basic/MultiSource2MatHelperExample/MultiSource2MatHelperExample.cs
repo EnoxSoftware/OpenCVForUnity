@@ -99,6 +99,12 @@ namespace OpenCVForUnityExample
         /// </summary>
         FpsMonitor fpsMonitor;
 
+        /// <summary>
+        /// The FPS counter.
+        /// Measure how frequently DidUpdateThisFrame() is actually updated.
+        /// </summary>
+        FPSCounter fpsCounter;
+
         // Use this for initialization
         void Start()
         {
@@ -159,6 +165,13 @@ namespace OpenCVForUnityExample
                         break;
                 }
 
+                switch (multiSource2MatHelper.source2MatHelper)
+                {
+                    case IMatUpdateFPSProvider helper:
+                        fpsMonitor.Add("mat update fps", helper.GetMatUpdateFPS().ToString());
+                        break;
+                }
+
 #if !OPENCV_DONT_USE_WEBCAMTEXTURE_API
                 if (multiSource2MatHelper.source2MatHelper is WebCamTexture2MatHelper webCamHelper)
                 {
@@ -171,6 +184,8 @@ namespace OpenCVForUnityExample
 
             if (fpsMonitor != null)
                 fpsMonitor.consoleText = "";
+
+            fpsCounter = new FPSCounter(1.0f);
 
             // To ensure that outputTexture does not blink when Source is changed, outputTexture is not destroyed by OnSourceToMatHelperDisposed, but is retained until OnSourceToMatHelperInitialised.
             ReleaseResources();
@@ -212,13 +227,7 @@ namespace OpenCVForUnityExample
                 // Set the RenderTexture as the texture of the RawImage for preview.
                 resultPreview.texture = outputRenderTexture;
                 resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)outputRenderTexture.width / outputRenderTexture.height;
-
-
             }
-
-
-            if (forcePlaybackWhenSwitchingHelperToggle.isOn && !multiSource2MatHelper.IsPlaying())
-                multiSource2MatHelper.Play();
         }
 
         /// <summary>
@@ -253,6 +262,8 @@ namespace OpenCVForUnityExample
             // Check if the web camera is playing and if a new frame was updated
             if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
             {
+                fpsCounter.MeasureFPS();
+
                 // Retrieve the current frame as a Mat object
                 Mat rgbaMat = multiSource2MatHelper.GetMat();
 
@@ -278,7 +289,7 @@ namespace OpenCVForUnityExample
                 }
 
                 // Add text overlay on the frame
-                Imgproc.putText(rgbaMat, "W:" + rgbaMat.width() + " H:" + rgbaMat.height() + " SO:" + Screen.orientation, new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                Imgproc.putText(rgbaMat, "W:" + rgbaMat.width() + " H:" + rgbaMat.height() + " SO:" + Screen.orientation + " MatUpdateFPS:" + fpsCounter.GetCurrentFPS(), new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
                 if (!outputRenderTextureToggle.isOn)
                 {
@@ -290,9 +301,11 @@ namespace OpenCVForUnityExample
                     // Convert the Mat to a RenderTexture to display it on a texture
                     Utils.matToRenderTexture(rgbaMat, outputRenderTexture, graphicsBuffer);
                 }
+
+                //cube.transform.Rotate(new Vector3(90, 90, 0) * Time.deltaTime, Space.Self);
             }
 
-            cube.transform.Rotate(new Vector3(90, 90, 0) * Time.deltaTime, Space.Self);
+            cube.transform.Rotate(new Vector3(90, 90, 0) * Time.deltaTime * 0.5f, Space.Self);
         }
 
         /// <summary>
@@ -380,6 +393,9 @@ namespace OpenCVForUnityExample
         {
             if ((int)requestedSource2MatHelperClassName != result)
             {
+                if (forcePlaybackWhenSwitchingHelperToggle.isOn && !multiSource2MatHelper.IsPlaying())
+                    multiSource2MatHelper.Play();
+
                 requestedSource2MatHelperClassName = (Source2MatHelperClassNamePreset)result;
 
                 switch (requestedSource2MatHelperClassName)

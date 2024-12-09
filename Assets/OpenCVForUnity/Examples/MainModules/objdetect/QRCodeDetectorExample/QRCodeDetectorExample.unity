@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 9b90cc33049f9574797310b8365368b3,
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 4ee9f09370d4a3f40a308c8f276e0f79,
     type: 2}
 --- !u!196 &5
 NavMeshSettings:
@@ -567,8 +567,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1162053728}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 1162053736}
+        m_TargetAssemblyTypeName: OpenCVForUnityExample.QRCodeDetectorExample, EnoxSoftware.OpenCVForUnity
         m_MethodName: OnPlayButtonClick
         m_Mode: 1
         m_Arguments:
@@ -728,8 +728,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1162053728}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 1162053736}
+        m_TargetAssemblyTypeName: OpenCVForUnityExample.QRCodeDetectorExample, EnoxSoftware.OpenCVForUnity
         m_MethodName: OnStopButtonClick
         m_Mode: 1
         m_Arguments:
@@ -889,8 +889,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1162053728}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 1162053736}
+        m_TargetAssemblyTypeName: OpenCVForUnityExample.QRCodeDetectorExample, EnoxSoftware.OpenCVForUnity
         m_MethodName: OnChangeCameraButtonClick
         m_Mode: 1
         m_Arguments:
@@ -1050,8 +1050,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1162053728}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 1162053736}
+        m_TargetAssemblyTypeName: OpenCVForUnityExample.QRCodeDetectorExample, EnoxSoftware.OpenCVForUnity
         m_MethodName: OnPauseButtonClick
         m_Mode: 1
         m_Arguments:
@@ -1102,6 +1102,94 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 972862485}
   m_CullTransparentMesh: 0
+--- !u!1 &989057613
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 989057617}
+  - component: {fileID: 989057616}
+  - component: {fileID: 989057614}
+  - component: {fileID: 989057615}
+  m_Layer: 5
+  m_Name: PreviewRawImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &989057614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989057613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: 9a89f0244015e104fb922e309d53caf1, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!114 &989057615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989057613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 3
+  m_AspectRatio: 1
+--- !u!222 &989057616
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989057613}
+  m_CullTransparentMesh: 1
+--- !u!224 &989057617
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989057613}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1151302487}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1151302486
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,7 +1223,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2101069118}
+  - {fileID: 989057617}
   - {fileID: 1643611734}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -1178,7 +1266,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1162053732}
-  - component: {fileID: 1162053728}
+  - component: {fileID: 1162053736}
   - component: {fileID: 1162053735}
   - component: {fileID: 1162053734}
   m_Layer: 0
@@ -1188,19 +1276,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1162053728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1162053727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 756e567b077326d45b5580d1665d3561, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resultPreview: {fileID: 2101069115}
 --- !u!4 &1162053732
 Transform:
   m_ObjectHideFlags: 0
@@ -1248,12 +1323,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _requestedSource2MatHelperClassName: 0
-  _currentSource2MatHelperClassCategory: 0
+  _currentSource2MatHelperClassInterfaces: 1
   _requestedDeviceName: 
   _requestedWidth: 640
   _requestedHeight: 480
   _requestedIsFrontFacing: 0
   _requestedFPS: 30
+  _requestedMatUpdateFPS: 30
   _requestedVideoFilePath: 
   _loop: 1
   _requestedImageFilePath: 
@@ -1265,7 +1341,7 @@ MonoBehaviour:
   _onInitialized:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1162053728}
+      - m_Target: {fileID: 1162053736}
         m_TargetAssemblyTypeName: OpenCVForUnityExample.QRCodeDetectorExample, EnoxSoftware.OpenCVForUnity
         m_MethodName: OnSourceToMatHelperInitialized
         m_Mode: 1
@@ -1280,7 +1356,7 @@ MonoBehaviour:
   _onDisposed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1162053728}
+      - m_Target: {fileID: 1162053736}
         m_TargetAssemblyTypeName: OpenCVForUnityExample.QRCodeDetectorExample, EnoxSoftware.OpenCVForUnity
         m_MethodName: OnSourceToMatHelperDisposed
         m_Mode: 1
@@ -1295,7 +1371,7 @@ MonoBehaviour:
   _onErrorOccurred:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1162053728}
+      - m_Target: {fileID: 1162053736}
         m_TargetAssemblyTypeName: OpenCVForUnityExample.QRCodeDetectorExample, EnoxSoftware.OpenCVForUnity
         m_MethodName: OnSourceToMatHelperErrorOccurred
         m_Mode: 0
@@ -1307,6 +1383,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1162053736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162053727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 756e567b077326d45b5580d1665d3561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resultPreview: {fileID: 989057614}
 --- !u!1 &1211686401
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,8 +1569,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1162053728}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 1162053736}
+        m_TargetAssemblyTypeName: OpenCVForUnityExample.QRCodeDetectorExample, EnoxSoftware.OpenCVForUnity
         m_MethodName: OnBackButtonClick
         m_Mode: 1
         m_Arguments:
@@ -1831,91 +1920,3 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &2101069114
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2101069118}
-  - component: {fileID: 2101069117}
-  - component: {fileID: 2101069115}
-  - component: {fileID: 2101069116}
-  m_Layer: 5
-  m_Name: PreviewRawImage
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2101069115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2101069114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 9a89f0244015e104fb922e309d53caf1, type: 3}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!114 &2101069116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2101069114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AspectMode: 3
-  m_AspectRatio: 1
---- !u!222 &2101069117
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2101069114}
-  m_CullTransparentMesh: 1
---- !u!224 &2101069118
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2101069114}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1151302487}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}

@@ -3,13 +3,10 @@ using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.ObjdetectModule;
 using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.UnityUtils.Helper;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using OpenCVRect = OpenCVForUnity.CoreModule.Rect;
 
 namespace OpenCVForUnityExample
 {

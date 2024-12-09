@@ -5,7 +5,7 @@ using OpenCVForUnity.UnityUtils.Helper;
 #if !UNITY_WSA_10_0
 using OpenCVForUnityExample.DnnModel;
 #endif
-using OpenCVForUnityExample.MOT.ByteTrack;
+using OpenCVForUnity.UnityUtils.MOT.ByteTrack;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;

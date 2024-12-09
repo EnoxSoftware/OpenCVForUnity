@@ -185,7 +185,34 @@ namespace OpenCVForUnityExample
                     gridBoardIds.put(0, 0, Enumerable.Range(gridBoradMarkerFirstMarker, gridBoradMarkerFirstMarker + gridBoardTotalMarkers).ToArray());
 
                     GridBoard gridBoard = new GridBoard(new Size(gridBoradMarkersX, gridBoradMarkersY), gridBoradMarkerLength, gridBoradMarkerSeparation, dictionary, gridBoardIds);
-                    gridBoard.generateImage(new Size(markerSize, markerSize), markerImg, gridBoradMarginSize, borderBits);
+
+                    // This code includes adjustments to address an issue in the OpenCV GridBoard::generateImage method,
+                    // where the vertical and horizontal margins between AR markers in the grid are not evenly spaced.
+
+                    // Calculate the aspect ratio of the grid (width/height)
+                    // Calculate the total aspect ratio of the marker grid including markers and separations
+                    double gridAspectRatio = (gridBoradMarkersX * gridBoradMarkerLength + (gridBoradMarkersX - 1) * gridBoradMarkerSeparation) /
+                                             (gridBoradMarkersY * gridBoradMarkerLength + (gridBoradMarkersY - 1) * gridBoradMarkerSeparation);
+
+                    // Adjust the output size to fit within the specified markerSize
+                    int adjustedWidth, adjustedHeight;
+                    if (gridAspectRatio >= 1.0)
+                    {
+                        // If the grid is wider than tall, fix the width to markerSize and scale the height proportionally
+                        adjustedWidth = markerSize;
+                        adjustedHeight = (int)(markerSize / gridAspectRatio);
+                    }
+                    else
+                    {
+                        // If the grid is taller than wide, fix the height to markerSize and scale the width proportionally
+                        adjustedHeight = markerSize;
+                        adjustedWidth = (int)(markerSize * gridAspectRatio);
+                    }
+
+                    Mat adjustedMarkerImg = new Mat(markerImg,
+                        new OpenCVForUnity.CoreModule.Rect((markerSize - adjustedWidth) / 2, (markerSize - adjustedHeight) / 2, adjustedWidth, adjustedHeight));
+
+                    gridBoard.generateImage(new Size(adjustedWidth, adjustedHeight), adjustedMarkerImg, gridBoradMarginSize, borderBits);
                     gridBoard.Dispose();
                     Debug.Log("draw GridBoard: " + "markersX " + gridBoradMarkersX + " markersY " + gridBoradMarkersY + " markerLength " + gridBoradMarkerLength +
                     " markerSeparation " + gridBoradMarkerSeparation + " dictionaryId " + (int)dictionaryId + " firstMarkerId " + gridBoradMarkerFirstMarker +

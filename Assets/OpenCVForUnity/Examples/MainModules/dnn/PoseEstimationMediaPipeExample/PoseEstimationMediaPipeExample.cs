@@ -26,6 +26,9 @@ namespace OpenCVForUnityExample
         /// </summary>
         public Toggle maskToggle;
 
+        /// <summary>
+        /// Whether to show the detected mask?
+        /// </summary>
         public bool mask;
 
         /// <summary>
@@ -33,9 +36,20 @@ namespace OpenCVForUnityExample
         /// </summary>
         public Toggle showSkeletonToggle;
 
+        /// <summary>
+        /// Whether to show the skeleton?
+        /// </summary>
         public bool showSkeleton;
 
+        /// <summary>
+        /// MediaPipePoseSkeletonVisualizer
+        /// </summary>
         public MediaPipePoseSkeletonVisualizer skeletonVisualizer;
+
+        /// <summary>
+        /// ARHelper
+        /// </summary>
+        public ARHelper arHelper;
 
 
         /// <summary>
@@ -189,6 +203,9 @@ namespace OpenCVForUnityExample
             }
 
             bgrMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
+
+            // If the screen aspect ratio changes, e.g. due to device rotation, camMatrix needs to be set to an appropriate value. camMatrix is recalculated by specifying an array of zero elements in camMatrixValue.
+            arHelper.Initialize(Screen.width, Screen.height, rgbaMat.width(), rgbaMat.height(), new double[0]);
         }
 
         /// <summary>
@@ -206,6 +223,8 @@ namespace OpenCVForUnityExample
                 Texture2D.Destroy(texture);
                 texture = null;
             }
+
+            arHelper.Dispose();
         }
 
         /// <summary>
@@ -283,7 +302,28 @@ namespace OpenCVForUnityExample
                     if (skeletonVisualizer != null && skeletonVisualizer.showSkeleton)
                     {
                         if (poses.Count > 0 && !poses[0].empty())
+                        {
                             skeletonVisualizer.UpdatePose(poses[0]);
+
+                            MediaPipePoseEstimator.EstimationData data = poseEstimator.getData(poses[0]);
+                            MediaPipePoseEstimator.ScreenLandmark[] landmarks_screen = data.landmarks_screen;
+                            Vector3[] landmarks_world = data.landmarks_world;
+
+                            Vector2[] imagePoints = new Vector2[30];
+                            Vector3[] objectPoints = new Vector3[30];
+
+                            for (int i = 0; i < imagePoints.Length; i++)
+                            {
+                                imagePoints[i] = new Vector2(landmarks_screen[i].x, landmarks_screen[i].y);
+                            }
+                            for (int i = 0; i < objectPoints.Length; i++)
+                            {
+                                objectPoints[i] = new Vector3(landmarks_world[i].x, landmarks_world[i].y, landmarks_world[i].z);
+                            }
+
+                            arHelper.imagePoints = imagePoints;
+                            arHelper.objectPoints = objectPoints;
+                        }
                     }
                 }
 

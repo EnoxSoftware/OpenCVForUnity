@@ -2,6 +2,7 @@ using OpenCVForUnity.Calib3dModule;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ObjdetectModule;
 using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.UnityUtils.Helper;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -56,21 +57,9 @@ namespace OpenCVForUnityExample
         public float markerLength = 0.1f;
 
         /// <summary>
-        /// The AR game object.
+        /// ARHelper
         /// </summary>
-        public GameObject arGameObject;
-
-        /// <summary>
-        /// The AR camera.
-        /// </summary>
-        public Camera arCamera;
-
-        [Space(10)]
-
-        /// <summary>
-        /// Determines if request the AR camera moving.
-        /// </summary>
-        public bool shouldMoveARCamera = false;
+        public ARHelper arHelper;
 
         /// <summary>
         /// The rgb mat.
@@ -98,6 +87,7 @@ namespace OpenCVForUnityExample
 
             undistortedRgbMat = new Mat();
 
+
             DetectMarkers();
         }
 
@@ -111,6 +101,9 @@ namespace OpenCVForUnityExample
         {
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             Utils.setDebugMode(true);
+
+
+            arHelper.Initialize(Screen.width, Screen.height, rgbMat.width(), rgbMat.height(), null, null, new Vector2[0], new Vector3[0]);
 
 
             Utils.texture2DToMat(imgTexture, rgbMat);
@@ -193,26 +186,13 @@ namespace OpenCVForUnityExample
             Debug.Log("fovYScale " + fovYScale);
 
 
-            // Adjust Unity Camera FOV https://github.com/opencv/opencv/commit/8ed1945ccd52501f5ab22bdec6aa1f91f1e2cfd4
-            if (widthScale < heightScale)
-            {
-                arCamera.fieldOfView = (float)(fovx[0] * fovXScale);
-            }
-            else
-            {
-                arCamera.fieldOfView = (float)(fovy[0] * fovYScale);
-            }
-            // Display objects near the camera.
-            arCamera.nearClipPlane = 0.01f;
-
-
 
             Mat ids = new Mat();
             List<Mat> corners = new List<Mat>();
             List<Mat> rejectedCorners = new List<Mat>();
             Mat rotMat = new Mat(3, 3, CvType.CV_64FC1);
 
-            MatOfPoint3f objPoints = new MatOfPoint3f(
+            MatOfPoint3f objectPoints = new MatOfPoint3f(
                 new Point3(-markerLength / 2f, markerLength / 2f, 0),
                 new Point3(markerLength / 2f, markerLength / 2f, 0),
                 new Point3(markerLength / 2f, -markerLength / 2f, 0),
@@ -249,7 +229,7 @@ namespace OpenCVForUnityExample
                         using (MatOfPoint2f imagePoints = new MatOfPoint2f(corner_4x1))
                         {
                             // Calculate pose for each marker
-                            Calib3d.solvePnP(objPoints, imagePoints, camMatrix, distCoeffs, rvec, tvec);
+                            Calib3d.solvePnP(objectPoints, imagePoints, camMatrix, distCoeffs, rvec, tvec);
 
                             // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
                             Calib3d.drawFrameAxes(undistortedRgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
@@ -258,53 +238,8 @@ namespace OpenCVForUnityExample
                             // This example can display the ARObject on only first detected marker.
                             if (i == 0)
                             {
-                                // Get translation vector
-                                double[] tvecArr = new double[3];
-                                tvec.get(0, 0, tvecArr);
-
-                                // Get rotation vector
-                                Mat rvec_3x1 = rvec.reshape(1, 3);
-
-                                // Convert rotation vector to rotation matrix.
-                                Calib3d.Rodrigues(rvec_3x1, rotMat);
-                                double[] rotMatArr = new double[rotMat.total()];
-                                rotMat.get(0, 0, rotMatArr);
-
-                                // Convert OpenCV camera extrinsic parameters to Unity Matrix4x4.
-                                Matrix4x4 transformationM = new Matrix4x4(); // from OpenCV
-                                transformationM.SetRow(0, new Vector4((float)rotMatArr[0], (float)rotMatArr[1], (float)rotMatArr[2], (float)tvecArr[0]));
-                                transformationM.SetRow(1, new Vector4((float)rotMatArr[3], (float)rotMatArr[4], (float)rotMatArr[5], (float)tvecArr[1]));
-                                transformationM.SetRow(2, new Vector4((float)rotMatArr[6], (float)rotMatArr[7], (float)rotMatArr[8], (float)tvecArr[2]));
-                                transformationM.SetRow(3, new Vector4(0, 0, 0, 1));
-                                Debug.Log("transformationM " + transformationM.ToString());
-
-                                Matrix4x4 invertYM = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3(1, -1, 1));
-                                Debug.Log("invertYM " + invertYM.ToString());
-
-                                // right-handed coordinates system (OpenCV) to left-handed one (Unity)
-                                // https://stackoverflow.com/questions/30234945/change-handedness-of-a-row-major-4x4-transformation-matrix
-                                Matrix4x4 ARM = invertYM * transformationM * invertYM;
-
-                                if (shouldMoveARCamera)
-                                {
-
-                                    ARM = arGameObject.transform.localToWorldMatrix * ARM.inverse;
-
-                                    Debug.Log("ARM " + ARM.ToString());
-
-                                    ARUtils.SetTransformFromMatrix(arCamera.transform, ref ARM);
-
-                                }
-                                else
-                                {
-
-                                    ARM = arCamera.transform.localToWorldMatrix * ARM;
-
-                                    Debug.Log("ARM " + ARM.ToString());
-
-                                    ARUtils.SetTransformFromMatrix(arGameObject.transform, ref ARM);
-                                }
-
+                                arHelper.imagePoints = imagePoints.toVector2Array();
+                                arHelper.objectPoints = objectPoints.toVector3Array();
                             }
                         }
                     }
@@ -320,14 +255,6 @@ namespace OpenCVForUnityExample
             Utils.setDebugMode(false, false);
         }
 
-        private void ResetObjectTransform()
-        {
-            // reset AR object transform.
-            Matrix4x4 i = Matrix4x4.identity;
-            ARUtils.SetTransformFromMatrix(arCamera.transform, ref i);
-            ARUtils.SetTransformFromMatrix(arGameObject.transform, ref i);
-        }
-
         /// <summary>
         /// Raises the destroy event.
         /// </summary>
@@ -338,6 +265,9 @@ namespace OpenCVForUnityExample
 
             if (undistortedRgbMat != null)
                 undistortedRgbMat.Dispose();
+
+            if (arHelper != null)
+                arHelper.Dispose();
         }
 
         /// <summary>
@@ -357,8 +287,6 @@ namespace OpenCVForUnityExample
             {
                 dictionaryId = (ArUcoDictionary)result;
 
-                ResetObjectTransform();
-
                 DetectMarkers();
             }
         }
@@ -371,8 +299,6 @@ namespace OpenCVForUnityExample
             if (showRejectedCorners != showRejectedCornersToggle.isOn)
             {
                 showRejectedCorners = showRejectedCornersToggle.isOn;
-
-                ResetObjectTransform();
 
                 DetectMarkers();
             }

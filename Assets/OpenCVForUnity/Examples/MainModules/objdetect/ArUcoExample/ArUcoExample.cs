@@ -89,48 +89,14 @@ namespace OpenCVForUnityExample
         public float markerLength = 0.1f;
 
         /// <summary>
-        /// The AR game object.
-        /// </summary>
-        public GameObject arGameObject;
-
-        /// <summary>
-        /// The AR camera.
-        /// </summary>
-        public Camera arCamera;
-
-        [Space(10)]
-
-        /// <summary>
-        /// Determines if request the AR camera moving.
-        /// </summary>
-        public bool shouldMoveARCamera = false;
-
-        [Space(10)]
-
-        /// <summary>
-        /// Determines if enable low pass filter.
-        /// </summary>
-        public bool enableLowPassFilter;
-
-        /// <summary>
         /// The enable low pass filter toggle.
         /// </summary>
         public Toggle enableLowPassFilterToggle;
 
         /// <summary>
-        /// The position low pass. (Value in meters)
+        /// ARHelper
         /// </summary>
-        public float positionLowPass = 0.005f;
-
-        /// <summary>
-        /// The rotation low pass. (Value in degrees)
-        /// </summary>
-        public float rotationLowPass = 2f;
-
-        /// <summary>
-        /// The old pose data.
-        /// </summary>
-        PoseData oldPoseData;
+        public ARHelper arHelper;
 
         /// <summary>
         /// The texture.
@@ -233,7 +199,7 @@ namespace OpenCVForUnityExample
             showRejectedCornersToggle.isOn = showRejectedCorners;
             refineMarkerDetectionToggle.isOn = refineMarkerDetection;
             refineMarkerDetectionToggle.interactable = (markerType == MarkerType.GridBoard || markerType == MarkerType.ChArUcoBoard);
-            enableLowPassFilterToggle.isOn = enableLowPassFilter;
+            enableLowPassFilterToggle.isOn = arHelper.useLowPassFilter;
 
             multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
             multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGBA;
@@ -342,6 +308,7 @@ namespace OpenCVForUnityExample
             Debug.Log("distCoeffs " + distCoeffs.dump());
 
 
+
             // calibration camera matrix values.
             Size imageSize = new Size(width * imageSizeScale, height * imageSizeScale);
             double apertureWidth = 0;
@@ -370,19 +337,6 @@ namespace OpenCVForUnityExample
 
             Debug.Log("fovXScale " + fovXScale);
             Debug.Log("fovYScale " + fovYScale);
-
-
-            // Adjust Unity Camera FOV https://github.com/opencv/opencv/commit/8ed1945ccd52501f5ab22bdec6aa1f91f1e2cfd4
-            if (widthScale < heightScale)
-            {
-                arCamera.fieldOfView = (float)(fovx[0] * fovXScale);
-            }
-            else
-            {
-                arCamera.fieldOfView = (float)(fovy[0] * fovYScale);
-            }
-            // Display objects near the camera.
-            arCamera.nearClipPlane = 0.01f;
 
 
             rgbMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
@@ -431,6 +385,10 @@ namespace OpenCVForUnityExample
             if (multiSource2MatHelper.source2MatHelper is WebCamTexture2MatHelper webCamHelper)
                 webCamHelper.flipHorizontal = webCamHelper.IsFrontFacing();
 #endif
+
+            arHelper.SetCamMatrix(camMatrix);
+            arHelper.SetDistCoeffs(distCoeffs);
+            arHelper.Initialize(Screen.width, Screen.height, rgbMat.width(), rgbMat.height());
         }
 
         /// <summary>
@@ -498,6 +456,9 @@ namespace OpenCVForUnityExample
 
             if (charucoDiamondBoard != null)
                 charucoDiamondBoard.Dispose();
+
+            if (arHelper != null)
+                arHelper.Dispose();
         }
 
         /// <summary>
@@ -688,7 +649,7 @@ namespace OpenCVForUnityExample
 
         private void EstimatePoseCanonicalMarker(Mat rgbMat)
         {
-            using (MatOfPoint3f objPoints = new MatOfPoint3f(
+            using (MatOfPoint3f objectPoints = new MatOfPoint3f(
                 new Point3(-markerLength / 2f, markerLength / 2f, 0),
                 new Point3(markerLength / 2f, markerLength / 2f, 0),
                 new Point3(markerLength / 2f, -markerLength / 2f, 0),
@@ -703,7 +664,7 @@ namespace OpenCVForUnityExample
                     using (MatOfPoint2f imagePoints = new MatOfPoint2f(corner_4x1))
                     {
                         // Calculate pose for each marker
-                        Calib3d.solvePnP(objPoints, imagePoints, camMatrix, distCoeffs, rvec, tvec);
+                        Calib3d.solvePnP(objectPoints, imagePoints, camMatrix, distCoeffs, rvec, tvec);
 
                         // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
                         Calib3d.drawFrameAxes(rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
@@ -711,7 +672,9 @@ namespace OpenCVForUnityExample
                         // This example can display the ARObject on only first detected marker.
                         if (i == 0)
                         {
-                            UpdateARObjectTransform(rvec, tvec);
+                            //UpdateARObjectTransform(rvec, tvec);
+                            arHelper.imagePoints = imagePoints.toVector2Array();
+                            arHelper.objectPoints = objectPoints.toVector3Array();
                         }
                     }
                 }
@@ -729,31 +692,33 @@ namespace OpenCVForUnityExample
 
             using (Mat rvec = new Mat(1, 1, CvType.CV_64FC3))
             using (Mat tvec = new Mat(1, 1, CvType.CV_64FC3))
-            using (Mat objPoints = new Mat())
-            using (Mat imgPoints = new Mat())
+            using (Mat objectPoints = new Mat())
+            using (Mat imagePoints = new Mat())
             {
                 // Get object and image points for the solvePnP function
-                gridBoard.matchImagePoints(corners, ids, objPoints, imgPoints);
+                gridBoard.matchImagePoints(corners, ids, objectPoints, imagePoints);
 
-                if (imgPoints.total() != objPoints.total())
+                if (imagePoints.total() != objectPoints.total())
                     return;
 
-                if (objPoints.total() == 0) // 0 of the detected markers in board
+                if (objectPoints.total() == 0) // 0 of the detected markers in board
                     return;
 
                 // Find pose
-                MatOfPoint3f objPoints_p3f = new MatOfPoint3f(objPoints);
-                MatOfPoint2f imgPoints_p3f = new MatOfPoint2f(imgPoints);
-                Calib3d.solvePnP(objPoints_p3f, imgPoints_p3f, camMatrix, distCoeffs, rvec, tvec);
+                MatOfPoint3f obectjPoints_p3f = new MatOfPoint3f(objectPoints);
+                MatOfPoint2f imagePoints_p3f = new MatOfPoint2f(imagePoints);
+                Calib3d.solvePnP(obectjPoints_p3f, imagePoints_p3f, camMatrix, distCoeffs, rvec, tvec);
 
                 // If at least one board marker detected
-                int markersOfBoardDetected = (int)objPoints.total() / 4;
+                int markersOfBoardDetected = (int)objectPoints.total() / 4;
                 if (markersOfBoardDetected > 0)
                 {
                     // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
                     Calib3d.drawFrameAxes(rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
 
-                    UpdateARObjectTransform(rvec, tvec);
+                    //UpdateARObjectTransform(rvec, tvec);
+                    arHelper.imagePoints = imagePoints_p3f.toVector2Array();
+                    arHelper.objectPoints = obectjPoints_p3f.toVector3Array();
                 }
             }
         }
@@ -789,8 +754,8 @@ namespace OpenCVForUnityExample
 
             using (Mat rvec = new Mat(1, 1, CvType.CV_64FC3))
             using (Mat tvec = new Mat(1, 1, CvType.CV_64FC3))
-            using (Mat objPoints = new Mat())
-            using (Mat imgPoints = new Mat())
+            using (Mat objectPoints = new Mat())
+            using (Mat imagePoints = new Mat())
             {
                 // Get object and image points for the solvePnP function
                 List<Mat> charucoCorners_list = new List<Mat>();
@@ -798,15 +763,15 @@ namespace OpenCVForUnityExample
                 {
                     charucoCorners_list.Add(charucoCorners.row(i));
                 }
-                charucoBoard.matchImagePoints(charucoCorners_list, charucoIds, objPoints, imgPoints);
+                charucoBoard.matchImagePoints(charucoCorners_list, charucoIds, objectPoints, imagePoints);
 
                 // Find pose
-                MatOfPoint3f objPoints_p3f = new MatOfPoint3f(objPoints);
-                MatOfPoint2f imgPoints_p3f = new MatOfPoint2f(imgPoints);
+                MatOfPoint3f objectPoints_p3f = new MatOfPoint3f(objectPoints);
+                MatOfPoint2f imagePoints_p3f = new MatOfPoint2f(imagePoints);
 
                 try
                 {
-                    Calib3d.solvePnP(objPoints_p3f, imgPoints_p3f, camMatrix, distCoeffs, rvec, tvec);
+                    Calib3d.solvePnP(objectPoints_p3f, imagePoints_p3f, camMatrix, distCoeffs, rvec, tvec);
                 }
                 catch (CvException e)
                 {
@@ -817,14 +782,16 @@ namespace OpenCVForUnityExample
                 // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
                 Calib3d.drawFrameAxes(rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
 
-                UpdateARObjectTransform(rvec, tvec);
+                //UpdateARObjectTransform(rvec, tvec);
+                arHelper.imagePoints = imagePoints_p3f.toVector2Array();
+                arHelper.objectPoints = objectPoints_p3f.toVector3Array();
                 //
             }
         }
 
         private void EstimatePoseChArUcoDiamondMarker(Mat rgbMat)
         {
-            using (MatOfPoint3f objPoints = new MatOfPoint3f(
+            using (MatOfPoint3f objectPoints = new MatOfPoint3f(
                 new Point3(-markerLength / 2f, markerLength / 2f, 0),
                 new Point3(markerLength / 2f, markerLength / 2f, 0),
                 new Point3(markerLength / 2f, -markerLength / 2f, 0),
@@ -839,7 +806,7 @@ namespace OpenCVForUnityExample
                     using (MatOfPoint2f imagePoints = new MatOfPoint2f(corner_4x1))
                     {
                         // Calculate pose for each marker
-                        Calib3d.solvePnP(objPoints, imagePoints, camMatrix, distCoeffs, rvec, tvec);
+                        Calib3d.solvePnP(objectPoints, imagePoints, camMatrix, distCoeffs, rvec, tvec);
 
                         // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
                         Calib3d.drawFrameAxes(rgbMat, camMatrix, distCoeffs, rvec, tvec, markerLength * 0.5f);
@@ -847,55 +814,13 @@ namespace OpenCVForUnityExample
                         // This example can display the ARObject on only first detected marker.
                         if (i == 0)
                         {
-                            UpdateARObjectTransform(rvec, tvec);
+                            //UpdateARObjectTransform(rvec, tvec);
+                            arHelper.imagePoints = imagePoints.toVector2Array();
+                            arHelper.objectPoints = objectPoints.toVector3Array();
                         }
                     }
                 }
             }
-        }
-
-        private void UpdateARObjectTransform(Mat rvec, Mat tvec)
-        {
-            // Convert to unity pose data.
-            double[] rvecArr = new double[3];
-            rvec.get(0, 0, rvecArr);
-            double[] tvecArr = new double[3];
-            tvec.get(0, 0, tvecArr);
-            PoseData poseData = ARUtils.ConvertRvecTvecToPoseData(rvecArr, tvecArr);
-
-            // Changes in pos/rot below these thresholds are ignored.
-            if (enableLowPassFilter)
-            {
-                ARUtils.LowpassPoseData(ref oldPoseData, ref poseData, positionLowPass, rotationLowPass);
-            }
-            oldPoseData = poseData;
-
-            // Convert to transform matrix.
-            ARM = ARUtils.ConvertPoseDataToMatrix(ref poseData, true);
-
-            if (shouldMoveARCamera)
-            {
-
-                ARM = arGameObject.transform.localToWorldMatrix * ARM.inverse;
-
-                ARUtils.SetTransformFromMatrix(arCamera.transform, ref ARM);
-
-            }
-            else
-            {
-
-                ARM = arCamera.transform.localToWorldMatrix * ARM;
-
-                ARUtils.SetTransformFromMatrix(arGameObject.transform, ref ARM);
-            }
-        }
-
-        private void ResetObjectTransform()
-        {
-            // reset AR object transform.
-            Matrix4x4 i = Matrix4x4.identity;
-            ARUtils.SetTransformFromMatrix(arCamera.transform, ref i);
-            ARUtils.SetTransformFromMatrix(arGameObject.transform, ref i);
         }
 
         /// <summary>
@@ -960,7 +885,7 @@ namespace OpenCVForUnityExample
 
                 refineMarkerDetectionToggle.interactable = (markerType == MarkerType.GridBoard || markerType == MarkerType.ChArUcoBoard);
 
-                ResetObjectTransform();
+                //ResetObjectTransform();
 
                 if (multiSource2MatHelper.IsInitialized())
                     multiSource2MatHelper.Initialize();
@@ -977,7 +902,7 @@ namespace OpenCVForUnityExample
                 dictionaryId = (ArUcoDictionary)result;
                 dictionary = Objdetect.getPredefinedDictionary((int)dictionaryId);
 
-                ResetObjectTransform();
+                //ResetObjectTransform();
 
                 if (multiSource2MatHelper.IsInitialized())
                     multiSource2MatHelper.Initialize();
@@ -1020,7 +945,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnEnableLowPassFilterToggleValueChanged()
         {
-            enableLowPassFilter = enableLowPassFilterToggle.isOn;
+            arHelper.useLowPassFilter = enableLowPassFilterToggle.isOn;
         }
 
         public enum MarkerType
