@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.4</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.5</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -145,7 +145,7 @@ $(function(){ initResizable(false); });
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aeb145bc2451eff1598f1bb9166063863" id="r_aeb145bc2451eff1598f1bb9166063863"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeb145bc2451eff1598f1bb9166063863">DidUpdateThisFrame</a> ()</td></tr>
-<tr class="memdesc:aeb145bc2451eff1598f1bb9166063863"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether the video buffer of the frame has been updated.  <br /></td></tr>
+<tr class="memdesc:aeb145bc2451eff1598f1bb9166063863"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use this to check if the Mat has changed since the last frame. Since it would not make sense to do expensive video processing in each Update call, check this value before doing any processing.  <br /></td></tr>
 <tr class="separator:aeb145bc2451eff1598f1bb9166063863"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7973e7795fa49c1c7c2e9b8de912bb2b" id="r_a7973e7795fa49c1c7c2e9b8de912bb2b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7973e7795fa49c1c7c2e9b8de912bb2b">Dispose</a> ()</td></tr>
 <tr class="memdesc:a7973e7795fa49c1c7c2e9b8de912bb2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases all resource used by the <a class="el" href="../../d5/d0c/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatHelper.html" title="A helper component class for obtaining camera frames from WebCamTexture and converting them to OpenCV...">WebCamTexture2MatHelper</a> object.  <br /></td></tr>
@@ -227,12 +227,23 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a7edd3d7c9365dc5a589607911817b915" id="r_a7edd3d7c9365dc5a589607911817b915"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7edd3d7c9365dc5a589607911817b915">CancelInitCoroutine</a> ()</td></tr>
 <tr class="memdesc:a7edd3d7c9365dc5a589607911817b915"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel Init Coroutine.  <br /></td></tr>
 <tr class="separator:a7edd3d7c9365dc5a589607911817b915"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5860683209589b9ed901a04fc9bae1cc" id="r_a5860683209589b9ed901a04fc9bae1cc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5860683209589b9ed901a04fc9bae1cc">FlipMat</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> mat, bool <a class="el" href="#a845445004d1f98b158b712a27a83122b">flipVertical</a>, bool <a class="el" href="#a2fba2cdeead0f40e5766ce9f7b5ad97b">flipHorizontal</a>)</td></tr>
-<tr class="memdesc:a5860683209589b9ed901a04fc9bae1cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flip the mat.  <br /></td></tr>
-<tr class="separator:a5860683209589b9ed901a04fc9bae1cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cbb101140abfc228485c3a16d5b6e15" id="r_a4cbb101140abfc228485c3a16d5b6e15"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4cbb101140abfc228485c3a16d5b6e15">FlipAndRotateMat</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> <a class="el" href="#a6d126641957648ddceff450e8b16f272">frameMat</a>, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> <a class="el" href="#ae76bc2a04c690eb8e5573113876e5912">rotatedFrameMat</a>, bool <a class="el" href="#a845445004d1f98b158b712a27a83122b">flipVertical</a>, bool <a class="el" href="#a2fba2cdeead0f40e5766ce9f7b5ad97b">flipHorizontal</a>, bool isFrontFacing, int videoRotationAngle, ScreenOrientation <a class="el" href="#abf01f5320dca63a6386e7c7e15f18e9f">screenOrientation</a>, bool <a class="el" href="#abc5527ace31d5f9181dc7a1858e05587">isScreenOrientationCorrect</a>, bool isVidevideoRotationAngleCorrect)</td></tr>
+<tr class="separator:a4cbb101140abfc228485c3a16d5b6e15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14f2b7d23d24b77c1aa851b94c3a247a" id="r_a14f2b7d23d24b77c1aa851b94c3a247a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a14f2b7d23d24b77c1aa851b94c3a247a">FlipMat</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> mat, bool <a class="el" href="#a845445004d1f98b158b712a27a83122b">flipVertical</a>, bool <a class="el" href="#a2fba2cdeead0f40e5766ce9f7b5ad97b">flipHorizontal</a>, bool isFrontFacing, int videoRotationAngle)</td></tr>
+<tr class="memdesc:a14f2b7d23d24b77c1aa851b94c3a247a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flip Mat.  <br /></td></tr>
+<tr class="separator:a14f2b7d23d24b77c1aa851b94c3a247a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2293522e82118d722385a974efd0ccea" id="r_a2293522e82118d722385a974efd0ccea"><td class="memItemLeft" align="right" valign="top">virtual IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2293522e82118d722385a974efd0ccea">hasUserAuthorizedCameraPermission</a> ()</td></tr>
 <tr class="memdesc:a2293522e82118d722385a974efd0ccea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check camera permission state by coroutine.  <br /></td></tr>
 <tr class="separator:a2293522e82118d722385a974efd0ccea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ad215513e65ce0a0045978af7872a7b" id="r_a1ad215513e65ce0a0045978af7872a7b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ad215513e65ce0a0045978af7872a7b">IsScreenOrientationCorrect</a> ()</td></tr>
+<tr class="memdesc:a1ad215513e65ce0a0045978af7872a7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is ScreenOrientation the correct value?  <br /></td></tr>
+<tr class="separator:a1ad215513e65ce0a0045978af7872a7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8003724b74ef64f97142040d5f29253c" id="r_a8003724b74ef64f97142040d5f29253c"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8003724b74ef64f97142040d5f29253c">IsVideoRotationAngleCorrect</a> ()</td></tr>
+<tr class="memdesc:a8003724b74ef64f97142040d5f29253c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is VideoRotationAngle the correct value?  <br /></td></tr>
+<tr class="separator:a8003724b74ef64f97142040d5f29253c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b27dc32cc326f6b29e385b52a3bd882" id="r_a1b27dc32cc326f6b29e385b52a3bd882"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1b27dc32cc326f6b29e385b52a3bd882">NeedsRotatedFrameMat</a> (bool <a class="el" href="#abc5527ace31d5f9181dc7a1858e05587">isScreenOrientationCorrect</a>)</td></tr>
+<tr class="memdesc:a1b27dc32cc326f6b29e385b52a3bd882"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines whether the RotatedFrameMat is needed.  <br /></td></tr>
+<tr class="separator:a1b27dc32cc326f6b29e385b52a3bd882"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a209574d7ffb6504ece030f79ab30fa53" id="r_a209574d7ffb6504ece030f79ab30fa53"><td class="memItemLeft" align="right" valign="top">virtual IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a209574d7ffb6504ece030f79ab30fa53">OnApplicationFocus</a> (bool hasFocus)</td></tr>
 <tr class="separator:a209574d7ffb6504ece030f79ab30fa53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45ad589432edd4213d101b4f4d8f0df3" id="r_a45ad589432edd4213d101b4f4d8f0df3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a45ad589432edd4213d101b4f4d8f0df3">OnDestroy</a> ()</td></tr>
@@ -249,43 +260,30 @@ Protected Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a1770b4baf4d3f903a62589098b1e4d78" id="r_a1770b4baf4d3f903a62589098b1e4d78"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1770b4baf4d3f903a62589098b1e4d78">_flipHorizontal</a> = false</td></tr>
-<tr class="memdesc:a1770b4baf4d3f903a62589098b1e4d78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether to flip horizontal.  <br /></td></tr>
 <tr class="separator:a1770b4baf4d3f903a62589098b1e4d78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2cb714fb97f02f2ac959134a680b240a" id="r_a2cb714fb97f02f2ac959134a680b240a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2cb714fb97f02f2ac959134a680b240a">_flipVertical</a> = false</td></tr>
-<tr class="memdesc:a2cb714fb97f02f2ac959134a680b240a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether to flip vertically.  <br /></td></tr>
 <tr class="separator:a2cb714fb97f02f2ac959134a680b240a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaeed483aaa6d6b5a3a45062c4dddeaa4" id="r_aaeed483aaa6d6b5a3a45062c4dddeaa4"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaeed483aaa6d6b5a3a45062c4dddeaa4">_onDisposed</a></td></tr>
-<tr class="memdesc:aaeed483aaa6d6b5a3a45062c4dddeaa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is disposed.  <br /></td></tr>
 <tr class="separator:aaeed483aaa6d6b5a3a45062c4dddeaa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e7f8bef3681b1a6984e12dd5213d50d" id="r_a6e7f8bef3681b1a6984e12dd5213d50d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d41/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Source2MatHelperErrorUnityEvent.html">Source2MatHelperErrorUnityEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6e7f8bef3681b1a6984e12dd5213d50d">_onErrorOccurred</a></td></tr>
-<tr class="memdesc:a6e7f8bef3681b1a6984e12dd5213d50d"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is error Occurred.  <br /></td></tr>
 <tr class="separator:a6e7f8bef3681b1a6984e12dd5213d50d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3696e79b3d3a938db0c945ea1f6036de" id="r_a3696e79b3d3a938db0c945ea1f6036de"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3696e79b3d3a938db0c945ea1f6036de">_onInitialized</a></td></tr>
-<tr class="memdesc:a3696e79b3d3a938db0c945ea1f6036de"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is initialized.  <br /></td></tr>
 <tr class="separator:a3696e79b3d3a938db0c945ea1f6036de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a234b1847a5384ccddb56cec5f48d23b4" id="r_a234b1847a5384ccddb56cec5f48d23b4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d62/namespaceOpenCVForUnity_1_1UnityUtils_1_1Helper.html#aa72968e344f92c2e8bcd432bdce5940c">Source2MatHelperColorFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a234b1847a5384ccddb56cec5f48d23b4">_outputColorFormat</a> = <a class="el" href="../../d2/d62/namespaceOpenCVForUnity_1_1UnityUtils_1_1Helper.html#aa72968e344f92c2e8bcd432bdce5940caea3495a278957dc58165e48a8945469f">Source2MatHelperColorFormat.RGBA</a></td></tr>
-<tr class="memdesc:a234b1847a5384ccddb56cec5f48d23b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select the output color format.  <br /></td></tr>
 <tr class="separator:a234b1847a5384ccddb56cec5f48d23b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0b8d138e88182e67390a96b997029c1" id="r_ac0b8d138e88182e67390a96b997029c1"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac0b8d138e88182e67390a96b997029c1">_requestedDeviceName</a> = null</td></tr>
-<tr class="memdesc:ac0b8d138e88182e67390a96b997029c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the name of the camera device to use. (or device index number)  <br /></td></tr>
 <tr class="separator:ac0b8d138e88182e67390a96b997029c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88b14badccc2078b7dc092ed1d9a2f6c" id="r_a88b14badccc2078b7dc092ed1d9a2f6c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88b14badccc2078b7dc092ed1d9a2f6c">_requestedFPS</a> = 30f</td></tr>
-<tr class="memdesc:a88b14badccc2078b7dc092ed1d9a2f6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the frame rate of camera.  <br /></td></tr>
 <tr class="separator:a88b14badccc2078b7dc092ed1d9a2f6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2bd2d6eb97151668659ab8055b2ebb84" id="r_a2bd2d6eb97151668659ab8055b2ebb84"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2bd2d6eb97151668659ab8055b2ebb84">_requestedHeight</a> = 480</td></tr>
-<tr class="memdesc:a2bd2d6eb97151668659ab8055b2ebb84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the height of camera.  <br /></td></tr>
 <tr class="separator:a2bd2d6eb97151668659ab8055b2ebb84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76fd23cc9419feb248cdc7821877cf80" id="r_a76fd23cc9419feb248cdc7821877cf80"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a76fd23cc9419feb248cdc7821877cf80">_requestedIsFrontFacing</a> = false</td></tr>
-<tr class="memdesc:a76fd23cc9419feb248cdc7821877cf80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether to use the front facing camera.  <br /></td></tr>
 <tr class="separator:a76fd23cc9419feb248cdc7821877cf80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab773590dd780127c00a0da5c93803996" id="r_ab773590dd780127c00a0da5c93803996"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab773590dd780127c00a0da5c93803996">_requestedWidth</a> = 640</td></tr>
-<tr class="memdesc:ab773590dd780127c00a0da5c93803996"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the width of camera.  <br /></td></tr>
 <tr class="separator:ab773590dd780127c00a0da5c93803996"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4d2f7c322d98753dd3fcb6b994dd38a" id="r_aa4d2f7c322d98753dd3fcb6b994dd38a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa4d2f7c322d98753dd3fcb6b994dd38a">_rotate90Degree</a> = false</td></tr>
-<tr class="memdesc:aa4d2f7c322d98753dd3fcb6b994dd38a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether to rotate camera frame 90 degrees. (clockwise)  <br /></td></tr>
 <tr class="separator:aa4d2f7c322d98753dd3fcb6b994dd38a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0517ecd911935348ed3de2397e13f625" id="r_a0517ecd911935348ed3de2397e13f625"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0517ecd911935348ed3de2397e13f625">_timeoutFrameCount</a> = 1500</td></tr>
-<tr class="memdesc:a0517ecd911935348ed3de2397e13f625"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of frames before the initialization process times out.  <br /></td></tr>
 <tr class="separator:a0517ecd911935348ed3de2397e13f625"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a845d0f8787b4fb124eb6be526b82f626" id="r_a845d0f8787b4fb124eb6be526b82f626"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a845d0f8787b4fb124eb6be526b82f626">autoPlayAfterInitialize</a></td></tr>
 <tr class="memdesc:a845d0f8787b4fb124eb6be526b82f626"><td class="mdescLeft">&#160;</td><td class="mdescRight">If set to true play after completion of initialization.  <br /></td></tr>
@@ -311,8 +309,15 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a5c7776f7559d3fc6aac6a247f8370974" id="r_a5c7776f7559d3fc6aac6a247f8370974"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c7776f7559d3fc6aac6a247f8370974">isInitWaiting</a> = false</td></tr>
 <tr class="memdesc:a5c7776f7559d3fc6aac6a247f8370974"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether this instance is waiting for initialization to complete.  <br /></td></tr>
 <tr class="separator:a5c7776f7559d3fc6aac6a247f8370974"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc5527ace31d5f9181dc7a1858e05587" id="r_abc5527ace31d5f9181dc7a1858e05587"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc5527ace31d5f9181dc7a1858e05587">isScreenOrientationCorrect</a></td></tr>
+<tr class="memdesc:abc5527ace31d5f9181dc7a1858e05587"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is ScreenOrientation the correct value?  <br /></td></tr>
+<tr class="separator:abc5527ace31d5f9181dc7a1858e05587"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9164d438d86913ace08d8e3e15fb224" id="r_aa9164d438d86913ace08d8e3e15fb224"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa9164d438d86913ace08d8e3e15fb224">isScreenSizeChangeWaiting</a> = false</td></tr>
+<tr class="memdesc:aa9164d438d86913ace08d8e3e15fb224"><td class="mdescLeft">&#160;</td><td class="mdescRight">isScreenSizeChangeWaiting  <br /></td></tr>
 <tr class="separator:aa9164d438d86913ace08d8e3e15fb224"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a402a005d970a3f5cf461f0819eb062a2" id="r_a402a005d970a3f5cf461f0819eb062a2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a402a005d970a3f5cf461f0819eb062a2">isVideoRotationAngleCorrect</a></td></tr>
+<tr class="memdesc:a402a005d970a3f5cf461f0819eb062a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is VideoRotationAngle the correct value?  <br /></td></tr>
+<tr class="separator:a402a005d970a3f5cf461f0819eb062a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae76bc2a04c690eb8e5573113876e5912" id="r_ae76bc2a04c690eb8e5573113876e5912"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae76bc2a04c690eb8e5573113876e5912">rotatedFrameMat</a></td></tr>
 <tr class="memdesc:ae76bc2a04c690eb8e5573113876e5912"><td class="mdescLeft">&#160;</td><td class="mdescRight">The rotated frame mat.  <br /></td></tr>
 <tr class="separator:ae76bc2a04c690eb8e5573113876e5912"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -335,30 +340,43 @@ Protected Attributes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
 <tr class="memitem:a2fba2cdeead0f40e5766ce9f7b5ad97b" id="r_a2fba2cdeead0f40e5766ce9f7b5ad97b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2fba2cdeead0f40e5766ce9f7b5ad97b">flipHorizontal</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a2fba2cdeead0f40e5766ce9f7b5ad97b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether to flip horizontal.  <br /></td></tr>
 <tr class="separator:a2fba2cdeead0f40e5766ce9f7b5ad97b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a845445004d1f98b158b712a27a83122b" id="r_a845445004d1f98b158b712a27a83122b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a845445004d1f98b158b712a27a83122b">flipVertical</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a845445004d1f98b158b712a27a83122b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether to flip vertically.  <br /></td></tr>
 <tr class="separator:a845445004d1f98b158b712a27a83122b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b21c11a68efd08262945c9baf765c4e" id="r_a8b21c11a68efd08262945c9baf765c4e"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b21c11a68efd08262945c9baf765c4e">onDisposed</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a8b21c11a68efd08262945c9baf765c4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is disposed.  <br /></td></tr>
 <tr class="separator:a8b21c11a68efd08262945c9baf765c4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae64444f6f0287670a0397eeffc7c356f" id="r_ae64444f6f0287670a0397eeffc7c356f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d41/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Source2MatHelperErrorUnityEvent.html">Source2MatHelperErrorUnityEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae64444f6f0287670a0397eeffc7c356f">onErrorOccurred</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ae64444f6f0287670a0397eeffc7c356f"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is error Occurred.  <br /></td></tr>
 <tr class="separator:ae64444f6f0287670a0397eeffc7c356f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb9192333ae4f9d28680e96cd323d3b8" id="r_acb9192333ae4f9d28680e96cd323d3b8"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb9192333ae4f9d28680e96cd323d3b8">onInitialized</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:acb9192333ae4f9d28680e96cd323d3b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is initialized.  <br /></td></tr>
 <tr class="separator:acb9192333ae4f9d28680e96cd323d3b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7bfda1eda195305eec6e7da9eb17f970" id="r_a7bfda1eda195305eec6e7da9eb17f970"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d2/d62/namespaceOpenCVForUnity_1_1UnityUtils_1_1Helper.html#aa72968e344f92c2e8bcd432bdce5940c">Source2MatHelperColorFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7bfda1eda195305eec6e7da9eb17f970">outputColorFormat</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a7bfda1eda195305eec6e7da9eb17f970"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select the output color format.  <br /></td></tr>
 <tr class="separator:a7bfda1eda195305eec6e7da9eb17f970"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd3d0035e3c522c351baa06198dfecb1" id="r_abd3d0035e3c522c351baa06198dfecb1"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd3d0035e3c522c351baa06198dfecb1">requestedDeviceName</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:abd3d0035e3c522c351baa06198dfecb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the name of the camera device to use. (or device index number)  <br /></td></tr>
 <tr class="separator:abd3d0035e3c522c351baa06198dfecb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab189dde7fbcc31182c2a11071a51d1eb" id="r_ab189dde7fbcc31182c2a11071a51d1eb"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab189dde7fbcc31182c2a11071a51d1eb">requestedFPS</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ab189dde7fbcc31182c2a11071a51d1eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the frame rate of camera.  <br /></td></tr>
 <tr class="separator:ab189dde7fbcc31182c2a11071a51d1eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88b007e7b8601a660aeb306d841cfe91" id="r_a88b007e7b8601a660aeb306d841cfe91"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88b007e7b8601a660aeb306d841cfe91">requestedHeight</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a88b007e7b8601a660aeb306d841cfe91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the height of camera.  <br /></td></tr>
 <tr class="separator:a88b007e7b8601a660aeb306d841cfe91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2aee0e108bafda6084d3a866c9f74a02" id="r_a2aee0e108bafda6084d3a866c9f74a02"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2aee0e108bafda6084d3a866c9f74a02">requestedIsFrontFacing</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a2aee0e108bafda6084d3a866c9f74a02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether to use the front facing camera.  <br /></td></tr>
 <tr class="separator:a2aee0e108bafda6084d3a866c9f74a02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2bbd167d6a39785018d84c5d37eff081" id="r_a2bbd167d6a39785018d84c5d37eff081"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2bbd167d6a39785018d84c5d37eff081">requestedWidth</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a2bbd167d6a39785018d84c5d37eff081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the width of camera.  <br /></td></tr>
 <tr class="separator:a2bbd167d6a39785018d84c5d37eff081"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab96c20fa393edfadde8499b8aaead9de" id="r_ab96c20fa393edfadde8499b8aaead9de"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab96c20fa393edfadde8499b8aaead9de">rotate90Degree</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ab96c20fa393edfadde8499b8aaead9de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether to rotate camera frame 90 degrees. (clockwise)  <br /></td></tr>
 <tr class="separator:ab96c20fa393edfadde8499b8aaead9de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad34a235ce9a57dba83539eb9f8fb4f1c" id="r_ad34a235ce9a57dba83539eb9f8fb4f1c"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad34a235ce9a57dba83539eb9f8fb4f1c">timeoutFrameCount</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ad34a235ce9a57dba83539eb9f8fb4f1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of frames before the initialization process times out.  <br /></td></tr>
 <tr class="separator:ad34a235ce9a57dba83539eb9f8fb4f1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ICameraSource2MatHelper"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ICameraSource2MatHelper')"><img src="../../closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="../../d1/df3/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ICameraSource2MatHelper.html">OpenCVForUnity.UnityUtils.Helper.ICameraSource2MatHelper</a></td></tr>
 <tr class="inherit_header properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper')"><img src="../../closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a></td></tr>
@@ -394,6 +412,8 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initialize this instance by coroutine. </p>
+
+<p>Reimplemented in <a class="el" href="../../d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#aea494815a0a0410b8cc79e27375a5704">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>.</p>
 
 </div>
 </div>
@@ -447,10 +467,12 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Indicate whether the video buffer of the frame has been updated. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code>, if the video buffer has been updated <code>false</code> otherwise.</dd></dl>
+<p>Use this to check if the Mat has changed since the last frame. Since it would not make sense to do expensive video processing in each Update call, check this value before doing any processing. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code>, if the Mat has been updated <code>false</code> otherwise.</dd></dl>
 
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#a87b0ea4573aa1a5cbb12735a93edaa4c">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
+
+<p>Reimplemented in <a class="el" href="../../d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#a0977d310dee2d87010d07118af0f29cb">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>.</p>
 
 </div>
 </div>
@@ -482,10 +504,76 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#a553d3bd39667841c154ceacd8cdedca7">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
 
+<p>Reimplemented in <a class="el" href="../../d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#af79924c8ac9c864bd1ae095e11be29c2">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>.</p>
+
 </div>
 </div>
-<a id="a5860683209589b9ed901a04fc9bae1cc" name="a5860683209589b9ed901a04fc9bae1cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5860683209589b9ed901a04fc9bae1cc">&#9670;&#160;</a></span>FlipMat()</h2>
+<a id="a4cbb101140abfc228485c3a16d5b6e15" name="a4cbb101140abfc228485c3a16d5b6e15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cbb101140abfc228485c3a16d5b6e15">&#9670;&#160;</a></span>FlipAndRotateMat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper.FlipAndRotateMat </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>frameMat</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>rotatedFrameMat</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>flipVertical</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>flipHorizontal</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>isFrontFacing</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>videoRotationAngle</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ScreenOrientation</td>          <td class="paramname"><span class="paramname"><em>screenOrientation</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>isScreenOrientationCorrect</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>isVidevideoRotationAngleCorrect</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a14f2b7d23d24b77c1aa851b94c3a247a" name="a14f2b7d23d24b77c1aa851b94c3a247a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14f2b7d23d24b77c1aa851b94c3a247a">&#9670;&#160;</a></span>FlipMat()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -506,7 +594,17 @@ Properties</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>flipHorizontal</em></span>&#160;)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>flipHorizontal</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>isFrontFacing</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>videoRotationAngle</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -516,10 +614,14 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Flip the mat. </p>
+<p>Flip Mat. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mat</td><td>Mat.</td></tr>
+    <tr><td class="paramname">mat</td><td></td></tr>
+    <tr><td class="paramname">flipVertical</td><td></td></tr>
+    <tr><td class="paramname">flipHorizontal</td><td></td></tr>
+    <tr><td class="paramname">isFrontFacing</td><td></td></tr>
+    <tr><td class="paramname">videoRotationAngle</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -732,6 +834,8 @@ Properties</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>The mat of the current frame.</dd></dl>
 
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#a6a6323e110b85750ed4310ccacb461e3">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
+
+<p>Reimplemented in <a class="el" href="../../d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#a4b0b691b262086ae7650b24183cab145">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>.</p>
 
 </div>
 </div>
@@ -1195,6 +1299,90 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="a1ad215513e65ce0a0045978af7872a7b" name="a1ad215513e65ce0a0045978af7872a7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ad215513e65ce0a0045978af7872a7b">&#9670;&#160;</a></span>IsScreenOrientationCorrect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper.IsScreenOrientationCorrect </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Is ScreenOrientation the correct value? </p>
+<dl class="section return"><dt>Returns</dt><dd>True if ScreenOrientation is the correct value; otherwise, false.</dd></dl>
+
+</div>
+</div>
+<a id="a8003724b74ef64f97142040d5f29253c" name="a8003724b74ef64f97142040d5f29253c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8003724b74ef64f97142040d5f29253c">&#9670;&#160;</a></span>IsVideoRotationAngleCorrect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper.IsVideoRotationAngleCorrect </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Is VideoRotationAngle the correct value? </p>
+<dl class="section return"><dt>Returns</dt><dd>True if VideoRotationAngle is the correct value; otherwise, false.</dd></dl>
+
+</div>
+</div>
+<a id="a1b27dc32cc326f6b29e385b52a3bd882" name="a1b27dc32cc326f6b29e385b52a3bd882"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b27dc32cc326f6b29e385b52a3bd882">&#9670;&#160;</a></span>NeedsRotatedFrameMat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper.NeedsRotatedFrameMat </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>isScreenOrientationCorrect</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determines whether the RotatedFrameMat is needed. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if RotatedFrameMat is needed; otherwise, false.</dd></dl>
+
+</div>
+</div>
 <a id="a209574d7ffb6504ece030f79ab30fa53" name="a209574d7ffb6504ece030f79ab30fa53"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a209574d7ffb6504ece030f79ab30fa53">&#9670;&#160;</a></span>OnApplicationFocus()</h2>
 
@@ -1270,6 +1458,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Reimplemented in <a class="el" href="../../d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#a962ea3e51554d19d63a4e99b71820d88">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>.</p>
+
 </div>
 </div>
 <a id="aac81eb9a630b65c828113f4a11bac2a2" name="aac81eb9a630b65c828113f4a11bac2a2"></a>
@@ -1298,6 +1488,8 @@ Properties</h2></td></tr>
 <p>Pause the active camera. </p>
 
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#a10dd0b5d69329f6e2e973b3fc234ae50">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
+
+<p>Reimplemented in <a class="el" href="../../d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#a16ff421105d9d2a3b8ddaeb9371b89e4">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>.</p>
 
 </div>
 </div>
@@ -1328,6 +1520,8 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#accd6ab4ffcc3924208e3bb429f5c2695">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
 
+<p>Reimplemented in <a class="el" href="../../d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#a96aa0e345a86a862d580d1081423d741">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>.</p>
+
 </div>
 </div>
 <a id="a4fc54f59d318f97c0931f2d0279fb767" name="a4fc54f59d318f97c0931f2d0279fb767"></a>
@@ -1354,6 +1548,8 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p>To release the resources. </p>
+
+<p>Reimplemented in <a class="el" href="../../d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#acd0b282eb2dd8b290eb37d02dcb10313">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>.</p>
 
 </div>
 </div>
@@ -1384,6 +1580,8 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#a99a370562e8bebcec4b38074457909f9">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
 
+<p>Reimplemented in <a class="el" href="../../d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#ad78ecb84d2bfe26a823dc8377ae7313e">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>.</p>
+
 </div>
 </div>
 <a id="a303fd579e04a2e7d560be109c7e9b3f7" name="a303fd579e04a2e7d560be109c7e9b3f7"></a>
@@ -1409,6 +1607,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Reimplemented in <a class="el" href="../../d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#a0610f9ab4c3cbf533e6808f4bb10f3b5">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>.</p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -1432,8 +1632,6 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Set whether to flip horizontal. </p>
-
 </div>
 </div>
 <a id="a2cb714fb97f02f2ac959134a680b240a" name="a2cb714fb97f02f2ac959134a680b240a"></a>
@@ -1455,8 +1653,6 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Set whether to flip vertically. </p>
 
 </div>
 </div>
@@ -1480,8 +1676,6 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>UnityEvent that is triggered when this instance is disposed. </p>
-
 </div>
 </div>
 <a id="a6e7f8bef3681b1a6984e12dd5213d50d" name="a6e7f8bef3681b1a6984e12dd5213d50d"></a>
@@ -1503,8 +1697,6 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>UnityEvent that is triggered when this instance is error Occurred. </p>
 
 </div>
 </div>
@@ -1528,8 +1720,6 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>UnityEvent that is triggered when this instance is initialized. </p>
-
 </div>
 </div>
 <a id="a234b1847a5384ccddb56cec5f48d23b4" name="a234b1847a5384ccddb56cec5f48d23b4"></a>
@@ -1551,8 +1741,6 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Select the output color format. </p>
 
 </div>
 </div>
@@ -1576,8 +1764,6 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Set the name of the camera device to use. (or device index number) </p>
-
 </div>
 </div>
 <a id="a88b14badccc2078b7dc092ed1d9a2f6c" name="a88b14badccc2078b7dc092ed1d9a2f6c"></a>
@@ -1599,8 +1785,6 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Set the frame rate of camera. </p>
 
 </div>
 </div>
@@ -1624,8 +1808,6 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Set the height of camera. </p>
-
 </div>
 </div>
 <a id="a76fd23cc9419feb248cdc7821877cf80" name="a76fd23cc9419feb248cdc7821877cf80"></a>
@@ -1647,8 +1829,6 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Set whether to use the front facing camera. </p>
 
 </div>
 </div>
@@ -1672,8 +1852,6 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Set the width of camera. </p>
-
 </div>
 </div>
 <a id="aa4d2f7c322d98753dd3fcb6b994dd38a" name="aa4d2f7c322d98753dd3fcb6b994dd38a"></a>
@@ -1696,8 +1874,6 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Set whether to rotate camera frame 90 degrees. (clockwise) </p>
-
 </div>
 </div>
 <a id="a0517ecd911935348ed3de2397e13f625" name="a0517ecd911935348ed3de2397e13f625"></a>
@@ -1719,8 +1895,6 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>The number of frames before the initialization process times out. </p>
 
 </div>
 </div>
@@ -1916,6 +2090,30 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="abc5527ace31d5f9181dc7a1858e05587" name="abc5527ace31d5f9181dc7a1858e05587"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc5527ace31d5f9181dc7a1858e05587">&#9670;&#160;</a></span>isScreenOrientationCorrect</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper.isScreenOrientationCorrect</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Is ScreenOrientation the correct value? </p>
+
+</div>
+</div>
 <a id="aa9164d438d86913ace08d8e3e15fb224" name="aa9164d438d86913ace08d8e3e15fb224"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa9164d438d86913ace08d8e3e15fb224">&#9670;&#160;</a></span>isScreenSizeChangeWaiting</h2>
 
@@ -1935,6 +2133,32 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>isScreenSizeChangeWaiting </p>
+
+</div>
+</div>
+<a id="a402a005d970a3f5cf461f0819eb062a2" name="a402a005d970a3f5cf461f0819eb062a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a402a005d970a3f5cf461f0819eb062a2">&#9670;&#160;</a></span>isVideoRotationAngleCorrect</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatHelper.isVideoRotationAngleCorrect</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Is VideoRotationAngle the correct value? </p>
 
 </div>
 </div>
@@ -2103,6 +2327,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Set whether to flip horizontal. </p>
+
 </div>
 </div>
 <a id="a845445004d1f98b158b712a27a83122b" name="a845445004d1f98b158b712a27a83122b"></a>
@@ -2125,6 +2351,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Set whether to flip vertically. </p>
+
 </div>
 </div>
 <a id="a8b21c11a68efd08262945c9baf765c4e" name="a8b21c11a68efd08262945c9baf765c4e"></a>
@@ -2146,6 +2374,8 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>UnityEvent that is triggered when this instance is disposed. </p>
 
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#afe5053d7fd5479671cb5e1f5b0baeb0a">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
 
@@ -2171,6 +2401,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>UnityEvent that is triggered when this instance is error Occurred. </p>
+
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#a19b37a72d191eba31c9e3ccc74fe7be2">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
 
 </div>
@@ -2194,6 +2426,8 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>UnityEvent that is triggered when this instance is initialized. </p>
 
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#afb95da6332d82565f33eaeacbcf81599">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
 
@@ -2219,6 +2453,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Select the output color format. </p>
+
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#a937e72be9fbbc2321fd12c3acee6fce1">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
 
 </div>
@@ -2242,6 +2478,8 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Set the name of the camera device to use. (or device index number) </p>
 
 <p>Implements <a class="el" href="../../d1/df3/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ICameraSource2MatHelper.html#a9591b5bbb351b105b314484cd1134eb1">OpenCVForUnity.UnityUtils.Helper.ICameraSource2MatHelper</a>.</p>
 
@@ -2267,6 +2505,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Set the frame rate of camera. </p>
+
 <p>Implements <a class="el" href="../../d1/df3/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ICameraSource2MatHelper.html#ae15ac86bc83488ad79f49e4f4e75d921">OpenCVForUnity.UnityUtils.Helper.ICameraSource2MatHelper</a>.</p>
 
 </div>
@@ -2290,6 +2530,8 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Set the height of camera. </p>
 
 <p>Implements <a class="el" href="../../d1/df3/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ICameraSource2MatHelper.html#ad1558688e8852ba05dbf2ee08892ea10">OpenCVForUnity.UnityUtils.Helper.ICameraSource2MatHelper</a>.</p>
 
@@ -2315,6 +2557,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Set whether to use the front facing camera. </p>
+
 <p>Implements <a class="el" href="../../d1/df3/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ICameraSource2MatHelper.html#ad68266baac753271d468c35abb994404">OpenCVForUnity.UnityUtils.Helper.ICameraSource2MatHelper</a>.</p>
 
 </div>
@@ -2338,6 +2582,8 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Set the width of camera. </p>
 
 <p>Implements <a class="el" href="../../d1/df3/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ICameraSource2MatHelper.html#a60d3b776c7eea77a43eb3aaee7a961c6">OpenCVForUnity.UnityUtils.Helper.ICameraSource2MatHelper</a>.</p>
 
@@ -2363,6 +2609,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Set whether to rotate camera frame 90 degrees. (clockwise) </p>
+
 </div>
 </div>
 <a id="ad34a235ce9a57dba83539eb9f8fb4f1c" name="ad34a235ce9a57dba83539eb9f8fb4f1c"></a>
@@ -2384,6 +2632,8 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>The number of frames before the initialization process times out. </p>
 
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#af01316741278d08fd91c95d4986f44e2">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
 

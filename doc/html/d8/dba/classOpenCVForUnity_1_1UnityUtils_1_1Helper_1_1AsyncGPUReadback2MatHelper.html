@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.4</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.5</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -145,7 +145,7 @@ $(function(){ initResizable(false); });
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ae9f8f31dccd2202ca13556e65f762538" id="r_ae9f8f31dccd2202ca13556e65f762538"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9f8f31dccd2202ca13556e65f762538">DidUpdateThisFrame</a> ()</td></tr>
-<tr class="memdesc:ae9f8f31dccd2202ca13556e65f762538"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether the readback buffer of the frame has been updated.  <br /></td></tr>
+<tr class="memdesc:ae9f8f31dccd2202ca13556e65f762538"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use this to check if the Mat has changed since the last frame. Since it would not make sense to do expensive video processing in each Update call, check this value before doing any processing.  <br /></td></tr>
 <tr class="separator:ae9f8f31dccd2202ca13556e65f762538"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ee30ddc307e3aaad2f1a3aa7ab39e49" id="r_a6ee30ddc307e3aaad2f1a3aa7ab39e49"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ee30ddc307e3aaad2f1a3aa7ab39e49">Dispose</a> ()</td></tr>
 <tr class="memdesc:a6ee30ddc307e3aaad2f1a3aa7ab39e49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases all resource used by the <a class="el" href="../../d8/dba/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1AsyncGPUReadback2MatHelper.html" title="A helper component class for efficiently converting Unity Texture objects, such as RenderTexture and ...">AsyncGPUReadback2MatHelper</a> object.  <br /></td></tr>
@@ -162,6 +162,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8f3c99204eed1de87978dc3cd60f99b4" id="r_a8f3c99204eed1de87978dc3cd60f99b4"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f3c99204eed1de87978dc3cd60f99b4">GetMat</a> ()</td></tr>
 <tr class="memdesc:a8f3c99204eed1de87978dc3cd60f99b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the mat of the current frame.  <br /></td></tr>
 <tr class="separator:a8f3c99204eed1de87978dc3cd60f99b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20e949065a66f40aa2b883309f1a142c" id="r_a20e949065a66f40aa2b883309f1a142c"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a20e949065a66f40aa2b883309f1a142c">GetMatUpdateFPS</a> ()</td></tr>
+<tr class="memdesc:a20e949065a66f40aa2b883309f1a142c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the frame rate at which the Mat is updated. (interval at which the <a class="el" href="#ae9f8f31dccd2202ca13556e65f762538" title="Use this to check if the Mat has changed since the last frame. Since it would not make sense to do ex...">DidUpdateThisFrame()</a> method becomes true).  <br /></td></tr>
+<tr class="separator:a20e949065a66f40aa2b883309f1a142c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf79aed5c5869ff0d3fe02b13e3ef19c" id="r_aaf79aed5c5869ff0d3fe02b13e3ef19c"><td class="memItemLeft" align="right" valign="top">virtual Texture&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaf79aed5c5869ff0d3fe02b13e3ef19c">GetSourceTexture</a> ()</td></tr>
 <tr class="memdesc:aaf79aed5c5869ff0d3fe02b13e3ef19c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Source Texture.  <br /></td></tr>
 <tr class="separator:aaf79aed5c5869ff0d3fe02b13e3ef19c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -193,20 +196,30 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a02fffb2d9a774981fe4674818248ccd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the readback.  <br /></td></tr>
 <tr class="separator:a02fffb2d9a774981fe4674818248ccd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a></td></tr>
+<tr class="inherit_header pub_methods_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatUpdateFPSProvider"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatUpdateFPSProvider')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d2/df8/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatUpdateFPSProvider.html">OpenCVForUnity.UnityUtils.Helper.IMatUpdateFPSProvider</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a99ecb72f27cd2421d486773fc174e32f" id="r_a99ecb72f27cd2421d486773fc174e32f"><td class="memItemLeft" align="right" valign="top">virtual IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99ecb72f27cd2421d486773fc174e32f">_Initialize</a> ()</td></tr>
 <tr class="memdesc:a99ecb72f27cd2421d486773fc174e32f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes this instance by coroutine.  <br /></td></tr>
 <tr class="separator:a99ecb72f27cd2421d486773fc174e32f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94081ee1258ddab25bffb06f7b9a9c0f" id="r_a94081ee1258ddab25bffb06f7b9a9c0f"><td class="memItemLeft" align="right" valign="top">virtual IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a94081ee1258ddab25bffb06f7b9a9c0f">_WaitForEndOfFrameCoroutine</a> ()</td></tr>
+<tr class="separator:a94081ee1258ddab25bffb06f7b9a9c0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4c84a57c954ad3c824bea5e3b4e7957" id="r_ad4c84a57c954ad3c824bea5e3b4e7957"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4c84a57c954ad3c824bea5e3b4e7957">CallReadback</a> ()</td></tr>
+<tr class="separator:ad4c84a57c954ad3c824bea5e3b4e7957"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5ec4afb98b1c19c00ac404f80715f11" id="r_ac5ec4afb98b1c19c00ac404f80715f11"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5ec4afb98b1c19c00ac404f80715f11">CancelInitCoroutine</a> ()</td></tr>
 <tr class="memdesc:ac5ec4afb98b1c19c00ac404f80715f11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel Init Coroutine.  <br /></td></tr>
 <tr class="separator:ac5ec4afb98b1c19c00ac404f80715f11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ec33b83b1d55aace31be2afa1bff11a" id="r_a0ec33b83b1d55aace31be2afa1bff11a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0ec33b83b1d55aace31be2afa1bff11a">LateUpdate</a> ()</td></tr>
-<tr class="separator:a0ec33b83b1d55aace31be2afa1bff11a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a913b636ca4c64ea0aa1ac110a7fa8909" id="r_a913b636ca4c64ea0aa1ac110a7fa8909"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a913b636ca4c64ea0aa1ac110a7fa8909">CancelWaitForEndOfFrameCoroutine</a> ()</td></tr>
+<tr class="memdesc:a913b636ca4c64ea0aa1ac110a7fa8909"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel WaitForEndOfFrame Coroutine.  <br /></td></tr>
+<tr class="separator:a913b636ca4c64ea0aa1ac110a7fa8909"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abad00f434accd7c6c27cb6ac6e092a9d" id="r_abad00f434accd7c6c27cb6ac6e092a9d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abad00f434accd7c6c27cb6ac6e092a9d">OnCompleteReadback</a> (AsyncGPUReadbackRequest request)</td></tr>
+<tr class="separator:abad00f434accd7c6c27cb6ac6e092a9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8adb583f179a9ab3c82cfab059049fc" id="r_ad8adb583f179a9ab3c82cfab059049fc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad8adb583f179a9ab3c82cfab059049fc">OnDestroy</a> ()</td></tr>
 <tr class="memdesc:ad8adb583f179a9ab3c82cfab059049fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raises the destroy event.  <br /></td></tr>
 <tr class="separator:ad8adb583f179a9ab3c82cfab059049fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20e3bb191c817d307c685a84870ef227" id="r_a20e3bb191c817d307c685a84870ef227"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a20e3bb191c817d307c685a84870ef227">OnValidate</a> ()</td></tr>
+<tr class="separator:a20e3bb191c817d307c685a84870ef227"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a881469c5067a71c471c8c5947f092a03" id="r_a881469c5067a71c471c8c5947f092a03"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a881469c5067a71c471c8c5947f092a03">ReleaseResources</a> ()</td></tr>
 <tr class="memdesc:a881469c5067a71c471c8c5947f092a03"><td class="mdescLeft">&#160;</td><td class="mdescRight">To release the resources.  <br /></td></tr>
 <tr class="separator:a881469c5067a71c471c8c5947f092a03"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -216,23 +229,22 @@ Protected Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a8e664a7bf6628339dfa0e796e7e83d0d" id="r_a8e664a7bf6628339dfa0e796e7e83d0d"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e664a7bf6628339dfa0e796e7e83d0d">_onDisposed</a></td></tr>
-<tr class="memdesc:a8e664a7bf6628339dfa0e796e7e83d0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is disposed.  <br /></td></tr>
 <tr class="separator:a8e664a7bf6628339dfa0e796e7e83d0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a419592bf79946a14bab242b96c1fdead" id="r_a419592bf79946a14bab242b96c1fdead"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d41/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Source2MatHelperErrorUnityEvent.html">Source2MatHelperErrorUnityEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a419592bf79946a14bab242b96c1fdead">_onErrorOccurred</a></td></tr>
-<tr class="memdesc:a419592bf79946a14bab242b96c1fdead"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is error Occurred.  <br /></td></tr>
 <tr class="separator:a419592bf79946a14bab242b96c1fdead"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7065cb7cfaeeb16edb479be0d45e980e" id="r_a7065cb7cfaeeb16edb479be0d45e980e"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7065cb7cfaeeb16edb479be0d45e980e">_onInitialized</a></td></tr>
-<tr class="memdesc:a7065cb7cfaeeb16edb479be0d45e980e"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is initialized.  <br /></td></tr>
 <tr class="separator:a7065cb7cfaeeb16edb479be0d45e980e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39ea60f8bd2e9799e4f84df2c75c8e36" id="r_a39ea60f8bd2e9799e4f84df2c75c8e36"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d62/namespaceOpenCVForUnity_1_1UnityUtils_1_1Helper.html#aa72968e344f92c2e8bcd432bdce5940c">Source2MatHelperColorFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a39ea60f8bd2e9799e4f84df2c75c8e36">_outputColorFormat</a> = <a class="el" href="../../d2/d62/namespaceOpenCVForUnity_1_1UnityUtils_1_1Helper.html#aa72968e344f92c2e8bcd432bdce5940caea3495a278957dc58165e48a8945469f">Source2MatHelperColorFormat.RGBA</a></td></tr>
-<tr class="memdesc:a39ea60f8bd2e9799e4f84df2c75c8e36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select the output color format.  <br /></td></tr>
 <tr class="separator:a39ea60f8bd2e9799e4f84df2c75c8e36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac28a882860813f3fef0c1ec2a6dcf28b" id="r_ac28a882860813f3fef0c1ec2a6dcf28b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac28a882860813f3fef0c1ec2a6dcf28b">_requestedMatUpdateFPS</a> = 30f</td></tr>
+<tr class="separator:ac28a882860813f3fef0c1ec2a6dcf28b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35ecb9d9f46ac5a264b59f3f396ae575" id="r_a35ecb9d9f46ac5a264b59f3f396ae575"><td class="memItemLeft" align="right" valign="top">Texture&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35ecb9d9f46ac5a264b59f3f396ae575">_sourceTexture</a></td></tr>
-<tr class="memdesc:a35ecb9d9f46ac5a264b59f3f396ae575"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the source texture.  <br /></td></tr>
 <tr class="separator:a35ecb9d9f46ac5a264b59f3f396ae575"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33d4b0bd2cbb858dbad50e954b32a4cc" id="r_a33d4b0bd2cbb858dbad50e954b32a4cc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a33d4b0bd2cbb858dbad50e954b32a4cc">_timeoutFrameCount</a> = 1500</td></tr>
-<tr class="memdesc:a33d4b0bd2cbb858dbad50e954b32a4cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of frames before the initialization process times out.  <br /></td></tr>
 <tr class="separator:a33d4b0bd2cbb858dbad50e954b32a4cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaeea52c69efe8c4b144641abc657f6f7" id="r_aaeea52c69efe8c4b144641abc657f6f7"><td class="memItemLeft" align="right" valign="top">AsyncGPUReadbackRequest&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaeea52c69efe8c4b144641abc657f6f7">asyncGPUReadbackRequestBuffer</a></td></tr>
+<tr class="memdesc:aaeea52c69efe8c4b144641abc657f6f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">asyncGPUReadbackRequestBuffer  <br /></td></tr>
+<tr class="separator:aaeea52c69efe8c4b144641abc657f6f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6cbc20d33fc99122cf95490b49bd1cbe" id="r_a6cbc20d33fc99122cf95490b49bd1cbe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6cbc20d33fc99122cf95490b49bd1cbe">autoPlayAfterInitialize</a></td></tr>
 <tr class="memdesc:a6cbc20d33fc99122cf95490b49bd1cbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">If set to true play after completion of initialization.  <br /></td></tr>
 <tr class="separator:a6cbc20d33fc99122cf95490b49bd1cbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -242,9 +254,8 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a80d1fd6472f31f3ff47b863cc8d9252c" id="r_a80d1fd6472f31f3ff47b863cc8d9252c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80d1fd6472f31f3ff47b863cc8d9252c">baseMat</a></td></tr>
 <tr class="memdesc:a80d1fd6472f31f3ff47b863cc8d9252c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The base mat.  <br /></td></tr>
 <tr class="separator:a80d1fd6472f31f3ff47b863cc8d9252c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a140dfa8cd3631d98f6e20ef624a8f847" id="r_a140dfa8cd3631d98f6e20ef624a8f847"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a140dfa8cd3631d98f6e20ef624a8f847">didUpdateImageBufferInCurrentFrame</a> = false</td></tr>
-<tr class="separator:a140dfa8cd3631d98f6e20ef624a8f847"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6dc78c08c3603e2f613d9dedf3e9be7f" id="r_a6dc78c08c3603e2f613d9dedf3e9be7f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6dc78c08c3603e2f613d9dedf3e9be7f">didUpdateThisFrame</a> = false</td></tr>
+<tr class="memdesc:a6dc78c08c3603e2f613d9dedf3e9be7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the mat that can be obtained with the GetMat method has been updated in this frame. This flag is changed after waiting until WaitForEndOfFrame in the coroutine.  <br /></td></tr>
 <tr class="separator:a6dc78c08c3603e2f613d9dedf3e9be7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a150141f3c63287d12fbeaae5155ad887" id="r_a150141f3c63287d12fbeaae5155ad887"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a150141f3c63287d12fbeaae5155ad887">frameMat</a></td></tr>
 <tr class="memdesc:a150141f3c63287d12fbeaae5155ad887"><td class="mdescLeft">&#160;</td><td class="mdescRight">The frame mat.  <br /></td></tr>
@@ -261,29 +272,42 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a37ca37b5ff207a10392b26a06f8a8b2a" id="r_a37ca37b5ff207a10392b26a06f8a8b2a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37ca37b5ff207a10392b26a06f8a8b2a">isPlaying</a> = false</td></tr>
 <tr class="memdesc:a37ca37b5ff207a10392b26a06f8a8b2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether this instance has been initialized.  <br /></td></tr>
 <tr class="separator:a37ca37b5ff207a10392b26a06f8a8b2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac44a84a099e590089905f51f8e20f4b4" id="r_ac44a84a099e590089905f51f8e20f4b4"><td class="memItemLeft" align="right" valign="top">Texture2D&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac44a84a099e590089905f51f8e20f4b4">texture</a></td></tr>
-<tr class="memdesc:ac44a84a099e590089905f51f8e20f4b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The texture.  <br /></td></tr>
-<tr class="separator:ac44a84a099e590089905f51f8e20f4b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b7e60c020c2cd21e41092f4cb842cb7" id="r_a1b7e60c020c2cd21e41092f4cb842cb7"><td class="memItemLeft" align="right" valign="top">Texture2D&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1b7e60c020c2cd21e41092f4cb842cb7">texture2DBuffer</a></td></tr>
+<tr class="memdesc:a1b7e60c020c2cd21e41092f4cb842cb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">texture2DBuffer.  <br /></td></tr>
+<tr class="separator:a1b7e60c020c2cd21e41092f4cb842cb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b8e0189c0b0a2eb4703e82f9b078ea7" id="r_a5b8e0189c0b0a2eb4703e82f9b078ea7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b8e0189c0b0a2eb4703e82f9b078ea7">useAsyncGPUReadback</a></td></tr>
 <tr class="memdesc:a5b8e0189c0b0a2eb4703e82f9b078ea7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The useAsyncGPUReadback.  <br /></td></tr>
 <tr class="separator:a5b8e0189c0b0a2eb4703e82f9b078ea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d599b26849f89dffdcbf85f235582de" id="r_a4d599b26849f89dffdcbf85f235582de"><td class="memItemLeft" align="right" valign="top">IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d599b26849f89dffdcbf85f235582de">waitForEndOfFrameCoroutine</a></td></tr>
+<tr class="memdesc:a4d599b26849f89dffdcbf85f235582de"><td class="mdescLeft">&#160;</td><td class="mdescRight">The waitForEndOfFrameCoroutine.  <br /></td></tr>
+<tr class="separator:a4d599b26849f89dffdcbf85f235582de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
 <tr class="memitem:a5a606cd6cec5a37a2545320bdb8d2535" id="r_a5a606cd6cec5a37a2545320bdb8d2535"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a606cd6cec5a37a2545320bdb8d2535">onDisposed</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a5a606cd6cec5a37a2545320bdb8d2535"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is disposed.  <br /></td></tr>
 <tr class="separator:a5a606cd6cec5a37a2545320bdb8d2535"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c1ad9aac6862528f9f2d24f602b4f52" id="r_a8c1ad9aac6862528f9f2d24f602b4f52"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d41/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Source2MatHelperErrorUnityEvent.html">Source2MatHelperErrorUnityEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c1ad9aac6862528f9f2d24f602b4f52">onErrorOccurred</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a8c1ad9aac6862528f9f2d24f602b4f52"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is error Occurred.  <br /></td></tr>
 <tr class="separator:a8c1ad9aac6862528f9f2d24f602b4f52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a429d07545e63af544f131ef51bfafd7a" id="r_a429d07545e63af544f131ef51bfafd7a"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a429d07545e63af544f131ef51bfafd7a">onInitialized</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a429d07545e63af544f131ef51bfafd7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is initialized.  <br /></td></tr>
 <tr class="separator:a429d07545e63af544f131ef51bfafd7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed87c66a7d41146f55e639b2e4533b07" id="r_aed87c66a7d41146f55e639b2e4533b07"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d2/d62/namespaceOpenCVForUnity_1_1UnityUtils_1_1Helper.html#aa72968e344f92c2e8bcd432bdce5940c">Source2MatHelperColorFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed87c66a7d41146f55e639b2e4533b07">outputColorFormat</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:aed87c66a7d41146f55e639b2e4533b07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select the output color format.  <br /></td></tr>
 <tr class="separator:aed87c66a7d41146f55e639b2e4533b07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab62eb2a78929dc27d90d4a93bac64995" id="r_ab62eb2a78929dc27d90d4a93bac64995"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab62eb2a78929dc27d90d4a93bac64995">requestedMatUpdateFPS</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ab62eb2a78929dc27d90d4a93bac64995"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the frame rate at which the Mat is updated. (interval at which the <a class="el" href="#ae9f8f31dccd2202ca13556e65f762538" title="Use this to check if the Mat has changed since the last frame. Since it would not make sense to do ex...">DidUpdateThisFrame()</a> method becomes true).  <br /></td></tr>
+<tr class="separator:ab62eb2a78929dc27d90d4a93bac64995"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1914221e4800142039e92da5432b1d9" id="r_aa1914221e4800142039e92da5432b1d9"><td class="memItemLeft" align="right" valign="top">virtual Texture&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1914221e4800142039e92da5432b1d9">sourceTexture</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:aa1914221e4800142039e92da5432b1d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the source texture.  <br /></td></tr>
 <tr class="separator:aa1914221e4800142039e92da5432b1d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49c1e0d1b6fb648239188d4c4edd0fad" id="r_a49c1e0d1b6fb648239188d4c4edd0fad"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a49c1e0d1b6fb648239188d4c4edd0fad">timeoutFrameCount</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a49c1e0d1b6fb648239188d4c4edd0fad"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of frames before the initialization process times out.  <br /></td></tr>
 <tr class="separator:a49c1e0d1b6fb648239188d4c4edd0fad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ITextureSource2MatHelper"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ITextureSource2MatHelper')"><img src="../../closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="../../d0/de2/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ITextureSource2MatHelper.html">OpenCVForUnity.UnityUtils.Helper.ITextureSource2MatHelper</a></td></tr>
 <tr class="inherit_header properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper')"><img src="../../closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a></td></tr>
+<tr class="inherit_header properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatUpdateFPSProvider"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatUpdateFPSProvider')"><img src="../../closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="../../d2/df8/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatUpdateFPSProvider.html">OpenCVForUnity.UnityUtils.Helper.IMatUpdateFPSProvider</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A helper component class for efficiently converting Unity <code>Texture</code> objects, such as <code>RenderTexture</code> and external texture format <code>Texture2D</code>, to OpenCV <code>Mat</code> format using <code>AsyncGPUReadback</code>. </p>
@@ -319,6 +343,56 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="a94081ee1258ddab25bffb06f7b9a9c0f" name="a94081ee1258ddab25bffb06f7b9a9c0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94081ee1258ddab25bffb06f7b9a9c0f">&#9670;&#160;</a></span>_WaitForEndOfFrameCoroutine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual IEnumerator OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper._WaitForEndOfFrameCoroutine </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad4c84a57c954ad3c824bea5e3b4e7957" name="ad4c84a57c954ad3c824bea5e3b4e7957"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4c84a57c954ad3c824bea5e3b4e7957">&#9670;&#160;</a></span>CallReadback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper.CallReadback </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac5ec4afb98b1c19c00ac404f80715f11" name="ac5ec4afb98b1c19c00ac404f80715f11"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac5ec4afb98b1c19c00ac404f80715f11">&#9670;&#160;</a></span>CancelInitCoroutine()</h2>
 
@@ -346,6 +420,33 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="a913b636ca4c64ea0aa1ac110a7fa8909" name="a913b636ca4c64ea0aa1ac110a7fa8909"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a913b636ca4c64ea0aa1ac110a7fa8909">&#9670;&#160;</a></span>CancelWaitForEndOfFrameCoroutine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper.CancelWaitForEndOfFrameCoroutine </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cancel WaitForEndOfFrame Coroutine. </p>
+
+</div>
+</div>
 <a id="ae9f8f31dccd2202ca13556e65f762538" name="ae9f8f31dccd2202ca13556e65f762538"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae9f8f31dccd2202ca13556e65f762538">&#9670;&#160;</a></span>DidUpdateThisFrame()</h2>
 
@@ -369,8 +470,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Indicates whether the readback buffer of the frame has been updated. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code>, if the readback buffer has been updated <code>false</code> otherwise.</dd></dl>
+<p>Use this to check if the Mat has changed since the last frame. Since it would not make sense to do expensive video processing in each Update call, check this value before doing any processing. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code>, if the Mat has been updated <code>false</code> otherwise.</dd></dl>
 
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#a87b0ea4573aa1a5cbb12735a93edaa4c">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
 
@@ -524,6 +625,36 @@ Properties</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>The mat of the current frame.</dd></dl>
 
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#a6a6323e110b85750ed4310ccacb461e3">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
+
+</div>
+</div>
+<a id="a20e949065a66f40aa2b883309f1a142c" name="a20e949065a66f40aa2b883309f1a142c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20e949065a66f40aa2b883309f1a142c">&#9670;&#160;</a></span>GetMatUpdateFPS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual float OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper.GetMatUpdateFPS </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return the frame rate at which the Mat is updated. (interval at which the <a class="el" href="#ae9f8f31dccd2202ca13556e65f762538" title="Use this to check if the Mat has changed since the last frame. Since it would not make sense to do ex...">DidUpdateThisFrame()</a> method becomes true). </p>
+<dl class="section return"><dt>Returns</dt><dd>The active camera framerate.</dd></dl>
+
+<p>Implements <a class="el" href="../../d2/df8/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatUpdateFPSProvider.html#a8ecf51970007a736a39220b1e46866c7">OpenCVForUnity.UnityUtils.Helper.IMatUpdateFPSProvider</a>.</p>
 
 </div>
 </div>
@@ -748,8 +879,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a0ec33b83b1d55aace31be2afa1bff11a" name="a0ec33b83b1d55aace31be2afa1bff11a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ec33b83b1d55aace31be2afa1bff11a">&#9670;&#160;</a></span>LateUpdate()</h2>
+<a id="abad00f434accd7c6c27cb6ac6e092a9d" name="abad00f434accd7c6c27cb6ac6e092a9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abad00f434accd7c6c27cb6ac6e092a9d">&#9670;&#160;</a></span>OnCompleteReadback()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -758,9 +889,9 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper.LateUpdate </td>
+          <td class="memname">virtual void OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper.OnCompleteReadback </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">AsyncGPUReadbackRequest</td>          <td class="paramname"><span class="paramname"><em>request</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -797,6 +928,31 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Raises the destroy event. </p>
+
+</div>
+</div>
+<a id="a20e3bb191c817d307c685a84870ef227" name="a20e3bb191c817d307c685a84870ef227"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20e3bb191c817d307c685a84870ef227">&#9670;&#160;</a></span>OnValidate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper.OnValidate </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -960,8 +1116,6 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>UnityEvent that is triggered when this instance is disposed. </p>
-
 </div>
 </div>
 <a id="a419592bf79946a14bab242b96c1fdead" name="a419592bf79946a14bab242b96c1fdead"></a>
@@ -983,8 +1137,6 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>UnityEvent that is triggered when this instance is error Occurred. </p>
 
 </div>
 </div>
@@ -1008,8 +1160,6 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>UnityEvent that is triggered when this instance is initialized. </p>
-
 </div>
 </div>
 <a id="a39ea60f8bd2e9799e4f84df2c75c8e36" name="a39ea60f8bd2e9799e4f84df2c75c8e36"></a>
@@ -1032,7 +1182,27 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Select the output color format. </p>
+</div>
+</div>
+<a id="ac28a882860813f3fef0c1ec2a6dcf28b" name="ac28a882860813f3fef0c1ec2a6dcf28b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac28a882860813f3fef0c1ec2a6dcf28b">&#9670;&#160;</a></span>_requestedMatUpdateFPS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper._requestedMatUpdateFPS = 30f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1056,8 +1226,6 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Set the source texture. </p>
-
 </div>
 </div>
 <a id="a33d4b0bd2cbb858dbad50e954b32a4cc" name="a33d4b0bd2cbb858dbad50e954b32a4cc"></a>
@@ -1080,7 +1248,29 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>The number of frames before the initialization process times out. </p>
+</div>
+</div>
+<a id="aaeea52c69efe8c4b144641abc657f6f7" name="aaeea52c69efe8c4b144641abc657f6f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaeea52c69efe8c4b144641abc657f6f7">&#9670;&#160;</a></span>asyncGPUReadbackRequestBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">AsyncGPUReadbackRequest OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper.asyncGPUReadbackRequestBuffer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>asyncGPUReadbackRequestBuffer </p>
 
 </div>
 </div>
@@ -1156,28 +1346,6 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a140dfa8cd3631d98f6e20ef624a8f847" name="a140dfa8cd3631d98f6e20ef624a8f847"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a140dfa8cd3631d98f6e20ef624a8f847">&#9670;&#160;</a></span>didUpdateImageBufferInCurrentFrame</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper.didUpdateImageBufferInCurrentFrame = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a6dc78c08c3603e2f613d9dedf3e9be7f" name="a6dc78c08c3603e2f613d9dedf3e9be7f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6dc78c08c3603e2f613d9dedf3e9be7f">&#9670;&#160;</a></span>didUpdateThisFrame</h2>
 
@@ -1197,6 +1365,8 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Whether the mat that can be obtained with the GetMat method has been updated in this frame. This flag is changed after waiting until WaitForEndOfFrame in the coroutine. </p>
 
 </div>
 </div>
@@ -1320,8 +1490,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="ac44a84a099e590089905f51f8e20f4b4" name="ac44a84a099e590089905f51f8e20f4b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac44a84a099e590089905f51f8e20f4b4">&#9670;&#160;</a></span>texture</h2>
+<a id="a1b7e60c020c2cd21e41092f4cb842cb7" name="a1b7e60c020c2cd21e41092f4cb842cb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b7e60c020c2cd21e41092f4cb842cb7">&#9670;&#160;</a></span>texture2DBuffer</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1330,7 +1500,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Texture2D OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper.texture</td>
+          <td class="memname">Texture2D OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper.texture2DBuffer</td>
         </tr>
       </table>
   </td>
@@ -1340,7 +1510,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>The texture. </p>
+<p>texture2DBuffer. </p>
 
 </div>
 </div>
@@ -1368,6 +1538,30 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="a4d599b26849f89dffdcbf85f235582de" name="a4d599b26849f89dffdcbf85f235582de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d599b26849f89dffdcbf85f235582de">&#9670;&#160;</a></span>waitForEndOfFrameCoroutine</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">IEnumerator OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper.waitForEndOfFrameCoroutine</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The waitForEndOfFrameCoroutine. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Property Documentation</h2>
 <a id="a5a606cd6cec5a37a2545320bdb8d2535" name="a5a606cd6cec5a37a2545320bdb8d2535"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5a606cd6cec5a37a2545320bdb8d2535">&#9670;&#160;</a></span>onDisposed</h2>
@@ -1388,6 +1582,8 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>UnityEvent that is triggered when this instance is disposed. </p>
 
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#afe5053d7fd5479671cb5e1f5b0baeb0a">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
 
@@ -1413,6 +1609,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>UnityEvent that is triggered when this instance is error Occurred. </p>
+
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#a19b37a72d191eba31c9e3ccc74fe7be2">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
 
 </div>
@@ -1436,6 +1634,8 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>UnityEvent that is triggered when this instance is initialized. </p>
 
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#afb95da6332d82565f33eaeacbcf81599">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
 
@@ -1461,7 +1661,35 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Select the output color format. </p>
+
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#a937e72be9fbbc2321fd12c3acee6fce1">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
+
+</div>
+</div>
+<a id="ab62eb2a78929dc27d90d4a93bac64995" name="ab62eb2a78929dc27d90d4a93bac64995"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab62eb2a78929dc27d90d4a93bac64995">&#9670;&#160;</a></span>requestedMatUpdateFPS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual float OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper.requestedMatUpdateFPS</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the frame rate at which the Mat is updated. (interval at which the <a class="el" href="#ae9f8f31dccd2202ca13556e65f762538" title="Use this to check if the Mat has changed since the last frame. Since it would not make sense to do ex...">DidUpdateThisFrame()</a> method becomes true). </p>
+
+<p>Implements <a class="el" href="../../d2/df8/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatUpdateFPSProvider.html#a083a5709aef3192d623a6964efdee063">OpenCVForUnity.UnityUtils.Helper.IMatUpdateFPSProvider</a>.</p>
 
 </div>
 </div>
@@ -1484,6 +1712,8 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Set the source texture. </p>
 
 <p>Implements <a class="el" href="../../d0/de2/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ITextureSource2MatHelper.html#a9b075dac9c3bfb9d189b72a9730314d6">OpenCVForUnity.UnityUtils.Helper.ITextureSource2MatHelper</a>.</p>
 
@@ -1508,6 +1738,8 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>The number of frames before the initialization process times out. </p>
 
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#af01316741278d08fd91c95d4986f44e2">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
 

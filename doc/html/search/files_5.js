@@ -26,5 +26,6 @@ var searchData=
   ['features2d_5fvaluetuple_2ecs_23',['Features2d_ValueTuple.cs',['../d8/de9/Features2d__ValueTuple_8cs.html',1,'']]],
   ['fisherfacerecognizer_2ecs_24',['FisherFaceRecognizer.cs',['../d2/d6f/FisherFaceRecognizer_8cs.html',1,'']]],
   ['flannbasedmatcher_2ecs_25',['FlannBasedMatcher.cs',['../d7/d02/FlannBasedMatcher_8cs.html',1,'']]],
-  ['freak_2ecs_26',['FREAK.cs',['../dd/dbe/FREAK_8cs.html',1,'']]]
+  ['fpsmanager_2ecs_26',['FpsManager.cs',['../d0/d00/FpsManager_8cs.html',1,'']]],
+  ['freak_2ecs_27',['FREAK.cs',['../dd/dbe/FREAK_8cs.html',1,'']]]
 ];

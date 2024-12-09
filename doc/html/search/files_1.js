@@ -30,5 +30,6 @@ var searchData=
   ['bowkmeanstrainer_5fvaluetuple_2ecs_27',['BOWKMeansTrainer_ValueTuple.cs',['../dd/dd9/BOWKMeansTrainer__ValueTuple_8cs.html',1,'']]],
   ['bowtrainer_2ecs_28',['BOWTrainer.cs',['../d3/d53/BOWTrainer_8cs.html',1,'']]],
   ['briefdescriptorextractor_2ecs_29',['BriefDescriptorExtractor.cs',['../de/d8b/BriefDescriptorExtractor_8cs.html',1,'']]],
-  ['brisk_2ecs_30',['BRISK.cs',['../d7/d76/BRISK_8cs.html',1,'']]]
+  ['brisk_2ecs_30',['BRISK.cs',['../d7/d76/BRISK_8cs.html',1,'']]],
+  ['bytetracker_2ecs_31',['BYTETracker.cs',['../d8/da3/BYTETracker_8cs.html',1,'']]]
 ];

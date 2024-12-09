@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['shouldstopthread_0',['shouldStopThread',['../dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html#a7e168e0acf044b0d1b96d9c0e878ffc9',1,'OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper.shouldStopThread'],['../d3/d8d/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureToMatHelper.html#a5ef30df957cc580c4b495436bb27f6e1',1,'OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper.shouldStopThread']]],
-  ['source2mathelper_1',['source2MatHelper',['../df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#adbab1060945a6e8dfca0c97f14cf314a',1,'OpenCVForUnity::UnityUtils::Helper::MultiSource2MatHelper']]],
-  ['sourcetexture_2',['sourceTexture',['../d8/dba/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1AsyncGPUReadback2MatHelper.html#aa1914221e4800142039e92da5432b1d9',1,'OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper.sourceTexture'],['../d0/de2/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ITextureSource2MatHelper.html#a9b075dac9c3bfb9d189b72a9730314d6',1,'OpenCVForUnity.UnityUtils.Helper.ITextureSource2MatHelper.sourceTexture'],['../df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html#a3b453ba9de50d1916be581c3f7357634',1,'OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper.sourceTexture']]]
+  ['predictedrect_0',['PredictedRect',['../d3/dfb/classOpenCVForUnity_1_1UnityUtils_1_1MOT_1_1ByteTrack_1_1Track.html#a5c015174fa9157f1332e5503baad1097',1,'OpenCVForUnity::UnityUtils::MOT::ByteTrack::Track']]]
 ];

@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.4</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.5</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -571,7 +571,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gets the multiple readable paths of a file in the "StreamingAssets" directory. </p>
-<p>Provide a relative file path based on the "StreamingAssets" directory. e.g., "foobar.txt" or "hogehoge/foobar.txt". [Android] The target file that exists in the "StreamingAssets" directory is copied to the the Application.persistentDataPath directory. [WebGL] If the target file has not yet been copied to WebGL's virtual filesystem, it is necessary to use <a class="el" href="#a5aa31c65a5feeb7f3dbc507336fd16ef">getMultipleFilePathsAsync</a> of <a class="el" href="#a7d51f0f31b8aa2af24c9b953026c1647">getMultipleFilePathsAsynck</a> at first. </p>
+<p>Provide a relative file path based on the "StreamingAssets" directory. e.g., "foobar.txt" or "hogehoge/foobar.txt". [Android] The target file that exists in the "StreamingAssets" directory is copied to the the Application.persistentDataPath directory. [WebGL] If the target file has not yet been copied to WebGL's virtual filesystem, it is necessary to use <a class="el" href="#a5aa31c65a5feeb7f3dbc507336fd16ef">getMultipleFilePathsAsync</a> of <a class="el" href="#a7d51f0f31b8aa2af24c9b953026c1647">getMultipleFilePathsAsyncTask</a> at first. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filepaths</td><td>The list of file paths relative to the "StreamingAssets" directory. </td></tr>
@@ -1929,7 +1929,16 @@ Static Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">webCamTexture</td><td>The source WebCamTexture must have the same size as the destination Mat. </td></tr>
     <tr><td class="paramname">mat</td><td>The destination Mat must be 2-dimensional, with a CvType of 'CV_8UC4' (RGBA), 'CV_8UC3' (RGB), or 'CV_8UC1' (GRAYSCALE). </td></tr>
-    <tr><td class="paramname">pixels32Buffer</td><td>An optional array for receiving pixel data as Color32. Using this array helps avoid memory allocation each frame. Ensure the array is initialized to a length matching the texture’s width * height. (<a href="http://docs.unity3d.com/ScriptReference/WebCamTexture.GetPixels32.html">WebCamTexture.GetPixels32&lt;/&gt;)   If <code>true</code>, the pixel data retrieved from the WebCamTexture is flipped before conversion. The default is <code>true</code>, as the pixel data must be flipped to align with the coordinate system of the destination Mat.   Specifies how to flip the WebCamTexture image: Vertical flipping of the image (flipCode == 0) to flip around the x-axis, horizontal flipping of the image (flipCode &gt; 0, e.g., 1) to flip around the y-axis, and simultaneous horizontal and vertical flipping (flipCode &lt; 0, e.g., -1) to flip around both axes. The default is <code>0</code>.   Thrown when  or  is null.    </a></td></tr>
+    <tr><td class="paramname">pixels32Buffer</td><td>An optional array for receiving pixel data as Color32. Using this array helps avoid memory allocation each frame. Ensure the array is initialized to a length matching the texture’s width * height. (<a href="http://docs.unity3d.com/ScriptReference/WebCamTexture.GetPixels32.html">WebCamTexture.GetPixels32</a>) </td></tr>
+    <tr><td class="paramname">flip</td><td>If <code>true</code>, the pixel data retrieved from the WebCamTexture is flipped before conversion. The default is <code>true</code>, as the pixel data must be flipped to align with the coordinate system of the destination Mat. </td></tr>
+    <tr><td class="paramname">flipCode</td><td>Specifies how to flip the WebCamTexture image: Vertical flipping of the image (flipCode == 0) to flip around the x-axis, horizontal flipping of the image (flipCode &gt; 0, e.g., 1) to flip around the y-axis, and simultaneous horizontal and vertical flipping (flipCode &lt; 0, e.g., -1) to flip around both axes. The default is <code>0</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ArgumentNullException</td><td>Thrown when <em>webCamTexture</em>  or <em>mat</em>  is null. </td></tr>
+    <tr><td class="paramname">ArgumentException</td><td></td></tr>
   </table>
   </dd>
 </dl>

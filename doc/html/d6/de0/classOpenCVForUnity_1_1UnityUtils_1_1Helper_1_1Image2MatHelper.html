@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.4</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.5</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -145,7 +145,7 @@ $(function(){ initResizable(false); });
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa97e98e111225123583875bb9a131290" id="r_aa97e98e111225123583875bb9a131290"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa97e98e111225123583875bb9a131290">DidUpdateThisFrame</a> ()</td></tr>
-<tr class="memdesc:aa97e98e111225123583875bb9a131290"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether the image buffer of the frame has been updated.  <br /></td></tr>
+<tr class="memdesc:aa97e98e111225123583875bb9a131290"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use this to check if the Mat has changed since the last frame. Since it would not make sense to do expensive video processing in each Update call, check this value before doing any processing.  <br /></td></tr>
 <tr class="separator:aa97e98e111225123583875bb9a131290"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58cd988efc2f26f49df3df77ab8c38b7" id="r_a58cd988efc2f26f49df3df77ab8c38b7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a58cd988efc2f26f49df3df77ab8c38b7">Dispose</a> ()</td></tr>
 <tr class="memdesc:a58cd988efc2f26f49df3df77ab8c38b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases all resource used by the <a class="el" href="../../d6/de0/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Image2MatHelper.html" title="A helper component class for loading an image file using OpenCV&#39;s Imgcodecs.imread method and convert...">Image2MatHelper</a> object.  <br /></td></tr>
@@ -162,6 +162,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af9a9b2089b8dd91152d64f502f9a14d7" id="r_af9a9b2089b8dd91152d64f502f9a14d7"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9a9b2089b8dd91152d64f502f9a14d7">GetMat</a> ()</td></tr>
 <tr class="memdesc:af9a9b2089b8dd91152d64f502f9a14d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the mat of the current frame.  <br /></td></tr>
 <tr class="separator:af9a9b2089b8dd91152d64f502f9a14d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad40876e2641ec8946e16214cbee3cdb2" id="r_ad40876e2641ec8946e16214cbee3cdb2"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad40876e2641ec8946e16214cbee3cdb2">GetMatUpdateFPS</a> ()</td></tr>
+<tr class="memdesc:ad40876e2641ec8946e16214cbee3cdb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the frame rate at which the Mat is updated. (interval at which the <a class="el" href="#aa97e98e111225123583875bb9a131290" title="Use this to check if the Mat has changed since the last frame. Since it would not make sense to do ex...">DidUpdateThisFrame()</a> method becomes true).  <br /></td></tr>
+<tr class="separator:ad40876e2641ec8946e16214cbee3cdb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61f8cef58f9a34bf9d03322b4ee398cf" id="r_a61f8cef58f9a34bf9d03322b4ee398cf"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61f8cef58f9a34bf9d03322b4ee398cf">GetWidth</a> ()</td></tr>
 <tr class="memdesc:a61f8cef58f9a34bf9d03322b4ee398cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the image width.  <br /></td></tr>
 <tr class="separator:a61f8cef58f9a34bf9d03322b4ee398cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -190,54 +193,57 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a99412052d3a22bee222791bfc0c1f6a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the image.  <br /></td></tr>
 <tr class="separator:a99412052d3a22bee222791bfc0c1f6a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a></td></tr>
+<tr class="inherit_header pub_methods_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatUpdateFPSProvider"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatUpdateFPSProvider')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d2/df8/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatUpdateFPSProvider.html">OpenCVForUnity.UnityUtils.Helper.IMatUpdateFPSProvider</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:acce63011e2cdf2687aa1fdc0b59e12fe" id="r_acce63011e2cdf2687aa1fdc0b59e12fe"><td class="memItemLeft" align="right" valign="top">virtual IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acce63011e2cdf2687aa1fdc0b59e12fe">_Initialize</a> ()</td></tr>
 <tr class="memdesc:acce63011e2cdf2687aa1fdc0b59e12fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize this instance by coroutine.  <br /></td></tr>
 <tr class="separator:acce63011e2cdf2687aa1fdc0b59e12fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ce8f20549b5a1d3510c148f23f85aba" id="r_a3ce8f20549b5a1d3510c148f23f85aba"><td class="memItemLeft" align="right" valign="top">virtual IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3ce8f20549b5a1d3510c148f23f85aba">_WaitForEndOfFrameCoroutine</a> ()</td></tr>
+<tr class="separator:a3ce8f20549b5a1d3510c148f23f85aba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac541c861dec30eb2f8591b969e3889bb" id="r_ac541c861dec30eb2f8591b969e3889bb"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac541c861dec30eb2f8591b969e3889bb">CallReadFrame</a> ()</td></tr>
+<tr class="separator:ac541c861dec30eb2f8591b969e3889bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d8866cc6b2cb283868b21b1265f7b49" id="r_a2d8866cc6b2cb283868b21b1265f7b49"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2d8866cc6b2cb283868b21b1265f7b49">CancelInitCoroutine</a> ()</td></tr>
 <tr class="memdesc:a2d8866cc6b2cb283868b21b1265f7b49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel Init Coroutine.  <br /></td></tr>
 <tr class="separator:a2d8866cc6b2cb283868b21b1265f7b49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4cdd6ef787dcf14117a65866c5f001b6" id="r_a4cdd6ef787dcf14117a65866c5f001b6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4cdd6ef787dcf14117a65866c5f001b6">LateUpdate</a> ()</td></tr>
-<tr class="separator:a4cdd6ef787dcf14117a65866c5f001b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58399ea367404c7974dc69379e682983" id="r_a58399ea367404c7974dc69379e682983"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a58399ea367404c7974dc69379e682983">CancelWaitForEndOfFrameCoroutine</a> ()</td></tr>
+<tr class="memdesc:a58399ea367404c7974dc69379e682983"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel WaitForEndOfFrame Coroutine.  <br /></td></tr>
+<tr class="separator:a58399ea367404c7974dc69379e682983"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af83ce1a4ba6219c1667efe58f16bee15" id="r_af83ce1a4ba6219c1667efe58f16bee15"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af83ce1a4ba6219c1667efe58f16bee15">OnDestroy</a> ()</td></tr>
 <tr class="memdesc:af83ce1a4ba6219c1667efe58f16bee15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raises the destroy event.  <br /></td></tr>
 <tr class="separator:af83ce1a4ba6219c1667efe58f16bee15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8939b9e20ccd5d00567e08368d5321dd" id="r_a8939b9e20ccd5d00567e08368d5321dd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8939b9e20ccd5d00567e08368d5321dd">OnValidate</a> ()</td></tr>
 <tr class="separator:a8939b9e20ccd5d00567e08368d5321dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef0a391b2fe3f800371d05f8e3930bfd" id="r_aef0a391b2fe3f800371d05f8e3930bfd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef0a391b2fe3f800371d05f8e3930bfd">ReadFrame</a> ()</td></tr>
+<tr class="separator:aef0a391b2fe3f800371d05f8e3930bfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c9f5ee609505f991283b5a62f846caa" id="r_a1c9f5ee609505f991283b5a62f846caa"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1c9f5ee609505f991283b5a62f846caa">ReleaseResources</a> ()</td></tr>
 <tr class="memdesc:a1c9f5ee609505f991283b5a62f846caa"><td class="mdescLeft">&#160;</td><td class="mdescRight">To release the resources.  <br /></td></tr>
 <tr class="separator:a1c9f5ee609505f991283b5a62f846caa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23c1d935c098319f69d3cfea9d5190f8" id="r_a23c1d935c098319f69d3cfea9d5190f8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23c1d935c098319f69d3cfea9d5190f8">StartWaitFrameTimeThread</a> ()</td></tr>
-<tr class="separator:a23c1d935c098319f69d3cfea9d5190f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adcb54ea8929b3c51a6e92e8626e18e1e" id="r_adcb54ea8929b3c51a6e92e8626e18e1e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adcb54ea8929b3c51a6e92e8626e18e1e">StopWaitFrameTimeThread</a> ()</td></tr>
-<tr class="separator:adcb54ea8929b3c51a6e92e8626e18e1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abfd1357e9fe0cb375ad02053ad2483dc" id="r_abfd1357e9fe0cb375ad02053ad2483dc"><td class="memItemLeft" align="right" valign="top">virtual IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abfd1357e9fe0cb375ad02053ad2483dc">WaitFrameTimeThreadWorker</a> ()</td></tr>
-<tr class="separator:abfd1357e9fe0cb375ad02053ad2483dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a058586d6464f21b0bd42efaedc60d1be" id="r_a058586d6464f21b0bd42efaedc60d1be"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a058586d6464f21b0bd42efaedc60d1be">Update</a> ()</td></tr>
+<tr class="separator:a058586d6464f21b0bd42efaedc60d1be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr class="memitem:a86f128f41bfaa3d66c02995cc89bde2b" id="r_a86f128f41bfaa3d66c02995cc89bde2b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a86f128f41bfaa3d66c02995cc89bde2b">_imageBufferMat</a></td></tr>
+<tr class="separator:a86f128f41bfaa3d66c02995cc89bde2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83edf2e60d3bb25cb445f42f8e7faac4" id="r_a83edf2e60d3bb25cb445f42f8e7faac4"><td class="memItemLeft" align="right" valign="top">System.Object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83edf2e60d3bb25cb445f42f8e7faac4">_imageBufferMatLockObject</a> = new System.Object()</td></tr>
+<tr class="separator:a83edf2e60d3bb25cb445f42f8e7faac4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ceba4589018d438a4a861143773e32c" id="r_a3ceba4589018d438a4a861143773e32c"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3ceba4589018d438a4a861143773e32c">_onDisposed</a></td></tr>
-<tr class="memdesc:a3ceba4589018d438a4a861143773e32c"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is disposed.  <br /></td></tr>
 <tr class="separator:a3ceba4589018d438a4a861143773e32c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb8128882ae62868be5a5fc1f66ef5b0" id="r_acb8128882ae62868be5a5fc1f66ef5b0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d41/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Source2MatHelperErrorUnityEvent.html">Source2MatHelperErrorUnityEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb8128882ae62868be5a5fc1f66ef5b0">_onErrorOccurred</a></td></tr>
-<tr class="memdesc:acb8128882ae62868be5a5fc1f66ef5b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is error Occurred.  <br /></td></tr>
 <tr class="separator:acb8128882ae62868be5a5fc1f66ef5b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05310698290269cc97cfcd9af20938cf" id="r_a05310698290269cc97cfcd9af20938cf"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a05310698290269cc97cfcd9af20938cf">_onInitialized</a></td></tr>
-<tr class="memdesc:a05310698290269cc97cfcd9af20938cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is initialized.  <br /></td></tr>
 <tr class="separator:a05310698290269cc97cfcd9af20938cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abbd02507bdb2469c3fb1045c94d66799" id="r_abbd02507bdb2469c3fb1045c94d66799"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d62/namespaceOpenCVForUnity_1_1UnityUtils_1_1Helper.html#aa72968e344f92c2e8bcd432bdce5940c">Source2MatHelperColorFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abbd02507bdb2469c3fb1045c94d66799">_outputColorFormat</a> = <a class="el" href="../../d2/d62/namespaceOpenCVForUnity_1_1UnityUtils_1_1Helper.html#aa72968e344f92c2e8bcd432bdce5940ca2ad5640ebdec72fc79531d1778c6c2dc">Source2MatHelperColorFormat.BGR</a></td></tr>
-<tr class="memdesc:abbd02507bdb2469c3fb1045c94d66799"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select the output color format.  <br /></td></tr>
 <tr class="separator:abbd02507bdb2469c3fb1045c94d66799"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a5d60da06c521f9daa424886ba77910" id="r_a9a5d60da06c521f9daa424886ba77910"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a5d60da06c521f9daa424886ba77910">_repeat</a> = true</td></tr>
-<tr class="memdesc:a9a5d60da06c521f9daa424886ba77910"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether to play this image in a repeat.  <br /></td></tr>
 <tr class="separator:a9a5d60da06c521f9daa424886ba77910"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8e403b5bfbc23d22b9304830d8328d1" id="r_ae8e403b5bfbc23d22b9304830d8328d1"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8e403b5bfbc23d22b9304830d8328d1">_requestedImageFilePath</a> = string.Empty</td></tr>
-<tr class="memdesc:ae8e403b5bfbc23d22b9304830d8328d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the image file path, relative to the starting point of the "StreamingAssets" folder, or absolute path.  <br /></td></tr>
 <tr class="separator:ae8e403b5bfbc23d22b9304830d8328d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83d79042cbaf951fd49539410218d43d" id="r_a83d79042cbaf951fd49539410218d43d"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83d79042cbaf951fd49539410218d43d">_requestedMatUpdateFPS</a> = 30f</td></tr>
+<tr class="separator:a83d79042cbaf951fd49539410218d43d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5214a42f5c85969adfaa9e98c22913c7" id="r_a5214a42f5c85969adfaa9e98c22913c7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5214a42f5c85969adfaa9e98c22913c7">_timeoutFrameCount</a> = 1500</td></tr>
-<tr class="memdesc:a5214a42f5c85969adfaa9e98c22913c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of frames before the initialization process times out.  <br /></td></tr>
 <tr class="separator:a5214a42f5c85969adfaa9e98c22913c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f2f0ad70ab7ce97acb2a1e2c4d32812" id="r_a3f2f0ad70ab7ce97acb2a1e2c4d32812"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f2f0ad70ab7ce97acb2a1e2c4d32812">autoPlayAfterInitialize</a></td></tr>
 <tr class="memdesc:a3f2f0ad70ab7ce97acb2a1e2c4d32812"><td class="mdescLeft">&#160;</td><td class="mdescRight">If set to true play after completion of initialization.  <br /></td></tr>
@@ -245,9 +251,11 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:ae0449949e857350b466847e340cd153a" id="r_ae0449949e857350b466847e340cd153a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d62/namespaceOpenCVForUnity_1_1UnityUtils_1_1Helper.html#aa72968e344f92c2e8bcd432bdce5940c">Source2MatHelperColorFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae0449949e857350b466847e340cd153a">baseColorFormat</a> = <a class="el" href="../../d2/d62/namespaceOpenCVForUnity_1_1UnityUtils_1_1Helper.html#aa72968e344f92c2e8bcd432bdce5940ca2ad5640ebdec72fc79531d1778c6c2dc">Source2MatHelperColorFormat.BGR</a></td></tr>
 <tr class="memdesc:ae0449949e857350b466847e340cd153a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The base color format.  <br /></td></tr>
 <tr class="separator:ae0449949e857350b466847e340cd153a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a904ad6e2ba40792c7eb64dedf0481c5c" id="r_a904ad6e2ba40792c7eb64dedf0481c5c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a904ad6e2ba40792c7eb64dedf0481c5c">didUpdateImageBufferInCurrentFrame</a> = false</td></tr>
-<tr class="separator:a904ad6e2ba40792c7eb64dedf0481c5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52ca4bc298e59fc8fd66732a446a1771" id="r_a52ca4bc298e59fc8fd66732a446a1771"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a52ca4bc298e59fc8fd66732a446a1771">baseMat</a></td></tr>
+<tr class="memdesc:a52ca4bc298e59fc8fd66732a446a1771"><td class="mdescLeft">&#160;</td><td class="mdescRight">The base mat.  <br /></td></tr>
+<tr class="separator:a52ca4bc298e59fc8fd66732a446a1771"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86dca0d82c1d21a815cc91fe669337ad" id="r_a86dca0d82c1d21a815cc91fe669337ad"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a86dca0d82c1d21a815cc91fe669337ad">didUpdateThisFrame</a> = false</td></tr>
+<tr class="memdesc:a86dca0d82c1d21a815cc91fe669337ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the mat that can be obtained with the GetMat method has been updated in this frame. This flag is changed after waiting until WaitForEndOfFrame in the coroutine.  <br /></td></tr>
 <tr class="separator:a86dca0d82c1d21a815cc91fe669337ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43a850d4544b63903b6fecf8db774ca0" id="r_a43a850d4544b63903b6fecf8db774ca0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a43a850d4544b63903b6fecf8db774ca0">frameMat</a></td></tr>
 <tr class="memdesc:a43a850d4544b63903b6fecf8db774ca0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The frame mat.  <br /></td></tr>
@@ -259,6 +267,7 @@ Protected Attributes</h2></td></tr>
 <tr class="memdesc:a2102b0bd71918bddbd98a23e42d3eada"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether this instance has been initialized.  <br /></td></tr>
 <tr class="separator:a2102b0bd71918bddbd98a23e42d3eada"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e12abcd5a3678ad6c21332866672479" id="r_a4e12abcd5a3678ad6c21332866672479"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e12abcd5a3678ad6c21332866672479">imageFileFullPath</a></td></tr>
+<tr class="memdesc:a4e12abcd5a3678ad6c21332866672479"><td class="mdescLeft">&#160;</td><td class="mdescRight">imageFileFullPath  <br /></td></tr>
 <tr class="separator:a4e12abcd5a3678ad6c21332866672479"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac55aa4bb44944d7ac9a0b816f89a5237" id="r_ac55aa4bb44944d7ac9a0b816f89a5237"><td class="memItemLeft" align="right" valign="top">IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac55aa4bb44944d7ac9a0b816f89a5237">initCoroutine</a></td></tr>
 <tr class="memdesc:ac55aa4bb44944d7ac9a0b816f89a5237"><td class="mdescLeft">&#160;</td><td class="mdescRight">The initialization coroutine.  <br /></td></tr>
@@ -267,33 +276,44 @@ Protected Attributes</h2></td></tr>
 <tr class="memdesc:a7f65870734526841e9d79007e67fa5f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether this instance is waiting for initialization to complete.  <br /></td></tr>
 <tr class="separator:a7f65870734526841e9d79007e67fa5f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab326f334b7c6c6d8d0df143342fc8d06" id="r_ab326f334b7c6c6d8d0df143342fc8d06"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab326f334b7c6c6d8d0df143342fc8d06">isPlaying</a> = false</td></tr>
+<tr class="memdesc:ab326f334b7c6c6d8d0df143342fc8d06"><td class="mdescLeft">&#160;</td><td class="mdescRight">isPlaying  <br /></td></tr>
 <tr class="separator:ab326f334b7c6c6d8d0df143342fc8d06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85e8bba4a18fbfb540149f076f898c65" id="r_a85e8bba4a18fbfb540149f076f898c65"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a85e8bba4a18fbfb540149f076f898c65">isThreadRunning</a> = false</td></tr>
-<tr class="separator:a85e8bba4a18fbfb540149f076f898c65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6a7c7a12ba874398988144b848d3aeb" id="r_aa6a7c7a12ba874398988144b848d3aeb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa6a7c7a12ba874398988144b848d3aeb">shouldStopThread</a> = false</td></tr>
-<tr class="separator:aa6a7c7a12ba874398988144b848d3aeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26724037935be1192c187a2e9451a2ff" id="r_a26724037935be1192c187a2e9451a2ff"><td class="memItemLeft" align="right" valign="top">IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a26724037935be1192c187a2e9451a2ff">waitFrameTimeCoroutine</a></td></tr>
-<tr class="memdesc:a26724037935be1192c187a2e9451a2ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">The wait frame time coroutine.  <br /></td></tr>
-<tr class="separator:a26724037935be1192c187a2e9451a2ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1d368aa837c5d89c2eca761f35f1dbf" id="r_ad1d368aa837c5d89c2eca761f35f1dbf"><td class="memItemLeft" align="right" valign="top">IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1d368aa837c5d89c2eca761f35f1dbf">waitForEndOfFrameCoroutine</a></td></tr>
+<tr class="memdesc:ad1d368aa837c5d89c2eca761f35f1dbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">The waitForEndOfFrameCoroutine.  <br /></td></tr>
+<tr class="separator:ad1d368aa837c5d89c2eca761f35f1dbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
+<tr class="memitem:a7960281c9541b25d6252df26af189892" id="r_a7960281c9541b25d6252df26af189892"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7960281c9541b25d6252df26af189892">imageBufferMat</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a7960281c9541b25d6252df26af189892"><td class="mdescLeft">&#160;</td><td class="mdescRight">The image buffer mat.  <br /></td></tr>
+<tr class="separator:a7960281c9541b25d6252df26af189892"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8052da777159c01a527adbfc0c39e004" id="r_a8052da777159c01a527adbfc0c39e004"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8052da777159c01a527adbfc0c39e004">onDisposed</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a8052da777159c01a527adbfc0c39e004"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is disposed.  <br /></td></tr>
 <tr class="separator:a8052da777159c01a527adbfc0c39e004"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa052f91e1874568678174801821fdad5" id="r_aa052f91e1874568678174801821fdad5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d41/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Source2MatHelperErrorUnityEvent.html">Source2MatHelperErrorUnityEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa052f91e1874568678174801821fdad5">onErrorOccurred</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:aa052f91e1874568678174801821fdad5"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is error Occurred.  <br /></td></tr>
 <tr class="separator:aa052f91e1874568678174801821fdad5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a58c4e43f2e21f609ef5506acfb9d74" id="r_a3a58c4e43f2e21f609ef5506acfb9d74"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a58c4e43f2e21f609ef5506acfb9d74">onInitialized</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a3a58c4e43f2e21f609ef5506acfb9d74"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is initialized.  <br /></td></tr>
 <tr class="separator:a3a58c4e43f2e21f609ef5506acfb9d74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35cb230498ea85d35167dbf34ce28360" id="r_a35cb230498ea85d35167dbf34ce28360"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d2/d62/namespaceOpenCVForUnity_1_1UnityUtils_1_1Helper.html#aa72968e344f92c2e8bcd432bdce5940c">Source2MatHelperColorFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35cb230498ea85d35167dbf34ce28360">outputColorFormat</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a35cb230498ea85d35167dbf34ce28360"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select the output color format.  <br /></td></tr>
 <tr class="separator:a35cb230498ea85d35167dbf34ce28360"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f7b3b6eaa4625872ae532ffb865496f" id="r_a2f7b3b6eaa4625872ae532ffb865496f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f7b3b6eaa4625872ae532ffb865496f">repeat</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a2f7b3b6eaa4625872ae532ffb865496f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether to play this image in a repeat.  <br /></td></tr>
 <tr class="separator:a2f7b3b6eaa4625872ae532ffb865496f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a3c68ca12bd364a6d87d621b01ecc8b" id="r_a5a3c68ca12bd364a6d87d621b01ecc8b"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a3c68ca12bd364a6d87d621b01ecc8b">requestedImageFilePath</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a5a3c68ca12bd364a6d87d621b01ecc8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the image file path, relative to the starting point of the "StreamingAssets" folder, or absolute path.  <br /></td></tr>
 <tr class="separator:a5a3c68ca12bd364a6d87d621b01ecc8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ef18a0729c4ea2bdcd2deeacd11c282" id="r_a7ef18a0729c4ea2bdcd2deeacd11c282"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ef18a0729c4ea2bdcd2deeacd11c282">requestedMatUpdateFPS</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a7ef18a0729c4ea2bdcd2deeacd11c282"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the frame rate at which the Mat is updated. (interval at which the <a class="el" href="#aa97e98e111225123583875bb9a131290" title="Use this to check if the Mat has changed since the last frame. Since it would not make sense to do ex...">DidUpdateThisFrame()</a> method becomes true).  <br /></td></tr>
+<tr class="separator:a7ef18a0729c4ea2bdcd2deeacd11c282"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03c073e4214ae2d279249ec6abed8f3c" id="r_a03c073e4214ae2d279249ec6abed8f3c"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a03c073e4214ae2d279249ec6abed8f3c">timeoutFrameCount</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a03c073e4214ae2d279249ec6abed8f3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of frames before the initialization process times out.  <br /></td></tr>
 <tr class="separator:a03c073e4214ae2d279249ec6abed8f3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IImageSource2MatHelper"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IImageSource2MatHelper')"><img src="../../closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="../../d6/d88/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IImageSource2MatHelper.html">OpenCVForUnity.UnityUtils.Helper.IImageSource2MatHelper</a></td></tr>
 <tr class="inherit_header properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper')"><img src="../../closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a></td></tr>
+<tr class="inherit_header properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatUpdateFPSProvider"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatUpdateFPSProvider')"><img src="../../closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="../../d2/df8/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatUpdateFPSProvider.html">OpenCVForUnity.UnityUtils.Helper.IMatUpdateFPSProvider</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A helper component class for loading an image file using OpenCV's <code><a class="el" href="../../d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a2e334b790fef7f32163c4d852fc215dd" title="Loads an image from a file.">Imgcodecs.imread</a></code> method and converting it to an OpenCV <code>Mat</code> format. </p>
@@ -329,6 +349,56 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="a3ce8f20549b5a1d3510c148f23f85aba" name="a3ce8f20549b5a1d3510c148f23f85aba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ce8f20549b5a1d3510c148f23f85aba">&#9670;&#160;</a></span>_WaitForEndOfFrameCoroutine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual IEnumerator OpenCVForUnity.UnityUtils.Helper.Image2MatHelper._WaitForEndOfFrameCoroutine </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac541c861dec30eb2f8591b969e3889bb" name="ac541c861dec30eb2f8591b969e3889bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac541c861dec30eb2f8591b969e3889bb">&#9670;&#160;</a></span>CallReadFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenCVForUnity.UnityUtils.Helper.Image2MatHelper.CallReadFrame </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a2d8866cc6b2cb283868b21b1265f7b49" name="a2d8866cc6b2cb283868b21b1265f7b49"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2d8866cc6b2cb283868b21b1265f7b49">&#9670;&#160;</a></span>CancelInitCoroutine()</h2>
 
@@ -356,6 +426,33 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="a58399ea367404c7974dc69379e682983" name="a58399ea367404c7974dc69379e682983"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58399ea367404c7974dc69379e682983">&#9670;&#160;</a></span>CancelWaitForEndOfFrameCoroutine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenCVForUnity.UnityUtils.Helper.Image2MatHelper.CancelWaitForEndOfFrameCoroutine </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cancel WaitForEndOfFrame Coroutine. </p>
+
+</div>
+</div>
 <a id="aa97e98e111225123583875bb9a131290" name="aa97e98e111225123583875bb9a131290"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa97e98e111225123583875bb9a131290">&#9670;&#160;</a></span>DidUpdateThisFrame()</h2>
 
@@ -379,8 +476,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Indicate whether the image buffer of the frame has been updated. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code>, if the image buffer has been updated <code>false</code> otherwise.</dd></dl>
+<p>Use this to check if the Mat has changed since the last frame. Since it would not make sense to do expensive video processing in each Update call, check this value before doing any processing. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code>, if the Mat has been updated <code>false</code> otherwise.</dd></dl>
 
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#a87b0ea4573aa1a5cbb12735a93edaa4c">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
 
@@ -534,6 +631,36 @@ Properties</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>The mat of the current frame.</dd></dl>
 
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#a6a6323e110b85750ed4310ccacb461e3">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
+
+</div>
+</div>
+<a id="ad40876e2641ec8946e16214cbee3cdb2" name="ad40876e2641ec8946e16214cbee3cdb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad40876e2641ec8946e16214cbee3cdb2">&#9670;&#160;</a></span>GetMatUpdateFPS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual float OpenCVForUnity.UnityUtils.Helper.Image2MatHelper.GetMatUpdateFPS </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return the frame rate at which the Mat is updated. (interval at which the <a class="el" href="#aa97e98e111225123583875bb9a131290" title="Use this to check if the Mat has changed since the last frame. Since it would not make sense to do ex...">DidUpdateThisFrame()</a> method becomes true). </p>
+<dl class="section return"><dt>Returns</dt><dd>The active camera framerate.</dd></dl>
+
+<p>Implements <a class="el" href="../../d2/df8/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatUpdateFPSProvider.html#a8ecf51970007a736a39220b1e46866c7">OpenCVForUnity.UnityUtils.Helper.IMatUpdateFPSProvider</a>.</p>
 
 </div>
 </div>
@@ -730,31 +857,6 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a4cdd6ef787dcf14117a65866c5f001b6" name="a4cdd6ef787dcf14117a65866c5f001b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4cdd6ef787dcf14117a65866c5f001b6">&#9670;&#160;</a></span>LateUpdate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void OpenCVForUnity.UnityUtils.Helper.Image2MatHelper.LateUpdate </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="af83ce1a4ba6219c1667efe58f16bee15" name="af83ce1a4ba6219c1667efe58f16bee15"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af83ce1a4ba6219c1667efe58f16bee15">&#9670;&#160;</a></span>OnDestroy()</h2>
 
@@ -865,6 +967,31 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="aef0a391b2fe3f800371d05f8e3930bfd" name="aef0a391b2fe3f800371d05f8e3930bfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef0a391b2fe3f800371d05f8e3930bfd">&#9670;&#160;</a></span>ReadFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenCVForUnity.UnityUtils.Helper.Image2MatHelper.ReadFrame </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a1c9f5ee609505f991283b5a62f846caa" name="a1c9f5ee609505f991283b5a62f846caa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1c9f5ee609505f991283b5a62f846caa">&#9670;&#160;</a></span>ReleaseResources()</h2>
 
@@ -889,31 +1016,6 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p>To release the resources. </p>
-
-</div>
-</div>
-<a id="a23c1d935c098319f69d3cfea9d5190f8" name="a23c1d935c098319f69d3cfea9d5190f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23c1d935c098319f69d3cfea9d5190f8">&#9670;&#160;</a></span>StartWaitFrameTimeThread()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void OpenCVForUnity.UnityUtils.Helper.Image2MatHelper.StartWaitFrameTimeThread </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -946,8 +1048,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="adcb54ea8929b3c51a6e92e8626e18e1e" name="adcb54ea8929b3c51a6e92e8626e18e1e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adcb54ea8929b3c51a6e92e8626e18e1e">&#9670;&#160;</a></span>StopWaitFrameTimeThread()</h2>
+<a id="a058586d6464f21b0bd42efaedc60d1be" name="a058586d6464f21b0bd42efaedc60d1be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a058586d6464f21b0bd42efaedc60d1be">&#9670;&#160;</a></span>Update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -956,32 +1058,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void OpenCVForUnity.UnityUtils.Helper.Image2MatHelper.StopWaitFrameTimeThread </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="abfd1357e9fe0cb375ad02053ad2483dc" name="abfd1357e9fe0cb375ad02053ad2483dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abfd1357e9fe0cb375ad02053ad2483dc">&#9670;&#160;</a></span>WaitFrameTimeThreadWorker()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual IEnumerator OpenCVForUnity.UnityUtils.Helper.Image2MatHelper.WaitFrameTimeThreadWorker </td>
+          <td class="memname">virtual void OpenCVForUnity.UnityUtils.Helper.Image2MatHelper.Update </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -997,6 +1074,50 @@ Properties</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a86f128f41bfaa3d66c02995cc89bde2b" name="a86f128f41bfaa3d66c02995cc89bde2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86f128f41bfaa3d66c02995cc89bde2b">&#9670;&#160;</a></span>_imageBufferMat</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> OpenCVForUnity.UnityUtils.Helper.Image2MatHelper._imageBufferMat</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a83edf2e60d3bb25cb445f42f8e7faac4" name="a83edf2e60d3bb25cb445f42f8e7faac4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83edf2e60d3bb25cb445f42f8e7faac4">&#9670;&#160;</a></span>_imageBufferMatLockObject</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">System.Object OpenCVForUnity.UnityUtils.Helper.Image2MatHelper._imageBufferMatLockObject = new System.Object()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a3ceba4589018d438a4a861143773e32c" name="a3ceba4589018d438a4a861143773e32c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3ceba4589018d438a4a861143773e32c">&#9670;&#160;</a></span>_onDisposed</h2>
 
@@ -1016,8 +1137,6 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>UnityEvent that is triggered when this instance is disposed. </p>
 
 </div>
 </div>
@@ -1041,8 +1160,6 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>UnityEvent that is triggered when this instance is error Occurred. </p>
-
 </div>
 </div>
 <a id="a05310698290269cc97cfcd9af20938cf" name="a05310698290269cc97cfcd9af20938cf"></a>
@@ -1064,8 +1181,6 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>UnityEvent that is triggered when this instance is initialized. </p>
 
 </div>
 </div>
@@ -1089,8 +1204,6 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Select the output color format. </p>
-
 </div>
 </div>
 <a id="a9a5d60da06c521f9daa424886ba77910" name="a9a5d60da06c521f9daa424886ba77910"></a>
@@ -1112,8 +1225,6 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Indicate whether to play this image in a repeat. </p>
 
 </div>
 </div>
@@ -1137,7 +1248,27 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Set the image file path, relative to the starting point of the "StreamingAssets" folder, or absolute path. </p>
+</div>
+</div>
+<a id="a83d79042cbaf951fd49539410218d43d" name="a83d79042cbaf951fd49539410218d43d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83d79042cbaf951fd49539410218d43d">&#9670;&#160;</a></span>_requestedMatUpdateFPS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float OpenCVForUnity.UnityUtils.Helper.Image2MatHelper._requestedMatUpdateFPS = 30f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1160,8 +1291,6 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>The number of frames before the initialization process times out. </p>
 
 </div>
 </div>
@@ -1213,8 +1342,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a904ad6e2ba40792c7eb64dedf0481c5c" name="a904ad6e2ba40792c7eb64dedf0481c5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a904ad6e2ba40792c7eb64dedf0481c5c">&#9670;&#160;</a></span>didUpdateImageBufferInCurrentFrame</h2>
+<a id="a52ca4bc298e59fc8fd66732a446a1771" name="a52ca4bc298e59fc8fd66732a446a1771"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52ca4bc298e59fc8fd66732a446a1771">&#9670;&#160;</a></span>baseMat</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1223,7 +1352,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.Image2MatHelper.didUpdateImageBufferInCurrentFrame = false</td>
+          <td class="memname"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> OpenCVForUnity.UnityUtils.Helper.Image2MatHelper.baseMat</td>
         </tr>
       </table>
   </td>
@@ -1232,6 +1361,8 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>The base mat. </p>
 
 </div>
 </div>
@@ -1254,6 +1385,8 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Whether the mat that can be obtained with the GetMat method has been updated in this frame. This flag is changed after waiting until WaitForEndOfFrame in the coroutine. </p>
 
 </div>
 </div>
@@ -1349,6 +1482,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>imageFileFullPath </p>
+
 </div>
 </div>
 <a id="ac55aa4bb44944d7ac9a0b816f89a5237" name="ac55aa4bb44944d7ac9a0b816f89a5237"></a>
@@ -1419,10 +1554,12 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>isPlaying </p>
+
 </div>
 </div>
-<a id="a85e8bba4a18fbfb540149f076f898c65" name="a85e8bba4a18fbfb540149f076f898c65"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85e8bba4a18fbfb540149f076f898c65">&#9670;&#160;</a></span>isThreadRunning</h2>
+<a id="ad1d368aa837c5d89c2eca761f35f1dbf" name="ad1d368aa837c5d89c2eca761f35f1dbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1d368aa837c5d89c2eca761f35f1dbf">&#9670;&#160;</a></span>waitForEndOfFrameCoroutine</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1431,7 +1568,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.Image2MatHelper.isThreadRunning = false</td>
+          <td class="memname">IEnumerator OpenCVForUnity.UnityUtils.Helper.Image2MatHelper.waitForEndOfFrameCoroutine</td>
         </tr>
       </table>
   </td>
@@ -1441,55 +1578,35 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="aa6a7c7a12ba874398988144b848d3aeb" name="aa6a7c7a12ba874398988144b848d3aeb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa6a7c7a12ba874398988144b848d3aeb">&#9670;&#160;</a></span>shouldStopThread</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.Image2MatHelper.shouldStopThread = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a26724037935be1192c187a2e9451a2ff" name="a26724037935be1192c187a2e9451a2ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26724037935be1192c187a2e9451a2ff">&#9670;&#160;</a></span>waitFrameTimeCoroutine</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">IEnumerator OpenCVForUnity.UnityUtils.Helper.Image2MatHelper.waitFrameTimeCoroutine</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The wait frame time coroutine. </p>
+<p>The waitForEndOfFrameCoroutine. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
+<a id="a7960281c9541b25d6252df26af189892" name="a7960281c9541b25d6252df26af189892"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7960281c9541b25d6252df26af189892">&#9670;&#160;</a></span>imageBufferMat</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> OpenCVForUnity.UnityUtils.Helper.Image2MatHelper.imageBufferMat</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The image buffer mat. </p>
+
+</div>
+</div>
 <a id="a8052da777159c01a527adbfc0c39e004" name="a8052da777159c01a527adbfc0c39e004"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8052da777159c01a527adbfc0c39e004">&#9670;&#160;</a></span>onDisposed</h2>
 
@@ -1509,6 +1626,8 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>UnityEvent that is triggered when this instance is disposed. </p>
 
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#afe5053d7fd5479671cb5e1f5b0baeb0a">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
 
@@ -1534,6 +1653,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>UnityEvent that is triggered when this instance is error Occurred. </p>
+
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#a19b37a72d191eba31c9e3ccc74fe7be2">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
 
 </div>
@@ -1557,6 +1678,8 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>UnityEvent that is triggered when this instance is initialized. </p>
 
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#afb95da6332d82565f33eaeacbcf81599">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
 
@@ -1582,6 +1705,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Select the output color format. </p>
+
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#a937e72be9fbbc2321fd12c3acee6fce1">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
 
 </div>
@@ -1605,6 +1730,8 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Indicate whether to play this image in a repeat. </p>
 
 <p>Implements <a class="el" href="../../d6/d88/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IImageSource2MatHelper.html#a90cda4463cf3651dd2ae7c45b8ff1512">OpenCVForUnity.UnityUtils.Helper.IImageSource2MatHelper</a>.</p>
 
@@ -1630,7 +1757,35 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Set the image file path, relative to the starting point of the "StreamingAssets" folder, or absolute path. </p>
+
 <p>Implements <a class="el" href="../../d6/d88/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IImageSource2MatHelper.html#a291e5dd1dc1b3447284d33febc397f23">OpenCVForUnity.UnityUtils.Helper.IImageSource2MatHelper</a>.</p>
+
+</div>
+</div>
+<a id="a7ef18a0729c4ea2bdcd2deeacd11c282" name="a7ef18a0729c4ea2bdcd2deeacd11c282"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ef18a0729c4ea2bdcd2deeacd11c282">&#9670;&#160;</a></span>requestedMatUpdateFPS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual float OpenCVForUnity.UnityUtils.Helper.Image2MatHelper.requestedMatUpdateFPS</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the frame rate at which the Mat is updated. (interval at which the <a class="el" href="#aa97e98e111225123583875bb9a131290" title="Use this to check if the Mat has changed since the last frame. Since it would not make sense to do ex...">DidUpdateThisFrame()</a> method becomes true). </p>
+
+<p>Implements <a class="el" href="../../d2/df8/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatUpdateFPSProvider.html#a083a5709aef3192d623a6964efdee063">OpenCVForUnity.UnityUtils.Helper.IMatUpdateFPSProvider</a>.</p>
 
 </div>
 </div>
@@ -1653,6 +1808,8 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>The number of frames before the initialization process times out. </p>
 
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#af01316741278d08fd91c95d4986f44e2">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
 

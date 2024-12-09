@@ -26,5 +26,6 @@ var searchData=
   ['bowkmeanstrainer_23',['BOWKMeansTrainer',['../df/dce/classOpenCVForUnity_1_1Features2dModule_1_1BOWKMeansTrainer.html',1,'OpenCVForUnity::Features2dModule']]],
   ['bowtrainer_24',['BOWTrainer',['../dc/dca/classOpenCVForUnity_1_1Features2dModule_1_1BOWTrainer.html',1,'OpenCVForUnity::Features2dModule']]],
   ['briefdescriptorextractor_25',['BriefDescriptorExtractor',['../dc/d5d/classOpenCVForUnity_1_1Xfeatures2dModule_1_1BriefDescriptorExtractor.html',1,'OpenCVForUnity::Xfeatures2dModule']]],
-  ['brisk_26',['BRISK',['../d4/d68/classOpenCVForUnity_1_1Features2dModule_1_1BRISK.html',1,'OpenCVForUnity::Features2dModule']]]
+  ['brisk_26',['BRISK',['../d4/d68/classOpenCVForUnity_1_1Features2dModule_1_1BRISK.html',1,'OpenCVForUnity::Features2dModule']]],
+  ['bytetracker_27',['BYTETracker',['../d4/d44/classOpenCVForUnity_1_1UnityUtils_1_1MOT_1_1ByteTrack_1_1BYTETracker.html',1,'OpenCVForUnity::UnityUtils::MOT::ByteTrack']]]
 ];

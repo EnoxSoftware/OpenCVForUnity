@@ -13,11 +13,12 @@ var searchData=
   ['ann_5fmlp_2ecs_10',['ANN_MLP.cs',['../df/dea/ANN__MLP_8cs.html',1,'']]],
   ['ann_5fmlp_5fstruct_2ecs_11',['ANN_MLP_Struct.cs',['../d2/d3b/ANN__MLP__Struct_8cs.html',1,'']]],
   ['ann_5fmlp_5fvaluetuple_2ecs_12',['ANN_MLP_ValueTuple.cs',['../df/d45/ANN__MLP__ValueTuple_8cs.html',1,'']]],
-  ['aruco_2ecs_13',['Aruco.cs',['../d9/d04/Aruco_8cs.html',1,'']]],
-  ['aruco_5fstruct_2ecs_14',['Aruco_Struct.cs',['../db/db0/Aruco__Struct_8cs.html',1,'']]],
-  ['aruco_5fvaluetuple_2ecs_15',['Aruco_ValueTuple.cs',['../d2/d93/Aruco__ValueTuple_8cs.html',1,'']]],
-  ['arucodetector_2ecs_16',['ArucoDetector.cs',['../da/df1/ArucoDetector_8cs.html',1,'']]],
-  ['arutils_2ecs_17',['ARUtils.cs',['../d9/dac/ARUtils_8cs.html',1,'']]],
-  ['asyncgpureadback2mathelper_2ecs_18',['AsyncGPUReadback2MatHelper.cs',['../dc/d17/AsyncGPUReadback2MatHelper_8cs.html',1,'']]],
-  ['averagehash_2ecs_19',['AverageHash.cs',['../d5/d94/AverageHash_8cs.html',1,'']]]
+  ['arhelper_2ecs_13',['ARHelper.cs',['../d9/dea/ARHelper_8cs.html',1,'']]],
+  ['aruco_2ecs_14',['Aruco.cs',['../d9/d04/Aruco_8cs.html',1,'']]],
+  ['aruco_5fstruct_2ecs_15',['Aruco_Struct.cs',['../db/db0/Aruco__Struct_8cs.html',1,'']]],
+  ['aruco_5fvaluetuple_2ecs_16',['Aruco_ValueTuple.cs',['../d2/d93/Aruco__ValueTuple_8cs.html',1,'']]],
+  ['arucodetector_2ecs_17',['ArucoDetector.cs',['../da/df1/ArucoDetector_8cs.html',1,'']]],
+  ['arutils_2ecs_18',['ARUtils.cs',['../d9/dac/ARUtils_8cs.html',1,'']]],
+  ['asyncgpureadback2mathelper_2ecs_19',['AsyncGPUReadback2MatHelper.cs',['../dc/d17/AsyncGPUReadback2MatHelper_8cs.html',1,'']]],
+  ['averagehash_2ecs_20',['AverageHash.cs',['../d5/d94/AverageHash_8cs.html',1,'']]]
 ];

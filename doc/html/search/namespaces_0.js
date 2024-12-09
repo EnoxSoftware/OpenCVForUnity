@@ -23,11 +23,13 @@ var searchData=
   ['opencvforunity_3a_3atrackingmodule_20',['TrackingModule',['../d0/d99/namespaceOpenCVForUnity_1_1TrackingModule.html',1,'OpenCVForUnity']]],
   ['opencvforunity_3a_3aunityutils_21',['UnityUtils',['../dd/d85/namespaceOpenCVForUnity_1_1UnityUtils.html',1,'OpenCVForUnity']]],
   ['opencvforunity_3a_3aunityutils_3a_3ahelper_22',['Helper',['../d2/d62/namespaceOpenCVForUnity_1_1UnityUtils_1_1Helper.html',1,'OpenCVForUnity::UnityUtils']]],
-  ['opencvforunity_3a_3autilsmodule_23',['UtilsModule',['../d6/db5/namespaceOpenCVForUnity_1_1UtilsModule.html',1,'OpenCVForUnity']]],
-  ['opencvforunity_3a_3avideoiomodule_24',['VideoioModule',['../de/df2/namespaceOpenCVForUnity_1_1VideoioModule.html',1,'OpenCVForUnity']]],
-  ['opencvforunity_3a_3avideomodule_25',['VideoModule',['../d5/dce/namespaceOpenCVForUnity_1_1VideoModule.html',1,'OpenCVForUnity']]],
-  ['opencvforunity_3a_3awechat_5fqrcodemodule_26',['Wechat_qrcodeModule',['../d2/d58/namespaceOpenCVForUnity_1_1Wechat__qrcodeModule.html',1,'OpenCVForUnity']]],
-  ['opencvforunity_3a_3axfeatures2dmodule_27',['Xfeatures2dModule',['../d4/d6f/namespaceOpenCVForUnity_1_1Xfeatures2dModule.html',1,'OpenCVForUnity']]],
-  ['opencvforunity_3a_3aximgprocmodule_28',['XimgprocModule',['../d9/d00/namespaceOpenCVForUnity_1_1XimgprocModule.html',1,'OpenCVForUnity']]],
-  ['opencvforunity_3a_3axphotomodule_29',['XphotoModule',['../d8/dbd/namespaceOpenCVForUnity_1_1XphotoModule.html',1,'OpenCVForUnity']]]
+  ['opencvforunity_3a_3aunityutils_3a_3amot_23',['MOT',['../d6/de1/namespaceOpenCVForUnity_1_1UnityUtils_1_1MOT.html',1,'OpenCVForUnity::UnityUtils']]],
+  ['opencvforunity_3a_3aunityutils_3a_3amot_3a_3abytetrack_24',['ByteTrack',['../da/d0c/namespaceOpenCVForUnity_1_1UnityUtils_1_1MOT_1_1ByteTrack.html',1,'OpenCVForUnity::UnityUtils::MOT']]],
+  ['opencvforunity_3a_3autilsmodule_25',['UtilsModule',['../d6/db5/namespaceOpenCVForUnity_1_1UtilsModule.html',1,'OpenCVForUnity']]],
+  ['opencvforunity_3a_3avideoiomodule_26',['VideoioModule',['../de/df2/namespaceOpenCVForUnity_1_1VideoioModule.html',1,'OpenCVForUnity']]],
+  ['opencvforunity_3a_3avideomodule_27',['VideoModule',['../d5/dce/namespaceOpenCVForUnity_1_1VideoModule.html',1,'OpenCVForUnity']]],
+  ['opencvforunity_3a_3awechat_5fqrcodemodule_28',['Wechat_qrcodeModule',['../d2/d58/namespaceOpenCVForUnity_1_1Wechat__qrcodeModule.html',1,'OpenCVForUnity']]],
+  ['opencvforunity_3a_3axfeatures2dmodule_29',['Xfeatures2dModule',['../d4/d6f/namespaceOpenCVForUnity_1_1Xfeatures2dModule.html',1,'OpenCVForUnity']]],
+  ['opencvforunity_3a_3aximgprocmodule_30',['XimgprocModule',['../d9/d00/namespaceOpenCVForUnity_1_1XimgprocModule.html',1,'OpenCVForUnity']]],
+  ['opencvforunity_3a_3axphotomodule_31',['XphotoModule',['../d8/dbd/namespaceOpenCVForUnity_1_1XphotoModule.html',1,'OpenCVForUnity']]]
 ];

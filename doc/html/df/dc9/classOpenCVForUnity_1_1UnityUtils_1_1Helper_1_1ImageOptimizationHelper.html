@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.4</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.5</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -139,7 +139,7 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
-<p>Image optimization helper. v 1.1.0.  
+<p>A helper component for optimizing image processing in Unity by managing frame skipping and downscaling operations. v1.1.1.  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -162,10 +162,8 @@ Protected Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:ae634ed8f5a849559c39206a61f5bc997" id="r_ae634ed8f5a849559c39206a61f5bc997"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae634ed8f5a849559c39206a61f5bc997">_downscaleRatio</a> = 2f</td></tr>
-<tr class="memdesc:ae634ed8f5a849559c39206a61f5bc997"><td class="mdescLeft">&#160;</td><td class="mdescRight">The downscale ratio.  <br /></td></tr>
 <tr class="separator:ae634ed8f5a849559c39206a61f5bc997"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87d3178742cd1ee2b3d706b2635e77bd" id="r_a87d3178742cd1ee2b3d706b2635e77bd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87d3178742cd1ee2b3d706b2635e77bd">_frameSkippingRatio</a> = 2</td></tr>
-<tr class="memdesc:a87d3178742cd1ee2b3d706b2635e77bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The frame skipping ratio.  <br /></td></tr>
 <tr class="separator:a87d3178742cd1ee2b3d706b2635e77bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5efca4430d1f066be0e201055e5635b8" id="r_a5efca4430d1f066be0e201055e5635b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5efca4430d1f066be0e201055e5635b8">downScaleFrameMat</a></td></tr>
 <tr class="memdesc:a5efca4430d1f066be0e201055e5635b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The downscale frame mat.  <br /></td></tr>
@@ -176,14 +174,38 @@ Protected Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a16daf3d57f0677b1f79d32f4edee4ffb" id="r_a16daf3d57f0677b1f79d32f4edee4ffb"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16daf3d57f0677b1f79d32f4edee4ffb">downscaleRatio</a><code> [get, set]</code></td></tr>
-<tr class="separator:a16daf3d57f0677b1f79d32f4edee4ffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a097b54445fba8510bcfac069b057546f" id="r_a097b54445fba8510bcfac069b057546f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a097b54445fba8510bcfac069b057546f">frameSkippingRatio</a><code> [get, set]</code></td></tr>
-<tr class="separator:a097b54445fba8510bcfac069b057546f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64614db29b907e117ddd39a9e9ffc2a5" id="r_a64614db29b907e117ddd39a9e9ffc2a5"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64614db29b907e117ddd39a9e9ffc2a5">downscaleRatio</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a64614db29b907e117ddd39a9e9ffc2a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The downscale ratio.  <br /></td></tr>
+<tr class="separator:a64614db29b907e117ddd39a9e9ffc2a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb09a12168127ce8b08196a59d0d07f9" id="r_adb09a12168127ce8b08196a59d0d07f9"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb09a12168127ce8b08196a59d0d07f9">frameSkippingRatio</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:adb09a12168127ce8b08196a59d0d07f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">The frame skipping ratio.  <br /></td></tr>
+<tr class="separator:adb09a12168127ce8b08196a59d0d07f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Image optimization helper. v 1.1.0. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+<div class="textblock"><p>A helper component for optimizing image processing in Unity by managing frame skipping and downscaling operations. v1.1.1. </p>
+<p>The <a class="el" href="../../df/dc9/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ImageOptimizationHelper.html" title="A helper component for optimizing image processing in Unity by managing frame skipping and downscalin...">ImageOptimizationHelper</a> class provides utilities to enhance performance during image processing tasks. It includes features such as: </p><ul>
+<li>
+Downscaling images to reduce computational load </li>
+<li>
+Skipping frames to optimize processing frequency </li>
+</ul>
+<p>This class is particularly useful when working with high-resolution images or real-time processing where performance is a priority. </p>
+<p>Attach this component to a GameObject to enable image optimization: </p><div class="fragment"><div class="line"><span class="comment">// Example usage of the ImageOptimizationHelper component</span></div>
+<div class="line"><a class="code hl_class" href="../../df/dc9/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ImageOptimizationHelper.html">ImageOptimizationHelper</a> imageHelper = gameObject.AddComponent&lt;<a class="code hl_class" href="../../df/dc9/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ImageOptimizationHelper.html">ImageOptimizationHelper</a>&gt;();</div>
+<div class="line">imageHelper.downscaleRatio = 2.0f;</div>
+<div class="line">imageHelper.frameSkippingRatio = 3;</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Check if the current frame should be skipped</span></div>
+<div class="line"><span class="keywordflow">if</span> (!imageHelper.<a class="code hl_function" href="#abe8cbf37c948b5ea70805bcbbffd7ca1">IsCurrentFrameSkipped</a>())</div>
+<div class="line">{</div>
+<div class="line">    <span class="comment">// Perform operations on the downscaled image</span></div>
+<div class="line">    <a class="code hl_class" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> optimizedMat = imageHelper.<a class="code hl_function" href="#abafe626f990ea022ea49042c5eb8749d">GetDownScaleMat</a>(originalMat);</div>
+<div class="line">}</div>
+<div class="ttc" id="aclassOpenCVForUnity_1_1CoreModule_1_1Mat_html"><div class="ttname"><a href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">OpenCVForUnity.CoreModule.Mat</a></div><div class="ttdoc">n-dimensional dense array class</div><div class="ttdef"><b>Definition</b> Mat_ValueTuple.cs:11</div></div>
+<div class="ttc" id="aclassOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ImageOptimizationHelper_html"><div class="ttname"><a href="../../df/dc9/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ImageOptimizationHelper.html">OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper</a></div><div class="ttdoc">A helper component for optimizing image processing in Unity by managing frame skipping and downscalin...</div><div class="ttdef"><b>Definition</b> ImageOptimizationHelper.cs:40</div></div>
+<div class="ttc" id="aclassOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ImageOptimizationHelper_html_abafe626f990ea022ea49042c5eb8749d"><div class="ttname"><a href="#abafe626f990ea022ea49042c5eb8749d">OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper.GetDownScaleMat</a></div><div class="ttdeci">virtual Mat GetDownScaleMat(Mat originalMat)</div><div class="ttdoc">Gets the mat that downscaled the original mat. if downscaleRatio == 1 , return originalMat.</div><div class="ttdef"><b>Definition</b> ImageOptimizationHelper.cs:100</div></div>
+<div class="ttc" id="aclassOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ImageOptimizationHelper_html_abe8cbf37c948b5ea70805bcbbffd7ca1"><div class="ttname"><a href="#abe8cbf37c948b5ea70805bcbbffd7ca1">OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper.IsCurrentFrameSkipped</a></div><div class="ttdeci">virtual bool IsCurrentFrameSkipped()</div><div class="ttdoc">Indicates whether the current frame is skipped.</div><div class="ttdef"><b>Definition</b> ImageOptimizationHelper.cs:87</div></div>
+</div><!-- fragment --> </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aa77e79f4081cff2f4bfbfd01526d3986" name="aa77e79f4081cff2f4bfbfd01526d3986"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa77e79f4081cff2f4bfbfd01526d3986">&#9670;&#160;</a></span>Dispose()</h2>
 
@@ -319,8 +341,6 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>The downscale ratio. </p>
-
 </div>
 </div>
 <a id="a87d3178742cd1ee2b3d706b2635e77bd" name="a87d3178742cd1ee2b3d706b2635e77bd"></a>
@@ -342,8 +362,6 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>The frame skipping ratio. </p>
 
 </div>
 </div>
@@ -396,8 +414,8 @@ Properties</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
-<a id="a16daf3d57f0677b1f79d32f4edee4ffb" name="a16daf3d57f0677b1f79d32f4edee4ffb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16daf3d57f0677b1f79d32f4edee4ffb">&#9670;&#160;</a></span>downscaleRatio</h2>
+<a id="a64614db29b907e117ddd39a9e9ffc2a5" name="a64614db29b907e117ddd39a9e9ffc2a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64614db29b907e117ddd39a9e9ffc2a5">&#9670;&#160;</a></span>downscaleRatio</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -406,7 +424,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">float OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper.downscaleRatio</td>
+          <td class="memname">virtual float OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper.downscaleRatio</td>
         </tr>
       </table>
   </td>
@@ -416,10 +434,12 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>The downscale ratio. </p>
+
 </div>
 </div>
-<a id="a097b54445fba8510bcfac069b057546f" name="a097b54445fba8510bcfac069b057546f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a097b54445fba8510bcfac069b057546f">&#9670;&#160;</a></span>frameSkippingRatio</h2>
+<a id="adb09a12168127ce8b08196a59d0d07f9" name="adb09a12168127ce8b08196a59d0d07f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb09a12168127ce8b08196a59d0d07f9">&#9670;&#160;</a></span>frameSkippingRatio</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -428,7 +448,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper.frameSkippingRatio</td>
+          <td class="memname">virtual int OpenCVForUnity.UnityUtils.Helper.ImageOptimizationHelper.frameSkippingRatio</td>
         </tr>
       </table>
   </td>
@@ -437,6 +457,8 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>The frame skipping ratio. </p>
 
 </div>
 </div>

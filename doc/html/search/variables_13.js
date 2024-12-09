@@ -1,7 +1,7 @@
 var searchData=
 [
   ['test_5ferror_0',['TEST_ERROR',['../d9/d58/classOpenCVForUnity_1_1MlModule_1_1Ml.html#a5d5e2c5dce5b6ed5ad2882652b3489e0',1,'OpenCVForUnity::MlModule::Ml']]],
-  ['texture_1',['texture',['../d8/dba/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1AsyncGPUReadback2MatHelper.html#ac44a84a099e590089905f51f8e20f4b4',1,'OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper.texture'],['../d1/d25/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1UnityVideoPlayer2MatHelper.html#a1c9f0d8f7500cd5bb5ef4a5693ae1c4a',1,'OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper.texture']]],
+  ['texture2dbuffer_1',['texture2DBuffer',['../d8/dba/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1AsyncGPUReadback2MatHelper.html#a1b7e60c020c2cd21e41092f4cb842cb7',1,'OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper.texture2DBuffer'],['../d1/d25/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1UnityVideoPlayer2MatHelper.html#adb7dac2e567548ebead6aa6bca611ee1',1,'OpenCVForUnity.UnityUtils.Helper.UnityVideoPlayer2MatHelper.texture2DBuffer']]],
   ['thinning_5fguohall_2',['THINNING_GUOHALL',['../d0/df6/classOpenCVForUnity_1_1XimgprocModule_1_1Ximgproc.html#af64328c5a809eaafa9f6ee715e5ffdae',1,'OpenCVForUnity::XimgprocModule::Ximgproc']]],
   ['thinning_5fzhangsuen_3',['THINNING_ZHANGSUEN',['../d0/df6/classOpenCVForUnity_1_1XimgprocModule_1_1Ximgproc.html#a107f17df3a5ff0adaa8c3cf8670d375d',1,'OpenCVForUnity::XimgprocModule::Ximgproc']]],
   ['thresh_5fbinary_4',['THRESH_BINARY',['../df/dce/classOpenCVForUnity_1_1ImgprocModule_1_1Imgproc.html#a67e028e91805b98470871674c698bfad',1,'OpenCVForUnity::ImgprocModule::Imgproc']]],

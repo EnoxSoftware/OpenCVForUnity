@@ -32,9 +32,8 @@ var searchData=
   ['video_29',['Video',['../df/d47/classOpenCVForUnity_1_1VideoModule_1_1Video.html',1,'OpenCVForUnity::VideoModule']]],
   ['videocapture_30',['VideoCapture',['../df/df8/classOpenCVForUnity_1_1VideoioModule_1_1VideoCapture.html',1,'OpenCVForUnity::VideoioModule']]],
   ['videocapture2mathelper_31',['VideoCapture2MatHelper',['../dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
-  ['videocapturecamerainput2mathelper_32',['VideoCaptureCameraInput2MatHelper',['../d5/d14/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureCameraInput2MatHelper.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
-  ['videocapturecamerainputtomathelper_33',['VideoCaptureCameraInputToMatHelper',['../d7/d3e/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureCameraInputToMatHelper.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
-  ['videocapturetomathelper_34',['VideoCaptureToMatHelper',['../d3/d8d/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureToMatHelper.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
-  ['videoio_35',['Videoio',['../db/dba/classOpenCVForUnity_1_1VideoioModule_1_1Videoio.html',1,'OpenCVForUnity::VideoioModule']]],
-  ['videowriter_36',['VideoWriter',['../d9/d3c/classOpenCVForUnity_1_1VideoioModule_1_1VideoWriter.html',1,'OpenCVForUnity::VideoioModule']]]
+  ['videocapturecamerainputtomathelper_32',['VideoCaptureCameraInputToMatHelper',['../d7/d3e/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureCameraInputToMatHelper.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
+  ['videocapturetomathelper_33',['VideoCaptureToMatHelper',['../d3/d8d/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureToMatHelper.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
+  ['videoio_34',['Videoio',['../db/dba/classOpenCVForUnity_1_1VideoioModule_1_1Videoio.html',1,'OpenCVForUnity::VideoioModule']]],
+  ['videowriter_35',['VideoWriter',['../d9/d3c/classOpenCVForUnity_1_1VideoioModule_1_1VideoWriter.html',1,'OpenCVForUnity::VideoioModule']]]
 ];

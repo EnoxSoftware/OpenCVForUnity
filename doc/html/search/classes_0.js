@@ -10,9 +10,10 @@ var searchData=
   ['alignmtb_7',['AlignMTB',['../da/d7d/classOpenCVForUnity_1_1PhotoModule_1_1AlignMTB.html',1,'OpenCVForUnity::PhotoModule']]],
   ['ann_5fmlp_8',['ANN_MLP',['../d6/dfe/classOpenCVForUnity_1_1MlModule_1_1ANN__MLP.html',1,'OpenCVForUnity::MlModule']]],
   ['applicationexception_9',['ApplicationException',['../dd/d64/classApplicationException.html',1,'']]],
-  ['aruco_10',['Aruco',['../de/de8/classOpenCVForUnity_1_1ArucoModule_1_1Aruco.html',1,'OpenCVForUnity::ArucoModule']]],
-  ['arucodetector_11',['ArucoDetector',['../d9/df7/classOpenCVForUnity_1_1ObjdetectModule_1_1ArucoDetector.html',1,'OpenCVForUnity::ObjdetectModule']]],
-  ['arutils_12',['ARUtils',['../d6/da9/classOpenCVForUnity_1_1UnityUtils_1_1ARUtils.html',1,'OpenCVForUnity::UnityUtils']]],
-  ['asyncgpureadback2mathelper_13',['AsyncGPUReadback2MatHelper',['../d8/dba/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1AsyncGPUReadback2MatHelper.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
-  ['averagehash_14',['AverageHash',['../d5/d17/classOpenCVForUnity_1_1Img__hashModule_1_1AverageHash.html',1,'OpenCVForUnity::Img_hashModule']]]
+  ['arhelper_10',['ARHelper',['../d7/df7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARHelper.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
+  ['aruco_11',['Aruco',['../de/de8/classOpenCVForUnity_1_1ArucoModule_1_1Aruco.html',1,'OpenCVForUnity::ArucoModule']]],
+  ['arucodetector_12',['ArucoDetector',['../d9/df7/classOpenCVForUnity_1_1ObjdetectModule_1_1ArucoDetector.html',1,'OpenCVForUnity::ObjdetectModule']]],
+  ['arutils_13',['ARUtils',['../d6/da9/classOpenCVForUnity_1_1UnityUtils_1_1ARUtils.html',1,'OpenCVForUnity::UnityUtils']]],
+  ['asyncgpureadback2mathelper_14',['AsyncGPUReadback2MatHelper',['../d8/dba/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1AsyncGPUReadback2MatHelper.html',1,'OpenCVForUnity::UnityUtils::Helper']]],
+  ['averagehash_15',['AverageHash',['../d5/d17/classOpenCVForUnity_1_1Img__hashModule_1_1AverageHash.html',1,'OpenCVForUnity::Img_hashModule']]]
 ];
