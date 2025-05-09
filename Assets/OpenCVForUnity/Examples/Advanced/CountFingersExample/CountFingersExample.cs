@@ -7,6 +7,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
+#endif
 
 namespace OpenCVForUnityExample
 {
@@ -103,6 +107,18 @@ namespace OpenCVForUnityExample
             multiSource2MatHelper.Initialize();
         }
 
+#if ENABLE_INPUT_SYSTEM
+        void OnEnable()
+        {
+            EnhancedTouchSupport.Enable();
+        }
+
+        void OnDisable()
+        {
+            EnhancedTouchSupport.Disable();
+        }
+#endif
+
         /// <summary>
         /// Raises the source to mat helper initialized event.
         /// </summary>
@@ -191,6 +207,34 @@ namespace OpenCVForUnityExample
         // Update is called once per frame
         void Update()
         {
+#if ENABLE_INPUT_SYSTEM
+#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
+            // Touch input for mobile platforms
+            if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
+            {
+                foreach (var touch in UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches)
+                {
+                    if (touch.phase == UnityEngine.InputSystem.TouchPhase.Ended)
+                    {
+                        if (!EventSystem.current.IsPointerOverGameObject(touch.finger.index))
+                        {
+                            storedTouchPoint = new Point(touch.screenPosition.x, touch.screenPosition.y);
+                        }
+                    }
+                }
+            }
+#else
+            // Mouse input for non-mobile platforms
+            var mouse = Mouse.current;
+            if (mouse != null && mouse.leftButton.wasReleasedThisFrame)
+            {
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return;
+
+                storedTouchPoint = new Point(mouse.position.ReadValue().x, mouse.position.ReadValue().y);
+            }
+#endif
+#else
 #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
             //Touch
             int touchCount = Input.touchCount;
@@ -199,8 +243,7 @@ namespace OpenCVForUnityExample
                 Touch t = Input.GetTouch (0);
                 if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject (t.fingerId)) {
                     storedTouchPoint = new Point (t.position.x, t.position.y);
-                    //Debug.Log ("touch X " + t.position.x);
-                    //Debug.Log ("touch Y " + t.position.y);
+
                 }
             }
 #else
@@ -208,14 +251,13 @@ namespace OpenCVForUnityExample
             if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 storedTouchPoint = new Point(Input.mousePosition.x, Input.mousePosition.y);
-                //Debug.Log ("mouse X " + Input.mousePosition.x);
-                //Debug.Log ("mouse Y " + Input.mousePosition.y);
+
             }
+#endif
 #endif
 
             if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
             {
-
                 Mat rgbaMat = multiSource2MatHelper.GetMat();
 
                 if (storedTouchPoint != null)
@@ -226,8 +268,6 @@ namespace OpenCVForUnityExample
                 }
 
                 HandPoseEstimationProcess(rgbaMat);
-
-                //Imgproc.putText (rgbaMat, "Please touch the area of the open hand.", new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
                 Utils.matToTexture2D(rgbaMat, texture);
             }
@@ -391,7 +431,7 @@ namespace OpenCVForUnityExample
                 for (int i = 0; i < blobColorHsv.val.Length; i++)
                     blobColorHsv.val[i] /= pointCount;
 
-                //blobColorRgba = ConverScalarHsv2Rgba (blobColorHsv);            
+                //blobColorRgba = ConverScalarHsv2Rgba (blobColorHsv);
                 //Debug.Log ("Touched rgba color: (" + mBlobColorRgba.val [0] + ", " + mBlobColorRgba.val [1] +
                 //  ", " + mBlobColorRgba.val [2] + ", " + mBlobColorRgba.val [3] + ")");
 

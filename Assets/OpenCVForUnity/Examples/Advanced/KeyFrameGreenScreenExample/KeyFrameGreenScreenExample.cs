@@ -8,6 +8,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
+#endif
 
 namespace OpenCVForUnityExample
 {
@@ -90,6 +94,18 @@ namespace OpenCVForUnityExample
 
             kernel = Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(3, 3));
         }
+
+#if ENABLE_INPUT_SYSTEM
+        void OnEnable()
+        {
+            EnhancedTouchSupport.Enable();
+        }
+
+        void OnDisable()
+        {
+            EnhancedTouchSupport.Disable();
+        }
+#endif
 
         /// <summary>
         /// Raises the source to mat helper initialized event.
@@ -193,7 +209,31 @@ namespace OpenCVForUnityExample
         // Update is called once per frame
         void Update()
         {
-
+#if ENABLE_INPUT_SYSTEM
+#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
+            // Touch input for mobile platforms
+            if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
+            {
+                foreach (var touch in UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches)
+                {
+                    if (touch.phase == UnityEngine.InputSystem.TouchPhase.Ended)
+                    {
+                        if (!EventSystem.current.IsPointerOverGameObject(touch.finger.index))
+                        {
+                            isTouched = true;
+                        }
+                    }
+                }
+            }
+#else
+            // Keyboard input for non-mobile platforms
+            var keyboard = Keyboard.current;
+            if (keyboard != null && keyboard.spaceKey.wasReleasedThisFrame)
+            {
+                isTouched = true;
+            }
+#endif
+#else
 #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
             //Touch
             if (Input.touchCount == 1) {
@@ -208,6 +248,7 @@ namespace OpenCVForUnityExample
             {
                 isTouched = true;
             }
+#endif
 #endif
 
             if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())

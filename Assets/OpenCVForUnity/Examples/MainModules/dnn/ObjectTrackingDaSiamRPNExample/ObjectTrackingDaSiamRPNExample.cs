@@ -1,16 +1,20 @@
 #if !UNITY_WSA_10_0
 
+using System;
+using System.Collections.Generic;
+using System.Threading;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.DnnModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.UnityUtils.Helper;
-using System;
-using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
+#endif
 using Rect = OpenCVForUnity.CoreModule.Rect;
 
 namespace OpenCVForUnityExample
@@ -228,17 +232,42 @@ namespace OpenCVForUnityExample
                 return;
             }
 
-
+#if ENABLE_INPUT_SYSTEM
+#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
+            // Touch input for mobile platforms
+            if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
+            {
+                foreach (var touch in UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches)
+                {
+                    if (touch.phase == UnityEngine.InputSystem.TouchPhase.Ended)
+                    {
+                        if (!EventSystem.current.IsPointerOverGameObject(touch.finger.index))
+                        {
+                            storedTouchPoint = new Point(touch.screenPosition.x, touch.screenPosition.y);
+                        }
+                    }
+                }
+            }
+#else
+            // Mouse input for non-mobile platforms
+            var mouse = Mouse.current;
+            if (mouse != null && mouse.leftButton.wasReleasedThisFrame)
+            {
+                if (!EventSystem.current.IsPointerOverGameObject())
+                {
+                    storedTouchPoint = new Point(mouse.position.ReadValue().x, mouse.position.ReadValue().y);
+                }
+            }
+#endif
+#else
 #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
             //Touch
             int touchCount = Input.touchCount;
             if (touchCount == 1)
             {
                 Touch t = Input.GetTouch(0);
-                if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject (t.fingerId)) {
-                    storedTouchPoint = new Point (t.position.x, t.position.y);
-                    //Debug.Log ("touch X " + t.position.x);
-                    //Debug.Log ("touch Y " + t.position.y);
+                if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject(t.fingerId)) {
+                    storedTouchPoint = new Point(t.position.x, t.position.y);
                 }
             }
 #else
@@ -246,9 +275,8 @@ namespace OpenCVForUnityExample
             if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 storedTouchPoint = new Point(Input.mousePosition.x, Input.mousePosition.y);
-                //Debug.Log ("mouse X " + Input.mousePosition.x);
-                //Debug.Log ("mouse Y " + Input.mousePosition.y);
             }
+#endif
 #endif
 
             if (selectedPointList.Count != 1)
@@ -418,6 +446,13 @@ namespace OpenCVForUnityExample
             return new Rect(r.x - r.width / 2, r.y - r.height / 2, r.width, r.height);
         }
 
+#if ENABLE_INPUT_SYSTEM
+        private void OnEnable()
+        {
+            EnhancedTouchSupport.Enable();
+        }
+#endif
+
         /// <summary>
         /// Raises the disable event.
         /// </summary>
@@ -425,6 +460,10 @@ namespace OpenCVForUnityExample
         {
             if (cts != null)
                 cts.Dispose();
+
+#if ENABLE_INPUT_SYSTEM
+            EnhancedTouchSupport.Disable();
+#endif
         }
 
         /// <summary>

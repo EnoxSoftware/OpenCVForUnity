@@ -12,6 +12,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
+#endif
 using Rect = OpenCVForUnity.CoreModule.Rect;
 
 namespace OpenCVForUnityExample
@@ -20,7 +24,7 @@ namespace OpenCVForUnityExample
     /// Tracking Example
     /// An example of object tracking using the tracking (Tracking API) module.
     /// http://docs.opencv.org/trunk/d5/d07/tutorial_multitracker.html
-    /// 
+    ///
     /// https://github.com/opencv/opencv_zoo/tree/main/models/object_tracking_vittrack
     /// https://github.com/opencv/opencv/blob/4.x/samples/dnn/dasiamrpn_tracker.cpp
     /// https://github.com/opencv/opencv/blob/4.x/samples/dnn/nanotrack_tracker.cpp
@@ -172,7 +176,7 @@ namespace OpenCVForUnityExample
             multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
 
 #if UNITY_WSA_10_0
-            
+
             // Disable the DNN module-dependent Tracker on UWP platforms, as it cannot be used.
             trackerVitToggle.isOn = trackerVitToggle.interactable = false;
             disableTrackerVit = true;
@@ -314,6 +318,36 @@ namespace OpenCVForUnityExample
             if (!multiSource2MatHelper.IsInitialized())
                 return;
 
+#if ENABLE_INPUT_SYSTEM
+#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
+            // Touch input for mobile platforms
+            if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
+            {
+                foreach (var touch in UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches)
+                {
+                    if (touch.phase == UnityEngine.InputSystem.TouchPhase.Ended)
+                    {
+                        if (!EventSystem.current.IsPointerOverGameObject(touch.finger.index))
+                        {
+                            storedTouchPoint = new Point(touch.screenPosition.x, touch.screenPosition.y);
+                            // Debug.Log("touch X " + touch.screenPosition.x);
+                            // Debug.Log("touch Y " + touch.screenPosition.y);
+                        }
+                    }
+                }
+            }
+#else
+            // Mouse input for non-mobile platforms
+            var mouse = Mouse.current;
+            if (mouse != null && mouse.leftButton.wasReleasedThisFrame)
+            {
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return;
+
+                storedTouchPoint = new Point(mouse.position.ReadValue().x, mouse.position.ReadValue().y);
+            }
+#endif
+#else
 #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
             //Touch
             int touchCount = Input.touchCount;
@@ -334,6 +368,7 @@ namespace OpenCVForUnityExample
                 //Debug.Log ("mouse X " + Input.mousePosition.x);
                 //Debug.Log ("mouse Y " + Input.mousePosition.y);
             }
+#endif
 #endif
 
             if (selectedPointList.Count != 1)
@@ -603,6 +638,13 @@ namespace OpenCVForUnityExample
             }
         }
 
+#if ENABLE_INPUT_SYSTEM
+        void OnEnable()
+        {
+            EnhancedTouchSupport.Enable();
+        }
+#endif
+
         /// <summary>
         /// Raises the disable event.
         /// </summary>
@@ -610,6 +652,10 @@ namespace OpenCVForUnityExample
         {
             if (cts != null)
                 cts.Dispose();
+
+#if ENABLE_INPUT_SYSTEM
+            EnhancedTouchSupport.Disable();
+#endif
         }
 
         /// <summary>

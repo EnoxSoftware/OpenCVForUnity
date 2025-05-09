@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -501,15 +501,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 153385498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03ffc138d8c85b946b9bae82bf2c68c7, type: 3}
+  m_Script: {fileID: 11500000, guid: 1cc7ba3dda323c5449601e8aedafb17b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   alignment: 1
   offset: {x: 10, y: 10}
   boxVisible: 1
   boxWidth: 200
-  boxHeight: 110
-  padding: {x: 8, y: 5}
+  boxHeight: 100
+  padding: {x: 10, y: 10}
   consoleHeight: 100
 --- !u!4 &153385505
 Transform:
@@ -1318,11 +1318,14 @@ MonoBehaviour:
   _camMatrixValues: []
   _distCoeffsValues: []
   imagePoints: []
-  rightHandedCoordinates: 1
+  leftHandedCoordinates: 0
   objectPoints: []
   useLowPassFilter: 0
   positionLowPassParam: 0.005
   rotationLowPassParam: 2
+  applyXaxisInversionToARMatrix: 0
+  applyYaxisInversionToARMatrix: 0
+  applyZaxisInversionToARMatrix: 0
 --- !u!4 &550142329
 Transform:
   m_ObjectHideFlags: 0
@@ -2608,6 +2611,7 @@ GameObject:
   - component: {fileID: 2052683279}
   - component: {fileID: 2052683278}
   - component: {fileID: 2052683277}
+  - component: {fileID: 2052683280}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -2665,6 +2669,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2052683280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052683276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f2bf37964271a469f1c86e57feb63a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2059289320
 GameObject:
   m_ObjectHideFlags: 0

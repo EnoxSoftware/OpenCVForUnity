@@ -1,13 +1,17 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.VideoModule;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
+#endif
 
 namespace OpenCVForUnityExample
 {
@@ -127,6 +131,18 @@ namespace OpenCVForUnityExample
             KF.set_errorCovPost(errorCovPostMat);
         }
 
+#if ENABLE_INPUT_SYSTEM
+        void OnEnable()
+        {
+            EnhancedTouchSupport.Enable();
+        }
+
+        void OnDisable()
+        {
+            EnhancedTouchSupport.Disable();
+        }
+#endif
+
         // Update is called once per frame
         void Update()
         {
@@ -204,6 +220,26 @@ namespace OpenCVForUnityExample
         /// <returns>The cursor point.</returns>
         private void GetCursorPos(Point pos)
         {
+#if ENABLE_INPUT_SYSTEM
+#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
+            // Touch input for mobile platforms
+            if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count >= 1)
+            {
+                var touch = UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0];
+                ConvertScreenPointToTexturePoint(new Point(touch.screenPosition.x, touch.screenPosition.y), pos, gameObject, rgbaMat.cols(), rgbaMat.rows());
+            }
+#else
+            // Mouse input for non-mobile platforms
+            var mouse = Mouse.current;
+            if (mouse != null)
+            {
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return;
+
+                ConvertScreenPointToTexturePoint(new Point(mouse.position.ReadValue().x, mouse.position.ReadValue().y), pos, gameObject, rgbaMat.cols(), rgbaMat.rows());
+            }
+#endif
+#else
 #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
             //Touch
             int touchCount = Input.touchCount;
@@ -215,6 +251,7 @@ namespace OpenCVForUnityExample
 #else
             //Mouse
             ConvertScreenPointToTexturePoint(new Point(Input.mousePosition.x, Input.mousePosition.y), pos, gameObject, rgbaMat.cols(), rgbaMat.rows());
+#endif
 #endif
         }
 

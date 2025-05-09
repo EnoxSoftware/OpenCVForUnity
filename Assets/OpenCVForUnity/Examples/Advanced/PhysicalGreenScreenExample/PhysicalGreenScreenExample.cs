@@ -2,16 +2,21 @@ using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
 using OpenCVForUnity.UnityUtils.Helper;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
+#endif
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Physical Green Screen Example
-    /// An example of creating a chromakey mask and compositing background image. (aka green-screen compositing) 
+    /// An example of creating a chromakey mask and compositing background image. (aka green-screen compositing)
     /// </summary>
     [RequireComponent(typeof(MultiSource2MatHelper))]
     public class PhysicalGreenScreenExample : MonoBehaviour
@@ -100,6 +105,18 @@ namespace OpenCVForUnityExample
             multiSource2MatHelper.Initialize();
         }
 
+#if ENABLE_INPUT_SYSTEM
+        void OnEnable()
+        {
+            EnhancedTouchSupport.Enable();
+        }
+
+        void OnDisable()
+        {
+            EnhancedTouchSupport.Disable();
+        }
+#endif
+
         /// <summary>
         /// Raises the source to mat helper initialized event.
         /// </summary>
@@ -143,7 +160,7 @@ namespace OpenCVForUnityExample
                 fpsMonitor.Add("blobColorHsv", "\n" + blobColorHsv.ToString());
                 fpsMonitor.Add("colorRadiusRange", "\n" + colorRadiusRange.ToString());
 
-                fpsMonitor.Toast("Touch the screen to specify the chromakey color.", 360);
+                fpsMonitor.Toast("Touch the screen to specify the chromakey color.", 2000);
             }
 
             hsvMat = new Mat((int)height, (int)width, CvType.CV_8UC3);
@@ -224,16 +241,42 @@ namespace OpenCVForUnityExample
         // Update is called once per frame
         void Update()
         {
+#if ENABLE_INPUT_SYSTEM
+#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
+            // Touch input for mobile platforms
+            if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
+            {
+                foreach (var touch in UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches)
+                {
+                    if (touch.phase == UnityEngine.InputSystem.TouchPhase.Ended)
+                    {
+                        if (!EventSystem.current.IsPointerOverGameObject(touch.finger.index))
+                        {
+                            storedTouchPoint = new Point(touch.screenPosition.x, touch.screenPosition.y);
+                        }
+                    }
+                }
+            }
+#else
+            // Mouse input for non-mobile platforms
+            var mouse = Mouse.current;
+            if (mouse != null && mouse.leftButton.wasReleasedThisFrame)
+            {
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return;
+
+                storedTouchPoint = new Point(mouse.position.ReadValue().x, mouse.position.ReadValue().y);
+            }
+#endif
+#else
 #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
             //Touch
             int touchCount = Input.touchCount;
             if (touchCount == 1)
             {
-                Touch t = Input.GetTouch (0);
+                Touch t = Input.GetTouch(0);
                 if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject (t.fingerId)) {
                     storedTouchPoint = new Point (t.position.x, t.position.y);
-                    //Debug.Log ("touch X " + t.position.x);
-                    //Debug.Log ("touch Y " + t.position.y);
                 }
             }
 #else
@@ -241,9 +284,8 @@ namespace OpenCVForUnityExample
             if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 storedTouchPoint = new Point(Input.mousePosition.x, Input.mousePosition.y);
-                //Debug.Log ("mouse X " + Input.mousePosition.x);
-                //Debug.Log ("mouse Y " + Input.mousePosition.y);
             }
+#endif
 #endif
 
             if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
