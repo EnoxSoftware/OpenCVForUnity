@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.5</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.0</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.12.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -141,7 +141,7 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
-<p>A versatile helper component class for obtaining frames as OpenCV <code>Mat</code> objects from multiple sources, allowing dynamic switching between different <code><a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html">ISource2MatHelper</a></code> classes.  
+<p>A versatile helper component class for obtaining frames as OpenCV <code>Mat</code> objects from multiple sources, allowing dynamic switching between different <code><a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html" title="Base interface for converting various sources to Mat.">ISource2MatHelper</a></code> classes.  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
@@ -170,6 +170,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aca28d35edaadd3b57dd79bfdbebcf3f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether the source buffer of the frame has been updated.  <br /></td></tr>
 <tr class="separator:aca28d35edaadd3b57dd79bfdbebcf3f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e86b3d3af6228336a32acd7c4e4cd0e" id="r_a4e86b3d3af6228336a32acd7c4e4cd0e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e86b3d3af6228336a32acd7c4e4cd0e">Dispose</a> ()</td></tr>
+<tr class="memdesc:a4e86b3d3af6228336a32acd7c4e4cd0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disposes of resources.  <br /></td></tr>
 <tr class="separator:a4e86b3d3af6228336a32acd7c4e4cd0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af10406490038478e92480cd35672b7ae" id="r_af10406490038478e92480cd35672b7ae"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d2/d62/namespaceOpenCVForUnity_1_1UnityUtils_1_1Helper.html#aa72968e344f92c2e8bcd432bdce5940c">Source2MatHelperColorFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af10406490038478e92480cd35672b7ae">GetBaseColorFormat</a> ()</td></tr>
 <tr class="memdesc:af10406490038478e92480cd35672b7ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the source base color format.  <br /></td></tr>
@@ -227,6 +228,8 @@ Protected Types</h2></td></tr>
 &#160;&#160;<a class="el" href="#a077135a5529898086ae4d0a5127d4052a90589c47f06eb971d548591f23c285af">Custom</a> = 1 &lt;&lt; 4
 , <br />
 &#160;&#160;<a class="el" href="#a077135a5529898086ae4d0a5127d4052a48d05cf0129804c33c48b394ce7d17f7">MatUpdateFPS</a> = 1 &lt;&lt; 5
+, <br />
+&#160;&#160;<a class="el" href="#a077135a5529898086ae4d0a5127d4052ab4c0d5d7111db01f47d293be50600196">MatTransformation</a> = 1 &lt;&lt; 6
 <br />
  }</td></tr>
 <tr class="separator:a077135a5529898086ae4d0a5127d4052"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -246,6 +249,10 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a252c5e51c2245289c244c31b83008bba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaadcdca9fc8e6c5eceaefe2c6597d812" id="r_aaadcdca9fc8e6c5eceaefe2c6597d812"><td class="memItemLeft" align="right" valign="top">Component&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaadcdca9fc8e6c5eceaefe2c6597d812">_customClassComponent</a> = null</td></tr>
 <tr class="separator:aaadcdca9fc8e6c5eceaefe2c6597d812"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a738c4d8542db28a41a2165fb6e0ec7cd" id="r_a738c4d8542db28a41a2165fb6e0ec7cd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a738c4d8542db28a41a2165fb6e0ec7cd">_flipHorizontal</a> = false</td></tr>
+<tr class="separator:a738c4d8542db28a41a2165fb6e0ec7cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87ea9fe4b17031c7935f73a4b4208f7c" id="r_a87ea9fe4b17031c7935f73a4b4208f7c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87ea9fe4b17031c7935f73a4b4208f7c">_flipVertical</a> = false</td></tr>
+<tr class="separator:a87ea9fe4b17031c7935f73a4b4208f7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4980c19aefc762a0e8b7268d2a1590df" id="r_a4980c19aefc762a0e8b7268d2a1590df"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4980c19aefc762a0e8b7268d2a1590df">_loop</a> = true</td></tr>
 <tr class="separator:a4980c19aefc762a0e8b7268d2a1590df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5c14424aa386eba08b98b9d9e5f5473" id="r_af5c14424aa386eba08b98b9d9e5f5473"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5c14424aa386eba08b98b9d9e5f5473">_onDisposed</a></td></tr>
@@ -276,6 +283,8 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:aa14b5e5efd1a922892c65bd506fdb841"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97bd47b96b913ee6190240640c8c171a" id="r_a97bd47b96b913ee6190240640c8c171a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a97bd47b96b913ee6190240640c8c171a">_requestedWidth</a> = 640</td></tr>
 <tr class="separator:a97bd47b96b913ee6190240640c8c171a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba11591adaebb75dd2c84e84d360a926" id="r_aba11591adaebb75dd2c84e84d360a926"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba11591adaebb75dd2c84e84d360a926">_rotate90Degree</a> = false</td></tr>
+<tr class="separator:aba11591adaebb75dd2c84e84d360a926"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81d0eeeb202bff6391c59a16a61799a6" id="r_a81d0eeeb202bff6391c59a16a61799a6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html">ISource2MatHelper</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a81d0eeeb202bff6391c59a16a61799a6">_source2MatHelper</a></td></tr>
 <tr class="separator:a81d0eeeb202bff6391c59a16a61799a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac582572a8b66a54943939eb81fe5e5b4" id="r_ac582572a8b66a54943939eb81fe5e5b4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a077135a5529898086ae4d0a5127d4052aa3e8ae43188ae76d38f414b2bdb0077b">Texture</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac582572a8b66a54943939eb81fe5e5b4">_sourceTexture</a></td></tr>
@@ -291,6 +300,12 @@ Properties</h2></td></tr>
 <tr class="memitem:a9cedc7ff909beb2a78f4e365bfc42b09" id="r_a9cedc7ff909beb2a78f4e365bfc42b09"><td class="memItemLeft" align="right" valign="top">virtual Component&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9cedc7ff909beb2a78f4e365bfc42b09">customClassComponent</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a9cedc7ff909beb2a78f4e365bfc42b09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the custom class &lt;ISource2MatHelper&gt; component.  <br /></td></tr>
 <tr class="separator:a9cedc7ff909beb2a78f4e365bfc42b09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9ff0af03ce3e5490d1be53e69987bb7" id="r_ac9ff0af03ce3e5490d1be53e69987bb7"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9ff0af03ce3e5490d1be53e69987bb7">flipHorizontal</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ac9ff0af03ce3e5490d1be53e69987bb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether to flip horizontal.  <br /></td></tr>
+<tr class="separator:ac9ff0af03ce3e5490d1be53e69987bb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0fac1113258b6964fbe190c463cf04e" id="r_ae0fac1113258b6964fbe190c463cf04e"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae0fac1113258b6964fbe190c463cf04e">flipVertical</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ae0fac1113258b6964fbe190c463cf04e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether to flip vertically.  <br /></td></tr>
+<tr class="separator:ae0fac1113258b6964fbe190c463cf04e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a723fadf0bbd46222942879715561002e" id="r_a723fadf0bbd46222942879715561002e"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a723fadf0bbd46222942879715561002e">loop</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a723fadf0bbd46222942879715561002e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether to play this video in a loop.  <br /></td></tr>
 <tr class="separator:a723fadf0bbd46222942879715561002e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -336,6 +351,9 @@ Properties</h2></td></tr>
 <tr class="memitem:a932347f30e1fce39c246034116d1a359" id="r_a932347f30e1fce39c246034116d1a359"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a932347f30e1fce39c246034116d1a359">requestedWidth</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a932347f30e1fce39c246034116d1a359"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the width of camera.  <br /></td></tr>
 <tr class="separator:a932347f30e1fce39c246034116d1a359"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97e98d078d5f1edf70d61baa44c543b4" id="r_a97e98d078d5f1edf70d61baa44c543b4"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a97e98d078d5f1edf70d61baa44c543b4">rotate90Degree</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a97e98d078d5f1edf70d61baa44c543b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether to rotate camera frame 90 degrees. (clockwise)  <br /></td></tr>
+<tr class="separator:a97e98d078d5f1edf70d61baa44c543b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adbab1060945a6e8dfca0c97f14cf314a" id="r_adbab1060945a6e8dfca0c97f14cf314a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html">ISource2MatHelper</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adbab1060945a6e8dfca0c97f14cf314a">source2MatHelper</a><code> [get]</code></td></tr>
 <tr class="separator:adbab1060945a6e8dfca0c97f14cf314a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b453ba9de50d1916be581c3f7357634" id="r_a3b453ba9de50d1916be581c3f7357634"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="#a077135a5529898086ae4d0a5127d4052aa3e8ae43188ae76d38f414b2bdb0077b">Texture</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b453ba9de50d1916be581c3f7357634">sourceTexture</a><code> [get, set]</code></td></tr>
@@ -347,8 +365,8 @@ Properties</h2></td></tr>
 <tr class="inherit_header properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper')"><img src="../../closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A versatile helper component class for obtaining frames as OpenCV <code>Mat</code> objects from multiple sources, allowing dynamic switching between different <code><a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html">ISource2MatHelper</a></code> classes. </p>
-<p>The <code><a class="el" href="../../df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html" title="A versatile helper component class for obtaining frames as OpenCV Mat objects from multiple sources,...">MultiSource2MatHelper</a></code> class integrates various <code><a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html">ISource2MatHelper</a></code> implementations, such as <code><a class="el" href="../../d5/d0c/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatHelper.html" title="A helper component class for obtaining camera frames from WebCamTexture and converting them to OpenCV...">WebCamTexture2MatHelper</a></code>, <code><a class="el" href="../../dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html" title="A helper component class for obtaining video frames from a file using OpenCV&#39;s VideoCapture and conve...">VideoCapture2MatHelper</a></code>, <code><a class="el" href="../../d1/d25/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1UnityVideoPlayer2MatHelper.html" title="A helper component class for obtaining video frames from a file using Unity&#39;s VideoPlayer and convert...">UnityVideoPlayer2MatHelper</a></code>, and <code><a class="el" href="../../d6/de0/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Image2MatHelper.html" title="A helper component class for loading an image file using OpenCV&#39;s Imgcodecs.imread method and convert...">Image2MatHelper</a></code>, providing a unified interface for accessing frames as <code>Mat</code> objects. Through settings in the Inspector or during runtime, users can select or switch between these helper classes to obtain frames from different sources, such as webcams, video files, images, or textures.</p>
+<div class="textblock"><p>A versatile helper component class for obtaining frames as OpenCV <code>Mat</code> objects from multiple sources, allowing dynamic switching between different <code><a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html" title="Base interface for converting various sources to Mat.">ISource2MatHelper</a></code> classes. </p>
+<p>The <code><a class="el" href="../../df/dd7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1MultiSource2MatHelper.html" title="A versatile helper component class for obtaining frames as OpenCV Mat objects from multiple sources,...">MultiSource2MatHelper</a></code> class integrates various <code><a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html" title="Base interface for converting various sources to Mat.">ISource2MatHelper</a></code> implementations, such as <code><a class="el" href="../../d5/d0c/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatHelper.html" title="A helper component class for obtaining camera frames from WebCamTexture and converting them to OpenCV...">WebCamTexture2MatHelper</a></code>, <code><a class="el" href="../../dd/d6a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCapture2MatHelper.html" title="A helper component class for obtaining video frames from a file using OpenCV&#39;s VideoCapture and conve...">VideoCapture2MatHelper</a></code>, <code><a class="el" href="../../d1/d25/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1UnityVideoPlayer2MatHelper.html" title="A helper component class for obtaining video frames from a file using Unity&#39;s VideoPlayer and convert...">UnityVideoPlayer2MatHelper</a></code>, and <code><a class="el" href="../../d6/de0/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Image2MatHelper.html" title="A helper component class for loading an image file using OpenCV&#39;s Imgcodecs.imread method and convert...">Image2MatHelper</a></code>, providing a unified interface for accessing frames as <code>Mat</code> objects. Through settings in the Inspector or during runtime, users can select or switch between these helper classes to obtain frames from different sources, such as webcams, video files, images, or textures.</p>
 <p>This component is particularly useful for applications requiring flexible frame input sources, making it easy to integrate various media types into OpenCV-based processing workflows within Unity. </p>
 <p>Attach this component to a GameObject and select the desired source in the Inspector. Use <code><a class="el" href="#a4789a388571ec6df68cfc1f25e2df991" title="Get the mat of the current frame.">GetMat()</a></code> to retrieve the current frame as a <code>Mat</code> object. The helper class manages source initialization, switching, and frame updates as needed. </p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
@@ -379,6 +397,7 @@ Properties</h2></td></tr>
 <tr><td class="fieldname"><a id="a077135a5529898086ae4d0a5127d4052aa3e8ae43188ae76d38f414b2bdb0077b" name="a077135a5529898086ae4d0a5127d4052aa3e8ae43188ae76d38f414b2bdb0077b"></a>Texture&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a077135a5529898086ae4d0a5127d4052a90589c47f06eb971d548591f23c285af" name="a077135a5529898086ae4d0a5127d4052a90589c47f06eb971d548591f23c285af"></a>Custom&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a077135a5529898086ae4d0a5127d4052a48d05cf0129804c33c48b394ce7d17f7" name="a077135a5529898086ae4d0a5127d4052a48d05cf0129804c33c48b394ce7d17f7"></a>MatUpdateFPS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a077135a5529898086ae4d0a5127d4052ab4c0d5d7111db01f47d293be50600196" name="a077135a5529898086ae4d0a5127d4052ab4c0d5d7111db01f47d293be50600196"></a>MatTransformation&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -484,6 +503,8 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Disposes of resources. </p>
 
 <p>Implements <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html#a553d3bd39667841c154ceacd8cdedca7">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a>.</p>
 
@@ -969,6 +990,50 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="a738c4d8542db28a41a2165fb6e0ec7cd" name="a738c4d8542db28a41a2165fb6e0ec7cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a738c4d8542db28a41a2165fb6e0ec7cd">&#9670;&#160;</a></span>_flipHorizontal</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper._flipHorizontal = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a87ea9fe4b17031c7935f73a4b4208f7c" name="a87ea9fe4b17031c7935f73a4b4208f7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87ea9fe4b17031c7935f73a4b4208f7c">&#9670;&#160;</a></span>_flipVertical</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper._flipVertical = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a4980c19aefc762a0e8b7268d2a1590df" name="a4980c19aefc762a0e8b7268d2a1590df"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4980c19aefc762a0e8b7268d2a1590df">&#9670;&#160;</a></span>_loop</h2>
 
@@ -1299,6 +1364,28 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="aba11591adaebb75dd2c84e84d360a926" name="aba11591adaebb75dd2c84e84d360a926"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba11591adaebb75dd2c84e84d360a926">&#9670;&#160;</a></span>_rotate90Degree</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper._rotate90Degree = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a81d0eeeb202bff6391c59a16a61799a6" name="a81d0eeeb202bff6391c59a16a61799a6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a81d0eeeb202bff6391c59a16a61799a6">&#9670;&#160;</a></span>_source2MatHelper</h2>
 
@@ -1411,6 +1498,54 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the custom class &lt;ISource2MatHelper&gt; component. </p>
+
+</div>
+</div>
+<a id="ac9ff0af03ce3e5490d1be53e69987bb7" name="ac9ff0af03ce3e5490d1be53e69987bb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9ff0af03ce3e5490d1be53e69987bb7">&#9670;&#160;</a></span>flipHorizontal</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper.flipHorizontal</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set whether to flip horizontal. </p>
+
+</div>
+</div>
+<a id="ae0fac1113258b6964fbe190c463cf04e" name="ae0fac1113258b6964fbe190c463cf04e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0fac1113258b6964fbe190c463cf04e">&#9670;&#160;</a></span>flipVertical</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper.flipVertical</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set whether to flip vertically. </p>
 
 </div>
 </div>
@@ -1782,6 +1917,30 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="a97e98d078d5f1edf70d61baa44c543b4" name="a97e98d078d5f1edf70d61baa44c543b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97e98d078d5f1edf70d61baa44c543b4">&#9670;&#160;</a></span>rotate90Degree</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper.rotate90Degree</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set whether to rotate camera frame 90 degrees. (clockwise) </p>
+
+</div>
+</div>
 <a id="adbab1060945a6e8dfca0c97f14cf314a" name="adbab1060945a6e8dfca0c97f14cf314a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adbab1060945a6e8dfca0c97f14cf314a">&#9670;&#160;</a></span>source2MatHelper</h2>
 
@@ -1855,7 +2014,7 @@ Properties</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/Helper/Source2MatHelper/<a class="el" href="../../d8/ddc/MultiSource2MatHelper_8cs.html">MultiSource2MatHelper.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/_unity/Helper/Source2MatHelper/<a class="el" href="../../db/d3f/__unity_2Helper_2Source2MatHelper_2MultiSource2MatHelper_8cs.html">MultiSource2MatHelper.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

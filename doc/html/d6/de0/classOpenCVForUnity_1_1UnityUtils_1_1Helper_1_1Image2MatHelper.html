@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.5</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.0</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.12.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -225,6 +225,10 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr class="memitem:aabdce5c517ac11ef9059000742cf3f8e" id="r_aabdce5c517ac11ef9059000742cf3f8e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aabdce5c517ac11ef9059000742cf3f8e">_flipHorizontal</a> = false</td></tr>
+<tr class="separator:aabdce5c517ac11ef9059000742cf3f8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73557da2bf499cfbf90e2f6cf9954674" id="r_a73557da2bf499cfbf90e2f6cf9954674"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a73557da2bf499cfbf90e2f6cf9954674">_flipVertical</a> = false</td></tr>
+<tr class="separator:a73557da2bf499cfbf90e2f6cf9954674"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86f128f41bfaa3d66c02995cc89bde2b" id="r_a86f128f41bfaa3d66c02995cc89bde2b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a86f128f41bfaa3d66c02995cc89bde2b">_imageBufferMat</a></td></tr>
 <tr class="separator:a86f128f41bfaa3d66c02995cc89bde2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83edf2e60d3bb25cb445f42f8e7faac4" id="r_a83edf2e60d3bb25cb445f42f8e7faac4"><td class="memItemLeft" align="right" valign="top">System.Object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83edf2e60d3bb25cb445f42f8e7faac4">_imageBufferMatLockObject</a> = new System.Object()</td></tr>
@@ -243,6 +247,8 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:ae8e403b5bfbc23d22b9304830d8328d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83d79042cbaf951fd49539410218d43d" id="r_a83d79042cbaf951fd49539410218d43d"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83d79042cbaf951fd49539410218d43d">_requestedMatUpdateFPS</a> = 30f</td></tr>
 <tr class="separator:a83d79042cbaf951fd49539410218d43d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa45b64b005c7e12df69eeb2c1e60e6a4" id="r_aa45b64b005c7e12df69eeb2c1e60e6a4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa45b64b005c7e12df69eeb2c1e60e6a4">_rotate90Degree</a> = false</td></tr>
+<tr class="separator:aa45b64b005c7e12df69eeb2c1e60e6a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5214a42f5c85969adfaa9e98c22913c7" id="r_a5214a42f5c85969adfaa9e98c22913c7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5214a42f5c85969adfaa9e98c22913c7">_timeoutFrameCount</a> = 1500</td></tr>
 <tr class="separator:a5214a42f5c85969adfaa9e98c22913c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f2f0ad70ab7ce97acb2a1e2c4d32812" id="r_a3f2f0ad70ab7ce97acb2a1e2c4d32812"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f2f0ad70ab7ce97acb2a1e2c4d32812">autoPlayAfterInitialize</a></td></tr>
@@ -278,12 +284,21 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:ab326f334b7c6c6d8d0df143342fc8d06" id="r_ab326f334b7c6c6d8d0df143342fc8d06"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab326f334b7c6c6d8d0df143342fc8d06">isPlaying</a> = false</td></tr>
 <tr class="memdesc:ab326f334b7c6c6d8d0df143342fc8d06"><td class="mdescLeft">&#160;</td><td class="mdescRight">isPlaying  <br /></td></tr>
 <tr class="separator:ab326f334b7c6c6d8d0df143342fc8d06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48aa89baafb7eaacf3fee78f1d38cd2e" id="r_a48aa89baafb7eaacf3fee78f1d38cd2e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a48aa89baafb7eaacf3fee78f1d38cd2e">rotatedFrameMat</a></td></tr>
+<tr class="memdesc:a48aa89baafb7eaacf3fee78f1d38cd2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The rotated frame mat.  <br /></td></tr>
+<tr class="separator:a48aa89baafb7eaacf3fee78f1d38cd2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1d368aa837c5d89c2eca761f35f1dbf" id="r_ad1d368aa837c5d89c2eca761f35f1dbf"><td class="memItemLeft" align="right" valign="top">IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1d368aa837c5d89c2eca761f35f1dbf">waitForEndOfFrameCoroutine</a></td></tr>
 <tr class="memdesc:ad1d368aa837c5d89c2eca761f35f1dbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">The waitForEndOfFrameCoroutine.  <br /></td></tr>
 <tr class="separator:ad1d368aa837c5d89c2eca761f35f1dbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
+<tr class="memitem:a93b0176645c1a7dc1ecd7f10623a8df7" id="r_a93b0176645c1a7dc1ecd7f10623a8df7"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a93b0176645c1a7dc1ecd7f10623a8df7">flipHorizontal</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a93b0176645c1a7dc1ecd7f10623a8df7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether to flip horizontal.  <br /></td></tr>
+<tr class="separator:a93b0176645c1a7dc1ecd7f10623a8df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a446b0b9b1c87e69a2ea2f56ef4407e0f" id="r_a446b0b9b1c87e69a2ea2f56ef4407e0f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a446b0b9b1c87e69a2ea2f56ef4407e0f">flipVertical</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a446b0b9b1c87e69a2ea2f56ef4407e0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether to flip vertically.  <br /></td></tr>
+<tr class="separator:a446b0b9b1c87e69a2ea2f56ef4407e0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7960281c9541b25d6252df26af189892" id="r_a7960281c9541b25d6252df26af189892"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7960281c9541b25d6252df26af189892">imageBufferMat</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a7960281c9541b25d6252df26af189892"><td class="mdescLeft">&#160;</td><td class="mdescRight">The image buffer mat.  <br /></td></tr>
 <tr class="separator:a7960281c9541b25d6252df26af189892"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -308,12 +323,16 @@ Properties</h2></td></tr>
 <tr class="memitem:a7ef18a0729c4ea2bdcd2deeacd11c282" id="r_a7ef18a0729c4ea2bdcd2deeacd11c282"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ef18a0729c4ea2bdcd2deeacd11c282">requestedMatUpdateFPS</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a7ef18a0729c4ea2bdcd2deeacd11c282"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the frame rate at which the Mat is updated. (interval at which the <a class="el" href="#aa97e98e111225123583875bb9a131290" title="Use this to check if the Mat has changed since the last frame. Since it would not make sense to do ex...">DidUpdateThisFrame()</a> method becomes true).  <br /></td></tr>
 <tr class="separator:a7ef18a0729c4ea2bdcd2deeacd11c282"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb58a2c6f02be0ab0d81de2c5cd22814" id="r_afb58a2c6f02be0ab0d81de2c5cd22814"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afb58a2c6f02be0ab0d81de2c5cd22814">rotate90Degree</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:afb58a2c6f02be0ab0d81de2c5cd22814"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether to rotate image frame 90 degrees. (clockwise)  <br /></td></tr>
+<tr class="separator:afb58a2c6f02be0ab0d81de2c5cd22814"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03c073e4214ae2d279249ec6abed8f3c" id="r_a03c073e4214ae2d279249ec6abed8f3c"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a03c073e4214ae2d279249ec6abed8f3c">timeoutFrameCount</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a03c073e4214ae2d279249ec6abed8f3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of frames before the initialization process times out.  <br /></td></tr>
 <tr class="separator:a03c073e4214ae2d279249ec6abed8f3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IImageSource2MatHelper"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IImageSource2MatHelper')"><img src="../../closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="../../d6/d88/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IImageSource2MatHelper.html">OpenCVForUnity.UnityUtils.Helper.IImageSource2MatHelper</a></td></tr>
 <tr class="inherit_header properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper')"><img src="../../closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a></td></tr>
 <tr class="inherit_header properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatUpdateFPSProvider"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatUpdateFPSProvider')"><img src="../../closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="../../d2/df8/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatUpdateFPSProvider.html">OpenCVForUnity.UnityUtils.Helper.IMatUpdateFPSProvider</a></td></tr>
+<tr class="inherit_header properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatTransformationProvider"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatTransformationProvider')"><img src="../../closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="../../d1/d88/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatTransformationProvider.html">OpenCVForUnity.UnityUtils.Helper.IMatTransformationProvider</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A helper component class for loading an image file using OpenCV's <code><a class="el" href="../../d4/dda/classOpenCVForUnity_1_1ImgcodecsModule_1_1Imgcodecs.html#a2e334b790fef7f32163c4d852fc215dd" title="Loads an image from a file.">Imgcodecs.imread</a></code> method and converting it to an OpenCV <code>Mat</code> format. </p>
@@ -658,7 +677,7 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Return the frame rate at which the Mat is updated. (interval at which the <a class="el" href="#aa97e98e111225123583875bb9a131290" title="Use this to check if the Mat has changed since the last frame. Since it would not make sense to do ex...">DidUpdateThisFrame()</a> method becomes true). </p>
-<dl class="section return"><dt>Returns</dt><dd>The active camera framerate.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The active image framerate.</dd></dl>
 
 <p>Implements <a class="el" href="../../d2/df8/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatUpdateFPSProvider.html#a8ecf51970007a736a39220b1e46866c7">OpenCVForUnity.UnityUtils.Helper.IMatUpdateFPSProvider</a>.</p>
 
@@ -1074,6 +1093,50 @@ Properties</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="aabdce5c517ac11ef9059000742cf3f8e" name="aabdce5c517ac11ef9059000742cf3f8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabdce5c517ac11ef9059000742cf3f8e">&#9670;&#160;</a></span>_flipHorizontal</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.Image2MatHelper._flipHorizontal = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a73557da2bf499cfbf90e2f6cf9954674" name="a73557da2bf499cfbf90e2f6cf9954674"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73557da2bf499cfbf90e2f6cf9954674">&#9670;&#160;</a></span>_flipVertical</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.Image2MatHelper._flipVertical = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a86f128f41bfaa3d66c02995cc89bde2b" name="a86f128f41bfaa3d66c02995cc89bde2b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a86f128f41bfaa3d66c02995cc89bde2b">&#9670;&#160;</a></span>_imageBufferMat</h2>
 
@@ -1261,6 +1324,28 @@ Properties</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">float OpenCVForUnity.UnityUtils.Helper.Image2MatHelper._requestedMatUpdateFPS = 30f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa45b64b005c7e12df69eeb2c1e60e6a4" name="aa45b64b005c7e12df69eeb2c1e60e6a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa45b64b005c7e12df69eeb2c1e60e6a4">&#9670;&#160;</a></span>_rotate90Degree</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.Image2MatHelper._rotate90Degree = false</td>
         </tr>
       </table>
   </td>
@@ -1558,6 +1643,30 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="a48aa89baafb7eaacf3fee78f1d38cd2e" name="a48aa89baafb7eaacf3fee78f1d38cd2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48aa89baafb7eaacf3fee78f1d38cd2e">&#9670;&#160;</a></span>rotatedFrameMat</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> OpenCVForUnity.UnityUtils.Helper.Image2MatHelper.rotatedFrameMat</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The rotated frame mat. </p>
+
+</div>
+</div>
 <a id="ad1d368aa837c5d89c2eca761f35f1dbf" name="ad1d368aa837c5d89c2eca761f35f1dbf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad1d368aa837c5d89c2eca761f35f1dbf">&#9670;&#160;</a></span>waitForEndOfFrameCoroutine</h2>
 
@@ -1583,6 +1692,58 @@ Properties</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
+<a id="a93b0176645c1a7dc1ecd7f10623a8df7" name="a93b0176645c1a7dc1ecd7f10623a8df7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93b0176645c1a7dc1ecd7f10623a8df7">&#9670;&#160;</a></span>flipHorizontal</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool OpenCVForUnity.UnityUtils.Helper.Image2MatHelper.flipHorizontal</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set whether to flip horizontal. </p>
+
+<p>Implements <a class="el" href="../../d1/d88/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatTransformationProvider.html#a6fede209928a7cab29dcc667bc841dbf">OpenCVForUnity.UnityUtils.Helper.IMatTransformationProvider</a>.</p>
+
+</div>
+</div>
+<a id="a446b0b9b1c87e69a2ea2f56ef4407e0f" name="a446b0b9b1c87e69a2ea2f56ef4407e0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a446b0b9b1c87e69a2ea2f56ef4407e0f">&#9670;&#160;</a></span>flipVertical</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool OpenCVForUnity.UnityUtils.Helper.Image2MatHelper.flipVertical</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set whether to flip vertically. </p>
+
+<p>Implements <a class="el" href="../../d1/d88/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatTransformationProvider.html#ab8b133abf2ace12e32a807aa4bc57498">OpenCVForUnity.UnityUtils.Helper.IMatTransformationProvider</a>.</p>
+
+</div>
+</div>
 <a id="a7960281c9541b25d6252df26af189892" name="a7960281c9541b25d6252df26af189892"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7960281c9541b25d6252df26af189892">&#9670;&#160;</a></span>imageBufferMat</h2>
 
@@ -1789,6 +1950,32 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="afb58a2c6f02be0ab0d81de2c5cd22814" name="afb58a2c6f02be0ab0d81de2c5cd22814"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb58a2c6f02be0ab0d81de2c5cd22814">&#9670;&#160;</a></span>rotate90Degree</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool OpenCVForUnity.UnityUtils.Helper.Image2MatHelper.rotate90Degree</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set whether to rotate image frame 90 degrees. (clockwise) </p>
+
+<p>Implements <a class="el" href="../../d1/d88/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatTransformationProvider.html#a467f8051437e20cacc5f61a14f7680dd">OpenCVForUnity.UnityUtils.Helper.IMatTransformationProvider</a>.</p>
+
+</div>
+</div>
 <a id="a03c073e4214ae2d279249ec6abed8f3c" name="a03c073e4214ae2d279249ec6abed8f3c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a03c073e4214ae2d279249ec6abed8f3c">&#9670;&#160;</a></span>timeoutFrameCount</h2>
 
@@ -1816,7 +2003,7 @@ Properties</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/Helper/Source2MatHelper/<a class="el" href="../../d1/d5b/Image2MatHelper_8cs.html">Image2MatHelper.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/_unity/Helper/Source2MatHelper/<a class="el" href="../../d7/de6/__unity_2Helper_2Source2MatHelper_2Image2MatHelper_8cs.html">Image2MatHelper.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

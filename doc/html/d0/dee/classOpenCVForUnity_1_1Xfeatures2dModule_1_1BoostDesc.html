@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.5</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.0</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.12.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -260,7 +260,14 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class implementing <a class="el" href="../../d0/dee/classOpenCVForUnity_1_1Xfeatures2dModule_1_1BoostDesc.html" title="Class implementing BoostDesc (Learning Image Descriptors with Boosting), described in Trzcinski13a an...">BoostDesc</a> (Learning Image Descriptors with Boosting), described in <b>[Trzcinski13a]</b> and <b>[Trzcinski13b]</b>. </p>
-<p>desc type of descriptor to use, BoostDesc::BINBOOST_256 is default (256 bit long dimension) Available types are: BoostDesc::BGM, BoostDesc::BGM_HARD, BoostDesc::BGM_BILINEAR, BoostDesc::LBGM, BoostDesc::BINBOOST_64, BoostDesc::BINBOOST_128, BoostDesc::BINBOOST_256 use_orientation sample patterns using keypoints orientation, enabled by default scale_factor adjust the sampling window of detected keypoints 6.25f is default and fits for KAZE, SURF detected keypoints window ratio 6.75f should be the scale for SIFT detected keypoints window ratio 5.00f should be the scale for AKAZE, MSD, AGAST, FAST, BRISK keypoints window ratio 0.75f should be the scale for ORB keypoints ratio 1.50f was the default in original implementation</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">desc</td><td>type of descriptor to use, BoostDesc::BINBOOST_256 is default (256 bit long dimension) Available types are: BoostDesc::BGM, BoostDesc::BGM_HARD, BoostDesc::BGM_BILINEAR, BoostDesc::LBGM, BoostDesc::BINBOOST_64, BoostDesc::BINBOOST_128, BoostDesc::BINBOOST_256 </td></tr>
+    <tr><td class="paramname">use_orientation</td><td>sample patterns using keypoints orientation, enabled by default </td></tr>
+    <tr><td class="paramname">scale_factor</td><td>adjust the sampling window of detected keypoints 6.25f is default and fits for KAZE, SURF detected keypoints window ratio 6.75f should be the scale for SIFT detected keypoints window ratio 5.00f should be the scale for AKAZE, MSD, AGAST, FAST, BRISK keypoints window ratio 0.75f should be the scale for ORB keypoints ratio 1.50f was the default in original implementation </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section note"><dt>Note</dt><dd>BGM is the base descriptor where each binary dimension is computed as the output of a single weak learner. BGM_HARD and BGM_BILINEAR refers to same BGM but use different type of gradient binning. In the BGM_HARD that use ASSIGN_HARD binning type the gradient is assigned to the nearest orientation bin. In the BGM_BILINEAR that use ASSIGN_BILINEAR binning type the gradient is assigned to the two neighbouring bins. In the BGM and all other modes that use ASSIGN_SOFT binning type the gradient is assigned to 8 nearest bins according to the cosine value between the gradient angle and the bin center. LBGM (alias FP-Boost) is the floating point extension where each dimension is computed as a linear combination of the weak learner responses. BINBOOST and subvariants are the binary extensions of LBGM where each bit is computed as a thresholded linear combination of a set of weak learners. <a class="el" href="../../d0/dee/classOpenCVForUnity_1_1Xfeatures2dModule_1_1BoostDesc.html" title="Class implementing BoostDesc (Learning Image Descriptors with Boosting), described in Trzcinski13a an...">BoostDesc</a> header files (boostdesc_*.i) was exported from original binaries with export-boostdesc.py script from samples subfolder. </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a0c3714faca7dfa93fec6ecea1aeb06b2" name="a0c3714faca7dfa93fec6ecea1aeb06b2"></a>

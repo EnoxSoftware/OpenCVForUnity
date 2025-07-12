@@ -11,6 +11,11 @@ var searchData=
   ['plot2d_8',['Plot2d',['../d1/db3/classOpenCVForUnity_1_1PlotModule_1_1Plot2d.html',1,'OpenCVForUnity::PlotModule']]],
   ['point_9',['Point',['../df/d9d/classOpenCVForUnity_1_1CoreModule_1_1Point.html',1,'OpenCVForUnity::CoreModule']]],
   ['point3_10',['Point3',['../da/d46/classOpenCVForUnity_1_1CoreModule_1_1Point3.html',1,'OpenCVForUnity::CoreModule']]],
-  ['posedata_11',['PoseData',['../d1/d8c/structOpenCVForUnity_1_1UnityUtils_1_1PoseData.html',1,'OpenCVForUnity::UnityUtils']]],
-  ['predictcollector_12',['PredictCollector',['../dd/d06/classOpenCVForUnity_1_1FaceModule_1_1PredictCollector.html',1,'OpenCVForUnity::FaceModule']]]
+  ['posedata_11',['PoseData',['../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html',1,'OpenCVForUnity::UnityIntegration::OpenCVARUtils']]],
+  ['poseestimationblazedata_12',['PoseEstimationBlazeData',['../d8/d99/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipePoseEstimator_1_1PoseEstimationBlazeData.html',1,'OpenCVForUnity::UnityIntegration::Worker::DnnModule::MediaPipePoseEstimator']]],
+  ['poseestimationcoco17data_13',['PoseEstimationCOCO17Data',['../d1/da4/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DataStruct_1_1PoseEstimationCOCO17Data.html',1,'OpenCVForUnity::UnityIntegration::Worker::DataStruct']]],
+  ['poseestimationcoco17dataunsafe_14',['PoseEstimationCOCO17DataUnsafe',['../d8/db2/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DataStruct_1_1PoseEstimationCOCO17DataUnsafe.html',1,'OpenCVForUnity::UnityIntegration::Worker::DataStruct']]],
+  ['predictcollector_15',['PredictCollector',['../dd/d06/classOpenCVForUnity_1_1FaceModule_1_1PredictCollector.html',1,'OpenCVForUnity::FaceModule']]],
+  ['processingcompletion_16',['ProcessingCompletion',['../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html',1,'OpenCVForUnity::UnityIntegration::Worker::ProcessingWorkerBase']]],
+  ['processingworkerbase_17',['ProcessingWorkerBase',['../d9/d9b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase.html',1,'OpenCVForUnity::UnityIntegration::Worker']]]
 ];

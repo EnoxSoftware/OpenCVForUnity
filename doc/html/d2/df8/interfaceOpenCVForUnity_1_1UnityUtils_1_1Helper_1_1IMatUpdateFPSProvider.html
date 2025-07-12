@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.5</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.0</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.12.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -136,18 +136,26 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">OpenCVForUnity.UnityUtils.Helper.IMatUpdateFPSProvider Interface Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Interface to provide frame update rate functionality.  
+ <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a8ecf51970007a736a39220b1e46866c7" id="r_a8ecf51970007a736a39220b1e46866c7"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8ecf51970007a736a39220b1e46866c7">GetMatUpdateFPS</a> ()</td></tr>
+<tr class="memdesc:a8ecf51970007a736a39220b1e46866c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current frame update rate (FPS).  <br /></td></tr>
 <tr class="separator:a8ecf51970007a736a39220b1e46866c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
 <tr class="memitem:a083a5709aef3192d623a6964efdee063" id="r_a083a5709aef3192d623a6964efdee063"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a083a5709aef3192d623a6964efdee063">requestedMatUpdateFPS</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a083a5709aef3192d623a6964efdee063"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the requested frame update rate (FPS).  <br /></td></tr>
 <tr class="separator:a083a5709aef3192d623a6964efdee063"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Interface to provide frame update rate functionality. </p>
+<p>This interface provides functionality to control the update rate of Mat objects. Implementing classes must provide the ability to set the requested update rate and retrieve the current update rate. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a8ecf51970007a736a39220b1e46866c7" name="a8ecf51970007a736a39220b1e46866c7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8ecf51970007a736a39220b1e46866c7">&#9670;&#160;</a></span>GetMatUpdateFPS()</h2>
 
@@ -162,6 +170,9 @@ Properties</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Gets the current frame update rate (FPS). </p>
+<dl class="section return"><dt>Returns</dt><dd>The current FPS.</dd></dl>
 
 <p>Implemented in <a class="el" href="../../d8/dba/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1AsyncGPUReadback2MatHelper.html#a20e949065a66f40aa2b883309f1a142c">OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper</a>, <a class="el" href="../../d6/de0/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Image2MatHelper.html#ad40876e2641ec8946e16214cbee3cdb2">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>, and <a class="el" href="../../d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#a8083d7919f2bd5ea48bfcffd4457049c">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>.</p>
 
@@ -188,12 +199,15 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Gets or sets the requested frame update rate (FPS). </p>
+<p>This property controls the update interval of the Mat object. </p>
+
 <p>Implemented in <a class="el" href="../../d8/dba/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1AsyncGPUReadback2MatHelper.html#ab62eb2a78929dc27d90d4a93bac64995">OpenCVForUnity.UnityUtils.Helper.AsyncGPUReadback2MatHelper</a>, <a class="el" href="../../d6/de0/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1Image2MatHelper.html#a7ef18a0729c4ea2bdcd2deeacd11c282">OpenCVForUnity.UnityUtils.Helper.Image2MatHelper</a>, and <a class="el" href="../../d5/db1/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTexture2MatAsyncGPUHelper.html#a2aa6714248a621caf389e763acadb48e">OpenCVForUnity.UnityUtils.Helper.WebCamTexture2MatAsyncGPUHelper</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this interface was generated from the following file:<ul>
-<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/Helper/Source2MatHelper/<a class="el" href="../../de/df7/IMatUpdateFPSProvider_8cs.html">IMatUpdateFPSProvider.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/_unity/Helper/Source2MatHelper/<a class="el" href="../../df/d81/__unity_2Helper_2Source2MatHelper_2IMatUpdateFPSProvider_8cs.html">IMatUpdateFPSProvider.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

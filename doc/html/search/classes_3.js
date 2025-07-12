@@ -1,10 +1,10 @@
 var searchData=
 [
   ['daisy_0',['DAISY',['../d7/d7b/classOpenCVForUnity_1_1Xfeatures2dModule_1_1DAISY.html',1,'OpenCVForUnity::Xfeatures2dModule']]],
-  ['debugmatutils_1',['DebugMatUtils',['../d2/db1/classOpenCVForUnity_1_1UnityUtils_1_1DebugMatUtils.html',1,'OpenCVForUnity::UnityUtils']]],
-  ['denseopticalflow_2',['DenseOpticalFlow',['../df/dfd/classOpenCVForUnity_1_1VideoModule_1_1DenseOpticalFlow.html',1,'OpenCVForUnity::VideoModule']]],
-  ['descriptormatcher_3',['DescriptorMatcher',['../df/d22/classOpenCVForUnity_1_1Features2dModule_1_1DescriptorMatcher.html',1,'OpenCVForUnity::Features2dModule']]],
-  ['detection_4',['Detection',['../d8/d77/classOpenCVForUnity_1_1UnityUtils_1_1MOT_1_1ByteTrack_1_1Detection.html',1,'OpenCVForUnity::UnityUtils::MOT::ByteTrack']]],
+  ['damoyoloobjectdetector_1',['DAMOYOLOObjectDetector',['../dc/d0b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1DAMOYOLOObjectDetector.html',1,'OpenCVForUnity::UnityIntegration::Worker::DnnModule']]],
+  ['debugmat_2',['DebugMat',['../d0/d64/classOpenCVForUnity_1_1UnityIntegration_1_1DebugMat.html',1,'OpenCVForUnity::UnityIntegration']]],
+  ['denseopticalflow_3',['DenseOpticalFlow',['../df/dfd/classOpenCVForUnity_1_1VideoModule_1_1DenseOpticalFlow.html',1,'OpenCVForUnity::VideoModule']]],
+  ['descriptormatcher_4',['DescriptorMatcher',['../df/d22/classOpenCVForUnity_1_1Features2dModule_1_1DescriptorMatcher.html',1,'OpenCVForUnity::Features2dModule']]],
   ['detectionmodel_5',['DetectionModel',['../d6/dba/classOpenCVForUnity_1_1DnnModule_1_1DetectionModel.html',1,'OpenCVForUnity::DnnModule']]],
   ['detectorparameters_6',['DetectorParameters',['../d9/d2e/classOpenCVForUnity_1_1ObjdetectModule_1_1DetectorParameters.html',1,'OpenCVForUnity::ObjdetectModule']]],
   ['dictionary_7',['Dictionary',['../d6/d9a/classOpenCVForUnity_1_1ObjdetectModule_1_1Dictionary.html',1,'OpenCVForUnity::ObjdetectModule']]],
@@ -17,7 +17,8 @@ var searchData=
   ['dmatch_14',['DMatch',['../da/dc6/classOpenCVForUnity_1_1CoreModule_1_1DMatch.html',1,'OpenCVForUnity::CoreModule']]],
   ['dnn_15',['Dnn',['../dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html',1,'OpenCVForUnity::DnnModule']]],
   ['dnn_5fsuperres_16',['Dnn_superres',['../de/dd0/classOpenCVForUnity_1_1Dnn__superresModule_1_1Dnn__superres.html',1,'OpenCVForUnity::Dnn_superresModule']]],
-  ['dnnsuperresimpl_17',['DnnSuperResImpl',['../d3/d73/classOpenCVForUnity_1_1Dnn__superresModule_1_1DnnSuperResImpl.html',1,'OpenCVForUnity::Dnn_superresModule']]],
-  ['dtfilter_18',['DTFilter',['../da/d30/classOpenCVForUnity_1_1XimgprocModule_1_1DTFilter.html',1,'OpenCVForUnity::XimgprocModule']]],
-  ['dtrees_19',['DTrees',['../db/d84/classOpenCVForUnity_1_1MlModule_1_1DTrees.html',1,'OpenCVForUnity::MlModule']]]
+  ['dnnprocessingutils_17',['DnnProcessingUtils',['../d1/dd1/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1Utils_1_1DnnProcessingUtils.html',1,'OpenCVForUnity::UnityIntegration::Worker::Utils']]],
+  ['dnnsuperresimpl_18',['DnnSuperResImpl',['../d3/d73/classOpenCVForUnity_1_1Dnn__superresModule_1_1DnnSuperResImpl.html',1,'OpenCVForUnity::Dnn_superresModule']]],
+  ['dtfilter_19',['DTFilter',['../da/d30/classOpenCVForUnity_1_1XimgprocModule_1_1DTFilter.html',1,'OpenCVForUnity::XimgprocModule']]],
+  ['dtrees_20',['DTrees',['../db/d84/classOpenCVForUnity_1_1MlModule_1_1DTrees.html',1,'OpenCVForUnity::MlModule']]]
 ];

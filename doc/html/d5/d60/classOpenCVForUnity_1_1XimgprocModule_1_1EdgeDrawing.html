@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.5</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.0</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.12.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -139,13 +139,13 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
-<p>Class implementing the ED (<a class="el" href="../../d5/d60/classOpenCVForUnity_1_1XimgprocModule_1_1EdgeDrawing.html" title="Class implementing the ED (EdgeDrawing) topal2012edge, EDLines akinlar2011edlines,...">EdgeDrawing</a>) <b>[topal2012edge]</b>, EDLines <b>[akinlar2011edlines]</b>, EDPF <b>[akinlar2012edpf]</b> and EDCircles <b>[akinlar2013edcircles]</b> algorithms.  
+<p>Class implementing the ED (<a class="el" href="../../d5/d60/classOpenCVForUnity_1_1XimgprocModule_1_1EdgeDrawing.html" title="Class implementing the ED (EdgeDrawing) topal2012edge, EDLines akinlar2011edlines,...">EdgeDrawing</a>) <b>[topal2012edge]</b>, EDLines <b>[akinlar2011edlines]</b>, EDPF <b>[akinlar2012edpf]</b>, EDCircles <b>[akinlar2013edcircles]</b> and ColorED <b>[akinlar201782]</b> algorithms.  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a940a444667e8d70c9fb1e411efd115ba" id="r_a940a444667e8d70c9fb1e411efd115ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a940a444667e8d70c9fb1e411efd115ba">detectEdges</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> src)</td></tr>
-<tr class="memdesc:a940a444667e8d70c9fb1e411efd115ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects edges in a grayscale image and prepares them to detect lines and ellipses.  <br /></td></tr>
+<tr class="memdesc:a940a444667e8d70c9fb1e411efd115ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects edges in a grayscale or color image and prepares them to detect lines and ellipses.  <br /></td></tr>
 <tr class="separator:a940a444667e8d70c9fb1e411efd115ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e8ad510fe891d11c8849b60a9fcb8c0" id="r_a8e8ad510fe891d11c8849b60a9fcb8c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e8ad510fe891d11c8849b60a9fcb8c0">detectEllipses</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> ellipses)</td></tr>
 <tr class="memdesc:a8e8ad510fe891d11c8849b60a9fcb8c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects circles and ellipses.  <br /></td></tr>
@@ -154,16 +154,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a008089b21e9e8fa0ae27fbb601662181"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects lines.  <br /></td></tr>
 <tr class="separator:a008089b21e9e8fa0ae27fbb601662181"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e0b02753bffb36801c16a98f165b64f" id="r_a6e0b02753bffb36801c16a98f165b64f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6e0b02753bffb36801c16a98f165b64f">getEdgeImage</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> dst)</td></tr>
-<tr class="memdesc:a6e0b02753bffb36801c16a98f165b64f"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns Edge Image prepared by <a class="el" href="#a940a444667e8d70c9fb1e411efd115ba" title="Detects edges in a grayscale image and prepares them to detect lines and ellipses.">detectEdges()</a> function.  <br /></td></tr>
+<tr class="memdesc:a6e0b02753bffb36801c16a98f165b64f"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns Edge Image prepared by <a class="el" href="#a940a444667e8d70c9fb1e411efd115ba" title="Detects edges in a grayscale or color image and prepares them to detect lines and ellipses.">detectEdges()</a> function.  <br /></td></tr>
 <tr class="separator:a6e0b02753bffb36801c16a98f165b64f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30ceab28e8493963d632016e5ab6d27c" id="r_a30ceab28e8493963d632016e5ab6d27c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a30ceab28e8493963d632016e5ab6d27c">getGradientImage</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> dst)</td></tr>
-<tr class="memdesc:a30ceab28e8493963d632016e5ab6d27c"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns Gradient Image prepared by <a class="el" href="#a940a444667e8d70c9fb1e411efd115ba" title="Detects edges in a grayscale image and prepares them to detect lines and ellipses.">detectEdges()</a> function.  <br /></td></tr>
+<tr class="memdesc:a30ceab28e8493963d632016e5ab6d27c"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns Gradient Image prepared by <a class="el" href="#a940a444667e8d70c9fb1e411efd115ba" title="Detects edges in a grayscale or color image and prepares them to detect lines and ellipses.">detectEdges()</a> function.  <br /></td></tr>
 <tr class="separator:a30ceab28e8493963d632016e5ab6d27c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5cd5b6000f2e6e246ee535b37180dd8a" id="r_a5cd5b6000f2e6e246ee535b37180dd8a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5cd5b6000f2e6e246ee535b37180dd8a">getSegmentIndicesOfLines</a> ()</td></tr>
 <tr class="memdesc:a5cd5b6000f2e6e246ee535b37180dd8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns for each line found in <a class="el" href="#a008089b21e9e8fa0ae27fbb601662181" title="Detects lines.">detectLines()</a> its edge segment index in <a class="el" href="#a1c38fced5030b481ec52f41101315786" title="Returns std::vector&lt;std::vector&lt;Point&gt;&gt; of detected edge segments, see detectEdges()">getSegments()</a>  <br /></td></tr>
 <tr class="separator:a5cd5b6000f2e6e246ee535b37180dd8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c38fced5030b481ec52f41101315786" id="r_a1c38fced5030b481ec52f41101315786"><td class="memItemLeft" align="right" valign="top">List&lt; <a class="el" href="../../d2/d95/classOpenCVForUnity_1_1CoreModule_1_1MatOfPoint.html">MatOfPoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1c38fced5030b481ec52f41101315786">getSegments</a> ()</td></tr>
-<tr class="memdesc:a1c38fced5030b481ec52f41101315786"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns std::vector&lt;std::vector&lt;Point&gt;&gt; of detected edge segments, see <a class="el" href="#a940a444667e8d70c9fb1e411efd115ba" title="Detects edges in a grayscale image and prepares them to detect lines and ellipses.">detectEdges()</a>  <br /></td></tr>
+<tr class="memdesc:a1c38fced5030b481ec52f41101315786"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns std::vector&lt;std::vector&lt;Point&gt;&gt; of detected edge segments, see <a class="el" href="#a940a444667e8d70c9fb1e411efd115ba" title="Detects edges in a grayscale or color image and prepares them to detect lines and ellipses.">detectEdges()</a>  <br /></td></tr>
 <tr class="separator:a1c38fced5030b481ec52f41101315786"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c223ab5d1a15aa82f11bb4b9ad229ea" id="r_a1c223ab5d1a15aa82f11bb4b9ad229ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1c223ab5d1a15aa82f11bb4b9ad229ea">setParams</a> (<a class="el" href="../../dd/de0/classOpenCVForUnity_1_1XimgprocModule_1_1EdgeDrawing__Params.html">EdgeDrawing_Params</a> parameters)</td></tr>
 <tr class="memdesc:a1c223ab5d1a15aa82f11bb4b9ad229ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets parameters.  <br /></td></tr>
@@ -201,12 +201,16 @@ Static Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a964e0dbf3cb9abe9c97a932e37ce3cf4" id="r_a964e0dbf3cb9abe9c97a932e37ce3cf4"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a964e0dbf3cb9abe9c97a932e37ce3cf4">LSD</a> = 3</td></tr>
+<tr class="memdesc:a964e0dbf3cb9abe9c97a932e37ce3cf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++: enum GradientOperator (cv.ximgproc.EdgeDrawing.GradientOperator)  <br /></td></tr>
 <tr class="separator:a964e0dbf3cb9abe9c97a932e37ce3cf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0283cf19f0c8d1f22fa94fc5f6fcdc6f" id="r_a0283cf19f0c8d1f22fa94fc5f6fcdc6f"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0283cf19f0c8d1f22fa94fc5f6fcdc6f">PREWITT</a> = 0</td></tr>
+<tr class="memdesc:a0283cf19f0c8d1f22fa94fc5f6fcdc6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++: enum GradientOperator (cv.ximgproc.EdgeDrawing.GradientOperator)  <br /></td></tr>
 <tr class="separator:a0283cf19f0c8d1f22fa94fc5f6fcdc6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae56e484f71ed3975f0939dec51064c43" id="r_ae56e484f71ed3975f0939dec51064c43"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae56e484f71ed3975f0939dec51064c43">SCHARR</a> = 2</td></tr>
+<tr class="memdesc:ae56e484f71ed3975f0939dec51064c43"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++: enum GradientOperator (cv.ximgproc.EdgeDrawing.GradientOperator)  <br /></td></tr>
 <tr class="separator:ae56e484f71ed3975f0939dec51064c43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23173ec9402079d4fbc3c7c2bf12946a" id="r_a23173ec9402079d4fbc3c7c2bf12946a"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23173ec9402079d4fbc3c7c2bf12946a">SOBEL</a> = 1</td></tr>
+<tr class="memdesc:a23173ec9402079d4fbc3c7c2bf12946a"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++: enum GradientOperator (cv.ximgproc.EdgeDrawing.GradientOperator)  <br /></td></tr>
 <tr class="separator:a23173ec9402079d4fbc3c7c2bf12946a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
@@ -240,7 +244,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a8e287e3cb5995f483cb64dd6c3b19a7f inherit properties_classOpenCVForUnity_1_1DisposableObject"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class implementing the ED (<a class="el" href="../../d5/d60/classOpenCVForUnity_1_1XimgprocModule_1_1EdgeDrawing.html" title="Class implementing the ED (EdgeDrawing) topal2012edge, EDLines akinlar2011edlines,...">EdgeDrawing</a>) <b>[topal2012edge]</b>, EDLines <b>[akinlar2011edlines]</b>, EDPF <b>[akinlar2012edpf]</b> and EDCircles <b>[akinlar2013edcircles]</b> algorithms. </p>
+<div class="textblock"><p>Class implementing the ED (<a class="el" href="../../d5/d60/classOpenCVForUnity_1_1XimgprocModule_1_1EdgeDrawing.html" title="Class implementing the ED (EdgeDrawing) topal2012edge, EDLines akinlar2011edlines,...">EdgeDrawing</a>) <b>[topal2012edge]</b>, EDLines <b>[akinlar2011edlines]</b>, EDPF <b>[akinlar2012edpf]</b>, EDCircles <b>[akinlar2013edcircles]</b> and ColorED <b>[akinlar201782]</b> algorithms. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="adb79d0fd0925eb2441d5e3867e32c539" name="adb79d0fd0925eb2441d5e3867e32c539"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adb79d0fd0925eb2441d5e3867e32c539">&#9670;&#160;</a></span>__fromPtr__()</h2>
@@ -282,10 +286,10 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Detects edges in a grayscale image and prepares them to detect lines and ellipses. </p>
+<p>Detects edges in a grayscale or color image and prepares them to detect lines and ellipses. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">src</td><td>8-bit, single-channel, grayscale input image. </td></tr>
+    <tr><td class="paramname">src</td><td>8-bit, single-channel (CV_8UC1) or color (CV_8UC3, CV_8UC4) input image. </td></tr>
   </table>
   </dd>
 </dl>
@@ -314,7 +318,7 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>you should call <a class="el" href="#a940a444667e8d70c9fb1e411efd115ba" title="Detects edges in a grayscale image and prepares them to detect lines and ellipses.">detectEdges()</a> before calling this function. </p>
+<p>you should call <a class="el" href="#a940a444667e8d70c9fb1e411efd115ba" title="Detects edges in a grayscale or color image and prepares them to detect lines and ellipses.">detectEdges()</a> before calling this function. </p>
 
 </div>
 </div>
@@ -340,7 +344,7 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>you should call <a class="el" href="#a940a444667e8d70c9fb1e411efd115ba" title="Detects edges in a grayscale image and prepares them to detect lines and ellipses.">detectEdges()</a> before calling this function. </p>
+<p>you should call <a class="el" href="#a940a444667e8d70c9fb1e411efd115ba" title="Detects edges in a grayscale or color image and prepares them to detect lines and ellipses.">detectEdges()</a> before calling this function. </p>
 
 </div>
 </div>
@@ -386,7 +390,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>returns Edge Image prepared by <a class="el" href="#a940a444667e8d70c9fb1e411efd115ba" title="Detects edges in a grayscale image and prepares them to detect lines and ellipses.">detectEdges()</a> function. </p>
+<p>returns Edge Image prepared by <a class="el" href="#a940a444667e8d70c9fb1e411efd115ba" title="Detects edges in a grayscale or color image and prepares them to detect lines and ellipses.">detectEdges()</a> function. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">dst</td><td>returns 8-bit, single-channel output image. </td></tr>
@@ -411,7 +415,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>returns Gradient Image prepared by <a class="el" href="#a940a444667e8d70c9fb1e411efd115ba" title="Detects edges in a grayscale image and prepares them to detect lines and ellipses.">detectEdges()</a> function. </p>
+<p>returns Gradient Image prepared by <a class="el" href="#a940a444667e8d70c9fb1e411efd115ba" title="Detects edges in a grayscale or color image and prepares them to detect lines and ellipses.">detectEdges()</a> function. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">dst</td><td>returns 16-bit, single-channel output image. </td></tr>
@@ -455,7 +459,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns std::vector&lt;std::vector&lt;Point&gt;&gt; of detected edge segments, see <a class="el" href="#a940a444667e8d70c9fb1e411efd115ba" title="Detects edges in a grayscale image and prepares them to detect lines and ellipses.">detectEdges()</a> </p>
+<p>Returns std::vector&lt;std::vector&lt;Point&gt;&gt; of detected edge segments, see <a class="el" href="#a940a444667e8d70c9fb1e411efd115ba" title="Detects edges in a grayscale or color image and prepares them to detect lines and ellipses.">detectEdges()</a> </p>
 
 </div>
 </div>
@@ -506,6 +510,8 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>C++: enum GradientOperator (cv.ximgproc.EdgeDrawing.GradientOperator) </p>
+
 </div>
 </div>
 <a id="a0283cf19f0c8d1f22fa94fc5f6fcdc6f" name="a0283cf19f0c8d1f22fa94fc5f6fcdc6f"></a>
@@ -527,6 +533,8 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>C++: enum GradientOperator (cv.ximgproc.EdgeDrawing.GradientOperator) </p>
 
 </div>
 </div>
@@ -550,6 +558,8 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>C++: enum GradientOperator (cv.ximgproc.EdgeDrawing.GradientOperator) </p>
+
 </div>
 </div>
 <a id="a23173ec9402079d4fbc3c7c2bf12946a" name="a23173ec9402079d4fbc3c7c2bf12946a"></a>
@@ -571,6 +581,8 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>C++: enum GradientOperator (cv.ximgproc.EdgeDrawing.GradientOperator) </p>
 
 </div>
 </div>

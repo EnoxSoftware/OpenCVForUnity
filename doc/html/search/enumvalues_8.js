@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['perpixel_0',['PerPixel',['../d3/d6c/classOpenCVForUnity_1_1UnityUtils_1_1Utils.html#a54bb865c59edb631135a91c34bcea3bcaba158bef870b6f8785634376161d0142',1,'OpenCVForUnity::UnityUtils::Utils']]]
+  ['opencvnmsboxesbatched_0',['OpenCVNMSBoxesBatched',['../dc/d0b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1DAMOYOLOObjectDetector.html#aba43aba5e5594a85d87191d6fc15f9fbab30aedfbf58aeec3d5dfa71f6d6516ce',1,'OpenCVForUnity.UnityIntegration.Worker.DnnModule.DAMOYOLOObjectDetector.OpenCVNMSBoxesBatched'],['../dc/d9d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1NanoDetPlusObjectDetector.html#a95963ed2c3d1c9e3c8b371a60fd8776eab30aedfbf58aeec3d5dfa71f6d6516ce',1,'OpenCVForUnity.UnityIntegration.Worker.DnnModule.NanoDetPlusObjectDetector.OpenCVNMSBoxesBatched'],['../d1/d9d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YOLOXObjectDetector.html#af65bee03959932918356f443e01ee085ab30aedfbf58aeec3d5dfa71f6d6516ce',1,'OpenCVForUnity.UnityIntegration.Worker.DnnModule.YOLOXObjectDetector.OpenCVNMSBoxesBatched']]]
 ];

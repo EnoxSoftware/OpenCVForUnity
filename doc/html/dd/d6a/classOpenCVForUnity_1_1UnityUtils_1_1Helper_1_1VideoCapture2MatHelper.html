@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.5</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.0</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.12.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -245,6 +245,10 @@ Protected Member Functions</h2></td></tr>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:acd3a1a88b9165012524185f10c98e675" id="r_acd3a1a88b9165012524185f10c98e675"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acd3a1a88b9165012524185f10c98e675">_apiPreference</a> = Videoio.CAP_ANY</td></tr>
 <tr class="separator:acd3a1a88b9165012524185f10c98e675"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea946c7852fc648085533f513ed003a9" id="r_aea946c7852fc648085533f513ed003a9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aea946c7852fc648085533f513ed003a9">_flipHorizontal</a> = false</td></tr>
+<tr class="separator:aea946c7852fc648085533f513ed003a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68680717689ba85d2d88683e8fd05930" id="r_a68680717689ba85d2d88683e8fd05930"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68680717689ba85d2d88683e8fd05930">_flipVertical</a> = false</td></tr>
+<tr class="separator:a68680717689ba85d2d88683e8fd05930"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a5c219a79314e2c0611417828724f34" id="r_a9a5c219a79314e2c0611417828724f34"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a5c219a79314e2c0611417828724f34">_imageBufferMat</a></td></tr>
 <tr class="separator:a9a5c219a79314e2c0611417828724f34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98fa9e6478a4006f1a0805650802c67a" id="r_a98fa9e6478a4006f1a0805650802c67a"><td class="memItemLeft" align="right" valign="top">System.Object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a98fa9e6478a4006f1a0805650802c67a">_imageBufferMatLockObject</a> = new System.Object()</td></tr>
@@ -263,6 +267,8 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a72a6ec25034c96735e63652358dde297"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a812ff23e109df2e1c070ccc0e314ff4d" id="r_a812ff23e109df2e1c070ccc0e314ff4d"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a812ff23e109df2e1c070ccc0e314ff4d">_requestedVideoFilePath</a> = string.Empty</td></tr>
 <tr class="separator:a812ff23e109df2e1c070ccc0e314ff4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7fd64f99cf1db4ac16c9bff54540c9a" id="r_af7fd64f99cf1db4ac16c9bff54540c9a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af7fd64f99cf1db4ac16c9bff54540c9a">_rotate90Degree</a> = false</td></tr>
+<tr class="separator:af7fd64f99cf1db4ac16c9bff54540c9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa257e75e66b773d3fbc376cefe06aae0" id="r_aa257e75e66b773d3fbc376cefe06aae0"><td class="memItemLeft" align="right" valign="top">System.Object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa257e75e66b773d3fbc376cefe06aae0">_sync</a> = new System.Object()</td></tr>
 <tr class="separator:aa257e75e66b773d3fbc376cefe06aae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a56b1bd716c00d3e48751ccf495ccc7" id="r_a1a56b1bd716c00d3e48751ccf495ccc7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1a56b1bd716c00d3e48751ccf495ccc7">_timeoutFrameCount</a> = 1500</td></tr>
@@ -298,6 +304,9 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:ac0a96f79d74cdcb6904e7a0204002cb2" id="r_ac0a96f79d74cdcb6904e7a0204002cb2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac0a96f79d74cdcb6904e7a0204002cb2">isInitWaiting</a> = false</td></tr>
 <tr class="memdesc:ac0a96f79d74cdcb6904e7a0204002cb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether this instance is waiting for initialization to complete.  <br /></td></tr>
 <tr class="separator:ac0a96f79d74cdcb6904e7a0204002cb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8506bd08a068c852a741330aebc80ca" id="r_ad8506bd08a068c852a741330aebc80ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad8506bd08a068c852a741330aebc80ca">rotatedFrameMat</a></td></tr>
+<tr class="memdesc:ad8506bd08a068c852a741330aebc80ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">The rotated frame mat.  <br /></td></tr>
+<tr class="separator:ad8506bd08a068c852a741330aebc80ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5950d67ee961dae30495f71b6d31248" id="r_ac5950d67ee961dae30495f71b6d31248"><td class="memItemLeft" align="right" valign="top">IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5950d67ee961dae30495f71b6d31248">waitForEndOfFrameCoroutine</a></td></tr>
 <tr class="memdesc:ac5950d67ee961dae30495f71b6d31248"><td class="mdescLeft">&#160;</td><td class="mdescRight">The waitForEndOfFrameCoroutine.  <br /></td></tr>
 <tr class="separator:ac5950d67ee961dae30495f71b6d31248"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -307,6 +316,12 @@ Properties</h2></td></tr>
 <tr class="memitem:a3adf1047c07d768546689fb65c30c34d" id="r_a3adf1047c07d768546689fb65c30c34d"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3adf1047c07d768546689fb65c30c34d">apiPreference</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a3adf1047c07d768546689fb65c30c34d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the apiPreference. VideoCapture API backends identifier. (Advanced Option) See ReadMe.pdf for setup instructions for using CAP_FFMPEG on Windows platforms.  <br /></td></tr>
 <tr class="separator:a3adf1047c07d768546689fb65c30c34d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5c3c2e41feceffad3d725a6798d01c8" id="r_ac5c3c2e41feceffad3d725a6798d01c8"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5c3c2e41feceffad3d725a6798d01c8">flipHorizontal</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ac5c3c2e41feceffad3d725a6798d01c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether to flip horizontal.  <br /></td></tr>
+<tr class="separator:ac5c3c2e41feceffad3d725a6798d01c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6805cec95adaa28b41772da7e9e7348" id="r_ad6805cec95adaa28b41772da7e9e7348"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6805cec95adaa28b41772da7e9e7348">flipVertical</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ad6805cec95adaa28b41772da7e9e7348"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether to flip vertically.  <br /></td></tr>
+<tr class="separator:ad6805cec95adaa28b41772da7e9e7348"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae35c8c7d7a3fcbe66f4263d521f7cd87" id="r_ae35c8c7d7a3fcbe66f4263d521f7cd87"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae35c8c7d7a3fcbe66f4263d521f7cd87">imageBufferMat</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:ae35c8c7d7a3fcbe66f4263d521f7cd87"><td class="mdescLeft">&#160;</td><td class="mdescRight">The image buffer mat.  <br /></td></tr>
 <tr class="separator:ae35c8c7d7a3fcbe66f4263d521f7cd87"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -331,6 +346,9 @@ Properties</h2></td></tr>
 <tr class="memitem:ab1e4e34d7c03c4fa4bee61b19e5fe91b" id="r_ab1e4e34d7c03c4fa4bee61b19e5fe91b"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1e4e34d7c03c4fa4bee61b19e5fe91b">requestedVideoFilePath</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:ab1e4e34d7c03c4fa4bee61b19e5fe91b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the video file path, relative to the starting point of the "StreamingAssets" folder, or absolute path.  <br /></td></tr>
 <tr class="separator:ab1e4e34d7c03c4fa4bee61b19e5fe91b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05d25de39c3350f7279f4ab50071b7b6" id="r_a05d25de39c3350f7279f4ab50071b7b6"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a05d25de39c3350f7279f4ab50071b7b6">rotate90Degree</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a05d25de39c3350f7279f4ab50071b7b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether to rotate video frame 90 degrees. (clockwise)  <br /></td></tr>
+<tr class="separator:a05d25de39c3350f7279f4ab50071b7b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae689575148c49714a24304a607f2a945" id="r_ae689575148c49714a24304a607f2a945"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae689575148c49714a24304a607f2a945">timeoutFrameCount</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:ae689575148c49714a24304a607f2a945"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of frames before the initialization process times out.  <br /></td></tr>
 <tr class="separator:ae689575148c49714a24304a607f2a945"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -339,6 +357,7 @@ Properties</h2></td></tr>
 <tr class="separator:a4cf59f1379402823904a73d88806c4fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IVideoSource2MatHelper"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IVideoSource2MatHelper')"><img src="../../closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="../../d1/d89/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IVideoSource2MatHelper.html">OpenCVForUnity.UnityUtils.Helper.IVideoSource2MatHelper</a></td></tr>
 <tr class="inherit_header properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper')"><img src="../../closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="../../d1/d4e/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ISource2MatHelper.html">OpenCVForUnity.UnityUtils.Helper.ISource2MatHelper</a></td></tr>
+<tr class="inherit_header properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatTransformationProvider"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatTransformationProvider')"><img src="../../closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="../../d1/d88/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatTransformationProvider.html">OpenCVForUnity.UnityUtils.Helper.IMatTransformationProvider</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A helper component class for obtaining video frames from a file using OpenCV's <code>VideoCapture</code> and converting them to OpenCV <code>Mat</code> format. </p>
@@ -1310,6 +1329,50 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="aea946c7852fc648085533f513ed003a9" name="aea946c7852fc648085533f513ed003a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea946c7852fc648085533f513ed003a9">&#9670;&#160;</a></span>_flipHorizontal</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper._flipHorizontal = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a68680717689ba85d2d88683e8fd05930" name="a68680717689ba85d2d88683e8fd05930"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68680717689ba85d2d88683e8fd05930">&#9670;&#160;</a></span>_flipVertical</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper._flipVertical = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a9a5c219a79314e2c0611417828724f34" name="a9a5c219a79314e2c0611417828724f34"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9a5c219a79314e2c0611417828724f34">&#9670;&#160;</a></span>_imageBufferMat</h2>
 
@@ -1497,6 +1560,28 @@ Properties</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">string OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper._requestedVideoFilePath = string.Empty</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af7fd64f99cf1db4ac16c9bff54540c9a" name="af7fd64f99cf1db4ac16c9bff54540c9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7fd64f99cf1db4ac16c9bff54540c9a">&#9670;&#160;</a></span>_rotate90Degree</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper._rotate90Degree = false</td>
         </tr>
       </table>
   </td>
@@ -1812,6 +1897,30 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="ad8506bd08a068c852a741330aebc80ca" name="ad8506bd08a068c852a741330aebc80ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8506bd08a068c852a741330aebc80ca">&#9670;&#160;</a></span>rotatedFrameMat</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper.rotatedFrameMat</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The rotated frame mat. </p>
+
+</div>
+</div>
 <a id="ac5950d67ee961dae30495f71b6d31248" name="ac5950d67ee961dae30495f71b6d31248"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac5950d67ee961dae30495f71b6d31248">&#9670;&#160;</a></span>waitForEndOfFrameCoroutine</h2>
 
@@ -1858,6 +1967,58 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the apiPreference. VideoCapture API backends identifier. (Advanced Option) See ReadMe.pdf for setup instructions for using CAP_FFMPEG on Windows platforms. </p>
+
+</div>
+</div>
+<a id="ac5c3c2e41feceffad3d725a6798d01c8" name="ac5c3c2e41feceffad3d725a6798d01c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5c3c2e41feceffad3d725a6798d01c8">&#9670;&#160;</a></span>flipHorizontal</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper.flipHorizontal</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set whether to flip horizontal. </p>
+
+<p>Implements <a class="el" href="../../d1/d88/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatTransformationProvider.html#a6fede209928a7cab29dcc667bc841dbf">OpenCVForUnity.UnityUtils.Helper.IMatTransformationProvider</a>.</p>
+
+</div>
+</div>
+<a id="ad6805cec95adaa28b41772da7e9e7348" name="ad6805cec95adaa28b41772da7e9e7348"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6805cec95adaa28b41772da7e9e7348">&#9670;&#160;</a></span>flipVertical</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper.flipVertical</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set whether to flip vertically. </p>
+
+<p>Implements <a class="el" href="../../d1/d88/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatTransformationProvider.html#ab8b133abf2ace12e32a807aa4bc57498">OpenCVForUnity.UnityUtils.Helper.IMatTransformationProvider</a>.</p>
 
 </div>
 </div>
@@ -2065,6 +2226,32 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="a05d25de39c3350f7279f4ab50071b7b6" name="a05d25de39c3350f7279f4ab50071b7b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05d25de39c3350f7279f4ab50071b7b6">&#9670;&#160;</a></span>rotate90Degree</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool OpenCVForUnity.UnityUtils.Helper.VideoCapture2MatHelper.rotate90Degree</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set whether to rotate video frame 90 degrees. (clockwise) </p>
+
+<p>Implements <a class="el" href="../../d1/d88/interfaceOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1IMatTransformationProvider.html#a467f8051437e20cacc5f61a14f7680dd">OpenCVForUnity.UnityUtils.Helper.IMatTransformationProvider</a>.</p>
+
+</div>
+</div>
 <a id="ae689575148c49714a24304a607f2a945" name="ae689575148c49714a24304a607f2a945"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae689575148c49714a24304a607f2a945">&#9670;&#160;</a></span>timeoutFrameCount</h2>
 
@@ -2116,7 +2303,7 @@ Properties</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/Helper/Source2MatHelper/<a class="el" href="../../d5/d93/VideoCapture2MatHelper_8cs.html">VideoCapture2MatHelper.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/_unity/Helper/Source2MatHelper/<a class="el" href="../../d2/d30/__unity_2Helper_2Source2MatHelper_2VideoCapture2MatHelper_8cs.html">VideoCapture2MatHelper.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

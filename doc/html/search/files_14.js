@@ -35,10 +35,9 @@ var searchData=
   ['videocapture_2ecs_32',['VideoCapture.cs',['../de/db4/VideoCapture_8cs.html',1,'']]],
   ['videocapture2mathelper_2ecs_33',['VideoCapture2MatHelper.cs',['../d5/d93/VideoCapture2MatHelper_8cs.html',1,'']]],
   ['videocapturecamerainput2mathelper_2ecs_34',['VideoCaptureCameraInput2MatHelper.cs',['../de/de8/VideoCaptureCameraInput2MatHelper_8cs.html',1,'']]],
-  ['videocapturecamerainputtomathelper_2ecs_35',['VideoCaptureCameraInputToMatHelper.cs',['../dd/d19/VideoCaptureCameraInputToMatHelper_8cs.html',1,'']]],
-  ['videocapturetomathelper_2ecs_36',['VideoCaptureToMatHelper.cs',['../df/d3f/VideoCaptureToMatHelper_8cs.html',1,'']]],
-  ['videoio_2ecs_37',['Videoio.cs',['../db/d04/Videoio_8cs.html',1,'']]],
-  ['videowriter_2ecs_38',['VideoWriter.cs',['../df/d9b/VideoWriter_8cs.html',1,'']]],
-  ['videowriter_5fstruct_2ecs_39',['VideoWriter_Struct.cs',['../dc/d78/VideoWriter__Struct_8cs.html',1,'']]],
-  ['videowriter_5fvaluetuple_2ecs_40',['VideoWriter_ValueTuple.cs',['../d1/d6f/VideoWriter__ValueTuple_8cs.html',1,'']]]
+  ['videoio_2ecs_35',['Videoio.cs',['../db/d04/Videoio_8cs.html',1,'']]],
+  ['videoioconverters_2ecs_36',['VideoioConverters.cs',['../d0/d77/VideoioConverters_8cs.html',1,'']]],
+  ['videowriter_2ecs_37',['VideoWriter.cs',['../df/d9b/VideoWriter_8cs.html',1,'']]],
+  ['videowriter_5fstruct_2ecs_38',['VideoWriter_Struct.cs',['../dc/d78/VideoWriter__Struct_8cs.html',1,'']]],
+  ['videowriter_5fvaluetuple_2ecs_39',['VideoWriter_ValueTuple.cs',['../d1/d6f/VideoWriter__ValueTuple_8cs.html',1,'']]]
 ];

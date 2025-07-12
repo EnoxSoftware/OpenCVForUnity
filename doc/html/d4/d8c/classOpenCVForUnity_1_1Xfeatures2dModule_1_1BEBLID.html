@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.5</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.0</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.12.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -222,8 +222,10 @@ Static Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a45829b51c98bbc7a54a6cc4c0bface5a" id="r_a45829b51c98bbc7a54a6cc4c0bface5a"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a45829b51c98bbc7a54a6cc4c0bface5a">SIZE_256_BITS</a> = 101</td></tr>
+<tr class="memdesc:a45829b51c98bbc7a54a6cc4c0bface5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++: enum BeblidSize (cv.xfeatures2d.BEBLID.BeblidSize)  <br /></td></tr>
 <tr class="separator:a45829b51c98bbc7a54a6cc4c0bface5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74d92f3b3b648dc39b102906cbd9eecc" id="r_a74d92f3b3b648dc39b102906cbd9eecc"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a74d92f3b3b648dc39b102906cbd9eecc">SIZE_512_BITS</a> = 100</td></tr>
+<tr class="memdesc:a74d92f3b3b648dc39b102906cbd9eecc"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++: enum BeblidSize (cv.xfeatures2d.BEBLID.BeblidSize)  <br /></td></tr>
 <tr class="separator:a74d92f3b3b648dc39b102906cbd9eecc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
@@ -263,7 +265,9 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class implementing <a class="el" href="../../d4/d8c/classOpenCVForUnity_1_1Xfeatures2dModule_1_1BEBLID.html" title="Class implementing BEBLID (Boosted Efficient Binary Local Image Descriptor), described in Suarez2020B...">BEBLID</a> (Boosted Efficient Binary Local Image Descriptor), described in <b>[Suarez2020BEBLID]</b> . </p>
 <p><a class="el" href="../../d4/d8c/classOpenCVForUnity_1_1Xfeatures2dModule_1_1BEBLID.html" title="Class implementing BEBLID (Boosted Efficient Binary Local Image Descriptor), described in Suarez2020B...">BEBLID</a> <b>[Suarez2020BEBLID]</b> is a efficient binary descriptor learned with boosting. It is able to describe keypoints from any detector just by changing the scale_factor parameter. In several benchmarks it has proved to largely improve other binary descriptors like ORB or BRISK with the same efficiency. <a class="el" href="../../d4/d8c/classOpenCVForUnity_1_1Xfeatures2dModule_1_1BEBLID.html" title="Class implementing BEBLID (Boosted Efficient Binary Local Image Descriptor), described in Suarez2020B...">BEBLID</a> describes using the difference of mean gray values in different regions of the image around the KeyPoint, the descriptor is specifically optimized for image matching and patch retrieval addressing the asymmetries of these problems.</p>
-<p>If you find this code useful, please add a reference to the following paper: &lt;BLOCKQUOTE&gt; Iago Suárez, Ghesn Sfeir, José M. Buenaposada, and Luis Baumela. <a class="el" href="../../d4/d8c/classOpenCVForUnity_1_1Xfeatures2dModule_1_1BEBLID.html" title="Class implementing BEBLID (Boosted Efficient Binary Local Image Descriptor), described in Suarez2020B...">BEBLID</a>: Boosted efficient binary local image descriptor. Pattern Recognition Letters, 133:366–372, 2020. &lt;/BLOCKQUOTE&gt;</p>
+<p>If you find this code useful, please add a reference to the following paper: </p><blockquote class="doxtable">
+<p>Iago Suárez, Ghesn Sfeir, José M. Buenaposada, and Luis Baumela. <a class="el" href="../../d4/d8c/classOpenCVForUnity_1_1Xfeatures2dModule_1_1BEBLID.html" title="Class implementing BEBLID (Boosted Efficient Binary Local Image Descriptor), described in Suarez2020B...">BEBLID</a>: Boosted efficient binary local image descriptor. Pattern Recognition Letters, 133:366–372, 2020. </p>
+</blockquote>
 <p>The descriptor was trained using 1 million of randomly sampled pairs of patches (20% positives and 80% negatives) from the Liberty split of the UBC datasets <b>[winder2007learning]</b> as described in the paper <b>[Suarez2020BEBLID]</b>. You can check in the <a href="https://raw.githubusercontent.com/opencv/opencv/master/samples/cpp/tutorial_code/features2D/AKAZE_match.cpp" target="_blank">AKAZE example</a> how well <a class="el" href="../../d4/d8c/classOpenCVForUnity_1_1Xfeatures2dModule_1_1BEBLID.html" title="Class implementing BEBLID (Boosted Efficient Binary Local Image Descriptor), described in Suarez2020B...">BEBLID</a> works. Detecting 10000 keypoints with ORB and describing with <a class="el" href="../../d4/d8c/classOpenCVForUnity_1_1Xfeatures2dModule_1_1BEBLID.html" title="Class implementing BEBLID (Boosted Efficient Binary Local Image Descriptor), described in Suarez2020B...">BEBLID</a> obtains 561 inliers (75%) whereas describing with ORB obtains only 493 inliers (63%). </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="abacd7b85c4e6a816dc401a8f39fbe34b" name="abacd7b85c4e6a816dc401a8f39fbe34b"></a>
@@ -318,13 +322,13 @@ Additional Inherited Members</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">scale_factor</td><td>Adjust the sampling window around detected keypoints:<ul>
-<li>&lt;b&gt; 1.00f &lt;/b&gt; should be the scale for ORB keypoints</li>
-<li>&lt;b&gt; 6.75f &lt;/b&gt; should be the scale for SIFT detected keypoints</li>
-<li>&lt;b&gt; 6.25f &lt;/b&gt; is default and fits for KAZE, SURF detected keypoints</li>
-<li>&lt;b&gt; 5.00f &lt;/b&gt; should be the scale for AKAZE, MSD, AGAST, FAST, BRISK keypoints </li>
+<li><b> 1.00f </b> should be the scale for ORB keypoints</li>
+<li><b> 6.75f </b> should be the scale for SIFT detected keypoints</li>
+<li><b> 6.25f </b> is default and fits for KAZE, SURF detected keypoints</li>
+<li><b> 5.00f </b> should be the scale for AKAZE, MSD, AGAST, FAST, BRISK keypoints </li>
 </ul>
 </td></tr>
-    <tr><td class="paramname">n_bits</td><td>Determine the number of bits in the descriptor. Should be either <a class="el" href="#a74d92f3b3b648dc39b102906cbd9eecc">BEBLID.SIZE_512_BITS</a> or <a class="el" href="#a45829b51c98bbc7a54a6cc4c0bface5a">BEBLID.SIZE_256_BITS</a>. </td></tr>
+    <tr><td class="paramname">n_bits</td><td>Determine the number of bits in the descriptor. Should be either <a class="el" href="#a74d92f3b3b648dc39b102906cbd9eecc" title="C++: enum BeblidSize (cv.xfeatures2d.BEBLID.BeblidSize)">BEBLID.SIZE_512_BITS</a> or <a class="el" href="#a45829b51c98bbc7a54a6cc4c0bface5a" title="C++: enum BeblidSize (cv.xfeatures2d.BEBLID.BeblidSize)">BEBLID.SIZE_256_BITS</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -362,13 +366,13 @@ Additional Inherited Members</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">scale_factor</td><td>Adjust the sampling window around detected keypoints:<ul>
-<li>&lt;b&gt; 1.00f &lt;/b&gt; should be the scale for ORB keypoints</li>
-<li>&lt;b&gt; 6.75f &lt;/b&gt; should be the scale for SIFT detected keypoints</li>
-<li>&lt;b&gt; 6.25f &lt;/b&gt; is default and fits for KAZE, SURF detected keypoints</li>
-<li>&lt;b&gt; 5.00f &lt;/b&gt; should be the scale for AKAZE, MSD, AGAST, FAST, BRISK keypoints </li>
+<li><b> 1.00f </b> should be the scale for ORB keypoints</li>
+<li><b> 6.75f </b> should be the scale for SIFT detected keypoints</li>
+<li><b> 6.25f </b> is default and fits for KAZE, SURF detected keypoints</li>
+<li><b> 5.00f </b> should be the scale for AKAZE, MSD, AGAST, FAST, BRISK keypoints </li>
 </ul>
 </td></tr>
-    <tr><td class="paramname">n_bits</td><td>Determine the number of bits in the descriptor. Should be either <a class="el" href="#a74d92f3b3b648dc39b102906cbd9eecc">BEBLID.SIZE_512_BITS</a> or <a class="el" href="#a45829b51c98bbc7a54a6cc4c0bface5a">BEBLID.SIZE_256_BITS</a>. </td></tr>
+    <tr><td class="paramname">n_bits</td><td>Determine the number of bits in the descriptor. Should be either <a class="el" href="#a74d92f3b3b648dc39b102906cbd9eecc" title="C++: enum BeblidSize (cv.xfeatures2d.BEBLID.BeblidSize)">BEBLID.SIZE_512_BITS</a> or <a class="el" href="#a45829b51c98bbc7a54a6cc4c0bface5a" title="C++: enum BeblidSize (cv.xfeatures2d.BEBLID.BeblidSize)">BEBLID.SIZE_256_BITS</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -485,6 +489,8 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>C++: enum BeblidSize (cv.xfeatures2d.BEBLID.BeblidSize) </p>
+
 </div>
 </div>
 <a id="a74d92f3b3b648dc39b102906cbd9eecc" name="a74d92f3b3b648dc39b102906cbd9eecc"></a>
@@ -506,6 +512,8 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>C++: enum BeblidSize (cv.xfeatures2d.BEBLID.BeblidSize) </p>
 
 </div>
 </div>

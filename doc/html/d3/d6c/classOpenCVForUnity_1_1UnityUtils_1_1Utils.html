@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.5</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.0</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.12.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -150,6 +150,12 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ae3ca6a6e3582177ea4e9f90934adb53a" id="r_ae3ca6a6e3582177ea4e9f90934adb53a"><td class="memItemLeft" align="right" valign="top">static ComputeShader&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3ca6a6e3582177ea4e9f90934adb53a">createMatToRenderTextureComputeShader</a> (GraphicsBuffer graphicsBuffer, RenderTexture renderTexture, bool flip=true, int flipCode=0)</td></tr>
+<tr class="memdesc:ae3ca6a6e3582177ea4e9f90934adb53a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a ComputeShader for converting from Mat to RenderTexture based on the current platform and graphics API. This ComputeShader is intended to be used with the kernel index obtained from the getKernelIndexForMatToRenderTextureComputeShader method when dispatching.  <br /></td></tr>
+<tr class="separator:ae3ca6a6e3582177ea4e9f90934adb53a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace611d97775212fc4be52959996a09a0" id="r_ace611d97775212fc4be52959996a09a0"><td class="memItemLeft" align="right" valign="top">static ComputeShader&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace611d97775212fc4be52959996a09a0">createRenderTextureToMatComputeShader</a> (RenderTexture renderTexture, GraphicsBuffer graphicsBuffer, bool flip=true, int flipCode=0)</td></tr>
+<tr class="memdesc:ace611d97775212fc4be52959996a09a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a ComputeShader for converting from RenderTexture to Mat based on the current platform and graphics API. This ComputeShader is intended to be used with the kernel index obtained from the getKernelIndexForRenderTextureToMatComputeShader method when dispatching.  <br /></td></tr>
+<tr class="separator:ace611d97775212fc4be52959996a09a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a855af11cb433f05ee1cdbffc42b8bd48" id="r_a855af11cb433f05ee1cdbffc42b8bd48"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a855af11cb433f05ee1cdbffc42b8bd48">fastMatToTexture2D</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> mat, Texture2D texture2D, bool flip=true, int flipCode=0, bool updateMipmaps=false, bool makeNoLongerReadable=false)</td></tr>
 <tr class="separator:a855af11cb433f05ee1cdbffc42b8bd48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6cb955df379b8b19ee44b03397b6a2d3" id="r_a6cb955df379b8b19ee44b03397b6a2d3"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6cb955df379b8b19ee44b03397b6a2d3">fastTexture2DToMat</a> (Texture2D texture2D, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> mat, bool flip=true, int flipCode=0)</td></tr>
@@ -157,33 +163,64 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a2a00cebbd6a6fa4cfcf169d58c6ee22d" id="r_a2a00cebbd6a6fa4cfcf169d58c6ee22d"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a00cebbd6a6fa4cfcf169d58c6ee22d">getFilePath</a> (string filepath, bool refresh=false, int timeout=0)</td></tr>
 <tr class="memdesc:a2a00cebbd6a6fa4cfcf169d58c6ee22d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the readable path of a file in the "StreamingAssets" directory.  <br /></td></tr>
 <tr class="separator:a2a00cebbd6a6fa4cfcf169d58c6ee22d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf6d54a7c128bbeeda900ee188186c83" id="r_adf6d54a7c128bbeeda900ee188186c83"><td class="memItemLeft" align="right" valign="top">static IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf6d54a7c128bbeeda900ee188186c83">getFilePathAsync</a> (string filepath, Action&lt; string &gt; completed, Action&lt; string, float &gt; progressChanged=null, Action&lt; string, string, long &gt; errorOccurred=null, bool refresh=false, int timeout=0)</td></tr>
-<tr class="memdesc:adf6d54a7c128bbeeda900ee188186c83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronously retrieves the readable path of a file in the "StreamingAssets" directory using coroutines.  <br /></td></tr>
-<tr class="separator:adf6d54a7c128bbeeda900ee188186c83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa5e505c765b9dcbf2c79b5718e256b0" id="r_afa5e505c765b9dcbf2c79b5718e256b0"><td class="memItemLeft" align="right" valign="top">static async Awaitable&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afa5e505c765b9dcbf2c79b5718e256b0">getFilePathAsync</a> (string filepath, Action&lt; string, float &gt; progressChanged=null, Action&lt; string, string, long &gt; errorOccurred=null, bool refresh=false, int timeout=0, CancellationToken cancellationToken=default)</td></tr>
+<tr class="memdesc:afa5e505c765b9dcbf2c79b5718e256b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronously retrieves the readable path of a file in the "StreamingAssets" directory using Awaitable.  <br /></td></tr>
+<tr class="separator:afa5e505c765b9dcbf2c79b5718e256b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3fc0acf42945056634c4b2b44889cc30" id="r_a3fc0acf42945056634c4b2b44889cc30"><td class="memItemLeft" align="right" valign="top">static async Task&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3fc0acf42945056634c4b2b44889cc30">getFilePathAsyncTask</a> (string filepath, Action&lt; string, float &gt; progressChanged=null, Action&lt; string, string, long &gt; errorOccurred=null, bool refresh=false, int timeout=0, CancellationToken cancellationToken=default)</td></tr>
-<tr class="memdesc:a3fc0acf42945056634c4b2b44889cc30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronously retrieves the readable path of a file in the "StreamingAssets" directory using a Task.  <br /></td></tr>
 <tr class="separator:a3fc0acf42945056634c4b2b44889cc30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17ebf386cf9bd11605fcd63c018c06be" id="r_a17ebf386cf9bd11605fcd63c018c06be"><td class="memItemLeft" align="right" valign="top">static IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a17ebf386cf9bd11605fcd63c018c06be">getFilePathCoroutine</a> (string filepath, Action&lt; string &gt; completed, Action&lt; string, float &gt; progressChanged=null, Action&lt; string, string, long &gt; errorOccurred=null, bool refresh=false, int timeout=0)</td></tr>
+<tr class="memdesc:a17ebf386cf9bd11605fcd63c018c06be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronously retrieves the readable path of a file in the "StreamingAssets" directory using Coroutine.  <br /></td></tr>
+<tr class="separator:a17ebf386cf9bd11605fcd63c018c06be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a043edfbc052542156dc8d54bf602bd36" id="r_a043edfbc052542156dc8d54bf602bd36"><td class="memItemLeft" align="right" valign="top">static async Task&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a043edfbc052542156dc8d54bf602bd36">getFilePathTaskAsync</a> (string filepath, Action&lt; string, float &gt; progressChanged=null, Action&lt; string, string, long &gt; errorOccurred=null, bool refresh=false, int timeout=0, CancellationToken cancellationToken=default)</td></tr>
+<tr class="memdesc:a043edfbc052542156dc8d54bf602bd36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronously retrieves the readable path of a file in the "StreamingAssets" directory using Task.  <br /></td></tr>
+<tr class="separator:a043edfbc052542156dc8d54bf602bd36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade397cf8aeac7714645f051e6b346c7b" id="r_ade397cf8aeac7714645f051e6b346c7b"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade397cf8aeac7714645f051e6b346c7b">getKernelIndexForMatToRenderTextureComputeShader</a> (GraphicsBuffer graphicsBuffer, RenderTexture renderTexture)</td></tr>
+<tr class="memdesc:ade397cf8aeac7714645f051e6b346c7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the kernel index to use for converting from Mat to RenderTexture based on the current platform and graphics API. This kernel index is intended to be used when dispatching the ComputeShader obtained from the createMatToRenderTextureComputeShader method.  <br /></td></tr>
+<tr class="separator:ade397cf8aeac7714645f051e6b346c7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac08a41b5f45651a0757be837f6068444" id="r_ac08a41b5f45651a0757be837f6068444"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac08a41b5f45651a0757be837f6068444">getKernelIndexForRenderTextureToMatComputeShader</a> (RenderTexture renderTexture, GraphicsBuffer graphicsBuffer)</td></tr>
+<tr class="memdesc:ac08a41b5f45651a0757be837f6068444"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the kernel index to use for converting from RenderTexture to Mat based on the current platform and graphics API. This kernel index is intended to be used when dispatching the ComputeShader obtained from the createRenderTextureToMatComputeShader method.  <br /></td></tr>
+<tr class="separator:ac08a41b5f45651a0757be837f6068444"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68b17cccac83bbcce60fd8d652cdc791" id="r_a68b17cccac83bbcce60fd8d652cdc791"><td class="memItemLeft" align="right" valign="top">static IReadOnlyList&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68b17cccac83bbcce60fd8d652cdc791">getMultipleFilePaths</a> (IReadOnlyList&lt; string &gt; filepaths, bool refresh=false, int timeout=0)</td></tr>
 <tr class="memdesc:a68b17cccac83bbcce60fd8d652cdc791"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the multiple readable paths of a file in the "StreamingAssets" directory.  <br /></td></tr>
 <tr class="separator:a68b17cccac83bbcce60fd8d652cdc791"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5aa31c65a5feeb7f3dbc507336fd16ef" id="r_a5aa31c65a5feeb7f3dbc507336fd16ef"><td class="memItemLeft" align="right" valign="top">static IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5aa31c65a5feeb7f3dbc507336fd16ef">getMultipleFilePathsAsync</a> (IReadOnlyList&lt; string &gt; filepaths, Action&lt; IReadOnlyList&lt; string &gt; &gt; allCompleted, Action&lt; string &gt; completed=null, Action&lt; string, float &gt; progressChanged=null, Action&lt; string, string, long &gt; errorOccurred=null, bool refresh=false, int timeout=0)</td></tr>
-<tr class="memdesc:a5aa31c65a5feeb7f3dbc507336fd16ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronously retrieves the multiple readable paths of files in the "StreamingAssets" directory using coroutines.  <br /></td></tr>
-<tr class="separator:a5aa31c65a5feeb7f3dbc507336fd16ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68fe29cedd170a542c9bcd49390fb8da" id="r_a68fe29cedd170a542c9bcd49390fb8da"><td class="memItemLeft" align="right" valign="top">static async Awaitable&lt; IReadOnlyList&lt; string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68fe29cedd170a542c9bcd49390fb8da">getMultipleFilePathsAsync</a> (IReadOnlyList&lt; string &gt; filepaths, Action&lt; string &gt; completed=null, Action&lt; string, float &gt; progressChanged=null, Action&lt; string, string, long &gt; errorOccurred=null, bool refresh=false, int timeout=0, CancellationToken cancellationToken=default)</td></tr>
+<tr class="memdesc:a68fe29cedd170a542c9bcd49390fb8da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronously retrieves the multiple readable paths of files in the "StreamingAssets" directory using Awaitable.  <br /></td></tr>
+<tr class="separator:a68fe29cedd170a542c9bcd49390fb8da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d51f0f31b8aa2af24c9b953026c1647" id="r_a7d51f0f31b8aa2af24c9b953026c1647"><td class="memItemLeft" align="right" valign="top">static async Task&lt; IReadOnlyList&lt; string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d51f0f31b8aa2af24c9b953026c1647">getMultipleFilePathsAsyncTask</a> (IReadOnlyList&lt; string &gt; filepaths, Action&lt; string &gt; completed=null, Action&lt; string, float &gt; progressChanged=null, Action&lt; string, string, long &gt; errorOccurred=null, bool refresh=false, int timeout=0, CancellationToken cancellationToken=default)</td></tr>
-<tr class="memdesc:a7d51f0f31b8aa2af24c9b953026c1647"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronously retrieves the multiple readable paths of files in the "StreamingAssets" directory using a Task.  <br /></td></tr>
 <tr class="separator:a7d51f0f31b8aa2af24c9b953026c1647"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a603e02486b2b24baa4ec1e12cd317c0c" id="r_a603e02486b2b24baa4ec1e12cd317c0c"><td class="memItemLeft" align="right" valign="top">static IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a603e02486b2b24baa4ec1e12cd317c0c">getMultipleFilePathsCoroutine</a> (IReadOnlyList&lt; string &gt; filepaths, Action&lt; IReadOnlyList&lt; string &gt; &gt; allCompleted, Action&lt; string &gt; completed=null, Action&lt; string, float &gt; progressChanged=null, Action&lt; string, string, long &gt; errorOccurred=null, bool refresh=false, int timeout=0)</td></tr>
+<tr class="memdesc:a603e02486b2b24baa4ec1e12cd317c0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronously retrieves the multiple readable paths of files in the "StreamingAssets" directory using Coroutine.  <br /></td></tr>
+<tr class="separator:a603e02486b2b24baa4ec1e12cd317c0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8008576b683635c4aa0b62deea1b2586" id="r_a8008576b683635c4aa0b62deea1b2586"><td class="memItemLeft" align="right" valign="top">static async Task&lt; IReadOnlyList&lt; string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8008576b683635c4aa0b62deea1b2586">getMultipleFilePathsTaskAsync</a> (IReadOnlyList&lt; string &gt; filepaths, Action&lt; string &gt; completed=null, Action&lt; string, float &gt; progressChanged=null, Action&lt; string, string, long &gt; errorOccurred=null, bool refresh=false, int timeout=0, CancellationToken cancellationToken=default)</td></tr>
+<tr class="memdesc:a8008576b683635c4aa0b62deea1b2586"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronously retrieves the multiple readable paths of files in the "StreamingAssets" directory using Task.  <br /></td></tr>
+<tr class="separator:a8008576b683635c4aa0b62deea1b2586"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88cea110e573da31cc13e0f3e3b9b9f6" id="r_a88cea110e573da31cc13e0f3e3b9b9f6"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88cea110e573da31cc13e0f3e3b9b9f6">getVersion</a> ()</td></tr>
 <tr class="memdesc:a88cea110e573da31cc13e0f3e3b9b9f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns this "OpenCV for Unity" version number.  <br /></td></tr>
 <tr class="separator:a88cea110e573da31cc13e0f3e3b9b9f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a621859fd9d2fa63aeeff95849015d676" id="r_a621859fd9d2fa63aeeff95849015d676"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a621859fd9d2fa63aeeff95849015d676">graphicsBufferToMat</a> (GraphicsBuffer graphicsBuffer, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> mat, <a class="el" href="#a54bb865c59edb631135a91c34bcea3bc">CopyMode</a> copyMode)</td></tr>
 <tr class="memdesc:a621859fd9d2fa63aeeff95849015d676"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies data from a Unity GraphicsBuffer to a OpenCV Mat.  <br /></td></tr>
 <tr class="separator:a621859fd9d2fa63aeeff95849015d676"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa42a673b61f0a7743746f7135a48c9c5" id="r_aa42a673b61f0a7743746f7135a48c9c5"><td class="memItemLeft" align="right" valign="top">static async Awaitable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa42a673b61f0a7743746f7135a48c9c5">graphicsBufferToMatAsync</a> (GraphicsBuffer graphicsBuffer, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> mat, <a class="el" href="#a54bb865c59edb631135a91c34bcea3bc">CopyMode</a> copyMode, CancellationToken cancellationToken=default)</td></tr>
+<tr class="memdesc:aa42a673b61f0a7743746f7135a48c9c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies data from a Unity GraphicsBuffer to an OpenCV Mat asynchronously.  <br /></td></tr>
+<tr class="separator:aa42a673b61f0a7743746f7135a48c9c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6331c003ba4d0692cd0ff0a34794cfe" id="r_af6331c003ba4d0692cd0ff0a34794cfe"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6331c003ba4d0692cd0ff0a34794cfe">isDebugMode</a> ()</td></tr>
+<tr class="memdesc:af6331c003ba4d0692cd0ff0a34794cfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets whether debug mode is enabled.  <br /></td></tr>
+<tr class="separator:af6331c003ba4d0692cd0ff0a34794cfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbf915716b86a64317640f872c9b189b" id="r_afbf915716b86a64317640f872c9b189b"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afbf915716b86a64317640f872c9b189b">isThrowException</a> ()</td></tr>
+<tr class="memdesc:afbf915716b86a64317640f872c9b189b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets whether OpenCV exceptions are thrown.  <br /></td></tr>
+<tr class="separator:afbf915716b86a64317640f872c9b189b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac77b26f4a37091b7cf49e4f46d83a5e5" id="r_ac77b26f4a37091b7cf49e4f46d83a5e5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac77b26f4a37091b7cf49e4f46d83a5e5">matToGraphicsBuffer</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> mat, GraphicsBuffer graphicsBuffer, <a class="el" href="#a54bb865c59edb631135a91c34bcea3bc">CopyMode</a> copyMode)</td></tr>
 <tr class="memdesc:ac77b26f4a37091b7cf49e4f46d83a5e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies data from a OpenCv Mat to a Unity GraphicsBuffer.  <br /></td></tr>
 <tr class="separator:ac77b26f4a37091b7cf49e4f46d83a5e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96dba965a06d03796138448b701bd418" id="r_a96dba965a06d03796138448b701bd418"><td class="memItemLeft" align="right" valign="top">static async Awaitable&lt; AsyncGPUReadbackRequest &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a96dba965a06d03796138448b701bd418">matToGraphicsBufferAsync</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> mat, GraphicsBuffer graphicsBuffer, <a class="el" href="#a54bb865c59edb631135a91c34bcea3bc">CopyMode</a> copyMode, CancellationToken cancellationToken=default)</td></tr>
+<tr class="memdesc:a96dba965a06d03796138448b701bd418"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies data from a OpenCv Mat to a Unity GraphicsBuffer asynchronously.  <br /></td></tr>
+<tr class="separator:a96dba965a06d03796138448b701bd418"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6756ab6fc48bd80ad46cb1138bb3be7e" id="r_a6756ab6fc48bd80ad46cb1138bb3be7e"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6756ab6fc48bd80ad46cb1138bb3be7e">matToRenderTexture</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> mat, RenderTexture renderTexture, GraphicsBuffer graphicsBuffer, bool flip=true, int flipCode=0)</td></tr>
 <tr class="memdesc:a6756ab6fc48bd80ad46cb1138bb3be7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an OpenCV Mat to a Unity RenderTexture.  <br /></td></tr>
 <tr class="separator:a6756ab6fc48bd80ad46cb1138bb3be7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4abf085c6b937a661aeb8b57880f8e8e" id="r_a4abf085c6b937a661aeb8b57880f8e8e"><td class="memItemLeft" align="right" valign="top">static async Awaitable&lt; AsyncGPUReadbackRequest &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4abf085c6b937a661aeb8b57880f8e8e">matToRenderTextureAsync</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> mat, RenderTexture renderTexture, GraphicsBuffer graphicsBuffer, bool flip=true, int flipCode=0, CancellationToken cancellationToken=default)</td></tr>
+<tr class="memdesc:a4abf085c6b937a661aeb8b57880f8e8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an OpenCV Mat to a Unity RenderTexture asynchronously.  <br /></td></tr>
+<tr class="separator:a4abf085c6b937a661aeb8b57880f8e8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a396371860585ca1e5517bc89cd316be8" id="r_a396371860585ca1e5517bc89cd316be8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a396371860585ca1e5517bc89cd316be8">matToTexture2D</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> mat, Texture2D texture2D, bool flip=true, int flipCode=0, bool updateMipmaps=false, bool makeNoLongerReadable=false)</td></tr>
 <tr class="memdesc:a396371860585ca1e5517bc89cd316be8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an OpenCV Mat to a Unity Texture2D.  <br /></td></tr>
 <tr class="separator:a396371860585ca1e5517bc89cd316be8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -202,12 +239,18 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a1cb1c0cf090f2d105ed6061052363431" id="r_a1cb1c0cf090f2d105ed6061052363431"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1cb1c0cf090f2d105ed6061052363431">matToTexture2DRaw</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> mat, Texture2D texture2D, int mipLevel, bool flip=true, int flipCode=0, bool updateMipmaps=false, bool makeNoLongerReadable=false)</td></tr>
 <tr class="memdesc:a1cb1c0cf090f2d105ed6061052363431"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies raw data from an OpenCV Mat to a Unity Texture2D, targeting the specified mipmap level.  <br /></td></tr>
 <tr class="separator:a1cb1c0cf090f2d105ed6061052363431"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae36495e22a5e6e437462aa2e8cc8cd4a" id="r_ae36495e22a5e6e437462aa2e8cc8cd4a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae36495e22a5e6e437462aa2e8cc8cd4a">renderTextureToMat</a> (RenderTexture renderTexture, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> mat, GraphicsBuffer graphicsBuffer, bool flip=true, int flipCode=0)</td></tr>
-<tr class="memdesc:ae36495e22a5e6e437462aa2e8cc8cd4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Unity RenderTexture to an OpenCV Mat.  <br /></td></tr>
-<tr class="separator:ae36495e22a5e6e437462aa2e8cc8cd4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afed26245eadfb94d12732721720fd59e" id="r_afed26245eadfb94d12732721720fd59e"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afed26245eadfb94d12732721720fd59e">setDebugMode</a> (bool debugMode, bool throwException=false, Action&lt; string &gt; callback=null)</td></tr>
-<tr class="memdesc:afed26245eadfb94d12732721720fd59e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the debug mode.  <br /></td></tr>
-<tr class="separator:afed26245eadfb94d12732721720fd59e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade9d4a648adb53d7e0e350cd4053e057" id="r_ade9d4a648adb53d7e0e350cd4053e057"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade9d4a648adb53d7e0e350cd4053e057">RenderTextureToMat</a> (RenderTexture renderTexture, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> mat, GraphicsBuffer graphicsBuffer, bool flip=true, int flipCode=0)</td></tr>
+<tr class="memdesc:ade9d4a648adb53d7e0e350cd4053e057"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Unity RenderTexture to an OpenCV Mat.  <br /></td></tr>
+<tr class="separator:ade9d4a648adb53d7e0e350cd4053e057"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8bea94f3f33c7eb58109a8baba76222" id="r_aa8bea94f3f33c7eb58109a8baba76222"><td class="memItemLeft" align="right" valign="top">static async Awaitable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8bea94f3f33c7eb58109a8baba76222">renderTextureToMatAsync</a> (RenderTexture renderTexture, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> mat, GraphicsBuffer graphicsBuffer, bool flip=true, int flipCode=0, CancellationToken cancellationToken=default)</td></tr>
+<tr class="memdesc:aa8bea94f3f33c7eb58109a8baba76222"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Unity RenderTexture to an OpenCV Mat asynchronously.  <br /></td></tr>
+<tr class="separator:aa8bea94f3f33c7eb58109a8baba76222"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5067e6a6d62df84eeeffe67c2f99f8bd" id="r_a5067e6a6d62df84eeeffe67c2f99f8bd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5067e6a6d62df84eeeffe67c2f99f8bd">setDebugMode</a> (bool debugMode, bool throwException, Action&lt; string &gt; callback)</td></tr>
+<tr class="memdesc:a5067e6a6d62df84eeeffe67c2f99f8bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the debug mode with a callback.  <br /></td></tr>
+<tr class="separator:a5067e6a6d62df84eeeffe67c2f99f8bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef1a1ee649b860f83bc5a92c81afc9ec" id="r_aef1a1ee649b860f83bc5a92c81afc9ec"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef1a1ee649b860f83bc5a92c81afc9ec">setDebugMode</a> (bool debugMode, bool throwException=false)</td></tr>
+<tr class="memdesc:aef1a1ee649b860f83bc5a92c81afc9ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the debug mode.  <br /></td></tr>
+<tr class="separator:aef1a1ee649b860f83bc5a92c81afc9ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97e3e9b88fb0724aad7584bc2f516c70" id="r_a97e3e9b88fb0724aad7584bc2f516c70"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a97e3e9b88fb0724aad7584bc2f516c70">texture2DToMat</a> (Texture2D texture2D, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> mat, bool flip=true, int flipCode=0)</td></tr>
 <tr class="memdesc:a97e3e9b88fb0724aad7584bc2f516c70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Unity Texture2D to an OpenCV Mat.  <br /></td></tr>
 <tr class="separator:a97e3e9b88fb0724aad7584bc2f516c70"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -220,6 +263,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a861b667732cfa47946b126e383297ccd" id="r_a861b667732cfa47946b126e383297ccd"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a861b667732cfa47946b126e383297ccd">texture2DToMatRaw</a> (Texture2D texture2D, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> mat, int mipLevel, bool flip=true, int flipCode=0)</td></tr>
 <tr class="memdesc:a861b667732cfa47946b126e383297ccd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies raw data from a Unity Texture2D to an OpenCV Mat, targeting the specified mipmap level.  <br /></td></tr>
 <tr class="separator:a861b667732cfa47946b126e383297ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57d234412cffe9f584f37edcaa8b697f" id="r_a57d234412cffe9f584f37edcaa8b697f"><td class="memItemLeft" align="right" valign="top">static async Awaitable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57d234412cffe9f584f37edcaa8b697f">textureToMatAsync</a> (Texture texture, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> mat, bool flip=true, int flipCode=0, int mipIndex=0, int x=0, int width=-1, int y=0, int height=-1, int z=0, int depth=1, GraphicsFormat? dstFormat=null, CancellationToken cancellationToken=default)</td></tr>
+<tr class="memdesc:a57d234412cffe9f584f37edcaa8b697f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Texture to an OpenCV Mat asynchronously.  <br /></td></tr>
+<tr class="separator:a57d234412cffe9f584f37edcaa8b697f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92f9fa1ac650babe08d2e08152cf5c42" id="r_a92f9fa1ac650babe08d2e08152cf5c42"><td class="memItemLeft" align="right" valign="top">static async Awaitable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a92f9fa1ac650babe08d2e08152cf5c42">textureToMatAsync</a> (Texture texture, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> mat, CancellationToken cancellationToken=default)</td></tr>
+<tr class="memdesc:a92f9fa1ac650babe08d2e08152cf5c42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Texture to an OpenCV Mat asynchronously.  <br /></td></tr>
+<tr class="separator:a92f9fa1ac650babe08d2e08152cf5c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab3b5049040a099978d439812d4fed372" id="r_ab3b5049040a099978d439812d4fed372"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3b5049040a099978d439812d4fed372">textureToTexture2D</a> (Texture texture, Texture2D texture2D)</td></tr>
 <tr class="memdesc:ab3b5049040a099978d439812d4fed372"><td class="mdescLeft">&#160;</td><td class="mdescRight">OPENCV_DONT_USE_WEBCAMTEXTURE_API.  <br /></td></tr>
 <tr class="separator:ab3b5049040a099978d439812d4fed372"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -254,6 +303,108 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae3ca6a6e3582177ea4e9f90934adb53a" name="ae3ca6a6e3582177ea4e9f90934adb53a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3ca6a6e3582177ea4e9f90934adb53a">&#9670;&#160;</a></span>createMatToRenderTextureComputeShader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static ComputeShader OpenCVForUnity.UnityUtils.Utils.createMatToRenderTextureComputeShader </td>
+          <td>(</td>
+          <td class="paramtype">GraphicsBuffer</td>          <td class="paramname"><span class="paramname"><em>graphicsBuffer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RenderTexture</td>          <td class="paramname"><span class="paramname"><em>renderTexture</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>flip</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>flipCode</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a ComputeShader for converting from Mat to RenderTexture based on the current platform and graphics API. This ComputeShader is intended to be used with the kernel index obtained from the getKernelIndexForMatToRenderTextureComputeShader method when dispatching. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graphicsBuffer</td><td>The source GraphicsBuffer.</td></tr>
+    <tr><td class="paramname">renderTexture</td><td>The destination RenderTexture.</td></tr>
+    <tr><td class="paramname">flip</td><td>Whether to flip the image vertically.</td></tr>
+    <tr><td class="paramname">flipCode</td><td>The flipCode for the <a class="el" href="../../da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html#a06719211e27bdb5c67c454ea28b16f8b" title="Flips a 2D array around vertical, horizontal, or both axes.">Core.flip()</a> method.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The created ComputeShader.</dd></dl>
+
+</div>
+</div>
+<a id="ace611d97775212fc4be52959996a09a0" name="ace611d97775212fc4be52959996a09a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace611d97775212fc4be52959996a09a0">&#9670;&#160;</a></span>createRenderTextureToMatComputeShader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static ComputeShader OpenCVForUnity.UnityUtils.Utils.createRenderTextureToMatComputeShader </td>
+          <td>(</td>
+          <td class="paramtype">RenderTexture</td>          <td class="paramname"><span class="paramname"><em>renderTexture</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GraphicsBuffer</td>          <td class="paramname"><span class="paramname"><em>graphicsBuffer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>flip</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>flipCode</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a ComputeShader for converting from RenderTexture to Mat based on the current platform and graphics API. This ComputeShader is intended to be used with the kernel index obtained from the getKernelIndexForRenderTextureToMatComputeShader method when dispatching. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">renderTexture</td><td>The source RenderTexture.</td></tr>
+    <tr><td class="paramname">graphicsBuffer</td><td>The destination GraphicsBuffer.</td></tr>
+    <tr><td class="paramname">flip</td><td>Whether to flip the image vertically.</td></tr>
+    <tr><td class="paramname">flipCode</td><td>The flipCode for the <a class="el" href="../../da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html#a06719211e27bdb5c67c454ea28b16f8b" title="Flips a 2D array around vertical, horizontal, or both axes.">Core.flip()</a> method.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The created ComputeShader.</dd></dl>
+
+</div>
+</div>
 <a id="a855af11cb433f05ee1cdbffc42b8bd48" name="a855af11cb433f05ee1cdbffc42b8bd48"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a855af11cb433f05ee1cdbffc42b8bd48">&#9670;&#160;</a></span>fastMatToTexture2D()</h2>
 
@@ -300,7 +451,7 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000018">Deprecated</a></b></dt><dd>Use matToTexture2DRaw method instead. </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000004">Deprecated</a></b></dt><dd>Use <a class="el" href="#a84a0a24952ac2130b776a328c41a12e4" title="Copies raw data from an OpenCV Mat to a Unity Texture2D.">Utils.matToTexture2DRaw</a> </dd></dl>
 
 </div>
 </div>
@@ -340,7 +491,7 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000019">Deprecated</a></b></dt><dd>Use texture2DToMatRaw method instead. </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000005">Deprecated</a></b></dt><dd>Use <a class="el" href="#a7fe8541b693f75edf73588bb691997de" title="Copies raw data from a Unity Texture2D to an OpenCV Mat.">Utils.texture2DToMatRaw</a> </dd></dl>
 
 </div>
 </div>
@@ -377,7 +528,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gets the readable path of a file in the "StreamingAssets" directory. </p>
-<p>Provide a relative file path based on the "StreamingAssets" directory. e.g., "foobar.txt" or "hogehoge/foobar.txt". [Android] The target file that exists in the "StreamingAssets" directory is copied to the the Application.persistentDataPath directory. [WebGL] If the target file has not yet been copied to WebGL's virtual filesystem, it is necessary to use <a class="el" href="#adf6d54a7c128bbeeda900ee188186c83">getFilePathAsync</a> of <a class="el" href="#a3fc0acf42945056634c4b2b44889cc30">getFilePathAsyncTask</a> at first. </p>
+<p>Provide a relative file path based on the "StreamingAssets" directory. e.g., "foobar.txt" or "hogehoge/foobar.txt". [Android] The target file that exists in the "StreamingAssets" directory is copied to the the Application.persistentDataPath directory. [WebGL] If the target file has not yet been copied to WebGL's virtual filesystem, it is necessary to use <a class="el" href="#a17ebf386cf9bd11605fcd63c018c06be">getFilePathCoroutine</a>, <a class="el" href="#afa5e505c765b9dcbf2c79b5718e256b0">getFilePathAsync</a> or <a class="el" href="#a043edfbc052542156dc8d54bf602bd36">getFilePathAsyncTask</a> at first. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filepath</td><td>A file path relative to the "StreamingAssets" directory. </td></tr>
@@ -396,8 +547,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="adf6d54a7c128bbeeda900ee188186c83" name="adf6d54a7c128bbeeda900ee188186c83"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf6d54a7c128bbeeda900ee188186c83">&#9670;&#160;</a></span>getFilePathAsync()</h2>
+<a id="afa5e505c765b9dcbf2c79b5718e256b0" name="afa5e505c765b9dcbf2c79b5718e256b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa5e505c765b9dcbf2c79b5718e256b0">&#9670;&#160;</a></span>getFilePathAsync()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -406,14 +557,9 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static IEnumerator OpenCVForUnity.UnityUtils.Utils.getFilePathAsync </td>
+          <td class="memname">static async Awaitable&lt; string &gt; OpenCVForUnity.UnityUtils.Utils.getFilePathAsync </td>
           <td>(</td>
           <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>filepath</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Action&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>completed</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -433,7 +579,12 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>timeout</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>timeout</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -443,23 +594,25 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Asynchronously retrieves the readable path of a file in the "StreamingAssets" directory using coroutines. </p>
+<p>Asynchronously retrieves the readable path of a file in the "StreamingAssets" directory using Awaitable. </p>
 <p>Provide a relative file path based on the "StreamingAssets" directory. e.g., "foobar.txt" or "hogehoge/foobar.txt". [Android] The target file that exists in the "StreamingAssets" directory is copied to the the Application.persistentDataPath directory. [WebGL] The target file in the "StreamingAssets" directory is copied to the WebGL's virtual filesystem. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filepath</td><td>A file path relative to the "StreamingAssets" directory. </td></tr>
-    <tr><td class="paramname">completed</td><td>A callback that is called when the process is completed. Returns a readable file path in case of success and returns <code>string.Empty</code> in case of error. </td></tr>
     <tr><td class="paramname">progressChanged</td><td>An optional callback that is called when the process is the progress. Returns the file path and a progress value (0.0 to 1.0). </td></tr>
     <tr><td class="paramname">errorOccurred</td><td>An optional callback that is called when the process is error occurred. Returns the file path and an error string and an error response code. </td></tr>
     <tr><td class="paramname">refresh</td><td>[Android][WebGL] If false, the file is not copied if it already exists. If true, the file is always copied. </td></tr>
     <tr><td class="paramname">timeout</td><td>[Android][WebGL] Sets the UnityWebRequest to abort after the specified number of seconds. If set to 0, no timeout is applied. The default is 0. </td></tr>
+    <tr><td class="paramname">cancellationToken</td><td>A cancellation token that can be used to cancel the download operation. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns an IEnumerator object. Yielding the IEnumerator in a coroutine pauses the coroutine until the UnityWebRequest completes or encounters a system error. <b>Note:</b> that if the IEnumerator is externally stoped, the UnityWebRequest's Abort method will not be called, meaning the download will continue in the background. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A task that represents the asynchronous download operation. The result is a readable file path where the downloaded file was saved, or <code>string.Empty</code> if the download fails. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">ArgumentNullException</td><td>Thrown if <em>filepath</em>  is null. </td></tr>
+    <tr><td class="paramname">InvalidOperationException</td><td>Thrown if this method is called from a non-main thread. </td></tr>
+    <tr><td class="paramname">OperationCanceledException</td><td>Thrown if the download operation is canceled. </td></tr>
   </table>
   </dd>
 </dl>
@@ -512,8 +665,128 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000006">Deprecated</a></b></dt><dd>Use <a class="el" href="#a043edfbc052542156dc8d54bf602bd36" title="Asynchronously retrieves the readable path of a file in the &quot;StreamingAssets&quot; directory using Task.">Utils.getFilePathTaskAsync</a> </dd></dl>
 
-<p>Asynchronously retrieves the readable path of a file in the "StreamingAssets" directory using a Task. </p>
+</div>
+</div>
+<a id="a17ebf386cf9bd11605fcd63c018c06be" name="a17ebf386cf9bd11605fcd63c018c06be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17ebf386cf9bd11605fcd63c018c06be">&#9670;&#160;</a></span>getFilePathCoroutine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static IEnumerator OpenCVForUnity.UnityUtils.Utils.getFilePathCoroutine </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>filepath</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Action&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>completed</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Action&lt; string, float &gt;</td>          <td class="paramname"><span class="paramname"><em>progressChanged</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Action&lt; string, string, long &gt;</td>          <td class="paramname"><span class="paramname"><em>errorOccurred</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>refresh</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>timeout</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Asynchronously retrieves the readable path of a file in the "StreamingAssets" directory using Coroutine. </p>
+<p>Provide a relative file path based on the "StreamingAssets" directory. e.g., "foobar.txt" or "hogehoge/foobar.txt". [Android] The target file that exists in the "StreamingAssets" directory is copied to the the Application.persistentDataPath directory. [WebGL] The target file in the "StreamingAssets" directory is copied to the WebGL's virtual filesystem. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filepath</td><td>A file path relative to the "StreamingAssets" directory. </td></tr>
+    <tr><td class="paramname">completed</td><td>A callback that is called when the process is completed. Returns a readable file path in case of success and returns <code>string.Empty</code> in case of error. </td></tr>
+    <tr><td class="paramname">progressChanged</td><td>An optional callback that is called when the process is the progress. Returns the file path and a progress value (0.0 to 1.0). </td></tr>
+    <tr><td class="paramname">errorOccurred</td><td>An optional callback that is called when the process is error occurred. Returns the file path and an error string and an error response code. </td></tr>
+    <tr><td class="paramname">refresh</td><td>[Android][WebGL] If false, the file is not copied if it already exists. If true, the file is always copied. </td></tr>
+    <tr><td class="paramname">timeout</td><td>[Android][WebGL] Sets the UnityWebRequest to abort after the specified number of seconds. If set to 0, no timeout is applied. The default is 0. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns an IEnumerator object. Yielding the IEnumerator in a coroutine pauses the coroutine until the UnityWebRequest completes or encounters a system error. <b>Note:</b> that if the IEnumerator is externally stoped, the UnityWebRequest's Abort method will not be called, meaning the download will continue in the background. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ArgumentNullException</td><td>Thrown if <em>filepath</em>  is null. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a043edfbc052542156dc8d54bf602bd36" name="a043edfbc052542156dc8d54bf602bd36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a043edfbc052542156dc8d54bf602bd36">&#9670;&#160;</a></span>getFilePathTaskAsync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt; string &gt; OpenCVForUnity.UnityUtils.Utils.getFilePathTaskAsync </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>filepath</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Action&lt; string, float &gt;</td>          <td class="paramname"><span class="paramname"><em>progressChanged</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Action&lt; string, string, long &gt;</td>          <td class="paramname"><span class="paramname"><em>errorOccurred</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>refresh</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>timeout</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Asynchronously retrieves the readable path of a file in the "StreamingAssets" directory using Task. </p>
 <p>Provide a relative file path based on the "StreamingAssets" directory. e.g., "foobar.txt" or "hogehoge/foobar.txt". [Android] The target file that exists in the "StreamingAssets" directory is copied to the the Application.persistentDataPath directory. [WebGL] The target file in the "StreamingAssets" directory is copied to the WebGL's virtual filesystem. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -535,6 +808,84 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ade397cf8aeac7714645f051e6b346c7b" name="ade397cf8aeac7714645f051e6b346c7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade397cf8aeac7714645f051e6b346c7b">&#9670;&#160;</a></span>getKernelIndexForMatToRenderTextureComputeShader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int OpenCVForUnity.UnityUtils.Utils.getKernelIndexForMatToRenderTextureComputeShader </td>
+          <td>(</td>
+          <td class="paramtype">GraphicsBuffer</td>          <td class="paramname"><span class="paramname"><em>graphicsBuffer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RenderTexture</td>          <td class="paramname"><span class="paramname"><em>renderTexture</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the kernel index to use for converting from Mat to RenderTexture based on the current platform and graphics API. This kernel index is intended to be used when dispatching the ComputeShader obtained from the createMatToRenderTextureComputeShader method. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graphicsBuffer</td><td>The source GraphicsBuffer.</td></tr>
+    <tr><td class="paramname">renderTexture</td><td>The destination RenderTexture.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The kernel index to use for the conversion.</dd></dl>
+
+</div>
+</div>
+<a id="ac08a41b5f45651a0757be837f6068444" name="ac08a41b5f45651a0757be837f6068444"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac08a41b5f45651a0757be837f6068444">&#9670;&#160;</a></span>getKernelIndexForRenderTextureToMatComputeShader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int OpenCVForUnity.UnityUtils.Utils.getKernelIndexForRenderTextureToMatComputeShader </td>
+          <td>(</td>
+          <td class="paramtype">RenderTexture</td>          <td class="paramname"><span class="paramname"><em>renderTexture</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GraphicsBuffer</td>          <td class="paramname"><span class="paramname"><em>graphicsBuffer</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the kernel index to use for converting from RenderTexture to Mat based on the current platform and graphics API. This kernel index is intended to be used when dispatching the ComputeShader obtained from the createRenderTextureToMatComputeShader method. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">renderTexture</td><td>The source RenderTexture.</td></tr>
+    <tr><td class="paramname">graphicsBuffer</td><td>The destination GraphicsBuffer.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The kernel index to use for the conversion.</dd></dl>
 
 </div>
 </div>
@@ -571,7 +922,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gets the multiple readable paths of a file in the "StreamingAssets" directory. </p>
-<p>Provide a relative file path based on the "StreamingAssets" directory. e.g., "foobar.txt" or "hogehoge/foobar.txt". [Android] The target file that exists in the "StreamingAssets" directory is copied to the the Application.persistentDataPath directory. [WebGL] If the target file has not yet been copied to WebGL's virtual filesystem, it is necessary to use <a class="el" href="#a5aa31c65a5feeb7f3dbc507336fd16ef">getMultipleFilePathsAsync</a> of <a class="el" href="#a7d51f0f31b8aa2af24c9b953026c1647">getMultipleFilePathsAsyncTask</a> at first. </p>
+<p>Provide a relative file path based on the "StreamingAssets" directory. e.g., "foobar.txt" or "hogehoge/foobar.txt". [Android] The target file that exists in the "StreamingAssets" directory is copied to the the Application.persistentDataPath directory. [WebGL] If the target file has not yet been copied to WebGL's virtual filesystem, it is necessary to use <a class="el" href="#a17ebf386cf9bd11605fcd63c018c06be">getFilePathCoroutine</a>, <a class="el" href="#afa5e505c765b9dcbf2c79b5718e256b0">getFilePathAsync</a> or <a class="el" href="#a043edfbc052542156dc8d54bf602bd36">getFilePathAsyncTask</a> at first. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filepaths</td><td>The list of file paths relative to the "StreamingAssets" directory. </td></tr>
@@ -590,8 +941,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5aa31c65a5feeb7f3dbc507336fd16ef" name="a5aa31c65a5feeb7f3dbc507336fd16ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5aa31c65a5feeb7f3dbc507336fd16ef">&#9670;&#160;</a></span>getMultipleFilePathsAsync()</h2>
+<a id="a68fe29cedd170a542c9bcd49390fb8da" name="a68fe29cedd170a542c9bcd49390fb8da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68fe29cedd170a542c9bcd49390fb8da">&#9670;&#160;</a></span>getMultipleFilePathsAsync()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -600,14 +951,9 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static IEnumerator OpenCVForUnity.UnityUtils.Utils.getMultipleFilePathsAsync </td>
+          <td class="memname">static async Awaitable&lt; IReadOnlyList&lt; string &gt; &gt; OpenCVForUnity.UnityUtils.Utils.getMultipleFilePathsAsync </td>
           <td>(</td>
           <td class="paramtype">IReadOnlyList&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>filepaths</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Action&lt; IReadOnlyList&lt; string &gt; &gt;</td>          <td class="paramname"><span class="paramname"><em>allCompleted</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -632,7 +978,12 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>timeout</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>timeout</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -642,24 +993,26 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Asynchronously retrieves the multiple readable paths of files in the "StreamingAssets" directory using coroutines. </p>
+<p>Asynchronously retrieves the multiple readable paths of files in the "StreamingAssets" directory using Awaitable. </p>
 <p>Provide a relative file path based on the "StreamingAssets" directory. e.g., "foobar.txt" or "hogehoge/foobar.txt". [Android] The target file that exists in the "StreamingAssets" directory is copied to the the Application.persistentDataPath directory. [WebGL] The target file in the "StreamingAssets" directory is copied to the WebGL's virtual filesystem. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filepaths</td><td>The list of file paths relative to the "StreamingAssets" directory. </td></tr>
-    <tr><td class="paramname">allCompleted</td><td>A callback that is called when all processes are completed. Returns a list of file paths. Returns a readable file path in case of success and returns <code>string.Empty</code> in case of error. </td></tr>
     <tr><td class="paramname">completed</td><td>An optional callback that is called when one process is completed. Returns a readable file path in case of success and returns empty in case of error. </td></tr>
     <tr><td class="paramname">progressChanged</td><td>An optional callback that is called when one process is the progress. Returns the file path and a progress value (0.0 to 1.0). </td></tr>
     <tr><td class="paramname">errorOccurred</td><td>An optional callback that is called when one process is error occurred. Returns the file path and an error string and an error response code. </td></tr>
     <tr><td class="paramname">refresh</td><td>[Android][WebGL] If false, the file is not copied if it already exists. If true, the file is always copied. </td></tr>
     <tr><td class="paramname">timeout</td><td>[Android][WebGL] Sets the UnityWebRequest to abort after the specified number of seconds. If set to 0, no timeout is applied. The default is 0. </td></tr>
+    <tr><td class="paramname">cancellationToken</td><td>A cancellation token that can be used to cancel the download operation. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns an IEnumerator object. Yielding the IEnumerator in a coroutine pauses the coroutine until the UnityWebRequest completes or encounters a system error. <b>Note:</b> that if the IEnumerator is externally stoped, the UnityWebRequest's Abort method will not be called, meaning the download will continue in the background. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A task that represents the asynchronous download operation. The result is a list of readable file paths where the downloaded file was saved, or <code>string.Empty</code> if the download fails. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">ArgumentNullException</td><td>Thrown if <em>filepath</em>  is null. </td></tr>
+    <tr><td class="paramname">InvalidOperationException</td><td>Thrown if this method is called from a non-main thread. </td></tr>
+    <tr><td class="paramname">OperationCanceledException</td><td>Thrown if the download operation is canceled. </td></tr>
   </table>
   </dd>
 </dl>
@@ -717,8 +1070,139 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000007">Deprecated</a></b></dt><dd>Use <a class="el" href="#a8008576b683635c4aa0b62deea1b2586" title="Asynchronously retrieves the multiple readable paths of files in the &quot;StreamingAssets&quot; directory usin...">Utils.getMultipleFilePathsTaskAsync</a> </dd></dl>
 
-<p>Asynchronously retrieves the multiple readable paths of files in the "StreamingAssets" directory using a Task. </p>
+</div>
+</div>
+<a id="a603e02486b2b24baa4ec1e12cd317c0c" name="a603e02486b2b24baa4ec1e12cd317c0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a603e02486b2b24baa4ec1e12cd317c0c">&#9670;&#160;</a></span>getMultipleFilePathsCoroutine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static IEnumerator OpenCVForUnity.UnityUtils.Utils.getMultipleFilePathsCoroutine </td>
+          <td>(</td>
+          <td class="paramtype">IReadOnlyList&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>filepaths</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Action&lt; IReadOnlyList&lt; string &gt; &gt;</td>          <td class="paramname"><span class="paramname"><em>allCompleted</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Action&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>completed</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Action&lt; string, float &gt;</td>          <td class="paramname"><span class="paramname"><em>progressChanged</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Action&lt; string, string, long &gt;</td>          <td class="paramname"><span class="paramname"><em>errorOccurred</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>refresh</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>timeout</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Asynchronously retrieves the multiple readable paths of files in the "StreamingAssets" directory using Coroutine. </p>
+<p>Provide a relative file path based on the "StreamingAssets" directory. e.g., "foobar.txt" or "hogehoge/foobar.txt". [Android] The target file that exists in the "StreamingAssets" directory is copied to the the Application.persistentDataPath directory. [WebGL] The target file in the "StreamingAssets" directory is copied to the WebGL's virtual filesystem. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filepaths</td><td>The list of file paths relative to the "StreamingAssets" directory. </td></tr>
+    <tr><td class="paramname">allCompleted</td><td>A callback that is called when all processes are completed. Returns a list of file paths. Returns a readable file path in case of success and returns <code>string.Empty</code> in case of error. </td></tr>
+    <tr><td class="paramname">completed</td><td>An optional callback that is called when one process is completed. Returns a readable file path in case of success and returns empty in case of error. </td></tr>
+    <tr><td class="paramname">progressChanged</td><td>An optional callback that is called when one process is the progress. Returns the file path and a progress value (0.0 to 1.0). </td></tr>
+    <tr><td class="paramname">errorOccurred</td><td>An optional callback that is called when one process is error occurred. Returns the file path and an error string and an error response code. </td></tr>
+    <tr><td class="paramname">refresh</td><td>[Android][WebGL] If false, the file is not copied if it already exists. If true, the file is always copied. </td></tr>
+    <tr><td class="paramname">timeout</td><td>[Android][WebGL] Sets the UnityWebRequest to abort after the specified number of seconds. If set to 0, no timeout is applied. The default is 0. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns an IEnumerator object. Yielding the IEnumerator in a coroutine pauses the coroutine until the UnityWebRequest completes or encounters a system error. <b>Note:</b> that if the IEnumerator is externally stoped, the UnityWebRequest's Abort method will not be called, meaning the download will continue in the background. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ArgumentNullException</td><td>Thrown if <em>filepath</em>  is null. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8008576b683635c4aa0b62deea1b2586" name="a8008576b683635c4aa0b62deea1b2586"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8008576b683635c4aa0b62deea1b2586">&#9670;&#160;</a></span>getMultipleFilePathsTaskAsync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Task&lt; IReadOnlyList&lt; string &gt; &gt; OpenCVForUnity.UnityUtils.Utils.getMultipleFilePathsTaskAsync </td>
+          <td>(</td>
+          <td class="paramtype">IReadOnlyList&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>filepaths</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Action&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>completed</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Action&lt; string, float &gt;</td>          <td class="paramname"><span class="paramname"><em>progressChanged</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Action&lt; string, string, long &gt;</td>          <td class="paramname"><span class="paramname"><em>errorOccurred</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>refresh</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>timeout</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Asynchronously retrieves the multiple readable paths of files in the "StreamingAssets" directory using Task. </p>
 <p>Provide a relative file path based on the "StreamingAssets" directory. e.g., "foobar.txt" or "hogehoge/foobar.txt". [Android] The target file that exists in the "StreamingAssets" directory is copied to the the Application.persistentDataPath directory. [WebGL] The target file in the "StreamingAssets" directory is copied to the WebGL's virtual filesystem. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -823,6 +1307,121 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aa42a673b61f0a7743746f7135a48c9c5" name="aa42a673b61f0a7743746f7135a48c9c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa42a673b61f0a7743746f7135a48c9c5">&#9670;&#160;</a></span>graphicsBufferToMatAsync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Awaitable OpenCVForUnity.UnityUtils.Utils.graphicsBufferToMatAsync </td>
+          <td>(</td>
+          <td class="paramtype">GraphicsBuffer</td>          <td class="paramname"><span class="paramname"><em>graphicsBuffer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>mat</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a54bb865c59edb631135a91c34bcea3bc">CopyMode</a></td>          <td class="paramname"><span class="paramname"><em>copyMode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copies data from a Unity GraphicsBuffer to an OpenCV Mat asynchronously. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graphicsBuffer</td><td>The source Unity GraphicsBuffer.</td></tr>
+    <tr><td class="paramname">mat</td><td>The destination OpenCV Mat.</td></tr>
+    <tr><td class="paramname">copyMode</td><td>The CopyMode enumeration specifying the method of copying data.</td></tr>
+    <tr><td class="paramname">cancellationToken</td><td>A token to monitor for cancellation requests.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ArgumentNullException</td><td>Thrown if <em>mat</em>  or <em>graphicsBuffer</em>  is null.</td></tr>
+    <tr><td class="paramname">ArgumentException</td><td>Thrown if data size or stride does not match.</td></tr>
+    <tr><td class="paramname">NotSupportedException</td><td>Thrown if compute shaders are not supported on the current platform.</td></tr>
+    <tr><td class="paramname">OperationCanceledException</td><td>Thrown if the operation is canceled via <em>cancellationToken</em> .</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af6331c003ba4d0692cd0ff0a34794cfe" name="af6331c003ba4d0692cd0ff0a34794cfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6331c003ba4d0692cd0ff0a34794cfe">&#9670;&#160;</a></span>isDebugMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool OpenCVForUnity.UnityUtils.Utils.isDebugMode </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets whether debug mode is enabled. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if debug mode is enabled, false otherwise.</dd></dl>
+
+</div>
+</div>
+<a id="afbf915716b86a64317640f872c9b189b" name="afbf915716b86a64317640f872c9b189b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbf915716b86a64317640f872c9b189b">&#9670;&#160;</a></span>isThrowException()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool OpenCVForUnity.UnityUtils.Utils.isThrowException </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets whether OpenCV exceptions are thrown. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if exceptions are thrown, false otherwise.</dd></dl>
+
+</div>
+</div>
 <a id="ac77b26f4a37091b7cf49e4f46d83a5e5" name="ac77b26f4a37091b7cf49e4f46d83a5e5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac77b26f4a37091b7cf49e4f46d83a5e5">&#9670;&#160;</a></span>matToGraphicsBuffer()</h2>
 
@@ -868,6 +1467,64 @@ Static Public Member Functions</h2></td></tr>
   <table class="exception">
     <tr><td class="paramname">ArgumentNullException</td><td>Thrown if mat or graphicsBuffer is null.</td></tr>
     <tr><td class="paramname">ArgumentException</td><td>Thrown if data size or stride does not match.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a96dba965a06d03796138448b701bd418" name="a96dba965a06d03796138448b701bd418"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96dba965a06d03796138448b701bd418">&#9670;&#160;</a></span>matToGraphicsBufferAsync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Awaitable&lt; AsyncGPUReadbackRequest &gt; OpenCVForUnity.UnityUtils.Utils.matToGraphicsBufferAsync </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>mat</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GraphicsBuffer</td>          <td class="paramname"><span class="paramname"><em>graphicsBuffer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a54bb865c59edb631135a91c34bcea3bc">CopyMode</a></td>          <td class="paramname"><span class="paramname"><em>copyMode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copies data from a OpenCv Mat to a Unity GraphicsBuffer asynchronously. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mat</td><td>The source OpenCV Mat.</td></tr>
+    <tr><td class="paramname">graphicsBuffer</td><td>The destination Unity GraphicsBuffer.</td></tr>
+    <tr><td class="paramname">copyMode</td><td>The CopyMode enumeration specifying the method of copying data.</td></tr>
+    <tr><td class="paramname">cancellationToken</td><td>Cancellation token to cancel the asynchronous operation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ArgumentNullException</td><td>Thrown if mat or graphicsBuffer is null.</td></tr>
+    <tr><td class="paramname">ArgumentException</td><td>Thrown if data size or stride does not match.</td></tr>
+    <tr><td class="paramname">OperationCanceledException</td><td>Thrown when the operation is canceled via the <em>cancellationToken</em> .</td></tr>
   </table>
   </dd>
 </dl>
@@ -931,6 +1588,76 @@ Static Public Member Functions</h2></td></tr>
   <table class="exception">
     <tr><td class="paramname">ArgumentNullException</td><td>Thrown if <em>renderTexture</em>  or <em>mat</em>  is null. </td></tr>
     <tr><td class="paramname">ArgumentException</td><td>Thrown if <em>renderTexture</em>  has <code>enableRandomWrite</code> set to false, or if the size or format of the RenderTexture is invalid. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4abf085c6b937a661aeb8b57880f8e8e" name="a4abf085c6b937a661aeb8b57880f8e8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4abf085c6b937a661aeb8b57880f8e8e">&#9670;&#160;</a></span>matToRenderTextureAsync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Awaitable&lt; AsyncGPUReadbackRequest &gt; OpenCVForUnity.UnityUtils.Utils.matToRenderTextureAsync </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>mat</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RenderTexture</td>          <td class="paramname"><span class="paramname"><em>renderTexture</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GraphicsBuffer</td>          <td class="paramname"><span class="paramname"><em>graphicsBuffer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>flip</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>flipCode</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts an OpenCV Mat to a Unity RenderTexture asynchronously. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mat</td><td>The source OpenCV Mat. The depth must be 'CV_8U'. The Mat object must not have more than 4 channels.</td></tr>
+    <tr><td class="paramname">renderTexture</td><td>The destination Unity RenderTexture. Must have <code>enableRandomWrite</code> set to true. </td></tr>
+    <tr><td class="paramname">graphicsBuffer</td><td>A temporary GraphicsBuffer. If null, a new one will be created. The stride of the graphics buffer must be exactly 4 bytes.</td></tr>
+    <tr><td class="paramname">flip</td><td>Whether to flip the image vertically.</td></tr>
+    <tr><td class="paramname">flipCode</td><td>The flipCode for the <a class="el" href="../../da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html#a06719211e27bdb5c67c454ea28b16f8b" title="Flips a 2D array around vertical, horizontal, or both axes.">Core.flip()</a> method.</td></tr>
+    <tr><td class="paramname">cancellationToken</td><td>A token to monitor for cancellation requests.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ArgumentNullException</td><td>Thrown if <em>renderTexture</em>  or <em>mat</em>  is null. </td></tr>
+    <tr><td class="paramname">ArgumentException</td><td>Thrown if <em>renderTexture</em>  has <code>enableRandomWrite</code> set to false, or if the size or format of the RenderTexture is invalid. </td></tr>
+    <tr><td class="paramname">OperationCanceledException</td><td>Thrown if the operation is canceled via <em>cancellationToken</em> .</td></tr>
   </table>
   </dd>
 </dl>
@@ -1395,8 +2122,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ae36495e22a5e6e437462aa2e8cc8cd4a" name="ae36495e22a5e6e437462aa2e8cc8cd4a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae36495e22a5e6e437462aa2e8cc8cd4a">&#9670;&#160;</a></span>renderTextureToMat()</h2>
+<a id="ade9d4a648adb53d7e0e350cd4053e057" name="ade9d4a648adb53d7e0e350cd4053e057"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade9d4a648adb53d7e0e350cd4053e057">&#9670;&#160;</a></span>RenderTextureToMat()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1405,7 +2132,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void OpenCVForUnity.UnityUtils.Utils.renderTextureToMat </td>
+          <td class="memname">static void OpenCVForUnity.UnityUtils.Utils.RenderTextureToMat </td>
           <td>(</td>
           <td class="paramtype">RenderTexture</td>          <td class="paramname"><span class="paramname"><em>renderTexture</em></span>, </td>
         </tr>
@@ -1458,8 +2185,78 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="afed26245eadfb94d12732721720fd59e" name="afed26245eadfb94d12732721720fd59e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afed26245eadfb94d12732721720fd59e">&#9670;&#160;</a></span>setDebugMode()</h2>
+<a id="aa8bea94f3f33c7eb58109a8baba76222" name="aa8bea94f3f33c7eb58109a8baba76222"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8bea94f3f33c7eb58109a8baba76222">&#9670;&#160;</a></span>renderTextureToMatAsync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Awaitable OpenCVForUnity.UnityUtils.Utils.renderTextureToMatAsync </td>
+          <td>(</td>
+          <td class="paramtype">RenderTexture</td>          <td class="paramname"><span class="paramname"><em>renderTexture</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>mat</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GraphicsBuffer</td>          <td class="paramname"><span class="paramname"><em>graphicsBuffer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>flip</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>flipCode</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts a Unity RenderTexture to an OpenCV Mat asynchronously. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">renderTexture</td><td>The source Unity RenderTexture. Must have <code>enableRandomWrite</code> set to true.</td></tr>
+    <tr><td class="paramname">mat</td><td>The destination OpenCV Mat. The depth must be 'CV_8U'. The Mat object must not have more than 4 channels.</td></tr>
+    <tr><td class="paramname">graphicsBuffer</td><td>A temporary GraphicsBuffer. If null, a new one will be created. The stride of the graphics buffer must be exactly 4 bytes.</td></tr>
+    <tr><td class="paramname">flip</td><td>Whether to flip the image vertically.</td></tr>
+    <tr><td class="paramname">flipCode</td><td>The flipCode for the <a class="el" href="../../da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html#a06719211e27bdb5c67c454ea28b16f8b" title="Flips a 2D array around vertical, horizontal, or both axes.">Core.flip()</a> method.</td></tr>
+    <tr><td class="paramname">cancellationToken</td><td>A token to monitor for cancellation requests.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ArgumentNullException</td><td>Thrown if <em>renderTexture</em>  or <em>mat</em>  is null.</td></tr>
+    <tr><td class="paramname">ArgumentException</td><td>Thrown if <em>renderTexture</em>  has <code>enableRandomWrite</code> set to false, or if the size or format of the RenderTexture is invalid. </td></tr>
+    <tr><td class="paramname">OperationCanceledException</td><td>Thrown if the operation is canceled via <em>cancellationToken</em> .</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5067e6a6d62df84eeeffe67c2f99f8bd" name="a5067e6a6d62df84eeeffe67c2f99f8bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5067e6a6d62df84eeeffe67c2f99f8bd">&#9670;&#160;</a></span>setDebugMode() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1475,12 +2272,94 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>throwException</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>throwException</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Action&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>&#160;)</td>
+          <td class="paramtype">Action&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the debug mode with a callback. </p>
+<p>If debugMode is true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.However, if throwException is true, CvException is thrown instead of calling Debug.LogError (msg). The callback is maintained even when debug mode is turned off, allowing it to be reused when debug mode is turned on again. To clear the callback, call this method with null as the callback parameter. </p>
+<p>Please use as follows. </p><div class="fragment"><div class="line">{</div>
+<div class="line">    <span class="comment">// CVException handling</span></div>
+<div class="line">    <span class="comment">// Publish CVException to Debug.LogError.</span></div>
+<div class="line">    <a class="code hl_class" href="../../d3/d6c/classOpenCVForUnity_1_1UnityUtils_1_1Utils.html">Utils</a>.<a class="code hl_function" href="#aef1a1ee649b860f83bc5a92c81afc9ec">setDebugMode</a>(<span class="keyword">true</span>, <span class="keyword">false</span>);</div>
+<div class="line"> </div>
+<div class="line">    <a class="code hl_class" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> m3 = m1 / m2; <span class="comment">// element type is different.</span></div>
+<div class="line"> </div>
+<div class="line">    <a class="code hl_class" href="../../d3/d6c/classOpenCVForUnity_1_1UnityUtils_1_1Utils.html">Utils</a>.<a class="code hl_function" href="#aef1a1ee649b860f83bc5a92c81afc9ec">setDebugMode</a>(<span class="keyword">false</span>);</div>
+<div class="line"> </div>
+<div class="line">@iverbatim </div>
+<div class="line"><span class="comment">// Throw CVException.</span></div>
+<div class="line"><a class="code hl_class" href="../../d3/d6c/classOpenCVForUnity_1_1UnityUtils_1_1Utils.html">Utils</a>.<a class="code hl_function" href="#aef1a1ee649b860f83bc5a92c81afc9ec">setDebugMode</a>(<span class="keyword">true</span>, <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordflow">try</span></div>
+<div class="line">{</div>
+<div class="line">    <a class="code hl_class" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> m4 = m1 / m2; <span class="comment">// element type is different.</span></div>
+<div class="line">}</div>
+<div class="line"><span class="keywordflow">catch</span> (Exception e)</div>
+<div class="line">{</div>
+<div class="line">    Debug.Log(<span class="stringliteral">&quot;CVException: &quot;</span> + e);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Callback string of CVException.</span></div>
+<div class="line">Utils.setDebugMode(<span class="keyword">true</span>, <span class="keyword">true</span>, (str) =&gt;</div>
+<div class="line">{</div>
+<div class="line">    Debug.Log(<span class="stringliteral">&quot;CVException: &quot;</span> + str);</div>
+<div class="line">});</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordflow">try</span></div>
+<div class="line">{</div>
+<div class="line">    Mat m4 = m1 / m2; <span class="comment">// element type is different.</span></div>
+<div class="line">}</div>
+<div class="line"><span class="keywordflow">catch</span> (Exception e)</div>
+<div class="line">{</div>
+<div class="line">    Debug.Log(<span class="stringliteral">&quot;CVException: &quot;</span> + e);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line">Utils.setDebugMode(<span class="keyword">false</span>);</div>
+<div class="line"><span class="keyword">@end</span>iverbatim }</div>
+<div class="ttc" id="aclassOpenCVForUnity_1_1CoreModule_1_1Mat_html"><div class="ttname"><a href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">OpenCVForUnity.CoreModule.Mat</a></div><div class="ttdoc">n-dimensional dense array class</div><div class="ttdef"><b>Definition</b> Mat_ValueTuple.cs:11</div></div>
+<div class="ttc" id="aclassOpenCVForUnity_1_1UnityUtils_1_1Utils_html"><div class="ttname"><a href="../../d3/d6c/classOpenCVForUnity_1_1UnityUtils_1_1Utils.html">OpenCVForUnity.UnityUtils.Utils</a></div><div class="ttdef"><b>Definition</b> Utils_ComputeShader.cs:21</div></div>
+<div class="ttc" id="aclassOpenCVForUnity_1_1UnityUtils_1_1Utils_html_aef1a1ee649b860f83bc5a92c81afc9ec"><div class="ttname"><a href="#aef1a1ee649b860f83bc5a92c81afc9ec">OpenCVForUnity.UnityUtils.Utils.setDebugMode</a></div><div class="ttdeci">static void setDebugMode(bool debugMode, bool throwException=false)</div><div class="ttdoc">Sets the debug mode.</div><div class="ttdef"><b>Definition</b> Utils.cs:2657</div></div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">debugMode</td><td>If true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console. </td></tr>
+    <tr><td class="paramname">throwException</td><td>If true, CvException is thrown instead of calling Debug.LogError (msg). </td></tr>
+    <tr><td class="paramname">callback</td><td>Callback called when an OpenCV error occurs on the Native side. The callback is maintained even when debug mode is turned off. To clear the callback, pass null as this parameter. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aef1a1ee649b860f83bc5a92c81afc9ec" name="aef1a1ee649b860f83bc5a92c81afc9ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef1a1ee649b860f83bc5a92c81afc9ec">&#9670;&#160;</a></span>setDebugMode() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void OpenCVForUnity.UnityUtils.Utils.setDebugMode </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>debugMode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>throwException</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -1495,35 +2374,31 @@ Static Public Member Functions</h2></td></tr>
 <p>Please use as follows. </p><div class="fragment"><div class="line">{</div>
 <div class="line">    <span class="comment">// CVException handling</span></div>
 <div class="line">    <span class="comment">// Publish CVException to Debug.LogError.</span></div>
-<div class="line">    <a class="code hl_class" href="../../d3/d6c/classOpenCVForUnity_1_1UnityUtils_1_1Utils.html">Utils</a>.<a class="code hl_function" href="#afed26245eadfb94d12732721720fd59e">setDebugMode</a>(<span class="keyword">true</span>, <span class="keyword">false</span>);</div>
+<div class="line">    <a class="code hl_class" href="../../d3/d6c/classOpenCVForUnity_1_1UnityUtils_1_1Utils.html">Utils</a>.<a class="code hl_function" href="#aef1a1ee649b860f83bc5a92c81afc9ec">setDebugMode</a>(<span class="keyword">true</span>, <span class="keyword">false</span>);</div>
 <div class="line"> </div>
 <div class="line">    <a class="code hl_class" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> m3 = m1 / m2; <span class="comment">// element type is different.</span></div>
 <div class="line"> </div>
-<div class="line">    <a class="code hl_class" href="../../d3/d6c/classOpenCVForUnity_1_1UnityUtils_1_1Utils.html">Utils</a>.<a class="code hl_function" href="#afed26245eadfb94d12732721720fd59e">setDebugMode</a>(<span class="keyword">false</span>);</div>
+<div class="line">    <a class="code hl_class" href="../../d3/d6c/classOpenCVForUnity_1_1UnityUtils_1_1Utils.html">Utils</a>.<a class="code hl_function" href="#aef1a1ee649b860f83bc5a92c81afc9ec">setDebugMode</a>(<span class="keyword">false</span>);</div>
 <div class="line"> </div>
+<div class="line">@iverbatim </div>
+<div class="line"><span class="comment">// Throw CVException.</span></div>
+<div class="line"><a class="code hl_class" href="../../d3/d6c/classOpenCVForUnity_1_1UnityUtils_1_1Utils.html">Utils</a>.<a class="code hl_function" href="#aef1a1ee649b860f83bc5a92c81afc9ec">setDebugMode</a>(<span class="keyword">true</span>, <span class="keyword">true</span>);</div>
 <div class="line"> </div>
-<div class="line">    <span class="comment">// Throw CVException.</span></div>
-<div class="line">    <a class="code hl_class" href="../../d3/d6c/classOpenCVForUnity_1_1UnityUtils_1_1Utils.html">Utils</a>.<a class="code hl_function" href="#afed26245eadfb94d12732721720fd59e">setDebugMode</a>(<span class="keyword">true</span>, <span class="keyword">true</span>);</div>
-<div class="line"> </div>
-<div class="line">    <span class="keywordflow">try</span></div>
-<div class="line">    {</div>
-<div class="line">        <a class="code hl_class" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> m4 = m1 / m2; <span class="comment">// element type is different.</span></div>
-<div class="line">    }</div>
-<div class="line">    <span class="keywordflow">catch</span> (Exception e)</div>
-<div class="line">    {</div>
-<div class="line">        Debug.Log(<span class="stringliteral">&quot;CVException: &quot;</span> + e);</div>
-<div class="line">    }</div>
-<div class="line"> </div>
-<div class="line">    Utils.setDebugMode(<span class="keyword">false</span>);</div>
+<div class="line"><span class="keywordflow">try</span></div>
+<div class="line">{</div>
+<div class="line">    <a class="code hl_class" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> m4 = m1 / m2; <span class="comment">// element type is different.</span></div>
 <div class="line">}</div>
-<div class="ttc" id="aclassOpenCVForUnity_1_1CoreModule_1_1Mat_html"><div class="ttname"><a href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">OpenCVForUnity.CoreModule.Mat</a></div><div class="ttdoc">n-dimensional dense array class</div><div class="ttdef"><b>Definition</b> Mat_ValueTuple.cs:11</div></div>
-<div class="ttc" id="aclassOpenCVForUnity_1_1UnityUtils_1_1Utils_html"><div class="ttname"><a href="../../d3/d6c/classOpenCVForUnity_1_1UnityUtils_1_1Utils.html">OpenCVForUnity.UnityUtils.Utils</a></div><div class="ttdef"><b>Definition</b> Utils_ComputeShader.cs:14</div></div>
-<div class="ttc" id="aclassOpenCVForUnity_1_1UnityUtils_1_1Utils_html_afed26245eadfb94d12732721720fd59e"><div class="ttname"><a href="#afed26245eadfb94d12732721720fd59e">OpenCVForUnity.UnityUtils.Utils.setDebugMode</a></div><div class="ttdeci">static void setDebugMode(bool debugMode, bool throwException=false, Action&lt; string &gt; callback=null)</div><div class="ttdoc">Sets the debug mode.</div><div class="ttdef"><b>Definition</b> Utils.cs:2088</div></div>
+<div class="line"><span class="keywordflow">catch</span> (Exception e)</div>
+<div class="line">{</div>
+<div class="line">    Debug.Log(<span class="stringliteral">&quot;CVException: &quot;</span> + e);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line">Utils.setDebugMode(<span class="keyword">false</span>);</div>
+<div class="line"><span class="keyword">@end</span>iverbatim }</div>
 </div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">debugMode</td><td>If true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console. </td></tr>
     <tr><td class="paramname">throwException</td><td>If true, CvException is thrown instead of calling Debug.LogError (msg). </td></tr>
-    <tr><td class="paramname">callback</td><td>Callback called when an OpenCV error occurs on the Native side. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1776,6 +2651,172 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a57d234412cffe9f584f37edcaa8b697f" name="a57d234412cffe9f584f37edcaa8b697f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57d234412cffe9f584f37edcaa8b697f">&#9670;&#160;</a></span>textureToMatAsync() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Awaitable OpenCVForUnity.UnityUtils.Utils.textureToMatAsync </td>
+          <td>(</td>
+          <td class="paramtype">Texture</td>          <td class="paramname"><span class="paramname"><em>texture</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>mat</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>flip</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>flipCode</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>mipIndex</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span><span class="paramdefsep"> = </span><span class="paramdefval">-1</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span><span class="paramdefsep"> = </span><span class="paramdefval">-1</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>z</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>depth</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GraphicsFormat?</td>          <td class="paramname"><span class="paramname"><em>dstFormat</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts a Texture to an OpenCV Mat asynchronously. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texture</td><td>The source Texture to be converted.</td></tr>
+    <tr><td class="paramname">mat</td><td>The destination Mat that will store the converted texture data.</td></tr>
+    <tr><td class="paramname">flip</td><td>If <code>true</code>, the pixel data retrieved from the Texture2D is flipped before copies. The default is <code>true</code>, as the pixel data must be flipped to align with the coordinate system of the destination Mat. </td></tr>
+    <tr><td class="paramname">flipCode</td><td>Specifies how to flip the Textrue2D image: Vertical flipping of the image (flipCode == 0) to flip around the x-axis, horizontal flipping of the image (flipCode &gt; 0, e.g., 1) to flip around the y-axis, and simultaneous horizontal and vertical flipping (flipCode &lt; 0, e.g., -1) to flip around both axes. The default is <code>0</code>. </td></tr>
+    <tr><td class="paramname">mipIndex</td><td>Index of the mipmap to be fetched.</td></tr>
+    <tr><td class="paramname">x</td><td>Starting X coordinate in pixels of the Texture data to be fetched.</td></tr>
+    <tr><td class="paramname">width</td><td>Width in pixels of the Texture data to be fetched.</td></tr>
+    <tr><td class="paramname">y</td><td>Starting Y coordinate in pixels of the Texture data to be fetched.</td></tr>
+    <tr><td class="paramname">height</td><td>Height in pixels of the Texture data to be fetched.</td></tr>
+    <tr><td class="paramname">z</td><td>Depth in pixels for Texture3D being fetched. Number of layers for TextureCube, TextureArray and TextureCubeArray.</td></tr>
+    <tr><td class="paramname">depth</td><td>Depth in pixels for Texture3D being fetched. Number of layers for TextureCube, TextureArray and TextureCubeArray.</td></tr>
+    <tr><td class="paramname">dstFormat</td><td>Target GraphicsFormat of the data. If the target format is different from the format stored on the GPU, the conversion is automatic.</td></tr>
+    <tr><td class="paramname">cancellationToken</td><td>Cancellation token to cancel the asynchronous operation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ArgumentNullException</td><td>Thrown if <em>texture</em>  or <em>mat</em>  is null.</td></tr>
+    <tr><td class="paramname">NotSupportedException</td><td>Thrown when the graphics format of the texture is not supported for reading using AsyncGPUReadback.</td></tr>
+    <tr><td class="paramname">OperationCanceledException</td><td>Thrown when the operation is canceled via the <em>cancellationToken</em> .</td></tr>
+    <tr><td class="paramname">InvalidOperationException</td><td>Thrown when AsyncGPUReadback completes with an error.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a92f9fa1ac650babe08d2e08152cf5c42" name="a92f9fa1ac650babe08d2e08152cf5c42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92f9fa1ac650babe08d2e08152cf5c42">&#9670;&#160;</a></span>textureToMatAsync() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static async Awaitable OpenCVForUnity.UnityUtils.Utils.textureToMatAsync </td>
+          <td>(</td>
+          <td class="paramtype">Texture</td>          <td class="paramname"><span class="paramname"><em>texture</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>mat</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts a Texture to an OpenCV Mat asynchronously. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texture</td><td>The source Texture to be converted.</td></tr>
+    <tr><td class="paramname">mat</td><td>The destination Mat that will store the converted texture data.</td></tr>
+    <tr><td class="paramname">cancellationToken</td><td>Cancellation token to cancel the asynchronous operation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ArgumentNullException</td><td>Thrown if <em>texture</em>  or <em>mat</em>  is null.</td></tr>
+    <tr><td class="paramname">NotSupportedException</td><td>Thrown when the graphics format of the texture is not supported for reading using AsyncGPUReadback.</td></tr>
+    <tr><td class="paramname">OperationCanceledException</td><td>Thrown when the operation is canceled via the <em>cancellationToken</em> .</td></tr>
+    <tr><td class="paramname">InvalidOperationException</td><td>Thrown when AsyncGPUReadback completes with an error.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ab3b5049040a099978d439812d4fed372" name="ab3b5049040a099978d439812d4fed372"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab3b5049040a099978d439812d4fed372">&#9670;&#160;</a></span>textureToTexture2D()</h2>
 
@@ -1946,8 +2987,8 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/<a class="el" href="../../dd/d3d/Utils_8cs.html">Utils.cs</a></li>
-<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/<a class="el" href="../../d1/dd0/Utils__ComputeShader_8cs.html">Utils_ComputeShader.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/_unity/<a class="el" href="../../dd/d3d/Utils_8cs.html">Utils.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/_unity/<a class="el" href="../../d1/dd0/Utils__ComputeShader_8cs.html">Utils_ComputeShader.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

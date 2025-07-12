@@ -1,10 +1,10 @@
 var searchData=
 [
   ['daisy_2ecs_0',['DAISY.cs',['../dc/dad/DAISY_8cs.html',1,'']]],
-  ['debugmatutils_2ecs_1',['DebugMatUtils.cs',['../d7/d01/DebugMatUtils_8cs.html',1,'']]],
-  ['denseopticalflow_2ecs_2',['DenseOpticalFlow.cs',['../d9/dae/DenseOpticalFlow_8cs.html',1,'']]],
-  ['descriptormatcher_2ecs_3',['DescriptorMatcher.cs',['../d2/dd2/DescriptorMatcher_8cs.html',1,'']]],
-  ['detection_2ecs_4',['Detection.cs',['../d1/d0b/Detection_8cs.html',1,'']]],
+  ['damoyoloobjectdetector_2ecs_1',['DAMOYOLOObjectDetector.cs',['../d0/d51/DAMOYOLOObjectDetector_8cs.html',1,'']]],
+  ['debugmat_2ecs_2',['DebugMat.cs',['../d5/d1e/DebugMat_8cs.html',1,'']]],
+  ['denseopticalflow_2ecs_3',['DenseOpticalFlow.cs',['../d9/dae/DenseOpticalFlow_8cs.html',1,'']]],
+  ['descriptormatcher_2ecs_4',['DescriptorMatcher.cs',['../d2/dd2/DescriptorMatcher_8cs.html',1,'']]],
   ['detectionmodel_2ecs_5',['DetectionModel.cs',['../d1/d87/DetectionModel_8cs.html',1,'']]],
   ['detectorparameters_2ecs_6',['DetectorParameters.cs',['../d9/d17/DetectorParameters_8cs.html',1,'']]],
   ['devicesimulatorutils_2ecs_7',['DeviceSimulatorUtils.cs',['../d7/dc9/DeviceSimulatorUtils_8cs.html',1,'']]],
@@ -26,7 +26,8 @@ var searchData=
   ['dnn_5fsuperres_2ecs_23',['Dnn_superres.cs',['../d6/d34/Dnn__superres_8cs.html',1,'']]],
   ['dnn_5fvaluetuple_2ecs_24',['Dnn_ValueTuple.cs',['../df/d97/Dnn__ValueTuple_8cs.html',1,'']]],
   ['dnnconverters_2ecs_25',['DnnConverters.cs',['../de/df3/DnnConverters_8cs.html',1,'']]],
-  ['dnnsuperresimpl_2ecs_26',['DnnSuperResImpl.cs',['../d4/d6d/DnnSuperResImpl_8cs.html',1,'']]],
-  ['dtfilter_2ecs_27',['DTFilter.cs',['../d2/d32/DTFilter_8cs.html',1,'']]],
-  ['dtrees_2ecs_28',['DTrees.cs',['../db/d23/DTrees_8cs.html',1,'']]]
+  ['dnnprocessingutils_2ecs_26',['DnnProcessingUtils.cs',['../d2/dce/DnnProcessingUtils_8cs.html',1,'']]],
+  ['dnnsuperresimpl_2ecs_27',['DnnSuperResImpl.cs',['../d4/d6d/DnnSuperResImpl_8cs.html',1,'']]],
+  ['dtfilter_2ecs_28',['DTFilter.cs',['../d2/d32/DTFilter_8cs.html',1,'']]],
+  ['dtrees_2ecs_29',['DTrees.cs',['../db/d23/DTrees_8cs.html',1,'']]]
 ];

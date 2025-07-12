@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['errorcode_0',['ErrorCode',['../d3/d8d/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1VideoCaptureToMatHelper.html#ac2f80041edb581c2aec4036258bd4535',1,'OpenCVForUnity.UnityUtils.Helper.VideoCaptureToMatHelper.ErrorCode'],['../dc/d5a/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1WebCamTextureToMatHelper.html#a79e1839aa065d3a974b9e9affbb9a013',1,'OpenCVForUnity.UnityUtils.Helper.WebCamTextureToMatHelper.ErrorCode']]]
+  ['dumpmode_0',['DumpMode',['../d0/d64/classOpenCVForUnity_1_1UnityIntegration_1_1DebugMat.html#a3ad33d12ad490f31598e6a2b5f050e96',1,'OpenCVForUnity::UnityIntegration::DebugMat']]]
 ];

@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.5</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.0</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.12.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -274,8 +274,17 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class implementing <a class="el" href="../../d8/d9a/classOpenCVForUnity_1_1Xfeatures2dModule_1_1VGG.html" title="Class implementing VGG (Oxford Visual Geometry Group) descriptor trained end to end using &quot;Descriptor...">VGG</a> (Oxford Visual Geometry Group) descriptor trained end to end using "Descriptor Learning Using Convex Optimisation" (DLCO) aparatus described in <b>[Simonyan14]</b>. </p>
-<p>desc type of descriptor to use, VGG::VGG_120 is default (120 dimensions float) Available types are VGG::VGG_120, VGG::VGG_80, VGG::VGG_64, VGG::VGG_48 isigma gaussian kernel value for image blur (default is 1.4f) img_normalize use image sample intensity normalization (enabled by default) use_orientation sample patterns using keypoints orientation, enabled by default scale_factor adjust the sampling window of detected keypoints to 64.0f (<a class="el" href="../../d8/d9a/classOpenCVForUnity_1_1Xfeatures2dModule_1_1VGG.html" title="Class implementing VGG (Oxford Visual Geometry Group) descriptor trained end to end using &quot;Descriptor...">VGG</a> sampling window) 6.25f is default and fits for KAZE, SURF detected keypoints window ratio 6.75f should be the scale for SIFT detected keypoints window ratio 5.00f should be the scale for AKAZE, MSD, AGAST, FAST, BRISK keypoints window ratio 0.75f should be the scale for ORB keypoints ratio</p>
-<p>dsc_normalize clamp descriptors to 255 and convert to uchar CV_8UC1 (disabled by default) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">desc</td><td>type of descriptor to use, VGG::VGG_120 is default (120 dimensions float) Available types are VGG::VGG_120, VGG::VGG_80, VGG::VGG_64, VGG::VGG_48 </td></tr>
+    <tr><td class="paramname">isigma</td><td>gaussian kernel value for image blur (default is 1.4f) </td></tr>
+    <tr><td class="paramname">img_normalize</td><td>use image sample intensity normalization (enabled by default) </td></tr>
+    <tr><td class="paramname">use_orientation</td><td>sample patterns using keypoints orientation, enabled by default </td></tr>
+    <tr><td class="paramname">scale_factor</td><td>adjust the sampling window of detected keypoints to 64.0f (<a class="el" href="../../d8/d9a/classOpenCVForUnity_1_1Xfeatures2dModule_1_1VGG.html" title="Class implementing VGG (Oxford Visual Geometry Group) descriptor trained end to end using &quot;Descriptor...">VGG</a> sampling window) 6.25f is default and fits for KAZE, SURF detected keypoints window ratio 6.75f should be the scale for SIFT detected keypoints window ratio 5.00f should be the scale for AKAZE, MSD, AGAST, FAST, BRISK keypoints window ratio 0.75f should be the scale for ORB keypoints ratio </td></tr>
+    <tr><td class="paramname">dsc_normalize</td><td>clamp descriptors to 255 and convert to uchar CV_8UC1 (disabled by default) </td></tr>
+  </table>
+  </dd>
+</dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a085a427215343159354b2444ea95b742" name="a085a427215343159354b2444ea95b742"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a085a427215343159354b2444ea95b742">&#9670;&#160;</a></span>__fromPtr__()</h2>

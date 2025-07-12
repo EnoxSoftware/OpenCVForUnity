@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.5</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.0</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.12.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -145,12 +145,16 @@ $(function(){ initResizable(false); });
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aca89c4609f2523314e407d69ead5f384" id="r_aca89c4609f2523314e407d69ead5f384"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca89c4609f2523314e407d69ead5f384">EstimateParameters</a> ()</td></tr>
 <tr class="separator:aca89c4609f2523314e407d69ead5f384"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dc5a63f91c8beebef49fb7f9ac69750" id="r_a1dc5a63f91c8beebef49fb7f9ac69750"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1dc5a63f91c8beebef49fb7f9ac69750">get_pattern</a> ()</td></tr>
+<tr class="separator:a1dc5a63f91c8beebef49fb7f9ac69750"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a667ce4202d70f39ca54d63f680b5beb9" id="r_a667ce4202d70f39ca54d63f680b5beb9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a667ce4202d70f39ca54d63f680b5beb9">get_solvePnPMethod</a> ()</td></tr>
 <tr class="separator:a667ce4202d70f39ca54d63f680b5beb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b93c944dde36ef21c18e1ee604cbc99" id="r_a5b93c944dde36ef21c18e1ee604cbc99"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b93c944dde36ef21c18e1ee604cbc99">get_useExtrinsicGuess</a> ()</td></tr>
 <tr class="separator:a5b93c944dde36ef21c18e1ee604cbc99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1eec1bf287884c94f1161ff7597620c" id="r_ac1eec1bf287884c94f1161ff7597620c"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac1eec1bf287884c94f1161ff7597620c">getNativeObjAddr</a> ()</td></tr>
 <tr class="separator:ac1eec1bf287884c94f1161ff7597620c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a753d5c1475b1727022bb7acc7d62be27" id="r_a753d5c1475b1727022bb7acc7d62be27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a753d5c1475b1727022bb7acc7d62be27">set_pattern</a> (int pattern)</td></tr>
+<tr class="separator:a753d5c1475b1727022bb7acc7d62be27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fba1632c3e5aefe548d4138bde61cbe" id="r_a4fba1632c3e5aefe548d4138bde61cbe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4fba1632c3e5aefe548d4138bde61cbe">set_solvePnPMethod</a> (int solvePnPMethod)</td></tr>
 <tr class="separator:a4fba1632c3e5aefe548d4138bde61cbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a89cc128d81df298d9b789da1443d3616" id="r_a89cc128d81df298d9b789da1443d3616"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89cc128d81df298d9b789da1443d3616">set_useExtrinsicGuess</a> (bool useExtrinsicGuess)</td></tr>
@@ -199,8 +203,15 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Pose estimation parameters. </p>
-<p>pattern Defines center this system and axes direction (default PatternPositionType::ARUCO_CCW_CENTER). useExtrinsicGuess Parameter used for SOLVEPNP_ITERATIVE. If true (1), the function uses the provided rvec and tvec values as initial approximations of the rotation and translation vectors, respectively, and further optimizes them (default false). solvePnPMethod Method for solving a PnP problem: see calib3d_solvePnP_flags (default SOLVEPNP_ITERATIVE).</p>
-<dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000099">Deprecated</a></b></dt><dd>Use Board::matchImagePoints and cv::solvePnP</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pattern</td><td>Defines center this system and axes direction (default PatternPositionType::ARUCO_CCW_CENTER). </td></tr>
+    <tr><td class="paramname">useExtrinsicGuess</td><td>Parameter used for SOLVEPNP_ITERATIVE. If true (1), the function uses the provided rvec and tvec values as initial approximations of the rotation and translation vectors, respectively, and further optimizes them (default false). </td></tr>
+    <tr><td class="paramname">solvePnPMethod</td><td>Method for solving a PnP problem: see calib3d_solvePnP_flags (default SOLVEPNP_ITERATIVE). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000094">Deprecated</a></b></dt><dd>Use <a class="el" href="../../dc/d9e/classOpenCVForUnity_1_1ObjdetectModule_1_1Board.html#aca273d8bc1c9727791a9c93e7ee7a340" title="Given a board configuration and a set of detected markers, returns the corresponding image points and...">Board.matchImagePoints</a> and cv::solvePnP</dd></dl>
 <dl class="section see"><dt>See also</dt><dd>PatternPositionType, solvePnP() </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aca89c4609f2523314e407d69ead5f384" name="aca89c4609f2523314e407d69ead5f384"></a>
@@ -273,6 +284,23 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a1dc5a63f91c8beebef49fb7f9ac69750" name="a1dc5a63f91c8beebef49fb7f9ac69750"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dc5a63f91c8beebef49fb7f9ac69750">&#9670;&#160;</a></span>get_pattern()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int OpenCVForUnity.ArucoModule.EstimateParameters.get_pattern </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a667ce4202d70f39ca54d63f680b5beb9" name="a667ce4202d70f39ca54d63f680b5beb9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a667ce4202d70f39ca54d63f680b5beb9">&#9670;&#160;</a></span>get_solvePnPMethod()</h2>
 
@@ -317,6 +345,23 @@ Additional Inherited Members</h2></td></tr>
           <td class="memname">IntPtr OpenCVForUnity.ArucoModule.EstimateParameters.getNativeObjAddr </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a753d5c1475b1727022bb7acc7d62be27" name="a753d5c1475b1727022bb7acc7d62be27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a753d5c1475b1727022bb7acc7d62be27">&#9670;&#160;</a></span>set_pattern()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.ArucoModule.EstimateParameters.set_pattern </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>pattern</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>

@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.5</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.0</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.12.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -260,12 +260,16 @@ Static Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a7a634468a2dbc2af0f42ef85995f8957" id="r_a7a634468a2dbc2af0f42ef85995f8957"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7a634468a2dbc2af0f42ef85995f8957">NRM_FULL</a> = 102</td></tr>
+<tr class="memdesc:a7a634468a2dbc2af0f42ef85995f8957"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++: enum NormalizationType (cv.xfeatures2d.DAISY.NormalizationType)  <br /></td></tr>
 <tr class="separator:a7a634468a2dbc2af0f42ef85995f8957"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad77689b59f34440da411cdd2bd290b0a" id="r_ad77689b59f34440da411cdd2bd290b0a"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad77689b59f34440da411cdd2bd290b0a">NRM_NONE</a> = 100</td></tr>
+<tr class="memdesc:ad77689b59f34440da411cdd2bd290b0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++: enum NormalizationType (cv.xfeatures2d.DAISY.NormalizationType)  <br /></td></tr>
 <tr class="separator:ad77689b59f34440da411cdd2bd290b0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a186528212dea4205a57b98bae4e14c10" id="r_a186528212dea4205a57b98bae4e14c10"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a186528212dea4205a57b98bae4e14c10">NRM_PARTIAL</a> = 101</td></tr>
+<tr class="memdesc:a186528212dea4205a57b98bae4e14c10"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++: enum NormalizationType (cv.xfeatures2d.DAISY.NormalizationType)  <br /></td></tr>
 <tr class="separator:a186528212dea4205a57b98bae4e14c10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8e3648bd23f4b27696b5d0d2b01f9cf" id="r_ae8e3648bd23f4b27696b5d0d2b01f9cf"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8e3648bd23f4b27696b5d0d2b01f9cf">NRM_SIFT</a> = 103</td></tr>
+<tr class="memdesc:ae8e3648bd23f4b27696b5d0d2b01f9cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++: enum NormalizationType (cv.xfeatures2d.DAISY.NormalizationType)  <br /></td></tr>
 <tr class="separator:ae8e3648bd23f4b27696b5d0d2b01f9cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
@@ -304,7 +308,19 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class implementing <a class="el" href="../../d7/d7b/classOpenCVForUnity_1_1Xfeatures2dModule_1_1DAISY.html" title="Class implementing DAISY descriptor, described in Tola10.">DAISY</a> descriptor, described in <b>[Tola10]</b>. </p>
-<p>radius radius of the descriptor at the initial scale q_radius amount of radial range division quantity q_theta amount of angular range division quantity q_hist amount of gradient orientations range division quantity norm choose descriptors normalization type, where <a class="el" href="#ad77689b59f34440da411cdd2bd290b0a">DAISY.NRM_NONE</a> will not do any normalization (default), <a class="el" href="#a186528212dea4205a57b98bae4e14c10">DAISY.NRM_PARTIAL</a> mean that histograms are normalized independently for L2 norm equal to 1.0, <a class="el" href="#a7a634468a2dbc2af0f42ef85995f8957">DAISY.NRM_FULL</a> mean that descriptors are normalized for L2 norm equal to 1.0, <a class="el" href="#ae8e3648bd23f4b27696b5d0d2b01f9cf">DAISY.NRM_SIFT</a> mean that descriptors are normalized for L2 norm equal to 1.0 but no individual one is bigger than 0.154 as in SIFT H optional 3x3 homography matrix used to warp the grid of daisy but sampling keypoints remains unwarped on image interpolation switch to disable interpolation for speed improvement at minor quality loss use_orientation sample patterns using keypoints orientation, disabled by default. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">radius</td><td>radius of the descriptor at the initial scale </td></tr>
+    <tr><td class="paramname">q_radius</td><td>amount of radial range division quantity </td></tr>
+    <tr><td class="paramname">q_theta</td><td>amount of angular range division quantity </td></tr>
+    <tr><td class="paramname">q_hist</td><td>amount of gradient orientations range division quantity </td></tr>
+    <tr><td class="paramname">norm</td><td>choose descriptors normalization type, where <a class="el" href="#ad77689b59f34440da411cdd2bd290b0a" title="C++: enum NormalizationType (cv.xfeatures2d.DAISY.NormalizationType)">DAISY.NRM_NONE</a> will not do any normalization (default), <a class="el" href="#a186528212dea4205a57b98bae4e14c10" title="C++: enum NormalizationType (cv.xfeatures2d.DAISY.NormalizationType)">DAISY.NRM_PARTIAL</a> mean that histograms are normalized independently for L2 norm equal to 1.0, <a class="el" href="#a7a634468a2dbc2af0f42ef85995f8957" title="C++: enum NormalizationType (cv.xfeatures2d.DAISY.NormalizationType)">DAISY.NRM_FULL</a> mean that descriptors are normalized for L2 norm equal to 1.0, <a class="el" href="#ae8e3648bd23f4b27696b5d0d2b01f9cf" title="C++: enum NormalizationType (cv.xfeatures2d.DAISY.NormalizationType)">DAISY.NRM_SIFT</a> mean that descriptors are normalized for L2 norm equal to 1.0 but no individual one is bigger than 0.154 as in SIFT </td></tr>
+    <tr><td class="paramname">H</td><td>optional 3x3 homography matrix used to warp the grid of daisy but sampling keypoints remains unwarped on image </td></tr>
+    <tr><td class="paramname">interpolation</td><td>switch to disable interpolation for speed improvement at minor quality loss </td></tr>
+    <tr><td class="paramname">use_orientation</td><td>sample patterns using keypoints orientation, disabled by default. </td></tr>
+  </table>
+  </dd>
+</dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ab0207133fe763feb8ab521e12ad61f99" name="ab0207133fe763feb8ab521e12ad61f99"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab0207133fe763feb8ab521e12ad61f99">&#9670;&#160;</a></span>__fromPtr__()</h2>
@@ -978,6 +994,8 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>C++: enum NormalizationType (cv.xfeatures2d.DAISY.NormalizationType) </p>
+
 </div>
 </div>
 <a id="ad77689b59f34440da411cdd2bd290b0a" name="ad77689b59f34440da411cdd2bd290b0a"></a>
@@ -999,6 +1017,8 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>C++: enum NormalizationType (cv.xfeatures2d.DAISY.NormalizationType) </p>
 
 </div>
 </div>
@@ -1022,6 +1042,8 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>C++: enum NormalizationType (cv.xfeatures2d.DAISY.NormalizationType) </p>
+
 </div>
 </div>
 <a id="ae8e3648bd23f4b27696b5d0d2b01f9cf" name="ae8e3648bd23f4b27696b5d0d2b01f9cf"></a>
@@ -1043,6 +1065,8 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>C++: enum NormalizationType (cv.xfeatures2d.DAISY.NormalizationType) </p>
 
 </div>
 </div>

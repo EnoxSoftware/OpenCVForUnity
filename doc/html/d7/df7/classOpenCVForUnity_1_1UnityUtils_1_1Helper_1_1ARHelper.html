@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.5</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.0</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.12.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -132,7 +132,6 @@ $(function(){ initResizable(false); });
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#properties">Properties</a> &#124;
@@ -141,190 +140,103 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
-<p>A helper component for managing AR (Augmented Reality) functionalities.  
+<p>The <a class="el" href="../../d7/df7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARHelper.html" title="The ARHelper class manages ARCamera and ARGameObjects, automating the calculation of ARMatrix and upd...">ARHelper</a> class manages <a class="el" href="../../d9/d36/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> and ARGameObjects, automating the calculation of ARMatrix and updating the Transform of the specified UpdateTarget.  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ad903549b70eaa28b474f58577483ea12" id="r_ad903549b70eaa28b474f58577483ea12"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad903549b70eaa28b474f58577483ea12">UpdateTarget</a> { <br />
-&#160;&#160;<a class="el" href="#ad903549b70eaa28b474f58577483ea12a4591331fb3c7360d926411adcdd210ce">ARGameObject</a>
+<tr class="memitem:a5ace1dc1cf636112d43c8907b2edfcda" id="r_a5ace1dc1cf636112d43c8907b2edfcda"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ace1dc1cf636112d43c8907b2edfcda">ARUpdateTarget</a> { <br />
+&#160;&#160;<a class="el" href="#a5ace1dc1cf636112d43c8907b2edfcdaa4591331fb3c7360d926411adcdd210ce">ARGameObject</a>
 , <br />
-&#160;&#160;<a class="el" href="#ad903549b70eaa28b474f58577483ea12a7025894eea7d8e7b9f6527aa18fa6fc1">ARCamera</a>
+&#160;&#160;<a class="el" href="#a5ace1dc1cf636112d43c8907b2edfcdaa7025894eea7d8e7b9f6527aa18fa6fc1">ARCamera</a>
 <br />
  }</td></tr>
-<tr class="memdesc:ad903549b70eaa28b474f58577483ea12"><td class="mdescLeft">&#160;</td><td class="mdescRight">UpdateTarget Type.  <a href="#ad903549b70eaa28b474f58577483ea12">More...</a><br /></td></tr>
-<tr class="separator:ad903549b70eaa28b474f58577483ea12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:a5ace1dc1cf636112d43c8907b2edfcda"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of target to update.  <a href="#a5ace1dc1cf636112d43c8907b2edfcda">More...</a><br /></td></tr>
+<tr class="separator:a5ace1dc1cf636112d43c8907b2edfcda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aeb159389b0b7806a17d9fc4f05eb0a49" id="r_aeb159389b0b7806a17d9fc4f05eb0a49"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeb159389b0b7806a17d9fc4f05eb0a49">CalculateARMatrix</a> ()</td></tr>
-<tr class="memdesc:aeb159389b0b7806a17d9fc4f05eb0a49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate ARMatrix from set parameters.  <br /></td></tr>
+<tr class="memdesc:aeb159389b0b7806a17d9fc4f05eb0a49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the ARMatrix for ARGameObjects based on the settings of the registered <a class="el" href="../../d9/d36/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> and ARGameObjects.  <br /></td></tr>
 <tr class="separator:aeb159389b0b7806a17d9fc4f05eb0a49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f31d732e7ce06f4e4de56ff39435fef" id="r_a3f31d732e7ce06f4e4de56ff39435fef"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f31d732e7ce06f4e4de56ff39435fef">Dispose</a> ()</td></tr>
-<tr class="memdesc:a3f31d732e7ce06f4e4de56ff39435fef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases all resource used by the <a class="el" href="../../d7/df7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARHelper.html" title="A helper component for managing AR (Augmented Reality) functionalities.">ARHelper</a>.  <br /></td></tr>
+<tr class="memdesc:a3f31d732e7ce06f4e4de56ff39435fef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disposes the <a class="el" href="../../d5/dbb/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a>.  <br /></td></tr>
 <tr class="separator:a3f31d732e7ce06f4e4de56ff39435fef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad146c446fd24ded9775af9c4b85179fa" id="r_ad146c446fd24ded9775af9c4b85179fa"><td class="memItemLeft" align="right" valign="top">virtual Matrix4x4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad146c446fd24ded9775af9c4b85179fa">GetARMatrix</a> ()</td></tr>
-<tr class="memdesc:ad146c446fd24ded9775af9c4b85179fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get ARMatrix.  <br /></td></tr>
-<tr class="separator:ad146c446fd24ded9775af9c4b85179fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a183e2a0d9a5e5e506c8162c10cf3d59f" id="r_a183e2a0d9a5e5e506c8162c10cf3d59f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a183e2a0d9a5e5e506c8162c10cf3d59f">GetCamMatrix</a> ()</td></tr>
-<tr class="memdesc:a183e2a0d9a5e5e506c8162c10cf3d59f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get camMatrix.  <br /></td></tr>
-<tr class="separator:a183e2a0d9a5e5e506c8162c10cf3d59f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e819c558434fb35eef42f63f9ded686" id="r_a0e819c558434fb35eef42f63f9ded686"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d1/da8/classOpenCVForUnity_1_1CoreModule_1_1MatOfDouble.html">MatOfDouble</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e819c558434fb35eef42f63f9ded686">GetDistCoeffs</a> ()</td></tr>
-<tr class="memdesc:a0e819c558434fb35eef42f63f9ded686"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get distCoeffs.  <br /></td></tr>
-<tr class="separator:a0e819c558434fb35eef42f63f9ded686"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6772cf84c17325b80da169fb048bc596" id="r_a6772cf84c17325b80da169fb048bc596"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6772cf84c17325b80da169fb048bc596">GetRvec</a> ()</td></tr>
-<tr class="memdesc:a6772cf84c17325b80da169fb048bc596"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get rvec.  <br /></td></tr>
-<tr class="separator:a6772cf84c17325b80da169fb048bc596"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59c3bc94269cefebfe3b82c5fd5ce8f8" id="r_a59c3bc94269cefebfe3b82c5fd5ce8f8"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59c3bc94269cefebfe3b82c5fd5ce8f8">GetTvec</a> ()</td></tr>
-<tr class="memdesc:a59c3bc94269cefebfe3b82c5fd5ce8f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get tvec.  <br /></td></tr>
-<tr class="separator:a59c3bc94269cefebfe3b82c5fd5ce8f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1cdb350e4eb718b188b05082cb3f6418" id="r_a1cdb350e4eb718b188b05082cb3f6418"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1cdb350e4eb718b188b05082cb3f6418">Initialize</a> ()</td></tr>
-<tr class="memdesc:a1cdb350e4eb718b188b05082cb3f6418"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the <a class="el" href="../../d7/df7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARHelper.html" title="A helper component for managing AR (Augmented Reality) functionalities.">ARHelper</a>.  <br /></td></tr>
+<tr class="memdesc:a1cdb350e4eb718b188b05082cb3f6418"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes resources and sets the initial values.  <br /></td></tr>
 <tr class="separator:a1cdb350e4eb718b188b05082cb3f6418"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb7225f2b71d37241c9047444712fe9c" id="r_adb7225f2b71d37241c9047444712fe9c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb7225f2b71d37241c9047444712fe9c">Initialize</a> (int <a class="el" href="#af0620982abeb24a93ac231dd0053bfb6">screenWidth</a>, int <a class="el" href="#a4116d7d5f07808196e6b99bfa5e22e3a">screenHeight</a>, int <a class="el" href="#a6818e4973c7fb885249f0c0c47276055">imageWidth</a>, int <a class="el" href="#a8c6c0c03cf629f73ca6a5b64643e7d38">imageHeight</a>, double[] <a class="el" href="#a2f41c10cdffb89ed0f9d58cd46bb20e0">camMatrixValues</a>=null, double[] <a class="el" href="#a7e178d1ea2647921aad7d748753521a8">distCoeffsValues</a>=null, Vector2[] <a class="el" href="#a6a527eec2f4259287209f7d52f47ddf3">imagePoints</a>=null, Vector3[] <a class="el" href="#aa0394ee29d5c78cb1e354a178ea8f623">objectPoints</a>=null)</td></tr>
-<tr class="memdesc:adb7225f2b71d37241c9047444712fe9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the <a class="el" href="../../d7/df7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARHelper.html" title="A helper component for managing AR (Augmented Reality) functionalities.">ARHelper</a>.  <br /></td></tr>
-<tr class="separator:adb7225f2b71d37241c9047444712fe9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6ab6a154237692dddf4ccb7c7bacbd7" id="r_aa6ab6a154237692dddf4ccb7c7bacbd7"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa6ab6a154237692dddf4ccb7c7bacbd7">IsInitialized</a> ()</td></tr>
-<tr class="memdesc:aa6ab6a154237692dddf4ccb7c7bacbd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether this instance has been initialized.  <br /></td></tr>
-<tr class="separator:aa6ab6a154237692dddf4ccb7c7bacbd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:affab7411b622a042b260ca61a1ab5ed6" id="r_affab7411b622a042b260ca61a1ab5ed6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#affab7411b622a042b260ca61a1ab5ed6">ResetUpdateTargetTransform</a> ()</td></tr>
-<tr class="memdesc:affab7411b622a042b260ca61a1ab5ed6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the Transform of updateTarget to its initial value at the time the <a class="el" href="#a1cdb350e4eb718b188b05082cb3f6418" title="Initializes the ARHelper.">Initialize()</a> method is called.  <br /></td></tr>
-<tr class="separator:affab7411b622a042b260ca61a1ab5ed6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfcc30d008cec6820f452cd8e7358766" id="r_adfcc30d008cec6820f452cd8e7358766"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adfcc30d008cec6820f452cd8e7358766">SetCamMatrix</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> camMatrix)</td></tr>
-<tr class="memdesc:adfcc30d008cec6820f452cd8e7358766"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set camMatrix.  <br /></td></tr>
-<tr class="separator:adfcc30d008cec6820f452cd8e7358766"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac77c905d5a21fed21d7c178f0deb151b" id="r_ac77c905d5a21fed21d7c178f0deb151b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac77c905d5a21fed21d7c178f0deb151b">SetDistCoeffs</a> (<a class="el" href="../../d1/da8/classOpenCVForUnity_1_1CoreModule_1_1MatOfDouble.html">MatOfDouble</a> distCoeffs)</td></tr>
-<tr class="memdesc:ac77c905d5a21fed21d7c178f0deb151b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set distCoeffs.  <br /></td></tr>
-<tr class="separator:ac77c905d5a21fed21d7c178f0deb151b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93597f2d299e7213c7be230e9683d38c" id="r_a93597f2d299e7213c7be230e9683d38c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a93597f2d299e7213c7be230e9683d38c">ResetARGameObjectsImagePointsAndObjectPoints</a> ()</td></tr>
+<tr class="memdesc:a93597f2d299e7213c7be230e9683d38c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the ImagePoints and ObjectPoints of ARGameObjects.  <br /></td></tr>
+<tr class="separator:a93597f2d299e7213c7be230e9683d38c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f2a2a1502c5171f9ecc9f39b16d2c56" id="r_a7f2a2a1502c5171f9ecc9f39b16d2c56"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f2a2a1502c5171f9ecc9f39b16d2c56">UpdateTransform</a> ()</td></tr>
-<tr class="memdesc:a7f2a2a1502c5171f9ecc9f39b16d2c56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the Transform of UpdateTarget using ARMatrix.  <br /></td></tr>
+<tr class="memdesc:a7f2a2a1502c5171f9ecc9f39b16d2c56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects.  <br /></td></tr>
 <tr class="separator:a7f2a2a1502c5171f9ecc9f39b16d2c56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a7997df739b07ae73198d123a5722a828" id="r_a7997df739b07ae73198d123a5722a828"><td class="memItemLeft" align="right" valign="top">Camera&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7997df739b07ae73198d123a5722a828">arCamera</a></td></tr>
-<tr class="memdesc:a7997df739b07ae73198d123a5722a828"><td class="mdescLeft">&#160;</td><td class="mdescRight">Target AR Camera.  <br /></td></tr>
-<tr class="separator:a7997df739b07ae73198d123a5722a828"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a966a46a2577285ad8b43752f9d68435e" id="r_a966a46a2577285ad8b43752f9d68435e"><td class="memItemLeft" align="right" valign="top">GameObject&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a966a46a2577285ad8b43752f9d68435e">arGameObject</a></td></tr>
-<tr class="memdesc:a966a46a2577285ad8b43752f9d68435e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Target AR GameObject.  <br /></td></tr>
-<tr class="separator:a966a46a2577285ad8b43752f9d68435e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1bc2d9b7a9be91084460e0face3e913" id="r_ab1bc2d9b7a9be91084460e0face3e913"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1bc2d9b7a9be91084460e0face3e913">calculateARMatrixInLateUpdate</a> = true</td></tr>
-<tr class="memdesc:ab1bc2d9b7a9be91084460e0face3e913"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, the <a class="el" href="#aeb159389b0b7806a17d9fc4f05eb0a49" title="Calculate ARMatrix from set parameters.">CalculateARMatrix()</a> method is automatically called in the LateUpdate() method; if false, you must call it yourself.  <br /></td></tr>
-<tr class="separator:ab1bc2d9b7a9be91084460e0face3e913"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a527eec2f4259287209f7d52f47ddf3" id="r_a6a527eec2f4259287209f7d52f47ddf3"><td class="memItemLeft" align="right" valign="top">Vector2[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a527eec2f4259287209f7d52f47ddf3">imagePoints</a></td></tr>
-<tr class="memdesc:a6a527eec2f4259287209f7d52f47ddf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify the imagePoints argument to the <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose from 3D-2D point correspondences.">Calib3d.solvePnP()</a> method.  <br /></td></tr>
-<tr class="separator:a6a527eec2f4259287209f7d52f47ddf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0394ee29d5c78cb1e354a178ea8f623" id="r_aa0394ee29d5c78cb1e354a178ea8f623"><td class="memItemLeft" align="right" valign="top">Vector3[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa0394ee29d5c78cb1e354a178ea8f623">objectPoints</a></td></tr>
-<tr class="memdesc:aa0394ee29d5c78cb1e354a178ea8f623"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify the objectPoints argument to the <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose from 3D-2D point correspondences.">Calib3d.solvePnP()</a> method.  <br /></td></tr>
-<tr class="separator:aa0394ee29d5c78cb1e354a178ea8f623"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0bbf8be9622c0dbcafca77a57982fd35" id="r_a0bbf8be9622c0dbcafca77a57982fd35"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0bbf8be9622c0dbcafca77a57982fd35">positionLowPassParam</a> = 4f</td></tr>
-<tr class="memdesc:a0bbf8be9622c0dbcafca77a57982fd35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position parameter of LowPassFilter (Value in meters)  <br /></td></tr>
-<tr class="separator:a0bbf8be9622c0dbcafca77a57982fd35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a100264133a6abd641183db9e1cc616be" id="r_a100264133a6abd641183db9e1cc616be"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a100264133a6abd641183db9e1cc616be">rightHandedCoordinates</a> = false</td></tr>
-<tr class="memdesc:a100264133a6abd641183db9e1cc616be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable this flag if the object point is a right-hand coordinate system (OpenCV).  <br /></td></tr>
-<tr class="separator:a100264133a6abd641183db9e1cc616be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a064a2036f6a3fdcdd52a46a9491521b9" id="r_a064a2036f6a3fdcdd52a46a9491521b9"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a064a2036f6a3fdcdd52a46a9491521b9">rotationLowPassParam</a> = 2f</td></tr>
-<tr class="memdesc:a064a2036f6a3fdcdd52a46a9491521b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotation parameter of LowPassFilter (Value in degrees)  <br /></td></tr>
-<tr class="separator:a064a2036f6a3fdcdd52a46a9491521b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4422eba0c9c9783e7617778300f38f5" id="r_aa4422eba0c9c9783e7617778300f38f5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ad903549b70eaa28b474f58577483ea12">UpdateTarget</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa4422eba0c9c9783e7617778300f38f5">updateTarget</a></td></tr>
-<tr class="memdesc:aa4422eba0c9c9783e7617778300f38f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update Target.  <br /></td></tr>
-<tr class="separator:aa4422eba0c9c9783e7617778300f38f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acaae03e1a574fe93cf49a099bb1d6d3c" id="r_acaae03e1a574fe93cf49a099bb1d6d3c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acaae03e1a574fe93cf49a099bb1d6d3c">updateTransformInLateUpdate</a> = true</td></tr>
-<tr class="memdesc:acaae03e1a574fe93cf49a099bb1d6d3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, the <a class="el" href="#a7f2a2a1502c5171f9ecc9f39b16d2c56" title="Update the Transform of UpdateTarget using ARMatrix.">UpdateTransform()</a> method is automatically called in the LateUpdate() method; if false, you must call it yourself.  <br /></td></tr>
-<tr class="separator:acaae03e1a574fe93cf49a099bb1d6d3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02ed5a5ab9b7b080b966190dcccb63bf" id="r_a02ed5a5ab9b7b080b966190dcccb63bf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a02ed5a5ab9b7b080b966190dcccb63bf">useLowPassFilter</a> = false</td></tr>
-<tr class="memdesc:a02ed5a5ab9b7b080b966190dcccb63bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">When enabled, LowPassFilter suppresses noise.  <br /></td></tr>
-<tr class="separator:a02ed5a5ab9b7b080b966190dcccb63bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:aad61562b22049771867a3368636629ca" id="r_aad61562b22049771867a3368636629ca"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad61562b22049771867a3368636629ca">OnDestroy</a> ()</td></tr>
-<tr class="memdesc:aad61562b22049771867a3368636629ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raises the destroy event.  <br /></td></tr>
-<tr class="separator:aad61562b22049771867a3368636629ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2baf3c7aca76e12eb588ef6c2e9d3f9b" id="r_a2baf3c7aca76e12eb588ef6c2e9d3f9b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2baf3c7aca76e12eb588ef6c2e9d3f9b">OnValidate</a> ()</td></tr>
-<tr class="separator:a2baf3c7aca76e12eb588ef6c2e9d3f9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a400fddd75ee82149b065e63516aa0216" id="r_a400fddd75ee82149b065e63516aa0216"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a400fddd75ee82149b065e63516aa0216">LateUpdate</a> ()</td></tr>
+<tr class="memdesc:a400fddd75ee82149b065e63516aa0216"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls <a class="el" href="#aeb159389b0b7806a17d9fc4f05eb0a49" title="Calculates the ARMatrix for ARGameObjects based on the settings of the registered ARCamera and ARGame...">CalculateARMatrix()</a> and <a class="el" href="#a7f2a2a1502c5171f9ecc9f39b16d2c56" title="Updates the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects.">UpdateTransform()</a> in <a class="el" href="#a400fddd75ee82149b065e63516aa0216" title="Calls CalculateARMatrix() and UpdateTransform() in LateUpdate().">LateUpdate()</a>.  <br /></td></tr>
+<tr class="separator:a400fddd75ee82149b065e63516aa0216"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a6ee40f19894c9bf94d15d57635e54a81" id="r_a6ee40f19894c9bf94d15d57635e54a81"><td class="memItemLeft" align="right" valign="top">double[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ee40f19894c9bf94d15d57635e54a81">_camMatrixValues</a> = null</td></tr>
-<tr class="separator:a6ee40f19894c9bf94d15d57635e54a81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04e6c43b5fc3a6f6e2841e3e202651b8" id="r_a04e6c43b5fc3a6f6e2841e3e202651b8"><td class="memItemLeft" align="right" valign="top">double[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a04e6c43b5fc3a6f6e2841e3e202651b8">_distCoeffsValues</a> = null</td></tr>
-<tr class="separator:a04e6c43b5fc3a6f6e2841e3e202651b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e4d735b72917fbeb85feda1203f9141" id="r_a0e4d735b72917fbeb85feda1203f9141"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e4d735b72917fbeb85feda1203f9141">_imageHeight</a> = 480</td></tr>
-<tr class="separator:a0e4d735b72917fbeb85feda1203f9141"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f78dc4ea413b8aee56957a46ced1fcd" id="r_a5f78dc4ea413b8aee56957a46ced1fcd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f78dc4ea413b8aee56957a46ced1fcd">_imageWidth</a> = 640</td></tr>
-<tr class="separator:a5f78dc4ea413b8aee56957a46ced1fcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a542b89bacada572f447325f3eb1caf60" id="r_a542b89bacada572f447325f3eb1caf60"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a542b89bacada572f447325f3eb1caf60">_screenHeight</a> = 480</td></tr>
-<tr class="separator:a542b89bacada572f447325f3eb1caf60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a063302b45d8bd02ce35b0eba6fcaad54" id="r_a063302b45d8bd02ce35b0eba6fcaad54"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a063302b45d8bd02ce35b0eba6fcaad54">_screenWidth</a> = 640</td></tr>
-<tr class="separator:a063302b45d8bd02ce35b0eba6fcaad54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b64fc3b12ad0dffaec9fc958a25f0ad" id="r_a6b64fc3b12ad0dffaec9fc958a25f0ad"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b64fc3b12ad0dffaec9fc958a25f0ad">hasInitDone</a> = false</td></tr>
-<tr class="memdesc:a6b64fc3b12ad0dffaec9fc958a25f0ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether this instance has been initialized.  <br /></td></tr>
-<tr class="separator:a6b64fc3b12ad0dffaec9fc958a25f0ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaec5a6c0e2294c2545692b66d6a2e90" id="r_afaec5a6c0e2294c2545692b66d6a2e90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d36/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARCamera.html">ARCamera</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afaec5a6c0e2294c2545692b66d6a2e90">_arCamera</a></td></tr>
+<tr class="separator:afaec5a6c0e2294c2545692b66d6a2e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23eb3f7f3e8373e72320b52993d9e6ca" id="r_a23eb3f7f3e8373e72320b52993d9e6ca"><td class="memItemLeft" align="right" valign="top">List&lt; <a class="el" href="../../d5/dbb/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARGameObject.html">ARGameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23eb3f7f3e8373e72320b52993d9e6ca">_arGameObjects</a></td></tr>
+<tr class="separator:a23eb3f7f3e8373e72320b52993d9e6ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab250bcda42e3da87ce3b9abcac8e1b26" id="r_ab250bcda42e3da87ce3b9abcac8e1b26"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab250bcda42e3da87ce3b9abcac8e1b26">_calculateARMatrixInLateUpdate</a> = true</td></tr>
+<tr class="separator:ab250bcda42e3da87ce3b9abcac8e1b26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e4abdce7b4c4ead9d8801b9cbd554e4" id="r_a8e4abdce7b4c4ead9d8801b9cbd554e4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e4abdce7b4c4ead9d8801b9cbd554e4">_hasInitDone</a> = false</td></tr>
+<tr class="memdesc:a8e4abdce7b4c4ead9d8801b9cbd554e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether this instance has been initialized.  <br /></td></tr>
+<tr class="separator:a8e4abdce7b4c4ead9d8801b9cbd554e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a266e3e4ac4dcc4142b1c40ad22066171" id="r_a266e3e4ac4dcc4142b1c40ad22066171"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a5ace1dc1cf636112d43c8907b2edfcda">ARUpdateTarget</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a266e3e4ac4dcc4142b1c40ad22066171">_updateTarget</a></td></tr>
+<tr class="separator:a266e3e4ac4dcc4142b1c40ad22066171"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2204dc0a18af19cbe595f569efb6c119" id="r_a2204dc0a18af19cbe595f569efb6c119"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2204dc0a18af19cbe595f569efb6c119">_updateTransformInLateUpdate</a> = true</td></tr>
+<tr class="separator:a2204dc0a18af19cbe595f569efb6c119"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a2f41c10cdffb89ed0f9d58cd46bb20e0" id="r_a2f41c10cdffb89ed0f9d58cd46bb20e0"><td class="memItemLeft" align="right" valign="top">virtual double[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f41c10cdffb89ed0f9d58cd46bb20e0">camMatrixValues</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a2f41c10cdffb89ed0f9d58cd46bb20e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the initial value of camMatrix used for camera calibration. If the number of elements in this array is less than 9, it is automatically calculated from the Screen's Width and Height and the Image's Width and Height.  <br /></td></tr>
-<tr class="separator:a2f41c10cdffb89ed0f9d58cd46bb20e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e178d1ea2647921aad7d748753521a8" id="r_a7e178d1ea2647921aad7d748753521a8"><td class="memItemLeft" align="right" valign="top">virtual double[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e178d1ea2647921aad7d748753521a8">distCoeffsValues</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a7e178d1ea2647921aad7d748753521a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the initial value of distCoeffs used for camera calibration. If the number of elements in this array is less than 5, all elements are set to 0.  <br /></td></tr>
-<tr class="separator:a7e178d1ea2647921aad7d748753521a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c6c0c03cf629f73ca6a5b64643e7d38" id="r_a8c6c0c03cf629f73ca6a5b64643e7d38"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c6c0c03cf629f73ca6a5b64643e7d38">imageHeight</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a8c6c0c03cf629f73ca6a5b64643e7d38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the height of image.  <br /></td></tr>
-<tr class="separator:a8c6c0c03cf629f73ca6a5b64643e7d38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6818e4973c7fb885249f0c0c47276055" id="r_a6818e4973c7fb885249f0c0c47276055"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6818e4973c7fb885249f0c0c47276055">imageWidth</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a6818e4973c7fb885249f0c0c47276055"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the width of image.  <br /></td></tr>
-<tr class="separator:a6818e4973c7fb885249f0c0c47276055"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4116d7d5f07808196e6b99bfa5e22e3a" id="r_a4116d7d5f07808196e6b99bfa5e22e3a"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4116d7d5f07808196e6b99bfa5e22e3a">screenHeight</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a4116d7d5f07808196e6b99bfa5e22e3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the height of screen.  <br /></td></tr>
-<tr class="separator:a4116d7d5f07808196e6b99bfa5e22e3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0620982abeb24a93ac231dd0053bfb6" id="r_af0620982abeb24a93ac231dd0053bfb6"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0620982abeb24a93ac231dd0053bfb6">screenWidth</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:af0620982abeb24a93ac231dd0053bfb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the width of screen.  <br /></td></tr>
-<tr class="separator:af0620982abeb24a93ac231dd0053bfb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c0ab2780fc987a60d9325ce3275104b" id="r_a9c0ab2780fc987a60d9325ce3275104b"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d9/d36/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARCamera.html">ARCamera</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c0ab2780fc987a60d9325ce3275104b">ARCamera</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a9c0ab2780fc987a60d9325ce3275104b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registered AR camera.  <br /></td></tr>
+<tr class="separator:a9c0ab2780fc987a60d9325ce3275104b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af86449c5d17719fd6a36950daae2ba8b" id="r_af86449c5d17719fd6a36950daae2ba8b"><td class="memItemLeft" align="right" valign="top">virtual List&lt; <a class="el" href="../../d5/dbb/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARGameObject.html">ARGameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af86449c5d17719fd6a36950daae2ba8b">ARGameObjects</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:af86449c5d17719fd6a36950daae2ba8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registered AR game objects.  <br /></td></tr>
+<tr class="separator:af86449c5d17719fd6a36950daae2ba8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad442072b18bf383b00eb69ebaa34a472" id="r_ad442072b18bf383b00eb69ebaa34a472"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad442072b18bf383b00eb69ebaa34a472">CalculateARMatrixInLateUpdate</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ad442072b18bf383b00eb69ebaa34a472"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, the <a class="el" href="#aeb159389b0b7806a17d9fc4f05eb0a49" title="Calculates the ARMatrix for ARGameObjects based on the settings of the registered ARCamera and ARGame...">CalculateARMatrix()</a> method is automatically called in <a class="el" href="#a400fddd75ee82149b065e63516aa0216" title="Calls CalculateARMatrix() and UpdateTransform() in LateUpdate().">LateUpdate()</a>. If false, it must be called manually.  <br /></td></tr>
+<tr class="separator:ad442072b18bf383b00eb69ebaa34a472"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf58ed7effa36e36eba85df6eda38d4a" id="r_adf58ed7effa36e36eba85df6eda38d4a"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="#a5ace1dc1cf636112d43c8907b2edfcda">ARUpdateTarget</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf58ed7effa36e36eba85df6eda38d4a">UpdateTarget</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:adf58ed7effa36e36eba85df6eda38d4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the GameObject whose Transform will be updated by the <a class="el" href="#a7f2a2a1502c5171f9ecc9f39b16d2c56" title="Updates the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects.">UpdateTransform()</a> method.  <br /></td></tr>
+<tr class="separator:adf58ed7effa36e36eba85df6eda38d4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2a1726a07c942bb60b3e44d14bd06c2" id="r_ac2a1726a07c942bb60b3e44d14bd06c2"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac2a1726a07c942bb60b3e44d14bd06c2">UpdateTransformInLateUpdate</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ac2a1726a07c942bb60b3e44d14bd06c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, the <a class="el" href="#a7f2a2a1502c5171f9ecc9f39b16d2c56" title="Updates the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects.">UpdateTransform()</a> method is automatically called in <a class="el" href="#a400fddd75ee82149b065e63516aa0216" title="Calls CalculateARMatrix() and UpdateTransform() in LateUpdate().">LateUpdate()</a>. If false, it must be called manually.  <br /></td></tr>
+<tr class="separator:ac2a1726a07c942bb60b3e44d14bd06c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A helper component for managing AR (Augmented Reality) functionalities. </p>
-<p>The <a class="el" href="../../d7/df7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARHelper.html" title="A helper component for managing AR (Augmented Reality) functionalities.">ARHelper</a> class simplifies AR-related calculations such as object pose estimation and Transform updates by specifying the objectPoints, imagePoints, camMatrix, and distCoeff for OpenCV's solvePnP() method. This class provides the following features: </p><ul>
-<li>
-Configuring and updating Transforms for AR GameObject and AR Camera </li>
-<li>
-Calculating and applying AR matrices </li>
-<li>
-Low-pass filtering for pose stabilization </li>
-<li>
-Calculating and managing camera parameters </li>
+<div class="textblock"><p>The <a class="el" href="../../d7/df7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARHelper.html" title="The ARHelper class manages ARCamera and ARGameObjects, automating the calculation of ARMatrix and upd...">ARHelper</a> class manages <a class="el" href="../../d9/d36/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> and ARGameObjects, automating the calculation of ARMatrix and updating the Transform of the specified UpdateTarget. </p>
+<ul>
+<li>Calculates the ARMatrix of registered ARGameObjects based on the settings of <a class="el" href="../../d9/d36/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> and ARGameObjects.</li>
+<li>Updates the Transform of the specified UpdateTarget (<a class="el" href="../../d9/d36/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> or <a class="el" href="../../d5/dbb/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a>) using the calculated ARMatrix.</li>
+<li>Allows control over automatic execution in <a class="el" href="#a400fddd75ee82149b065e63516aa0216" title="Calls CalculateARMatrix() and UpdateTransform() in LateUpdate().">LateUpdate()</a> via boolean values.</li>
+<li>Provides functionality to reset ImagePoints and ObjectPoints. </li>
 </ul>
-<p>Attach this component to a GameObject to enable AR functionality: </p><div class="fragment"><div class="line"><span class="comment">// Example usage of the ARHelper component</span></div>
-<div class="line"><a class="code hl_class" href="../../d7/df7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARHelper.html">ARHelper</a> arHelper = gameObject.AddComponent&lt;<a class="code hl_class" href="../../d7/df7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARHelper.html">ARHelper</a>&gt;();</div>
-<div class="line">arHelper.<a class="code hl_function" href="#a1cdb350e4eb718b188b05082cb3f6418">Initialize</a>(1920, 1080, 640, 480);</div>
-<div class="line"> </div>
-<div class="line">arHelper.imagePoints = imagePointsMatOfPoint2f.toVector2Array();</div>
-<div class="line">arHelper.objectPoints = objectPointsMatOfPoint3f.toVector3Array();</div>
-<div class="line"> </div>
-<div class="line">arHelper.<a class="code hl_function" href="#aeb159389b0b7806a17d9fc4f05eb0a49">CalculateARMatrix</a>();</div>
-<div class="line">arHelper.<a class="code hl_function" href="#a7f2a2a1502c5171f9ecc9f39b16d2c56">UpdateTransform</a>();</div>
-<div class="ttc" id="aclassOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARHelper_html"><div class="ttname"><a href="../../d7/df7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARHelper.html">OpenCVForUnity.UnityUtils.Helper.ARHelper</a></div><div class="ttdoc">A helper component for managing AR (Augmented Reality) functionalities.</div><div class="ttdef"><b>Definition</b> ARHelper.cs:41</div></div>
-<div class="ttc" id="aclassOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARHelper_html_a1cdb350e4eb718b188b05082cb3f6418"><div class="ttname"><a href="#a1cdb350e4eb718b188b05082cb3f6418">OpenCVForUnity.UnityUtils.Helper.ARHelper.Initialize</a></div><div class="ttdeci">virtual void Initialize()</div><div class="ttdoc">Initializes the ARHelper.</div><div class="ttdef"><b>Definition</b> ARHelper.cs:427</div></div>
-<div class="ttc" id="aclassOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARHelper_html_a7f2a2a1502c5171f9ecc9f39b16d2c56"><div class="ttname"><a href="#a7f2a2a1502c5171f9ecc9f39b16d2c56">OpenCVForUnity.UnityUtils.Helper.ARHelper.UpdateTransform</a></div><div class="ttdeci">virtual void UpdateTransform()</div><div class="ttdoc">Update the Transform of UpdateTarget using ARMatrix.</div><div class="ttdef"><b>Definition</b> ARHelper.cs:771</div></div>
-<div class="ttc" id="aclassOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARHelper_html_aeb159389b0b7806a17d9fc4f05eb0a49"><div class="ttname"><a href="#aeb159389b0b7806a17d9fc4f05eb0a49">OpenCVForUnity.UnityUtils.Helper.ARHelper.CalculateARMatrix</a></div><div class="ttdeci">virtual void CalculateARMatrix()</div><div class="ttdoc">Calculate ARMatrix from set parameters.</div><div class="ttdef"><b>Definition</b> ARHelper.cs:658</div></div>
-</div><!-- fragment --> </div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="ad903549b70eaa28b474f58577483ea12" name="ad903549b70eaa28b474f58577483ea12"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad903549b70eaa28b474f58577483ea12">&#9670;&#160;</a></span>UpdateTarget</h2>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a5ace1dc1cf636112d43c8907b2edfcda" name="a5ace1dc1cf636112d43c8907b2edfcda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ace1dc1cf636112d43c8907b2edfcda">&#9670;&#160;</a></span>ARUpdateTarget</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="#ad903549b70eaa28b474f58577483ea12">OpenCVForUnity.UnityUtils.Helper.ARHelper.UpdateTarget</a></td>
+          <td class="memname">enum <a class="el" href="#a5ace1dc1cf636112d43c8907b2edfcda">OpenCVForUnity.UnityUtils.Helper.ARHelper.ARUpdateTarget</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>UpdateTarget Type. </p>
+<p>The type of target to update. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad903549b70eaa28b474f58577483ea12a4591331fb3c7360d926411adcdd210ce" name="ad903549b70eaa28b474f58577483ea12a4591331fb3c7360d926411adcdd210ce"></a>ARGameObject&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad903549b70eaa28b474f58577483ea12a7025894eea7d8e7b9f6527aa18fa6fc1" name="ad903549b70eaa28b474f58577483ea12a7025894eea7d8e7b9f6527aa18fa6fc1"></a>ARCamera&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a5ace1dc1cf636112d43c8907b2edfcdaa4591331fb3c7360d926411adcdd210ce" name="a5ace1dc1cf636112d43c8907b2edfcdaa4591331fb3c7360d926411adcdd210ce"></a>ARGameObject&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5ace1dc1cf636112d43c8907b2edfcdaa7025894eea7d8e7b9f6527aa18fa6fc1" name="a5ace1dc1cf636112d43c8907b2edfcdaa7025894eea7d8e7b9f6527aa18fa6fc1"></a>ARCamera&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -353,7 +265,7 @@ Calculating and managing camera parameters </li>
 </table>
 </div><div class="memdoc">
 
-<p>Calculate ARMatrix from set parameters. </p>
+<p>Calculates the ARMatrix for ARGameObjects based on the settings of the registered <a class="el" href="../../d9/d36/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> and ARGameObjects. </p>
 
 </div>
 </div>
@@ -380,144 +292,12 @@ Calculating and managing camera parameters </li>
 </table>
 </div><div class="memdoc">
 
-<p>Releases all resource used by the <a class="el" href="../../d7/df7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARHelper.html" title="A helper component for managing AR (Augmented Reality) functionalities.">ARHelper</a>. </p>
-
-</div>
-</div>
-<a id="ad146c446fd24ded9775af9c4b85179fa" name="ad146c446fd24ded9775af9c4b85179fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad146c446fd24ded9775af9c4b85179fa">&#9670;&#160;</a></span>GetARMatrix()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual Matrix4x4 OpenCVForUnity.UnityUtils.Helper.ARHelper.GetARMatrix </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get ARMatrix. </p>
-<dl class="section return"><dt>Returns</dt><dd>AR Matrix</dd></dl>
-
-</div>
-</div>
-<a id="a183e2a0d9a5e5e506c8162c10cf3d59f" name="a183e2a0d9a5e5e506c8162c10cf3d59f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a183e2a0d9a5e5e506c8162c10cf3d59f">&#9670;&#160;</a></span>GetCamMatrix()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> OpenCVForUnity.UnityUtils.Helper.ARHelper.GetCamMatrix </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get camMatrix. </p>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-</div>
-</div>
-<a id="a0e819c558434fb35eef42f63f9ded686" name="a0e819c558434fb35eef42f63f9ded686"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e819c558434fb35eef42f63f9ded686">&#9670;&#160;</a></span>GetDistCoeffs()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="../../d1/da8/classOpenCVForUnity_1_1CoreModule_1_1MatOfDouble.html">MatOfDouble</a> OpenCVForUnity.UnityUtils.Helper.ARHelper.GetDistCoeffs </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get distCoeffs. </p>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-</div>
-</div>
-<a id="a6772cf84c17325b80da169fb048bc596" name="a6772cf84c17325b80da169fb048bc596"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6772cf84c17325b80da169fb048bc596">&#9670;&#160;</a></span>GetRvec()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> OpenCVForUnity.UnityUtils.Helper.ARHelper.GetRvec </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get rvec. </p>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-</div>
-</div>
-<a id="a59c3bc94269cefebfe3b82c5fd5ce8f8" name="a59c3bc94269cefebfe3b82c5fd5ce8f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59c3bc94269cefebfe3b82c5fd5ce8f8">&#9670;&#160;</a></span>GetTvec()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> OpenCVForUnity.UnityUtils.Helper.ARHelper.GetTvec </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get tvec. </p>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<p>Disposes the <a class="el" href="../../d5/dbb/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a>. </p>
 
 </div>
 </div>
 <a id="a1cdb350e4eb718b188b05082cb3f6418" name="a1cdb350e4eb718b188b05082cb3f6418"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1cdb350e4eb718b188b05082cb3f6418">&#9670;&#160;</a></span>Initialize() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cdb350e4eb718b188b05082cb3f6418">&#9670;&#160;</a></span>Initialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -539,12 +319,12 @@ Calculating and managing camera parameters </li>
 </table>
 </div><div class="memdoc">
 
-<p>Initializes the <a class="el" href="../../d7/df7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARHelper.html" title="A helper component for managing AR (Augmented Reality) functionalities.">ARHelper</a>. </p>
+<p>Initializes resources and sets the initial values. </p>
 
 </div>
 </div>
-<a id="adb7225f2b71d37241c9047444712fe9c" name="adb7225f2b71d37241c9047444712fe9c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb7225f2b71d37241c9047444712fe9c">&#9670;&#160;</a></span>Initialize() <span class="overload">[2/2]</span></h2>
+<a id="a400fddd75ee82149b065e63516aa0216" name="a400fddd75ee82149b065e63516aa0216"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a400fddd75ee82149b065e63516aa0216">&#9670;&#160;</a></span>LateUpdate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -553,96 +333,7 @@ Calculating and managing camera parameters </li>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void OpenCVForUnity.UnityUtils.Helper.ARHelper.Initialize </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>screenWidth</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>screenHeight</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>imageWidth</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>imageHeight</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double[]</td>          <td class="paramname"><span class="paramname"><em>camMatrixValues</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double[]</td>          <td class="paramname"><span class="paramname"><em>distCoeffsValues</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Vector2[]</td>          <td class="paramname"><span class="paramname"><em>imagePoints</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Vector3[]</td>          <td class="paramname"><span class="paramname"><em>objectPoints</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Initializes the <a class="el" href="../../d7/df7/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARHelper.html" title="A helper component for managing AR (Augmented Reality) functionalities.">ARHelper</a>. </p>
-
-</div>
-</div>
-<a id="aa6ab6a154237692dddf4ccb7c7bacbd7" name="aa6ab6a154237692dddf4ccb7c7bacbd7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa6ab6a154237692dddf4ccb7c7bacbd7">&#9670;&#160;</a></span>IsInitialized()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool OpenCVForUnity.UnityUtils.Helper.ARHelper.IsInitialized </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Indicates whether this instance has been initialized. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code>, if this instance has been initialized, <code>false</code> otherwise.</dd></dl>
-
-</div>
-</div>
-<a id="aad61562b22049771867a3368636629ca" name="aad61562b22049771867a3368636629ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad61562b22049771867a3368636629ca">&#9670;&#160;</a></span>OnDestroy()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void OpenCVForUnity.UnityUtils.Helper.ARHelper.OnDestroy </td>
+          <td class="memname">virtual void OpenCVForUnity.UnityUtils.Helper.ARHelper.LateUpdate </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -655,37 +346,12 @@ Calculating and managing camera parameters </li>
 </table>
 </div><div class="memdoc">
 
-<p>Raises the destroy event. </p>
+<p>Calls <a class="el" href="#aeb159389b0b7806a17d9fc4f05eb0a49" title="Calculates the ARMatrix for ARGameObjects based on the settings of the registered ARCamera and ARGame...">CalculateARMatrix()</a> and <a class="el" href="#a7f2a2a1502c5171f9ecc9f39b16d2c56" title="Updates the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects.">UpdateTransform()</a> in <a class="el" href="#a400fddd75ee82149b065e63516aa0216" title="Calls CalculateARMatrix() and UpdateTransform() in LateUpdate().">LateUpdate()</a>. </p>
 
 </div>
 </div>
-<a id="a2baf3c7aca76e12eb588ef6c2e9d3f9b" name="a2baf3c7aca76e12eb588ef6c2e9d3f9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2baf3c7aca76e12eb588ef6c2e9d3f9b">&#9670;&#160;</a></span>OnValidate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void OpenCVForUnity.UnityUtils.Helper.ARHelper.OnValidate </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="affab7411b622a042b260ca61a1ab5ed6" name="affab7411b622a042b260ca61a1ab5ed6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#affab7411b622a042b260ca61a1ab5ed6">&#9670;&#160;</a></span>ResetUpdateTargetTransform()</h2>
+<a id="a93597f2d299e7213c7be230e9683d38c" name="a93597f2d299e7213c7be230e9683d38c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93597f2d299e7213c7be230e9683d38c">&#9670;&#160;</a></span>ResetARGameObjectsImagePointsAndObjectPoints()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -694,7 +360,7 @@ Calculating and managing camera parameters </li>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void OpenCVForUnity.UnityUtils.Helper.ARHelper.ResetUpdateTargetTransform </td>
+          <td class="memname">virtual void OpenCVForUnity.UnityUtils.Helper.ARHelper.ResetARGameObjectsImagePointsAndObjectPoints </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -707,73 +373,7 @@ Calculating and managing camera parameters </li>
 </table>
 </div><div class="memdoc">
 
-<p>Resets the Transform of updateTarget to its initial value at the time the <a class="el" href="#a1cdb350e4eb718b188b05082cb3f6418" title="Initializes the ARHelper.">Initialize()</a> method is called. </p>
-
-</div>
-</div>
-<a id="adfcc30d008cec6820f452cd8e7358766" name="adfcc30d008cec6820f452cd8e7358766"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adfcc30d008cec6820f452cd8e7358766">&#9670;&#160;</a></span>SetCamMatrix()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void OpenCVForUnity.UnityUtils.Helper.ARHelper.SetCamMatrix </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>camMatrix</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Set camMatrix. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">camMatrix</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ac77c905d5a21fed21d7c178f0deb151b" name="ac77c905d5a21fed21d7c178f0deb151b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac77c905d5a21fed21d7c178f0deb151b">&#9670;&#160;</a></span>SetDistCoeffs()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void OpenCVForUnity.UnityUtils.Helper.ARHelper.SetDistCoeffs </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d1/da8/classOpenCVForUnity_1_1CoreModule_1_1MatOfDouble.html">MatOfDouble</a></td>          <td class="paramname"><span class="paramname"><em>distCoeffs</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Set distCoeffs. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">distCoeffs</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Resets the ImagePoints and ObjectPoints of ARGameObjects. </p>
 
 </div>
 </div>
@@ -800,13 +400,13 @@ Calculating and managing camera parameters </li>
 </table>
 </div><div class="memdoc">
 
-<p>Update the Transform of UpdateTarget using ARMatrix. </p>
+<p>Updates the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a6ee40f19894c9bf94d15d57635e54a81" name="a6ee40f19894c9bf94d15d57635e54a81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ee40f19894c9bf94d15d57635e54a81">&#9670;&#160;</a></span>_camMatrixValues</h2>
+<a id="afaec5a6c0e2294c2545692b66d6a2e90" name="afaec5a6c0e2294c2545692b66d6a2e90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afaec5a6c0e2294c2545692b66d6a2e90">&#9670;&#160;</a></span>_arCamera</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -815,7 +415,7 @@ Calculating and managing camera parameters </li>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double [] OpenCVForUnity.UnityUtils.Helper.ARHelper._camMatrixValues = null</td>
+          <td class="memname"><a class="el" href="../../d9/d36/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARCamera.html">ARCamera</a> OpenCVForUnity.UnityUtils.Helper.ARHelper._arCamera</td>
         </tr>
       </table>
   </td>
@@ -827,8 +427,8 @@ Calculating and managing camera parameters </li>
 
 </div>
 </div>
-<a id="a04e6c43b5fc3a6f6e2841e3e202651b8" name="a04e6c43b5fc3a6f6e2841e3e202651b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04e6c43b5fc3a6f6e2841e3e202651b8">&#9670;&#160;</a></span>_distCoeffsValues</h2>
+<a id="a23eb3f7f3e8373e72320b52993d9e6ca" name="a23eb3f7f3e8373e72320b52993d9e6ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23eb3f7f3e8373e72320b52993d9e6ca">&#9670;&#160;</a></span>_arGameObjects</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -837,7 +437,7 @@ Calculating and managing camera parameters </li>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double [] OpenCVForUnity.UnityUtils.Helper.ARHelper._distCoeffsValues = null</td>
+          <td class="memname">List&lt;<a class="el" href="../../d5/dbb/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARGameObject.html">ARGameObject</a>&gt; OpenCVForUnity.UnityUtils.Helper.ARHelper._arGameObjects</td>
         </tr>
       </table>
   </td>
@@ -849,8 +449,8 @@ Calculating and managing camera parameters </li>
 
 </div>
 </div>
-<a id="a0e4d735b72917fbeb85feda1203f9141" name="a0e4d735b72917fbeb85feda1203f9141"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e4d735b72917fbeb85feda1203f9141">&#9670;&#160;</a></span>_imageHeight</h2>
+<a id="ab250bcda42e3da87ce3b9abcac8e1b26" name="ab250bcda42e3da87ce3b9abcac8e1b26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab250bcda42e3da87ce3b9abcac8e1b26">&#9670;&#160;</a></span>_calculateARMatrixInLateUpdate</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -859,7 +459,7 @@ Calculating and managing camera parameters </li>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int OpenCVForUnity.UnityUtils.Helper.ARHelper._imageHeight = 480</td>
+          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.ARHelper._calculateARMatrixInLateUpdate = true</td>
         </tr>
       </table>
   </td>
@@ -871,8 +471,8 @@ Calculating and managing camera parameters </li>
 
 </div>
 </div>
-<a id="a5f78dc4ea413b8aee56957a46ced1fcd" name="a5f78dc4ea413b8aee56957a46ced1fcd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f78dc4ea413b8aee56957a46ced1fcd">&#9670;&#160;</a></span>_imageWidth</h2>
+<a id="a8e4abdce7b4c4ead9d8801b9cbd554e4" name="a8e4abdce7b4c4ead9d8801b9cbd554e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e4abdce7b4c4ead9d8801b9cbd554e4">&#9670;&#160;</a></span>_hasInitDone</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -881,121 +481,7 @@ Calculating and managing camera parameters </li>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int OpenCVForUnity.UnityUtils.Helper.ARHelper._imageWidth = 640</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a542b89bacada572f447325f3eb1caf60" name="a542b89bacada572f447325f3eb1caf60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a542b89bacada572f447325f3eb1caf60">&#9670;&#160;</a></span>_screenHeight</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int OpenCVForUnity.UnityUtils.Helper.ARHelper._screenHeight = 480</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a063302b45d8bd02ce35b0eba6fcaad54" name="a063302b45d8bd02ce35b0eba6fcaad54"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a063302b45d8bd02ce35b0eba6fcaad54">&#9670;&#160;</a></span>_screenWidth</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int OpenCVForUnity.UnityUtils.Helper.ARHelper._screenWidth = 640</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7997df739b07ae73198d123a5722a828" name="a7997df739b07ae73198d123a5722a828"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7997df739b07ae73198d123a5722a828">&#9670;&#160;</a></span>arCamera</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Camera OpenCVForUnity.UnityUtils.Helper.ARHelper.arCamera</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Target AR Camera. </p>
-
-</div>
-</div>
-<a id="a966a46a2577285ad8b43752f9d68435e" name="a966a46a2577285ad8b43752f9d68435e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a966a46a2577285ad8b43752f9d68435e">&#9670;&#160;</a></span>arGameObject</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">GameObject OpenCVForUnity.UnityUtils.Helper.ARHelper.arGameObject</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Target AR GameObject. </p>
-
-</div>
-</div>
-<a id="ab1bc2d9b7a9be91084460e0face3e913" name="ab1bc2d9b7a9be91084460e0face3e913"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1bc2d9b7a9be91084460e0face3e913">&#9670;&#160;</a></span>calculateARMatrixInLateUpdate</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.ARHelper.calculateARMatrixInLateUpdate = true</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>If true, the <a class="el" href="#aeb159389b0b7806a17d9fc4f05eb0a49" title="Calculate ARMatrix from set parameters.">CalculateARMatrix()</a> method is automatically called in the LateUpdate() method; if false, you must call it yourself. </p>
-
-</div>
-</div>
-<a id="a6b64fc3b12ad0dffaec9fc958a25f0ad" name="a6b64fc3b12ad0dffaec9fc958a25f0ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b64fc3b12ad0dffaec9fc958a25f0ad">&#9670;&#160;</a></span>hasInitDone</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.ARHelper.hasInitDone = false</td>
+          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.ARHelper._hasInitDone = false</td>
         </tr>
       </table>
   </td>
@@ -1009,137 +495,53 @@ Calculating and managing camera parameters </li>
 
 </div>
 </div>
-<a id="a6a527eec2f4259287209f7d52f47ddf3" name="a6a527eec2f4259287209f7d52f47ddf3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a527eec2f4259287209f7d52f47ddf3">&#9670;&#160;</a></span>imagePoints</h2>
+<a id="a266e3e4ac4dcc4142b1c40ad22066171" name="a266e3e4ac4dcc4142b1c40ad22066171"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a266e3e4ac4dcc4142b1c40ad22066171">&#9670;&#160;</a></span>_updateTarget</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Vector2 [] OpenCVForUnity.UnityUtils.Helper.ARHelper.imagePoints</td>
+          <td class="memname"><a class="el" href="#a5ace1dc1cf636112d43c8907b2edfcda">ARUpdateTarget</a> OpenCVForUnity.UnityUtils.Helper.ARHelper._updateTarget</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Specify the imagePoints argument to the <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose from 3D-2D point correspondences.">Calib3d.solvePnP()</a> method. </p>
-
 </div>
 </div>
-<a id="aa0394ee29d5c78cb1e354a178ea8f623" name="aa0394ee29d5c78cb1e354a178ea8f623"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0394ee29d5c78cb1e354a178ea8f623">&#9670;&#160;</a></span>objectPoints</h2>
+<a id="a2204dc0a18af19cbe595f569efb6c119" name="a2204dc0a18af19cbe595f569efb6c119"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2204dc0a18af19cbe595f569efb6c119">&#9670;&#160;</a></span>_updateTransformInLateUpdate</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Vector3 [] OpenCVForUnity.UnityUtils.Helper.ARHelper.objectPoints</td>
+          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.ARHelper._updateTransformInLateUpdate = true</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-
-<p>Specify the objectPoints argument to the <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose from 3D-2D point correspondences.">Calib3d.solvePnP()</a> method. </p>
-
-</div>
-</div>
-<a id="a0bbf8be9622c0dbcafca77a57982fd35" name="a0bbf8be9622c0dbcafca77a57982fd35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0bbf8be9622c0dbcafca77a57982fd35">&#9670;&#160;</a></span>positionLowPassParam</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float OpenCVForUnity.UnityUtils.Helper.ARHelper.positionLowPassParam = 4f</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Position parameter of LowPassFilter (Value in meters) </p>
-
-</div>
-</div>
-<a id="a100264133a6abd641183db9e1cc616be" name="a100264133a6abd641183db9e1cc616be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a100264133a6abd641183db9e1cc616be">&#9670;&#160;</a></span>rightHandedCoordinates</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.ARHelper.rightHandedCoordinates = false</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Enable this flag if the object point is a right-hand coordinate system (OpenCV). </p>
-
-</div>
-</div>
-<a id="a064a2036f6a3fdcdd52a46a9491521b9" name="a064a2036f6a3fdcdd52a46a9491521b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a064a2036f6a3fdcdd52a46a9491521b9">&#9670;&#160;</a></span>rotationLowPassParam</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float OpenCVForUnity.UnityUtils.Helper.ARHelper.rotationLowPassParam = 2f</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Rotation parameter of LowPassFilter (Value in degrees) </p>
-
-</div>
-</div>
-<a id="aa4422eba0c9c9783e7617778300f38f5" name="aa4422eba0c9c9783e7617778300f38f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4422eba0c9c9783e7617778300f38f5">&#9670;&#160;</a></span>updateTarget</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="#ad903549b70eaa28b474f58577483ea12">UpdateTarget</a> OpenCVForUnity.UnityUtils.Helper.ARHelper.updateTarget</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Update Target. </p>
-
-</div>
-</div>
-<a id="acaae03e1a574fe93cf49a099bb1d6d3c" name="acaae03e1a574fe93cf49a099bb1d6d3c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acaae03e1a574fe93cf49a099bb1d6d3c">&#9670;&#160;</a></span>updateTransformInLateUpdate</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.ARHelper.updateTransformInLateUpdate = true</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>If true, the <a class="el" href="#a7f2a2a1502c5171f9ecc9f39b16d2c56" title="Update the Transform of UpdateTarget using ARMatrix.">UpdateTransform()</a> method is automatically called in the LateUpdate() method; if false, you must call it yourself. </p>
-
-</div>
-</div>
-<a id="a02ed5a5ab9b7b080b966190dcccb63bf" name="a02ed5a5ab9b7b080b966190dcccb63bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02ed5a5ab9b7b080b966190dcccb63bf">&#9670;&#160;</a></span>useLowPassFilter</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OpenCVForUnity.UnityUtils.Helper.ARHelper.useLowPassFilter = false</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>When enabled, LowPassFilter suppresses noise. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
-<a id="a2f41c10cdffb89ed0f9d58cd46bb20e0" name="a2f41c10cdffb89ed0f9d58cd46bb20e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f41c10cdffb89ed0f9d58cd46bb20e0">&#9670;&#160;</a></span>camMatrixValues</h2>
+<a id="a9c0ab2780fc987a60d9325ce3275104b" name="a9c0ab2780fc987a60d9325ce3275104b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c0ab2780fc987a60d9325ce3275104b">&#9670;&#160;</a></span>ARCamera</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1148,7 +550,7 @@ Calculating and managing camera parameters </li>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual double [] OpenCVForUnity.UnityUtils.Helper.ARHelper.camMatrixValues</td>
+          <td class="memname">virtual <a class="el" href="../../d9/d36/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARCamera.html">ARCamera</a> OpenCVForUnity.UnityUtils.Helper.ARHelper.ARCamera</td>
         </tr>
       </table>
   </td>
@@ -1158,12 +560,12 @@ Calculating and managing camera parameters </li>
 </table>
 </div><div class="memdoc">
 
-<p>Specifies the initial value of camMatrix used for camera calibration. If the number of elements in this array is less than 9, it is automatically calculated from the Screen's Width and Height and the Image's Width and Height. </p>
+<p>Registered AR camera. </p>
 
 </div>
 </div>
-<a id="a7e178d1ea2647921aad7d748753521a8" name="a7e178d1ea2647921aad7d748753521a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e178d1ea2647921aad7d748753521a8">&#9670;&#160;</a></span>distCoeffsValues</h2>
+<a id="af86449c5d17719fd6a36950daae2ba8b" name="af86449c5d17719fd6a36950daae2ba8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af86449c5d17719fd6a36950daae2ba8b">&#9670;&#160;</a></span>ARGameObjects</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1172,7 +574,7 @@ Calculating and managing camera parameters </li>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual double [] OpenCVForUnity.UnityUtils.Helper.ARHelper.distCoeffsValues</td>
+          <td class="memname">virtual List&lt;<a class="el" href="../../d5/dbb/classOpenCVForUnity_1_1UnityUtils_1_1Helper_1_1ARGameObject.html">ARGameObject</a>&gt; OpenCVForUnity.UnityUtils.Helper.ARHelper.ARGameObjects</td>
         </tr>
       </table>
   </td>
@@ -1182,12 +584,12 @@ Calculating and managing camera parameters </li>
 </table>
 </div><div class="memdoc">
 
-<p>Specifies the initial value of distCoeffs used for camera calibration. If the number of elements in this array is less than 5, all elements are set to 0. </p>
+<p>Registered AR game objects. </p>
 
 </div>
 </div>
-<a id="a8c6c0c03cf629f73ca6a5b64643e7d38" name="a8c6c0c03cf629f73ca6a5b64643e7d38"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c6c0c03cf629f73ca6a5b64643e7d38">&#9670;&#160;</a></span>imageHeight</h2>
+<a id="ad442072b18bf383b00eb69ebaa34a472" name="ad442072b18bf383b00eb69ebaa34a472"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad442072b18bf383b00eb69ebaa34a472">&#9670;&#160;</a></span>CalculateARMatrixInLateUpdate</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1196,7 +598,7 @@ Calculating and managing camera parameters </li>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual int OpenCVForUnity.UnityUtils.Helper.ARHelper.imageHeight</td>
+          <td class="memname">virtual bool OpenCVForUnity.UnityUtils.Helper.ARHelper.CalculateARMatrixInLateUpdate</td>
         </tr>
       </table>
   </td>
@@ -1206,12 +608,12 @@ Calculating and managing camera parameters </li>
 </table>
 </div><div class="memdoc">
 
-<p>Set the height of image. </p>
+<p>If true, the <a class="el" href="#aeb159389b0b7806a17d9fc4f05eb0a49" title="Calculates the ARMatrix for ARGameObjects based on the settings of the registered ARCamera and ARGame...">CalculateARMatrix()</a> method is automatically called in <a class="el" href="#a400fddd75ee82149b065e63516aa0216" title="Calls CalculateARMatrix() and UpdateTransform() in LateUpdate().">LateUpdate()</a>. If false, it must be called manually. </p>
 
 </div>
 </div>
-<a id="a6818e4973c7fb885249f0c0c47276055" name="a6818e4973c7fb885249f0c0c47276055"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6818e4973c7fb885249f0c0c47276055">&#9670;&#160;</a></span>imageWidth</h2>
+<a id="adf58ed7effa36e36eba85df6eda38d4a" name="adf58ed7effa36e36eba85df6eda38d4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf58ed7effa36e36eba85df6eda38d4a">&#9670;&#160;</a></span>UpdateTarget</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1220,7 +622,7 @@ Calculating and managing camera parameters </li>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual int OpenCVForUnity.UnityUtils.Helper.ARHelper.imageWidth</td>
+          <td class="memname">virtual <a class="el" href="#a5ace1dc1cf636112d43c8907b2edfcda">ARUpdateTarget</a> OpenCVForUnity.UnityUtils.Helper.ARHelper.UpdateTarget</td>
         </tr>
       </table>
   </td>
@@ -1230,12 +632,12 @@ Calculating and managing camera parameters </li>
 </table>
 </div><div class="memdoc">
 
-<p>Set the width of image. </p>
+<p>Specifies the GameObject whose Transform will be updated by the <a class="el" href="#a7f2a2a1502c5171f9ecc9f39b16d2c56" title="Updates the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects.">UpdateTransform()</a> method. </p>
 
 </div>
 </div>
-<a id="a4116d7d5f07808196e6b99bfa5e22e3a" name="a4116d7d5f07808196e6b99bfa5e22e3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4116d7d5f07808196e6b99bfa5e22e3a">&#9670;&#160;</a></span>screenHeight</h2>
+<a id="ac2a1726a07c942bb60b3e44d14bd06c2" name="ac2a1726a07c942bb60b3e44d14bd06c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2a1726a07c942bb60b3e44d14bd06c2">&#9670;&#160;</a></span>UpdateTransformInLateUpdate</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1244,7 +646,7 @@ Calculating and managing camera parameters </li>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual int OpenCVForUnity.UnityUtils.Helper.ARHelper.screenHeight</td>
+          <td class="memname">virtual bool OpenCVForUnity.UnityUtils.Helper.ARHelper.UpdateTransformInLateUpdate</td>
         </tr>
       </table>
   </td>
@@ -1254,36 +656,12 @@ Calculating and managing camera parameters </li>
 </table>
 </div><div class="memdoc">
 
-<p>Set the height of screen. </p>
-
-</div>
-</div>
-<a id="af0620982abeb24a93ac231dd0053bfb6" name="af0620982abeb24a93ac231dd0053bfb6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af0620982abeb24a93ac231dd0053bfb6">&#9670;&#160;</a></span>screenWidth</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual int OpenCVForUnity.UnityUtils.Helper.ARHelper.screenWidth</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Set the width of screen. </p>
+<p>If true, the <a class="el" href="#a7f2a2a1502c5171f9ecc9f39b16d2c56" title="Updates the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects.">UpdateTransform()</a> method is automatically called in <a class="el" href="#a400fddd75ee82149b065e63516aa0216" title="Calls CalculateARMatrix() and UpdateTransform() in LateUpdate().">LateUpdate()</a>. If false, it must be called manually. </p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/Helper/ARHelper/<a class="el" href="../../d9/dea/ARHelper_8cs.html">ARHelper.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/_unity/Helper/ARHelper/<a class="el" href="../../dc/d64/__unity_2Helper_2ARHelper_2ARHelper_8cs.html">ARHelper.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -9,11 +9,13 @@ var searchData=
   ['charucodetector_6',['CharucoDetector',['../de/d69/classOpenCVForUnity_1_1ObjdetectModule_1_1CharucoDetector.html',1,'OpenCVForUnity::ObjdetectModule']]],
   ['charucoparameters_7',['CharucoParameters',['../d4/dbe/classOpenCVForUnity_1_1ObjdetectModule_1_1CharucoParameters.html',1,'OpenCVForUnity::ObjdetectModule']]],
   ['clahe_8',['CLAHE',['../d5/df0/classOpenCVForUnity_1_1ImgprocModule_1_1CLAHE.html',1,'OpenCVForUnity::ImgprocModule']]],
-  ['classificationmodel_9',['ClassificationModel',['../d3/db7/classOpenCVForUnity_1_1DnnModule_1_1ClassificationModel.html',1,'OpenCVForUnity::DnnModule']]],
-  ['colormomenthash_10',['ColorMomentHash',['../d6/d53/classOpenCVForUnity_1_1Img__hashModule_1_1ColorMomentHash.html',1,'OpenCVForUnity::Img_hashModule']]],
-  ['contourfitting_11',['ContourFitting',['../d6/dc2/classOpenCVForUnity_1_1XimgprocModule_1_1ContourFitting.html',1,'OpenCVForUnity::XimgprocModule']]],
-  ['converters_12',['Converters',['../dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html',1,'OpenCVForUnity::UtilsModule']]],
-  ['core_13',['Core',['../da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html',1,'OpenCVForUnity::CoreModule']]],
-  ['cvexception_14',['CvException',['../dc/dbb/classOpenCVForUnity_1_1CoreModule_1_1CvException.html',1,'OpenCVForUnity::CoreModule']]],
-  ['cvtype_15',['CvType',['../d4/d7f/classOpenCVForUnity_1_1CoreModule_1_1CvType.html',1,'OpenCVForUnity::CoreModule']]]
+  ['classificationdata_9',['ClassificationData',['../d0/d3f/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DataStruct_1_1ClassificationData.html',1,'OpenCVForUnity::UnityIntegration::Worker::DataStruct']]],
+  ['classificationmodel_10',['ClassificationModel',['../d3/db7/classOpenCVForUnity_1_1DnnModule_1_1ClassificationModel.html',1,'OpenCVForUnity::DnnModule']]],
+  ['classlabelutils_11',['ClassLabelUtils',['../d5/d85/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1Utils_1_1ClassLabelUtils.html',1,'OpenCVForUnity::UnityIntegration::Worker::Utils']]],
+  ['colormomenthash_12',['ColorMomentHash',['../d6/d53/classOpenCVForUnity_1_1Img__hashModule_1_1ColorMomentHash.html',1,'OpenCVForUnity::Img_hashModule']]],
+  ['contourfitting_13',['ContourFitting',['../d6/dc2/classOpenCVForUnity_1_1XimgprocModule_1_1ContourFitting.html',1,'OpenCVForUnity::XimgprocModule']]],
+  ['converters_14',['Converters',['../dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html',1,'OpenCVForUnity::UtilsModule']]],
+  ['core_15',['Core',['../da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html',1,'OpenCVForUnity::CoreModule']]],
+  ['cvexception_16',['CvException',['../dc/dbb/classOpenCVForUnity_1_1CoreModule_1_1CvException.html',1,'OpenCVForUnity::CoreModule']]],
+  ['cvtype_17',['CvType',['../d4/d7f/classOpenCVForUnity_1_1CoreModule_1_1CvType.html',1,'OpenCVForUnity::CoreModule']]]
 ];

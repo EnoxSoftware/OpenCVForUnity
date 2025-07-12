@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;2.6.5</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.0</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.10.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.12.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -216,8 +216,10 @@ Static Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a624021fc1aa7ded2d0653b73d059732f" id="r_a624021fc1aa7ded2d0653b73d059732f"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a624021fc1aa7ded2d0653b73d059732f">SIZE_256_BITS</a> = 102</td></tr>
+<tr class="memdesc:a624021fc1aa7ded2d0653b73d059732f"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++: enum TeblidSize (cv.xfeatures2d.TEBLID.TeblidSize)  <br /></td></tr>
 <tr class="separator:a624021fc1aa7ded2d0653b73d059732f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99c9b671d74ce5bd799587cb64b520f0" id="r_a99c9b671d74ce5bd799587cb64b520f0"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99c9b671d74ce5bd799587cb64b520f0">SIZE_512_BITS</a> = 103</td></tr>
+<tr class="memdesc:a99c9b671d74ce5bd799587cb64b520f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++: enum TeblidSize (cv.xfeatures2d.TEBLID.TeblidSize)  <br /></td></tr>
 <tr class="separator:a99c9b671d74ce5bd799587cb64b520f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
@@ -255,7 +257,9 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class implementing <a class="el" href="../../d2/d7a/classOpenCVForUnity_1_1Xfeatures2dModule_1_1TEBLID.html" title="Class implementing TEBLID (Triplet-based Efficient Binary Local Image Descriptor),...">TEBLID</a> (Triplet-based Efficient Binary Local Image Descriptor), described in <b>[Suarez2021TEBLID]</b>. </p>
 <p><a class="el" href="../../d2/d7a/classOpenCVForUnity_1_1Xfeatures2dModule_1_1TEBLID.html" title="Class implementing TEBLID (Triplet-based Efficient Binary Local Image Descriptor),...">TEBLID</a> stands for Triplet-based Efficient Binary Local Image Descriptor, although originally it was called BAD <b>[Suarez2021TEBLID]</b>. It is an improvement over <a class="el" href="../../d4/d8c/classOpenCVForUnity_1_1Xfeatures2dModule_1_1BEBLID.html" title="Class implementing BEBLID (Boosted Efficient Binary Local Image Descriptor), described in Suarez2020B...">BEBLID</a> <b>[Suarez2020BEBLID]</b>, that uses triplet loss, hard negative mining, and anchor swap to improve the image matching results. It is able to describe keypoints from any detector just by changing the scale_factor parameter. <a class="el" href="../../d2/d7a/classOpenCVForUnity_1_1Xfeatures2dModule_1_1TEBLID.html" title="Class implementing TEBLID (Triplet-based Efficient Binary Local Image Descriptor),...">TEBLID</a> is as efficient as ORB, <a class="el" href="../../d4/d8c/classOpenCVForUnity_1_1Xfeatures2dModule_1_1BEBLID.html" title="Class implementing BEBLID (Boosted Efficient Binary Local Image Descriptor), described in Suarez2020B...">BEBLID</a> or BRISK, but the triplet-based training objective selected more discriminative features that explain the accuracy gain. It is also more compact than <a class="el" href="../../d4/d8c/classOpenCVForUnity_1_1Xfeatures2dModule_1_1BEBLID.html" title="Class implementing BEBLID (Boosted Efficient Binary Local Image Descriptor), described in Suarez2020B...">BEBLID</a>, when running the <a href="https://github.com/opencv/opencv/blob/4.x/samples/cpp/tutorial_code/features2D/AKAZE_match.cpp" target="_blank">AKAZE example</a> with 10000 keypoints detected by ORB, <a class="el" href="../../d4/d8c/classOpenCVForUnity_1_1Xfeatures2dModule_1_1BEBLID.html" title="Class implementing BEBLID (Boosted Efficient Binary Local Image Descriptor), described in Suarez2020B...">BEBLID</a> obtains 561 inliers (75%) with 512 bits, whereas <a class="el" href="../../d2/d7a/classOpenCVForUnity_1_1Xfeatures2dModule_1_1TEBLID.html" title="Class implementing TEBLID (Triplet-based Efficient Binary Local Image Descriptor),...">TEBLID</a> obtains 621 (75.2%) with 256 bits. ORB obtains only 493 inliers (63%).</p>
-<p>If you find this code useful, please add a reference to the following paper: &lt;BLOCKQUOTE&gt; Iago Suárez, José M. Buenaposada, and Luis Baumela. Revisiting Binary Local Image Description for Resource Limited Devices. IEEE Robotics and Automation Letters, vol. 6, no. 4, pp. 8317-8324, Oct. 2021. &lt;/BLOCKQUOTE&gt;</p>
+<p>If you find this code useful, please add a reference to the following paper: </p><blockquote class="doxtable">
+<p>Iago Suárez, José M. Buenaposada, and Luis Baumela. Revisiting Binary Local Image Description for Resource Limited Devices. IEEE Robotics and Automation Letters, vol. 6, no. 4, pp. 8317-8324, Oct. 2021. </p>
+</blockquote>
 <p>The descriptor was trained in Liberty split of the UBC datasets <b>[winder2007learning]</b> . </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="afdcfdaa3b7ebf0d72a0136eb48d5a7ca" name="afdcfdaa3b7ebf0d72a0136eb48d5a7ca"></a>
@@ -310,13 +314,13 @@ Additional Inherited Members</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">scale_factor</td><td>Adjust the sampling window around detected keypoints:<ul>
-<li>&lt;b&gt; 1.00f &lt;/b&gt; should be the scale for ORB keypoints</li>
-<li>&lt;b&gt; 6.75f &lt;/b&gt; should be the scale for SIFT detected keypoints</li>
-<li>&lt;b&gt; 6.25f &lt;/b&gt; is default and fits for KAZE, SURF detected keypoints</li>
-<li>&lt;b&gt; 5.00f &lt;/b&gt; should be the scale for AKAZE, MSD, AGAST, FAST, BRISK keypoints </li>
+<li><b> 1.00f </b> should be the scale for ORB keypoints</li>
+<li><b> 6.75f </b> should be the scale for SIFT detected keypoints</li>
+<li><b> 6.25f </b> is default and fits for KAZE, SURF detected keypoints</li>
+<li><b> 5.00f </b> should be the scale for AKAZE, MSD, AGAST, FAST, BRISK keypoints </li>
 </ul>
 </td></tr>
-    <tr><td class="paramname">n_bits</td><td>Determine the number of bits in the descriptor. Should be either <a class="el" href="#a624021fc1aa7ded2d0653b73d059732f">TEBLID.SIZE_256_BITS</a> or <a class="el" href="#a99c9b671d74ce5bd799587cb64b520f0">TEBLID.SIZE_512_BITS</a>. </td></tr>
+    <tr><td class="paramname">n_bits</td><td>Determine the number of bits in the descriptor. Should be either <a class="el" href="#a624021fc1aa7ded2d0653b73d059732f" title="C++: enum TeblidSize (cv.xfeatures2d.TEBLID.TeblidSize)">TEBLID.SIZE_256_BITS</a> or <a class="el" href="#a99c9b671d74ce5bd799587cb64b520f0" title="C++: enum TeblidSize (cv.xfeatures2d.TEBLID.TeblidSize)">TEBLID.SIZE_512_BITS</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -354,13 +358,13 @@ Additional Inherited Members</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">scale_factor</td><td>Adjust the sampling window around detected keypoints:<ul>
-<li>&lt;b&gt; 1.00f &lt;/b&gt; should be the scale for ORB keypoints</li>
-<li>&lt;b&gt; 6.75f &lt;/b&gt; should be the scale for SIFT detected keypoints</li>
-<li>&lt;b&gt; 6.25f &lt;/b&gt; is default and fits for KAZE, SURF detected keypoints</li>
-<li>&lt;b&gt; 5.00f &lt;/b&gt; should be the scale for AKAZE, MSD, AGAST, FAST, BRISK keypoints </li>
+<li><b> 1.00f </b> should be the scale for ORB keypoints</li>
+<li><b> 6.75f </b> should be the scale for SIFT detected keypoints</li>
+<li><b> 6.25f </b> is default and fits for KAZE, SURF detected keypoints</li>
+<li><b> 5.00f </b> should be the scale for AKAZE, MSD, AGAST, FAST, BRISK keypoints </li>
 </ul>
 </td></tr>
-    <tr><td class="paramname">n_bits</td><td>Determine the number of bits in the descriptor. Should be either <a class="el" href="#a624021fc1aa7ded2d0653b73d059732f">TEBLID.SIZE_256_BITS</a> or <a class="el" href="#a99c9b671d74ce5bd799587cb64b520f0">TEBLID.SIZE_512_BITS</a>. </td></tr>
+    <tr><td class="paramname">n_bits</td><td>Determine the number of bits in the descriptor. Should be either <a class="el" href="#a624021fc1aa7ded2d0653b73d059732f" title="C++: enum TeblidSize (cv.xfeatures2d.TEBLID.TeblidSize)">TEBLID.SIZE_256_BITS</a> or <a class="el" href="#a99c9b671d74ce5bd799587cb64b520f0" title="C++: enum TeblidSize (cv.xfeatures2d.TEBLID.TeblidSize)">TEBLID.SIZE_512_BITS</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -443,6 +447,8 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>C++: enum TeblidSize (cv.xfeatures2d.TEBLID.TeblidSize) </p>
+
 </div>
 </div>
 <a id="a99c9b671d74ce5bd799587cb64b520f0" name="a99c9b671d74ce5bd799587cb64b520f0"></a>
@@ -464,6 +470,8 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>C++: enum TeblidSize (cv.xfeatures2d.TEBLID.TeblidSize) </p>
 
 </div>
 </div>

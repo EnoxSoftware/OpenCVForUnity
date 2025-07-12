@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['dumpmode_0',['DumpMode',['../d2/db1/classOpenCVForUnity_1_1UnityUtils_1_1DebugMatUtils.html#a3a29ab0ef18e9f09b17e48dc929b1ac5',1,'OpenCVForUnity::UnityUtils::DebugMatUtils']]]
+  ['calib3dsolvepnpflagsmode_0',['Calib3dSolvePnPFlagsMode',['../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html#ae0abc6fe2886c5007ffd6501e0e72674',1,'OpenCVForUnity::UnityIntegration::Helper::AR::ARGameObject']]],
+  ['copymode_1',['CopyMode',['../db/daa/classOpenCVForUnity_1_1UnityIntegration_1_1OpenCVMatUtils.html#aefc2e0199e4ccc24e3620c5fda8fd7a3',1,'OpenCVForUnity::UnityIntegration::OpenCVMatUtils']]]
 ];
