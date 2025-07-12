@@ -1,24 +1,25 @@
+using System;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UnityUtils.Helper;
-using System;
+using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static OpenCVForUnity.UnityUtils.Helper.MultiSource2MatHelper;
+using static OpenCVForUnity.UnityIntegration.Helper.Source2Mat.MultiSource2MatHelper;
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
     /// MultiSource2MatHelper Example
-    /// 
+    ///
     /// An example of image processing by switching between multiple input sources using MultiSource2MatHelper.
     /// </summary>
     [RequireComponent(typeof(MultiSource2MatHelper))]
     public class MultiSource2MatHelperExample : MonoBehaviour
     {
-        enum Source2MatHelperClassNamePreset : int
+        // Constants
+        private enum Source2MatHelperClassNamePreset : int
         {
             WebCamTexture2MatHelper = 0,
             VideoCapture2MatHelper,
@@ -28,9 +29,7 @@ namespace OpenCVForUnityExample
             WebCamTexture2MatAsyncGPUHelper,
         }
 
-        Source2MatHelperClassNamePreset requestedSource2MatHelperClassName = Source2MatHelperClassNamePreset.WebCamTexture2MatHelper;
-
-
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
@@ -74,55 +73,58 @@ namespace OpenCVForUnityExample
         /// </summary>
         public GameObject cube;
 
+        // Private Fields
+        private Source2MatHelperClassNamePreset _requestedSource2MatHelperClassName = Source2MatHelperClassNamePreset.WebCamTexture2MatHelper;
+
         /// <summary>
         /// The output Texture2D.
         /// </summary>
-        Texture2D outputTexture2D;
+        private Texture2D _outputTexture2D;
 
         /// <summary>
         /// The output RenderTexture.
         /// </summary>
-        RenderTexture outputRenderTexture;
+        private RenderTexture _outputRenderTexture;
 
         /// <summary>
-        /// The graphicsBuffer for Utils.matToRenderTexture().
+        /// The graphicsBuffer for OpenCVUtils.MatToRenderTexture().
         /// </summary>
-        GraphicsBuffer graphicsBuffer;
+        private GraphicsBuffer _graphicsBuffer;
 
         /// <summary>
         /// The multi source to mat helper.
         /// </summary>
-        MultiSource2MatHelper multiSource2MatHelper;
+        private MultiSource2MatHelper _multiSource2MatHelper;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
+        private FpsMonitor _fpsMonitor;
 
         /// <summary>
         /// The FPS counter.
         /// Measure how frequently DidUpdateThisFrame() is actually updated.
         /// </summary>
-        FPSCounter fpsCounter;
+        private FPSCounter _fpsCounter;
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
             // Get the MultiSource2MatHelper component attached to the current game object
-            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
 
             // Set the requested ColorFormat
-            multiSource2MatHelper.requestedSource2MatHelperClassName = MultiSource2MatHelperClassName.WebCamTexture2MatHelper;
-            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGBA;
+            _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.WebCamTexture2MatHelper;
+            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
 
             // Initialize the source to Mat helper.
-            multiSource2MatHelper.Initialize();
+            _multiSource2MatHelper.Initialize();
 
             // Update GUI state
-            changeCameraBotton.interactable = multiSource2MatHelper.source2MatHelper is ICameraSource2MatHelper;
-            requestedSource2MatHelperClassNameDropdown.value = (int)multiSource2MatHelper.GetCurrentSource2MatHelperClassName();
+            changeCameraBotton.interactable = _multiSource2MatHelper.Source2MatHelper is ICameraSource2MatHelper;
+            requestedSource2MatHelperClassNameDropdown.value = (int)_multiSource2MatHelper.GetCurrentSource2MatHelperClassName();
 
             if (!SystemInfo.supportsComputeShaders)
             {
@@ -130,6 +132,7 @@ namespace OpenCVForUnityExample
             }
         }
 
+        // Public Methods
         /// <summary>
         /// Raises the source to mat helper initialized event.
         /// </summary>
@@ -137,96 +140,96 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperInitialized");
 
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.Add("deviceName", multiSource2MatHelper.GetDeviceName().ToString());
-                fpsMonitor.Add("width", multiSource2MatHelper.GetWidth().ToString());
-                fpsMonitor.Add("height", multiSource2MatHelper.GetHeight().ToString());
-                fpsMonitor.Add("orientation", Screen.orientation.ToString());
-                fpsMonitor.Add("helperClassName", multiSource2MatHelper.GetCurrentSource2MatHelperClassName().ToString());
+                _fpsMonitor.Add("deviceName", _multiSource2MatHelper.GetDeviceName().ToString());
+                _fpsMonitor.Add("width", _multiSource2MatHelper.GetWidth().ToString());
+                _fpsMonitor.Add("height", _multiSource2MatHelper.GetHeight().ToString());
+                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                _fpsMonitor.Add("helperClassName", _multiSource2MatHelper.GetCurrentSource2MatHelperClassName().ToString());
 
-                switch (multiSource2MatHelper.source2MatHelper)
+                switch (_multiSource2MatHelper.Source2MatHelper)
                 {
                     case ICameraSource2MatHelper helper:
-                        fpsMonitor.Add("camera fps", helper.GetFPS().ToString());
-                        fpsMonitor.Add("isFrontFacing", helper.IsFrontFacing().ToString());
+                        _fpsMonitor.Add("camera fps", helper.GetFPS().ToString());
+                        _fpsMonitor.Add("isFrontFacing", helper.IsFrontFacing().ToString());
                         break;
                     case IVideoSource2MatHelper helper:
-                        fpsMonitor.Add("video path", helper.requestedVideoFilePath.ToString());
-                        fpsMonitor.Add("video fps", helper.GetFPS().ToString());
-                        fpsMonitor.Add("loop", helper.loop.ToString());
+                        _fpsMonitor.Add("video path", helper.RequestedVideoFilePath.ToString());
+                        _fpsMonitor.Add("video fps", helper.GetFPS().ToString());
+                        _fpsMonitor.Add("loop", helper.Loop.ToString());
                         break;
                     case IImageSource2MatHelper helper:
-                        fpsMonitor.Add("image path", helper.requestedImageFilePath.ToString());
-                        fpsMonitor.Add("repeat", helper.repeat.ToString());
+                        _fpsMonitor.Add("image path", helper.RequestedImageFilePath.ToString());
+                        _fpsMonitor.Add("repeat", helper.Repeat.ToString());
                         break;
                     case ITextureSource2MatHelper helper:
-                        fpsMonitor.Add("source texture", helper.sourceTexture.ToString());
+                        _fpsMonitor.Add("source texture", helper.SourceTexture.ToString());
                         break;
                 }
 
-                switch (multiSource2MatHelper.source2MatHelper)
+                switch (_multiSource2MatHelper.Source2MatHelper)
                 {
                     case IMatUpdateFPSProvider helper:
-                        fpsMonitor.Add("mat update fps", helper.GetMatUpdateFPS().ToString());
+                        _fpsMonitor.Add("mat update fps", helper.GetMatUpdateFPS().ToString());
                         break;
                 }
 
 #if !OPENCV_DONT_USE_WEBCAMTEXTURE_API
-                if (multiSource2MatHelper.source2MatHelper is WebCamTexture2MatHelper webCamHelper)
+                if (_multiSource2MatHelper.Source2MatHelper is WebCamTexture2MatHelper webCamHelper)
                 {
-                    fpsMonitor.Add("rotate90Degree", webCamHelper.rotate90Degree.ToString());
-                    fpsMonitor.Add("flipVertical", webCamHelper.flipVertical.ToString());
-                    fpsMonitor.Add("flipHorizontal", webCamHelper.flipHorizontal.ToString());
+                    _fpsMonitor.Add("rotate90Degree", webCamHelper.Rotate90Degree.ToString());
+                    _fpsMonitor.Add("flipVertical", webCamHelper.FlipVertical.ToString());
+                    _fpsMonitor.Add("flipHorizontal", webCamHelper.FlipHorizontal.ToString());
                 }
 #endif
             }
 
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "";
 
-            fpsCounter = new FPSCounter(1.0f);
+            _fpsCounter = new FPSCounter(1.0f);
 
             // To ensure that outputTexture does not blink when Source is changed, outputTexture is not destroyed by OnSourceToMatHelperDisposed, but is retained until OnSourceToMatHelperInitialised.
             ReleaseResources();
 
             // Retrieve the current frame from the Source2MatHelper as a Mat object
-            Mat rgbaMat = multiSource2MatHelper.GetMat();
+            Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
             if (!outputRenderTextureToggle.isOn)
             {
                 // Create a new Texture2D with the same dimensions as the Mat and RGBA32 color format
-                outputTexture2D = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
+                _outputTexture2D = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
 
                 // Convert the Mat to a Texture2D, effectively transferring the image data
-                Utils.matToTexture2D(rgbaMat, outputTexture2D);
+                OpenCVMatUtils.MatToTexture2D(rgbaMat, _outputTexture2D);
 
                 // Set the Texture2D as the texture of the RawImage for preview.
-                resultPreview.texture = outputTexture2D;
-                resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)outputTexture2D.width / outputTexture2D.height;
+                resultPreview.texture = _outputTexture2D;
+                resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_outputTexture2D.width / _outputTexture2D.height;
             }
             else
             {
-                graphicsBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, (int)rgbaMat.total(), (int)rgbaMat.elemSize());
+                _graphicsBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, (int)rgbaMat.total(), (int)rgbaMat.elemSize());
 
-                outputRenderTexture = new RenderTexture(rgbaMat.width(), rgbaMat.height(), 0);
-                outputRenderTexture.enableRandomWrite = true;
-                outputRenderTexture.Create();
+                _outputRenderTexture = new RenderTexture(rgbaMat.width(), rgbaMat.height(), 0);
+                _outputRenderTexture.enableRandomWrite = true;
+                _outputRenderTexture.Create();
 
                 try
                 {
                     // Convert the Mat to a RenderTexture, effectively transferring the image data
-                    Utils.matToRenderTexture(rgbaMat, outputRenderTexture, graphicsBuffer);
+                    OpenCVMatUtils.MatToRenderTexture(rgbaMat, _outputRenderTexture, _graphicsBuffer);
                 }
                 catch (Exception ex)
                 {
-                    if (fpsMonitor != null)
-                        fpsMonitor.consoleText = ex.Message;
+                    if (_fpsMonitor != null)
+                        _fpsMonitor.ConsoleText = ex.Message;
                 }
 
                 // Set the RenderTexture as the texture of the RawImage for preview.
-                resultPreview.texture = outputRenderTexture;
-                resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)outputRenderTexture.width / outputRenderTexture.height;
+                resultPreview.texture = _outputRenderTexture;
+                resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_outputRenderTexture.width / _outputRenderTexture.height;
             }
         }
 
@@ -237,8 +240,7 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperDisposed");
 
-            if (fpsMonitor != null)
-                fpsMonitor.Clear();
+            _fpsMonitor?.Clear();
         }
 
         /// <summary>
@@ -250,24 +252,123 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
 
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
+                _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
             }
         }
 
-        // Update is called once per frame
-        void Update()
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick()
+        {
+            // Load the specified scene when the back button is clicked
+            SceneManager.LoadScene("OpenCVForUnityExample");
+        }
+
+        /// <summary>
+        /// Raises the play button click event.
+        /// </summary>
+        public void OnPlayButtonClick()
+        {
+            _multiSource2MatHelper.Play();
+        }
+
+        /// <summary>
+        /// Raises the pause button click event.
+        /// </summary>
+        public void OnPauseButtonClick()
+        {
+            _multiSource2MatHelper.Pause();
+        }
+
+        /// <summary>
+        /// Raises the stop button click event.
+        /// </summary>
+        public void OnStopButtonClick()
+        {
+            _multiSource2MatHelper.Stop();
+        }
+
+        /// <summary>
+        /// Raises the change camera button click event.
+        /// </summary>
+        public void OnChangeCameraButtonClick()
+        {
+            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
+        }
+
+        /// <summary>
+        /// Raises the requested source 2 mat helper class name dropdown value changed event.
+        /// </summary>
+        public void OnRequestedSource2MatHelperClassNameDropdownValueChanged(int result)
+        {
+            if ((int)_requestedSource2MatHelperClassName != result)
+            {
+                if (forcePlaybackWhenSwitchingHelperToggle.isOn && !_multiSource2MatHelper.IsPlaying())
+                    _multiSource2MatHelper.Play();
+
+                _requestedSource2MatHelperClassName = (Source2MatHelperClassNamePreset)result;
+
+                switch (_requestedSource2MatHelperClassName)
+                {
+                    case Source2MatHelperClassNamePreset.WebCamTexture2MatHelper:
+                        _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.WebCamTexture2MatHelper;
+                        break;
+                    case Source2MatHelperClassNamePreset.VideoCapture2MatHelper:
+                        _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.VideoCapture2MatHelper;
+
+                        if (!string.IsNullOrEmpty(requestedVideoFilePathForVideoCapture))
+                            _multiSource2MatHelper.RequestedVideoFilePath = requestedVideoFilePathForVideoCapture;
+
+                        break;
+                    case Source2MatHelperClassNamePreset.UnityVideoPlayer2MatHelper:
+                        _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.UnityVideoPlayer2MatHelper;
+
+                        if (!string.IsNullOrEmpty(requestedVideoFilePathForUnityVideoPlayer))
+                            _multiSource2MatHelper.RequestedVideoFilePath = requestedVideoFilePathForUnityVideoPlayer;
+
+                        break;
+                    case Source2MatHelperClassNamePreset.Image2MatHelper:
+                        _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.Image2MatHelper;
+                        break;
+                    case Source2MatHelperClassNamePreset.AsyncGPUReadback2MatHelper:
+                        _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.AsyncGPUReadback2MatHelper;
+                        break;
+                    case Source2MatHelperClassNamePreset.WebCamTexture2MatAsyncGPUHelper:
+                        _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.WebCamTexture2MatAsyncGPUHelper;
+                        break;
+                }
+
+                // Way to perform different processing depending on the interface inherited by the helper class.
+                changeCameraBotton.interactable = _multiSource2MatHelper.Source2MatHelper is ICameraSource2MatHelper;
+            }
+        }
+
+        /// <summary>
+        /// Raises the output RenderTexture toggle value changed event.
+        /// </summary>
+        public void OnOutputRenderTextureToggleValueChanged()
+        {
+            if (_multiSource2MatHelper.IsInitialized())
+            {
+                _multiSource2MatHelper.Initialize();
+            }
+        }
+
+        // Private Methods
+        private void Update()
         {
             // Check if the web camera is playing and if a new frame was updated
-            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
+            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
             {
-                fpsCounter.MeasureFPS();
+                _fpsCounter.MeasureFPS();
 
                 // Retrieve the current frame as a Mat object
-                Mat rgbaMat = multiSource2MatHelper.GetMat();
+                Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-                switch (requestedSource2MatHelperClassName)
+                switch (_requestedSource2MatHelperClassName)
                 {
                     case Source2MatHelperClassNamePreset.WebCamTexture2MatHelper:
                         Imgproc.putText(rgbaMat, "WebCamTexture => Mat", new Point(5, 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
@@ -289,17 +390,17 @@ namespace OpenCVForUnityExample
                 }
 
                 // Add text overlay on the frame
-                Imgproc.putText(rgbaMat, "W:" + rgbaMat.width() + " H:" + rgbaMat.height() + " SO:" + Screen.orientation + " MatUpdateFPS:" + fpsCounter.GetCurrentFPS(), new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                Imgproc.putText(rgbaMat, "W:" + rgbaMat.width() + " H:" + rgbaMat.height() + " SO:" + Screen.orientation + " MatUpdateFPS:" + _fpsCounter.GetCurrentFPS(), new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
                 if (!outputRenderTextureToggle.isOn)
                 {
                     // Convert the Mat to a Texture2D to display it on a texture
-                    Utils.matToTexture2D(rgbaMat, outputTexture2D);
+                    OpenCVMatUtils.MatToTexture2D(rgbaMat, _outputTexture2D);
                 }
                 else
                 {
                     // Convert the Mat to a RenderTexture to display it on a texture
-                    Utils.matToRenderTexture(rgbaMat, outputRenderTexture, graphicsBuffer);
+                    OpenCVMatUtils.MatToRenderTexture(rgbaMat, _outputRenderTexture, _graphicsBuffer);
                 }
 
                 //cube.transform.Rotate(new Vector3(90, 90, 0) * Time.deltaTime, Space.Self);
@@ -308,13 +409,10 @@ namespace OpenCVForUnityExample
             cube.transform.Rotate(new Vector3(90, 90, 0) * Time.deltaTime * 0.5f, Space.Self);
         }
 
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
+        private void OnDestroy()
         {
             // Dispose of the SourceToMatHelper object and release any resources held by it.
-            multiSource2MatHelper.Dispose();
+            _multiSource2MatHelper?.Dispose();
 
             ReleaseResources();
         }
@@ -322,125 +420,22 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// To release the resources.
         /// </summary>
-        void ReleaseResources()
+        private void ReleaseResources()
         {
             // Destroy the texture and set it to null
-            if (outputTexture2D != null)
-            {
-                Texture2D.Destroy(outputTexture2D);
-                outputTexture2D = null;
-            }
+            if (_outputTexture2D != null) Texture2D.Destroy(_outputTexture2D); _outputTexture2D = null;
 
             // Destroy the texture and set it to null
-            if (outputRenderTexture != null)
+            if (_outputRenderTexture != null)
             {
-                RenderTexture.Destroy(outputRenderTexture);
-                outputRenderTexture = null;
+                RenderTexture.Destroy(_outputRenderTexture);
+                _outputRenderTexture = null;
             }
 
-            if (graphicsBuffer != null)
+            if (_graphicsBuffer != null)
             {
-                graphicsBuffer.Dispose();
-                graphicsBuffer = null;
-            }
-        }
-
-        /// <summary>
-        /// Raises the back button click event.
-        /// </summary>
-        public void OnBackButtonClick()
-        {
-            // Load the specified scene when the back button is clicked
-            SceneManager.LoadScene("OpenCVForUnityExample");
-        }
-
-        /// <summary>
-        /// Raises the play button click event.
-        /// </summary>
-        public void OnPlayButtonClick()
-        {
-            multiSource2MatHelper.Play();
-        }
-
-        /// <summary>
-        /// Raises the pause button click event.
-        /// </summary>
-        public void OnPauseButtonClick()
-        {
-            multiSource2MatHelper.Pause();
-        }
-
-        /// <summary>
-        /// Raises the stop button click event.
-        /// </summary>
-        public void OnStopButtonClick()
-        {
-            multiSource2MatHelper.Stop();
-        }
-
-        /// <summary>
-        /// Raises the change camera button click event.
-        /// </summary>
-        public void OnChangeCameraButtonClick()
-        {
-            multiSource2MatHelper.requestedIsFrontFacing = !multiSource2MatHelper.requestedIsFrontFacing;
-        }
-
-        /// <summary>
-        /// Raises the requested source 2 mat helper class name dropdown value changed event.
-        /// </summary>
-        public void OnRequestedSource2MatHelperClassNameDropdownValueChanged(int result)
-        {
-            if ((int)requestedSource2MatHelperClassName != result)
-            {
-                if (forcePlaybackWhenSwitchingHelperToggle.isOn && !multiSource2MatHelper.IsPlaying())
-                    multiSource2MatHelper.Play();
-
-                requestedSource2MatHelperClassName = (Source2MatHelperClassNamePreset)result;
-
-                switch (requestedSource2MatHelperClassName)
-                {
-                    case Source2MatHelperClassNamePreset.WebCamTexture2MatHelper:
-                        multiSource2MatHelper.requestedSource2MatHelperClassName = MultiSource2MatHelperClassName.WebCamTexture2MatHelper;
-                        break;
-                    case Source2MatHelperClassNamePreset.VideoCapture2MatHelper:
-                        multiSource2MatHelper.requestedSource2MatHelperClassName = MultiSource2MatHelperClassName.VideoCapture2MatHelper;
-
-                        if (!string.IsNullOrEmpty(requestedVideoFilePathForVideoCapture))
-                            multiSource2MatHelper.requestedVideoFilePath = requestedVideoFilePathForVideoCapture;
-
-                        break;
-                    case Source2MatHelperClassNamePreset.UnityVideoPlayer2MatHelper:
-                        multiSource2MatHelper.requestedSource2MatHelperClassName = MultiSource2MatHelperClassName.UnityVideoPlayer2MatHelper;
-
-                        if (!string.IsNullOrEmpty(requestedVideoFilePathForUnityVideoPlayer))
-                            multiSource2MatHelper.requestedVideoFilePath = requestedVideoFilePathForUnityVideoPlayer;
-
-                        break;
-                    case Source2MatHelperClassNamePreset.Image2MatHelper:
-                        multiSource2MatHelper.requestedSource2MatHelperClassName = MultiSource2MatHelperClassName.Image2MatHelper;
-                        break;
-                    case Source2MatHelperClassNamePreset.AsyncGPUReadback2MatHelper:
-                        multiSource2MatHelper.requestedSource2MatHelperClassName = MultiSource2MatHelperClassName.AsyncGPUReadback2MatHelper;
-                        break;
-                    case Source2MatHelperClassNamePreset.WebCamTexture2MatAsyncGPUHelper:
-                        multiSource2MatHelper.requestedSource2MatHelperClassName = MultiSource2MatHelperClassName.WebCamTexture2MatAsyncGPUHelper;
-                        break;
-                }
-
-                // Way to perform different processing depending on the interface inherited by the helper class.
-                changeCameraBotton.interactable = multiSource2MatHelper.source2MatHelper is ICameraSource2MatHelper;
-            }
-        }
-
-        /// <summary>
-        /// Raises the output RenderTexture toggle value changed event.
-        /// </summary>
-        public void OnOutputRenderTextureToggleValueChanged()
-        {
-            if (multiSource2MatHelper.IsInitialized())
-            {
-                multiSource2MatHelper.Initialize();
+                _graphicsBuffer.Dispose();
+                _graphicsBuffer = null;
             }
         }
     }

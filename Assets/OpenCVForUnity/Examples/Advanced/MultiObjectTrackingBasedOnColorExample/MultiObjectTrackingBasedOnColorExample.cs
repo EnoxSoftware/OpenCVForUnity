@@ -1,9 +1,8 @@
+using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UnityUtils.Helper;
-using System.Collections;
-using System.Collections.Generic;
+using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,69 +16,116 @@ namespace OpenCVForUnityExample
     [RequireComponent(typeof(MultiSource2MatHelper))]
     public class MultiObjectTrackingBasedOnColorExample : MonoBehaviour
     {
-        [Header("Output")]
-        /// <summary>
-        /// The RawImage for previewing the result.
-        /// </summary>
-        public RawImage resultPreview;
-
-        [Space(10)]
-
-        /// <summary>
-        /// The texture.
-        /// </summary>
-        Texture2D texture;
-
+        // Constants
         /// <summary>
         /// max number of objects to be detected in frame
         /// </summary>
-        const int MAX_NUM_OBJECTS = 50;
+        private const int MAX_NUM_OBJECTS = 50;
 
         /// <summary>
         /// minimum and maximum object area
         /// </summary>
-        const int MIN_OBJECT_AREA = 20 * 20;
+        private const int MIN_OBJECT_AREA = 20 * 20;
+
+        // Public Fields
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage ResultPreview;
+
+        [Space(10)]
+
+        // Private Fields
+        /// <summary>
+        /// The texture.
+        /// </summary>
+        private Texture2D _texture;
 
         /// <summary>
         /// The rgb mat.
         /// </summary>
-        Mat rgbMat;
+        private Mat _rgbMat;
 
         /// <summary>
         /// The threshold mat.
         /// </summary>
-        Mat thresholdMat;
+        private Mat _thresholdMat;
 
         /// <summary>
         /// The hsv mat.
         /// </summary>
-        Mat hsvMat;
+        private Mat _hsvMat;
 
-        ColorObject blue = new ColorObject("blue");
-        ColorObject yellow = new ColorObject("yellow");
-        ColorObject red = new ColorObject("red");
-        ColorObject green = new ColorObject("green");
+        private ColorObject _blue = new ColorObject("blue");
+        private ColorObject _yellow = new ColorObject("yellow");
+        private ColorObject _red = new ColorObject("red");
+        private ColorObject _green = new ColorObject("green");
 
         /// <summary>
         /// The multi source to mat helper.
         /// </summary>
-        MultiSource2MatHelper multiSource2MatHelper;
+        private MultiSource2MatHelper _multiSource2MatHelper;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
+        private FpsMonitor _fpsMonitor;
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
-            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
-            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGBA;
-            multiSource2MatHelper.Initialize();
+            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
+            _multiSource2MatHelper.Initialize();
         }
 
+        private void Update()
+        {
+            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
+            {
+
+                Mat rgbaMat = _multiSource2MatHelper.GetMat();
+
+                Imgproc.cvtColor(rgbaMat, _rgbMat, Imgproc.COLOR_RGBA2RGB);
+
+                //first find blue objects
+                Imgproc.cvtColor(_rgbMat, _hsvMat, Imgproc.COLOR_RGB2HSV);
+                Core.inRange(_hsvMat, _blue.GetHSVmin(), _blue.GetHSVmax(), _thresholdMat);
+                MorphOps(_thresholdMat);
+                TrackFilteredObject(_blue, _thresholdMat, _hsvMat, _rgbMat);
+                //then yellows
+                Imgproc.cvtColor(_rgbMat, _hsvMat, Imgproc.COLOR_RGB2HSV);
+                Core.inRange(_hsvMat, _yellow.GetHSVmin(), _yellow.GetHSVmax(), _thresholdMat);
+                MorphOps(_thresholdMat);
+                TrackFilteredObject(_yellow, _thresholdMat, _hsvMat, _rgbMat);
+                //then reds
+                Imgproc.cvtColor(_rgbMat, _hsvMat, Imgproc.COLOR_RGB2HSV);
+                Core.inRange(_hsvMat, _red.GetHSVmin(), _red.GetHSVmax(), _thresholdMat);
+                MorphOps(_thresholdMat);
+                TrackFilteredObject(_red, _thresholdMat, _hsvMat, _rgbMat);
+                //then greens
+                Imgproc.cvtColor(_rgbMat, _hsvMat, Imgproc.COLOR_RGB2HSV);
+                Core.inRange(_hsvMat, _green.GetHSVmin(), _green.GetHSVmax(), _thresholdMat);
+                MorphOps(_thresholdMat);
+                TrackFilteredObject(_green, _thresholdMat, _hsvMat, _rgbMat);
+
+                //Imgproc.putText (_rgbMat, "W:" + _rgbMat.width () + " H:" + _rgbMat.height () + " SO:" + Screen.orientation, new Point (5, _rgbMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+
+                Imgproc.cvtColor(_rgbMat, rgbaMat, Imgproc.COLOR_RGB2RGBA);
+
+                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            _multiSource2MatHelper?.Dispose();
+        }
+
+        // Public Methods
         /// <summary>
         /// Raises the source to mat helper initialized event.
         /// </summary>
@@ -87,25 +133,25 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperInitialized");
 
-            Mat rgbaMat = multiSource2MatHelper.GetMat();
+            Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-            texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
-            Utils.matToTexture2D(rgbaMat, texture);
+            _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
+            OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = _texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
 
 
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.Add("width", rgbaMat.width().ToString());
-                fpsMonitor.Add("height", rgbaMat.height().ToString());
-                fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                _fpsMonitor.Add("width", rgbaMat.width().ToString());
+                _fpsMonitor.Add("height", rgbaMat.height().ToString());
+                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
             }
 
-            rgbMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
-            thresholdMat = new Mat();
-            hsvMat = new Mat();
+            _rgbMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
+            _thresholdMat = new Mat();
+            _hsvMat = new Mat();
         }
 
         /// <summary>
@@ -115,18 +161,10 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperDisposed");
 
-            if (rgbMat != null)
-                rgbMat.Dispose();
-            if (thresholdMat != null)
-                thresholdMat.Dispose();
-            if (hsvMat != null)
-                hsvMat.Dispose();
-
-            if (texture != null)
-            {
-                Texture2D.Destroy(texture);
-                texture = null;
-            }
+            _rgbMat?.Dispose();
+            _thresholdMat?.Dispose();
+            _hsvMat?.Dispose();
+            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
         }
 
         /// <summary>
@@ -138,52 +176,53 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
 
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
+                _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
             }
         }
 
-        // Update is called once per frame
-        void Update()
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick()
         {
-            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
-            {
-
-                Mat rgbaMat = multiSource2MatHelper.GetMat();
-
-                Imgproc.cvtColor(rgbaMat, rgbMat, Imgproc.COLOR_RGBA2RGB);
-
-                //first find blue objects
-                Imgproc.cvtColor(rgbMat, hsvMat, Imgproc.COLOR_RGB2HSV);
-                Core.inRange(hsvMat, blue.getHSVmin(), blue.getHSVmax(), thresholdMat);
-                morphOps(thresholdMat);
-                trackFilteredObject(blue, thresholdMat, hsvMat, rgbMat);
-                //then yellows
-                Imgproc.cvtColor(rgbMat, hsvMat, Imgproc.COLOR_RGB2HSV);
-                Core.inRange(hsvMat, yellow.getHSVmin(), yellow.getHSVmax(), thresholdMat);
-                morphOps(thresholdMat);
-                trackFilteredObject(yellow, thresholdMat, hsvMat, rgbMat);
-                //then reds
-                Imgproc.cvtColor(rgbMat, hsvMat, Imgproc.COLOR_RGB2HSV);
-                Core.inRange(hsvMat, red.getHSVmin(), red.getHSVmax(), thresholdMat);
-                morphOps(thresholdMat);
-                trackFilteredObject(red, thresholdMat, hsvMat, rgbMat);
-                //then greens
-                Imgproc.cvtColor(rgbMat, hsvMat, Imgproc.COLOR_RGB2HSV);
-                Core.inRange(hsvMat, green.getHSVmin(), green.getHSVmax(), thresholdMat);
-                morphOps(thresholdMat);
-                trackFilteredObject(green, thresholdMat, hsvMat, rgbMat);
-
-                //Imgproc.putText (rgbMat, "W:" + rgbMat.width () + " H:" + rgbMat.height () + " SO:" + Screen.orientation, new Point (5, rgbMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-
-                Imgproc.cvtColor(rgbMat, rgbaMat, Imgproc.COLOR_RGB2RGBA);
-
-                Utils.matToTexture2D(rgbaMat, texture);
-            }
+            SceneManager.LoadScene("OpenCVForUnityExample");
         }
 
+        /// <summary>
+        /// Raises the play button click event.
+        /// </summary>
+        public void OnPlayButtonClick()
+        {
+            _multiSource2MatHelper.Play();
+        }
 
+        /// <summary>
+        /// Raises the pause button click event.
+        /// </summary>
+        public void OnPauseButtonClick()
+        {
+            _multiSource2MatHelper.Pause();
+        }
+
+        /// <summary>
+        /// Raises the stop button click event.
+        /// </summary>
+        public void OnStopButtonClick()
+        {
+            _multiSource2MatHelper.Stop();
+        }
+
+        /// <summary>
+        /// Raises the change camera button click event.
+        /// </summary>
+        public void OnChangeCameraButtonClick()
+        {
+            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
+        }
+
+        // Private Methods
         /// <summary>
         /// Draws the object.
         /// </summary>
@@ -192,14 +231,14 @@ namespace OpenCVForUnityExample
         /// <param name="temp">Temp.</param>
         /// <param name="contours">Contours.</param>
         /// <param name="hierarchy">Hierarchy.</param>
-        private void drawObject(List<ColorObject> theColorObjects, Mat frame, Mat temp, List<MatOfPoint> contours, Mat hierarchy)
+        private void DrawObject(List<ColorObject> theColorObjects, Mat frame, Mat temp, List<MatOfPoint> contours, Mat hierarchy)
         {
             for (int i = 0; i < theColorObjects.Count; i++)
             {
-                Imgproc.drawContours(frame, contours, i, theColorObjects[i].getColor(), 3, 8, hierarchy, int.MaxValue, new Point());
-                Imgproc.circle(frame, new Point(theColorObjects[i].getXPos(), theColorObjects[i].getYPos()), 5, theColorObjects[i].getColor());
-                Imgproc.putText(frame, theColorObjects[i].getXPos() + " , " + theColorObjects[i].getYPos(), new Point(theColorObjects[i].getXPos(), theColorObjects[i].getYPos() + 20), 1, 1, theColorObjects[i].getColor(), 2);
-                Imgproc.putText(frame, theColorObjects[i].getType(), new Point(theColorObjects[i].getXPos(), theColorObjects[i].getYPos() - 20), 1, 2, theColorObjects[i].getColor(), 2);
+                Imgproc.drawContours(frame, contours, i, theColorObjects[i].GetColor(), 3, 8, hierarchy, int.MaxValue, new Point());
+                Imgproc.circle(frame, new Point(theColorObjects[i].GetXPos(), theColorObjects[i].GetYPos()), 5, theColorObjects[i].GetColor());
+                Imgproc.putText(frame, theColorObjects[i].GetXPos() + " , " + theColorObjects[i].GetYPos(), new Point(theColorObjects[i].GetXPos(), theColorObjects[i].GetYPos() + 20), 1, 1, theColorObjects[i].GetColor(), 2);
+                Imgproc.putText(frame, theColorObjects[i].GetObjectType(), new Point(theColorObjects[i].GetXPos(), theColorObjects[i].GetYPos() - 20), 1, 2, theColorObjects[i].GetColor(), 2);
             }
         }
 
@@ -207,7 +246,7 @@ namespace OpenCVForUnityExample
         /// Morphs the ops.
         /// </summary>
         /// <param name="thresh">Thresh.</param>
-        private void morphOps(Mat thresh)
+        private void MorphOps(Mat thresh)
         {
             //create structuring element that will be used to "dilate" and "erode" image.
             //the element chosen here is a 3px by 3px rectangle
@@ -229,7 +268,7 @@ namespace OpenCVForUnityExample
         /// <param name="threshold">Threshold.</param>
         /// <param name="HSV">HS.</param>
         /// <param name="cameraFeed">Camera feed.</param>
-        private void trackFilteredObject(ColorObject theColorObject, Mat threshold, Mat HSV, Mat cameraFeed)
+        private void TrackFilteredObject(ColorObject theColorObject, Mat threshold, Mat HSV, Mat cameraFeed)
         {
 
             List<ColorObject> colorObjects = new List<ColorObject>();
@@ -267,10 +306,10 @@ namespace OpenCVForUnityExample
 
                             ColorObject colorObject = new ColorObject();
 
-                            colorObject.setXPos((int)(moment.get_m10() / area));
-                            colorObject.setYPos((int)(moment.get_m01() / area));
-                            colorObject.setType(theColorObject.getType());
-                            colorObject.setColor(theColorObject.getColor());
+                            colorObject.SetXPos((int)(moment.get_m10() / area));
+                            colorObject.SetYPos((int)(moment.get_m01() / area));
+                            colorObject.SetType(theColorObject.GetObjectType());
+                            colorObject.SetColor(theColorObject.GetColor());
 
                             colorObjects.Add(colorObject);
 
@@ -286,7 +325,7 @@ namespace OpenCVForUnityExample
                     if (colorObjectFound == true)
                     {
                         //draw object location on screen
-                        drawObject(colorObjects, cameraFeed, temp, contours, hierarchy);
+                        DrawObject(colorObjects, cameraFeed, temp, contours, hierarchy);
                     }
 
                 }
@@ -295,54 +334,6 @@ namespace OpenCVForUnityExample
                     Imgproc.putText(cameraFeed, "TOO MUCH NOISE!", new Point(5, cameraFeed.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                 }
             }
-        }
-
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
-        {
-            multiSource2MatHelper.Dispose();
-        }
-
-        /// <summary>
-        /// Raises the back button click event.
-        /// </summary>
-        public void OnBackButtonClick()
-        {
-            SceneManager.LoadScene("OpenCVForUnityExample");
-        }
-
-        /// <summary>
-        /// Raises the play button click event.
-        /// </summary>
-        public void OnPlayButtonClick()
-        {
-            multiSource2MatHelper.Play();
-        }
-
-        /// <summary>
-        /// Raises the pause button click event.
-        /// </summary>
-        public void OnPauseButtonClick()
-        {
-            multiSource2MatHelper.Pause();
-        }
-
-        /// <summary>
-        /// Raises the stop button click event.
-        /// </summary>
-        public void OnStopButtonClick()
-        {
-            multiSource2MatHelper.Stop();
-        }
-
-        /// <summary>
-        /// Raises the change camera button click event.
-        /// </summary>
-        public void OnChangeCameraButtonClick()
-        {
-            multiSource2MatHelper.requestedIsFrontFacing = !multiSource2MatHelper.requestedIsFrontFacing;
         }
     }
 }

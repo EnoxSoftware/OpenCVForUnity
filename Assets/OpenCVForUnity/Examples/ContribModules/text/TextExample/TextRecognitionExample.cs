@@ -1,15 +1,14 @@
 #if !UNITY_WSA_10_0
 
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Xml;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.TextModule;
-using OpenCVForUnity.UnityUtils;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using System.Xml;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -24,119 +23,142 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class TextRecognitionExample : MonoBehaviour
     {
-        [Header("Output")]
-        /// <summary>
-        /// The RawImage for previewing the result.
-        /// </summary>
-        public RawImage resultPreview;
-
-        [Space(10)]
-
+        // Constants
         /// <summary>
         /// IMAGE_FILENAME
         /// </summary>
-        protected static readonly string IMAGE_FILENAME = "OpenCVForUnity/text/test_text.jpg";
-
-        /// <summary>
-        /// The image filepath.
-        /// </summary>
-        string image_filepath;
+        protected static readonly string IMAGE_FILENAME = "OpenCVForUnityExamples/text/test_text.jpg";
 
         /// <summary>
         /// TRAINED_CLASSIFIER_NM_1_FILENAME
         /// </summary>
-        protected static readonly string TRAINED_CLASSIFIER_NM_1_FILENAME = "OpenCVForUnity/text/trained_classifierNM1.xml";
-
-        /// <summary>
-        /// The trained classifierNM1 filepath.
-        /// </summary>
-        string trained_classifierNM1_filepath;
+        protected static readonly string TRAINED_CLASSIFIER_NM_1_FILENAME = "OpenCVForUnityExamples/text/trained_classifierNM1.xml";
 
         /// <summary>
         /// TRAINED_CLASSIFIER_NM_2_FILENAME
         /// </summary>
-        protected static readonly string TRAINED_CLASSIFIER_NM_2_FILENAME = "OpenCVForUnity/text/trained_classifierNM2.xml";
-
-        /// <summary>
-        /// The trained classifierNM2 filepath.
-        /// </summary>
-        string trained_classifierNM2_filepath;
+        protected static readonly string TRAINED_CLASSIFIER_NM_2_FILENAME = "OpenCVForUnityExamples/text/trained_classifierNM2.xml";
 
         /// <summary>
         /// CLASSIFIER_NM_2_FILENAME
         /// </summary>
-        protected static readonly string OCRHMM_TRANSITIONS_TABLE_FILENAME = "OpenCVForUnity/text/OCRHMM_transitions_table.xml";
-
-        /// <summary>
-        /// The OCRHMM transitions table filepath.
-        /// </summary>
-        string OCRHMM_transitions_table_filepath;
+        protected static readonly string OCRHMM_TRANSITIONS_TABLE_FILENAME = "OpenCVForUnityExamples/text/OCRHMM_transitions_table.xml";
 
         /// <summary>
         /// CLASSIFIER_NM_2_FILENAME
         /// </summary>
         /// https://stackoverflow.com/questions/4666098/why-does-android-aapt-remove-gz-file-extension-of-assets
 #if UNITY_ANDROID && !UNITY_EDITOR
-        protected static readonly string OCRHMM_KNN_MODEL_FILENAME = "OpenCVForUnity/text/OCRHMM_knn_model_data.xml";
+        protected static readonly string OCRHMM_KNN_MODEL_FILENAME = "OpenCVForUnityExamples/text/OCRHMM_knn_model_data.xml";
 #else
-        protected static readonly string OCRHMM_KNN_MODEL_FILENAME = "OpenCVForUnity/text/OCRHMM_knn_model_data.xml.gz";
+        protected static readonly string OCRHMM_KNN_MODEL_FILENAME = "OpenCVForUnityExamples/text/OCRHMM_knn_model_data.xml.gz";
 #endif
+
+        // Public Fields
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage ResultPreview;
+
+        [Space(10)]
+
+        // Private Fields
+        /// <summary>
+        /// The image filepath.
+        /// </summary>
+        private string _imageFilepath;
+
+        /// <summary>
+        /// The trained classifierNM1 filepath.
+        /// </summary>
+        private string _trainedClassifierNM1Filepath;
+
+        /// <summary>
+        /// The trained classifierNM2 filepath.
+        /// </summary>
+        private string _trainedClassifierNM2Filepath;
+
+        /// <summary>
+        /// The OCRHMM transitions table filepath.
+        /// </summary>
+        private string _ocrmmTransitionsTableFilepath;
 
         /// <summary>
         /// The OCRHMM knn model data filepath.
         /// </summary>
-        string OCRHMM_knn_model_data_filepath;
+        private string _ocrmmKnnModelDataFilepath;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
+        private FpsMonitor _fpsMonitor;
 
         /// <summary>
         /// The CancellationTokenSource.
         /// </summary>
-        CancellationTokenSource cts = new CancellationTokenSource();
+        private CancellationTokenSource _cts = new CancellationTokenSource();
 
-        // Use this for initialization
-        async void Start()
+        // Unity Lifecycle Methods
+        private async void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "Preparing file access...";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "Preparing file access...";
 
-            image_filepath = await Utils.getFilePathAsyncTask(IMAGE_FILENAME, cancellationToken: cts.Token);
-            trained_classifierNM1_filepath = await Utils.getFilePathAsyncTask(TRAINED_CLASSIFIER_NM_1_FILENAME, cancellationToken: cts.Token);
-            trained_classifierNM2_filepath = await Utils.getFilePathAsyncTask(TRAINED_CLASSIFIER_NM_2_FILENAME, cancellationToken: cts.Token);
-            OCRHMM_transitions_table_filepath = await Utils.getFilePathAsyncTask(OCRHMM_TRANSITIONS_TABLE_FILENAME, cancellationToken: cts.Token);
-            OCRHMM_knn_model_data_filepath = await Utils.getFilePathAsyncTask(OCRHMM_KNN_MODEL_FILENAME, cancellationToken: cts.Token);
+            _imageFilepath = await OpenCVEnv.GetFilePathTaskAsync(IMAGE_FILENAME, cancellationToken: _cts.Token);
+            _trainedClassifierNM1Filepath = await OpenCVEnv.GetFilePathTaskAsync(TRAINED_CLASSIFIER_NM_1_FILENAME, cancellationToken: _cts.Token);
+            _trainedClassifierNM2Filepath = await OpenCVEnv.GetFilePathTaskAsync(TRAINED_CLASSIFIER_NM_2_FILENAME, cancellationToken: _cts.Token);
+            _ocrmmTransitionsTableFilepath = await OpenCVEnv.GetFilePathTaskAsync(OCRHMM_TRANSITIONS_TABLE_FILENAME, cancellationToken: _cts.Token);
+            _ocrmmKnnModelDataFilepath = await OpenCVEnv.GetFilePathTaskAsync(OCRHMM_KNN_MODEL_FILENAME, cancellationToken: _cts.Token);
 
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "";
 
             Run();
         }
 
+        private void Update()
+        {
+
+        }
+
+        private void OnDestroy()
+        {
+            _cts?.Dispose();
+        }
+
+        // Public Methods
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick()
+        {
+            SceneManager.LoadScene("OpenCVForUnityExample");
+        }
+
+        // Private Methods
         private void Run()
         {
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
-            Utils.setDebugMode(true);
+            OpenCVDebug.SetDebugMode(true);
 
 
-            Mat frame = Imgcodecs.imread(image_filepath);
+            Mat frame = Imgcodecs.imread(_imageFilepath);
             if (frame.empty())
             {
-                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
+                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
             }
 
-            if (string.IsNullOrEmpty(trained_classifierNM1_filepath) || string.IsNullOrEmpty(trained_classifierNM2_filepath))
+            if (string.IsNullOrEmpty(_trainedClassifierNM1Filepath) || string.IsNullOrEmpty(_trainedClassifierNM2Filepath))
             {
-                Debug.LogError(TRAINED_CLASSIFIER_NM_1_FILENAME + " or " + TRAINED_CLASSIFIER_NM_2_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
+                Debug.LogError(TRAINED_CLASSIFIER_NM_1_FILENAME + " or " + TRAINED_CLASSIFIER_NM_2_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
             }
-            if (string.IsNullOrEmpty(OCRHMM_transitions_table_filepath) || string.IsNullOrEmpty(OCRHMM_knn_model_data_filepath))
+            if (string.IsNullOrEmpty(_ocrmmTransitionsTableFilepath) || string.IsNullOrEmpty(_ocrmmKnnModelDataFilepath))
             {
-                Debug.LogError(OCRHMM_TRANSITIONS_TABLE_FILENAME + " or " + OCRHMM_KNN_MODEL_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
+                Debug.LogError(OCRHMM_TRANSITIONS_TABLE_FILENAME + " or " + OCRHMM_KNN_MODEL_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
             }
 
 
@@ -146,9 +168,9 @@ namespace OpenCVForUnityExample
 
             List<MatOfPoint> regions = new List<MatOfPoint>();
 
-            ERFilter er_filter1 = Text.createERFilterNM1(trained_classifierNM1_filepath, 8, 0.00015f, 0.13f, 0.2f, true, 0.1f);
+            ERFilter er_filter1 = Text.createERFilterNM1(_trainedClassifierNM1Filepath, 8, 0.00015f, 0.13f, 0.2f, true, 0.1f);
 
-            ERFilter er_filter2 = Text.createERFilterNM2(trained_classifierNM2_filepath, 0.5f);
+            ERFilter er_filter2 = Text.createERFilterNM2(_trainedClassifierNM2Filepath, 0.5f);
 
 
             Mat transition_p = new Mat(62, 62, CvType.CV_64FC1);
@@ -158,12 +180,12 @@ namespace OpenCVForUnityExample
             //fs.release();
 
             //Load TransitionProbabilitiesData.
-            transition_p.put(0, 0, GetTransitionProbabilitiesData(OCRHMM_transitions_table_filepath));
+            transition_p.put(0, 0, GetTransitionProbabilitiesData(_ocrmmTransitionsTableFilepath));
 
             Mat emission_p = Mat.eye(62, 62, CvType.CV_64FC1);
             string voc = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             OCRHMMDecoder decoder = OCRHMMDecoder.create(
-                                        OCRHMM_knn_model_data_filepath,
+                                        _ocrmmKnnModelDataFilepath,
                                         voc, transition_p, emission_p);
 
             //Text Detection
@@ -229,14 +251,14 @@ namespace OpenCVForUnityExample
 
             Texture2D texture = new Texture2D(frame.cols(), frame.rows(), TextureFormat.RGBA32, false);
 
-            Utils.matToTexture2D(frame, texture);
+            OpenCVMatUtils.MatToTexture2D(frame, texture);
 
             //Texture2D texture = new Texture2D (detections [0].cols (), detections [0].rows (), TextureFormat.RGBA32, false);
             //
             //Utils.matToTexture2D (detections [0], texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
 
 
             for (int i = 0; i < detections.Count; i++)
@@ -246,13 +268,7 @@ namespace OpenCVForUnityExample
             binaryMat.Dispose();
             maskMat.Dispose();
 
-            Utils.setDebugMode(false);
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            OpenCVDebug.SetDebugMode(false);
         }
 
         /// <summary>
@@ -260,7 +276,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         /// <returns>The transition probabilities data.</returns>
         /// <param name="filePath">File path.</param>
-        double[] GetTransitionProbabilitiesData(string filePath)
+        private double[] GetTransitionProbabilitiesData(string filePath)
         {
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(filePath);
@@ -292,23 +308,6 @@ namespace OpenCVForUnityExample
             }
 
             return data;
-        }
-
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
-        {
-            if (cts != null)
-                cts.Dispose();
-        }
-
-        /// <summary>
-        /// Raises the back button click event.
-        /// </summary>
-        public void OnBackButtonClick()
-        {
-            SceneManager.LoadScene("OpenCVForUnityExample");
         }
     }
 }

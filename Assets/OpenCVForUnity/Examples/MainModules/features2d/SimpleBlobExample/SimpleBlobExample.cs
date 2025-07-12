@@ -1,7 +1,7 @@
+using System.Threading;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.Features2dModule;
-using OpenCVForUnity.UnityUtils;
-using System.Threading;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,55 +14,82 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class SimpleBlobExample : MonoBehaviour
     {
+        // Constants
+        private static readonly string BLOBPARAMS_YML_FILENAME = "OpenCVForUnityExamples/features2d/blobparams.yml";
+
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
         [Space(10)]
 
-        string blobparams_yml_filepath;
+        // Private Fields
+        private string _blobparamsYmlFilepath;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
+        private FpsMonitor _fpsMonitor;
 
         /// <summary>
         /// The CancellationTokenSource.
         /// </summary>
-        CancellationTokenSource cts = new CancellationTokenSource();
+        private CancellationTokenSource _cts = new CancellationTokenSource();
 
-        // Use this for initialization
-        async void Start()
+        // Unity Lifecycle Methods
+        private async void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "Preparing file access...";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "Preparing file access...";
 
-            blobparams_yml_filepath = await Utils.getFilePathAsyncTask("OpenCVForUnity/features2d/blobparams.yml", cancellationToken: cts.Token);
+            _blobparamsYmlFilepath = await OpenCVEnv.GetFilePathTaskAsync(BLOBPARAMS_YML_FILENAME, cancellationToken: _cts.Token);
 
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "";
 
             Run();
         }
 
+        private void Update()
+        {
+
+        }
+
+        private void OnDestroy()
+        {
+            _cts?.Dispose();
+        }
+
+        // Public Methods
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick()
+        {
+
+            SceneManager.LoadScene("OpenCVForUnityExample");
+
+        }
+
+        // Private Methods
         private void Run()
         {
 
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
-            Utils.setDebugMode(true);
+            OpenCVDebug.SetDebugMode(true);
 
 
             Texture2D imgTexture = Resources.Load("detect_blob") as Texture2D;
 
             Mat imgMat = new Mat(imgTexture.height, imgTexture.width, CvType.CV_8UC1);
 
-            Utils.texture2DToMat(imgTexture, imgMat);
+            OpenCVMatUtils.Texture2DToMat(imgTexture, imgMat);
             Debug.Log("imgMat.ToString() " + imgMat.ToString());
 
             Mat outImgMat = new Mat();
@@ -97,7 +124,7 @@ namespace OpenCVForUnityExample
             ////load Params from yml file.
             //SimpleBlobDetector blobDetector = SimpleBlobDetector.create();
             //Debug.Log("blobDetector.getDefaultName() " + blobDetector.getDefaultName());
-            //blobDetector.read(blobparams_yml_filepath);
+            //blobDetector.read(_blobparamsYmlFilepath);
 
 
             MatOfKeyPoint keypoints = new MatOfKeyPoint();
@@ -107,38 +134,13 @@ namespace OpenCVForUnityExample
 
             Texture2D texture = new Texture2D(outImgMat.cols(), outImgMat.rows(), TextureFormat.RGBA32, false);
 
-            Utils.matToTexture2D(outImgMat, texture);
+            OpenCVMatUtils.MatToTexture2D(outImgMat, texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
 
 
-            Utils.setDebugMode(false);
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
-        {
-            if (cts != null)
-                cts.Dispose();
-        }
-
-        /// <summary>
-        /// Raises the back button click event.
-        /// </summary>
-        public void OnBackButtonClick()
-        {
-
-            SceneManager.LoadScene("OpenCVForUnityExample");
-
+            OpenCVDebug.SetDebugMode(false);
         }
     }
 }

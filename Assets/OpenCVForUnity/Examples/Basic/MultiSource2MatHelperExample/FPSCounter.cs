@@ -7,17 +7,18 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class FPSCounter
     {
+        // Private Fields
         // Variable for counting frames
-        private int frameCount = 0;
+        private int _frameCount = 0;
 
         // The time when the last measurement was taken
-        private float lastMeasureTime = 0.0f;
+        private float _lastMeasureTime = 0.0f;
 
         // The measured FPS
-        private float currentFPS = 0.0f;
+        private float _currentFPS = 0.0f;
 
         // Measurement interval (in seconds)
-        private float measureInterval = 1.0f;
+        private float _measureInterval = 1.0f;
 
         /// <summary>
         /// Constructor to set the measurement interval.
@@ -25,8 +26,8 @@ namespace OpenCVForUnityExample
         /// <param name="interval">FPS measurement interval (in seconds)</param>
         public FPSCounter(float interval = 1.0f)
         {
-            measureInterval = interval;
-            lastMeasureTime = Time.time;
+            _measureInterval = interval;
+            _lastMeasureTime = Time.time;
         }
 
         /// <summary>
@@ -34,16 +35,16 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void MeasureFPS()
         {
-            frameCount++;
+            _frameCount++;
 
             float currentTime = Time.time;
-            float elapsedTime = currentTime - lastMeasureTime;
+            float elapsedTime = currentTime - _lastMeasureTime;
 
-            if (elapsedTime >= measureInterval)
+            if (elapsedTime >= _measureInterval)
             {
-                currentFPS = frameCount / elapsedTime;
-                frameCount = 0;
-                lastMeasureTime = currentTime;
+                _currentFPS = _frameCount / elapsedTime;
+                _frameCount = 0;
+                _lastMeasureTime = currentTime;
             }
         }
 
@@ -53,8 +54,7 @@ namespace OpenCVForUnityExample
         /// <returns>Current FPS</returns>
         public float GetCurrentFPS()
         {
-            return currentFPS;
+            return _currentFPS;
         }
     }
 }
-

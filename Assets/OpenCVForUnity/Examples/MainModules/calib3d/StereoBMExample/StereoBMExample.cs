@@ -1,8 +1,8 @@
+using System.Collections;
 using OpenCVForUnity.Calib3dModule;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgcodecsModule;
-using OpenCVForUnity.UnityUtils;
-using System.Collections;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,22 +16,23 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class StereoBMExample : MonoBehaviour
     {
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
             //Read the left and right images
             Texture2D texLeft = Resources.Load("tsukuba_l") as Texture2D;
             Texture2D texRight = Resources.Load("tsukuba_r") as Texture2D;
             Mat imgLeft = new Mat(texLeft.height, texLeft.width, CvType.CV_8UC1);
             Mat imgRight = new Mat(texRight.height, texRight.width, CvType.CV_8UC1);
-            Utils.texture2DToMat(texLeft, imgLeft);
-            Utils.texture2DToMat(texRight, imgRight);
+            OpenCVMatUtils.Texture2DToMat(texLeft, imgLeft);
+            OpenCVMatUtils.Texture2DToMat(texRight, imgRight);
             //or
             //Mat imgLeft = Imgcodecs.imread (Utils.getFilePath ("tsukuba_l.png"), Imgcodecs.IMREAD_GRAYSCALE);
             //Mat imgRight = Imgcodecs.imread (Utils.getFilePath ("tsukuba_r.png"), Imgcodecs.IMREAD_GRAYSCALE);
@@ -54,18 +55,18 @@ namespace OpenCVForUnityExample
 
             Texture2D texture = new Texture2D(imgDisparity8U.cols(), imgDisparity8U.rows(), TextureFormat.RGBA32, false);
 
-            Utils.matToTexture2D(imgDisparity8U, texture);
+            OpenCVMatUtils.MatToTexture2D(imgDisparity8U, texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
 
         }
 
+        // Public Methods
         /// <summary>
         /// Raises the back button click event.
         /// </summary>

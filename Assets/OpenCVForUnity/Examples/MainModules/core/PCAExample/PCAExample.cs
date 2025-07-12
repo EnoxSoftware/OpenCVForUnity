@@ -1,9 +1,9 @@
+using System.Collections.Generic;
+using System.Threading;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using System.Collections.Generic;
-using System.Threading;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,57 +17,78 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class PCAExample : MonoBehaviour
     {
+        // Constants
+        /// <summary>
+        /// IMAGE_FILENAME
+        /// </summary>
+        protected static readonly string IMAGE_FILENAME = "OpenCVForUnityExamples/core/pca_test1.jpg";
+
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
-        [Space(10)]
-
-        /// <summary>
-        /// IMAGE_FILENAME
-        /// </summary>
-        protected static readonly string IMAGE_FILENAME = "OpenCVForUnity/core/pca_test1.jpg";
-
+        // Private Fields
         /// <summary>
         /// The image filepath.
         /// </summary>
-        string image_filepath;
+        private string _imageFilepath;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
+        private FpsMonitor _fpsMonitor;
 
         /// <summary>
         /// The CancellationTokenSource.
         /// </summary>
-        CancellationTokenSource cts = new CancellationTokenSource();
+        private CancellationTokenSource _cts = new CancellationTokenSource();
 
-        // Use this for initialization
-        async void Start()
+        // Unity Lifecycle Methods
+        private async void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "Preparing file access...";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "Preparing file access...";
 
-            image_filepath = await Utils.getFilePathAsyncTask(IMAGE_FILENAME, cancellationToken: cts.Token);
+            _imageFilepath = await OpenCVEnv.GetFilePathTaskAsync(IMAGE_FILENAME, cancellationToken: _cts.Token);
 
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "";
 
             Run();
         }
 
+        private void Update()
+        {
+
+        }
+
+        private void OnDisable()
+        {
+            _cts?.Dispose();
+        }
+
+        // Public Methods
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick()
+        {
+            SceneManager.LoadScene("OpenCVForUnityExample");
+        }
+
+        // Private Methods
         private void Run()
         {
-            Mat src = Imgcodecs.imread(image_filepath);
+            Mat src = Imgcodecs.imread(_imageFilepath);
             if (src.empty())
             {
-                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
+                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
             }
 
             Debug.Log("src.ToString() " + src.ToString());
@@ -113,7 +134,7 @@ namespace OpenCVForUnityExample
                 Point cntr = new Point(mean.get(0, 0)[0], mean.get(0, 1)[0]);
                 Point vec = new Point(eigenvectors.get(0, 0)[0], eigenvectors.get(0, 1)[0]);
 
-                drawAxis(src, cntr, vec, new Scalar(255, 255, 0), 150);
+                DrawAxis(src, cntr, vec, new Scalar(255, 255, 0), 150);
 
                 data_pts.Dispose();
                 mean.Dispose();
@@ -125,19 +146,13 @@ namespace OpenCVForUnityExample
 
             Texture2D texture = new Texture2D(src.cols(), src.rows(), TextureFormat.RGBA32, false);
 
-            Utils.matToTexture2D(src, texture);
+            OpenCVMatUtils.MatToTexture2D(src, texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-        private void drawAxis(Mat img, Point start_pt, Point vec, Scalar color, double length)
+        private void DrawAxis(Mat img, Point start_pt, Point vec, Scalar color, double length)
         {
             int CV_AA = 16;
 
@@ -157,23 +172,6 @@ namespace OpenCVForUnityExample
             double qx1 = end_pt.x - 9 * System.Math.Cos(angle - System.Math.PI / 4);
             double qy1 = end_pt.y - 9 * System.Math.Sin(angle - System.Math.PI / 4);
             Imgproc.line(img, end_pt, new Point(qx1, qy1), color, 1, CV_AA, 0);
-        }
-
-        /// <summary>
-        /// Raises the disable event.
-        /// </summary>
-        void OnDisable()
-        {
-            if (cts != null)
-                cts.Dispose();
-        }
-
-        /// <summary>
-        /// Raises the back button click event.
-        /// </summary>
-        public void OnBackButtonClick()
-        {
-            SceneManager.LoadScene("OpenCVForUnityExample");
         }
     }
 }

@@ -1,12 +1,12 @@
 #if !UNITY_WSA_10_0
 
+using System.Collections.Generic;
+using System.Threading;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.DnnModule;
 using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using System.Collections.Generic;
-using System.Threading;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,22 +18,19 @@ namespace OpenCVForUnityExample
     /// Colorization Example
     /// This sample demonstrates recoloring grayscale images with dnn.
     /// Referring to https://github.com/opencv/opencv/blob/master/samples/dnn/colorization.cpp
+    ///
+    /// [Tested Models]
+    /// https://github.com/EnoxSoftware/OpenCVForUnityExampleAssets/releases/download/dnn%2FColorizationExample/colorization_release_v2.caffemodel
+    /// https://github.com/richzhang/colorization/raw/caffe/models/colorization_deploy_v2.prototxt
     /// </summary>
     public class ColorizationExample : MonoBehaviour
     {
-        [Header("Output")]
-        /// <summary>
-        /// The RawImage for previewing the result.
-        /// </summary>
-        public RawImage resultPreview;
-
-        [Space(10)]
-
-        const float inWidth = 224;
-        const float inHeight = 224;
+        // Constants
+        private const float IN_WIDTH = 224;
+        private const float IN_HEIGHT = 224;
 
         // the 313 ab cluster centers from pts_in_hull.npy (already transposed)
-        readonly float[] hull_pts = new float[]{
+        private static readonly float[] HULL_PTS = new float[]{
             -90f, -90f, -90f, -90f, -90f, -80f, -80f, -80f, -80f, -80f, -80f, -80f, -80f, -70f, -70f, -70f, -70f, -70f, -70f, -70f, -70f,
             -70f, -70f, -60f, -60f, -60f, -60f, -60f, -60f, -60f, -60f, -60f, -60f, -60f, -60f, -50f, -50f, -50f, -50f, -50f, -50f, -50f, -50f,
             -50f, -50f, -50f, -50f, -50f, -50f, -40f, -40f, -40f, -40f, -40f, -40f, -40f, -40f, -40f, -40f, -40f, -40f, -40f, -40f, -40f, -30f,
@@ -63,88 +60,115 @@ namespace OpenCVForUnityExample
         };
 
         /// <summary>
-        /// The FPS monitor.
-        /// </summary>
-        FpsMonitor fpsMonitor;
-
-        /// <summary>
         /// IMAGE_FILENAME
         /// </summary>
-        string IMAGE_FILENAME = "OpenCVForUnity/dnn/ansel_adams3.jpg";
-
-        /// <summary>
-        /// The image filepath.
-        /// </summary>
-        string image_filepath;
+        private static readonly string IMAGE_FILENAME = "OpenCVForUnityExamples/dnn/ansel_adams3.jpg";
 
         /// <summary>
         /// CAFFEMODEL_FILENAME
         /// </summary>
-        string CAFFEMODEL_FILENAME = "OpenCVForUnity/dnn/colorization_release_v2.caffemodel";
-
-        /// <summary>
-        /// The caffemodel filepath.
-        /// </summary>
-        string caffemodel_filepath;
+        private static readonly string CAFFEMODEL_FILENAME = "OpenCVForUnityExamples/dnn/colorization_release_v2.caffemodel";
 
         /// <summary>
         /// PROTOTXT_FILENAME
         /// </summary>
-        string PROTOTXT_FILENAME = "OpenCVForUnity/dnn/colorization_deploy_v2.prototxt";
+        private static readonly string PROTOTXT_FILENAME = "OpenCVForUnityExamples/dnn/colorization_deploy_v2.prototxt";
+
+        // Public Fields
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage ResultPreview;
+
+        // Private Fields
+        /// <summary>
+        /// The FPS monitor.
+        /// </summary>
+        private FpsMonitor _fpsMonitor;
+
+        /// <summary>
+        /// The image filepath.
+        /// </summary>
+        private string _imageFilepath;
+
+        /// <summary>
+        /// The caffemodel filepath.
+        /// </summary>
+        private string _caffemodelFilepath;
 
         /// <summary>
         /// The prototxt filepath.
         /// </summary>
-        string prototxt_filepath;
+        private string _prototxtFilepath;
 
         /// <summary>
         /// The CancellationTokenSource.
         /// </summary>
-        CancellationTokenSource cts = new CancellationTokenSource();
+        private CancellationTokenSource _cts = new CancellationTokenSource();
 
-        // Use this for initialization
-        async void Start()
+        // Unity Lifecycle Methods
+        private async void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "Preparing file access...";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "Preparing file access...";
 
-            image_filepath = await Utils.getFilePathAsyncTask(IMAGE_FILENAME, cancellationToken: cts.Token);
-            caffemodel_filepath = await Utils.getFilePathAsyncTask(CAFFEMODEL_FILENAME, cancellationToken: cts.Token);
-            prototxt_filepath = await Utils.getFilePathAsyncTask(PROTOTXT_FILENAME, cancellationToken: cts.Token);
+            _imageFilepath = await OpenCVEnv.GetFilePathTaskAsync(IMAGE_FILENAME, cancellationToken: _cts.Token);
+            _caffemodelFilepath = await OpenCVEnv.GetFilePathTaskAsync(CAFFEMODEL_FILENAME, cancellationToken: _cts.Token);
+            _prototxtFilepath = await OpenCVEnv.GetFilePathTaskAsync(PROTOTXT_FILENAME, cancellationToken: _cts.Token);
 
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "";
 
             Run();
         }
 
-        // Use this for initialization
-        void Run()
+        private void Update()
+        {
+
+        }
+
+        private void OnDisable()
+        {
+            _cts?.Dispose();
+        }
+
+        // Public Methods
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick()
+        {
+            SceneManager.LoadScene("OpenCVForUnityExample");
+        }
+
+        // Private Methods
+        private void Run()
         {
 
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
-            Utils.setDebugMode(true);
+            OpenCVDebug.SetDebugMode(true);
 
-            Mat img = Imgcodecs.imread(image_filepath, Imgcodecs.IMREAD_COLOR);
+            Mat img = Imgcodecs.imread(_imageFilepath, Imgcodecs.IMREAD_COLOR);
             Mat colorized = new Mat(img.rows(), img.cols(), img.type());
             if (img.empty())
             {
-                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/dnn/setup_dnn_module.pdf” to make the necessary setup.");
+                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
                 img = new Mat(368, 368, CvType.CV_8UC3, new Scalar(0, 0, 0));
             }
 
             Net net = null;
 
-            if (string.IsNullOrEmpty(caffemodel_filepath) || string.IsNullOrEmpty(prototxt_filepath))
+            if (string.IsNullOrEmpty(_caffemodelFilepath) || string.IsNullOrEmpty(_prototxtFilepath))
             {
-                Debug.LogError(CAFFEMODEL_FILENAME + " or " + PROTOTXT_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/dnn/setup_dnn_module.pdf” to make the necessary setup.");
+                Debug.LogError(CAFFEMODEL_FILENAME + " or " + PROTOTXT_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
             }
             else
             {
-                net = Dnn.readNetFromCaffe(prototxt_filepath, caffemodel_filepath);
+                net = Dnn.readNetFromCaffe(_prototxtFilepath, _caffemodelFilepath);
             }
 
             if (net == null)
@@ -154,11 +178,10 @@ namespace OpenCVForUnityExample
             }
             else
             {
-
                 // setup additional layers:
                 int[] sz = new int[] { 2, 313, 1, 1 };
                 Mat pts_in_hull = new Mat(sz, CvType.CV_32F);
-                pts_in_hull.put(new int[] { 0, 0, 0, 0 }, hull_pts);
+                pts_in_hull.put(new int[] { 0, 0, 0, 0 }, HULL_PTS);
 
                 Layer class8_ab = net.getLayer(net.getLayerId("class8_ab"));
                 List<Mat> blobs = class8_ab.get_blobs();
@@ -178,7 +201,7 @@ namespace OpenCVForUnityExample
                 img.convertTo(img_32F, CvType.CV_32F, 1.0 / 255);
                 Imgproc.cvtColor(img_32F, lab, Imgproc.COLOR_BGR2Lab);
                 Core.extractChannel(lab, L, 0);
-                Imgproc.resize(L, input, new Size(inWidth, inHeight));
+                Imgproc.resize(L, input, new Size(IN_WIDTH, IN_HEIGHT));
                 Core.subtract(input, new Scalar(50.0), input);
 
                 // run the L channel through the network
@@ -203,8 +226,6 @@ namespace OpenCVForUnityExample
                 Imgproc.cvtColor(lab, img_32F, Imgproc.COLOR_Lab2BGR);
                 img_32F.convertTo(colorized, CvType.CV_8U, 255.0);
 
-
-
                 MatOfDouble timings = new MatOfDouble();
                 long t = net.getPerfProfile(timings);
                 double freq = Core.getTickFrequency() / 1000;
@@ -214,6 +235,19 @@ namespace OpenCVForUnityExample
                 Imgproc.putText(img, "gray", new Point(10, 20), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255), 2);
                 Imgproc.putText(colorized, "colorized", new Point(10, 20), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255), 2);
 
+                // Dispose temporary Mats
+                pts_in_hull.Dispose();
+                img_32F.Dispose();
+                lab.Dispose();
+                L.Dispose();
+                input.Dispose();
+                inputBlob.Dispose();
+                result.Dispose();
+                result_a.Dispose();
+                result_b.Dispose();
+                a.Dispose();
+                b.Dispose();
+                timings.Dispose();
                 net.Dispose();
             }
 
@@ -234,36 +268,17 @@ namespace OpenCVForUnityExample
 
             Texture2D texture = new Texture2D(display.cols(), display.rows(), TextureFormat.RGBA32, false);
 
-            Utils.matToTexture2D(display, texture);
+            OpenCVMatUtils.MatToTexture2D(display, texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
 
+            // Dispose remaining Mats
+            display.Dispose();
+            img.Dispose();
+            colorized.Dispose();
 
-            Utils.setDebugMode(false);
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-        /// <summary>
-        /// Raises the disable event.
-        /// </summary>
-        void OnDisable()
-        {
-            if (cts != null)
-                cts.Dispose();
-        }
-
-        /// <summary>
-        /// Raises the back button click event.
-        /// </summary>
-        public void OnBackButtonClick()
-        {
-            SceneManager.LoadScene("OpenCVForUnityExample");
+            OpenCVDebug.SetDebugMode(false);
         }
     }
 }

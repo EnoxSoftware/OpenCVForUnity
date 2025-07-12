@@ -1,11 +1,12 @@
+using System.Collections.Generic;
+using System.Threading;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.FaceModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.ObjdetectModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UnityUtils.Helper;
-using System.Collections.Generic;
-using System.Threading;
+using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.Optimization;
+using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,132 +18,204 @@ namespace OpenCVForUnityExample
     /// FaceMark Example
     /// An example of detecting facial landmark using the face (FaceMark API) module.
     /// The facemark model file can be downloaded here: https://github.com/spmallick/GSOC2017/blob/master/data/lbfmodel.yaml
-    /// Please copy to “Assets/StreamingAssets/face/” folder.
+    /// Please copy to "Assets/StreamingAssets/OpenCVForUnityExamples/face/" folder.
     /// </summary>
     [RequireComponent(typeof(MultiSource2MatHelper))]
     public class FaceMarkExample : MonoBehaviour
     {
+        // Constants
+        /// <summary>
+        /// FACEMARK_CASCADE_FRONTALFACE_FILENAME
+        /// </summary>
+        protected static readonly string FACEMARK_CASCADE_FRONTALFACE_FILENAME = "OpenCVForUnityExamples/objdetect/haarcascade_frontalface_alt.xml";
+
+        /// <summary>
+        /// FACEMARK_CASCADE_FILENAME
+        /// </summary>
+        protected static readonly string FACEMARK_MODEL_FILENAME = "OpenCVForUnityExamples/face/lbfmodel.yaml";
+
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
         [Space(10)]
 
+        // Private Fields
         /// <summary>
         /// The gray mat.
         /// </summary>
-        Mat grayMat;
+        private Mat _grayMat;
 
         /// <summary>
         /// The texture.
         /// </summary>
-        Texture2D texture;
+        private Texture2D _texture;
 
         /// <summary>
-        /// The cascade.
+        /// The cascade classifier.
         /// </summary>
-        CascadeClassifier cascade;
+        private CascadeClassifier _cascade;
 
         /// <summary>
         /// The faces.
         /// </summary>
-        MatOfRect faces;
+        private MatOfRect _faces;
 
         /// <summary>
         /// The multi source to mat helper.
         /// </summary>
-        MultiSource2MatHelper multiSource2MatHelper;
+        private MultiSource2MatHelper _multiSource2MatHelper;
+
+        /// <summary>
+        /// The image optimization helper.
+        /// </summary>
+        private ImageOptimizationHelper _imageOptimizationHelper;
 
         /// <summary>
         /// The facemark.
         /// </summary>
-        Facemark facemark;
+        private Facemark _facemark;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
-
-        /// <summary>
-        /// FACEMARK_CASCADE_FILENAME
-        /// </summary>
-        protected static readonly string FACEMARK_CASCADE_FILENAME = "OpenCVForUnity/objdetect/lbpcascade_frontalface.xml";
-
-        /// <summary>
-        /// The facemark cascade filepath.
-        /// </summary>
-        string facemark_cascade_filepath;
-
-        /// <summary>
-        /// FACEMARK_CASCADE_FILENAME
-        /// </summary>
-        protected static readonly string FACEMARK_MODEL_FILENAME = "OpenCVForUnity/face/lbfmodel.yaml";
-
-        /// <summary>
-        /// The facemark model filepath.
-        /// </summary>
-        string facemark_model_filepath;
+        private FpsMonitor _fpsMonitor;
 
         /// <summary>
         /// The CancellationTokenSource.
         /// </summary>
-        CancellationTokenSource cts = new CancellationTokenSource();
+        private CancellationTokenSource _cts = new CancellationTokenSource();
 
-        // Use this for initialization
-        async void Start()
+        // Unity Lifecycle Methods
+        private async void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
-            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
-            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGBA;
+            _imageOptimizationHelper = gameObject.GetComponent<ImageOptimizationHelper>();
+
+            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "Preparing file access...";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "Preparing file access...";
 
-            facemark_cascade_filepath = await Utils.getFilePathAsyncTask(FACEMARK_CASCADE_FILENAME, cancellationToken: cts.Token);
-            facemark_model_filepath = await Utils.getFilePathAsyncTask(FACEMARK_MODEL_FILENAME, cancellationToken: cts.Token);
+            string facemark_cascade_filepath = await OpenCVEnv.GetFilePathTaskAsync(FACEMARK_CASCADE_FRONTALFACE_FILENAME, cancellationToken: _cts.Token);
+            string facemark_model_filepath = await OpenCVEnv.GetFilePathTaskAsync(FACEMARK_MODEL_FILENAME, cancellationToken: _cts.Token);
 
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "";
 
-            Run();
-        }
-
-        // Use this for initialization
-        void Run()
-        {
-            //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
-            Utils.setDebugMode(true);
-
-            if (string.IsNullOrEmpty(facemark_model_filepath))
-            {
-                Debug.LogError(FACEMARK_MODEL_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/face/setup_dnn_module.pdf” to make the necessary setup.");
-            }
-            else
-            {
-                // setup landmarks detector
-                facemark = Face.createFacemarkLBF();
-                facemark.loadModel(facemark_model_filepath);
-            }
 
             if (string.IsNullOrEmpty(facemark_cascade_filepath))
             {
-                Debug.LogError(FACEMARK_CASCADE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
+                Debug.LogError(FACEMARK_CASCADE_FRONTALFACE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
             }
             else
             {
                 // setup face detector
-                cascade = new CascadeClassifier(facemark_cascade_filepath);
+                _cascade = new CascadeClassifier(facemark_cascade_filepath);
             }
 
-            multiSource2MatHelper.Initialize();
+            if (string.IsNullOrEmpty(facemark_model_filepath))
+            {
+                Debug.LogError(FACEMARK_MODEL_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+            }
+            else
+            {
+                // setup landmarks detector
+                _facemark = Face.createFacemarkLBF();
+                _facemark.loadModel(facemark_model_filepath);
+            }
 
-            Utils.setDebugMode(false);
+            _multiSource2MatHelper.Initialize();
         }
 
+        private void Update()
+        {
+            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame() && !_imageOptimizationHelper.IsCurrentFrameSkipped())
+            {
+
+                Mat rgbaMat = _multiSource2MatHelper.GetMat();
+
+                if (_facemark == null || _cascade == null)
+                {
+                    Imgproc.putText(rgbaMat, "model file is not loaded.", (5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    Imgproc.putText(rgbaMat, "Please read console message.", (5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+
+                    OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
+                    return;
+                }
+
+                // get a downscaled image for the detection process
+                Mat downScaleRgbaMat = _imageOptimizationHelper.GetDownScaleMat((rgbaMat));
+
+                Imgproc.cvtColor(downScaleRgbaMat, _grayMat, Imgproc.COLOR_RGBA2GRAY);
+                Imgproc.equalizeHist(_grayMat, _grayMat);
+
+                // detect faces
+                int minSize = (int)(Mathf.Max(_grayMat.width(), _grayMat.height()) * 0.1);
+                _cascade.detectMultiScale(_grayMat, _faces, 1.1, 2, 0 | Objdetect.CASCADE_SCALE_IMAGE,
+                    (minSize, minSize));
+
+                if (_faces.total() > 0)
+                {
+                    // fit landmarks for each found face
+                    List<MatOfPoint2f> landmarks = new List<MatOfPoint2f>();
+                    _facemark.fit(_grayMat, _faces, landmarks);
+
+                    // restore the original size of the detected faces
+                    using (MatOfRect originalSizeFaces = _imageOptimizationHelper.RestoreOriginalSizeMatOfRect(_faces))
+                    {
+                        // draw the detected faces
+                        Rect[] rects = originalSizeFaces.toArray();
+                        for (int i = 0; i < rects.Length; i++)
+                        {
+                            //Debug.Log ("detect faces " + rects [i]);
+
+                            Imgproc.rectangle(rgbaMat, (rects[i].x, rects[i].y), (rects[i].x + rects[i].width, rects[i].y + rects[i].height), (255, 0, 0, 255), 2);
+                        }
+                    }
+
+                    for (int i = 0; i < landmarks.Count; i++)
+                    {
+                        // restore the original size of the detected landmarks
+                        using (MatOfPoint2f originalSizeLandmarks = _imageOptimizationHelper.RestoreOriginalSizeMatOfPoint2f(landmarks[i]))
+                        {
+                            // draw the detected landmarks
+                            List<Point> points = originalSizeLandmarks.toList();
+                            DrawFaceLandmark(rgbaMat, points, new Scalar(0, 255, 0, 255), 2);
+
+                            //Scalar circleColor = new Scalar(255, 0, 0, 255);
+                            //foreach (Point p in points)
+                            //    Imgproc.circle(rgbaMat, p, 2, circleColor, -1);
+                        }
+                    }
+
+                    foreach (MatOfPoint2f landmark in landmarks)
+                        landmark.Dispose();
+                }
+
+                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            _multiSource2MatHelper.Dispose();
+            _imageOptimizationHelper.Dispose();
+
+            _cascade?.Dispose();
+
+            _facemark?.Dispose();
+
+            _cts?.Dispose();
+        }
+
+        // Public Methods
         /// <summary>
         /// Raises the source to mat helper initialized event.
         /// </summary>
@@ -150,25 +223,26 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperInitialized");
 
-            Mat rgbaMat = multiSource2MatHelper.GetMat();
+            Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-            texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
-            Utils.matToTexture2D(rgbaMat, texture);
+            _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
+            OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = _texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
 
 
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.Add("width", rgbaMat.width().ToString());
-                fpsMonitor.Add("height", rgbaMat.height().ToString());
-                fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                _fpsMonitor.Add("width", rgbaMat.width().ToString());
+                _fpsMonitor.Add("height", rgbaMat.height().ToString());
+                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
             }
 
-            grayMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC1);
+            Mat downScaleMat = _imageOptimizationHelper.GetDownScaleMat((rgbaMat));
+            _grayMat = new Mat(downScaleMat.rows(), downScaleMat.cols(), CvType.CV_8UC1);
 
-            faces = new MatOfRect();
+            _faces = new MatOfRect();
         }
 
         /// <summary>
@@ -178,18 +252,12 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperDisposed");
 
-            if (grayMat != null)
-                grayMat.Dispose();
+            _grayMat?.Dispose();
 
 
-            if (texture != null)
-            {
-                Texture2D.Destroy(texture);
-                texture = null;
-            }
+            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
 
-            if (faces != null)
-                faces.Dispose();
+            _faces?.Dispose();
         }
 
         /// <summary>
@@ -201,72 +269,53 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
 
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
+                _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
             }
         }
 
-        // Update is called once per frame
-        void Update()
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick()
         {
-            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
-            {
-
-                Mat rgbaMat = multiSource2MatHelper.GetMat();
-
-                if (facemark == null || cascade == null)
-                {
-                    Imgproc.putText(rgbaMat, "model file is not loaded.", new Point(5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    Imgproc.putText(rgbaMat, "Please read console message.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-
-                    Utils.matToTexture2D(rgbaMat, texture);
-                    return;
-                }
-
-                Imgproc.cvtColor(rgbaMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
-                Imgproc.equalizeHist(grayMat, grayMat);
-
-                // detect faces
-                cascade.detectMultiScale(grayMat, faces, 1.1, 2, 2, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
-                    new Size(grayMat.cols() * 0.2, grayMat.rows() * 0.2), new Size());
-
-                if (faces.total() > 0)
-                {
-                    // fit landmarks for each found face
-                    List<MatOfPoint2f> landmarks = new List<MatOfPoint2f>();
-                    facemark.fit(grayMat, faces, landmarks);
-
-
-                    Rect[] rects = faces.toArray();
-                    for (int i = 0; i < rects.Length; i++)
-                    {
-                        //Debug.Log ("detect faces " + rects [i]);
-
-                        Imgproc.rectangle(rgbaMat, new Point(rects[i].x, rects[i].y), new Point(rects[i].x + rects[i].width, rects[i].y + rects[i].height), new Scalar(255, 0, 0, 255), 2);
-                    }
-
-                    // draw them
-                    for (int i = 0; i < landmarks.Count; i++)
-                    {
-                        MatOfPoint2f lm = landmarks[i];
-                        float[] lm_float = new float[lm.total() * lm.channels()];
-                        MatUtils.copyFromMat<float>(lm, lm_float);
-
-                        DrawFaceLandmark(rgbaMat, ConvertArrayToPointList(lm_float), new Scalar(0, 255, 0, 255), 2);
-
-                        //for (int j = 0; j < lm_float.Length; j = j + 2)
-                        //{
-                        //    Point p = new Point(lm_float[j], lm_float[j + 1]);
-                        //    Imgproc.circle(rgbaMat, p, 2, new Scalar(255, 0, 0, 255), 1);
-                        //}
-                    }
-                }
-
-                Utils.matToTexture2D(rgbaMat, texture);
-            }
+            SceneManager.LoadScene("OpenCVForUnityExample");
         }
 
+        /// <summary>
+        /// Raises the play button click event.
+        /// </summary>
+        public void OnPlayButtonClick()
+        {
+            _multiSource2MatHelper.Play();
+        }
+
+        /// <summary>
+        /// Raises the pause button click event.
+        /// </summary>
+        public void OnPauseButtonClick()
+        {
+            _multiSource2MatHelper.Pause();
+        }
+
+        /// <summary>
+        /// Raises the stop button click event.
+        /// </summary>
+        public void OnStopButtonClick()
+        {
+            _multiSource2MatHelper.Stop();
+        }
+
+        /// <summary>
+        /// Raises the change camera button click event.
+        /// </summary>
+        public void OnChangeCameraButtonClick()
+        {
+            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
+        }
+
+        // Private Methods
         private void DrawFaceLandmark(Mat imgMat, List<Point> points, Scalar color, int thickness, bool drawIndexNumbers = false)
         {
             if (points.Count == 5)
@@ -322,91 +371,10 @@ namespace OpenCVForUnityExample
             // Draw the index number of facelandmark points.
             if (drawIndexNumbers)
             {
+                Scalar textColor = new Scalar(255, 255, 255, 255);
                 for (int i = 0; i < points.Count; ++i)
-                    Imgproc.putText(imgMat, i.ToString(), points[i], Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar(255, 255, 255, 255), 1, Imgproc.LINE_AA, false);
+                    Imgproc.putText(imgMat, i.ToString(), points[i], Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, textColor, 1, Imgproc.LINE_AA, false);
             }
-        }
-
-        private List<Point> ConvertArrayToPointList(float[] arr, List<Point> pts = null)
-        {
-            if (pts == null)
-            {
-                pts = new List<Point>();
-            }
-
-            if (pts.Count != arr.Length / 2)
-            {
-                pts.Clear();
-                for (int i = 0; i < arr.Length / 2; i++)
-                {
-                    pts.Add(new Point());
-                }
-            }
-
-            for (int i = 0; i < pts.Count; ++i)
-            {
-                pts[i].x = arr[i * 2];
-                pts[i].y = arr[i * 2 + 1];
-            }
-
-            return pts;
-        }
-
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
-        {
-            multiSource2MatHelper.Dispose();
-
-            if (cascade != null)
-                cascade.Dispose();
-
-            if (facemark != null)
-                facemark.Dispose();
-
-            if (cts != null)
-                cts.Dispose();
-        }
-
-        /// <summary>
-        /// Raises the back button click event.
-        /// </summary>
-        public void OnBackButtonClick()
-        {
-            SceneManager.LoadScene("OpenCVForUnityExample");
-        }
-
-        /// <summary>
-        /// Raises the play button click event.
-        /// </summary>
-        public void OnPlayButtonClick()
-        {
-            multiSource2MatHelper.Play();
-        }
-
-        /// <summary>
-        /// Raises the pause button click event.
-        /// </summary>
-        public void OnPauseButtonClick()
-        {
-            multiSource2MatHelper.Pause();
-        }
-
-        /// <summary>
-        /// Raises the stop button click event.
-        /// </summary>
-        public void OnStopButtonClick()
-        {
-            multiSource2MatHelper.Stop();
-        }
-
-        /// <summary>
-        /// Raises the change camera button click event.
-        /// </summary>
-        public void OnChangeCameraButtonClick()
-        {
-            multiSource2MatHelper.requestedIsFrontFacing = !multiSource2MatHelper.requestedIsFrontFacing;
         }
     }
 }

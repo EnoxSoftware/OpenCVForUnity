@@ -1,10 +1,10 @@
-using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.VideoioModule;
 using System;
 using System.Collections;
 using System.Threading;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.VideoioModule;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,222 +18,143 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class VideoCaptureExample : MonoBehaviour
     {
+        // Constants
+        /// <summary>
+        /// VIDEO_FILENAME
+        /// </summary>
+        protected static readonly string VIDEO_FILENAME = "OpenCVForUnityExamples/768x576_mjpeg.mjpeg";
+
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
         [Space(10)]
 
         /// <summary>
         /// The seek bar slider.
         /// </summary>
-        public Slider seekBarSlider;
+        public Slider SeekBarSlider;
 
-        Slider.SliderEvent defaultSliderEvent = new Slider.SliderEvent();
+        // Private Fields
+        private Slider.SliderEvent _defaultSliderEvent = new Slider.SliderEvent();
 
         /// <summary>
         /// The videocapture.
         /// </summary>
-        VideoCapture capture;
+        private VideoCapture _capture;
 
         /// <summary>
         /// The rgb mat.
         /// </summary>
-        Mat rgbMat;
+        private Mat _rgbMat;
 
         /// <summary>
         /// The texture.
         /// </summary>
-        Texture2D texture;
+        private Texture2D _texture;
 
         /// <summary>
         /// Indicates whether the video is playing.
         /// </summary>
-        bool isPlaying = false;
+        private bool _isPlaying = false;
 
         /// <summary>
         /// Indicates whether the video frame needs updating.
         /// </summary>
-        bool shouldUpdateVideoFrame = false;
+        private bool _shouldUpdateVideoFrame = false;
 
         /// <summary>
         /// The prev frame tick count.
         /// </summary>
-        long prevFrameTickCount;
+        private long _prevFrameTickCount;
 
         /// <summary>
         /// The current frame tick count.
         /// </summary>
-        long currentFrameTickCount;
+        private long _currentFrameTickCount;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
-
-        /// <summary>
-        /// VIDEO_FILENAME
-        /// </summary>
-        protected static readonly string VIDEO_FILENAME = "OpenCVForUnity/768x576_mjpeg.mjpeg";
+        private FpsMonitor _fpsMonitor;
 
         /// <summary>
         /// The CancellationTokenSource.
         /// </summary>
-        CancellationTokenSource cts = new CancellationTokenSource();
+        private CancellationTokenSource _cts = new CancellationTokenSource();
 
-        // Use this for initialization
-        async void Start()
+        // Unity Lifecycle Methods
+        private async void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
-            capture = new VideoCapture();
+            _capture = new VideoCapture();
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "Preparing file access...";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "Preparing file access...";
 
-            var video_filepath = await Utils.getFilePathAsyncTask(VIDEO_FILENAME, cancellationToken: cts.Token);
+            var video_filepath = await OpenCVEnv.GetFilePathTaskAsync(VIDEO_FILENAME, cancellationToken: _cts.Token);
 
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "";
 
-            capture.open(video_filepath);
+            _capture.open(video_filepath);
             Initialize();
         }
 
-        private void Initialize()
+        private void Update()
         {
-            rgbMat = new Mat();
-
-            if (!capture.isOpened())
+            if (_isPlaying && _shouldUpdateVideoFrame)
             {
-                Debug.LogError(VIDEO_FILENAME + " is not opened. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
-            }
-
-            Debug.Log("CAP_PROP_FORMAT: " + capture.get(Videoio.CAP_PROP_FORMAT));
-            Debug.Log("CAP_PROP_POS_MSEC: " + capture.get(Videoio.CAP_PROP_POS_MSEC));
-            Debug.Log("CAP_PROP_POS_FRAMES: " + capture.get(Videoio.CAP_PROP_POS_FRAMES));
-            Debug.Log("CAP_PROP_POS_AVI_RATIO: " + capture.get(Videoio.CAP_PROP_POS_AVI_RATIO));
-            Debug.Log("CAP_PROP_FRAME_COUNT: " + capture.get(Videoio.CAP_PROP_FRAME_COUNT));
-            Debug.Log("CAP_PROP_FPS: " + capture.get(Videoio.CAP_PROP_FPS));
-            Debug.Log("CAP_PROP_FRAME_WIDTH: " + capture.get(Videoio.CAP_PROP_FRAME_WIDTH));
-            Debug.Log("CAP_PROP_FRAME_HEIGHT: " + capture.get(Videoio.CAP_PROP_FRAME_HEIGHT));
-            double ext = capture.get(Videoio.CAP_PROP_FOURCC);
-            Debug.Log("CAP_PROP_FOURCC: " + (char)((int)ext & 0XFF) + (char)(((int)ext & 0XFF00) >> 8) + (char)(((int)ext & 0XFF0000) >> 16) + (char)(((int)ext & 0XFF000000) >> 24));
-
-            if (fpsMonitor != null)
-            {
-                fpsMonitor.Add("CAP_PROP_FORMAT", capture.get(Videoio.CAP_PROP_FORMAT).ToString());
-                fpsMonitor.Add("CAP_PROP_POS_MSEC", capture.get(Videoio.CAP_PROP_POS_MSEC).ToString());
-                fpsMonitor.Add("CAP_PROP_POS_FRAMES", capture.get(Videoio.CAP_PROP_POS_FRAMES).ToString());
-                fpsMonitor.Add("CAP_PROP_POS_AVI_RATIO", capture.get(Videoio.CAP_PROP_POS_AVI_RATIO).ToString());
-                fpsMonitor.Add("CAP_PROP_FRAME_COUNT", capture.get(Videoio.CAP_PROP_FRAME_COUNT).ToString());
-                fpsMonitor.Add("CAP_PROP_FPS", capture.get(Videoio.CAP_PROP_FPS).ToString());
-                fpsMonitor.Add("CAP_PROP_FRAME_WIDTH", capture.get(Videoio.CAP_PROP_FRAME_WIDTH).ToString());
-                fpsMonitor.Add("CAP_PROP_FRAME_HEIGHT", capture.get(Videoio.CAP_PROP_FRAME_HEIGHT).ToString());
-                fpsMonitor.Add("CAP_PROP_FOURCC", "" + (char)((int)ext & 0XFF) + (char)(((int)ext & 0XFF00) >> 8) + (char)(((int)ext & 0XFF0000) >> 16) + (char)(((int)ext & 0XFF000000) >> 24));
-                fpsMonitor.Add("STATE", "");
-            }
-
-            capture.grab();
-            capture.retrieve(rgbMat);
-
-            texture = new Texture2D(rgbMat.cols(), rgbMat.rows(), TextureFormat.RGB24, false);
-
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
-
-
-            capture.set(Videoio.CAP_PROP_POS_FRAMES, 0);
-
-            StartCoroutine("WaitFrameTime");
-
-            isPlaying = true;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            if (isPlaying && shouldUpdateVideoFrame)
-            {
-                shouldUpdateVideoFrame = false;
+                _shouldUpdateVideoFrame = false;
 
                 //Loop play
-                if (capture.get(Videoio.CAP_PROP_POS_FRAMES) >= capture.get(Videoio.CAP_PROP_FRAME_COUNT))
-                    capture.set(Videoio.CAP_PROP_POS_FRAMES, 0);
+                if (_capture.get(Videoio.CAP_PROP_POS_FRAMES) >= _capture.get(Videoio.CAP_PROP_FRAME_COUNT))
+                    _capture.set(Videoio.CAP_PROP_POS_FRAMES, 0);
 
-                if (capture.grab())
+                if (_capture.grab())
                 {
-                    capture.retrieve(rgbMat);
+                    _capture.retrieve(_rgbMat);
 
-                    Imgproc.cvtColor(rgbMat, rgbMat, Imgproc.COLOR_BGR2RGB);
+                    Imgproc.cvtColor(_rgbMat, _rgbMat, Imgproc.COLOR_BGR2RGB);
 
-                    if (fpsMonitor != null)
+                    if (_fpsMonitor != null)
                     {
-                        fpsMonitor.Add("CAP_PROP_POS_MSEC", capture.get(Videoio.CAP_PROP_POS_MSEC).ToString());
-                        fpsMonitor.Add("CAP_PROP_POS_FRAMES", capture.get(Videoio.CAP_PROP_POS_FRAMES).ToString());
-                        fpsMonitor.Add("CAP_PROP_POS_AVI_RATIO", capture.get(Videoio.CAP_PROP_POS_AVI_RATIO).ToString());
-                        fpsMonitor.Add("CAP_PROP_FRAME_COUNT", capture.get(Videoio.CAP_PROP_FRAME_COUNT).ToString());
-                        int msec = (int)Math.Round(1000.0 * (currentFrameTickCount - prevFrameTickCount) / Core.getTickFrequency());
+                        _fpsMonitor.Add("CAP_PROP_POS_MSEC", _capture.get(Videoio.CAP_PROP_POS_MSEC).ToString());
+                        _fpsMonitor.Add("CAP_PROP_POS_FRAMES", _capture.get(Videoio.CAP_PROP_POS_FRAMES).ToString());
+                        _fpsMonitor.Add("CAP_PROP_POS_AVI_RATIO", _capture.get(Videoio.CAP_PROP_POS_AVI_RATIO).ToString());
+                        _fpsMonitor.Add("CAP_PROP_FRAME_COUNT", _capture.get(Videoio.CAP_PROP_FRAME_COUNT).ToString());
+                        int msec = (int)Math.Round(1000.0 * (_currentFrameTickCount - _prevFrameTickCount) / Core.getTickFrequency());
                         int fps = (int)Math.Round(1000.0 / msec);
-                        fpsMonitor.Add("STATE", msec + "ms (" + fps + "fps)");
+                        _fpsMonitor.Add("STATE", msec + "ms (" + fps + "fps)");
                     }
 
-                    Utils.matToTexture2D(rgbMat, texture);
+                    OpenCVMatUtils.MatToTexture2D(_rgbMat, _texture);
 
-                    var tmp = seekBarSlider.onValueChanged;
-                    seekBarSlider.onValueChanged = defaultSliderEvent;
-                    seekBarSlider.value = (float)capture.get(Videoio.CAP_PROP_POS_AVI_RATIO);
-                    seekBarSlider.onValueChanged = tmp;
+                    var tmp = SeekBarSlider.onValueChanged;
+                    SeekBarSlider.onValueChanged = _defaultSliderEvent;
+                    SeekBarSlider.value = (float)_capture.get(Videoio.CAP_PROP_POS_AVI_RATIO);
+                    SeekBarSlider.onValueChanged = tmp;
                 }
             }
         }
 
-        private IEnumerator WaitFrameTime()
-        {
-            double videoFPS = (capture.get(Videoio.CAP_PROP_FPS) <= 0) ? 10.0 : capture.get(Videoio.CAP_PROP_FPS);
-            float frameTime_sec = (float)(1000.0 / videoFPS / 1000.0);
-            WaitForSeconds wait = new WaitForSeconds(frameTime_sec);
-            prevFrameTickCount = currentFrameTickCount = Core.getTickCount();
-
-            capture.grab();
-
-            while (true)
-            {
-                if (isPlaying)
-                {
-                    shouldUpdateVideoFrame = true;
-
-                    prevFrameTickCount = currentFrameTickCount;
-                    currentFrameTickCount = Core.getTickCount();
-
-                    yield return wait;
-                }
-                else
-                {
-                    yield return null;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
+        private void OnDestroy()
         {
             StopCoroutine("WaitFrameTime");
 
-            capture.release();
+            _capture?.release();
 
-            if (rgbMat != null)
-                rgbMat.Dispose();
+            _rgbMat?.Dispose();
 
-            if (cts != null)
-                cts.Dispose();
+            _cts?.Dispose();
         }
 
+        // Public Methods
         /// <summary>
         /// Raises the back button click event.
         /// </summary>
@@ -247,7 +168,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnPlayButtonClick()
         {
-            isPlaying = true;
+            _isPlaying = true;
         }
 
         /// <summary>
@@ -255,7 +176,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnPauseButtonClick()
         {
-            isPlaying = false;
+            _isPlaying = false;
         }
 
         /// <summary>
@@ -263,13 +184,13 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnJumpAheadButtonClick()
         {
-            int courentFrame = (int)capture.get(Videoio.CAP_PROP_POS_FRAMES) + 50;
-            if (courentFrame >= capture.get(Videoio.CAP_PROP_FRAME_COUNT))
+            int courentFrame = (int)_capture.get(Videoio.CAP_PROP_POS_FRAMES) + 50;
+            if (courentFrame >= _capture.get(Videoio.CAP_PROP_FRAME_COUNT))
             {
-                courentFrame = (int)capture.get(Videoio.CAP_PROP_FRAME_COUNT);
+                courentFrame = (int)_capture.get(Videoio.CAP_PROP_FRAME_COUNT);
             }
 
-            capture.set(Videoio.CAP_PROP_POS_FRAMES, courentFrame);
+            _capture.set(Videoio.CAP_PROP_POS_FRAMES, courentFrame);
         }
 
         /// <summary>
@@ -277,13 +198,13 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnJumpBackButtonClick()
         {
-            int courentFrame = (int)capture.get(Videoio.CAP_PROP_POS_FRAMES) - 50;
+            int courentFrame = (int)_capture.get(Videoio.CAP_PROP_POS_FRAMES) - 50;
             if (courentFrame <= 0)
             {
                 courentFrame = 0;
             }
 
-            capture.set(Videoio.CAP_PROP_POS_FRAMES, courentFrame);
+            _capture.set(Videoio.CAP_PROP_POS_FRAMES, courentFrame);
         }
 
         /// <summary>
@@ -291,11 +212,88 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnSeekBarSliderValueChanged()
         {
-            bool supported = capture.set(Videoio.CAP_PROP_POS_AVI_RATIO, seekBarSlider.value);
+            bool supported = _capture.set(Videoio.CAP_PROP_POS_AVI_RATIO, SeekBarSlider.value);
 
             if (!supported)
             {
-                capture.set(Videoio.CAP_PROP_POS_FRAMES, (int)(seekBarSlider.value * capture.get(Videoio.CAP_PROP_FRAME_COUNT)));
+                _capture.set(Videoio.CAP_PROP_POS_FRAMES, (int)(SeekBarSlider.value * _capture.get(Videoio.CAP_PROP_FRAME_COUNT)));
+            }
+        }
+
+        // Private Methods
+        private void Initialize()
+        {
+            _rgbMat = new Mat();
+
+            if (!_capture.isOpened())
+            {
+                Debug.LogError(VIDEO_FILENAME + " is not opened. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+            }
+
+            Debug.Log("CAP_PROP_FORMAT: " + _capture.get(Videoio.CAP_PROP_FORMAT));
+            Debug.Log("CAP_PROP_POS_MSEC: " + _capture.get(Videoio.CAP_PROP_POS_MSEC));
+            Debug.Log("CAP_PROP_POS_FRAMES: " + _capture.get(Videoio.CAP_PROP_POS_FRAMES));
+            Debug.Log("CAP_PROP_POS_AVI_RATIO: " + _capture.get(Videoio.CAP_PROP_POS_AVI_RATIO));
+            Debug.Log("CAP_PROP_FRAME_COUNT: " + _capture.get(Videoio.CAP_PROP_FRAME_COUNT));
+            Debug.Log("CAP_PROP_FPS: " + _capture.get(Videoio.CAP_PROP_FPS));
+            Debug.Log("CAP_PROP_FRAME_WIDTH: " + _capture.get(Videoio.CAP_PROP_FRAME_WIDTH));
+            Debug.Log("CAP_PROP_FRAME_HEIGHT: " + _capture.get(Videoio.CAP_PROP_FRAME_HEIGHT));
+            double ext = _capture.get(Videoio.CAP_PROP_FOURCC);
+            Debug.Log("CAP_PROP_FOURCC: " + (char)((int)ext & 0XFF) + (char)(((int)ext & 0XFF00) >> 8) + (char)(((int)ext & 0XFF0000) >> 16) + (char)(((int)ext & 0XFF000000) >> 24));
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("CAP_PROP_FORMAT", _capture.get(Videoio.CAP_PROP_FORMAT).ToString());
+                _fpsMonitor.Add("CAP_PROP_POS_MSEC", _capture.get(Videoio.CAP_PROP_POS_MSEC).ToString());
+                _fpsMonitor.Add("CAP_PROP_POS_FRAMES", _capture.get(Videoio.CAP_PROP_POS_FRAMES).ToString());
+                _fpsMonitor.Add("CAP_PROP_POS_AVI_RATIO", _capture.get(Videoio.CAP_PROP_POS_AVI_RATIO).ToString());
+                _fpsMonitor.Add("CAP_PROP_FRAME_COUNT", _capture.get(Videoio.CAP_PROP_FRAME_COUNT).ToString());
+                _fpsMonitor.Add("CAP_PROP_FPS", _capture.get(Videoio.CAP_PROP_FPS).ToString());
+                _fpsMonitor.Add("CAP_PROP_FRAME_WIDTH", _capture.get(Videoio.CAP_PROP_FRAME_WIDTH).ToString());
+                _fpsMonitor.Add("CAP_PROP_FRAME_HEIGHT", _capture.get(Videoio.CAP_PROP_FRAME_HEIGHT).ToString());
+                _fpsMonitor.Add("CAP_PROP_FOURCC", "" + (char)((int)ext & 0XFF) + (char)(((int)ext & 0XFF00) >> 8) + (char)(((int)ext & 0XFF0000) >> 16) + (char)(((int)ext & 0XFF000000) >> 24));
+                _fpsMonitor.Add("STATE", "");
+            }
+
+            _capture.grab();
+            _capture.retrieve(_rgbMat);
+
+            _texture = new Texture2D(_rgbMat.cols(), _rgbMat.rows(), TextureFormat.RGB24, false);
+
+            ResultPreview.texture = _texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
+
+            _capture.set(Videoio.CAP_PROP_POS_FRAMES, 0);
+
+            StartCoroutine("WaitFrameTime");
+
+            _isPlaying = true;
+        }
+
+        private IEnumerator WaitFrameTime()
+        {
+            double videoFPS = (_capture.get(Videoio.CAP_PROP_FPS) <= 0) ? 10.0 : _capture.get(Videoio.CAP_PROP_FPS);
+            float frameTime_sec = (float)(1000.0 / videoFPS / 1000.0);
+            WaitForSeconds wait = new WaitForSeconds(frameTime_sec);
+            _prevFrameTickCount = _currentFrameTickCount = Core.getTickCount();
+
+            _capture.grab();
+
+            while (true)
+            {
+                if (_isPlaying)
+                {
+                    _shouldUpdateVideoFrame = true;
+
+                    _prevFrameTickCount = _currentFrameTickCount;
+                    _currentFrameTickCount = Core.getTickCount();
+
+                    yield return wait;
+                }
+                else
+                {
+                    yield return null;
+                }
             }
         }
     }

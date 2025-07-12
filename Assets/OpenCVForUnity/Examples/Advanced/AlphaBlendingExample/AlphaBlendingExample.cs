@@ -1,12 +1,12 @@
 //using Unity.IL2CPP.CompilerServices;
 
-using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,251 +16,267 @@ namespace OpenCVForUnityExample
     /// <summary>
     /// Alpha Blending Example
     /// An example of alpha blending in multiple ways.
-    /// 
+    ///
     /// ### How to speed up pixel array access. (optional) ###
-    /// 
+    ///
     /// # IL2CPP Compiler options:
     /// [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
     /// [Il2CppSetOption(Option.NullChecks, false)]
-    /// The runtime checks can be enabled or disabled in C# code using the Il2CppSetOptions attribute. To use this attribute, 
-    /// find the Il2CppSetOptionsAttribute.cs source file in the IL2CPP directory in the Unity Editor installation on your computer. 
+    /// The runtime checks can be enabled or disabled in C# code using the Il2CppSetOptions attribute. To use this attribute,
+    /// find the Il2CppSetOptionsAttribute.cs source file in the IL2CPP directory in the Unity Editor installation on your computer.
     /// (Data\il2cpp on Windows, Contents/Frameworks/il2cpp on OS X). Copy this source file into the Assets folder in your project.
     /// https://docs.unity3d.com/Manual/IL2CPP-CompilerOptions.html
-    /// 
-    /// To use these options, need to uncomment the code that enables the feature. 
-    /// 
-    /// 
+    ///
+    /// To use these options, need to uncomment the code that enables the feature.
+    ///
+    ///
     /// # Pointer acccess. (use -unsafe):
     /// (Unity version 2018.1 or later)
     /// Unsafe code may only appear if compiling with /unsafe. Enable "Allow 'unsafe' code" in Player Settings.
-    /// 
+    ///
     /// (older version)
     /// Unsafe code requires the `unsafe' command-line option to be specified.
     /// You need to add a file "smcs.rsp" (or "gmcs.rsp") in your "Assets" directory, which contains the line: -unsafe
     /// https://answers.unity.com/questions/804103/how-to-enable-unsafe-and-use-pointers.html
-    /// 
-    /// 
+    ///
+    ///
     /// ######
     /// </summary>
-
     public class AlphaBlendingExample : MonoBehaviour
     {
-        public enum ImageSize
+        // Enums
+        /// <summary>
+        /// Image size type enum
+        /// </summary>
+        public enum ImageSizeType
         {
             Original,
             Large,
             Small
         }
 
+        // Public Fields
         /// <summary>
         /// The image size.
         /// </summary>
-        public ImageSize imageSize = ImageSize.Original;
+        public ImageSizeType ImageSize = ImageSizeType.Original;
 
         /// <summary>
         /// The count dropdown.
         /// </summary>
-        public Dropdown imageSizeDropdown;
+        public Dropdown ImageSizeDropdown;
 
         /// <summary>
         /// The count.
         /// </summary>
-        public int count = 100;
+        public int Count = 100;
 
         /// <summary>
         /// The image size dropdown.
         /// </summary>
-        public Dropdown countDropdown;
+        public Dropdown CountDropdown;
 
-        public MeshRenderer fgQuad;
-        public MeshRenderer bgQuad;
-        public MeshRenderer alphaQuad;
-        public MeshRenderer dstQuad;
+        /// <summary>
+        /// The foreground quad mesh renderer.
+        /// </summary>
+        public MeshRenderer FgQuad;
 
-        Texture2D fgTex;
-        Texture2D bgTex;
-        Texture2D alphaTex;
-        Texture2D dstTex;
+        /// <summary>
+        /// The background quad mesh renderer.
+        /// </summary>
+        public MeshRenderer BgQuad;
 
-        Mat fgMat;
-        Mat bgMat;
-        Mat alphaMat;
-        Mat dstMat;
+        /// <summary>
+        /// The alpha quad mesh renderer.
+        /// </summary>
+        public MeshRenderer AlphaQuad;
 
-        Mat fgMatLarge;
-        Mat bgMatLarge;
-        Mat alphaMatLarge;
-        Mat dstMatLarge;
+        /// <summary>
+        /// The destination quad mesh renderer.
+        /// </summary>
+        public MeshRenderer DstQuad;
 
-        Mat fgMatROI;
-        Mat bgMatROI;
-        Mat alphaMatROI;
-        Mat dstMatROI;
+        // Private Fields
+        private Texture2D _fgTex;
+        private Texture2D _bgTex;
+        private Texture2D _alphaTex;
+        private Texture2D _dstTex;
 
-        Mat _fgMat;
-        Mat _bgMat;
-        Mat _alphaMat;
-        Mat _dstMat;
+        private Mat _fgMat;
+        private Mat _bgMat;
+        private Mat _alphaMat;
+        private Mat _dstMat;
+
+        private Mat _fgMatLarge;
+        private Mat _bgMatLarge;
+        private Mat _alphaMatLarge;
+        private Mat _dstMatLarge;
+
+        private Mat _fgMatROI;
+        private Mat _bgMatROI;
+        private Mat _alphaMatROI;
+        private Mat _dstMatROI;
+
+        private Mat _currentFgMat;
+        private Mat _currentBgMat;
+        private Mat _currentAlphaMat;
+        private Mat _currentDstMat;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
+        private FpsMonitor _fpsMonitor;
 
-
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
-            imageSizeDropdown.value = (int)imageSize;
-            countDropdown.value = 2;
+            ImageSizeDropdown.value = (int)ImageSize;
+            CountDropdown.value = 2;
 
-            fgTex = Resources.Load("face") as Texture2D;
-            bgTex = new Texture2D(fgTex.width, fgTex.height, TextureFormat.RGBA32, false);
-            alphaTex = new Texture2D(fgTex.width, fgTex.height, TextureFormat.RGBA32, false);
-            dstTex = new Texture2D(fgTex.width, fgTex.height, TextureFormat.RGBA32, false);
+            _fgTex = Resources.Load("face") as Texture2D;
+            _bgTex = new Texture2D(_fgTex.width, _fgTex.height, TextureFormat.RGBA32, false);
+            _alphaTex = new Texture2D(_fgTex.width, _fgTex.height, TextureFormat.RGBA32, false);
+            _dstTex = new Texture2D(_fgTex.width, _fgTex.height, TextureFormat.RGBA32, false);
 
-            fgMat = new Mat(fgTex.height, fgTex.width, CvType.CV_8UC3);
-            bgMat = new Mat(fgTex.height, fgTex.width, CvType.CV_8UC3);
-            alphaMat = new Mat(fgTex.height, fgTex.width, CvType.CV_8UC1);
-            dstMat = new Mat(fgTex.height, fgTex.width, CvType.CV_8UC3, new Scalar(0, 0, 0));
-
+            _fgMat = new Mat(_fgTex.height, _fgTex.width, CvType.CV_8UC3);
+            _bgMat = new Mat(_fgTex.height, _fgTex.width, CvType.CV_8UC3);
+            _alphaMat = new Mat(_fgTex.height, _fgTex.width, CvType.CV_8UC1);
+            _dstMat = new Mat(_fgTex.height, _fgTex.width, CvType.CV_8UC3, new Scalar(0, 0, 0));
 
             // Generate fgMat.
-            Utils.texture2DToMat(fgTex, fgMat);
+            OpenCVMatUtils.Texture2DToMat(_fgTex, _fgMat);
 
             // Generate bgMat.
-            Core.flip(fgMat, bgMat, 1);
-            Core.bitwise_not(bgMat, bgMat);
+            Core.flip(_fgMat, _bgMat, 1);
+            Core.bitwise_not(_bgMat, _bgMat);
 
             // Generate alphaMat.
-            for (int r = 0; r < alphaMat.rows(); r++)
+            for (int r = 0; r < _alphaMat.rows(); r++)
             {
-                alphaMat.row(r).setTo(new Scalar(r / (alphaMat.rows() / 256)));
+                _alphaMat.row(r).setTo(new Scalar(r / (_alphaMat.rows() / 256)));
             }
 #pragma warning disable 0618
-            Imgproc.linearPolar(alphaMat, alphaMat, new Point(alphaMat.cols() / 2, alphaMat.rows() / 2), alphaMat.rows(), Imgproc.INTER_CUBIC | Imgproc.WARP_FILL_OUTLIERS | Imgproc.WARP_INVERSE_MAP);
+            Imgproc.linearPolar(_alphaMat, _alphaMat, new Point(_alphaMat.cols() / 2, _alphaMat.rows() / 2), _alphaMat.rows(), Imgproc.INTER_CUBIC | Imgproc.WARP_FILL_OUTLIERS | Imgproc.WARP_INVERSE_MAP);
 #pragma warning restore 0618
 
-
             // Generate large size Mat.
-            fgMatLarge = new Mat();
-            bgMatLarge = new Mat();
-            alphaMatLarge = new Mat();
-            dstMatLarge = new Mat();
-            Imgproc.resize(fgMat, fgMatLarge, new Size(), 2, 2, 0);
-            Imgproc.resize(bgMat, bgMatLarge, new Size(), 2, 2, 0);
-            Imgproc.resize(alphaMat, alphaMatLarge, new Size(), 2, 2, 0);
-            Imgproc.resize(dstMat, dstMatLarge, new Size(), 2, 2, 0);
+            _fgMatLarge = new Mat();
+            _bgMatLarge = new Mat();
+            _alphaMatLarge = new Mat();
+            _dstMatLarge = new Mat();
+            Imgproc.resize(_fgMat, _fgMatLarge, new Size(), 2, 2, 0);
+            Imgproc.resize(_bgMat, _bgMatLarge, new Size(), 2, 2, 0);
+            Imgproc.resize(_alphaMat, _alphaMatLarge, new Size(), 2, 2, 0);
+            Imgproc.resize(_dstMat, _dstMatLarge, new Size(), 2, 2, 0);
 
             // Generate small size Mat (ROI).
             OpenCVForUnity.CoreModule.Rect rect = new OpenCVForUnity.CoreModule.Rect(127, 127, 256, 256);
-            fgMatROI = new Mat(fgMat, rect);
-            bgMatROI = new Mat(bgMat, rect);
-            alphaMatROI = new Mat(alphaMat, rect);
-            dstMatROI = new Mat(dstMat, rect);
+            _fgMatROI = new Mat(_fgMat, rect);
+            _bgMatROI = new Mat(_bgMat, rect);
+            _alphaMatROI = new Mat(_alphaMat, rect);
+            _dstMatROI = new Mat(_dstMat, rect);
 
-
-            Utils.matToTexture2D(fgMat, fgTex);
-            Utils.matToTexture2D(bgMat, bgTex);
-            Utils.matToTexture2D(alphaMat, alphaTex);
-            Utils.matToTexture2D(dstMat, dstTex);
-            fgQuad.GetComponent<Renderer>().material.mainTexture = fgTex;
-            bgQuad.GetComponent<Renderer>().material.mainTexture = bgTex;
-            alphaQuad.GetComponent<Renderer>().material.mainTexture = alphaTex;
-            dstQuad.GetComponent<Renderer>().material.mainTexture = dstTex;
+            OpenCVMatUtils.MatToTexture2D(_fgMat, _fgTex);
+            OpenCVMatUtils.MatToTexture2D(_bgMat, _bgTex);
+            OpenCVMatUtils.MatToTexture2D(_alphaMat, _alphaTex);
+            OpenCVMatUtils.MatToTexture2D(_dstMat, _dstTex);
+            FgQuad.GetComponent<Renderer>().material.mainTexture = _fgTex;
+            BgQuad.GetComponent<Renderer>().material.mainTexture = _bgTex;
+            AlphaQuad.GetComponent<Renderer>().material.mainTexture = _alphaTex;
+            DstQuad.GetComponent<Renderer>().material.mainTexture = _dstTex;
         }
 
+        // Private Methods
         private IEnumerator AlphaBlending(Action action, int count = 100)
         {
-            dstMat.setTo(new Scalar(0, 0, 0));
-            Utils.matToTexture2D(dstMat, dstTex);
+            _dstMat.setTo(new Scalar(0, 0, 0));
+            OpenCVMatUtils.MatToTexture2D(_dstMat, _dstTex);
 
             yield return null;
 
-            switch (imageSize)
+            switch (ImageSize)
             {
                 default:
-                case ImageSize.Original:
-                    _fgMat = fgMat;
-                    _bgMat = bgMat;
-                    _alphaMat = alphaMat;
-                    _dstMat = dstMat;
+                case ImageSizeType.Original:
+                    _currentFgMat = _fgMat;
+                    _currentBgMat = _bgMat;
+                    _currentAlphaMat = _alphaMat;
+                    _currentDstMat = _dstMat;
                     break;
-                case ImageSize.Large:
-                    _fgMat = fgMatLarge;
-                    _bgMat = bgMatLarge;
-                    _alphaMat = alphaMatLarge;
-                    _dstMat = dstMatLarge;
+                case ImageSizeType.Large:
+                    _currentFgMat = _fgMatLarge;
+                    _currentBgMat = _bgMatLarge;
+                    _currentAlphaMat = _alphaMatLarge;
+                    _currentDstMat = _dstMatLarge;
                     break;
-                case ImageSize.Small:
-                    _fgMat = fgMatROI;
-                    _bgMat = bgMatROI;
-                    _alphaMat = alphaMatROI;
-                    _dstMat = dstMatROI;
+                case ImageSizeType.Small:
+                    _currentFgMat = _fgMatROI;
+                    _currentBgMat = _bgMatROI;
+                    _currentAlphaMat = _alphaMatROI;
+                    _currentDstMat = _dstMatROI;
                     break;
             }
 
-            long ms = time(action, count);
+            long ms = Time(action, count);
 
-            if (imageSize == ImageSize.Large)
-                Imgproc.resize(dstMatLarge, dstMat, new Size(), 1.0 / 2.0, 1.0 / 2.0, 0);
+            if (ImageSize == ImageSizeType.Large)
+                Imgproc.resize(_dstMatLarge, _dstMat, new Size(), 1.0 / 2.0, 1.0 / 2.0, 0);
 
-
-            Utils.matToTexture2D(dstMat, dstTex);
+            OpenCVMatUtils.MatToTexture2D(_dstMat, _dstTex);
 
 #if UNITY_WSA && ENABLE_DOTNET
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.consoleText = imageSize + " : " + count + " : " + ms + " ms";
+                _fpsMonitor.ConsoleText = ImageSize + " : " + count + " : " + ms + " ms";
             }
-            Debug.Log(imageSize + " : " + count + " : " + ms + " ms");
+            Debug.Log(ImageSize + " : " + count + " : " + ms + " ms");
 #else
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.consoleText = imageSize + " : " + count + " : " + action.Method.Name + " : " + ms + " ms";
+                _fpsMonitor.ConsoleText = ImageSize + " : " + count + " : " + action.Method.Name + " : " + ms + " ms";
             }
-            Debug.Log(imageSize + " : " + count + " : " + action.Method.Name + " : " + ms + " ms");
+            Debug.Log(ImageSize + " : " + count + " : " + action.Method.Name + " : " + ms + " ms");
 #endif
         }
 
-        private void getput()
+        private void Getput()
         {
-            AlphaBlend_getput(_fgMat, _bgMat, _alphaMat, _dstMat);
+            AlphaBlend_getput(_currentFgMat, _currentBgMat, _currentAlphaMat, _currentDstMat);
         }
 
-        private void matOp()
+        private void MatOp()
         {
-            AlphaBlend_matOp(_fgMat, _bgMat, _alphaMat, _dstMat);
+            AlphaBlend_matOp(_currentFgMat, _currentBgMat, _currentAlphaMat, _currentDstMat);
         }
 
-        private void matOp_alpha3c()
+        private void MatOp_alpha3c()
         {
-            AlphaBlend_matOp_alpha3c(_fgMat, _bgMat, _alphaMat, _dstMat);
+            AlphaBlend_matOp_alpha3c(_currentFgMat, _currentBgMat, _currentAlphaMat, _currentDstMat);
         }
 
-        private void copyFromMat()
+        private void CopyFromMat()
         {
-            AlphaBlend_copyFromMat(_fgMat, _bgMat, _alphaMat, _dstMat);
+            AlphaBlend_copyFromMat(_currentFgMat, _currentBgMat, _currentAlphaMat, _currentDstMat);
         }
 
-        private void marshal()
+        private void MarshalMethod()
         {
-            AlphaBlend_Marshal(_fgMat, _bgMat, _alphaMat, _dstMat);
+            AlphaBlend_MarshalMethod(_currentFgMat, _currentBgMat, _currentAlphaMat, _currentDstMat);
         }
 
-        private void pointerAccess()
+        private void PointerAccess()
         {
-            AlphaBlend_pointerAccess(_fgMat, _bgMat, _alphaMat, _dstMat);
+            AlphaBlend_pointerAccess(_currentFgMat, _currentBgMat, _currentAlphaMat, _currentDstMat);
         }
 
-        private void asSpan()
+        private void AsSpan()
         {
-            AlphaBlend_AsSpan(_fgMat, _bgMat, _alphaMat, _dstMat);
+            AlphaBlend_AsSpan(_currentFgMat, _currentBgMat, _currentAlphaMat, _currentDstMat);
         }
 
-        private long time(Action action, int count)
+        private long Time(Action action, int count)
         {
             System.GC.Collect();
 
@@ -364,17 +380,17 @@ namespace OpenCVForUnityExample
             }
         }
 
-        // MatUtils.copyFromMat
+        // OpenCVMatUtils.copyFromMat
         //        [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
         //        [Il2CppSetOption(Option.NullChecks, false)]
         private void AlphaBlend_copyFromMat(Mat fg, Mat bg, Mat alpha, Mat dst)
         {
             byte[] fg_byte = new byte[fg.total() * fg.channels()];
-            MatUtils.copyFromMat<byte>(fg, fg_byte);
+            OpenCVMatUtils.CopyFromMat<byte>(fg, fg_byte);
             byte[] bg_byte = new byte[bg.total() * bg.channels()];
-            MatUtils.copyFromMat<byte>(bg, bg_byte);
+            OpenCVMatUtils.CopyFromMat<byte>(bg, bg_byte);
             byte[] alpha_byte = new byte[alpha.total() * alpha.channels()];
-            MatUtils.copyFromMat<byte>(alpha, alpha_byte);
+            OpenCVMatUtils.CopyFromMat<byte>(alpha, alpha_byte);
             byte[] dst_byte = new byte[dst.total() * dst.channels()];
 
             int pixel_i = 0;
@@ -390,13 +406,13 @@ namespace OpenCVForUnityExample
                 pixel_i += channels;
             }
 
-            MatUtils.copyToMat(dst_byte, dst);
+            OpenCVMatUtils.CopyToMat(dst_byte, dst);
         }
 
-        // Marshal
+        // MarshalMethod
         //        [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
         //        [Il2CppSetOption(Option.NullChecks, false)]
-        private void AlphaBlend_Marshal(Mat fg, Mat bg, Mat alpha, Mat dst)
+        private void AlphaBlend_MarshalMethod(Mat fg, Mat bg, Mat alpha, Mat dst)
         {
             byte[] fg_byte = new byte[fg.total() * fg.channels()];
             byte[] bg_byte = new byte[bg.total() * bg.channels()];
@@ -433,7 +449,6 @@ namespace OpenCVForUnityExample
                 }
             }
 
-
             int pixel_i = 0;
             int channels = (int)bg.channels();
             int total = (int)bg.total();
@@ -446,7 +461,6 @@ namespace OpenCVForUnityExample
                 dst_byte[pixel_i + 2] = (byte)((fg_byte[pixel_i + 2] * a + bg_byte[pixel_i + 2] * (255 - a)) >> 8);
                 pixel_i += channels;
             }
-
 
             if (fg.isContinuous())
             {
@@ -473,7 +487,6 @@ namespace OpenCVForUnityExample
         //        [Il2CppSetOption(Option.NullChecks, false)]
         private void AlphaBlend_pointerAccess(Mat fg, Mat bg, Mat alpha, Mat dst)
         {
-
 #if !OPENCV_DONT_USE_UNSAFE_CODE
 
             IntPtr fg_ptr = new IntPtr(fg.dataAddr());
@@ -543,7 +556,6 @@ namespace OpenCVForUnityExample
             }
 
 #endif
-
         }
 
         // AsSpan
@@ -551,12 +563,10 @@ namespace OpenCVForUnityExample
         //        [Il2CppSetOption(Option.NullChecks, false)]
         private void AlphaBlend_AsSpan(Mat fg, Mat bg, Mat alpha, Mat dst)
         {
-
 #if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
 
             if (fg.isContinuous())
             {
-
                 ReadOnlySpan<Vec3b> fg_span = fg.AsSpan<Vec3b>();
                 ReadOnlySpan<Vec3b> bg_span = bg.AsSpan<Vec3b>();
                 ReadOnlySpan<byte> alpha_span = alpha.AsSpan<byte>();
@@ -566,12 +576,13 @@ namespace OpenCVForUnityExample
 
                 for (int i = 0; i < total; i++)
                 {
-                    var fg_pixel = fg_span[i];
-                    var bg_pixel = bg_span[i];
-                    var alpha_pixel = alpha_span[i];
-                    dst_span[i].Item1 = (byte)((fg_pixel.Item1 * alpha_pixel + bg_pixel.Item1 * (255 - alpha_pixel)) >> 8);
-                    dst_span[i].Item2 = (byte)((fg_pixel.Item2 * alpha_pixel + bg_pixel.Item2 * (255 - alpha_pixel)) >> 8);
-                    dst_span[i].Item3 = (byte)((fg_pixel.Item3 * alpha_pixel + bg_pixel.Item3 * (255 - alpha_pixel)) >> 8);
+                    ref readonly var fg_pixel = ref fg_span[i];
+                    ref readonly var bg_pixel = ref bg_span[i];
+                    ref readonly var alpha_pixel = ref alpha_span[i];
+                    ref var dst_pixel = ref dst_span[i];
+                    dst_pixel.Item1 = (byte)((fg_pixel.Item1 * alpha_pixel + bg_pixel.Item1 * (255 - alpha_pixel)) >> 8);
+                    dst_pixel.Item2 = (byte)((fg_pixel.Item2 * alpha_pixel + bg_pixel.Item2 * (255 - alpha_pixel)) >> 8);
+                    dst_pixel.Item3 = (byte)((fg_pixel.Item3 * alpha_pixel + bg_pixel.Item3 * (255 - alpha_pixel)) >> 8);
                 }
 
                 /*
@@ -588,19 +599,19 @@ namespace OpenCVForUnityExample
 
                     for (int i = 0; i < w; i++)
                     {
-                        var fg_pixel = fg_span[i];
-                        var bg_pixel = bg_span[i];
-                        var alpha_pixel = alpha_span[i];
-                        dst_span[i].Item1 = (byte)((fg_pixel.Item1 * alpha_pixel + bg_pixel.Item1 * (255 - alpha_pixel)) >> 8);
-                        dst_span[i].Item2 = (byte)((fg_pixel.Item2 * alpha_pixel + bg_pixel.Item2 * (255 - alpha_pixel)) >> 8);
-                        dst_span[i].Item3 = (byte)((fg_pixel.Item3 * alpha_pixel + bg_pixel.Item3 * (255 - alpha_pixel)) >> 8);
+                        ref readonly var fg_pixel = ref fg_span[i];
+                        ref readonly var bg_pixel = ref bg_span[i];
+                        ref readonly var alpha_pixel = ref alpha_span[i];
+                        ref var dst_pixel = ref dst_span[i];
+                        dst_pixel.Item1 = (byte)((fg_pixel.Item1 * alpha_pixel + bg_pixel.Item1 * (255 - alpha_pixel)) >> 8);
+                        dst_pixel.Item2 = (byte)((fg_pixel.Item2 * alpha_pixel + bg_pixel.Item2 * (255 - alpha_pixel)) >> 8);
+                        dst_pixel.Item3 = (byte)((fg_pixel.Item3 * alpha_pixel + bg_pixel.Item3 * (255 - alpha_pixel)) >> 8);
                     }
                 });
                 */
             }
             else
             {
-
                 int w = bg.cols();
                 int h = bg.rows();
 
@@ -613,12 +624,13 @@ namespace OpenCVForUnityExample
 
                     for (int x = 0; x < w; x++)
                     {
-                        var fg_pixel = fg_span[x];
-                        var bg_pixel = bg_span[x];
-                        var alpha_pixel = alpha_span[x];
-                        dst_span[x].Item1 = (byte)((fg_pixel.Item1 * alpha_pixel + bg_pixel.Item1 * (255 - alpha_pixel)) >> 8);
-                        dst_span[x].Item2 = (byte)((fg_pixel.Item2 * alpha_pixel + bg_pixel.Item2 * (255 - alpha_pixel)) >> 8);
-                        dst_span[x].Item3 = (byte)((fg_pixel.Item3 * alpha_pixel + bg_pixel.Item3 * (255 - alpha_pixel)) >> 8);
+                        ref readonly var fg_pixel = ref fg_span[x];
+                        ref readonly var bg_pixel = ref bg_span[x];
+                        ref readonly var alpha_pixel = ref alpha_span[x];
+                        ref var dst_pixel = ref dst_span[x];
+                        dst_pixel.Item1 = (byte)((fg_pixel.Item1 * alpha_pixel + bg_pixel.Item1 * (255 - alpha_pixel)) >> 8);
+                        dst_pixel.Item2 = (byte)((fg_pixel.Item2 * alpha_pixel + bg_pixel.Item2 * (255 - alpha_pixel)) >> 8);
+                        dst_pixel.Item3 = (byte)((fg_pixel.Item3 * alpha_pixel + bg_pixel.Item3 * (255 - alpha_pixel)) >> 8);
                     }
                 }
 
@@ -636,22 +648,22 @@ namespace OpenCVForUnityExample
 
                     for (int x = 0; x < w; x++)
                     {
-                        var fg_pixel = fg_span[x];
-                        var bg_pixel = bg_span[x];
-                        var alpha_pixel = alpha_span[x];
-                        dst_span[x].Item1 = (byte)((fg_pixel.Item1 * alpha_pixel + bg_pixel.Item1 * (255 - alpha_pixel)) >> 8);
-                        dst_span[x].Item2 = (byte)((fg_pixel.Item2 * alpha_pixel + bg_pixel.Item2 * (255 - alpha_pixel)) >> 8);
-                        dst_span[x].Item3 = (byte)((fg_pixel.Item3 * alpha_pixel + bg_pixel.Item3 * (255 - alpha_pixel)) >> 8);
+                        ref readonly var fg_pixel = ref fg_span[x];
+                        ref readonly var bg_pixel = ref bg_span[x];
+                        ref readonly var alpha_pixel = ref alpha_span[x];
+                        ref var dst_pixel = ref dst_span[x];
+                        dst_pixel.Item1 = (byte)((fg_pixel.Item1 * alpha_pixel + bg_pixel.Item1 * (255 - alpha_pixel)) >> 8);
+                        dst_pixel.Item2 = (byte)((fg_pixel.Item2 * alpha_pixel + bg_pixel.Item2 * (255 - alpha_pixel)) >> 8);
+                        dst_pixel.Item3 = (byte)((fg_pixel.Item3 * alpha_pixel + bg_pixel.Item3 * (255 - alpha_pixel)) >> 8);
                     }
                 });
                 */
             }
 
 #endif
-
         }
 
-
+        // Public Methods
         /// <summary>
         /// Raises the back button click event.
         /// </summary>
@@ -665,10 +677,9 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnImageSizeDropdownValueChanged(int result)
         {
-            if ((int)imageSize != result)
+            if ((int)ImageSize != result)
             {
-                imageSize = (ImageSize)result;
-
+                ImageSize = (ImageSizeType)result;
             }
         }
 
@@ -681,13 +692,13 @@ namespace OpenCVForUnityExample
             {
                 default:
                 case 0:
-                    count = 1;
+                    Count = 1;
                     break;
                 case 1:
-                    count = 10;
+                    Count = 10;
                     break;
                 case 2:
-                    count = 100;
+                    Count = 100;
                     break;
             }
         }
@@ -697,7 +708,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnGetPutButtonClick()
         {
-            StartCoroutine(AlphaBlending(getput, count));
+            StartCoroutine(AlphaBlending(Getput, Count));
         }
 
         /// <summary>
@@ -705,7 +716,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnMatOpButtonClick()
         {
-            StartCoroutine(AlphaBlending(matOp, count));
+            StartCoroutine(AlphaBlending(MatOp, Count));
         }
 
         /// <summary>
@@ -713,7 +724,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnMatOpAlpha3cButtonClick()
         {
-            StartCoroutine(AlphaBlending(matOp_alpha3c, count));
+            StartCoroutine(AlphaBlending(MatOp_alpha3c, Count));
         }
 
         /// <summary>
@@ -721,15 +732,15 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnCopyFromMatButtonClick()
         {
-            StartCoroutine(AlphaBlending(copyFromMat, count));
+            StartCoroutine(AlphaBlending(CopyFromMat, Count));
         }
 
         /// <summary>
-        /// Raises the Marshal button click event.
+        /// Raises the MarshalMethod button click event.
         /// </summary>
-        public void OnMarshalButtonClick()
+        public void OnMarshalMethodButtonClick()
         {
-            StartCoroutine(AlphaBlending(marshal, count));
+            StartCoroutine(AlphaBlending(MarshalMethod, Count));
         }
 
         /// <summary>
@@ -738,10 +749,10 @@ namespace OpenCVForUnityExample
         public void OnPointerAccessButtonClick()
         {
 #if !OPENCV_DONT_USE_UNSAFE_CODE
-            StartCoroutine(AlphaBlending(pointerAccess, count));
+            StartCoroutine(AlphaBlending(PointerAccess, Count));
 #else
             Debug.LogWarning("Error : \"OPENCV_DONT_USE_UNSAFE_CODE\" is enabled. Please switch the UNSAFE setting. [MenuItem]->[Tools]->[OpenCV for Unity]->[Open Setup Tools]->[Enable Use Unsafe Code]");
-            fpsMonitor.consoleText = "Error: \"OPENCV_DONT_USE_UNSAFE_CODE\" is enabled.";
+            _fpsMonitor.ConsoleText = "Error: \"OPENCV_DONT_USE_UNSAFE_CODE\" is enabled.";
 #endif
         }
 
@@ -751,11 +762,11 @@ namespace OpenCVForUnityExample
         public void OnAsSpanButtonClick()
         {
 #if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
-            StartCoroutine(AlphaBlending(asSpan, count));
+            StartCoroutine(AlphaBlending(AsSpan, Count));
 #else
             Debug.LogWarning("Error : \"NET_STANDARD_2_1\" is disabled. Please switch the Api Compatibility Level to \".NET Standard 2.1\". Edit > Project Settings > Player > Other settings");
             Debug.LogWarning("Error : \"OPENCV_DONT_USE_UNSAFE_CODE\" is enabled. Please switch the UNSAFE setting. [MenuItem]->[Tools]->[OpenCV for Unity]->[Open Setup Tools]->[Enable Use Unsafe Code]");
-            fpsMonitor.consoleText = "Error : \"NET_STANDARD_2_1\" is disabled. \"OPENCV_DONT_USE_UNSAFE_CODE\" is enabled.";
+            _fpsMonitor.ConsoleText = "Error : \"NET_STANDARD_2_1\" is disabled. \"OPENCV_DONT_USE_UNSAFE_CODE\" is enabled.";
 #endif
         }
     }

@@ -5,18 +5,18 @@ namespace OpenCVForUnityExample
 {
     public class ShowLicense : MonoBehaviour
     {
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
 
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
 
         }
 
+        // Public Methods
         public void OnBackButtonClick()
         {
             SceneManager.LoadScene("OpenCVForUnityExample");

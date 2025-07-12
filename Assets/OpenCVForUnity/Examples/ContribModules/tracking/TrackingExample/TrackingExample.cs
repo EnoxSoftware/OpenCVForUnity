@@ -1,13 +1,13 @@
-using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.TrackingModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UnityUtils.Helper;
-using OpenCVForUnity.VideoModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.TrackingModule;
+using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
+using OpenCVForUnity.VideoModule;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -28,220 +28,456 @@ namespace OpenCVForUnityExample
     /// https://github.com/opencv/opencv_zoo/tree/main/models/object_tracking_vittrack
     /// https://github.com/opencv/opencv/blob/4.x/samples/dnn/dasiamrpn_tracker.cpp
     /// https://github.com/opencv/opencv/blob/4.x/samples/dnn/nanotrack_tracker.cpp
+    ///
+    /// [Tested Models]
+    /// https://github.com/opencv/opencv_zoo/raw/80f7c6aa030a87b3f9e8ab7d84f62f13d308c10f/models/object_tracking_vittrack/object_tracking_vittrack_2023sep.onnx
+    /// https://www.dropbox.com/s/rr1lk9355vzolqv/dasiamrpn_model.onnx?dl=1
+    /// https://www.dropbox.com/s/999cqx5zrfi7w4p/dasiamrpn_kernel_r1.onnx?dl=1
+    /// https://www.dropbox.com/s/qvmtszx5h339a0w/dasiamrpn_kernel_cls1.onnx?dl=1
+    /// https://github.com/HonglinChu/SiamTrackers/raw/c2ff8479624b12ef2dcd830c47f2495a2c4852d4/NanoTrack/models/nanotrackv2/nanotrack_backbone_sim.onnx
+    /// https://github.com/HonglinChu/SiamTrackers/raw/c2ff8479624b12ef2dcd830c47f2495a2c4852d4/NanoTrack/models/nanotrackv2/nanotrack_head_sim.onnx
     /// </summary>
     [RequireComponent(typeof(MultiSource2MatHelper))]
     public class TrackingExample : MonoBehaviour
     {
-        /// <summary>
-        /// The trackerKFC Toggle.
-        /// </summary>
-        public Toggle trackerKCFToggle;
-
-        /// <summary>
-        /// The trackerCSRT Toggle.
-        /// </summary>
-        public Toggle trackerCSRTToggle;
-
-        /// <summary>
-        /// The trackerMIL Toggle.
-        /// </summary>
-        public Toggle trackerMILToggle;
-
-        /// <summary>
-        /// The trackerVit Toggle.
-        /// </summary>
-        public Toggle trackerVitToggle;
-
-        /// <summary>
-        /// The trackerDaSiamRPN Toggle.
-        /// </summary>
-        public Toggle trackerDaSiamRPNToggle;
-
-        /// <summary>
-        /// The trackerNano Toggle.
-        /// </summary>
-        public Toggle trackerNanoToggle;
-
+        // Constants
         /// <summary>
         /// Vit_MODEL_FILENAME
         /// </summary>
-        protected static readonly string Vit_MODEL_FILENAME = "OpenCVForUnity/tracking/object_tracking_vittrack_2023sep.onnx";
-
-        /// <summary>
-        /// The Vit model filepath.
-        /// </summary>
-        string Vit_model_filepath;
+        protected static readonly string Vit_MODEL_FILENAME = "OpenCVForUnityExamples/tracking/object_tracking_vittrack_2023sep.onnx";
 
         /// <summary>
         /// DaSiamRPN_MODEL_FILENAME
         /// </summary>
-        protected static readonly string DaSiamRPN_MODEL_FILENAME = "OpenCVForUnity/tracking/dasiamrpn_model.onnx";
-
-        /// <summary>
-        /// The DaSiamRPN model filepath.
-        /// </summary>
-        string DaSiamRPN_model_filepath;
+        protected static readonly string DaSiamRPN_MODEL_FILENAME = "OpenCVForUnityExamples/tracking/dasiamrpn_model.onnx";
 
         /// <summary>
         /// DaSiamRPN_KERNEL_R1_FILENAME
         /// </summary>
-        protected static readonly string DaSiamRPN_KERNEL_R1_FILENAME = "OpenCVForUnity/tracking/dasiamrpn_kernel_r1.onnx";
-
-        /// <summary>
-        /// The DaSiamRPN kernel_r1 filepath.
-        /// </summary>
-        string DaSiamRPN_kernel_r1_filepath;
+        protected static readonly string DaSiamRPN_KERNEL_R1_FILENAME = "OpenCVForUnityExamples/tracking/dasiamrpn_kernel_r1.onnx";
 
         /// <summary>
         /// DaSiamRPN_KERNEL_CLS1_FILENAME
         /// </summary>
-        protected static readonly string DaSiamRPN_KERNEL_CLS1_FILENAME = "OpenCVForUnity/tracking/dasiamrpn_kernel_cls1.onnx";
-
-        /// <summary>
-        /// The DaSiamRPN kernel_cls1 filepath.
-        /// </summary>
-        string DaSiamRPN_kernel_cls1_filepath;
+        protected static readonly string DaSiamRPN_KERNEL_CLS1_FILENAME = "OpenCVForUnityExamples/tracking/dasiamrpn_kernel_cls1.onnx";
 
         /// <summary>
         /// NANOTRACK_BACKBONE_SIM_FILENAME
         /// </summary>
-        protected static readonly string NANOTRACK_BACKBONE_SIM_FILENAME = "OpenCVForUnity/tracking/nanotrack_backbone_sim.onnx";
-
-        /// <summary>
-        /// The NANOTRACK_backbone_sim filepath.
-        /// </summary>
-        string NANOTRACK_backbone_sim_filepath;
+        protected static readonly string NANOTRACK_BACKBONE_SIM_FILENAME = "OpenCVForUnityExamples/tracking/nanotrack_backbone_sim.onnx";
 
         /// <summary>
         /// NANOTRACK_HEAD_SIM_FILENAME
         /// </summary>
-        protected static readonly string NANOTRACK_HEAD_SIM_FILENAME = "OpenCVForUnity/tracking/nanotrack_head_sim.onnx";
-
-        /// <summary>
-        /// The NANOTRACK_head_sim filepath.
-        /// </summary>
-        string NANOTRACK_head_sim_filepath;
-
-        bool disableTrackerVit = false;
-
-        bool disableTrackerDaSiamRPN = false;
-
-        bool disableTrackerNano = false;
-
-        /// <summary>
-        /// The texture.
-        /// </summary>
-        Texture2D texture;
-
-        /// <summary>
-        /// The trackers.
-        /// </summary>
-        List<TrackerSetting> trackers;
-
-        /// <summary>
-        /// The selected point list.
-        /// </summary>
-        List<Point> selectedPointList;
-
-        /// <summary>
-        /// The stored touch point.
-        /// </summary>
-        Point storedTouchPoint;
-
-        /// <summary>
-        /// The multi source to mat helper.
-        /// </summary>
-        MultiSource2MatHelper multiSource2MatHelper;
-
-        /// <summary>
-        /// The FPS monitor.
-        /// </summary>
-        FpsMonitor fpsMonitor;
+        protected static readonly string NANOTRACK_HEAD_SIM_FILENAME = "OpenCVForUnityExamples/tracking/nanotrack_head_sim.onnx";
 
         /// <summary>
         /// VIDEO_FILENAME
         /// </summary>
-        protected static readonly string VIDEO_FILENAME = "OpenCVForUnity/768x576_mjpeg.mjpeg";
+        protected static readonly string VIDEO_FILENAME = "OpenCVForUnityExamples/768x576_mjpeg.mjpeg";
+
+        // Public Fields
+        /// <summary>
+        /// The trackerKFC Toggle.
+        /// </summary>
+        public Toggle TrackerKCFToggle;
+
+        /// <summary>
+        /// The trackerCSRT Toggle.
+        /// </summary>
+        public Toggle TrackerCSRTToggle;
+
+        /// <summary>
+        /// The trackerMIL Toggle.
+        /// </summary>
+        public Toggle TrackerMILToggle;
+
+        /// <summary>
+        /// The trackerVit Toggle.
+        /// </summary>
+        public Toggle TrackerVitToggle;
+
+        /// <summary>
+        /// The trackerDaSiamRPN Toggle.
+        /// </summary>
+        public Toggle TrackerDaSiamRPNToggle;
+
+        /// <summary>
+        /// The trackerNano Toggle.
+        /// </summary>
+        public Toggle TrackerNanoToggle;
+
+        // Private Fields
+        /// <summary>
+        /// The Vit model filepath.
+        /// </summary>
+        private string _vitModelFilepath;
+
+        /// <summary>
+        /// The DaSiamRPN model filepath.
+        /// </summary>
+        private string _daSiamRpnModelFilepath;
+
+        /// <summary>
+        /// The DaSiamRPN kernel_r1 filepath.
+        /// </summary>
+        private string _daSiamRpnKernelR1Filepath;
+
+        /// <summary>
+        /// The DaSiamRPN kernel_cls1 filepath.
+        /// </summary>
+        private string _daSiamRpnKernelCls1Filepath;
+
+        /// <summary>
+        /// The NANOTRACK_backbone_sim filepath.
+        /// </summary>
+        private string _nanotrackBackboneSimFilepath;
+
+        /// <summary>
+        /// The NANOTRACK_head_sim filepath.
+        /// </summary>
+        private string _nanotrackHeadSimFilepath;
+
+        private bool _disableTrackerVit = false;
+
+        private bool _disableTrackerDaSiamRPN = false;
+
+        private bool _disableTrackerNano = false;
+
+        /// <summary>
+        /// The texture.
+        /// </summary>
+        private Texture2D _texture;
+
+        /// <summary>
+        /// The trackers.
+        /// </summary>
+        private List<TrackerSetting> _trackers;
+
+        /// <summary>
+        /// The selected point list.
+        /// </summary>
+        private List<Point> _selectedPointList;
+
+        /// <summary>
+        /// The stored touch point.
+        /// </summary>
+        private Point _storedTouchPoint;
+
+        /// <summary>
+        /// The multi source to mat helper.
+        /// </summary>
+        private MultiSource2MatHelper _multiSource2MatHelper;
+
+        /// <summary>
+        /// The FPS monitor.
+        /// </summary>
+        private FpsMonitor _fpsMonitor;
 
         /// <summary>
         /// The CancellationTokenSource.
         /// </summary>
-        CancellationTokenSource cts = new CancellationTokenSource();
+        private CancellationTokenSource _cts = new CancellationTokenSource();
 
-        // Use this for initialization
-        async void Start()
+        // Unity Lifecycle Methods
+#if UNITY_WSA_10_0
+        private void Start()
+#else
+        private async void Start()
+#endif
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
-            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
 
 #if UNITY_WSA_10_0
 
             // Disable the DNN module-dependent Tracker on UWP platforms, as it cannot be used.
-            trackerVitToggle.isOn = trackerVitToggle.interactable = false;
-            disableTrackerVit = true;
-            trackerDaSiamRPNToggle.isOn = trackerDaSiamRPNToggle.interactable = false;
-            disableTrackerDaSiamRPN = true;
-            trackerNanoToggle.isOn = trackerNanoToggle.interactable = false;
-            disableTrackerNano = true;
+            TrackerVitToggle.isOn = TrackerVitToggle.interactable = false;
+            _disableTrackerVit = true;
+            TrackerDaSiamRPNToggle.isOn = TrackerDaSiamRPNToggle.interactable = false;
+            _disableTrackerDaSiamRPN = true;
+            TrackerNanoToggle.isOn = TrackerNanoToggle.interactable = false;
+            _disableTrackerNano = true;
             Run();
 
 #else
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "Preparing file access...";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "Preparing file access...";
 
-            Vit_model_filepath = await Utils.getFilePathAsyncTask(Vit_MODEL_FILENAME, cancellationToken: cts.Token);
-            DaSiamRPN_model_filepath = await Utils.getFilePathAsyncTask(DaSiamRPN_MODEL_FILENAME, cancellationToken: cts.Token);
-            DaSiamRPN_kernel_r1_filepath = await Utils.getFilePathAsyncTask(DaSiamRPN_KERNEL_R1_FILENAME, cancellationToken: cts.Token);
-            DaSiamRPN_kernel_cls1_filepath = await Utils.getFilePathAsyncTask(DaSiamRPN_KERNEL_CLS1_FILENAME, cancellationToken: cts.Token);
-            NANOTRACK_backbone_sim_filepath = await Utils.getFilePathAsyncTask(NANOTRACK_BACKBONE_SIM_FILENAME, cancellationToken: cts.Token);
-            NANOTRACK_head_sim_filepath = await Utils.getFilePathAsyncTask(NANOTRACK_HEAD_SIM_FILENAME, cancellationToken: cts.Token);
+            _vitModelFilepath = await OpenCVEnv.GetFilePathTaskAsync(Vit_MODEL_FILENAME, cancellationToken: _cts.Token);
+            _daSiamRpnModelFilepath = await OpenCVEnv.GetFilePathTaskAsync(DaSiamRPN_MODEL_FILENAME, cancellationToken: _cts.Token);
+            _daSiamRpnKernelR1Filepath = await OpenCVEnv.GetFilePathTaskAsync(DaSiamRPN_KERNEL_R1_FILENAME, cancellationToken: _cts.Token);
+            _daSiamRpnKernelCls1Filepath = await OpenCVEnv.GetFilePathTaskAsync(DaSiamRPN_KERNEL_CLS1_FILENAME, cancellationToken: _cts.Token);
+            _nanotrackBackboneSimFilepath = await OpenCVEnv.GetFilePathTaskAsync(NANOTRACK_BACKBONE_SIM_FILENAME, cancellationToken: _cts.Token);
+            _nanotrackHeadSimFilepath = await OpenCVEnv.GetFilePathTaskAsync(NANOTRACK_HEAD_SIM_FILENAME, cancellationToken: _cts.Token);
 
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "";
 
             CheckFilePaths();
             Run();
 #endif
         }
 
-        void CheckFilePaths()
+        private void Update()
         {
-            if (string.IsNullOrEmpty(Vit_model_filepath))
-            {
-                Debug.LogError(Vit_MODEL_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/tracking/setup_tracking_module.pdf” to make the necessary setup.");
+            if (!_multiSource2MatHelper.IsInitialized())
+                return;
 
-                trackerVitToggle.isOn = trackerVitToggle.interactable = false;
-                disableTrackerVit = true;
+#if ENABLE_INPUT_SYSTEM
+#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
+            // Touch input for mobile platforms
+            if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
+            {
+                foreach (var touch in UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches)
+                {
+                    if (touch.phase == UnityEngine.InputSystem.TouchPhase.Ended)
+                    {
+                        if (!EventSystem.current.IsPointerOverGameObject(touch.finger.index))
+                        {
+                            _storedTouchPoint = new Point(touch.screenPosition.x, touch.screenPosition.y);
+                            // Debug.Log("touch X " + touch.screenPosition.x);
+                            // Debug.Log("touch Y " + touch.screenPosition.y);
+                        }
+                    }
+                }
             }
-
-            if (string.IsNullOrEmpty(DaSiamRPN_model_filepath) || string.IsNullOrEmpty(DaSiamRPN_kernel_r1_filepath) || string.IsNullOrEmpty(DaSiamRPN_kernel_cls1_filepath))
+#else
+            // Mouse input for non-mobile platforms
+            var mouse = Mouse.current;
+            if (mouse != null && mouse.leftButton.wasReleasedThisFrame)
             {
-                Debug.LogError(DaSiamRPN_MODEL_FILENAME + " or " + DaSiamRPN_KERNEL_R1_FILENAME + " or " + DaSiamRPN_KERNEL_CLS1_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/tracking/setup_tracking_module.pdf” to make the necessary setup.");
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return;
 
-                trackerDaSiamRPNToggle.isOn = trackerDaSiamRPNToggle.interactable = false;
-                disableTrackerDaSiamRPN = true;
+                _storedTouchPoint = new Point(mouse.position.ReadValue().x, mouse.position.ReadValue().y);
             }
-
-            if (string.IsNullOrEmpty(NANOTRACK_backbone_sim_filepath) || string.IsNullOrEmpty(NANOTRACK_head_sim_filepath))
+#endif
+#else
+#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
+            //Touch
+            int touchCount = Input.touchCount;
+            if (touchCount == 1)
             {
-                Debug.LogError(NANOTRACK_BACKBONE_SIM_FILENAME + " or " + NANOTRACK_HEAD_SIM_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/tracking/setup_tracking_module.pdf” to make the necessary setup.");
+                Touch t = Input.GetTouch(0);
+                if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject (t.fingerId)) {
+                    _storedTouchPoint = new Point (t.position.x, t.position.y);
+                    //Debug.Log ("touch X " + t.position.x);
+                    //Debug.Log ("touch Y " + t.position.y);
+                }
+            }
+#else
+            //Mouse
+            if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
+            {
+                _storedTouchPoint = new Point(Input.mousePosition.x, Input.mousePosition.y);
+                //Debug.Log ("mouse X " + Input.mousePosition.x);
+                //Debug.Log ("mouse Y " + Input.mousePosition.y);
+            }
+#endif
+#endif
 
-                trackerNanoToggle.isOn = trackerNanoToggle.interactable = false;
-                disableTrackerNano = true;
+            if (_selectedPointList.Count != 1)
+            {
+                if (!_multiSource2MatHelper.IsPlaying())
+                    _multiSource2MatHelper.Play();
+
+                if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
+                {
+                    Mat rgbMat = _multiSource2MatHelper.GetMat();
+
+                    if (_storedTouchPoint != null)
+                    {
+                        ConvertScreenPointToTexturePoint(_storedTouchPoint, _storedTouchPoint, gameObject, _texture.width, _texture.height);
+                        OnTouch(_storedTouchPoint, _texture.width, _texture.height);
+                        _storedTouchPoint = null;
+                    }
+
+                    if (_selectedPointList.Count == 1)
+                    {
+                        foreach (var point in _selectedPointList)
+                        {
+                            Imgproc.circle(rgbMat, point, 6, new Scalar(0, 0, 255), 2);
+                        }
+                    }
+                    else if (_selectedPointList.Count == 2)
+                    {
+                        ResetTrackers();
+
+                        using (MatOfPoint selectedPointMat = new MatOfPoint(_selectedPointList.ToArray()))
+                        {
+                            Rect region = Imgproc.boundingRect(selectedPointMat);
+
+                            // init trackers.
+                            if (TrackerKCFToggle.isOn)
+                            {
+                                TrackerKCF trackerKCF = TrackerKCF.create(new TrackerKCF_Params());
+                                trackerKCF.init(rgbMat, region);
+                                _trackers.Add(new TrackerSetting(trackerKCF, trackerKCF.GetType().Name.ToString(), new Scalar(255, 0, 0)));
+                            }
+
+                            if (TrackerCSRTToggle.isOn)
+                            {
+                                TrackerCSRT trackerCSRT = TrackerCSRT.create(new TrackerCSRT_Params());
+                                trackerCSRT.init(rgbMat, region);
+                                _trackers.Add(new TrackerSetting(trackerCSRT, trackerCSRT.GetType().Name.ToString(), new Scalar(0, 255, 0)));
+                            }
+
+                            if (TrackerMILToggle.isOn)
+                            {
+                                TrackerMIL trackerMIL = TrackerMIL.create(new TrackerMIL_Params());
+                                trackerMIL.init(rgbMat, region);
+                                _trackers.Add(new TrackerSetting(trackerMIL, trackerMIL.GetType().Name.ToString(), new Scalar(0, 0, 255)));
+                            }
+
+                            if (!_disableTrackerVit && TrackerVitToggle.isOn)
+                            {
+                                var _params = new TrackerVit_Params();
+                                _params.set_net(_vitModelFilepath);
+                                TrackerVit TrackerVit = TrackerVit.create(_params);
+                                TrackerVit.init(rgbMat, region);
+                                _trackers.Add(new TrackerSetting(TrackerVit, TrackerVit.GetType().Name.ToString(), new Scalar(255, 255, 0)));
+                            }
+
+                            if (!_disableTrackerDaSiamRPN && TrackerDaSiamRPNToggle.isOn)
+                            {
+                                var _params = new TrackerDaSiamRPN_Params();
+                                _params.set_model(_daSiamRpnModelFilepath);
+                                _params.set_kernel_r1(_daSiamRpnKernelR1Filepath);
+                                _params.set_kernel_cls1(_daSiamRpnKernelCls1Filepath);
+                                TrackerDaSiamRPN trackerDaSiamRPN = TrackerDaSiamRPN.create(_params);
+                                trackerDaSiamRPN.init(rgbMat, region);
+                                _trackers.Add(new TrackerSetting(trackerDaSiamRPN, trackerDaSiamRPN.GetType().Name.ToString(), new Scalar(255, 0, 255)));
+                            }
+
+                            if (!_disableTrackerNano && TrackerNanoToggle.isOn)
+                            {
+                                var _params = new TrackerNano_Params();
+                                _params.set_backbone(_nanotrackBackboneSimFilepath);
+                                _params.set_neckhead(_nanotrackHeadSimFilepath);
+                                TrackerNano trackerNano = TrackerNano.create(_params);
+                                trackerNano.init(rgbMat, region);
+                                _trackers.Add(new TrackerSetting(trackerNano, trackerNano.GetType().Name.ToString(), new Scalar(0, 255, 255)));
+                            }
+                        }
+
+                        _selectedPointList.Clear();
+
+                        if (_trackers.Count > 0)
+                        {
+                            if (_fpsMonitor != null)
+                            {
+                                _fpsMonitor.ConsoleText = "";
+                            }
+
+                            new[] { TrackerKCFToggle, TrackerCSRTToggle, TrackerMILToggle }
+                                .ToList().ForEach(toggle => { if (toggle) toggle.interactable = false; });
+
+                            if (!_disableTrackerVit && TrackerVitToggle)
+                                TrackerVitToggle.interactable = false;
+
+                            if (!_disableTrackerDaSiamRPN && TrackerDaSiamRPNToggle)
+                                TrackerDaSiamRPNToggle.interactable = false;
+
+                            if (!_disableTrackerNano && TrackerNanoToggle)
+                                TrackerNanoToggle.interactable = false;
+                        }
+                    }
+
+                    // update trackers.
+                    for (int i = 0; i < _trackers.Count; i++)
+                    {
+                        Tracker tracker = _trackers[i].tracker;
+                        string label = _trackers[i].label;
+                        Scalar lineColor = _trackers[i].lineColor;
+                        Rect boundingBox = _trackers[i].boundingBox;
+
+                        tracker.update(rgbMat, boundingBox);
+
+                        Imgproc.rectangle(rgbMat, boundingBox.tl(), boundingBox.br(), lineColor, 2, 1, 0);
+
+                        //  vit tracker provides confidence values during the tracking process, which can be used to determine if the tracking is currently lost.
+                        if (_trackers[i].tracker is TrackerVit)
+                        {
+                            TrackerVit trackerVit = (TrackerVit)_trackers[i].tracker;
+                            float score = trackerVit.getTrackingScore();
+                            if (score < 0.4f)
+                            {
+                                Imgproc.putText(rgbMat, label + " " + String.Format("{0:0.00}", score), new Point(boundingBox.x, boundingBox.y - 5), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar(255, 0, 0, 255), 1, Imgproc.LINE_AA, false);
+                            }
+                            else
+                            {
+                                Imgproc.putText(rgbMat, label + " " + String.Format("{0:0.00}", score), new Point(boundingBox.x, boundingBox.y - 5), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, lineColor, 1, Imgproc.LINE_AA, false);
+                            }
+                        }
+                        else
+                        {
+                            Imgproc.putText(rgbMat, label, new Point(boundingBox.x, boundingBox.y - 5), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, lineColor, 1, Imgproc.LINE_AA, false);
+                        }
+                    }
+
+                    if (_trackers.Count == 0)
+                    {
+                        if (_selectedPointList.Count != 1)
+                        {
+                            //Imgproc.putText (rgbMat, "Please touch the screen, and select tracking regions.", new Point (5, rgbMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                            if (_fpsMonitor != null)
+                            {
+                                _fpsMonitor.ConsoleText = "Please touch the screen, and select tracking regions.";
+                            }
+                        }
+                        else
+                        {
+                            //Imgproc.putText (rgbMat, "Please select the end point of the new tracking region.", new Point (5, rgbMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                            if (_fpsMonitor != null)
+                            {
+                                _fpsMonitor.ConsoleText = "Please select the end point of the new tracking region.";
+                            }
+                        }
+                    }
+
+                    OpenCVMatUtils.MatToTexture2D(rgbMat, _texture);
+                }
+            }
+            else
+            {
+                if (_multiSource2MatHelper.IsPlaying())
+                    _multiSource2MatHelper.Pause();
+
+                if (_storedTouchPoint != null)
+                {
+                    ConvertScreenPointToTexturePoint(_storedTouchPoint, _storedTouchPoint, gameObject, _texture.width, _texture.height);
+                    OnTouch(_storedTouchPoint, _texture.width, _texture.height);
+                    _storedTouchPoint = null;
+                }
             }
         }
 
-        void Run()
+#if ENABLE_INPUT_SYSTEM
+        private void OnEnable()
         {
-            if (string.IsNullOrEmpty(multiSource2MatHelper.requestedVideoFilePath))
-                multiSource2MatHelper.requestedVideoFilePath = VIDEO_FILENAME;
-            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGB; // Tracking API must handle 3 channels Mat image.
-            multiSource2MatHelper.Initialize();
+            EnhancedTouchSupport.Enable();
+        }
+#endif
+
+        private void OnDisable()
+        {
+            _cts?.Dispose();
+
+#if ENABLE_INPUT_SYSTEM
+            EnhancedTouchSupport.Disable();
+#endif
         }
 
+        private void OnDestroy()
+        {
+            _multiSource2MatHelper?.Dispose();
+        }
+
+        // Public Methods
         /// <summary>
         /// Raises the source to mat helper initialized event.
         /// </summary>
@@ -249,13 +485,13 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperInitialized");
 
-            Mat rgbMat = multiSource2MatHelper.GetMat();
+            Mat rgbMat = _multiSource2MatHelper.GetMat();
 
-            texture = new Texture2D(rgbMat.cols(), rgbMat.rows(), TextureFormat.RGB24, false);
-            Utils.matToTexture2D(rgbMat, texture);
+            _texture = new Texture2D(rgbMat.cols(), rgbMat.rows(), TextureFormat.RGB24, false);
+            OpenCVMatUtils.MatToTexture2D(rgbMat, _texture);
 
             // Set the Texture2D as the main texture of the Renderer component attached to the game object
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
+            gameObject.GetComponent<Renderer>().material.mainTexture = _texture;
 
             // Adjust the scale of the game object to match the dimensions of the texture
             gameObject.transform.localScale = new Vector3(rgbMat.cols(), rgbMat.rows(), 1);
@@ -276,9 +512,9 @@ namespace OpenCVForUnityExample
             }
 
 
-            trackers = new List<TrackerSetting>();
+            _trackers = new List<TrackerSetting>();
 
-            selectedPointList = new List<Point>();
+            _selectedPointList = new List<Point>();
         }
 
         /// <summary>
@@ -288,11 +524,7 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperDisposed");
 
-            if (texture != null)
-            {
-                Texture2D.Destroy(texture);
-                texture = null;
-            }
+            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
 
             ResetTrackers();
         }
@@ -306,279 +538,98 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
 
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
+                _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
             }
         }
 
-        // Update is called once per frame
-        void Update()
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick()
         {
-            if (!multiSource2MatHelper.IsInitialized())
-                return;
+            SceneManager.LoadScene("OpenCVForUnityExample");
+        }
 
-#if ENABLE_INPUT_SYSTEM
-#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-            // Touch input for mobile platforms
-            if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
+        /// <summary>
+        /// Raises the reset trackers button click event.
+        /// </summary>
+        public void OnResetTrackersButtonClick()
+        {
+            ResetTrackers();
+
+            _selectedPointList.Clear();
+        }
+
+        // Private Methods
+        private void CheckFilePaths()
+        {
+            if (string.IsNullOrEmpty(_vitModelFilepath))
             {
-                foreach (var touch in UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches)
-                {
-                    if (touch.phase == UnityEngine.InputSystem.TouchPhase.Ended)
-                    {
-                        if (!EventSystem.current.IsPointerOverGameObject(touch.finger.index))
-                        {
-                            storedTouchPoint = new Point(touch.screenPosition.x, touch.screenPosition.y);
-                            // Debug.Log("touch X " + touch.screenPosition.x);
-                            // Debug.Log("touch Y " + touch.screenPosition.y);
-                        }
-                    }
-                }
+                Debug.LogError(Vit_MODEL_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+
+                TrackerVitToggle.isOn = TrackerVitToggle.interactable = false;
+                _disableTrackerVit = true;
             }
-#else
-            // Mouse input for non-mobile platforms
-            var mouse = Mouse.current;
-            if (mouse != null && mouse.leftButton.wasReleasedThisFrame)
+
+            if (string.IsNullOrEmpty(_daSiamRpnModelFilepath) || string.IsNullOrEmpty(_daSiamRpnKernelR1Filepath) || string.IsNullOrEmpty(_daSiamRpnKernelCls1Filepath))
             {
-                if (EventSystem.current.IsPointerOverGameObject())
-                    return;
+                Debug.LogError(DaSiamRPN_MODEL_FILENAME + " or " + DaSiamRPN_KERNEL_R1_FILENAME + " or " + DaSiamRPN_KERNEL_CLS1_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
 
-                storedTouchPoint = new Point(mouse.position.ReadValue().x, mouse.position.ReadValue().y);
+                TrackerDaSiamRPNToggle.isOn = TrackerDaSiamRPNToggle.interactable = false;
+                _disableTrackerDaSiamRPN = true;
             }
-#endif
-#else
-#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-            //Touch
-            int touchCount = Input.touchCount;
-            if (touchCount == 1)
+
+            if (string.IsNullOrEmpty(_nanotrackBackboneSimFilepath) || string.IsNullOrEmpty(_nanotrackHeadSimFilepath))
             {
-                Touch t = Input.GetTouch(0);
-                if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject (t.fingerId)) {
-                    storedTouchPoint = new Point (t.position.x, t.position.y);
-                    //Debug.Log ("touch X " + t.position.x);
-                    //Debug.Log ("touch Y " + t.position.y);
-                }
+                Debug.LogError(NANOTRACK_BACKBONE_SIM_FILENAME + " or " + NANOTRACK_HEAD_SIM_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+
+                TrackerNanoToggle.isOn = TrackerNanoToggle.interactable = false;
+                _disableTrackerNano = true;
             }
-#else
-            //Mouse
-            if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
-            {
-                storedTouchPoint = new Point(Input.mousePosition.x, Input.mousePosition.y);
-                //Debug.Log ("mouse X " + Input.mousePosition.x);
-                //Debug.Log ("mouse Y " + Input.mousePosition.y);
-            }
-#endif
-#endif
+        }
 
-            if (selectedPointList.Count != 1)
-            {
-                if (!multiSource2MatHelper.IsPlaying())
-                    multiSource2MatHelper.Play();
-
-                if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
-                {
-                    Mat rgbMat = multiSource2MatHelper.GetMat();
-
-                    if (storedTouchPoint != null)
-                    {
-                        ConvertScreenPointToTexturePoint(storedTouchPoint, storedTouchPoint, gameObject, texture.width, texture.height);
-                        OnTouch(storedTouchPoint, texture.width, texture.height);
-                        storedTouchPoint = null;
-                    }
-
-                    if (selectedPointList.Count == 1)
-                    {
-                        foreach (var point in selectedPointList)
-                        {
-                            Imgproc.circle(rgbMat, point, 6, new Scalar(0, 0, 255), 2);
-                        }
-                    }
-                    else if (selectedPointList.Count == 2)
-                    {
-                        ResetTrackers();
-
-                        using (MatOfPoint selectedPointMat = new MatOfPoint(selectedPointList.ToArray()))
-                        {
-                            Rect region = Imgproc.boundingRect(selectedPointMat);
-
-                            // init trackers.
-                            if (trackerKCFToggle.isOn)
-                            {
-                                TrackerKCF trackerKCF = TrackerKCF.create(new TrackerKCF_Params());
-                                trackerKCF.init(rgbMat, region);
-                                trackers.Add(new TrackerSetting(trackerKCF, trackerKCF.GetType().Name.ToString(), new Scalar(255, 0, 0)));
-                            }
-
-                            if (trackerCSRTToggle.isOn)
-                            {
-                                TrackerCSRT trackerCSRT = TrackerCSRT.create(new TrackerCSRT_Params());
-                                trackerCSRT.init(rgbMat, region);
-                                trackers.Add(new TrackerSetting(trackerCSRT, trackerCSRT.GetType().Name.ToString(), new Scalar(0, 255, 0)));
-                            }
-
-                            if (trackerMILToggle.isOn)
-                            {
-                                TrackerMIL trackerMIL = TrackerMIL.create(new TrackerMIL_Params());
-                                trackerMIL.init(rgbMat, region);
-                                trackers.Add(new TrackerSetting(trackerMIL, trackerMIL.GetType().Name.ToString(), new Scalar(0, 0, 255)));
-                            }
-
-                            if (!disableTrackerVit && trackerVitToggle.isOn)
-                            {
-                                var _params = new TrackerVit_Params();
-                                _params.set_net(Vit_model_filepath);
-                                TrackerVit TrackerVit = TrackerVit.create(_params);
-                                TrackerVit.init(rgbMat, region);
-                                trackers.Add(new TrackerSetting(TrackerVit, TrackerVit.GetType().Name.ToString(), new Scalar(255, 255, 0)));
-                            }
-
-                            if (!disableTrackerDaSiamRPN && trackerDaSiamRPNToggle.isOn)
-                            {
-                                var _params = new TrackerDaSiamRPN_Params();
-                                _params.set_model(DaSiamRPN_model_filepath);
-                                _params.set_kernel_r1(DaSiamRPN_kernel_r1_filepath);
-                                _params.set_kernel_cls1(DaSiamRPN_kernel_cls1_filepath);
-                                TrackerDaSiamRPN trackerDaSiamRPN = TrackerDaSiamRPN.create(_params);
-                                trackerDaSiamRPN.init(rgbMat, region);
-                                trackers.Add(new TrackerSetting(trackerDaSiamRPN, trackerDaSiamRPN.GetType().Name.ToString(), new Scalar(255, 0, 255)));
-                            }
-
-                            if (!disableTrackerNano && trackerNanoToggle.isOn)
-                            {
-                                var _params = new TrackerNano_Params();
-                                _params.set_backbone(NANOTRACK_backbone_sim_filepath);
-                                _params.set_neckhead(NANOTRACK_head_sim_filepath);
-                                TrackerNano trackerNano = TrackerNano.create(_params);
-                                trackerNano.init(rgbMat, region);
-                                trackers.Add(new TrackerSetting(trackerNano, trackerNano.GetType().Name.ToString(), new Scalar(0, 255, 255)));
-                            }
-                        }
-
-                        selectedPointList.Clear();
-
-                        if (trackers.Count > 0)
-                        {
-                            if (fpsMonitor != null)
-                            {
-                                fpsMonitor.consoleText = "";
-                            }
-
-                            new[] { trackerKCFToggle, trackerCSRTToggle, trackerMILToggle }
-                                .ToList().ForEach(toggle => { if (toggle) toggle.interactable = false; });
-
-                            if (!disableTrackerVit && trackerVitToggle)
-                                trackerVitToggle.interactable = false;
-
-                            if (!disableTrackerDaSiamRPN && trackerDaSiamRPNToggle)
-                                trackerDaSiamRPNToggle.interactable = false;
-
-                            if (!disableTrackerNano && trackerNanoToggle)
-                                trackerNanoToggle.interactable = false;
-                        }
-                    }
-
-                    // update trackers.
-                    for (int i = 0; i < trackers.Count; i++)
-                    {
-                        Tracker tracker = trackers[i].tracker;
-                        string label = trackers[i].label;
-                        Scalar lineColor = trackers[i].lineColor;
-                        Rect boundingBox = trackers[i].boundingBox;
-
-                        tracker.update(rgbMat, boundingBox);
-
-                        Imgproc.rectangle(rgbMat, boundingBox.tl(), boundingBox.br(), lineColor, 2, 1, 0);
-
-                        //  vit tracker provides confidence values during the tracking process, which can be used to determine if the tracking is currently lost.
-                        if (trackers[i].tracker is TrackerVit)
-                        {
-                            TrackerVit trackerVit = (TrackerVit)trackers[i].tracker;
-                            float score = trackerVit.getTrackingScore();
-                            if (score < 0.4f)
-                            {
-                                Imgproc.putText(rgbMat, label + " " + String.Format("{0:0.00}", score), new Point(boundingBox.x, boundingBox.y - 5), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar(255, 0, 0, 255), 1, Imgproc.LINE_AA, false);
-                            }
-                            else
-                            {
-                                Imgproc.putText(rgbMat, label + " " + String.Format("{0:0.00}", score), new Point(boundingBox.x, boundingBox.y - 5), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, lineColor, 1, Imgproc.LINE_AA, false);
-                            }
-                        }
-                        else
-                        {
-                            Imgproc.putText(rgbMat, label, new Point(boundingBox.x, boundingBox.y - 5), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, lineColor, 1, Imgproc.LINE_AA, false);
-                        }
-                    }
-
-                    if (trackers.Count == 0)
-                    {
-                        if (selectedPointList.Count != 1)
-                        {
-                            //Imgproc.putText (rgbMat, "Please touch the screen, and select tracking regions.", new Point (5, rgbMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                            if (fpsMonitor != null)
-                            {
-                                fpsMonitor.consoleText = "Please touch the screen, and select tracking regions.";
-                            }
-                        }
-                        else
-                        {
-                            //Imgproc.putText (rgbMat, "Please select the end point of the new tracking region.", new Point (5, rgbMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                            if (fpsMonitor != null)
-                            {
-                                fpsMonitor.consoleText = "Please select the end point of the new tracking region.";
-                            }
-                        }
-                    }
-
-                    Utils.matToTexture2D(rgbMat, texture);
-                }
-            }
-            else
-            {
-                if (multiSource2MatHelper.IsPlaying())
-                    multiSource2MatHelper.Pause();
-
-                if (storedTouchPoint != null)
-                {
-                    ConvertScreenPointToTexturePoint(storedTouchPoint, storedTouchPoint, gameObject, texture.width, texture.height);
-                    OnTouch(storedTouchPoint, texture.width, texture.height);
-                    storedTouchPoint = null;
-                }
-            }
+        private void Run()
+        {
+            if (string.IsNullOrEmpty(_multiSource2MatHelper.RequestedVideoFilePath))
+                _multiSource2MatHelper.RequestedVideoFilePath = VIDEO_FILENAME;
+            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGB; // Tracking API must handle 3 channels Mat image.
+            _multiSource2MatHelper.Initialize();
         }
 
         private void ResetTrackers()
         {
-            if (trackers != null)
+            if (_trackers != null)
             {
-                foreach (var t in trackers)
+                foreach (var t in _trackers)
                 {
                     t.Dispose();
                 }
-                trackers.Clear();
+                _trackers.Clear();
             }
 
-            new[] { trackerKCFToggle, trackerCSRTToggle, trackerMILToggle }
+            new[] { TrackerKCFToggle, TrackerCSRTToggle, TrackerMILToggle }
                 .ToList().ForEach(toggle => { if (toggle) toggle.interactable = true; });
 
-            if (!disableTrackerVit && trackerVitToggle)
-                trackerVitToggle.interactable = true;
+            if (!_disableTrackerVit && TrackerVitToggle)
+                TrackerVitToggle.interactable = true;
 
-            if (!disableTrackerDaSiamRPN && trackerDaSiamRPNToggle)
-                trackerDaSiamRPNToggle.interactable = true;
+            if (!_disableTrackerDaSiamRPN && TrackerDaSiamRPNToggle)
+                TrackerDaSiamRPNToggle.interactable = true;
 
-            if (!disableTrackerNano && trackerNanoToggle)
-                trackerNanoToggle.interactable = true;
+            if (!_disableTrackerNano && TrackerNanoToggle)
+                TrackerNanoToggle.interactable = true;
         }
 
         private void OnTouch(Point touchPoint, int textureWidth = -1, int textureHeight = -1)
         {
-            if (selectedPointList.Count < 2)
+            if (_selectedPointList.Count < 2)
             {
-                selectedPointList.Add(touchPoint);
-                if (!(new OpenCVForUnity.CoreModule.Rect(0, 0, textureWidth, textureHeight).contains(selectedPointList[selectedPointList.Count - 1])))
+                _selectedPointList.Add(touchPoint);
+                if (!new Rect(0, 0, textureWidth, textureHeight).contains(_selectedPointList[_selectedPointList.Count - 1]))
                 {
-                    selectedPointList.RemoveAt(selectedPointList.Count - 1);
+                    _selectedPointList.RemoveAt(_selectedPointList.Count - 1);
                 }
             }
         }
@@ -638,54 +689,7 @@ namespace OpenCVForUnityExample
             }
         }
 
-#if ENABLE_INPUT_SYSTEM
-        void OnEnable()
-        {
-            EnhancedTouchSupport.Enable();
-        }
-#endif
-
-        /// <summary>
-        /// Raises the disable event.
-        /// </summary>
-        void OnDisable()
-        {
-            if (cts != null)
-                cts.Dispose();
-
-#if ENABLE_INPUT_SYSTEM
-            EnhancedTouchSupport.Disable();
-#endif
-        }
-
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
-        {
-            if (multiSource2MatHelper != null)
-                multiSource2MatHelper.Dispose();
-        }
-
-        /// <summary>
-        /// Raises the back button click event.
-        /// </summary>
-        public void OnBackButtonClick()
-        {
-            SceneManager.LoadScene("OpenCVForUnityExample");
-        }
-
-        /// <summary>
-        /// Raises the reset trackers button click event.
-        /// </summary>
-        public void OnResetTrackersButtonClick()
-        {
-            ResetTrackers();
-
-            selectedPointList.Clear();
-        }
-
-        class TrackerSetting
+        private class TrackerSetting
         {
             public Tracker tracker;
             public string label;

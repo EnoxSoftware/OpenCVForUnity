@@ -1,61 +1,63 @@
-using OpenCVForUnity.CoreModule;
 using System;
+using OpenCVForUnity.CoreModule;
 
 namespace OpenCVForUnityExample
 {
     [System.Serializable]
     public struct CameraParameters
     {
-        public string calibration_date;
-        public int frames_count;
-        public int image_width;
-        public int image_height;
-        public int calibration_flags;
-        public double[] camera_matrix;
-        public double[] distortion_coefficients;
-        public double avg_reprojection_error;
+        // Public Fields
+        public string CalibrationDate;
+        public int FramesCount;
+        public int ImageWidth;
+        public int ImageHeight;
+        public int CalibrationFlags;
+        public double[] CameraMatrix;
+        public double[] DistortionCoefficients;
+        public double AvgReprojectionError;
 
-        public CameraParameters(int frames_count, int image_width, int image_height, int calibration_flags, double[] camera_matrix, double[] distortion_coefficients, double avg_reprojection_error)
+        // Public Methods
+        public CameraParameters(int framesCount, int imageWidth, int imageHeight, int calibrationFlags, double[] cameraMatrix, double[] distortionCoefficients, double avgReprojectionError)
         {
-            this.calibration_date = DateTime.Now.ToString();
-            this.frames_count = frames_count;
-            this.image_width = image_width;
-            this.image_height = image_height;
-            this.calibration_flags = calibration_flags;
-            this.camera_matrix = camera_matrix;
-            this.distortion_coefficients = distortion_coefficients;
-            this.avg_reprojection_error = avg_reprojection_error;
+            CalibrationDate = DateTime.Now.ToString();
+            FramesCount = framesCount;
+            ImageWidth = imageWidth;
+            ImageHeight = imageHeight;
+            CalibrationFlags = calibrationFlags;
+            CameraMatrix = cameraMatrix;
+            DistortionCoefficients = distortionCoefficients;
+            AvgReprojectionError = avgReprojectionError;
         }
 
-        public CameraParameters(int frames_count, int image_width, int image_height, int calibration_flags, Mat camera_matrix, Mat distortion_coefficients, double avg_reprojection_error)
+        public CameraParameters(int framesCount, int imageWidth, int imageHeight, int calibrationFlags, Mat cameraMatrix, Mat distortionCoefficients, double avgReprojectionError)
         {
-            double[] camera_matrixArr = new double[camera_matrix.total()];
-            camera_matrix.get(0, 0, camera_matrixArr);
+            double[] cameraMatrixArr = new double[cameraMatrix.total()];
+            cameraMatrix.get(0, 0, cameraMatrixArr);
 
-            double[] distortion_coefficientsArr = new double[distortion_coefficients.total()];
-            distortion_coefficients.get(0, 0, distortion_coefficientsArr);
+            double[] distortionCoefficientsArr = new double[distortionCoefficients.total()];
+            distortionCoefficients.get(0, 0, distortionCoefficientsArr);
 
-            this.calibration_date = DateTime.Now.ToString();
-            this.frames_count = frames_count;
-            this.image_width = image_width;
-            this.image_height = image_height;
-            this.calibration_flags = calibration_flags;
-            this.camera_matrix = camera_matrixArr;
-            this.distortion_coefficients = distortion_coefficientsArr;
-            this.avg_reprojection_error = avg_reprojection_error;
+            CalibrationDate = DateTime.Now.ToString();
+            FramesCount = framesCount;
+            ImageWidth = imageWidth;
+            ImageHeight = imageHeight;
+            CalibrationFlags = calibrationFlags;
+            CameraMatrix = cameraMatrixArr;
+            DistortionCoefficients = distortionCoefficientsArr;
+            AvgReprojectionError = avgReprojectionError;
         }
 
         public Mat GetCameraMatrix()
         {
             Mat m = new Mat(3, 3, CvType.CV_64FC1);
-            m.put(0, 0, camera_matrix);
+            m.put(0, 0, CameraMatrix);
             return m;
         }
 
         public Mat GetDistortionCoefficients()
         {
-            Mat m = new Mat(distortion_coefficients.Length, 1, CvType.CV_64FC1);
-            m.put(0, 0, distortion_coefficients);
+            Mat m = new Mat(DistortionCoefficients.Length, 1, CvType.CV_64FC1);
+            m.put(0, 0, DistortionCoefficients);
             return m;
         }
     }

@@ -1,8 +1,8 @@
+using System.Collections;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.PlotModule;
-using OpenCVForUnity.UnityUtils;
-using System.Collections;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,17 +15,18 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class PlotExample : MonoBehaviour
     {
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
             // Plot data must be a 1xN or Nx1 matrix.
-            // Plot data type must be double (CV_64F) 
+            // Plot data type must be double (CV_64F)
             Mat data = new Mat(30, 1, CvType.CV_64F);
             Core.randu(data, 0, 500); // random values
 
@@ -40,18 +41,18 @@ namespace OpenCVForUnityExample
             Imgproc.cvtColor(plot_result, plot_result, Imgproc.COLOR_BGR2RGB);
 
             Texture2D texture = new Texture2D(plot_result.cols(), plot_result.rows(), TextureFormat.RGBA32, false);
-            Utils.matToTexture2D(plot_result, texture);
+            OpenCVMatUtils.MatToTexture2D(plot_result, texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
 
         }
 
+        // Public Methods
         /// <summary>
         /// Raises the back button click event.
         /// </summary>

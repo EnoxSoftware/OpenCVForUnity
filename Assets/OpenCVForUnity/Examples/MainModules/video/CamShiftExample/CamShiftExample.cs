@@ -1,10 +1,10 @@
-using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UnityUtils.Helper;
-using OpenCVForUnity.VideoModule;
 using System.Collections;
 using System.Collections.Generic;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
+using OpenCVForUnity.VideoModule;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -24,165 +24,83 @@ namespace OpenCVForUnityExample
     [RequireComponent(typeof(MultiSource2MatHelper))]
     public class CamShiftExample : MonoBehaviour
     {
+        // Private Fields
         /// <summary>
         /// The texture.
         /// </summary>
-        Texture2D texture;
+        private Texture2D _texture;
 
         /// <summary>
         /// The roi point list.
         /// </summary>
-        List<Point> roiPointList;
+        private List<Point> _roiPointList;
 
         /// <summary>
         /// The roi rect.
         /// </summary>
-        OpenCVForUnity.CoreModule.Rect roiRect;
+        private OpenCVForUnity.CoreModule.Rect _roiRect;
 
         /// <summary>
         /// The hsv mat.
         /// </summary>
-        Mat hsvMat;
+        private Mat _hsvMat;
 
         /// <summary>
         /// The roi hist mat.
         /// </summary>
-        Mat roiHistMat;
+        private Mat _roiHistMat;
 
         /// <summary>
         /// The termination.
         /// </summary>
-        TermCriteria termination;
+        private TermCriteria _termination;
 
         /// <summary>
         /// The multi source to mat helper.
         /// </summary>
-        MultiSource2MatHelper multiSource2MatHelper;
+        private MultiSource2MatHelper _multiSource2MatHelper;
 
         /// <summary>
         /// The stored touch point.
         /// </summary>
-        Point storedTouchPoint;
+        private Point _storedTouchPoint;
 
         /// <summary>
         /// The flag for requesting the start of the CamShift Method.
         /// </summary>
-        bool shouldStartCamShift = false;
+        private bool _shouldStartCamShift = false;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
+        private FpsMonitor _fpsMonitor;
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
-            roiPointList = new List<Point>();
-            termination = new TermCriteria(TermCriteria.EPS | TermCriteria.COUNT, 10, 1);
+            _roiPointList = new List<Point>();
+            _termination = new TermCriteria(TermCriteria.EPS | TermCriteria.COUNT, 10, 1);
 
-            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
-            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGBA;
-            multiSource2MatHelper.Initialize();
+            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
+            _multiSource2MatHelper.Initialize();
         }
 
 #if ENABLE_INPUT_SYSTEM
-        void OnEnable()
+        private void OnEnable()
         {
             EnhancedTouchSupport.Enable();
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             EnhancedTouchSupport.Disable();
         }
 #endif
 
-        /// <summary>
-        /// Raises the source to mat helper initialized event.
-        /// </summary>
-        public void OnSourceToMatHelperInitialized()
-        {
-            Debug.Log("OnSourceToMatHelperInitialized");
-
-            Mat rgbaMat = multiSource2MatHelper.GetMat();
-
-            texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
-            Utils.matToTexture2D(rgbaMat, texture);
-
-            // Set the Texture2D as the main texture of the Renderer component attached to the game object
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
-
-            // Adjust the scale of the game object to match the dimensions of the texture
-            gameObject.transform.localScale = new Vector3(rgbaMat.cols(), rgbaMat.rows(), 1);
-            Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
-
-            // Adjust the orthographic size of the main Camera to fit the aspect ratio of the image
-            float width = rgbaMat.width();
-            float height = rgbaMat.height();
-            float widthScale = (float)Screen.width / width;
-            float heightScale = (float)Screen.height / height;
-            if (widthScale < heightScale)
-            {
-                Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
-            }
-            else
-            {
-                Camera.main.orthographicSize = height / 2;
-            }
-
-
-            if (fpsMonitor != null)
-            {
-                fpsMonitor.Add("width", rgbaMat.width().ToString());
-                fpsMonitor.Add("height", rgbaMat.height().ToString());
-                fpsMonitor.Add("orientation", Screen.orientation.ToString());
-            }
-            if (fpsMonitor != null)
-            {
-                fpsMonitor.consoleText = "Please touch the 4 points surrounding the tracking object.";
-            }
-
-            hsvMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
-        }
-
-        /// <summary>
-        /// Raises the source to mat helper disposed event.
-        /// </summary>
-        public void OnSourceToMatHelperDisposed()
-        {
-            Debug.Log("OnSourceToMatHelperDisposed");
-
-            hsvMat.Dispose();
-            if (roiHistMat != null)
-                roiHistMat.Dispose();
-            roiPointList.Clear();
-
-            if (texture != null)
-            {
-                Texture2D.Destroy(texture);
-                texture = null;
-            }
-        }
-
-        /// <summary>
-        /// Raises the source to mat helper error occurred event.
-        /// </summary>
-        /// <param name="errorCode">Error code.</param>
-        /// <param name="message">Message.</param>
-        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
-        {
-            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
-
-            if (fpsMonitor != null)
-            {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
-            }
-        }
-
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
 #if ENABLE_INPUT_SYSTEM
 #if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
@@ -195,7 +113,7 @@ namespace OpenCVForUnityExample
                     {
                         if (!EventSystem.current.IsPointerOverGameObject(touch.finger.index))
                         {
-                            storedTouchPoint = new Point(touch.screenPosition.x, touch.screenPosition.y);
+                            _storedTouchPoint = new Point(touch.screenPosition.x, touch.screenPosition.y);
                         }
                     }
                 }
@@ -208,7 +126,7 @@ namespace OpenCVForUnityExample
                 if (EventSystem.current.IsPointerOverGameObject())
                     return;
 
-                storedTouchPoint = new Point(mouse.position.ReadValue().x, mouse.position.ReadValue().y);
+                _storedTouchPoint = new Point(mouse.position.ReadValue().x, mouse.position.ReadValue().y);
             }
 #endif
 #else
@@ -219,67 +137,67 @@ namespace OpenCVForUnityExample
             {
                 Touch t = Input.GetTouch(0);
                 if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject (t.fingerId)) {
-                    storedTouchPoint = new Point (t.position.x, t.position.y);
+                    _storedTouchPoint = new Point (t.position.x, t.position.y);
                 }
             }
 #else
             //Mouse
             if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
             {
-                storedTouchPoint = new Point(Input.mousePosition.x, Input.mousePosition.y);
+                _storedTouchPoint = new Point(Input.mousePosition.x, Input.mousePosition.y);
             }
 #endif
 #endif
 
-            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
+            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
             {
 
-                Mat rgbaMat = multiSource2MatHelper.GetMat();
+                Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-                Imgproc.cvtColor(rgbaMat, hsvMat, Imgproc.COLOR_RGBA2RGB);
-                Imgproc.cvtColor(hsvMat, hsvMat, Imgproc.COLOR_RGB2HSV);
+                Imgproc.cvtColor(rgbaMat, _hsvMat, Imgproc.COLOR_RGBA2RGB);
+                Imgproc.cvtColor(_hsvMat, _hsvMat, Imgproc.COLOR_RGB2HSV);
 
-                if (storedTouchPoint != null)
+                if (_storedTouchPoint != null)
                 {
-                    ConvertScreenPointToTexturePoint(storedTouchPoint, storedTouchPoint, gameObject, rgbaMat.cols(), rgbaMat.rows());
-                    OnTouch(rgbaMat, storedTouchPoint);
-                    storedTouchPoint = null;
+                    ConvertScreenPointToTexturePoint(_storedTouchPoint, _storedTouchPoint, gameObject, rgbaMat.cols(), rgbaMat.rows());
+                    OnTouch(rgbaMat, _storedTouchPoint);
+                    _storedTouchPoint = null;
                 }
 
-                Point[] points = roiPointList.ToArray();
+                Point[] points = _roiPointList.ToArray();
 
-                if (shouldStartCamShift)
+                if (_shouldStartCamShift)
                 {
-                    shouldStartCamShift = false;
+                    _shouldStartCamShift = false;
 
                     using (MatOfPoint roiPointMat = new MatOfPoint(points))
                     {
-                        roiRect = Imgproc.boundingRect(roiPointMat);
+                        _roiRect = Imgproc.boundingRect(roiPointMat);
                     }
 
-                    if (roiHistMat != null)
+                    if (_roiHistMat != null)
                     {
-                        roiHistMat.Dispose();
-                        roiHistMat = null;
+                        _roiHistMat.Dispose();
+                        _roiHistMat = null;
                     }
-                    roiHistMat = new Mat();
+                    _roiHistMat = new Mat();
 
-                    using (Mat roiHSVMat = new Mat(hsvMat, roiRect))
+                    using (Mat roiHSVMat = new Mat(_hsvMat, _roiRect))
                     using (Mat maskMat = new Mat())
                     {
-                        Imgproc.calcHist(new List<Mat>(new Mat[] { roiHSVMat }), new MatOfInt(0), maskMat, roiHistMat, new MatOfInt(16), new MatOfFloat(0, 180));
-                        Core.normalize(roiHistMat, roiHistMat, 0, 255, Core.NORM_MINMAX);
+                        Imgproc.calcHist(new List<Mat>(new Mat[] { roiHSVMat }), new MatOfInt(0), maskMat, _roiHistMat, new MatOfInt(16), new MatOfFloat(0, 180));
+                        Core.normalize(_roiHistMat, _roiHistMat, 0, 255, Core.NORM_MINMAX);
 
-                        //Debug.Log ("roiHist " + roiHistMat.ToString ());
+                        //Debug.Log ("_roiHistMat " + _roiHistMat.ToString ());
                     }
                 }
                 else if (points.Length == 4)
                 {
                     using (Mat backProj = new Mat())
                     {
-                        Imgproc.calcBackProject(new List<Mat>(new Mat[] { hsvMat }), new MatOfInt(0), roiHistMat, backProj, new MatOfFloat(0, 180), 1.0);
+                        Imgproc.calcBackProject(new List<Mat>(new Mat[] { _hsvMat }), new MatOfInt(0), _roiHistMat, backProj, new MatOfFloat(0, 180), 1.0);
 
-                        RotatedRect r = Video.CamShift(backProj, roiRect, termination);
+                        RotatedRect r = Video.CamShift(backProj, _roiRect, _termination);
                         r.points(points);
                     }
                 }
@@ -299,34 +217,157 @@ namespace OpenCVForUnityExample
                         Imgproc.line(rgbaMat, points[i], points[(i + 1) % 4], new Scalar(255, 0, 0, 255), 2);
                     }
 
-                    Imgproc.rectangle(rgbaMat, roiRect.tl(), roiRect.br(), new Scalar(0, 255, 0, 255), 2);
+                    Imgproc.rectangle(rgbaMat, _roiRect.tl(), _roiRect.br(), new Scalar(0, 255, 0, 255), 2);
                 }
 
                 //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
-                Utils.matToTexture2D(rgbaMat, texture);
+                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
             }
         }
 
-        private void OnTouch(Mat img, Point touchPoint)
+        private void OnDestroy()
         {
-            if (roiPointList.Count == 4)
+            _multiSource2MatHelper?.Dispose();
+        }
+
+        // Public Methods
+        /// <summary>
+        /// Raises the source to mat helper initialized event.
+        /// </summary>
+        public void OnSourceToMatHelperInitialized()
+        {
+            Debug.Log("OnSourceToMatHelperInitialized");
+
+            Mat rgbaMat = _multiSource2MatHelper.GetMat();
+
+            _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
+            OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
+
+            // Set the Texture2D as the main texture of the Renderer component attached to the game object
+            gameObject.GetComponent<Renderer>().material.mainTexture = _texture;
+
+            // Adjust the scale of the game object to match the dimensions of the texture
+            gameObject.transform.localScale = new Vector3(rgbaMat.cols(), rgbaMat.rows(), 1);
+            Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
+
+            // Adjust the orthographic size of the main Camera to fit the aspect ratio of the image
+            float width = rgbaMat.width();
+            float height = rgbaMat.height();
+            float widthScale = (float)Screen.width / width;
+            float heightScale = (float)Screen.height / height;
+            if (widthScale < heightScale)
             {
-                roiPointList.Clear();
+                Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
+            }
+            else
+            {
+                Camera.main.orthographicSize = height / 2;
             }
 
-            if (roiPointList.Count < 4)
+            if (_fpsMonitor != null)
             {
-                roiPointList.Add(touchPoint);
+                _fpsMonitor.Add("width", rgbaMat.width().ToString());
+                _fpsMonitor.Add("height", rgbaMat.height().ToString());
+                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
+            }
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.ConsoleText = "Please touch the 4 points surrounding the tracking object.";
+            }
 
-                if (!(new OpenCVForUnity.CoreModule.Rect(0, 0, img.width(), img.height()).contains(roiPointList[roiPointList.Count - 1])))
+            _hsvMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
+        }
+
+        /// <summary>
+        /// Raises the source to mat helper disposed event.
+        /// </summary>
+        public void OnSourceToMatHelperDisposed()
+        {
+            Debug.Log("OnSourceToMatHelperDisposed");
+
+            _hsvMat?.Dispose();
+            _roiHistMat?.Dispose();
+            _roiPointList?.Clear();
+
+            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
+        }
+
+        /// <summary>
+        /// Raises the source to mat helper error occurred event.
+        /// </summary>
+        /// <param name="errorCode">Error code.</param>
+        /// <param name="message">Message.</param>
+        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
+        {
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
+            }
+        }
+
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick()
+        {
+            SceneManager.LoadScene("OpenCVForUnityExample");
+        }
+
+        /// <summary>
+        /// Raises the play button click event.
+        /// </summary>
+        public void OnPlayButtonClick()
+        {
+            _multiSource2MatHelper.Play();
+        }
+
+        /// <summary>
+        /// Raises the pause button click event.
+        /// </summary>
+        public void OnPauseButtonClick()
+        {
+            _multiSource2MatHelper.Pause();
+        }
+
+        /// <summary>
+        /// Raises the stop button click event.
+        /// </summary>
+        public void OnStopButtonClick()
+        {
+            _multiSource2MatHelper.Stop();
+        }
+
+        /// <summary>
+        /// Raises the change camera button click event.
+        /// </summary>
+        public void OnChangeCameraButtonClick()
+        {
+            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
+        }
+
+        // Private Methods
+        private void OnTouch(Mat img, Point touchPoint)
+        {
+            if (_roiPointList.Count == 4)
+            {
+                _roiPointList.Clear();
+            }
+
+            if (_roiPointList.Count < 4)
+            {
+                _roiPointList.Add(touchPoint);
+
+                if (!(new OpenCVForUnity.CoreModule.Rect(0, 0, img.width(), img.height()).contains(_roiPointList[_roiPointList.Count - 1])))
                 {
-                    roiPointList.RemoveAt(roiPointList.Count - 1);
+                    _roiPointList.RemoveAt(_roiPointList.Count - 1);
                 }
 
-                if (roiPointList.Count == 4)
+                if (_roiPointList.Count == 4)
                 {
-                    shouldStartCamShift = true;
+                    _shouldStartCamShift = true;
                 }
             }
         }
@@ -384,54 +425,6 @@ namespace OpenCVForUnityExample
                     dstPoint.y = dstPointMat.get(0, 0)[1] * textureHeight / quadScale.y;
                 }
             }
-        }
-
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
-        {
-            multiSource2MatHelper.Dispose();
-        }
-
-        /// <summary>
-        /// Raises the back button click event.
-        /// </summary>
-        public void OnBackButtonClick()
-        {
-            SceneManager.LoadScene("OpenCVForUnityExample");
-        }
-
-        /// <summary>
-        /// Raises the play button click event.
-        /// </summary>
-        public void OnPlayButtonClick()
-        {
-            multiSource2MatHelper.Play();
-        }
-
-        /// <summary>
-        /// Raises the pause button click event.
-        /// </summary>
-        public void OnPauseButtonClick()
-        {
-            multiSource2MatHelper.Pause();
-        }
-
-        /// <summary>
-        /// Raises the stop button click event.
-        /// </summary>
-        public void OnStopButtonClick()
-        {
-            multiSource2MatHelper.Stop();
-        }
-
-        /// <summary>
-        /// Raises the change camera button click event.
-        /// </summary>
-        public void OnChangeCameraButtonClick()
-        {
-            multiSource2MatHelper.requestedIsFrontFacing = !multiSource2MatHelper.requestedIsFrontFacing;
         }
     }
 }

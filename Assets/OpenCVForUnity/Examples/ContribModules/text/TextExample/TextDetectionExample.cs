@@ -1,12 +1,12 @@
 #if !UNITY_WSA_10_0
 
+using System.Collections.Generic;
+using System.Threading;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.TextModule;
-using OpenCVForUnity.UnityUtils;
-using System.Collections.Generic;
-using System.Threading;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -21,88 +21,111 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class TextDetectionExample : MonoBehaviour
     {
-        [Header("Output")]
-        /// <summary>
-        /// The RawImage for previewing the result.
-        /// </summary>
-        public RawImage resultPreview;
-
-        [Space(10)]
-
+        // Constants
         /// <summary>
         /// IMAGE_FILENAME
         /// </summary>
-        protected static readonly string IMAGE_FILENAME = "OpenCVForUnity/text/scenetext01.jpg";
-
-        /// <summary>
-        /// The image filepath.
-        /// </summary>
-        string image_filepath;
+        protected static readonly string IMAGE_FILENAME = "OpenCVForUnityExamples/text/scenetext01.jpg";
 
         /// <summary>
         /// TRAINED_CLASSIFIER_NM_1_FILENAME
         /// </summary>
-        protected static readonly string TRAINED_CLASSIFIER_NM_1_FILENAME = "OpenCVForUnity/text/trained_classifierNM1.xml";
-
-        /// <summary>
-        /// The trained_classifierNM1 filepath.
-        /// </summary>
-        string trained_classifierNM1_filepath;
+        protected static readonly string TRAINED_CLASSIFIER_NM_1_FILENAME = "OpenCVForUnityExamples/text/trained_classifierNM1.xml";
 
         /// <summary>
         /// TRAINED_CLASSIFIER_NM_2_FILENAME
         /// </summary>
-        protected static readonly string TRAINED_CLASSIFIER_NM_2_FILENAME = "OpenCVForUnity/text/trained_classifierNM2.xml";
+        protected static readonly string TRAINED_CLASSIFIER_NM_2_FILENAME = "OpenCVForUnityExamples/text/trained_classifierNM2.xml";
+
+        // Public Fields
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage ResultPreview;
+
+        [Space(10)]
+
+        // Private Fields
+        /// <summary>
+        /// The image filepath.
+        /// </summary>
+        private string _imageFilepath;
+
+        /// <summary>
+        /// The trained_classifierNM1 filepath.
+        /// </summary>
+        private string _trainedClassifierNM1Filepath;
 
         /// <summary>
         /// The trained_classifierNM2 filepath.
         /// </summary>
-        string trained_classifierNM2_filepath;
+        private string _trainedClassifierNM2Filepath;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
+        private FpsMonitor _fpsMonitor;
 
         /// <summary>
         /// The CancellationTokenSource.
         /// </summary>
-        CancellationTokenSource cts = new CancellationTokenSource();
+        private CancellationTokenSource _cts = new CancellationTokenSource();
 
-        // Use this for initialization
-        async void Start()
+        // Unity Lifecycle Methods
+        private async void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "Preparing file access...";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "Preparing file access...";
 
-            image_filepath = await Utils.getFilePathAsyncTask(IMAGE_FILENAME, cancellationToken: cts.Token);
-            trained_classifierNM1_filepath = await Utils.getFilePathAsyncTask(TRAINED_CLASSIFIER_NM_1_FILENAME, cancellationToken: cts.Token);
-            trained_classifierNM2_filepath = await Utils.getFilePathAsyncTask(TRAINED_CLASSIFIER_NM_2_FILENAME, cancellationToken: cts.Token);
+            _imageFilepath = await OpenCVEnv.GetFilePathTaskAsync(IMAGE_FILENAME, cancellationToken: _cts.Token);
+            _trainedClassifierNM1Filepath = await OpenCVEnv.GetFilePathTaskAsync(TRAINED_CLASSIFIER_NM_1_FILENAME, cancellationToken: _cts.Token);
+            _trainedClassifierNM2Filepath = await OpenCVEnv.GetFilePathTaskAsync(TRAINED_CLASSIFIER_NM_2_FILENAME, cancellationToken: _cts.Token);
 
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "";
 
             Run();
         }
 
+        private void Update()
+        {
+
+        }
+
+        private void OnDestroy()
+        {
+            _cts?.Dispose();
+        }
+
+        // Public Methods
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick()
+        {
+            SceneManager.LoadScene("OpenCVForUnityExample");
+        }
+
+        // Private Methods
         private void Run()
         {
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
-            Utils.setDebugMode(true);
+            OpenCVDebug.SetDebugMode(true);
 
 
-            Mat img = Imgcodecs.imread(image_filepath);
+            Mat img = Imgcodecs.imread(_imageFilepath);
             if (img.empty())
             {
-                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
+                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
             }
 
-            if (string.IsNullOrEmpty(trained_classifierNM1_filepath) || string.IsNullOrEmpty(trained_classifierNM2_filepath))
+            if (string.IsNullOrEmpty(_trainedClassifierNM1Filepath) || string.IsNullOrEmpty(_trainedClassifierNM2Filepath))
             {
-                Debug.LogError(TRAINED_CLASSIFIER_NM_1_FILENAME + " or " + TRAINED_CLASSIFIER_NM_2_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
+                Debug.LogError(TRAINED_CLASSIFIER_NM_1_FILENAME + " or " + TRAINED_CLASSIFIER_NM_2_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
             }
 
             //# for visualization
@@ -119,8 +142,13 @@ namespace OpenCVForUnityExample
             int cn = channels.Count;
             for (int i = 0; i < cn; i++)
             {
-
-                channels.Add(new Scalar(255) - channels[i]);
+                Mat A = channels[i];
+                Mat negativeChannel = new Mat();
+                using (Mat B = new Mat(A.size(), A.type(), new Scalar(255)))
+                {
+                    Core.subtract(B, A, negativeChannel);
+                }
+                channels.Add(negativeChannel);
             }
 
             //# Apply the default cascade classifier to each independent channel (could be done in parallel)
@@ -128,16 +156,16 @@ namespace OpenCVForUnityExample
             Debug.Log("    (...) this may take a while (...)");
             foreach (var channel in channels)
             {
-                ERFilter er1 = Text.createERFilterNM1(trained_classifierNM1_filepath, 16, 0.00015f, 0.13f, 0.2f, true, 0.1f);
+                ERFilter er1 = Text.createERFilterNM1(_trainedClassifierNM1Filepath, 16, 0.00015f, 0.13f, 0.2f, true, 0.1f);
 
-                ERFilter er2 = Text.createERFilterNM2(trained_classifierNM2_filepath, 0.5f);
+                ERFilter er2 = Text.createERFilterNM2(_trainedClassifierNM2Filepath, 0.5f);
 
                 List<MatOfPoint> regions = new List<MatOfPoint>();
                 Text.detectRegions(channel, er1, er2, regions);
 
                 MatOfRect matOfRects = new MatOfRect();
                 Text.erGrouping(img, channel, regions, matOfRects);
-                //                Text.erGrouping (img, channel, regions, matOfRects, Text.ERGROUPING_ORIENTATION_ANY, Utils.getFilePath ("text/trained_classifier_erGrouping.xml"), 0.5f);
+                //Text.erGrouping (img, channel, regions, matOfRects, Text.ERGROUPING_ORIENTATION_ANY, OpenCVEnv.GetFilePath ("text/trained_classifier_erGrouping.xml"), 0.5f);
 
                 List<OpenCVForUnity.CoreModule.Rect> rects = matOfRects.toList();
 
@@ -154,36 +182,13 @@ namespace OpenCVForUnityExample
 
             Texture2D texture = new Texture2D(vis.cols(), vis.rows(), TextureFormat.RGBA32, false);
 
-            Utils.matToTexture2D(vis, texture);
+            OpenCVMatUtils.MatToTexture2D(vis, texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
 
 
-            Utils.setDebugMode(false);
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
-        {
-            if (cts != null)
-                cts.Dispose();
-        }
-
-        /// <summary>
-        /// Raises the back button click event.
-        /// </summary>
-        public void OnBackButtonClick()
-        {
-            SceneManager.LoadScene("OpenCVForUnityExample");
+            OpenCVDebug.SetDebugMode(false);
         }
     }
 }

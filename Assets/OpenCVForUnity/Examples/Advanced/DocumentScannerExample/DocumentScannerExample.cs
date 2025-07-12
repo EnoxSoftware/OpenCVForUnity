@@ -1,9 +1,9 @@
-using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UnityUtils.Helper;
 using System;
 using System.Collections.Generic;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,170 +17,82 @@ namespace OpenCVForUnityExample
     [RequireComponent(typeof(MultiSource2MatHelper))]
     public class DocumentScannerExample : MonoBehaviour
     {
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
-
-        [Space(10)]
+        public RawImage ResultPreview;
 
         /// <summary>
         /// Determines if debug mode.
         /// </summary>
-        public bool isDebugMode = false;
+        public bool IsDebugMode = false;
 
         /// <summary>
         /// The debug mode toggle.
         /// </summary>
-        public Toggle isDebugModeToggle;
+        public Toggle IsDebugModeToggle;
 
-        Mat yuvMat;
-        Mat yMat;
+        // Private Fields
+        private Mat _yuvMat;
+        private Mat _yMat;
 
-        Mat displayMat;
-        Mat inputDisplayAreaMat;
-        Mat outputDisplayAreaMat;
+        private Mat _displayMat;
+        private Mat _inputDisplayAreaMat;
+        private Mat _outputDisplayAreaMat;
 
-        Scalar CONTOUR_COLOR;
-        Scalar DEBUG_CONTOUR_COLOR;
-        Scalar DEBUG_CORNER_NUMBER_COLOR;
+        private Scalar _contourColor;
+        private Scalar _debugContourColor;
+        private Scalar _debugCornerNumberColor;
 
         /// <summary>
         /// The texture.
         /// </summary>
-        Texture2D texture;
+        private Texture2D _texture;
 
         /// <summary>
         /// The multi source to mat helper.
         /// </summary>
-        MultiSource2MatHelper multiSource2MatHelper;
+        private MultiSource2MatHelper _multiSource2MatHelper;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
+        private FpsMonitor _fpsMonitor;
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
-            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
-            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGBA;
-            multiSource2MatHelper.Initialize();
+            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
+            _multiSource2MatHelper.Initialize();
 
-            isDebugModeToggle.isOn = isDebugMode;
+            IsDebugModeToggle.isOn = IsDebugMode;
         }
 
-        /// <summary>
-        /// Raises the source to mat helper initialized event.
-        /// </summary>
-        public void OnSourceToMatHelperInitialized()
+        private void Update()
         {
-            Debug.Log("OnSourceToMatHelperInitialized");
-
-            Mat rgbaMat = multiSource2MatHelper.GetMat();
-
-            if (rgbaMat.width() < rgbaMat.height())
+            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
             {
-                displayMat = new Mat(rgbaMat.rows(), rgbaMat.cols() * 2, rgbaMat.type(), new Scalar(0, 0, 0, 255));
-                inputDisplayAreaMat = new Mat(displayMat, new OpenCVForUnity.CoreModule.Rect(0, 0, rgbaMat.width(), rgbaMat.height()));
-                outputDisplayAreaMat = new Mat(displayMat, new OpenCVForUnity.CoreModule.Rect(rgbaMat.width(), 0, rgbaMat.width(), rgbaMat.height()));
-            }
-            else
-            {
-                displayMat = new Mat(rgbaMat.rows() * 2, rgbaMat.cols(), rgbaMat.type(), new Scalar(0, 0, 0, 255));
-                inputDisplayAreaMat = new Mat(displayMat, new OpenCVForUnity.CoreModule.Rect(0, 0, rgbaMat.width(), rgbaMat.height()));
-                outputDisplayAreaMat = new Mat(displayMat, new OpenCVForUnity.CoreModule.Rect(0, rgbaMat.height(), rgbaMat.width(), rgbaMat.height()));
-            }
-
-            texture = new Texture2D(displayMat.cols(), displayMat.rows(), TextureFormat.RGBA32, false);
-
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
-
-
-            if (fpsMonitor != null)
-            {
-                fpsMonitor.Add("width", displayMat.width().ToString());
-                fpsMonitor.Add("height", displayMat.height().ToString());
-                fpsMonitor.Add("orientation", Screen.orientation.ToString());
-                fpsMonitor.consoleText = "Please place a document paper (receipt or business card) on a plain background.";
-            }
-
-            yuvMat = new Mat();
-            yMat = new Mat();
-            CONTOUR_COLOR = new Scalar(255, 0, 0, 255);
-            DEBUG_CONTOUR_COLOR = new Scalar(255, 255, 0, 255);
-            DEBUG_CORNER_NUMBER_COLOR = new Scalar(255, 255, 255, 255);
-
-#if !OPENCV_DONT_USE_WEBCAMTEXTURE_API
-            // If the WebCam is front facing, flip the Mat horizontally. Required for successful detection.
-            if (multiSource2MatHelper.source2MatHelper is WebCamTexture2MatHelper webCamHelper)
-                webCamHelper.flipHorizontal = webCamHelper.IsFrontFacing();
-#endif
-        }
-
-        /// <summary>
-        /// Raises the source to mat helper disposed event.
-        /// </summary>
-        public void OnSourceToMatHelperDisposed()
-        {
-            Debug.Log("OnSourceToMatHelperDisposed");
-
-            if (texture != null)
-            {
-                Texture2D.Destroy(texture);
-                texture = null;
-            }
-
-            if (yuvMat != null)
-                yuvMat.Dispose();
-
-            if (yMat != null)
-                yMat.Dispose();
-
-            if (displayMat != null)
-                displayMat.Dispose();
-        }
-
-        /// <summary>
-        /// Raises the source to mat helper error occurred event.
-        /// </summary>
-        /// <param name="errorCode">Error code.</param>
-        /// <param name="message">Message.</param>
-        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
-        {
-            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
-
-            if (fpsMonitor != null)
-            {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
-            }
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
-            {
-                Mat rgbaMat = multiSource2MatHelper.GetMat();
+                Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
                 // change the color space to YUV.
-                Imgproc.cvtColor(rgbaMat, yuvMat, Imgproc.COLOR_RGBA2RGB);
-                Imgproc.cvtColor(yuvMat, yuvMat, Imgproc.COLOR_RGB2YUV);
+                Imgproc.cvtColor(rgbaMat, _yuvMat, Imgproc.COLOR_RGBA2RGB);
+                Imgproc.cvtColor(_yuvMat, _yuvMat, Imgproc.COLOR_RGB2YUV);
                 // grap only the Y component.
-                Core.extractChannel(yuvMat, yMat, 0);
+                Core.extractChannel(_yuvMat, _yMat, 0);
 
                 // blur the image to reduce high frequency noises.
-                Imgproc.GaussianBlur(yMat, yMat, new Size(3, 3), 0);
+                Imgproc.GaussianBlur(_yMat, _yMat, new Size(3, 3), 0);
                 // find edges in the image.
-                Imgproc.Canny(yMat, yMat, 50, 200, 3);
+                Imgproc.Canny(_yMat, _yMat, 50, 200, 3);
 
                 // find contours.
                 List<MatOfPoint> contours = new List<MatOfPoint>();
-                Find4PointContours(yMat, contours);
+                Find4PointContours(_yMat, contours);
 
                 // pick the contour of the largest area and rearrange the points in a consistent order.
                 MatOfPoint maxAreaContour = GetMaxAreaContour(contours);
@@ -192,14 +104,14 @@ namespace OpenCVForUnityExample
                     // trasform the prospective of original image.
                     using (Mat transformedMat = PerspectiveTransform(rgbaMat, maxAreaContour))
                     {
-                        outputDisplayAreaMat.setTo(new Scalar(0, 0, 0, 255));
+                        _outputDisplayAreaMat.setTo(new Scalar(0, 0, 0, 255));
 
-                        if (transformedMat.width() <= outputDisplayAreaMat.width() && transformedMat.height() <= outputDisplayAreaMat.height()
-                            && transformedMat.total() >= outputDisplayAreaMat.total() / 16)
+                        if (transformedMat.width() <= _outputDisplayAreaMat.width() && transformedMat.height() <= _outputDisplayAreaMat.height()
+                            && transformedMat.total() >= _outputDisplayAreaMat.total() / 16)
                         {
-                            int x = outputDisplayAreaMat.width() / 2 - transformedMat.width() / 2;
-                            int y = outputDisplayAreaMat.height() / 2 - transformedMat.height() / 2;
-                            using (Mat dstAreaMat = new Mat(outputDisplayAreaMat, new OpenCVForUnity.CoreModule.Rect(x, y, transformedMat.width(), transformedMat.height())))
+                            int x = _outputDisplayAreaMat.width() / 2 - transformedMat.width() / 2;
+                            int y = _outputDisplayAreaMat.height() / 2 - transformedMat.height() / 2;
+                            using (Mat dstAreaMat = new Mat(_outputDisplayAreaMat, new OpenCVForUnity.CoreModule.Rect(x, y, transformedMat.width(), transformedMat.height())))
                             {
                                 transformedMat.copyTo(dstAreaMat);
                             }
@@ -207,37 +119,172 @@ namespace OpenCVForUnityExample
                     }
                 }
 
-                if (isDebugMode)
+                if (IsDebugMode)
                 {
                     // draw edge image.
-                    Imgproc.cvtColor(yMat, rgbaMat, Imgproc.COLOR_GRAY2RGBA);
+                    Imgproc.cvtColor(_yMat, rgbaMat, Imgproc.COLOR_GRAY2RGBA);
 
                     // draw all found conours.
-                    Imgproc.drawContours(rgbaMat, contours, -1, DEBUG_CONTOUR_COLOR, 1);
+                    Imgproc.drawContours(rgbaMat, contours, -1, _debugContourColor, 1);
                 }
 
                 if (found)
                 {
                     // draw max area contour.
-                    Imgproc.drawContours(rgbaMat, new List<MatOfPoint> { maxAreaContour }, -1, CONTOUR_COLOR, 2);
+                    Imgproc.drawContours(rgbaMat, new List<MatOfPoint> { maxAreaContour }, -1, _contourColor, 2);
 
-                    if (isDebugMode)
+                    if (IsDebugMode)
                     {
                         // draw corner numbers.
                         for (int i = 0; i < maxAreaContour.toArray().Length; i++)
                         {
                             var pt = maxAreaContour.get(i, 0);
-                            Imgproc.putText(rgbaMat, i.ToString(), new Point(pt[0], pt[1]), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, DEBUG_CORNER_NUMBER_COLOR, 1, Imgproc.LINE_AA, false);
+                            Imgproc.putText(rgbaMat, i.ToString(), new Point(pt[0], pt[1]), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, _debugCornerNumberColor, 1, Imgproc.LINE_AA, false);
                         }
                     }
                 }
 
-                rgbaMat.copyTo(inputDisplayAreaMat);
+                rgbaMat.copyTo(_inputDisplayAreaMat);
 
-                Utils.matToTexture2D(displayMat, texture);
+                OpenCVMatUtils.MatToTexture2D(_displayMat, _texture);
             }
         }
 
+        private void OnDestroy()
+        {
+            _multiSource2MatHelper?.Dispose();
+        }
+
+        // Public Methods
+        /// <summary>
+        /// Raises the source to mat helper initialized event.
+        /// </summary>
+        public void OnSourceToMatHelperInitialized()
+        {
+            Debug.Log("OnSourceToMatHelperInitialized");
+
+            Mat rgbaMat = _multiSource2MatHelper.GetMat();
+
+            if (rgbaMat.width() < rgbaMat.height())
+            {
+                _displayMat = new Mat(rgbaMat.rows(), rgbaMat.cols() * 2, rgbaMat.type(), new Scalar(0, 0, 0, 255));
+                _inputDisplayAreaMat = new Mat(_displayMat, new OpenCVForUnity.CoreModule.Rect(0, 0, rgbaMat.width(), rgbaMat.height()));
+                _outputDisplayAreaMat = new Mat(_displayMat, new OpenCVForUnity.CoreModule.Rect(rgbaMat.width(), 0, rgbaMat.width(), rgbaMat.height()));
+            }
+            else
+            {
+                _displayMat = new Mat(rgbaMat.rows() * 2, rgbaMat.cols(), rgbaMat.type(), new Scalar(0, 0, 0, 255));
+                _inputDisplayAreaMat = new Mat(_displayMat, new OpenCVForUnity.CoreModule.Rect(0, 0, rgbaMat.width(), rgbaMat.height()));
+                _outputDisplayAreaMat = new Mat(_displayMat, new OpenCVForUnity.CoreModule.Rect(0, rgbaMat.height(), rgbaMat.width(), rgbaMat.height()));
+            }
+
+            _texture = new Texture2D(_displayMat.cols(), _displayMat.rows(), TextureFormat.RGBA32, false);
+
+            ResultPreview.texture = _texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("width", _displayMat.width().ToString());
+                _fpsMonitor.Add("height", _displayMat.height().ToString());
+                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                _fpsMonitor.ConsoleText = "Please place a document paper (receipt or business card) on a plain background.";
+            }
+
+            _yuvMat = new Mat();
+            _yMat = new Mat();
+            _contourColor = new Scalar(255, 0, 0, 255);
+            _debugContourColor = new Scalar(255, 255, 0, 255);
+            _debugCornerNumberColor = new Scalar(255, 255, 255, 255);
+
+#if !OPENCV_DONT_USE_WEBCAMTEXTURE_API
+            // If the WebCam is front facing, flip the Mat horizontally. Required for successful detection.
+            if (_multiSource2MatHelper.Source2MatHelper is WebCamTexture2MatHelper webCamHelper)
+                webCamHelper.FlipHorizontal = webCamHelper.IsFrontFacing();
+#endif
+        }
+
+        /// <summary>
+        /// Raises the source to mat helper disposed event.
+        /// </summary>
+        public void OnSourceToMatHelperDisposed()
+        {
+            Debug.Log("OnSourceToMatHelperDisposed");
+
+            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
+
+            _yuvMat?.Dispose();
+            _yMat?.Dispose();
+            _displayMat?.Dispose();
+        }
+
+        /// <summary>
+        /// Raises the source to mat helper error occurred event.
+        /// </summary>
+        /// <param name="errorCode">Error code.</param>
+        /// <param name="message">Message.</param>
+        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
+        {
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
+            }
+        }
+
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick()
+        {
+            SceneManager.LoadScene("OpenCVForUnityExample");
+        }
+
+        /// <summary>
+        /// Raises the play button click event.
+        /// </summary>
+        public void OnPlayButtonClick()
+        {
+            _multiSource2MatHelper.Play();
+        }
+
+        /// <summary>
+        /// Raises the pause button click event.
+        /// </summary>
+        public void OnPauseButtonClick()
+        {
+            _multiSource2MatHelper.Pause();
+        }
+
+        /// <summary>
+        /// Raises the stop button click event.
+        /// </summary>
+        public void OnStopButtonClick()
+        {
+            _multiSource2MatHelper.Stop();
+        }
+
+        /// <summary>
+        /// Raises the change camera button click event.
+        /// </summary>
+        public void OnChangeCameraButtonClick()
+        {
+            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
+        }
+
+        /// <summary>
+        /// Raises the is debug mode toggle value changed event.
+        /// </summary>
+        public void OnIsDebugModeToggleValueChanged()
+        {
+            if (IsDebugMode != IsDebugModeToggle.isOn)
+            {
+                IsDebugMode = IsDebugModeToggle.isOn;
+            }
+        }
+
+        // Private Methods
         private void Find4PointContours(Mat image, List<MatOfPoint> contours)
         {
             contours.Clear();
@@ -357,65 +404,6 @@ namespace OpenCVForUnityExample
 
             // return the transformed image.
             return outputMat;
-        }
-
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
-        {
-            multiSource2MatHelper.Dispose();
-        }
-
-        /// <summary>
-        /// Raises the back button click event.
-        /// </summary>
-        public void OnBackButtonClick()
-        {
-            SceneManager.LoadScene("OpenCVForUnityExample");
-        }
-
-        /// <summary>
-        /// Raises the play button click event.
-        /// </summary>
-        public void OnPlayButtonClick()
-        {
-            multiSource2MatHelper.Play();
-        }
-
-        /// <summary>
-        /// Raises the pause button click event.
-        /// </summary>
-        public void OnPauseButtonClick()
-        {
-            multiSource2MatHelper.Pause();
-        }
-
-        /// <summary>
-        /// Raises the stop button click event.
-        /// </summary>
-        public void OnStopButtonClick()
-        {
-            multiSource2MatHelper.Stop();
-        }
-
-        /// <summary>
-        /// Raises the change camera button click event.
-        /// </summary>
-        public void OnChangeCameraButtonClick()
-        {
-            multiSource2MatHelper.requestedIsFrontFacing = !multiSource2MatHelper.requestedIsFrontFacing;
-        }
-
-        /// <summary>
-        /// Raises the is debug mode toggle value changed event.
-        /// </summary>
-        public void OnIsDebugModeToggleValueChanged()
-        {
-            if (isDebugMode != isDebugModeToggle.isOn)
-            {
-                isDebugMode = isDebugModeToggle.isOn;
-            }
         }
     }
 }

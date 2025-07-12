@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.UnityIntegration;
 using OpenCVForUnity.VideoModule;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -21,63 +21,64 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class KalmanFilterExample : MonoBehaviour
     {
+        // Private Fields
         /// <summary>
         /// The rgba mat.
         /// </summary>
-        Mat rgbaMat;
+        private Mat _rgbaMat;
 
         /// <summary>
         /// The colors.
         /// </summary>
-        Color32[] colors;
+        private Color32[] _colors;
 
         /// <summary>
         /// The texture.
         /// </summary>
-        Texture2D texture;
+        private Texture2D _texture;
 
         /// <summary>
         /// The kalman filter.
         /// </summary>
-        KalmanFilter KF;
+        private KalmanFilter _kf;
 
         /// <summary>
         /// The cursor pos.
         /// </summary>
-        Point cursorPos;
+        private Point _cursorPos;
 
         /// <summary>
         /// The measurement.
         /// </summary>
-        Mat measurement;
+        private Mat _measurement;
 
         /// <summary>
         /// The predicted trajectory points.
         /// </summary>
-        List<Point> predictedTrajectoryPoints = new List<Point>();
+        private List<Point> _predictedTrajectoryPoints = new List<Point>();
 
         /// <summary>
         /// The cursor trajectory points.
         /// </summary>
-        List<Point> cursorTrajectoryPoints = new List<Point>();
+        private List<Point> _cursorTrajectoryPoints = new List<Point>();
 
         /// <summary>
         /// The estimated trajectory points.
         /// </summary>
-        List<Point> estimatedTrajectoryPoints = new List<Point>();
+        private List<Point> _estimatedTrajectoryPoints = new List<Point>();
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
-            rgbaMat = new Mat(480, 640, CvType.CV_8UC4);
+            _rgbaMat = new Mat(480, 640, CvType.CV_8UC4);
 
-            int frameWidth = rgbaMat.cols();
-            int frameHeight = rgbaMat.rows();
-            colors = new Color32[frameWidth * frameHeight];
-            texture = new Texture2D(frameWidth, frameHeight, TextureFormat.RGBA32, false);
+            int frameWidth = _rgbaMat.cols();
+            int frameHeight = _rgbaMat.rows();
+            _colors = new Color32[frameWidth * frameHeight];
+            _texture = new Texture2D(frameWidth, frameHeight, TextureFormat.RGBA32, false);
 
             // Set the Texture2D as the main texture of the Renderer component attached to the game object
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
+            gameObject.GetComponent<Renderer>().material.mainTexture = _texture;
 
             // Set the Texture2D as the main texture of the Renderer component attached to the game object
             gameObject.transform.localScale = new Vector3((float)frameWidth, (float)frameHeight, 1);
@@ -94,126 +95,143 @@ namespace OpenCVForUnityExample
                 Camera.main.orthographicSize = (float)frameHeight / 2;
             }
 
-
-            KF = new KalmanFilter(4, 2, 0, CvType.CV_32FC1);
+            _kf = new KalmanFilter(4, 2, 0, CvType.CV_32FC1);
 
             // intialization of KF...
             Mat transitionMat = new Mat(4, 4, CvType.CV_32F);
             transitionMat.put(0, 0, new float[] { 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1 });
-            KF.set_transitionMatrix(transitionMat);
+            _kf.set_transitionMatrix(transitionMat);
 
-            measurement = new Mat(2, 1, CvType.CV_32FC1);
-            measurement.setTo(Scalar.all(0));
+            _measurement = new Mat(2, 1, CvType.CV_32FC1);
+            _measurement.setTo(Scalar.all(0));
 
-            cursorPos = new Point();
-            GetCursorPos(cursorPos);
+            _cursorPos = new Point();
+            GetCursorPos(_cursorPos);
 
             // Set initial state estimate.
-            Mat statePreMat = KF.get_statePre();
-            statePreMat.put(0, 0, new float[] { (float)cursorPos.x, (float)cursorPos.y, 0, 0 });
-            Mat statePostMat = KF.get_statePost();
-            statePostMat.put(0, 0, new float[] { (float)cursorPos.x, (float)cursorPos.y, 0, 0 });
+            Mat statePreMat = _kf.get_statePre();
+            statePreMat.put(0, 0, new float[] { (float)_cursorPos.x, (float)_cursorPos.y, 0, 0 });
+            Mat statePostMat = _kf.get_statePost();
+            statePostMat.put(0, 0, new float[] { (float)_cursorPos.x, (float)_cursorPos.y, 0, 0 });
 
             Mat measurementMat = new Mat(2, 4, CvType.CV_32FC1);
             Core.setIdentity(measurementMat);
-            KF.set_measurementMatrix(measurementMat);
+            _kf.set_measurementMatrix(measurementMat);
 
             Mat processNoiseCovMat = new Mat(4, 4, CvType.CV_32FC1);
             Core.setIdentity(processNoiseCovMat, Scalar.all(1e-4));
-            KF.set_processNoiseCov(processNoiseCovMat);
+            _kf.set_processNoiseCov(processNoiseCovMat);
 
             Mat measurementNoiseCovMat = new Mat(2, 2, CvType.CV_32FC1);
             Core.setIdentity(measurementNoiseCovMat, Scalar.all(10));
-            KF.set_measurementNoiseCov(measurementNoiseCovMat);
+            _kf.set_measurementNoiseCov(measurementNoiseCovMat);
 
             Mat errorCovPostMat = new Mat(4, 4, CvType.CV_32FC1);
             Core.setIdentity(errorCovPostMat, Scalar.all(.1));
-            KF.set_errorCovPost(errorCovPostMat);
+            _kf.set_errorCovPost(errorCovPostMat);
         }
 
 #if ENABLE_INPUT_SYSTEM
-        void OnEnable()
+        private void OnEnable()
         {
             EnhancedTouchSupport.Enable();
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             EnhancedTouchSupport.Disable();
         }
 #endif
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
             // fill all black.
-            Imgproc.rectangle(rgbaMat, new Point(0, 0), new Point(rgbaMat.width(), rgbaMat.height()), new Scalar(0, 0, 0, 255), -1);
+            Imgproc.rectangle(_rgbaMat, new Point(0, 0), new Point(_rgbaMat.width(), _rgbaMat.height()), new Scalar(0, 0, 0, 255), -1);
 
             Point predictedPt;
             Point estimatedPt;
 
             // First predict, to update the internal statePre variable.
-            using (Mat prediction = KF.predict())
+            using (Mat prediction = _kf.predict())
             {
                 predictedPt = new Point(prediction.get(0, 0)[0], prediction.get(1, 0)[0]);
             }
 
             // Get cursor point.
-            GetCursorPos(cursorPos);
+            GetCursorPos(_cursorPos);
             // Noise addition (measurements/detections simulation )
-            cursorPos.x += UnityEngine.Random.Range(-2.0f, 2.0f);
-            cursorPos.y += UnityEngine.Random.Range(-2.0f, 2.0f);
-            measurement.put(0, 0, new float[] { (float)cursorPos.x, (float)cursorPos.y });
-            Point measurementPt = new Point(measurement.get(0, 0)[0], measurement.get(1, 0)[0]);
+            _cursorPos.x += UnityEngine.Random.Range(-2.0f, 2.0f);
+            _cursorPos.y += UnityEngine.Random.Range(-2.0f, 2.0f);
+            _measurement.put(0, 0, new float[] { (float)_cursorPos.x, (float)_cursorPos.y });
+            Point measurementPt = new Point(_measurement.get(0, 0)[0], _measurement.get(1, 0)[0]);
 
             // The update phase.
-            using (Mat estimated = KF.correct(measurement))
+            using (Mat estimated = _kf.correct(_measurement))
             {
                 estimatedPt = new Point(estimated.get(0, 0)[0], estimated.get(1, 0)[0]);
             }
 
-            predictedTrajectoryPoints.Add(predictedPt);
-            cursorTrajectoryPoints.Add(measurementPt);
-            estimatedTrajectoryPoints.Add(estimatedPt);
+            _predictedTrajectoryPoints.Add(predictedPt);
+            _cursorTrajectoryPoints.Add(measurementPt);
+            _estimatedTrajectoryPoints.Add(estimatedPt);
 
-            DrawCross(rgbaMat, predictedPt, new Scalar(0, 0, 255, 255), 20);
-            DrawCross(rgbaMat, measurementPt, new Scalar(0, 255, 0, 255), 20);
-            DrawCross(rgbaMat, estimatedPt, new Scalar(255, 0, 0, 255), 20);
+            DrawCross(_rgbaMat, predictedPt, new Scalar(0, 0, 255, 255), 20);
+            DrawCross(_rgbaMat, measurementPt, new Scalar(0, 255, 0, 255), 20);
+            DrawCross(_rgbaMat, estimatedPt, new Scalar(255, 0, 0, 255), 20);
 
-            for (int i = 0; i < predictedTrajectoryPoints.Count - 1; i++)
+            for (int i = 0; i < _predictedTrajectoryPoints.Count - 1; i++)
             {
-                Imgproc.line(rgbaMat, predictedTrajectoryPoints[i], predictedTrajectoryPoints[i + 1], new Scalar(0, 255, 255, i), 1);
+                Imgproc.line(_rgbaMat, _predictedTrajectoryPoints[i], _predictedTrajectoryPoints[i + 1], new Scalar(0, 255, 255, i), 1);
             }
 
-            for (int i = 0; i < cursorTrajectoryPoints.Count; i++)
+            for (int i = 0; i < _cursorTrajectoryPoints.Count; i++)
             {
-                Imgproc.circle(rgbaMat, cursorTrajectoryPoints[i], 1, new Scalar(0, 255, 0, i), -1);
+                Imgproc.circle(_rgbaMat, _cursorTrajectoryPoints[i], 1, new Scalar(0, 255, 0, i), -1);
             }
 
-            for (int i = 0; i < estimatedTrajectoryPoints.Count - 1; i++)
+            for (int i = 0; i < _estimatedTrajectoryPoints.Count - 1; i++)
             {
-                Imgproc.line(rgbaMat, estimatedTrajectoryPoints[i], estimatedTrajectoryPoints[i + 1], new Scalar(255, 0, 0, i), 2);
+                Imgproc.line(_rgbaMat, _estimatedTrajectoryPoints[i], _estimatedTrajectoryPoints[i + 1], new Scalar(255, 0, 0, i), 2);
             }
 
-            if (predictedTrajectoryPoints.Count > 255)
-                predictedTrajectoryPoints.RemoveAt(0);
-            if (cursorTrajectoryPoints.Count > 255)
-                cursorTrajectoryPoints.RemoveAt(0);
-            if (estimatedTrajectoryPoints.Count > 255)
-                estimatedTrajectoryPoints.RemoveAt(0);
+            if (_predictedTrajectoryPoints.Count > 255)
+                _predictedTrajectoryPoints.RemoveAt(0);
+            if (_cursorTrajectoryPoints.Count > 255)
+                _cursorTrajectoryPoints.RemoveAt(0);
+            if (_estimatedTrajectoryPoints.Count > 255)
+                _estimatedTrajectoryPoints.RemoveAt(0);
 
-            Imgproc.putText(rgbaMat, "Kalman predicton", new Point(rgbaMat.cols() - 170, 20), Imgproc.FONT_HERSHEY_SIMPLEX, 0.4, new Scalar(255, 255, 255, 255), 0, Imgproc.LINE_AA, false);
-            Imgproc.putText(rgbaMat, "measurement (cursor)", new Point(rgbaMat.cols() - 170, 40), Imgproc.FONT_HERSHEY_SIMPLEX, 0.4, new Scalar(255, 255, 255, 255), 0, Imgproc.LINE_AA, false);
-            Imgproc.putText(rgbaMat, "Kalman correction", new Point(rgbaMat.cols() - 170, 60), Imgproc.FONT_HERSHEY_SIMPLEX, 0.4, new Scalar(255, 255, 255, 255), 0, Imgproc.LINE_AA, false);
-            DrawCross(rgbaMat, new Point(rgbaMat.cols() - 15, 15), new Scalar(0, 0, 255, 255), 20);
-            DrawCross(rgbaMat, new Point(rgbaMat.cols() - 15, 35), new Scalar(0, 255, 0, 255), 20);
-            DrawCross(rgbaMat, new Point(rgbaMat.cols() - 15, 55), new Scalar(255, 0, 0, 255), 20);
+            Imgproc.putText(_rgbaMat, "Kalman predicton", new Point(_rgbaMat.cols() - 170, 20), Imgproc.FONT_HERSHEY_SIMPLEX, 0.4, new Scalar(255, 255, 255, 255), 0, Imgproc.LINE_AA, false);
+            Imgproc.putText(_rgbaMat, "measurement (cursor)", new Point(_rgbaMat.cols() - 170, 40), Imgproc.FONT_HERSHEY_SIMPLEX, 0.4, new Scalar(255, 255, 255, 255), 0, Imgproc.LINE_AA, false);
+            Imgproc.putText(_rgbaMat, "Kalman correction", new Point(_rgbaMat.cols() - 170, 60), Imgproc.FONT_HERSHEY_SIMPLEX, 0.4, new Scalar(255, 255, 255, 255), 0, Imgproc.LINE_AA, false);
+            DrawCross(_rgbaMat, new Point(_rgbaMat.cols() - 15, 15), new Scalar(0, 0, 255, 255), 20);
+            DrawCross(_rgbaMat, new Point(_rgbaMat.cols() - 15, 35), new Scalar(0, 255, 0, 255), 20);
+            DrawCross(_rgbaMat, new Point(_rgbaMat.cols() - 15, 55), new Scalar(255, 0, 0, 255), 20);
 
-            Imgproc.putText(rgbaMat, "Please move the cursor on the screen.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+            Imgproc.putText(_rgbaMat, "Please move the cursor on the screen.", new Point(5, _rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
-            Utils.matToTexture2D(rgbaMat, texture, colors);
+            OpenCVMatUtils.MatToTexture2D(_rgbaMat, _texture, _colors);
         }
 
+        private void OnDestroy()
+        {
+            _rgbaMat?.Dispose();
+
+            _measurement?.Dispose();
+
+            _kf?.Dispose();
+        }
+
+        // Public Methods
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick()
+        {
+            SceneManager.LoadScene("OpenCVForUnityExample");
+        }
+
+        // Private Methods
         /// <summary>
         /// Gets cursor pos.
         /// </summary>
@@ -226,7 +244,7 @@ namespace OpenCVForUnityExample
             if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count >= 1)
             {
                 var touch = UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0];
-                ConvertScreenPointToTexturePoint(new Point(touch.screenPosition.x, touch.screenPosition.y), pos, gameObject, rgbaMat.cols(), rgbaMat.rows());
+                ConvertScreenPointToTexturePoint(new Point(touch.screenPosition.x, touch.screenPosition.y), pos, gameObject, _rgbaMat.cols(), _rgbaMat.rows());
             }
 #else
             // Mouse input for non-mobile platforms
@@ -236,7 +254,7 @@ namespace OpenCVForUnityExample
                 if (EventSystem.current.IsPointerOverGameObject())
                     return;
 
-                ConvertScreenPointToTexturePoint(new Point(mouse.position.ReadValue().x, mouse.position.ReadValue().y), pos, gameObject, rgbaMat.cols(), rgbaMat.rows());
+                ConvertScreenPointToTexturePoint(new Point(mouse.position.ReadValue().x, mouse.position.ReadValue().y), pos, gameObject, _rgbaMat.cols(), _rgbaMat.rows());
             }
 #endif
 #else
@@ -246,11 +264,11 @@ namespace OpenCVForUnityExample
             if (touchCount >= 1)
             {
                 Touch t = Input.GetTouch(0);
-                ConvertScreenPointToTexturePoint (new Point (t.position.x, t.position.y), pos, gameObject, rgbaMat.cols(), rgbaMat.rows());
+                ConvertScreenPointToTexturePoint (new Point (t.position.x, t.position.y), pos, gameObject, _rgbaMat.cols(), _rgbaMat.rows());
             }
 #else
             //Mouse
-            ConvertScreenPointToTexturePoint(new Point(Input.mousePosition.x, Input.mousePosition.y), pos, gameObject, rgbaMat.cols(), rgbaMat.rows());
+            ConvertScreenPointToTexturePoint(new Point(Input.mousePosition.x, Input.mousePosition.y), pos, gameObject, _rgbaMat.cols(), _rgbaMat.rows());
 #endif
 #endif
         }
@@ -322,28 +340,6 @@ namespace OpenCVForUnityExample
             float d = Mathf.Sqrt(radius);
             Imgproc.line(img, new Point(center.x - d, center.y - d), new Point(center.x + d, center.y + d), color, 2);
             Imgproc.line(img, new Point(center.x + d, center.y - d), new Point(center.x - d, center.y + d), color, 2);
-        }
-
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
-        {
-            if (rgbaMat != null)
-                rgbaMat.Dispose();
-
-            if (measurement != null)
-                measurement.Dispose();
-
-            KF.Dispose();
-        }
-
-        /// <summary>
-        /// Raises the back button click event.
-        /// </summary>
-        public void OnBackButtonClick()
-        {
-            SceneManager.LoadScene("OpenCVForUnityExample");
         }
     }
 }

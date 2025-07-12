@@ -1,8 +1,8 @@
+using System.Collections;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.MlModule;
-using OpenCVForUnity.UnityUtils;
-using System.Collections;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,14 +16,15 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class SVMExample : MonoBehaviour
     {
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
             // Data for visual representation
             int width = 512, height = 512;
@@ -80,20 +81,19 @@ namespace OpenCVForUnityExample
                 Imgproc.circle(image, new Point((int)sv.get(i, 0)[0], (int)sv.get(i, 1)[0]), 6, new Scalar(128, 128, 128, 255), thickness, lineType, 0);
             }
 
-
             Texture2D texture = new Texture2D(image.width(), image.height(), TextureFormat.RGBA32, false);
-            Utils.matToTexture2D(image, texture);
+            OpenCVMatUtils.MatToTexture2D(image, texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
 
         }
 
+        // Public Methods
         /// <summary>
         /// Raises the back button click event.
         /// </summary>

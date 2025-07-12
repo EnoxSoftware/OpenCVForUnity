@@ -1,7 +1,7 @@
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.MlModule;
-using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,18 +15,18 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class KNNExample : MonoBehaviour
     {
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
-            Utils.setDebugMode(true);
-
+            OpenCVDebug.SetDebugMode(true);
 
             // Feature set containing (x,y) values of 25 known/training data
             Mat trainData = new Mat(25, 2, CvType.CV_32FC1);
@@ -46,7 +46,6 @@ namespace OpenCVForUnityExample
             }
             //Debug.Log(responses.dump());
 
-
             KNearest knn = KNearest.create();
             knn.train(trainData, Ml.ROW_SAMPLE, responses);
 
@@ -56,24 +55,22 @@ namespace OpenCVForUnityExample
             Mat dist = new Mat();
             knn.findNearest(newcomer, 3, results, neighbours, dist);
 
-
             Mat plotMat = new Mat(500, 500, CvType.CV_8UC4, new Scalar(255, 255, 255, 255));
 
             // Take Red neighbours and plot them
             // Take Blue neighbours and plot them
             for (int i = 0; i < trainData.rows(); i++)
             {
-                bool red = ((int)responses.get(i, 0)[0] == 0);
+                bool isRed = ((int)responses.get(i, 0)[0] == 0);
 
                 double x = trainData.get(i, 0)[0];
                 double y = trainData.get(i, 1)[0];
 
-                Imgproc.circle(plotMat, new Point(x * 5f, y * 5f), 5, red ? new Scalar(255, 0, 0, 255) : new Scalar(0, 0, 255, 255), -1);
+                Imgproc.circle(plotMat, new Point(x * 5f, y * 5f), 5, isRed ? new Scalar(255, 0, 0, 255) : new Scalar(0, 0, 255, 255), -1);
             }
             // Plot newcomer and the neighbours distance circle
             Imgproc.circle(plotMat, new Point(50f * 5f, 50f * 5f), 5, new Scalar(0, 255, 0, 255), -1);
             Imgproc.circle(plotMat, new Point(50f * 5f, 50f * 5f), (int)(Mathf.Sqrt((float)dist.get(0, 2)[0]) * 5f), new Scalar(0, 255, 0, 255), 1);
-
 
             Debug.Log("0:Red / 1:Blue");
             Debug.Log("result: " + results.dump());
@@ -85,23 +82,21 @@ namespace OpenCVForUnityExample
             Imgproc.putText(plotMat, "neighbours: " + neighbours.dump(), new Point(5, 100), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar(0, 0, 0, 255));
             Imgproc.putText(plotMat, "distance: " + dist.dump(), new Point(5, 135), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar(0, 0, 0, 255));
 
-
             Texture2D texture = new Texture2D(plotMat.cols(), plotMat.rows(), TextureFormat.RGBA32, false);
-            Utils.matToTexture2D(plotMat, texture);
+            OpenCVMatUtils.MatToTexture2D(plotMat, texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
 
-
-            Utils.setDebugMode(false);
+            OpenCVDebug.SetDebugMode(false);
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
 
         }
 
+        // Public Methods
         /// <summary>
         /// Raises the back button click event.
         /// </summary>

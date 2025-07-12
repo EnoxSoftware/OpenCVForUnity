@@ -12,11 +12,13 @@ namespace OpenCVForUnityExample
     [RequireComponent(typeof(EventSystem))]
     public class InputModuleSwitcher : MonoBehaviour
     {
+        // Unity Lifecycle Methods
         private void Awake()
         {
             SetupInputSystem();
         }
 
+        // Private Methods
         private void SetupInputSystem()
         {
             var eventSystem = GetComponent<EventSystem>();

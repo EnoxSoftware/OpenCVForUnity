@@ -9,9 +9,11 @@ namespace OpenCVForUnityExample
 {
     public class TouchController : MonoBehaviour
     {
+        // Public Fields
         public GameObject Cube;
         public float Speed = 0.1f;
 
+        // Unity Lifecycle Methods
 #if ENABLE_INPUT_SYSTEM
         private void OnEnable()
         {
@@ -24,7 +26,7 @@ namespace OpenCVForUnityExample
         }
 #endif
 
-        void Update()
+        private void Update()
         {
 #if ENABLE_INPUT_SYSTEM
             // New Input System

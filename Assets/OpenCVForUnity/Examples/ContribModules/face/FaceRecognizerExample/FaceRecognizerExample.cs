@@ -1,10 +1,10 @@
+using System.Collections.Generic;
+using System.Threading;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.FaceModule;
 using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using System.Collections.Generic;
-using System.Threading;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,90 +19,113 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class FaceRecognizerExample : MonoBehaviour
     {
-        [Header("Output")]
-        /// <summary>
-        /// The RawImage for previewing the result.
-        /// </summary>
-        public RawImage resultPreview;
-
-        [Space(10)]
-
+        // Constants
         /// <summary>
         /// IMAGE_0_FILENAME
         /// </summary>
-        protected static readonly string IMAGE_0_FILENAME = "OpenCVForUnity/face/facerec_0.bmp";
-
-        /// <summary>
-        /// The image 0 filepath.
-        /// </summary>
-        string image_0_filepath;
+        protected static readonly string IMAGE_0_FILENAME = "OpenCVForUnityExamples/face/facerec_0.bmp";
 
         /// <summary>
         /// IMAGE_1_FILENAME
         /// </summary>
-        protected static readonly string IMAGE_1_FILENAME = "OpenCVForUnity/face/facerec_1.bmp";
-
-        /// <summary>
-        /// The image 1 filepath.
-        /// </summary>
-        string image_1_filepath;
+        protected static readonly string IMAGE_1_FILENAME = "OpenCVForUnityExamples/face/facerec_1.bmp";
 
         /// <summary>
         /// SAMPLE_IMAGE_FILENAME
         /// </summary>
-        protected static readonly string SAMPLE_IMAGE_FILENAME = "OpenCVForUnity/face/facerec_sample.bmp";
+        protected static readonly string SAMPLE_IMAGE_FILENAME = "OpenCVForUnityExamples/face/facerec_sample.bmp";
+
+        // Public Fields
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage ResultPreview;
+
+        [Space(10)]
+
+        // Private Fields
+        /// <summary>
+        /// The image 0 filepath.
+        /// </summary>
+        private string _image0Filepath;
+
+        /// <summary>
+        /// The image 1 filepath.
+        /// </summary>
+        private string _image1Filepath;
 
         /// <summary>
         /// The sample image filepath.
         /// </summary>
-        string sample_image_filepath;
+        private string _sampleImageFilepath;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
+        private FpsMonitor _fpsMonitor;
 
         /// <summary>
         /// The CancellationTokenSource.
         /// </summary>
-        CancellationTokenSource cts = new CancellationTokenSource();
+        private CancellationTokenSource _cts = new CancellationTokenSource();
 
-        // Use this for initialization
-        async void Start()
+        // Unity Lifecycle Methods
+        private async void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "Preparing file access...";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "Preparing file access...";
 
-            image_0_filepath = await Utils.getFilePathAsyncTask(IMAGE_0_FILENAME, cancellationToken: cts.Token);
-            image_1_filepath = await Utils.getFilePathAsyncTask(IMAGE_1_FILENAME, cancellationToken: cts.Token);
-            sample_image_filepath = await Utils.getFilePathAsyncTask(SAMPLE_IMAGE_FILENAME, cancellationToken: cts.Token);
+            _image0Filepath = await OpenCVEnv.GetFilePathTaskAsync(IMAGE_0_FILENAME, cancellationToken: _cts.Token);
+            _image1Filepath = await OpenCVEnv.GetFilePathTaskAsync(IMAGE_1_FILENAME, cancellationToken: _cts.Token);
+            _sampleImageFilepath = await OpenCVEnv.GetFilePathTaskAsync(SAMPLE_IMAGE_FILENAME, cancellationToken: _cts.Token);
 
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "";
 
             Run();
         }
 
+        private void Update()
+        {
+
+        }
+
+        private void OnDestroy()
+        {
+            _cts?.Dispose();
+        }
+
+        // Public Methods
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick()
+        {
+            SceneManager.LoadScene("OpenCVForUnityExample");
+        }
+
+        // Private Methods
         private void Run()
         {
-            if (string.IsNullOrEmpty(image_0_filepath) || string.IsNullOrEmpty(image_1_filepath) || string.IsNullOrEmpty(sample_image_filepath))
+            if (string.IsNullOrEmpty(_image0Filepath) || string.IsNullOrEmpty(_image1Filepath) || string.IsNullOrEmpty(_sampleImageFilepath))
             {
-                Debug.LogError(IMAGE_0_FILENAME + " or " + IMAGE_1_FILENAME + " or " + SAMPLE_IMAGE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
+                Debug.LogError(IMAGE_0_FILENAME + " or " + IMAGE_1_FILENAME + " or " + SAMPLE_IMAGE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
             }
 
             List<Mat> images = new List<Mat>();
             List<int> labelsList = new List<int>();
             MatOfInt labels = new MatOfInt();
-            images.Add(Imgcodecs.imread(image_0_filepath, Imgcodecs.IMREAD_GRAYSCALE));
-            images.Add(Imgcodecs.imread(image_1_filepath, Imgcodecs.IMREAD_GRAYSCALE));
+            images.Add(Imgcodecs.imread(_image0Filepath, Imgcodecs.IMREAD_GRAYSCALE));
+            images.Add(Imgcodecs.imread(_image1Filepath, Imgcodecs.IMREAD_GRAYSCALE));
             labelsList.Add(0);
             labelsList.Add(1);
             labels.fromList(labelsList);
 
-            Mat testSampleMat = Imgcodecs.imread(sample_image_filepath, Imgcodecs.IMREAD_GRAYSCALE);
+            Mat testSampleMat = Imgcodecs.imread(_sampleImageFilepath, Imgcodecs.IMREAD_GRAYSCALE);
             int testSampleLabel = 0;
 
 
@@ -146,33 +169,10 @@ namespace OpenCVForUnityExample
 
             Texture2D texture = new Texture2D(resultMat.cols(), resultMat.rows(), TextureFormat.RGBA32, false);
 
-            Utils.matToTexture2D(resultMat, texture);
+            OpenCVMatUtils.MatToTexture2D(resultMat, texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
-        {
-            if (cts != null)
-                cts.Dispose();
-        }
-
-        /// <summary>
-        /// Raises the back button click event.
-        /// </summary>
-        public void OnBackButtonClick()
-        {
-            SceneManager.LoadScene("OpenCVForUnityExample");
+            ResultPreview.texture = texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
         }
     }
 }

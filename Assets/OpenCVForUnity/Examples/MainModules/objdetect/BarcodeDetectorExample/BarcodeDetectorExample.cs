@@ -1,11 +1,11 @@
 #if !UNITY_WSA_10_0
 
+using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.ObjdetectModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UnityUtils.Helper;
-using System.Collections.Generic;
+using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -21,51 +21,83 @@ namespace OpenCVForUnityExample
     [RequireComponent(typeof(MultiSource2MatHelper))]
     public class BarcodeDetectorExample : MonoBehaviour
     {
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
         [Space(10)]
 
+        // Private Fields
         /// <summary>
         /// The texture.
         /// </summary>
-        Texture2D texture;
+        private Texture2D _texture;
 
         /// <summary>
         /// The BarcodeDetector detector.
         /// </summary>
-        BarcodeDetector detector;
+        private BarcodeDetector _detector;
 
         /// <summary>
         /// The webcam texture to mat helper.
         /// </summary>
-        MultiSource2MatHelper multiSource2MatHelper;
+        private MultiSource2MatHelper _multiSource2MatHelper;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
+        private FpsMonitor _fpsMonitor;
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
-            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
-            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGBA;
+            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
 
-            detector = new BarcodeDetector();
+            _detector = new BarcodeDetector();
 
             // When using super resolution.
-            // Please, download 'sr.*' from https://github.com/WeChatCV/opencv_3rdparty/tree/wechat_qrcode and put them into the StreamingAssets/OpenCVForUnity/barcode directory.
-            //detector = new BarcodeDetector(Utils.getFilePath("OpenCVForUnity/barcode/sr.prototxt"), Utils.getFilePath("OpenCVForUnity/barcode/sr.caffemodel"));
+            // Please, download 'sr.*' from https://github.com/WeChatCV/opencv_3rdparty/tree/wechat_qrcode and put them into the StreamingAssets/OpenCVForUnityExamples/barcode directory.
+            //_detector = new BarcodeDetector(Utils.getFilePath("OpenCVForUnityExamples/barcode/sr.prototxt"), OpenCVEnv.GetFilePath("OpenCVForUnityExamples/barcode/sr.caffemodel"));
 
-            multiSource2MatHelper.Initialize();
+            _multiSource2MatHelper.Initialize();
         }
 
+        private void Update()
+        {
+            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
+            {
+                Mat rgbaMat = _multiSource2MatHelper.GetMat();
+
+                List<string> decoded_info = new List<string>();
+                List<string> decoded_type = new List<string>();
+                Mat corners = new Mat();
+
+                bool result_detection = _detector.detectAndDecodeWithType(rgbaMat, decoded_info, decoded_type, corners);
+
+                // draw Barcode contours.
+                if (result_detection)
+                    DrawBarcodeResults(rgbaMat, corners, decoded_info, decoded_type);
+
+                corners.Dispose();
+
+                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            _multiSource2MatHelper?.Dispose();
+
+            _detector?.Dispose();
+        }
+
+        // Public Methods
         /// <summary>
         /// Raises the source to mat helper initialized event.
         /// </summary>
@@ -73,26 +105,25 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperInitialized");
 
-            Mat rgbaMat = multiSource2MatHelper.GetMat();
+            Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-            texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
-            Utils.matToTexture2D(rgbaMat, texture);
+            _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
+            OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = _texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
 
-
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.Add("width", rgbaMat.width().ToString());
-                fpsMonitor.Add("height", rgbaMat.height().ToString());
-                fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                _fpsMonitor.Add("width", rgbaMat.width().ToString());
+                _fpsMonitor.Add("height", rgbaMat.height().ToString());
+                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
             }
 
 #if !OPENCV_DONT_USE_WEBCAMTEXTURE_API
             // If the WebCam is front facing, flip the Mat horizontally. Required for successful detection.
-            if (multiSource2MatHelper.source2MatHelper is WebCamTexture2MatHelper webCamHelper)
-                webCamHelper.flipHorizontal = webCamHelper.IsFrontFacing();
+            if (_multiSource2MatHelper.Source2MatHelper is WebCamTexture2MatHelper webCamHelper)
+                webCamHelper.FlipHorizontal = webCamHelper.IsFrontFacing();
 #endif
         }
 
@@ -103,11 +134,7 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperDisposed");
 
-            if (texture != null)
-            {
-                Texture2D.Destroy(texture);
-                texture = null;
-            }
+            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
         }
 
         /// <summary>
@@ -119,35 +146,53 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
 
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
+                _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
             }
         }
 
-        // Update is called once per frame
-        void Update()
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick()
         {
-            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
-            {
-                Mat rgbaMat = multiSource2MatHelper.GetMat();
-
-                List<string> decoded_info = new List<string>();
-                List<string> decoded_type = new List<string>();
-                Mat corners = new Mat();
-
-                bool result_detection = detector.detectAndDecodeWithType(rgbaMat, decoded_info, decoded_type, corners);
-
-                // draw Barcode contours.
-                if (result_detection)
-                    DrawBarcodeResults(rgbaMat, corners, decoded_info, decoded_type);
-
-                corners.Dispose();
-
-                Utils.matToTexture2D(rgbaMat, texture);
-            }
+            SceneManager.LoadScene("OpenCVForUnityExample");
         }
 
+        /// <summary>
+        /// Raises the play button click event.
+        /// </summary>
+        public void OnPlayButtonClick()
+        {
+            _multiSource2MatHelper.Play();
+        }
+
+        /// <summary>
+        /// Raises the pause button click event.
+        /// </summary>
+        public void OnPauseButtonClick()
+        {
+            _multiSource2MatHelper.Pause();
+        }
+
+        /// <summary>
+        /// Raises the stop button click event.
+        /// </summary>
+        public void OnStopButtonClick()
+        {
+            _multiSource2MatHelper.Stop();
+        }
+
+        /// <summary>
+        /// Raises the change camera button click event.
+        /// </summary>
+        public void OnChangeCameraButtonClick()
+        {
+            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
+        }
+
+        // Private Methods
         private void DrawBarcodeResults(Mat frame, Mat corners, List<string> decoded_info, List<string> decoded_type)
         {
             if (!corners.empty())
@@ -220,57 +265,6 @@ namespace OpenCVForUnityExample
                     Imgproc.circle(color_image, new Point(p[i], p[i + 1]), Mathf.RoundToInt((float)contour_radius), color, -1);
                 }
             }
-        }
-
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
-        {
-            multiSource2MatHelper.Dispose();
-
-            if (detector != null)
-                detector.Dispose();
-        }
-
-        /// <summary>
-        /// Raises the back button click event.
-        /// </summary>
-        public void OnBackButtonClick()
-        {
-            SceneManager.LoadScene("OpenCVForUnityExample");
-        }
-
-        /// <summary>
-        /// Raises the play button click event.
-        /// </summary>
-        public void OnPlayButtonClick()
-        {
-            multiSource2MatHelper.Play();
-        }
-
-        /// <summary>
-        /// Raises the pause button click event.
-        /// </summary>
-        public void OnPauseButtonClick()
-        {
-            multiSource2MatHelper.Pause();
-        }
-
-        /// <summary>
-        /// Raises the stop button click event.
-        /// </summary>
-        public void OnStopButtonClick()
-        {
-            multiSource2MatHelper.Stop();
-        }
-
-        /// <summary>
-        /// Raises the change camera button click event.
-        /// </summary>
-        public void OnChangeCameraButtonClick()
-        {
-            multiSource2MatHelper.requestedIsFrontFacing = !multiSource2MatHelper.requestedIsFrontFacing;
         }
     }
 }

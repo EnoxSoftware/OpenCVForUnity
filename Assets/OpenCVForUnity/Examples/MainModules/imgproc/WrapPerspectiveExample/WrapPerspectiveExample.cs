@@ -1,7 +1,7 @@
+using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using System.Collections.Generic;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,30 +14,31 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class WrapPerspectiveExample : MonoBehaviour
     {
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
             Texture2D inputTexture = Resources.Load("face") as Texture2D;
 
             Mat inputMat = new Mat(inputTexture.height, inputTexture.width, CvType.CV_8UC4);
             Mat outputMat = inputMat.clone();
 
-            Utils.texture2DToMat(inputTexture, inputMat);
+            OpenCVMatUtils.Texture2DToMat(inputTexture, inputMat);
             Debug.Log("inputMat.ToString() " + inputMat.ToString());
 
 
-            Mat src_mat = new Mat(4, 1, CvType.CV_32FC2);
-            Mat dst_mat = new Mat(4, 1, CvType.CV_32FC2);
-            src_mat.put(0, 0, 0.0, 0.0, inputMat.cols(), 0.0, 0.0, inputMat.rows(), inputMat.cols(), inputMat.rows());
-            dst_mat.put(0, 0, 0.0, 0.0, inputMat.cols(), 200.0, 0.0, inputMat.rows(), inputMat.cols(), inputMat.rows() - 200.0);
+            Mat srcMat = new Mat(4, 1, CvType.CV_32FC2);
+            Mat dstMat = new Mat(4, 1, CvType.CV_32FC2);
+            srcMat.put(0, 0, 0.0, 0.0, inputMat.cols(), 0.0, 0.0, inputMat.rows(), inputMat.cols(), inputMat.rows());
+            dstMat.put(0, 0, 0.0, 0.0, inputMat.cols(), 200.0, 0.0, inputMat.rows(), inputMat.cols(), inputMat.rows() - 200.0);
 
-            Mat perspectiveTransform = Imgproc.getPerspectiveTransform(src_mat, dst_mat);
+            Mat perspectiveTransform = Imgproc.getPerspectiveTransform(srcMat, dstMat);
 
             Debug.Log("perspectiveTransform " + perspectiveTransform.dump());
 
@@ -46,18 +47,18 @@ namespace OpenCVForUnityExample
 
             Texture2D texture = new Texture2D(outputMat.cols(), outputMat.rows(), TextureFormat.RGBA32, false);
 
-            Utils.matToTexture2D(outputMat, texture);
+            OpenCVMatUtils.MatToTexture2D(outputMat, texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
 
         }
 
+        // Public Methods
         /// <summary>
         /// Raises the back button click event.
         /// </summary>

@@ -1,7 +1,7 @@
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UnityUtils.Helper;
+using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using OpenCVForUnity.VideoModule;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -23,88 +23,225 @@ namespace OpenCVForUnityExample
     [RequireComponent(typeof(MultiSource2MatHelper))]
     public class TransformECCExample : MonoBehaviour
     {
+        // Enums
+        /// <summary>
+        /// Warp mode preset enum
+        /// </summary>
+        public enum WarpModePreset : int
+        {
+            TRANSLATION = 0,
+            EUCLIDEAN,
+            AFFINE,
+            HOMOGRAPHY
+        }
+
+        // Constants
+        // downscaling ratio.
+        private const float SCALING = 3f;
+
+        // Specify the number of iterations.
+        private const int NUMBER_OF_ITERATIONS = 50; // 5000;
+
+        // Specify the threshold of the increment
+        // in the correlation coefficient between two iterations
+        private const double TERMINATION_EPS = 1e-7; // 1e-10;
+
+        // Public Fields
         /// <summary>
         /// The warp mode dropdown.
         /// </summary>
-        public Dropdown warpModeDropdown;
+        public Dropdown WarpModeDropdown;
 
         /// <summary>
         /// parameter, specifying the type of motion.
         /// </summary>
-        public WarpModePreset warpMode = (WarpModePreset)Video.MOTION_EUCLIDEAN;
+        public WarpModePreset WarpMode = (WarpModePreset)Video.MOTION_EUCLIDEAN;
 
-        float x;
-        float y;
+        // Private Fields
+        private float _x;
+        private float _y;
 
-        Mat scalingMat;
-        Mat grayMat;
-        Mat lastGrayMat;
+        private Mat _scalingMat;
+        private Mat _grayMat;
+        private Mat _lastGrayMat;
 
-        Mat last_Warp_matrix;
-
-        // downscaling ratio.
-        const float scaling = 3f;
-
-        // Specify the number of iterations.
-        const int number_of_iterations = 50; // 5000;
-
-        // Specify the threshold of the increment
-        // in the correlation coefficient between two iterations
-        const double termination_eps = 1e-7; // 1e-10;
+        private Mat _lastWarpMatrix;
 
         // Define termination criteria
-        TermCriteria criteria = new TermCriteria(TermCriteria.EPS | TermCriteria.COUNT, number_of_iterations, termination_eps);
+        private TermCriteria _criteria = new TermCriteria(TermCriteria.EPS | TermCriteria.COUNT, NUMBER_OF_ITERATIONS, TERMINATION_EPS);
 
         /// <summary>
         /// The stored touch point.
         /// </summary>
-        Point storedTouchPoint;
+        private Point _storedTouchPoint;
 
         /// <summary>
         /// The texture.
         /// </summary>
-        Texture2D texture;
+        private Texture2D _texture;
 
         /// <summary>
         /// The multi source to mat helper.
         /// </summary>
-        MultiSource2MatHelper multiSource2MatHelper;
+        private MultiSource2MatHelper _multiSource2MatHelper;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
+        private FpsMonitor _fpsMonitor;
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
-            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
-            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGBA;
-            multiSource2MatHelper.Initialize();
+            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
+            _multiSource2MatHelper.Initialize();
 
             // Update GUI state
-            warpModeDropdown.value = (int)warpMode;
+            WarpModeDropdown.value = (int)WarpMode;
 
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.consoleText = "Touch the screen to lock the point.";
+                _fpsMonitor.ConsoleText = "Touch the screen to lock the point.";
             }
         }
 
 #if ENABLE_INPUT_SYSTEM
-        void OnEnable()
+        private void OnEnable()
         {
             EnhancedTouchSupport.Enable();
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             EnhancedTouchSupport.Disable();
         }
 #endif
 
+        private void Update()
+        {
+#if ENABLE_INPUT_SYSTEM
+#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
+            // Touch input for mobile platforms
+            if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
+            {
+                foreach (var touch in UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches)
+                {
+                    if (touch.phase == UnityEngine.InputSystem.TouchPhase.Ended)
+                    {
+                        if (!EventSystem.current.IsPointerOverGameObject(touch.finger.index))
+                        {
+                            _storedTouchPoint = new Point(touch.screenPosition.x, touch.screenPosition.y);
+                        }
+                    }
+                }
+            }
+#else
+            // Mouse input for non-mobile platforms
+            var mouse = Mouse.current;
+            if (mouse != null && mouse.leftButton.wasReleasedThisFrame)
+            {
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return;
+
+                _storedTouchPoint = new Point(mouse.position.ReadValue().x, mouse.position.ReadValue().y);
+            }
+#endif
+#else
+#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
+            //Touch
+            int touchCount = Input.touchCount;
+            if (touchCount == 1)
+            {
+                Touch t = Input.GetTouch(0);
+                if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject (t.fingerId)) {
+                    _storedTouchPoint = new Point (t.position.x, t.position.y);
+                }
+            }
+#else
+            //Mouse
+            if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
+            {
+                _storedTouchPoint = new Point(Input.mousePosition.x, Input.mousePosition.y);
+            }
+#endif
+#endif
+
+            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
+            {
+                if (_storedTouchPoint != null)
+                {
+                    ConvertScreenPointToTexturePoint(_storedTouchPoint, _storedTouchPoint, gameObject, _texture.width, _texture.height);
+                    _x = (float)_storedTouchPoint.x / SCALING;
+                    _y = (float)_storedTouchPoint.y / SCALING;
+                    _storedTouchPoint = null;
+                }
+
+                Mat rgbaMat = _multiSource2MatHelper.GetMat();
+
+                Imgproc.resize(rgbaMat, _scalingMat, new Size(rgbaMat.width() / SCALING, rgbaMat.height() / SCALING));
+                Imgproc.cvtColor(_scalingMat, _grayMat, Imgproc.COLOR_RGBA2GRAY);
+
+                if (_lastGrayMat == null)
+                    _lastGrayMat = _grayMat.clone();
+
+                if (_lastWarpMatrix == null)
+                {
+                    // Define 2x3 or 3x3 matrices and initialize the matrix to identity
+                    if (WarpMode == (WarpModePreset)Video.MOTION_HOMOGRAPHY)
+                    {
+                        _lastWarpMatrix = Mat.eye(3, 3, CvType.CV_32F);
+                    }
+                    else
+                    {
+                        _lastWarpMatrix = Mat.eye(2, 3, CvType.CV_32F);
+                    }
+                }
+
+                try
+                {
+                    // Run the ECC algorithm. The results are stored in warp_matrix.
+                    double ret = Video.findTransformECC(_lastGrayMat, _grayMat, _lastWarpMatrix, (int)WarpMode, _criteria);
+                }
+                catch (CvException e)
+                {
+                    Debug.LogWarning("Warning: An error occurred while analyzing frame motion; the transformation did not converge," +
+                        " so this frame will be skipped. Error details: " + e);
+
+                    _lastWarpMatrix?.Dispose(); _lastWarpMatrix = null;
+                    _grayMat.copyTo(_lastGrayMat);
+                    return;
+                }
+
+                _grayMat.copyTo(_lastGrayMat);
+
+                // Apply warp_matrix to x, y.
+                Mat xyz = new Mat(3, 1, CvType.CV_32F);
+                xyz.put(0, 0, _x);
+                xyz.put(1, 0, _y);
+                xyz.put(2, 0, 1.0);
+                Mat result = _lastWarpMatrix.matMul(xyz);
+                _x = (float)result.get(0, 0)[0];
+                _y = (float)result.get(1, 0)[0];
+
+                // Draw a box in the frame at x, y
+                Imgproc.rectangle(rgbaMat, new Point((_x * SCALING) - 1, (_y * SCALING) - 1), new Point((_x * SCALING) + 1, (_y * SCALING) + 1), new Scalar(255, 0, 255, 255), 2);
+                Imgproc.rectangle(rgbaMat, new Point((_x * SCALING) - 8, (_y * SCALING) - 8), new Point((_x * SCALING) + 8, (_y * SCALING) + 8), new Scalar(0, 255, 0, 255), 2);
+
+                //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+
+                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            _multiSource2MatHelper?.Dispose();
+        }
+
+        // Public Methods
         /// <summary>
         /// Raises the source to mat helper initialized event.
         /// </summary>
@@ -112,13 +249,13 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperInitialized");
 
-            Mat rgbaMat = multiSource2MatHelper.GetMat();
+            Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-            texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
-            Utils.matToTexture2D(rgbaMat, texture);
+            _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
+            OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
 
             // Set the Texture2D as the main texture of the Renderer component attached to the game object
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
+            gameObject.GetComponent<Renderer>().material.mainTexture = _texture;
 
             // Adjust the scale of the game object to match the dimensions of the texture
             gameObject.transform.localScale = new Vector3(rgbaMat.cols(), rgbaMat.rows(), 1);
@@ -138,22 +275,21 @@ namespace OpenCVForUnityExample
                 Camera.main.orthographicSize = height / 2;
             }
 
-
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.Add("width", rgbaMat.width().ToString());
-                fpsMonitor.Add("height", rgbaMat.height().ToString());
-                fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                _fpsMonitor.Add("width", rgbaMat.width().ToString());
+                _fpsMonitor.Add("height", rgbaMat.height().ToString());
+                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
             }
 
-            scalingMat = new Mat((int)(rgbaMat.rows() / scaling), (int)(rgbaMat.cols() / scaling), CvType.CV_8SC4);
-            grayMat = new Mat(scalingMat.size(), CvType.CV_8SC1);
+            _scalingMat = new Mat((int)(rgbaMat.rows() / SCALING), (int)(rgbaMat.cols() / SCALING), CvType.CV_8SC4);
+            _grayMat = new Mat(_scalingMat.size(), CvType.CV_8SC1);
 
-            x = scalingMat.cols() / 2f;
-            y = scalingMat.rows() / 2f;
+            _x = _scalingMat.cols() / 2f;
+            _y = _scalingMat.rows() / 2f;
 
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
-            Utils.setDebugMode(true, true);
+            OpenCVDebug.SetDebugMode(true, true);
         }
 
         /// <summary>
@@ -163,32 +299,15 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperDisposed");
 
-            if (scalingMat != null)
-            {
-                scalingMat.Dispose();
-                scalingMat = null;
-            }
+            _scalingMat?.Dispose(); _scalingMat = null;
 
-            if (grayMat != null)
-            {
-                grayMat.Dispose();
-                grayMat = null;
-            }
+            _grayMat?.Dispose(); _grayMat = null;
 
-            if (lastGrayMat != null)
-            {
-                lastGrayMat.Dispose();
-                lastGrayMat = null;
-            }
+            _lastGrayMat?.Dispose(); _lastGrayMat = null;
 
-            if (texture != null)
-            {
-                Texture2D.Destroy(texture);
-                texture = null;
-            }
+            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
 
-
-            Utils.setDebugMode(false, false);
+            OpenCVDebug.SetDebugMode(false, false);
         }
 
         /// <summary>
@@ -200,136 +319,66 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
 
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
+                _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
             }
         }
 
-        // Update is called once per frame
-        void Update()
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick()
         {
-#if ENABLE_INPUT_SYSTEM
-#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-            // Touch input for mobile platforms
-            if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
+            SceneManager.LoadScene("OpenCVForUnityExample");
+        }
+
+        /// <summary>
+        /// Raises the play button click event.
+        /// </summary>
+        public void OnPlayButtonClick()
+        {
+            _multiSource2MatHelper.Play();
+        }
+
+        /// <summary>
+        /// Raises the pause button click event.
+        /// </summary>
+        public void OnPauseButtonClick()
+        {
+            _multiSource2MatHelper.Pause();
+        }
+
+        /// <summary>
+        /// Raises the stop button click event.
+        /// </summary>
+        public void OnStopButtonClick()
+        {
+            _multiSource2MatHelper.Stop();
+        }
+
+        /// <summary>
+        /// Raises the change camera button click event.
+        /// </summary>
+        public void OnChangeCameraButtonClick()
+        {
+            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
+        }
+
+        /// <summary>
+        /// Raises the warp mode dropdown value changed event.
+        /// </summary>
+        public void OnWarpModeDropdownValueChanged(int result)
+        {
+            if ((int)WarpMode != result)
             {
-                foreach (var touch in UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches)
-                {
-                    if (touch.phase == UnityEngine.InputSystem.TouchPhase.Ended)
-                    {
-                        if (!EventSystem.current.IsPointerOverGameObject(touch.finger.index))
-                        {
-                            storedTouchPoint = new Point(touch.screenPosition.x, touch.screenPosition.y);
-                        }
-                    }
-                }
-            }
-#else
-            // Mouse input for non-mobile platforms
-            var mouse = Mouse.current;
-            if (mouse != null && mouse.leftButton.wasReleasedThisFrame)
-            {
-                if (EventSystem.current.IsPointerOverGameObject())
-                    return;
+                WarpMode = (WarpModePreset)result;
 
-                storedTouchPoint = new Point(mouse.position.ReadValue().x, mouse.position.ReadValue().y);
-            }
-#endif
-#else
-#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-            //Touch
-            int touchCount = Input.touchCount;
-            if (touchCount == 1)
-            {
-                Touch t = Input.GetTouch(0);
-                if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject (t.fingerId)) {
-                    storedTouchPoint = new Point (t.position.x, t.position.y);
-                }
-            }
-#else
-            //Mouse
-            if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
-            {
-                storedTouchPoint = new Point(Input.mousePosition.x, Input.mousePosition.y);
-            }
-#endif
-#endif
-
-            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
-            {
-                if (storedTouchPoint != null)
-                {
-                    ConvertScreenPointToTexturePoint(storedTouchPoint, storedTouchPoint, gameObject, texture.width, texture.height);
-                    x = (float)storedTouchPoint.x / scaling;
-                    y = (float)storedTouchPoint.y / scaling;
-                    storedTouchPoint = null;
-                }
-
-
-                Mat rgbaMat = multiSource2MatHelper.GetMat();
-
-                Imgproc.resize(rgbaMat, scalingMat, new Size(rgbaMat.width() / scaling, rgbaMat.height() / scaling));
-                Imgproc.cvtColor(scalingMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
-
-
-                if (lastGrayMat == null)
-                    lastGrayMat = grayMat.clone();
-
-                if (last_Warp_matrix == null)
-                {
-                    // Define 2x3 or 3x3 matrices and initialize the matrix to identity
-                    if (warpMode == (WarpModePreset)Video.MOTION_HOMOGRAPHY)
-                    {
-                        last_Warp_matrix = Mat.eye(3, 3, CvType.CV_32F);
-                    }
-                    else
-                    {
-                        last_Warp_matrix = Mat.eye(2, 3, CvType.CV_32F);
-                    }
-                }
-
-                try
-                {
-                    // Run the ECC algorithm. The results are stored in warp_matrix.
-                    double ret = Video.findTransformECC(lastGrayMat, grayMat, last_Warp_matrix, (int)warpMode, criteria);
-                }
-                catch (CvException e)
-                {
-                    Debug.LogWarning("Warning: An error occurred while analyzing frame motion; the transformation did not converge," +
-                        " so this frame will be skipped. Error details: " + e);
-
-                    if (last_Warp_matrix != null)
-                    {
-                        last_Warp_matrix.Dispose();
-                        last_Warp_matrix = null;
-                    }
-                    grayMat.copyTo(lastGrayMat);
-                    return;
-                }
-
-                grayMat.copyTo(lastGrayMat);
-
-                // Apply warp_matrix to x, y.
-                Mat xyz = new Mat(3, 1, CvType.CV_32F);
-                xyz.put(0, 0, x);
-                xyz.put(1, 0, y);
-                xyz.put(2, 0, 1.0);
-                Mat result = last_Warp_matrix.matMul(xyz);
-                x = (float)result.get(0, 0)[0];
-                y = (float)result.get(1, 0)[0];
-
-                // Draw a box in the frame at x, y
-                Imgproc.rectangle(rgbaMat, new Point((x * scaling) - 1, (y * scaling) - 1), new Point((x * scaling) + 1, (y * scaling) + 1), new Scalar(255, 0, 255, 255), 2);
-                Imgproc.rectangle(rgbaMat, new Point((x * scaling) - 8, (y * scaling) - 8), new Point((x * scaling) + 8, (y * scaling) + 8), new Scalar(0, 255, 0, 255), 2);
-
-
-                //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-
-                Utils.matToTexture2D(rgbaMat, texture);
+                _lastWarpMatrix?.Dispose(); _lastWarpMatrix = null;
             }
         }
 
+        // Private Methods
         /// <summary>
         /// Converts the screen point to texture point.
         /// </summary>
@@ -385,77 +434,5 @@ namespace OpenCVForUnityExample
             }
         }
 
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
-        {
-            multiSource2MatHelper.Dispose();
-        }
-
-        /// <summary>
-        /// Raises the back button click event.
-        /// </summary>
-        public void OnBackButtonClick()
-        {
-            SceneManager.LoadScene("OpenCVForUnityExample");
-        }
-
-        /// <summary>
-        /// Raises the play button click event.
-        /// </summary>
-        public void OnPlayButtonClick()
-        {
-            multiSource2MatHelper.Play();
-        }
-
-        /// <summary>
-        /// Raises the pause button click event.
-        /// </summary>
-        public void OnPauseButtonClick()
-        {
-            multiSource2MatHelper.Pause();
-        }
-
-        /// <summary>
-        /// Raises the stop button click event.
-        /// </summary>
-        public void OnStopButtonClick()
-        {
-            multiSource2MatHelper.Stop();
-        }
-
-        /// <summary>
-        /// Raises the change camera button click event.
-        /// </summary>
-        public void OnChangeCameraButtonClick()
-        {
-            multiSource2MatHelper.requestedIsFrontFacing = !multiSource2MatHelper.requestedIsFrontFacing;
-        }
-
-        /// <summary>
-        /// Raises the warp mode dropdown value changed event.
-        /// </summary>
-        public void OnWarpModeDropdownValueChanged(int result)
-        {
-            if ((int)warpMode != result)
-            {
-                warpMode = (WarpModePreset)result;
-
-                if (last_Warp_matrix != null)
-                {
-                    last_Warp_matrix.Dispose();
-                    last_Warp_matrix = null;
-                }
-            }
-        }
-
-        public enum WarpModePreset : int
-        {
-            TRANSLATION = 0,
-            EUCLIDEAN,
-            AFFINE,
-            HOMOGRAPHY
-        }
     }
 }

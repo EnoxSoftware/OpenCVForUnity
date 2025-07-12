@@ -4,13 +4,13 @@ using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {
-    // v1.0.3
+    // v1.0.4
     public class FpsMonitor : MonoBehaviour
     {
-        int tick = 0;
-        float elapsed = 0;
-        float fps = 0;
-
+        // Enums
+        /// <summary>
+        /// Alignment enum
+        /// </summary>
         public enum Alignment
         {
             LeftTop,
@@ -19,57 +19,58 @@ namespace OpenCVForUnityExample
             RightBottom,
         }
 
-        public Alignment alignment = Alignment.RightTop;
+        // Constants
+        private const float GUI_WIDTH = 95f;
+        private const float GUI_HEIGHT = 35f;
+        private const float MARGIN_X = 10f;
+        private const float MARGIN_Y = 10f;
+        private const float INNER_X = 10f;
+        private const float INNER_Y = 10f;
+        private const float GUI_CONSOLE_HEIGHT = 100f;
+        private const string CANVAS_PREFAB_PATH = "FpsMonitorCanvas_104";
 
-        const float GUI_WIDTH = 95f;
-        const float GUI_HEIGHT = 35f;
-        const float MARGIN_X = 10f;
-        const float MARGIN_Y = 10f;
-        const float INNER_X = 10f;
-        const float INNER_Y = 10f;
-        const float GUI_CONSOLE_HEIGHT = 100f;
+        // Public Fields
+        public Alignment AlignmentSetting = Alignment.RightTop;
+        public Vector2 Offset = new Vector2(MARGIN_X, MARGIN_Y);
+        public bool BoxVisible = true;
+        public float BoxWidth = GUI_WIDTH;
+        public float BoxHeight = GUI_HEIGHT;
+        public Vector2 Padding = new Vector2(INNER_X, INNER_Y);
+        public float ConsoleHeight = GUI_CONSOLE_HEIGHT;
 
-        public Vector2 offset = new Vector2(MARGIN_X, MARGIN_Y);
-        public bool boxVisible = true;
-        public float boxWidth = GUI_WIDTH;
-        public float boxHeight = GUI_HEIGHT;
-        public Vector2 padding = new Vector2(INNER_X, INNER_Y);
-        public float consoleHeight = GUI_CONSOLE_HEIGHT;
-
-        private Text fpsTextComponent;
-        private Text consoleTextComponent;
-        private GameObject fpsPanel;
-        private GameObject consolePanel;
-        private Canvas canvas;
-
-        Dictionary<string, string> outputDict = new Dictionary<string, string>();
-
+        // Private Fields
+        private int _tick = 0;
+        private float _elapsed = 0;
+        private float _fps = 0;
+        private Text _fpsTextComponent;
+        private Text _consoleTextComponent;
+        private GameObject _fpsPanel;
+        private GameObject _consolePanel;
+        private Canvas _canvas;
+        private Dictionary<string, string> _outputDict = new Dictionary<string, string>();
         protected string _consoleText = null;
-        public virtual string consoleText
+        private float _toastTime = -1;
+        private GameObject _fpsBackgroundObj;
+        private GameObject _consoleBackgroundObj;
+        private bool _needsUpdate = false;
+        private bool _isInitialized = false;
+        private RectTransform _canvasRectTransform;
+        private Vector2 _canvasSizeDelta;
+
+        // Public Properties
+        public virtual string ConsoleText
         {
             get { return _consoleText; }
             set
             {
                 _consoleText = value;
-                toast_time = -1;
+                _toastTime = -1;
                 UpdateConsoleText();
             }
         }
 
-        float toast_time = -1;  // Managed in milliseconds
-
-        // Additional: Reference to the background Image GameObject
-        private GameObject fpsBackgroundObj;
-        private GameObject consoleBackgroundObj;
-
-        private bool _needsUpdate = false;
-        private bool _isInitialized = false;
-
-        // Path to the prefab
-        private const string CANVAS_PREFAB_PATH = "FpsMonitorCanvas_103";
-
-        // Lifecycle methods
-        void Awake()
+        // Unity Lifecycle Methods
+        private void Awake()
         {
             LoadCanvasFromPrefab();
             LocateUI();
@@ -77,7 +78,98 @@ namespace OpenCVForUnityExample
             _needsUpdate = true;
         }
 
-        void LoadCanvasFromPrefab()
+        private void OnDestroy()
+        {
+            if (_canvas != null)
+            {
+                Destroy(_canvas.gameObject);
+            }
+        }
+
+        private void Update()
+        {
+            _tick++;
+            _elapsed += Time.deltaTime;
+            if (_elapsed >= 1f)
+            {
+                _fps = _tick / _elapsed;
+                _tick = 0;
+                _elapsed = 0;
+                UpdateFpsText();
+            }
+
+            if (_toastTime > 0)
+            {
+                _toastTime -= Time.deltaTime * 1000; // Decrement in milliseconds
+                if (_toastTime <= 0)
+                {
+                    _consoleText = "";
+                    UpdateConsoleText();
+                }
+            }
+
+            if (_needsUpdate)
+            {
+                _needsUpdate = false;
+                UpdateUI();
+            }
+        }
+
+        private void OnValidate()
+        {
+            if (Application.isPlaying)
+            {
+                _needsUpdate = true;
+            }
+        }
+
+        // Public Methods
+        public void Add(string key, string value)
+        {
+            if (_outputDict.ContainsKey(key))
+            {
+                _outputDict[key] = value;
+            }
+            else
+            {
+                _outputDict.Add(key, value);
+            }
+            UpdateFpsText();
+        }
+
+        public void Remove(string key)
+        {
+            _outputDict.Remove(key);
+            UpdateFpsText();
+        }
+
+        public void Clear()
+        {
+            _outputDict.Clear();
+            UpdateFpsText();
+        }
+
+        public void LocateGUI()
+        {
+            _needsUpdate = true;
+        }
+
+        public void Toast(string message, float timeMs = 2000f)  // Default is 2 seconds
+        {
+            _consoleText = message;
+            _toastTime = Mathf.Max(timeMs, 1000f);  // Minimum 1 second
+
+            if (!_isInitialized)
+            {
+                Debug.LogError("Toast: FpsMonitor is not initialized. Make sure FpsMonitor is properly set up in the scene.");
+                return;
+            }
+
+            UpdateConsoleText();
+        }
+
+        // Private Methods
+        private void LoadCanvasFromPrefab()
         {
             // Load Canvas from Prefab
             GameObject prefab = Resources.Load<GameObject>(CANVAS_PREFAB_PATH);
@@ -95,257 +187,164 @@ namespace OpenCVForUnityExample
                 canvasObj.name = prefab.name.Substring(0, underscoreIndex);
             else
                 canvasObj.name = prefab.name;
-            canvas = canvasObj.GetComponent<Canvas>();
-            if (canvas == null)
+            _canvas = canvasObj.GetComponent<Canvas>();
+            if (_canvas == null)
             {
                 Debug.LogError("FpsMonitorCanvas prefab does not have a Canvas component");
                 return;
             }
 
             // Get references to required components
-            fpsPanel = canvasObj.transform.Find("FpsPanel")?.gameObject;
-            consolePanel = canvasObj.transform.Find("ConsolePanel")?.gameObject;
+            _fpsPanel = canvasObj.transform.Find("FpsPanel")?.gameObject;
+            _consolePanel = canvasObj.transform.Find("ConsolePanel")?.gameObject;
 
-            if (fpsPanel != null)
+            if (_fpsPanel != null)
             {
-                fpsTextComponent = fpsPanel.transform.Find("Mask/FpsText")?.GetComponent<Text>();
-                fpsBackgroundObj = fpsPanel.transform.Find("Mask/Background")?.gameObject;
+                _fpsTextComponent = _fpsPanel.transform.Find("Mask/FpsText")?.GetComponent<Text>();
+                _fpsBackgroundObj = _fpsPanel.transform.Find("Mask/Background")?.gameObject;
             }
 
-            if (consolePanel != null)
+            if (_consolePanel != null)
             {
-                consoleTextComponent = consolePanel.transform.Find("Mask/ConsoleText")?.GetComponent<Text>();
-                consoleBackgroundObj = consolePanel.transform.Find("Mask/Background")?.gameObject;
+                _consoleTextComponent = _consolePanel.transform.Find("Mask/ConsoleText")?.GetComponent<Text>();
+                _consoleBackgroundObj = _consolePanel.transform.Find("Mask/Background")?.gameObject;
             }
 
             // Initial display settings
-            if (fpsPanel != null) fpsPanel.SetActive(true);
-            if (consolePanel != null) consolePanel.SetActive(false);
+            if (_fpsPanel != null) _fpsPanel.SetActive(true);
+            if (_consolePanel != null) _consolePanel.SetActive(false);
 
             // Show/hide background
-            if (fpsBackgroundObj != null) fpsBackgroundObj.SetActive(boxVisible);
-            if (consoleBackgroundObj != null) consoleBackgroundObj.SetActive(boxVisible);
+            if (_fpsBackgroundObj != null) _fpsBackgroundObj.SetActive(BoxVisible);
+            if (_consoleBackgroundObj != null) _consoleBackgroundObj.SetActive(BoxVisible);
         }
 
-        void OnDestroy()
+        private void LocateUI()
         {
-            if (canvas != null)
-            {
-                Destroy(canvas.gameObject);
-            }
-        }
-
-        // Update method
-        void Update()
-        {
-            tick++;
-            elapsed += Time.deltaTime;
-            if (elapsed >= 1f)
-            {
-                fps = tick / elapsed;
-                tick = 0;
-                elapsed = 0;
-                UpdateFpsText();
-            }
-
-            if (toast_time > 0)
-            {
-                toast_time -= Time.deltaTime * 1000; // Decrement in milliseconds
-                if (toast_time <= 0)
-                {
-                    _consoleText = "";
-                    UpdateConsoleText();
-                }
-            }
-
-            if (_needsUpdate)
-            {
-                _needsUpdate = false;
-                UpdateUI();
-            }
-        }
-
-        void OnValidate()
-        {
-            if (Application.isPlaying)
-            {
-                _needsUpdate = true;
-            }
-        }
-
-        // UI-related methods
-        void LocateUI()
-        {
-            if (fpsPanel == null || consolePanel == null) return;
+            if (_fpsPanel == null || _consolePanel == null) return;
 
             // Set FPS panel position
-            var fpsRect = fpsPanel.GetComponent<RectTransform>();
-            switch (alignment)
+            var fpsRect = _fpsPanel.GetComponent<RectTransform>();
+            switch (AlignmentSetting)
             {
                 case Alignment.LeftTop:
                     fpsRect.anchorMin = new Vector2(0, 1);
                     fpsRect.anchorMax = new Vector2(0, 1);
                     fpsRect.pivot = new Vector2(0, 1);
-                    fpsRect.anchoredPosition = new Vector2(offset.x, -offset.y);
+                    fpsRect.anchoredPosition = new Vector2(Offset.x, -Offset.y);
                     break;
                 case Alignment.RightTop:
                     fpsRect.anchorMin = new Vector2(1, 1);
                     fpsRect.anchorMax = new Vector2(1, 1);
                     fpsRect.pivot = new Vector2(1, 1);
-                    fpsRect.anchoredPosition = new Vector2(-offset.x, -offset.y);
+                    fpsRect.anchoredPosition = new Vector2(-Offset.x, -Offset.y);
                     break;
                 case Alignment.LeftBottom:
                     fpsRect.anchorMin = new Vector2(0, 0);
                     fpsRect.anchorMax = new Vector2(0, 0);
                     fpsRect.pivot = new Vector2(0, 0);
-                    fpsRect.anchoredPosition = new Vector2(offset.x, offset.y);
+                    fpsRect.anchoredPosition = new Vector2(Offset.x, Offset.y);
                     break;
                 case Alignment.RightBottom:
                     fpsRect.anchorMin = new Vector2(1, 0);
                     fpsRect.anchorMax = new Vector2(1, 0);
                     fpsRect.pivot = new Vector2(1, 0);
-                    fpsRect.anchoredPosition = new Vector2(-offset.x, offset.y);
+                    fpsRect.anchoredPosition = new Vector2(-Offset.x, Offset.y);
                     break;
             }
 
             // Set console panel position
-            var consoleRect = consolePanel.GetComponent<RectTransform>();
+            var consoleRect = _consolePanel.GetComponent<RectTransform>();
             consoleRect.anchorMin = new Vector2(0, 0);
             consoleRect.anchorMax = new Vector2(1, 0);
             consoleRect.pivot = new Vector2(0.5f, 0);
-            consoleRect.offsetMin = new Vector2(offset.x, offset.y);
-            consoleRect.offsetMax = new Vector2(-offset.x, offset.y + consoleHeight);
+            consoleRect.offsetMin = new Vector2(Offset.x, Offset.y);
+            consoleRect.offsetMax = new Vector2(-Offset.x, Offset.y + ConsoleHeight);
 
             // Show/hide background
-            if (fpsBackgroundObj != null) fpsBackgroundObj.SetActive(boxVisible);
-            if (consoleBackgroundObj != null) consoleBackgroundObj.SetActive(boxVisible);
+            if (_fpsBackgroundObj != null) _fpsBackgroundObj.SetActive(BoxVisible);
+            if (_consoleBackgroundObj != null) _consoleBackgroundObj.SetActive(BoxVisible);
         }
 
-        void UpdateUI()
+        private void UpdateUI()
         {
-            if (fpsPanel != null)
+            if (_fpsPanel != null)
             {
-                var rectTransform = fpsPanel.GetComponent<RectTransform>();
-                rectTransform.sizeDelta = new Vector2(boxWidth, boxHeight);
+                var rectTransform = _fpsPanel.GetComponent<RectTransform>();
+                rectTransform.sizeDelta = new Vector2(BoxWidth, BoxHeight);
 
                 // Update FPS text padding
-                var fpsTextTransform = fpsTextComponent?.GetComponent<RectTransform>();
+                var fpsTextTransform = _fpsTextComponent?.GetComponent<RectTransform>();
                 if (fpsTextTransform != null)
                 {
-                    fpsTextTransform.offsetMin = new Vector2(padding.x, padding.y);
-                    fpsTextTransform.offsetMax = new Vector2(-padding.x, -padding.y);
+                    fpsTextTransform.offsetMin = new Vector2(Padding.x, Padding.y);
+                    fpsTextTransform.offsetMax = new Vector2(-Padding.x, -Padding.y);
                 }
             }
 
-            if (consolePanel != null)
+            if (_consolePanel != null)
             {
-                var rectTransform = consolePanel.GetComponent<RectTransform>();
-                rectTransform.sizeDelta = new Vector2(Screen.width - offset.x * 2, consoleHeight);
+                var rectTransform = _consolePanel.GetComponent<RectTransform>();
+                rectTransform.sizeDelta = new Vector2(Screen.width - Offset.x * 2, ConsoleHeight);
 
                 // Update console text padding
-                var consoleTextTransform = consoleTextComponent?.GetComponent<RectTransform>();
+                var consoleTextTransform = _consoleTextComponent?.GetComponent<RectTransform>();
                 if (consoleTextTransform != null)
                 {
-                    consoleTextTransform.offsetMin = new Vector2(padding.x, padding.y);
-                    consoleTextTransform.offsetMax = new Vector2(-padding.x, -padding.y);
+                    consoleTextTransform.offsetMin = new Vector2(Padding.x, Padding.y);
+                    consoleTextTransform.offsetMax = new Vector2(-Padding.x, -Padding.y);
                 }
             }
 
             // Update show/hide background
-            if (fpsBackgroundObj != null) fpsBackgroundObj.SetActive(boxVisible);
-            if (consoleBackgroundObj != null) consoleBackgroundObj.SetActive(boxVisible);
+            if (_fpsBackgroundObj != null) _fpsBackgroundObj.SetActive(BoxVisible);
+            if (_consoleBackgroundObj != null) _consoleBackgroundObj.SetActive(BoxVisible);
 
             // Update panel position
             LocateUI();
         }
 
-        // Text update methods
-        void UpdateFpsText()
+        private void UpdateFpsText()
         {
-            if (fpsTextComponent == null) return;
+            if (_fpsTextComponent == null) return;
 
             // Display FPS value directly
-            string text = $"fps : {fps:F1}";
+            string text = $"fps : {_fps:F1}";
 
             // Add only if there is additional information
-            if (outputDict.Count > 0)
+            if (_outputDict.Count > 0)
             {
-                foreach (KeyValuePair<string, string> pair in outputDict)
+                foreach (KeyValuePair<string, string> pair in _outputDict)
                 {
                     text += $"\n{pair.Key} : {pair.Value}";
                 }
             }
 
-            fpsTextComponent.text = text;
-            fpsTextComponent.enabled = true;
-            fpsTextComponent.gameObject.SetActive(true);
+            _fpsTextComponent.text = text;
+            _fpsTextComponent.enabled = true;
+            _fpsTextComponent.gameObject.SetActive(true);
         }
 
-        void UpdateConsoleText()
+        private void UpdateConsoleText()
         {
-            if (consoleTextComponent == null || consolePanel == null)
+            if (_consoleTextComponent == null || _consolePanel == null)
             {
                 Debug.LogWarning("UpdateConsoleText: consoleTextComponent or consolePanel is null");
                 return;
             }
 
-            if (!string.IsNullOrEmpty(_consoleText) && toast_time != 0)
+            if (!string.IsNullOrEmpty(_consoleText) && _toastTime != 0)
             {
-                consoleTextComponent.text = _consoleText;
-                consolePanel.SetActive(true);
-                consoleTextComponent.gameObject.SetActive(true);
+                _consoleTextComponent.text = _consoleText;
+                _consolePanel.SetActive(true);
+                _consoleTextComponent.gameObject.SetActive(true);
             }
             else
             {
-                consoleTextComponent.text = "";
-                consolePanel.SetActive(false);
-                consoleTextComponent.gameObject.SetActive(false);
+                _consoleTextComponent.text = "";
+                _consolePanel.SetActive(false);
+                _consoleTextComponent.gameObject.SetActive(false);
             }
-        }
-
-        // Public methods
-        public void Add(string key, string value)
-        {
-            if (outputDict.ContainsKey(key))
-            {
-                outputDict[key] = value;
-            }
-            else
-            {
-                outputDict.Add(key, value);
-            }
-            UpdateFpsText();
-        }
-
-        public void Remove(string key)
-        {
-            outputDict.Remove(key);
-            UpdateFpsText();
-        }
-
-        public void Clear()
-        {
-            outputDict.Clear();
-            UpdateFpsText();
-        }
-
-        public void LocateGUI()
-        {
-            _needsUpdate = true;
-        }
-
-        public void Toast(string message, float timeMs = 2000f)  // Default is 2 seconds
-        {
-            _consoleText = message;
-            toast_time = Mathf.Max(timeMs, 1000f);  // Minimum 1 second
-
-            if (!_isInitialized)
-            {
-                Debug.LogError("Toast: FpsMonitor is not initialized. Make sure FpsMonitor is properly set up in the scene.");
-                return;
-            }
-
-            UpdateConsoleText();
         }
     }
 }

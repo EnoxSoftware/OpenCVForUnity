@@ -1,10 +1,10 @@
+using System.Collections.Generic;
+using System.Threading;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.Features2dModule;
 using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using System.Collections.Generic;
-using System.Threading;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,77 +19,102 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class FeatureMatchingExample : MonoBehaviour
     {
+        // Constants
+        private static readonly string IMAGE_0_FILENAME = "OpenCVForUnityExamples/features2d/box.png";
+        private static readonly string IMAGE_1_FILENAME = "OpenCVForUnityExamples/features2d/box_in_scene.png";
+
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
         [Space(10)]
 
-        /// <summary>
-        /// IMAGE_0_FILENAME
-        /// </summary>
-        protected static readonly string IMAGE_0_FILENAME = "OpenCVForUnity/features2d/box.png";
-
-        /// <summary>
-        /// The image 0 filepath.
-        /// </summary>
-        string image_0_filepath;
-
-        /// <summary>
-        /// IMAGE_1_FILENAME
-        /// </summary>
-        protected static readonly string IMAGE_1_FILENAME = "OpenCVForUnity/features2d/box_in_scene.png";
-
-        /// <summary>
-        /// The image 1 filepath.
-        /// </summary>
-        string image_1_filepath;
+        // Private Fields
+        private string _image0Filepath;
+        private string _image1Filepath;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
+        private FpsMonitor _fpsMonitor;
 
         /// <summary>
         /// The CancellationTokenSource.
         /// </summary>
-        CancellationTokenSource cts = new CancellationTokenSource();
+        private CancellationTokenSource _cts = new CancellationTokenSource();
 
-        // Use this for initialization
-        async void Start()
+        // Unity Lifecycle Methods
+        private async void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "Preparing file access...";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "Preparing file access...";
 
-            image_0_filepath = await Utils.getFilePathAsyncTask(IMAGE_0_FILENAME, cancellationToken: cts.Token);
-            image_1_filepath = await Utils.getFilePathAsyncTask(IMAGE_1_FILENAME, cancellationToken: cts.Token);
+            _image0Filepath = await OpenCVEnv.GetFilePathTaskAsync(IMAGE_0_FILENAME, cancellationToken: _cts.Token);
+            _image1Filepath = await OpenCVEnv.GetFilePathTaskAsync(IMAGE_1_FILENAME, cancellationToken: _cts.Token);
 
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "";
 
-            Run_SIFT_FLANNBASEDMatching();
+            RunSiftFlannBasedMatching();
         }
 
-        /// The commercial license SURF feature descriptors are no longer included in OpenCV. The example has been changed to use SIFT feature descriptors instead.
-        private void Run_SIFT_FLANNBASEDMatching()
+        private void Update()
         {
-            if (string.IsNullOrEmpty(image_0_filepath) || string.IsNullOrEmpty(image_1_filepath))
+
+        }
+
+        private void OnDestroy()
+        {
+            _cts?.Dispose();
+        }
+
+        // Public Methods
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick()
+        {
+            SceneManager.LoadScene("OpenCVForUnityExample");
+        }
+
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnRunSiftFlannBasedMatchingButtonClick()
+        {
+            RunSiftFlannBasedMatching();
+        }
+
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnRunAkazeBruteForceMatchingButtonClick()
+        {
+            RunAkazeBruteForceMatching();
+        }
+
+        // Private Methods
+        /// The commercial license SURF feature descriptors are no longer included in OpenCV. The example has been changed to use SIFT feature descriptors instead.
+        private void RunSiftFlannBasedMatching()
+        {
+            if (string.IsNullOrEmpty(_image0Filepath) || string.IsNullOrEmpty(_image1Filepath))
             {
-                Debug.LogError(IMAGE_0_FILENAME + " or " + IMAGE_1_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
+                Debug.LogError(IMAGE_0_FILENAME + " or " + IMAGE_1_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
             }
 
 
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
-            Utils.setDebugMode(true);
+            OpenCVDebug.SetDebugMode(true);
 
 
-            Mat img1Mat = Imgcodecs.imread(image_0_filepath, Imgcodecs.IMREAD_GRAYSCALE);
-            Mat img2Mat = Imgcodecs.imread(image_1_filepath, Imgcodecs.IMREAD_GRAYSCALE);
+            Mat img1Mat = Imgcodecs.imread(_image0Filepath, Imgcodecs.IMREAD_GRAYSCALE);
+            Mat img2Mat = Imgcodecs.imread(_image1Filepath, Imgcodecs.IMREAD_GRAYSCALE);
             Mat img3Mat = img2Mat.clone();
 
             ///
@@ -156,29 +181,29 @@ namespace OpenCVForUnityExample
             Imgproc.putText(resultImg, "SIFT_FLANNBASED Matching", new Point(5, resultImg.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
             Texture2D texture = new Texture2D(resultImg.cols(), resultImg.rows(), TextureFormat.RGB24, false);
-            Utils.matToTexture2D(resultImg, texture);
+            OpenCVMatUtils.MatToTexture2D(resultImg, texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
 
 
-            Utils.setDebugMode(false, false);
+            OpenCVDebug.SetDebugMode(false);
         }
 
-        private void Run_AKAZE_BRUTEFORCEMatching()
+        private void RunAkazeBruteForceMatching()
         {
-            if (string.IsNullOrEmpty(image_0_filepath) || string.IsNullOrEmpty(image_1_filepath))
+            if (string.IsNullOrEmpty(_image0Filepath) || string.IsNullOrEmpty(_image1Filepath))
             {
-                Debug.LogError(IMAGE_0_FILENAME + " or " + IMAGE_1_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
+                Debug.LogError(IMAGE_0_FILENAME + " or " + IMAGE_1_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
             }
 
 
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
-            Utils.setDebugMode(true);
+            OpenCVDebug.SetDebugMode(true);
 
 
-            Mat img1Mat = Imgcodecs.imread(image_0_filepath, Imgcodecs.IMREAD_GRAYSCALE);
-            Mat img2Mat = Imgcodecs.imread(image_1_filepath, Imgcodecs.IMREAD_GRAYSCALE);
+            Mat img1Mat = Imgcodecs.imread(_image0Filepath, Imgcodecs.IMREAD_GRAYSCALE);
+            Mat img2Mat = Imgcodecs.imread(_image1Filepath, Imgcodecs.IMREAD_GRAYSCALE);
             Mat img3Mat = img2Mat.clone();
 
             ///
@@ -245,49 +270,13 @@ namespace OpenCVForUnityExample
             Imgproc.putText(resultImg, "AKAZE_BRUTEFORCE Matching", new Point(5, resultImg.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
             Texture2D texture = new Texture2D(resultImg.cols(), resultImg.rows(), TextureFormat.RGB24, false);
-            Utils.matToTexture2D(resultImg, texture);
+            OpenCVMatUtils.MatToTexture2D(resultImg, texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
 
 
-            Utils.setDebugMode(false, false);
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-        void OnDestroy()
-        {
-            if (cts != null)
-                cts.Dispose();
-        }
-
-        /// <summary>
-        /// Raises the back button click event.
-        /// </summary>
-        public void OnBackButtonClick()
-        {
-            SceneManager.LoadScene("OpenCVForUnityExample");
-        }
-
-        /// <summary>
-        /// Raises the back button click event.
-        /// </summary>
-        public void OnRun_SIFT_FLANNBASEDMatchingButtonClick()
-        {
-            Run_SIFT_FLANNBASEDMatching();
-        }
-
-        /// <summary>
-        /// Raises the back button click event.
-        /// </summary>
-        public void OnRun_AKAZE_BRUTEFORCEMatchingButtonClick()
-        {
-            Run_AKAZE_BRUTEFORCEMatching();
+            OpenCVDebug.SetDebugMode(false);
         }
     }
 }

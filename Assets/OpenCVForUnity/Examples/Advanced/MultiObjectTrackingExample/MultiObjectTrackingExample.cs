@@ -1,200 +1,174 @@
+using System;
+using System.Threading;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UnityUtils.Helper;
-#if !UNITY_WSA_10_0
-using OpenCVForUnityExample.DnnModel;
-#endif
-using OpenCVForUnity.UnityUtils.MOT.ByteTrack;
-using System.Collections.Generic;
-using System.Threading;
+using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
+using OpenCVForUnity.UnityIntegration.MOT;
+using OpenCVForUnity.UnityIntegration.MOT.ByteTrack;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
+#if !UNITY_WSA_10_0
+using OpenCVForUnity.UnityIntegration.Worker.DnnModule;
+using OpenCVForUnity.UnityIntegration.Worker.DataStruct;
+#endif
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Multi Object Tracking (MOT) Example
     /// An example of tracking object detection results using the MOT (Multi Object Tracking) algorithm.
-    /// 
+    ///
     /// ByteTrack: https://github.com/ifzhang/ByteTrack
     /// </summary>
     [RequireComponent(typeof(MultiSource2MatHelper))]
     public class MultiObjectTrackingExample : MonoBehaviour
     {
+        // Public Fields
         [Header("Output")]
-        /// <summary>
-        /// The RawImage for previewing the result.
-        /// </summary>
-        public RawImage resultPreview;
+        [Tooltip("The RawImage for previewing the result.")]
+        public RawImage ResultPreview;
 
-        [Space(10)]
+        [Header("UI")]
+        public Toggle ShowObjectDetectorResultToggle;
+        public bool ShowObjectDetectorResult;
+        public Toggle EnableByteTrackToggle;
+        public bool EnableByteTrack;
 
-        public Toggle showObjectDetectorResultToggle;
+        [Header("Model Settings")]
+        [Tooltip("Path to a binary file of model contains trained weights.")]
+        public string Model = "OpenCVForUnityExamples/dnn/yolox_tiny.onnx";
 
-        public bool showObjectDetectorResult;
+        [Tooltip("Optional path to a text file with names of classes to label detected objects.")]
+        public string Classes = "OpenCVForUnityExamples/dnn/coco.names";
 
-        public Toggle trackerByteTrackToggle;
+        [Tooltip("Confidence threshold.")]
+        public float ConfThreshold = 0.25f;
 
-        public bool trackerByteTrack;
+        [Tooltip("Non-maximum suppression threshold.")]
+        public float NmsThreshold = 0.45f;
 
-        BYTETracker byteTracker;
+        [Tooltip("Maximum detections per image.")]
+        public int TopK = 300;
 
-        List<Scalar> palette;
+        [Tooltip("Preprocess input image by resizing to a specific width.")]
+        public int InpWidth = 416;
 
+        [Tooltip("Preprocess input image by resizing to a specific height.")]
+        public int InpHeight = 416;
+
+        // Private Fields
 #if !UNITY_WSA_10_0
-        YOLOXObjectDetector objectDetector;
+        private YOLOXObjectDetector _objectDetector;
 #endif
 
-        bool disableObjectDetector = false;
+        private BYTETracker _byteTracker;
+        private BYTETrackInfoVisualizer _byteTrackInfoVisualizer;
+        private bool _disableObjectDetector = false;
+        private string _classesFilepath;
+        private string _modelFilepath;
 
-        [TooltipAttribute("Path to a binary file of model contains trained weights. It could be a file with extensions .caffemodel (Caffe), .pb (TensorFlow), .t7 or .net (Torch), .weights (Darknet).")]
-        public string model = "yolox_tiny.onnx";
+        private Texture2D _texture;
+        private MultiSource2MatHelper _multiSource2MatHelper;
+        private Mat _bgrMat;
 
-        [TooltipAttribute("Path to a text file of model contains network configuration. It could be a file with extensions .prototxt (Caffe), .pbtxt (TensorFlow), .cfg (Darknet).")]
-        public string config = "";
+        private FpsMonitor _fpsMonitor;
 
-        [TooltipAttribute("Optional path to a text file with names of classes to label detected objects.")]
-        public string classes = "coco.names";
+        private CancellationTokenSource _cts = new CancellationTokenSource();
 
-        [TooltipAttribute("Confidence threshold.")]
-        public float confThreshold = 0.25f;
-
-        [TooltipAttribute("Non-maximum suppression threshold.")]
-        public float nmsThreshold = 0.45f;
-
-        [TooltipAttribute("Maximum detections per image.")]
-        public int topK = 1000;
-
-        [TooltipAttribute("Preprocess input image by resizing to a specific width.")]
-        public int inpWidth = 416;
-
-        [TooltipAttribute("Preprocess input image by resizing to a specific height.")]
-        public int inpHeight = 416;
-
-        protected string classes_filepath;
-        protected string config_filepath;
-        protected string model_filepath;
-
-        /// <summary>
-        /// The texture.
-        /// </summary>
-        Texture2D texture;
-
-        /// <summary>
-        /// The multi source to mat helper.
-        /// </summary>
-        MultiSource2MatHelper multiSource2MatHelper;
-
-        /// <summary>
-        /// The bgr mat.
-        /// </summary>
-        Mat bgrMat;
-
-        /// <summary>
-        /// The FPS monitor.
-        /// </summary>
-        FpsMonitor fpsMonitor;
-
-        /// <summary>
-        /// VIDEO_FILENAME
-        /// </summary>
-        protected static readonly string VIDEO_FILENAME = "OpenCVForUnity/768x576_mjpeg.mjpeg";
-
-        /// <summary>
-        /// The CancellationTokenSource.
-        /// </summary>
-        CancellationTokenSource cts = new CancellationTokenSource();
-
-        // Use this for initialization
-        async void Start()
+        // Unity Lifecycle Methods
+        private async void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
-            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
 
             // Update GUI state
-            trackerByteTrackToggle.isOn = trackerByteTrack;
-            showObjectDetectorResultToggle.isOn = showObjectDetectorResult;
+            ShowObjectDetectorResultToggle.isOn = ShowObjectDetectorResult;
+            EnableByteTrackToggle.isOn = EnableByteTrack;
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "Preparing file access...";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "Preparing file access...";
 
-            if (!string.IsNullOrEmpty(classes))
+            if (!string.IsNullOrEmpty(Classes))
             {
-                classes_filepath = await Utils.getFilePathAsyncTask("OpenCVForUnity/dnn/" + classes, cancellationToken: cts.Token);
-                if (string.IsNullOrEmpty(classes_filepath)) Debug.Log("The file:" + classes + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
+                _classesFilepath = await OpenCVEnv.GetFilePathTaskAsync(Classes, cancellationToken: _cts.Token);
+                if (string.IsNullOrEmpty(_classesFilepath)) Debug.Log("The file:" + Classes + " did not exist.");
             }
-            if (!string.IsNullOrEmpty(config))
+            if (!string.IsNullOrEmpty(Model))
             {
-                config_filepath = await Utils.getFilePathAsyncTask("OpenCVForUnity/dnn/" + config, cancellationToken: cts.Token);
-                if (string.IsNullOrEmpty(config_filepath)) Debug.Log("The file:" + config + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
-            }
-            if (!string.IsNullOrEmpty(model))
-            {
-                model_filepath = await Utils.getFilePathAsyncTask("OpenCVForUnity/dnn/" + model, cancellationToken: cts.Token);
-                if (string.IsNullOrEmpty(model_filepath)) Debug.Log("The file:" + model + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
+                _modelFilepath = await OpenCVEnv.GetFilePathTaskAsync(Model, cancellationToken: _cts.Token);
+                if (string.IsNullOrEmpty(_modelFilepath)) Debug.Log("The file:" + Model + " did not exist.");
             }
 
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "";
 
             CheckFilePaths();
             Run();
         }
 
-        void CheckFilePaths()
+        private void Update()
         {
-            if (string.IsNullOrEmpty(model_filepath))
+            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
             {
-                showObjectDetectorResultToggle.isOn = showObjectDetectorResultToggle.interactable = false;
-                disableObjectDetector = true;
-            }
-        }
+                Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-        void Run()
-        {
-            if (string.IsNullOrEmpty(model_filepath) || string.IsNullOrEmpty(classes_filepath))
-            {
-                Debug.LogError("model: " + model + " or " + "config: " + config + " or " + "classes: " + classes + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/dnn/setup_dnn_module.pdf” to make the necessary setup.");
-            }
-            else
-            {
-#if !UNITY_WSA_10_0
-                objectDetector = new YOLOXObjectDetector(model_filepath, config_filepath, classes_filepath, new Size(inpWidth, inpHeight), confThreshold, nmsThreshold, topK);
+#if UNITY_WSA_10_0
+                Imgproc.putText(rgbaMat, "Disable the DNN module-dependent Object Detector on UWP platforms.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+#else
+
+                if (_objectDetector == null)
+                {
+                    Imgproc.putText(rgbaMat, "model file is not loaded.", new Point(5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    Imgproc.putText(rgbaMat, "Please read console message.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                }
+                else
+                {
+                    if (!_disableObjectDetector)
+                    {
+                        Imgproc.cvtColor(rgbaMat, _bgrMat, Imgproc.COLOR_RGBA2BGR);
+
+                        using (Mat results = _objectDetector.Detect(_bgrMat))
+                        {
+                            Imgproc.cvtColor(_bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGB);
+
+                            if (ShowObjectDetectorResult)
+                                _objectDetector.Visualize(rgbaMat, results, false, true);
+
+                            if (EnableByteTrack)
+                            {
+                                BBox[] inputs = ConvertToBBoxes(results);
+                                _byteTracker.Update(inputs);
+                                BYTETrackInfo[] outputs = _byteTracker.GetActiveTrackInfos();
+                                _byteTrackInfoVisualizer.Visualize(rgbaMat, outputs, false, true);
+                            }
+                        }
+                    }
+                }
 #endif
+
+                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
             }
-
-            if (string.IsNullOrEmpty(multiSource2MatHelper.requestedVideoFilePath))
-                multiSource2MatHelper.requestedVideoFilePath = VIDEO_FILENAME;
-            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGB; // Tracking API must handle 3 channels Mat image.
-            multiSource2MatHelper.Initialize();
-
-            palette = new List<Scalar>();
-            palette.Add(new Scalar(255, 56, 56, 255));
-            palette.Add(new Scalar(255, 157, 151, 255));
-            palette.Add(new Scalar(255, 112, 31, 255));
-            palette.Add(new Scalar(255, 178, 29, 255));
-            palette.Add(new Scalar(207, 210, 49, 255));
-            palette.Add(new Scalar(72, 249, 10, 255));
-            palette.Add(new Scalar(146, 204, 23, 255));
-            palette.Add(new Scalar(61, 219, 134, 255));
-            palette.Add(new Scalar(26, 147, 52, 255));
-            palette.Add(new Scalar(0, 212, 187, 255));
-            palette.Add(new Scalar(44, 153, 168, 255));
-            palette.Add(new Scalar(0, 194, 255, 255));
-            palette.Add(new Scalar(52, 69, 147, 255));
-            palette.Add(new Scalar(100, 115, 255, 255));
-            palette.Add(new Scalar(0, 24, 236, 255));
-            palette.Add(new Scalar(132, 56, 255, 255));
-            palette.Add(new Scalar(82, 0, 133, 255));
-            palette.Add(new Scalar(203, 56, 255, 255));
-            palette.Add(new Scalar(255, 149, 200, 255));
-            palette.Add(new Scalar(255, 55, 199, 255));
         }
 
+        private void OnDestroy()
+        {
+            _multiSource2MatHelper?.Dispose();
+
+#if !UNITY_WSA_10_0
+            _objectDetector?.Dispose();
+#endif
+            _byteTracker?.Dispose();
+            _byteTrackInfoVisualizer?.Dispose();
+
+            _cts?.Dispose();
+        }
+
+        // Public Methods
         /// <summary>
         /// Raises the source to mat helper initialized event.
         /// </summary>
@@ -202,29 +176,36 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperInitialized");
 
-            Mat rgbMat = multiSource2MatHelper.GetMat();
+            Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-            texture = new Texture2D(rgbMat.cols(), rgbMat.rows(), TextureFormat.RGB24, false);
-            Utils.matToTexture2D(rgbMat, texture);
+            _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGB24, false);
+            OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = _texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
 
 
             int fps = 30;
-            if (multiSource2MatHelper.source2MatHelper is ICameraSource2MatHelper cameraHelper)
+            if (_multiSource2MatHelper.Source2MatHelper is ICameraSource2MatHelper cameraHelper)
             {
                 fps = (int)cameraHelper.GetFPS();
             }
-            else if (multiSource2MatHelper.source2MatHelper is IVideoSource2MatHelper videoHelper)
+            else if (_multiSource2MatHelper.Source2MatHelper is IVideoSource2MatHelper videoHelper)
             {
                 fps = (int)videoHelper.GetFPS();
             }
 
-            byteTracker = new BYTETracker(fps, 30);
-            //Debug.Log("fps: " + fps);
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("width", rgbaMat.width().ToString());
+                _fpsMonitor.Add("height", rgbaMat.height().ToString());
+                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                _fpsMonitor.Add("source fps", fps.ToString());
+            }
 
-            bgrMat = new Mat(rgbMat.rows(), rgbMat.cols(), CvType.CV_8UC3);
+            _byteTracker = new BYTETracker(fps, 30, mot20: false);
+
+            _bgrMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
         }
 
         /// <summary>
@@ -234,16 +215,9 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperDisposed");
 
-            ResetTrackers();
-
-            if (bgrMat != null)
-                bgrMat.Dispose();
-
-            if (texture != null)
-            {
-                Texture2D.Destroy(texture);
-                texture = null;
-            }
+            _byteTracker?.Dispose(); _byteTracker = null;
+            _bgrMat?.Dispose(); _bgrMat = null;
+            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
         }
 
         /// <summary>
@@ -255,137 +229,10 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
 
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
+                _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
             }
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            if (!multiSource2MatHelper.IsInitialized())
-                return;
-
-            if (!multiSource2MatHelper.IsPlaying())
-                multiSource2MatHelper.Play();
-
-            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
-            {
-                Mat rgbMat = multiSource2MatHelper.GetMat();
-
-#if UNITY_WSA_10_0
-                Imgproc.putText(rgbMat, "Disable the DNN module-dependent Tracker on UWP platforms.", new Point(5, rgbMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-#else
-                if (objectDetector == null)
-                {
-                    Imgproc.putText(rgbMat, "model file is not loaded.", new Point(5, rgbMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    Imgproc.putText(rgbMat, "Please read console message.", new Point(5, rgbMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                }
-                else
-                {
-                    if (!disableObjectDetector)
-                    {
-                        Imgproc.cvtColor(rgbMat, bgrMat, Imgproc.COLOR_RGB2BGR);
-
-                        //TickMeter tm = new TickMeter();
-                        //tm.start();
-
-                        Mat results = objectDetector.infer(bgrMat);
-
-                        //tm.stop();
-                        //Debug.Log("ObjectDetector Inference time (preprocess + infer + postprocess), ms: " + tm.getTimeMilli());
-
-                        Imgproc.cvtColor(bgrMat, rgbMat, Imgproc.COLOR_BGR2RGB);
-
-                        if (showObjectDetectorResultToggle.isOn)
-                            objectDetector.visualize(rgbMat, results, false, true);
-
-                        if (trackerByteTrackToggle.isOn)
-                        {
-                            // update trackers.
-                            List<Detection> inputs = ConvertToByteTrackDetections(results);
-                            List<Track> outputs = byteTracker.Update(inputs);
-
-                            foreach (var output in outputs)
-                            {
-                                int track_id = output.TrackId;
-                                TlwhRect rect = (TlwhRect)output.Detection.Rect;
-                                Scalar color = palette[track_id % palette.Count];
-
-                                Imgproc.rectangle(rgbMat, new Point(rect.Left, rect.Top), new Point(rect.Left + rect.Width, rect.Top + rect.Height), color, 2);
-
-                                string label = "ID:" + track_id;
-                                int[] baseLine = new int[1];
-                                Size labelSize = Imgproc.getTextSize(label, Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, 1, baseLine);
-
-                                float left = rect.Left;
-                                float top = Mathf.Max(rect.Top, (float)labelSize.height);
-                                Imgproc.rectangle(rgbMat, new Point(left, top - labelSize.height),
-                                    new Point(left + labelSize.width, top + baseLine[0]), color, Core.FILLED);
-                                Imgproc.putText(rgbMat, label, new Point(left, top), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, Scalar.all(255), 1, Imgproc.LINE_AA);
-                            }
-                        }
-                    }
-                }
-#endif
-
-                Utils.matToTexture2D(rgbMat, texture);
-            }
-        }
-
-        private void ResetTrackers()
-        {
-            if (byteTracker != null)
-                byteTracker.Clear();
-
-            if (!disableObjectDetector)
-                showObjectDetectorResultToggle.interactable = true;
-        }
-
-        private List<Detection> ConvertToByteTrackDetections(Mat results)
-        {
-            List<Detection> inputs = new List<Detection>();
-
-            if (results.empty() || results.cols() < 6)
-                return inputs;
-
-            for (int i = results.rows() - 1; i >= 0; --i)
-            {
-                float[] box = new float[4];
-                results.get(i, 0, box);
-                float[] conf = new float[1];
-                results.get(i, 4, conf);
-                //float[] cls = new float[1];
-                //results.get(i, 5, cls);
-
-                float left = box[0];
-                float top = box[1];
-                float width = box[2] - box[0];
-                float height = box[3] - box[1];
-                float score = conf[0];
-
-                inputs.Add(new Detection(new TlwhRect(top, left, width, height), score));
-            }
-
-            return inputs;
-        }
-
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
-        {
-            if (multiSource2MatHelper != null)
-                multiSource2MatHelper.Dispose();
-
-#if !UNITY_WSA_10_0
-            if (objectDetector != null)
-                objectDetector.dispose();
-#endif
-
-            if (cts != null)
-                cts.Dispose();
         }
 
         /// <summary>
@@ -397,11 +244,125 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
+        /// Raises the play button click event.
+        /// </summary>
+        public void OnPlayButtonClick()
+        {
+            _multiSource2MatHelper.Play();
+        }
+
+        /// <summary>
+        /// Raises the pause button click event.
+        /// </summary>
+        public void OnPauseButtonClick()
+        {
+            _multiSource2MatHelper.Pause();
+        }
+
+        /// <summary>
+        /// Raises the stop button click event.
+        /// </summary>
+        public void OnStopButtonClick()
+        {
+            _multiSource2MatHelper.Stop();
+        }
+
+        /// <summary>
+        /// Raises the change camera button click event.
+        /// </summary>
+        public void OnChangeCameraButtonClick()
+        {
+            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
+        }
+
+        /// <summary>
         /// Raises the reset trackers button click event.
         /// </summary>
         public void OnResetTrackersButtonClick()
         {
             ResetTrackers();
         }
+
+        /// <summary>
+        /// Raises the show object detector result toggle value changed event.
+        /// </summary>
+        public void OnShowObjectDetectorResultToggleValueChanged()
+        {
+            if (ShowObjectDetectorResultToggle.isOn != ShowObjectDetectorResult)
+            {
+                ShowObjectDetectorResult = ShowObjectDetectorResultToggle.isOn;
+            }
+        }
+
+        /// <summary>
+        /// Raises the enable byte track toggle value changed event.
+        /// </summary>
+        public void OnEnableByteTrackToggleValueChanged()
+        {
+            if (EnableByteTrackToggle.isOn != EnableByteTrack)
+            {
+                EnableByteTrack = EnableByteTrackToggle.isOn;
+            }
+        }
+
+        // Private Methods
+        private void CheckFilePaths()
+        {
+            if (string.IsNullOrEmpty(_modelFilepath))
+            {
+                ShowObjectDetectorResultToggle.isOn = ShowObjectDetectorResultToggle.interactable = false;
+                _disableObjectDetector = true;
+            }
+        }
+
+        private void Run()
+        {
+            if (string.IsNullOrEmpty(_modelFilepath))
+            {
+                Debug.LogError("model: " + Model + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+            }
+            else
+            {
+
+#if !UNITY_WSA_10_0
+                _objectDetector = new YOLOXObjectDetector(_modelFilepath, _classesFilepath, new Size(InpWidth, InpHeight), ConfThreshold, NmsThreshold, TopK);
+#endif
+
+                _byteTrackInfoVisualizer = new BYTETrackInfoVisualizer(_classesFilepath);
+            }
+
+            _multiSource2MatHelper.Initialize();
+        }
+
+        private void ResetTrackers()
+        {
+            _byteTracker?.Reset();
+
+            if (!_disableObjectDetector)
+                ShowObjectDetectorResultToggle.interactable = true;
+        }
+
+#if !UNITY_WSA_10_0
+        private BBox[] ConvertToBBoxes(Mat result)
+        {
+            if (result.empty() || result.cols() < 6)
+                return new BBox[0];
+
+#if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
+            Span<ObjectDetectionData> data = _objectDetector.ToStructuredDataAsSpan(result);
+#else
+            ObjectDetectionData[] data = _objectDetector.ToStructuredData(result);
+#endif
+
+            BBox[] inputs = new BBox[data.Length];
+            for (int i = 0; i < data.Length; ++i)
+            {
+                ref readonly var d = ref data[i];
+                inputs[i] = new BBox(d);
+            }
+
+            return inputs;
+        }
+#endif
     }
 }

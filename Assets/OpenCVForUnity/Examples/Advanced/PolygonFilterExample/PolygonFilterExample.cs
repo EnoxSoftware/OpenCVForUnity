@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UnityUtils.Helper;
-using System.Collections.Generic;
+using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.Optimization;
+using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,223 +17,126 @@ namespace OpenCVForUnityExample
     [RequireComponent(typeof(MultiSource2MatHelper), typeof(ImageOptimizationHelper))]
     public class PolygonFilterExample : MonoBehaviour
     {
-        [Header("Output")]
-        /// <summary>
-        /// The RawImage for previewing the result.
-        /// </summary>
-        public RawImage resultPreview;
-
-        [Space(10)]
-
-        /// <summary>
-        /// The texture.
-        /// </summary>
-        Texture2D texture;
-
-        /// <summary>
-        /// The multi source to mat helper.
-        /// </summary>
-        MultiSource2MatHelper multiSource2MatHelper;
-
-        /// <summary>
-        /// The image optimization helper.
-        /// </summary>
-        ImageOptimizationHelper imageOptimizationHelper;
-
+        // Constants
         /// <summary>
         /// EDGE_DETECT_VALUE
         /// </summary>
-        int EDGE_DETECT_VALUE = 70;
+        private const int EDGE_DETECT_VALUE = 70;
 
         /// <summary>
         /// POINT_RATE
         /// </summary>
-        double POINT_RATE = 0.075;
+        private const double POINT_RATE = 0.075;
 
         /// <summary>
         /// POINT_MAX_NUM
         /// </summary>
-        int POINT_MAX_NUM = 2500;
+        private const int POINT_MAX_NUM = 2500;
+
+        // Public Fields
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage ResultPreview;
+
+        [Space(10)]
+
+        // Private Fields
+        /// <summary>
+        /// The texture.
+        /// </summary>
+        private Texture2D _texture;
+
+        /// <summary>
+        /// The multi source to mat helper.
+        /// </summary>
+        private MultiSource2MatHelper _multiSource2MatHelper;
+
+        /// <summary>
+        /// The image optimization helper.
+        /// </summary>
+        private ImageOptimizationHelper _imageOptimizationHelper;
 
         /// <summary>
         /// The gray1 mat.
         /// </summary>
-        Mat gray1Mat;
+        private Mat _gray1Mat;
 
         /// <summary>
         /// The gray2 mat.
         /// </summary>
-        Mat gray2Mat;
+        private Mat _gray2Mat;
 
         /// <summary>
         /// The kernel.
         /// </summary>
-        Mat kernel;
+        private Mat _kernel;
 
         /// <summary>
         /// The byte array.
         /// </summary>
-        byte[] byteArray;
+        private byte[] _byteArray;
 
         /// <summary>
         /// The subdiv.
         /// </summary>
-        Subdiv2D subdiv;
+        private Subdiv2D _subdiv;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
+        private FpsMonitor _fpsMonitor;
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
-            imageOptimizationHelper = gameObject.GetComponent<ImageOptimizationHelper>();
+            _imageOptimizationHelper = gameObject.GetComponent<ImageOptimizationHelper>();
 
-            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
-            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGBA;
-            multiSource2MatHelper.Initialize();
+            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
+            _multiSource2MatHelper.Initialize();
         }
 
-        /// <summary>
-        /// Raises the source to mat helper initialized event.
-        /// </summary>
-        public void OnSourceToMatHelperInitialized()
+        private void Update()
         {
-            Debug.Log("OnSourceToMatHelperInitialized");
-
-            Mat rgbaMat = multiSource2MatHelper.GetMat();
-
-            // Fill in the image so that the unprocessed image is not displayed.
-            rgbaMat.setTo(new Scalar(0, 0, 0, 255));
-
-            texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
-            Utils.matToTexture2D(rgbaMat, texture);
-
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
-
-
-            if (fpsMonitor != null)
-            {
-                fpsMonitor.Add("width", rgbaMat.width().ToString());
-                fpsMonitor.Add("height", rgbaMat.height().ToString());
-                fpsMonitor.Add("orientation", Screen.orientation.ToString());
-            }
-
-            Mat downScaleMat = imageOptimizationHelper.GetDownScaleMat((rgbaMat));
-
-            gray1Mat = new Mat(downScaleMat.rows(), downScaleMat.cols(), CvType.CV_8UC1);
-            gray2Mat = new Mat(downScaleMat.rows(), downScaleMat.cols(), CvType.CV_8UC1);
-
-            int ksize = 7;
-            float[] kernelData = new float[ksize * ksize];
-            for (int i = 0; i < kernelData.Length; i++)
-            {
-                if (i == kernelData.Length / 2)
-                {
-                    kernelData[i] = (-(kernelData.Length - 1));
-                }
-                else
-                {
-                    kernelData[i] = 1;
-                }
-            }
-            kernel = new Mat(ksize, ksize, CvType.CV_32F);
-            kernel.put(0, 0, kernelData);
-
-            byteArray = new byte[downScaleMat.width() * downScaleMat.height()];
-
-            subdiv = new Subdiv2D();
-        }
-
-        /// <summary>
-        /// Raises the source to mat helper disposed event.
-        /// </summary>
-        public void OnSourceToMatHelperDisposed()
-        {
-            Debug.Log("OnSourceToMatHelperDisposed");
-
-            if (gray1Mat != null)
-            {
-                gray1Mat.Dispose();
-                gray1Mat = null;
-            }
-
-            if (gray2Mat != null)
-            {
-                gray2Mat.Dispose();
-                gray2Mat = null;
-            }
-
-            if (kernel != null)
-            {
-                kernel.Dispose();
-                kernel = null;
-            }
-
-            if (texture != null)
-            {
-                Texture2D.Destroy(texture);
-                texture = null;
-            }
-        }
-
-        /// <summary>
-        /// Raises the source to mat helper error occurred event.
-        /// </summary>
-        /// <param name="errorCode">Error code.</param>
-        /// <param name="message">Message.</param>
-        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
-        {
-            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
-
-            if (fpsMonitor != null)
-            {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
-            }
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame() && !imageOptimizationHelper.IsCurrentFrameSkipped())
+            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame() && !_imageOptimizationHelper.IsCurrentFrameSkipped())
             {
 
-                Mat rgbaMat = multiSource2MatHelper.GetMat();
+                Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
                 //get downScaleMat;
-                Mat downScaleRgbaMat = imageOptimizationHelper.GetDownScaleMat((rgbaMat));
+                Mat downScaleRgbaMat = _imageOptimizationHelper.GetDownScaleMat((rgbaMat));
 
                 //grayscale
-                Imgproc.cvtColor(downScaleRgbaMat, gray1Mat, Imgproc.COLOR_RGBA2GRAY);
+                Imgproc.cvtColor(downScaleRgbaMat, _gray1Mat, Imgproc.COLOR_RGBA2GRAY);
 
                 //blur
-                Imgproc.blur(gray1Mat, gray2Mat, new Size(5, 5));
+                Imgproc.blur(_gray1Mat, _gray2Mat, new Size(5, 5));
 
                 //edge filter
-                Imgproc.filter2D(gray2Mat, gray1Mat, gray1Mat.depth(), kernel);
+                Imgproc.filter2D(_gray2Mat, _gray1Mat, _gray1Mat.depth(), _kernel);
 
                 //blur
-                Imgproc.blur(gray1Mat, gray2Mat, new Size(3, 3));
+                Imgproc.blur(_gray1Mat, _gray2Mat, new Size(3, 3));
 
                 //detect edge
-                Imgproc.threshold(gray2Mat, gray2Mat, EDGE_DETECT_VALUE, 255, Imgproc.THRESH_BINARY);
+                Imgproc.threshold(_gray2Mat, _gray2Mat, EDGE_DETECT_VALUE, 255, Imgproc.THRESH_BINARY);
 
                 //copy Mat to byteArray
-                MatUtils.copyFromMat<byte>(gray2Mat, byteArray);
+                OpenCVMatUtils.CopyFromMat<byte>(_gray2Mat, _byteArray);
 
                 //set edge pointList
                 List<Point> pointList = new List<Point>();
-                int w = gray1Mat.width();
-                int h = gray1Mat.height();
+                int w = _gray1Mat.width();
+                int h = _gray1Mat.height();
                 for (int y = 0; y < h; y++)
                 {
                     for (int x = 0; x < w; x++)
                     {
-                        if (byteArray[x + w * y] == 255)
+                        if (_byteArray[x + w * y] == 255)
                             pointList.Add(new Point(x, y));
                     }
                 }
@@ -249,27 +153,27 @@ namespace OpenCVForUnityExample
 
 
                 //init subdiv
-                subdiv.initDelaunay(new OpenCVForUnity.CoreModule.Rect(0, 0, downScaleRgbaMat.width(), downScaleRgbaMat.height()));
+                _subdiv.initDelaunay(new OpenCVForUnity.CoreModule.Rect(0, 0, downScaleRgbaMat.width(), downScaleRgbaMat.height()));
                 for (int i = 0; i < pointList.Count; i++)
                 {
-                    subdiv.insert(pointList[i]);
+                    _subdiv.insert(pointList[i]);
                 }
-                subdiv.insert(new Point(0, 0));
-                subdiv.insert(new Point(gray1Mat.width() / 2 - 1, 0));
-                subdiv.insert(new Point(gray1Mat.width() - 1, 0));
-                subdiv.insert(new Point(gray1Mat.width() - 1, gray1Mat.height() / 2 - 1));
-                subdiv.insert(new Point(gray1Mat.width() - 1, gray1Mat.height() - 1));
-                subdiv.insert(new Point(gray1Mat.width() / 2 - 1, gray1Mat.height() - 1));
-                subdiv.insert(new Point(0, gray1Mat.height() - 1));
-                subdiv.insert(new Point(0, gray1Mat.height() / 2 - 1));
+                _subdiv.insert(new Point(0, 0));
+                _subdiv.insert(new Point(_gray1Mat.width() / 2 - 1, 0));
+                _subdiv.insert(new Point(_gray1Mat.width() - 1, 0));
+                _subdiv.insert(new Point(_gray1Mat.width() - 1, _gray1Mat.height() / 2 - 1));
+                _subdiv.insert(new Point(_gray1Mat.width() - 1, _gray1Mat.height() - 1));
+                _subdiv.insert(new Point(_gray1Mat.width() / 2 - 1, _gray1Mat.height() - 1));
+                _subdiv.insert(new Point(0, _gray1Mat.height() - 1));
+                _subdiv.insert(new Point(0, _gray1Mat.height() / 2 - 1));
 
 
                 using (MatOfFloat6 triangleList = new MatOfFloat6())
                 {
-                    subdiv.getTriangleList(triangleList);
+                    _subdiv.getTriangleList(triangleList);
 
                     float[] pointArray = triangleList.toArray();
-                    float downScaleRatio = imageOptimizationHelper.downscaleRatio;
+                    float downScaleRatio = _imageOptimizationHelper.DownscaleRatio;
                     if (downScaleRatio < 1)
                         downScaleRatio = 1;
                     byte[] color = new byte[4];
@@ -315,17 +219,96 @@ namespace OpenCVForUnityExample
 
                 //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " DOWNSCALE W:" + downScaleRgbaMat.width () + " H:" + downScaleRgbaMat.height (), new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
-                Utils.matToTexture2D(rgbaMat, texture);
+                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
             }
         }
 
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
+        private void OnDestroy()
         {
-            multiSource2MatHelper.Dispose();
-            imageOptimizationHelper.Dispose();
+            _multiSource2MatHelper?.Dispose();
+            _imageOptimizationHelper?.Dispose();
+        }
+
+        // Public Methods
+        /// <summary>
+        /// Raises the source to mat helper initialized event.
+        /// </summary>
+        public void OnSourceToMatHelperInitialized()
+        {
+            Debug.Log("OnSourceToMatHelperInitialized");
+
+            Mat rgbaMat = _multiSource2MatHelper.GetMat();
+
+            // Fill in the image so that the unprocessed image is not displayed.
+            rgbaMat.setTo(new Scalar(0, 0, 0, 255));
+
+            _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
+            OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
+
+            ResultPreview.texture = _texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
+
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("width", rgbaMat.width().ToString());
+                _fpsMonitor.Add("height", rgbaMat.height().ToString());
+                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
+            }
+
+            Mat downScaleMat = _imageOptimizationHelper.GetDownScaleMat((rgbaMat));
+
+            _gray1Mat = new Mat(downScaleMat.rows(), downScaleMat.cols(), CvType.CV_8UC1);
+            _gray2Mat = new Mat(downScaleMat.rows(), downScaleMat.cols(), CvType.CV_8UC1);
+
+            int ksize = 7;
+            float[] kernelData = new float[ksize * ksize];
+            for (int i = 0; i < kernelData.Length; i++)
+            {
+                if (i == kernelData.Length / 2)
+                {
+                    kernelData[i] = (-(kernelData.Length - 1));
+                }
+                else
+                {
+                    kernelData[i] = 1;
+                }
+            }
+            _kernel = new Mat(ksize, ksize, CvType.CV_32F);
+            _kernel.put(0, 0, kernelData);
+
+            _byteArray = new byte[downScaleMat.width() * downScaleMat.height()];
+
+            _subdiv = new Subdiv2D();
+        }
+
+        /// <summary>
+        /// Raises the source to mat helper disposed event.
+        /// </summary>
+        public void OnSourceToMatHelperDisposed()
+        {
+            Debug.Log("OnSourceToMatHelperDisposed");
+
+            _gray1Mat?.Dispose(); _gray1Mat = null;
+            _gray2Mat?.Dispose(); _gray2Mat = null;
+            _kernel?.Dispose(); _kernel = null;
+
+            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
+        }
+
+        /// <summary>
+        /// Raises the source to mat helper error occurred event.
+        /// </summary>
+        /// <param name="errorCode">Error code.</param>
+        /// <param name="message">Message.</param>
+        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
+        {
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
+            }
         }
 
         /// <summary>
@@ -341,7 +324,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnPlayButtonClick()
         {
-            multiSource2MatHelper.Play();
+            _multiSource2MatHelper.Play();
         }
 
         /// <summary>
@@ -349,7 +332,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnPauseButtonClick()
         {
-            multiSource2MatHelper.Pause();
+            _multiSource2MatHelper.Pause();
         }
 
         /// <summary>
@@ -357,7 +340,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnStopButtonClick()
         {
-            multiSource2MatHelper.Stop();
+            _multiSource2MatHelper.Stop();
         }
 
         /// <summary>
@@ -365,7 +348,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnChangeCameraButtonClick()
         {
-            multiSource2MatHelper.requestedIsFrontFacing = !multiSource2MatHelper.requestedIsFrontFacing;
+            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
         }
     }
 }

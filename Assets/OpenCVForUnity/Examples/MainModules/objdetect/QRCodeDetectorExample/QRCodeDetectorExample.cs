@@ -1,9 +1,10 @@
+using System;
+using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.ObjdetectModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UnityUtils.Helper;
-using System.Collections.Generic;
+using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,68 +19,147 @@ namespace OpenCVForUnityExample
     [RequireComponent(typeof(MultiSource2MatHelper))]
     public class QRCodeDetectorExample : MonoBehaviour
     {
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
         [Space(10)]
 
+        // Private Fields
         /// <summary>
         /// The gray mat.
         /// </summary>
-        Mat grayMat;
+        private Mat _grayMat;
 
         /// <summary>
         /// The texture.
         /// </summary>
-        Texture2D texture;
+        private Texture2D _texture;
 
         /// <summary>
         /// The QRCode detector.
         /// </summary>
-        QRCodeDetector detector;
+        private QRCodeDetector _detector;
 
         /// <summary>
         /// The points.
         /// </summary>
-        Mat points;
+        private Mat _points;
 
         /// <summary>
         /// The decoded info
         /// </summary>
-        List<string> decodedInfo;
+        private List<string> _decodedInfo;
 
         /// <summary>
         /// The straight qrcode
         /// </summary>
-        List<Mat> straightQrcode;
+        private List<Mat> _straightQrcode;
 
         /// <summary>
         /// The multi source to mat helper.
         /// </summary>
-        MultiSource2MatHelper multiSource2MatHelper;
+        private MultiSource2MatHelper _multiSource2MatHelper;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
+        private FpsMonitor _fpsMonitor;
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
-            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
-            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGBA;
+            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
 
-            detector = new QRCodeDetector();
+            _detector = new QRCodeDetector();
 
-            multiSource2MatHelper.Initialize();
-
+            _multiSource2MatHelper.Initialize();
         }
 
+        private void Update()
+        {
+            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
+            {
+
+                Mat rgbaMat = _multiSource2MatHelper.GetMat();
+
+                Imgproc.cvtColor(rgbaMat, _grayMat, Imgproc.COLOR_RGBA2GRAY);
+
+                bool result = _detector.detectAndDecodeMulti(_grayMat, _decodedInfo, _points, _straightQrcode);
+
+                if (result)
+                {
+                    // Debug.Log(_points.dump());
+                    // Debug.Log(_points.ToString());
+
+                    // Debug.Log("_decodedInfo.Count " + _decodedInfo.Count);
+                    // Debug.Log("_straightQrcode.Count " + _straightQrcode.Count);
+
+#if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
+                    // draw QRCode contour using non-allocating methods.
+                    ReadOnlySpan<float> qrCodeCorners = _points.AsSpan<float>();
+#else
+                    // draw QRCode contour using allocating methods.
+                    float[] qrCodeCorners = new float[_points.total() * _points.channels()];
+                    _points.get(0, 0, qrCodeCorners);
+#endif
+
+                    // Debug.Log("qrCodeCorners.Length " + qrCodeCorners.Length);
+
+                    for (int i = 0; i < qrCodeCorners.Length; i += 8)
+                    {
+                        // Draw QR code bounding box by connecting the 4 corners
+                        for (int cornerIndex = 0; cornerIndex < 4; cornerIndex++)
+                        {
+                            int currentCorner = i + cornerIndex * 2;
+                            int nextCorner = i + ((cornerIndex + 1) % 4) * 2;
+
+                            Imgproc.line(rgbaMat,
+                                new Point(qrCodeCorners[currentCorner], qrCodeCorners[currentCorner + 1]),
+                                new Point(qrCodeCorners[nextCorner], qrCodeCorners[nextCorner + 1]),
+                                new Scalar(255, 0, 0, 255), 2);
+                        }
+
+                        // Display decoded information
+                        int qrCodeIndex = i / 8;
+                        if (_decodedInfo.Count > qrCodeIndex && _decodedInfo[qrCodeIndex] != null)
+                        {
+                            Imgproc.putText(rgbaMat, _decodedInfo[qrCodeIndex],
+                                new Point(qrCodeCorners[i], qrCodeCorners[i + 1]),
+                                Imgproc.FONT_HERSHEY_SIMPLEX, 0.7,
+                                new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                        }
+                    }
+
+                    // Display straightQrcode using imshow
+                    for (int i = 0; i < _straightQrcode.Count; i++)
+                    {
+                        DebugMat.imshow("straightQrcode[" + i + "]", _straightQrcode[i], false, null, _decodedInfo[i]);
+                    }
+                }
+                else
+                {
+                    Imgproc.putText(rgbaMat, "Decoding failed.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                }
+
+                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            _multiSource2MatHelper?.Dispose();
+
+            _detector?.Dispose();
+        }
+
+        // Public Methods
         /// <summary>
         /// Raises the source to mat helper initialized event.
         /// </summary>
@@ -87,32 +167,31 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperInitialized");
 
-            Mat rgbaMat = multiSource2MatHelper.GetMat();
+            Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-            texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
-            Utils.matToTexture2D(rgbaMat, texture);
+            _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
+            OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = _texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
 
-
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.Add("width", rgbaMat.width().ToString());
-                fpsMonitor.Add("height", rgbaMat.height().ToString());
-                fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                _fpsMonitor.Add("width", rgbaMat.width().ToString());
+                _fpsMonitor.Add("height", rgbaMat.height().ToString());
+                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
             }
 
-            grayMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC1);
+            _grayMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC1);
 
-            points = new Mat();
-            decodedInfo = new List<string>();
-            straightQrcode = new List<Mat>();
+            _points = new Mat();
+            _decodedInfo = new List<string>();
+            _straightQrcode = new List<Mat>();
 
 #if !OPENCV_DONT_USE_WEBCAMTEXTURE_API
             // If the WebCam is front facing, flip the Mat horizontally. Required for successful detection.
-            if (multiSource2MatHelper.source2MatHelper is WebCamTexture2MatHelper webCamHelper)
-                webCamHelper.flipHorizontal = webCamHelper.IsFrontFacing();
+            if (_multiSource2MatHelper.Source2MatHelper is WebCamTexture2MatHelper webCamHelper)
+                webCamHelper.FlipHorizontal = webCamHelper.IsFrontFacing();
 #endif
         }
 
@@ -123,26 +202,19 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperDisposed");
 
-            if (grayMat != null)
-                grayMat.Dispose();
+            _grayMat?.Dispose();
 
-            if (texture != null)
+            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
+
+            _points?.Dispose();
+
+            _decodedInfo?.Clear();
+
+            foreach (var item in _straightQrcode)
             {
-                Texture2D.Destroy(texture);
-                texture = null;
+                item?.Dispose();
             }
-
-            if (points != null)
-                points.Dispose();
-
-            if (decodedInfo != null)
-                decodedInfo.Clear();
-
-            if (straightQrcode != null)
-                foreach (var item in straightQrcode)
-                {
-                    item.Dispose();
-                }
+            _straightQrcode?.Clear();
         }
 
         /// <summary>
@@ -154,70 +226,10 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
 
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
+                _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
             }
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
-            {
-
-                Mat rgbaMat = multiSource2MatHelper.GetMat();
-
-                Imgproc.cvtColor(rgbaMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
-
-
-                bool result = detector.detectAndDecodeMulti(grayMat, decodedInfo, points, straightQrcode);
-
-                if (result)
-                {
-
-                    //Debug.Log(points.dump());
-                    //Debug.Log(points.ToString());
-
-                    //Debug.Log("decoded_info.Count " + decoded_info.Count);
-                    //Debug.Log("straight_qrcode.Count " + straight_qrcode.Count);
-
-                    for (int i = 0; i < points.rows(); i++)
-                    {
-                        //Debug.Log(decoded_info[i]);
-                        //Debug.Log(straight_qrcode[i].dump());
-
-                        //// draw QRCode contour.
-                        float[] points_arr = new float[8];
-                        points.get(i, 0, points_arr);
-                        Imgproc.line(rgbaMat, new Point(points_arr[0], points_arr[1]), new Point(points_arr[2], points_arr[3]), new Scalar(255, 0, 0, 255), 2);
-                        Imgproc.line(rgbaMat, new Point(points_arr[2], points_arr[3]), new Point(points_arr[4], points_arr[5]), new Scalar(255, 0, 0, 255), 2);
-                        Imgproc.line(rgbaMat, new Point(points_arr[4], points_arr[5]), new Point(points_arr[6], points_arr[7]), new Scalar(255, 0, 0, 255), 2);
-                        Imgproc.line(rgbaMat, new Point(points_arr[6], points_arr[7]), new Point(points_arr[0], points_arr[1]), new Scalar(255, 0, 0, 255), 2);
-
-                        if (decodedInfo.Count > i && decodedInfo[i] != null)
-                            Imgproc.putText(rgbaMat, decodedInfo[i], new Point(points_arr[0], points_arr[1]), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    }
-
-                }
-                else
-                {
-                    Imgproc.putText(rgbaMat, "Decoding failed.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                }
-
-                Utils.matToTexture2D(rgbaMat, texture);
-            }
-        }
-
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
-        {
-            multiSource2MatHelper.Dispose();
-
-            if (detector != null)
-                detector.Dispose();
         }
 
         /// <summary>
@@ -233,7 +245,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnPlayButtonClick()
         {
-            multiSource2MatHelper.Play();
+            _multiSource2MatHelper.Play();
         }
 
         /// <summary>
@@ -241,7 +253,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnPauseButtonClick()
         {
-            multiSource2MatHelper.Pause();
+            _multiSource2MatHelper.Pause();
         }
 
         /// <summary>
@@ -249,7 +261,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnStopButtonClick()
         {
-            multiSource2MatHelper.Stop();
+            _multiSource2MatHelper.Stop();
         }
 
         /// <summary>
@@ -257,7 +269,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnChangeCameraButtonClick()
         {
-            multiSource2MatHelper.requestedIsFrontFacing = !multiSource2MatHelper.requestedIsFrontFacing;
+            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
         }
     }
 }

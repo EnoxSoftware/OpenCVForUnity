@@ -1,26 +1,38 @@
 using OpenCVForUnity.CoreModule;
-using System.Collections;
-using UnityEngine;
 
 namespace OpenCVForUnityExample
 {
+    /// <summary>
+    /// Color object for tracking based on HSV color range.
+    /// </summary>
     public class ColorObject
     {
-        int xPos, yPos;
-        string type;
-        Scalar HSVmin, HSVmax;
-        Scalar Color;
+        // Private Fields
+        private int _xPos;
+        private int _yPos;
+        private string _type;
+        private Scalar _hsvMin;
+        private Scalar _hsvMax;
+        private Scalar _color;
 
+        // Public Methods
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ColorObject"/> class.
+        /// </summary>
         public ColorObject()
         {
             //set values for default constructor
-            setType("Object");
-            setColor(new Scalar(0, 0, 0));
+            SetType("Object");
+            SetColor(new Scalar(0, 0, 0));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ColorObject"/> class with specified color name.
+        /// </summary>
+        /// <param name="name">The color name.</param>
         public ColorObject(string name)
         {
-            setType(name);
+            SetType(name);
 
             if (name == "blue")
             {
@@ -28,11 +40,11 @@ namespace OpenCVForUnityExample
                 //TODO: use "calibration mode" to find HSV min
                 //and HSV max values
 
-                setHSVmin(new Scalar(92, 0, 0));
-                setHSVmax(new Scalar(124, 256, 256));
+                SetHSVmin(new Scalar(92, 0, 0));
+                SetHSVmax(new Scalar(124, 256, 256));
 
-                //BGR value for Green:
-                setColor(new Scalar(0, 0, 255));
+                //BGR value for Blue:
+                SetColor(new Scalar(0, 0, 255));
 
             }
             if (name == "green")
@@ -41,11 +53,11 @@ namespace OpenCVForUnityExample
                 //TODO: use "calibration mode" to find HSV min
                 //and HSV max values
 
-                setHSVmin(new Scalar(34, 50, 50));
-                setHSVmax(new Scalar(80, 220, 200));
+                SetHSVmin(new Scalar(34, 50, 50));
+                SetHSVmax(new Scalar(80, 220, 200));
 
-                //BGR value for Yellow:
-                setColor(new Scalar(0, 255, 0));
+                //BGR value for Green:
+                SetColor(new Scalar(0, 255, 0));
 
             }
             if (name == "yellow")
@@ -54,11 +66,11 @@ namespace OpenCVForUnityExample
                 //TODO: use "calibration mode" to find HSV min
                 //and HSV max values
 
-                setHSVmin(new Scalar(20, 124, 123));
-                setHSVmax(new Scalar(30, 256, 256));
+                SetHSVmin(new Scalar(20, 124, 123));
+                SetHSVmax(new Scalar(30, 256, 256));
 
-                //BGR value for Red:
-                setColor(new Scalar(255, 255, 0));
+                //BGR value for Yellow:
+                SetColor(new Scalar(255, 255, 0));
 
             }
             if (name == "red")
@@ -67,73 +79,121 @@ namespace OpenCVForUnityExample
                 //TODO: use "calibration mode" to find HSV min
                 //and HSV max values
 
-                setHSVmin(new Scalar(0, 200, 0));
-                setHSVmax(new Scalar(19, 255, 255));
+                SetHSVmin(new Scalar(0, 200, 0));
+                SetHSVmax(new Scalar(19, 255, 255));
 
                 //BGR value for Red:
-                setColor(new Scalar(255, 0, 0));
+                SetColor(new Scalar(255, 0, 0));
 
             }
         }
 
-        public int getXPos()
+        /// <summary>
+        /// Gets the X position.
+        /// </summary>
+        /// <returns>The X position.</returns>
+        public int GetXPos()
         {
-            return xPos;
+            return _xPos;
         }
 
-        public void setXPos(int x)
+        /// <summary>
+        /// Sets the X position.
+        /// </summary>
+        /// <param name="x">The X position.</param>
+        public void SetXPos(int x)
         {
-            xPos = x;
+            _xPos = x;
         }
 
-        public int getYPos()
+        /// <summary>
+        /// Gets the Y position.
+        /// </summary>
+        /// <returns>The Y position.</returns>
+        public int GetYPos()
         {
-            return yPos;
+            return _yPos;
         }
 
-        public void setYPos(int y)
+        /// <summary>
+        /// Sets the Y position.
+        /// </summary>
+        /// <param name="y">The Y position.</param>
+        public void SetYPos(int y)
         {
-            yPos = y;
+            _yPos = y;
         }
 
-        public Scalar getHSVmin()
+        /// <summary>
+        /// Gets the HSV minimum values.
+        /// </summary>
+        /// <returns>The HSV minimum values.</returns>
+        public Scalar GetHSVmin()
         {
-            return HSVmin;
+            return _hsvMin;
         }
 
-        public Scalar getHSVmax()
+        /// <summary>
+        /// Gets the HSV maximum values.
+        /// </summary>
+        /// <returns>The HSV maximum values.</returns>
+        public Scalar GetHSVmax()
         {
-            return HSVmax;
+            return _hsvMax;
         }
 
-        public void setHSVmin(Scalar min)
+        /// <summary>
+        /// Sets the HSV minimum values.
+        /// </summary>
+        /// <param name="min">The HSV minimum values.</param>
+        public void SetHSVmin(Scalar min)
         {
-            HSVmin = min;
+            _hsvMin = min;
         }
 
-        public void setHSVmax(Scalar max)
+        /// <summary>
+        /// Sets the HSV maximum values.
+        /// </summary>
+        /// <param name="max">The HSV maximum values.</param>
+        public void SetHSVmax(Scalar max)
         {
-            HSVmax = max;
+            _hsvMax = max;
         }
 
-        public string getType()
+        /// <summary>
+        /// Gets the type.
+        /// </summary>
+        /// <returns>The type.</returns>
+        public string GetObjectType()
         {
-            return type;
+            return _type;
         }
 
-        public void setType(string t)
+        /// <summary>
+        /// Sets the type.
+        /// </summary>
+        /// <param name="t">The type.</param>
+        public void SetType(string t)
         {
-            type = t;
+            _type = t;
         }
 
-        public Scalar getColor()
+        /// <summary>
+        /// Gets the color.
+        /// </summary>
+        /// <returns>The color.</returns>
+        public Scalar GetColor()
         {
-            return Color;
+            return _color;
         }
 
-        public void setColor(Scalar c)
+        /// <summary>
+        /// Sets the color.
+        /// </summary>
+        /// <param name="c">The color.</param>
+        public void SetColor(Scalar c)
         {
-            Color = c;
+            _color = c;
         }
     }
 }

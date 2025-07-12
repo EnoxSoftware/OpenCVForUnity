@@ -1,51 +1,82 @@
+using System;
+using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace OpenCVForUnityExample
 {
-    public class ColorBlobDetector
+    /// <summary>
+    /// Color Blob Detector for detecting colored regions in images.
+    /// </summary>
+    public class ColorBlobDetector : IDisposable
     {
+        // Private Fields
         // Lower and Upper bounds for range checking in HSV color space
-        private Scalar mLowerBound = new Scalar(0);
-        private Scalar mUpperBound = new Scalar(0);
+        private Scalar _lowerBound = new Scalar(0);
+        private Scalar _upperBound = new Scalar(0);
         // Minimum contour area in percent for contours filtering
-        private static double mMinContourArea = 0.1;
+        private static double _minContourArea = 0.1;
         // Color radius for range checking in HSV color space
-        private Scalar mColorRadius = new Scalar(25, 50, 50, 0);
-        private Mat mSpectrum = new Mat();
-        private List<MatOfPoint> mContours = new List<MatOfPoint>();
+        private Scalar _colorRadius = new Scalar(25, 50, 50, 0);
+        private Mat _spectrum = new Mat();
+        private List<MatOfPoint> _contours = new List<MatOfPoint>();
 
-        // Cache
-        private Mat mPyrDownMat = new Mat();
-        private Mat mHsvMat = new Mat();
-        private Mat mMask = new Mat();
-        private Mat mDilatedMask = new Mat();
-        private Mat mHierarchy = new Mat();
+        // Caches
+        private Mat _pyrDownMat = new Mat();
+        private Mat _hsvMat = new Mat();
+        private Mat _mask = new Mat();
+        private Mat _dilatedMask = new Mat();
+        private Mat _hierarchy = new Mat();
 
-        public void SetColorRadius(Scalar radius)
+        private bool _disposed = false;
+
+        // Public Methods
+        /// <summary>
+        /// Initializes a new instance of the ColorBlobDetector class.
+        /// </summary>
+        public ColorBlobDetector() { }
+
+        /// <summary>
+        /// Finalizer for the ColorBlobDetector class.
+        /// </summary>
+        ~ColorBlobDetector()
         {
-            mColorRadius = radius;
+            Dispose(false);
         }
 
+        /// <summary>
+        /// Sets the color radius for HSV color range checking.
+        /// </summary>
+        /// <param name="radius">Color radius.</param>
+        public void SetColorRadius(Scalar radius)
+        {
+            ThrowIfDisposed();
+
+            _colorRadius = radius;
+        }
+
+        /// <summary>
+        /// Sets the HSV color for blob detection.
+        /// </summary>
+        /// <param name="hsvColor">HSV color value.</param>
         public void SetHsvColor(Scalar hsvColor)
         {
-            double minH = (hsvColor.val[0] >= mColorRadius.val[0]) ? hsvColor.val[0] - mColorRadius.val[0] : 0;
-            double maxH = (hsvColor.val[0] + mColorRadius.val[0] <= 255) ? hsvColor.val[0] + mColorRadius.val[0] : 255;
+            ThrowIfDisposed();
 
-            mLowerBound.val[0] = minH;
-            mUpperBound.val[0] = maxH;
+            double minH = (hsvColor.val[0] >= _colorRadius.val[0]) ? hsvColor.val[0] - _colorRadius.val[0] : 0;
+            double maxH = (hsvColor.val[0] + _colorRadius.val[0] <= 255) ? hsvColor.val[0] + _colorRadius.val[0] : 255;
 
-            mLowerBound.val[1] = hsvColor.val[1] - mColorRadius.val[1];
-            mUpperBound.val[1] = hsvColor.val[1] + mColorRadius.val[1];
+            _lowerBound.val[0] = minH;
+            _upperBound.val[0] = maxH;
 
-            mLowerBound.val[2] = hsvColor.val[2] - mColorRadius.val[2];
-            mUpperBound.val[2] = hsvColor.val[2] + mColorRadius.val[2];
+            _lowerBound.val[1] = hsvColor.val[1] - _colorRadius.val[1];
+            _upperBound.val[1] = hsvColor.val[1] + _colorRadius.val[1];
 
-            mLowerBound.val[3] = 0;
-            mUpperBound.val[3] = 255;
+            _lowerBound.val[2] = hsvColor.val[2] - _colorRadius.val[2];
+            _upperBound.val[2] = hsvColor.val[2] + _colorRadius.val[2];
+
+            _lowerBound.val[3] = 0;
+            _upperBound.val[3] = 255;
 
             using (Mat spectrumHsv = new Mat(1, (int)(maxH - minH), CvType.CV_8UC3))
             {
@@ -55,33 +86,53 @@ namespace OpenCVForUnityExample
                     spectrumHsv.put(0, j, tmp);
                 }
 
-                Imgproc.cvtColor(spectrumHsv, mSpectrum, Imgproc.COLOR_HSV2RGB_FULL, 4);
+                Imgproc.cvtColor(spectrumHsv, _spectrum, Imgproc.COLOR_HSV2RGB_FULL, 4);
             }
         }
 
+        /// <summary>
+        /// Gets the spectrum matrix.
+        /// </summary>
+        /// <returns>The spectrum matrix.</returns>
         public Mat GetSpectrum()
         {
-            return mSpectrum;
+            ThrowIfDisposed();
+
+            return _spectrum;
         }
 
+        /// <summary>
+        /// Sets the minimum contour area for filtering.
+        /// </summary>
+        /// <param name="area">Minimum contour area.</param>
         public void SetMinContourArea(double area)
         {
-            mMinContourArea = area;
+            ThrowIfDisposed();
+
+            _minContourArea = area;
         }
 
+        /// <summary>
+        /// Processes the input image to detect color blobs.
+        /// </summary>
+        /// <param name="rgbaImage">Input RGBA image.</param>
         public void Process(Mat rgbaImage)
         {
-            Imgproc.pyrDown(rgbaImage, mPyrDownMat);
-            Imgproc.pyrDown(mPyrDownMat, mPyrDownMat);
+            ThrowIfDisposed();
 
-            Imgproc.cvtColor(mPyrDownMat, mHsvMat, Imgproc.COLOR_RGB2HSV_FULL);
+            if (rgbaImage != null) rgbaImage.ThrowIfDisposed();
 
-            Core.inRange(mHsvMat, mLowerBound, mUpperBound, mMask);
-            Imgproc.dilate(mMask, mDilatedMask, new Mat());
+            Imgproc.pyrDown(rgbaImage, _pyrDownMat);
+            Imgproc.pyrDown(_pyrDownMat, _pyrDownMat);
+
+            Imgproc.cvtColor(_pyrDownMat, _hsvMat, Imgproc.COLOR_RGB2HSV_FULL);
+
+            Core.inRange(_hsvMat, _lowerBound, _upperBound, _mask);
+            Imgproc.dilate(_mask, _dilatedMask, new Mat());
 
             List<MatOfPoint> contours = new List<MatOfPoint>();
 
-            Imgproc.findContours(mDilatedMask, contours, mHierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
+            Imgproc.findContours(_dilatedMask, contours, _hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
 
             // Find max contour area
             double maxArea = 0;
@@ -94,31 +145,62 @@ namespace OpenCVForUnityExample
             }
 
             // Filter contours by area and resize to fit the original image size
-            mContours.Clear();
+            _contours.Clear();
             foreach (MatOfPoint each in contours)
             {
                 MatOfPoint contour = each;
-                if (Imgproc.contourArea(contour) > mMinContourArea * maxArea)
+                if (Imgproc.contourArea(contour) > _minContourArea * maxArea)
                 {
                     Core.multiply(contour, new Scalar(4, 4), contour);
-                    mContours.Add(contour);
+                    _contours.Add(contour);
                 }
             }
         }
 
+        /// <summary>
+        /// Gets the detected contours.
+        /// </summary>
+        /// <returns>List of detected contours.</returns>
         public List<MatOfPoint> GetContours()
         {
-            return mContours;
+            ThrowIfDisposed();
+
+            return _contours;
         }
 
+        /// <summary>
+        /// Disposes the ColorBlobDetector and releases resources.
+        /// </summary>
         public void Dispose()
         {
-            mSpectrum.Dispose();
-            mPyrDownMat.Dispose();
-            mHsvMat.Dispose();
-            mMask.Dispose();
-            mDilatedMask.Dispose();
-            mHierarchy.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        // Private Methods
+        private void Dispose(bool disposing)
+        {
+            if (_disposed) return;
+
+            if (disposing)
+            {
+                _spectrum.Dispose(); _spectrum = null;
+                _pyrDownMat.Dispose(); _pyrDownMat = null;
+                _hsvMat.Dispose(); _hsvMat = null;
+                _mask.Dispose(); _mask = null;
+                _dilatedMask.Dispose(); _dilatedMask = null;
+                _hierarchy.Dispose(); _hierarchy = null;
+            }
+
+            _disposed = true;
+        }
+
+        private void ThrowIfDisposed()
+        {
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(GetType().FullName);
+            }
         }
     }
 }

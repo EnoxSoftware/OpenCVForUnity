@@ -1,8 +1,7 @@
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UnityUtils.Helper;
-using System.Collections;
+using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -21,102 +20,184 @@ namespace OpenCVForUnityExample
     [RequireComponent(typeof(MultiSource2MatHelper))]
     public class PhysicalGreenScreenExample : MonoBehaviour
     {
+        // Public Fields
         /// <summary>
         /// The background image texture.
         /// </summary>
-        public Texture2D backGroundImageTexture;
+        public Texture2D BackGroundImageTexture;
 
         /// <summary>
         /// The radius range sliders.
         /// </summary>
-        public Slider hRadiusRangeSlider;
-        public Slider sRadiusRangeSlider;
-        public Slider vRadiusRangeSlider;
+        public Slider HRadiusRangeSlider;
+        public Slider SRadiusRangeSlider;
+        public Slider VRadiusRangeSlider;
 
         /// <summary>
         /// The spectrum image UI.
         /// </summary>
-        public RawImage spectrumImage;
+        public RawImage SpectrumImage;
 
+        // Private Fields
         /// <summary>
         /// The hsv mat.
         /// </summary>
-        Mat hsvMat;
+        private Mat _hsvMat;
 
         /// <summary>
         /// The chroma key mask mat.
         /// </summary>
-        Mat chromaKeyMaskMat;
+        private Mat _chromaKeyMaskMat;
 
         /// <summary>
         /// The background image mat.
         /// </summary>
-        Mat backGroundImageMat;
+        private Mat _backGroundImageMat;
 
         // Lower and Upper bounds for range checking in HSV color space
-        Scalar lowerBound = new Scalar(0);
-        Scalar upperBound = new Scalar(0);
+        private Scalar _lowerBound = new Scalar(0);
+        private Scalar _upperBound = new Scalar(0);
 
         // Color radius for range checking in HSV color space
-        Scalar colorRadiusRange = new Scalar(25, 50, 50, 0);
+        private Scalar _colorRadiusRange = new Scalar(25, 50, 50, 0);
 
         /// <summary>
         /// The BLOB color hsv.
         /// </summary>
-        Scalar blobColorHsv = new Scalar(99, 255, 177, 255);
+        private Scalar _blobColorHsv = new Scalar(99, 255, 177, 255);
 
         /// <summary>
         /// The spectrum mat.
         /// </summary>
-        Mat spectrumMat;
+        private Mat _spectrumMat;
 
         /// <summary>
         /// The spectrum texture.
         /// </summary>
-        Texture2D spectrumTexture;
+        private Texture2D _spectrumTexture;
 
         /// <summary>
         /// The stored touch point.
         /// </summary>
-        Point storedTouchPoint;
+        private Point _storedTouchPoint;
 
         /// <summary>
         /// The texture.
         /// </summary>
-        Texture2D texture;
+        private Texture2D _texture;
 
         /// <summary>
         /// The multi source to mat helper.
         /// </summary>
-        MultiSource2MatHelper multiSource2MatHelper;
+        private MultiSource2MatHelper _multiSource2MatHelper;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
+        private FpsMonitor _fpsMonitor;
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
-            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
-            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGBA;
-            multiSource2MatHelper.Initialize();
+            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
+            _multiSource2MatHelper.Initialize();
         }
 
 #if ENABLE_INPUT_SYSTEM
-        void OnEnable()
+        private void OnEnable()
         {
             EnhancedTouchSupport.Enable();
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             EnhancedTouchSupport.Disable();
         }
 #endif
 
+        private void Update()
+        {
+#if ENABLE_INPUT_SYSTEM
+#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
+            // Touch input for mobile platforms
+            if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
+            {
+                foreach (var touch in UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches)
+                {
+                    if (touch.phase == UnityEngine.InputSystem.TouchPhase.Ended)
+                    {
+                        if (!EventSystem.current.IsPointerOverGameObject(touch.finger.index))
+                        {
+                            _storedTouchPoint = new Point(touch.screenPosition.x, touch.screenPosition.y);
+                        }
+                    }
+                }
+            }
+#else
+            // Mouse input for non-mobile platforms
+            var mouse = Mouse.current;
+            if (mouse != null && mouse.leftButton.wasReleasedThisFrame)
+            {
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return;
+
+                _storedTouchPoint = new Point(mouse.position.ReadValue().x, mouse.position.ReadValue().y);
+            }
+#endif
+#else
+#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
+            //Touch
+            int touchCount = Input.touchCount;
+            if (touchCount == 1)
+            {
+                Touch t = Input.GetTouch(0);
+                if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject (t.fingerId)) {
+                    _storedTouchPoint = new Point (t.position.x, t.position.y);
+                }
+            }
+#else
+            //Mouse
+            if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
+            {
+                _storedTouchPoint = new Point(Input.mousePosition.x, Input.mousePosition.y);
+            }
+#endif
+#endif
+
+            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
+            {
+                Mat rgbaMat = _multiSource2MatHelper.GetMat();
+
+                if (_storedTouchPoint != null)
+                {
+                    ConvertScreenPointToTexturePoint(_storedTouchPoint, _storedTouchPoint, gameObject, rgbaMat.cols(), rgbaMat.rows());
+                    OnTouch(rgbaMat, _storedTouchPoint);
+                    _storedTouchPoint = null;
+                }
+
+                // Convert the color space from RGBA to HSV_FULL.
+                // HSV_FULL is HSV with H elements scaled from 0 to 255.
+                Imgproc.cvtColor(rgbaMat, _hsvMat, Imgproc.COLOR_RGB2HSV_FULL);
+
+                // Create a chromakey mask from extracting the lower and upper limits range of values in the HSV color space.
+                Core.inRange(_hsvMat, _lowerBound, _upperBound, _chromaKeyMaskMat);
+
+                // Compose the background image.
+                _backGroundImageMat.copyTo(rgbaMat, _chromaKeyMaskMat);
+
+                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            _multiSource2MatHelper?.Dispose();
+        }
+
+        // Public Methods
         /// <summary>
         /// Raises the source to mat helper initialized event.
         /// </summary>
@@ -124,13 +205,13 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperInitialized");
 
-            Mat rgbaMat = multiSource2MatHelper.GetMat();
+            Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-            texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
-            Utils.matToTexture2D(rgbaMat, texture);
+            _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
+            OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
 
             // Set the Texture2D as the main texture of the Renderer component attached to the game object
-            gameObject.GetComponent<Renderer>().material.mainTexture = texture;
+            gameObject.GetComponent<Renderer>().material.mainTexture = _texture;
 
             // Adjust the scale of the game object to match the dimensions of the texture
             gameObject.transform.localScale = new Vector3(rgbaMat.cols(), rgbaMat.rows(), 1);
@@ -151,37 +232,37 @@ namespace OpenCVForUnityExample
             }
 
 
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.Add("width", rgbaMat.width().ToString());
-                fpsMonitor.Add("height", rgbaMat.height().ToString());
-                fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                _fpsMonitor.Add("width", rgbaMat.width().ToString());
+                _fpsMonitor.Add("height", rgbaMat.height().ToString());
+                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
 
-                fpsMonitor.Add("blobColorHsv", "\n" + blobColorHsv.ToString());
-                fpsMonitor.Add("colorRadiusRange", "\n" + colorRadiusRange.ToString());
+                _fpsMonitor.Add("blobColorHsv", "\n" + _blobColorHsv.ToString());
+                _fpsMonitor.Add("colorRadiusRange", "\n" + _colorRadiusRange.ToString());
 
-                fpsMonitor.Toast("Touch the screen to specify the chromakey color.", 2000);
+                _fpsMonitor.Toast("Touch the screen to specify the chromakey color.", 2000);
             }
 
-            hsvMat = new Mat((int)height, (int)width, CvType.CV_8UC3);
-            chromaKeyMaskMat = new Mat(hsvMat.size(), CvType.CV_8UC1);
-            backGroundImageMat = new Mat(hsvMat.size(), CvType.CV_8UC4, new Scalar(39, 255, 86, 255));
+            _hsvMat = new Mat((int)height, (int)width, CvType.CV_8UC3);
+            _chromaKeyMaskMat = new Mat(_hsvMat.size(), CvType.CV_8UC1);
+            _backGroundImageMat = new Mat(_hsvMat.size(), CvType.CV_8UC4, new Scalar(39, 255, 86, 255));
 
-            if (backGroundImageTexture != null)
+            if (BackGroundImageTexture != null)
             {
-                using (Mat bgMat = new Mat(backGroundImageTexture.height, backGroundImageTexture.width, CvType.CV_8UC4))
+                using (Mat bgMat = new Mat(BackGroundImageTexture.height, BackGroundImageTexture.width, CvType.CV_8UC4))
                 {
-                    Utils.texture2DToMat(backGroundImageTexture, bgMat);
-                    Imgproc.resize(bgMat, backGroundImageMat, backGroundImageMat.size());
+                    OpenCVMatUtils.Texture2DToMat(BackGroundImageTexture, bgMat);
+                    Imgproc.resize(_backGroundImageMat, _backGroundImageMat, _backGroundImageMat.size());
                 }
             }
 
-            spectrumMat = new Mat(100, 100, CvType.CV_8UC4, new Scalar(255, 255, 255, 255));
-            spectrumTexture = new Texture2D(spectrumMat.cols(), spectrumMat.rows(), TextureFormat.RGBA32, false);
+            _spectrumMat = new Mat(100, 100, CvType.CV_8UC4, new Scalar(255, 255, 255, 255));
+            _spectrumTexture = new Texture2D(_spectrumMat.cols(), _spectrumMat.rows(), TextureFormat.RGBA32, false);
 
             // Set default chromakey color.
-            blobColorHsv = new Scalar(99, 255, 177, 255); // = R:39 G:255 B:86 (Green screen)
-            SetHsvColor(blobColorHsv);
+            _blobColorHsv = new Scalar(99, 255, 177, 255); // = R:39 G:255 B:86 (Green screen)
+            SetHsvColor(_blobColorHsv);
         }
 
         /// <summary>
@@ -191,36 +272,12 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperDisposed");
 
-            if (hsvMat != null)
-            {
-                hsvMat.Dispose();
-                hsvMat = null;
-            }
-            if (chromaKeyMaskMat != null)
-            {
-                chromaKeyMaskMat.Dispose();
-                chromaKeyMaskMat = null;
-            }
-            if (backGroundImageMat != null)
-            {
-                backGroundImageMat.Dispose();
-                backGroundImageMat = null;
-            }
-            if (spectrumMat != null)
-            {
-                spectrumMat.Dispose();
-                spectrumMat = null;
-            }
-            if (texture != null)
-            {
-                Texture2D.Destroy(texture);
-                texture = null;
-            }
-            if (spectrumTexture != null)
-            {
-                Texture2D.Destroy(spectrumTexture);
-                texture = null;
-            }
+            _hsvMat?.Dispose(); _hsvMat = null;
+            _chromaKeyMaskMat?.Dispose(); _chromaKeyMaskMat = null;
+            _backGroundImageMat?.Dispose(); _backGroundImageMat = null;
+            _spectrumMat?.Dispose(); _spectrumMat = null;
+            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
+            if (_spectrumTexture != null) Texture2D.Destroy(_spectrumTexture); _spectrumTexture = null;
         }
 
         /// <summary>
@@ -232,87 +289,122 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
 
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
+                _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
             }
         }
 
-        // Update is called once per frame
-        void Update()
+        /// <summary>
+        /// Sets the HSV color.
+        /// </summary>
+        /// <param name="hsvColor">The HSV color.</param>
+        public void SetHsvColor(Scalar hsvColor)
         {
-#if ENABLE_INPUT_SYSTEM
-#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-            // Touch input for mobile platforms
-            if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
+            // Calculate lower and Upper bounds.
+            double minH = (hsvColor.val[0] >= _colorRadiusRange.val[0]) ? hsvColor.val[0] - _colorRadiusRange.val[0] : 0;
+            double maxH = (hsvColor.val[0] + _colorRadiusRange.val[0] <= 255) ? hsvColor.val[0] + _colorRadiusRange.val[0] : 255;
+
+            _lowerBound.val[0] = minH;
+            _upperBound.val[0] = maxH;
+
+            _lowerBound.val[1] = hsvColor.val[1] - _colorRadiusRange.val[1];
+            _lowerBound.val[1] = (_lowerBound.val[1] >= 0) ? _lowerBound.val[1] : 0;
+            _upperBound.val[1] = hsvColor.val[1] + _colorRadiusRange.val[1];
+            _upperBound.val[1] = (_upperBound.val[1] <= 255) ? _upperBound.val[1] : 255;
+
+            _lowerBound.val[2] = hsvColor.val[2] - _colorRadiusRange.val[2];
+            _lowerBound.val[2] = (_lowerBound.val[2] >= 0) ? _lowerBound.val[2] : 0;
+            _upperBound.val[2] = hsvColor.val[2] + _colorRadiusRange.val[2];
+            _upperBound.val[2] = (_upperBound.val[2] <= 255) ? _upperBound.val[2] : 255;
+
+            _lowerBound.val[3] = 0;
+            _upperBound.val[3] = 255;
+
+            // Generate a spectrum chart.
+            using (Mat spectrumHsv = new Mat((int)(_upperBound.val[1] - _lowerBound.val[1]), (int)(maxH - minH), CvType.CV_8UC3))
+            using (Mat spectrumRgba = new Mat((int)(_upperBound.val[1] - _lowerBound.val[1]), (int)(maxH - minH), CvType.CV_8UC4))
             {
-                foreach (var touch in UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches)
+                for (int i = 0; i < _upperBound.val[1] - _lowerBound.val[1]; i++)
                 {
-                    if (touch.phase == UnityEngine.InputSystem.TouchPhase.Ended)
+                    for (int j = 0; j < maxH - minH; j++)
                     {
-                        if (!EventSystem.current.IsPointerOverGameObject(touch.finger.index))
-                        {
-                            storedTouchPoint = new Point(touch.screenPosition.x, touch.screenPosition.y);
-                        }
+                        byte[] tmp = { (byte)(minH + j), (byte)(_lowerBound.val[1] + i), (byte)hsvColor.val[2] };
+                        spectrumHsv.put(i, j, tmp);
                     }
                 }
+
+                Imgproc.cvtColor(spectrumHsv, spectrumRgba, Imgproc.COLOR_HSV2RGB_FULL, 4);
+
+                Imgproc.resize(spectrumRgba, _spectrumMat, _spectrumMat.size());
+                OpenCVMatUtils.MatToTexture2D(_spectrumMat, _spectrumTexture);
+
+                SpectrumImage.texture = _spectrumTexture;
             }
-#else
-            // Mouse input for non-mobile platforms
-            var mouse = Mouse.current;
-            if (mouse != null && mouse.leftButton.wasReleasedThisFrame)
+
+            if (_fpsMonitor != null)
             {
-                if (EventSystem.current.IsPointerOverGameObject())
-                    return;
-
-                storedTouchPoint = new Point(mouse.position.ReadValue().x, mouse.position.ReadValue().y);
+                _fpsMonitor.Add("blobColorHsv", "\n" + _blobColorHsv.ToString());
+                _fpsMonitor.Add("colorRadiusRange", "\n" + _colorRadiusRange.ToString());
             }
-#endif
-#else
-#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-            //Touch
-            int touchCount = Input.touchCount;
-            if (touchCount == 1)
-            {
-                Touch t = Input.GetTouch(0);
-                if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject (t.fingerId)) {
-                    storedTouchPoint = new Point (t.position.x, t.position.y);
-                }
-            }
-#else
-            //Mouse
-            if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
-            {
-                storedTouchPoint = new Point(Input.mousePosition.x, Input.mousePosition.y);
-            }
-#endif
-#endif
 
-            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
-            {
-                Mat rgbaMat = multiSource2MatHelper.GetMat();
-
-                if (storedTouchPoint != null)
-                {
-                    ConvertScreenPointToTexturePoint(storedTouchPoint, storedTouchPoint, gameObject, rgbaMat.cols(), rgbaMat.rows());
-                    OnTouch(rgbaMat, storedTouchPoint);
-                    storedTouchPoint = null;
-                }
-
-                // Convert the color space from RGBA to HSV_FULL.
-                // HSV_FULL is HSV with H elements scaled from 0 to 255.
-                Imgproc.cvtColor(rgbaMat, hsvMat, Imgproc.COLOR_RGB2HSV_FULL);
-
-                // Create a chromakey mask from extracting the lower and upper limits range of values in the HSV color space.
-                Core.inRange(hsvMat, lowerBound, upperBound, chromaKeyMaskMat);
-
-                // Compose the background image.
-                backGroundImageMat.copyTo(rgbaMat, chromaKeyMaskMat);
-
-                Utils.matToTexture2D(rgbaMat, texture);
-            }
+            //Debug.Log("blobColorHsv: " + _blobColorHsv);
+            //Debug.Log("lowerBound: " + _lowerBound);
+            //Debug.Log("upperBound: " + _upperBound);
+            //Debug.Log("blobColorRgba: " + ConverScalarHsv2Rgba(_blobColorHsv));
         }
 
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public void OnBackButtonClick()
+        {
+            SceneManager.LoadScene("OpenCVForUnityExample");
+        }
+
+        /// <summary>
+        /// Raises the play button click event.
+        /// </summary>
+        public void OnPlayButtonClick()
+        {
+            _multiSource2MatHelper.Play();
+        }
+
+        /// <summary>
+        /// Raises the pause button click event.
+        /// </summary>
+        public void OnPauseButtonClick()
+        {
+            _multiSource2MatHelper.Pause();
+        }
+
+        /// <summary>
+        /// Raises the stop button click event.
+        /// </summary>
+        public void OnStopButtonClick()
+        {
+            _multiSource2MatHelper.Stop();
+        }
+
+        /// <summary>
+        /// Raises the change camera button click event.
+        /// </summary>
+        public void OnChangeCameraButtonClick()
+        {
+            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
+        }
+
+        /// <summary>
+        /// Raises the radius range slider value changed event.
+        /// </summary>
+        public void OnRadiusRangeSliderValueChanged()
+        {
+            _colorRadiusRange = new Scalar(HRadiusRangeSlider.value, SRadiusRangeSlider.value, VRadiusRangeSlider.value, 255);
+
+            SetHsvColor(_blobColorHsv);
+        }
+
+        // Private Methods
         private void OnTouch(Mat img, Point touchPoint)
         {
             int cols = img.cols();
@@ -340,81 +432,13 @@ namespace OpenCVForUnityExample
                 Imgproc.cvtColor(touchedRegionRgba, touchedRegionHsv, Imgproc.COLOR_RGB2HSV_FULL);
 
                 // Calculate average color of touched region.
-                blobColorHsv = Core.sumElems(touchedRegionHsv);
+                _blobColorHsv = Core.sumElems(touchedRegionHsv);
                 int pointCount = touchedRect.width * touchedRect.height;
-                for (int i = 0; i < blobColorHsv.val.Length; i++)
-                    blobColorHsv.val[i] /= pointCount;
+                for (int i = 0; i < _blobColorHsv.val.Length; i++)
+                    _blobColorHsv.val[i] /= pointCount;
 
-                SetHsvColor(blobColorHsv);
+                SetHsvColor(_blobColorHsv);
             }
-        }
-
-        public void SetHsvColor(Scalar hsvColor)
-        {
-            // Calculate lower and Upper bounds.
-            double minH = (hsvColor.val[0] >= colorRadiusRange.val[0]) ? hsvColor.val[0] - colorRadiusRange.val[0] : 0;
-            double maxH = (hsvColor.val[0] + colorRadiusRange.val[0] <= 255) ? hsvColor.val[0] + colorRadiusRange.val[0] : 255;
-
-            lowerBound.val[0] = minH;
-            upperBound.val[0] = maxH;
-
-            lowerBound.val[1] = hsvColor.val[1] - colorRadiusRange.val[1];
-            lowerBound.val[1] = (lowerBound.val[1] >= 0) ? lowerBound.val[1] : 0;
-            upperBound.val[1] = hsvColor.val[1] + colorRadiusRange.val[1];
-            upperBound.val[1] = (upperBound.val[1] <= 255) ? upperBound.val[1] : 255;
-
-            lowerBound.val[2] = hsvColor.val[2] - colorRadiusRange.val[2];
-            lowerBound.val[2] = (lowerBound.val[2] >= 0) ? lowerBound.val[2] : 0;
-            upperBound.val[2] = hsvColor.val[2] + colorRadiusRange.val[2];
-            upperBound.val[2] = (upperBound.val[2] <= 255) ? upperBound.val[2] : 255;
-
-            lowerBound.val[3] = 0;
-            upperBound.val[3] = 255;
-
-            // Generate a spectrum chart.
-            using (Mat spectrumHsv = new Mat((int)(upperBound.val[1] - lowerBound.val[1]), (int)(maxH - minH), CvType.CV_8UC3))
-            using (Mat spectrumRgba = new Mat((int)(upperBound.val[1] - lowerBound.val[1]), (int)(maxH - minH), CvType.CV_8UC4))
-            {
-                for (int i = 0; i < upperBound.val[1] - lowerBound.val[1]; i++)
-                {
-                    for (int j = 0; j < maxH - minH; j++)
-                    {
-                        byte[] tmp = { (byte)(minH + j), (byte)(lowerBound.val[1] + i), (byte)hsvColor.val[2] };
-                        spectrumHsv.put(i, j, tmp);
-                    }
-                }
-
-                Imgproc.cvtColor(spectrumHsv, spectrumRgba, Imgproc.COLOR_HSV2RGB_FULL, 4);
-
-                Imgproc.resize(spectrumRgba, spectrumMat, spectrumMat.size());
-                Utils.matToTexture2D(spectrumMat, spectrumTexture);
-
-                spectrumImage.texture = spectrumTexture;
-            }
-
-            if (fpsMonitor != null)
-            {
-                fpsMonitor.Add("blobColorHsv", "\n" + blobColorHsv.ToString());
-                fpsMonitor.Add("colorRadiusRange", "\n" + colorRadiusRange.ToString());
-            }
-
-            //Debug.Log("blobColorHsv: " + blobColorHsv);
-            //Debug.Log("lowerBound: " + lowerBound);
-            //Debug.Log("upperBound: " + upperBound);
-            //Debug.Log("blobColorRgba: " + ConverScalarHsv2Rgba(blobColorHsv));
-        }
-
-        private Scalar ConverScalarHsv2Rgba(Scalar hsvColor)
-        {
-            Scalar rgbaColor;
-            using (Mat pointMatRgba = new Mat())
-            using (Mat pointMatHsv = new Mat(1, 1, CvType.CV_8UC3, hsvColor))
-            {
-                Imgproc.cvtColor(pointMatHsv, pointMatRgba, Imgproc.COLOR_HSV2RGB_FULL, 4);
-                rgbaColor = new Scalar(pointMatRgba.get(0, 0));
-            }
-
-            return rgbaColor;
         }
 
         /// <summary>
@@ -472,62 +496,17 @@ namespace OpenCVForUnityExample
             }
         }
 
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
+        private Scalar ConverScalarHsv2Rgba(Scalar hsvColor)
         {
-            multiSource2MatHelper.Dispose();
-        }
+            Scalar rgbaColor;
+            using (Mat pointMatRgba = new Mat())
+            using (Mat pointMatHsv = new Mat(1, 1, CvType.CV_8UC3, hsvColor))
+            {
+                Imgproc.cvtColor(pointMatHsv, pointMatRgba, Imgproc.COLOR_HSV2RGB_FULL, 4);
+                rgbaColor = new Scalar(pointMatRgba.get(0, 0));
+            }
 
-        /// <summary>
-        /// Raises the back button click event.
-        /// </summary>
-        public void OnBackButtonClick()
-        {
-            SceneManager.LoadScene("OpenCVForUnityExample");
-        }
-
-        /// <summary>
-        /// Raises the play button click event.
-        /// </summary>
-        public void OnPlayButtonClick()
-        {
-            multiSource2MatHelper.Play();
-        }
-
-        /// <summary>
-        /// Raises the pause button click event.
-        /// </summary>
-        public void OnPauseButtonClick()
-        {
-            multiSource2MatHelper.Pause();
-        }
-
-        /// <summary>
-        /// Raises the stop button click event.
-        /// </summary>
-        public void OnStopButtonClick()
-        {
-            multiSource2MatHelper.Stop();
-        }
-
-        /// <summary>
-        /// Raises the change camera button click event.
-        /// </summary>
-        public void OnChangeCameraButtonClick()
-        {
-            multiSource2MatHelper.requestedIsFrontFacing = !multiSource2MatHelper.requestedIsFrontFacing;
-        }
-
-        /// <summary>
-        /// Raises the radius range slider value changed event.
-        /// </summary>
-        public void OnRadiusRangeSliderValueChanged()
-        {
-            colorRadiusRange = new Scalar(hRadiusRangeSlider.value, sRadiusRangeSlider.value, vRadiusRangeSlider.value, 255);
-
-            SetHsvColor(blobColorHsv);
+            return rgbaColor;
         }
     }
 }

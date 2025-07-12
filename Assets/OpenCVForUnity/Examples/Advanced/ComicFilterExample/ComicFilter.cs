@@ -1,177 +1,223 @@
+using System;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UtilsModule;
-using System;
+using OpenCVForUnity.UnityIntegration;
 
 namespace OpenCVForUnityExample
 {
-
-    public class ComicFilter
+    /// <summary>
+    /// Comic Filter implementation for image processing.
+    /// </summary>
+    public class ComicFilter : IDisposable
     {
+        // Private Fields
+        private Mat _grayMat;
+        private Mat _maskMat;
+        private Mat _screentoneMat;
+        private Mat _grayDstMat;
 
-        Mat grayMat;
-        Mat maskMat;
-        Mat screentoneMat;
-        Mat grayDstMat;
+        private Mat _grayLUT;
+        private Mat _contrastAdjustmentsLUT;
+        private Mat _kernelDilate;
+        private Mat _kernelErode;
+        private Size _blurSize;
+        private int _blackThresh;
+        private bool _drawMainLine;
+        private bool _useNoiseFilter;
 
-        Mat grayLUT;
-        Mat contrastAdjustmentsLUT;
-        Mat kernel_dilate;
-        Mat kernel_erode;
-        Size blurSize;
-        int blackThresh;
-        bool drawMainLine;
-        bool useNoiseFilter;
+        private bool _disposed = false;
 
-
+        // Public Methods
+        /// <summary>
+        /// Initializes a new instance of the ComicFilter class.
+        /// </summary>
+        /// <param name="blackThresh">Black threshold value.</param>
+        /// <param name="grayThresh">Gray threshold value.</param>
+        /// <param name="thickness">Line thickness.</param>
+        /// <param name="useNoiseFilter">Whether to use noise filter.</param>
         public ComicFilter(int blackThresh = 60, int grayThresh = 120, int thickness = 5, bool useNoiseFilter = true)
         {
-            this.blackThresh = blackThresh;
-            this.drawMainLine = (thickness != 0);
-            this.useNoiseFilter = useNoiseFilter;
+            _blackThresh = blackThresh;
+            _drawMainLine = (thickness != 0);
+            _useNoiseFilter = useNoiseFilter;
 
-            grayLUT = new Mat(1, 256, CvType.CV_8UC1);
+            _grayLUT = new Mat(1, 256, CvType.CV_8UC1);
             byte[] lutArray = new byte[256];
             for (int i = 0; i < lutArray.Length; i++)
             {
                 if (blackThresh <= i && i < grayThresh)
                     lutArray[i] = 255;
             }
-            MatUtils.copyToMat(lutArray, grayLUT);
+            OpenCVMatUtils.CopyToMat(lutArray, _grayLUT);
 
-            if (drawMainLine)
+            if (_drawMainLine)
             {
-                kernel_dilate = new Mat(thickness, thickness, CvType.CV_8UC1, new Scalar(1));
+                _kernelDilate = new Mat(thickness, thickness, CvType.CV_8UC1, new Scalar(1));
 
                 int erode = (thickness >= 5) ? 2 : 1;
-                kernel_erode = new Mat(erode, erode, CvType.CV_8UC1, new Scalar(1));
+                _kernelErode = new Mat(erode, erode, CvType.CV_8UC1, new Scalar(1));
 
                 int blur = (thickness >= 4) ? thickness - 1 : 3;
-                blurSize = new Size(blur, blur);
+                _blurSize = new Size(blur, blur);
 
-                contrastAdjustmentsLUT = new Mat(1, 256, CvType.CV_8UC1);
+                _contrastAdjustmentsLUT = new Mat(1, 256, CvType.CV_8UC1);
                 byte[] contrastAdjustmentsLUTArray = new byte[256];
                 for (int i = 0; i < contrastAdjustmentsLUTArray.Length; i++)
                 {
                     int a = (int)(i * 1.5f);
                     contrastAdjustmentsLUTArray[i] = (a > byte.MaxValue) ? (byte)255 : (byte)a;
-
                 }
-                MatUtils.copyToMat(contrastAdjustmentsLUTArray, contrastAdjustmentsLUT);
+                OpenCVMatUtils.CopyToMat(contrastAdjustmentsLUTArray, _contrastAdjustmentsLUT);
             }
         }
 
+        /// <summary>
+        /// Finalizer for the ComicFilter class.
+        /// </summary>
+        ~ComicFilter()
+        {
+            Dispose(false);
+        }
+
+        /// <summary>
+        /// Processes the input image and applies comic filter effect.
+        /// </summary>
+        /// <param name="src">Source image matrix.</param>
+        /// <param name="dst">Destination image matrix.</param>
+        /// <param name="isBGR">Whether the image is in BGR format.</param>
         public void Process(Mat src, Mat dst, bool isBGR = false)
         {
-            if (src == null)
-                throw new ArgumentNullException("src == null");
-            if (dst == null)
-                throw new ArgumentNullException("dst == null");
+            ThrowIfDisposed();
 
-            if (grayMat != null && (grayMat.width() != src.width() || grayMat.height() != src.height()))
+            if (src != null) src.ThrowIfDisposed();
+            if (dst != null) dst.ThrowIfDisposed();
+
+            if (_grayMat != null && (_grayMat.width() != src.width() || _grayMat.height() != src.height()))
             {
-                grayMat.Dispose();
-                grayMat = null;
-                maskMat.Dispose();
-                maskMat = null;
-                screentoneMat.Dispose();
-                screentoneMat = null;
-                grayDstMat.Dispose();
-                grayDstMat = null;
+                _grayMat.Dispose();
+                _grayMat = null;
+                _maskMat.Dispose();
+                _maskMat = null;
+                _screentoneMat.Dispose();
+                _screentoneMat = null;
+                _grayDstMat.Dispose();
+                _grayDstMat = null;
             }
-            grayMat = grayMat ?? new Mat(src.height(), src.width(), CvType.CV_8UC1);
-            maskMat = maskMat ?? new Mat(src.height(), src.width(), CvType.CV_8UC1);
-            grayDstMat = grayDstMat ?? new Mat(src.height(), src.width(), CvType.CV_8UC1);
+            _grayMat = _grayMat ?? new Mat(src.height(), src.width(), CvType.CV_8UC1);
+            _maskMat = _maskMat ?? new Mat(src.height(), src.width(), CvType.CV_8UC1);
+            _grayDstMat = _grayDstMat ?? new Mat(src.height(), src.width(), CvType.CV_8UC1);
 
-            if (screentoneMat == null)
+            if (_screentoneMat == null)
             {
                 // create a striped screentone.
-                screentoneMat = new Mat(src.height(), src.width(), CvType.CV_8UC1, new Scalar(255));
-                for (int i = 0; i < screentoneMat.rows() * 2.5f; i = i + 4)
+                _screentoneMat = new Mat(src.height(), src.width(), CvType.CV_8UC1, new Scalar(255));
+                for (int i = 0; i < _screentoneMat.rows() * 2.5f; i = i + 4)
                 {
-                    Imgproc.line(screentoneMat, new Point(0, 0 + i), new Point(screentoneMat.cols(), -screentoneMat.cols() + i), new Scalar(0), 1);
+                    Imgproc.line(_screentoneMat, new Point(0, 0 + i), new Point(_screentoneMat.cols(), -_screentoneMat.cols() + i), new Scalar(0), 1);
                 }
             }
 
             if (src.type() == CvType.CV_8UC1)
             {
-                src.copyTo(grayMat);
+                src.copyTo(_grayMat);
             }
             else if (dst.type() == CvType.CV_8UC3)
             {
-                Imgproc.cvtColor(src, grayMat, (isBGR) ? Imgproc.COLOR_BGR2GRAY : Imgproc.COLOR_RGB2GRAY);
+                Imgproc.cvtColor(src, _grayMat, (isBGR) ? Imgproc.COLOR_BGR2GRAY : Imgproc.COLOR_RGB2GRAY);
             }
             else
             {
-                Imgproc.cvtColor(src, grayMat, (isBGR) ? Imgproc.COLOR_BGRA2GRAY : Imgproc.COLOR_RGBA2GRAY);
+                Imgproc.cvtColor(src, _grayMat, (isBGR) ? Imgproc.COLOR_BGRA2GRAY : Imgproc.COLOR_RGBA2GRAY);
             }
-
 
             // binarize.
-            Imgproc.threshold(grayMat, grayDstMat, blackThresh, 255.0, Imgproc.THRESH_BINARY);
+            Imgproc.threshold(_grayMat, _grayDstMat, _blackThresh, 255.0, Imgproc.THRESH_BINARY);
 
             // draw striped screentone.
-            Core.LUT(grayMat, grayLUT, maskMat);
-            screentoneMat.copyTo(grayDstMat, maskMat);
+            Core.LUT(_grayMat, _grayLUT, _maskMat);
+            _screentoneMat.copyTo(_grayDstMat, _maskMat);
 
             // draw main line.
-            if (drawMainLine)
+            if (_drawMainLine)
             {
-                Core.LUT(grayMat, contrastAdjustmentsLUT, maskMat); // = grayMat.convertTo(maskMat, -1, 1.5, 0);
+                Core.LUT(_grayMat, _contrastAdjustmentsLUT, _maskMat); // = _grayMat.convertTo(_maskMat, -1, 1.5, 0);
 
-                if (useNoiseFilter)
+                if (_useNoiseFilter)
                 {
-                    Imgproc.blur(maskMat, grayMat, blurSize);
-                    Imgproc.dilate(grayMat, maskMat, kernel_dilate);
+                    Imgproc.blur(_maskMat, _grayMat, _blurSize);
+                    Imgproc.dilate(_grayMat, _maskMat, _kernelDilate);
                 }
                 else
                 {
-                    Imgproc.dilate(maskMat, grayMat, kernel_dilate);
+                    Imgproc.dilate(_maskMat, _grayMat, _kernelDilate);
                 }
-                Core.absdiff(grayMat, maskMat, grayMat);
-                Imgproc.threshold(grayMat, maskMat, 25, 255.0, Imgproc.THRESH_BINARY);
-                if (useNoiseFilter)
+                Core.absdiff(_grayMat, _maskMat, _grayMat);
+                Imgproc.threshold(_grayMat, _maskMat, 25, 255.0, Imgproc.THRESH_BINARY);
+                if (_useNoiseFilter)
                 {
-                    Imgproc.erode(maskMat, grayMat, kernel_erode);
-                    Core.bitwise_not(grayMat, maskMat);
-                    maskMat.copyTo(grayDstMat, grayMat);
+                    Imgproc.erode(_maskMat, _grayMat, _kernelErode);
+                    Core.bitwise_not(_grayMat, _maskMat);
+                    _maskMat.copyTo(_grayDstMat, _grayMat);
                 }
                 else
                 {
-                    Core.bitwise_not(maskMat, grayMat);
-                    grayMat.copyTo(grayDstMat, maskMat);
+                    Core.bitwise_not(_maskMat, _grayMat);
+                    _grayMat.copyTo(_grayDstMat, _maskMat);
                 }
             }
-
 
             if (dst.type() == CvType.CV_8UC1)
             {
-                grayDstMat.copyTo(dst);
+                _grayDstMat.copyTo(dst);
             }
             else if (dst.type() == CvType.CV_8UC3)
             {
-                Imgproc.cvtColor(grayDstMat, dst, (isBGR) ? Imgproc.COLOR_GRAY2BGR : Imgproc.COLOR_GRAY2RGB);
+                Imgproc.cvtColor(_grayDstMat, dst, (isBGR) ? Imgproc.COLOR_GRAY2BGR : Imgproc.COLOR_GRAY2RGB);
             }
             else
             {
-                Imgproc.cvtColor(grayDstMat, dst, (isBGR) ? Imgproc.COLOR_GRAY2BGRA : Imgproc.COLOR_GRAY2RGBA);
+                Imgproc.cvtColor(_grayDstMat, dst, (isBGR) ? Imgproc.COLOR_GRAY2BGRA : Imgproc.COLOR_GRAY2RGBA);
             }
         }
 
+        /// <summary>
+        /// Disposes the ComicFilter and releases resources.
+        /// </summary>
         public void Dispose()
         {
-            foreach (var mat in new[] { grayMat, maskMat, screentoneMat, grayDstMat, grayLUT, kernel_dilate, kernel_erode, contrastAdjustmentsLUT })
-                if (mat != null) mat.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-            grayDstMat =
-            screentoneMat =
-            maskMat =
-            grayMat =
-            grayLUT =
-            kernel_dilate =
-            kernel_erode =
-            contrastAdjustmentsLUT = null;
+        // Private Methods
+        private void Dispose(bool disposing)
+        {
+            if (_disposed) return;
+
+            if (disposing)
+            {
+                foreach (var mat in new[] { _grayMat, _maskMat, _screentoneMat, _grayDstMat, _grayLUT, _kernelDilate, _kernelErode, _contrastAdjustmentsLUT })
+                    mat?.Dispose();
+
+                _grayDstMat =
+                _screentoneMat =
+                _maskMat =
+                _grayMat =
+                _grayLUT =
+                _kernelDilate =
+                _kernelErode =
+                _contrastAdjustmentsLUT = null;
+            }
+
+            _disposed = true;
+        }
+
+        private void ThrowIfDisposed()
+        {
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(GetType().FullName);
+            }
         }
     }
 }

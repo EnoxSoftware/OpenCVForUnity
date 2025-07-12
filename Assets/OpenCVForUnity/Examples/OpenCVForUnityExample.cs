@@ -1,5 +1,5 @@
 using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -9,44 +9,49 @@ namespace OpenCVForUnityExample
 {
     public class OpenCVForUnityExample : MonoBehaviour
     {
-        public Text versionInfo;
-        public ScrollRect scrollRect;
-        static float verticalNormalizedPosition = 1f;
+        // Constants
+        private static float VERTICAL_NORMALIZED_POSITION = 1f;
 
-        // Use this for initialization
-        void Start()
+        // Public Fields
+        public Text VersionInfo;
+        public ScrollRect ScrollRect;
+
+        // Unity Lifecycle Methods
+        private void Start()
         {
-            versionInfo.text = Core.NATIVE_LIBRARY_NAME + " " + Utils.getVersion() + " (" + Core.VERSION + ")";
-            versionInfo.text += " / UnityEditor " + Application.unityVersion;
-            versionInfo.text += " / ";
+            VersionInfo.text = Core.NATIVE_LIBRARY_NAME + " " + OpenCVEnv.GetVersion() + " (" + Core.VERSION + ")";
+            VersionInfo.text += " / UnityEditor " + Application.unityVersion;
+            VersionInfo.text += " / ";
 
 #if UNITY_EDITOR
-            versionInfo.text += "Editor";
+            VersionInfo.text += "Editor";
 #elif UNITY_STANDALONE_WIN
-            versionInfo.text += "Windows";
+            VersionInfo.text += "Windows";
 #elif UNITY_STANDALONE_OSX
-            versionInfo.text += "Mac OSX";
+            VersionInfo.text += "Mac OSX";
 #elif UNITY_STANDALONE_LINUX
-            versionInfo.text += "Linux";
+            VersionInfo.text += "Linux";
 #elif UNITY_ANDROID
-            versionInfo.text += "Android";
+            VersionInfo.text += "Android";
 #elif UNITY_IOS
-            versionInfo.text += "iOS";
+            VersionInfo.text += "iOS";
+#elif UNITY_VISIONOS
+            VersionInfo.text += "VisionOS";
 #elif UNITY_WSA
-            versionInfo.text += "WSA";
+            VersionInfo.text += "WSA";
 #elif UNITY_WEBGL
-            versionInfo.text += "WebGL";
+            VersionInfo.text += "WebGL";
 #endif
-            versionInfo.text += " ";
+            VersionInfo.text += " ";
 #if ENABLE_MONO
-            versionInfo.text += "Mono";
+            VersionInfo.text += "Mono";
 #elif ENABLE_IL2CPP
-            versionInfo.text += "IL2CPP";
+            VersionInfo.text += "IL2CPP";
 #elif ENABLE_DOTNET
-            versionInfo.text += ".NET";
+            VersionInfo.text += ".NET";
 #endif
 
-            scrollRect.verticalNormalizedPosition = verticalNormalizedPosition;
+            ScrollRect.verticalNormalizedPosition = VERTICAL_NORMALIZED_POSITION;
 
 #if UNITY_WSA_10_0
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/BarcodeDetectorImageExampleButton").GetComponent<Button>().interactable = false;
@@ -58,7 +63,6 @@ namespace OpenCVForUnityExample
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ColorizationExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectTrackingDaSiamRPNExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FastNeuralStyleTransferExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceDetectionResnetSSDExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceDetectionYuNetExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceDetectionYuNetV2ExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FacialExpressionRecognitionExampleButton").GetComponent<Button>().interactable = false;
@@ -67,8 +71,7 @@ namespace OpenCVForUnityExample
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/HumanSegmentationPPHumanSegExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ImageClassificationMobilenetExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ImageClassificationPPResnetExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionMobileNetSSDExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionYOLOv4ExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionDAMOYOLOExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionYOLOXExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionNanoDetPlusExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TextRecognitionCRNNImageExampleButton").GetComponent<Button>().interactable = false;
@@ -76,6 +79,9 @@ namespace OpenCVForUnityExample
 
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/TextDetectionExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/TextRecognitionExampleButton").GetComponent<Button>().interactable = false;
+
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/WeChatQRCodeDetectorImageExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/WeChatQRCodeDetectorExampleButton").GetComponent<Button>().interactable = false;
 #endif
 
 
@@ -84,17 +90,16 @@ namespace OpenCVForUnityExample
 #endif
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
 
         }
 
+        // Public Methods
         public void OnScrollRectValueChanged()
         {
-            verticalNormalizedPosition = scrollRect.verticalNormalizedPosition;
+            VERTICAL_NORMALIZED_POSITION = ScrollRect.verticalNormalizedPosition;
         }
-
 
         public void OnShowSystemInfoButtonClick()
         {
@@ -138,9 +143,9 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("Utils_GetFilePathExample");
         }
 
-        public void OnDebugMatUtilsExampleButtonClick()
+        public void OnDebugMatExampleButtonClick()
         {
-            SceneManager.LoadScene("DebugMatUtilsExample");
+            SceneManager.LoadScene("DebugMatExample");
         }
 
         #endregion
@@ -333,6 +338,11 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("FeatureMatchingExample");
         }
 
+        public void OnHomographyToFindAKnownObjectExampleButtonClick()
+        {
+            SceneManager.LoadScene("HomographyToFindAKnownObjectExample");
+        }
+
         public void OnMSERExampleButtonClick()
         {
             SceneManager.LoadScene("MSERExample");
@@ -464,11 +474,6 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("FastNeuralStyleTransferExample");
         }
 
-        public void OnFaceDetectionResnetSSDExampleButtonClick()
-        {
-            SceneManager.LoadScene("FaceDetectionResnetSSDExample");
-        }
-
         public void OnFaceDetectionYuNetExampleButtonClick()
         {
             SceneManager.LoadScene("FaceDetectionYuNetExample");
@@ -523,14 +528,9 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("ImageClassificationPPResnetExample");
         }
 
-        public void OnObjectDetectionMobileNetSSDExampleButtonClick()
+        public void OnObjectDetectionDAMOYOLOExampleButtonClick()
         {
-            SceneManager.LoadScene("ObjectDetectionMobileNetSSDExample");
-        }
-
-        public void OnObjectDetectionYOLOv4ExampleButtonClick()
-        {
-            SceneManager.LoadScene("ObjectDetectionYOLOv4Example");
+            SceneManager.LoadScene("ObjectDetectionDAMOYOLOExample");
         }
 
         public void OnObjectDetectionYOLOXExampleButtonClick()
@@ -635,7 +635,6 @@ namespace OpenCVForUnityExample
 
         #region tracking
 
-
         public void OnLegacyTrackingExampleButtonClick()
         {
             SceneManager.LoadScene("LegacyTrackingExample");
@@ -644,6 +643,20 @@ namespace OpenCVForUnityExample
         public void OnTrackingExampleButtonClick()
         {
             SceneManager.LoadScene("TrackingExample");
+        }
+
+        #endregion
+
+        #region wechat_qrcode
+
+        public void OnWeChatQRCodeDetectorImageExampleButtonClick()
+        {
+            SceneManager.LoadScene("WeChatQRCodeDetectorImageExample");
+        }
+
+        public void OnWeChatQRCodeDetectorExampleButtonClick()
+        {
+            SceneManager.LoadScene("WeChatQRCodeDetectorExample");
         }
 
         #endregion

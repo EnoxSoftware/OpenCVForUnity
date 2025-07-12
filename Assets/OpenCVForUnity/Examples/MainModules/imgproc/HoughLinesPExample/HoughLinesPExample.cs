@@ -1,7 +1,7 @@
+using System.Collections;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using System.Collections;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,20 +15,21 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class HoughLinesPExample : MonoBehaviour
     {
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
             Texture2D imgTexture = Resources.Load("chessboard") as Texture2D;
 
             Mat imgMat = new Mat(imgTexture.height, imgTexture.width, CvType.CV_8UC3);
 
-            Utils.texture2DToMat(imgTexture, imgMat);
+            OpenCVMatUtils.Texture2DToMat(imgTexture, imgMat);
             Debug.Log("imgMat.ToString() " + imgMat.ToString());
 
 
@@ -54,18 +55,18 @@ namespace OpenCVForUnityExample
             }
 
             Texture2D texture = new Texture2D(imgMat.cols(), imgMat.rows(), TextureFormat.RGBA32, false);
-            Utils.matToTexture2D(imgMat, texture);
+            OpenCVMatUtils.MatToTexture2D(imgMat, texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
 
         }
 
+        // Public Methods
         /// <summary>
         /// Raises the back button click event.
         /// </summary>

@@ -1,7 +1,7 @@
+using System.Collections;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.PhotoModule;
-using OpenCVForUnity.UnityUtils;
-using System.Collections;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,46 +14,45 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class SeamlessCloneExample : MonoBehaviour
     {
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
             Texture2D srcTexture = Resources.Load("template") as Texture2D;
             Texture2D dstTexture = Resources.Load("face") as Texture2D;
             Mat src = new Mat(srcTexture.height, srcTexture.width, CvType.CV_8UC3);
             Mat dst = new Mat(dstTexture.height, dstTexture.width, CvType.CV_8UC3);
-            Utils.texture2DToMat(srcTexture, src);
-            Utils.texture2DToMat(dstTexture, dst);
+            OpenCVMatUtils.Texture2DToMat(srcTexture, src);
+            OpenCVMatUtils.Texture2DToMat(dstTexture, dst);
 
             Mat mask = new Mat(src.rows(), src.cols(), CvType.CV_8UC1, new Scalar(255));
             Mat result = new Mat();
-
 
             Point point = new Point(250, 160);
             Photo.seamlessClone(src, dst, mask, point, result, Photo.NORMAL_CLONE);
 
             Debug.Log("result ToString " + result.ToString());
 
-
             Texture2D texture = new Texture2D(result.cols(), result.rows(), TextureFormat.RGBA32, false);
 
-            Utils.matToTexture2D(result, texture);
+            OpenCVMatUtils.MatToTexture2D(result, texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
 
         }
 
+        // Public Methods
         /// <summary>
         /// Raises the back button click event.
         /// </summary>

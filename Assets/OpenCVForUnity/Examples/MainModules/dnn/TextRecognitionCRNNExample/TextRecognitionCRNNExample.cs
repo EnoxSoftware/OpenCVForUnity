@@ -1,14 +1,14 @@
 #if !UNITY_WSA_10_0
 
-using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.DnnModule;
-using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UnityUtils.Helper;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.DnnModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,242 +18,108 @@ namespace OpenCVForUnityExample
     /// <summary>
     /// Text Recognition CRNN Example
     /// This example demonstrates text detection and recognition model using the TextDetectionMode and TextRecognitionModel class.
+    /// Referring to:
     /// https://github.com/opencv/opencv_zoo/tree/master/models/text_detection_db
     /// https://github.com/opencv/opencv_zoo/tree/master/models/text_recognition_crnn
     /// https://docs.opencv.org/4.x/d4/d43/tutorial_dnn_text_spotting.html
+    ///
+    /// [Tested Models]
+    /// https://github.com/opencv/opencv_zoo/raw/6a66e0d6e47a693e6d0dd01bbb18e920f3fbae75/models/text_detection_db/text_detection_DB_IC15_resnet18_2021sep.onnx
+    /// https://github.com/opencv/opencv_zoo/raw/8a42017a12fe9ed80279737c0b903307371b0e3d/models/text_recognition_crnn/text_recognition_CRNN_EN_2021sep.onnx
+    /// https://github.com/opencv/opencv_zoo/raw/8a42017a12fe9ed80279737c0b903307371b0e3d/models/text_recognition_crnn/charset_36_EN.txt
     /// </summary>
     [RequireComponent(typeof(MultiSource2MatHelper))]
     public class TextRecognitionCRNNExample : MonoBehaviour
     {
+        // Constants
+        private const float DETECTION_INPUT_SIZE_W = 320f; // 736f;
+        private const float DETECTION_INPUT_SIZE_H = 320f; // 736f;
+        private const double DETECTION_INPUT_SCALE = 1.0 / 255.0;
+        private const float DETECTION_BINARY_THRESHOLD = 0.3f;
+        private const float DETECTION_POLYGON_THRESHOLD = 0.5f;
+        private const int DETECTION_MAX_CANDIDATES = 200;
+        private const double DETECTION_UNCLIP_RATIO = 2.0;
+        private const float DETECTION_CONFIDENCES_THRESHOLD = 0.7f;
+        private const float RECOGNITION_INPUT_SIZE_W = 100f;
+        private const float RECOGNITION_INPUT_SIZE_H = 32f;
+        private const double RECOGNITION_INPUT_SCALE = 1.0 / 127.5;
+        private static readonly string DETECTION_MODEL_FILENAME = "OpenCVForUnityExamples/dnn/text_detection_DB_IC15_resnet18_2021sep.onnx";
+        private static readonly string RECOGNITION_MODEL_FILENAME = "OpenCVForUnityExamples/dnn/text_recognition_CRNN_EN_2021sep.onnx";
+        private static readonly string CHARSET_TXT_FILENAME = "OpenCVForUnityExamples/dnn/charset_36_EN.txt";
+
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
         [Space(10)]
 
-        // Preprocess input image by resizing to a specific width. It should be multiple by 32.
-        const float detection_inputSize_w = 320f; // 736f;
+        // Private Fields
+        private Scalar _detectionInputMean = new Scalar(122.67891434, 116.66876762, 104.00698793);
+        private Scalar _recognitionInputMean = new Scalar(127.5);
 
-        // Preprocess input image by resizing to a specific height. It should be multiple by 32.
-        const float detection_inputSize_h = 320f; // 736f;
+        private string _detectionModelFilepath;
+        private string _recognitionModelFilepath;
+        private string _charsetTxtFilepath;
 
-        const double detection_inputScale = 1.0 / 255.0;
+        private TextDetectionModel_DB _detectionModel;
+        private TextRecognitionModel _recognitionModel;
 
-        Scalar detection_inputMean = new Scalar(122.67891434, 116.66876762, 104.00698793);
-
-        // Threshold of the binary map.
-        const float detection_binary_threshold = 0.3f;
-
-        // Threshold of polygons.
-        const float detection_polygon_threshold = 0.5f;
-
-        // Max candidates of polygons.
-        const int detection_max_candidates = 200;
-
-        // The unclip ratio of the detected text region, which determines the output size.
-        const double detection_unclip_ratio = 2.0;
-
-        const float detection_confidences_threshold = 0.7f;
-
-
-        // Preprocess input image by resizing to a specific width.
-        const float recogniton_inputSize_w = 100f;
-
-        // Preprocess input image by resizing to a specific height.
-        const float recogniton_inputSize_h = 32f;
-
-        const double recogniton_inputScale = 1.0 / 127.5;
-
-        Scalar recogniton_inputMean = new Scalar(127.5);
-
-
-        /// <summary>
-        /// Path to a binary .onnx file contains trained detection network.
-        /// </summary>
-        string DETECTIONMODEL_FILENAME = "OpenCVForUnity/dnn/text_detection_DB_IC15_resnet18_2021sep.onnx";
-
-        /// <summary>
-        /// The detection model filepath.
-        /// </summary>
-        string detectionmodel_filepath;
-
-        /// <summary>
-        /// Path to a binary .onnx file contains trained recognition network.
-        /// </summary>
-        string RECOGNTIONMODEL_FILENAME = "OpenCVForUnity/dnn/text_recognition_CRNN_EN_2021sep.onnx";
-
-        /// <summary>
-        /// The recognition model filepath.
-        /// </summary>
-        string recognitionmodel_filepath;
-
-        /// <summary>
-        /// Path to a .txt file contains charset.
-        /// </summary>
-        string CHARSETTXT_FILENAME = "OpenCVForUnity/dnn/charset_36_EN.txt";
-
-        /// <summary>
-        /// The charset txt filepath.
-        /// </summary>
-        string charsettxt_filepath;
-
-        TextDetectionModel_DB detectonModel;
-
-        TextRecognitionModel recognitonModel;
-
-        Mat croppedMat;
-        Mat croppedGrayMat;
+        private Mat _croppedMat;
+        private Mat _croppedGrayMat;
 
         /// <summary>
         /// The texture.
         /// </summary>
-        Texture2D texture;
+        private Texture2D _texture;
 
         /// <summary>
         /// The multi source to mat helper.
         /// </summary>
-        MultiSource2MatHelper multiSource2MatHelper;
+        private MultiSource2MatHelper _multiSource2MatHelper;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
+        private FpsMonitor _fpsMonitor;
 
         /// <summary>
         /// The CancellationTokenSource.
         /// </summary>
-        CancellationTokenSource cts = new CancellationTokenSource();
+        private CancellationTokenSource _cts = new CancellationTokenSource();
 
-        // Use this for initialization
-        async void Start()
+        // Unity Lifecycle Methods
+        private async void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
-            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
-            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.BGR;
+            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.BGR;
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "Preparing file access...";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "Preparing file access...";
 
-            detectionmodel_filepath = await Utils.getFilePathAsyncTask(DETECTIONMODEL_FILENAME, cancellationToken: cts.Token);
-            recognitionmodel_filepath = await Utils.getFilePathAsyncTask(RECOGNTIONMODEL_FILENAME, cancellationToken: cts.Token);
-            charsettxt_filepath = await Utils.getFilePathAsyncTask(CHARSETTXT_FILENAME, cancellationToken: cts.Token);
+            _detectionModelFilepath = await OpenCVEnv.GetFilePathTaskAsync(DETECTION_MODEL_FILENAME, cancellationToken: _cts.Token);
+            _recognitionModelFilepath = await OpenCVEnv.GetFilePathTaskAsync(RECOGNITION_MODEL_FILENAME, cancellationToken: _cts.Token);
+            _charsetTxtFilepath = await OpenCVEnv.GetFilePathTaskAsync(CHARSET_TXT_FILENAME, cancellationToken: _cts.Token);
 
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "";
 
             Run();
         }
 
-        // Use this for initialization
-        void Run()
+        private void Update()
         {
-            //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
-            Utils.setDebugMode(true);
-
-            if (string.IsNullOrEmpty(detectionmodel_filepath) || string.IsNullOrEmpty(recognitionmodel_filepath) || string.IsNullOrEmpty(charsettxt_filepath))
-            {
-                Debug.LogError(DETECTIONMODEL_FILENAME + " or " + RECOGNTIONMODEL_FILENAME + " or " + CHARSETTXT_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/dnn/setup_dnn_module.pdf” to make the necessary setup.");
-            }
-            else
-            {
-                // Create TextDetectionModel.
-                detectonModel = new TextDetectionModel_DB(detectionmodel_filepath);
-                detectonModel.setBinaryThreshold(detection_binary_threshold);
-                detectonModel.setPolygonThreshold(detection_polygon_threshold);
-                detectonModel.setUnclipRatio(detection_unclip_ratio);
-                detectonModel.setMaxCandidates(detection_max_candidates);
-                detectonModel.setInputParams(detection_inputScale, new Size(detection_inputSize_w, detection_inputSize_h), detection_inputMean);
-
-                // Create TextRecognitonModel.
-                recognitonModel = new TextRecognitionModel(recognitionmodel_filepath);
-                recognitonModel.setDecodeType("CTC-greedy");
-                recognitonModel.setVocabulary(loadCharset(charsettxt_filepath));
-                recognitonModel.setInputParams(recogniton_inputScale, new Size(recogniton_inputSize_w, recogniton_inputSize_h), recogniton_inputMean);
-
-                croppedMat = new Mat(new Size(recogniton_inputSize_w, recogniton_inputSize_h), CvType.CV_8SC3);
-                croppedGrayMat = new Mat(croppedMat.size(), CvType.CV_8SC1);
-            }
-
-            Utils.setDebugMode(false);
-
-            multiSource2MatHelper.Initialize();
-        }
-
-        /// <summary>
-        /// Raises the source to mat helper initialized event.
-        /// </summary>
-        public void OnSourceToMatHelperInitialized()
-        {
-            Debug.Log("OnSourceToMatHelperInitialized");
-
-            Mat bgrMat = multiSource2MatHelper.GetMat();
-
-            // Fill in the image so that the unprocessed image is not displayed.
-            bgrMat.setTo(new Scalar(0, 0, 0, 255));
-
-            texture = new Texture2D(bgrMat.cols(), bgrMat.rows(), TextureFormat.RGB24, false);
-            Utils.matToTexture2D(bgrMat, texture);
-
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
-
-
-            if (fpsMonitor != null)
-            {
-                fpsMonitor.Add("width", multiSource2MatHelper.GetWidth().ToString());
-                fpsMonitor.Add("height", multiSource2MatHelper.GetHeight().ToString());
-                fpsMonitor.Add("orientation", Screen.orientation.ToString());
-            }
-
-#if !OPENCV_DONT_USE_WEBCAMTEXTURE_API
-            // If the WebCam is front facing, flip the Mat horizontally. Required for successful detection.
-            if (multiSource2MatHelper.source2MatHelper is WebCamTexture2MatHelper webCamHelper)
-                webCamHelper.flipHorizontal = webCamHelper.IsFrontFacing();
-#endif
-        }
-
-        /// <summary>
-        /// Raises the source to mat helper disposed event.
-        /// </summary>
-        public void OnSourceToMatHelperDisposed()
-        {
-            Debug.Log("OnSourceToMatHelperDisposed");
-
-            if (texture != null)
-            {
-                Texture2D.Destroy(texture);
-                texture = null;
-            }
-        }
-
-        /// <summary>
-        /// Raises the source to mat helper error occurred event.
-        /// </summary>
-        /// <param name="errorCode">Error code.</param>
-        /// <param name="message">Message.</param>
-        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
-        {
-            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
-
-            if (fpsMonitor != null)
-            {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
-            }
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
+            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
             {
 
-                Mat bgrMat = multiSource2MatHelper.GetMat();
+                Mat bgrMat = _multiSource2MatHelper.GetMat();
 
-                if (detectonModel == null || recognitonModel == null)
+                if (_detectionModel == null || _recognitionModel == null)
                 {
                     Imgproc.putText(bgrMat, "model file is not loaded.", new Point(5, bgrMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255), 2, Imgproc.LINE_AA, false);
                     Imgproc.putText(bgrMat, "Please read console message.", new Point(5, bgrMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255), 2, Imgproc.LINE_AA, false);
@@ -262,7 +128,7 @@ namespace OpenCVForUnityExample
                 {
                     MatOfRotatedRect detectons = new MatOfRotatedRect();
                     MatOfFloat confidences = new MatOfFloat();
-                    detectonModel.detectTextRectangles(bgrMat, detectons, confidences);
+                    _detectionModel.detectTextRectangles(bgrMat, detectons, confidences);
 
                     RotatedRect[] detectons_arr = detectons.toArray();
                     Array.Reverse(detectons_arr);
@@ -274,17 +140,17 @@ namespace OpenCVForUnityExample
 
                     for (int i = 0; i < detectons_arr.Length; ++i)
                     {
-                        if (confidences_arr[i] < detection_confidences_threshold)
+                        if (confidences_arr[i] < DETECTION_CONFIDENCES_THRESHOLD)
                             continue;
 
                         Point[] vertices = new Point[4];
                         detectons_arr[i].points(vertices);
 
                         // Create transformed and cropped image.
-                        fourPointsTransform(bgrMat, croppedMat, vertices);
-                        Imgproc.cvtColor(croppedMat, croppedGrayMat, Imgproc.COLOR_BGR2GRAY);
+                        FourPointsTransform(bgrMat, _croppedMat, vertices);
+                        Imgproc.cvtColor(_croppedMat, _croppedGrayMat, Imgproc.COLOR_BGR2GRAY);
 
-                        string recognitionResult = recognitonModel.recognize(croppedGrayMat);
+                        string recognitionResult = _recognitionModel.recognize(_croppedGrayMat);
 
                         recognition_arr[i] = recognitionResult;
                     }
@@ -298,7 +164,7 @@ namespace OpenCVForUnityExample
                         for (int j = 0; j < 4; ++j)
                             Imgproc.line(bgrMat, vertices[j], vertices[(j + 1) % 4], new Scalar(0, 255, 0), 2);
 
-                        if (confidences_arr[i] < detection_confidences_threshold)
+                        if (confidences_arr[i] < DETECTION_CONFIDENCES_THRESHOLD)
                         {
                             for (int j = 0; j < 4; ++j)
                                 Imgproc.line(bgrMat, vertices[j], vertices[(j + 1) % 4], new Scalar(255, 0, 0), 2);
@@ -308,43 +174,89 @@ namespace OpenCVForUnityExample
 
                         //Debug.Log("[" + recognition_arr[i] + "] " + confidences_arr[i]);
                     }
+
+                    detectons.Dispose();
+                    confidences.Dispose();
                 }
 
                 Imgproc.cvtColor(bgrMat, bgrMat, Imgproc.COLOR_BGR2RGB);
 
                 //Imgproc.putText (bgrMat, "W:" + bgrMat.width () + " H:" + bgrMat.height () + " SO:" + Screen.orientation, new Point (5, img.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
-                Utils.matToTexture2D(bgrMat, texture);
+                OpenCVMatUtils.MatToTexture2D(bgrMat, _texture);
             }
         }
 
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
+        private void OnDestroy()
         {
-            multiSource2MatHelper.Dispose();
+            _multiSource2MatHelper?.Dispose();
 
-            if (detectonModel != null)
-                detectonModel.Dispose();
+            _detectionModel?.Dispose();
+            _recognitionModel?.Dispose();
 
-            if (recognitonModel != null)
-                recognitonModel.Dispose();
+            _croppedMat?.Dispose(); _croppedMat = null;
+            _croppedGrayMat?.Dispose(); _croppedGrayMat = null;
 
-            if (croppedMat != null)
+            _cts?.Dispose();
+        }
+
+        // Public Methods
+        /// <summary>
+        /// Raises the source to mat helper initialized event.
+        /// </summary>
+        public void OnSourceToMatHelperInitialized()
+        {
+            Debug.Log("OnSourceToMatHelperInitialized");
+
+            Mat bgrMat = _multiSource2MatHelper.GetMat();
+
+            // Fill in the image so that the unprocessed image is not displayed.
+            bgrMat.setTo(new Scalar(0, 0, 0, 255));
+
+            _texture = new Texture2D(bgrMat.cols(), bgrMat.rows(), TextureFormat.RGB24, false);
+            OpenCVMatUtils.MatToTexture2D(bgrMat, _texture);
+
+            ResultPreview.texture = _texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
+
+
+            if (_fpsMonitor != null)
             {
-                croppedMat.Dispose();
-                croppedMat = null;
+                _fpsMonitor.Add("width", _multiSource2MatHelper.GetWidth().ToString());
+                _fpsMonitor.Add("height", _multiSource2MatHelper.GetHeight().ToString());
+                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
             }
 
-            if (croppedGrayMat != null)
-            {
-                croppedGrayMat.Dispose();
-                croppedGrayMat = null;
-            }
+#if !OPENCV_DONT_USE_WEBCAMTEXTURE_API
+            // If the WebCam is front facing, flip the Mat horizontally. Required for successful detection.
+            if (_multiSource2MatHelper.Source2MatHelper is WebCamTexture2MatHelper webCamHelper)
+                webCamHelper.FlipHorizontal = webCamHelper.IsFrontFacing();
+#endif
+        }
 
-            if (cts != null)
-                cts.Dispose();
+        /// <summary>
+        /// Raises the source to mat helper disposed event.
+        /// </summary>
+        public void OnSourceToMatHelperDisposed()
+        {
+            Debug.Log("OnSourceToMatHelperDisposed");
+
+            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
+        }
+
+        /// <summary>
+        /// Raises the source to mat helper error occurred event.
+        /// </summary>
+        /// <param name="errorCode">Error code.</param>
+        /// <param name="message">Message.</param>
+        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
+        {
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
+            }
         }
 
         /// <summary>
@@ -360,7 +272,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnPlayButtonClick()
         {
-            multiSource2MatHelper.Play();
+            _multiSource2MatHelper.Play();
         }
 
         /// <summary>
@@ -368,7 +280,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnPauseButtonClick()
         {
-            multiSource2MatHelper.Pause();
+            _multiSource2MatHelper.Pause();
         }
 
         /// <summary>
@@ -376,7 +288,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnStopButtonClick()
         {
-            multiSource2MatHelper.Stop();
+            _multiSource2MatHelper.Stop();
         }
 
         /// <summary>
@@ -384,10 +296,45 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnChangeCameraButtonClick()
         {
-            multiSource2MatHelper.requestedIsFrontFacing = !multiSource2MatHelper.requestedIsFrontFacing;
+            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
         }
 
-        protected void fourPointsTransform(Mat src, Mat dst, Point[] vertices)
+        // Private Methods
+        private void Run()
+        {
+            //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
+            OpenCVDebug.SetDebugMode(true);
+
+            if (string.IsNullOrEmpty(_detectionModelFilepath) || string.IsNullOrEmpty(_recognitionModelFilepath) || string.IsNullOrEmpty(_charsetTxtFilepath))
+            {
+                Debug.LogError(DETECTION_MODEL_FILENAME + " or " + RECOGNITION_MODEL_FILENAME + " or " + CHARSET_TXT_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+            }
+            else
+            {
+                // Create TextDetectionModel.
+                _detectionModel = new TextDetectionModel_DB(_detectionModelFilepath);
+                _detectionModel.setBinaryThreshold(DETECTION_BINARY_THRESHOLD);
+                _detectionModel.setPolygonThreshold(DETECTION_POLYGON_THRESHOLD);
+                _detectionModel.setUnclipRatio(DETECTION_UNCLIP_RATIO);
+                _detectionModel.setMaxCandidates(DETECTION_MAX_CANDIDATES);
+                _detectionModel.setInputParams(DETECTION_INPUT_SCALE, new Size(DETECTION_INPUT_SIZE_W, DETECTION_INPUT_SIZE_H), _detectionInputMean);
+
+                // Create TextRecognitonModel.
+                _recognitionModel = new TextRecognitionModel(_recognitionModelFilepath);
+                _recognitionModel.setDecodeType("CTC-greedy");
+                _recognitionModel.setVocabulary(LoadCharset(_charsetTxtFilepath));
+                _recognitionModel.setInputParams(RECOGNITION_INPUT_SCALE, new Size(RECOGNITION_INPUT_SIZE_W, RECOGNITION_INPUT_SIZE_H), _recognitionInputMean);
+
+                _croppedMat = new Mat(new Size(RECOGNITION_INPUT_SIZE_W, RECOGNITION_INPUT_SIZE_H), CvType.CV_8SC3);
+                _croppedGrayMat = new Mat(_croppedMat.size(), CvType.CV_8SC1);
+            }
+
+            OpenCVDebug.SetDebugMode(false);
+
+            _multiSource2MatHelper.Initialize();
+        }
+
+        private void FourPointsTransform(Mat src, Mat dst, Point[] vertices)
         {
             Size outputSize = dst.size();
 
@@ -403,7 +350,7 @@ namespace OpenCVForUnityExample
             Imgproc.warpPerspective(src, dst, rotationMatrix, outputSize);
         }
 
-        protected List<string> loadCharset(string charsetPath)
+        private List<string> LoadCharset(string charsetPath)
         {
             return new List<string>(File.ReadAllLines(charsetPath));
         }

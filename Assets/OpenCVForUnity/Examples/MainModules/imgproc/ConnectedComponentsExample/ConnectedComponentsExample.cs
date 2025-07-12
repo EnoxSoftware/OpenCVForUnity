@@ -1,7 +1,7 @@
+using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using System.Collections.Generic;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,20 +15,21 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class ConnectedComponentsExample : MonoBehaviour
     {
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
             Texture2D imgTexture = Resources.Load("matchshapes") as Texture2D;
 
             Mat srcMat = new Mat(imgTexture.height, imgTexture.width, CvType.CV_8UC1);
 
-            Utils.texture2DToMat(imgTexture, srcMat);
+            OpenCVMatUtils.Texture2DToMat(imgTexture, srcMat);
             Debug.Log("srcMat.ToString() " + srcMat.ToString());
 
             Mat dstMat = new Mat(srcMat.size(), CvType.CV_8UC3);
@@ -99,18 +100,18 @@ namespace OpenCVForUnityExample
 
             Texture2D texture = new Texture2D(dstMat.cols(), dstMat.rows(), TextureFormat.RGBA32, false);
 
-            Utils.matToTexture2D(dstMat, texture);
+            OpenCVMatUtils.MatToTexture2D(dstMat, texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
 
         }
 
+        // Public Methods
         /// <summary>
         /// Raises the back button click event.
         /// </summary>

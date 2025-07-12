@@ -1,9 +1,9 @@
-using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.UnityUtils;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,13 +12,15 @@ namespace OpenCVForUnityExample
 {
     public class ShowSystemInfo : MonoBehaviour
     {
-        public Text systemInfoText;
-        public InputField systemInfoInputField;
-
+        // Constants
         private const string ASSET_NAME = "OpenCVForUnity";
 
-        // Use this for initialization
-        void Start()
+        // Public Fields
+        public Text SystemInfoText;
+        public InputField SystemInfoInputField;
+
+        // Unity Lifecycle Methods
+        private void Start()
         {
 
             StringBuilder sb = new StringBuilder();
@@ -48,21 +50,21 @@ namespace OpenCVForUnityExample
             }
             sb.Append("#########################\n");
 
-            systemInfoText.text = systemInfoInputField.text = sb.ToString();
+            SystemInfoText.text = SystemInfoInputField.text = sb.ToString();
             Debug.Log(sb.ToString());
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
 
         }
 
+        // Public Methods
         public Dictionary<string, string> GetBuildInfo()
         {
             Dictionary<string, string> dict = new Dictionary<string, string>();
 
-            dict.Add(ASSET_NAME + " version", Core.NATIVE_LIBRARY_NAME + " " + Utils.getVersion() + " (" + Core.VERSION + ")");
+            dict.Add(ASSET_NAME + " version", Core.NATIVE_LIBRARY_NAME + " " + OpenCVEnv.GetVersion() + " (" + Core.VERSION + ")");
             dict.Add("Build Unity version", Application.unityVersion);
 
 #if UNITY_EDITOR
@@ -77,6 +79,8 @@ namespace OpenCVForUnityExample
             dict.Add("Build target", "Android");
 #elif UNITY_IOS
             dict.Add("Build target", "iOS");
+#elif UNITY_VISIONOS
+            dict.Add("Build target", "VisionOS");
 #elif UNITY_WSA
             dict.Add("Build target", "WSA");
 #elif UNITY_WEBGL
@@ -99,6 +103,16 @@ namespace OpenCVForUnityExample
             dict.Add("Allow 'unsafe' Code", "Enabled");
 #else
             dict.Add("Allow 'unsafe' Code", "Disabled");
+#endif
+
+#if NET_STANDARD_2_1
+            dict.Add("API Compatibility Level", ".NET Standard 2.1");
+#elif NET_STANDARD_2_0
+            dict.Add("API Compatibility Level", ".NET Standard 2.0");
+#elif NETFRAMEWORK
+            dict.Add("API Compatibility Level", ".NET Framework (.NET 4.x)");
+#else
+            dict.Add("API Compatibility Level", "");
 #endif
 
             return dict;

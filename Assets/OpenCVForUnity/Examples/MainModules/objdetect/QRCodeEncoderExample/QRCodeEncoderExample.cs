@@ -1,10 +1,10 @@
+using System;
+using System.IO;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.ObjdetectModule;
-using OpenCVForUnity.UnityUtils;
-using System;
-using System.IO;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,145 +18,80 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class QRCodeEncoderExample : MonoBehaviour
     {
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
         [Space(10)]
 
         /// <summary>
         /// The size of the output QRCode image (px).
         /// </summary>
-        public int qrCodeSize = 1000;
+        public int QrCodeSize = 1000;
 
         /// <summary>
         /// The encoded info string.
         /// </summary>
-        public string encodedInfo = "";
+        public string EncodedInfo = "";
 
         /// <summary>
         /// The encoded info input field.
         /// </summary>
-        public InputField encodedInfoInputField;
+        public InputField EncodedInfoInputField;
 
         /// <summary>
         /// The save path input field.
         /// </summary>
-        public InputField savePathInputField;
+        public InputField SavePathInputField;
 
+        // Private Fields
         /// <summary>
         /// The QRcode encoder.
         /// </summary>
-        QRCodeEncoder qrCodeEncoder;
+        private QRCodeEncoder _qrCodeEncoder;
 
         /// <summary>
         /// The QRCode img mat.
         /// </summary>
-        Mat qrCodeImg;
+        private Mat _qrCodeImg;
 
         /// <summary>
         /// The texture.
         /// </summary>
-        Texture2D texture;
+        private Texture2D _texture;
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
-            qrCodeImg = new Mat(qrCodeSize, qrCodeSize, CvType.CV_8UC3);
-            texture = new Texture2D(qrCodeImg.cols(), qrCodeImg.rows(), TextureFormat.RGB24, false);
+            _qrCodeImg = new Mat(QrCodeSize, QrCodeSize, CvType.CV_8UC3);
+            _texture = new Texture2D(_qrCodeImg.cols(), _qrCodeImg.rows(), TextureFormat.RGB24, false);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = _texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
 
+            EncodedInfoInputField.text = EncodedInfo;
 
-            encodedInfoInputField.text = encodedInfo;
-
-            qrCodeEncoder = QRCodeEncoder.create();
+            _qrCodeEncoder = QRCodeEncoder.create();
 
             CreateQRCodeImg();
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
 
         }
 
-        private void CreateQRCodeImg()
+        private void OnDestroy()
         {
-            if (qrCodeImg.cols() != qrCodeSize)
-            {
-                qrCodeImg.Dispose();
-                qrCodeImg = new Mat(qrCodeSize, qrCodeSize, CvType.CV_8UC3);
-                texture = new Texture2D(qrCodeImg.cols(), qrCodeImg.rows(), TextureFormat.RGB24, false);
-            }
-            else
-            {
-                qrCodeImg.setTo(Scalar.all(255));
-            }
+            _qrCodeEncoder?.Dispose();
 
-            // Encode QRCode.
-            using (Mat qrcodeGRAY = new Mat())
-            {
-                qrCodeEncoder.encode(encodedInfo, qrcodeGRAY);
-
-                if (!qrcodeGRAY.empty())
-                {
-                    using (Mat qrcodeRGB = new Mat(qrcodeGRAY.size(), CvType.CV_8UC3))
-                    {
-                        Imgproc.cvtColor(qrcodeGRAY, qrcodeRGB, Imgproc.COLOR_GRAY2RGB);
-                        Imgproc.resize(qrcodeRGB, qrCodeImg, qrCodeImg.size(), 0, 0, Imgproc.INTER_NEAREST);
-                    }
-                }
-                else
-                {
-                    Imgproc.putText(qrCodeImg, "Too much encoded info.", new Point(5, qrCodeImg.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 2, new Scalar(0, 0, 0, 255), 2, Imgproc.LINE_AA, false);
-                }
-            }
-
-            Utils.matToTexture2D(qrCodeImg, texture);
+            _qrCodeImg?.Dispose();
         }
 
-        private void SaveQRCodeImg()
-        {
-            // save the QRCodeImg.
-            string saveDirectoryPath = Path.Combine(Application.persistentDataPath, "QRCodeEncoderExample");
-            string savePath = "";
-#if UNITY_WEBGL && !UNITY_EDITOR
-            string format = "jpg";
-            MatOfInt compressionParams = new MatOfInt(Imgcodecs.IMWRITE_JPEG_QUALITY, 100);
-#else
-            string format = "png";
-            MatOfInt compressionParams = new MatOfInt(Imgcodecs.IMWRITE_PNG_COMPRESSION, 0);
-#endif
-
-            savePath = Path.Combine(saveDirectoryPath, Uri.EscapeDataString(encodedInfo) + "." + format);
-
-            if (!Directory.Exists(saveDirectoryPath))
-            {
-                Directory.CreateDirectory(saveDirectoryPath);
-            }
-
-            Imgcodecs.imwrite(savePath, qrCodeImg, compressionParams);
-
-            savePathInputField.text = savePath;
-            Debug.Log("savePath: " + savePath);
-        }
-
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
-        {
-            if (qrCodeEncoder != null)
-                qrCodeEncoder.Dispose();
-
-            if (qrCodeImg != null)
-                qrCodeImg.Dispose();
-        }
-
+        // Public Methods
         /// <summary>
         /// Raises the back button click event.
         /// </summary>
@@ -170,7 +105,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnEncodedInfoInputFieldValueChanged(string result)
         {
-            encodedInfo = result;
+            EncodedInfo = result;
         }
 
         /// <summary>
@@ -187,6 +122,68 @@ namespace OpenCVForUnityExample
         public void OnSaveQRCodeImgButtonClick()
         {
             SaveQRCodeImg();
+        }
+
+        // Private Methods
+        private void CreateQRCodeImg()
+        {
+            if (_qrCodeImg.cols() != QrCodeSize)
+            {
+                _qrCodeImg.Dispose();
+                _qrCodeImg = new Mat(QrCodeSize, QrCodeSize, CvType.CV_8UC3);
+                _texture = new Texture2D(_qrCodeImg.cols(), _qrCodeImg.rows(), TextureFormat.RGB24, false);
+            }
+            else
+            {
+                _qrCodeImg.setTo(Scalar.all(255));
+            }
+
+            // Encode QRCode.
+            using (Mat qrcodeGRAY = new Mat())
+            {
+                _qrCodeEncoder.encode(EncodedInfo, qrcodeGRAY);
+
+                if (!qrcodeGRAY.empty())
+                {
+                    using (Mat qrcodeRGB = new Mat(qrcodeGRAY.size(), CvType.CV_8UC3))
+                    {
+                        Imgproc.cvtColor(qrcodeGRAY, qrcodeRGB, Imgproc.COLOR_GRAY2RGB);
+                        Imgproc.resize(qrcodeRGB, _qrCodeImg, _qrCodeImg.size(), 0, 0, Imgproc.INTER_NEAREST);
+                    }
+                }
+                else
+                {
+                    Imgproc.putText(_qrCodeImg, "Too much encoded info.", new Point(5, _qrCodeImg.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 2, new Scalar(0, 0, 0, 255), 2, Imgproc.LINE_AA, false);
+                }
+            }
+
+            OpenCVMatUtils.MatToTexture2D(_qrCodeImg, _texture);
+        }
+
+        private void SaveQRCodeImg()
+        {
+            // save the QRCodeImg.
+            string saveDirectoryPath = Path.Combine(Application.persistentDataPath, "QRCodeEncoderExample");
+            string savePath = "";
+#if UNITY_WEBGL && !UNITY_EDITOR
+            string format = "jpg";
+            MatOfInt compressionParams = new MatOfInt(Imgcodecs.IMWRITE_JPEG_QUALITY, 100);
+#else
+            string format = "png";
+            MatOfInt compressionParams = new MatOfInt(Imgcodecs.IMWRITE_PNG_COMPRESSION, 0);
+#endif
+
+            savePath = Path.Combine(saveDirectoryPath, Uri.EscapeDataString(EncodedInfo) + "." + format);
+
+            if (!Directory.Exists(saveDirectoryPath))
+            {
+                Directory.CreateDirectory(saveDirectoryPath);
+            }
+
+            Imgcodecs.imwrite(savePath, _qrCodeImg, compressionParams);
+
+            SavePathInputField.text = savePath;
+            Debug.Log("savePath: " + savePath);
         }
     }
 }

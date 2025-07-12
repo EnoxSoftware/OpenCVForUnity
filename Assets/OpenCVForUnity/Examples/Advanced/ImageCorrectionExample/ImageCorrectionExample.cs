@@ -1,7 +1,7 @@
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UnityUtils.Helper;
+using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,48 +16,92 @@ namespace OpenCVForUnityExample
     [RequireComponent(typeof(MultiSource2MatHelper))]
     public class ImageCorrectionExample : MonoBehaviour
     {
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
-        [Space(10)]
+        // Private Fields
+        private float _contrast = 1f;
+        private float _brightness = 0f;
+        private float _gamma = 1f;
+        private bool _thresholdEnabled = false;
+        private float _threshold = 127f;
 
-        private float contrast = 1f;
-        private float brightness = 0f;
-        private float gamma = 1f;
-        private bool thresholdEnabled = false;
-        private float threshold = 127f;
-
-        private Mat lut;
+        private Mat _lut;
 
         /// <summary>
         /// The gray1 mat.
         /// </summary>
-        Mat grayMat;
+        private Mat _grayMat;
 
         /// <summary>
         /// The texture.
         /// </summary>
-        Texture2D texture;
+        private Texture2D _texture;
 
         /// <summary>
         /// The multi source to mat helper.
         /// </summary>
-        MultiSource2MatHelper multiSource2MatHelper;
+        private MultiSource2MatHelper _multiSource2MatHelper;
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
-            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
-            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGB;
-            multiSource2MatHelper.Initialize();
+            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGB;
+            _multiSource2MatHelper.Initialize();
 
             // Create the initial LUT
             CreateLUT();
         }
 
+        private void Update()
+        {
+            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
+            {
+                Mat rgbMat = _multiSource2MatHelper.GetMat();
+
+                // Adjust brightness and contrast
+                Core.convertScaleAbs(rgbMat, rgbMat, _contrast, _brightness);
+
+                // Adjust gamma value if it has changed
+                if (_lut == null || Mathf.Abs(_gamma - (float)_lut.get(0, 0)[0]) > float.Epsilon)
+                {
+                    _gamma = Mathf.Max(_gamma, 0.01f); // Ensure gamma is non-zero
+                    CreateLUT();
+                }
+
+                // Apply gamma correction using the LUT
+                Core.LUT(rgbMat, _lut, rgbMat);
+
+                // Apply threshold
+                if (_thresholdEnabled)
+                {
+                    // Convert the image to grayscale
+                    Imgproc.cvtColor(rgbMat, _grayMat, Imgproc.COLOR_RGB2GRAY);
+
+                    // Apply thresholding
+                    Imgproc.threshold(_grayMat, _grayMat, _threshold, 255, Imgproc.THRESH_BINARY);
+
+                    // Convert the image to RGB
+                    Imgproc.cvtColor(_grayMat, rgbMat, Imgproc.COLOR_GRAY2RGB);
+                }
+
+                Imgproc.putText(rgbMat, "contrast:" + _contrast.ToString("F2") + " brightness:" + _brightness.ToString("F2") + " gamma:" + _gamma.ToString("F2") + " threshold:" + _threshold.ToString("F2"), new Point(5, rgbMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.6, new Scalar(255, 255, 255, 255), 1, Imgproc.LINE_AA, false);
+
+                OpenCVMatUtils.MatToTexture2D(rgbMat, _texture);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            _multiSource2MatHelper?.Dispose();
+        }
+
+        // Public Methods
         /// <summary>
         /// Raises the source to mat helper initialized event.
         /// </summary>
@@ -65,19 +109,18 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperInitialized");
 
-            Mat rgbMat = multiSource2MatHelper.GetMat();
+            Mat rgbMat = _multiSource2MatHelper.GetMat();
 
             // Fill in the image so that the unprocessed image is not displayed.
             rgbMat.setTo(new Scalar(0, 0, 0, 255));
 
-            texture = new Texture2D(rgbMat.cols(), rgbMat.rows(), TextureFormat.RGB24, false);
-            Utils.matToTexture2D(rgbMat, texture);
+            _texture = new Texture2D(rgbMat.cols(), rgbMat.rows(), TextureFormat.RGB24, false);
+            OpenCVMatUtils.MatToTexture2D(rgbMat, _texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = _texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
 
-
-            grayMat = new Mat(rgbMat.rows(), rgbMat.cols(), CvType.CV_8UC1);
+            _grayMat = new Mat(rgbMat.rows(), rgbMat.cols(), CvType.CV_8UC1);
         }
 
         /// <summary>
@@ -87,17 +130,8 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperDisposed");
 
-            if (grayMat != null)
-            {
-                grayMat.Dispose();
-                grayMat = null;
-            }
-
-            if (texture != null)
-            {
-                Texture2D.Destroy(texture);
-                texture = null;
-            }
+            _grayMat?.Dispose(); _grayMat = null;
+            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
         }
 
         /// <summary>
@@ -108,65 +142,6 @@ namespace OpenCVForUnityExample
         public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
         {
             Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
-            {
-
-                Mat rgbMat = multiSource2MatHelper.GetMat();
-
-                // Adjust brightness and contrast
-                Core.convertScaleAbs(rgbMat, rgbMat, contrast, brightness);
-
-                // Adjust gamma value if it has changed
-                if (lut == null || Mathf.Abs(gamma - (float)lut.get(0, 0)[0]) > float.Epsilon)
-                {
-                    gamma = Mathf.Max(gamma, 0.01f); // Ensure gamma is non-zero
-                    CreateLUT();
-                }
-
-                // Apply gamma correction using the LUT
-                Core.LUT(rgbMat, lut, rgbMat);
-
-                // Apply threshold
-                if (thresholdEnabled)
-                {
-                    // Convert the image to grayscale
-                    Imgproc.cvtColor(rgbMat, grayMat, Imgproc.COLOR_RGB2GRAY);
-
-                    // Apply thresholding
-                    Imgproc.threshold(grayMat, grayMat, threshold, 255, Imgproc.THRESH_BINARY);
-
-                    // Convert the image to RGB
-                    Imgproc.cvtColor(grayMat, rgbMat, Imgproc.COLOR_GRAY2RGB);
-                }
-
-                Imgproc.putText(rgbMat, "contrast:" + contrast.ToString("F2") + " brightness:" + brightness.ToString("F2") + " gamma:" + gamma.ToString("F2") + " threshold:" + threshold.ToString("F2"), new Point(5, rgbMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.6, new Scalar(255, 255, 255, 255), 1, Imgproc.LINE_AA, false);
-
-                Utils.matToTexture2D(rgbMat, texture);
-            }
-        }
-
-        private void CreateLUT()
-        {
-            lut = new Mat(1, 256, CvType.CV_8UC1);
-
-            for (int i = 0; i < 256; i++)
-            {
-                double gammaCorrection = Mathf.Pow((float)i / 255f, 1f / gamma) * 255f;
-                lut.put(0, i, gammaCorrection);
-            }
-        }
-
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
-        {
-            multiSource2MatHelper.Dispose();
         }
 
         /// <summary>
@@ -182,7 +157,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnPlayButtonClick()
         {
-            multiSource2MatHelper.Play();
+            _multiSource2MatHelper.Play();
         }
 
         /// <summary>
@@ -190,7 +165,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnPauseButtonClick()
         {
-            multiSource2MatHelper.Pause();
+            _multiSource2MatHelper.Pause();
         }
 
         /// <summary>
@@ -198,7 +173,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnStopButtonClick()
         {
-            multiSource2MatHelper.Stop();
+            _multiSource2MatHelper.Stop();
         }
 
         /// <summary>
@@ -206,32 +181,64 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnChangeCameraButtonClick()
         {
-            multiSource2MatHelper.requestedIsFrontFacing = !multiSource2MatHelper.requestedIsFrontFacing;
+            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
         }
 
+        /// <summary>
+        /// Raises the contrast slider value changed event.
+        /// </summary>
+        /// <param name="value">Slider value.</param>
         public void OnContrastSliderValueChanged(float value)
         {
-            contrast = value;
+            _contrast = value;
         }
 
+        /// <summary>
+        /// Raises the brightness slider value changed event.
+        /// </summary>
+        /// <param name="value">Slider value.</param>
         public void OnBrightnessSliderValueChanged(float value)
         {
-            brightness = value;
+            _brightness = value;
         }
 
+        /// <summary>
+        /// Raises the gamma slider value changed event.
+        /// </summary>
+        /// <param name="value">Slider value.</param>
         public void OnGammaSliderValueChanged(float value)
         {
-            gamma = value;
+            _gamma = value;
         }
 
+        /// <summary>
+        /// Raises the apply threshold toggle value changed event.
+        /// </summary>
+        /// <param name="value">Toggle value.</param>
         public void OnApplayThresholdToggleValueChanged(bool value)
         {
-            thresholdEnabled = value;
+            _thresholdEnabled = value;
         }
 
+        /// <summary>
+        /// Raises the threshold slider value changed event.
+        /// </summary>
+        /// <param name="value">Slider value.</param>
         public void OnThresholdSliderValueChanged(float value)
         {
-            threshold = value;
+            _threshold = value;
+        }
+
+        // Private Methods
+        private void CreateLUT()
+        {
+            _lut = new Mat(1, 256, CvType.CV_8UC1);
+
+            for (int i = 0; i < 256; i++)
+            {
+                double gammaCorrection = Mathf.Pow((float)i / 255f, 1f / _gamma) * 255f;
+                _lut.put(0, i, gammaCorrection);
+            }
         }
     }
 }

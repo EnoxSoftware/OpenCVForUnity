@@ -1,7 +1,7 @@
+using System.Collections;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using System.Collections;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,27 +15,28 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class GrabCutExample : MonoBehaviour
     {
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
             Texture2D imageTexture = Resources.Load("face") as Texture2D;
 
             Mat image = new Mat(imageTexture.height, imageTexture.width, CvType.CV_8UC3);
 
-            Utils.texture2DToMat(imageTexture, image);
+            OpenCVMatUtils.Texture2DToMat(imageTexture, image);
             Debug.Log("image.ToString() " + image.ToString());
 
             Texture2D maskTexture = Resources.Load("face_grabcut_mask") as Texture2D;
 
             Mat mask = new Mat(imageTexture.height, imageTexture.width, CvType.CV_8UC1);
 
-            Utils.texture2DToMat(maskTexture, mask);
+            OpenCVMatUtils.Texture2DToMat(maskTexture, mask);
             Debug.Log("mask.ToString() " + mask.ToString());
 
 
@@ -44,13 +45,13 @@ namespace OpenCVForUnityExample
             Mat bgdModel = new Mat(); // extracted features for background
             Mat fgdModel = new Mat(); // extracted features for foreground
 
-            convertToGrabCutValues(mask); // from grayscale values to grabcut values 
+            ConvertToGrabCutValues(mask); // from grayscale values to grabcut values
 
             int iterCount = 5;
             //Imgproc.grabCut (image, mask, rectangle, bgdModel, fgdModel, iterCount, Imgproc.GC_INIT_WITH_RECT);
             Imgproc.grabCut(image, mask, rectangle, bgdModel, fgdModel, iterCount, Imgproc.GC_INIT_WITH_MASK);
 
-            convertToGrayScaleValues(mask); // back to grayscale values
+            ConvertToGrayScaleValues(mask); // back to grayscale values
             Imgproc.threshold(mask, mask, 128, 255, Imgproc.THRESH_TOZERO);
 
             Mat foreground = new Mat(image.size(), CvType.CV_8UC3, new Scalar(0, 0, 0));
@@ -59,13 +60,19 @@ namespace OpenCVForUnityExample
 
             Texture2D texture = new Texture2D(image.cols(), image.rows(), TextureFormat.RGBA32, false);
 
-            Utils.matToTexture2D(foreground, texture);
+            OpenCVMatUtils.MatToTexture2D(foreground, texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
         }
 
-        private void convertToGrayScaleValues(Mat mask)
+        private void Update()
+        {
+
+        }
+
+        // Private Methods
+        private void ConvertToGrayScaleValues(Mat mask)
         {
             int width = mask.rows();
             int height = mask.cols();
@@ -98,7 +105,7 @@ namespace OpenCVForUnityExample
             mask.put(0, 0, buffer);
         }
 
-        private void convertToGrabCutValues(Mat mask)
+        private void ConvertToGrabCutValues(Mat mask)
         {
             int width = mask.rows();
             int height = mask.cols();
@@ -130,12 +137,7 @@ namespace OpenCVForUnityExample
             mask.put(0, 0, buffer);
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
+        // Public Methods
         /// <summary>
         /// Raises the back button click event.
         /// </summary>

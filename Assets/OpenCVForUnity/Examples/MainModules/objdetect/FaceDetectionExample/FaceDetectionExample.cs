@@ -1,9 +1,9 @@
+using System.Threading;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.ObjdetectModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UnityUtils.Helper;
-using System.Threading;
+using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,84 +18,179 @@ namespace OpenCVForUnityExample
     [RequireComponent(typeof(MultiSource2MatHelper))]
     public class FaceDetectionExample : MonoBehaviour
     {
+        // Constants
+        /// <summary>
+        /// LBP_CASCADE_FRONTALFACE_FILENAME
+        /// </summary>
+        protected static readonly string LBP_CASCADE_FRONTALFACE_FILENAME = "OpenCVForUnityExamples/objdetect/lbpcascade_frontalface.xml";
+
+        /// <summary>
+        /// HAAR_CASCADE_FRONTALFACE_FILENAME
+        /// </summary>
+        protected static readonly string HAAR_CASCADE_FRONTALFACE_FILENAME = "OpenCVForUnityExamples/objdetect/haarcascade_frontalface_alt.xml";
+
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
         [Space(10)]
 
+        // Private Fields
         /// <summary>
         /// The gray mat.
         /// </summary>
-        Mat grayMat;
+        private Mat _grayMat;
 
         /// <summary>
         /// The texture.
         /// </summary>
-        Texture2D texture;
+        private Texture2D _texture;
 
         /// <summary>
-        /// The cascade.
+        /// The current cascade classifier.
         /// </summary>
-        CascadeClassifier cascade;
+        private CascadeClassifier _currentCascade;
+
+        /// <summary>
+        /// The lbp cascade classifier.
+        /// </summary>
+        private CascadeClassifier _lbpCascade;
+
+        /// <summary>
+        /// The haar cascade classifier.
+        /// </summary>
+        private CascadeClassifier _haarCascade;
+
+        /// <summary>
+        /// Ratio to image size to determine the minimum possible object size for detection.
+        /// </summary>
+        private double _minSizeRatio = 0.15;
+
+        /// <summary>
+        /// Ratio to image size to determine the maximum possible object size for detection.
+        /// </summary>
+        private double _maxSizeRatio = 0.85;
 
         /// <summary>
         /// The faces.
         /// </summary>
-        MatOfRect faces;
+        private MatOfRect _faces;
 
         /// <summary>
         /// The multi source to mat helper.
         /// </summary>
-        MultiSource2MatHelper multiSource2MatHelper;
+        private MultiSource2MatHelper _multiSource2MatHelper;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
-
-        /// <summary>
-        /// LBP_CASCADE_FILENAME
-        /// </summary>
-        protected static readonly string LBP_CASCADE_FILENAME = "OpenCVForUnity/objdetect/lbpcascade_frontalface.xml";
+        private FpsMonitor _fpsMonitor;
 
         /// <summary>
         /// The CancellationTokenSource.
         /// </summary>
-        CancellationTokenSource cts = new CancellationTokenSource();
+        private CancellationTokenSource _cts = new CancellationTokenSource();
 
-        // Use this for initialization
-        async void Start()
+        // Unity Lifecycle Methods
+        private async void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
-            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
-            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGBA;
+            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "Preparing file access...";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "Preparing file access...";
 
-            string cascade_filepath = await Utils.getFilePathAsyncTask(LBP_CASCADE_FILENAME, cancellationToken: cts.Token);
+            string lbp_cascade_filepath = await OpenCVEnv.GetFilePathTaskAsync(LBP_CASCADE_FRONTALFACE_FILENAME, cancellationToken: _cts.Token);
+            string haar_cascade_filepath = await OpenCVEnv.GetFilePathTaskAsync(HAAR_CASCADE_FRONTALFACE_FILENAME, cancellationToken: _cts.Token);
 
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "";
 
-
-            if (string.IsNullOrEmpty(cascade_filepath))
+            if (string.IsNullOrEmpty(lbp_cascade_filepath))
             {
-                Debug.LogError(LBP_CASCADE_FILENAME + " is not loaded. Please move from “OpenCVForUnity/StreamingAssets/OpenCVForUnity/” to “Assets/StreamingAssets/OpenCVForUnity/” folder.");
+                Debug.LogError(LBP_CASCADE_FRONTALFACE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
             }
             else
             {
-                cascade = new CascadeClassifier(cascade_filepath);
+                _lbpCascade = new CascadeClassifier(lbp_cascade_filepath);
             }
 
-            multiSource2MatHelper.Initialize();
+            if (string.IsNullOrEmpty(haar_cascade_filepath))
+            {
+                Debug.LogError(HAAR_CASCADE_FRONTALFACE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+            }
+            else
+            {
+                _haarCascade = new CascadeClassifier(haar_cascade_filepath);
+            }
+
+            _currentCascade = _lbpCascade;
+
+            _multiSource2MatHelper.Initialize();
         }
 
+        private void Update()
+        {
+            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
+            {
+
+                // Get the current frame mat
+                Mat rgbaMat = _multiSource2MatHelper.GetMat();
+
+                if (_currentCascade == null)
+                {
+                    Imgproc.putText(rgbaMat, "model file is not loaded.", new Point(5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    Imgproc.putText(rgbaMat, "Please read console message.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+
+                    OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
+                    return;
+                }
+
+                // Convert the mat to gray and equalize
+                Imgproc.cvtColor(rgbaMat, _grayMat, Imgproc.COLOR_RGBA2GRAY);
+                Imgproc.equalizeHist(_grayMat, _grayMat);
+
+                // Detect faces.
+                int minSize = (int)(Mathf.Max(_grayMat.width(), _grayMat.height()) * _minSizeRatio);
+                int maxSize = (int)(Mathf.Max(_grayMat.width(), _grayMat.height()) * _maxSizeRatio);
+                _currentCascade.detectMultiScale(_grayMat, _faces, 1.1, 2, 0 | Objdetect.CASCADE_SCALE_IMAGE,
+                    new Size(minSize, minSize), new Size(maxSize, maxSize));
+
+                // Draw the detected faces
+                OpenCVForUnity.CoreModule.Rect[] rects = _faces.toArray();
+                for (int i = 0; i < rects.Length; i++)
+                {
+                    //Debug.Log ("detect faces " + rects [i]);
+
+                    Imgproc.rectangle(rgbaMat, new Point(rects[i].x, rects[i].y), new Point(rects[i].x + rects[i].width, rects[i].y + rects[i].height), new Scalar(255, 0, 0, 255), 2);
+                }
+
+                //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point(5, rgbaMat.rows () - 70), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                Imgproc.putText(rgbaMat, "minSizeRatio:" + _minSizeRatio.ToString("F2") + " minSize:" + minSize, new Point(5, rgbaMat.rows() - 40), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                Imgproc.putText(rgbaMat, "maxSizeRatio:" + _maxSizeRatio.ToString("F2") + " maxSize:" + maxSize, new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+
+                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            _multiSource2MatHelper?.Dispose();
+
+            _lbpCascade?.Dispose();
+
+            _haarCascade?.Dispose();
+
+            _cts?.Dispose();
+        }
+
+        // Public Methods
         /// <summary>
         /// Raises the source to mat helper initialized event.
         /// </summary>
@@ -103,25 +198,23 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperInitialized");
 
-            Mat rgbaMat = multiSource2MatHelper.GetMat();
+            Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-            texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
-            Utils.matToTexture2D(rgbaMat, texture);
+            _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
+            OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = _texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
 
-
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.Add("width", rgbaMat.width().ToString());
-                fpsMonitor.Add("height", rgbaMat.height().ToString());
-                fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                _fpsMonitor.Add("width", rgbaMat.width().ToString());
+                _fpsMonitor.Add("height", rgbaMat.height().ToString());
+                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
             }
 
-            grayMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC1);
-
-            faces = new MatOfRect();
+            _grayMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC1);
+            _faces = new MatOfRect();
         }
 
         /// <summary>
@@ -131,17 +224,11 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperDisposed");
 
-            if (grayMat != null)
-                grayMat.Dispose();
+            _grayMat?.Dispose();
 
-            if (texture != null)
-            {
-                Texture2D.Destroy(texture);
-                texture = null;
-            }
+            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
 
-            if (faces != null)
-                faces.Dispose();
+            _faces?.Dispose();
         }
 
         /// <summary>
@@ -153,65 +240,10 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
 
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
+                _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
             }
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
-            {
-
-                Mat rgbaMat = multiSource2MatHelper.GetMat();
-
-                if (cascade == null)
-                {
-                    Imgproc.putText(rgbaMat, "model file is not loaded.", new Point(5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    Imgproc.putText(rgbaMat, "Please read console message.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-
-                    Utils.matToTexture2D(rgbaMat, texture);
-                    return;
-                }
-
-
-                Imgproc.cvtColor(rgbaMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
-                Imgproc.equalizeHist(grayMat, grayMat);
-
-
-                if (cascade != null)
-                    cascade.detectMultiScale(grayMat, faces, 1.1, 2, 2, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
-                        new Size(grayMat.cols() * 0.2, grayMat.rows() * 0.2), new Size());
-
-
-                OpenCVForUnity.CoreModule.Rect[] rects = faces.toArray();
-                for (int i = 0; i < rects.Length; i++)
-                {
-                    //Debug.Log ("detect faces " + rects [i]);
-
-                    Imgproc.rectangle(rgbaMat, new Point(rects[i].x, rects[i].y), new Point(rects[i].x + rects[i].width, rects[i].y + rects[i].height), new Scalar(255, 0, 0, 255), 2);
-                }
-
-                //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-
-                Utils.matToTexture2D(rgbaMat, texture);
-            }
-        }
-
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
-        {
-            multiSource2MatHelper.Dispose();
-
-            if (cascade != null)
-                cascade.Dispose();
-
-            if (cts != null)
-                cts.Dispose();
         }
 
         /// <summary>
@@ -227,7 +259,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnPlayButtonClick()
         {
-            multiSource2MatHelper.Play();
+            _multiSource2MatHelper.Play();
         }
 
         /// <summary>
@@ -235,7 +267,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnPauseButtonClick()
         {
-            multiSource2MatHelper.Pause();
+            _multiSource2MatHelper.Pause();
         }
 
         /// <summary>
@@ -243,7 +275,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnStopButtonClick()
         {
-            multiSource2MatHelper.Stop();
+            _multiSource2MatHelper.Stop();
         }
 
         /// <summary>
@@ -251,7 +283,41 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnChangeCameraButtonClick()
         {
-            multiSource2MatHelper.requestedIsFrontFacing = !multiSource2MatHelper.requestedIsFrontFacing;
+            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
+        }
+
+        /// <summary>
+        /// Raises the current cascade dropdown value changed event.
+        /// </summary>
+        /// <param name="result"></param>
+        public void OnCurrentCascadeDropdownValueChanged(int result)
+        {
+            if (result == 0)
+            {
+                _currentCascade = _lbpCascade;
+            }
+            else if (result == 1)
+            {
+                _currentCascade = _haarCascade;
+            }
+        }
+
+        /// <summary>
+        /// Raises the min size ratio slider value changed event.
+        /// </summary>
+        /// <param name="result"></param>
+        public void OnMinSizeRatioSliderValueChanged(float result)
+        {
+            _minSizeRatio = result;
+        }
+
+        /// <summary>
+        /// Raises the max size ratio slider value changed event.
+        /// </summary>
+        /// <param name="result"></param>
+        public void OnMaxSizeRatioSliderValueChanged(float result)
+        {
+            _maxSizeRatio = result;
         }
     }
 }

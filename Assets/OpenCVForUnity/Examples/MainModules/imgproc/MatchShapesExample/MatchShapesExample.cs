@@ -1,7 +1,7 @@
+using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using System.Collections.Generic;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,26 +14,27 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class MatchShapesExample : MonoBehaviour
     {
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
             //srcMat
             Texture2D srcTexture = Resources.Load("matchshapes") as Texture2D;
             Mat srcMat = new Mat(srcTexture.height, srcTexture.width, CvType.CV_8UC1);
-            Utils.texture2DToMat(srcTexture, srcMat);
+            OpenCVMatUtils.Texture2DToMat(srcTexture, srcMat);
             Debug.Log("srcMat.ToString() " + srcMat.ToString());
             Imgproc.threshold(srcMat, srcMat, 127, 255, Imgproc.THRESH_BINARY);
 
             //dstMat
             Texture2D dstTexture = Resources.Load("matchshapes") as Texture2D;
             Mat dstMat = new Mat(dstTexture.height, dstTexture.width, CvType.CV_8UC3);
-            Utils.texture2DToMat(dstTexture, dstMat);
+            OpenCVMatUtils.Texture2DToMat(dstTexture, dstMat);
             Debug.Log("dstMat.ToString() " + dstMat.ToString());
 
 
@@ -68,18 +69,18 @@ namespace OpenCVForUnityExample
 
             Texture2D texture = new Texture2D(dstMat.cols(), dstMat.rows(), TextureFormat.RGBA32, false);
 
-            Utils.matToTexture2D(dstMat, texture);
+            OpenCVMatUtils.MatToTexture2D(dstMat, texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
 
         }
 
+        // Public Methods
         /// <summary>
         /// Raises the back button click event.
         /// </summary>

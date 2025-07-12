@@ -1,12 +1,12 @@
 #if !UNITY_WSA_10_0
 
+using System.Collections.Generic;
+using System.Threading;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.DnnModule;
 using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UnityUtils.Helper;
-using System.Collections.Generic;
-using System.Threading;
+using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,96 +18,92 @@ namespace OpenCVForUnityExample
     /// <summary>
     /// Fast Neural Style Transfer Example
     /// Referring to https://github.com/opencv/opencv/blob/master/samples/dnn/fast_neural_style.py and https://github.com/jcjohnson/fast-neural-style
+    ///
+    /// [Tested Models]
+    /// https://cs.stanford.edu/people/jcjohns/fast-neural-style/models/instance_norm/mosaic.t7
     /// </summary>
     [RequireComponent(typeof(MultiSource2MatHelper))]
     public class FastNeuralStyleTransferExample : MonoBehaviour
     {
+        // Constants
+        /// <summary>
+        /// The model filename.
+        /// </summary>
+        protected static readonly string MODEL_FILENAME = "OpenCVForUnityExamples/dnn/mosaic.t7";
+
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
-        [Space(10)]
-
+        // Private Fields
         /// <summary>
         /// The texture.
         /// </summary>
-        Texture2D texture;
-
+        private Texture2D _texture;
         /// <summary>
         /// The multi source to mat helper.
         /// </summary>
-        MultiSource2MatHelper multiSource2MatHelper;
-
+        private MultiSource2MatHelper _multiSource2MatHelper;
         /// <summary>
         /// The bgr mat.
         /// </summary>
-        Mat bgrMat;
-
+        private Mat _bgrMat;
         /// <summary>
         /// The net.
         /// </summary>
-        Net net;
-
+        private Net _net;
         /// <summary>
         /// The out mat.
         /// </summary>
-        Mat outMat;
-
+        private Mat _outMat;
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
-
-        /// <summary>
-        /// MODEL_FILENAME
-        /// </summary>
-        protected static readonly string MODEL_FILENAME = "OpenCVForUnity/dnn/mosaic.t7";
-
+        private FpsMonitor _fpsMonitor;
         /// <summary>
         /// The model filepath.
         /// </summary>
-        string model_filepath;
-
+        private string _modelFilepath;
         /// <summary>
         /// The CancellationTokenSource.
         /// </summary>
-        CancellationTokenSource cts = new CancellationTokenSource();
+        private CancellationTokenSource _cts = new CancellationTokenSource();
 
-        // Use this for initialization
-        async void Start()
+        // Unity Lifecycle Methods
+        private async void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
-            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
-            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGBA;
+            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "Preparing file access...";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "Preparing file access...";
 
-            model_filepath = await Utils.getFilePathAsyncTask(MODEL_FILENAME, cancellationToken: cts.Token);
+            _modelFilepath = await OpenCVEnv.GetFilePathTaskAsync(MODEL_FILENAME, cancellationToken: _cts.Token);
 
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "";
 
             Run();
         }
 
-        // Use this for initialization
-        void Run()
+        private void Run()
         {
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
-            Utils.setDebugMode(true);
+            OpenCVDebug.SetDebugMode(true);
 
 
-            if (string.IsNullOrEmpty(model_filepath))
+            if (string.IsNullOrEmpty(_modelFilepath))
             {
-                Debug.LogError(MODEL_FILENAME + " is not loaded. Please read “StreamingAssets/OpenCVForUnity/dnn/setup_dnn_module.pdf” to make the necessary setup.");
+                Debug.LogError(MODEL_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
             }
 
-            multiSource2MatHelper.Initialize();
+            _multiSource2MatHelper.Initialize();
         }
 
         /// <summary>
@@ -117,30 +113,30 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperInitialized");
 
-            Mat rgbaMat = multiSource2MatHelper.GetMat();
+            Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
             // Fill in the image so that the unprocessed image is not displayed.
             rgbaMat.setTo(new Scalar(0, 0, 0, 255));
 
-            texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
-            Utils.matToTexture2D(rgbaMat, texture);
+            _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
+            OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = _texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
 
 
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.Add("width", rgbaMat.width().ToString());
-                fpsMonitor.Add("height", rgbaMat.height().ToString());
-                fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                _fpsMonitor.Add("width", rgbaMat.width().ToString());
+                _fpsMonitor.Add("height", rgbaMat.height().ToString());
+                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
             }
 
 
-            net = Dnn.readNetFromTorch(model_filepath);
+            _net = Dnn.readNetFromTorch(_modelFilepath);
 
-            bgrMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
-            outMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_32FC3);
+            _bgrMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
+            _outMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_32FC3);
         }
 
         /// <summary>
@@ -150,20 +146,13 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperDisposed");
 
-            if (net != null)
-                net.Dispose();
+            _net?.Dispose();
 
-            if (bgrMat != null)
-                bgrMat.Dispose();
+            _bgrMat?.Dispose();
 
-            if (outMat != null)
-                outMat.Dispose();
+            _outMat?.Dispose();
 
-            if (texture != null)
-            {
-                Texture2D.Destroy(texture);
-                texture = null;
-            }
+            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
         }
 
         /// <summary>
@@ -175,21 +164,20 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
 
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
+                _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
             }
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
-            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
+            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
             {
 
-                Mat rgbaMat = multiSource2MatHelper.GetMat();
+                Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-                if (net == null)
+                if (_net == null)
                 {
                     Imgproc.putText(rgbaMat, "model file is not loaded.", new Point(5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                     Imgproc.putText(rgbaMat, "Please read console message.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
@@ -198,14 +186,17 @@ namespace OpenCVForUnityExample
                 else
                 {
 
-                    Imgproc.cvtColor(rgbaMat, bgrMat, Imgproc.COLOR_RGBA2BGR);
+                    Imgproc.cvtColor(rgbaMat, _bgrMat, Imgproc.COLOR_RGBA2BGR);
 
                     Scalar mean = new Scalar(103.939, 116.779, 123.68);
+                    Mat blob = Dnn.blobFromImage(_bgrMat, 1.0, new Size(_bgrMat.width(), _bgrMat.height()), mean, false, false);
 
-                    Mat blob = Dnn.blobFromImage(bgrMat, 1.0, new Size(bgrMat.width(), bgrMat.height()), mean, false, false);
-                    net.setInput(blob);
+                    // How to display the contents of the blob for debugging purposes
+                    //DebugMat.imshowDNNBlob("blob", blob, 1.0 / 255.0);
 
-                    Mat prob = net.forward();
+                    _net.setInput(blob);
+
+                    Mat prob = _net.forward();
 
                     int[] newshape = new int[] { prob.size(2), prob.size(3) };
 
@@ -213,49 +204,47 @@ namespace OpenCVForUnityExample
                     using (Mat G_channel = new Mat(prob, new Range[] { new Range(0, 1), new Range(1, 2), Range.all(), Range.all() }).reshape(1, newshape))
                     using (Mat R_channel = new Mat(prob, new Range[] { new Range(0, 1), new Range(2, 3), Range.all(), Range.all() }).reshape(1, newshape))
                     {
-                        Core.merge(new List<Mat>() { B_channel, G_channel, R_channel }, outMat);
+                        Core.merge(new List<Mat>() { B_channel, G_channel, R_channel }, _outMat);
                     }
 
-                    Core.add(outMat, mean, outMat);
+                    Core.add(_outMat, mean, _outMat);
 
                     // The DNN model outputs images in multiples of 8. If the input and output mat sizes are different, only the overlapping area is transcribed.
-                    if (outMat.width() != rgbaMat.width() || outMat.height() != rgbaMat.height())
+                    if (_outMat.width() != rgbaMat.width() || _outMat.height() != rgbaMat.height())
                     {
-                        Rect intersectRect = new Rect(0, 0, outMat.width(), outMat.height()).intersect(new Rect(0, 0, rgbaMat.width(), rgbaMat.height()));
-                        Mat outMat_roi = new Mat(outMat, intersectRect);
-                        Mat bgrMat_roi = new Mat(bgrMat, intersectRect);
+                        Rect intersectRect = new Rect(0, 0, _outMat.width(), _outMat.height()).intersect(new Rect(0, 0, rgbaMat.width(), rgbaMat.height()));
+                        Mat outMat_roi = new Mat(_outMat, intersectRect);
+                        Mat bgrMat_roi = new Mat(_bgrMat, intersectRect);
 
                         outMat_roi.convertTo(bgrMat_roi, CvType.CV_8U);
                     }
                     else
                     {
-                        outMat.convertTo(bgrMat, CvType.CV_8U);
+                        _outMat.convertTo(_bgrMat, CvType.CV_8U);
                     }
 
-                    Imgproc.cvtColor(bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
+                    Imgproc.cvtColor(_bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
 
                     prob.Dispose();
                     blob.Dispose();
 
                 }
 
-                Utils.matToTexture2D(rgbaMat, texture);
+                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
             }
         }
 
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
+        private void OnDestroy()
         {
-            multiSource2MatHelper.Dispose();
+            _multiSource2MatHelper.Dispose();
 
-            Utils.setDebugMode(false);
+            OpenCVDebug.SetDebugMode(false);
 
-            if (cts != null)
-                cts.Dispose();
+            if (_cts != null)
+                _cts.Dispose();
         }
 
+        // Public Methods
         /// <summary>
         /// Raises the back button click event.
         /// </summary>
@@ -269,7 +258,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnPlayButtonClick()
         {
-            multiSource2MatHelper.Play();
+            _multiSource2MatHelper.Play();
         }
 
         /// <summary>
@@ -277,7 +266,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnPauseButtonClick()
         {
-            multiSource2MatHelper.Pause();
+            _multiSource2MatHelper.Pause();
         }
 
         /// <summary>
@@ -285,7 +274,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnStopButtonClick()
         {
-            multiSource2MatHelper.Stop();
+            _multiSource2MatHelper.Stop();
         }
 
         /// <summary>
@@ -293,7 +282,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnChangeCameraButtonClick()
         {
-            multiSource2MatHelper.requestedIsFrontFacing = !multiSource2MatHelper.requestedIsFrontFacing;
+            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
         }
     }
 }

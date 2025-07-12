@@ -1,13 +1,13 @@
 #if !UNITY_WSA_10_0
 
-using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.DnnModule;
-using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UnityUtils.Helper;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.DnnModule;
+using OpenCVForUnity.ImgprocModule;
+using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -21,299 +21,122 @@ namespace OpenCVForUnityExample
     [RequireComponent(typeof(MultiSource2MatHelper))]
     public class DnnObjectDetectionExample : MonoBehaviour
     {
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
         [Space(10)]
 
         [TooltipAttribute("Path to a binary file of model contains trained weights. It could be a file with extensions .caffemodel (Caffe), .pb (TensorFlow), .t7 or .net (Torch), .weights (Darknet).")]
-        public string model;
+        public string Model;
 
         [TooltipAttribute("Path to a text file of model contains network configuration. It could be a file with extensions .prototxt (Caffe), .pbtxt (TensorFlow), .cfg (Darknet).")]
-        public string config;
+        public string Config;
 
         [TooltipAttribute("Optional path to a text file with names of classes to label detected objects.")]
-        public string classes;
+        public string Classes;
 
         [TooltipAttribute("Optional list of classes to label detected objects.")]
-        public List<string> classesList;
+        public List<string> ClassesList;
 
         [TooltipAttribute("Confidence threshold.")]
-        public float confThreshold = 0.5f;
+        public float ConfThreshold = 0.5f;
 
         [TooltipAttribute("Non-maximum suppression threshold.")]
-        public float nmsThreshold = 0.4f;
+        public float NmsThreshold = 0.4f;
 
         [TooltipAttribute("Preprocess input image by multiplying on a scale factor.")]
-        public float scale = 1.0f;
+        public float Scale = 1.0f;
 
         [TooltipAttribute("Preprocess input image by subtracting mean values. Mean values should be in BGR order and delimited by spaces.")]
-        public Scalar mean = new Scalar(0, 0, 0, 0);
+        public Scalar Mean = new Scalar(0, 0, 0, 0);
 
         [TooltipAttribute("Indicate that model works with RGB input images instead BGR ones.")]
-        public bool swapRB = false;
+        public bool SwapRB = false;
 
         [TooltipAttribute("Preprocess input image by resizing to a specific width.")]
-        public int inpWidth = 320;
+        public int InpWidth = 320;
 
         [TooltipAttribute("Preprocess input image by resizing to a specific height.")]
-        public int inpHeight = 320;
+        public int InpHeight = 320;
 
-
+        // Protected Fields
         /// <summary>
         /// The texture.
         /// </summary>
-        protected Texture2D texture;
+        protected Texture2D _texture;
 
         /// <summary>
         /// The multi source to mat helper.
         /// </summary>
-        protected MultiSource2MatHelper multiSource2MatHelper;
+        protected MultiSource2MatHelper _multiSource2MatHelper;
 
         /// <summary>
         /// The bgr mat.
         /// </summary>
-        protected Mat bgrMat;
+        protected Mat _bgrMat;
 
         /// <summary>
         /// The net.
         /// </summary>
-        protected Net net;
+        protected Net _net;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        protected FpsMonitor fpsMonitor;
+        protected FpsMonitor _fpsMonitor;
 
-        protected List<string> classNames;
-        protected List<string> outBlobNames;
-        protected List<string> outBlobTypes;
+        protected List<string> _classNames;
+        protected List<string> _outBlobNames;
+        protected List<string> _outBlobTypes;
 
-        protected string classes_filepath;
-        protected string config_filepath;
-        protected string model_filepath;
+        protected string _classesFilepath;
+        protected string _configFilepath;
+        protected string _modelFilepath;
 
         /// <summary>
         /// The CancellationTokenSource.
         /// </summary>
-        CancellationTokenSource cts = new CancellationTokenSource();
+        protected CancellationTokenSource _cts = new CancellationTokenSource();
 
-        // Use this for initialization
-        async void Start()
+        // Unity Lifecycle Methods
+        private async void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
-            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
-            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGBA;
+            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "Preparing file access...";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "Preparing file access...";
 
-            if (!string.IsNullOrEmpty(classes))
+            if (!string.IsNullOrEmpty(Classes))
             {
-                classes_filepath = await Utils.getFilePathAsyncTask("OpenCVForUnity/dnn/" + classes, cancellationToken: cts.Token);
-                if (string.IsNullOrEmpty(classes_filepath)) Debug.Log("The file:" + classes + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
+                _classesFilepath = await OpenCVEnv.GetFilePathTaskAsync(Classes, cancellationToken: _cts.Token);
+                if (string.IsNullOrEmpty(_classesFilepath)) Debug.Log("The file:" + Classes + " did not exist.");
             }
-            if (!string.IsNullOrEmpty(config))
+            if (!string.IsNullOrEmpty(Config))
             {
-                config_filepath = await Utils.getFilePathAsyncTask("OpenCVForUnity/dnn/" + config, cancellationToken: cts.Token);
-                if (string.IsNullOrEmpty(config_filepath)) Debug.Log("The file:" + config + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
+                _configFilepath = await OpenCVEnv.GetFilePathTaskAsync(Config, cancellationToken: _cts.Token);
+                if (string.IsNullOrEmpty(_configFilepath)) Debug.Log("The file:" + Config + " did not exist.");
             }
-            if (!string.IsNullOrEmpty(model))
+            if (!string.IsNullOrEmpty(Model))
             {
-                model_filepath = await Utils.getFilePathAsyncTask("OpenCVForUnity/dnn/" + model, cancellationToken: cts.Token);
-                if (string.IsNullOrEmpty(model_filepath)) Debug.Log("The file:" + model + " did not exist in the folder “Assets/StreamingAssets/OpenCVForUnity/dnn”.");
+                _modelFilepath = await OpenCVEnv.GetFilePathTaskAsync(Model, cancellationToken: _cts.Token);
+                if (string.IsNullOrEmpty(_modelFilepath)) Debug.Log("The file:" + Model + " did not exist.");
             }
 
-            if (fpsMonitor != null)
-                fpsMonitor.consoleText = "";
+            if (_fpsMonitor != null)
+                _fpsMonitor.ConsoleText = "";
 
             Run();
         }
 
-        // Use this for initialization
-        protected virtual void Run()
-        {
-            //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
-            Utils.setDebugMode(true);
-
-            if (!string.IsNullOrEmpty(classes))
-            {
-                classNames = readClassNames(classes_filepath);
-                if (classNames == null)
-                {
-                    Debug.LogError(classes + " is not loaded. Please see “Assets/StreamingAssets/OpenCVForUnity/dnn/setup_dnn_module.pdf”. ");
-                }
-            }
-            else if (classesList.Count > 0)
-            {
-                classNames = classesList;
-            }
-
-            if (string.IsNullOrEmpty(model_filepath))
-            {
-                Debug.LogError(model + " is not loaded. Please see “Assets/StreamingAssets/OpenCVForUnity/dnn/setup_dnn_module.pdf”. ");
-            }
-            else
-            {
-                //! [Initialize network]
-                net = Dnn.readNet(model_filepath, config_filepath);
-                //! [Initialize network]
-
-                outBlobNames = getOutputsNames(net);
-                //for (int i = 0; i < outBlobNames.Count; i++)
-                //{
-                //    Debug.Log("names [" + i + "] " + outBlobNames[i]);
-                //}
-
-                outBlobTypes = getOutputsTypes(net);
-                //for (int i = 0; i < outBlobTypes.Count; i++)
-                //{
-                //    Debug.Log("types [" + i + "] " + outBlobTypes[i]);
-                //}
-            }
-
-            multiSource2MatHelper.Initialize();
-        }
-
-        /// <summary>
-        /// Raises the source to mat helper initialized event.
-        /// </summary>
-        public virtual void OnSourceToMatHelperInitialized()
-        {
-            Debug.Log("OnSourceToMatHelperInitialized");
-
-            Mat rgbaMat = multiSource2MatHelper.GetMat();
-
-            texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
-
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
-
-
-            if (fpsMonitor != null)
-            {
-                fpsMonitor.Add("width", rgbaMat.width().ToString());
-                fpsMonitor.Add("height", rgbaMat.height().ToString());
-                fpsMonitor.Add("orientation", Screen.orientation.ToString());
-            }
-
-            bgrMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
-        }
-
-        /// <summary>
-        /// Raises the source to mat helper disposed event.
-        /// </summary>
-        public virtual void OnSourceToMatHelperDisposed()
-        {
-            Debug.Log("OnSourceToMatHelperDisposed");
-
-            if (bgrMat != null)
-                bgrMat.Dispose();
-
-            if (texture != null)
-            {
-                Texture2D.Destroy(texture);
-                texture = null;
-            }
-        }
-
-        /// <summary>
-        /// Raises the source to mat helper error occurred event.
-        /// </summary>
-        /// <param name="errorCode">Error code.</param>
-        /// <param name="message">Message.</param>
-        public virtual void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
-        {
-            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
-
-            if (fpsMonitor != null)
-            {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
-            }
-        }
-
-        // Update is called once per frame
-        protected virtual void Update()
-        {
-            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
-            {
-
-                Mat rgbaMat = multiSource2MatHelper.GetMat();
-
-                if (net == null)
-                {
-                    Imgproc.putText(rgbaMat, "model file is not loaded.", new Point(5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    Imgproc.putText(rgbaMat, "Please read console message.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                }
-                else
-                {
-
-                    Imgproc.cvtColor(rgbaMat, bgrMat, Imgproc.COLOR_RGBA2BGR);
-
-                    // Create a 4D blob from a frame.
-                    Size inpSize = new Size(inpWidth > 0 ? inpWidth : bgrMat.cols(),
-                                       inpHeight > 0 ? inpHeight : bgrMat.rows());
-                    Mat blob = Dnn.blobFromImage(bgrMat, scale, inpSize, mean, swapRB, false);
-
-
-                    // Run a model.
-                    net.setInput(blob);
-
-                    if (net.getLayer(0).outputNameToIndex("im_info") != -1)
-                    {  // Faster-RCNN or R-FCN
-                        Imgproc.resize(bgrMat, bgrMat, inpSize);
-                        Mat imInfo = new Mat(1, 3, CvType.CV_32FC1);
-                        imInfo.put(0, 0, new float[] {
-                            (float)inpSize.height,
-                            (float)inpSize.width,
-                            1.6f
-                        });
-                        net.setInput(imInfo, "im_info");
-                    }
-
-                    //TickMeter tm = new TickMeter();
-                    //tm.start();
-
-                    List<Mat> outs = new List<Mat>();
-                    net.forward(outs, outBlobNames);
-
-                    //tm.stop();
-                    //Debug.Log("Inference time, ms: " + tm.getTimeMilli());
-
-                    postprocess(rgbaMat, outs, net, Dnn.DNN_BACKEND_OPENCV);
-
-                    for (int i = 0; i < outs.Count; i++)
-                    {
-                        outs[i].Dispose();
-                    }
-                    blob.Dispose();
-                }
-
-                Utils.matToTexture2D(rgbaMat, texture);
-            }
-        }
-
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        protected virtual void OnDestroy()
-        {
-            multiSource2MatHelper.Dispose();
-
-            if (net != null)
-                net.Dispose();
-
-            Utils.setDebugMode(false);
-
-            if (cts != null)
-                cts.Dispose();
-        }
-
+        // Public Methods
         /// <summary>
         /// Raises the back button click event.
         /// </summary>
@@ -327,7 +150,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public virtual void OnPlayButtonClick()
         {
-            multiSource2MatHelper.Play();
+            _multiSource2MatHelper.Play();
         }
 
         /// <summary>
@@ -335,7 +158,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public virtual void OnPauseButtonClick()
         {
-            multiSource2MatHelper.Pause();
+            _multiSource2MatHelper.Pause();
         }
 
         /// <summary>
@@ -343,7 +166,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public virtual void OnStopButtonClick()
         {
-            multiSource2MatHelper.Stop();
+            _multiSource2MatHelper.Stop();
         }
 
         /// <summary>
@@ -351,7 +174,173 @@ namespace OpenCVForUnityExample
         /// </summary>
         public virtual void OnChangeCameraButtonClick()
         {
-            multiSource2MatHelper.requestedIsFrontFacing = !multiSource2MatHelper.requestedIsFrontFacing;
+            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
+        }
+
+        /// <summary>
+        /// Raises the source to mat helper initialized event.
+        /// </summary>
+        public virtual void OnSourceToMatHelperInitialized()
+        {
+            Debug.Log("OnSourceToMatHelperInitialized");
+
+            Mat rgbaMat = _multiSource2MatHelper.GetMat();
+
+            _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
+
+            ResultPreview.texture = _texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
+
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("width", rgbaMat.width().ToString());
+                _fpsMonitor.Add("height", rgbaMat.height().ToString());
+                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
+            }
+
+            _bgrMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
+        }
+
+        /// <summary>
+        /// Raises the source to mat helper disposed event.
+        /// </summary>
+        public virtual void OnSourceToMatHelperDisposed()
+        {
+            Debug.Log("OnSourceToMatHelperDisposed");
+
+            _bgrMat?.Dispose();
+
+            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
+        }
+
+        /// <summary>
+        /// Raises the source to mat helper error occurred event.
+        /// </summary>
+        /// <param name="errorCode">Error code.</param>
+        /// <param name="message">Message.</param>
+        public virtual void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
+        {
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
+            }
+        }
+
+        // Protected Methods
+        protected virtual void Run()
+        {
+            //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
+            OpenCVDebug.SetDebugMode(true);
+
+            if (!string.IsNullOrEmpty(Classes))
+            {
+                _classNames = ReadClassNames(_classesFilepath);
+                if (_classNames == null)
+                {
+                    Debug.LogError(Classes + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                }
+            }
+            else if (ClassesList.Count > 0)
+            {
+                _classNames = ClassesList;
+            }
+
+            if (string.IsNullOrEmpty(_modelFilepath))
+            {
+                Debug.LogError(Model + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+            }
+            else
+            {
+                //! [Initialize network]
+                _net = Dnn.readNet(_modelFilepath, _configFilepath);
+                //! [Initialize network]
+
+                _outBlobNames = GetOutputsNames(_net);
+                //for (int i = 0; i < outBlobNames.Count; i++)
+                //{
+                //    Debug.Log("names [" + i + "] " + outBlobNames[i]);
+                //}
+
+                _outBlobTypes = GetOutputsTypes(_net);
+                //for (int i = 0; i < outBlobTypes.Count; i++)
+                //{
+                //    Debug.Log("types [" + i + "] " + outBlobTypes[i]);
+                //}
+            }
+
+            _multiSource2MatHelper.Initialize();
+        }
+
+        protected virtual void Update()
+        {
+            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
+            {
+
+                Mat rgbaMat = _multiSource2MatHelper.GetMat();
+
+                if (_net == null)
+                {
+                    Imgproc.putText(rgbaMat, "model file is not loaded.", new Point(5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    Imgproc.putText(rgbaMat, "Please read console message.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                }
+                else
+                {
+
+                    Imgproc.cvtColor(rgbaMat, _bgrMat, Imgproc.COLOR_RGBA2BGR);
+
+                    // Create a 4D blob from a frame.
+                    Size inpSize = new Size(InpWidth > 0 ? InpWidth : _bgrMat.cols(),
+                                       InpHeight > 0 ? InpHeight : _bgrMat.rows());
+                    Mat blob = Dnn.blobFromImage(_bgrMat, Scale, inpSize, Mean, SwapRB, false);
+
+
+                    // Run a model.
+                    _net.setInput(blob);
+
+                    if (_net.getLayer(0).outputNameToIndex("im_info") != -1)
+                    {  // Faster-RCNN or R-FCN
+                        Imgproc.resize(_bgrMat, _bgrMat, inpSize);
+                        Mat imInfo = new Mat(1, 3, CvType.CV_32FC1);
+                        imInfo.put(0, 0, new float[] {
+                            (float)inpSize.height,
+                            (float)inpSize.width,
+                            1.6f
+                        });
+                        _net.setInput(imInfo, "im_info");
+                    }
+
+                    //TickMeter tm = new TickMeter();
+                    //tm.start();
+
+                    List<Mat> outs = new List<Mat>();
+                    _net.forward(outs, _outBlobNames);
+
+                    //tm.stop();
+                    //Debug.Log("Inference time, ms: " + tm.getTimeMilli());
+
+                    Postprocess(rgbaMat, outs, _net, Dnn.DNN_BACKEND_OPENCV);
+
+                    blob.Dispose();
+                    foreach (var out_mat in outs)
+                        out_mat.Dispose();
+                }
+
+                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
+            }
+        }
+
+        protected virtual void OnDestroy()
+        {
+            _multiSource2MatHelper?.Dispose();
+
+            _net?.Dispose();
+
+            OpenCVDebug.SetDebugMode(false);
+
+            _cts?.Dispose();
         }
 
         /// <summary>
@@ -359,7 +348,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         /// <returns>The class names.</returns>
         /// <param name="filename">Filename.</param>
-        protected virtual List<string> readClassNames(string filename)
+        protected virtual List<string> ReadClassNames(string filename)
         {
             List<string> classNames = new List<string>();
 
@@ -395,10 +384,10 @@ namespace OpenCVForUnityExample
         /// <param name="outs">Outs.</param>
         /// <param name="net">Net.</param>
         /// <param name="backend">Backend.</param>
-        protected virtual void postprocess(Mat frame, List<Mat> outs, Net net, int backend = Dnn.DNN_BACKEND_OPENCV)
+        protected virtual void Postprocess(Mat frame, List<Mat> outs, Net net, int backend = Dnn.DNN_BACKEND_OPENCV)
         {
             MatOfInt outLayers = net.getUnconnectedOutLayers();
-            string outLayerType = outBlobTypes[0];
+            string outLayerType = _outBlobTypes[0];
 
             List<int> classIdsList = new List<int>();
             List<float> confidencesList = new List<float>();
@@ -424,7 +413,7 @@ namespace OpenCVForUnityExample
                         outs[0].get(i, 0, data);
 
                         float confidence = data[2];
-                        if (confidence > confThreshold)
+                        if (confidence > ConfThreshold)
                         {
                             int class_id = (int)(data[1]);
 
@@ -460,7 +449,7 @@ namespace OpenCVForUnityExample
                         outs[0].get(i, 0, data);
 
                         float confidence = data[2];
-                        if (confidence > confThreshold)
+                        if (confidence > ConfThreshold)
                         {
                             int class_id = (int)(data[1]);
 
@@ -497,7 +486,7 @@ namespace OpenCVForUnityExample
 
                         int maxIdx = confidenceData.Select((val, idx) => new { V = val, I = idx }).Aggregate((max, working) => (max.V > working.V) ? max : working).I;
                         float confidence = confidenceData[maxIdx];
-                        if (confidence > confThreshold)
+                        if (confidence > ConfThreshold)
                         {
                             float centerX = positionData[0] * frame.cols();
                             float centerY = positionData[1] * frame.rows();
@@ -525,7 +514,7 @@ namespace OpenCVForUnityExample
                 Dictionary<int, List<int>> class2indices = new Dictionary<int, List<int>>();
                 for (int i = 0; i < classIdsList.Count; i++)
                 {
-                    if (confidencesList[i] >= confThreshold)
+                    if (confidencesList[i] >= ConfThreshold)
                     {
                         if (!class2indices.ContainsKey(classIdsList[i]))
                             class2indices.Add(classIdsList[i], new List<int>());
@@ -552,7 +541,7 @@ namespace OpenCVForUnityExample
                     using (MatOfFloat localConfidences = new MatOfFloat(localConfidencesList.ToArray()))
                     using (MatOfInt nmsIndices = new MatOfInt())
                     {
-                        Dnn.NMSBoxes(localBoxes, localConfidences, confThreshold, nmsThreshold, nmsIndices);
+                        Dnn.NMSBoxes(localBoxes, localConfidences, ConfThreshold, NmsThreshold, nmsIndices);
                         for (int i = 0; i < nmsIndices.total(); i++)
                         {
                             int idx = (int)nmsIndices.get(i, 0)[0];
@@ -571,7 +560,7 @@ namespace OpenCVForUnityExample
             for (int idx = 0; idx < boxesList.Count; ++idx)
             {
                 Rect2d box = boxesList[idx];
-                drawPred(classIdsList[idx], confidencesList[idx], box.x, box.y,
+                DrawPred(classIdsList[idx], confidencesList[idx], box.x, box.y,
                     box.x + box.width, box.y + box.height, frame);
             }
         }
@@ -586,16 +575,16 @@ namespace OpenCVForUnityExample
         /// <param name="right">Right.</param>
         /// <param name="bottom">Bottom.</param>
         /// <param name="frame">Frame.</param>
-        protected virtual void drawPred(int classId, float conf, double left, double top, double right, double bottom, Mat frame)
+        protected virtual void DrawPred(int classId, float conf, double left, double top, double right, double bottom, Mat frame)
         {
             Imgproc.rectangle(frame, new Point(left, top), new Point(right, bottom), new Scalar(0, 255, 0, 255), 2);
 
             string label = conf.ToString();
-            if (classNames != null && classNames.Count != 0)
+            if (_classNames != null && _classNames.Count != 0)
             {
-                if (classId < (int)classNames.Count)
+                if (classId < (int)_classNames.Count)
                 {
-                    label = classNames[classId] + ": " + label;
+                    label = _classNames[classId] + ": " + label;
                 }
             }
 
@@ -613,7 +602,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         /// <returns>The outputs names.</returns>
         /// <param name="net">Net.</param>
-        protected virtual List<string> getOutputsNames(Net net)
+        protected virtual List<string> GetOutputsNames(Net net)
         {
             List<string> names = new List<string>();
 
@@ -633,7 +622,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         /// <returns>The outputs types.</returns>
         /// <param name="net">Net.</param>
-        protected virtual List<string> getOutputsTypes(Net net)
+        protected virtual List<string> GetOutputsTypes(Net net)
         {
             List<string> types = new List<string>();
 

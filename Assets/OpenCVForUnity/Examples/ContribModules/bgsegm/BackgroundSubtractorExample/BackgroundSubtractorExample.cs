@@ -1,10 +1,10 @@
+using System;
 using OpenCVForUnity.BgsegmModule;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.UnityUtils.Helper;
+using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using OpenCVForUnity.VideoModule;
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,169 +18,173 @@ namespace OpenCVForUnityExample
     [RequireComponent(typeof(MultiSource2MatHelper))]
     public class BackgroundSubtractorExample : MonoBehaviour
     {
+        // Enums
+        /// <summary>
+        /// Background subtractor algorithm preset enum
+        /// </summary>
+        public enum BackgroundSubtractorAlgorithmPreset : byte
+        {
+            KNN = 0,
+            MOG2,
+            CNT,
+            GMG,
+            GSOC,
+            LSBP,
+            MOG,
+        }
+
+        // Constants
+        /// <summary>
+        /// VIDEO_FILENAME
+        /// </summary>
+        protected static readonly string VIDEO_FILENAME = "OpenCVForUnityExamples/768x576_mjpeg.mjpeg";
+
+        // Public Fields
         [Header("Output")]
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
         [Space(10)]
 
         /// <summary>
         /// The background subtractor algorithm dropdown.
         /// </summary>
-        public Dropdown backgroundSubtractorAlgorithmDropdown;
+        public Dropdown BackgroundSubtractorAlgorithmDropdown;
 
         /// <summary>
         /// The background subtractor algorithm.
         /// </summary>
-        public BackgroundSubtractorAlgorithmPreset backgroundSubtractorAlgorithm = BackgroundSubtractorAlgorithmPreset.KNN;
+        public BackgroundSubtractorAlgorithmPreset BackgroundSubtractorAlgorithm = BackgroundSubtractorAlgorithmPreset.KNN;
 
         /// <summary>
         /// The enable MorphologyEx toggle.
         /// </summary>
-        public Toggle enableMorphologyExToggle;
+        public Toggle EnableMorphologyExToggle;
 
         /// <summary>
         /// The show background image toggle.
         /// </summary>
-        public Toggle showBackgroundImageToggle;
+        public Toggle ShowBackgroundImageToggle;
 
+        // Private Fields
         /// <summary>
         /// The texture.
         /// </summary>
-        Texture2D texture;
+        private Texture2D _texture;
 
         /// <summary>
         /// The multi source to mat helper.
         /// </summary>
-        MultiSource2MatHelper multiSource2MatHelper;
+        private MultiSource2MatHelper _multiSource2MatHelper;
 
         /// <summary>
         /// The background substractor.
         /// </summary>
-        BackgroundSubtractor backgroundSubstractor;
+        private BackgroundSubtractor _backgroundSubstractor;
 
         /// <summary>
         /// The fgmask mat.
         /// </summary>
-        Mat fgmaskMat;
+        private Mat _fgmaskMat;
 
         /// <summary>
         /// The kernel for morphologyEx method.
         /// </summary>
-        Mat kernel;
+        private Mat _kernel;
 
         /// <summary>
         /// The stopwatch.
         /// </summary>
-        System.Diagnostics.Stopwatch watch;
+        private System.Diagnostics.Stopwatch _watch;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
-        FpsMonitor fpsMonitor;
+        private FpsMonitor _fpsMonitor;
 
-        /// <summary>
-        /// VIDEO_FILENAME
-        /// </summary>
-        protected static readonly string VIDEO_FILENAME = "OpenCVForUnity/768x576_mjpeg.mjpeg";
-
-        // Use this for initialization
-        void Start()
+        // Unity Lifecycle Methods
+        private void Start()
         {
-            fpsMonitor = GetComponent<FpsMonitor>();
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
-            multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
-            if (string.IsNullOrEmpty(multiSource2MatHelper.requestedVideoFilePath))
-                multiSource2MatHelper.requestedVideoFilePath = VIDEO_FILENAME;
-            multiSource2MatHelper.outputColorFormat = Source2MatHelperColorFormat.RGB; // Background Subtractor API must handle 3 channels Mat image.
-            multiSource2MatHelper.Initialize();
+            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            if (string.IsNullOrEmpty(_multiSource2MatHelper.RequestedVideoFilePath))
+                _multiSource2MatHelper.RequestedVideoFilePath = VIDEO_FILENAME;
+            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGB; // Background Subtractor API must handle 3 channels Mat image.
+            _multiSource2MatHelper.Initialize();
 
             // Update GUI state
-            backgroundSubtractorAlgorithmDropdown.value = Array.IndexOf(System.Enum.GetNames(typeof(BackgroundSubtractorAlgorithmPreset)), backgroundSubtractorAlgorithm.ToString());
-            enableMorphologyExToggle.isOn = false;
-            showBackgroundImageToggle.isOn = false;
+            BackgroundSubtractorAlgorithmDropdown.value = Array.IndexOf(System.Enum.GetNames(typeof(BackgroundSubtractorAlgorithmPreset)), BackgroundSubtractorAlgorithm.ToString());
+            EnableMorphologyExToggle.isOn = false;
+            ShowBackgroundImageToggle.isOn = false;
 
 
-            CreateBackgroundSubstractor(backgroundSubtractorAlgorithm);
+            CreateBackgroundSubstractor(BackgroundSubtractorAlgorithm);
 
-            kernel = Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(3, 3));
+            _kernel = Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(3, 3));
 
-            watch = new System.Diagnostics.Stopwatch();
+            _watch = new System.Diagnostics.Stopwatch();
 
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.Add("time: ", "");
+                _fpsMonitor.Add("time: ", "");
             }
         }
 
-        protected void CreateBackgroundSubstractor(BackgroundSubtractorAlgorithmPreset algorithm)
+        private void Update()
         {
-            if (backgroundSubstractor != null)
-                backgroundSubstractor.Dispose();
-
-            switch (algorithm)
+            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
             {
-                case BackgroundSubtractorAlgorithmPreset.KNN:
-                    backgroundSubstractor = Video.createBackgroundSubtractorKNN();
+                Mat rgbMat = _multiSource2MatHelper.GetMat();
 
-                    //BackgroundSubtractorKNN subtractorKNN = (BackgroundSubtractorKNN)backgroundSubstractor;
-                    //subtractorKNN.setDetectShadows(true);
-                    //subtractorKNN.setDist2Threshold(400);
-                    //subtractorKNN.setHistory(500);
-                    //subtractorKNN.setkNNSamples(2);
-                    //subtractorKNN.setNSamples(7);
-                    //subtractorKNN.setShadowThreshold(0.5);
-                    //subtractorKNN.setShadowValue(127);
+                _watch.Reset();
+                _watch.Start();
 
-                    break;
-                case BackgroundSubtractorAlgorithmPreset.MOG2:
-                    backgroundSubstractor = Video.createBackgroundSubtractorMOG2();
+                _backgroundSubstractor.apply(rgbMat, _fgmaskMat);
 
-                    //BackgroundSubtractorMOG2 subtractorMOG2 = (BackgroundSubtractorMOG2)backgroundSubstractor;
-                    //subtractorMOG2.setBackgroundRatio(0.899999976158142);
-                    //subtractorMOG2.setComplexityReductionThreshold(0.0500000007450581);
-                    //subtractorMOG2.setDetectShadows(true);
-                    //subtractorMOG2.setHistory(500);
-                    //subtractorMOG2.setNMixtures(5);
-                    //subtractorMOG2.setShadowThreshold(0.5);
-                    //subtractorMOG2.setShadowValue(127);
-                    //subtractorMOG2.setVarInit(15);
-                    //subtractorMOG2.setVarMax(75);
-                    //subtractorMOG2.setVarMin(4);
-                    //subtractorMOG2.setVarThreshold(16);
-                    //subtractorMOG2.setVarThresholdGen(9);
+                if (EnableMorphologyExToggle.isOn)
+                    Imgproc.morphologyEx(_fgmaskMat, _fgmaskMat, Imgproc.MORPH_OPEN, _kernel);
 
-                    break;
-                case BackgroundSubtractorAlgorithmPreset.CNT:
-                    backgroundSubstractor = Bgsegm.createBackgroundSubtractorCNT();
+                _watch.Stop();
 
-                    //BackgroundSubtractorCNT subtractorCNT = (BackgroundSubtractorCNT)backgroundSubstractor;
-                    //subtractorCNT.setIsParallel(true);
-                    //subtractorCNT.setMaxPixelStability(900)
-                    //subtractorCNT.setMinPixelStability(15);
-                    //subtractorCNT.setUseHistory(true);
 
-                    break;
-                case BackgroundSubtractorAlgorithmPreset.GMG:
-                    backgroundSubstractor = Bgsegm.createBackgroundSubtractorGMG();
-                    break;
-                case BackgroundSubtractorAlgorithmPreset.GSOC:
-                    backgroundSubstractor = Bgsegm.createBackgroundSubtractorGSOC();
-                    break;
-                case BackgroundSubtractorAlgorithmPreset.LSBP:
-                    backgroundSubstractor = Bgsegm.createBackgroundSubtractorLSBP();
-                    break;
-                case BackgroundSubtractorAlgorithmPreset.MOG:
-                    backgroundSubstractor = Bgsegm.createBackgroundSubtractorMOG();
-                    break;
-                default:
+                if (ShowBackgroundImageToggle.isOn && BackgroundSubtractorAlgorithm != BackgroundSubtractorAlgorithmPreset.GMG)
+                {
+                    if (BackgroundSubtractorAlgorithm == BackgroundSubtractorAlgorithmPreset.CNT)
+                    {
+                        _backgroundSubstractor.getBackgroundImage(_fgmaskMat);
+                        Imgproc.cvtColor(_fgmaskMat, rgbMat, Imgproc.COLOR_GRAY2RGB);
+                    }
+                    else
+                    {
+                        _backgroundSubstractor.getBackgroundImage(rgbMat);
+                    }
+                }
+                else
+                {
+                    Imgproc.cvtColor(_fgmaskMat, rgbMat, Imgproc.COLOR_GRAY2RGB);
+                }
 
-                    break;
+                OpenCVMatUtils.MatToTexture2D(rgbMat, _texture);
+
+
+                if (_fpsMonitor != null)
+                {
+                    _fpsMonitor.Add("time: ", _watch.ElapsedMilliseconds + " ms");
+                }
             }
         }
 
+        private void OnDestroy()
+        {
+            _multiSource2MatHelper?.Dispose();
+
+            _backgroundSubstractor?.Dispose();
+        }
+
+        // Public Methods
         /// <summary>
         /// Raises the source to mat helper initialized event.
         /// </summary>
@@ -188,16 +192,16 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperInitialized");
 
-            Mat rgbMat = multiSource2MatHelper.GetMat();
+            Mat rgbMat = _multiSource2MatHelper.GetMat();
 
-            texture = new Texture2D(rgbMat.cols(), rgbMat.rows(), TextureFormat.RGB24, false);
-            Utils.matToTexture2D(rgbMat, texture);
+            _texture = new Texture2D(rgbMat.cols(), rgbMat.rows(), TextureFormat.RGB24, false);
+            OpenCVMatUtils.MatToTexture2D(rgbMat, _texture);
 
-            resultPreview.texture = texture;
-            resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+            ResultPreview.texture = _texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
 
 
-            fgmaskMat = new Mat(rgbMat.rows(), rgbMat.cols(), CvType.CV_8UC1);
+            _fgmaskMat = new Mat(rgbMat.rows(), rgbMat.cols(), CvType.CV_8UC1);
         }
 
         /// <summary>
@@ -207,17 +211,11 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperDisposed");
 
-            if (backgroundSubstractor != null)
-                backgroundSubstractor.clear();
+            _backgroundSubstractor?.clear();
 
-            if (fgmaskMat != null)
-                fgmaskMat.Dispose();
+            _fgmaskMat?.Dispose();
 
-            if (texture != null)
-            {
-                Texture2D.Destroy(texture);
-                texture = null;
-            }
+            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
         }
 
         /// <summary>
@@ -229,68 +227,10 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
 
-            if (fpsMonitor != null)
+            if (_fpsMonitor != null)
             {
-                fpsMonitor.consoleText = "ErrorCode: " + errorCode + ":" + message;
+                _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
             }
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            if (multiSource2MatHelper.IsPlaying() && multiSource2MatHelper.DidUpdateThisFrame())
-            {
-                Mat rgbMat = multiSource2MatHelper.GetMat();
-
-                watch.Reset();
-                watch.Start();
-
-                backgroundSubstractor.apply(rgbMat, fgmaskMat);
-
-                if (enableMorphologyExToggle.isOn)
-                    Imgproc.morphologyEx(fgmaskMat, fgmaskMat, Imgproc.MORPH_OPEN, kernel);
-
-                watch.Stop();
-
-
-                if (showBackgroundImageToggle.isOn && backgroundSubtractorAlgorithm != BackgroundSubtractorAlgorithmPreset.GMG)
-                {
-                    if (backgroundSubtractorAlgorithm == BackgroundSubtractorAlgorithmPreset.CNT)
-                    {
-                        backgroundSubstractor.getBackgroundImage(fgmaskMat);
-                        Imgproc.cvtColor(fgmaskMat, rgbMat, Imgproc.COLOR_GRAY2RGB);
-                    }
-                    else
-                    {
-                        backgroundSubstractor.getBackgroundImage(rgbMat);
-                    }
-                }
-                else
-                {
-                    Imgproc.cvtColor(fgmaskMat, rgbMat, Imgproc.COLOR_GRAY2RGB);
-                }
-
-                Utils.matToTexture2D(rgbMat, texture);
-
-
-                if (fpsMonitor != null)
-                {
-                    fpsMonitor.Add("time: ", watch.ElapsedMilliseconds + " ms");
-                }
-            }
-        }
-
-
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
-        {
-            if (multiSource2MatHelper != null)
-                multiSource2MatHelper.Dispose();
-
-            if (backgroundSubstractor != null)
-                backgroundSubstractor.Dispose();
         }
 
         /// <summary>
@@ -309,16 +249,16 @@ namespace OpenCVForUnityExample
             string[] enumNames = Enum.GetNames(typeof(BackgroundSubtractorAlgorithmPreset));
             byte value = (byte)System.Enum.Parse(typeof(BackgroundSubtractorAlgorithmPreset), enumNames[result], true);
 
-            if ((byte)backgroundSubtractorAlgorithm != value)
+            if ((byte)BackgroundSubtractorAlgorithm != value)
             {
-                backgroundSubtractorAlgorithm = (BackgroundSubtractorAlgorithmPreset)value;
+                BackgroundSubtractorAlgorithm = (BackgroundSubtractorAlgorithmPreset)value;
             }
 
             //Debug.Log((int)backgroundSubtractorAlgorithm);
 
-            CreateBackgroundSubstractor(backgroundSubtractorAlgorithm);
+            CreateBackgroundSubstractor(BackgroundSubtractorAlgorithm);
 
-            multiSource2MatHelper.Initialize();
+            _multiSource2MatHelper.Initialize();
         }
 
         /// <summary>
@@ -339,15 +279,71 @@ namespace OpenCVForUnityExample
             //Debug.Log(showBackgroundImageToggle.isOn);
         }
 
-        public enum BackgroundSubtractorAlgorithmPreset : byte
+        // Private Methods
+        protected void CreateBackgroundSubstractor(BackgroundSubtractorAlgorithmPreset algorithm)
         {
-            KNN = 0,
-            MOG2,
-            CNT,
-            GMG,
-            GSOC,
-            LSBP,
-            MOG,
+            if (_backgroundSubstractor != null)
+                _backgroundSubstractor.Dispose();
+
+            switch (algorithm)
+            {
+                case BackgroundSubtractorAlgorithmPreset.KNN:
+                    _backgroundSubstractor = Video.createBackgroundSubtractorKNN();
+
+                    //BackgroundSubtractorKNN subtractorKNN = (BackgroundSubtractorKNN)backgroundSubstractor;
+                    //subtractorKNN.setDetectShadows(true);
+                    //subtractorKNN.setDist2Threshold(400);
+                    //subtractorKNN.setHistory(500);
+                    //subtractorKNN.setkNNSamples(2);
+                    //subtractorKNN.setNSamples(7);
+                    //subtractorKNN.setShadowThreshold(0.5);
+                    //subtractorKNN.setShadowValue(127);
+
+                    break;
+                case BackgroundSubtractorAlgorithmPreset.MOG2:
+                    _backgroundSubstractor = Video.createBackgroundSubtractorMOG2();
+
+                    //BackgroundSubtractorMOG2 subtractorMOG2 = (BackgroundSubtractorMOG2)backgroundSubstractor;
+                    //subtractorMOG2.setBackgroundRatio(0.899999976158142);
+                    //subtractorMOG2.setComplexityReductionThreshold(0.0500000007450581);
+                    //subtractorMOG2.setDetectShadows(true);
+                    //subtractorMOG2.setHistory(500);
+                    //subtractorMOG2.setNMixtures(5);
+                    //subtractorMOG2.setShadowThreshold(0.5);
+                    //subtractorMOG2.setShadowValue(127);
+                    //subtractorMOG2.setVarInit(15);
+                    //subtractorMOG2.setVarMax(75);
+                    //subtractorMOG2.setVarMin(4);
+                    //subtractorMOG2.setVarThreshold(16);
+                    //subtractorMOG2.setVarThresholdGen(9);
+
+                    break;
+                case BackgroundSubtractorAlgorithmPreset.CNT:
+                    _backgroundSubstractor = Bgsegm.createBackgroundSubtractorCNT();
+
+                    //BackgroundSubtractorCNT subtractorCNT = (BackgroundSubtractorCNT)backgroundSubstractor;
+                    //subtractorCNT.setIsParallel(true);
+                    //subtractorCNT.setMaxPixelStability(900)
+                    //subtractorCNT.setMinPixelStability(15);
+                    //subtractorCNT.setUseHistory(true);
+
+                    break;
+                case BackgroundSubtractorAlgorithmPreset.GMG:
+                    _backgroundSubstractor = Bgsegm.createBackgroundSubtractorGMG();
+                    break;
+                case BackgroundSubtractorAlgorithmPreset.GSOC:
+                    _backgroundSubstractor = Bgsegm.createBackgroundSubtractorGSOC();
+                    break;
+                case BackgroundSubtractorAlgorithmPreset.LSBP:
+                    _backgroundSubstractor = Bgsegm.createBackgroundSubtractorLSBP();
+                    break;
+                case BackgroundSubtractorAlgorithmPreset.MOG:
+                    _backgroundSubstractor = Bgsegm.createBackgroundSubtractorMOG();
+                    break;
+                default:
+
+                    break;
+            }
         }
     }
 }

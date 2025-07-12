@@ -1,8 +1,8 @@
-using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.UnityUtils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,13 +15,14 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class MatBasicProcessingExample : MonoBehaviour
     {
-        public ScrollRect exampleCodeScrollRect;
-        public UnityEngine.UI.Text exampleCodeText;
-        public ScrollRect executionResultScrollRect;
-        public UnityEngine.UI.Text executionResultText;
+        // Public Fields
+        public ScrollRect ExampleCodeScrollRect;
+        public UnityEngine.UI.Text ExampleCodeText;
+        public ScrollRect ExecutionResultScrollRect;
+        public UnityEngine.UI.Text ExecutionResultText;
 
-        // Use this for initialization
-        IEnumerator Start()
+        // Unity Lifecycle Methods
+        private IEnumerator Start()
         {
             // fix the screen orientation.
             Screen.orientation = ScreenOrientation.LandscapeLeft;
@@ -29,30 +30,27 @@ namespace OpenCVForUnityExample
             yield return null;
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
 
         }
 
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        void OnDestroy()
+        private void OnDestroy()
         {
             Screen.orientation = ScreenOrientation.AutoRotation;
         }
 
+        // Private Methods
         private void UpdateScrollRect()
         {
-            exampleCodeScrollRect.verticalNormalizedPosition = executionResultScrollRect.verticalNormalizedPosition = 1f;
+            ExampleCodeScrollRect.verticalNormalizedPosition = ExecutionResultScrollRect.verticalNormalizedPosition = 1f;
         }
 
+        // Public Methods
         public void OnBackButtonClick()
         {
             SceneManager.LoadScene("OpenCVForUnityExample");
         }
-
 
         public void OnInitializationExampleButtonClick()
         {
@@ -106,7 +104,7 @@ namespace OpenCVForUnityExample
             Debug.Log("mat9.rows=" + mat9.rows() + " //When the matrix is more than 2-dimensional, the returned size is (-1, -1).");
             Debug.Log("mat9.cols=" + mat9.cols());
 
-            exampleCodeText.text = @"
+            ExampleCodeText.text = @"
             //
             // initialization example
             //
@@ -158,17 +156,17 @@ namespace OpenCVForUnityExample
             Debug.Log (""mat9.cols="" + mat9.cols ());
             ";
 
-            executionResultText.text = "mat1=" + mat1.dump() + "\n";
-            executionResultText.text += "mat2=" + mat2.dump() + "\n";
-            executionResultText.text += "mat3=" + mat3.dump() + "\n";
-            executionResultText.text += "mat4=" + mat4.dump() + "\n";
-            executionResultText.text += "mat5=" + mat5.dump() + "\n";
-            executionResultText.text += "mat6=" + mat6.dump() + "\n";
-            executionResultText.text += "mat7=" + mat7.dump() + "\n";
-            executionResultText.text += "mat8=" + mat8.dump() + "\n";
-            executionResultText.text += "mat9.dims=" + mat9.dims() + "\n";
-            executionResultText.text += "mat9.rows=" + mat9.rows() + " //When the matrix is more than 2-dimensional, the returned size is (-1, -1)." + "\n";
-            executionResultText.text += "mat9.cols=" + mat9.cols() + "\n";
+            ExecutionResultText.text = "mat1=" + mat1.dump() + "\n";
+            ExecutionResultText.text += "mat2=" + mat2.dump() + "\n";
+            ExecutionResultText.text += "mat3=" + mat3.dump() + "\n";
+            ExecutionResultText.text += "mat4=" + mat4.dump() + "\n";
+            ExecutionResultText.text += "mat5=" + mat5.dump() + "\n";
+            ExecutionResultText.text += "mat6=" + mat6.dump() + "\n";
+            ExecutionResultText.text += "mat7=" + mat7.dump() + "\n";
+            ExecutionResultText.text += "mat8=" + mat8.dump() + "\n";
+            ExecutionResultText.text += "mat9.dims=" + mat9.dims() + "\n";
+            ExecutionResultText.text += "mat9.rows=" + mat9.rows() + " //When the matrix is more than 2-dimensional, the returned size is (-1, -1)." + "\n";
+            ExecutionResultText.text += "mat9.cols=" + mat9.cols() + "\n";
 
             UpdateScrollRect();
         }
@@ -197,7 +195,7 @@ namespace OpenCVForUnityExample
             Mat mat3 = new Mat(sizes, CvType.CV_64FC1);
             Debug.Log("   dim:" + mat3.dims() + " elemSize1:" + mat3.elemSize1() + " channels:" + mat3.channels());
 
-            exampleCodeText.text = @"
+            ExampleCodeText.text = @"
             //
             // multi channel example
             //
@@ -221,12 +219,12 @@ namespace OpenCVForUnityExample
             Debug.Log (""   dim:"" + mat3.dims() + "" elemSize1:"" + mat3.elemSize1() + "" channels:"" + mat3.channels());
             ";
 
-            executionResultText.text = "mat1" + "\n";
-            executionResultText.text += "   dim:" + mat1.dims() + " elemSize1:" + mat1.elemSize1() + " channels:" + mat1.channels() + "\n";
-            executionResultText.text += "mat2" + "\n";
-            executionResultText.text += "   dim:" + mat2.dims() + " elemSize1:" + mat2.elemSize1() + " channels:" + mat2.channels() + "\n";
-            executionResultText.text += "mat3" + "\n";
-            executionResultText.text += "   dim:" + mat3.dims() + " elemSize1:" + mat3.elemSize1() + " channels:" + mat3.channels() + "\n";
+            ExecutionResultText.text = "mat1" + "\n";
+            ExecutionResultText.text += "   dim:" + mat1.dims() + " elemSize1:" + mat1.elemSize1() + " channels:" + mat1.channels() + "\n";
+            ExecutionResultText.text += "mat2" + "\n";
+            ExecutionResultText.text += "   dim:" + mat2.dims() + " elemSize1:" + mat2.elemSize1() + " channels:" + mat2.channels() + "\n";
+            ExecutionResultText.text += "mat3" + "\n";
+            ExecutionResultText.text += "   dim:" + mat3.dims() + " elemSize1:" + mat3.elemSize1() + " channels:" + mat3.channels() + "\n";
 
             UpdateScrollRect();
         }
@@ -257,7 +255,7 @@ namespace OpenCVForUnityExample
             Debug.Log("mat3=" + mat3);
             Debug.Log("mat3.reshape(3, new int[] { 3, 4 }).dump() =" + mat3.reshape(3, new int[] { 3, 4 }).dump() + " // If the matrix is more than 2 dimensional, the dump method is not supported, so the contents can be pseudo-output by reshape it into a 2 dimensional matrix.");
 
-            exampleCodeText.text = @"
+            ExampleCodeText.text = @"
             //
             // dump example
             //
@@ -283,12 +281,12 @@ namespace OpenCVForUnityExample
             Debug.Log(""mat3.reshape(3, new int[] { 3, 4 }).dump() ="" + mat3.reshape(3, new int[] { 3, 4 }).dump() + "" // If the matrix is more than 2 dimensional, the dump method is not supported, so the contents can be pseudo-output by reshape it into a 2 dimensional matrix."");
             ";
 
-            executionResultText.text = "mat1=" + mat1 + "\n";
-            executionResultText.text += "mat1.dump()=" + mat1.dump() + "\n";
-            executionResultText.text += "mat2=" + mat2 + "\n";
-            executionResultText.text += "mat2.dump()=" + mat2.dump() + "\n";
-            executionResultText.text += "mat3=" + mat3 + "\n";
-            executionResultText.text += "mat3.reshape(3, new int[] { 3, 4 }).dump()=" + mat3.reshape(3, new int[] { 3, 4 }).dump() + " // If the matrix is more than 2 dimensional, the dump method is not supported, so the contents can be pseudo-output by reshape it into a 2 dimensional matrix.";
+            ExecutionResultText.text = "mat1=" + mat1 + "\n";
+            ExecutionResultText.text += "mat1.dump()=" + mat1.dump() + "\n";
+            ExecutionResultText.text += "mat2=" + mat2 + "\n";
+            ExecutionResultText.text += "mat2.dump()=" + mat2.dump() + "\n";
+            ExecutionResultText.text += "mat3=" + mat3 + "\n";
+            ExecutionResultText.text += "mat3.reshape(3, new int[] { 3, 4 }).dump()=" + mat3.reshape(3, new int[] { 3, 4 }).dump() + " // If the matrix is more than 2 dimensional, the dump method is not supported, so the contents can be pseudo-output by reshape it into a 2 dimensional matrix.";
 
             UpdateScrollRect();
         }
@@ -315,38 +313,40 @@ namespace OpenCVForUnityExample
             Debug.Log("m2=" + m2);
             Debug.Log("m2.dump()=" + m2.dump());
 
-            executionResultText.text = "m1=" + m1 + "\n";
-            executionResultText.text += "m1.dump()=" + m1.dump() + "\n";
-            executionResultText.text += "m2=" + m2 + "\n";
-            executionResultText.text += "m2.dump()=" + m2.dump() + "\n";
+            ExecutionResultText.text = "m1=" + m1 + "\n";
+            ExecutionResultText.text += "m1.dump()=" + m1.dump() + "\n";
+            ExecutionResultText.text += "m2=" + m2 + "\n";
+            ExecutionResultText.text += "m2.dump()=" + m2.dump() + "\n";
 
             // CVException handling
             // Publish CVException to Debug.LogError.
-            Utils.setDebugMode(true, false);
+            OpenCVDebug.SetDebugMode(true, false);
 
-            Mat m3 = m1 / m2; // element type is different.
+            Mat m3 = new Mat();
+            Core.divide(m1, m2, m3); // element type is different.
             Debug.Log("m3=" + m3);
-            executionResultText.text += "m3=" + m3 + "\n";
+            ExecutionResultText.text += "m3=" + m3 + "\n";
 
-            Utils.setDebugMode(false);
+            OpenCVDebug.SetDebugMode(false);
 
             // Throw CVException.
-            Utils.setDebugMode(true, true);
+            OpenCVDebug.SetDebugMode(true, true);
             try
             {
-                Mat m4 = m1 / m2; // element type is different.
+                Mat m4 = new Mat();
+                Core.divide(m1, m2, m4); // element type is different.
                 Debug.Log("m4=" + m4);
-                executionResultText.text += "m4=" + m4 + "\n";
+                ExecutionResultText.text += "m4=" + m4 + "\n";
             }
             catch (Exception e)
             {
                 Debug.Log("CVException: " + e);
-                executionResultText.text += "CVException: " + e + "\n";
+                ExecutionResultText.text += "CVException: " + e + "\n";
             }
-            Utils.setDebugMode(false);
+            OpenCVDebug.SetDebugMode(false);
 
 
-            exampleCodeText.text = @"
+            ExampleCodeText.text = @"
             // CVException handling example
             //
             // How to display Native-side OpenCV error logs in the Unity Editor Console.
@@ -368,25 +368,27 @@ namespace OpenCVForUnityExample
 
             // CVException handling
             // Publish CVException to Debug.LogError.
-            Utils.setDebugMode (true, false);
+            OpenCVDebug.SetDebugMode(true, false);
 
-            Mat m3 = m1 / m2;
+            Mat m3 = new Mat();
+            Core.divide(m1, m2, m3);
             Debug.Log(""m3="" + m3);
 
-            Utils.setDebugMode (false);
+            OpenCVDebug.SetDebugMode(false);
 
             // Throw CVException.
-            Utils.setDebugMode (true, true);
+            OpenCVDebug.SetDebugMode(true, true);
             try
             {
-                Mat m4 = m1 / m2;
+                Mat m4 = new Mat();
+                Core.divide(m1, m2, m4);
                 Debug.Log(""m4="" + m4);
             }
             catch (Exception e)
             {
                 Debug.Log (""CVException: "" + e);
             }
-            Utils.setDebugMode (false);
+            OpenCVDebug.SetDebugMode (false);
             ";
 
             UpdateScrollRect();
@@ -516,7 +518,7 @@ namespace OpenCVForUnityExample
             Debug.Log("empty:" + mat3.empty());
 
 
-            exampleCodeText.text = @"
+            ExampleCodeText.text = @"
             //
             // property example
             //
@@ -609,7 +611,7 @@ namespace OpenCVForUnityExample
             string size = """";
             for (int i = 0; i < mat3.dims (); ++i) {
                 size += mat3.size (i) + "", "";
-            }                
+            }
             Debug.Log (""size[]:"" + size);
             // bit depth ID
             Debug.Log (""depth (ID):"" + mat3.depth () + ""(="" + CvType.CV_32S + "")"");
@@ -625,7 +627,7 @@ namespace OpenCVForUnityExample
             string step = """";
             for (int i = 0; i < mat3.dims (); ++i) {
                 step += mat3.step1 (i) * mat3.elemSize1 () + "", "";
-            } 
+            }
             Debug.Log (""step (step1*elemSize1):"" + step + ""[byte]"");
             // total number of channels within one step
             Debug.Log (""step1 (step/elemSize1):"" + mat3.step1 ());
@@ -637,54 +639,54 @@ namespace OpenCVForUnityExample
             Debug.Log (""empty:"" + mat3.empty ());
             ";
 
-            executionResultText.text = "rows:" + mat1.rows() + "\n";
-            executionResultText.text += "cols:" + mat1.cols() + "\n";
-            executionResultText.text += "dims:" + mat1.dims() + "\n";
-            executionResultText.text += "size[]:" + mat1.size().width + ", " + mat1.size().height + "\n";
-            executionResultText.text += "depth (ID):" + mat1.depth() + "(=" + CvType.CV_64F + ")" + "\n";
-            executionResultText.text += "channels:" + mat1.channels() + "\n";
-            executionResultText.text += "elemSize:" + mat1.elemSize() + "[byte]" + "\n";
-            executionResultText.text += "elemSize1 (elemSize/channels):" + mat1.elemSize1() + "[byte]" + "\n";
-            executionResultText.text += "total:" + mat1.total() + "\n";
-            executionResultText.text += "step (step1*elemSize1):" + mat1.step1() * mat1.elemSize1() + "[byte]" + "\n";
-            executionResultText.text += "step1 (step/elemSize1):" + mat1.step1() + "\n";
-            executionResultText.text += "isContinuous:" + mat1.isContinuous() + "\n";
-            executionResultText.text += "isSubmatrix:" + mat1.isSubmatrix() + "\n";
-            executionResultText.text += "empty:" + mat1.empty() + "\n";
+            ExecutionResultText.text = "rows:" + mat1.rows() + "\n";
+            ExecutionResultText.text += "cols:" + mat1.cols() + "\n";
+            ExecutionResultText.text += "dims:" + mat1.dims() + "\n";
+            ExecutionResultText.text += "size[]:" + mat1.size().width + ", " + mat1.size().height + "\n";
+            ExecutionResultText.text += "depth (ID):" + mat1.depth() + "(=" + CvType.CV_64F + ")" + "\n";
+            ExecutionResultText.text += "channels:" + mat1.channels() + "\n";
+            ExecutionResultText.text += "elemSize:" + mat1.elemSize() + "[byte]" + "\n";
+            ExecutionResultText.text += "elemSize1 (elemSize/channels):" + mat1.elemSize1() + "[byte]" + "\n";
+            ExecutionResultText.text += "total:" + mat1.total() + "\n";
+            ExecutionResultText.text += "step (step1*elemSize1):" + mat1.step1() * mat1.elemSize1() + "[byte]" + "\n";
+            ExecutionResultText.text += "step1 (step/elemSize1):" + mat1.step1() + "\n";
+            ExecutionResultText.text += "isContinuous:" + mat1.isContinuous() + "\n";
+            ExecutionResultText.text += "isSubmatrix:" + mat1.isSubmatrix() + "\n";
+            ExecutionResultText.text += "empty:" + mat1.empty() + "\n";
 
-            executionResultText.text += "==============================" + "\n";
+            ExecutionResultText.text += "==============================" + "\n";
 
-            executionResultText.text += "rows:" + r1.rows() + "\n";
-            executionResultText.text += "cols:" + r1.cols() + "\n";
-            executionResultText.text += "dims:" + r1.dims() + "\n";
-            executionResultText.text += "size[]:" + r1.size().width + ", " + r1.size().height + "\n";
-            executionResultText.text += "depth (ID):" + r1.depth() + "(=" + CvType.CV_32F + ")" + "\n";
-            executionResultText.text += "channels:" + r1.channels() + "\n";
-            executionResultText.text += "elemSize:" + r1.elemSize() + "[byte]" + "\n";
-            executionResultText.text += "elemSize1 (elemSize/channels):" + r1.elemSize1() + "[byte]" + "\n";
-            executionResultText.text += "total:" + r1.total() + "\n";
-            executionResultText.text += "step (step1*elemSize1):" + r1.step1() * r1.elemSize1() + "[byte]" + "\n";
-            executionResultText.text += "step1 (step/elemSize1):" + r1.step1() + "\n";
-            executionResultText.text += "isContinuous:" + r1.isContinuous() + "\n";
-            executionResultText.text += "isSubmatrix:" + r1.isSubmatrix() + "\n";
-            executionResultText.text += "empty:" + r1.empty() + "\n";
+            ExecutionResultText.text += "rows:" + r1.rows() + "\n";
+            ExecutionResultText.text += "cols:" + r1.cols() + "\n";
+            ExecutionResultText.text += "dims:" + r1.dims() + "\n";
+            ExecutionResultText.text += "size[]:" + r1.size().width + ", " + r1.size().height + "\n";
+            ExecutionResultText.text += "depth (ID):" + r1.depth() + "(=" + CvType.CV_32F + ")" + "\n";
+            ExecutionResultText.text += "channels:" + r1.channels() + "\n";
+            ExecutionResultText.text += "elemSize:" + r1.elemSize() + "[byte]" + "\n";
+            ExecutionResultText.text += "elemSize1 (elemSize/channels):" + r1.elemSize1() + "[byte]" + "\n";
+            ExecutionResultText.text += "total:" + r1.total() + "\n";
+            ExecutionResultText.text += "step (step1*elemSize1):" + r1.step1() * r1.elemSize1() + "[byte]" + "\n";
+            ExecutionResultText.text += "step1 (step/elemSize1):" + r1.step1() + "\n";
+            ExecutionResultText.text += "isContinuous:" + r1.isContinuous() + "\n";
+            ExecutionResultText.text += "isSubmatrix:" + r1.isSubmatrix() + "\n";
+            ExecutionResultText.text += "empty:" + r1.empty() + "\n";
 
-            executionResultText.text += "==============================" + "\n";
+            ExecutionResultText.text += "==============================" + "\n";
 
-            executionResultText.text += "rows:" + mat3.rows() + "\n";
-            executionResultText.text += "cols:" + mat3.cols() + "\n";
-            executionResultText.text += "dims:" + mat3.dims() + "\n";
-            executionResultText.text += "size[]:" + size + "\n";
-            executionResultText.text += "depth (ID):" + mat3.depth() + "(=" + CvType.CV_32S + ")" + "\n";
-            executionResultText.text += "channels:" + mat3.channels() + "\n";
-            executionResultText.text += "elemSize:" + mat3.elemSize() + "[byte]" + "\n";
-            executionResultText.text += "elemSize1 (elemSize/channels):" + mat3.elemSize1() + "[byte]" + "\n";
-            executionResultText.text += "total:" + mat3.total() + "\n";
-            executionResultText.text += "step (step1*elemSize1):" + step + "[byte]" + "\n";
-            executionResultText.text += "step1 (step/elemSize1):" + mat3.step1() + "\n";
-            executionResultText.text += "isContinuous:" + mat3.isContinuous() + "\n";
-            executionResultText.text += "isSubmatrix:" + mat3.isSubmatrix() + "\n";
-            executionResultText.text += "empty:" + mat3.empty() + "\n";
+            ExecutionResultText.text += "rows:" + mat3.rows() + "\n";
+            ExecutionResultText.text += "cols:" + mat3.cols() + "\n";
+            ExecutionResultText.text += "dims:" + mat3.dims() + "\n";
+            ExecutionResultText.text += "size[]:" + size + "\n";
+            ExecutionResultText.text += "depth (ID):" + mat3.depth() + "(=" + CvType.CV_32S + ")" + "\n";
+            ExecutionResultText.text += "channels:" + mat3.channels() + "\n";
+            ExecutionResultText.text += "elemSize:" + mat3.elemSize() + "[byte]" + "\n";
+            ExecutionResultText.text += "elemSize1 (elemSize/channels):" + mat3.elemSize1() + "[byte]" + "\n";
+            ExecutionResultText.text += "total:" + mat3.total() + "\n";
+            ExecutionResultText.text += "step (step1*elemSize1):" + step + "[byte]" + "\n";
+            ExecutionResultText.text += "step1 (step/elemSize1):" + mat3.step1() + "\n";
+            ExecutionResultText.text += "isContinuous:" + mat3.isContinuous() + "\n";
+            ExecutionResultText.text += "isSubmatrix:" + mat3.isSubmatrix() + "\n";
+            ExecutionResultText.text += "empty:" + mat3.empty() + "\n";
 
             UpdateScrollRect();
         }
@@ -712,80 +714,80 @@ namespace OpenCVForUnityExample
             Debug.Log("s=" + s);
             Debug.Log("alpha=" + alpha);
 
-            executionResultText.text = "m1=" + m1.dump() + "\n";
-            executionResultText.text += "m2=" + m2.dump() + "\n";
-            executionResultText.text += "s=" + s + "\n";
-            executionResultText.text += "alpha=" + alpha + "\n";
+            ExecutionResultText.text = "m1=" + m1.dump() + "\n";
+            ExecutionResultText.text += "m2=" + m2.dump() + "\n";
+            ExecutionResultText.text += "s=" + s + "\n";
+            ExecutionResultText.text += "alpha=" + alpha + "\n";
 
             Mat m_dst = new Mat();
 
             // Addition, subtraction, negation: A+B, A-B, A+s, A-s, s+A, s-A, -A
             Core.add(m1, m2, m_dst);
             Debug.Log("m1+m2=" + m_dst.dump());
-            executionResultText.text += "m1+m2=" + m_dst.dump() + "\n";
+            ExecutionResultText.text += "m1+m2=" + m_dst.dump() + "\n";
             Core.add(m1, s, m_dst);
             Debug.Log("m1+s=" + m_dst.dump());
-            executionResultText.text += "m1+s=" + m_dst.dump() + "\n";
+            ExecutionResultText.text += "m1+s=" + m_dst.dump() + "\n";
 
             Core.subtract(m1, m2, m_dst);
             Debug.Log("m1-m2=" + m_dst.dump());
-            executionResultText.text += "m1-m2=" + m_dst.dump() + "\n";
+            ExecutionResultText.text += "m1-m2=" + m_dst.dump() + "\n";
             Core.subtract(m1, s, m_dst);
             Debug.Log("m1-s=" + m_dst.dump());
-            executionResultText.text += "m1-s=" + m_dst.dump() + "\n";
+            ExecutionResultText.text += "m1-s=" + m_dst.dump() + "\n";
 
             Core.multiply(m1, Scalar.all(-1), m_dst);
             Debug.Log("-m1=" + m_dst.dump());
-            executionResultText.text += "-m1=" + m_dst.dump() + "\n";
+            ExecutionResultText.text += "-m1=" + m_dst.dump() + "\n";
 
 
             // Scaling: A*alpha A/alpha
             Core.multiply(m1, Scalar.all(3), m_dst);
             Debug.Log("m1*alpha=" + m_dst.dump());
-            executionResultText.text += "m1*alpha=" + m_dst.dump() + "\n";
+            ExecutionResultText.text += "m1*alpha=" + m_dst.dump() + "\n";
             Core.divide(m1, Scalar.all(3), m_dst);
             Debug.Log("m1/alpha=" + m_dst.dump());
-            executionResultText.text += "m1/alpha=" + m_dst.dump() + "\n";
+            ExecutionResultText.text += "m1/alpha=" + m_dst.dump() + "\n";
 
 
             // Per-element multiplication and division: A.mul(B), A/B, alpha/A
             Debug.Log("m1.mul(m2)=" + (m1.mul(m2)).dump());
-            executionResultText.text += "m1.mul(m2)=" + (m1.mul(m2)).dump() + "\n";
+            ExecutionResultText.text += "m1.mul(m2)=" + (m1.mul(m2)).dump() + "\n";
 
             Core.divide(m1, m2, m_dst);
             Debug.Log("m1/m2=" + m_dst.dump());
-            executionResultText.text += "m1/m2=" + m_dst.dump() + "\n";
+            ExecutionResultText.text += "m1/m2=" + m_dst.dump() + "\n";
 
             Core.divide(new Mat(m1.size(), m1.type(), Scalar.all(3)), m1, m_dst);
             Debug.Log("alpha/m2=" + m_dst.dump());
-            executionResultText.text += "alpha/m2=" + m_dst.dump() + "\n";
+            ExecutionResultText.text += "alpha/m2=" + m_dst.dump() + "\n";
 
 
             // Matrix multiplication: A*B
             Core.gemm(m1, m2, 1, new Mat(), 0, m_dst);
             Debug.Log("m1*m2=" + m_dst.dump());
-            executionResultText.text += "m1*m2=" + m_dst.dump() + "\n";
+            ExecutionResultText.text += "m1*m2=" + m_dst.dump() + "\n";
 
 
             // Bitwise logical operations: A logicop B, A logicop s, s logicop A, ~A, where logicop is one of :  &, |, ^.
             Core.bitwise_and(m1, m2, m_dst);
             Debug.Log("m1&m2=" + m_dst.dump());
-            executionResultText.text += "m1&m2=" + m_dst.dump() + "\n";
+            ExecutionResultText.text += "m1&m2=" + m_dst.dump() + "\n";
 
             Core.bitwise_or(m1, m2, m_dst);
             Debug.Log("m1|m2=" + m_dst.dump());
-            executionResultText.text += "m1|m2=" + m_dst.dump() + "\n";
+            ExecutionResultText.text += "m1|m2=" + m_dst.dump() + "\n";
 
             Core.bitwise_xor(m1, m2, m_dst);
             Debug.Log("m1^m2=" + m_dst.dump());
-            executionResultText.text += "m1^m2=" + m_dst.dump() + "\n";
+            ExecutionResultText.text += "m1^m2=" + m_dst.dump() + "\n";
 
             Core.bitwise_not(m1, m_dst);
             Debug.Log("~m1=" + m_dst.dump());
-            executionResultText.text += "~m1=" + m_dst.dump() + "\n";
+            ExecutionResultText.text += "~m1=" + m_dst.dump() + "\n";
 
 
-            exampleCodeText.text = @"
+            ExampleCodeText.text = @"
             //
             // four arithmetic operation example
             //
@@ -887,7 +889,7 @@ namespace OpenCVForUnityExample
             m1.convertTo(m3, CvType.CV_8U, 2, 10);
             Debug.Log("m3=" + m3.dump());
 
-            exampleCodeText.text = @"
+            ExampleCodeText.text = @"
             //
             // convertTo example
             //
@@ -911,9 +913,9 @@ namespace OpenCVForUnityExample
             Debug.Log (""m3="" + m3.dump());
             ";
 
-            executionResultText.text = "m1=" + m1.dump() + "\n";
-            executionResultText.text += "m2=" + m2.dump() + "\n";
-            executionResultText.text += "m3=" + m3.dump() + "\n";
+            ExecutionResultText.text = "m1=" + m1.dump() + "\n";
+            ExecutionResultText.text += "m2=" + m2.dump() + "\n";
+            ExecutionResultText.text += "m3=" + m3.dump() + "\n";
 
             UpdateScrollRect();
         }
@@ -963,7 +965,7 @@ namespace OpenCVForUnityExample
             Debug.Log("m5=" + m5);
             Debug.Log("ch=" + m5.channels());
 
-            exampleCodeText.text = @"
+            ExampleCodeText.text = @"
             //
             // reshape example
             //
@@ -996,28 +998,28 @@ namespace OpenCVForUnityExample
             string size = """";
             for (int i = 0; i < m4.dims (); ++i) {
                 size += m4.size (i) + "", "";
-            }                
+            }
             Debug.Log (""size[]="" + size);
             Debug.Log (""ch="" + m4.channels ());
 
             // 3D -> 2D
             src = new Mat (new int[]{ 4, 6, 7 }, CvType.CV_8UC3, new Scalar (0));
             Mat m5 = src.reshape (1, new int[]{ src.channels () * src.size (2), src.size (0) * src.size (1) });
-            Debug.Log (""m5="" + m5);           
+            Debug.Log (""m5="" + m5);
             Debug.Log (""ch="" + m5.channels ());
             ";
 
-            executionResultText.text = "m1=" + m1.dump() + "\n";
-            executionResultText.text += "ch=" + m1.channels() + "\n";
-            executionResultText.text += "m2=" + m2.dump() + "\n";
-            executionResultText.text += "ch=" + m2.channels() + "\n";
-            executionResultText.text += "m3=" + m3.dump() + "\n";
-            executionResultText.text += "ch=" + m3.channels() + "\n";
-            executionResultText.text += "m4.dims=" + m4.dims() + "\n";
-            executionResultText.text += "m4.size[]=" + size + "\n";
-            executionResultText.text += "ch=" + m4.channels() + "\n";
-            executionResultText.text += "m5=" + m5 + "\n";
-            executionResultText.text += "ch=" + m5.channels() + "\n";
+            ExecutionResultText.text = "m1=" + m1.dump() + "\n";
+            ExecutionResultText.text += "ch=" + m1.channels() + "\n";
+            ExecutionResultText.text += "m2=" + m2.dump() + "\n";
+            ExecutionResultText.text += "ch=" + m2.channels() + "\n";
+            ExecutionResultText.text += "m3=" + m3.dump() + "\n";
+            ExecutionResultText.text += "ch=" + m3.channels() + "\n";
+            ExecutionResultText.text += "m4.dims=" + m4.dims() + "\n";
+            ExecutionResultText.text += "m4.size[]=" + size + "\n";
+            ExecutionResultText.text += "ch=" + m4.channels() + "\n";
+            ExecutionResultText.text += "m5=" + m5 + "\n";
+            ExecutionResultText.text += "ch=" + m5.channels() + "\n";
 
             UpdateScrollRect();
         }
@@ -1067,7 +1069,7 @@ namespace OpenCVForUnityExample
             Debug.Log("Core.transposeND(m2, m2_t)=" + m2_t.reshape(3, new int[] { 4, 3 }).dump());
             Debug.Log("m2_t size[]=" + m2_t_size);
 
-            exampleCodeText.text = @"
+            ExampleCodeText.text = @"
             //
             // transpose example
             //
@@ -1112,12 +1114,12 @@ namespace OpenCVForUnityExample
             Debug.Log(""m2_t size[]="" + m2_t_size);
             ";
 
-            executionResultText.text = "m1=" + m1.dump() + "\n";
-            executionResultText.text += "Core.transpose(m1, m1_t)=" + m1_t.dump() + "\n";
-            executionResultText.text += "m2=" + m2.reshape(3, new int[] { 3, 4 }).dump() + "\n";
-            executionResultText.text += "m2 size[]=" + m2_size + "\n";
-            executionResultText.text += "Core.transposeND(m2, m2_t)=" + m2_t.reshape(3, new int[] { 4, 3 }).dump() + "\n";
-            executionResultText.text += "m2_t size[]=" + m2_t_size + "\n";
+            ExecutionResultText.text = "m1=" + m1.dump() + "\n";
+            ExecutionResultText.text += "Core.transpose(m1, m1_t)=" + m1_t.dump() + "\n";
+            ExecutionResultText.text += "m2=" + m2.reshape(3, new int[] { 3, 4 }).dump() + "\n";
+            ExecutionResultText.text += "m2 size[]=" + m2_size + "\n";
+            ExecutionResultText.text += "Core.transposeND(m2, m2_t)=" + m2_t.reshape(3, new int[] { 4, 3 }).dump() + "\n";
+            ExecutionResultText.text += "m2_t size[]=" + m2_t_size + "\n";
 
             UpdateScrollRect();
         }
@@ -1153,7 +1155,7 @@ namespace OpenCVForUnityExample
             // col(0)
             Debug.Log("m1.col(0)=" + m1.col(0).dump());
 
-            exampleCodeText.text = @"
+            ExampleCodeText.text = @"
             //
             // range example
             //
@@ -1184,13 +1186,13 @@ namespace OpenCVForUnityExample
             Debug.Log (""m1.col(0)="" + m1.col(0).dump());
             ";
 
-            executionResultText.text = "m1=" + m1.dump() + "\n";
-            executionResultText.text += "m1.rowRange(Range.all())=" + m1.rowRange(Range.all()).dump() + "\n";
-            executionResultText.text += "m1.rowRange(new Range(0,2))=" + m1.rowRange(new Range(0, 2)).dump() + "\n";
-            executionResultText.text += "m1.row(0)=" + m1.row(0).dump() + "\n";
-            executionResultText.text += "m1.colRange(Range.all())=" + m1.colRange(Range.all()).dump() + "\n";
-            executionResultText.text += "m1.colRange(new Range(0,2))=" + m1.colRange(new Range(0, 2)).dump() + "\n";
-            executionResultText.text += "m1.col(0)=" + m1.col(0).dump() + "\n";
+            ExecutionResultText.text = "m1=" + m1.dump() + "\n";
+            ExecutionResultText.text += "m1.rowRange(Range.all())=" + m1.rowRange(Range.all()).dump() + "\n";
+            ExecutionResultText.text += "m1.rowRange(new Range(0,2))=" + m1.rowRange(new Range(0, 2)).dump() + "\n";
+            ExecutionResultText.text += "m1.row(0)=" + m1.row(0).dump() + "\n";
+            ExecutionResultText.text += "m1.colRange(Range.all())=" + m1.colRange(Range.all()).dump() + "\n";
+            ExecutionResultText.text += "m1.colRange(new Range(0,2))=" + m1.colRange(new Range(0, 2)).dump() + "\n";
+            ExecutionResultText.text += "m1.col(0)=" + m1.col(0).dump() + "\n";
 
             UpdateScrollRect();
         }
@@ -1208,14 +1210,14 @@ namespace OpenCVForUnityExample
             m1.put(0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
             Debug.Log("m1=" + m1.dump());
 
-            executionResultText.text = "m1=" + m1.dump() + "\n";
+            ExecutionResultText.text = "m1=" + m1.dump() + "\n";
 
             // get submatrix (ROI) of range (row[0_2] col[0_2])
             Mat m2 = new Mat(m1, new OpenCVForUnity.CoreModule.Rect(0, 0, 2, 2));
             Debug.Log("m2=" + m2.dump());
-            executionResultText.text += "m2=" + m2.dump() + "\n";
+            ExecutionResultText.text += "m2=" + m2.dump() + "\n";
             Debug.Log("m2.submat()=" + m2.submat(0, 2, 0, 2).dump());
-            executionResultText.text += "m2.submat()=" + m2.submat(0, 2, 0, 2).dump() + "\n";
+            ExecutionResultText.text += "m2.submat()=" + m2.submat(0, 2, 0, 2).dump() + "\n";
 
             // find the parent matrix size of the submatrix (ROI) m2 and its position in it
             Size wholeSize = new Size();
@@ -1224,18 +1226,18 @@ namespace OpenCVForUnityExample
             Debug.Log("wholeSize:" + wholeSize.width + "x" + wholeSize.height);
             Debug.Log("offset:" + ofs.x + ", " + ofs.y);
 
-            executionResultText.text += "wholeSize:" + wholeSize.width + "x" + wholeSize.height + "\n";
-            executionResultText.text += "offset:" + ofs.x + ", " + ofs.y + "\n";
+            ExecutionResultText.text += "wholeSize:" + wholeSize.width + "x" + wholeSize.height + "\n";
+            ExecutionResultText.text += "offset:" + ofs.x + ", " + ofs.y + "\n";
 
             // expand the range of submatrix (ROI)
             m2.adjustROI(0, 1, 0, 1);
             Debug.Log("rows=" + m2.rows() + ", " + "cols=" + m2.cols());
             Debug.Log("m2=" + m2.dump());
 
-            executionResultText.text += "rows=" + m2.rows() + ", " + "cols=" + m2.cols() + "\n";
-            executionResultText.text += "m2=" + m2.dump() + "\n";
+            ExecutionResultText.text += "rows=" + m2.rows() + ", " + "cols=" + m2.cols() + "\n";
+            ExecutionResultText.text += "m2=" + m2.dump() + "\n";
 
-            exampleCodeText.text = @"
+            ExampleCodeText.text = @"
             //
             // submatrix (ROI) example
             //
@@ -1295,10 +1297,10 @@ namespace OpenCVForUnityExample
             Debug.Log("m_deep1=" + m_deep1.dump());
             Debug.Log("m_deep2=" + m_deep2.dump());
 
-            executionResultText.text = "mat1=" + mat1.dump() + "\n";
-            executionResultText.text += "m_shallow=" + m_shallow.dump() + "\n";
-            executionResultText.text += "m_deep1=" + m_deep1.dump() + "\n";
-            executionResultText.text += "m_deep2=" + m_deep2.dump() + "\n";
+            ExecutionResultText.text = "mat1=" + mat1.dump() + "\n";
+            ExecutionResultText.text += "m_shallow=" + m_shallow.dump() + "\n";
+            ExecutionResultText.text += "m_deep1=" + m_deep1.dump() + "\n";
+            ExecutionResultText.text += "m_deep2=" + m_deep2.dump() + "\n";
 
             // rewrite (0, 0) element of matrix mat1
             mat1.put(0, 0, 100);
@@ -1308,20 +1310,20 @@ namespace OpenCVForUnityExample
             Debug.Log("m_deep1=" + m_deep1.dump());
             Debug.Log("m_deep2=" + m_deep2.dump());
 
-            executionResultText.text += "mat1=" + mat1.dump() + "\n";
-            executionResultText.text += "m_shallow=" + m_shallow.dump() + "\n";
-            executionResultText.text += "m_deep1=" + m_deep1.dump() + "\n";
-            executionResultText.text += "m_deep2=" + m_deep2.dump() + "\n";
+            ExecutionResultText.text += "mat1=" + mat1.dump() + "\n";
+            ExecutionResultText.text += "m_shallow=" + m_shallow.dump() + "\n";
+            ExecutionResultText.text += "m_deep1=" + m_deep1.dump() + "\n";
+            ExecutionResultText.text += "m_deep2=" + m_deep2.dump() + "\n";
 
             Debug.Log("mat1.Equals(m_shallow)=" + mat1.Equals(m_shallow));
             Debug.Log("mat1.Equals(m_deep1)=" + mat1.Equals(m_deep1));
             Debug.Log("mat1.Equals(m_deep2)=" + mat1.Equals(m_deep2));
 
-            executionResultText.text += "mat1.Equals(m_shallow)=" + mat1.Equals(m_shallow) + "\n";
-            executionResultText.text += "mat1.Equals(m_deep1)=" + mat1.Equals(m_deep1) + "\n";
-            executionResultText.text += "mat1.Equals(m_deep2)=" + mat1.Equals(m_deep2) + "\n";
+            ExecutionResultText.text += "mat1.Equals(m_shallow)=" + mat1.Equals(m_shallow) + "\n";
+            ExecutionResultText.text += "mat1.Equals(m_deep1)=" + mat1.Equals(m_deep1) + "\n";
+            ExecutionResultText.text += "mat1.Equals(m_deep2)=" + mat1.Equals(m_deep2) + "\n";
 
-            exampleCodeText.text = @"
+            ExampleCodeText.text = @"
             //
             // shallow copy and deep copy example
             //
@@ -1394,7 +1396,7 @@ namespace OpenCVForUnityExample
             // dump
             Debug.Log("m_merged=" + m_merged.dump());
 
-            exampleCodeText.text = @"
+            ExampleCodeText.text = @"
             //
             // merge example
             //
@@ -1425,7 +1427,7 @@ namespace OpenCVForUnityExample
             Debug.Log (""m_merged="" + m_merged.dump());
             ";
 
-            executionResultText.text = "m_merged=" + m_merged.dump() + "\n";
+            ExecutionResultText.text = "m_merged=" + m_merged.dump() + "\n";
 
             UpdateScrollRect();
         }
@@ -1468,7 +1470,7 @@ namespace OpenCVForUnityExample
             Debug.Log("m_mixed1=" + m_mixed1.dump());
             Debug.Log("m_mixed2=" + m_mixed2.dump());
 
-            exampleCodeText.text = @"
+            ExampleCodeText.text = @"
             //
             // mixChannels example
             //
@@ -1506,8 +1508,8 @@ namespace OpenCVForUnityExample
             Debug.Log (""m_mixed2="" + m_mixed2.dump());
             ";
 
-            executionResultText.text = "m_mixed1=" + m_mixed1.dump() + "\n";
-            executionResultText.text += "m_mixed2=" + m_mixed2.dump() + "\n";
+            ExecutionResultText.text = "m_mixed1=" + m_mixed1.dump() + "\n";
+            ExecutionResultText.text += "m_mixed2=" + m_mixed2.dump() + "\n";
 
             UpdateScrollRect();
         }
@@ -1535,7 +1537,7 @@ namespace OpenCVForUnityExample
                 Debug.Log(item.dump());
             }
 
-            exampleCodeText.text = @"
+            ExampleCodeText.text = @"
             //
             // split example
             //
@@ -1557,10 +1559,10 @@ namespace OpenCVForUnityExample
             }
             ";
 
-            executionResultText.text = "";
+            ExecutionResultText.text = "";
             foreach (Mat item in planes)
             {
-                executionResultText.text += item.dump() + "\n";
+                ExecutionResultText.text += item.dump() + "\n";
             }
 
             UpdateScrollRect();
@@ -1597,11 +1599,11 @@ namespace OpenCVForUnityExample
             Debug.Log("v3(min)=" + v3.dump());
             Debug.Log("v4(max)=" + v4.dump());
 
-            executionResultText.text = "m1=" + m1.dump() + "\n";
-            executionResultText.text += "v1(sum)=" + v1.dump() + "\n";
-            executionResultText.text += "v2(avg)=" + v2.dump() + "\n";
-            executionResultText.text += "v3(min)=" + v3.dump() + "\n";
-            executionResultText.text += "v4(max)=" + v4.dump() + "\n";
+            ExecutionResultText.text = "m1=" + m1.dump() + "\n";
+            ExecutionResultText.text += "v1(sum)=" + v1.dump() + "\n";
+            ExecutionResultText.text += "v2(avg)=" + v2.dump() + "\n";
+            ExecutionResultText.text += "v3(min)=" + v3.dump() + "\n";
+            ExecutionResultText.text += "v4(max)=" + v4.dump() + "\n";
 
             // reduce 3 x 3 matrix to one col
             Core.reduce(m1, v1, 1, Core.REDUCE_SUM); // total value of each row
@@ -1616,13 +1618,13 @@ namespace OpenCVForUnityExample
             Debug.Log("v3(min)=" + v3.dump());
             Debug.Log("v4(max)=" + v4.dump());
 
-            executionResultText.text += "m1=" + m1.dump() + "\n";
-            executionResultText.text += "v1(sum)=" + v1.dump() + "\n";
-            executionResultText.text += "v2(avg)=" + v2.dump() + "\n";
-            executionResultText.text += "v3(min)=" + v3.dump() + "\n";
-            executionResultText.text += "v4(max)=" + v4.dump() + "\n";
+            ExecutionResultText.text += "m1=" + m1.dump() + "\n";
+            ExecutionResultText.text += "v1(sum)=" + v1.dump() + "\n";
+            ExecutionResultText.text += "v2(avg)=" + v2.dump() + "\n";
+            ExecutionResultText.text += "v3(min)=" + v3.dump() + "\n";
+            ExecutionResultText.text += "v4(max)=" + v4.dump() + "\n";
 
-            exampleCodeText.text = @"
+            ExampleCodeText.text = @"
             //
             // reduce example
             //
@@ -1682,28 +1684,28 @@ namespace OpenCVForUnityExample
             m1.put(0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20);
             Debug.Log("m1(original)=" + m1.dump());
 
-            executionResultText.text = "m1(original)=" + m1.dump() + "\n";
+            ExecutionResultText.text = "m1(original)=" + m1.dump() + "\n";
 
             // shuffle
             Core.randShuffle(m1, UnityEngine.Random.value);
             Debug.Log("m1(shuffle)=" + m1.dump());
 
-            executionResultText.text += "m1(shuffle)=" + m1.dump() + "\n";
+            ExecutionResultText.text += "m1(shuffle)=" + m1.dump() + "\n";
 
             // submatrix
             Mat m2 = new Mat(m1, new OpenCVForUnity.CoreModule.Rect(1, 1, 3, 2));
             Debug.Log("m2(sub-matrix)=" + m2.dump());
 
-            executionResultText.text += "m2(sub-matrix)=" + m2.dump() + "\n";
+            ExecutionResultText.text += "m2(sub-matrix)=" + m2.dump() + "\n";
 
             Core.randShuffle(m2, UnityEngine.Random.value);
             Debug.Log("m2(sub-matrix)=" + m2.dump());
             Debug.Log("m1=" + m1.dump());
 
-            executionResultText.text += "m2(shuffle sub-matrix)=" + m2.dump() + "\n";
-            executionResultText.text += "m1=" + m1.dump() + "\n";
+            ExecutionResultText.text += "m2(shuffle sub-matrix)=" + m2.dump() + "\n";
+            ExecutionResultText.text += "m1=" + m1.dump() + "\n";
 
-            exampleCodeText.text = @"
+            ExampleCodeText.text = @"
             //
             // randShuffle example
             //
@@ -1745,7 +1747,7 @@ namespace OpenCVForUnityExample
             Core.randu(m1, 0, 25);
             Debug.Log("m1=" + m1.dump());
 
-            executionResultText.text = "m1=" + m1.dump() + "\n";
+            ExecutionResultText.text = "m1=" + m1.dump() + "\n";
 
             Mat dst_mat = new Mat();
 
@@ -1753,27 +1755,27 @@ namespace OpenCVForUnityExample
             Core.sort(m1, dst_mat, Core.SORT_EVERY_ROW | Core.SORT_ASCENDING);
             Debug.Log("ROW|ASCENDING:" + dst_mat.dump());
 
-            executionResultText.text += "ROW|ASCENDING:" + dst_mat.dump() + "\n";
+            ExecutionResultText.text += "ROW|ASCENDING:" + dst_mat.dump() + "\n";
 
             // sort descending
             Core.sort(m1, dst_mat, Core.SORT_EVERY_ROW | Core.SORT_DESCENDING);
             Debug.Log("ROW|DESCENDING:" + dst_mat.dump());
 
-            executionResultText.text += "ROW|DESCENDING:" + dst_mat.dump() + "\n";
+            ExecutionResultText.text += "ROW|DESCENDING:" + dst_mat.dump() + "\n";
 
             // sort ascending
             Core.sort(m1, dst_mat, Core.SORT_EVERY_COLUMN | Core.SORT_ASCENDING);
             Debug.Log("COLUMN|ASCENDING:" + dst_mat.dump());
 
-            executionResultText.text += "COLUMN|ASCENDING:" + dst_mat.dump() + "\n";
+            ExecutionResultText.text += "COLUMN|ASCENDING:" + dst_mat.dump() + "\n";
 
             // sort descending
             Core.sort(m1, dst_mat, Core.SORT_EVERY_COLUMN | Core.SORT_DESCENDING);
             Debug.Log("COLUMN|DESCENDING:" + dst_mat.dump());
 
-            executionResultText.text += "COLUMN|DESCENDING:" + dst_mat.dump() + "\n";
+            ExecutionResultText.text += "COLUMN|DESCENDING:" + dst_mat.dump() + "\n";
 
-            exampleCodeText.text = @"
+            ExampleCodeText.text = @"
             //
             // sort example
             //
@@ -1828,8 +1830,8 @@ namespace OpenCVForUnityExample
             Debug.Log("m1=" + m1.dump());
             Debug.Log("m2=" + m2.dump());
 
-            executionResultText.text = "m1=" + m1.dump() + "\n";
-            executionResultText.text += "m2=" + m2.dump() + "\n";
+            ExecutionResultText.text = "m1=" + m1.dump() + "\n";
+            ExecutionResultText.text += "m2=" + m2.dump() + "\n";
 
             Mat dst_mat = new Mat();
 
@@ -1837,39 +1839,39 @@ namespace OpenCVForUnityExample
             Core.compare(m1, m2, dst_mat, Core.CMP_GT);
             Debug.Log("GT (M1 > M2)=" + dst_mat.dump());
 
-            executionResultText.text += "GT (M1 > M2)=" + dst_mat.dump() + "\n";
+            ExecutionResultText.text += "GT (M1 > M2)=" + dst_mat.dump() + "\n";
 
             // GE (M1 >= M2)
             Core.compare(m1, m2, dst_mat, Core.CMP_GE);
             Debug.Log("GE (M1 >= M2)=" + dst_mat.dump());
 
-            executionResultText.text += "GE (M1 >= M2)=" + dst_mat.dump() + "\n";
+            ExecutionResultText.text += "GE (M1 >= M2)=" + dst_mat.dump() + "\n";
 
             // EQ (M1 == M2)
             Core.compare(m1, m2, dst_mat, Core.CMP_EQ);
             Debug.Log("EQ (M1 == M2)=" + dst_mat.dump());
 
-            executionResultText.text += "EQ (M1 == M2)=" + dst_mat.dump() + "\n";
+            ExecutionResultText.text += "EQ (M1 == M2)=" + dst_mat.dump() + "\n";
 
             // NE (M1 != M2)
             Core.compare(m1, m2, dst_mat, Core.CMP_NE);
             Debug.Log("NE (M1 != M2)=" + dst_mat.dump());
 
-            executionResultText.text += "NE (M1 != M2)=" + dst_mat.dump() + "\n";
+            ExecutionResultText.text += "NE (M1 != M2)=" + dst_mat.dump() + "\n";
 
             // LE (M1 <= M2)
             Core.compare(m1, m2, dst_mat, Core.CMP_LE);
             Debug.Log("LE (M1 <= M2)=" + dst_mat.dump());
 
-            executionResultText.text += "LE (M1 <= M2)=" + dst_mat.dump() + "\n";
+            ExecutionResultText.text += "LE (M1 <= M2)=" + dst_mat.dump() + "\n";
 
             // LT (M1 < M2)
             Core.compare(m1, m2, dst_mat, Core.CMP_LT);
             Debug.Log("LT (M1 < M2)=" + dst_mat.dump());
 
-            executionResultText.text += "LT (M1 < M2)=" + dst_mat.dump() + "\n";
+            ExecutionResultText.text += "LT (M1 < M2)=" + dst_mat.dump() + "\n";
 
-            exampleCodeText.text = @"
+            ExampleCodeText.text = @"
             //
             // comparison example
             //
@@ -1916,189 +1918,6 @@ namespace OpenCVForUnityExample
             UpdateScrollRect();
         }
 
-        public void OnOperatorsExampleButtonClick()
-        {
-            //
-            // operators example
-            //
-            // Note.
-            // The assignment operator behavior is different from OpenCV (c ++). 
-            // For example, C = A + B will not be expanded to cv :: add (A, B, C).
-            // Also cannot assign a scalar to Mat like C = s.
-            // In c#, it is not possible to explicitly overload compound assignment operators such as “A *= B“.
-            // Instead, binary operator overloading is used implicitly.
-            // Therefore, whenever an operator is used, a new mat is created and assigned.
-            //
-
-            // 3x3 matrix
-            Mat m1 = new Mat(3, 3, CvType.CV_64FC1);
-            m1.put(0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
-            Mat m2 = new Mat(3, 3, CvType.CV_64FC1);
-            m2.put(0, 0, 10, 11, 12, 13, 14, 15, 16, 17, 18);
-            // Scalar
-            Scalar s = new Scalar(5);
-            // alpha
-            double alpha = 3;
-
-            Debug.Log("m1=" + m1.dump());
-            Debug.Log("m2=" + m2.dump());
-            Debug.Log("s=" + s);
-            Debug.Log("alpha=" + alpha);
-
-            executionResultText.text = "m1=" + m1.dump() + "\n";
-            executionResultText.text += "m2=" + m2.dump() + "\n";
-            executionResultText.text += "s=" + s + "\n";
-            executionResultText.text += "alpha=" + alpha + "\n";
-
-            // Addition, subtraction, negation: A+B, A-B, A+s, A-s, s+A, s-A, -A
-            // (M1 + M2 = Core.add (M1, M2, M_dst))
-            Debug.Log("m1+m2=" + (m1 + m2).dump());
-            executionResultText.text += "m1+m2=" + (m1 + m2).dump() + "\n";
-            // (M1 + s = Core.add (M1, s, M_dst))
-            Debug.Log("m1+s=" + (m1 + s).dump());
-            executionResultText.text += "m1+s=" + (m1 + s).dump() + "\n";
-
-            // (M1 - M2 = Core.subtract (M1, M2, M_dst))
-            Debug.Log("m1-m2=" + (m1 - m2).dump());
-            executionResultText.text += "m1-m2=" + (m1 - m2).dump() + "\n";
-            // (M1 - s = Core.subtract (M1, s, M_dst))
-            Debug.Log("m1-s=" + (m1 - s).dump());
-            executionResultText.text += "m1-s=" + (m1 - s).dump() + "\n";
-
-            // (-M1 = Core.multiply (M1, Scalar.all (-1), M_dst))
-            Debug.Log("-m1=" + (-m1).dump());
-            executionResultText.text += "-m1=" + (-m1).dump() + "\n";
-
-
-            // Scaling: A*alpha A/alpha
-            // (M1 * 3 = Core.multiply (M1, Scalar.all (3), M_dst))
-            Debug.Log("m1*alpha=" + (m1 * alpha).dump());
-            executionResultText.text += "m1*alpha=" + (m1 * alpha).dump() + "\n";
-            // (M1 / 3 = Core.divide (M1, Scalar.all (3), M_dst))
-            Debug.Log("m1/alpha=" + (m1 / alpha).dump());
-            executionResultText.text += "m1/alpha=" + (m1 / alpha).dump() + "\n";
-
-
-            // Per-element multiplication and division: A.mul(B), A/B, alpha/A
-            // (M1.mul(M2) = M1.mul (M2))
-            Debug.Log("m1.mul(m2)=" + (m1.mul(m2)).dump());
-            executionResultText.text += "m1.mul(m2)=" + (m1.mul(m2)).dump() + "\n";
-
-            // (M1 / M2 = Core.divide (M1, M2, M_dst))
-            Debug.Log("m1/m2=" + (m1 / m2).dump());
-            executionResultText.text += "m1/m2=" + (m1 / m2).dump() + "\n";
-
-            // (3 / M1 = Core.divide (new Mat (M1.size (), M1.type (), Scalar.all (3)), M1, M_dst))
-            Debug.Log("alpha/m2=" + (alpha / m2).dump());
-            executionResultText.text += "alpha/m2=" + (alpha / m2).dump() + "\n";
-
-
-            // Matrix multiplication: A*B
-            // (M1 * M2 = Core.gemm (M1, M2, 1, new Mat (), 0, M_dst))
-            Debug.Log("m1*m2=" + (m1 * m2).dump());
-            executionResultText.text += "m1*m2=" + (m1 * m2).dump() + "\n";
-
-
-            // Bitwise logical operations: A logicop B, A logicop s, s logicop A, ~A, where logicop is one of :  &, |, ^.
-            // (M1 & M2 = Core.bitwise_and (M1, M2, M_dst))
-            Debug.Log("m1&m2=" + (m1 & m2).dump());
-            executionResultText.text += "m1&m2=" + (m1 & m2).dump() + "\n";
-
-            // (M1 | M2 = Core.bitwise_or (M1, M2, M_dst))
-            Debug.Log("m1|m2=" + (m1 | m2).dump());
-            executionResultText.text += "m1|m2=" + (m1 | m2).dump() + "\n";
-
-            // (M1 ^ M2 = Core.bitwise_xor (M1, M2, M_dst))
-            Debug.Log("m1^m2=" + (m1 ^ m2).dump());
-            executionResultText.text += "m1^m2=" + (m1 ^ m2).dump() + "\n";
-
-            // (~M1 = Core.bitwise_not (M1, M_dst))
-            Debug.Log("~m1=" + (~m1).dump());
-            executionResultText.text += "~m1=" + (~m1).dump() + "\n";
-
-            exampleCodeText.text = @"
-            //
-            // operators example
-            //
-            // Note.
-            // The assignment operator behavior is different from OpenCV (c ++). 
-            // For example, C = A + B will not be expanded to cv :: add (A, B, C).
-            // Also cannot assign a scalar to Mat like C = s.
-            // In c#, it is not possible to explicitly overload compound assignment operators such as “A *= B“.
-            // Instead, binary operator overloading is used implicitly.
-            // Therefore, whenever an operator is used, a new mat is created and assigned.
-            //
-
-            // 3x3 matrix
-            Mat m1 = new Mat (3, 3, CvType.CV_64FC1);
-            m1.put (0, 0, 1,2,3,4,5,6,7,8,9);
-            Mat m2 = new Mat (3, 3, CvType.CV_64FC1);
-            m2.put (0, 0, 10,11,12,13,14,15,16,17,18);
-            // Scalar
-            Scalar s = new Scalar(5);
-            // alpha
-            double alpha = 3;
-
-            Debug.Log (""m1="" + m1.dump ());
-            Debug.Log (""m2="" + m2.dump ());
-            Debug.Log (""s="" + s);
-            Debug.Log (""alpha="" + alpha);
-
-            // Addition, subtraction, negation: A+B, A-B, A+s, A-s, s+A, s-A, -A
-            // (M1 + M2 = Core.add (M1, M2, M_dst))
-            Debug.Log (""m1+m2="" + (m1 + m2).dump());
-            // (M1 + s = Core.add (M1, s, M_dst))
-            Debug.Log (""m1+s="" + (m1 + s).dump());
-
-            // (M1 - M2 = Core.subtract (M1, M2, M_dst))
-            Debug.Log (""m1-m2="" + (m1 - m2).dump());
-            // (M1 - s = Core.subtract (M1, s, M_dst))
-            Debug.Log (""m1-s="" + (m1 - s).dump());
-
-            // (-M1 = Core.multiply (M1, Scalar.all (-1), M_dst))
-            Debug.Log (""-m1="" + (-m1).dump());
-
-
-            // Scaling: A*alpha A/alpha
-            // (M1 * 3 = Core.multiply (M1, Scalar.all (3), M_dst))
-            Debug.Log (""m1*alpha="" + (m1*alpha).dump());
-            // (M1 / 3 = Core.divide (M1, Scalar.all (3), M_dst))
-            Debug.Log (""m1/alpha="" + (m1/alpha).dump());
-
-
-            // Per-element multiplication and division: A.mul(B), A/B, alpha/A
-            // (M1.mul(M2) = M1.mul (M2))
-            Debug.Log (""m1.mul(m2)="" + (m1.mul(m2)).dump());
-
-            // (M1 / M2 = Core.divide (M1, M2, M_dst))
-            Debug.Log (""m1/m2="" + (m1 / m2).dump());
-
-            // (3 / M1 = Core.divide (new Mat (M1.size (), M1.type (), Scalar.all (3)), M1, M_dst))
-            Debug.Log (""alpha/m2="" + (alpha / m2).dump());
-
-
-            // Matrix multiplication: A*B
-            // (M1 * M2 = Core.gemm (M1, M2, 1, new Mat (), 0, M_dst))
-            Debug.Log (""m1*m2="" + (m1 * m2).dump());
-
-
-            // Bitwise logical operations: A logicop B, A logicop s, s logicop A, ~A, where logicop is one of :  &, |, ^.
-            // (M1 & M2 = Core.bitwise_and (M1, M2, M_dst))
-            Debug.Log (""m1&m2="" + (m1 & m2).dump());
-
-            // (M1 | M2 = Core.bitwise_or (M1, M2, M_dst))
-            Debug.Log (""m1|m2="" + (m1 | m2).dump());
-
-            // (M1 ^ M2 = Core.bitwise_xor (M1, M2, M_dst))
-            Debug.Log (""m1^m2="" + (m1 ^ m2).dump());
-
-            // (~M1 = Core.bitwise_not (M1, M_dst))
-            Debug.Log (""~m1="" + (~m1).dump());
-            ";
-
-            UpdateScrollRect();
-        }
-
         public void OnGetAndPutExampleButtonClick()
         {
             //
@@ -2108,7 +1927,7 @@ namespace OpenCVForUnityExample
             // mat.put() function sets a new value for a specific element in a Mat object.
             //
             // OpenCVForUnity has several faster and more efficient functions for accessing Mat elements.
-            // - Use the MatUtils.copyFromMat or copyToMat functions to copy through a data array in one go.
+            // - Use the OpenCVMatUtils.CopyFromMat or OpenCVMatUtils.CopyToMat functions to copy through a data array in one go.
             // - Use the mat.at function to access the element of ​​Mat.
             // - Use the mat.AsSpan function to access the dara memory area of ​​Mat.
             //
@@ -2116,7 +1935,7 @@ namespace OpenCVForUnityExample
             // channels=4 3x3 matrix
             Mat m1 = new Mat(3, 3, CvType.CV_8UC4, new Scalar(1, 2, 3, 4));
             Debug.Log("m1=" + m1.dump());
-            executionResultText.text = "m1=" + m1.dump() + "\n";
+            ExecutionResultText.text = "m1=" + m1.dump() + "\n";
 
 
             //
@@ -2126,13 +1945,13 @@ namespace OpenCVForUnityExample
             // get an element value.
             double[] m1_1_1 = m1.get(1, 1);
             Debug.Log("m1[1,1] (use mat.get())=" + m1_1_1[0] + ", " + m1_1_1[1] + ", " + m1_1_1[2] + ", " + m1_1_1[3]);
-            executionResultText.text += "m1[1,1] (use mat.get())=" + m1_1_1[0] + ", " + m1_1_1[1] + ", " + m1_1_1[2] + ", " + m1_1_1[3] + "\n";
+            ExecutionResultText.text += "m1[1,1] (use mat.get())=" + m1_1_1[0] + ", " + m1_1_1[1] + ", " + m1_1_1[2] + ", " + m1_1_1[3] + "\n";
 
 #if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
             // an even faster, more efficient, non-memory-allocated method using the mat.at function.
             Span<byte> m1_2_2 = m1.at<byte>(2, 2);
             Debug.Log("m1[2,2] (use mat.at())=" + m1_2_2[0] + ", " + m1_2_2[1] + ", " + m1_2_2[2] + ", " + m1_2_2[3]);
-            executionResultText.text += "m1[2,2](use mat.at())=" + m1_2_2[0] + ", " + m1_2_2[1] + ", " + m1_2_2[2] + ", " + m1_2_2[3] + "\n";
+            ExecutionResultText.text += "m1[2,2](use mat.at())=" + m1_2_2[0] + ", " + m1_2_2[1] + ", " + m1_2_2[2] + ", " + m1_2_2[3] + "\n";
 #endif
 
             // get an array of all element values.
@@ -2144,17 +1963,17 @@ namespace OpenCVForUnityExample
                 dump_str += i + ", ";
             }
             Debug.Log("m1_array (use mat.get())=" + dump_str);
-            executionResultText.text += "m1_array (use mat.get())=" + dump_str + "\n";
+            ExecutionResultText.text += "m1_array (use mat.get())=" + dump_str + "\n";
 
-            // a faster and more efficient method using the MatUtils.copyFromMat function.
-            MatUtils.copyFromMat(m1, m1_array);
+            // a faster and more efficient method using the OpenCVMatUtils.CopyFromMat function.
+            OpenCVMatUtils.CopyFromMat(m1, m1_array);
             dump_str = "";
             foreach (var i in m1_array)
             {
                 dump_str += i + ", ";
             }
-            Debug.Log("m1_array (use MatUtils.copyFromMat())=" + dump_str);
-            executionResultText.text += "m1_array (use MatUtils.copyFromMat())=" + dump_str + "\n";
+            Debug.Log("m1_array (use OpenCVMatUtils.CopyFromMat())=" + dump_str);
+            ExecutionResultText.text += "m1_array (use OpenCVMatUtils.CopyFromMat())=" + dump_str + "\n";
 
 #if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
             // an even faster, more efficient, non-memory-allocated method using the mat.AsSpan function.
@@ -2165,7 +1984,7 @@ namespace OpenCVForUnityExample
                 dump_str += m1_span[i] + ", ";
             }
             Debug.Log("m1_span (use mat.AsSpan())=" + dump_str);
-            executionResultText.text += "m1_span (use mat.AsSpan())=" + dump_str + "\n";
+            ExecutionResultText.text += "m1_span (use mat.AsSpan())=" + dump_str + "\n";
 #endif
 
 
@@ -2177,7 +1996,7 @@ namespace OpenCVForUnityExample
             Mat m2 = m1.clone();
             m2.put(1, 1, 5, 6, 7, 8);
             Debug.Log("m2 (use mat.put())=" + m2.dump());
-            executionResultText.text += "m2 (use mat.put())=" + m2.dump() + "\n";
+            ExecutionResultText.text += "m2 (use mat.put())=" + m2.dump() + "\n";
 
 #if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
             // an even faster, more efficient, non-memory-allocated method using the mat.at function.
@@ -2188,7 +2007,7 @@ namespace OpenCVForUnityExample
             m2_1_1[2] = 7;
             m2_1_1[3] = 8;
             Debug.Log("m2 (use mat.at())=" + m2.dump());
-            executionResultText.text += "m2 (use mat.at())=" + m2.dump() + "\n";
+            ExecutionResultText.text += "m2 (use mat.at())=" + m2.dump() + "\n";
 #endif
 
             // put an array of element values in a matrix.
@@ -2233,13 +2052,13 @@ namespace OpenCVForUnityExample
             };
             m2.put(0, 0, m2_arr);
             Debug.Log("m2 (use mat.put())=" + m2.dump());
-            executionResultText.text += "m2 (use mat.put())=" + m2.dump() + "\n";
+            ExecutionResultText.text += "m2 (use mat.put())=" + m2.dump() + "\n";
 
-            // a faster and more efficient method using the MatUtils.copyToMat function.
+            // a faster and more efficient method using the OpenCVMatUtils.CopyToMat function.
             m2.setTo(new Scalar(1, 2, 3, 4));// reset values
-            MatUtils.copyToMat(m2_arr, m2);
-            Debug.Log("m2 (use MatUtils.copyToMat())=" + m2.dump());
-            executionResultText.text += "m2 (use MatUtils.copyToMat())=" + m2.dump() + "\n";
+            OpenCVMatUtils.CopyToMat(m2_arr, m2);
+            Debug.Log("m2 (use OpenCVMatUtils.CopyToMat())=" + m2.dump());
+            ExecutionResultText.text += "m2 (use OpenCVMatUtils.CopyToMat())=" + m2.dump() + "\n";
 
 #if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
             // an even faster, more efficient, non-memory-allocated method using the mat.AsSpan function.
@@ -2247,15 +2066,15 @@ namespace OpenCVForUnityExample
             Span<byte> m2_span = m2.AsSpan<byte>();
             m2_arr.AsSpan<byte>().CopyTo(m2_span);
             Debug.Log("m2 (use mat.AsSpan())=" + m2.dump());
-            executionResultText.text += "m2 (use mat.AsSpan())=" + m2.dump() + "\n";
+            ExecutionResultText.text += "m2 (use mat.AsSpan())=" + m2.dump() + "\n";
 #endif
 
             // fill element values (setTo method)
             m2.setTo(new Scalar(100, 100, 100, 100));
             Debug.Log("m2 (use mat.setTo())=" + m2.dump());
-            executionResultText.text += "m2 (use mat.setTo())=" + m2.dump() + "\n";
+            ExecutionResultText.text += "m2 (use mat.setTo())=" + m2.dump() + "\n";
 
-            exampleCodeText.text = @"
+            ExampleCodeText.text = @"
             //
             // get and put example
             //
@@ -2263,7 +2082,7 @@ namespace OpenCVForUnityExample
             // mat.put() function sets a new value for a specific element in a Mat object.
             //
             // OpenCVForUnity has several faster and more efficient functions for accessing Mat elements.
-            // - Use the MatUtils.copyFromMat or copyToMat functions to copy through a data array in one go.
+            // - Use the OpenCVMatUtils.CopyFromMat or OpenCVMatUtils.CopyToMat functions to copy through a data array in one go.
             // - Use the mat.at function to access the element of ​​Mat.
             // - Use the mat.AsSpan function to access the data memory area of ​​Mat.
             //
@@ -2297,14 +2116,14 @@ namespace OpenCVForUnityExample
             }
             Debug.Log(""m1_array (use mat.get())="" + dump_str);
 
-            // a faster and more efficient method using the MatUtils.copyFromMat function.
-            MatUtils.copyFromMat(m1, m1_array);
+            // a faster and more efficient method using the OpenCVMatUtils.CopyFromMat function.
+            OpenCVMatUtils.CopyFromMat(m1, m1_array);
             dump_str = "";
             foreach (var i in m1_array)
             {
                 dump_str += i + "", "";
             }
-            Debug.Log(""m1_array (use MatUtils.copyFromMat())="" + dump_str);
+            Debug.Log(""m1_array (use OpenCVMatUtils.CopyFromMat())="" + dump_str);
 
 #if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
             // an even faster, more efficient, non-memory-allocated method using the mat.AsSpan function.
@@ -2381,10 +2200,10 @@ namespace OpenCVForUnityExample
             m2.put(0, 0, m2_arr);
             Debug.Log(""m2 (use mat.put())="" + m2.dump());
 
-            // a faster and more efficient method using the MatUtils.copyToMat function.
+            // a faster and more efficient method using the OpenCVMatUtils.CopyToMat function.
             m2.setTo(new Scalar(1, 2, 3, 4));// reset values
-            MatUtils.copyToMat(m2_arr, m2);
-            Debug.Log(""m2 (use MatUtils.copyToMat())="" + m2.dump());
+            OpenCVMatUtils.CopyToMat(m2_arr, m2);
+            Debug.Log(""m2 (use OpenCVMatUtils.CopyToMat())="" + m2.dump());
 
 #if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
             // an even faster, more efficient, non-memory-allocated method using the mat.AsSpan function.
@@ -2410,7 +2229,7 @@ namespace OpenCVForUnityExample
             // How access pixel values in an OpenCV Mat.
             // - 1. Use get and put method
             // - 2. Use mat.at method
-            // - 3. Use MatUtils.copyFromMat and MatUtils.copyToMat method
+            // - 3. Use OpenCVMatUtils.CopyFromMat and OpenCVMatUtils.CopyToMat method
             // - 4. Use mat.AsSpan method
             // - 5. Use pointer access (unsafe)
             //
@@ -2448,7 +2267,7 @@ namespace OpenCVForUnityExample
             watch.Stop();
 
             Debug.Log("1. Use get and put method. time: " + watch.ElapsedMilliseconds + " ms");
-            executionResultText.text = "1. Use get and put method. time: " + watch.ElapsedMilliseconds + " ms" + "\n";
+            ExecutionResultText.text = "1. Use get and put method. time: " + watch.ElapsedMilliseconds + " ms" + "\n";
 
 #if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
 
@@ -2478,12 +2297,12 @@ namespace OpenCVForUnityExample
             watch.Stop();
 
             Debug.Log("2. Use mat.at method. time: " + watch.ElapsedMilliseconds + " ms");
-            executionResultText.text += "2. Use mat.at method. time: " + watch.ElapsedMilliseconds + " ms" + "\n";
+            ExecutionResultText.text += "2. Use mat.at method. time: " + watch.ElapsedMilliseconds + " ms" + "\n";
 
 #endif
 
             //
-            // 3. Use MatUtils.copyFromMat and MatUtils.copyToMat method
+            // 3. Use OpenCVMatUtils.CopyFromMat and OpenCVMatUtils.CopyToMat method
             //
             imgMat.setTo(new Scalar(0, 0, 0, 255));
 
@@ -2492,7 +2311,7 @@ namespace OpenCVForUnityExample
 
             // copies an OpenCV Mat data to a pixel data Array.
             byte[] img_array = new byte[imgMat.total() * imgMat.channels()];
-            MatUtils.copyFromMat(imgMat, img_array);
+            OpenCVMatUtils.CopyFromMat(imgMat, img_array);
 
             long step0 = imgMat.step1(0);
             long step1 = imgMat.step1(1);
@@ -2513,12 +2332,12 @@ namespace OpenCVForUnityExample
                 }
             }
             // copies a pixel data Array to an OpenCV Mat data.
-            MatUtils.copyToMat(img_array, imgMat);
+            OpenCVMatUtils.CopyToMat(img_array, imgMat);
 
             watch.Stop();
 
-            Debug.Log("3. Use MatUtils.copyFromMat and MatUtils.copyToMat method. time: " + watch.ElapsedMilliseconds + " ms");
-            executionResultText.text += "3. Use MatUtils.copyFromMat and MatUtils.copyToMat method. time: " + watch.ElapsedMilliseconds + " ms" + "\n";
+            Debug.Log("3. Use OpenCVMatUtils.CopyFromMat and OpenCVMatUtils.CopyToMat method. time: " + watch.ElapsedMilliseconds + " ms");
+            ExecutionResultText.text += "3. Use OpenCVMatUtils.CopyFromMat and OpenCVMatUtils.CopyToMat method. time: " + watch.ElapsedMilliseconds + " ms" + "\n";
 
 
 #if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
@@ -2556,7 +2375,7 @@ namespace OpenCVForUnityExample
             watch.Stop();
 
             Debug.Log("4. Use mat.AsSpan method. time: " + watch.ElapsedMilliseconds + " ms");
-            executionResultText.text += "4. Use mat.AsSpan method. time: " + watch.ElapsedMilliseconds + " ms" + "\n";
+            ExecutionResultText.text += "4. Use mat.AsSpan method. time: " + watch.ElapsedMilliseconds + " ms" + "\n";
 
 #endif
 
@@ -2598,12 +2417,12 @@ namespace OpenCVForUnityExample
             watch.Stop();
 
             Debug.Log("5. Use pointer access. time: " + watch.ElapsedMilliseconds + " ms");
-            executionResultText.text += "5. Use pointer access. time: " + watch.ElapsedMilliseconds + " ms" + "\n";
+            ExecutionResultText.text += "5. Use pointer access. time: " + watch.ElapsedMilliseconds + " ms" + "\n";
 
 #endif
 
 
-            exampleCodeText.text = @"
+            ExampleCodeText.text = @"
             //
             // accessing pixel values example (unsafe)
             //
@@ -2676,7 +2495,7 @@ namespace OpenCVForUnityExample
 #endif
 
             //
-            // 3. Use MatUtils.copyFromMat and MatUtils.copyToMat method
+            // 3. Use OpenCVMatUtils.CopyFromMat and OpenCVMatUtils.CopyToMat method
             //
             imgMat.setTo(new Scalar(0, 0, 0, 255));
 
@@ -2685,7 +2504,7 @@ namespace OpenCVForUnityExample
 
             // copies an OpenCV Mat data to a pixel data Array.
             byte[] img_array = new byte[imgMat.total() * imgMat.channels()];
-            MatUtils.copyFromMat(imgMat, img_array);
+            OpenCVMatUtils.CopyFromMat(imgMat, img_array);
 
             long step0 = imgMat.step1(0);
             long step1 = imgMat.step1(1);
@@ -2706,11 +2525,11 @@ namespace OpenCVForUnityExample
                 }
             }
             // copies a pixel data Array to an OpenCV Mat data.
-            MatUtils.copyToMat(img_array, imgMat);
+            OpenCVMatUtils.CopyToMat(img_array, imgMat);
 
             watch.Stop();
 
-            Debug.Log(""3. Use MatUtils.copyFromMat and MatUtils.copyToMat method. time: "" + watch.ElapsedMilliseconds + "" ms"");
+            Debug.Log(""3. Use OpenCVMatUtils.CopyFromMat and OpenCVMatUtils.CopyToMat method. time: "" + watch.ElapsedMilliseconds + "" ms"");
 
 
 #if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
