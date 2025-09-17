@@ -1,34 +1,33 @@
-OpenCVForUnity Examples
-====================
+# OpenCV for Unity
 
-Overview
------
-OpenCVForUnity is required to run example code of this repository.  
-[https://assetstore.unity.com/packages/tools/integration/opencv-for-unity-21088](https://assetstore.unity.com/packages/tools/integration/opencv-for-unity-21088?aid=1011l4ehR)  
+## Overview
 
-[![](http://img.youtube.com/vi/88ftWSdIhwc/0.jpg)](https://www.youtube.com/watch?v=88ftWSdIhwc)
+**OpenCV for Unity** is required to run example code of this repository.
 
-Setup Guide
------
-[![](http://img.youtube.com/vi/ZdyQ58rBkyo/0.jpg)](https://www.youtube.com/watch?v=ZdyQ58rBkyo)
+[OpenCV for Unity on Unity Asset Store](https://assetstore.unity.com/packages/tools/integration/opencv-for-unity-21088?aid=1011l4ehR)
 
-Demo
------
-- WebGL <https://enoxsoftware.github.io/OpenCVForUnity/webgl_example/index.html>
-- WebGL (simd) <https://enoxsoftware.github.io/OpenCVForUnity/webgl_example_simd/index.html>
-- WebGL (simd, threads) <https://enoxsoftware.github.io/OpenCVForUnity/webgl_example_simd_threads/index.html>
-- Android
-<https://github.com/EnoxSoftware/OpenCVForUnity/releases>
+[![OpenCV for Unity Overview Video](http://img.youtube.com/vi/88ftWSdIhwc/0.jpg)](https://www.youtube.com/watch?v=88ftWSdIhwc)
 
-Manual
------
+## Setup Guide
+
+[![OpenCV for Unity Setup Guide Video](http://img.youtube.com/vi/ZdyQ58rBkyo/0.jpg)](https://www.youtube.com/watch?v=ZdyQ58rBkyo)
+
+## Demo
+
+- **Web**: [Play Demo](https://enoxsoftware.github.io/OpenCVForUnity/webgl_example/index.html)
+- **Web** (simd): [Play Demo](https://enoxsoftware.github.io/OpenCVForUnity/webgl_example_simd/index.html)
+- **Web** (simd, threads): [Play Demo](https://enoxsoftware.github.io/OpenCVForUnity/webgl_example_simd_threads/index.html)
+- **Android**: [Download APK](https://github.com/EnoxSoftware/OpenCVForUnity/releases)
+
+## Manual
+
 [ReadMe.pdf](/Assets/OpenCVForUnity/ReadMe.pdf)
 
-API Reference
------
-<https://enoxsoftware.github.io/OpenCVForUnity/doc/html/annotated.html>
+## API Reference
 
-Official Site
------
-<https://enoxsoftware.com/opencvforunity/>
+[API Documentation](https://enoxsoftware.github.io/OpenCVForUnity/doc/html/annotated.html)
+
+## Official Site
+
+[OpenCVForUnity Official Website](https://enoxsoftware.com/opencvforunity/)
 
