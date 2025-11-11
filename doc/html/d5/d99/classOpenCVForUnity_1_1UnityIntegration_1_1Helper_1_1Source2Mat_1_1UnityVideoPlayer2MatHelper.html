@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.0</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.1</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.12.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -215,11 +215,14 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
+<tr class="memitem:a6893107dbc2d1abfb967b861e7ca85ae" id="r_a6893107dbc2d1abfb967b861e7ca85ae"><td class="memItemLeft" align="right" valign="top">virtual IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6893107dbc2d1abfb967b861e7ca85ae">_GetFirstFrameCoroutine</a> ()</td></tr>
+<tr class="memdesc:a6893107dbc2d1abfb967b861e7ca85ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the first frame after starting video playback.  <br /></td></tr>
+<tr class="separator:a6893107dbc2d1abfb967b861e7ca85ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56027073e33e3787ce6b762777a3df00" id="r_a56027073e33e3787ce6b762777a3df00"><td class="memItemLeft" align="right" valign="top">virtual IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a56027073e33e3787ce6b762777a3df00">_Initialize</a> ()</td></tr>
 <tr class="memdesc:a56027073e33e3787ce6b762777a3df00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize this instance by coroutine.  <br /></td></tr>
 <tr class="separator:a56027073e33e3787ce6b762777a3df00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f6605b50b05a8983a7c957ca72777b5" id="r_a0f6605b50b05a8983a7c957ca72777b5"><td class="memItemLeft" align="right" valign="top">virtual IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0f6605b50b05a8983a7c957ca72777b5">_WaitForEndOfFrameCoroutine</a> ()</td></tr>
-<tr class="separator:a0f6605b50b05a8983a7c957ca72777b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfa7dabaeaadd180c7ace22659bb0dbc" id="r_abfa7dabaeaadd180c7ace22659bb0dbc"><td class="memItemLeft" align="right" valign="top">virtual IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abfa7dabaeaadd180c7ace22659bb0dbc">_WaitForFrameEndCoroutine</a> ()</td></tr>
+<tr class="separator:abfa7dabaeaadd180c7ace22659bb0dbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae80ec7018b00d9c831a85578177a9edf" id="r_ae80ec7018b00d9c831a85578177a9edf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae80ec7018b00d9c831a85578177a9edf">CancelInitCoroutine</a> ()</td></tr>
 <tr class="memdesc:ae80ec7018b00d9c831a85578177a9edf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel Init Coroutine.  <br /></td></tr>
 <tr class="separator:ae80ec7018b00d9c831a85578177a9edf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -230,7 +233,10 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:aee4a6ddb3c19ae9248cc6d8f28bc80b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4ea986a766defe25c1faeb1636e1548" id="r_ad4ea986a766defe25c1faeb1636e1548"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4ea986a766defe25c1faeb1636e1548">FrameReady</a> (VideoPlayer vp, long <a class="el" href="#a366f7436caa485ac5caa32feead29158">frameIndex</a>)</td></tr>
 <tr class="separator:ad4ea986a766defe25c1faeb1636e1548"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5039dc3e9fdc55e8fdc29e3d946ab1b4" id="r_a5039dc3e9fdc55e8fdc29e3d946ab1b4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5039dc3e9fdc55e8fdc29e3d946ab1b4">LoopPointReached</a> (VideoPlayer vp)</td></tr>
+<tr class="separator:a5039dc3e9fdc55e8fdc29e3d946ab1b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3fd0f3f4658ba7c55882e0eee010fd02" id="r_a3fd0f3f4658ba7c55882e0eee010fd02"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3fd0f3f4658ba7c55882e0eee010fd02">OnCompleteReadback</a> (AsyncGPUReadbackRequest request, long <a class="el" href="#a366f7436caa485ac5caa32feead29158">frameIndex</a>)</td></tr>
+<tr class="memdesc:a3fd0f3f4658ba7c55882e0eee010fd02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread-safe callback method for completed AsyncGPUReadbackRequest. This method may be called from a background thread, so it stores the request for direct data access in the main thread.  <br /></td></tr>
 <tr class="separator:a3fd0f3f4658ba7c55882e0eee010fd02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27991c9fa5224e5ae6a06ff6a150497d" id="r_a27991c9fa5224e5ae6a06ff6a150497d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a27991c9fa5224e5ae6a06ff6a150497d">OnDestroy</a> ()</td></tr>
 <tr class="memdesc:a27991c9fa5224e5ae6a06ff6a150497d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raises the destroy event.  <br /></td></tr>
@@ -266,7 +272,7 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:ac3759bfa90274f9c4c704b843c9954de" id="r_ac3759bfa90274f9c4c704b843c9954de"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac3759bfa90274f9c4c704b843c9954de">_timeoutFrameCount</a> = 1500</td></tr>
 <tr class="separator:ac3759bfa90274f9c4c704b843c9954de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a631a4cc7fd653928995de953d1ec5806" id="r_a631a4cc7fd653928995de953d1ec5806"><td class="memItemLeft" align="right" valign="top">AsyncGPUReadbackRequest&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a631a4cc7fd653928995de953d1ec5806">asyncGPUReadbackRequestBuffer</a></td></tr>
-<tr class="memdesc:a631a4cc7fd653928995de953d1ec5806"><td class="mdescLeft">&#160;</td><td class="mdescRight">asyncGPUReadbackRequestBuffer  <br /></td></tr>
+<tr class="memdesc:a631a4cc7fd653928995de953d1ec5806"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current AsyncGPUReadbackRequest for direct data access.  <br /></td></tr>
 <tr class="separator:a631a4cc7fd653928995de953d1ec5806"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a357e85891a9756bf4339989c55b1c579" id="r_a357e85891a9756bf4339989c55b1c579"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a357e85891a9756bf4339989c55b1c579">autoPlayAfterInitialize</a></td></tr>
 <tr class="memdesc:a357e85891a9756bf4339989c55b1c579"><td class="mdescLeft">&#160;</td><td class="mdescRight">If set to true play after completion of initialization.  <br /></td></tr>
@@ -301,6 +307,15 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:ad00bfc4a08ed59883278234104c48f8a" id="r_ad00bfc4a08ed59883278234104c48f8a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad00bfc4a08ed59883278234104c48f8a">isInitWaiting</a> = false</td></tr>
 <tr class="memdesc:ad00bfc4a08ed59883278234104c48f8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether this instance is waiting for initialization to complete.  <br /></td></tr>
 <tr class="separator:ad00bfc4a08ed59883278234104c48f8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f100205bd229bf138c59258f388c280" id="r_a2f100205bd229bf138c59258f388c280"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f100205bd229bf138c59258f388c280">isPaused</a> = false</td></tr>
+<tr class="memdesc:a2f100205bd229bf138c59258f388c280"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal paused state flag to track video pause status immediately.  <br /></td></tr>
+<tr class="separator:a2f100205bd229bf138c59258f388c280"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f371d12c7154edcfb4d473b1f491b77" id="r_a7f371d12c7154edcfb4d473b1f491b77"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f371d12c7154edcfb4d473b1f491b77">isPlaying</a> = false</td></tr>
+<tr class="memdesc:a7f371d12c7154edcfb4d473b1f491b77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal playing state flag to track video playback status immediately.  <br /></td></tr>
+<tr class="separator:a7f371d12c7154edcfb4d473b1f491b77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc85d65f0eae004998622060c8a5ec1c" id="r_abc85d65f0eae004998622060c8a5ec1c"><td class="memItemLeft" align="right" valign="top">RenderTexture&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc85d65f0eae004998622060c8a5ec1c">renderTexture</a></td></tr>
+<tr class="memdesc:abc85d65f0eae004998622060c8a5ec1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The RenderTexture for video rendering when using AsyncGPUReadback.  <br /></td></tr>
+<tr class="separator:abc85d65f0eae004998622060c8a5ec1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd4569a8bac630e190387f1b2a57dc9d" id="r_acd4569a8bac630e190387f1b2a57dc9d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acd4569a8bac630e190387f1b2a57dc9d">rotatedFrameMat</a></td></tr>
 <tr class="memdesc:acd4569a8bac630e190387f1b2a57dc9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The rotated frame mat.  <br /></td></tr>
 <tr class="separator:acd4569a8bac630e190387f1b2a57dc9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -361,6 +376,34 @@ Properties</h2></td></tr>
 <p><b>Note:</b> By setting outputColorFormat to RGBA processing that does not include extra color conversion is performed. </p>
 <p>Attach this component to a GameObject and call <code><a class="el" href="#a5ba324b3b4b7b8a18fe12f9ee717d615" title="Get the mat of the current frame.">GetMat()</a></code> to retrieve the current video frame in <code>Mat</code> format. The helper class manages video file loading, playback control, and frame updates based on the video's playback rate. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6893107dbc2d1abfb967b861e7ca85ae" name="a6893107dbc2d1abfb967b861e7ca85ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6893107dbc2d1abfb967b861e7ca85ae">&#9670;&#160;</a></span>_GetFirstFrameCoroutine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual IEnumerator OpenCVForUnity.UnityIntegration.Helper.Source2Mat.UnityVideoPlayer2MatHelper._GetFirstFrameCoroutine </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the first frame after starting video playback. </p>
+<dl class="section return"><dt>Returns</dt><dd>IEnumerator for coroutine</dd></dl>
+
+</div>
+</div>
 <a id="a56027073e33e3787ce6b762777a3df00" name="a56027073e33e3787ce6b762777a3df00"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a56027073e33e3787ce6b762777a3df00">&#9670;&#160;</a></span>_Initialize()</h2>
 
@@ -388,8 +431,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a0f6605b50b05a8983a7c957ca72777b5" name="a0f6605b50b05a8983a7c957ca72777b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f6605b50b05a8983a7c957ca72777b5">&#9670;&#160;</a></span>_WaitForEndOfFrameCoroutine()</h2>
+<a id="abfa7dabaeaadd180c7ace22659bb0dbc" name="abfa7dabaeaadd180c7ace22659bb0dbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfa7dabaeaadd180c7ace22659bb0dbc">&#9670;&#160;</a></span>_WaitForFrameEndCoroutine()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -398,7 +441,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual IEnumerator OpenCVForUnity.UnityIntegration.Helper.Source2Mat.UnityVideoPlayer2MatHelper._WaitForEndOfFrameCoroutine </td>
+          <td class="memname">virtual IEnumerator OpenCVForUnity.UnityIntegration.Helper.Source2Mat.UnityVideoPlayer2MatHelper._WaitForFrameEndCoroutine </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -1047,6 +1090,31 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="a5039dc3e9fdc55e8fdc29e3d946ab1b4" name="a5039dc3e9fdc55e8fdc29e3d946ab1b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5039dc3e9fdc55e8fdc29e3d946ab1b4">&#9670;&#160;</a></span>LoopPointReached()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenCVForUnity.UnityIntegration.Helper.Source2Mat.UnityVideoPlayer2MatHelper.LoopPointReached </td>
+          <td>(</td>
+          <td class="paramtype">VideoPlayer</td>          <td class="paramname"><span class="paramname"><em>vp</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a3fd0f3f4658ba7c55882e0eee010fd02" name="a3fd0f3f4658ba7c55882e0eee010fd02"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3fd0f3f4658ba7c55882e0eee010fd02">&#9670;&#160;</a></span>OnCompleteReadback()</h2>
 
@@ -1073,6 +1141,15 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Thread-safe callback method for completed AsyncGPUReadbackRequest. This method may be called from a background thread, so it stores the request for direct data access in the main thread. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">request</td><td>The completed AsyncGPUReadbackRequest.</td></tr>
+    <tr><td class="paramname">frameIndex</td><td>The frame index.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1578,7 +1655,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>asyncGPUReadbackRequestBuffer </p>
+<p>Current AsyncGPUReadbackRequest for direct data access. </p>
 
 </div>
 </div>
@@ -1843,6 +1920,78 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Indicates whether this instance is waiting for initialization to complete. </p>
+
+</div>
+</div>
+<a id="a2f100205bd229bf138c59258f388c280" name="a2f100205bd229bf138c59258f388c280"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f100205bd229bf138c59258f388c280">&#9670;&#160;</a></span>isPaused</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityIntegration.Helper.Source2Mat.UnityVideoPlayer2MatHelper.isPaused = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Internal paused state flag to track video pause status immediately. </p>
+
+</div>
+</div>
+<a id="a7f371d12c7154edcfb4d473b1f491b77" name="a7f371d12c7154edcfb4d473b1f491b77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f371d12c7154edcfb4d473b1f491b77">&#9670;&#160;</a></span>isPlaying</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityIntegration.Helper.Source2Mat.UnityVideoPlayer2MatHelper.isPlaying = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Internal playing state flag to track video playback status immediately. </p>
+
+</div>
+</div>
+<a id="abc85d65f0eae004998622060c8a5ec1c" name="abc85d65f0eae004998622060c8a5ec1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc85d65f0eae004998622060c8a5ec1c">&#9670;&#160;</a></span>renderTexture</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">RenderTexture OpenCVForUnity.UnityIntegration.Helper.Source2Mat.UnityVideoPlayer2MatHelper.renderTexture</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The RenderTexture for video rendering when using AsyncGPUReadback. </p>
 
 </div>
 </div>

@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.0</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.1</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.12.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -310,6 +310,12 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a11aaf376b427868b7586f19c65824950" id="r_a11aaf376b427868b7586f19c65824950"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11aaf376b427868b7586f19c65824950">isInitWaiting</a> = false</td></tr>
 <tr class="memdesc:a11aaf376b427868b7586f19c65824950"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether this instance is waiting for initialization to complete.  <br /></td></tr>
 <tr class="separator:a11aaf376b427868b7586f19c65824950"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90ee044753c1e57ecf30d267cbf0e022" id="r_a90ee044753c1e57ecf30d267cbf0e022"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a90ee044753c1e57ecf30d267cbf0e022">isPaused</a> = false</td></tr>
+<tr class="memdesc:a90ee044753c1e57ecf30d267cbf0e022"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal paused state flag to track camera pause status immediately.  <br /></td></tr>
+<tr class="separator:a90ee044753c1e57ecf30d267cbf0e022"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6cd63b77eb4439abe1f2755feec7bb2" id="r_ad6cd63b77eb4439abe1f2755feec7bb2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6cd63b77eb4439abe1f2755feec7bb2">isPlaying</a> = false</td></tr>
+<tr class="memdesc:ad6cd63b77eb4439abe1f2755feec7bb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal playing state flag to track camera playback status immediately.  <br /></td></tr>
+<tr class="separator:ad6cd63b77eb4439abe1f2755feec7bb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a8a5775188759f1ccd82e986d0a685d" id="r_a6a8a5775188759f1ccd82e986d0a685d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a8a5775188759f1ccd82e986d0a685d">isScreenOrientationCorrect</a></td></tr>
 <tr class="memdesc:a6a8a5775188759f1ccd82e986d0a685d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is ScreenOrientation the correct value?  <br /></td></tr>
 <tr class="separator:a6a8a5775188759f1ccd82e986d0a685d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -387,7 +393,8 @@ Properties</h2></td></tr>
 <div class="textblock"><p>A helper component class for obtaining camera frames from WebCamTexture and converting them to OpenCV <code>Mat</code> format in real-time. </p>
 <p>The <code><a class="el" href="../../d1/d42/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1WebCamTexture2MatHelper.html" title="A helper component class for obtaining camera frames from WebCamTexture and converting them to OpenCV...">WebCamTexture2MatHelper</a></code> class captures video frames from a device's camera using WebCamTexture and converts each frame to an OpenCV <code>Mat</code> object every frame. This component handles camera orientation, rotation, and necessary transformations to ensure the <code>Mat</code> output aligns correctly with the device's display orientation.</p>
 <p>This component is particularly useful for image processing tasks in Unity, such as computer vision applications, where real-time camera input in <code>Mat</code> format is required. It enables seamless integration of OpenCV-based image processing algorithms with Unity's camera input.</p>
-<p><b>Note:</b> By setting outputColorFormat to RGBA, processing that does not include extra color conversion is performed. </p>
+<p><b>Note:</b> By setting outputColorFormat to RGBA, processing that does not include extra color conversion is performed.</p>
+<p><b>WebGPU Limitation:</b> This helper class is not compatible with WebGPU due to synchronous pixel readback limitations. Please use <a class="el" href="../../df/d9d/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1WebCamTexture2MatAsyncGPUHelper.html" title="A helper component class for efficiently obtaining camera frames from WebCamTexture and converting th...">WebCamTexture2MatAsyncGPUHelper</a> for WebGPU projects. </p>
 <p>Attach this component to a GameObject and call <code><a class="el" href="#a02176b3081525a92acae6f488d352d37" title="Get the mat of the current frame.">GetMat()</a></code> to retrieve the latest camera frame in <code>Mat</code> format. The helper class manages camera start/stop operations and frame updates internally. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="af8d68d52aee2b312907b979a3b10e406" name="af8d68d52aee2b312907b979a3b10e406"></a>
@@ -2106,6 +2113,54 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Indicates whether this instance is waiting for initialization to complete. </p>
+
+</div>
+</div>
+<a id="a90ee044753c1e57ecf30d267cbf0e022" name="a90ee044753c1e57ecf30d267cbf0e022"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90ee044753c1e57ecf30d267cbf0e022">&#9670;&#160;</a></span>isPaused</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityIntegration.Helper.Source2Mat.WebCamTexture2MatHelper.isPaused = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Internal paused state flag to track camera pause status immediately. </p>
+
+</div>
+</div>
+<a id="ad6cd63b77eb4439abe1f2755feec7bb2" name="ad6cd63b77eb4439abe1f2755feec7bb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6cd63b77eb4439abe1f2755feec7bb2">&#9670;&#160;</a></span>isPlaying</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityIntegration.Helper.Source2Mat.WebCamTexture2MatHelper.isPlaying = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Internal playing state flag to track camera playback status immediately. </p>
 
 </div>
 </div>

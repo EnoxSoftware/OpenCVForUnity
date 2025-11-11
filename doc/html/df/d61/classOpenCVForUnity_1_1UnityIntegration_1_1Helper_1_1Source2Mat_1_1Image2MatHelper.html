@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.0</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.1</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.12.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -200,8 +200,8 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a780cdd30806d1890a47bc3fafa51878b" id="r_a780cdd30806d1890a47bc3fafa51878b"><td class="memItemLeft" align="right" valign="top">virtual IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a780cdd30806d1890a47bc3fafa51878b">_Initialize</a> ()</td></tr>
 <tr class="memdesc:a780cdd30806d1890a47bc3fafa51878b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize this instance by coroutine.  <br /></td></tr>
 <tr class="separator:a780cdd30806d1890a47bc3fafa51878b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22f4917b442622cfa0a4bc5f2856ade7" id="r_a22f4917b442622cfa0a4bc5f2856ade7"><td class="memItemLeft" align="right" valign="top">virtual IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a22f4917b442622cfa0a4bc5f2856ade7">_WaitForEndOfFrameCoroutine</a> ()</td></tr>
-<tr class="separator:a22f4917b442622cfa0a4bc5f2856ade7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a839c7d20c2a0cb6228e057bf0589428a" id="r_a839c7d20c2a0cb6228e057bf0589428a"><td class="memItemLeft" align="right" valign="top">virtual IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a839c7d20c2a0cb6228e057bf0589428a">_WaitForFrameEndCoroutine</a> ()</td></tr>
+<tr class="separator:a839c7d20c2a0cb6228e057bf0589428a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70d2f607e395177d27ddabf0dbeaeb15" id="r_a70d2f607e395177d27ddabf0dbeaeb15"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70d2f607e395177d27ddabf0dbeaeb15">CallReadFrame</a> ()</td></tr>
 <tr class="separator:a70d2f607e395177d27ddabf0dbeaeb15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a528066e023fcee66963ceef16e8379d6" id="r_a528066e023fcee66963ceef16e8379d6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a528066e023fcee66963ceef16e8379d6">CancelInitCoroutine</a> ()</td></tr>
@@ -281,6 +281,9 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a36b31b5ceb1e3242d29b8fdc105d92f2" id="r_a36b31b5ceb1e3242d29b8fdc105d92f2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a36b31b5ceb1e3242d29b8fdc105d92f2">isInitWaiting</a> = false</td></tr>
 <tr class="memdesc:a36b31b5ceb1e3242d29b8fdc105d92f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether this instance is waiting for initialization to complete.  <br /></td></tr>
 <tr class="separator:a36b31b5ceb1e3242d29b8fdc105d92f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f273dc6fc8e758f62f875de8e007cc1" id="r_a3f273dc6fc8e758f62f875de8e007cc1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f273dc6fc8e758f62f875de8e007cc1">isPaused</a> = false</td></tr>
+<tr class="memdesc:a3f273dc6fc8e758f62f875de8e007cc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal paused state flag to track image pause status immediately.  <br /></td></tr>
+<tr class="separator:a3f273dc6fc8e758f62f875de8e007cc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a882caa98634ab901962427cb2b6c9dc0" id="r_a882caa98634ab901962427cb2b6c9dc0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a882caa98634ab901962427cb2b6c9dc0">isPlaying</a> = false</td></tr>
 <tr class="memdesc:a882caa98634ab901962427cb2b6c9dc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">isPlaying  <br /></td></tr>
 <tr class="separator:a882caa98634ab901962427cb2b6c9dc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -368,8 +371,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a22f4917b442622cfa0a4bc5f2856ade7" name="a22f4917b442622cfa0a4bc5f2856ade7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22f4917b442622cfa0a4bc5f2856ade7">&#9670;&#160;</a></span>_WaitForEndOfFrameCoroutine()</h2>
+<a id="a839c7d20c2a0cb6228e057bf0589428a" name="a839c7d20c2a0cb6228e057bf0589428a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a839c7d20c2a0cb6228e057bf0589428a">&#9670;&#160;</a></span>_WaitForFrameEndCoroutine()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -378,7 +381,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual IEnumerator OpenCVForUnity.UnityIntegration.Helper.Source2Mat.Image2MatHelper._WaitForEndOfFrameCoroutine </td>
+          <td class="memname">virtual IEnumerator OpenCVForUnity.UnityIntegration.Helper.Source2Mat.Image2MatHelper._WaitForFrameEndCoroutine </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -1616,6 +1619,30 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Indicates whether this instance is waiting for initialization to complete. </p>
+
+</div>
+</div>
+<a id="a3f273dc6fc8e758f62f875de8e007cc1" name="a3f273dc6fc8e758f62f875de8e007cc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f273dc6fc8e758f62f875de8e007cc1">&#9670;&#160;</a></span>isPaused</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityIntegration.Helper.Source2Mat.Image2MatHelper.isPaused = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Internal paused state flag to track image pause status immediately. </p>
 
 </div>
 </div>

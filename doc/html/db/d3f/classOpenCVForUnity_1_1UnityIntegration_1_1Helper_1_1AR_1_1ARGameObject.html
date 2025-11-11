@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.0</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.1</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.12.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -163,41 +163,49 @@ Public Types</h2></td></tr>
 &#160;&#160;<a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674ab1f5d8024e63f0639a89d6527993f1ed">SOLVEPNP_IPPE_SQUARE</a> = Calib3d.SOLVEPNP_IPPE_SQUARE
 , <br />
 &#160;&#160;<a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674a020ead37d3c7f5198abc50ddcb9430c7">SOLVEPNP_SQPNP</a> = Calib3d.SOLVEPNP_SQPNP
-, <br />
-&#160;&#160;<a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674a5164802673f434c51ff8d9e9209485a1">SOLVEPNP_ITERATIVE_THEN_EPNP</a>
 <br />
  }</td></tr>
 <tr class="memdesc:ae0abc6fe2886c5007ffd6501e0e72674"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum to set flags for solvePnP.  <a href="#ae0abc6fe2886c5007ffd6501e0e72674">More...</a><br /></td></tr>
 <tr class="separator:ae0abc6fe2886c5007ffd6501e0e72674"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff423badcb72c92c11a33bc1ee28fc70" id="r_aff423badcb72c92c11a33bc1ee28fc70"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70">SolvePnPRefinementMethod</a> { <br />
+&#160;&#160;<a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <br />
+&#160;&#160;<a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70aa1eb8e4086abef7d0f6253724905ec16">solvePnPRefineLM</a>
+, <br />
+&#160;&#160;<a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70af0f8e1649f8b14168f10266bb7d7532a">solvePnPRefineVVS</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:aff423badcb72c92c11a33bc1ee28fc70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum to set refinement method for solvePnP optimization.  <a href="#aff423badcb72c92c11a33bc1ee28fc70">More...</a><br /></td></tr>
+<tr class="separator:aff423badcb72c92c11a33bc1ee28fc70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a953a49d3aef51e8c555e7ad9f683d7ac" id="r_a953a49d3aef51e8c555e7ad9f683d7ac"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac">CalculateARMatrix</a> (<a class="el" href="../../d0/dee/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARHelper.html">ARHelper</a> arHelper)</td></tr>
-<tr class="memdesc:a953a49d3aef51e8c555e7ad9f683d7ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate ARMatrix from set parameters.  <br /></td></tr>
+<tr class="memdesc:a953a49d3aef51e8c555e7ad9f683d7ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the <a class="el" href="#a4c1a91b254140c471e0f1f59fbde7bdb" title="Update the Transform of UpdateTarget using ARMatrix. This method uses the ARMatrix calculated by the ...">UpdateTransform()</a> method. This method should be called before <a class="el" href="#a4c1a91b254140c471e0f1f59fbde7bdb" title="Update the Transform of UpdateTarget using ARMatrix. This method uses the ARMatrix calculated by the ...">UpdateTransform()</a>.  <br /></td></tr>
 <tr class="separator:a953a49d3aef51e8c555e7ad9f683d7ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad581e51c798c2d2a23e4446885661ff5" id="r_ad581e51c798c2d2a23e4446885661ff5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad581e51c798c2d2a23e4446885661ff5">Dispose</a> ()</td></tr>
 <tr class="memdesc:ad581e51c798c2d2a23e4446885661ff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disposes resources. This method is called when <a class="el" href="#a8f67d15f263a6342d1f0065feaec3d69" title="Called when the MonoBehaviour will be destroyed. This method is used to release resources and perform...">OnDestroy()</a> is called.  <br /></td></tr>
 <tr class="separator:ad581e51c798c2d2a23e4446885661ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9fe4fbc28bbd8ba5dd0e3e1224c0c36" id="r_ae9fe4fbc28bbd8ba5dd0e3e1224c0c36"><td class="memItemLeft" align="right" valign="top">virtual Matrix4x4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9fe4fbc28bbd8ba5dd0e3e1224c0c36">GetARMatrix</a> ()</td></tr>
-<tr class="memdesc:ae9fe4fbc28bbd8ba5dd0e3e1224c0c36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get ARMatrix.  <br /></td></tr>
+<tr class="memdesc:ae9fe4fbc28bbd8ba5dd0e3e1224c0c36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get ARMatrix. This value is updated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method.  <br /></td></tr>
 <tr class="separator:ae9fe4fbc28bbd8ba5dd0e3e1224c0c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a8361ac78885933fb0fe5cb48457e40" id="r_a2a8361ac78885933fb0fe5cb48457e40"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a8361ac78885933fb0fe5cb48457e40">GetRvec</a> ()</td></tr>
-<tr class="memdesc:a2a8361ac78885933fb0fe5cb48457e40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get rvec.  <br /></td></tr>
+<tr class="memdesc:a2a8361ac78885933fb0fe5cb48457e40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get rvec. This value is updated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method.  <br /></td></tr>
 <tr class="separator:a2a8361ac78885933fb0fe5cb48457e40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b844fc58d667940feed838badbfde9c" id="r_a2b844fc58d667940feed838badbfde9c"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2b844fc58d667940feed838badbfde9c">GetTvec</a> ()</td></tr>
-<tr class="memdesc:a2b844fc58d667940feed838badbfde9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get tvec.  <br /></td></tr>
+<tr class="memdesc:a2b844fc58d667940feed838badbfde9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get tvec. This value is updated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method.  <br /></td></tr>
 <tr class="separator:a2b844fc58d667940feed838badbfde9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0377c719dc01b7d10eaef17059b1f75" id="r_ac0377c719dc01b7d10eaef17059b1f75"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac0377c719dc01b7d10eaef17059b1f75">Initialize</a> ()</td></tr>
 <tr class="memdesc:ac0377c719dc01b7d10eaef17059b1f75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes resources and sets the initial values. This method is called when <a class="el" href="#a92bb967d56a5b68caf8b4ff39f141455" title="Awake is called when the script instance is being loaded.">Awake()</a> is called.  <br /></td></tr>
 <tr class="separator:ac0377c719dc01b7d10eaef17059b1f75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae603836af588107d850a31d9603b0f58" id="r_ae603836af588107d850a31d9603b0f58"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae603836af588107d850a31d9603b0f58">IsARGameObjectInARCameraViewport</a> ()</td></tr>
-<tr class="memdesc:ae603836af588107d850a31d9603b0f58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> in the ARCameraViewport? This flag is updated when <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters.">CalculateARMatrix()</a> is called.  <br /></td></tr>
+<tr class="memdesc:ae603836af588107d850a31d9603b0f58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> in the ARCameraViewport? This flag is updated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method.  <br /></td></tr>
 <tr class="separator:ae603836af588107d850a31d9603b0f58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a404887ce2884c7d6a9d395a4be44e862" id="r_a404887ce2884c7d6a9d395a4be44e862"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a404887ce2884c7d6a9d395a4be44e862">ResetImagePointsAndObjectPoints</a> ()</td></tr>
 <tr class="memdesc:a404887ce2884c7d6a9d395a4be44e862"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the imagePoints and objectPoints.  <br /></td></tr>
 <tr class="separator:a404887ce2884c7d6a9d395a4be44e862"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c1a91b254140c471e0f1f59fbde7bdb" id="r_a4c1a91b254140c471e0f1f59fbde7bdb"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c1a91b254140c471e0f1f59fbde7bdb">UpdateTransform</a> (<a class="el" href="../../d0/dee/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARHelper.html">ARHelper</a> arHelper)</td></tr>
-<tr class="memdesc:a4c1a91b254140c471e0f1f59fbde7bdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the Transform of UpdateTarget using ARMatrix.  <br /></td></tr>
+<tr class="memdesc:a4c1a91b254140c471e0f1f59fbde7bdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the Transform of UpdateTarget using ARMatrix. This method uses the ARMatrix calculated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method. This method assumes that the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method has been called before this method.  <br /></td></tr>
 <tr class="separator:a4c1a91b254140c471e0f1f59fbde7bdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
@@ -235,10 +243,14 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:aa451b9e31798ae818e2ad1d255a23072" id="r_aa451b9e31798ae818e2ad1d255a23072"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa451b9e31798ae818e2ad1d255a23072">_changedSolvePnpPoints</a> = false</td></tr>
 <tr class="memdesc:aa451b9e31798ae818e2ad1d255a23072"><td class="mdescLeft">&#160;</td><td class="mdescRight">The flag that indicates whether the SolvePnP points have changed.  <br /></td></tr>
 <tr class="separator:aa451b9e31798ae818e2ad1d255a23072"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af88d8c216e1ddd49eb0a86604d15ff0a" id="r_af88d8c216e1ddd49eb0a86604d15ff0a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af88d8c216e1ddd49eb0a86604d15ff0a">_confidence</a> = 0.99f</td></tr>
+<tr class="separator:af88d8c216e1ddd49eb0a86604d15ff0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2808d12a205279dbd5163ad4c3bace90" id="r_a2808d12a205279dbd5163ad4c3bace90"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2808d12a205279dbd5163ad4c3bace90">_delayFrameOnEnterARCameraViewportEvent</a> = 0</td></tr>
 <tr class="separator:a2808d12a205279dbd5163ad4c3bace90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82f38720918a39ce4aa91997f23a83c1" id="r_a82f38720918a39ce4aa91997f23a83c1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a82f38720918a39ce4aa91997f23a83c1">_delayFrameOnExitARCameraViewportEvent</a> = 0</td></tr>
 <tr class="separator:a82f38720918a39ce4aa91997f23a83c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae58206491cc12955564b1272cd1318e7" id="r_ae58206491cc12955564b1272cd1318e7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae58206491cc12955564b1272cd1318e7">_enableDebugOutput</a> = false</td></tr>
+<tr class="separator:ae58206491cc12955564b1272cd1318e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d4e620b9374aeb3288dc92e70e60431" id="r_a3d4e620b9374aeb3288dc92e70e60431"><td class="memItemLeft" align="right" valign="top">Vector2[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3d4e620b9374aeb3288dc92e70e60431">_imagePoints</a> = null</td></tr>
 <tr class="separator:a3d4e620b9374aeb3288dc92e70e60431"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f041226a2a9bac2237f98bf418c4b20" id="r_a6f041226a2a9bac2237f98bf418c4b20"><td class="memItemLeft" align="right" valign="top">Matrix4x4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f041226a2a9bac2237f98bf418c4b20">_invertXMatrix</a> = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3(-1, 1, 1))</td></tr>
@@ -251,8 +263,13 @@ Protected Attributes</h2></td></tr>
 <tr class="memdesc:a323b4d880d5cf48d2c5de47d1f52695f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The matrix that inverts the Z axis.  <br /></td></tr>
 <tr class="separator:a323b4d880d5cf48d2c5de47d1f52695f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5b9dca37611a80be75505ac2723a686" id="r_ac5b9dca37611a80be75505ac2723a686"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5b9dca37611a80be75505ac2723a686">_isARGameObjectInARCameraViewport</a> = false</td></tr>
-<tr class="memdesc:ac5b9dca37611a80be75505ac2723a686"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> in the ARCameraViewport? This flag is updated when <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters.">CalculateARMatrix()</a> is called.  <br /></td></tr>
+<tr class="memdesc:ac5b9dca37611a80be75505ac2723a686"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> in the ARCameraViewport? This flag is updated when <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> is called.  <br /></td></tr>
 <tr class="separator:ac5b9dca37611a80be75505ac2723a686"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a596e97c70834fbdce3616195cd629e2e" id="r_a596e97c70834fbdce3616195cd629e2e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a596e97c70834fbdce3616195cd629e2e">_isOldPoseDataInitialized</a> = false</td></tr>
+<tr class="memdesc:a596e97c70834fbdce3616195cd629e2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to track if old pose data has been initialized with valid data.  <br /></td></tr>
+<tr class="separator:a596e97c70834fbdce3616195cd629e2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ea7885da361547727978058d8332537" id="r_a4ea7885da361547727978058d8332537"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ea7885da361547727978058d8332537">_iterationsCount</a> = 100</td></tr>
+<tr class="separator:a4ea7885da361547727978058d8332537"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae291a5a379a45dc0f704b4bc8a970b23" id="r_ae291a5a379a45dc0f704b4bc8a970b23"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae291a5a379a45dc0f704b4bc8a970b23">_leftHandedCoordinates</a> = false</td></tr>
 <tr class="separator:ae291a5a379a45dc0f704b4bc8a970b23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5fba65d912f242de2b65ab8ebdbcd791" id="r_a5fba65d912f242de2b65ab8ebdbcd791"><td class="memItemLeft" align="right" valign="top">Vector2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5fba65d912f242de2b65ab8ebdbcd791">_ndcXRange</a> = new Vector2(-1.0f, 1.0f)</td></tr>
@@ -272,15 +289,23 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a52bee1db85e12da9c16295f91c563c77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af236f60d4bd2f958d575d62fd81b57c6" id="r_af236f60d4bd2f958d575d62fd81b57c6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af236f60d4bd2f958d575d62fd81b57c6">_positionLowPassParam</a> = 0.01f</td></tr>
 <tr class="separator:af236f60d4bd2f958d575d62fd81b57c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bd40addf4a2b01086f0fee079f75d61" id="r_a8bd40addf4a2b01086f0fee079f75d61"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8bd40addf4a2b01086f0fee079f75d61">_positionSmoothingFactor</a> = 0.2f</td></tr>
+<tr class="separator:a8bd40addf4a2b01086f0fee079f75d61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af53d6b476cf28019ff6deb9f75443169" id="r_af53d6b476cf28019ff6deb9f75443169"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af53d6b476cf28019ff6deb9f75443169">_reprojectionError</a> = 8.0f</td></tr>
+<tr class="separator:af53d6b476cf28019ff6deb9f75443169"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad54ab1ae64b6880474ce10a4ce29bb36" id="r_ad54ab1ae64b6880474ce10a4ce29bb36"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad54ab1ae64b6880474ce10a4ce29bb36">_rotationLowPassParam</a> = 4f</td></tr>
 <tr class="separator:ad54ab1ae64b6880474ce10a4ce29bb36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8491cc35324ec239b852de7af714bd96" id="r_a8491cc35324ec239b852de7af714bd96"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8491cc35324ec239b852de7af714bd96">_rotationSmoothingFactor</a> = 0.3f</td></tr>
+<tr class="separator:a8491cc35324ec239b852de7af714bd96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9faef47880257aa020e125682ad39d0" id="r_aa9faef47880257aa020e125682ad39d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa9faef47880257aa020e125682ad39d0">_rvec</a></td></tr>
 <tr class="memdesc:aa9faef47880257aa020e125682ad39d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The rvec Mat for <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose  from 3D-2D point correspondences:">Calib3d.solvePnP()</a>.  <br /></td></tr>
 <tr class="separator:aa9faef47880257aa020e125682ad39d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b30c158a94d40e8c4a4c79ce581d1c2" id="r_a2b30c158a94d40e8c4a4c79ce581d1c2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674">Calib3dSolvePnPFlagsMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2b30c158a94d40e8c4a4c79ce581d1c2">_solvePnPFlagsMode</a> = <a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674a5164802673f434c51ff8d9e9209485a1">Calib3dSolvePnPFlagsMode.SOLVEPNP_ITERATIVE_THEN_EPNP</a></td></tr>
+<tr class="memitem:a2b30c158a94d40e8c4a4c79ce581d1c2" id="r_a2b30c158a94d40e8c4a4c79ce581d1c2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674">Calib3dSolvePnPFlagsMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2b30c158a94d40e8c4a4c79ce581d1c2">_solvePnPFlagsMode</a> = <a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674ab2774721682de7fd39f689e53fa3a6cb">Calib3dSolvePnPFlagsMode.SOLVEPNP_ITERATIVE</a></td></tr>
 <tr class="separator:a2b30c158a94d40e8c4a4c79ce581d1c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80ee1e1ff9179e85dacc0d8e4a62abd1" id="r_a80ee1e1ff9179e85dacc0d8e4a62abd1"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80ee1e1ff9179e85dacc0d8e4a62abd1">_solvePnPRefineLMMovementThreshold</a> = 100</td></tr>
-<tr class="separator:a80ee1e1ff9179e85dacc0d8e4a62abd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbc2ecdce4ad036df46c3ab4211527b7" id="r_adbc2ecdce4ad036df46c3ab4211527b7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70">SolvePnPRefinementMethod</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adbc2ecdce4ad036df46c3ab4211527b7">_solvePnPRefinementMethod</a> = <a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70a6adf97f83acf6453d4a6a4b1070f3754">SolvePnPRefinementMethod.None</a></td></tr>
+<tr class="separator:adbc2ecdce4ad036df46c3ab4211527b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cf0aac7b7f6c271573d52abf671a067" id="r_a2cf0aac7b7f6c271573d52abf671a067"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2cf0aac7b7f6c271573d52abf671a067">_solvePnPRefinementRMSThreshold</a> = 1.0f</td></tr>
+<tr class="separator:a2cf0aac7b7f6c271573d52abf671a067"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a4a5087a992cef625a5e9d72a6a6017" id="r_a2a4a5087a992cef625a5e9d72a6a6017"><td class="memItemLeft" align="right" valign="top">Matrix4x4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a4a5087a992cef625a5e9d72a6a6017">_transformMatrix</a></td></tr>
 <tr class="memdesc:a2a4a5087a992cef625a5e9d72a6a6017"><td class="mdescLeft">&#160;</td><td class="mdescRight">The transformation matrix from poseData.  <br /></td></tr>
 <tr class="separator:a2a4a5087a992cef625a5e9d72a6a6017"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -289,8 +314,12 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:aafcfbe71ef52ff94388aaf05d52fe142"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7760f950b27f2798356edfde2adde4f7" id="r_a7760f950b27f2798356edfde2adde4f7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7760f950b27f2798356edfde2adde4f7">_useLowPassFilter</a> = false</td></tr>
 <tr class="separator:a7760f950b27f2798356edfde2adde4f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ccf55ddf51405d9a8142925719d56cf" id="r_a5ccf55ddf51405d9a8142925719d56cf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ccf55ddf51405d9a8142925719d56cf">_useSolvePnPRefineLM</a> = false</td></tr>
-<tr class="separator:a5ccf55ddf51405d9a8142925719d56cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9649e935d561f09a2049493c5428d17" id="r_af9649e935d561f09a2049493c5428d17"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9649e935d561f09a2049493c5428d17">_useSmoothingFilter</a> = false</td></tr>
+<tr class="separator:af9649e935d561f09a2049493c5428d17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a687d4f34f63faff9c9589f6ba82f8adb" id="r_a687d4f34f63faff9c9589f6ba82f8adb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a687d4f34f63faff9c9589f6ba82f8adb">_useSOLVEPNP_ITERATIVE</a> = false</td></tr>
+<tr class="separator:a687d4f34f63faff9c9589f6ba82f8adb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92f6ac521dc371b89bd7e73dab463253" id="r_a92f6ac521dc371b89bd7e73dab463253"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a92f6ac521dc371b89bd7e73dab463253">_useSolvePnPRansac</a> = false</td></tr>
+<tr class="separator:a92f6ac521dc371b89bd7e73dab463253"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
@@ -303,15 +332,24 @@ Properties</h2></td></tr>
 <tr class="memitem:a536ad67b7f3a901b81b12a3326ba2f3c" id="r_a536ad67b7f3a901b81b12a3326ba2f3c"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a536ad67b7f3a901b81b12a3326ba2f3c">ApplyZaxisInversionToARMatrix</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a536ad67b7f3a901b81b12a3326ba2f3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply Z-axis inversion to ARMatrix.  <br /></td></tr>
 <tr class="separator:a536ad67b7f3a901b81b12a3326ba2f3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8093ae414d5ef4b7a9cbec2f8be7ae5" id="r_ad8093ae414d5ef4b7a9cbec2f8be7ae5"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad8093ae414d5ef4b7a9cbec2f8be7ae5">Confidence</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ad8093ae414d5ef4b7a9cbec2f8be7ae5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Confidence level for RANSAC.  <br /></td></tr>
+<tr class="separator:ad8093ae414d5ef4b7a9cbec2f8be7ae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d302c289eb26b9463b12ef8cd946ff1" id="r_a1d302c289eb26b9463b12ef8cd946ff1"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d302c289eb26b9463b12ef8cd946ff1">DelayFrameOnEnterARCameraViewportEvent</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a1d302c289eb26b9463b12ef8cd946ff1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invoke UnityEvent onEnterARCameraViewport only when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> is in the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> viewport for the specified number of consecutive frames. Prevents frequent notifications due to noise.  <br /></td></tr>
 <tr class="separator:a1d302c289eb26b9463b12ef8cd946ff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8122e48f9e8817d5253c7b4990944eb3" id="r_a8122e48f9e8817d5253c7b4990944eb3"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8122e48f9e8817d5253c7b4990944eb3">DelayFrameOnExitARCameraViewportEvent</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a8122e48f9e8817d5253c7b4990944eb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invoke UnityEvent onEnterARCameraViewport only when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> is outside the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> viewport for the specified number of consecutive frames. Prevents frequent notifications due to noise.  <br /></td></tr>
+<tr class="memdesc:a8122e48f9e8817d5253c7b4990944eb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invoke UnityEvent onExitARCameraViewport only when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> is outside the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> viewport for the specified number of consecutive frames. Prevents frequent notifications due to noise.  <br /></td></tr>
 <tr class="separator:a8122e48f9e8817d5253c7b4990944eb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e2e6518e5f3d6b301234bb6d919c926" id="r_a0e2e6518e5f3d6b301234bb6d919c926"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e2e6518e5f3d6b301234bb6d919c926">EnableDebugOutput</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a0e2e6518e5f3d6b301234bb6d919c926"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable debug output to console.  <br /></td></tr>
+<tr class="separator:a0e2e6518e5f3d6b301234bb6d919c926"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae54b4ade661f7de59cc288a181e31994" id="r_ae54b4ade661f7de59cc288a181e31994"><td class="memItemLeft" align="right" valign="top">virtual Vector2[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae54b4ade661f7de59cc288a181e31994">ImagePoints</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:ae54b4ade661f7de59cc288a181e31994"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify the imagePoints argument to the <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose  from 3D-2D point correspondences:">Calib3d.solvePnP()</a> method.  <br /></td></tr>
 <tr class="separator:ae54b4ade661f7de59cc288a181e31994"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a982b3098a96388a8403643209231517d" id="r_a982b3098a96388a8403643209231517d"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a982b3098a96388a8403643209231517d">IterationsCount</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a982b3098a96388a8403643209231517d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of iterations for RANSAC.  <br /></td></tr>
+<tr class="separator:a982b3098a96388a8403643209231517d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7275320fe10a5a68470f1b24bc7a84ca" id="r_a7275320fe10a5a68470f1b24bc7a84ca"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7275320fe10a5a68470f1b24bc7a84ca">LeftHandedCoordinates</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a7275320fe10a5a68470f1b24bc7a84ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable this flag if the object point is a left-hand coordinate system (Unity).  <br /></td></tr>
 <tr class="separator:a7275320fe10a5a68470f1b24bc7a84ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -336,29 +374,50 @@ Properties</h2></td></tr>
 <tr class="memitem:ace9fc2d38c2ea3598b08bfc8357cd08b" id="r_ace9fc2d38c2ea3598b08bfc8357cd08b"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace9fc2d38c2ea3598b08bfc8357cd08b">PositionLowPassParam</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:ace9fc2d38c2ea3598b08bfc8357cd08b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position parameter of LowPassFilter (Value in meters)  <br /></td></tr>
 <tr class="separator:ace9fc2d38c2ea3598b08bfc8357cd08b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11201f0695c2cbfcc28a9f7caecc853c" id="r_a11201f0695c2cbfcc28a9f7caecc853c"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11201f0695c2cbfcc28a9f7caecc853c">PositionSmoothingFactor</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a11201f0695c2cbfcc28a9f7caecc853c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Smoothing factor for position (0.0 = no filtering, 1.0 = maximum filtering). Higher values result in more smoothing and slower response to changes.  <br /></td></tr>
+<tr class="separator:a11201f0695c2cbfcc28a9f7caecc853c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a529484c3de2cdd310eeaf7db485c37b8" id="r_a529484c3de2cdd310eeaf7db485c37b8"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70">SolvePnPRefinementMethod</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a529484c3de2cdd310eeaf7db485c37b8">RefinementMethod</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a529484c3de2cdd310eeaf7db485c37b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select the refinement method for solvePnP optimization.  <br /></td></tr>
+<tr class="separator:a529484c3de2cdd310eeaf7db485c37b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9dad1596d42f3b6dc7bf4529ce7822bb" id="r_a9dad1596d42f3b6dc7bf4529ce7822bb"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9dad1596d42f3b6dc7bf4529ce7822bb">ReprojectionError</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a9dad1596d42f3b6dc7bf4529ce7822bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum distance from a point to an epipolar line in pixels for RANSAC.  <br /></td></tr>
+<tr class="separator:a9dad1596d42f3b6dc7bf4529ce7822bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31bb7d752a2476700fded67779578399" id="r_a31bb7d752a2476700fded67779578399"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a31bb7d752a2476700fded67779578399">RotationLowPassParam</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a31bb7d752a2476700fded67779578399"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotation parameter of LowPassFilter (Value in degrees)  <br /></td></tr>
 <tr class="separator:a31bb7d752a2476700fded67779578399"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a658c1606fce770a459d434e9d849ac5c" id="r_a658c1606fce770a459d434e9d849ac5c"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a658c1606fce770a459d434e9d849ac5c">RotationSmoothingFactor</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a658c1606fce770a459d434e9d849ac5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Smoothing factor for rotation (0.0 = no filtering, 1.0 = maximum filtering). Higher values result in more smoothing and slower response to changes.  <br /></td></tr>
+<tr class="separator:a658c1606fce770a459d434e9d849ac5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae7c3dcab52d64d074439ee04e5b9b5c9" id="r_ae7c3dcab52d64d074439ee04e5b9b5c9"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674">Calib3dSolvePnPFlagsMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7c3dcab52d64d074439ee04e5b9b5c9">SolvePnPFlagsMode</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:ae7c3dcab52d64d074439ee04e5b9b5c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify the flags argument to the <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose  from 3D-2D point correspondences:">Calib3d.solvePnP()</a> method.  <br /></td></tr>
 <tr class="separator:ae7c3dcab52d64d074439ee04e5b9b5c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7abaa21e161cce2ed4ab27eff135f07c" id="r_a7abaa21e161cce2ed4ab27eff135f07c"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7abaa21e161cce2ed4ab27eff135f07c">SolvePnPRefineLMMovementThreshold</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a7abaa21e161cce2ed4ab27eff135f07c"><td class="mdescLeft">&#160;</td><td class="mdescRight">If useSolvePnPRefineLM is true, the <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#aba3067535357c5869cf147ec5f65d60b" title="Refine a pose (the translation and the rotation that transform a 3D point expressed in the object coo...">Calib3d.solvePnPRefineLM()</a> method is called if the difference between the tvec of the current frame and that of the previous frame is greater than the specified threshold.  <br /></td></tr>
-<tr class="separator:a7abaa21e161cce2ed4ab27eff135f07c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63d93b983fede1e17715fb5d26ed5810" id="r_a63d93b983fede1e17715fb5d26ed5810"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a63d93b983fede1e17715fb5d26ed5810">SolvePnPRefinementRMSThreshold</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a63d93b983fede1e17715fb5d26ed5810"><td class="mdescLeft">&#160;</td><td class="mdescRight">If refinement is enabled, the refinement method is called if the reprojection error RMS is greater than the specified threshold.  <br /></td></tr>
+<tr class="separator:a63d93b983fede1e17715fb5d26ed5810"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66116d505b6695a3623b2658f119d281" id="r_a66116d505b6695a3623b2658f119d281"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a66116d505b6695a3623b2658f119d281">UseLowPassFilter</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a66116d505b6695a3623b2658f119d281"><td class="mdescLeft">&#160;</td><td class="mdescRight">When enabled, LowPassFilter suppresses noise.  <br /></td></tr>
 <tr class="separator:a66116d505b6695a3623b2658f119d281"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5378b1956a1fb7a32bd80484d8a65385" id="r_a5378b1956a1fb7a32bd80484d8a65385"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5378b1956a1fb7a32bd80484d8a65385">UseSolvePnPRefineLM</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a5378b1956a1fb7a32bd80484d8a65385"><td class="mdescLeft">&#160;</td><td class="mdescRight">If this flag is set to true, the <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#aba3067535357c5869cf147ec5f65d60b" title="Refine a pose (the translation and the rotation that transform a 3D point expressed in the object coo...">Calib3d.solvePnPRefineLM()</a> method is called after the Calib3d.solvePnPnP() method to optimize the results.  <br /></td></tr>
-<tr class="separator:a5378b1956a1fb7a32bd80484d8a65385"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae34e1e234e65d0fbda102d5f660eaadd" id="r_ae34e1e234e65d0fbda102d5f660eaadd"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae34e1e234e65d0fbda102d5f660eaadd">UseSmoothingFilter</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ae34e1e234e65d0fbda102d5f660eaadd"><td class="mdescLeft">&#160;</td><td class="mdescRight">When enabled, smoothing filter suppresses noise.  <br /></td></tr>
+<tr class="separator:ae34e1e234e65d0fbda102d5f660eaadd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe4f92ffc2893496bfbe48e2215f0f13" id="r_afe4f92ffc2893496bfbe48e2215f0f13"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe4f92ffc2893496bfbe48e2215f0f13">UseSOLVEPNP_ITERATIVE</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:afe4f92ffc2893496bfbe48e2215f0f13"><td class="mdescLeft">&#160;</td><td class="mdescRight">If this flag is set to true, <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a346b4cf4327a5a3c2348a53becd88d8b" title="C++: enum SolvePnPMethod (cv.SolvePnPMethod)">Calib3d.SOLVEPNP_ITERATIVE</a> is used for solvePnP when the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> object is already detected (not first detection).  <br /></td></tr>
+<tr class="separator:afe4f92ffc2893496bfbe48e2215f0f13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61c14a9baf784b07dee5667f6d42a1f0" id="r_a61c14a9baf784b07dee5667f6d42a1f0"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61c14a9baf784b07dee5667f6d42a1f0">UseSolvePnPRansac</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a61c14a9baf784b07dee5667f6d42a1f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">If this flag is set to true, <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a8b9bcee299b9af0d716547bf8f7f0ddf" title="Finds an object pose  from 3D-2D point correspondences using the RANSAC scheme to deal with bad match...">Calib3d.solvePnPRansac()</a> is called before <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose  from 3D-2D point correspondences:">Calib3d.solvePnP()</a> to filter out outliers.  <br /></td></tr>
+<tr class="separator:a61c14a9baf784b07dee5667f6d42a1f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents an augmented reality (<a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a>) object that integrates with the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a>. This class manages solving Perspective-n-Point (PnP) problems, handling <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> matrix transformations, and detecting whether the object is within the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> camera's viewport. </p>
 <ul>
 <li>Utilizes OpenCV's solvePnP methods to estimate the object's 3D position from 2D image points.</li>
-<li>Supports multiple solvePnP flags and an optional refinement process using solvePnPRefineLM.</li>
-<li>Provides options for coordinate system transformations and noise reduction via a low-pass filter.</li>
-<li>Triggers events when the object enters or exits the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> camera viewport.</li>
+<li>Supports multiple solvePnP flags and optional refinement processes using solvePnPRefineLM or solvePnPRefineVVS.</li>
+<li>Provides RANSAC filtering to remove outliers before solvePnP computation.</li>
+<li>Supports coordinate system transformations and noise reduction via low-pass and smoothing filters.</li>
+<li>Configurable NDC (Normalized Device Coordinates) range settings for viewport detection.</li>
+<li>Supports axis inversion transformations for <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> matrix adjustments.</li>
+<li>Triggers events when the object enters or exits the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> camera viewport with configurable delay frames.</li>
 <li>Updates the object's transform based on computed <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> matrices. </li>
 </ul>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
@@ -385,8 +444,27 @@ Properties</h2></td></tr>
 <tr><td class="fieldname"><a id="ae0abc6fe2886c5007ffd6501e0e72674a0fd3c208428da1437063e328415eac13" name="ae0abc6fe2886c5007ffd6501e0e72674a0fd3c208428da1437063e328415eac13"></a>SOLVEPNP_IPPE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ae0abc6fe2886c5007ffd6501e0e72674ab1f5d8024e63f0639a89d6527993f1ed" name="ae0abc6fe2886c5007ffd6501e0e72674ab1f5d8024e63f0639a89d6527993f1ed"></a>SOLVEPNP_IPPE_SQUARE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ae0abc6fe2886c5007ffd6501e0e72674a020ead37d3c7f5198abc50ddcb9430c7" name="ae0abc6fe2886c5007ffd6501e0e72674a020ead37d3c7f5198abc50ddcb9430c7"></a>SOLVEPNP_SQPNP&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae0abc6fe2886c5007ffd6501e0e72674a5164802673f434c51ff8d9e9209485a1" name="ae0abc6fe2886c5007ffd6501e0e72674a5164802673f434c51ff8d9e9209485a1"></a>SOLVEPNP_ITERATIVE_THEN_EPNP&#160;</td><td class="fielddoc"><p>Iterative method is called first, then EPNP is called. </p>
-</td></tr>
+</table>
+
+</div>
+</div>
+<a id="aff423badcb72c92c11a33bc1ee28fc70" name="aff423badcb72c92c11a33bc1ee28fc70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff423badcb72c92c11a33bc1ee28fc70">&#9670;&#160;</a></span>SolvePnPRefinementMethod</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70">OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.SolvePnPRefinementMethod</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enum to set refinement method for solvePnP optimization. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aff423badcb72c92c11a33bc1ee28fc70a6adf97f83acf6453d4a6a4b1070f3754" name="aff423badcb72c92c11a33bc1ee28fc70a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aff423badcb72c92c11a33bc1ee28fc70aa1eb8e4086abef7d0f6253724905ec16" name="aff423badcb72c92c11a33bc1ee28fc70aa1eb8e4086abef7d0f6253724905ec16"></a>solvePnPRefineLM&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aff423badcb72c92c11a33bc1ee28fc70af0f8e1649f8b14168f10266bb7d7532a" name="aff423badcb72c92c11a33bc1ee28fc70af0f8e1649f8b14168f10266bb7d7532a"></a>solvePnPRefineVVS&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -442,7 +520,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Calculate ARMatrix from set parameters. </p>
+<p>Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the <a class="el" href="#a4c1a91b254140c471e0f1f59fbde7bdb" title="Update the Transform of UpdateTarget using ARMatrix. This method uses the ARMatrix calculated by the ...">UpdateTransform()</a> method. This method should be called before <a class="el" href="#a4c1a91b254140c471e0f1f59fbde7bdb" title="Update the Transform of UpdateTarget using ARMatrix. This method uses the ARMatrix calculated by the ...">UpdateTransform()</a>. </p>
 
 </div>
 </div>
@@ -496,7 +574,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get ARMatrix. </p>
+<p>Get ARMatrix. This value is updated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> Matrix</dd></dl>
 
 </div>
@@ -524,7 +602,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get rvec. </p>
+<p>Get rvec. This value is updated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method. </p>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>
@@ -552,7 +630,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get tvec. </p>
+<p>Get tvec. This value is updated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method. </p>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>
@@ -607,7 +685,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Is the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> in the ARCameraViewport? This flag is updated when <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters.">CalculateARMatrix()</a> is called. </p>
+<p>Is the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> in the ARCameraViewport? This flag is updated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method. </p>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>
@@ -755,7 +833,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Update the Transform of UpdateTarget using ARMatrix. </p>
+<p>Update the Transform of UpdateTarget using ARMatrix. This method uses the ARMatrix calculated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method. This method assumes that the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method has been called before this method. </p>
 
 </div>
 </div>
@@ -922,6 +1000,28 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="af88d8c216e1ddd49eb0a86604d15ff0a" name="af88d8c216e1ddd49eb0a86604d15ff0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af88d8c216e1ddd49eb0a86604d15ff0a">&#9670;&#160;</a></span>_confidence</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._confidence = 0.99f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a2808d12a205279dbd5163ad4c3bace90" name="a2808d12a205279dbd5163ad4c3bace90"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2808d12a205279dbd5163ad4c3bace90">&#9670;&#160;</a></span>_delayFrameOnEnterARCameraViewportEvent</h2>
 
@@ -955,6 +1055,28 @@ Properties</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">int OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._delayFrameOnExitARCameraViewportEvent = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae58206491cc12955564b1272cd1318e7" name="ae58206491cc12955564b1272cd1318e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae58206491cc12955564b1272cd1318e7">&#9670;&#160;</a></span>_enableDebugOutput</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._enableDebugOutput = false</td>
         </tr>
       </table>
   </td>
@@ -1080,7 +1202,53 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Is the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> in the ARCameraViewport? This flag is updated when <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters.">CalculateARMatrix()</a> is called. </p>
+<p>Is the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> in the ARCameraViewport? This flag is updated when <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> is called. </p>
+
+</div>
+</div>
+<a id="a596e97c70834fbdce3616195cd629e2e" name="a596e97c70834fbdce3616195cd629e2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a596e97c70834fbdce3616195cd629e2e">&#9670;&#160;</a></span>_isOldPoseDataInitialized</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._isOldPoseDataInitialized = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Flag to track if old pose data has been initialized with valid data. </p>
+
+</div>
+</div>
+<a id="a4ea7885da361547727978058d8332537" name="a4ea7885da361547727978058d8332537"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ea7885da361547727978058d8332537">&#9670;&#160;</a></span>_iterationsCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._iterationsCount = 100</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1284,6 +1452,50 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="a8bd40addf4a2b01086f0fee079f75d61" name="a8bd40addf4a2b01086f0fee079f75d61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bd40addf4a2b01086f0fee079f75d61">&#9670;&#160;</a></span>_positionSmoothingFactor</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._positionSmoothingFactor = 0.2f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af53d6b476cf28019ff6deb9f75443169" name="af53d6b476cf28019ff6deb9f75443169"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af53d6b476cf28019ff6deb9f75443169">&#9670;&#160;</a></span>_reprojectionError</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._reprojectionError = 8.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad54ab1ae64b6880474ce10a4ce29bb36" name="ad54ab1ae64b6880474ce10a4ce29bb36"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad54ab1ae64b6880474ce10a4ce29bb36">&#9670;&#160;</a></span>_rotationLowPassParam</h2>
 
@@ -1295,6 +1507,28 @@ Properties</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">float OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._rotationLowPassParam = 4f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8491cc35324ec239b852de7af714bd96" name="a8491cc35324ec239b852de7af714bd96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8491cc35324ec239b852de7af714bd96">&#9670;&#160;</a></span>_rotationSmoothingFactor</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._rotationSmoothingFactor = 0.3f</td>
         </tr>
       </table>
   </td>
@@ -1340,7 +1574,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674">Calib3dSolvePnPFlagsMode</a> OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._solvePnPFlagsMode = <a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674a5164802673f434c51ff8d9e9209485a1">Calib3dSolvePnPFlagsMode.SOLVEPNP_ITERATIVE_THEN_EPNP</a></td>
+          <td class="memname"><a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674">Calib3dSolvePnPFlagsMode</a> OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._solvePnPFlagsMode = <a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674ab2774721682de7fd39f689e53fa3a6cb">Calib3dSolvePnPFlagsMode.SOLVEPNP_ITERATIVE</a></td>
         </tr>
       </table>
   </td>
@@ -1352,8 +1586,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a80ee1e1ff9179e85dacc0d8e4a62abd1" name="a80ee1e1ff9179e85dacc0d8e4a62abd1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80ee1e1ff9179e85dacc0d8e4a62abd1">&#9670;&#160;</a></span>_solvePnPRefineLMMovementThreshold</h2>
+<a id="adbc2ecdce4ad036df46c3ab4211527b7" name="adbc2ecdce4ad036df46c3ab4211527b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbc2ecdce4ad036df46c3ab4211527b7">&#9670;&#160;</a></span>_solvePnPRefinementMethod</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1362,7 +1596,29 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">float OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._solvePnPRefineLMMovementThreshold = 100</td>
+          <td class="memname"><a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70">SolvePnPRefinementMethod</a> OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._solvePnPRefinementMethod = <a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70a6adf97f83acf6453d4a6a4b1070f3754">SolvePnPRefinementMethod.None</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2cf0aac7b7f6c271573d52abf671a067" name="a2cf0aac7b7f6c271573d52abf671a067"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2cf0aac7b7f6c271573d52abf671a067">&#9670;&#160;</a></span>_solvePnPRefinementRMSThreshold</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._solvePnPRefinementRMSThreshold = 1.0f</td>
         </tr>
       </table>
   </td>
@@ -1444,8 +1700,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a5ccf55ddf51405d9a8142925719d56cf" name="a5ccf55ddf51405d9a8142925719d56cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ccf55ddf51405d9a8142925719d56cf">&#9670;&#160;</a></span>_useSolvePnPRefineLM</h2>
+<a id="af9649e935d561f09a2049493c5428d17" name="af9649e935d561f09a2049493c5428d17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9649e935d561f09a2049493c5428d17">&#9670;&#160;</a></span>_useSmoothingFilter</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1454,7 +1710,51 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._useSolvePnPRefineLM = false</td>
+          <td class="memname">bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._useSmoothingFilter = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a687d4f34f63faff9c9589f6ba82f8adb" name="a687d4f34f63faff9c9589f6ba82f8adb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a687d4f34f63faff9c9589f6ba82f8adb">&#9670;&#160;</a></span>_useSOLVEPNP_ITERATIVE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._useSOLVEPNP_ITERATIVE = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a92f6ac521dc371b89bd7e73dab463253" name="a92f6ac521dc371b89bd7e73dab463253"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92f6ac521dc371b89bd7e73dab463253">&#9670;&#160;</a></span>_useSolvePnPRansac</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._useSolvePnPRansac = false</td>
         </tr>
       </table>
   </td>
@@ -1539,6 +1839,30 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="ad8093ae414d5ef4b7a9cbec2f8be7ae5" name="ad8093ae414d5ef4b7a9cbec2f8be7ae5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8093ae414d5ef4b7a9cbec2f8be7ae5">&#9670;&#160;</a></span>Confidence</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual float OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.Confidence</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Confidence level for RANSAC. </p>
+
+</div>
+</div>
 <a id="a1d302c289eb26b9463b12ef8cd946ff1" name="a1d302c289eb26b9463b12ef8cd946ff1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1d302c289eb26b9463b12ef8cd946ff1">&#9670;&#160;</a></span>DelayFrameOnEnterARCameraViewportEvent</h2>
 
@@ -1583,7 +1907,31 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Invoke UnityEvent onEnterARCameraViewport only when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> is outside the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> viewport for the specified number of consecutive frames. Prevents frequent notifications due to noise. </p>
+<p>Invoke UnityEvent onExitARCameraViewport only when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> is outside the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> viewport for the specified number of consecutive frames. Prevents frequent notifications due to noise. </p>
+
+</div>
+</div>
+<a id="a0e2e6518e5f3d6b301234bb6d919c926" name="a0e2e6518e5f3d6b301234bb6d919c926"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e2e6518e5f3d6b301234bb6d919c926">&#9670;&#160;</a></span>EnableDebugOutput</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.EnableDebugOutput</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enable debug output to console. </p>
 
 </div>
 </div>
@@ -1608,6 +1956,30 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Specify the imagePoints argument to the <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose  from 3D-2D point correspondences:">Calib3d.solvePnP()</a> method. </p>
+
+</div>
+</div>
+<a id="a982b3098a96388a8403643209231517d" name="a982b3098a96388a8403643209231517d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a982b3098a96388a8403643209231517d">&#9670;&#160;</a></span>IterationsCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.IterationsCount</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Maximum number of iterations for RANSAC. </p>
 
 </div>
 </div>
@@ -1803,6 +2175,78 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="a11201f0695c2cbfcc28a9f7caecc853c" name="a11201f0695c2cbfcc28a9f7caecc853c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11201f0695c2cbfcc28a9f7caecc853c">&#9670;&#160;</a></span>PositionSmoothingFactor</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual float OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.PositionSmoothingFactor</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Smoothing factor for position (0.0 = no filtering, 1.0 = maximum filtering). Higher values result in more smoothing and slower response to changes. </p>
+
+</div>
+</div>
+<a id="a529484c3de2cdd310eeaf7db485c37b8" name="a529484c3de2cdd310eeaf7db485c37b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a529484c3de2cdd310eeaf7db485c37b8">&#9670;&#160;</a></span>RefinementMethod</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70">SolvePnPRefinementMethod</a> OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.RefinementMethod</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Select the refinement method for solvePnP optimization. </p>
+
+</div>
+</div>
+<a id="a9dad1596d42f3b6dc7bf4529ce7822bb" name="a9dad1596d42f3b6dc7bf4529ce7822bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9dad1596d42f3b6dc7bf4529ce7822bb">&#9670;&#160;</a></span>ReprojectionError</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual float OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.ReprojectionError</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Maximum distance from a point to an epipolar line in pixels for RANSAC. </p>
+
+</div>
+</div>
 <a id="a31bb7d752a2476700fded67779578399" name="a31bb7d752a2476700fded67779578399"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a31bb7d752a2476700fded67779578399">&#9670;&#160;</a></span>RotationLowPassParam</h2>
 
@@ -1824,6 +2268,30 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Rotation parameter of LowPassFilter (Value in degrees) </p>
+
+</div>
+</div>
+<a id="a658c1606fce770a459d434e9d849ac5c" name="a658c1606fce770a459d434e9d849ac5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a658c1606fce770a459d434e9d849ac5c">&#9670;&#160;</a></span>RotationSmoothingFactor</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual float OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.RotationSmoothingFactor</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Smoothing factor for rotation (0.0 = no filtering, 1.0 = maximum filtering). Higher values result in more smoothing and slower response to changes. </p>
 
 </div>
 </div>
@@ -1851,8 +2319,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a7abaa21e161cce2ed4ab27eff135f07c" name="a7abaa21e161cce2ed4ab27eff135f07c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7abaa21e161cce2ed4ab27eff135f07c">&#9670;&#160;</a></span>SolvePnPRefineLMMovementThreshold</h2>
+<a id="a63d93b983fede1e17715fb5d26ed5810" name="a63d93b983fede1e17715fb5d26ed5810"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63d93b983fede1e17715fb5d26ed5810">&#9670;&#160;</a></span>SolvePnPRefinementRMSThreshold</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1861,7 +2329,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual float OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.SolvePnPRefineLMMovementThreshold</td>
+          <td class="memname">virtual float OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.SolvePnPRefinementRMSThreshold</td>
         </tr>
       </table>
   </td>
@@ -1871,7 +2339,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>If useSolvePnPRefineLM is true, the <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#aba3067535357c5869cf147ec5f65d60b" title="Refine a pose (the translation and the rotation that transform a 3D point expressed in the object coo...">Calib3d.solvePnPRefineLM()</a> method is called if the difference between the tvec of the current frame and that of the previous frame is greater than the specified threshold. </p>
+<p>If refinement is enabled, the refinement method is called if the reprojection error RMS is greater than the specified threshold. </p>
 
 </div>
 </div>
@@ -1899,8 +2367,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a5378b1956a1fb7a32bd80484d8a65385" name="a5378b1956a1fb7a32bd80484d8a65385"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5378b1956a1fb7a32bd80484d8a65385">&#9670;&#160;</a></span>UseSolvePnPRefineLM</h2>
+<a id="ae34e1e234e65d0fbda102d5f660eaadd" name="ae34e1e234e65d0fbda102d5f660eaadd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae34e1e234e65d0fbda102d5f660eaadd">&#9670;&#160;</a></span>UseSmoothingFilter</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1909,7 +2377,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.UseSolvePnPRefineLM</td>
+          <td class="memname">virtual bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.UseSmoothingFilter</td>
         </tr>
       </table>
   </td>
@@ -1919,7 +2387,55 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>If this flag is set to true, the <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#aba3067535357c5869cf147ec5f65d60b" title="Refine a pose (the translation and the rotation that transform a 3D point expressed in the object coo...">Calib3d.solvePnPRefineLM()</a> method is called after the Calib3d.solvePnPnP() method to optimize the results. </p>
+<p>When enabled, smoothing filter suppresses noise. </p>
+
+</div>
+</div>
+<a id="afe4f92ffc2893496bfbe48e2215f0f13" name="afe4f92ffc2893496bfbe48e2215f0f13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe4f92ffc2893496bfbe48e2215f0f13">&#9670;&#160;</a></span>UseSOLVEPNP_ITERATIVE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.UseSOLVEPNP_ITERATIVE</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>If this flag is set to true, <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a346b4cf4327a5a3c2348a53becd88d8b" title="C++: enum SolvePnPMethod (cv.SolvePnPMethod)">Calib3d.SOLVEPNP_ITERATIVE</a> is used for solvePnP when the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> object is already detected (not first detection). </p>
+
+</div>
+</div>
+<a id="a61c14a9baf784b07dee5667f6d42a1f0" name="a61c14a9baf784b07dee5667f6d42a1f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61c14a9baf784b07dee5667f6d42a1f0">&#9670;&#160;</a></span>UseSolvePnPRansac</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.UseSolvePnPRansac</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>If this flag is set to true, <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a8b9bcee299b9af0d716547bf8f7f0ddf" title="Finds an object pose  from 3D-2D point correspondences using the RANSAC scheme to deal with bad match...">Calib3d.solvePnPRansac()</a> is called before <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose  from 3D-2D point correspondences:">Calib3d.solvePnP()</a> to filter out outliers. </p>
 
 </div>
 </div>

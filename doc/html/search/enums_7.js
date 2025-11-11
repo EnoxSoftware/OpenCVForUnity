@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['source2mathelpercolorformat_0',['Source2MatHelperColorFormat',['../d3/d83/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat.html#a916a66642ef55f6c5d0b39670f08e80b',1,'OpenCVForUnity::UnityIntegration::Helper::Source2Mat']]],
-  ['source2mathelpererrorcode_1',['Source2MatHelperErrorCode',['../d3/d83/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat.html#a7b1dac8a9ec949cb28681bc9dc05f315',1,'OpenCVForUnity::UnityIntegration::Helper::Source2Mat']]]
+  ['nmsstrategy_0',['NMSStrategy',['../dc/d0b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1DAMOYOLOObjectDetector.html#aba43aba5e5594a85d87191d6fc15f9fb',1,'OpenCVForUnity.UnityIntegration.Worker.DnnModule.DAMOYOLOObjectDetector.NMSStrategy'],['../dc/d9d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1NanoDetPlusObjectDetector.html#a95963ed2c3d1c9e3c8b371a60fd8776e',1,'OpenCVForUnity.UnityIntegration.Worker.DnnModule.NanoDetPlusObjectDetector.NMSStrategy'],['../d1/d9d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YOLOXObjectDetector.html#af65bee03959932918356f443e01ee085',1,'OpenCVForUnity.UnityIntegration.Worker.DnnModule.YOLOXObjectDetector.NMSStrategy']]]
 ];

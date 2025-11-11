@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.0</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.1</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.12.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -147,6 +147,9 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr class="memitem:af0bbf6c1a902be986caf3f3fc25f723f" id="r_af0bbf6c1a902be986caf3f3fc25f723f"><td class="memItemLeft" align="right" valign="top">static Matrix4x4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0bbf6c1a902be986caf3f3fc25f723f">CalculateCameraMatrixValuesFromProjectionMatrix</a> (Matrix4x4 projectionMatrix, float width, float height)</td></tr>
+<tr class="memdesc:af0bbf6c1a902be986caf3f3fc25f723f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates OpenCV-style intrinsic camera parameters (camera matrix values) from a Unity-compatible projection matrix.  <br /></td></tr>
+<tr class="separator:af0bbf6c1a902be986caf3f3fc25f723f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a160f6722da08de8c7e576d5a0022bb5a" id="r_a160f6722da08de8c7e576d5a0022bb5a"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a160f6722da08de8c7e576d5a0022bb5a">CalculateDistance</a> (float frustumSize, float fov)</td></tr>
 <tr class="memdesc:a160f6722da08de8c7e576d5a0022bb5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate distance. <a href="https://docs.unity3d.com/Manual/FrustumSizeAtDistance.html">https://docs.unity3d.com/Manual/FrustumSizeAtDistance.html</a>.  <br /></td></tr>
 <tr class="separator:a160f6722da08de8c7e576d5a0022bb5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -156,38 +159,35 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a35545c4ba321d179bdc72f6495601825" id="r_a35545c4ba321d179bdc72f6495601825"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35545c4ba321d179bdc72f6495601825">CalculateFrustumSize</a> (float distance, float fov)</td></tr>
 <tr class="memdesc:a35545c4ba321d179bdc72f6495601825"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate frustum size. <a href="https://docs.unity3d.com/Manual/FrustumSizeAtDistance.html">https://docs.unity3d.com/Manual/FrustumSizeAtDistance.html</a>.  <br /></td></tr>
 <tr class="separator:a35545c4ba321d179bdc72f6495601825"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab31cedbbb5d905448d4be6addb98b14f" id="r_ab31cedbbb5d905448d4be6addb98b14f"><td class="memItemLeft" align="right" valign="top">static Matrix4x4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab31cedbbb5d905448d4be6addb98b14f">CalculateProjectionMatrixFromCameraMatrixValues</a> (float fx, float fy, float cx, float cy, float width, float height, float near, float far)</td></tr>
-<tr class="memdesc:ab31cedbbb5d905448d4be6addb98b14f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate projection matrix from camera matrix values. (OpenCV coordinate system to OpenGL coordinate system)  <br /></td></tr>
-<tr class="separator:ab31cedbbb5d905448d4be6addb98b14f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac53e2329ec038bfa2650f505f20a258" id="r_aac53e2329ec038bfa2650f505f20a258"><td class="memItemLeft" align="right" valign="top">static Matrix4x4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac53e2329ec038bfa2650f505f20a258">CameraMatrixValuesFromCalculateProjectionMatrix</a> (Matrix4x4 projectionMatrix, float width, float height, float fovV)</td></tr>
-<tr class="memdesc:aac53e2329ec038bfa2650f505f20a258"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate camera matrix values from projection matrix. (OpenGL coordinate system to OpenCV coordinate system)  <br /></td></tr>
-<tr class="separator:aac53e2329ec038bfa2650f505f20a258"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b02744594bf66c874a8e7e3289f87a0" id="r_a1b02744594bf66c874a8e7e3289f87a0"><td class="memItemLeft" align="right" valign="top">static Matrix4x4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1b02744594bf66c874a8e7e3289f87a0">CalculateProjectionMatrixFromCameraMatrixValues</a> (float fx, float fy, float cx, float cy, float width, float height, float near=0.01f, float far=2000f)</td></tr>
+<tr class="memdesc:a1b02744594bf66c874a8e7e3289f87a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates a projection matrix from OpenCV-style camera intrinsic parameters, suitable for use as Camera.projectionMatrix in Unity.  <br /></td></tr>
+<tr class="separator:a1b02744594bf66c874a8e7e3289f87a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ffb350084f7808775a15bbb78f684fb" id="r_a3ffb350084f7808775a15bbb78f684fb"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3ffb350084f7808775a15bbb78f684fb">ComposeMatrix</a> (Vector3 localPosition, Quaternion localRotation, Vector3 localScale, out Matrix4x4 matrix)</td></tr>
 <tr class="memdesc:a3ffb350084f7808775a15bbb78f684fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose TRS matrix from position, rotation and scale.  <br /></td></tr>
 <tr class="separator:a3ffb350084f7808775a15bbb78f684fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70c88a4f9f5489e889855152edf4cb5f" id="r_a70c88a4f9f5489e889855152edf4cb5f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70c88a4f9f5489e889855152edf4cb5f">ConvertMatrixToPoseData</a> (ref Matrix4x4 matrix)</td></tr>
-<tr class="memdesc:a70c88a4f9f5489e889855152edf4cb5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertes transform matrix to <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a>.  <br /></td></tr>
+<tr class="memdesc:a70c88a4f9f5489e889855152edf4cb5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts transform matrix to <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a>.  <br /></td></tr>
 <tr class="separator:a70c88a4f9f5489e889855152edf4cb5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e4ebe8dbda03129f36b274623e2e136" id="r_a5e4ebe8dbda03129f36b274623e2e136"><td class="memItemLeft" align="right" valign="top">static Matrix4x4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e4ebe8dbda03129f36b274623e2e136">ConvertPoseDataToMatrix</a> (ref <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a> poseData, bool toLeftHandCoordinateSystem=false)</td></tr>
-<tr class="memdesc:a5e4ebe8dbda03129f36b274623e2e136"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertes <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a> to transform matrix.  <br /></td></tr>
+<tr class="memdesc:a5e4ebe8dbda03129f36b274623e2e136"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a> to transform matrix.  <br /></td></tr>
 <tr class="separator:a5e4ebe8dbda03129f36b274623e2e136"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8b58542bc0283181e79307e9569404f" id="r_aa8b58542bc0283181e79307e9569404f"><td class="memItemLeft" align="right" valign="top">static Quaternion&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8b58542bc0283181e79307e9569404f">ConvertRvecToRot</a> (double[] rvec)</td></tr>
-<tr class="memdesc:aa8b58542bc0283181e79307e9569404f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertes rvec value to rotation transform.  <br /></td></tr>
+<tr class="memdesc:aa8b58542bc0283181e79307e9569404f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts rvec value to rotation transform.  <br /></td></tr>
 <tr class="separator:aa8b58542bc0283181e79307e9569404f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6b46b0b462152bc2cf40245c69274d8" id="r_ab6b46b0b462152bc2cf40245c69274d8"><td class="memItemLeft" align="right" valign="top">static Quaternion&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6b46b0b462152bc2cf40245c69274d8">ConvertRvecToRot</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> rvec)</td></tr>
-<tr class="memdesc:ab6b46b0b462152bc2cf40245c69274d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertes rvec value to rotation transform.  <br /></td></tr>
+<tr class="memdesc:ab6b46b0b462152bc2cf40245c69274d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts rvec value to rotation transform.  <br /></td></tr>
 <tr class="separator:ab6b46b0b462152bc2cf40245c69274d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54979e92d67ddfc9275d8fb01326a079" id="r_a54979e92d67ddfc9275d8fb01326a079"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54979e92d67ddfc9275d8fb01326a079">ConvertRvecTvecToPoseData</a> (double[] rvec, double[] tvec)</td></tr>
-<tr class="memdesc:a54979e92d67ddfc9275d8fb01326a079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertes rvec and tvec value to <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a>.  <br /></td></tr>
+<tr class="memdesc:a54979e92d67ddfc9275d8fb01326a079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts rvec and tvec value to <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a>.  <br /></td></tr>
 <tr class="separator:a54979e92d67ddfc9275d8fb01326a079"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a162d2460d72cf32aff13059f1a4e69c6" id="r_a162d2460d72cf32aff13059f1a4e69c6"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a162d2460d72cf32aff13059f1a4e69c6">ConvertRvecTvecToPoseData</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> rvec, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> tvec)</td></tr>
-<tr class="memdesc:a162d2460d72cf32aff13059f1a4e69c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertes rvec and tvec value to <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a>.  <br /></td></tr>
+<tr class="memdesc:a162d2460d72cf32aff13059f1a4e69c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts rvec and tvec value to <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a>.  <br /></td></tr>
 <tr class="separator:a162d2460d72cf32aff13059f1a4e69c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe21d1b6f9180e81d3ad9bf941989019" id="r_afe21d1b6f9180e81d3ad9bf941989019"><td class="memItemLeft" align="right" valign="top">static Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe21d1b6f9180e81d3ad9bf941989019">ConvertTvecToPos</a> (double[] tvec)</td></tr>
-<tr class="memdesc:afe21d1b6f9180e81d3ad9bf941989019"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertes tvec value to position transform.  <br /></td></tr>
+<tr class="memdesc:afe21d1b6f9180e81d3ad9bf941989019"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts tvec value to position transform.  <br /></td></tr>
 <tr class="separator:afe21d1b6f9180e81d3ad9bf941989019"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a1150c3308025d17bf1f03f6abd1756" id="r_a2a1150c3308025d17bf1f03f6abd1756"><td class="memItemLeft" align="right" valign="top">static Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a1150c3308025d17bf1f03f6abd1756">ConvertTvecToPos</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> tvec)</td></tr>
-<tr class="memdesc:a2a1150c3308025d17bf1f03f6abd1756"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertes tvec value to position transform.  <br /></td></tr>
+<tr class="memdesc:a2a1150c3308025d17bf1f03f6abd1756"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts tvec value to position transform.  <br /></td></tr>
 <tr class="separator:a2a1150c3308025d17bf1f03f6abd1756"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7bd83090b9ff77f9be4c85b3abf4d584" id="r_a7bd83090b9ff77f9be4c85b3abf4d584"><td class="memItemLeft" align="right" valign="top">static Dictionary&lt; int, <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7bd83090b9ff77f9be4c85b3abf4d584">CreatePoseDataDict</a> (int[] ids, double[] rvecs, double[] tvecs)</td></tr>
 <tr class="memdesc:a7bd83090b9ff77f9be4c85b3abf4d584"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates pose data dictionary.  <br /></td></tr>
@@ -216,10 +216,64 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a1373e904b78ef947f85d728f9c3f4b1a" id="r_a1373e904b78ef947f85d728f9c3f4b1a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1373e904b78ef947f85d728f9c3f4b1a">SetTransformFromMatrix</a> (Transform transform, ref Matrix4x4 matrix)</td></tr>
 <tr class="memdesc:a1373e904b78ef947f85d728f9c3f4b1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set transform component from TRS matrix.  <br /></td></tr>
 <tr class="separator:a1373e904b78ef947f85d728f9c3f4b1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a575bd79c73b00435ff44d3bc12885c96" id="r_a575bd79c73b00435ff44d3bc12885c96"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a575bd79c73b00435ff44d3bc12885c96">SmoothingFilterPoseData</a> (ref <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a> oldPose, ref <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a> newPose, float positionSmoothingFactor, float rotationSmoothingFactor)</td></tr>
+<tr class="memdesc:a575bd79c73b00435ff44d3bc12885c96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs smoothing filter on the position and rotation in newPose using exponential moving average.  <br /></td></tr>
+<tr class="separator:a575bd79c73b00435ff44d3bc12885c96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72478c371ff5b96a0421ac21a9cc320c" id="r_a72478c371ff5b96a0421ac21a9cc320c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a72478c371ff5b96a0421ac21a9cc320c">SmoothingFilterPoseDataDict</a> (Dictionary&lt; int, <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a> &gt; oldDict, Dictionary&lt; int, <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a> &gt; newDict, float positionSmoothingFactor, float rotationSmoothingFactor)</td></tr>
+<tr class="memdesc:a72478c371ff5b96a0421ac21a9cc320c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs smoothing filter on the position and rotation of each marker in newDict using exponential moving average.  <br /></td></tr>
+<tr class="separator:a72478c371ff5b96a0421ac21a9cc320c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>OpenCV AR utilities. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="af0bbf6c1a902be986caf3f3fc25f723f" name="af0bbf6c1a902be986caf3f3fc25f723f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0bbf6c1a902be986caf3f3fc25f723f">&#9670;&#160;</a></span>CalculateCameraMatrixValuesFromProjectionMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Matrix4x4 OpenCVForUnity.UnityIntegration.OpenCVARUtils.CalculateCameraMatrixValuesFromProjectionMatrix </td>
+          <td>(</td>
+          <td class="paramtype">Matrix4x4</td>          <td class="paramname"><span class="paramname"><em>projectionMatrix</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>height</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculates OpenCV-style intrinsic camera parameters (camera matrix values) from a Unity-compatible projection matrix. </p>
+<p>Converts from Unity's left-handed camera coordinate system (Z-forward, Y-up) (used by Camera.projectionMatrix) to OpenCV's right-handed camera coordinate system (Z-forward, Y-down). </p>
+<p>This effectively reverses the operation performed by <a class="el" href="#a1b02744594bf66c874a8e7e3289f87a0" title="Calculates a projection matrix from OpenCV-style camera intrinsic parameters, suitable for use as Cam...">CalculateProjectionMatrixFromCameraMatrixValues</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">projectionMatrix</td><td>A Unity camera projection matrix.</td></tr>
+    <tr><td class="paramname">width</td><td>Image width in pixels.</td></tr>
+    <tr><td class="paramname">height</td><td>Image height in pixels.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A 3×3-style camera matrix where: <br  />
+ fx = m00, fy = m11, cx = m02, cy = m12 </dd></dl>
+
+</div>
+</div>
 <a id="a160f6722da08de8c7e576d5a0022bb5a" name="a160f6722da08de8c7e576d5a0022bb5a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a160f6722da08de8c7e576d5a0022bb5a">&#9670;&#160;</a></span>CalculateDistance()</h2>
 
@@ -337,8 +391,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab31cedbbb5d905448d4be6addb98b14f" name="ab31cedbbb5d905448d4be6addb98b14f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab31cedbbb5d905448d4be6addb98b14f">&#9670;&#160;</a></span>CalculateProjectionMatrixFromCameraMatrixValues()</h2>
+<a id="a1b02744594bf66c874a8e7e3289f87a0" name="a1b02744594bf66c874a8e7e3289f87a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b02744594bf66c874a8e7e3289f87a0">&#9670;&#160;</a></span>CalculateProjectionMatrixFromCameraMatrixValues()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -379,12 +433,12 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>near</em></span>, </td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>near</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0::01f</span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>far</em></span>&#160;)</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>far</em></span><span class="paramdefsep"> = </span><span class="paramdefval">2000f</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -394,72 +448,24 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Calculate projection matrix from camera matrix values. (OpenCV coordinate system to OpenGL coordinate system) </p>
+<p>Calculates a projection matrix from OpenCV-style camera intrinsic parameters, suitable for use as Camera.projectionMatrix in Unity. </p>
+<p>Converts from the right-handed OpenCV camera coordinate system (Z-forward, Y-down) to Unity's left-handed camera coordinate system (Z-forward, Y-up). </p>
+<p>The resulting matrix can be directly assigned to Camera.projectionMatrix, regardless of the rendering backend (OpenGL ES, Vulkan, or DirectX). </p>
+<p>This effectively reverses the operation performed by <a class="el" href="#af0bbf6c1a902be986caf3f3fc25f723f" title="Calculates OpenCV-style intrinsic camera parameters (camera matrix values) from a Unity-compatible pr...">CalculateCameraMatrixValuesFromProjectionMatrix</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">fx</td><td>Focal length x.</td></tr>
-    <tr><td class="paramname">fy</td><td>Focal length y.</td></tr>
-    <tr><td class="paramname">cx</td><td>Image center point x.(principal point x)</td></tr>
-    <tr><td class="paramname">cy</td><td>Image center point y.(principal point y)</td></tr>
-    <tr><td class="paramname">width</td><td>Image width.</td></tr>
-    <tr><td class="paramname">height</td><td>Image height.</td></tr>
-    <tr><td class="paramname">near</td><td>The near clipping plane distance.</td></tr>
-    <tr><td class="paramname">far</td><td>The far clipping plane distance.</td></tr>
+    <tr><td class="paramname">fx</td><td>Focal length in pixels along the X axis.</td></tr>
+    <tr><td class="paramname">fy</td><td>Focal length in pixels along the Y axis.</td></tr>
+    <tr><td class="paramname">cx</td><td>Principal point (image center) X coordinate in pixels.</td></tr>
+    <tr><td class="paramname">cy</td><td>Principal point (image center) Y coordinate in pixels.</td></tr>
+    <tr><td class="paramname">width</td><td>Image width in pixels.</td></tr>
+    <tr><td class="paramname">height</td><td>Image height in pixels.</td></tr>
+    <tr><td class="paramname">near</td><td>Near clipping plane distance.</td></tr>
+    <tr><td class="paramname">far</td><td>Far clipping plane distance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Projection matrix. </dd></dl>
-
-</div>
-</div>
-<a id="aac53e2329ec038bfa2650f505f20a258" name="aac53e2329ec038bfa2650f505f20a258"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac53e2329ec038bfa2650f505f20a258">&#9670;&#160;</a></span>CameraMatrixValuesFromCalculateProjectionMatrix()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static Matrix4x4 OpenCVForUnity.UnityIntegration.OpenCVARUtils.CameraMatrixValuesFromCalculateProjectionMatrix </td>
-          <td>(</td>
-          <td class="paramtype">Matrix4x4</td>          <td class="paramname"><span class="paramname"><em>projectionMatrix</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>fovV</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Calculate camera matrix values from projection matrix. (OpenGL coordinate system to OpenCV coordinate system) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">projectionMatrix</td><td>Projection matrix.</td></tr>
-    <tr><td class="paramname">width</td><td>Image width.</td></tr>
-    <tr><td class="paramname">height</td><td>Image height.</td></tr>
-    <tr><td class="paramname">fovV</td><td>Vertical field of view.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Camera matrix values. (fx = matrx.m00, fy = matrx.m11, cx = matrx.m02, cy = matrx.m12) </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A 4×4 projection matrix compatible with Unity’s Camera component. </dd></dl>
 
 </div>
 </div>
@@ -536,7 +542,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Convertes transform matrix to <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a>. </p>
+<p>Converts transform matrix to <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">matrix</td><td>Transform matrix.</td></tr>
@@ -574,11 +580,11 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Convertes <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a> to transform matrix. </p>
+<p>Converts <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a> to transform matrix. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">posedata</td><td><a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a>.</td></tr>
-    <tr><td class="paramname">toLeftHandCoordinateSystem</td><td>Determines if convert the transformation matrix to the left-hand coordinate system.</td></tr>
+    <tr><td class="paramname">poseData</td><td><a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a>.</td></tr>
+    <tr><td class="paramname">toLeftHandCoordinateSystem</td><td>When true, converts the transformation matrix from OpenCV's right-handed coordinate system to Unity's left-handed coordinate system by inverting the Y-axis. This option must be enabled (set to true) when applying a pose calculated by OpenCV to a Unity object. When false (default), returns the matrix without coordinate system conversion. </td></tr>
   </table>
   </dd>
 </dl>
@@ -609,7 +615,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Convertes rvec value to rotation transform. </p>
+<p>Converts rvec value to rotation transform. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tvec</td><td>Rvec.</td></tr>
@@ -643,7 +649,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Convertes rvec value to rotation transform. </p>
+<p>Converts rvec value to rotation transform. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tvec</td><td>Rvec.</td></tr>
@@ -681,7 +687,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Convertes rvec and tvec value to <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a>. </p>
+<p>Converts rvec and tvec value to <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tvec</td><td>Rvec.</td></tr>
@@ -720,7 +726,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Convertes rvec and tvec value to <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a>. </p>
+<p>Converts rvec and tvec value to <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tvec</td><td>Rvec.</td></tr>
@@ -755,7 +761,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Convertes tvec value to position transform. </p>
+<p>Converts tvec value to position transform. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tvec</td><td>Tvec.</td></tr>
@@ -789,7 +795,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Convertes tvec value to position transform. </p>
+<p>Converts tvec value to position transform. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tvec</td><td>Tvec.</td></tr>
@@ -1199,6 +1205,106 @@ Static Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">transform</td><td>Transform component.</td></tr>
     <tr><td class="paramname">matrix</td><td>Transform matrix. This parameter is passed by reference to improve performance; no changes will be made to it.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a575bd79c73b00435ff44d3bc12885c96" name="a575bd79c73b00435ff44d3bc12885c96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a575bd79c73b00435ff44d3bc12885c96">&#9670;&#160;</a></span>SmoothingFilterPoseData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void OpenCVForUnity.UnityIntegration.OpenCVARUtils.SmoothingFilterPoseData </td>
+          <td>(</td>
+          <td class="paramtype">ref <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a></td>          <td class="paramname"><span class="paramname"><em>oldPose</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ref <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a></td>          <td class="paramname"><span class="paramname"><em>newPose</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>positionSmoothingFactor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>rotationSmoothingFactor</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Performs smoothing filter on the position and rotation in newPose using exponential moving average. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">oldPose</td><td>Old <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a>.</td></tr>
+    <tr><td class="paramname">newPose</td><td>New <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a>.</td></tr>
+    <tr><td class="paramname">positionSmoothingFactor</td><td>Position smoothing factor (0.0 = no filtering, 1.0 = maximum filtering).</td></tr>
+    <tr><td class="paramname">rotationSmoothingFactor</td><td>Rotation smoothing factor (0.0 = no filtering, 1.0 = maximum filtering).</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a72478c371ff5b96a0421ac21a9cc320c" name="a72478c371ff5b96a0421ac21a9cc320c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72478c371ff5b96a0421ac21a9cc320c">&#9670;&#160;</a></span>SmoothingFilterPoseDataDict()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void OpenCVForUnity.UnityIntegration.OpenCVARUtils.SmoothingFilterPoseDataDict </td>
+          <td>(</td>
+          <td class="paramtype">Dictionary&lt; int, <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>oldDict</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Dictionary&lt; int, <a class="el" href="../../d7/d7c/structOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils_1_1PoseData.html">PoseData</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>newDict</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>positionSmoothingFactor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>rotationSmoothingFactor</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Performs smoothing filter on the position and rotation of each marker in newDict using exponential moving average. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">oldDict</td><td>Old dictionary.</td></tr>
+    <tr><td class="paramname">newDict</td><td>New dictionary.</td></tr>
+    <tr><td class="paramname">positionSmoothingFactor</td><td>Position smoothing factor (0.0 = no filtering, 1.0 = maximum filtering).</td></tr>
+    <tr><td class="paramname">rotationSmoothingFactor</td><td>Rotation smoothing factor (0.0 = no filtering, 1.0 = maximum filtering).</td></tr>
   </table>
   </dd>
 </dl>

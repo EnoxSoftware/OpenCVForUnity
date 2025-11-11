@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['nmsstrategy_0',['NMSStrategy',['../dc/d0b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1DAMOYOLOObjectDetector.html#aba43aba5e5594a85d87191d6fc15f9fb',1,'OpenCVForUnity.UnityIntegration.Worker.DnnModule.DAMOYOLOObjectDetector.NMSStrategy'],['../dc/d9d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1NanoDetPlusObjectDetector.html#a95963ed2c3d1c9e3c8b371a60fd8776e',1,'OpenCVForUnity.UnityIntegration.Worker.DnnModule.NanoDetPlusObjectDetector.NMSStrategy'],['../d1/d9d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YOLOXObjectDetector.html#af65bee03959932918356f443e01ee085',1,'OpenCVForUnity.UnityIntegration.Worker.DnnModule.YOLOXObjectDetector.NMSStrategy']]]
+  ['multisource2mathelperclassinterfaces_0',['MultiSource2MatHelperClassInterfaces',['../d1/dcd/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1MultiSource2MatHelper.html#abd1948f64bbe2af070d6b1fe41f80559',1,'OpenCVForUnity::UnityIntegration::Helper::Source2Mat::MultiSource2MatHelper']]],
+  ['multisource2mathelperclassname_1',['MultiSource2MatHelperClassName',['../d1/dcd/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1MultiSource2MatHelper.html#a7cdce6296882db0980d9d9a97a0d5c1b',1,'OpenCVForUnity::UnityIntegration::Helper::Source2Mat::MultiSource2MatHelper']]]
 ];
