@@ -358,8 +358,8 @@ namespace OpenCVForUnityExample
 
             if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
 
-            ArHelperRightHand?.Dispose(); ArHelperRightHand = null;
-            ArHelperLeftHand?.Dispose(); ArHelperLeftHand = null;
+            ArHelperRightHand?.Dispose();
+            ArHelperLeftHand?.Dispose();
         }
 
         /// <summary>

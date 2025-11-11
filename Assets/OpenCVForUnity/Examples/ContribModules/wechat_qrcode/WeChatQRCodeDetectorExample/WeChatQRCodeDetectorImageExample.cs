@@ -114,11 +114,6 @@ namespace OpenCVForUnityExample
             _cts?.Dispose();
         }
 
-        private void OnDisable()
-        {
-            _cts?.Dispose();
-        }
-
         // Public Methods
         /// <summary>
         /// Raises the back button click event.

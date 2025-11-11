@@ -14,18 +14,6 @@ namespace OpenCVForUnityExample
         public float Speed = 0.1f;
 
         // Unity Lifecycle Methods
-#if ENABLE_INPUT_SYSTEM
-        private void OnEnable()
-        {
-            EnhancedTouchSupport.Enable();
-        }
-
-        private void OnDisable()
-        {
-            EnhancedTouchSupport.Disable();
-        }
-#endif
-
         private void Update()
         {
 #if ENABLE_INPUT_SYSTEM
@@ -104,6 +92,20 @@ namespace OpenCVForUnityExample
                 Cube.transform.Rotate(xAngle, yAngle, zAngle, Space.World);
             }
 #endif
+#endif
+        }
+
+        private void OnEnable()
+        {
+#if ENABLE_INPUT_SYSTEM
+            EnhancedTouchSupport.Enable();
+#endif
+        }
+
+        private void OnDisable()
+        {
+#if ENABLE_INPUT_SYSTEM
+            EnhancedTouchSupport.Disable();
 #endif
         }
     }

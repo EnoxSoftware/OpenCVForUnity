@@ -59,6 +59,7 @@ namespace OpenCVForUnityExample
 
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceDetectorYNExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceRecognizerSFExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceIdentificationEstimatorExample").GetComponent<Button>().interactable = false;
 
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ColorizationExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectTrackingDaSiamRPNExampleButton").GetComponent<Button>().interactable = false;
@@ -68,6 +69,7 @@ namespace OpenCVForUnityExample
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FacialExpressionRecognitionExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/PoseEstimationMediaPipeExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/HandPoseEstimationMediaPipeExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/HumanPoseStreamEstimationMediaPipeExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/HumanSegmentationPPHumanSegExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ImageClassificationMobilenetExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ImageClassificationPPResnetExampleButton").GetComponent<Button>().interactable = false;
@@ -175,6 +177,11 @@ namespace OpenCVForUnityExample
         public void OnKeyFrameGreenScreenExampleButtonClick()
         {
             SceneManager.LoadScene("KeyFrameGreenScreenExample");
+        }
+
+        public void OnBallTrackingBasedOnColorExampleButtonClick()
+        {
+            SceneManager.LoadScene("BallTrackingBasedOnColorExample");
         }
 
         public void OnCountFingersExampleButtonClick()
@@ -435,6 +442,11 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("FaceRecognizerSFExample");
         }
 
+        public void OnFaceIdentificationEstimatorExampleButtonClick()
+        {
+            SceneManager.LoadScene("FaceIdentificationEstimatorExample");
+        }
+
         public void OnHOGDescriptorExampleButtonClick()
         {
             SceneManager.LoadScene("HOGDescriptorExample");
@@ -510,6 +522,18 @@ namespace OpenCVForUnityExample
             else
             {
                 SceneManager.LoadScene("HandPoseEstimationMediaPipeExample_SRP");
+            }
+        }
+
+        public void OnHumanPoseStreamEstimationMediaPipeExampleButtonClick()
+        {
+            if (GraphicsSettings.defaultRenderPipeline == null)
+            {
+                SceneManager.LoadScene("HumanPoseStreamEstimationMediaPipeExample_Built-in");
+            }
+            else
+            {
+                SceneManager.LoadScene("HumanPoseStreamEstimationMediaPipeExample_SRP");
             }
         }
 

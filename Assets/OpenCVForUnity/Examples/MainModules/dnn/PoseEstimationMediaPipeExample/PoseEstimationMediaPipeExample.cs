@@ -381,7 +381,7 @@ namespace OpenCVForUnityExample
 
             if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
 
-            ArHelper?.Dispose(); ArHelper = null;
+            ArHelper?.Dispose();
         }
 
         /// <summary>

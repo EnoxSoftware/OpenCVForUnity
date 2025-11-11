@@ -18,7 +18,7 @@ namespace OpenCVForUnityExample
     [RequireComponent(typeof(MultiSource2MatHelper))]
     public class MultiSource2MatHelperExample : MonoBehaviour
     {
-        // Constants
+        // Enums
         private enum Source2MatHelperClassNamePreset : int
         {
             WebCamTexture2MatHelper = 0,
@@ -34,44 +34,44 @@ namespace OpenCVForUnityExample
         /// <summary>
         /// The RawImage for previewing the result.
         /// </summary>
-        public RawImage resultPreview;
+        public RawImage ResultPreview;
 
         [Space(10)]
 
         [Tooltip("Specify the video file path to use exclusively for VideoCapture2MatHelper.")]
-        public string requestedVideoFilePathForVideoCapture;
+        public string RequestedVideoFilePathForVideoCapture;
 
         [Tooltip("Specify the video file path to use exclusively for UnityVideoPlayer2MatHelper.")]
-        public string requestedVideoFilePathForUnityVideoPlayer;
+        public string RequestedVideoFilePathForUnityVideoPlayer;
 
         [Space(10)]
 
         /// <summary>
         /// The change camera botton.
         /// </summary>
-        public Button changeCameraBotton;
+        public Button ChangeCameraBotton;
 
         /// <summary>
         /// The requested source 2 mat helper class name dropdown.
         /// </summary>
-        public Dropdown requestedSource2MatHelperClassNameDropdown;
+        public Dropdown RequestedSource2MatHelperClassNameDropdown;
 
         /// <summary>
         /// Whether RenderTexture is used when displaying rgbaMat in the scene; if Off, Texture2D is used.
         /// </summary>
-        public Toggle outputRenderTextureToggle;
+        public Toggle OutputRenderTextureToggle;
 
         /// <summary>
         /// The force playback when switching helper toggle.
         /// </summary>
-        public Toggle forcePlaybackWhenSwitchingHelperToggle;
+        public Toggle ForcePlaybackWhenSwitchingHelperToggle;
 
         [Space(10)]
 
         /// <summary>
         /// The cube.
         /// </summary>
-        public GameObject cube;
+        public GameObject Cube;
 
         // Private Fields
         private Source2MatHelperClassNamePreset _requestedSource2MatHelperClassName = Source2MatHelperClassNamePreset.WebCamTexture2MatHelper;
@@ -123,12 +123,12 @@ namespace OpenCVForUnityExample
             _multiSource2MatHelper.Initialize();
 
             // Update GUI state
-            changeCameraBotton.interactable = _multiSource2MatHelper.Source2MatHelper is ICameraSource2MatHelper;
-            requestedSource2MatHelperClassNameDropdown.value = (int)_multiSource2MatHelper.GetCurrentSource2MatHelperClassName();
+            ChangeCameraBotton.interactable = _multiSource2MatHelper.Source2MatHelper is ICameraSource2MatHelper;
+            RequestedSource2MatHelperClassNameDropdown.value = (int)_multiSource2MatHelper.GetCurrentSource2MatHelperClassName();
 
             if (!SystemInfo.supportsComputeShaders)
             {
-                outputRenderTextureToggle.interactable = false;
+                OutputRenderTextureToggle.interactable = false;
             }
         }
 
@@ -196,7 +196,7 @@ namespace OpenCVForUnityExample
             // Retrieve the current frame from the Source2MatHelper as a Mat object
             Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-            if (!outputRenderTextureToggle.isOn)
+            if (!OutputRenderTextureToggle.isOn)
             {
                 // Create a new Texture2D with the same dimensions as the Mat and RGBA32 color format
                 _outputTexture2D = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
@@ -205,8 +205,8 @@ namespace OpenCVForUnityExample
                 OpenCVMatUtils.MatToTexture2D(rgbaMat, _outputTexture2D);
 
                 // Set the Texture2D as the texture of the RawImage for preview.
-                resultPreview.texture = _outputTexture2D;
-                resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_outputTexture2D.width / _outputTexture2D.height;
+                ResultPreview.texture = _outputTexture2D;
+                ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_outputTexture2D.width / _outputTexture2D.height;
             }
             else
             {
@@ -228,8 +228,8 @@ namespace OpenCVForUnityExample
                 }
 
                 // Set the RenderTexture as the texture of the RawImage for preview.
-                resultPreview.texture = _outputRenderTexture;
-                resultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_outputRenderTexture.width / _outputRenderTexture.height;
+                ResultPreview.texture = _outputRenderTexture;
+                ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_outputRenderTexture.width / _outputRenderTexture.height;
             }
         }
 
@@ -306,7 +306,7 @@ namespace OpenCVForUnityExample
         {
             if ((int)_requestedSource2MatHelperClassName != result)
             {
-                if (forcePlaybackWhenSwitchingHelperToggle.isOn && !_multiSource2MatHelper.IsPlaying())
+                if (ForcePlaybackWhenSwitchingHelperToggle.isOn && !_multiSource2MatHelper.IsPlaying())
                     _multiSource2MatHelper.Play();
 
                 _requestedSource2MatHelperClassName = (Source2MatHelperClassNamePreset)result;
@@ -319,15 +319,15 @@ namespace OpenCVForUnityExample
                     case Source2MatHelperClassNamePreset.VideoCapture2MatHelper:
                         _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.VideoCapture2MatHelper;
 
-                        if (!string.IsNullOrEmpty(requestedVideoFilePathForVideoCapture))
-                            _multiSource2MatHelper.RequestedVideoFilePath = requestedVideoFilePathForVideoCapture;
+                        if (!string.IsNullOrEmpty(RequestedVideoFilePathForVideoCapture))
+                            _multiSource2MatHelper.RequestedVideoFilePath = RequestedVideoFilePathForVideoCapture;
 
                         break;
                     case Source2MatHelperClassNamePreset.UnityVideoPlayer2MatHelper:
                         _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.UnityVideoPlayer2MatHelper;
 
-                        if (!string.IsNullOrEmpty(requestedVideoFilePathForUnityVideoPlayer))
-                            _multiSource2MatHelper.RequestedVideoFilePath = requestedVideoFilePathForUnityVideoPlayer;
+                        if (!string.IsNullOrEmpty(RequestedVideoFilePathForUnityVideoPlayer))
+                            _multiSource2MatHelper.RequestedVideoFilePath = RequestedVideoFilePathForUnityVideoPlayer;
 
                         break;
                     case Source2MatHelperClassNamePreset.Image2MatHelper:
@@ -342,7 +342,7 @@ namespace OpenCVForUnityExample
                 }
 
                 // Way to perform different processing depending on the interface inherited by the helper class.
-                changeCameraBotton.interactable = _multiSource2MatHelper.Source2MatHelper is ICameraSource2MatHelper;
+                ChangeCameraBotton.interactable = _multiSource2MatHelper.Source2MatHelper is ICameraSource2MatHelper;
             }
         }
 
@@ -392,7 +392,7 @@ namespace OpenCVForUnityExample
                 // Add text overlay on the frame
                 Imgproc.putText(rgbaMat, "W:" + rgbaMat.width() + " H:" + rgbaMat.height() + " SO:" + Screen.orientation + " MatUpdateFPS:" + _fpsCounter.GetCurrentFPS(), new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
-                if (!outputRenderTextureToggle.isOn)
+                if (!OutputRenderTextureToggle.isOn)
                 {
                     // Convert the Mat to a Texture2D to display it on a texture
                     OpenCVMatUtils.MatToTexture2D(rgbaMat, _outputTexture2D);
@@ -403,10 +403,10 @@ namespace OpenCVForUnityExample
                     OpenCVMatUtils.MatToRenderTexture(rgbaMat, _outputRenderTexture, _graphicsBuffer);
                 }
 
-                //cube.transform.Rotate(new Vector3(90, 90, 0) * Time.deltaTime, Space.Self);
+                //Cube.transform.Rotate(new Vector3(90, 90, 0) * Time.deltaTime, Space.Self);
             }
 
-            cube.transform.Rotate(new Vector3(90, 90, 0) * Time.deltaTime * 0.5f, Space.Self);
+            Cube.transform.Rotate(new Vector3(90, 90, 0) * Time.deltaTime * 0.5f, Space.Self);
         }
 
         private void OnDestroy()
@@ -422,21 +422,9 @@ namespace OpenCVForUnityExample
         /// </summary>
         private void ReleaseResources()
         {
-            // Destroy the texture and set it to null
             if (_outputTexture2D != null) Texture2D.Destroy(_outputTexture2D); _outputTexture2D = null;
-
-            // Destroy the texture and set it to null
-            if (_outputRenderTexture != null)
-            {
-                RenderTexture.Destroy(_outputRenderTexture);
-                _outputRenderTexture = null;
-            }
-
-            if (_graphicsBuffer != null)
-            {
-                _graphicsBuffer.Dispose();
-                _graphicsBuffer = null;
-            }
+            if (_outputRenderTexture != null) RenderTexture.Destroy(_outputRenderTexture); _outputRenderTexture = null;
+            _graphicsBuffer?.Dispose(); _graphicsBuffer = null;
         }
     }
 }

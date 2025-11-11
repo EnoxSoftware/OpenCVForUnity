@@ -1,17 +1,11 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
 using OpenCVForUnity.VideoModule;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-#if ENABLE_INPUT_SYSTEM
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.EnhancedTouch;
-#endif
+using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {
@@ -21,6 +15,21 @@ namespace OpenCVForUnityExample
     /// </summary>
     public class KalmanFilterExample : MonoBehaviour
     {
+        // Public Fields
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage ResultPreview;
+
+        [Space(10)]
+
+        [Header("UI")]
+        /// <summary>
+        /// The texture selector (point selection).
+        /// </summary>
+        public TextureSelector TexturePointSelector;
+
         // Private Fields
         /// <summary>
         /// The rgba mat.
@@ -77,23 +86,9 @@ namespace OpenCVForUnityExample
             _colors = new Color32[frameWidth * frameHeight];
             _texture = new Texture2D(frameWidth, frameHeight, TextureFormat.RGBA32, false);
 
-            // Set the Texture2D as the main texture of the Renderer component attached to the game object
-            gameObject.GetComponent<Renderer>().material.mainTexture = _texture;
-
-            // Set the Texture2D as the main texture of the Renderer component attached to the game object
-            gameObject.transform.localScale = new Vector3((float)frameWidth, (float)frameHeight, 1);
-
-            // Adjust the scale of the game object to match the dimensions of the texture
-            float widthScale = (float)Screen.width / (float)frameWidth;
-            float heightScale = (float)Screen.height / (float)frameHeight;
-            if (widthScale < heightScale)
-            {
-                Camera.main.orthographicSize = ((float)frameWidth * (float)Screen.height / (float)Screen.width) / 2;
-            }
-            else
-            {
-                Camera.main.orthographicSize = (float)frameHeight / 2;
-            }
+            // Set the Texture2D as the main texture of the RawImage
+            ResultPreview.texture = _texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)frameWidth / frameHeight;
 
             _kf = new KalmanFilter(4, 2, 0, CvType.CV_32FC1);
 
@@ -105,8 +100,7 @@ namespace OpenCVForUnityExample
             _measurement = new Mat(2, 1, CvType.CV_32FC1);
             _measurement.setTo(Scalar.all(0));
 
-            _cursorPos = new Point();
-            GetCursorPos(_cursorPos);
+            _cursorPos = new Point(_rgbaMat.cols() / 2f, _rgbaMat.rows() / 2f);
 
             // Set initial state estimate.
             Mat statePreMat = _kf.get_statePre();
@@ -129,22 +123,22 @@ namespace OpenCVForUnityExample
             Mat errorCovPostMat = new Mat(4, 4, CvType.CV_32FC1);
             Core.setIdentity(errorCovPostMat, Scalar.all(.1));
             _kf.set_errorCovPost(errorCovPostMat);
-        }
 
-#if ENABLE_INPUT_SYSTEM
-        private void OnEnable()
-        {
-            EnhancedTouchSupport.Enable();
+            // Reset TexturePointSelector state
+            TexturePointSelector.ResetSelectionStatus();
         }
-
-        private void OnDisable()
-        {
-            EnhancedTouchSupport.Disable();
-        }
-#endif
 
         private void Update()
         {
+            // Check if touch is active and update cursor position
+            var (gameObject, currentSelectionState, currentSelectionPoints) = TexturePointSelector.GetSelectionStatus();
+            if (currentSelectionState == TextureSelector.TextureSelectionState.POINT_SELECTION_IN_PROGRESS)
+            {
+                var p = TextureSelector.ConvertSelectionPointsToUnityVector2(currentSelectionPoints);
+                _cursorPos.x = p.x;
+                _cursorPos.y = p.y;
+            }
+
             // fill all black.
             Imgproc.rectangle(_rgbaMat, new Point(0, 0), new Point(_rgbaMat.width(), _rgbaMat.height()), new Scalar(0, 0, 0, 255), -1);
 
@@ -158,7 +152,6 @@ namespace OpenCVForUnityExample
             }
 
             // Get cursor point.
-            GetCursorPos(_cursorPos);
             // Noise addition (measurements/detections simulation )
             _cursorPos.x += UnityEngine.Random.Range(-2.0f, 2.0f);
             _cursorPos.y += UnityEngine.Random.Range(-2.0f, 2.0f);
@@ -208,18 +201,23 @@ namespace OpenCVForUnityExample
             DrawCross(_rgbaMat, new Point(_rgbaMat.cols() - 15, 35), new Scalar(0, 255, 0, 255), 20);
             DrawCross(_rgbaMat, new Point(_rgbaMat.cols() - 15, 55), new Scalar(255, 0, 0, 255), 20);
 
-            Imgproc.putText(_rgbaMat, "Please move the cursor on the screen.", new Point(5, _rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+            Imgproc.putText(_rgbaMat, "Touch and drag to start Kalman filter tracking.", new Point(5, _rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+
+            // Draw current selection overlay
+            // TexturePointSelector.DrawSelection(_rgbaMat, true);
 
             OpenCVMatUtils.MatToTexture2D(_rgbaMat, _texture, _colors);
         }
 
         private void OnDestroy()
         {
-            _rgbaMat?.Dispose();
+            _rgbaMat?.Dispose(); _rgbaMat = null;
 
-            _measurement?.Dispose();
+            _measurement?.Dispose(); _measurement = null;
 
-            _kf?.Dispose();
+            _kf?.Dispose(); _kf = null;
+
+            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
         }
 
         // Public Methods
@@ -232,101 +230,6 @@ namespace OpenCVForUnityExample
         }
 
         // Private Methods
-        /// <summary>
-        /// Gets cursor pos.
-        /// </summary>
-        /// <returns>The cursor point.</returns>
-        private void GetCursorPos(Point pos)
-        {
-#if ENABLE_INPUT_SYSTEM
-#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-            // Touch input for mobile platforms
-            if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count >= 1)
-            {
-                var touch = UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0];
-                ConvertScreenPointToTexturePoint(new Point(touch.screenPosition.x, touch.screenPosition.y), pos, gameObject, _rgbaMat.cols(), _rgbaMat.rows());
-            }
-#else
-            // Mouse input for non-mobile platforms
-            var mouse = Mouse.current;
-            if (mouse != null)
-            {
-                if (EventSystem.current.IsPointerOverGameObject())
-                    return;
-
-                ConvertScreenPointToTexturePoint(new Point(mouse.position.ReadValue().x, mouse.position.ReadValue().y), pos, gameObject, _rgbaMat.cols(), _rgbaMat.rows());
-            }
-#endif
-#else
-#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-            //Touch
-            int touchCount = Input.touchCount;
-            if (touchCount >= 1)
-            {
-                Touch t = Input.GetTouch(0);
-                ConvertScreenPointToTexturePoint (new Point (t.position.x, t.position.y), pos, gameObject, _rgbaMat.cols(), _rgbaMat.rows());
-            }
-#else
-            //Mouse
-            ConvertScreenPointToTexturePoint(new Point(Input.mousePosition.x, Input.mousePosition.y), pos, gameObject, _rgbaMat.cols(), _rgbaMat.rows());
-#endif
-#endif
-        }
-
-        /// <summary>
-        /// Converts the screen point to texture point.
-        /// </summary>
-        /// <param name="screenPoint">Screen point.</param>
-        /// <param name="dstPoint">Dst point.</param>
-        /// <param name="texturQuad">Texture quad.</param>
-        /// <param name="textureWidth">Texture width.</param>
-        /// <param name="textureHeight">Texture height.</param>
-        /// <param name="camera">Camera.</param>
-        private void ConvertScreenPointToTexturePoint(Point screenPoint, Point dstPoint, GameObject textureQuad, int textureWidth = -1, int textureHeight = -1, Camera camera = null)
-        {
-            if (textureWidth < 0 || textureHeight < 0)
-            {
-                Renderer r = textureQuad.GetComponent<Renderer>();
-                if (r != null && r.material != null && r.material.mainTexture != null)
-                {
-                    textureWidth = r.material.mainTexture.width;
-                    textureHeight = r.material.mainTexture.height;
-                }
-                else
-                {
-                    textureWidth = (int)textureQuad.transform.localScale.x;
-                    textureHeight = (int)textureQuad.transform.localScale.y;
-                }
-            }
-
-            if (camera == null)
-                camera = Camera.main;
-
-            Vector3 quadPosition = textureQuad.transform.localPosition;
-            Vector3 quadScale = textureQuad.transform.localScale;
-
-            Vector2 tl = camera.WorldToScreenPoint(new Vector3(quadPosition.x - quadScale.x / 2, quadPosition.y + quadScale.y / 2, quadPosition.z));
-            Vector2 tr = camera.WorldToScreenPoint(new Vector3(quadPosition.x + quadScale.x / 2, quadPosition.y + quadScale.y / 2, quadPosition.z));
-            Vector2 br = camera.WorldToScreenPoint(new Vector3(quadPosition.x + quadScale.x / 2, quadPosition.y - quadScale.y / 2, quadPosition.z));
-            Vector2 bl = camera.WorldToScreenPoint(new Vector3(quadPosition.x - quadScale.x / 2, quadPosition.y - quadScale.y / 2, quadPosition.z));
-
-            using (Mat srcRectMat = new Mat(4, 1, CvType.CV_32FC2))
-            using (Mat dstRectMat = new Mat(4, 1, CvType.CV_32FC2))
-            {
-                srcRectMat.put(0, 0, tl.x, tl.y, tr.x, tr.y, br.x, br.y, bl.x, bl.y);
-                dstRectMat.put(0, 0, 0, 0, quadScale.x, 0, quadScale.x, quadScale.y, 0, quadScale.y);
-
-                using (Mat perspectiveTransform = Imgproc.getPerspectiveTransform(srcRectMat, dstRectMat))
-                using (MatOfPoint2f srcPointMat = new MatOfPoint2f(screenPoint))
-                using (MatOfPoint2f dstPointMat = new MatOfPoint2f())
-                {
-                    Core.perspectiveTransform(srcPointMat, dstPointMat, perspectiveTransform);
-
-                    dstPoint.x = dstPointMat.get(0, 0)[0] * textureWidth / quadScale.x;
-                    dstPoint.y = dstPointMat.get(0, 0)[1] * textureHeight / quadScale.y;
-                }
-            }
-        }
 
         /// <summary>
         /// Draws Cross.

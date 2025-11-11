@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
@@ -6,12 +5,8 @@ using OpenCVForUnity.UnityIntegration;
 using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using OpenCVForUnity.VideoModule;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-#if ENABLE_INPUT_SYSTEM
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.EnhancedTouch;
-#endif
+using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {
@@ -24,16 +19,27 @@ namespace OpenCVForUnityExample
     [RequireComponent(typeof(MultiSource2MatHelper))]
     public class CamShiftExample : MonoBehaviour
     {
+        // Public Fields
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage ResultPreview;
+
+        [Space(10)]
+
+        [Header("UI")]
+
+        /// <summary>
+        /// The texture touched point getter component.
+        /// </summary>
+        public TextureSelector TextureRectangleSelector;
+
         // Private Fields
         /// <summary>
         /// The texture.
         /// </summary>
         private Texture2D _texture;
-
-        /// <summary>
-        /// The roi point list.
-        /// </summary>
-        private List<Point> _roiPointList;
 
         /// <summary>
         /// The roi rect.
@@ -61,14 +67,14 @@ namespace OpenCVForUnityExample
         private MultiSource2MatHelper _multiSource2MatHelper;
 
         /// <summary>
-        /// The stored touch point.
-        /// </summary>
-        private Point _storedTouchPoint;
-
-        /// <summary>
         /// The flag for requesting the start of the CamShift Method.
         /// </summary>
         private bool _shouldStartCamShift = false;
+
+        /// <summary>
+        /// The flag indicating that CamShift tracking has started.
+        /// </summary>
+        private bool _isCamShiftStarted = false;
 
         /// <summary>
         /// The FPS monitor.
@@ -80,7 +86,6 @@ namespace OpenCVForUnityExample
         {
             _fpsMonitor = GetComponent<FpsMonitor>();
 
-            _roiPointList = new List<Point>();
             _termination = new TermCriteria(TermCriteria.EPS | TermCriteria.COUNT, 10, 1);
 
             _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
@@ -88,98 +93,26 @@ namespace OpenCVForUnityExample
             _multiSource2MatHelper.Initialize();
         }
 
-#if ENABLE_INPUT_SYSTEM
-        private void OnEnable()
-        {
-            EnhancedTouchSupport.Enable();
-        }
-
-        private void OnDisable()
-        {
-            EnhancedTouchSupport.Disable();
-        }
-#endif
 
         private void Update()
         {
-#if ENABLE_INPUT_SYSTEM
-#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-            // Touch input for mobile platforms
-            if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
-            {
-                foreach (var touch in UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches)
-                {
-                    if (touch.phase == UnityEngine.InputSystem.TouchPhase.Ended)
-                    {
-                        if (!EventSystem.current.IsPointerOverGameObject(touch.finger.index))
-                        {
-                            _storedTouchPoint = new Point(touch.screenPosition.x, touch.screenPosition.y);
-                        }
-                    }
-                }
-            }
-#else
-            // Mouse input for non-mobile platforms
-            var mouse = Mouse.current;
-            if (mouse != null && mouse.leftButton.wasReleasedThisFrame)
-            {
-                if (EventSystem.current.IsPointerOverGameObject())
-                    return;
-
-                _storedTouchPoint = new Point(mouse.position.ReadValue().x, mouse.position.ReadValue().y);
-            }
-#endif
-#else
-#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-            //Touch
-            int touchCount = Input.touchCount;
-            if (touchCount == 1)
-            {
-                Touch t = Input.GetTouch(0);
-                if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject (t.fingerId)) {
-                    _storedTouchPoint = new Point (t.position.x, t.position.y);
-                }
-            }
-#else
-            //Mouse
-            if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
-            {
-                _storedTouchPoint = new Point(Input.mousePosition.x, Input.mousePosition.y);
-            }
-#endif
-#endif
-
             if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
             {
-
                 Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
                 Imgproc.cvtColor(rgbaMat, _hsvMat, Imgproc.COLOR_RGBA2RGB);
                 Imgproc.cvtColor(_hsvMat, _hsvMat, Imgproc.COLOR_RGB2HSV);
 
-                if (_storedTouchPoint != null)
-                {
-                    ConvertScreenPointToTexturePoint(_storedTouchPoint, _storedTouchPoint, gameObject, rgbaMat.cols(), rgbaMat.rows());
-                    OnTouch(rgbaMat, _storedTouchPoint);
-                    _storedTouchPoint = null;
-                }
-
-                Point[] points = _roiPointList.ToArray();
-
                 if (_shouldStartCamShift)
                 {
-                    _shouldStartCamShift = false;
 
-                    using (MatOfPoint roiPointMat = new MatOfPoint(points))
-                    {
-                        _roiRect = Imgproc.boundingRect(roiPointMat);
-                    }
+                    // Get rectangle selection points from TextureRectangleSelector
+                    var (gameObject, currentSelectionState, currentSelectionPoints) = TextureRectangleSelector.GetSelectionStatus();
+                    // Convert rectangle points to OpenCV Rect using TextureSelector utility method
+                    // Note: currentSelectionPoints is guaranteed to have 2 elements (start and end points) when RECTANGLE_SELECTION_COMPLETED
+                    _roiRect = TextureSelector.ConvertSelectionPointsToOpenCVRect(currentSelectionPoints);
 
-                    if (_roiHistMat != null)
-                    {
-                        _roiHistMat.Dispose();
-                        _roiHistMat = null;
-                    }
+                    _roiHistMat?.Dispose(); _roiHistMat = null;
                     _roiHistMat = new Mat();
 
                     using (Mat roiHSVMat = new Mat(_hsvMat, _roiRect))
@@ -188,11 +121,20 @@ namespace OpenCVForUnityExample
                         Imgproc.calcHist(new List<Mat>(new Mat[] { roiHSVMat }), new MatOfInt(0), maskMat, _roiHistMat, new MatOfInt(16), new MatOfFloat(0, 180));
                         Core.normalize(_roiHistMat, _roiHistMat, 0, 255, Core.NORM_MINMAX);
 
+                        // Set CamShift started flag
+                        _isCamShiftStarted = true;
+
                         //Debug.Log ("_roiHistMat " + _roiHistMat.ToString ());
                     }
+
+                    _shouldStartCamShift = false;
                 }
-                else if (points.Length == 4)
+
+                if (_isCamShiftStarted)
                 {
+                    // Create points array for CamShift tracking
+                    Point[] points = new Point[4];
+
                     using (Mat backProj = new Mat())
                     {
                         Imgproc.calcBackProject(new List<Mat>(new Mat[] { _hsvMat }), new MatOfInt(0), _roiHistMat, backProj, new MatOfFloat(0, 180), 1.0);
@@ -200,18 +142,8 @@ namespace OpenCVForUnityExample
                         RotatedRect r = Video.CamShift(backProj, _roiRect, _termination);
                         r.points(points);
                     }
-                }
 
-                if (points.Length < 4)
-                {
-                    for (int i = 0; i < points.Length; i++)
-                    {
-                        Imgproc.circle(rgbaMat, points[i], 6, new Scalar(0, 0, 255, 255), 2);
-                    }
-
-                }
-                else
-                {
+                    // Draw tracking rectangle and lines after CamShift processing
                     for (int i = 0; i < 4; i++)
                     {
                         Imgproc.line(rgbaMat, points[i], points[(i + 1) % 4], new Scalar(255, 0, 0, 255), 2);
@@ -219,6 +151,10 @@ namespace OpenCVForUnityExample
 
                     Imgproc.rectangle(rgbaMat, _roiRect.tl(), _roiRect.br(), new Scalar(0, 255, 0, 255), 2);
                 }
+
+
+                // Draw current selection state on the Mat
+                TextureRectangleSelector.DrawSelection(rgbaMat, true);
 
                 //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
@@ -244,39 +180,25 @@ namespace OpenCVForUnityExample
             _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
             OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
 
-            // Set the Texture2D as the main texture of the Renderer component attached to the game object
-            gameObject.GetComponent<Renderer>().material.mainTexture = _texture;
-
-            // Adjust the scale of the game object to match the dimensions of the texture
-            gameObject.transform.localScale = new Vector3(rgbaMat.cols(), rgbaMat.rows(), 1);
-            Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
-
-            // Adjust the orthographic size of the main Camera to fit the aspect ratio of the image
-            float width = rgbaMat.width();
-            float height = rgbaMat.height();
-            float widthScale = (float)Screen.width / width;
-            float heightScale = (float)Screen.height / height;
-            if (widthScale < heightScale)
-            {
-                Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
-            }
-            else
-            {
-                Camera.main.orthographicSize = height / 2;
-            }
+            ResultPreview.texture = _texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
 
             if (_fpsMonitor != null)
             {
                 _fpsMonitor.Add("width", rgbaMat.width().ToString());
                 _fpsMonitor.Add("height", rgbaMat.height().ToString());
                 _fpsMonitor.Add("orientation", Screen.orientation.ToString());
-            }
-            if (_fpsMonitor != null)
-            {
-                _fpsMonitor.ConsoleText = "Please touch the 4 points surrounding the tracking object.";
+
+                _fpsMonitor.ConsoleText = "Please touch the screen to select a rectangle for tracking.";
             }
 
             _hsvMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
+
+            _isCamShiftStarted = false;
+            _shouldStartCamShift = false;
+
+            // Reset TextureRectangleSelector state
+            TextureRectangleSelector.ResetSelectionStatus();
         }
 
         /// <summary>
@@ -288,7 +210,6 @@ namespace OpenCVForUnityExample
 
             _hsvMat?.Dispose();
             _roiHistMat?.Dispose();
-            _roiPointList?.Clear();
 
             if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
         }
@@ -348,81 +269,36 @@ namespace OpenCVForUnityExample
             _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
         }
 
-        // Private Methods
-        private void OnTouch(Mat img, Point touchPoint)
-        {
-            if (_roiPointList.Count == 4)
-            {
-                _roiPointList.Clear();
-            }
-
-            if (_roiPointList.Count < 4)
-            {
-                _roiPointList.Add(touchPoint);
-
-                if (!(new OpenCVForUnity.CoreModule.Rect(0, 0, img.width(), img.height()).contains(_roiPointList[_roiPointList.Count - 1])))
-                {
-                    _roiPointList.RemoveAt(_roiPointList.Count - 1);
-                }
-
-                if (_roiPointList.Count == 4)
-                {
-                    _shouldStartCamShift = true;
-                }
-            }
-        }
-
         /// <summary>
-        /// Converts the screen point to texture point.
+        /// Handles the texture selection state changed event.
+        /// This method should be connected to the TextureSelector's OnTextureSelectionStateChanged event in the Inspector.
         /// </summary>
-        /// <param name="screenPoint">Screen point.</param>
-        /// <param name="dstPoint">Dst point.</param>
-        /// <param name="texturQuad">Texture quad.</param>
-        /// <param name="textureWidth">Texture width.</param>
-        /// <param name="textureHeight">Texture height.</param>
-        /// <param name="camera">Camera.</param>
-        private void ConvertScreenPointToTexturePoint(Point screenPoint, Point dstPoint, GameObject textureQuad, int textureWidth = -1, int textureHeight = -1, Camera camera = null)
+        /// <param name="touchedObject">The GameObject that was touched.</param>
+        /// <param name="touchState">The touch state.</param>
+        /// <param name="texturePoints">The texture coordinates array (OpenCV format: top-left origin).</param>
+        public void OnTextureSelectionStateChanged(GameObject touchedObject, TextureSelector.TextureSelectionState touchState, Vector2[] texturePoints)
         {
-            if (textureWidth < 0 || textureHeight < 0)
+            if (_isCamShiftStarted)
             {
-                Renderer r = textureQuad.GetComponent<Renderer>();
-                if (r != null && r.material != null && r.material.mainTexture != null)
+                switch (touchState)
                 {
-                    textureWidth = r.material.mainTexture.width;
-                    textureHeight = r.material.mainTexture.height;
-                }
-                else
-                {
-                    textureWidth = (int)textureQuad.transform.localScale.x;
-                    textureHeight = (int)textureQuad.transform.localScale.y;
+                    case TextureSelector.TextureSelectionState.RECTANGLE_SELECTION_STARTED:
+                    case TextureSelector.TextureSelectionState.OUTSIDE_TEXTURE_SELECTED:
+                        // Reset CamShift when new selection starts or when touching outside texture
+                        _isCamShiftStarted = false;
+                        Debug.Log("Resetting CamShift due to new selection or outside touch.");
+                        break;
                 }
             }
-
-            if (camera == null)
-                camera = Camera.main;
-
-            Vector3 quadPosition = textureQuad.transform.localPosition;
-            Vector3 quadScale = textureQuad.transform.localScale;
-
-            Vector2 tl = camera.WorldToScreenPoint(new Vector3(quadPosition.x - quadScale.x / 2, quadPosition.y + quadScale.y / 2, quadPosition.z));
-            Vector2 tr = camera.WorldToScreenPoint(new Vector3(quadPosition.x + quadScale.x / 2, quadPosition.y + quadScale.y / 2, quadPosition.z));
-            Vector2 br = camera.WorldToScreenPoint(new Vector3(quadPosition.x + quadScale.x / 2, quadPosition.y - quadScale.y / 2, quadPosition.z));
-            Vector2 bl = camera.WorldToScreenPoint(new Vector3(quadPosition.x - quadScale.x / 2, quadPosition.y - quadScale.y / 2, quadPosition.z));
-
-            using (Mat srcRectMat = new Mat(4, 1, CvType.CV_32FC2))
-            using (Mat dstRectMat = new Mat(4, 1, CvType.CV_32FC2))
+            else
             {
-                srcRectMat.put(0, 0, tl.x, tl.y, tr.x, tr.y, br.x, br.y, bl.x, bl.y);
-                dstRectMat.put(0, 0, 0, 0, quadScale.x, 0, quadScale.x, quadScale.y, 0, quadScale.y);
-
-                using (Mat perspectiveTransform = Imgproc.getPerspectiveTransform(srcRectMat, dstRectMat))
-                using (MatOfPoint2f srcPointMat = new MatOfPoint2f(screenPoint))
-                using (MatOfPoint2f dstPointMat = new MatOfPoint2f())
+                switch (touchState)
                 {
-                    Core.perspectiveTransform(srcPointMat, dstPointMat, perspectiveTransform);
-
-                    dstPoint.x = dstPointMat.get(0, 0)[0] * textureWidth / quadScale.x;
-                    dstPoint.y = dstPointMat.get(0, 0)[1] * textureHeight / quadScale.y;
+                    case TextureSelector.TextureSelectionState.RECTANGLE_SELECTION_COMPLETED:
+                        // Start CamShift when rectangle selection is completed
+                        _shouldStartCamShift = true;
+                        Debug.Log("Rectangle selection completed, starting CamShift tracking.");
+                        break;
                 }
             }
         }

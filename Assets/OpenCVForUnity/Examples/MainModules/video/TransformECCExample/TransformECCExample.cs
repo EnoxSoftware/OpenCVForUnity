@@ -4,13 +4,8 @@ using OpenCVForUnity.UnityIntegration;
 using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using OpenCVForUnity.VideoModule;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-#if ENABLE_INPUT_SYSTEM
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.EnhancedTouch;
-#endif
 
 namespace OpenCVForUnityExample
 {
@@ -47,10 +42,27 @@ namespace OpenCVForUnityExample
         private const double TERMINATION_EPS = 1e-7; // 1e-10;
 
         // Public Fields
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage ResultPreview;
+
+        [Space(10)]
+
+        [Header("UI")]
+
+        /// <summary>
+        /// The texture selector (point selection).
+        /// </summary>
+        public TextureSelector TexturePointSelector;
+
         /// <summary>
         /// The warp mode dropdown.
         /// </summary>
         public Dropdown WarpModeDropdown;
+
+        [Space(10)]
 
         /// <summary>
         /// parameter, specifying the type of motion.
@@ -71,9 +83,9 @@ namespace OpenCVForUnityExample
         private TermCriteria _criteria = new TermCriteria(TermCriteria.EPS | TermCriteria.COUNT, NUMBER_OF_ITERATIONS, TERMINATION_EPS);
 
         /// <summary>
-        /// The stored touch point.
+        /// The flag to request point update from selected point.
         /// </summary>
-        private Point _storedTouchPoint;
+        private bool _shouldUpdatePointFromSelection = false;
 
         /// <summary>
         /// The texture.
@@ -108,75 +120,20 @@ namespace OpenCVForUnityExample
             }
         }
 
-#if ENABLE_INPUT_SYSTEM
-        private void OnEnable()
-        {
-            EnhancedTouchSupport.Enable();
-        }
-
-        private void OnDisable()
-        {
-            EnhancedTouchSupport.Disable();
-        }
-#endif
-
         private void Update()
         {
-#if ENABLE_INPUT_SYSTEM
-#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-            // Touch input for mobile platforms
-            if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
-            {
-                foreach (var touch in UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches)
-                {
-                    if (touch.phase == UnityEngine.InputSystem.TouchPhase.Ended)
-                    {
-                        if (!EventSystem.current.IsPointerOverGameObject(touch.finger.index))
-                        {
-                            _storedTouchPoint = new Point(touch.screenPosition.x, touch.screenPosition.y);
-                        }
-                    }
-                }
-            }
-#else
-            // Mouse input for non-mobile platforms
-            var mouse = Mouse.current;
-            if (mouse != null && mouse.leftButton.wasReleasedThisFrame)
-            {
-                if (EventSystem.current.IsPointerOverGameObject())
-                    return;
-
-                _storedTouchPoint = new Point(mouse.position.ReadValue().x, mouse.position.ReadValue().y);
-            }
-#endif
-#else
-#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-            //Touch
-            int touchCount = Input.touchCount;
-            if (touchCount == 1)
-            {
-                Touch t = Input.GetTouch(0);
-                if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject (t.fingerId)) {
-                    _storedTouchPoint = new Point (t.position.x, t.position.y);
-                }
-            }
-#else
-            //Mouse
-            if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
-            {
-                _storedTouchPoint = new Point(Input.mousePosition.x, Input.mousePosition.y);
-            }
-#endif
-#endif
-
             if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
             {
-                if (_storedTouchPoint != null)
+                if (_shouldUpdatePointFromSelection)
                 {
-                    ConvertScreenPointToTexturePoint(_storedTouchPoint, _storedTouchPoint, gameObject, _texture.width, _texture.height);
-                    _x = (float)_storedTouchPoint.x / SCALING;
-                    _y = (float)_storedTouchPoint.y / SCALING;
-                    _storedTouchPoint = null;
+                    var (gameObject, currentSelectionState, currentSelectionPoints) = TexturePointSelector.GetSelectionStatus();
+                    var p = TextureSelector.ConvertSelectionPointsToOpenCVPoint(currentSelectionPoints);
+                    _x = (float)p.x / SCALING;
+                    _y = (float)p.y / SCALING;
+
+                    TexturePointSelector.ResetSelectionStatus();
+
+                    _shouldUpdatePointFromSelection = false;
                 }
 
                 Mat rgbaMat = _multiSource2MatHelper.GetMat();
@@ -230,6 +187,9 @@ namespace OpenCVForUnityExample
                 Imgproc.rectangle(rgbaMat, new Point((_x * SCALING) - 1, (_y * SCALING) - 1), new Point((_x * SCALING) + 1, (_y * SCALING) + 1), new Scalar(255, 0, 255, 255), 2);
                 Imgproc.rectangle(rgbaMat, new Point((_x * SCALING) - 8, (_y * SCALING) - 8), new Point((_x * SCALING) + 8, (_y * SCALING) + 8), new Scalar(0, 255, 0, 255), 2);
 
+                // Draw current selection overlay
+                TexturePointSelector.DrawSelection(rgbaMat, true);
+
                 //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
                 OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
@@ -254,26 +214,8 @@ namespace OpenCVForUnityExample
             _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
             OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
 
-            // Set the Texture2D as the main texture of the Renderer component attached to the game object
-            gameObject.GetComponent<Renderer>().material.mainTexture = _texture;
-
-            // Adjust the scale of the game object to match the dimensions of the texture
-            gameObject.transform.localScale = new Vector3(rgbaMat.cols(), rgbaMat.rows(), 1);
-            Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
-
-            // Adjust the orthographic size of the main Camera to fit the aspect ratio of the image
-            float width = rgbaMat.width();
-            float height = rgbaMat.height();
-            float widthScale = (float)Screen.width / width;
-            float heightScale = (float)Screen.height / height;
-            if (widthScale < heightScale)
-            {
-                Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
-            }
-            else
-            {
-                Camera.main.orthographicSize = height / 2;
-            }
+            ResultPreview.texture = _texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
 
             if (_fpsMonitor != null)
             {
@@ -287,6 +229,12 @@ namespace OpenCVForUnityExample
 
             _x = _scalingMat.cols() / 2f;
             _y = _scalingMat.rows() / 2f;
+
+            // Reset TexturePointSelector state
+            if (TexturePointSelector != null)
+            {
+                TexturePointSelector.ResetSelectionStatus();
+            }
 
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             OpenCVDebug.SetDebugMode(true, true);
@@ -378,61 +326,24 @@ namespace OpenCVForUnityExample
             }
         }
 
-        // Private Methods
         /// <summary>
-        /// Converts the screen point to texture point.
+        /// Handles the texture selection state changed event from TextureSelector.
+        /// This should be wired in the Inspector to TextureSelector.OnTextureSelectionStateChanged.
         /// </summary>
-        /// <param name="screenPoint">Screen point.</param>
-        /// <param name="dstPoint">Dst point.</param>
-        /// <param name="textureQuad">Texture quad.</param>
-        /// <param name="textureWidth">Texture width.</param>
-        /// <param name="textureHeight">Texture height.</param>
-        /// <param name="camera">Camera.</param>
-        private void ConvertScreenPointToTexturePoint(Point screenPoint, Point dstPoint, GameObject textureQuad, int textureWidth = -1, int textureHeight = -1, Camera camera = null)
+        /// <param name="touchedObject">The GameObject that was touched.</param>
+        /// <param name="touchState">The touch state.</param>
+        /// <param name="texturePoints">The texture coordinates array (OpenCV format: top-left origin).</param>
+        public void OnTextureSelectionStateChanged(GameObject touchedObject, TextureSelector.TextureSelectionState touchState, Vector2[] texturePoints)
         {
-            if (textureWidth < 0 || textureHeight < 0)
+            switch (touchState)
             {
-                Renderer r = textureQuad.GetComponent<Renderer>();
-                if (r != null && r.material != null && r.material.mainTexture != null)
-                {
-                    textureWidth = r.material.mainTexture.width;
-                    textureHeight = r.material.mainTexture.height;
-                }
-                else
-                {
-                    textureWidth = (int)textureQuad.transform.localScale.x;
-                    textureHeight = (int)textureQuad.transform.localScale.y;
-                }
-            }
-
-            if (camera == null)
-                camera = Camera.main;
-
-            Vector3 quadPosition = textureQuad.transform.localPosition;
-            Vector3 quadScale = textureQuad.transform.localScale;
-
-            Vector2 tl = camera.WorldToScreenPoint(new Vector3(quadPosition.x - quadScale.x / 2, quadPosition.y + quadScale.y / 2, quadPosition.z));
-            Vector2 tr = camera.WorldToScreenPoint(new Vector3(quadPosition.x + quadScale.x / 2, quadPosition.y + quadScale.y / 2, quadPosition.z));
-            Vector2 br = camera.WorldToScreenPoint(new Vector3(quadPosition.x + quadScale.x / 2, quadPosition.y - quadScale.y / 2, quadPosition.z));
-            Vector2 bl = camera.WorldToScreenPoint(new Vector3(quadPosition.x - quadScale.x / 2, quadPosition.y - quadScale.y / 2, quadPosition.z));
-
-            using (Mat srcRectMat = new Mat(4, 1, CvType.CV_32FC2))
-            using (Mat dstRectMat = new Mat(4, 1, CvType.CV_32FC2))
-            {
-                srcRectMat.put(0, 0, tl.x, tl.y, tr.x, tr.y, br.x, br.y, bl.x, bl.y);
-                dstRectMat.put(0, 0, 0, 0, quadScale.x, 0, quadScale.x, quadScale.y, 0, quadScale.y);
-
-                using (Mat perspectiveTransform = Imgproc.getPerspectiveTransform(srcRectMat, dstRectMat))
-                using (MatOfPoint2f srcPointMat = new MatOfPoint2f(screenPoint))
-                using (MatOfPoint2f dstPointMat = new MatOfPoint2f())
-                {
-                    Core.perspectiveTransform(srcPointMat, dstPointMat, perspectiveTransform);
-
-                    dstPoint.x = dstPointMat.get(0, 0)[0] * textureWidth / quadScale.x;
-                    dstPoint.y = dstPointMat.get(0, 0)[1] * textureHeight / quadScale.y;
-                }
+                case TextureSelector.TextureSelectionState.POINT_SELECTION_COMPLETED:
+                    _shouldUpdatePointFromSelection = true;
+                    break;
             }
         }
+
+        // Private Methods
 
     }
 }

@@ -5,11 +5,6 @@ using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
-#if ENABLE_INPUT_SYSTEM
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.EnhancedTouch;
-#endif
 
 namespace OpenCVForUnityExample
 {
@@ -29,10 +24,21 @@ namespace OpenCVForUnityExample
         [Range(0, 255)]
         public float Thresh = 50.0f;
 
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage ResultPreview;
+
         /// <summary>
         /// The background raw image.
         /// </summary>
         public RawImage BgRawImage;
+
+        /// <summary>
+        /// The texture selector (point selection).
+        /// </summary>
+        public TextureSelector TexturePointSelector;
 
         // Private Fields
         /// <summary>
@@ -75,12 +81,16 @@ namespace OpenCVForUnityExample
         /// </summary>
         private Mat _kernel;
 
-        private bool _isTouched;
 
         /// <summary>
         /// The FPS monitor.
         /// </summary>
         private FpsMonitor _fpsMonitor;
+
+        /// <summary>
+        /// The flag to request background update from selected point.
+        /// </summary>
+        private bool _shouldUpdateBackgroundFromPoint = false;
 
         // Unity Lifecycle Methods
         private void Start()
@@ -95,75 +105,17 @@ namespace OpenCVForUnityExample
             _kernel = Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(3, 3));
         }
 
-#if ENABLE_INPUT_SYSTEM
-        private void OnEnable()
-        {
-            EnhancedTouchSupport.Enable();
-        }
-
-        private void OnDisable()
-        {
-            EnhancedTouchSupport.Disable();
-        }
-#endif
 
         private void Update()
         {
-#if ENABLE_INPUT_SYSTEM
-#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-            // Touch input for mobile platforms
-            if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
-            {
-                foreach (var touch in UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches)
-                {
-                    if (touch.phase == UnityEngine.InputSystem.TouchPhase.Ended)
-                    {
-                        if (!EventSystem.current.IsPointerOverGameObject(touch.finger.index))
-                        {
-                            _isTouched = true;
-                        }
-                    }
-                }
-            }
-#else
-            // Keyboard input for non-mobile platforms
-            var keyboard = Keyboard.current;
-            if (keyboard != null && keyboard.spaceKey.wasReleasedThisFrame)
-            {
-                _isTouched = true;
-            }
-#endif
-#else
-#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-            //Touch
-            if (Input.touchCount == 1)
-            {
-                Touch t = Input.GetTouch(0);
-                if (t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject(t.fingerId))
-                {
-                    _isTouched = true;
-                }
-            }
-#else
-            //Mouse
-            if (Input.GetKeyUp(KeyCode.Space))
-            {
-                _isTouched = true;
-            }
-#endif
-#endif
-
             if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
             {
                 Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-                if (_isTouched)
+                if (_shouldUpdateBackgroundFromPoint)
                 {
-                    rgbaMat.copyTo(_bgMat);
-
-                    SetBgTexture(_bgMat);
-
-                    _isTouched = false;
+                    SetBackgroundFromCurrentFrame(rgbaMat);
+                    _shouldUpdateBackgroundFromPoint = false;
                 }
 
                 //set fgMaskMat
@@ -175,7 +127,8 @@ namespace OpenCVForUnityExample
                 //copy greenMat using bgMaskMat
                 _greenMat.copyTo(rgbaMat, _bgMaskMat);
 
-                //Imgproc.putText (rgbaMat, "SPACE KEY or TOUCH SCREEN: Reset backgroud image.", new Point (5, rgbaMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.6, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                // Draw current selection overlay
+                // TexturePointSelector.DrawSelection(rgbaMat, true, true);
 
                 OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
             }
@@ -199,33 +152,15 @@ namespace OpenCVForUnityExample
             _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
             OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
 
-            // Set the Texture2D as the main texture of the Renderer component attached to the game object
-            gameObject.GetComponent<Renderer>().material.mainTexture = _texture;
-
-            // Adjust the scale of the game object to match the dimensions of the texture
-            gameObject.transform.localScale = new Vector3(rgbaMat.cols(), rgbaMat.rows(), 1);
-            Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
-
-            // Adjust the orthographic size of the main Camera to fit the aspect ratio of the image
-            float width = rgbaMat.width();
-            float height = rgbaMat.height();
-            float widthScale = (float)Screen.width / width;
-            float heightScale = (float)Screen.height / height;
-            if (widthScale < heightScale)
-            {
-                Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
-            }
-            else
-            {
-                Camera.main.orthographicSize = height / 2;
-            }
+            ResultPreview.texture = _texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
 
             if (_fpsMonitor != null)
             {
                 _fpsMonitor.Add("width", rgbaMat.width().ToString());
                 _fpsMonitor.Add("height", rgbaMat.height().ToString());
                 _fpsMonitor.Add("orientation", Screen.orientation.ToString());
-                _fpsMonitor.ConsoleText = "SPACE KEY or TOUCH SCREEN: Reset backgroud image.";
+                _fpsMonitor.Toast("Touch the screen to set background image.", 2000);
             }
 
             _bgMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC4);
@@ -234,6 +169,12 @@ namespace OpenCVForUnityExample
             _greenMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC4, new Scalar(0, 255, 0, 255));
 
             _bgTexture = new Texture2D(_bgMat.cols(), _bgMat.rows(), TextureFormat.RGBA32, false);
+
+            // Initialize background to white
+            ResetBackgroundToWhite();
+
+            // Reset TexturePointSelector state
+            TexturePointSelector.ResetSelectionStatus();
         }
 
         /// <summary>
@@ -305,6 +246,26 @@ namespace OpenCVForUnityExample
             _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
         }
 
+        /// <summary>
+        /// Handles the texture selection state changed event from TextureSelector.
+        /// This should be wired in the Inspector to TextureSelector.OnTextureSelectionStateChanged.
+        /// </summary>
+        /// <param name="touchedObject">The GameObject that was touched.</param>
+        /// <param name="touchState">The touch state.</param>
+        /// <param name="texturePoints">The texture coordinates array (OpenCV format: top-left origin).</param>
+        public void OnTextureSelectionStateChanged(GameObject touchedObject, TextureSelector.TextureSelectionState touchState, Vector2[] texturePoints)
+        {
+            switch (touchState)
+            {
+                case TextureSelector.TextureSelectionState.POINT_SELECTION_STARTED:
+                    _shouldUpdateBackgroundFromPoint = true;
+                    break;
+                case TextureSelector.TextureSelectionState.OUTSIDE_TEXTURE_SELECTED:
+                    ResetBackgroundToWhite();
+                    break;
+            }
+        }
+
         // Private Methods
         /// <summary>
         /// Finds the foreground mask mat.
@@ -335,6 +296,25 @@ namespace OpenCVForUnityExample
             diff1.Dispose();
             diff2.Dispose();
             diff.Dispose();
+        }
+
+        /// <summary>
+        /// Sets the background from current frame.
+        /// </summary>
+        /// <param name="img">The image mat.</param>
+        private void SetBackgroundFromCurrentFrame(Mat img)
+        {
+            img.copyTo(_bgMat);
+            SetBgTexture(_bgMat);
+        }
+
+        /// <summary>
+        /// Resets the background to white.
+        /// </summary>
+        private void ResetBackgroundToWhite()
+        {
+            _bgMat.setTo(new Scalar(255, 255, 255, 255));
+            SetBgTexture(_bgMat);
         }
 
         /// <summary>

@@ -101,7 +101,7 @@ namespace OpenCVForUnityExample
 
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             _cts?.Dispose();
         }

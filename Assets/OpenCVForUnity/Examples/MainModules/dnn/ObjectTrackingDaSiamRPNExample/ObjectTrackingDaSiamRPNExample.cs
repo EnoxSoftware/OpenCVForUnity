@@ -221,7 +221,7 @@ namespace OpenCVForUnityExample
 
             if (_selectedPointList.Count != 1)
             {
-                if (!_multiSource2MatHelper.IsPlaying())
+                if (_multiSource2MatHelper.IsPaused())
                     _multiSource2MatHelper.Play();
 
                 if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
@@ -297,7 +297,7 @@ namespace OpenCVForUnityExample
             }
             else
             {
-                if (_multiSource2MatHelper.IsPlaying())
+                if (!_multiSource2MatHelper.IsPaused())
                     _multiSource2MatHelper.Pause();
 
                 if (_storedTouchPoint != null)
@@ -309,10 +309,15 @@ namespace OpenCVForUnityExample
             }
         }
 
+        private void OnEnable()
+        {
+#if ENABLE_INPUT_SYSTEM
+            EnhancedTouchSupport.Enable();
+#endif
+        }
+
         private void OnDisable()
         {
-            _cts?.Dispose();
-
 #if ENABLE_INPUT_SYSTEM
             EnhancedTouchSupport.Disable();
 #endif
@@ -325,6 +330,8 @@ namespace OpenCVForUnityExample
             if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
 
             _tracker?.Dispose();
+
+            _cts?.Dispose();
         }
 
         // Public Methods
@@ -483,13 +490,6 @@ namespace OpenCVForUnityExample
         {
             return new Rect(r.x - r.width / 2, r.y - r.height / 2, r.width, r.height);
         }
-
-#if ENABLE_INPUT_SYSTEM
-        private void OnEnable()
-        {
-            EnhancedTouchSupport.Enable();
-        }
-#endif
     }
 
 
