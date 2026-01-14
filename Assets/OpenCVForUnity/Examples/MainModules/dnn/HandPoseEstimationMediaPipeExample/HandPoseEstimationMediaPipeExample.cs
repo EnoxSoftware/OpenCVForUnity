@@ -11,8 +11,10 @@ using OpenCVForUnity.UnityIntegration.Helper.AR;
 using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using OpenCVForUnity.UnityIntegration.Worker.DnnModule;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static OpenCVForUnity.UnityIntegration.Helper.Source2Mat.MultiSource2MatHelper;
 using static OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipeHandPoseEstimator;
 
 namespace OpenCVForUnityExample
@@ -81,6 +83,14 @@ namespace OpenCVForUnityExample
             _fpsMonitor = GetComponent<FpsMonitor>();
 
             _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+
+            // WebCamTexture2MatHelper does not work on WebGPU, so use WebCamTexture2MatAsyncGPUHelper instead.
+#if UNITY_6000_0_OR_NEWER
+            if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.WebGPU && _multiSource2MatHelper.RequestedSource2MatHelperClassName == MultiSource2MatHelperClassName.WebCamTexture2MatHelper)
+            {
+                _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.WebCamTexture2MatAsyncGPUHelper;
+            }
+#endif
             _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
 
             // Update GUI state

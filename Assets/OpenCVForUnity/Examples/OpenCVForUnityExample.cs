@@ -86,6 +86,14 @@ namespace OpenCVForUnityExample
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/WeChatQRCodeDetectorExampleButton").GetComponent<Button>().interactable = false;
 #endif
 
+#if UNITY_6000_0_OR_NEWER
+            // WebCamTextureToMatExample and WebCamTexture2MatHelperExample do not work on WebGPU.
+            if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.WebGPU)
+            {
+                GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/BasicGroup/WebCamTextureToMatExampleButton").GetComponent<Button>().interactable = false;
+                GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/BasicGroup/WebCamTexture2MatHelperExampleButton").GetComponent<Button>().interactable = false;
+            }
+#endif
 
 #if !UNITY_EDITOR && !UNITY_STANDALONE_WIN && !UNITY_STANDALONE_OSX && !UNITY_LINUX && !UNITY_IOS && !UNITY_ANDROID
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/VideoCaptureCameraInputExampleButton").GetComponent<Button>().interactable = false;

@@ -7,8 +7,10 @@ using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using OpenCVForUnity.UnityIntegration.MOT;
 using OpenCVForUnity.UnityIntegration.MOT.ByteTrack;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static OpenCVForUnity.UnityIntegration.Helper.Source2Mat.MultiSource2MatHelper;
 
 #if !UNITY_WSA_10_0
 using OpenCVForUnity.UnityIntegration.Worker.DnnModule;
@@ -84,6 +86,14 @@ namespace OpenCVForUnityExample
             _fpsMonitor = GetComponent<FpsMonitor>();
 
             _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+
+            // WebCamTexture2MatHelper does not work on WebGPU, so use WebCamTexture2MatAsyncGPUHelper instead.
+#if UNITY_6000_0_OR_NEWER
+            if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.WebGPU && _multiSource2MatHelper.RequestedSource2MatHelperClassName == MultiSource2MatHelperClassName.WebCamTexture2MatHelper)
+            {
+                _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.WebCamTexture2MatAsyncGPUHelper;
+            }
+#endif
 
             // Update GUI state
             ShowObjectDetectorResultToggle.isOn = ShowObjectDetectorResult;

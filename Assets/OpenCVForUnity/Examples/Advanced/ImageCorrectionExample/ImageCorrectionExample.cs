@@ -3,8 +3,10 @@ using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
 using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static OpenCVForUnity.UnityIntegration.Helper.Source2Mat.MultiSource2MatHelper;
 
 namespace OpenCVForUnityExample
 {
@@ -51,6 +53,14 @@ namespace OpenCVForUnityExample
         private void Start()
         {
             _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+
+            // WebCamTexture2MatHelper does not work on WebGPU, so use WebCamTexture2MatAsyncGPUHelper instead.
+#if UNITY_6000_0_OR_NEWER
+            if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.WebGPU && _multiSource2MatHelper.RequestedSource2MatHelperClassName == MultiSource2MatHelperClassName.WebCamTexture2MatHelper)
+            {
+                _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.WebCamTexture2MatAsyncGPUHelper;
+            }
+#endif
             _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGB;
             _multiSource2MatHelper.Initialize();
 

@@ -5,10 +5,6 @@ using UnityEngine.Events;
 using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
-#if ENABLE_INPUT_SYSTEM
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.EnhancedTouch;
-#endif
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -20,8 +16,21 @@ namespace OpenCVForUnityExample
     /// A component that detects touch/click on GameObject and converts screen coordinates to texture coordinates.
     /// Supports Quad mesh with Renderer component and RawImage UI elements.
     /// Provides both point selection and rectangle selection modes with OpenCV coordinate system support.
+    ///
+    /// This component uses Pointer Events (IPointerDownHandler, IDragHandler, etc.) to handle input.
+    /// For Pointer Events to work correctly, the following setup is required:
+    /// - EventSystem must exist in the scene
+    /// - Input Module (StandaloneInputModule or InputSystemUIInputModule) must be attached to EventSystem
+    /// - For Quad objects: GameObject must have a Collider component, and Camera must have PhysicsRaycaster component
+    /// - For RawImage UI elements: Canvas must have GraphicRaycaster component (usually added automatically)
     /// </summary>
-    public class TextureSelector : MonoBehaviour
+    public class TextureSelector : MonoBehaviour,
+        IPointerDownHandler,
+        IBeginDragHandler,
+        IDragHandler,
+        IEndDragHandler,
+        IPointerUpHandler,
+        ICancelHandler
     {
         /// <summary>
         /// Selection mode for touch interaction.
@@ -48,10 +57,6 @@ namespace OpenCVForUnityExample
             /// No event state (default state).
             /// </summary>
             NONE,
-            /// <summary>
-            /// Selection outside texture area.
-            /// </summary>
-            OUTSIDE_TEXTURE_SELECTED,
             /// <summary>
             /// Point selection started.
             /// </summary>
@@ -169,7 +174,6 @@ namespace OpenCVForUnityExample
         /// <remarks>
         /// Vector2[] array contents by mode:
         /// - NONE: [(-1, -1)] (default invalid state)
-        /// - OUTSIDE_TEXTURE_SELECTED: [(-1, -1)] (invalid coordinates)
         /// - POINT_SELECTION_*: [point] (single point coordinates)
         /// - RECTANGLE_SELECTION_*: [startPoint, endPoint] (two corner points of rectangle)
         /// - POINT_SELECTION_CANCELLED: [point] (cancelled point coordinates from before cancellation)
@@ -184,29 +188,6 @@ namespace OpenCVForUnityExample
         /// </summary>
         [Tooltip("Event fired when texture selection state has changed.\nParameters:\n- GameObject: Target object\n- TextureSelectionState: Current state\n- Vector2[]: Texture coordinates array")]
         public TextureSelectionEvent OnTextureSelectionStateChanged = new TextureSelectionEvent();
-
-        /// <summary>
-        /// Whether to fire event with invalid coordinates (-1, -1) when selecting outside the GameObject.
-        /// When enabled, OUTSIDE_TEXTURE_SELECTED events are fired even when selection is outside the texture area.
-        /// </summary>
-        [SerializeField, Tooltip("Whether to fire event with invalid coordinates (-1, -1) when selecting outside the GameObject.\nWhen enabled: OUTSIDE_TEXTURE_SELECTED events are fired even when selection is outside the texture area.")]
-        protected bool _fireEventOnOutsideSelect = false;
-
-        /// <summary>
-        /// Whether to fire event with invalid coordinates (-1, -1) when selecting outside the GameObject.
-        /// </summary>
-        public bool fireEventOnOutsideSelect
-        {
-            get { return _fireEventOnOutsideSelect; }
-            set
-            {
-                if (_fireEventOnOutsideSelect != value)
-                {
-                    _fireEventOnOutsideSelect = value;
-                    ResetCurrentState(); // Reset selection state when event behavior changes
-                }
-            }
-        }
 
         #endregion
 
@@ -489,7 +470,6 @@ namespace OpenCVForUnityExample
         /// <remarks>
         /// Vector2[] array contents by mode:
         /// - NONE: [(-1, -1)] (default invalid state)
-        /// - OUTSIDE_TEXTURE_SELECTED: [(-1, -1)] (invalid coordinates)
         /// - POINT_SELECTION_*: [point] (single point coordinates)
         /// - RECTANGLE_SELECTION_*: [startPoint, endPoint] (two corner points of rectangle)
         /// - POINT_SELECTION_CANCELLED: [point] (cancelled point coordinates from before cancellation)
@@ -508,6 +488,103 @@ namespace OpenCVForUnityExample
         public void ResetSelectionStatus()
         {
             ResetCurrentState();
+        }
+
+        /// <summary>
+        /// Handle pointer down for both point and rectangle selection modes.
+        /// </summary>
+        /// <param name="eventData">Pointer event data.</param>
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (eventData == null || eventData.button != PointerEventData.InputButton.Left)
+            {
+                return;
+            }
+
+            if (_selectionMode == SelectionMode.POINT)
+            {
+                StartPointSelection(eventData.position);
+            }
+            else
+            {
+                StartRectangleSelection(eventData.position);
+            }
+        }
+
+        /// <summary>
+        /// Maintain compatibility with drag lifecycle. Selection starts on pointer down.
+        /// </summary>
+        /// <param name="eventData">Pointer event data.</param>
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            // No additional handling required; selection is initialized on pointer down.
+        }
+
+        /// <summary>
+        /// Handle drag updates for current selection mode.
+        /// </summary>
+        /// <param name="eventData">Pointer event data.</param>
+        public void OnDrag(PointerEventData eventData)
+        {
+            if (eventData == null || eventData.button != PointerEventData.InputButton.Left)
+            {
+                return;
+            }
+
+            if (_selectionMode == SelectionMode.POINT && IsPointSelectionInProgress())
+            {
+                UpdatePointSelection(eventData.position);
+            }
+            else if (_selectionMode == SelectionMode.RECTANGLE && IsRectangleSelectionInProgress())
+            {
+                UpdateRectangleSelection(eventData.position);
+            }
+        }
+
+        /// <summary>
+        /// Handle end of drag lifecycle; actual completion is handled in OnPointerUp.
+        /// </summary>
+        /// <param name="eventData">Pointer event data.</param>
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            // No-op; completion is handled on pointer up to unify exit points.
+        }
+
+        /// <summary>
+        /// Handle pointer up to complete selection.
+        /// </summary>
+        /// <param name="eventData">Pointer event data.</param>
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            if (eventData == null || eventData.button != PointerEventData.InputButton.Left)
+            {
+                return;
+            }
+
+            if (_selectionMode == SelectionMode.POINT && IsPointSelectionInProgress())
+            {
+                EndPointSelection(eventData.position);
+            }
+            else if (_selectionMode == SelectionMode.RECTANGLE && IsRectangleSelectionInProgress())
+            {
+                EndRectangleSelection(eventData.position);
+            }
+        }
+
+        /// <summary>
+        /// Handle cancellation (e.g., pointer lost).
+        /// </summary>
+        /// <param name="eventData">Pointer event data.</param>
+        public void OnCancel(BaseEventData eventData)
+        {
+            if (IsPointSelectionInProgress())
+            {
+                CancelPointSelection();
+            }
+            else if (IsRectangleSelectionInProgress())
+            {
+                CancelRectangleSelection();
+            }
         }
 
         /// <summary>
@@ -631,10 +708,6 @@ namespace OpenCVForUnityExample
                     }
                     break;
 
-                case TextureSelectionState.OUTSIDE_TEXTURE_SELECTED:
-                    // Remove warning message - no longer drawing "Touch Outside Texture"
-                    break;
-
                 case TextureSelectionState.POINT_SELECTION_CANCELLED:
                 case TextureSelectionState.RECTANGLE_SELECTION_CANCELLED:
                     // Clear any previous drawing by not drawing anything
@@ -682,30 +755,6 @@ namespace OpenCVForUnityExample
 #if UNITY_EDITOR
             }
 #endif
-        }
-
-#if ENABLE_INPUT_SYSTEM
-        private void OnEnable()
-        {
-            EnhancedTouchSupport.Enable();
-        }
-
-        private void OnDisable()
-        {
-            EnhancedTouchSupport.Disable();
-        }
-#endif
-
-        private void Update()
-        {
-            if (_selectionMode == SelectionMode.POINT)
-            {
-                DetectPointSelection();
-            }
-            else if (_selectionMode == SelectionMode.RECTANGLE)
-            {
-                DetectRectangleSelection();
-            }
         }
 
         private void OnDestroy()
@@ -784,212 +833,6 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Detect point selection input.
-        /// Handles input detection for point selection mode using appropriate input system.
-        /// </summary>
-        private void DetectPointSelection()
-        {
-#if ENABLE_INPUT_SYSTEM
-            DetectPointSelectionNewSystem();
-#else
-            DetectPointSelectionLegacy();
-#endif
-        }
-
-#if ENABLE_INPUT_SYSTEM
-        /// <summary>
-        /// Detect point selection using the new input system.
-        /// Handles touch and mouse input using Unity's new Input System.
-        /// </summary>
-        private void DetectPointSelectionNewSystem()
-        {
-#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
-            // Touch input for mobile platforms
-            if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
-            {
-                var touch = UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0];
-
-                if (touch.phase == UnityEngine.InputSystem.TouchPhase.Began)
-                {
-                    // Unified processing for both Quad objects and RawImage elements
-                    // Exclude all UI elements (unified)
-                    if (!ShouldIgnoreInput(touch.screenPosition))
-                    {
-                        StartPointSelection(touch.screenPosition);
-                    }
-                }
-                else if (touch.phase == UnityEngine.InputSystem.TouchPhase.Moved && IsPointSelectionInProgress())
-                {
-                    // Unified processing for both Quad objects and RawImage elements
-                    // Exclude all UI elements (unified)
-                    if (!ShouldIgnoreInput(touch.screenPosition))
-                    {
-                        UpdatePointSelection(touch.screenPosition);
-                    }
-                    else
-                    {
-                        // Cancel if moved over UI element
-                        CancelPointSelection();
-                    }
-                }
-                else if (touch.phase == UnityEngine.InputSystem.TouchPhase.Ended && IsPointSelectionInProgress())
-                {
-                    // Unified processing for both Quad objects and RawImage elements
-                    // Exclude all UI elements (unified)
-                    if (!ShouldIgnoreInput(touch.screenPosition))
-                    {
-                        EndPointSelection(touch.screenPosition);
-                    }
-                    else
-                    {
-                        // Cancel if ended over UI element
-                        CancelPointSelection();
-                    }
-                }
-            }
-#else
-            // Mouse input for non-mobile platforms
-            var mouse = Mouse.current;
-            if (mouse != null)
-            {
-                if (mouse.leftButton.wasPressedThisFrame && !IsPressed())
-                {
-                    // Unified processing for both Quad objects and RawImage elements
-                    // Exclude all UI elements (unified)
-                    if (!ShouldIgnoreInput(mouse.position.ReadValue()))
-                    {
-                        StartPointSelection(mouse.position.ReadValue());
-                    }
-                }
-                else if (mouse.leftButton.isPressed && IsPressed() && IsPointSelectionInProgress())
-                {
-                    // Unified processing for both Quad objects and RawImage elements
-                    // Exclude all UI elements (unified)
-                    if (!ShouldIgnoreInput(mouse.position.ReadValue()))
-                    {
-                        UpdatePointSelection(mouse.position.ReadValue());
-                    }
-                    else
-                    {
-                        // Cancel if moved over UI element
-                        CancelPointSelection();
-                    }
-                }
-                else if (mouse.leftButton.wasReleasedThisFrame && IsPressed() && IsPointSelectionInProgress())
-                {
-                    // Unified processing for both Quad objects and RawImage elements
-                    // Exclude all UI elements (unified)
-                    if (!ShouldIgnoreInput(mouse.position.ReadValue()))
-                    {
-                        EndPointSelection(mouse.position.ReadValue());
-                        // State is updated in EndPointSelection method
-                    }
-                    else
-                    {
-                        // Cancel if ended over UI element
-                        CancelPointSelection();
-                    }
-                }
-            }
-#endif
-        }
-#endif
-
-        /// <summary>
-        /// Detect point selection using the legacy input system.
-        /// Handles touch and mouse input using Unity's legacy Input class.
-        /// </summary>
-        private void DetectPointSelectionLegacy()
-        {
-#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
-            // Touch input for mobile platforms
-            int touchCount = Input.touchCount;
-            if (touchCount == 1)
-            {
-                UnityEngine.Touch t = Input.GetTouch(0);
-
-                if (t.phase == UnityEngine.TouchPhase.Began)
-                {
-                    // Unified processing for both Quad objects and RawImage elements
-                    // Exclude all UI elements (unified)
-                    if (!ShouldIgnoreInput(t.position))
-                    {
-                        StartPointSelection(t.position);
-                    }
-                }
-                else if (t.phase == UnityEngine.TouchPhase.Moved && IsPointSelectionInProgress())
-                {
-                    // Unified processing for both Quad objects and RawImage elements
-                    // Exclude all UI elements (unified)
-                    if (!ShouldIgnoreInput(t.position))
-                    {
-                        UpdatePointSelection(t.position);
-                    }
-                    else
-                    {
-                        // Cancel if moved over UI element
-                        CancelPointSelection();
-                    }
-                }
-                else if (t.phase == UnityEngine.TouchPhase.Ended && IsPointSelectionInProgress())
-                {
-                    // Unified processing for both Quad objects and RawImage elements
-                    // Exclude all UI elements (unified)
-                    if (!ShouldIgnoreInput(t.position))
-                    {
-                        EndPointSelection(t.position);
-                    }
-                    else
-                    {
-                        // Cancel if ended over UI element
-                        CancelPointSelection();
-                    }
-                }
-            }
-#else
-            // Mouse input for non-mobile platforms
-            if (Input.GetMouseButtonDown(0) && !IsPressed())
-            {
-                // Unified processing for both Quad objects and RawImage elements
-                // Exclude all UI elements (unified)
-                if (!ShouldIgnoreInput(Input.mousePosition))
-                {
-                    StartPointSelection(Input.mousePosition);
-                }
-            }
-            else if (Input.GetMouseButton(0) && IsPressed() && IsPointSelectionInProgress())
-            {
-                // Unified processing for both Quad objects and RawImage elements
-                // Exclude all UI elements (unified)
-                if (!ShouldIgnoreInput(Input.mousePosition))
-                {
-                    UpdatePointSelection(Input.mousePosition);
-                }
-                else
-                {
-                    // Cancel if moved over UI element
-                    CancelPointSelection();
-                }
-            }
-            else if (Input.GetMouseButtonUp(0) && IsPressed() && IsPointSelectionInProgress())
-            {
-                // Unified processing for both Quad objects and RawImage elements
-                // Exclude all UI elements (unified)
-                if (!ShouldIgnoreInput(Input.mousePosition))
-                {
-                    EndPointSelection(Input.mousePosition);
-                    // State is updated in EndPointSelection method
-                }
-                else
-                {
-                    // Cancel if ended over UI element
-                    CancelPointSelection();
-                }
-            }
-#endif
-        }
-
-        /// <summary>
         /// Start point selection.
         /// Initiates point selection with the given screen coordinates.
         /// </summary>
@@ -1002,11 +845,6 @@ namespace OpenCVForUnityExample
             {
                 UpdateCurrentState(TextureSelectionState.POINT_SELECTION_STARTED, texturePoints);
                 OnTextureSelectionStateChanged?.Invoke(gameObject, TextureSelectionState.POINT_SELECTION_STARTED, texturePoints);
-            }
-            else if (_fireEventOnOutsideSelect)
-            {
-                // Fire event with invalid coordinates when touching outside
-                FireOutsideTextureTouchedEvent();
             }
         }
 
@@ -1084,260 +922,6 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Detect rectangle selection input.
-        /// Handles input detection for rectangle selection mode using appropriate input system.
-        /// </summary>
-        private void DetectRectangleSelection()
-        {
-#if ENABLE_INPUT_SYSTEM
-            DetectRectangleSelectionNewSystem();
-#else
-            DetectRectangleSelectionLegacy();
-#endif
-        }
-
-#if ENABLE_INPUT_SYSTEM
-        /// <summary>
-        /// Detect rectangle selection using the new input system.
-        /// Handles touch and mouse input for rectangle selection using Unity's new Input System.
-        /// </summary>
-        private void DetectRectangleSelectionNewSystem()
-        {
-#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
-            // Touch input for mobile platforms
-            if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
-            {
-                var touch = UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0];
-
-                if (touch.phase == UnityEngine.InputSystem.TouchPhase.Began)
-                {
-                    // Unified processing for both Quad objects and RawImage elements
-                    // Exclude all UI elements (unified)
-                    if (!ShouldIgnoreInput(touch.screenPosition))
-                    {
-                        StartRectangleSelection(touch.screenPosition);
-                    }
-                }
-                else if (touch.phase == UnityEngine.InputSystem.TouchPhase.Moved && IsRectangleSelectionInProgress())
-                {
-                    // Unified processing for both Quad objects and RawImage elements
-                    // Exclude all UI elements (unified)
-                    if (!ShouldIgnoreInput(touch.screenPosition))
-                    {
-                        UpdateRectangleSelection(touch.screenPosition);
-                    }
-                    else
-                    {
-                        // Cancel if moved over UI element
-                        CancelRectangleSelection();
-                    }
-                }
-                else if (touch.phase == UnityEngine.InputSystem.TouchPhase.Ended && IsRectangleSelectionInProgress())
-                {
-                    // Unified processing for both Quad objects and RawImage elements
-                    // Exclude all UI elements (unified)
-                    if (!ShouldIgnoreInput(touch.screenPosition))
-                    {
-                        EndRectangleSelection(touch.screenPosition);
-                    }
-                    else
-                    {
-                        // Cancel if ended over UI element
-                        CancelRectangleSelection();
-                    }
-                }
-            }
-#else
-            // Mouse input for non-mobile platforms
-            var mouse = Mouse.current;
-            if (mouse != null)
-            {
-                if (mouse.leftButton.wasPressedThisFrame && !IsPressed())
-                {
-                    // Unified processing for both Quad objects and RawImage elements
-                    // Exclude all UI elements (unified)
-                    if (!ShouldIgnoreInput(mouse.position.ReadValue()))
-                    {
-                        StartRectangleSelection(mouse.position.ReadValue());
-                    }
-                }
-                else if (mouse.leftButton.isPressed && IsPressed() && IsRectangleSelectionInProgress())
-                {
-                    // Unified processing for both Quad objects and RawImage elements
-                    // Exclude all UI elements (unified)
-                    if (!ShouldIgnoreInput(mouse.position.ReadValue()))
-                    {
-                        UpdateRectangleSelection(mouse.position.ReadValue());
-                    }
-                    else
-                    {
-                        // Cancel if moved over UI element
-                        CancelRectangleSelection();
-                    }
-                }
-                else if (mouse.leftButton.wasReleasedThisFrame && IsPressed() && IsRectangleSelectionInProgress())
-                {
-                    // Unified processing for both Quad objects and RawImage elements
-                    // Exclude all UI elements (unified)
-                    if (!ShouldIgnoreInput(mouse.position.ReadValue()))
-                    {
-                        EndRectangleSelection(mouse.position.ReadValue());
-                        // State is updated in EndRectangleSelection method
-                    }
-                    else
-                    {
-                        // Cancel if ended over UI element
-                        CancelRectangleSelection();
-                    }
-                }
-            }
-#endif
-        }
-#endif
-
-        /// <summary>
-        /// Detect rectangle selection using the legacy input system.
-        /// Handles touch and mouse input for rectangle selection using Unity's legacy Input class.
-        /// </summary>
-        private void DetectRectangleSelectionLegacy()
-        {
-#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
-            // Touch input for mobile platforms
-            int touchCount = Input.touchCount;
-            if (touchCount == 1)
-            {
-                UnityEngine.Touch t = Input.GetTouch(0);
-
-                if (t.phase == UnityEngine.TouchPhase.Began)
-                {
-                    // Unified processing for both Quad objects and RawImage elements
-                    // Exclude all UI elements (unified)
-                    if (!ShouldIgnoreInput(t.position))
-                    {
-                        StartRectangleSelection(t.position);
-                    }
-                }
-                else if (t.phase == UnityEngine.TouchPhase.Moved && IsRectangleSelectionInProgress())
-                {
-                    // Unified processing for both Quad objects and RawImage elements
-                    // Exclude all UI elements (unified)
-                    if (!ShouldIgnoreInput(t.position))
-                    {
-                        UpdateRectangleSelection(t.position);
-                    }
-                    else
-                    {
-                        // Cancel if moved over UI element
-                        CancelRectangleSelection();
-                    }
-                }
-                else if (t.phase == UnityEngine.TouchPhase.Ended && IsRectangleSelectionInProgress())
-                {
-                    // Unified processing for both Quad objects and RawImage elements
-                    // Exclude all UI elements (unified)
-                    if (!ShouldIgnoreInput(t.position))
-                    {
-                        EndRectangleSelection(t.position);
-                    }
-                    else
-                    {
-                        // Cancel if ended over UI element
-                        CancelRectangleSelection();
-                    }
-                }
-            }
-#else
-            // Mouse input for non-mobile platforms
-            if (Input.GetMouseButtonDown(0) && !IsPressed())
-            {
-                // Unified processing for both Quad objects and RawImage elements
-                // Exclude all UI elements (unified)
-                if (!ShouldIgnoreInput(Input.mousePosition))
-                {
-                    StartRectangleSelection(Input.mousePosition);
-                }
-            }
-            else if (Input.GetMouseButton(0) && IsPressed() && IsRectangleSelectionInProgress())
-            {
-                // Unified processing for both Quad objects and RawImage elements
-                // Exclude all UI elements (unified)
-                if (!ShouldIgnoreInput(Input.mousePosition))
-                {
-                    UpdateRectangleSelection(Input.mousePosition);
-                }
-                else
-                {
-                    // Cancel if moved over UI element
-                    CancelRectangleSelection();
-                }
-            }
-            else if (Input.GetMouseButtonUp(0) && IsPressed() && IsRectangleSelectionInProgress())
-            {
-                // Unified processing for both Quad objects and RawImage elements
-                // Exclude all UI elements (unified)
-                if (!ShouldIgnoreInput(Input.mousePosition))
-                {
-                    EndRectangleSelection(Input.mousePosition);
-                    // State is updated in EndRectangleSelection method
-                }
-                else
-                {
-                    // Cancel if ended over UI element
-                    CancelRectangleSelection();
-                }
-            }
-#endif
-        }
-
-        /// <summary>
-        /// Check if input should be ignored due to UI overlap.
-        /// For Quad objects, checks if any UI element is overlapping.
-        /// For RawImage elements, checks if other UI elements (excluding this RawImage) are overlapping.
-        /// </summary>
-        /// <param name="position">Input position</param>
-        /// <returns>True if input should be ignored</returns>
-        private bool ShouldIgnoreInput(Vector2 position)
-        {
-            if (_isQuadObject)
-            {
-                // For Quad objects, exclude all UI elements
-                return EventSystem.current.IsPointerOverGameObject();
-            }
-            else
-            {
-                // For RawImage elements, check if other UI elements (excluding this RawImage) are overlapping
-
-                // Stage 1: Check if any UI element is overlapping
-                if (!EventSystem.current.IsPointerOverGameObject())
-                {
-                    // No UI elements overlapping - safe to proceed
-                    return false;
-                }
-
-                // Stage 2: Check if it's this specific RawImage
-                if (IsPointerOverThisRawImageElement(position))
-                {
-                    // This RawImage is being touched - check if other UI elements are overlapping this RawImage
-                    return IsOtherUIElementOnTop(position);
-                }
-
-                // Touching other UI elements but not this RawImage - ignore input
-                return true;
-            }
-        }
-
-        /// <summary>
-        /// Fire OUTSIDE_TEXTURE_SELECTED event with invalid coordinates.
-        /// Triggers the event when touch occurs outside the texture area.
-        /// </summary>
-        private void FireOutsideTextureTouchedEvent()
-        {
-            Vector2[] invalidPoints = new Vector2[] { new Vector2(-1, -1) };
-            UpdateCurrentState(TextureSelectionState.OUTSIDE_TEXTURE_SELECTED, invalidPoints);
-            OnTextureSelectionStateChanged?.Invoke(gameObject, TextureSelectionState.OUTSIDE_TEXTURE_SELECTED, invalidPoints);
-        }
-
-        /// <summary>
         /// Cancel rectangle selection.
         /// Cancels the current rectangle selection and resets state.
         /// </summary>
@@ -1377,11 +961,6 @@ namespace OpenCVForUnityExample
             {
                 UpdateCurrentState(TextureSelectionState.RECTANGLE_SELECTION_STARTED, texturePoints);
                 OnTextureSelectionStateChanged?.Invoke(gameObject, TextureSelectionState.RECTANGLE_SELECTION_STARTED, texturePoints);
-            }
-            else if (_fireEventOnOutsideSelect)
-            {
-                // Fire event with invalid coordinates when touching outside
-                FireOutsideTextureTouchedEvent();
             }
         }
 
@@ -1988,83 +1567,6 @@ namespace OpenCVForUnityExample
                 return _rawImage.texture.height;
             }
             return 0; // No texture available
-        }
-
-        /// <summary>
-        /// Check if there are other UI elements on top of this RawImage.
-        /// Determines if other UI elements are overlapping this RawImage at the given position.
-        /// </summary>
-        /// <param name="screenPosition">Screen position to check for overlapping UI elements.</param>
-        /// <returns>True if other UI elements are overlapping this RawImage, false otherwise.</returns>
-        private bool IsOtherUIElementOnTop(Vector2 screenPosition)
-        {
-            // Get all UI elements at the specified screen position
-            var eventData = new PointerEventData(EventSystem.current)
-            {
-                position = screenPosition
-            };
-
-            var results = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(eventData, results);
-
-            // Filter out this RawImage and its children
-            foreach (var result in results)
-            {
-                if (result.gameObject != gameObject && !result.gameObject.transform.IsChildOf(transform))
-                {
-                    // Found another UI element on top - early exit for better performance
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-
-        /// <summary>
-        /// Check if pointer is over this specific RawImage element.
-        /// Determines if the pointer is positioned over this specific RawImage element.
-        /// </summary>
-        /// <param name="screenPoint">Screen point.</param>
-        /// <returns>True if pointer is over this RawImage element, false otherwise.</returns>
-        private bool IsPointerOverThisRawImageElement(Vector2 screenPoint)
-        {
-            if (_rawImage == null)
-            {
-                Debug.LogWarning("TextureSelector: RawImage is null!");
-                return false;
-            }
-
-            RectTransform rectTransform = _rawImage.rectTransform;
-            Vector2 localPoint;
-
-            //Debug.Log($"TextureSelector RawImage Debug - IsPointerOverThisRawImageElement:");
-            //Debug.Log($"  screenPoint: {screenPoint}");
-            //Debug.Log($"  rectTransform: {rectTransform}");
-            //Debug.Log($"  rectTransform.rect: {rectTransform.rect}");
-            //Debug.Log($"  _internalTargetCamera: {_internalTargetCamera}");
-
-            // For ScreenSpaceOverlay, use null camera
-            Camera cameraToUse = _internalTargetCamera;
-            if (_internalTargetCamera == null)
-            {
-                //Debug.Log("  Using null camera for ScreenSpaceOverlay");
-            }
-
-            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                rectTransform, screenPoint, cameraToUse, out localPoint))
-            {
-                //Debug.Log($"  localPoint: {localPoint}");
-                //Debug.Log($"  rectContains: {rectTransform.rect.Contains(localPoint)}");
-
-                // Check if point is within the rect
-                bool isOver = rectTransform.rect.Contains(localPoint);
-                //Debug.Log($"  IsPointerOverThisRawImageElement result: {isOver}");
-                return isOver;
-            }
-
-            //Debug.Log("  RectTransformUtility.ScreenPointToLocalPointInRectangle failed");
-            return false;
         }
 
         /// <summary>
