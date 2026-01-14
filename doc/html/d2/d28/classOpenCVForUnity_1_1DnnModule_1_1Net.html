@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.1</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.2</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.12.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.13.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -180,6 +180,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a297644689bec64faa4fe6a7040672209" id="r_a297644689bec64faa4fe6a7040672209"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a297644689bec64faa4fe6a7040672209">forward</a> (string outputName)</td></tr>
 <tr class="memdesc:a297644689bec64faa4fe6a7040672209"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs forward pass to compute output of layer with name <code>outputName</code>.  <br /></td></tr>
 <tr class="separator:a297644689bec64faa4fe6a7040672209"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33866177b21cb1f4a9ca50d409ee565a" id="r_a33866177b21cb1f4a9ca50d409ee565a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a33866177b21cb1f4a9ca50d409ee565a">forwardAndRetrieve</a> (List&lt; List&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> &gt; &gt; outputBlobs, List&lt; string &gt; outBlobNames)</td></tr>
+<tr class="memdesc:a33866177b21cb1f4a9ca50d409ee565a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs forward pass to compute outputs of layers listed in <code>outBlobNames</code>.  <br /></td></tr>
+<tr class="separator:a33866177b21cb1f4a9ca50d409ee565a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3b902ce2d47587f645761b1b800674b" id="r_ae3b902ce2d47587f645761b1b800674b"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3b902ce2d47587f645761b1b800674b">getFLOPS</a> (int layerId, List&lt; <a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a> &gt; netInputShapes)</td></tr>
 <tr class="separator:ae3b902ce2d47587f645761b1b800674b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8442cabcabba718eaa973cef454b0352" id="r_a8442cabcabba718eaa973cef454b0352"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8442cabcabba718eaa973cef454b0352">getFLOPS</a> (int layerId, <a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a> netInputShape)</td></tr>
@@ -207,6 +210,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac4af9022464087e046f47f8a2dd65395" id="r_ac4af9022464087e046f47f8a2dd65395"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac4af9022464087e046f47f8a2dd65395">getLayersCount</a> (string layerType)</td></tr>
 <tr class="memdesc:ac4af9022464087e046f47f8a2dd65395"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns count of layers of specified type.  <br /></td></tr>
 <tr class="separator:ac4af9022464087e046f47f8a2dd65395"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0774fe985e5439803ed7c17c12e59cb6" id="r_a0774fe985e5439803ed7c17c12e59cb6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0774fe985e5439803ed7c17c12e59cb6">getLayersShapes</a> (List&lt; <a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a> &gt; netInputShapes, <a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a> layersIds, List&lt; List&lt; <a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a> &gt; &gt; inLayersShapes, List&lt; List&lt; <a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a> &gt; &gt; outLayersShapes)</td></tr>
+<tr class="memdesc:a0774fe985e5439803ed7c17c12e59cb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns input and output shapes for all layers in loaded model; preliminary inferencing isn't necessary.  <br /></td></tr>
+<tr class="separator:a0774fe985e5439803ed7c17c12e59cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58731b7b650deb35d110e1e829d18407" id="r_a58731b7b650deb35d110e1e829d18407"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a58731b7b650deb35d110e1e829d18407">getLayersShapes</a> (<a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a> netInputShape, <a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a> layersIds, List&lt; List&lt; <a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a> &gt; &gt; inLayersShapes, List&lt; List&lt; <a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a> &gt; &gt; outLayersShapes)</td></tr>
+<tr class="separator:a58731b7b650deb35d110e1e829d18407"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac081c75a742a7e3d46b58c7837b48055" id="r_ac081c75a742a7e3d46b58c7837b48055"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac081c75a742a7e3d46b58c7837b48055">getLayerTypes</a> (List&lt; string &gt; layersTypes)</td></tr>
 <tr class="memdesc:ac081c75a742a7e3d46b58c7837b48055"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns list of types for layer used in model.  <br /></td></tr>
 <tr class="separator:ac081c75a742a7e3d46b58c7837b48055"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -736,6 +744,36 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a33866177b21cb1f4a9ca50d409ee565a" name="a33866177b21cb1f4a9ca50d409ee565a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33866177b21cb1f4a9ca50d409ee565a">&#9670;&#160;</a></span>forwardAndRetrieve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.DnnModule.Net.forwardAndRetrieve </td>
+          <td>(</td>
+          <td class="paramtype">List&lt; List&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> &gt; &gt;</td>          <td class="paramname"><span class="paramname"><em>outputBlobs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>outBlobNames</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Runs forward pass to compute outputs of layers listed in <code>outBlobNames</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">outputBlobs</td><td>contains all output blobs for each layer specified in <code>outBlobNames</code>. </td></tr>
+    <tr><td class="paramname">outBlobNames</td><td>names for layers which outputs are needed to get </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ae3b902ce2d47587f645761b1b800674b" name="ae3b902ce2d47587f645761b1b800674b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae3b902ce2d47587f645761b1b800674b">&#9670;&#160;</a></span>getFLOPS() <span class="overload">[1/4]</span></h2>
 
@@ -969,6 +1007,80 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>count of layers </dd></dl>
+
+</div>
+</div>
+<a id="a0774fe985e5439803ed7c17c12e59cb6" name="a0774fe985e5439803ed7c17c12e59cb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0774fe985e5439803ed7c17c12e59cb6">&#9670;&#160;</a></span>getLayersShapes() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.DnnModule.Net.getLayersShapes </td>
+          <td>(</td>
+          <td class="paramtype">List&lt; <a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>netInputShapes</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a></td>          <td class="paramname"><span class="paramname"><em>layersIds</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List&lt; List&lt; <a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a> &gt; &gt;</td>          <td class="paramname"><span class="paramname"><em>inLayersShapes</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List&lt; List&lt; <a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a> &gt; &gt;</td>          <td class="paramname"><span class="paramname"><em>outLayersShapes</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns input and output shapes for all layers in loaded model; preliminary inferencing isn't necessary. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">netInputShapes</td><td>shapes for all input blobs in net input layer. </td></tr>
+    <tr><td class="paramname">layersIds</td><td>output parameter for layer IDs. </td></tr>
+    <tr><td class="paramname">inLayersShapes</td><td>output parameter for input layers shapes; order is the same as in layersIds </td></tr>
+    <tr><td class="paramname">outLayersShapes</td><td>output parameter for output layers shapes; order is the same as in layersIds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a58731b7b650deb35d110e1e829d18407" name="a58731b7b650deb35d110e1e829d18407"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58731b7b650deb35d110e1e829d18407">&#9670;&#160;</a></span>getLayersShapes() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.DnnModule.Net.getLayersShapes </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a></td>          <td class="paramname"><span class="paramname"><em>netInputShape</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a></td>          <td class="paramname"><span class="paramname"><em>layersIds</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List&lt; List&lt; <a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a> &gt; &gt;</td>          <td class="paramname"><span class="paramname"><em>inLayersShapes</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List&lt; List&lt; <a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a> &gt; &gt;</td>          <td class="paramname"><span class="paramname"><em>outLayersShapes</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p>
 
 </div>
 </div>

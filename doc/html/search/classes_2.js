@@ -12,10 +12,11 @@ var searchData=
   ['classificationdata_9',['ClassificationData',['../d0/d3f/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DataStruct_1_1ClassificationData.html',1,'OpenCVForUnity::UnityIntegration::Worker::DataStruct']]],
   ['classificationmodel_10',['ClassificationModel',['../d3/db7/classOpenCVForUnity_1_1DnnModule_1_1ClassificationModel.html',1,'OpenCVForUnity::DnnModule']]],
   ['classlabelutils_11',['ClassLabelUtils',['../d5/d85/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1Utils_1_1ClassLabelUtils.html',1,'OpenCVForUnity::UnityIntegration::Worker::Utils']]],
-  ['colormomenthash_12',['ColorMomentHash',['../d6/d53/classOpenCVForUnity_1_1Img__hashModule_1_1ColorMomentHash.html',1,'OpenCVForUnity::Img_hashModule']]],
-  ['contourfitting_13',['ContourFitting',['../d6/dc2/classOpenCVForUnity_1_1XimgprocModule_1_1ContourFitting.html',1,'OpenCVForUnity::XimgprocModule']]],
-  ['converters_14',['Converters',['../dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html',1,'OpenCVForUnity::UtilsModule']]],
-  ['core_15',['Core',['../da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html',1,'OpenCVForUnity::CoreModule']]],
-  ['cvexception_16',['CvException',['../dc/dbb/classOpenCVForUnity_1_1CoreModule_1_1CvException.html',1,'OpenCVForUnity::CoreModule']]],
-  ['cvtype_17',['CvType',['../d4/d7f/classOpenCVForUnity_1_1CoreModule_1_1CvType.html',1,'OpenCVForUnity::CoreModule']]]
+  ['cleanablemat_12',['CleanableMat',['../d4/df5/classOpenCVForUnity_1_1CoreModule_1_1CleanableMat.html',1,'OpenCVForUnity::CoreModule']]],
+  ['colormomenthash_13',['ColorMomentHash',['../d6/d53/classOpenCVForUnity_1_1Img__hashModule_1_1ColorMomentHash.html',1,'OpenCVForUnity::Img_hashModule']]],
+  ['contourfitting_14',['ContourFitting',['../d6/dc2/classOpenCVForUnity_1_1XimgprocModule_1_1ContourFitting.html',1,'OpenCVForUnity::XimgprocModule']]],
+  ['converters_15',['Converters',['../dc/da8/classOpenCVForUnity_1_1UtilsModule_1_1Converters.html',1,'OpenCVForUnity::UtilsModule']]],
+  ['core_16',['Core',['../da/d74/classOpenCVForUnity_1_1CoreModule_1_1Core.html',1,'OpenCVForUnity::CoreModule']]],
+  ['cvexception_17',['CvException',['../dc/dbb/classOpenCVForUnity_1_1CoreModule_1_1CvException.html',1,'OpenCVForUnity::CoreModule']]],
+  ['cvtype_18',['CvType',['../d4/d7f/classOpenCVForUnity_1_1CoreModule_1_1CvType.html',1,'OpenCVForUnity::CoreModule']]]
 ];

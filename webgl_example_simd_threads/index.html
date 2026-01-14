@@ -6,7 +6,19 @@
     <title>Unity Web Player | OpenCVForUnityExample</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
-    <script src="coi-serviceworker.js"></script>
+    <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./my-serviceworker.js')
+        .then(reg => {
+          console.log('Service Worker registered:', reg.scope);
+          if (!window.crossOriginIsolated) {
+            console.log('Reloading to enable Cross-Origin Isolation...');
+            window.location.reload();
+          }
+        })
+        .catch(err => console.error('SW registration failed:', err));
+    }
+    </script>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -63,7 +75,7 @@
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Enox Software",
         productName: "OpenCVForUnityExample",
-        productVersion: "3.0.1",
+        productVersion: "3.0.2",
         showBanner: unityShowBanner,
         // errorHandler: function(err, url, line) {
         //    alert("error " + err + " occurred at line " + line);

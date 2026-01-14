@@ -37,7 +37,9 @@ var searchData=
   ['model_34',['Model',['../db/d55/classOpenCVForUnity_1_1DnnModule_1_1Model.html',1,'OpenCVForUnity::DnnModule']]],
   ['moments_35',['Moments',['../d5/d5f/classOpenCVForUnity_1_1ImgprocModule_1_1Moments.html',1,'OpenCVForUnity::ImgprocModule']]],
   ['monobehaviour_36',['MonoBehaviour',['../d3/d52/classMonoBehaviour.html',1,'']]],
-  ['msddetector_37',['MSDDetector',['../d8/d9a/classOpenCVForUnity_1_1Xfeatures2dModule_1_1MSDDetector.html',1,'OpenCVForUnity::Xfeatures2dModule']]],
-  ['mser_38',['MSER',['../d4/d0c/classOpenCVForUnity_1_1Features2dModule_1_1MSER.html',1,'OpenCVForUnity::Features2dModule']]],
-  ['multisource2mathelper_39',['MultiSource2MatHelper',['../d1/dcd/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1MultiSource2MatHelper.html',1,'OpenCVForUnity::UnityIntegration::Helper::Source2Mat']]]
+  ['motionsaliency_37',['MotionSaliency',['../df/d36/classOpenCVForUnity_1_1SaliencyModule_1_1MotionSaliency.html',1,'OpenCVForUnity::SaliencyModule']]],
+  ['motionsaliencybinwangapr2014_38',['MotionSaliencyBinWangApr2014',['../d7/d0c/classOpenCVForUnity_1_1SaliencyModule_1_1MotionSaliencyBinWangApr2014.html',1,'OpenCVForUnity::SaliencyModule']]],
+  ['msddetector_39',['MSDDetector',['../d8/d9a/classOpenCVForUnity_1_1Xfeatures2dModule_1_1MSDDetector.html',1,'OpenCVForUnity::Xfeatures2dModule']]],
+  ['mser_40',['MSER',['../d4/d0c/classOpenCVForUnity_1_1Features2dModule_1_1MSER.html',1,'OpenCVForUnity::Features2dModule']]],
+  ['multisource2mathelper_41',['MultiSource2MatHelper',['../d1/dcd/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1MultiSource2MatHelper.html',1,'OpenCVForUnity::UnityIntegration::Helper::Source2Mat']]]
 ];

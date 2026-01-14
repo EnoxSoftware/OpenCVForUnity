@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.1</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.2</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.12.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.13.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -149,6 +149,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a61836fd40e16404ecb02e41df00abc91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5243183bf8c665b0e09020e34af1e259" id="r_a5243183bf8c665b0e09020e34af1e259"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5243183bf8c665b0e09020e34af1e259">collectGarbage</a> ()</td></tr>
 <tr class="separator:a5243183bf8c665b0e09020e34af1e259"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a154b34c989cf4ada89f5c5bb8cbc7881" id="r_a154b34c989cf4ada89f5c5bb8cbc7881"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a154b34c989cf4ada89f5c5bb8cbc7881">getBitShift</a> ()</td></tr>
+<tr class="memdesc:a154b34c989cf4ada89f5c5bb8cbc7881"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the bit shift parameter for histogram bins.  <br /></td></tr>
+<tr class="separator:a154b34c989cf4ada89f5c5bb8cbc7881"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d120af98fa72df25fda0f7e3006f802" id="r_a5d120af98fa72df25fda0f7e3006f802"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d120af98fa72df25fda0f7e3006f802">getClipLimit</a> ()</td></tr>
 <tr class="separator:a5d120af98fa72df25fda0f7e3006f802"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54125757b5c80eba61d144eaf27c14ad" id="r_a54125757b5c80eba61d144eaf27c14ad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d54/classOpenCVForUnity_1_1CoreModule_1_1Size.html">Size</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54125757b5c80eba61d144eaf27c14ad">getTilesGridSize</a> ()</td></tr>
@@ -157,6 +160,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3a93bb36594cf402359bba1fe9b5c723"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d4755dfd1aa21f5e482b13b5f1635c7" id="r_a8d4755dfd1aa21f5e482b13b5f1635c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/dbb/structOpenCVForUnity_1_1UnityIntegration_1_1Vec2d.html">Vec2d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d4755dfd1aa21f5e482b13b5f1635c7">getTilesGridSizeAsVec2d</a> ()</td></tr>
 <tr class="separator:a8d4755dfd1aa21f5e482b13b5f1635c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a026776a3d5b43813223601e8f7a8ec24" id="r_a026776a3d5b43813223601e8f7a8ec24"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a026776a3d5b43813223601e8f7a8ec24">setBitShift</a> (int bitShift)</td></tr>
+<tr class="memdesc:a026776a3d5b43813223601e8f7a8ec24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets bit shift parameter for histogram bins.  <br /></td></tr>
+<tr class="separator:a026776a3d5b43813223601e8f7a8ec24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a342026b5f51f68ea19b5bed8537f1897" id="r_a342026b5f51f68ea19b5bed8537f1897"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a342026b5f51f68ea19b5bed8537f1897">setClipLimit</a> (double clipLimit)</td></tr>
 <tr class="memdesc:a342026b5f51f68ea19b5bed8537f1897"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets threshold for contrast limiting.  <br /></td></tr>
 <tr class="separator:a342026b5f51f68ea19b5bed8537f1897"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -338,6 +344,26 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a154b34c989cf4ada89f5c5bb8cbc7881" name="a154b34c989cf4ada89f5c5bb8cbc7881"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a154b34c989cf4ada89f5c5bb8cbc7881">&#9670;&#160;</a></span>getBitShift()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int OpenCVForUnity.ImgprocModule.CLAHE.getBitShift </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the bit shift parameter for histogram bins. </p>
+<dl class="section return"><dt>Returns</dt><dd>current bit shift value. </dd></dl>
+
+</div>
+</div>
 <a id="a5d120af98fa72df25fda0f7e3006f802" name="a5d120af98fa72df25fda0f7e3006f802"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5d120af98fa72df25fda0f7e3006f802">&#9670;&#160;</a></span>getClipLimit()</h2>
 
@@ -403,6 +429,31 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a026776a3d5b43813223601e8f7a8ec24" name="a026776a3d5b43813223601e8f7a8ec24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a026776a3d5b43813223601e8f7a8ec24">&#9670;&#160;</a></span>setBitShift()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.ImgprocModule.CLAHE.setBitShift </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>bitShift</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets bit shift parameter for histogram bins. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bitShift</td><td>bit shift value (default is 0). </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

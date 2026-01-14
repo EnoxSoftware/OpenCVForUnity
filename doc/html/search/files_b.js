@@ -57,7 +57,9 @@ var searchData=
   ['model_5fvaluetuple_2ecs_54',['Model_ValueTuple.cs',['../da/d2d/Model__ValueTuple_8cs.html',1,'']]],
   ['moments_2ecs_55',['Moments.cs',['../dd/dfc/Moments_8cs.html',1,'']]],
   ['moments_5fex_2ecs_56',['Moments_Ex.cs',['../d8/d84/Moments__Ex_8cs.html',1,'']]],
-  ['msddetector_2ecs_57',['MSDDetector.cs',['../dd/d22/MSDDetector_8cs.html',1,'']]],
-  ['mser_2ecs_58',['MSER.cs',['../db/dd1/MSER_8cs.html',1,'']]],
-  ['multisource2mathelper_2ecs_59',['MultiSource2MatHelper.cs',['../d8/ddc/MultiSource2MatHelper_8cs.html',1,'']]]
+  ['motionsaliency_2ecs_57',['MotionSaliency.cs',['../de/d2d/MotionSaliency_8cs.html',1,'']]],
+  ['motionsaliencybinwangapr2014_2ecs_58',['MotionSaliencyBinWangApr2014.cs',['../d0/d99/MotionSaliencyBinWangApr2014_8cs.html',1,'']]],
+  ['msddetector_2ecs_59',['MSDDetector.cs',['../dd/d22/MSDDetector_8cs.html',1,'']]],
+  ['mser_2ecs_60',['MSER.cs',['../db/dd1/MSER_8cs.html',1,'']]],
+  ['multisource2mathelper_2ecs_61',['MultiSource2MatHelper.cs',['../d8/ddc/MultiSource2MatHelper_8cs.html',1,'']]]
 ];

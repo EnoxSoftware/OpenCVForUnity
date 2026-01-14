@@ -20,12 +20,13 @@ var searchData=
   ['classificationdata_2ecs_17',['ClassificationData.cs',['../d6/d7a/ClassificationData_8cs.html',1,'']]],
   ['classificationmodel_2ecs_18',['ClassificationModel.cs',['../df/d58/ClassificationModel_8cs.html',1,'']]],
   ['classlabelutils_2ecs_19',['ClassLabelUtils.cs',['../d3/da7/ClassLabelUtils_8cs.html',1,'']]],
-  ['colormomenthash_2ecs_20',['ColorMomentHash.cs',['../d8/dcf/ColorMomentHash_8cs.html',1,'']]],
-  ['contourfitting_2ecs_21',['ContourFitting.cs',['../d2/dd1/ContourFitting_8cs.html',1,'']]],
-  ['converters_2ecs_22',['Converters.cs',['../de/d13/Converters_8cs.html',1,'']]],
-  ['core_2ecs_23',['Core.cs',['../db/df2/Core_8cs.html',1,'']]],
-  ['core_5fstruct_2ecs_24',['Core_Struct.cs',['../da/d2d/Core__Struct_8cs.html',1,'']]],
-  ['core_5fvaluetuple_2ecs_25',['Core_ValueTuple.cs',['../d0/d3a/Core__ValueTuple_8cs.html',1,'']]],
-  ['cvexception_2ecs_26',['CvException.cs',['../d1/d20/CvException_8cs.html',1,'']]],
-  ['cvtype_2ecs_27',['CvType.cs',['../d5/d0d/CvType_8cs.html',1,'']]]
+  ['cleanablemat_2ecs_20',['CleanableMat.cs',['../da/dcf/CleanableMat_8cs.html',1,'']]],
+  ['colormomenthash_2ecs_21',['ColorMomentHash.cs',['../d8/dcf/ColorMomentHash_8cs.html',1,'']]],
+  ['contourfitting_2ecs_22',['ContourFitting.cs',['../d2/dd1/ContourFitting_8cs.html',1,'']]],
+  ['converters_2ecs_23',['Converters.cs',['../de/d13/Converters_8cs.html',1,'']]],
+  ['core_2ecs_24',['Core.cs',['../db/df2/Core_8cs.html',1,'']]],
+  ['core_5fstruct_2ecs_25',['Core_Struct.cs',['../da/d2d/Core__Struct_8cs.html',1,'']]],
+  ['core_5fvaluetuple_2ecs_26',['Core_ValueTuple.cs',['../d0/d3a/Core__ValueTuple_8cs.html',1,'']]],
+  ['cvexception_2ecs_27',['CvException.cs',['../d1/d20/CvException_8cs.html',1,'']]],
+  ['cvtype_2ecs_28',['CvType.cs',['../d5/d0d/CvType_8cs.html',1,'']]]
 ];
