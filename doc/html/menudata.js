@@ -126,6 +126,7 @@ var menudata={children:[
 {text:"f",url:"functions_prop_f.html#index_f"},
 {text:"h",url:"functions_prop_h.html#index_h"},
 {text:"i",url:"functions_prop_i.html#index_i"},
+{text:"k",url:"functions_prop_k.html#index_k"},
 {text:"l",url:"functions_prop_l.html#index_l"},
 {text:"n",url:"functions_prop_n.html#index_n"},
 {text:"o",url:"functions_prop_o.html#index_o"},

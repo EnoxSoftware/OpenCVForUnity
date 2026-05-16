@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['range_0',['Range',['../d1/d6a/Animation_8cs.html#aadd01bb140c661741d0df0261ef3ca81',1,'Animation.cs']]],
-  ['rect_1',['Rect',['../d7/d9c/ImageOptimizationHelper_8cs.html#a709600596d661549a58cf87d195574cb',1,'ImageOptimizationHelper.cs']]]
+  ['sentismodel_0',['SentisModel',['../de/de1/MultiBackendNet_8cs.html#a91b3cde1817212bceba30f1f45f3363d',1,'MultiBackendNet.cs']]],
+  ['sentisworker_1',['SentisWorker',['../de/de1/MultiBackendNet_8cs.html#aa9b883c2ef0c40ce488a60e2da9097cc',1,'MultiBackendNet.cs']]]
 ];

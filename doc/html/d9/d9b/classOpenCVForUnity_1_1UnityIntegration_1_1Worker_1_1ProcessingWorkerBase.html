@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.2</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.13.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -131,6 +131,7 @@ $(function(){ initResizable(false); });
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
@@ -147,8 +148,21 @@ $(function(){ initResizable(false); });
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html">ProcessingCompletion</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the completion status of a processing operation.  <a href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Payload for <a class="el" href="#a61c235a93be85274551d166a48b511f7" title="Occurs when a processing operation completes.">ProcessingCompleted</a>; same Kind / Error shape as WorkCompletion&lt;TResult&gt; without a results buffer (use <a class="el" href="#afb72c96babf71d9c7af92b031ba1a7b4" title="Returns a reference (submat) to the output Mat at the specified index.">PeekOutput</a> / <a class="el" href="#a5c95591dd3a21835a2451460fff48247" title="Returns a copy of the output Mat at the specified index.">CopyOutput</a> after success).  <a href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ada33dc511d99b712a361f8c1c174fca4" id="r_ada33dc511d99b712a361f8c1c174fca4"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada33dc511d99b712a361f8c1c174fca4">ProcessingCompletionKind</a> { <br />
+&#160;&#160;<a class="el" href="#ada33dc511d99b712a361f8c1c174fca4a66d02c2f8a582446f8dd8752366002b5">Succeeded</a>
+, <br />
+&#160;&#160;<a class="el" href="#ada33dc511d99b712a361f8c1c174fca4a0e22fe7d45f8e5632a4abf369b24e29c">Canceled</a>
+, <br />
+&#160;&#160;<a class="el" href="#ada33dc511d99b712a361f8c1c174fca4a2b310d05c23325e2935ec87b25a60b8f">Faulted</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:ada33dc511d99b712a361f8c1c174fca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Completion status for <a class="el" href="#a61c235a93be85274551d166a48b511f7" title="Occurs when a processing operation completes.">ProcessingCompleted</a>.  <a href="#ada33dc511d99b712a361f8c1c174fca4">More...</a><br /></td></tr>
+<tr class="separator:ada33dc511d99b712a361f8c1c174fca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -164,6 +178,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a15db0a70f467e35046b44c01c4f6c743" id="r_a15db0a70f467e35046b44c01c4f6c743"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a15db0a70f467e35046b44c01c4f6c743">Dispose</a> ()</td></tr>
 <tr class="memdesc:a15db0a70f467e35046b44c01c4f6c743"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases resources used by the worker.  <br /></td></tr>
 <tr class="separator:a15db0a70f467e35046b44c01c4f6c743"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac8759da71c2b41009aada4e5d2b1378" id="r_aac8759da71c2b41009aada4e5d2b1378"><td class="memItemLeft" align="right" valign="top">virtual async ValueTask&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac8759da71c2b41009aada4e5d2b1378">DisposeAsync</a> ()</td></tr>
+<tr class="memdesc:aac8759da71c2b41009aada4e5d2b1378"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronously releases resources: cancels a running operation, waits up to DefaultDisposeOperationWaitTimeout for it to complete, then disposes internal buffers. Prefer over <a class="el" href="#a15db0a70f467e35046b44c01c4f6c743" title="Releases resources used by the worker.">Dispose()</a> when you can <code>await</code> to avoid blocking a thread on the completion wait.  <br /></td></tr>
+<tr class="separator:aac8759da71c2b41009aada4e5d2b1378"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4319a853b3878c4dd2f29c7eb861223" id="r_ad4319a853b3878c4dd2f29c7eb861223"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4319a853b3878c4dd2f29c7eb861223">Execute</a> ()</td></tr>
 <tr class="memdesc:ad4319a853b3878c4dd2f29c7eb861223"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes processing with pre-set inputs.  <br /></td></tr>
 <tr class="separator:ad4319a853b3878c4dd2f29c7eb861223"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -179,21 +196,31 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9ca76242039fb6137f05d99a00b1c00c" id="r_a9ca76242039fb6137f05d99a00b1c00c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9ca76242039fb6137f05d99a00b1c00c">Execute</a> (params <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>[] inputs)</td></tr>
 <tr class="memdesc:a9ca76242039fb6137f05d99a00b1c00c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes processing using multiple inputs Mats.  <br /></td></tr>
 <tr class="separator:a9ca76242039fb6137f05d99a00b1c00c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2656f8fc3aef4058c3248af12f758a76" id="r_a2656f8fc3aef4058c3248af12f758a76"><td class="memItemLeft" align="right" valign="top">virtual async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2656f8fc3aef4058c3248af12f758a76">ExecuteAsync</a> (CancellationToken cancellationToken=default)</td></tr>
-<tr class="memdesc:a2656f8fc3aef4058c3248af12f758a76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes processing asynchronously with pre-set inputs.  <br /></td></tr>
-<tr class="separator:a2656f8fc3aef4058c3248af12f758a76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e35073add08b45313047596d1d042b7" id="r_a2e35073add08b45313047596d1d042b7"><td class="memItemLeft" align="right" valign="top">virtual async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e35073add08b45313047596d1d042b7">ExecuteAsync</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> input, CancellationToken cancellationToken=default)</td></tr>
-<tr class="memdesc:a2e35073add08b45313047596d1d042b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes processing asynchronously using single input Mat.  <br /></td></tr>
-<tr class="separator:a2e35073add08b45313047596d1d042b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31faf93a0f09853296ee1c2d56415a3a" id="r_a31faf93a0f09853296ee1c2d56415a3a"><td class="memItemLeft" align="right" valign="top">virtual async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a31faf93a0f09853296ee1c2d56415a3a">ExecuteAsync</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> input1, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> input2, CancellationToken cancellationToken=default)</td></tr>
-<tr class="memdesc:a31faf93a0f09853296ee1c2d56415a3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes processing asynchronously using multiple input Mats (optimized for 2 inputs).  <br /></td></tr>
-<tr class="separator:a31faf93a0f09853296ee1c2d56415a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac97c9f364ef738bec953486738fa323f" id="r_ac97c9f364ef738bec953486738fa323f"><td class="memItemLeft" align="right" valign="top">virtual async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac97c9f364ef738bec953486738fa323f">ExecuteAsync</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> input1, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> input2, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> input3, CancellationToken cancellationToken=default)</td></tr>
-<tr class="memdesc:ac97c9f364ef738bec953486738fa323f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes processing asynchronously using multiple input Mats (optimized for 3 inputs).  <br /></td></tr>
-<tr class="separator:ac97c9f364ef738bec953486738fa323f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52377bf9b5f1051a0cd9c8beb1f2f459" id="r_a52377bf9b5f1051a0cd9c8beb1f2f459"><td class="memItemLeft" align="right" valign="top">virtual async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a52377bf9b5f1051a0cd9c8beb1f2f459">ExecuteAsync</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>[] inputs, CancellationToken cancellationToken=default)</td></tr>
-<tr class="memdesc:a52377bf9b5f1051a0cd9c8beb1f2f459"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes processing asynchronously using multiple input Mats.  <br /></td></tr>
-<tr class="separator:a52377bf9b5f1051a0cd9c8beb1f2f459"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8c6c8050e8fcca5c09c08839252c0b3" id="r_ab8c6c8050e8fcca5c09c08839252c0b3"><td class="memItemLeft" align="right" valign="top">virtual Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab8c6c8050e8fcca5c09c08839252c0b3">ExecuteAsync</a> (CancellationToken cancellationToken=default)</td></tr>
+<tr class="separator:ab8c6c8050e8fcca5c09c08839252c0b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37f9ac6ef0427412853f832be22c6606" id="r_a37f9ac6ef0427412853f832be22c6606"><td class="memItemLeft" align="right" valign="top">virtual Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37f9ac6ef0427412853f832be22c6606">ExecuteAsync</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> input, CancellationToken cancellationToken=default)</td></tr>
+<tr class="separator:a37f9ac6ef0427412853f832be22c6606"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb7a026ddac39f5ba7af8b3b36aa2dbf" id="r_afb7a026ddac39f5ba7af8b3b36aa2dbf"><td class="memItemLeft" align="right" valign="top">virtual Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afb7a026ddac39f5ba7af8b3b36aa2dbf">ExecuteAsync</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> input1, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> input2, CancellationToken cancellationToken=default)</td></tr>
+<tr class="separator:afb7a026ddac39f5ba7af8b3b36aa2dbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7e842a5383496b43ffa709ecbec3de8" id="r_ae7e842a5383496b43ffa709ecbec3de8"><td class="memItemLeft" align="right" valign="top">virtual Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7e842a5383496b43ffa709ecbec3de8">ExecuteAsync</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> input1, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> input2, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> input3, CancellationToken cancellationToken=default)</td></tr>
+<tr class="separator:ae7e842a5383496b43ffa709ecbec3de8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7da4985364e8aba640f25d873b240e6b" id="r_a7da4985364e8aba640f25d873b240e6b"><td class="memItemLeft" align="right" valign="top">virtual Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7da4985364e8aba640f25d873b240e6b">ExecuteAsync</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>[] inputs, CancellationToken cancellationToken=default)</td></tr>
+<tr class="separator:a7da4985364e8aba640f25d873b240e6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a011ae6f8492f016778249d819c90f0ca" id="r_a011ae6f8492f016778249d819c90f0ca"><td class="memItemLeft" align="right" valign="top">virtual async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a011ae6f8492f016778249d819c90f0ca">ExecuteTaskAsync</a> (CancellationToken cancellationToken=default)</td></tr>
+<tr class="memdesc:a011ae6f8492f016778249d819c90f0ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes processing asynchronously with pre-set inputs.  <br /></td></tr>
+<tr class="separator:a011ae6f8492f016778249d819c90f0ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada6394e226a4a16d2d7d130cd4893dbe" id="r_ada6394e226a4a16d2d7d130cd4893dbe"><td class="memItemLeft" align="right" valign="top">virtual Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada6394e226a4a16d2d7d130cd4893dbe">ExecuteTaskAsync</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> input, CancellationToken cancellationToken=default)</td></tr>
+<tr class="memdesc:ada6394e226a4a16d2d7d130cd4893dbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes processing asynchronously using single input Mat.  <br /></td></tr>
+<tr class="separator:ada6394e226a4a16d2d7d130cd4893dbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23ced74412f797be6b1a2f424b88014f" id="r_a23ced74412f797be6b1a2f424b88014f"><td class="memItemLeft" align="right" valign="top">virtual Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23ced74412f797be6b1a2f424b88014f">ExecuteTaskAsync</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> input1, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> input2, CancellationToken cancellationToken=default)</td></tr>
+<tr class="memdesc:a23ced74412f797be6b1a2f424b88014f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes processing asynchronously using multiple input Mats (optimized for 2 inputs).  <br /></td></tr>
+<tr class="separator:a23ced74412f797be6b1a2f424b88014f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43891b87a70916d79952ad65faab75ff" id="r_a43891b87a70916d79952ad65faab75ff"><td class="memItemLeft" align="right" valign="top">virtual Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a43891b87a70916d79952ad65faab75ff">ExecuteTaskAsync</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> input1, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> input2, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> input3, CancellationToken cancellationToken=default)</td></tr>
+<tr class="memdesc:a43891b87a70916d79952ad65faab75ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes processing asynchronously using multiple input Mats (optimized for 3 inputs).  <br /></td></tr>
+<tr class="separator:a43891b87a70916d79952ad65faab75ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a638b05410ba39d3ddb7707ecee90afa1" id="r_a638b05410ba39d3ddb7707ecee90afa1"><td class="memItemLeft" align="right" valign="top">virtual Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a638b05410ba39d3ddb7707ecee90afa1">ExecuteTaskAsync</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>[] inputs, CancellationToken cancellationToken=default)</td></tr>
+<tr class="memdesc:a638b05410ba39d3ddb7707ecee90afa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes processing asynchronously using multiple input Mats.  <br /></td></tr>
+<tr class="separator:a638b05410ba39d3ddb7707ecee90afa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb72c96babf71d9c7af92b031ba1a7b4" id="r_afb72c96babf71d9c7af92b031ba1a7b4"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afb72c96babf71d9c7af92b031ba1a7b4">PeekOutput</a> (int index=0)</td></tr>
 <tr class="memdesc:afb72c96babf71d9c7af92b031ba1a7b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference (submat) to the output Mat at the specified index.  <br /></td></tr>
 <tr class="separator:afb72c96babf71d9c7af92b031ba1a7b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -215,9 +242,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4bff6c18fa3ca0964894a65c6016f968" id="r_a4bff6c18fa3ca0964894a65c6016f968"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4bff6c18fa3ca0964894a65c6016f968">WaitForCompletion</a> (TimeSpan? timeout=null)</td></tr>
 <tr class="memdesc:a4bff6c18fa3ca0964894a65c6016f968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits for the current processing operation to complete with a timeout.  <br /></td></tr>
 <tr class="separator:a4bff6c18fa3ca0964894a65c6016f968"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abfa04dd1f8f8caee4e8dacc7fdb83302" id="r_abfa04dd1f8f8caee4e8dacc7fdb83302"><td class="memItemLeft" align="right" valign="top">virtual async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abfa04dd1f8f8caee4e8dacc7fdb83302">WaitForCompletionAsync</a> (TimeSpan? timeout=null)</td></tr>
-<tr class="memdesc:abfa04dd1f8f8caee4e8dacc7fdb83302"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits for the current processing operation to complete with a timeout.  <br /></td></tr>
-<tr class="separator:abfa04dd1f8f8caee4e8dacc7fdb83302"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99c0b8f0e4b32a61c6abd1e333700292" id="r_a99c0b8f0e4b32a61c6abd1e333700292"><td class="memItemLeft" align="right" valign="top">virtual Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99c0b8f0e4b32a61c6abd1e333700292">WaitForCompletionAsync</a> (TimeSpan? timeout=null)</td></tr>
+<tr class="memdesc:a99c0b8f0e4b32a61c6abd1e333700292"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits for the current processing operation to complete with a timeout.  <br /></td></tr>
+<tr class="separator:a99c0b8f0e4b32a61c6abd1e333700292"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a286991e37800e85e2cb4a54aa0e62b5d" id="r_a286991e37800e85e2cb4a54aa0e62b5d"><td class="memItemLeft" align="right" valign="top">virtual async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a286991e37800e85e2cb4a54aa0e62b5d">WaitForCompletionTaskAsync</a> (TimeSpan? timeout=null)</td></tr>
+<tr class="memdesc:a286991e37800e85e2cb4a54aa0e62b5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits for the current processing operation to complete with a timeout.  <br /></td></tr>
+<tr class="separator:a286991e37800e85e2cb4a54aa0e62b5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html">OpenCVForUnity.UnityIntegration.Worker.IProcessingWorker</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
@@ -234,6 +264,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a4a9c0a9287d45242295784eaab803196" id="r_a4a9c0a9287d45242295784eaab803196"><td class="memItemLeft" align="right" valign="top">Task&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>[]&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a9c0a9287d45242295784eaab803196">RunCoreProcessingAsync</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>[] inputs, CancellationToken cancellationToken)</td></tr>
 <tr class="memdesc:a4a9c0a9287d45242295784eaab803196"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subclasses implement the asynchronous processing.  <br /></td></tr>
 <tr class="separator:a4a9c0a9287d45242295784eaab803196"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f09bf64d62dc37ac06a6d09165e0357" id="r_a5f09bf64d62dc37ac06a6d09165e0357"><td class="memItemLeft" align="right" valign="top">Task&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>[]&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f09bf64d62dc37ac06a6d09165e0357">RunCoreProcessingTaskAsync</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>[] inputs, CancellationToken cancellationToken)</td></tr>
+<tr class="memdesc:a5f09bf64d62dc37ac06a6d09165e0357"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subclasses implement the asynchronous processing.  <br /></td></tr>
+<tr class="separator:a5f09bf64d62dc37ac06a6d09165e0357"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80fc36ae5e332cb6449514b80c45ccf2" id="r_a80fc36ae5e332cb6449514b80c45ccf2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80fc36ae5e332cb6449514b80c45ccf2">ThrowIfDisposed</a> ()</td></tr>
 <tr class="memdesc:a80fc36ae5e332cb6449514b80c45ccf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Throws an exception if the worker has been disposed.  <br /></td></tr>
 <tr class="separator:a80fc36ae5e332cb6449514b80c45ccf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -264,9 +297,9 @@ Properties</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="events" name="events"></a>
 Events</h2></td></tr>
-<tr class="memitem:ad06c85ec58727f1d352f69bd0391c32b" id="r_ad06c85ec58727f1d352f69bd0391c32b"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; <a class="el" href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html">ProcessingCompletion</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad06c85ec58727f1d352f69bd0391c32b">ProcessingCompleted</a></td></tr>
-<tr class="memdesc:ad06c85ec58727f1d352f69bd0391c32b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Occurs when a processing operation completes.  <br /></td></tr>
-<tr class="separator:ad06c85ec58727f1d352f69bd0391c32b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61c235a93be85274551d166a48b511f7" id="r_a61c235a93be85274551d166a48b511f7"><td class="memItemLeft" align="right" valign="top">Action&lt; <a class="el" href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html">ProcessingCompletion</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61c235a93be85274551d166a48b511f7">ProcessingCompleted</a></td></tr>
+<tr class="memdesc:a61c235a93be85274551d166a48b511f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Occurs when a processing operation completes.  <br /></td></tr>
+<tr class="separator:a61c235a93be85274551d166a48b511f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class for processing workers that manage input and output Mats. </p>
@@ -274,7 +307,7 @@ Events</h2></td></tr>
 <p>IMPORTANT:</p><ol type="1">
 <li>Execution Modes:<ul>
 <li>Synchronous: <a class="el" href="#ad4319a853b3878c4dd2f29c7eb861223" title="Executes processing with pre-set inputs.">Execute()</a> - Blocks until completion</li>
-<li>Asynchronous: <a class="el" href="#a2656f8fc3aef4058c3248af12f758a76" title="Executes processing asynchronously with pre-set inputs.">ExecuteAsync()</a> - Returns immediately, runs in background</li>
+<li>Asynchronous: <a class="el" href="#a011ae6f8492f016778249d819c90f0ca" title="Executes processing asynchronously with pre-set inputs.">ExecuteTaskAsync()</a> - Returns immediately, runs in background</li>
 <li>Only one operation (sync or async) can run at a time</li>
 </ul>
 </li>
@@ -294,9 +327,9 @@ Events</h2></td></tr>
 </ul>
 </li>
 <li>Resource Management:<ul>
-<li>Implements <a class="el" href="../../d0/d07/classIDisposable.html">IDisposable</a> for proper cleanup</li>
-<li><a class="el" href="#a15db0a70f467e35046b44c01c4f6c743" title="Releases resources used by the worker.">Dispose()</a> safely cancels running operations</li>
-<li>Waits for completion with timeout (500ms)</li>
+<li>Implements <a class="el" href="../../d0/d07/classIDisposable.html">IDisposable</a> and <a class="el" href="../../d8/da8/classIAsyncDisposable.html">IAsyncDisposable</a> for proper cleanup</li>
+<li><a class="el" href="#a15db0a70f467e35046b44c01c4f6c743" title="Releases resources used by the worker.">Dispose()</a> / <a class="el" href="#aac8759da71c2b41009aada4e5d2b1378" title="Asynchronously releases resources: cancels a running operation, waits up to DefaultDisposeOperationWa...">DisposeAsync()</a> safely cancels running operations</li>
+<li>Waits for completion with a default timeout when disposing</li>
 <li>Automatically cleans up internal buffers</li>
 </ul>
 </li>
@@ -309,6 +342,24 @@ Events</h2></td></tr>
 </ol>
 <p>Example Usage: </p><div class="fragment"><div class="line"><span class="keyword">using</span> (var worker = <span class="keyword">new</span> ConcreteWorker())</div>
 <div class="line">{</div>
+<div class="line">    <span class="keywordtype">void</span> OnCompleted(<a class="code hl_struct" href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html">ProcessingCompletion</a> completion)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">switch</span> (completion.<a class="code hl_property" href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html#a137ca351dd3c34b6a00015d2ea538fa6">Kind</a>)</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">case</span> <a class="code hl_enumeration" href="#ada33dc511d99b712a361f8c1c174fca4">ProcessingCompletionKind</a>.Succeeded:</div>
+<div class="line">                <span class="keywordflow">break</span>;</div>
+<div class="line">            <span class="keywordflow">case</span> <a class="code hl_enumeration" href="#ada33dc511d99b712a361f8c1c174fca4">ProcessingCompletionKind</a>.Canceled:</div>
+<div class="line">                <span class="keywordflow">break</span>;</div>
+<div class="line">            <span class="keywordflow">case</span> <a class="code hl_enumeration" href="#ada33dc511d99b712a361f8c1c174fca4">ProcessingCompletionKind</a>.Faulted:</div>
+<div class="line">                <span class="keywordflow">if</span> (completion.<a class="code hl_property" href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html#a2b3465eba89f847835ab66d03969e4dc">Error</a> != <span class="keyword">null</span>)</div>
+<div class="line">                    Debug.LogException(completion.<a class="code hl_property" href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html#a2b3465eba89f847835ab66d03969e4dc">Error</a>);</div>
+<div class="line">                <span class="keywordflow">break</span>;</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    worker.ProcessingCompleted += OnCompleted;</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// ProcessingCompleted is raised when each Execute / ExecuteTaskAsync finishes (handler: ProcessingCompletion only).</span></div>
 <div class="line">    <span class="comment">// Synchronous execution</span></div>
 <div class="line">    worker.Execute(input);</div>
 <div class="line">    <span class="keyword">using</span> (var result = worker.PeekOutput())</div>
@@ -322,13 +373,41 @@ Events</h2></td></tr>
 <div class="line">    }</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Asynchronous execution</span></div>
-<div class="line">    await worker.ExecuteAsync(input);</div>
+<div class="line">    await worker.ExecuteTaskAsync(input);</div>
 <div class="line">    <span class="keyword">using</span> (var result = worker.CopyOutput())</div>
 <div class="line">    {</div>
 <div class="line">        <span class="comment">// Process result safely</span></div>
 <div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    worker.ProcessingCompleted -= OnCompleted;</div>
 <div class="line">}</div>
-</div><!-- fragment --> </div><h2 class="groupheader">Member Function Documentation</h2>
+<div class="ttc" id="aclassOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_html_ada33dc511d99b712a361f8c1c174fca4"><div class="ttname"><a href="#ada33dc511d99b712a361f8c1c174fca4">OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ProcessingCompletionKind</a></div><div class="ttdeci">ProcessingCompletionKind</div><div class="ttdoc">Completion status for ProcessingCompleted.</div><div class="ttdef"><b>Definition</b> ProcessingWorkerBase.cs:113</div></div>
+<div class="ttc" id="astructOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion_html"><div class="ttname"><a href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html">OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ProcessingCompletion</a></div><div class="ttdoc">Payload for ProcessingCompleted; same Kind / Error shape as WorkCompletion&lt;TResult&gt; without a results...</div><div class="ttdef"><b>Definition</b> ProcessingWorkerBase.cs:134</div></div>
+<div class="ttc" id="astructOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion_html_a137ca351dd3c34b6a00015d2ea538fa6"><div class="ttname"><a href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html#a137ca351dd3c34b6a00015d2ea538fa6">OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ProcessingCompletion.Kind</a></div><div class="ttdeci">ProcessingCompletionKind Kind</div><div class="ttdoc">Gets the completion status of the processing operation.</div><div class="ttdef"><b>Definition</b> ProcessingWorkerBase.cs:138</div></div>
+<div class="ttc" id="astructOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion_html_a2b3465eba89f847835ab66d03969e4dc"><div class="ttname"><a href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html#a2b3465eba89f847835ab66d03969e4dc">OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ProcessingCompletion.Error</a></div><div class="ttdeci">Exception Error</div><div class="ttdoc">Gets the exception for ProcessingCompletionKind.Canceled or ProcessingCompletionKind....</div><div class="ttdef"><b>Definition</b> ProcessingWorkerBase.cs:143</div></div>
+</div><!-- fragment --> </div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="ada33dc511d99b712a361f8c1c174fca4" name="ada33dc511d99b712a361f8c1c174fca4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada33dc511d99b712a361f8c1c174fca4">&#9670;&#160;</a></span>ProcessingCompletionKind</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#ada33dc511d99b712a361f8c1c174fca4">OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ProcessingCompletionKind</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Completion status for <a class="el" href="#a61c235a93be85274551d166a48b511f7" title="Occurs when a processing operation completes.">ProcessingCompleted</a>. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ada33dc511d99b712a361f8c1c174fca4a66d02c2f8a582446f8dd8752366002b5" name="ada33dc511d99b712a361f8c1c174fca4a66d02c2f8a582446f8dd8752366002b5"></a>Succeeded&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ada33dc511d99b712a361f8c1c174fca4a0e22fe7d45f8e5632a4abf369b24e29c" name="ada33dc511d99b712a361f8c1c174fca4a0e22fe7d45f8e5632a4abf369b24e29c"></a>Canceled&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ada33dc511d99b712a361f8c1c174fca4a2b310d05c23325e2935ec87b25a60b8f" name="ada33dc511d99b712a361f8c1c174fca4a2b310d05c23325e2935ec87b25a60b8f"></a>Faulted&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a0f0f712a6e58290214c6e2d3965d6144" name="a0f0f712a6e58290214c6e2d3965d6144"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0f0f712a6e58290214c6e2d3965d6144">&#9670;&#160;</a></span>Cancel()</h2>
 
@@ -353,7 +432,7 @@ Events</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Cancels the current processing operation if running. </p>
-<p>This method is thread-safe and can be safely called from any thread. This method provides a convenient way to cancel the current operation without managing a CancellationToken. It has the same effect as canceling the token passed to ExecuteAsync. </p>
+<p>This method is thread-safe and can be safely called from any thread. This method provides a convenient way to cancel the current operation without managing a CancellationToken. It has the same effect as canceling the token passed to ExecuteTaskAsync. </p>
 
 <p>Implements <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#a2b7db8861da7adce65c6bd09152d70db">OpenCVForUnity.UnityIntegration.Worker.IProcessingWorker</a>.</p>
 
@@ -383,7 +462,7 @@ Events</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns a copy of the output Mat at the specified index. </p>
-<p>This method is thread-safe and can be safely used with both synchronous and asynchronous execution. When working with <a class="el" href="#a2656f8fc3aef4058c3248af12f758a76" title="Executes processing asynchronously with pre-set inputs.">ExecuteAsync()</a>, always use this method instead of <a class="el" href="#afb72c96babf71d9c7af92b031ba1a7b4" title="Returns a reference (submat) to the output Mat at the specified index.">PeekOutput()</a> to ensure thread safety and data consistency. </p>
+<p>This method is thread-safe and can be safely used with both synchronous and asynchronous execution. When working with <a class="el" href="#a011ae6f8492f016778249d819c90f0ca" title="Executes processing asynchronously with pre-set inputs.">ExecuteTaskAsync()</a>, always use this method instead of <a class="el" href="#afb72c96babf71d9c7af92b031ba1a7b4" title="Returns a reference (submat) to the output Mat at the specified index.">PeekOutput()</a> to ensure thread safety and data consistency. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">index</td><td>The output index.</td></tr>
@@ -431,7 +510,7 @@ Events</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Copies the output Mat at the specified index to a destination Mat. </p>
-<p>This method is thread-safe and can be safely used with both synchronous and asynchronous execution. When working with <a class="el" href="#a2656f8fc3aef4058c3248af12f758a76" title="Executes processing asynchronously with pre-set inputs.">ExecuteAsync()</a>, always use this method instead of <a class="el" href="#afb72c96babf71d9c7af92b031ba1a7b4" title="Returns a reference (submat) to the output Mat at the specified index.">PeekOutput()</a> to ensure thread safety and data consistency.</p>
+<p>This method is thread-safe and can be safely used with both synchronous and asynchronous execution. When working with <a class="el" href="#a011ae6f8492f016778249d819c90f0ca" title="Executes processing asynchronously with pre-set inputs.">ExecuteTaskAsync()</a>, always use this method instead of <a class="el" href="#afb72c96babf71d9c7af92b031ba1a7b4" title="Returns a reference (submat) to the output Mat at the specified index.">PeekOutput()</a> to ensure thread safety and data consistency.</p>
 <p>The destination Mat will be automatically resized if its dimensions or type don't match the output Mat. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -471,10 +550,10 @@ Events</h2></td></tr>
 <p>Releases resources used by the worker. </p>
 <p>This method is thread-safe and ensures proper cleanup of resources:</p><ul>
 <li>Cancels any running processing operation</li>
-<li>Waits for operation completion with a timeout (500ms)</li>
+<li>Waits for operation completion with a timeout (DefaultDisposeOperationWaitTimeout)</li>
 <li>Disposes all managed resources (Mats, CancellationTokenSource)</li>
 </ul>
-<p>Multiple calls to Dispose are allowed but only the first call will release the resources. If a running operation doesn't complete within the timeout period (typical processing takes less than 200ms), it will be forcefully terminated. </p>
+<p>Multiple calls to Dispose are allowed but only the first call will release the resources. If a running operation doesn't complete within the wait period (typical processing takes less than 200ms), it will be forcefully terminated. </p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">ObjectDisposedException</td><td>Thrown when trying to access a disposed instance.</td></tr>
@@ -515,7 +594,34 @@ Events</h2></td></tr>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="../../dc/d0b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1DAMOYOLOObjectDetector.html#a63301d4a265f42fdbdbfd7dcae112b4d">OpenCVForUnity.UnityIntegration.Worker.DnnModule.DAMOYOLOObjectDetector</a>, <a class="el" href="../../d8/dbe/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1FaceIdentificationEstimator.html#a87a3fecae1ab19f21df50f18baa8fc86">OpenCVForUnity.UnityIntegration.Worker.DnnModule.FaceIdentificationEstimator</a>, <a class="el" href="../../d0/da9/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1FacialExpressionRecognizer.html#ac99fd8d2f1c6c74f29547485af8dea48">OpenCVForUnity.UnityIntegration.Worker.DnnModule.FacialExpressionRecognizer</a>, <a class="el" href="../../d1/d8b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipeHandPoseEstimator.html#a136648de59a9b50ac30195469630e7f0">OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipeHandPoseEstimator</a>, <a class="el" href="../../d6/d98/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipeHandPoseStreamEstimator.html#aa9a156b487a127aa00e86865f49bff57">OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipeHandPoseStreamEstimator</a>, <a class="el" href="../../dd/d30/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipePalmDetector.html#ad759c5d42859eb7d5119fae75e2c147e">OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipePalmDetector</a>, <a class="el" href="../../d1/d5d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipePersonDetector.html#a8a94ea93cbfb7c92b4efef3224a3b4e9">OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipePersonDetector</a>, <a class="el" href="../../da/d5d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipePoseEstimator.html#a8af955dc8cca0c42a338de03cd038775">OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipePoseEstimator</a>, <a class="el" href="../../da/dbf/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipePoseStreamEstimator.html#a680d5d8c0998dd73ba5bc032b13b8f32">OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipePoseStreamEstimator</a>, <a class="el" href="../../dc/d9d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1NanoDetPlusObjectDetector.html#af23fcf19e02d92f85f34c99d2ff5a085">OpenCVForUnity.UnityIntegration.Worker.DnnModule.NanoDetPlusObjectDetector</a>, <a class="el" href="../../d1/d9d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YOLOXObjectDetector.html#aa4f70cfe92ff5b507db87f83cb526421">OpenCVForUnity.UnityIntegration.Worker.DnnModule.YOLOXObjectDetector</a>, and <a class="el" href="../../db/d4c/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YuNetV2FaceDetector.html#a6987e82aca3e91f8945c74f7a3e0a8fb">OpenCVForUnity.UnityIntegration.Worker.DnnModule.YuNetV2FaceDetector</a>.</p>
+<p>Reimplemented in <a class="el" href="../../dc/d0b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1DAMOYOLOObjectDetector.html#a63301d4a265f42fdbdbfd7dcae112b4d">OpenCVForUnity.UnityIntegration.Worker.DnnModule.DAMOYOLOObjectDetector</a>, <a class="el" href="../../d8/dbe/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1FaceIdentificationEstimator.html#a87a3fecae1ab19f21df50f18baa8fc86">OpenCVForUnity.UnityIntegration.Worker.DnnModule.FaceIdentificationEstimator</a>, <a class="el" href="../../d0/da9/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1FacialExpressionRecognizer.html#ac99fd8d2f1c6c74f29547485af8dea48">OpenCVForUnity.UnityIntegration.Worker.DnnModule.FacialExpressionRecognizer</a>, <a class="el" href="../../d5/d7d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipe_1_1MediaPipeFaceLandmarker.html#a22fc7f37d2d0247f737e4f2cf1c46049">OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipe.MediaPipeFaceLandmarker</a>, <a class="el" href="../../d7/de6/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipe_1_1MediaPipeHandLandmarker.html#ada89c5f5931ce651a73972568df44f8b">OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipe.MediaPipeHandLandmarker</a>, <a class="el" href="../../d4/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipe_1_1MediaPipeHolisticLandmarker.html#a9f14025767adace28a525e2f6f7bc11d">OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipe.MediaPipeHolisticLandmarker</a>, <a class="el" href="../../d3/df7/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipe_1_1MediaPipePoseLandmarker.html#af9ef4879a5728c542ed63a1cbdf5f4e0">OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipe.MediaPipePoseLandmarker</a>, <a class="el" href="../../dc/d9d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1NanoDetPlusObjectDetector.html#af23fcf19e02d92f85f34c99d2ff5a085">OpenCVForUnity.UnityIntegration.Worker.DnnModule.NanoDetPlusObjectDetector</a>, <a class="el" href="../../d1/d9d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YOLOXObjectDetector.html#aa4f70cfe92ff5b507db87f83cb526421">OpenCVForUnity.UnityIntegration.Worker.DnnModule.YOLOXObjectDetector</a>, and <a class="el" href="../../db/d4c/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YuNetV2FaceDetector.html#a6987e82aca3e91f8945c74f7a3e0a8fb">OpenCVForUnity.UnityIntegration.Worker.DnnModule.YuNetV2FaceDetector</a>.</p>
+
+</div>
+</div>
+<a id="aac8759da71c2b41009aada4e5d2b1378" name="aac8759da71c2b41009aada4e5d2b1378"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac8759da71c2b41009aada4e5d2b1378">&#9670;&#160;</a></span>DisposeAsync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual async ValueTask OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.DisposeAsync </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Asynchronously releases resources: cancels a running operation, waits up to DefaultDisposeOperationWaitTimeout for it to complete, then disposes internal buffers. Prefer over <a class="el" href="#a15db0a70f467e35046b44c01c4f6c743" title="Releases resources used by the worker.">Dispose()</a> when you can <code>await</code> to avoid blocking a thread on the completion wait. </p>
 
 </div>
 </div>
@@ -744,8 +850,8 @@ Events</h2></td></tr>
 
 </div>
 </div>
-<a id="a2656f8fc3aef4058c3248af12f758a76" name="a2656f8fc3aef4058c3248af12f758a76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2656f8fc3aef4058c3248af12f758a76">&#9670;&#160;</a></span>ExecuteAsync() <span class="overload">[1/5]</span></h2>
+<a id="ab8c6c8050e8fcca5c09c08839252c0b3" name="ab8c6c8050e8fcca5c09c08839252c0b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8c6c8050e8fcca5c09c08839252c0b3">&#9670;&#160;</a></span>ExecuteAsync() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -754,7 +860,198 @@ Events</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual async Task OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ExecuteAsync </td>
+          <td class="memname">virtual Task OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ExecuteAsync </td>
+          <td>(</td>
+          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Executes processing asynchronously with pre-set inputs.<code> </p><dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000026">Deprecated</a></b></dt><dd>Use <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#a9915ee5db9ef608f6608c87fca9377d7" title="Executes processing asynchronously with pre-set inputs.">ExecuteTaskAsync(CancellationToken)</a>. In a future version, this member will return Unity <code>Awaitable</code> instead of Task. </dd></dl>
+<p></code> </p>
+<p><code> </p><dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000031">Deprecated</a></b></dt><dd>Use <a class="el" href="#a011ae6f8492f016778249d819c90f0ca" title="Executes processing asynchronously with pre-set inputs.">ExecuteTaskAsync(CancellationToken)</a>. In a future version, this member will return Unity <code>Awaitable</code> instead of Task. </dd></dl>
+<p></code></p>
+<p><code> </code></p>
+
+<p>Implements <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#a617c364b71cd07702e6ba827f9b82557">OpenCVForUnity.UnityIntegration.Worker.IProcessingWorker</a>.</p>
+
+</div>
+</div>
+<a id="a37f9ac6ef0427412853f832be22c6606" name="a37f9ac6ef0427412853f832be22c6606"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37f9ac6ef0427412853f832be22c6606">&#9670;&#160;</a></span>ExecuteAsync() <span class="overload">[2/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual Task OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ExecuteAsync </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>input</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Executes processing asynchronously using single input Mat.<code> </p><dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000027">Deprecated</a></b></dt><dd>Use <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#a3085dce0cce22d394303d76c0b86610b" title="Executes processing asynchronously using single input Mat.">ExecuteTaskAsync(Mat, CancellationToken)</a>. In a future version, this member will return Unity <code>Awaitable</code> instead of Task. </dd></dl>
+<p></code> </p>
+<p><code> </p><dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000032">Deprecated</a></b></dt><dd>Use <a class="el" href="#ada6394e226a4a16d2d7d130cd4893dbe" title="Executes processing asynchronously using single input Mat.">ExecuteTaskAsync(Mat, CancellationToken)</a>. In a future version, this member will return Unity <code>Awaitable</code> instead of Task. </dd></dl>
+<p></code></p>
+<p><code> </code></p>
+
+<p>Implements <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#ae4f5f464c562a0c8042c80d9ba3ff8c8">OpenCVForUnity.UnityIntegration.Worker.IProcessingWorker</a>.</p>
+
+</div>
+</div>
+<a id="afb7a026ddac39f5ba7af8b3b36aa2dbf" name="afb7a026ddac39f5ba7af8b3b36aa2dbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb7a026ddac39f5ba7af8b3b36aa2dbf">&#9670;&#160;</a></span>ExecuteAsync() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual Task OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ExecuteAsync </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>input1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>input2</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Executes processing asynchronously using multiple input Mats (optimized for 2 inputs).<code> </p><dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000028">Deprecated</a></b></dt><dd>Use <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#a5bd272651f27582e693292becf668c09" title="Executes processing asynchronously using multiple input Mats (optimized for 2 inputs).">ExecuteTaskAsync(Mat, Mat, CancellationToken)</a>. In a future version, this member will return Unity <code>Awaitable</code> instead of Task. </dd></dl>
+<p></code> </p>
+<p><code> </p><dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000033">Deprecated</a></b></dt><dd>Use <a class="el" href="#a23ced74412f797be6b1a2f424b88014f" title="Executes processing asynchronously using multiple input Mats (optimized for 2 inputs).">ExecuteTaskAsync(Mat, Mat, CancellationToken)</a>. In a future version, this member will return Unity <code>Awaitable</code> instead of Task. </dd></dl>
+<p></code></p>
+<p><code> </code></p>
+
+<p>Implements <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#a03614d40a376abe7708f7d1588bffed5">OpenCVForUnity.UnityIntegration.Worker.IProcessingWorker</a>.</p>
+
+</div>
+</div>
+<a id="ae7e842a5383496b43ffa709ecbec3de8" name="ae7e842a5383496b43ffa709ecbec3de8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7e842a5383496b43ffa709ecbec3de8">&#9670;&#160;</a></span>ExecuteAsync() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual Task OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ExecuteAsync </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>input1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>input2</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>input3</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Executes processing asynchronously using multiple input Mats (optimized for 3 inputs).<code> </p><dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000029">Deprecated</a></b></dt><dd>Use <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#ac443f7614a685274a41f1dc4d9332d65" title="Executes processing asynchronously using multiple input Mats (optimized for 3 inputs).">ExecuteTaskAsync(Mat, Mat, Mat, CancellationToken)</a>. In a future version, this member will return Unity <code>Awaitable</code> instead of Task. </dd></dl>
+<p></code> </p>
+<p><code> </p><dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000034">Deprecated</a></b></dt><dd>Use <a class="el" href="#a43891b87a70916d79952ad65faab75ff" title="Executes processing asynchronously using multiple input Mats (optimized for 3 inputs).">ExecuteTaskAsync(Mat, Mat, Mat, CancellationToken)</a>. In a future version, this member will return Unity <code>Awaitable</code> instead of Task. </dd></dl>
+<p></code></p>
+<p><code> </code></p>
+
+<p>Implements <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#ab5eafd3942cbff1f9979fed435d10170">OpenCVForUnity.UnityIntegration.Worker.IProcessingWorker</a>.</p>
+
+</div>
+</div>
+<a id="a7da4985364e8aba640f25d873b240e6b" name="a7da4985364e8aba640f25d873b240e6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7da4985364e8aba640f25d873b240e6b">&#9670;&#160;</a></span>ExecuteAsync() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual Task OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ExecuteAsync </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>[]</td>          <td class="paramname"><span class="paramname"><em>inputs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Executes processing asynchronously using multiple input Mats.<code> </p><dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000030">Deprecated</a></b></dt><dd>Use <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#afe1b1e0247f98062fdfbe1392d89bb9e" title="Executes processing asynchronously using multiple input Mats.">ExecuteTaskAsync(Mat[], CancellationToken)</a>. In a future version, this member will return Unity <code>Awaitable</code> instead of Task. </dd></dl>
+<p></code> </p>
+<p><code> </p><dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000035">Deprecated</a></b></dt><dd>Use <a class="el" href="#a638b05410ba39d3ddb7707ecee90afa1" title="Executes processing asynchronously using multiple input Mats.">ExecuteTaskAsync(Mat[], CancellationToken)</a>. In a future version, this member will return Unity <code>Awaitable</code> instead of Task. </dd></dl>
+<p></code></p>
+<p><code> </code></p>
+
+<p>Implements <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#af72fad7777fc3e5491e8010134f158df">OpenCVForUnity.UnityIntegration.Worker.IProcessingWorker</a>.</p>
+
+</div>
+</div>
+<a id="a011ae6f8492f016778249d819c90f0ca" name="a011ae6f8492f016778249d819c90f0ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a011ae6f8492f016778249d819c90f0ca">&#9670;&#160;</a></span>ExecuteTaskAsync() <span class="overload">[1/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual async Task OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ExecuteTaskAsync </td>
           <td>(</td>
           <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span></td><td>)</td>
           <td></td>
@@ -791,12 +1088,12 @@ Events</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#a617c364b71cd07702e6ba827f9b82557">OpenCVForUnity.UnityIntegration.Worker.IProcessingWorker</a>.</p>
+<p>Implements <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#a9915ee5db9ef608f6608c87fca9377d7">OpenCVForUnity.UnityIntegration.Worker.IProcessingWorker</a>.</p>
 
 </div>
 </div>
-<a id="a2e35073add08b45313047596d1d042b7" name="a2e35073add08b45313047596d1d042b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e35073add08b45313047596d1d042b7">&#9670;&#160;</a></span>ExecuteAsync() <span class="overload">[2/5]</span></h2>
+<a id="ada6394e226a4a16d2d7d130cd4893dbe" name="ada6394e226a4a16d2d7d130cd4893dbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada6394e226a4a16d2d7d130cd4893dbe">&#9670;&#160;</a></span>ExecuteTaskAsync() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -805,7 +1102,7 @@ Events</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual async Task OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ExecuteAsync </td>
+          <td class="memname">virtual Task OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ExecuteTaskAsync </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>input</em></span>, </td>
         </tr>
@@ -847,12 +1144,12 @@ Events</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#ae4f5f464c562a0c8042c80d9ba3ff8c8">OpenCVForUnity.UnityIntegration.Worker.IProcessingWorker</a>.</p>
+<p>Implements <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#a3085dce0cce22d394303d76c0b86610b">OpenCVForUnity.UnityIntegration.Worker.IProcessingWorker</a>.</p>
 
 </div>
 </div>
-<a id="a31faf93a0f09853296ee1c2d56415a3a" name="a31faf93a0f09853296ee1c2d56415a3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31faf93a0f09853296ee1c2d56415a3a">&#9670;&#160;</a></span>ExecuteAsync() <span class="overload">[3/5]</span></h2>
+<a id="a23ced74412f797be6b1a2f424b88014f" name="a23ced74412f797be6b1a2f424b88014f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23ced74412f797be6b1a2f424b88014f">&#9670;&#160;</a></span>ExecuteTaskAsync() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -861,7 +1158,7 @@ Events</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual async Task OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ExecuteAsync </td>
+          <td class="memname">virtual Task OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ExecuteTaskAsync </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>input1</em></span>, </td>
         </tr>
@@ -909,12 +1206,12 @@ Events</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#a03614d40a376abe7708f7d1588bffed5">OpenCVForUnity.UnityIntegration.Worker.IProcessingWorker</a>.</p>
+<p>Implements <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#a5bd272651f27582e693292becf668c09">OpenCVForUnity.UnityIntegration.Worker.IProcessingWorker</a>.</p>
 
 </div>
 </div>
-<a id="ac97c9f364ef738bec953486738fa323f" name="ac97c9f364ef738bec953486738fa323f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac97c9f364ef738bec953486738fa323f">&#9670;&#160;</a></span>ExecuteAsync() <span class="overload">[4/5]</span></h2>
+<a id="a43891b87a70916d79952ad65faab75ff" name="a43891b87a70916d79952ad65faab75ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43891b87a70916d79952ad65faab75ff">&#9670;&#160;</a></span>ExecuteTaskAsync() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -923,7 +1220,7 @@ Events</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual async Task OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ExecuteAsync </td>
+          <td class="memname">virtual Task OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ExecuteTaskAsync </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>input1</em></span>, </td>
         </tr>
@@ -977,12 +1274,12 @@ Events</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#ab5eafd3942cbff1f9979fed435d10170">OpenCVForUnity.UnityIntegration.Worker.IProcessingWorker</a>.</p>
+<p>Implements <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#ac443f7614a685274a41f1dc4d9332d65">OpenCVForUnity.UnityIntegration.Worker.IProcessingWorker</a>.</p>
 
 </div>
 </div>
-<a id="a52377bf9b5f1051a0cd9c8beb1f2f459" name="a52377bf9b5f1051a0cd9c8beb1f2f459"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52377bf9b5f1051a0cd9c8beb1f2f459">&#9670;&#160;</a></span>ExecuteAsync() <span class="overload">[5/5]</span></h2>
+<a id="a638b05410ba39d3ddb7707ecee90afa1" name="a638b05410ba39d3ddb7707ecee90afa1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a638b05410ba39d3ddb7707ecee90afa1">&#9670;&#160;</a></span>ExecuteTaskAsync() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -991,7 +1288,7 @@ Events</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual async Task OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ExecuteAsync </td>
+          <td class="memname">virtual Task OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ExecuteTaskAsync </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>[]</td>          <td class="paramname"><span class="paramname"><em>inputs</em></span>, </td>
         </tr>
@@ -1033,7 +1330,7 @@ Events</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#af72fad7777fc3e5491e8010134f158df">OpenCVForUnity.UnityIntegration.Worker.IProcessingWorker</a>.</p>
+<p>Implements <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#afe1b1e0247f98062fdfbe1392d89bb9e">OpenCVForUnity.UnityIntegration.Worker.IProcessingWorker</a>.</p>
 
 </div>
 </div>
@@ -1068,7 +1365,7 @@ Events</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">isSuccess</td><td>Whether the operation completed successfully.</td></tr>
-    <tr><td class="paramname">error</td><td>The exception that occurred, if any.</td></tr>
+    <tr><td class="paramname">error</td><td>The exception that occurred when <em>isSuccess</em>  is <code>false</code>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1104,12 +1401,12 @@ Events</h2></td></tr>
 <li>The returned Mat is a REFERENCE (submat) to the internal buffer:<ul>
 <li>Any modifications to the returned Mat will affect future results</li>
 <li>Disposing the returned Mat is safe and does not dispose the internal buffer itself; only the submat handle becomes invalid</li>
-<li>The reference becomes invalid after the next Execute/ExecuteAsync call</li>
+<li>The reference becomes invalid after the next Execute/ExecuteTaskAsync call</li>
 <li>The reference becomes invalid if the worker is disposed</li>
 </ul>
 </li>
 <li>Thread Safety Considerations:<ul>
-<li>DO NOT use with <a class="el" href="#a2656f8fc3aef4058c3248af12f758a76" title="Executes processing asynchronously with pre-set inputs.">ExecuteAsync()</a> as the internal buffer may be modified during async operation</li>
+<li>DO NOT use with <a class="el" href="#a011ae6f8492f016778249d819c90f0ca" title="Executes processing asynchronously with pre-set inputs.">ExecuteTaskAsync()</a> as the internal buffer may be modified during async operation</li>
 <li>Even with <a class="el" href="#ad4319a853b3878c4dd2f29c7eb861223" title="Executes processing with pre-set inputs.">Execute()</a>, the returned reference is only valid until the next execution</li>
 <li>For thread-safe access to results, always use <a class="el" href="#a5c95591dd3a21835a2451460fff48247" title="Returns a copy of the output Mat at the specified index.">CopyOutput()</a> instead</li>
 </ul>
@@ -1210,13 +1507,55 @@ Events</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Subclasses implement the asynchronous processing. </p>
+<p><code> </p><dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000036">Deprecated</a></b></dt><dd>Use <a class="el" href="#a5f09bf64d62dc37ac06a6d09165e0357" title="Subclasses implement the asynchronous processing.">RunCoreProcessingTaskAsync(Mat[], CancellationToken)</a>. In a future version, this member will return Unity <code>Awaitable</code> instead of Task&lt;TResult&gt;. </dd></dl>
+<p></code></p>
+<p><code> </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inputs</td><td>Snapshot of the input Mats.</td></tr>
+    <tr><td class="paramname">cancellationToken</td><td>The cancellation token.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A task representing the asynchronous operation.</dd></dl>
+<p></code></p>
+
+</div>
+</div>
+<a id="a5f09bf64d62dc37ac06a6d09165e0357" name="a5f09bf64d62dc37ac06a6d09165e0357"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f09bf64d62dc37ac06a6d09165e0357">&#9670;&#160;</a></span>RunCoreProcessingTaskAsync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Task&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>[]&gt; OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.RunCoreProcessingTaskAsync </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>[]</td>          <td class="paramname"><span class="paramname"><em>inputs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">abstract</span><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Subclasses implement the asynchronous processing. </p>
-<p>This method is called by ExecuteAsync with a snapshot of the inputs to ensure thread safety. The implementation should:</p><ul>
+<p>This method is called by ExecuteTaskAsync with a snapshot of the inputs to ensure thread safety. The implementation should:</p><ul>
 <li>Respect the cancellation token by calling ThrowIfCancellationRequested periodically</li>
 <li>Handle resources properly</li>
 <li>Not modify the input Mats</li>
@@ -1500,7 +1839,7 @@ Events</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d1/d51/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1IProcessingWorker.html#a47a1e01a96f9430367f25afc8bc1fe96">OpenCVForUnity.UnityIntegration.Worker.IProcessingWorker</a>.</p>
 
-<p>Reimplemented in <a class="el" href="../../dc/d0b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1DAMOYOLOObjectDetector.html#af965b9cc07cfffb15bd10cb18928bee1">OpenCVForUnity.UnityIntegration.Worker.DnnModule.DAMOYOLOObjectDetector</a>, <a class="el" href="../../d8/dbe/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1FaceIdentificationEstimator.html#a587fb55acd94cfa45feb6b214e8d093d">OpenCVForUnity.UnityIntegration.Worker.DnnModule.FaceIdentificationEstimator</a>, <a class="el" href="../../d0/da9/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1FacialExpressionRecognizer.html#ae187bd24bee924569525488328c2cfb5">OpenCVForUnity.UnityIntegration.Worker.DnnModule.FacialExpressionRecognizer</a>, <a class="el" href="../../d1/d8b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipeHandPoseEstimator.html#ab9a710cee0f04868f3ac8d1f71cbe7ed">OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipeHandPoseEstimator</a>, <a class="el" href="../../dd/d30/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipePalmDetector.html#a4008a724598556809c0b459edcb2bbe4">OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipePalmDetector</a>, <a class="el" href="../../d1/d5d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipePersonDetector.html#a6223cf0e0571558304507e69ce663ff6">OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipePersonDetector</a>, <a class="el" href="../../da/d5d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipePoseEstimator.html#a8a912008b70f3f7f5fdfe38f563c7bba">OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipePoseEstimator</a>, <a class="el" href="../../da/dbf/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipePoseStreamEstimator.html#a8e19f70d735da975dfdc049798d5db56">OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipePoseStreamEstimator</a>, <a class="el" href="../../dc/d9d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1NanoDetPlusObjectDetector.html#a88fb9e1c380c11bdf570645c9947abd9">OpenCVForUnity.UnityIntegration.Worker.DnnModule.NanoDetPlusObjectDetector</a>, <a class="el" href="../../d1/d9d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YOLOXObjectDetector.html#a578ca0d06c5be5e76bfe4bc952d64d8f">OpenCVForUnity.UnityIntegration.Worker.DnnModule.YOLOXObjectDetector</a>, and <a class="el" href="../../db/d4c/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YuNetV2FaceDetector.html#acfd2ed1a66748d88f3f6a195c4df2036">OpenCVForUnity.UnityIntegration.Worker.DnnModule.YuNetV2FaceDetector</a>.</p>
+<p>Reimplemented in <a class="el" href="../../dc/d0b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1DAMOYOLOObjectDetector.html#af965b9cc07cfffb15bd10cb18928bee1">OpenCVForUnity.UnityIntegration.Worker.DnnModule.DAMOYOLOObjectDetector</a>, <a class="el" href="../../d8/dbe/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1FaceIdentificationEstimator.html#a587fb55acd94cfa45feb6b214e8d093d">OpenCVForUnity.UnityIntegration.Worker.DnnModule.FaceIdentificationEstimator</a>, <a class="el" href="../../d0/da9/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1FacialExpressionRecognizer.html#ae187bd24bee924569525488328c2cfb5">OpenCVForUnity.UnityIntegration.Worker.DnnModule.FacialExpressionRecognizer</a>, <a class="el" href="../../d5/d7d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipe_1_1MediaPipeFaceLandmarker.html#a211fe338dde78ed6f797e770d3bbb156">OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipe.MediaPipeFaceLandmarker</a>, <a class="el" href="../../d7/de6/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipe_1_1MediaPipeHandLandmarker.html#a3386a73919d5dd94108ccd4a8c2adb0d">OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipe.MediaPipeHandLandmarker</a>, <a class="el" href="../../d4/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipe_1_1MediaPipeHolisticLandmarker.html#a8e2599265f46bb7f51cafc8cf06cea7c">OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipe.MediaPipeHolisticLandmarker</a>, <a class="el" href="../../d3/df7/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipe_1_1MediaPipePoseLandmarker.html#a5cc80634d41fd95d879b416bcc6c0f8e">OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipe.MediaPipePoseLandmarker</a>, <a class="el" href="../../dc/d9d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1NanoDetPlusObjectDetector.html#a88fb9e1c380c11bdf570645c9947abd9">OpenCVForUnity.UnityIntegration.Worker.DnnModule.NanoDetPlusObjectDetector</a>, <a class="el" href="../../d1/d9d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YOLOXObjectDetector.html#a578ca0d06c5be5e76bfe4bc952d64d8f">OpenCVForUnity.UnityIntegration.Worker.DnnModule.YOLOXObjectDetector</a>, and <a class="el" href="../../db/d4c/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YuNetV2FaceDetector.html#acfd2ed1a66748d88f3f6a195c4df2036">OpenCVForUnity.UnityIntegration.Worker.DnnModule.YuNetV2FaceDetector</a>.</p>
 
 </div>
 </div>
@@ -1528,7 +1867,7 @@ Events</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Waits for the current processing operation to complete with a timeout. </p>
-<p>This method is thread-safe and can be safely called from any thread. If no processing operation is running, returns immediately. If the operation doesn't complete within the specified timeout, throws TimeoutException. This method works for both synchronous (Execute) and asynchronous (ExecuteAsync) operations. </p>
+<p>This method is thread-safe and can be safely called from any thread. If no processing operation is running, returns immediately. If the operation doesn't complete within the specified timeout, throws TimeoutException. This method works for both synchronous (Execute) and asynchronous (ExecuteTaskAsync) operations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">timeout</td><td>The timeout duration. If null, waits indefinitely.</td></tr>
@@ -1538,14 +1877,15 @@ Events</h2></td></tr>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">TimeoutException</td><td>Thrown when the operation doesn't complete within the specified timeout.</td></tr>
+    <tr><td class="paramname">InvalidOperationException</td><td>Thrown if the worker is in an invalid internal state (execution without a completion source).</td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="abfa04dd1f8f8caee4e8dacc7fdb83302" name="abfa04dd1f8f8caee4e8dacc7fdb83302"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abfa04dd1f8f8caee4e8dacc7fdb83302">&#9670;&#160;</a></span>WaitForCompletionAsync()</h2>
+<a id="a99c0b8f0e4b32a61c6abd1e333700292" name="a99c0b8f0e4b32a61c6abd1e333700292"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99c0b8f0e4b32a61c6abd1e333700292">&#9670;&#160;</a></span>WaitForCompletionAsync()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1554,7 +1894,7 @@ Events</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual async Task OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.WaitForCompletionAsync </td>
+          <td class="memname">virtual Task OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.WaitForCompletionAsync </td>
           <td>(</td>
           <td class="paramtype">TimeSpan?</td>          <td class="paramname"><span class="paramname"><em>timeout</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span></td><td>)</td>
           <td></td>
@@ -1568,7 +1908,51 @@ Events</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Waits for the current processing operation to complete with a timeout. </p>
-<p>This method is thread-safe and can be safely called from any thread. If no processing operation is running, returns immediately. If the operation doesn't complete within the specified timeout, throws TimeoutException. This method works for both synchronous (Execute) and asynchronous (ExecuteAsync) operations. </p>
+<p><code> </p><dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000037">Deprecated</a></b></dt><dd>Use <a class="el" href="#a286991e37800e85e2cb4a54aa0e62b5d" title="Waits for the current processing operation to complete with a timeout.">WaitForCompletionTaskAsync(TimeSpan?)</a>. In a future version, this member will return Unity <code>Awaitable</code> instead of Task. </dd></dl>
+<p></code></p>
+<p><code> </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timeout</td><td>The timeout duration. If null, waits indefinitely.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A task that completes when the processing operation completes or times out.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">TimeoutException</td><td>Thrown when the operation doesn't complete within the specified timeout.</td></tr>
+    <tr><td class="paramname">InvalidOperationException</td><td>Thrown if the worker is in an invalid internal state (execution without a completion source).</td></tr>
+  </table>
+  </dd>
+</dl>
+<p></code></p>
+
+</div>
+</div>
+<a id="a286991e37800e85e2cb4a54aa0e62b5d" name="a286991e37800e85e2cb4a54aa0e62b5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a286991e37800e85e2cb4a54aa0e62b5d">&#9670;&#160;</a></span>WaitForCompletionTaskAsync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual async Task OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.WaitForCompletionTaskAsync </td>
+          <td>(</td>
+          <td class="paramtype">TimeSpan?</td>          <td class="paramname"><span class="paramname"><em>timeout</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Waits for the current processing operation to complete with a timeout. </p>
+<p>This method is thread-safe and can be safely called from any thread. If no processing operation is running, returns immediately. If the operation doesn't complete within the specified timeout, throws TimeoutException. This method works for both synchronous (Execute) and asynchronous (ExecuteTaskAsync) operations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">timeout</td><td>The timeout duration. If null, waits indefinitely.</td></tr>
@@ -1579,6 +1963,7 @@ Events</h2></td></tr>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">TimeoutException</td><td>Thrown when the operation doesn't complete within the specified timeout.</td></tr>
+    <tr><td class="paramname">InvalidOperationException</td><td>Thrown if the worker is in an invalid internal state (execution without a completion source).</td></tr>
   </table>
   </dd>
 </dl>
@@ -1764,25 +2149,25 @@ Events</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gets a value indicating whether a processing operation is currently running. </p>
-<p>This property is thread-safe and can be safely accessed from any thread. The value is guaranteed to be consistent with the actual execution state. Use this property to check operation status before calling ExecuteAsync or before accessing results. </p>
+<p>This property is thread-safe and can be safely accessed from any thread. The value is guaranteed to be consistent with the actual execution state. Use this property to check operation status before calling ExecuteTaskAsync or before accessing results. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Event Documentation</h2>
-<a id="ad06c85ec58727f1d352f69bd0391c32b" name="ad06c85ec58727f1d352f69bd0391c32b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad06c85ec58727f1d352f69bd0391c32b">&#9670;&#160;</a></span>ProcessingCompleted</h2>
+<a id="a61c235a93be85274551d166a48b511f7" name="a61c235a93be85274551d166a48b511f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61c235a93be85274551d166a48b511f7">&#9670;&#160;</a></span>ProcessingCompleted</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">EventHandler&lt;<a class="el" href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html">ProcessingCompletion</a>&gt; OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ProcessingCompleted</td>
+          <td class="memname">Action&lt;<a class="el" href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html">ProcessingCompletion</a>&gt; OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ProcessingCompleted</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Occurs when a processing operation completes. </p>
-<p>This event is raised after the processing operation completes, regardless of whether it succeeded or failed. The event is raised on the thread that completed the operation. </p>
+<p>This event is raised after the processing operation completes (success, cancellation, or fault). The event is raised on the thread that completed the operation. Handlers receive only the <a class="el" href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html" title="Payload for ProcessingCompleted; same Kind / Error shape as WorkCompletion&lt;TResult&gt; without a results...">ProcessingCompletion</a> value (no sender argument). <a class="el" href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html#a137ca351dd3c34b6a00015d2ea538fa6" title="Gets the completion status of the processing operation.">ProcessingCompletion.Kind</a> uses the nested <a class="el" href="#ada33dc511d99b712a361f8c1c174fca4" title="Completion status for ProcessingCompleted.">ProcessingCompletionKind</a> on this class (same member names as <a class="el" href="../../dc/d96/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Runner.html#ade328497f9a2373a098f31ed82be7105" title="Completion status for SingleFlightSyncAsyncRunner&lt;TInput,TResult&gt;.WorkCompleted.">OpenCVForUnity.UnityIntegration.Runner.WorkCompletionKind</a> in the <a class="el" href="../../dc/d96/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Runner.html">Runner</a> namespace, but a distinct CLR type). Cancellation is reported when the </p>
 
 </div>
 </div>

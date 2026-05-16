@@ -26,8 +26,9 @@ var searchData=
   ['dnn_5fsuperres_2ecs_23',['Dnn_superres.cs',['../d6/d34/Dnn__superres_8cs.html',1,'']]],
   ['dnn_5fvaluetuple_2ecs_24',['Dnn_ValueTuple.cs',['../df/d97/Dnn__ValueTuple_8cs.html',1,'']]],
   ['dnnconverters_2ecs_25',['DnnConverters.cs',['../de/df3/DnnConverters_8cs.html',1,'']]],
-  ['dnnprocessingutils_2ecs_26',['DnnProcessingUtils.cs',['../d2/dce/DnnProcessingUtils_8cs.html',1,'']]],
-  ['dnnsuperresimpl_2ecs_27',['DnnSuperResImpl.cs',['../d4/d6d/DnnSuperResImpl_8cs.html',1,'']]],
-  ['dtfilter_2ecs_28',['DTFilter.cs',['../d2/d32/DTFilter_8cs.html',1,'']]],
-  ['dtrees_2ecs_29',['DTrees.cs',['../db/d23/DTrees_8cs.html',1,'']]]
+  ['dnninferenceworkerbase_2ecs_26',['DnnInferenceWorkerBase.cs',['../d9/d69/DnnInferenceWorkerBase_8cs.html',1,'']]],
+  ['dnnprocessingutils_2ecs_27',['DnnProcessingUtils.cs',['../d2/dce/DnnProcessingUtils_8cs.html',1,'']]],
+  ['dnnsuperresimpl_2ecs_28',['DnnSuperResImpl.cs',['../d4/d6d/DnnSuperResImpl_8cs.html',1,'']]],
+  ['dtfilter_2ecs_29',['DTFilter.cs',['../d2/d32/DTFilter_8cs.html',1,'']]],
+  ['dtrees_2ecs_30',['DTrees.cs',['../db/d23/DTrees_8cs.html',1,'']]]
 ];

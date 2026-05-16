@@ -1,4 +1,9 @@
 var searchData=
 [
-  ['layouttype_0',['LayoutType',['../d0/d64/classOpenCVForUnity_1_1UnityIntegration_1_1DebugMat.html#acf66edb89fe4713db1ea1044a2f066e3',1,'OpenCVForUnity::UnityIntegration::DebugMat']]]
+  ['mediapipefacerunningmode_0',['MediaPipeFaceRunningMode',['../d5/d7d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipe_1_1MediaPipeFaceLandmarker.html#afee73037e5f450c22144ea1d9e21a18a',1,'OpenCVForUnity::UnityIntegration::Worker::DnnModule::MediaPipe::MediaPipeFaceLandmarker']]],
+  ['mediapipehandrunningmode_1',['MediaPipeHandRunningMode',['../d7/de6/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipe_1_1MediaPipeHandLandmarker.html#ab937c25f445c6069523a2295886b60f1',1,'OpenCVForUnity::UnityIntegration::Worker::DnnModule::MediaPipe::MediaPipeHandLandmarker']]],
+  ['mediapipeholisticrunningmode_2',['MediaPipeHolisticRunningMode',['../d4/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipe_1_1MediaPipeHolisticLandmarker.html#a073221c1a013f1741c15e8d00adba33e',1,'OpenCVForUnity::UnityIntegration::Worker::DnnModule::MediaPipe::MediaPipeHolisticLandmarker']]],
+  ['mediapipeposerunningmode_3',['MediaPipePoseRunningMode',['../d3/df7/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipe_1_1MediaPipePoseLandmarker.html#a9e51d9f551edde28ba7fccd64a6ad02a',1,'OpenCVForUnity::UnityIntegration::Worker::DnnModule::MediaPipe::MediaPipePoseLandmarker']]],
+  ['multisource2mathelperclassinterfaces_4',['MultiSource2MatHelperClassInterfaces',['../d1/dcd/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1MultiSource2MatHelper.html#abd1948f64bbe2af070d6b1fe41f80559',1,'OpenCVForUnity::UnityIntegration::Helper::Source2Mat::MultiSource2MatHelper']]],
+  ['multisource2mathelperclassname_5',['MultiSource2MatHelperClassName',['../d1/dcd/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1MultiSource2MatHelper.html#a7cdce6296882db0980d9d9a97a0d5c1b',1,'OpenCVForUnity::UnityIntegration::Helper::Source2Mat::MultiSource2MatHelper']]]
 ];

@@ -17,8 +17,9 @@ var searchData=
   ['dmatch_14',['DMatch',['../da/dc6/classOpenCVForUnity_1_1CoreModule_1_1DMatch.html',1,'OpenCVForUnity::CoreModule']]],
   ['dnn_15',['Dnn',['../dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html',1,'OpenCVForUnity::DnnModule']]],
   ['dnn_5fsuperres_16',['Dnn_superres',['../de/dd0/classOpenCVForUnity_1_1Dnn__superresModule_1_1Dnn__superres.html',1,'OpenCVForUnity::Dnn_superresModule']]],
-  ['dnnprocessingutils_17',['DnnProcessingUtils',['../d1/dd1/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1Utils_1_1DnnProcessingUtils.html',1,'OpenCVForUnity::UnityIntegration::Worker::Utils']]],
-  ['dnnsuperresimpl_18',['DnnSuperResImpl',['../d3/d73/classOpenCVForUnity_1_1Dnn__superresModule_1_1DnnSuperResImpl.html',1,'OpenCVForUnity::Dnn_superresModule']]],
-  ['dtfilter_19',['DTFilter',['../da/d30/classOpenCVForUnity_1_1XimgprocModule_1_1DTFilter.html',1,'OpenCVForUnity::XimgprocModule']]],
-  ['dtrees_20',['DTrees',['../db/d84/classOpenCVForUnity_1_1MlModule_1_1DTrees.html',1,'OpenCVForUnity::MlModule']]]
+  ['dnninferenceworkerbase_17',['DnnInferenceWorkerBase',['../da/d59/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1DnnInferenceWorkerBase.html',1,'OpenCVForUnity::UnityIntegration::Worker::DnnModule']]],
+  ['dnnprocessingutils_18',['DnnProcessingUtils',['../d1/dd1/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1Utils_1_1DnnProcessingUtils.html',1,'OpenCVForUnity::UnityIntegration::Worker::Utils']]],
+  ['dnnsuperresimpl_19',['DnnSuperResImpl',['../d3/d73/classOpenCVForUnity_1_1Dnn__superresModule_1_1DnnSuperResImpl.html',1,'OpenCVForUnity::Dnn_superresModule']]],
+  ['dtfilter_20',['DTFilter',['../da/d30/classOpenCVForUnity_1_1XimgprocModule_1_1DTFilter.html',1,'OpenCVForUnity::XimgprocModule']]],
+  ['dtrees_21',['DTrees',['../db/d84/classOpenCVForUnity_1_1MlModule_1_1DTrees.html',1,'OpenCVForUnity::MlModule']]]
 ];

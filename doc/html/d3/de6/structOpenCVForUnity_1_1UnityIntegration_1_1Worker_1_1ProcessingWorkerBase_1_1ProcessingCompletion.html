@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.2</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.3</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.13.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -137,32 +137,35 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
-<p>Represents the completion status of a processing operation.  
+<p>Payload for <a class="el" href="../../d9/d9b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase.html#a61c235a93be85274551d166a48b511f7" title="Occurs when a processing operation completes.">ProcessingCompleted</a>; same Kind / Error shape as WorkCompletion&lt;TResult&gt; without a results buffer (use <a class="el" href="../../d9/d9b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase.html#afb72c96babf71d9c7af92b031ba1a7b4" title="Returns a reference (submat) to the output Mat at the specified index.">PeekOutput</a> / <a class="el" href="../../d9/d9b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase.html#a5c95591dd3a21835a2451460fff48247" title="Returns a copy of the output Mat at the specified index.">CopyOutput</a> after success).  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aa4d54033b907c7faea347d146b1efca8" id="r_aa4d54033b907c7faea347d146b1efca8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html">ProcessingCompletion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa4d54033b907c7faea347d146b1efca8">Failure</a> (Exception error)</td></tr>
-<tr class="memdesc:aa4d54033b907c7faea347d146b1efca8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a failed completion status with the specified error.  <br /></td></tr>
-<tr class="separator:aa4d54033b907c7faea347d146b1efca8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d6342e3dcca8f4d036ea56977c854d2" id="r_a7d6342e3dcca8f4d036ea56977c854d2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html">ProcessingCompletion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d6342e3dcca8f4d036ea56977c854d2">Success</a> ()</td></tr>
-<tr class="memdesc:a7d6342e3dcca8f4d036ea56977c854d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a successful completion status.  <br /></td></tr>
-<tr class="separator:a7d6342e3dcca8f4d036ea56977c854d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ce5032eb6fa510e7a1ee9ec49660b71" id="r_a4ce5032eb6fa510e7a1ee9ec49660b71"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html">ProcessingCompletion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ce5032eb6fa510e7a1ee9ec49660b71">ForCanceled</a> (Exception error)</td></tr>
+<tr class="memdesc:a4ce5032eb6fa510e7a1ee9ec49660b71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Canceled completion (e.g. OperationCanceledException from the async path).  <br /></td></tr>
+<tr class="separator:a4ce5032eb6fa510e7a1ee9ec49660b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4baadaae08b855c40d54f7ce778112b3" id="r_a4baadaae08b855c40d54f7ce778112b3"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html">ProcessingCompletion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4baadaae08b855c40d54f7ce778112b3">ForFaulted</a> (Exception error)</td></tr>
+<tr class="memdesc:a4baadaae08b855c40d54f7ce778112b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Failed completion.  <br /></td></tr>
+<tr class="separator:a4baadaae08b855c40d54f7ce778112b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad88a2b114e95b26d17bb8c9db93fffe1" id="r_ad88a2b114e95b26d17bb8c9db93fffe1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html">ProcessingCompletion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad88a2b114e95b26d17bb8c9db93fffe1">ForSucceeded</a> ()</td></tr>
+<tr class="memdesc:ad88a2b114e95b26d17bb8c9db93fffe1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Successful completion.  <br /></td></tr>
+<tr class="separator:ad88a2b114e95b26d17bb8c9db93fffe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
 <tr class="memitem:a2b3465eba89f847835ab66d03969e4dc" id="r_a2b3465eba89f847835ab66d03969e4dc"><td class="memItemLeft" align="right" valign="top">Exception&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2b3465eba89f847835ab66d03969e4dc">Error</a><code> [get]</code></td></tr>
-<tr class="memdesc:a2b3465eba89f847835ab66d03969e4dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the exception that occurred during the processing operation, if any.  <br /></td></tr>
+<tr class="memdesc:a2b3465eba89f847835ab66d03969e4dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the exception for <a class="el" href="../../d9/d9b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase.html#ada33dc511d99b712a361f8c1c174fca4a0e22fe7d45f8e5632a4abf369b24e29c">ProcessingCompletionKind.Canceled</a> or <a class="el" href="../../d9/d9b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase.html#ada33dc511d99b712a361f8c1c174fca4a2b310d05c23325e2935ec87b25a60b8f">ProcessingCompletionKind.Faulted</a>, if any.  <br /></td></tr>
 <tr class="separator:a2b3465eba89f847835ab66d03969e4dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24c5b0ad4f0eade06c3198f21f45abce" id="r_a24c5b0ad4f0eade06c3198f21f45abce"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24c5b0ad4f0eade06c3198f21f45abce">IsSuccess</a><code> [get]</code></td></tr>
-<tr class="memdesc:a24c5b0ad4f0eade06c3198f21f45abce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a value indicating whether the processing operation completed successfully.  <br /></td></tr>
-<tr class="separator:a24c5b0ad4f0eade06c3198f21f45abce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a137ca351dd3c34b6a00015d2ea538fa6" id="r_a137ca351dd3c34b6a00015d2ea538fa6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d9b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase.html#ada33dc511d99b712a361f8c1c174fca4">ProcessingCompletionKind</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a137ca351dd3c34b6a00015d2ea538fa6">Kind</a><code> [get]</code></td></tr>
+<tr class="memdesc:a137ca351dd3c34b6a00015d2ea538fa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the completion status of the processing operation.  <br /></td></tr>
+<tr class="separator:a137ca351dd3c34b6a00015d2ea538fa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents the completion status of a processing operation. </p>
+<div class="textblock"><p>Payload for <a class="el" href="../../d9/d9b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase.html#a61c235a93be85274551d166a48b511f7" title="Occurs when a processing operation completes.">ProcessingCompleted</a>; same Kind / Error shape as WorkCompletion&lt;TResult&gt; without a results buffer (use <a class="el" href="../../d9/d9b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase.html#afb72c96babf71d9c7af92b031ba1a7b4" title="Returns a reference (submat) to the output Mat at the specified index.">PeekOutput</a> / <a class="el" href="../../d9/d9b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase.html#a5c95591dd3a21835a2451460fff48247" title="Returns a copy of the output Mat at the specified index.">CopyOutput</a> after success). </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa4d54033b907c7faea347d146b1efca8" name="aa4d54033b907c7faea347d146b1efca8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4d54033b907c7faea347d146b1efca8">&#9670;&#160;</a></span>Failure()</h2>
+<a id="a4ce5032eb6fa510e7a1ee9ec49660b71" name="a4ce5032eb6fa510e7a1ee9ec49660b71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ce5032eb6fa510e7a1ee9ec49660b71">&#9670;&#160;</a></span>ForCanceled()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -171,7 +174,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html">ProcessingCompletion</a> OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ProcessingCompletion.Failure </td>
+          <td class="memname">static <a class="el" href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html">ProcessingCompletion</a> OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ProcessingCompletion.ForCanceled </td>
           <td>(</td>
           <td class="paramtype">Exception</td>          <td class="paramname"><span class="paramname"><em>error</em></span></td><td>)</td>
           <td></td>
@@ -184,18 +187,12 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates a failed completion status with the specified error. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">error</td><td>The exception that occurred.</td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Canceled completion (e.g. OperationCanceledException from the async path). </p>
 
 </div>
 </div>
-<a id="a7d6342e3dcca8f4d036ea56977c854d2" name="a7d6342e3dcca8f4d036ea56977c854d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d6342e3dcca8f4d036ea56977c854d2">&#9670;&#160;</a></span>Success()</h2>
+<a id="a4baadaae08b855c40d54f7ce778112b3" name="a4baadaae08b855c40d54f7ce778112b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4baadaae08b855c40d54f7ce778112b3">&#9670;&#160;</a></span>ForFaulted()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -204,7 +201,34 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html">ProcessingCompletion</a> OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ProcessingCompletion.Success </td>
+          <td class="memname">static <a class="el" href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html">ProcessingCompletion</a> OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ProcessingCompletion.ForFaulted </td>
+          <td>(</td>
+          <td class="paramtype">Exception</td>          <td class="paramname"><span class="paramname"><em>error</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Failed completion. </p>
+
+</div>
+</div>
+<a id="ad88a2b114e95b26d17bb8c9db93fffe1" name="ad88a2b114e95b26d17bb8c9db93fffe1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad88a2b114e95b26d17bb8c9db93fffe1">&#9670;&#160;</a></span>ForSucceeded()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="../../d3/de6/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase_1_1ProcessingCompletion.html">ProcessingCompletion</a> OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ProcessingCompletion.ForSucceeded </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -217,7 +241,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates a successful completion status. </p>
+<p>Successful completion. </p>
 
 </div>
 </div>
@@ -242,12 +266,12 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Gets the exception that occurred during the processing operation, if any. </p>
+<p>Gets the exception for <a class="el" href="../../d9/d9b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase.html#ada33dc511d99b712a361f8c1c174fca4a0e22fe7d45f8e5632a4abf369b24e29c">ProcessingCompletionKind.Canceled</a> or <a class="el" href="../../d9/d9b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase.html#ada33dc511d99b712a361f8c1c174fca4a2b310d05c23325e2935ec87b25a60b8f">ProcessingCompletionKind.Faulted</a>, if any. </p>
 
 </div>
 </div>
-<a id="a24c5b0ad4f0eade06c3198f21f45abce" name="a24c5b0ad4f0eade06c3198f21f45abce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24c5b0ad4f0eade06c3198f21f45abce">&#9670;&#160;</a></span>IsSuccess</h2>
+<a id="a137ca351dd3c34b6a00015d2ea538fa6" name="a137ca351dd3c34b6a00015d2ea538fa6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a137ca351dd3c34b6a00015d2ea538fa6">&#9670;&#160;</a></span>Kind</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -256,7 +280,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ProcessingCompletion.IsSuccess</td>
+          <td class="memname"><a class="el" href="../../d9/d9b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase.html#ada33dc511d99b712a361f8c1c174fca4">ProcessingCompletionKind</a> OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.ProcessingCompletion.Kind</td>
         </tr>
       </table>
   </td>
@@ -266,7 +290,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Gets a value indicating whether the processing operation completed successfully. </p>
+<p>Gets the completion status of the processing operation. </p>
 
 </div>
 </div>
