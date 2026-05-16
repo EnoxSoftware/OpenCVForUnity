@@ -125,6 +125,8 @@ namespace OpenCVForUnityExample
             if (string.IsNullOrEmpty(lbp_cascade_filepath))
             {
                 Debug.LogError(LBP_CASCADE_FRONTALFACE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("cascade classifier file is not loaded.\nPlease read console message.", 20000);
             }
             else
             {
@@ -134,6 +136,8 @@ namespace OpenCVForUnityExample
             if (string.IsNullOrEmpty(haar_cascade_filepath))
             {
                 Debug.LogError(HAAR_CASCADE_FRONTALFACE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("cascade classifier file is not loaded.\nPlease read console message.", 20000);
             }
             else
             {
@@ -153,37 +157,31 @@ namespace OpenCVForUnityExample
                 // Get the current frame mat
                 Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-                if (_currentCascade == null)
+                if (_currentCascade != null)
                 {
-                    Imgproc.putText(rgbaMat, "model file is not loaded.", new Point(5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    Imgproc.putText(rgbaMat, "Please read console message.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    // Convert the mat to gray and equalize
+                    Imgproc.cvtColor(rgbaMat, _grayMat, Imgproc.COLOR_RGBA2GRAY);
+                    Imgproc.equalizeHist(_grayMat, _grayMat);
 
-                    OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
-                    return;
+                    // Detect faces.
+                    int minSize = (int)(Mathf.Max(_grayMat.width(), _grayMat.height()) * _minSizeRatio);
+                    int maxSize = (int)(Mathf.Max(_grayMat.width(), _grayMat.height()) * _maxSizeRatio);
+                    _currentCascade.detectMultiScale(_grayMat, _faces, 1.1, 2, 0 | Objdetect.CASCADE_SCALE_IMAGE,
+                        new Size(minSize, minSize), new Size(maxSize, maxSize));
+
+                    // Draw the detected faces
+                    OpenCVForUnity.CoreModule.Rect[] rects = _faces.toArray();
+                    for (int i = 0; i < rects.Length; i++)
+                    {
+                        //Debug.Log ("detect faces " + rects [i]);
+
+                        Imgproc.rectangle(rgbaMat, new Point(rects[i].x, rects[i].y), new Point(rects[i].x + rects[i].width, rects[i].y + rects[i].height), new Scalar(255, 0, 0, 255), 2);
+                    }
+
+                    //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point(5, rgbaMat.rows () - 70), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    Imgproc.putText(rgbaMat, "minSizeRatio:" + _minSizeRatio.ToString("F2") + " minSize:" + minSize, new Point(5, rgbaMat.rows() - 40), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    Imgproc.putText(rgbaMat, "maxSizeRatio:" + _maxSizeRatio.ToString("F2") + " maxSize:" + maxSize, new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
                 }
-
-                // Convert the mat to gray and equalize
-                Imgproc.cvtColor(rgbaMat, _grayMat, Imgproc.COLOR_RGBA2GRAY);
-                Imgproc.equalizeHist(_grayMat, _grayMat);
-
-                // Detect faces.
-                int minSize = (int)(Mathf.Max(_grayMat.width(), _grayMat.height()) * _minSizeRatio);
-                int maxSize = (int)(Mathf.Max(_grayMat.width(), _grayMat.height()) * _maxSizeRatio);
-                _currentCascade.detectMultiScale(_grayMat, _faces, 1.1, 2, 0 | Objdetect.CASCADE_SCALE_IMAGE,
-                    new Size(minSize, minSize), new Size(maxSize, maxSize));
-
-                // Draw the detected faces
-                OpenCVForUnity.CoreModule.Rect[] rects = _faces.toArray();
-                for (int i = 0; i < rects.Length; i++)
-                {
-                    //Debug.Log ("detect faces " + rects [i]);
-
-                    Imgproc.rectangle(rgbaMat, new Point(rects[i].x, rects[i].y), new Point(rects[i].x + rects[i].width, rects[i].y + rects[i].height), new Scalar(255, 0, 0, 255), 2);
-                }
-
-                //Imgproc.putText (rgbaMat, "W:" + rgbaMat.width () + " H:" + rgbaMat.height () + " SO:" + Screen.orientation, new Point(5, rgbaMat.rows () - 70), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                Imgproc.putText(rgbaMat, "minSizeRatio:" + _minSizeRatio.ToString("F2") + " minSize:" + minSize, new Point(5, rgbaMat.rows() - 40), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                Imgproc.putText(rgbaMat, "maxSizeRatio:" + _maxSizeRatio.ToString("F2") + " maxSize:" + maxSize, new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
 
                 OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
             }

@@ -123,6 +123,8 @@ namespace OpenCVForUnityExample
             if (string.IsNullOrEmpty(facemark_cascade_filepath))
             {
                 Debug.LogError(FACEMARK_CASCADE_FRONTALFACE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("cascade classifier file is not loaded.\nPlease read console message.", 20000);
             }
             else
             {
@@ -133,6 +135,8 @@ namespace OpenCVForUnityExample
             if (string.IsNullOrEmpty(facemark_model_filepath))
             {
                 Debug.LogError(FACEMARK_MODEL_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("model file is not loaded.\nPlease read console message.", 20000);
             }
             else
             {
@@ -151,62 +155,56 @@ namespace OpenCVForUnityExample
 
                 Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-                if (_facemark == null || _cascade == null)
+                if (_cascade != null && _facemark != null)
                 {
-                    Imgproc.putText(rgbaMat, "model file is not loaded.", (5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    Imgproc.putText(rgbaMat, "Please read console message.", (5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    // get a downscaled image for the detection process
+                    Mat downScaleRgbaMat = _imageOptimizationHelper.GetDownScaleMat((rgbaMat));
 
-                    OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
-                    return;
-                }
+                    Imgproc.cvtColor(downScaleRgbaMat, _grayMat, Imgproc.COLOR_RGBA2GRAY);
+                    Imgproc.equalizeHist(_grayMat, _grayMat);
 
-                // get a downscaled image for the detection process
-                Mat downScaleRgbaMat = _imageOptimizationHelper.GetDownScaleMat((rgbaMat));
+                    // detect faces
+                    int minSize = (int)(Mathf.Max(_grayMat.width(), _grayMat.height()) * 0.1);
+                    _cascade.detectMultiScale(_grayMat, _faces, 1.1, 2, 0 | Objdetect.CASCADE_SCALE_IMAGE,
+                        (minSize, minSize));
 
-                Imgproc.cvtColor(downScaleRgbaMat, _grayMat, Imgproc.COLOR_RGBA2GRAY);
-                Imgproc.equalizeHist(_grayMat, _grayMat);
-
-                // detect faces
-                int minSize = (int)(Mathf.Max(_grayMat.width(), _grayMat.height()) * 0.1);
-                _cascade.detectMultiScale(_grayMat, _faces, 1.1, 2, 0 | Objdetect.CASCADE_SCALE_IMAGE,
-                    (minSize, minSize));
-
-                if (_faces.total() > 0)
-                {
-                    // fit landmarks for each found face
-                    List<MatOfPoint2f> landmarks = new List<MatOfPoint2f>();
-                    _facemark.fit(_grayMat, _faces, landmarks);
-
-                    // restore the original size of the detected faces
-                    using (MatOfRect originalSizeFaces = _imageOptimizationHelper.RestoreOriginalSizeMatOfRect(_faces))
+                    if (_faces.total() > 0)
                     {
-                        // draw the detected faces
-                        Rect[] rects = originalSizeFaces.toArray();
-                        for (int i = 0; i < rects.Length; i++)
+                        // fit landmarks for each found face
+                        List<MatOfPoint2f> landmarks = new List<MatOfPoint2f>();
+                        _facemark.fit(_grayMat, _faces, landmarks);
+
+                        // restore the original size of the detected faces
+                        using (MatOfRect originalSizeFaces = _imageOptimizationHelper.RestoreOriginalSizeMatOfRect(_faces))
                         {
-                            //Debug.Log ("detect faces " + rects [i]);
+                            // draw the detected faces
+                            Rect[] rects = originalSizeFaces.toArray();
+                            for (int i = 0; i < rects.Length; i++)
+                            {
+                                //Debug.Log ("detect faces " + rects [i]);
 
-                            Imgproc.rectangle(rgbaMat, (rects[i].x, rects[i].y), (rects[i].x + rects[i].width, rects[i].y + rects[i].height), (255, 0, 0, 255), 2);
+                                Imgproc.rectangle(rgbaMat, (rects[i].x, rects[i].y), (rects[i].x + rects[i].width, rects[i].y + rects[i].height), (255, 0, 0, 255), 2);
+                            }
                         }
-                    }
 
-                    for (int i = 0; i < landmarks.Count; i++)
-                    {
-                        // restore the original size of the detected landmarks
-                        using (MatOfPoint2f originalSizeLandmarks = _imageOptimizationHelper.RestoreOriginalSizeMatOfPoint2f(landmarks[i]))
+                        for (int i = 0; i < landmarks.Count; i++)
                         {
-                            // draw the detected landmarks
-                            List<Point> points = originalSizeLandmarks.toList();
-                            DrawFaceLandmark(rgbaMat, points, new Scalar(0, 255, 0, 255), 2);
+                            // restore the original size of the detected landmarks
+                            using (MatOfPoint2f originalSizeLandmarks = _imageOptimizationHelper.RestoreOriginalSizeMatOfPoint2f(landmarks[i]))
+                            {
+                                // draw the detected landmarks
+                                List<Point> points = originalSizeLandmarks.toList();
+                                DrawFaceLandmark(rgbaMat, points, new Scalar(0, 255, 0, 255), 2);
 
-                            //Scalar circleColor = new Scalar(255, 0, 0, 255);
-                            //foreach (Point p in points)
-                            //    Imgproc.circle(rgbaMat, p, 2, circleColor, -1);
+                                //Scalar circleColor = new Scalar(255, 0, 0, 255);
+                                //foreach (Point p in points)
+                                //    Imgproc.circle(rgbaMat, p, 2, circleColor, -1);
+                            }
                         }
-                    }
 
-                    foreach (MatOfPoint2f landmark in landmarks)
-                        landmark.Dispose();
+                        foreach (MatOfPoint2f landmark in landmarks)
+                            landmark.Dispose();
+                    }
                 }
 
                 OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);

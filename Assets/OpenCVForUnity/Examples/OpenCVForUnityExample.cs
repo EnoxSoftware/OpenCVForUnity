@@ -54,12 +54,14 @@ namespace OpenCVForUnityExample
             ScrollRect.verticalNormalizedPosition = VERTICAL_NORMALIZED_POSITION;
 
 #if UNITY_WSA_10_0
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/AdvancedGroup/MultiObjectTrackingExampleButton").GetComponent<Button>().interactable = false;
+
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/BarcodeDetectorImageExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/BarcodeDetectorExampleButton").GetComponent<Button>().interactable = false;
 
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceDetectorYNExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceRecognizerSFExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceIdentificationEstimatorExample").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceIdentificationEstimatorExampleButton").GetComponent<Button>().interactable = false;
 
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ColorizationExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectTrackingDaSiamRPNExampleButton").GetComponent<Button>().interactable = false;
@@ -67,12 +69,13 @@ namespace OpenCVForUnityExample
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceDetectionYuNetExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceDetectionYuNetV2ExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FacialExpressionRecognitionExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/PoseEstimationMediaPipeExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/HandPoseEstimationMediaPipeExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/HumanPoseStreamEstimationMediaPipeExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/HumanSegmentationPPHumanSegExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MediaPipeFaceLandmarkerExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MediaPipeHandLandmarkerExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MediaPipePoseLandmarkerExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MediaPipeHolisticLandmarkerExampleButton").GetComponent<Button>().interactable = false;
+
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ImageClassificationMobilenetExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ImageClassificationPPResnetExampleButton").GetComponent<Button>().interactable = false;
+
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionDAMOYOLOExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionYOLOXExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionNanoDetPlusExampleButton").GetComponent<Button>().interactable = false;
@@ -98,6 +101,31 @@ namespace OpenCVForUnityExample
 #if !UNITY_EDITOR && !UNITY_STANDALONE_WIN && !UNITY_STANDALONE_OSX && !UNITY_LINUX && !UNITY_IOS && !UNITY_ANDROID
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/VideoCaptureCameraInputExampleButton").GetComponent<Button>().interactable = false;
 #endif
+
+#if !(NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE)
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/AdvancedGroup/MultiObjectTrackingExampleButton").GetComponent<Button>().interactable = false;
+
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceIdentificationEstimatorExampleButton").GetComponent<Button>().interactable = false;
+
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FastNeuralStyleTransferExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceDetectionYuNetV2ExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FacialExpressionRecognitionExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MediaPipeFaceLandmarkerExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MediaPipeHandLandmarkerExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MediaPipePoseLandmarkerExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MediaPipeHolisticLandmarkerExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/HumanSegmentationPPHumanSegExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ImageClassificationMobilenetExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ImageClassificationPPResnetExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionDAMOYOLOExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionYOLOXExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionNanoDetPlusExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TextRecognitionCRNNImageExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TextRecognitionCRNNExampleButton").GetComponent<Button>().interactable = false;
+#endif
+
+            // for WebGL Demo Build
+            //GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ColorizationExampleButton").GetComponent<Button>().interactable = false;
         }
 
         private void Update()
@@ -509,39 +537,51 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("FacialExpressionRecognitionExample");
         }
 
-        public void OnPoseEstimationMediaPipeExampleButtonClick()
+        public void OnMediaPipeFaceLandmarkerExampleButtonClick()
         {
             if (GraphicsSettings.defaultRenderPipeline == null)
             {
-                SceneManager.LoadScene("PoseEstimationMediaPipeExample_Built-in");
+                SceneManager.LoadScene("MediaPipeFaceLandmarkerExample_Built-in");
             }
             else
             {
-                SceneManager.LoadScene("PoseEstimationMediaPipeExample_SRP");
+                SceneManager.LoadScene("MediaPipeFaceLandmarkerExample_SRP");
             }
         }
 
-        public void OnHandPoseEstimationMediaPipeExampleButtonClick()
+        public void OnMediaPipeHandLandmarkerExampleButtonClick()
         {
             if (GraphicsSettings.defaultRenderPipeline == null)
             {
-                SceneManager.LoadScene("HandPoseEstimationMediaPipeExample_Built-in");
+                SceneManager.LoadScene("MediaPipeHandLandmarkerExample_Built-in");
             }
             else
             {
-                SceneManager.LoadScene("HandPoseEstimationMediaPipeExample_SRP");
+                SceneManager.LoadScene("MediaPipeHandLandmarkerExample_SRP");
             }
         }
 
-        public void OnHumanPoseStreamEstimationMediaPipeExampleButtonClick()
+        public void OnMediaPipeHolisticLandmarkerExampleButtonClick()
         {
             if (GraphicsSettings.defaultRenderPipeline == null)
             {
-                SceneManager.LoadScene("HumanPoseStreamEstimationMediaPipeExample_Built-in");
+                SceneManager.LoadScene("MediaPipeHolisticLandmarkerExample_Built-in");
             }
             else
             {
-                SceneManager.LoadScene("HumanPoseStreamEstimationMediaPipeExample_SRP");
+                SceneManager.LoadScene("MediaPipeHolisticLandmarkerExample_SRP");
+            }
+        }
+
+        public void OnMediaPipePoseLandmarkerExampleButtonClick()
+        {
+            if (GraphicsSettings.defaultRenderPipeline == null)
+            {
+                SceneManager.LoadScene("MediaPipePoseLandmarkerExample_Built-in");
+            }
+            else
+            {
+                SceneManager.LoadScene("MediaPipePoseLandmarkerExample_SRP");
             }
         }
 

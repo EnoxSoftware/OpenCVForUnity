@@ -116,16 +116,34 @@ namespace OpenCVForUnityExample
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             OpenCVDebug.SetDebugMode(true);
 
+            if (string.IsNullOrEmpty(_imageFilepath))
+            {
+                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("image file is not loaded.\nPlease read console message.", 20000);
+                OpenCVDebug.SetDebugMode(false);
+                return;
+            }
 
             Mat img = Imgcodecs.imread(_imageFilepath);
             if (img.empty())
             {
                 Debug.LogError(IMAGE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("image file is not loaded.\nPlease read console message.", 20000);
+                img.Dispose();
+                OpenCVDebug.SetDebugMode(false);
+                return;
             }
 
             if (string.IsNullOrEmpty(_trainedClassifierNM1Filepath) || string.IsNullOrEmpty(_trainedClassifierNM2Filepath))
             {
                 Debug.LogError(TRAINED_CLASSIFIER_NM_1_FILENAME + " or " + TRAINED_CLASSIFIER_NM_2_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("trained classifier file is not loaded.\nPlease read console message.", 20000);
+                img.Dispose();
+                OpenCVDebug.SetDebugMode(false);
+                return;
             }
 
             //# for visualization
@@ -189,6 +207,11 @@ namespace OpenCVForUnityExample
 
 
             OpenCVDebug.SetDebugMode(false);
+
+            img.Dispose();
+            vis.Dispose();
+            foreach (var ch in channels)
+                ch.Dispose();
         }
     }
 }

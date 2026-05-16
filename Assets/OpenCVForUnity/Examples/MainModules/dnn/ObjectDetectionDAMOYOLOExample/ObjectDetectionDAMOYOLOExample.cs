@@ -1,14 +1,20 @@
-#if !UNITY_WSA_10_0
+#if !UNITY_WSA_10_0 && NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
 
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
 using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
+using OpenCVForUnity.UnityIntegration.Worker;
+using OpenCVForUnity.UnityIntegration.Runner;
 using OpenCVForUnity.UnityIntegration.Worker.DnnModule;
+using OpenCVForUnity.UnityIntegration.Worker.Utils;
+#if OPENCV_SENTIS_AVAILABLE
+using Unity.InferenceEngine;
+#endif
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -38,8 +44,18 @@ namespace OpenCVForUnityExample
         public RawImage ResultPreview;
 
         [Header("UI")]
+        [Tooltip("ON: Sentis. OFF: OpenCV DNN. Assign OnUseSentisInferenceToggleValueChanged to this toggle's On Value Changed in the Inspector.")]
+        public Toggle UseSentisInferenceToggle;
+        [Tooltip("Sentis backend selector. Dropdown option order must match Enum.GetValues(typeof(BackendType)) (numeric order). Assign OnSentisBackendDropdownValueChanged to On Value Changed (int). Value changes reinitialize inference.")]
+        public Dropdown SentisBackendDropdown;
+#if OPENCV_SENTIS_AVAILABLE
+        [Tooltip("When enabled, runs DAMO-YOLO inference with Sentis (MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS). Inspector paths may stay .onnx; at runtime they are rewritten to .sentis and loaded from StreamingAssets (place a matching .sentis beside the onnx file).")]
+        public bool UseSentisInference = true;
+        [Tooltip("When using Sentis: backend / target selects Sentis BackendType (CPU / GPU, etc.).")]
+        public BackendType DamoSentisBackendType = BackendType.GPUCompute;
+#endif
         public Toggle UseAsyncInferenceToggle;
-        public bool UseAsyncInference = false;
+        public bool UseAsyncInference = true;
 
         [Header("Model Settings")]
         [Tooltip("Path to a binary file of model contains trained weights.")]
@@ -64,22 +80,26 @@ namespace OpenCVForUnityExample
         public int InpHeight = 416;
 
         // Private Fields
+        private DAMOYOLOObjectDetector _objectDetector;
+        private string _classesFilepath;
+        private string _modelFilepathOnnx;
+#if OPENCV_SENTIS_AVAILABLE
+        private string _modelFilepathSentis;
+        /// <summary>
+        /// <see cref="BackendType"/> values in <see cref="Enum.GetValues(System.Type)"/> order (sorted by underlying numeric value). Dropdown options must use the same order.
+        /// </summary>
+        private static readonly BackendType[] SentisBackendTypesInEnumOrder =
+            (BackendType[])Enum.GetValues(typeof(BackendType));
+#endif
+
         private Texture2D _texture;
         private MultiSource2MatHelper _multiSource2MatHelper;
         private Mat _bgrMat;
 
-        private DAMOYOLOObjectDetector _objectDetector;
-        private string _classesFilepath;
-        private string _modelFilepath;
-
         private FpsMonitor _fpsMonitor;
         private CancellationTokenSource _cts = new CancellationTokenSource();
-
-        private Mat _bgrMatForAsync;
-        private Mat _latestDetectedObjects;
-        private Task _inferenceTask;
-        private readonly Queue<Action> _mainThreadQueue = new();
-        private readonly object _queueLock = new();
+        private MatSingleFlightSyncAsyncRunner _inferenceRunner;
+        private bool _inferenceReinitializing;
 
         // Unity Lifecycle Methods
         private async void Start()
@@ -98,12 +118,9 @@ namespace OpenCVForUnityExample
             _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
 
             // Update GUI state
-#if !UNITY_WEBGL || UNITY_EDITOR
-            UseAsyncInferenceToggle.isOn = UseAsyncInference;
-#else
-            UseAsyncInferenceToggle.isOn = false;
-            UseAsyncInferenceToggle.interactable = false;
-#endif
+            UpdateUseSentisInference();
+            UpdateUseAsyncInference();
+            UpdateInferenceModeToggles(inferenceReinitializing: false);
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
             if (_fpsMonitor != null)
@@ -116,8 +133,17 @@ namespace OpenCVForUnityExample
             }
             if (!string.IsNullOrEmpty(Model))
             {
-                _modelFilepath = await OpenCVEnv.GetFilePathTaskAsync(Model, cancellationToken: _cts.Token);
-                if (string.IsNullOrEmpty(_modelFilepath)) Debug.Log("The file:" + Model + " did not exist.");
+                _modelFilepathOnnx = await OpenCVEnv.GetFilePathTaskAsync(
+                    Model,
+                    cancellationToken: _cts.Token);
+                if (string.IsNullOrEmpty(_modelFilepathOnnx)) Debug.Log("The file:" + Model + " did not exist.");
+#if OPENCV_SENTIS_AVAILABLE
+                string sentisModelFileName = StreamingAssetPathOnnxToSentisIfNeeded(Model);
+                _modelFilepathSentis = await OpenCVEnv.GetFilePathTaskAsync(
+                    sentisModelFileName,
+                    cancellationToken: _cts.Token);
+                if (string.IsNullOrEmpty(_modelFilepathSentis)) Debug.Log("The file:" + sentisModelFileName + " did not exist.");
+#endif
             }
 
             if (_fpsMonitor != null)
@@ -131,15 +157,8 @@ namespace OpenCVForUnityExample
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             OpenCVDebug.SetDebugMode(true);
 
-
-            if (string.IsNullOrEmpty(_modelFilepath))
-            {
-                Debug.LogError("model: " + Model + " or " + "classes: " + Classes + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
-            }
-            else
-            {
-                _objectDetector = new DAMOYOLOObjectDetector(_modelFilepath, _classesFilepath, new Size(InpWidth, InpHeight), ConfThreshold, NmsThreshold, TopK);
-            }
+            // DAMO-YOLO object detector (uses dnn/*.onnx / .sentis model under StreamingAssets).
+            InitializeInference();
 
             _multiSource2MatHelper.Initialize();
         }
@@ -165,10 +184,10 @@ namespace OpenCVForUnityExample
                 _fpsMonitor.Add("width", rgbaMat.width().ToString());
                 _fpsMonitor.Add("height", rgbaMat.height().ToString());
                 _fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                UpdateFpsMonitorInferenceInfo(_fpsMonitor, _objectDetector, UseAsyncInference);
             }
 
             _bgrMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
-            _bgrMatForAsync = new Mat();
         }
 
         /// <summary>
@@ -178,12 +197,17 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperDisposed");
 
-            if (_inferenceTask != null && !_inferenceTask.IsCompleted) _inferenceTask.Wait(500);
+            try
+            {
+                _objectDetector?.Cancel();
+            }
+            catch (ObjectDisposedException)
+            {
+            }
+
+            _inferenceRunner?.Cancel();
 
             _bgrMat?.Dispose(); _bgrMat = null;
-
-            _bgrMatForAsync?.Dispose();
-            _latestDetectedObjects?.Dispose();
 
             if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
         }
@@ -206,75 +230,31 @@ namespace OpenCVForUnityExample
         // Update is called once per frame
         private void Update()
         {
-            ProcessMainThreadQueue();
+            if (_inferenceReinitializing)
+                return;
 
             if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
             {
-
                 Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-                if (_objectDetector == null)
-                {
-                    Imgproc.putText(rgbaMat, "model file is not loaded.", new Point(5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    Imgproc.putText(rgbaMat, "Please read console message.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                }
-                else
+                if (_objectDetector != null)
                 {
                     Imgproc.cvtColor(rgbaMat, _bgrMat, Imgproc.COLOR_RGBA2BGR);
 
-                    if (UseAsyncInference)
+                    if (_inferenceRunner != null && _objectDetector != null)
                     {
-                        // asynchronous execution
-
-                        if (_inferenceTask == null || _inferenceTask.IsCompleted)
-                        {
-                            _bgrMat.copyTo(_bgrMatForAsync); // for asynchronous execution, deep copy
-                            _inferenceTask = Task.Run(async () =>
+                        _inferenceRunner.SubmitWork(
+                            _bgrMat,
+                            syncWork: m => _objectDetector.Detect(m, useCopyOutput: true),
+                            asyncWork: async m =>
                             {
-                                try
-                                {
-                                    // Object detector inference
-                                    var newObjects = await _objectDetector.DetectAsync(_bgrMatForAsync);
-                                    RunOnMainThread(() =>
-                                        {
-                                            _latestDetectedObjects?.Dispose();
-                                            _latestDetectedObjects = newObjects;
-                                        });
-                                }
-                                catch (OperationCanceledException ex)
-                                {
-                                    Debug.Log($"Inference canceled: {ex}");
-                                }
-                                catch (Exception ex)
-                                {
-                                    Debug.LogError($"Inference error: {ex}");
-                                }
+                                CancellationToken ct = _inferenceRunner.InFlightAsyncWorkCancellationToken;
+                                return await _objectDetector.DetectTaskAsync(m, ct);
                             });
-                        }
 
-                        Imgproc.cvtColor(_bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
-
-                        if (_latestDetectedObjects != null)
+                        if (_inferenceRunner.TryGetLatestResult(out Mat detectedObjects))
                         {
-                            _objectDetector.Visualize(rgbaMat, _latestDetectedObjects, false, true);
-                        }
-                    }
-                    else
-                    {
-                        // synchronous execution
-
-                        // TickMeter tm = new TickMeter();
-                        // tm.start();
-
-                        // Object detector inference
-                        using (Mat objects = _objectDetector.Detect(_bgrMat))
-                        {
-                            // tm.stop();
-                            // Debug.Log("DAMOYOLOObjectDetector Inference time, ms: " + tm.getTimeMilli());
-
-                            Imgproc.cvtColor(_bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
-
-                            _objectDetector.Visualize(rgbaMat, objects, false, true);
+                            _objectDetector.Visualize(rgbaMat, detectedObjects, false, true);
                         }
                     }
                 }
@@ -283,14 +263,11 @@ namespace OpenCVForUnityExample
             }
         }
 
-        /// <summary>
-        /// Raises the destroy event.
-        /// </summary>
-        private void OnDestroy()
+        private async void OnDestroy()
         {
             _multiSource2MatHelper?.Dispose();
 
-            _objectDetector?.Dispose();
+            await DisposeInferenceAsync();
 
             OpenCVDebug.SetDebugMode(false);
 
@@ -338,47 +315,297 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
+        /// Invoke from <c>UseSentisInferenceToggle</c> On Value Changed. Switches the inference backend.
+        /// No-op when <c>OPENCV_SENTIS_AVAILABLE</c> is not defined.
+        /// </summary>
+        public async void OnUseSentisInferenceToggleValueChanged()
+        {
+#if !OPENCV_SENTIS_AVAILABLE
+            await Task.CompletedTask;
+            return;
+#else
+            if (UseSentisInferenceToggle == null || _inferenceReinitializing)
+                return;
+
+            bool newSentis = UseSentisInferenceToggle.isOn;
+            if (newSentis == UseSentisInference)
+                return;
+
+            _inferenceReinitializing = true;
+            UpdateInferenceModeToggles(inferenceReinitializing: true);
+
+            await DisposeInferenceAsync();
+
+            UseSentisInference = newSentis;
+            UpdateUseAsyncInference();
+
+            InitializeInference();
+
+            UpdateFpsMonitorInferenceInfo(_fpsMonitor, _objectDetector, UseAsyncInference);
+
+            _inferenceReinitializing = false;
+            UpdateInferenceModeToggles(inferenceReinitializing: false);
+#endif
+        }
+
+        /// <summary>
+        /// Invoke from <c>SentisBackendDropdown</c> On Value Changed. Switches Sentis backend type and reinitializes inference.
+        /// No-op when <c>OPENCV_SENTIS_AVAILABLE</c> is not defined.
+        /// </summary>
+        public async void OnSentisBackendDropdownValueChanged(int index)
+        {
+#if !OPENCV_SENTIS_AVAILABLE
+            await Task.CompletedTask;
+            return;
+#else
+            if (SentisBackendDropdown == null || _inferenceReinitializing)
+                return;
+
+            int n = SentisBackendTypesInEnumOrder.Length;
+            if (n == 0)
+                return;
+            int maxIdx = Mathf.Min(SentisBackendDropdown.options.Count, n) - 1;
+            if (maxIdx < 0)
+                return;
+            BackendType newBackend = SentisBackendTypesInEnumOrder[Mathf.Clamp(index, 0, maxIdx)];
+            if (newBackend == DamoSentisBackendType)
+                return;
+
+            _inferenceReinitializing = true;
+            UpdateInferenceModeToggles(inferenceReinitializing: true);
+
+            await DisposeInferenceAsync();
+
+            DamoSentisBackendType = newBackend;
+            UpdateUseSentisInference();
+            UpdateUseAsyncInference();
+
+            InitializeInference();
+
+            UpdateFpsMonitorInferenceInfo(_fpsMonitor, _objectDetector, UseAsyncInference);
+
+            _inferenceReinitializing = false;
+            UpdateInferenceModeToggles(inferenceReinitializing: false);
+#endif
+        }
+
+        /// <summary>
         /// Raises the use async inference toggle value changed event.
         /// </summary>
         public void OnUseAsyncInferenceToggleValueChanged()
         {
+            if (_inferenceReinitializing)
+                return;
+            if (UseAsyncInferenceToggle == null)
+                return;
             if (UseAsyncInferenceToggle.isOn != UseAsyncInference)
             {
-                // Wait for inference to complete before changing the toggle
-                if (_inferenceTask != null && !_inferenceTask.IsCompleted) _inferenceTask.Wait(500);
-
+                if (_inferenceRunner != null)
+                    _inferenceRunner.UseAsyncWork = UseAsyncInferenceToggle.isOn;
                 UseAsyncInference = UseAsyncInferenceToggle.isOn;
+                UpdateFpsMonitorInferenceInfo(_fpsMonitor, _objectDetector, UseAsyncInference);
             }
         }
 
         // Private Methods
-        private void RunOnMainThread(Action action)
+        /// <summary>
+        /// Updates async inference and (when <c>OPENCV_SENTIS_AVAILABLE</c>) Sentis toggle interactability and visible state to match
+        /// the current <see cref="UseAsyncInference"/> / <see cref="UseSentisInference"/> (UI only; call
+        /// <see cref="UpdateUseAsyncInference"/> first so field values are up to date).
+        /// When <c>OPENCV_SENTIS_AVAILABLE</c> and not re-initializing, also calls <see cref="UpdateSentisBackendDropdown"/>, keeps the Sentis inference toggle interactive, and sets the backend dropdown interactability from <see cref="UseSentisInference"/>.
+        /// </summary>
+        /// <param name="inferenceReinitializing">
+        /// When <see langword="true"/>, inference is re-initializing: Sentis and async inference controls are disabled.
+        /// When <see langword="false"/> after completion (or at startup), normal enable/disable and visible state sync apply.
+        /// </param>
+        private void UpdateInferenceModeToggles(bool inferenceReinitializing)
         {
-            if (action == null) return;
-
-            lock (_queueLock)
+            if (inferenceReinitializing)
             {
-                _mainThreadQueue.Enqueue(action);
+                if (UseSentisInferenceToggle != null)
+                    UseSentisInferenceToggle.interactable = false;
+                if (SentisBackendDropdown != null)
+                    SentisBackendDropdown.interactable = false;
+                if (UseAsyncInferenceToggle != null)
+                    UseAsyncInferenceToggle.interactable = false;
+                return;
             }
+
+            if (UseAsyncInferenceToggle != null)
+            {
+                UseAsyncInferenceToggle.SetIsOnWithoutNotify(UseAsyncInference);
+                UseAsyncInferenceToggle.interactable = true;
+            }
+#if OPENCV_SENTIS_AVAILABLE
+            if (UseSentisInferenceToggle != null)
+            {
+                UseSentisInferenceToggle.SetIsOnWithoutNotify(UseSentisInference);
+                UseSentisInferenceToggle.interactable = true;
+            }
+            if (SentisBackendDropdown != null)
+                SentisBackendDropdown.interactable = UseSentisInference;
+            UpdateSentisBackendDropdown();
+#else
+            if (UseSentisInferenceToggle != null)
+            {
+                UseSentisInferenceToggle.SetIsOnWithoutNotify(false);
+                UseSentisInferenceToggle.interactable = false;
+            }
+            if (SentisBackendDropdown != null)
+                SentisBackendDropdown.interactable = false;
+#endif
         }
 
-        private void ProcessMainThreadQueue()
+#if OPENCV_SENTIS_AVAILABLE
+        /// <summary>
+        /// Aligns the dropdown with <see cref="DamoSentisBackendType"/> without raising change events. Option order must match <see cref="SentisBackendTypesInEnumOrder"/>.
+        /// </summary>
+        private void UpdateSentisBackendDropdown()
         {
-            while (true)
-            {
-                Action action = null;
-                lock (_queueLock)
-                {
-                    if (_mainThreadQueue.Count == 0)
-                        break;
+            if (SentisBackendDropdown == null || SentisBackendDropdown.options.Count == 0)
+                return;
+            if (SentisBackendTypesInEnumOrder.Length == 0)
+                return;
+            int idx = Array.IndexOf(SentisBackendTypesInEnumOrder, DamoSentisBackendType);
+            if (idx < 0)
+                idx = 0;
+            int maxIdx = Mathf.Min(SentisBackendDropdown.options.Count, SentisBackendTypesInEnumOrder.Length) - 1;
+            SentisBackendDropdown.SetValueWithoutNotify(Mathf.Clamp(idx, 0, maxIdx));
+        }
+#endif
 
-                    action = _mainThreadQueue.Dequeue();
+        /// <summary>
+        /// When <c>OPENCV_SENTIS_AVAILABLE</c>, if <see cref="SystemInfo.supportsComputeShaders"/> is <see langword="false"/> and
+        /// <see cref="DamoSentisBackendType"/> is <see cref="BackendType.GPUCompute"/>, sets <see cref="DamoSentisBackendType"/> to <see cref="BackendType.GPUPixel"/>.
+        /// </summary>
+        private void UpdateUseSentisInference()
+        {
+#if OPENCV_SENTIS_AVAILABLE
+            if (!SystemInfo.supportsComputeShaders && DamoSentisBackendType == BackendType.GPUCompute)
+                DamoSentisBackendType = BackendType.GPUPixel;
+#endif
+        }
+
+        /// <summary>
+        /// Reserved hook for synchronizing <see cref="UseAsyncInference"/> with platform capabilities.
+        /// Does not modify <see cref="UseAsyncInference"/> in this example.
+        /// </summary>
+        private void UpdateUseAsyncInference()
+        {
+        }
+
+        /// <summary>
+        /// Disposes the inference runner and <see cref="DAMOYOLOObjectDetector"/> asynchronously (used from <see cref="OnDestroy"/> and when switching backends).
+        /// </summary>
+        private async Task DisposeInferenceAsync()
+        {
+            if (_inferenceRunner != null)
+                await _inferenceRunner.DisposeAsync();
+            _inferenceRunner = null;
+
+            _objectDetector?.Dispose();
+            _objectDetector = null;
+        }
+
+        /// <summary>
+        /// Initializes inference from the resolved model path and current backend settings (Sentis asset path when using Sentis; otherwise ONNX).
+        /// </summary>
+        private void InitializeInference()
+        {
+            string modelPath = _modelFilepathOnnx;
+#if OPENCV_SENTIS_AVAILABLE
+            if (UseSentisInference)
+                modelPath = _modelFilepathSentis;
+#endif
+            if (string.IsNullOrEmpty(modelPath))
+            {
+                Debug.LogError("model: " + Model + " or " + "classes: " + Classes + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                if (_fpsMonitor != null)
+                {
+                    _fpsMonitor.Toast("model file is not loaded.\nPlease read console message.", 20000);
+                }
+                return;
+            }
+
+            try
+            {
+#if OPENCV_SENTIS_AVAILABLE
+                if (UseSentisInference)
+                {
+                    _objectDetector = new DAMOYOLOObjectDetector(
+                        modelPath,
+                        _classesFilepath,
+                        new Size(InpWidth, InpHeight),
+                        ConfThreshold,
+                        NmsThreshold,
+                        TopK,
+                        MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS,
+                        (int)DamoSentisBackendType);
+                    Debug.Log("DAMOYOLOObjectDetector initialized (Sentis / DNN_BACKEND_UNITY_SENTIS, backend=" + DamoSentisBackendType + ").");
+                }
+                else
+#endif
+                {
+                    _objectDetector = new DAMOYOLOObjectDetector(modelPath, _classesFilepath, new Size(InpWidth, InpHeight), ConfThreshold, NmsThreshold, TopK);
+                    Debug.Log("DAMOYOLOObjectDetector initialized (OpenCV DNN).");
                 }
 
-                try { action?.Invoke(); }
-                catch (Exception ex) { Debug.LogException(ex); }
+                _inferenceRunner = new MatSingleFlightSyncAsyncRunner(
+                    useAsyncWork: UseAsyncInference,
+                    asyncWorkCancellationToken: _cts.Token,
+                    disposeAsyncAfterWorkTask: async () =>
+                    {
+                        await _objectDetector.WaitForCompletionTaskAsync();
+                    });
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning("ObjectDetectionDAMOYOLOExample InitializeInference failed: " + ex);
             }
         }
+
+        /// <summary>
+        /// Updates <paramref name="fpsMonitor"/> with dnn backend, target, and async mode from
+        /// <paramref name="worker"/> and <paramref name="useAsyncInference"/> (or "-" when a value is not available).
+        /// </summary>
+        private static void UpdateFpsMonitorInferenceInfo(FpsMonitor fpsMonitor, DnnInferenceWorkerBase worker, bool useAsyncInference)
+        {
+            if (fpsMonitor == null)
+                return;
+
+            if (worker != null)
+            {
+                int be = worker.DnnBackend;
+                int tgt = worker.DnnTarget;
+                fpsMonitor.Add("dnnBackend", MultiBackendDnn.GetBackendDisplayString(be));
+                fpsMonitor.Add("dnnTarget", MultiBackendDnn.GetTargetDisplayString(tgt));
+            }
+            else
+            {
+                fpsMonitor.Add("dnnBackend", "-");
+                fpsMonitor.Add("dnnTarget", "-");
+            }
+
+            string useAsyncText = worker != null
+                ? useAsyncInference.ToString()
+                : "-";
+            fpsMonitor.Add("useAsyncInference", useAsyncText);
+        }
+
+#if OPENCV_SENTIS_AVAILABLE
+        /// <summary>
+        /// When using Sentis: if the StreamingAssets-relative path ends with <c>.onnx</c>, replace it with <c>.sentis</c>.
+        /// </summary>
+        private static string StreamingAssetPathOnnxToSentisIfNeeded(string streamingAssetsRelativePath)
+        {
+            if (string.IsNullOrEmpty(streamingAssetsRelativePath))
+                return streamingAssetsRelativePath;
+            if (!streamingAssetsRelativePath.EndsWith(".onnx", StringComparison.OrdinalIgnoreCase))
+                return streamingAssetsRelativePath;
+            return Path.ChangeExtension(streamingAssetsRelativePath, ".sentis");
+        }
+
+#endif
     }
 }
 

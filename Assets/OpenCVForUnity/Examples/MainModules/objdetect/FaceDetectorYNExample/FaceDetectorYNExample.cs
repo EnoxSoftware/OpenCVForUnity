@@ -152,6 +152,8 @@ namespace OpenCVForUnityExample
             if (string.IsNullOrEmpty(fd_modelPath))
             {
                 Debug.LogError(MODEL_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("model file is not loaded.\nPlease read console message.", 20000);
             }
             else
             {
@@ -168,29 +170,23 @@ namespace OpenCVForUnityExample
 
                 Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-                if (_faceDetector == null)
+                if (_faceDetector != null)
                 {
-                    Imgproc.putText(rgbaMat, "model file is not loaded.", new Point(5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    Imgproc.putText(rgbaMat, "Please read console message.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                    Imgproc.cvtColor(rgbaMat, _bgrMat, Imgproc.COLOR_RGBA2BGR);
 
-                    OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
-                    return;
-                }
+                    FaceDetection5LandmarkData[] detections = Detect(_bgrMat);
 
-                Imgproc.cvtColor(rgbaMat, _bgrMat, Imgproc.COLOR_RGBA2BGR);
-
-                FaceDetection5LandmarkData[] detections = Detect(_bgrMat);
-
-                for (int i = 0; i < detections.Length; i++)
-                {
-                    ref readonly var d = ref detections[i];
-                    if (ApplyFaceBlurringToggle.isOn)
+                    for (int i = 0; i < detections.Length; i++)
                     {
-                        BlurDetection(d, rgbaMat);
-                    }
-                    else
-                    {
-                        DrawDetection(d, rgbaMat);
+                        ref readonly var d = ref detections[i];
+                        if (ApplyFaceBlurringToggle.isOn)
+                        {
+                            BlurDetection(d, rgbaMat);
+                        }
+                        else
+                        {
+                            DrawDetection(d, rgbaMat);
+                        }
                     }
                 }
 

@@ -106,8 +106,10 @@ namespace OpenCVForUnityExample
             if (string.IsNullOrEmpty(_image0Filepath) || string.IsNullOrEmpty(_image1Filepath))
             {
                 Debug.LogError(IMAGE_0_FILENAME + " or " + IMAGE_1_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("image file is not loaded.\nPlease read console message.", 20000);
+                return;
             }
-
 
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             OpenCVDebug.SetDebugMode(true);
@@ -195,8 +197,10 @@ namespace OpenCVForUnityExample
             if (string.IsNullOrEmpty(_image0Filepath) || string.IsNullOrEmpty(_image1Filepath))
             {
                 Debug.LogError(IMAGE_0_FILENAME + " or " + IMAGE_1_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("image file is not loaded.\nPlease read console message.", 20000);
+                return;
             }
-
 
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             OpenCVDebug.SetDebugMode(true);

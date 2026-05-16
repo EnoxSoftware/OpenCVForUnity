@@ -228,6 +228,8 @@ namespace OpenCVForUnityExample
             if (!_capture.isOpened())
             {
                 Debug.LogError(VIDEO_FILENAME + " is not opened. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("video file is not opened.\nPlease read console message.", 20000);
             }
 
             Debug.Log("CAP_PROP_FORMAT: " + _capture.get(Videoio.CAP_PROP_FORMAT));

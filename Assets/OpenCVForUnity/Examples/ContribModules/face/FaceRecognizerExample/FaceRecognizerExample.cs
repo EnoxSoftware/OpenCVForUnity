@@ -114,18 +114,35 @@ namespace OpenCVForUnityExample
             if (string.IsNullOrEmpty(_image0Filepath) || string.IsNullOrEmpty(_image1Filepath) || string.IsNullOrEmpty(_sampleImageFilepath))
             {
                 Debug.LogError(IMAGE_0_FILENAME + " or " + IMAGE_1_FILENAME + " or " + SAMPLE_IMAGE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("image file is not loaded.\nPlease read console message.", 20000);
+                return;
+            }
+
+            Mat image0Mat = Imgcodecs.imread(_image0Filepath, Imgcodecs.IMREAD_GRAYSCALE);
+            Mat image1Mat = Imgcodecs.imread(_image1Filepath, Imgcodecs.IMREAD_GRAYSCALE);
+            Mat testSampleMat = Imgcodecs.imread(_sampleImageFilepath, Imgcodecs.IMREAD_GRAYSCALE);
+
+            if (image0Mat.empty() || image1Mat.empty() || testSampleMat.empty())
+            {
+                Debug.LogError(IMAGE_0_FILENAME + " or " + IMAGE_1_FILENAME + " or " + SAMPLE_IMAGE_FILENAME + " could not be read or is empty. Please move valid image files from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("image file is not loaded.\nPlease read console message.", 20000);
+                image0Mat.Dispose();
+                image1Mat.Dispose();
+                testSampleMat.Dispose();
+                return;
             }
 
             List<Mat> images = new List<Mat>();
             List<int> labelsList = new List<int>();
             MatOfInt labels = new MatOfInt();
-            images.Add(Imgcodecs.imread(_image0Filepath, Imgcodecs.IMREAD_GRAYSCALE));
-            images.Add(Imgcodecs.imread(_image1Filepath, Imgcodecs.IMREAD_GRAYSCALE));
+            images.Add(image0Mat);
+            images.Add(image1Mat);
             labelsList.Add(0);
             labelsList.Add(1);
             labels.fromList(labelsList);
 
-            Mat testSampleMat = Imgcodecs.imread(_sampleImageFilepath, Imgcodecs.IMREAD_GRAYSCALE);
             int testSampleLabel = 0;
 
 
@@ -173,6 +190,11 @@ namespace OpenCVForUnityExample
 
             ResultPreview.texture = texture;
             ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
+
+            image0Mat.Dispose();
+            image1Mat.Dispose();
+            testSampleMat.Dispose();
+            resultMat.Dispose();
         }
     }
 }

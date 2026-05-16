@@ -9,14 +9,10 @@ using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
 using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
-using static OpenCVForUnity.UnityIntegration.Helper.Source2Mat.MultiSource2MatHelper;
 using UnityEngine.SceneManagement;
-#if ENABLE_INPUT_SYSTEM
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.EnhancedTouch;
-#endif
+using UnityEngine.UI;
+using static OpenCVForUnity.UnityIntegration.Helper.Source2Mat.MultiSource2MatHelper;
 using Rect = OpenCVForUnity.CoreModule.Rect;
 
 namespace OpenCVForUnityExample
@@ -56,6 +52,20 @@ namespace OpenCVForUnityExample
         /// </summary>
         protected static readonly string VIDEO_FILENAME = "OpenCVForUnityExamples/768x576_mjpeg.mjpeg";
 
+        // Public Fields
+        [Header("Output")]
+        /// <summary>
+        /// The RawImage for previewing the result.
+        /// </summary>
+        public RawImage ResultPreview;
+
+        [Space(10)]
+        [Header("UI")]
+        /// <summary>
+        /// The texture rectangle selector component.
+        /// </summary>
+        public TextureSelector TextureRectangleSelector;
+
         // Private Fields
         /// <summary>
         /// The net filepath.
@@ -88,14 +98,14 @@ namespace OpenCVForUnityExample
         private Scalar _trackingColor = new Scalar(255, 255, 0);
 
         /// <summary>
-        /// The selected point list.
+        /// The flag for requesting tracker initialization after rectangle selection completes.
         /// </summary>
-        private List<Point> _selectedPointList;
+        private bool _shouldStartTrackerInitialization = false;
 
         /// <summary>
-        /// The stored touch point.
+        /// The flag indicating that tracking has started.
         /// </summary>
-        private Point _storedTouchPoint;
+        private bool _isTrackingStarted = false;
 
         /// <summary>
         /// The multi source to mat helper.
@@ -149,6 +159,10 @@ namespace OpenCVForUnityExample
             if (string.IsNullOrEmpty(_netFilepath) || string.IsNullOrEmpty(_kernelR1Filepath) || string.IsNullOrEmpty(_kernelCls1Filepath))
             {
                 Debug.LogError(NET_FILENAME + " or " + KERNEL_R1_FILENAME + " or " + KERNEL_CLS1_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                if (_fpsMonitor != null)
+                {
+                    _fpsMonitor.Toast("model file is not loaded.\nPlease read console message.", 20000);
+                }
             }
             else
             {
@@ -174,101 +188,43 @@ namespace OpenCVForUnityExample
                 {
                     Mat rgbMat = _multiSource2MatHelper.GetMat();
 
-                    Imgproc.putText(rgbMat, "model file is not loaded.", new Point(5, rgbMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    Imgproc.putText(rgbMat, "Please read console message.", new Point(5, rgbMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-
                     OpenCVMatUtils.MatToTexture2D(rgbMat, _texture);
                 }
                 return;
             }
 
-#if ENABLE_INPUT_SYSTEM
-#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-            // Touch input for mobile platforms
-            if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
-            {
-                foreach (var touch in UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches)
-                {
-                    if (touch.phase == UnityEngine.InputSystem.TouchPhase.Ended)
-                    {
-                        if (!EventSystem.current.IsPointerOverGameObject(touch.finger.index))
-                        {
-                            _storedTouchPoint = new Point(touch.screenPosition.x, touch.screenPosition.y);
-                        }
-                    }
-                }
-            }
-#else
-            // Mouse input for non-mobile platforms
-            var mouse = Mouse.current;
-            if (mouse != null && mouse.leftButton.wasReleasedThisFrame)
-            {
-                if (!EventSystem.current.IsPointerOverGameObject())
-                {
-                    _storedTouchPoint = new Point(mouse.position.ReadValue().x, mouse.position.ReadValue().y);
-                }
-            }
-#endif
-#else
-#if ((UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR)
-            //Touch
-            int touchCount = Input.touchCount;
-            if (touchCount == 1)
-            {
-                Touch t = Input.GetTouch(0);
-                if(t.phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject(t.fingerId)) {
-                    _storedTouchPoint = new Point(t.position.x, t.position.y);
-                }
-            }
-#else
-            //Mouse
-            if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
-            {
-                _storedTouchPoint = new Point(Input.mousePosition.x, Input.mousePosition.y);
-            }
-#endif
-#endif
-
-            if (_selectedPointList.Count != 1)
+            if (!_isTrackingStarted)
             {
                 if (_multiSource2MatHelper.IsPaused())
-                    _multiSource2MatHelper.Play();
-
-                if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
                 {
                     Mat rgbMat = _multiSource2MatHelper.GetMat();
 
-                    if (_storedTouchPoint != null)
+                    if (_shouldStartTrackerInitialization)
                     {
-                        ConvertScreenPointToTexturePoint(_storedTouchPoint, _storedTouchPoint, gameObject, _texture.width, _texture.height);
-                        OnTouch(_storedTouchPoint, _texture.width, _texture.height);
-                        _storedTouchPoint = null;
-                    }
-
-                    if (_selectedPointList.Count == 1)
-                    {
-                        foreach (var point in _selectedPointList)
+                        var (_, _, currentSelectionPoints) = TextureRectangleSelector.GetSelectionStatus();
+                        Rect selectedRegion = TextureSelector.ConvertSelectionPointsToOpenCVRect(currentSelectionPoints);
+                        InitializeTrackerWithRegion(rgbMat, selectedRegion);
+                        if (_isTrackingStarted)
                         {
-                            Imgproc.circle(rgbMat, point, 6, new Scalar(0, 0, 255), 2);
+                            Debug.Log("Tracker initialization completed");
                         }
                     }
-                    else if (_selectedPointList.Count == 2)
-                    {
-                        using (Mat selectedPointMat = new MatOfPoint(_selectedPointList.ToArray()))
-                        {
-                            Rect region = Imgproc.boundingRect(selectedPointMat);
-                            try
-                            {
-                                _tracker.Init(rgbMat, ConvertToCenterRef(region));
-                            }
-                            catch (Exception e)
-                            {
-                                Debug.Log(e);
-                            }
 
-                            _selectedPointList.Clear();
-                        }
-                    }
+                    TextureRectangleSelector.DrawSelection(rgbMat, true);
+
+                    OpenCVMatUtils.MatToTexture2D(rgbMat, _texture);
+                }
+                else if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
+                {
+                    Mat rgbMat = _multiSource2MatHelper.GetMat();
+                    OpenCVMatUtils.MatToTexture2D(rgbMat, _texture);
+                }
+            }
+            else
+            {
+                if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
+                {
+                    Mat rgbMat = _multiSource2MatHelper.GetMat();
 
                     if (_tracker.IsInitialized)
                     {
@@ -276,61 +232,24 @@ namespace OpenCVForUnityExample
 
                         if (_tracker.Score > 0.5)
                         {
-                            // draw tracked objects regions.
                             Imgproc.rectangle(rgbMat, ConvertToTopLeftRef(new_region), _trackingColor, 2, 1, 0);
                         }
                         else
                         {
                             _tracker.Reset();
-                        }
-                    }
-
-                    if (_selectedPointList.Count != 1)
-                    {
-                        //Imgproc.putText (rgbMat, "Please touch the screen, and select tracking regions.", new Point (5, rgbMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                        if (_fpsMonitor != null)
-                        {
-                            _fpsMonitor.ConsoleText = "Please touch the screen, and select tracking regions.";
-                        }
-                    }
-                    else
-                    {
-                        //Imgproc.putText (rgbMat, "Please select the end point of the new tracking region.", new Point (5, rgbMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                        if (_fpsMonitor != null)
-                        {
-                            _fpsMonitor.ConsoleText = "Please select the end point of the new tracking region.";
+                            _isTrackingStarted = false;
+                            TextureRectangleSelector.enabled = true;
+                            TextureRectangleSelector.ResetSelectionStatus();
+                            if (_fpsMonitor != null)
+                            {
+                                _fpsMonitor.ConsoleText = "Please select a rectangle region to start tracking.";
+                            }
                         }
                     }
 
                     OpenCVMatUtils.MatToTexture2D(rgbMat, _texture);
                 }
             }
-            else
-            {
-                if (!_multiSource2MatHelper.IsPaused())
-                    _multiSource2MatHelper.Pause();
-
-                if (_storedTouchPoint != null)
-                {
-                    ConvertScreenPointToTexturePoint(_storedTouchPoint, _storedTouchPoint, gameObject, _texture.width, _texture.height);
-                    OnTouch(_storedTouchPoint, _texture.width, _texture.height);
-                    _storedTouchPoint = null;
-                }
-            }
-        }
-
-        private void OnEnable()
-        {
-#if ENABLE_INPUT_SYSTEM
-            EnhancedTouchSupport.Enable();
-#endif
-        }
-
-        private void OnDisable()
-        {
-#if ENABLE_INPUT_SYSTEM
-            EnhancedTouchSupport.Disable();
-#endif
         }
 
         private void OnDestroy()
@@ -357,29 +276,23 @@ namespace OpenCVForUnityExample
             _texture = new Texture2D(rgbMat.cols(), rgbMat.rows(), TextureFormat.RGB24, false);
             OpenCVMatUtils.MatToTexture2D(rgbMat, _texture);
 
-            // Set the Texture2D as the main texture of the Renderer component attached to the game object
-            gameObject.GetComponent<Renderer>().material.mainTexture = _texture;
+            ResultPreview.texture = _texture;
+            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
 
-            // Adjust the scale of the game object to match the dimensions of the texture
-            gameObject.transform.localScale = new Vector3(rgbMat.cols(), rgbMat.rows(), 1);
-            Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
-
-            // Adjust the orthographic size of the main Camera to fit the aspect ratio of the image
-            float width = rgbMat.width();
-            float height = rgbMat.height();
-            float widthScale = (float)Screen.width / width;
-            float heightScale = (float)Screen.height / height;
-            if (widthScale < heightScale)
+            if (_fpsMonitor != null)
             {
-                Camera.main.orthographicSize = (width * (float)Screen.height / (float)Screen.width) / 2;
-            }
-            else
-            {
-                Camera.main.orthographicSize = height / 2;
+                _fpsMonitor.Add("width", rgbMat.width().ToString());
+                _fpsMonitor.Add("height", rgbMat.height().ToString());
+                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                UpdateFpsMonitorInferenceInfo(_fpsMonitor, _tracker);
+                _fpsMonitor.ConsoleText = "Please select a rectangle region to start tracking.";
             }
 
+            _isTrackingStarted = false;
+            _shouldStartTrackerInitialization = false;
 
-            _selectedPointList = new List<Point>();
+            TextureRectangleSelector.enabled = true;
+            TextureRectangleSelector.ResetSelectionStatus();
         }
 
         /// <summary>
@@ -390,6 +303,9 @@ namespace OpenCVForUnityExample
             Debug.Log("OnSourceToMatHelperDisposed");
 
             if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
+
+            _isTrackingStarted = false;
+            _shouldStartTrackerInitialization = false;
         }
 
         /// <summary>
@@ -420,75 +336,81 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnResetTrackerButtonClick()
         {
-            _tracker.Reset();
-            _selectedPointList.Clear();
-        }
+            if (_tracker != null)
+                _tracker.Reset();
 
-        private void OnTouch(Point touchPoint, int textureWidth = -1, int textureHeight = -1)
-        {
-            if (_selectedPointList.Count < 2)
+            _isTrackingStarted = false;
+            _shouldStartTrackerInitialization = false;
+
+            TextureRectangleSelector.enabled = true;
+            TextureRectangleSelector.ResetSelectionStatus();
+
+            if (_fpsMonitor != null)
             {
-                _selectedPointList.Add(touchPoint);
-                if (!new Rect(0, 0, textureWidth, textureHeight).contains(_selectedPointList[_selectedPointList.Count - 1]))
-                {
-                    _selectedPointList.RemoveAt(_selectedPointList.Count - 1);
-                }
+                _fpsMonitor.ConsoleText = "Please select a rectangle region to start tracking.";
             }
         }
 
         /// <summary>
-        /// Converts the screen point to texture point.
+        /// Called from TextureSelector OnTextureSelectionStateChanged (wire in the Inspector).
         /// </summary>
-        /// <param name="screenPoint">Screen point.</param>
-        /// <param name="dstPoint">Dst point.</param>
-        /// <param name="texturQuad">Texture quad.</param>
-        /// <param name="textureWidth">Texture width.</param>
-        /// <param name="textureHeight">Texture height.</param>
-        /// <param name="camera">Camera.</param>
-        private void ConvertScreenPointToTexturePoint(Point screenPoint, Point dstPoint, GameObject textureQuad, int textureWidth = -1, int textureHeight = -1, Camera camera = null)
+        /// <param name="touchedObject">Touched GameObject.</param>
+        /// <param name="touchState">Selection state.</param>
+        /// <param name="texturePoints">Texture coordinates (OpenCV style: origin top-left).</param>
+        public void OnTextureSelectionStateChanged(GameObject touchedObject, TextureSelector.TextureSelectionState touchState, Vector2[] texturePoints)
         {
-            if (textureWidth < 0 || textureHeight < 0)
+            if (!_isTrackingStarted)
             {
-                Renderer r = textureQuad.GetComponent<Renderer>();
-                if (r != null && r.material != null && r.material.mainTexture != null)
+                switch (touchState)
                 {
-                    textureWidth = r.material.mainTexture.width;
-                    textureHeight = r.material.mainTexture.height;
+                    case TextureSelector.TextureSelectionState.RECTANGLE_SELECTION_STARTED:
+                        _multiSource2MatHelper.Pause();
+                        break;
+
+                    case TextureSelector.TextureSelectionState.RECTANGLE_SELECTION_CANCELLED:
+                        _multiSource2MatHelper.Play();
+                        break;
+
+                    case TextureSelector.TextureSelectionState.RECTANGLE_SELECTION_COMPLETED:
+                        _shouldStartTrackerInitialization = true;
+                        break;
                 }
-                else
+            }
+        }
+
+        private void InitializeTrackerWithRegion(Mat rgbMat, Rect region)
+        {
+            if (!_multiSource2MatHelper.IsInitialized() || rgbMat == null || _tracker == null)
+            {
+                _shouldStartTrackerInitialization = false;
+                return;
+            }
+
+            try
+            {
+                _tracker.Init(rgbMat, ConvertToCenterRef(region));
+                _isTrackingStarted = true;
+                TextureRectangleSelector.enabled = false;
+                _multiSource2MatHelper.Play();
+
+                if (_fpsMonitor != null)
                 {
-                    textureWidth = (int)textureQuad.transform.localScale.x;
-                    textureHeight = (int)textureQuad.transform.localScale.y;
+                    _fpsMonitor.ConsoleText = "";
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                _multiSource2MatHelper.Play();
+                TextureRectangleSelector.enabled = true;
+                TextureRectangleSelector.ResetSelectionStatus();
+                if (_fpsMonitor != null)
+                {
+                    _fpsMonitor.ConsoleText = "Tracker init failed. Please select a larger region.";
                 }
             }
 
-            if (camera == null)
-                camera = Camera.main;
-
-            Vector3 quadPosition = textureQuad.transform.localPosition;
-            Vector3 quadScale = textureQuad.transform.localScale;
-
-            Vector2 tl = camera.WorldToScreenPoint(new Vector3(quadPosition.x - quadScale.x / 2, quadPosition.y + quadScale.y / 2, quadPosition.z));
-            Vector2 tr = camera.WorldToScreenPoint(new Vector3(quadPosition.x + quadScale.x / 2, quadPosition.y + quadScale.y / 2, quadPosition.z));
-            Vector2 br = camera.WorldToScreenPoint(new Vector3(quadPosition.x + quadScale.x / 2, quadPosition.y - quadScale.y / 2, quadPosition.z));
-            Vector2 bl = camera.WorldToScreenPoint(new Vector3(quadPosition.x - quadScale.x / 2, quadPosition.y - quadScale.y / 2, quadPosition.z));
-
-            using (Mat srcRectMat = new Mat(4, 1, CvType.CV_32FC2))
-            using (Mat dstRectMat = new Mat(4, 1, CvType.CV_32FC2))
-            {
-                srcRectMat.put(0, 0, tl.x, tl.y, tr.x, tr.y, br.x, br.y, bl.x, bl.y);
-                dstRectMat.put(0, 0, 0, 0, quadScale.x, 0, quadScale.x, quadScale.y, 0, quadScale.y);
-
-                using (Mat perspectiveTransform = Imgproc.getPerspectiveTransform(srcRectMat, dstRectMat))
-                using (MatOfPoint2f srcPointMat = new MatOfPoint2f(screenPoint))
-                using (MatOfPoint2f dstPointMat = new MatOfPoint2f())
-                {
-                    Core.perspectiveTransform(srcPointMat, dstPointMat, perspectiveTransform);
-
-                    dstPoint.x = dstPointMat.get(0, 0)[0] * textureWidth / quadScale.x;
-                    dstPoint.y = dstPointMat.get(0, 0)[1] * textureHeight / quadScale.y;
-                }
-            }
+            _shouldStartTrackerInitialization = false;
         }
 
         private Rect ConvertToCenterRef(Rect r)
@@ -499,6 +421,25 @@ namespace OpenCVForUnityExample
         private Rect ConvertToTopLeftRef(Rect r)
         {
             return new Rect(r.x - r.width / 2, r.y - r.height / 2, r.width, r.height);
+        }
+
+        private static void UpdateFpsMonitorInferenceInfo(FpsMonitor fpsMonitor, DaSiamRPNTracker tracker)
+        {
+            if (fpsMonitor == null)
+                return;
+
+            if (tracker != null)
+            {
+                // cv::dnn::Net: No PreferredBackend/PreferredTarget getters in the C# binding; treat as default OpenCV DNN inference.
+                fpsMonitor.Add("dnnBackend", "OPENCV");
+                fpsMonitor.Add("dnnTarget", "CPU");
+            }
+            else
+            {
+                fpsMonitor.Add("dnnBackend", "-");
+                fpsMonitor.Add("dnnTarget", "-");
+            }
+            fpsMonitor.Add("useAsyncInference", "False");
         }
     }
 

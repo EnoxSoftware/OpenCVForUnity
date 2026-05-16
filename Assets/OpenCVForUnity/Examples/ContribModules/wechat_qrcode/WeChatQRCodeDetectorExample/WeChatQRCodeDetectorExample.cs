@@ -167,12 +167,7 @@ namespace OpenCVForUnityExample
 
                 Imgproc.cvtColor(rgbaMat, _grayMat, Imgproc.COLOR_RGBA2GRAY);
 
-                if (_detector == null)
-                {
-                    Imgproc.putText(rgbaMat, "model file is not loaded.", new Point(5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    Imgproc.putText(rgbaMat, "Please read console message.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                }
-                else
+                if (_detector != null)
                 {
                     _decodedInfo = _detector.detectAndDecode(_grayMat, _points);
 
@@ -370,6 +365,8 @@ namespace OpenCVForUnityExample
                 {
                     Debug.LogError(DETECTPROTOTXT_FILENAME + " or " + DETECTMODEL_FILENAME + " or " +
                         SRPROTOTXT_FILENAME + " or " + SRMODEL_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                    if (_fpsMonitor != null)
+                        _fpsMonitor.Toast("model file is not loaded.\nPlease read console message.", 20000);
                     _detector = null;
                 }
                 else

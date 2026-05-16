@@ -145,22 +145,46 @@ namespace OpenCVForUnityExample
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             OpenCVDebug.SetDebugMode(true);
 
+            if (string.IsNullOrEmpty(_imageFilepath))
+            {
+                Debug.LogError(IMAGE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("image file is not loaded.\nPlease read console message.", 20000);
+                OpenCVDebug.SetDebugMode(false);
+                return;
+            }
 
             Mat frame = Imgcodecs.imread(_imageFilepath);
             if (frame.empty())
             {
                 Debug.LogError(IMAGE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("image file is not loaded.\nPlease read console message.", 20000);
+                frame.Dispose();
+                OpenCVDebug.SetDebugMode(false);
+                return;
             }
 
-            if (string.IsNullOrEmpty(_trainedClassifierNM1Filepath) || string.IsNullOrEmpty(_trainedClassifierNM2Filepath))
+            bool classifierMissing = string.IsNullOrEmpty(_trainedClassifierNM1Filepath) || string.IsNullOrEmpty(_trainedClassifierNM2Filepath);
+            bool ocrMissing = string.IsNullOrEmpty(_ocrmmTransitionsTableFilepath) || string.IsNullOrEmpty(_ocrmmKnnModelDataFilepath);
+            if (classifierMissing)
             {
                 Debug.LogError(TRAINED_CLASSIFIER_NM_1_FILENAME + " or " + TRAINED_CLASSIFIER_NM_2_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("trained classifier file is not loaded.\nPlease read console message.", 20000);
             }
-            if (string.IsNullOrEmpty(_ocrmmTransitionsTableFilepath) || string.IsNullOrEmpty(_ocrmmKnnModelDataFilepath))
+            if (ocrMissing)
             {
                 Debug.LogError(OCRHMM_TRANSITIONS_TABLE_FILENAME + " or " + OCRHMM_KNN_MODEL_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("OCR data file is not loaded.\nPlease read console message.", 20000);
             }
-
+            if (classifierMissing || ocrMissing)
+            {
+                frame.Dispose();
+                OpenCVDebug.SetDebugMode(false);
+                return;
+            }
 
             Mat binaryMat = new Mat();
             Mat maskMat = new Mat();
@@ -267,6 +291,7 @@ namespace OpenCVForUnityExample
             }
             binaryMat.Dispose();
             maskMat.Dispose();
+            frame.Dispose();
 
             OpenCVDebug.SetDebugMode(false);
         }

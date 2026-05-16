@@ -77,6 +77,8 @@ namespace OpenCVForUnityExample
             if (string.IsNullOrEmpty(cascade_frontalface_filepath))
             {
                 Debug.LogError(HAAR_CASCADE_FRONTALFACE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("cascade classifier file is not loaded.\nPlease read console message.", 20000);
             }
             else
             {
@@ -87,6 +89,8 @@ namespace OpenCVForUnityExample
             if (string.IsNullOrEmpty(cascade_eye_filepath))
             {
                 Debug.LogError(HAAR_CASCADE_EYE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("cascade classifier file is not loaded.\nPlease read console message.", 20000);
             }
             else
             {
@@ -132,9 +136,6 @@ namespace OpenCVForUnityExample
 
             if (_cascadeFrontalface == null || _cascadeEye == null)
             {
-                Imgproc.putText(imgMat, "model file is not loaded.", new Point(5, imgMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                Imgproc.putText(imgMat, "Please read console message.", new Point(5, imgMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-
                 Texture2D _texture = new Texture2D(imgMat.cols(), imgMat.rows(), TextureFormat.RGBA32, false);
                 OpenCVMatUtils.MatToTexture2D(imgMat, _texture);
                 gameObject.GetComponent<Renderer>().material.mainTexture = _texture;

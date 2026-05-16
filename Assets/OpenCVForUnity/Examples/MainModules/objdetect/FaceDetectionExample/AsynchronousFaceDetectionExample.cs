@@ -65,7 +65,9 @@ namespace OpenCVForUnityExample
 
         private static readonly (int, int, int, int) YELLOW_COLOR_TUPLE = (255, 255, 0, 255);
         private static readonly (int, int, int, int) GREEN_COLOR_TUPLE = (0, 255, 0, 255);
+#if UNITY_WEBGL
         private static readonly (int, int, int, int) WHITE_COLOR_TUPLE = (255, 255, 255, 255);
+#endif
 
         // Detection and tracking parameters
         private static readonly float COEFF_TRACKING_WINDOW_SIZE = 2.0f;                    // Multiplier for expanding tracking window size
@@ -157,27 +159,18 @@ namespace OpenCVForUnityExample
             {
                 Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-                if (_cascade == null)
+                if (_cascade != null)
                 {
-                    Imgproc.putText(rgbaMat, "model file is not loaded.",
-                                     (5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, WHITE_COLOR_TUPLE, 2, Imgproc.LINE_AA, false);
-                    Imgproc.putText(rgbaMat, "Please read console message.",
-                                     (5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, WHITE_COLOR_TUPLE, 2, Imgproc.LINE_AA, false);
-
-                    OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
-                    return;
-                }
-
-                Imgproc.cvtColor(rgbaMat, _grayMat, Imgproc.COLOR_RGBA2GRAY);
-                Imgproc.equalizeHist(_grayMat, _grayMat);
+                    Imgproc.cvtColor(rgbaMat, _grayMat, Imgproc.COLOR_RGBA2GRAY);
+                    Imgproc.equalizeHist(_grayMat, _grayMat);
 
 #if UNITY_WEBGL
-                // WebGL: Synchronous processing
-                if (!_shouldDetectInMultiThread)
-                {
-                    _grayMat.copyTo(_grayMat4Thread);
-                    _shouldDetectInMultiThread = true;
-                }
+                    // WebGL: Synchronous processing
+                    if (!_shouldDetectInMultiThread)
+                    {
+                        _grayMat.copyTo(_grayMat4Thread);
+                        _shouldDetectInMultiThread = true;
+                    }
 #else
                 // Queue detection for background processing
                 if (!_shouldDetect && !_isDetectionRunning)
@@ -188,16 +181,16 @@ namespace OpenCVForUnityExample
                 }
 #endif
 
-                Rect[] rects;
+                    Rect[] rects;
 
 #if UNITY_WEBGL
-                // WebGL: Check for detection results
-                if (_didUpdateTheDetectionResult)
-                {
-                    _didUpdateTheDetectionResult = false;
-                    //Debug.Log("get _rectsWhereRegions were got from resultDetect");
-                    _rectsWhereRegions = _detectionResult.toArray();
-                    _detectionResult.Dispose();
+                    // WebGL: Check for detection results
+                    if (_didUpdateTheDetectionResult)
+                    {
+                        _didUpdateTheDetectionResult = false;
+                        //Debug.Log("get _rectsWhereRegions were got from resultDetect");
+                        _rectsWhereRegions = _detectionResult.toArray();
+                        _detectionResult.Dispose();
 #else
                 // Check for new detection results
                 MatOfRect detectionResult = null;
@@ -218,57 +211,59 @@ namespace OpenCVForUnityExample
                     detectionResult.Dispose();
 #endif
 
-                    rects = _rectsWhereRegions;
-                    for (int i = 0; i < rects.Length; i++)
-                    {
-                        Imgproc.rectangle(rgbaMat, (rects[i].x, rects[i].y),
-                                             (rects[i].x + rects[i].width, rects[i].y + rects[i].height), YELLOW_COLOR_TUPLE, 1);
+                        rects = _rectsWhereRegions;
+                        for (int i = 0; i < rects.Length; i++)
+                        {
+                            Imgproc.rectangle(rgbaMat, (rects[i].x, rects[i].y),
+                                                 (rects[i].x + rects[i].width, rects[i].y + rects[i].height), YELLOW_COLOR_TUPLE, 1);
+                        }
                     }
-                }
-                else
-                {
-                    //Debug.Log("get _rectsWhereRegions from previous positions");
-
-                    // get current track info from BYTETracker
-                    BYTETrackInfo[] activeTracks = _byteTracker.GetActiveTrackInfos();
-                    _rectsWhereRegions = new Rect[activeTracks.Length];
-
-                    for (int i = 0; i < activeTracks.Length; i++)
+                    else
                     {
-                        BBox bbox = activeTracks[i].BBox;
-                        _rectsWhereRegions[i] = new Rect((int)bbox.X, (int)bbox.Y, (int)bbox.Width, (int)bbox.Height);
+                        //Debug.Log("get _rectsWhereRegions from previous positions");
+
+                        // get current track info from BYTETracker
+                        BYTETrackInfo[] activeTracks = _byteTracker.GetActiveTrackInfos();
+                        _rectsWhereRegions = new Rect[activeTracks.Length];
+
+                        for (int i = 0; i < activeTracks.Length; i++)
+                        {
+                            BBox bbox = activeTracks[i].BBox;
+                            _rectsWhereRegions[i] = new Rect((int)bbox.X, (int)bbox.Y, (int)bbox.Width, (int)bbox.Height);
+                        }
+
+                        rects = _rectsWhereRegions;
+                        for (int i = 0; i < rects.Length; i++)
+                        {
+                            Imgproc.rectangle(rgbaMat, (rects[i].x, rects[i].y),
+                                                 (rects[i].x + rects[i].width, rects[i].y + rects[i].height), GREEN_COLOR_TUPLE, 1);
+                        }
                     }
 
-                    rects = _rectsWhereRegions;
-                    for (int i = 0; i < rects.Length; i++)
+                    _detectedObjectsInRegions.Clear();
+                    if (_rectsWhereRegions.Length > 0)
                     {
-                        Imgproc.rectangle(rgbaMat, (rects[i].x, rects[i].y),
-                                             (rects[i].x + rects[i].width, rects[i].y + rects[i].height), GREEN_COLOR_TUPLE, 1);
+                        int len = _rectsWhereRegions.Length;
+                        for (int i = 0; i < len; i++)
+                        {
+                            DetectInRegion(_grayMat, _rectsWhereRegions[i], _detectedObjectsInRegions);
+                        }
                     }
-                }
 
-                _detectedObjectsInRegions.Clear();
-                if (_rectsWhereRegions.Length > 0)
-                {
-                    int len = _rectsWhereRegions.Length;
-                    for (int i = 0; i < len; i++)
-                    {
-                        DetectInRegion(_grayMat, _rectsWhereRegions[i], _detectedObjectsInRegions);
-                    }
-                }
+                    // update tracking info with BYTETracker
+                    BBox[] detections = ConvertToBBoxes(_detectedObjectsInRegions);
+                    _byteTracker.Update(detections);
 
-                // update tracking info with BYTETracker
-                BBox[] detections = ConvertToBBoxes(_detectedObjectsInRegions);
-                _byteTracker.Update(detections);
-
-                // visualize result
-                BYTETrackInfo[] trackInfos = _byteTracker.GetActiveTrackInfos();
-                _byteTrackInfoVisualizer.Visualize(rgbaMat, trackInfos, false, true);
+                    // visualize result
+                    BYTETrackInfo[] trackInfos = _byteTracker.GetActiveTrackInfos();
+                    _byteTrackInfoVisualizer.Visualize(rgbaMat, trackInfos, false, true);
 
 #if UNITY_WEBGL
-                Imgproc.putText(rgbaMat, "WebGL platform does not support multi-threading.",
-                                 (5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, WHITE_COLOR_TUPLE, 1, Imgproc.LINE_AA, false);
+                    Imgproc.putText(rgbaMat, "WebGL platform does not support multi-threading.",
+                                     (5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, WHITE_COLOR_TUPLE, 1, Imgproc.LINE_AA, false);
 #endif
+
+                }
 
                 OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
             }
@@ -333,6 +328,8 @@ namespace OpenCVForUnityExample
             if (string.IsNullOrEmpty(_lbpCascadeFilepath))
             {
                 Debug.LogError(LBP_CASCADE_FRONTALFACE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("cascade classifier file is not loaded.\nPlease read console message.", 20000);
             }
             else
             {
@@ -375,7 +372,7 @@ namespace OpenCVForUnityExample
             StopCoroutine("WebGLThreadWorker");
             _grayMat4Thread?.Dispose(); _grayMat4Thread = null;
             _cascade4Thread?.Dispose(); _cascade4Thread = null;
-            
+
             _grayMat?.Dispose(); _grayMat = null;
             _cascade?.Dispose(); _cascade = null;
 
@@ -691,6 +688,8 @@ namespace OpenCVForUnityExample
             if (string.IsNullOrEmpty(_haarCascadeFilepath))
             {
                 Debug.LogError(HAAR_CASCADE_FRONTALFACE_FILENAME + " is not loaded.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("cascade classifier file is not loaded.\nPlease read console message.", 20000);
             }
             else
             {

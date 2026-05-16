@@ -104,8 +104,23 @@ namespace OpenCVForUnityExample
         /// </summary>
         protected CancellationTokenSource _cts = new CancellationTokenSource();
 
+        /// <summary>
+        /// Resolves <see cref="Model"/> (StreamingAssets-relative) to the path passed to <see cref="OpenCVEnv.GetFilePathTaskAsync"/>.
+        /// For example, rewrites <c>.onnx</c> to <c>.sentis</c> for Sentis. The default implementation returns <paramref name="modelRelativePath"/> unchanged.
+        /// </summary>
+        /// <param name="modelRelativePath">Value of the <see cref="Model"/> field (only called when non-null and non-empty).</param>
+        /// <returns>String used as the same relative key for display and download-instruction messages.</returns>
+        protected virtual string GetModelFilePathForStreamingAssetsLoad(string modelRelativePath)
+        {
+            return modelRelativePath;
+        }
+
         // Unity Lifecycle Methods
-        private async void Start()
+        /// <summary>
+        /// Resolves paths under StreamingAssets asynchronously, then calls <see cref="Run"/>. Override <see cref="GetModelFilePathForStreamingAssetsLoad"/>
+        /// or this method to substitute Sentis model paths, etc.
+        /// </summary>
+        protected virtual async void Start()
         {
             _fpsMonitor = GetComponent<FpsMonitor>();
 
@@ -136,8 +151,9 @@ namespace OpenCVForUnityExample
             }
             if (!string.IsNullOrEmpty(Model))
             {
-                _modelFilepath = await OpenCVEnv.GetFilePathTaskAsync(Model, cancellationToken: _cts.Token);
-                if (string.IsNullOrEmpty(_modelFilepath)) Debug.Log("The file:" + Model + " did not exist.");
+                string modelPathForLoad = GetModelFilePathForStreamingAssetsLoad(Model);
+                _modelFilepath = await OpenCVEnv.GetFilePathTaskAsync(modelPathForLoad, cancellationToken: _cts.Token);
+                if (string.IsNullOrEmpty(_modelFilepath)) Debug.Log("The file:" + modelPathForLoad + " did not exist.");
             }
 
             if (_fpsMonitor != null)
@@ -207,6 +223,7 @@ namespace OpenCVForUnityExample
                 _fpsMonitor.Add("width", rgbaMat.width().ToString());
                 _fpsMonitor.Add("height", rgbaMat.height().ToString());
                 _fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                UpdateFpsMonitorInferenceInfo(_fpsMonitor, _net);
             }
 
             _bgrMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
@@ -251,6 +268,10 @@ namespace OpenCVForUnityExample
                 if (_classNames == null)
                 {
                     Debug.LogError(Classes + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                    if (_fpsMonitor != null)
+                    {
+                        _fpsMonitor.Toast("classes file is not loaded.\nPlease read console message.", 20000);
+                    }
                 }
             }
             else if (ClassesList.Count > 0)
@@ -261,6 +282,10 @@ namespace OpenCVForUnityExample
             if (string.IsNullOrEmpty(_modelFilepath))
             {
                 Debug.LogError(Model + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                if (_fpsMonitor != null)
+                {
+                    _fpsMonitor.Toast("model file is not loaded.\nPlease read console message.", 20000);
+                }
             }
             else
             {
@@ -291,12 +316,7 @@ namespace OpenCVForUnityExample
 
                 Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-                if (_net == null)
-                {
-                    Imgproc.putText(rgbaMat, "model file is not loaded.", new Point(5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    Imgproc.putText(rgbaMat, "Please read console message.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                }
-                else
+                if (_net != null)
                 {
 
                     Imgproc.cvtColor(rgbaMat, _bgrMat, Imgproc.COLOR_RGBA2BGR);
@@ -645,6 +665,32 @@ namespace OpenCVForUnityExample
             outLayers.Dispose();
 
             return types;
+        }
+
+        /// <summary>
+        /// Registers FpsMonitor keys for dnn backend, target, and synchronous-inference display.
+        /// This sample uses <see cref="Net"/> (<c>cv::dnn::Net</c>). The C# bindings expose no API to read preferred backend/target at runtime,
+        /// so when <paramref name="net"/> exists the monitor shows fixed labels (same key names as <see cref="ImageClassificationPPResnetExample"/> with <c>MultiBackendNet</c>).
+        /// </summary>
+        /// <param name="fpsMonitor">FPS display monitor.</param>
+        /// <param name="net">Loaded inference net, or <see langword="null"/> if not loaded.</param>
+        protected static void UpdateFpsMonitorInferenceInfo(FpsMonitor fpsMonitor, Net net)
+        {
+            if (fpsMonitor == null)
+                return;
+
+            if (net != null)
+            {
+                // cv::dnn::Net: No PreferredBackend/PreferredTarget getters in the C# binding; treat as default OpenCV DNN inference.
+                fpsMonitor.Add("dnnBackend", "OPENCV");
+                fpsMonitor.Add("dnnTarget", "CPU");
+            }
+            else
+            {
+                fpsMonitor.Add("dnnBackend", "-");
+                fpsMonitor.Add("dnnTarget", "-");
+            }
+            fpsMonitor.Add("useAsyncInference", "False");
         }
     }
 }

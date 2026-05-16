@@ -10,6 +10,7 @@ using OpenCVForUnity.DnnModule;
 using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UtilsModule;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -127,17 +128,23 @@ namespace OpenCVForUnityExample
             if (img.empty())
             {
                 Debug.LogError(IMAGE_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                if (_fpsMonitor != null)
+                {
+                    _fpsMonitor.Toast("image file is not loaded.\nPlease read console message.", 20000);
+                }
                 img = new Mat(368, 368, CvType.CV_8UC3, new Scalar(0, 0, 0));
             }
 
             TextDetectionModel_DB detectonModel = null;
             TextRecognitionModel recognitonModel = null;
-            Mat croppedMat = null;
-            Mat croppedGrayMat = null;
 
             if (string.IsNullOrEmpty(_detectionModelFilepath) || string.IsNullOrEmpty(_recognitionModelFilepath) || string.IsNullOrEmpty(_charsetTxtFilepath))
             {
                 Debug.LogError(DETECTION_MODEL_FILENAME + " or " + RECOGNITION_MODEL_FILENAME + " or " + CHARSET_TXT_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                if (_fpsMonitor != null)
+                {
+                    _fpsMonitor.Toast("model file is not loaded.\nPlease read console message.", 20000);
+                }
             }
             else
             {
@@ -154,88 +161,25 @@ namespace OpenCVForUnityExample
                 recognitonModel.setDecodeType("CTC-greedy");
                 recognitonModel.setVocabulary(LoadCharset(_charsetTxtFilepath));
                 recognitonModel.setInputParams(RECOGNITION_INPUT_SCALE, new Size(RECOGNITION_INPUT_SIZE_W, RECOGNITION_INPUT_SIZE_H), _recognitionInputMean);
-
-                croppedMat = new Mat(new Size(RECOGNITION_INPUT_SIZE_W, RECOGNITION_INPUT_SIZE_H), CvType.CV_8SC3);
-                croppedGrayMat = new Mat(croppedMat.size(), CvType.CV_8SC1);
             }
 
-            if (detectonModel == null || recognitonModel == null)
+            if (detectonModel != null && recognitonModel != null)
             {
-                Imgproc.putText(img, "model file is not loaded.", new Point(5, img.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255), 2, Imgproc.LINE_AA, false);
-                Imgproc.putText(img, "Please read console message.", new Point(5, img.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255), 2, Imgproc.LINE_AA, false);
-            }
-            else
-            {
-                TickMeter tickMeter = new TickMeter();
-
-                MatOfRotatedRect detectons = new MatOfRotatedRect();
-                MatOfFloat confidences = new MatOfFloat();
-
-                tickMeter.start();
-                detectonModel.detectTextRectangles(img, detectons, confidences);
-                tickMeter.stop();
-
-                RotatedRect[] detectons_arr = detectons.toArray();
-                Array.Reverse(detectons_arr);
-                float[] confidences_arr = new float[detectons_arr.Length];
-                if (confidences.total() > 0)
-                    confidences_arr = confidences.toArray();
-                Array.Reverse(confidences_arr);
-                string[] recognition_arr = new string[detectons_arr.Length];
-
-                for (int i = 0; i < detectons_arr.Length; ++i)
+                if (_fpsMonitor != null)
                 {
-                    if (confidences_arr[i] < DETECTION_CONFIDENCES_THRESHOLD)
-                        continue;
-
-                    Point[] vertices = new Point[4];
-                    detectons_arr[i].points(vertices);
-
-                    // Create transformed and cropped image.
-                    FourPointsTransform(img, croppedMat, vertices);
-                    Imgproc.cvtColor(croppedMat, croppedGrayMat, Imgproc.COLOR_BGR2GRAY);
-
-                    //
-                    DebugMat.imshow("croppedMat_" + i, croppedGrayMat);
-                    //
-
-                    tickMeter.start();
-                    string recognitionResult = recognitonModel.recognize(croppedGrayMat);
-                    tickMeter.stop();
-
-                    recognition_arr[i] = recognitionResult;
+                    _fpsMonitor.Add("width", img.cols().ToString());
+                    _fpsMonitor.Add("height", img.rows().ToString());
+                    _fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                    UpdateFpsMonitorInferenceInfo(_fpsMonitor, detectonModel, recognitonModel);
                 }
 
-                // Draw results.
-                StringBuilder sb = new StringBuilder(1024);
-                for (int i = 0; i < detectons_arr.Length; ++i)
-                {
-                    Point[] vertices = new Point[4];
-                    detectons_arr[i].points(vertices);
+                Mat[] inferMats = Infer(img, detectonModel, recognitonModel);
+                Visualize(img, inferMats, printResult: true, isRGB: false);
 
-                    for (int j = 0; j < 4; ++j)
-                        Imgproc.line(img, vertices[j], vertices[(j + 1) % 4], new Scalar(0, 255, 0), 2);
-
-                    if (confidences_arr[i] < DETECTION_CONFIDENCES_THRESHOLD)
-                    {
-                        for (int j = 0; j < 4; ++j)
-                            Imgproc.line(img, vertices[j], vertices[(j + 1) % 4], new Scalar(0, 255, 255), 2);
-                    }
-
-                    Imgproc.putText(img, recognition_arr[i], vertices[1], Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar(0, 0, 255), 2, Imgproc.LINE_AA, false);
-
-                    sb.Append("[").Append(recognition_arr[i]).Append("] ").Append(confidences_arr[i]).AppendLine();
-                }
-                Debug.Log(sb.ToString());
-
-                Debug.Log("Inference time, ms: " + tickMeter.getTimeMilli());
-
-                detectons.Dispose();
-                confidences.Dispose();
+                foreach (Mat m in inferMats)
+                    m.Dispose();
                 detectonModel.Dispose();
                 recognitonModel.Dispose();
-                croppedMat.Dispose();
-                croppedGrayMat.Dispose();
             }
 
             Imgproc.cvtColor(img, img, Imgproc.COLOR_BGR2RGB);
@@ -249,6 +193,147 @@ namespace OpenCVForUnityExample
 
 
             OpenCVDebug.SetDebugMode(false);
+        }
+
+        /// <summary>
+        /// Draws text detection and recognition results from a <see cref="Mat"/> array whose layout matches
+        /// <see cref="Infer"/>.
+        /// <c>results[0]</c> is detections (<see cref="MatOfRotatedRect"/>), <c>results[1]</c> is confidences
+        /// (<see cref="MatOfFloat"/>), and <c>results[2]</c> is packed recognition strings (UTF-8 with separator).
+        /// </summary>
+        /// <param name="image">Destination image for visualization.</param>
+        /// <param name="results">Output matrices from <see cref="Infer"/> (length at least 3).</param>
+        /// <param name="printResult">If true, prints the decoded result to the console.</param>
+        /// <param name="isRGB">If true, treats <paramref name="image"/> as RGB instead of BGR for drawing colors.</param>
+        private void Visualize(Mat image, Mat[] results, bool printResult = false, bool isRGB = false)
+        {
+            if (image != null)
+                image.ThrowIfDisposed();
+            if (results == null || results.Length < 3)
+                return;
+
+            Mat detectonsMat = results[0];
+            Mat confidencesMat = results[1];
+            Mat recognitionsMat = results[2];
+
+            if (detectonsMat == null || detectonsMat.empty()
+                || confidencesMat == null || confidencesMat.empty()
+                || recognitionsMat == null || recognitionsMat.empty())
+                return;
+
+            RotatedRect[] detectons_arr = new MatOfRotatedRect(detectonsMat).toArray();
+            float[] confidences_arr = new MatOfFloat(confidencesMat).toArray();
+
+            List<string> recognitionList = new List<string>();
+            Converters.Mat_to_vector_string(recognitionsMat, recognitionList);
+            string[] recognition_arr = recognitionList.ToArray();
+
+            Array.Reverse(detectons_arr);
+            Array.Reverse(confidences_arr);
+            Array.Reverse(recognition_arr);
+
+            Scalar BgrScalarForImage(Scalar bgr)
+            {
+                if (!isRGB)
+                    return bgr;
+                return new Scalar(bgr.val[2], bgr.val[1], bgr.val[0]);
+            }
+
+            Scalar colorGreen = BgrScalarForImage(new Scalar(0, 255, 0));
+            Scalar colorYellow = BgrScalarForImage(new Scalar(0, 255, 255));
+            Scalar colorRed = BgrScalarForImage(new Scalar(0, 0, 255));
+
+            StringBuilder sb = new StringBuilder(1024);
+            for (int i = 0; i < detectons_arr.Length; ++i)
+            {
+                Point[] vertices = new Point[4];
+                detectons_arr[i].points(vertices);
+
+                for (int j = 0; j < 4; ++j)
+                    Imgproc.line(image, vertices[j], vertices[(j + 1) % 4], colorGreen, 2);
+
+                if (confidences_arr[i] < DETECTION_CONFIDENCES_THRESHOLD)
+                {
+                    for (int j = 0; j < 4; ++j)
+                        Imgproc.line(image, vertices[j], vertices[(j + 1) % 4], colorYellow, 2);
+                }
+
+                Imgproc.putText(image, recognition_arr[i], vertices[1], Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, colorRed, 2, Imgproc.LINE_AA, false);
+
+                sb.Append("[").Append(recognition_arr[i]).Append("] ").Append(confidences_arr[i]).AppendLine();
+            }
+
+            if (printResult)
+                Debug.Log(sb.ToString());
+        }
+
+        /// <summary>
+        /// Runs text detection and recognition; returns Mats in order: detections, confidences, recognitions.
+        /// </summary>
+        /// <returns>Index 0: MatOfRotatedRect (detection order). Index 1: MatOfFloat. Index 2: recognition strings as CV_8UC1 row (UTF-8 with separator).</returns>
+        private Mat[] Infer(
+            Mat img,
+            TextDetectionModel_DB detectonModel,
+            TextRecognitionModel recognitonModel)
+        {
+            TickMeter tickMeter = new TickMeter();
+            Mat croppedMat = new Mat(new Size(RECOGNITION_INPUT_SIZE_W, RECOGNITION_INPUT_SIZE_H), CvType.CV_8SC3);
+            Mat croppedGrayMat = new Mat(croppedMat.size(), CvType.CV_8SC1);
+
+            try
+            {
+                MatOfRotatedRect detectons = new MatOfRotatedRect();
+                MatOfFloat confidences = new MatOfFloat();
+
+                tickMeter.start();
+                detectonModel.detectTextRectangles(img, detectons, confidences);
+                tickMeter.stop();
+
+                RotatedRect[] detectonsArr = detectons.toArray();
+                float[] confidencesArr = new float[detectonsArr.Length];
+                if (!confidences.empty())
+                    confidencesArr = new MatOfFloat(confidences).toArray();
+
+                List<string> recognitionStrings = new List<string>(detectonsArr.Length);
+                for (int k = 0; k < detectonsArr.Length; k++)
+                    recognitionStrings.Add(null);
+
+                for (int i = 0; i < detectonsArr.Length; ++i)
+                {
+                    if (confidencesArr[i] < DETECTION_CONFIDENCES_THRESHOLD)
+                        continue;
+
+                    Point[] vertices = new Point[4];
+                    detectonsArr[i].points(vertices);
+
+                    // Create transformed and cropped image.
+                    FourPointsTransform(img, croppedMat, vertices);
+                    Imgproc.cvtColor(croppedMat, croppedGrayMat, Imgproc.COLOR_BGR2GRAY);
+
+                    //
+                    DebugMat.imshow("croppedMat_" + i, croppedGrayMat);
+                    //
+
+                    tickMeter.start();
+                    string recognitionResult = recognitonModel.recognize(croppedGrayMat);
+                    tickMeter.stop();
+
+                    recognitionStrings[i] = recognitionResult;
+                }
+
+                Mat recognitionsMat = recognitionStrings.Count > 0
+                    ? Converters.vector_string_to_Mat(recognitionStrings)
+                    : new Mat(1, 0, CvType.CV_8UC1);
+
+                Debug.Log("Inference time, ms: " + tickMeter.getTimeMilli());
+
+                return new Mat[] { detectons, confidences, recognitionsMat };
+            }
+            finally
+            {
+                croppedMat.Dispose();
+                croppedGrayMat.Dispose();
+            }
         }
 
         private void FourPointsTransform(Mat src, Mat dst, Point[] vertices)
@@ -270,6 +355,25 @@ namespace OpenCVForUnityExample
         private List<string> LoadCharset(string charsetPath)
         {
             return new List<string>(File.ReadAllLines(charsetPath));
+        }
+
+        private static void UpdateFpsMonitorInferenceInfo(FpsMonitor fpsMonitor, TextDetectionModel_DB detectionModel, TextRecognitionModel recognitionModel)
+        {
+            if (fpsMonitor == null)
+                return;
+
+            if (detectionModel != null && recognitionModel != null)
+            {
+                // TextDetectionModel_DB / TextRecognitionModel: no PreferredBackend/PreferredTarget getters in the C# binding; show as default OpenCV DNN inference.
+                fpsMonitor.Add("dnnBackend", "OPENCV");
+                fpsMonitor.Add("dnnTarget", "CPU");
+            }
+            else
+            {
+                fpsMonitor.Add("dnnBackend", "-");
+                fpsMonitor.Add("dnnTarget", "-");
+            }
+            fpsMonitor.Add("useAsyncInference", "False");
         }
     }
 }

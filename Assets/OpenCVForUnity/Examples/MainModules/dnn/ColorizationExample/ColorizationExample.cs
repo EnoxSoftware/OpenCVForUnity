@@ -148,36 +148,63 @@ namespace OpenCVForUnityExample
         // Private Methods
         private void Run()
         {
-
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             OpenCVDebug.SetDebugMode(true);
 
-            Mat img = Imgcodecs.imread(_imageFilepath, Imgcodecs.IMREAD_COLOR);
-            Mat colorized = new Mat(img.rows(), img.cols(), img.type());
-            if (img.empty())
+            Mat img;
+            if (string.IsNullOrEmpty(_imageFilepath))
             {
                 Debug.LogError(IMAGE_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                if (_fpsMonitor != null)
+                {
+                    _fpsMonitor.Toast("image file is not loaded.\nPlease read console message.", 20000);
+                }
                 img = new Mat(368, 368, CvType.CV_8UC3, new Scalar(0, 0, 0));
             }
+            else
+            {
+                Mat loaded = Imgcodecs.imread(_imageFilepath, Imgcodecs.IMREAD_COLOR);
+                if (loaded.empty())
+                {
+                    loaded.Dispose();
+                    img = new Mat(368, 368, CvType.CV_8UC3, new Scalar(0, 0, 0));
+                }
+                else
+                {
+                    img = loaded;
+                }
+            }
+
+            Mat colorized = new Mat(img.rows(), img.cols(), img.type());
 
             Net net = null;
 
             if (string.IsNullOrEmpty(_caffemodelFilepath) || string.IsNullOrEmpty(_prototxtFilepath))
             {
                 Debug.LogError(CAFFEMODEL_FILENAME + " or " + PROTOTXT_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                if (_fpsMonitor != null)
+                {
+                    _fpsMonitor.Toast("model file is not loaded.\nPlease read console message.", 20000);
+                }
             }
             else
             {
                 net = Dnn.readNetFromCaffe(_prototxtFilepath, _caffemodelFilepath);
             }
 
-            if (net == null)
+            bool ranColorization = false;
+
+            if (net != null)
             {
-                Imgproc.putText(img, "model file is not loaded.", new Point(5, img.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255), 2, Imgproc.LINE_AA, false);
-                Imgproc.putText(img, "Please read console message.", new Point(5, img.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255), 2, Imgproc.LINE_AA, false);
-            }
-            else
-            {
+                ranColorization = true;
+                if (_fpsMonitor != null)
+                {
+                    _fpsMonitor.Add("width", img.cols().ToString());
+                    _fpsMonitor.Add("height", img.rows().ToString());
+                    _fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                    UpdateFpsMonitorInferenceInfo(_fpsMonitor, net);
+                }
+
                 // setup additional layers:
                 int[] sz = new int[] { 2, 313, 1, 1 };
                 Mat pts_in_hull = new Mat(sz, CvType.CV_32F);
@@ -251,6 +278,11 @@ namespace OpenCVForUnityExample
                 net.Dispose();
             }
 
+            if (!ranColorization)
+            {
+                img.copyTo(colorized);
+            }
+
             Imgproc.cvtColor(colorized, colorized, Imgproc.COLOR_BGR2RGB);
 
             Mat display = new Mat(img.rows() * 2, img.cols(), img.type());
@@ -279,6 +311,25 @@ namespace OpenCVForUnityExample
             colorized.Dispose();
 
             OpenCVDebug.SetDebugMode(false);
+        }
+
+        private static void UpdateFpsMonitorInferenceInfo(FpsMonitor fpsMonitor, Net net)
+        {
+            if (fpsMonitor == null)
+                return;
+
+            if (net != null)
+            {
+                // cv::dnn::Net: No PreferredBackend/PreferredTarget getters in the C# binding; treat as default OpenCV DNN inference.
+                fpsMonitor.Add("dnnBackend", "OPENCV");
+                fpsMonitor.Add("dnnTarget", "CPU");
+            }
+            else
+            {
+                fpsMonitor.Add("dnnBackend", "-");
+                fpsMonitor.Add("dnnTarget", "-");
+            }
+            fpsMonitor.Add("useAsyncInference", "False");
         }
     }
 }

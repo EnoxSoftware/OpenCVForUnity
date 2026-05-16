@@ -1,13 +1,13 @@
-#if !UNITY_WSA_10_0
+#if !UNITY_WSA_10_0 && NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
 
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
 using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
+using OpenCVForUnity.UnityIntegration.Runner;
 using OpenCVForUnity.UnityIntegration.Worker.DnnModule;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -39,7 +39,7 @@ namespace OpenCVForUnityExample
 
         [Header("UI")]
         public Toggle UseAsyncInferenceToggle;
-        public bool UseAsyncInference = false;
+        public bool UseAsyncInference = true;
 
         [Header("Model Settings")]
         [Tooltip("Path to a binary file of model contains trained weights.")]
@@ -75,11 +75,7 @@ namespace OpenCVForUnityExample
         private FpsMonitor _fpsMonitor;
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
-        private Mat _bgrMatForAsync;
-        private Mat _latestDetectedFaces;
-        private Task _inferenceTask;
-        private readonly Queue<Action> _mainThreadQueue = new();
-        private readonly object _queueLock = new();
+        private MatSingleFlightSyncAsyncRunner _inferenceRunner;
 
         // Unity Lifecycle Methods
         private async void Start()
@@ -98,12 +94,8 @@ namespace OpenCVForUnityExample
             _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
 
             // Update GUI state
-#if !UNITY_WEBGL || UNITY_EDITOR
-            UseAsyncInferenceToggle.isOn = UseAsyncInference;
-#else
-            UseAsyncInferenceToggle.isOn = false;
-            UseAsyncInferenceToggle.interactable = false;
-#endif
+            UpdateUseAsyncInference();
+            UpdateInferenceModeToggles(inferenceReinitializing: false);
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
             if (_fpsMonitor != null)
@@ -131,15 +123,7 @@ namespace OpenCVForUnityExample
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             OpenCVDebug.SetDebugMode(true);
 
-
-            if (string.IsNullOrEmpty(_modelFilepath))
-            {
-                Debug.LogError("model: " + Model + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
-            }
-            else
-            {
-                _faceDetector = new YuNetV2FaceDetector(_modelFilepath, _configFilepath, new Size(InpWidth, InpHeight), ConfThreshold, NmsThreshold, TopK);
-            }
+            InitializeInference();
 
             _multiSource2MatHelper.Initialize();
         }
@@ -159,16 +143,16 @@ namespace OpenCVForUnityExample
             ResultPreview.texture = _texture;
             ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
 
-
             if (_fpsMonitor != null)
             {
                 _fpsMonitor.Add("width", rgbaMat.width().ToString());
                 _fpsMonitor.Add("height", rgbaMat.height().ToString());
                 _fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                UpdateFpsMonitorInferenceInfo(_fpsMonitor, _faceDetector, UseAsyncInference);
             }
 
+
             _bgrMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
-            _bgrMatForAsync = new Mat();
         }
 
         /// <summary>
@@ -178,12 +162,17 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperDisposed");
 
-            if (_inferenceTask != null && !_inferenceTask.IsCompleted) _inferenceTask.Wait(500);
+            try
+            {
+                _faceDetector?.Cancel();
+            }
+            catch (ObjectDisposedException)
+            {
+            }
+
+            _inferenceRunner?.Cancel();
 
             _bgrMat?.Dispose(); _bgrMat = null;
-
-            _bgrMatForAsync?.Dispose();
-            _latestDetectedFaces?.Dispose();
 
             if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
         }
@@ -206,74 +195,28 @@ namespace OpenCVForUnityExample
         // Update is called once per frame
         private void Update()
         {
-            ProcessMainThreadQueue();
-
             if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
             {
 
                 Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-                if (_faceDetector == null)
+                if (_faceDetector != null)
                 {
-                    Imgproc.putText(rgbaMat, "model file is not loaded.", new Point(5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    Imgproc.putText(rgbaMat, "Please read console message.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                }
-                else
-                {
-                    Imgproc.cvtColor(rgbaMat, _bgrMat, Imgproc.COLOR_RGBA2BGR);
-
-                    if (UseAsyncInference)
+                    if (_inferenceRunner != null)
                     {
-                        // asynchronous execution
+                        Imgproc.cvtColor(rgbaMat, _bgrMat, Imgproc.COLOR_RGBA2BGR);
 
-                        if (_inferenceTask == null || _inferenceTask.IsCompleted)
-                        {
-                            _bgrMat.copyTo(_bgrMatForAsync); // for asynchronous execution, deep copy
-                            _inferenceTask = Task.Run(async () =>
+                        _inferenceRunner.SubmitWork(
+                            _bgrMat,
+                            syncWork: m => _faceDetector.Detect(m, useCopyOutput: true),
+                            asyncWork: async m =>
                             {
-                                try
-                                {
-                                    // Face detector inference
-                                    var newFaces = await _faceDetector.DetectAsync(_bgrMatForAsync);
-                                    RunOnMainThread(() =>
-                                        {
-                                            _latestDetectedFaces?.Dispose();
-                                            _latestDetectedFaces = newFaces;
-                                        });
-                                }
-                                catch (OperationCanceledException ex)
-                                {
-                                    Debug.Log($"Inference canceled: {ex}");
-                                }
-                                catch (Exception ex)
-                                {
-                                    Debug.LogError($"Inference error: {ex}");
-                                }
+                                CancellationToken ct = _inferenceRunner.InFlightAsyncWorkCancellationToken;
+                                return await _faceDetector.DetectTaskAsync(m, ct);
                             });
-                        }
 
-                        Imgproc.cvtColor(_bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
-
-                        if (_latestDetectedFaces != null)
+                        if (_inferenceRunner.TryGetLatestResult(out Mat faces))
                         {
-                            _faceDetector.Visualize(rgbaMat, _latestDetectedFaces, false, true);
-                        }
-                    }
-                    else
-                    {
-                        // synchronous execution
-
-                        // TickMeter tm = new TickMeter();
-                        // tm.start();
-
-                        // Face detector inference
-                        using (Mat faces = _faceDetector.Detect(_bgrMat))
-                        {
-                            // tm.stop();
-                            // Debug.Log("YuNetV2FaceDetector Inference time, ms: " + tm.getTimeMilli());
-
-                            Imgproc.cvtColor(_bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
-
                             _faceDetector.Visualize(rgbaMat, faces, false, true);
                         }
                     }
@@ -281,20 +224,25 @@ namespace OpenCVForUnityExample
 
                 OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
             }
+
         }
 
         /// <summary>
         /// Raises the destroy event.
         /// </summary>
-        private void OnDestroy()
+        private async void OnDestroy()
         {
             _multiSource2MatHelper?.Dispose();
+            _multiSource2MatHelper = null;
 
-            _faceDetector?.Dispose();
+            _cts?.Cancel();
 
-            OpenCVDebug.SetDebugMode(false);
+            await DisposeInferenceAsync();
 
             _cts?.Dispose();
+            _cts = null;
+
+            OpenCVDebug.SetDebugMode(false);
         }
 
         // Public Methods
@@ -345,40 +293,110 @@ namespace OpenCVForUnityExample
         {
             if (UseAsyncInferenceToggle.isOn != UseAsyncInference)
             {
-                // Wait for inference to complete before changing the toggle
-                if (_inferenceTask != null && !_inferenceTask.IsCompleted) _inferenceTask.Wait(500);
-
+                if (_inferenceRunner != null)
+                    _inferenceRunner.UseAsyncWork = UseAsyncInferenceToggle.isOn;
                 UseAsyncInference = UseAsyncInferenceToggle.isOn;
+                UpdateFpsMonitorInferenceInfo(_fpsMonitor, _faceDetector, UseAsyncInference);
             }
         }
 
         // Private Methods
-        private void RunOnMainThread(Action action)
+        /// <summary>
+        /// Creates <see cref="YuNetV2FaceDetector"/> from the resolved StreamingAssets model path and
+        /// <see cref="MatSingleFlightSyncAsyncRunner"/> (same role as
+        /// <c>MediaPipeHandLandmarkerExample.InitializeInference</c>).
+        /// </summary>
+        private void InitializeInference()
         {
-            if (action == null) return;
-
-            lock (_queueLock)
+            if (string.IsNullOrEmpty(_modelFilepath))
             {
-                _mainThreadQueue.Enqueue(action);
+                Debug.LogError("model: " + Model + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                if (_fpsMonitor != null)
+                {
+                    _fpsMonitor.Toast("model file is not loaded.\nPlease read console message.", 20000);
+                }
+                return;
+            }
+
+            try
+            {
+                _faceDetector = new YuNetV2FaceDetector(_modelFilepath, _configFilepath, new Size(InpWidth, InpHeight), ConfThreshold, NmsThreshold, TopK);
+
+                _inferenceRunner = new MatSingleFlightSyncAsyncRunner(
+                    useAsyncWork: UseAsyncInference,
+                    asyncWorkCancellationToken: _cts.Token,
+                    disposeAsyncAfterWorkTask: async () =>
+                    {
+                        await _faceDetector.WaitForCompletionTaskAsync();
+                    });
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning("FaceDetectionYuNetV2Example InitializeInference failed: " + ex);
             }
         }
 
-        private void ProcessMainThreadQueue()
+        /// <summary>
+        /// Reserved hook for synchronizing <see cref="UseAsyncInference"/> with platform capabilities.
+        /// Does not modify <see cref="UseAsyncInference"/> in this example.
+        /// </summary>
+        private void UpdateUseAsyncInference()
         {
-            while (true)
+        }
+
+        /// <summary>
+        /// Updates the async inference toggle interactability and visible state.
+        /// </summary>
+        /// <param name="inferenceReinitializing">When <see langword="true"/>, disables the toggle while inference is re-initializing.</param>
+        private void UpdateInferenceModeToggles(bool inferenceReinitializing)
+        {
+            if (inferenceReinitializing)
             {
-                Action action = null;
-                lock (_queueLock)
-                {
-                    if (_mainThreadQueue.Count == 0)
-                        break;
-
-                    action = _mainThreadQueue.Dequeue();
-                }
-
-                try { action?.Invoke(); }
-                catch (Exception ex) { Debug.LogException(ex); }
+                if (UseAsyncInferenceToggle != null)
+                    UseAsyncInferenceToggle.interactable = false;
+                return;
             }
+
+            if (UseAsyncInferenceToggle != null)
+            {
+                UseAsyncInferenceToggle.SetIsOnWithoutNotify(UseAsyncInference);
+                UseAsyncInferenceToggle.interactable = true;
+            }
+        }
+
+        /// <summary>
+        /// Awaits <see cref="MatSingleFlightSyncAsyncRunner.DisposeAsync"/> then disposes the face detector worker.
+        /// </summary>
+        private async Task DisposeInferenceAsync()
+        {
+            if (_inferenceRunner != null)
+                await _inferenceRunner.DisposeAsync();
+            _inferenceRunner = null;
+
+            _faceDetector?.Dispose();
+            _faceDetector = null;
+        }
+
+        /// <summary>
+        /// Registers FpsMonitor keys for dnn backend, target, and async inference display.
+        /// Uses the same key names as <see cref="ImageClassificationPPResnetExample"/> <c>UpdateFpsMonitorInferenceInfo</c>.
+        /// </summary>
+        private static void UpdateFpsMonitorInferenceInfo(FpsMonitor fpsMonitor, YuNetV2FaceDetector faceDetector, bool useAsyncInference)
+        {
+            if (fpsMonitor == null)
+                return;
+
+            if (faceDetector != null)
+            {
+                fpsMonitor.Add("dnnBackend", MultiBackendDnn.GetBackendDisplayString(faceDetector.DnnBackend));
+                fpsMonitor.Add("dnnTarget", MultiBackendDnn.GetTargetDisplayString(faceDetector.DnnTarget));
+            }
+            else
+            {
+                fpsMonitor.Add("dnnBackend", "-");
+                fpsMonitor.Add("dnnTarget", "-");
+            }
+            fpsMonitor.Add("useAsyncInference", useAsyncInference.ToString());
         }
     }
 }

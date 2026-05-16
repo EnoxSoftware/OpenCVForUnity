@@ -89,6 +89,10 @@ namespace OpenCVForUnityExample
             if (src.empty())
             {
                 Debug.LogError(IMAGE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("image file is not loaded.\nPlease read console message.", 20000);
+                src.Dispose();
+                return;
             }
 
             Debug.Log("src.ToString() " + src.ToString());

@@ -80,6 +80,11 @@ namespace OpenCVForUnityExample
         private string _srmodelFilepath;
 
         /// <summary>
+        /// The FPS monitor.
+        /// </summary>
+        private FpsMonitor _fpsMonitor;
+
+        /// <summary>
         /// The CancellationTokenSource.
         /// </summary>
         private CancellationTokenSource _cts = new CancellationTokenSource();
@@ -89,6 +94,8 @@ namespace OpenCVForUnityExample
         // Unity Lifecycle Methods
         private async void Start()
         {
+            _fpsMonitor = GetComponent<FpsMonitor>();
+
             // Reflect initial toggle value
             UseDNNToggle.isOn = UseDNN;
 
@@ -153,6 +160,8 @@ namespace OpenCVForUnityExample
                 {
                     Debug.LogError(DETECTPROTOTXT_FILENAME + " or " + DETECTMODEL_FILENAME + " or " +
                         SRPROTOTXT_FILENAME + " or " + SRMODEL_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                    if (_fpsMonitor != null)
+                        _fpsMonitor.Toast("model file is not loaded.\nPlease read console message.", 20000);
                 }
                 else
                 {
@@ -164,12 +173,7 @@ namespace OpenCVForUnityExample
                 detector = new WeChatQRCode();
             }
 
-            if (detector == null)
-            {
-                Imgproc.putText(imgMat, "model file is not loaded.", new Point(5, imgMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                Imgproc.putText(imgMat, "Please read console message.", new Point(5, imgMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-            }
-            else
+            if (detector != null)
             {
                 List<Mat> points = new List<Mat>();
                 List<string> decodedInfo = detector.detectAndDecode(grayMat, points);

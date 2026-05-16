@@ -1,13 +1,13 @@
-#if !UNITY_WSA_10_0
+#if !UNITY_WSA_10_0 && NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
 
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
 using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
+using OpenCVForUnity.UnityIntegration.Runner;
 using OpenCVForUnity.UnityIntegration.Worker.DnnModule;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -36,7 +36,7 @@ namespace OpenCVForUnityExample
 
         [Header("UI")]
         public Toggle UseAsyncInferenceToggle;
-        public bool UseAsyncInference = false;
+        public bool UseAsyncInference = true;
 
         [Header("Model Settings")]
         [Tooltip("Path to a binary file of face detection model contains trained weights.")]
@@ -84,11 +84,7 @@ namespace OpenCVForUnityExample
         private string _faceRecognitionModelFilepath;
         private FpsMonitor _fpsMonitor;
         private CancellationTokenSource _cts = new CancellationTokenSource();
-        private Mat _bgrMatForAsync;
-        private Mat _latestDetectedFaces;
-        private Task _inferenceTask;
-        private readonly Queue<Action> _mainThreadQueue = new();
-        private readonly object _queueLock = new();
+        private MatSingleFlightSyncAsyncRunner _inferenceRunner;
         private bool _shouldUpdateFromPoint = false;
 
         // Unity Lifecycle Methods
@@ -108,12 +104,8 @@ namespace OpenCVForUnityExample
             _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
 
             // Update GUI state
-#if !UNITY_WEBGL || UNITY_EDITOR
-            UseAsyncInferenceToggle.isOn = UseAsyncInference;
-#else
-            UseAsyncInferenceToggle.isOn = false;
-            UseAsyncInferenceToggle.interactable = false;
-#endif
+            UpdateUseAsyncInference();
+            UpdateInferenceModeToggles(inferenceReinitializing: false);
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
             if (_fpsMonitor != null)
@@ -156,17 +148,30 @@ namespace OpenCVForUnityExample
             ResultPreview.texture = _texture;
             ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
 
+            UpdateUseAsyncInference();
+            UpdateInferenceModeToggles(inferenceReinitializing: false);
 
             if (_fpsMonitor != null)
             {
                 _fpsMonitor.Add("width", rgbaMat.width().ToString());
                 _fpsMonitor.Add("height", rgbaMat.height().ToString());
                 _fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                UpdateFpsMonitorInferenceInfo(_fpsMonitor, _faceIdentificationEstimator, UseAsyncInference);
                 _fpsMonitor.Toast("Touch a detected face to register it.", 2000);
             }
 
             _bgrMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
-            _bgrMatForAsync = new Mat();
+
+            if (_faceIdentificationEstimator != null)
+            {
+                _inferenceRunner = new MatSingleFlightSyncAsyncRunner(
+                    useAsyncWork: UseAsyncInference,
+                    asyncWorkCancellationToken: _cts.Token,
+                    disposeAsyncAfterWorkTask: async () =>
+                    {
+                        await _faceIdentificationEstimator.WaitForCompletionTaskAsync();
+                    });
+            }
         }
 
         /// <summary>
@@ -176,11 +181,17 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperDisposed");
 
-            if (_inferenceTask != null && !_inferenceTask.IsCompleted) _inferenceTask.Wait(500);
+            try
+            {
+                _faceIdentificationEstimator?.Cancel();
+            }
+            catch (ObjectDisposedException)
+            {
+            }
+
+            _inferenceRunner?.Cancel();
 
             _bgrMat?.Dispose(); _bgrMat = null;
-            _bgrMatForAsync?.Dispose(); _bgrMatForAsync = null;
-            _latestDetectedFaces?.Dispose(); _latestDetectedFaces = null;
 
             if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
         }
@@ -202,103 +213,40 @@ namespace OpenCVForUnityExample
 
         private void Update()
         {
-            ProcessMainThreadQueue();
-
             if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
             {
 
                 Mat rgbaMat = _multiSource2MatHelper.GetMat();
 
-                if (_faceIdentificationEstimator == null)
-                {
-                    Imgproc.putText(rgbaMat, "model files are not loaded.", new Point(5, rgbaMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    Imgproc.putText(rgbaMat, "Please read console message.", new Point(5, rgbaMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.7, new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                }
-                else
+                if (_faceIdentificationEstimator != null && _inferenceRunner != null)
                 {
                     Imgproc.cvtColor(rgbaMat, _bgrMat, Imgproc.COLOR_RGBA2BGR);
 
-                    if (UseAsyncInference)
+                    _inferenceRunner.SubmitWork(
+                        _bgrMat,
+                        syncWork: m => _faceIdentificationEstimator.Estimate(m, useCopyOutput: true),
+                        asyncWork: async m =>
+                        {
+                            CancellationToken ct = _inferenceRunner.InFlightAsyncWorkCancellationToken;
+                            return await _faceIdentificationEstimator.EstimateTaskAsync(m, ct);
+                        });
+
+                    if (_inferenceRunner.TryGetLatestResult(out Mat faces))
                     {
-                        // asynchronous execution
+                        _faceIdentificationEstimator.Visualize(rgbaMat, faces, false, true);
 
-                        if (_inferenceTask == null || _inferenceTask.IsCompleted)
+                        // Check for point selection completion and register face
+                        if (_shouldUpdateFromPoint)
                         {
-                            _bgrMat.copyTo(_bgrMatForAsync); // for asynchronous execution, deep copy
-                            _inferenceTask = Task.Run(async () =>
-                            {
-                                try
-                                {
-                                    // Face identification inference
-                                    var newFaces = await _faceIdentificationEstimator.EstimateAsync(_bgrMatForAsync);
-                                    RunOnMainThread(() =>
-                                        {
-                                            _latestDetectedFaces?.Dispose();
-                                            _latestDetectedFaces = newFaces;
-                                        });
-                                }
-                                catch (OperationCanceledException ex)
-                                {
-                                    Debug.Log($"Inference canceled: {ex}");
-                                }
-                                catch (Exception ex)
-                                {
-                                    Debug.LogError($"Inference error: {ex}");
-                                }
-                            });
-                        }
+                            var (gameObject, currentSelectionState, currentSelectionPoints) = PointSelector.GetSelectionStatus();
+                            var p = TextureSelector.ConvertSelectionPointsToOpenCVPoint(currentSelectionPoints);
+                            RegisterSelectedFace(_bgrMat, faces, p);
 
-                        Imgproc.cvtColor(_bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
+                            // Update face recognition for all tracked faces with the new registered face
+                            _faceIdentificationEstimator.UpdateFaceRecognitionForAllTrackedFaces(_bgrMat, true);
 
-                        if (_latestDetectedFaces != null)
-                        {
-                            _faceIdentificationEstimator.Visualize(rgbaMat, _latestDetectedFaces, false, true);
-
-                            // Check for point selection completion and register face
-                            if (_shouldUpdateFromPoint)
-                            {
-                                var (gameObject, currentSelectionState, currentSelectionPoints) = PointSelector.GetSelectionStatus();
-                                var p = TextureSelector.ConvertSelectionPointsToOpenCVPoint(currentSelectionPoints);
-                                RegisterSelectedFace(_bgrMat, _latestDetectedFaces, p);
-
-                                // Update face recognition for all tracked faces with the new registered face
-                                _faceIdentificationEstimator.UpdateFaceRecognitionForAllTrackedFaces(_bgrMat, true);
-
-                                PointSelector.ResetSelectionStatus();
-                                _shouldUpdateFromPoint = false;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        // synchronous execution
-
-                        // TickMeter tm = new TickMeter();
-                        // tm.start();
-
-                        // Face identification inference
-                        using (Mat faces = _faceIdentificationEstimator.Estimate(_bgrMat))
-                        {
-                            // tm.stop();
-                            // Debug.Log("FaceIdentificationEstimator Inference time, ms: " + tm.getTimeMilli());
-
-                            Imgproc.cvtColor(_bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
-
-                            _faceIdentificationEstimator.Visualize(rgbaMat, faces, false, true);
-
-                            // Check for point selection completion and register face
-                            if (_shouldUpdateFromPoint)
-                            {
-                                var (gameObject, currentSelectionState, currentSelectionPoints) = PointSelector.GetSelectionStatus();
-                                var p = TextureSelector.ConvertSelectionPointsToOpenCVPoint(currentSelectionPoints);
-                                RegisterSelectedFace(_bgrMat, faces, p);
-
-                                // Update face recognition for all tracked faces with the new registered face
-                                _faceIdentificationEstimator.UpdateFaceRecognitionForAllTrackedFaces(_bgrMat, true);
-
-                                PointSelector.ResetSelectionStatus();
-                                _shouldUpdateFromPoint = false;
-                            }
+                            PointSelector.ResetSelectionStatus();
+                            _shouldUpdateFromPoint = false;
                         }
                     }
                 }
@@ -310,18 +258,24 @@ namespace OpenCVForUnityExample
             }
         }
 
-        private void OnDestroy()
+        private async void OnDestroy()
         {
-            _multiSource2MatHelper?.Dispose();
+            Debug.Log("OnDestroy");
 
-            _faceIdentificationEstimator?.Dispose();
+            _multiSource2MatHelper?.Dispose();
+            _multiSource2MatHelper = null;
+
+            _cts?.Cancel();
+
+            await DisposeInferenceAsync();
 
             // Clear all DebugMat windows on destroy
             DebugMat.destroyAllWindows();
 
-            OpenCVDebug.SetDebugMode(false);
-
             _cts?.Dispose();
+            _cts = null;
+
+            OpenCVDebug.SetDebugMode(false);
         }
 
         // Public Methods
@@ -367,16 +321,15 @@ namespace OpenCVForUnityExample
 
         /// <summary>
         /// Raises the use async inference toggle value changed event.
-        /// Waits for any ongoing inference to complete before changing the toggle state.
         /// </summary>
         public void OnUseAsyncInferenceToggleValueChanged()
         {
             if (UseAsyncInferenceToggle.isOn != UseAsyncInference)
             {
-                // Wait for inference to complete before changing the toggle
-                if (_inferenceTask != null && !_inferenceTask.IsCompleted) _inferenceTask.Wait(500);
-
+                if (_inferenceRunner != null)
+                    _inferenceRunner.UseAsyncWork = UseAsyncInferenceToggle.isOn;
                 UseAsyncInference = UseAsyncInferenceToggle.isOn;
+                UpdateFpsMonitorInferenceInfo(_fpsMonitor, _faceIdentificationEstimator, UseAsyncInference);
             }
         }
 
@@ -417,6 +370,47 @@ namespace OpenCVForUnityExample
         }
 
         // Private Methods
+        /// <summary>
+        /// Reserved hook for synchronizing <see cref="UseAsyncInference"/> with platform capabilities.
+        /// Does not modify <see cref="UseAsyncInference"/> in this example.
+        /// </summary>
+        private void UpdateUseAsyncInference()
+        {
+        }
+
+        /// <summary>
+        /// Updates the async inference toggle interactability and visible state.
+        /// </summary>
+        /// <param name="inferenceReinitializing">When <see langword="true"/>, disables the toggle while inference is re-initializing.</param>
+        private void UpdateInferenceModeToggles(bool inferenceReinitializing)
+        {
+            if (inferenceReinitializing)
+            {
+                if (UseAsyncInferenceToggle != null)
+                    UseAsyncInferenceToggle.interactable = false;
+                return;
+            }
+
+            if (UseAsyncInferenceToggle != null)
+            {
+                UseAsyncInferenceToggle.SetIsOnWithoutNotify(UseAsyncInference);
+                UseAsyncInferenceToggle.interactable = true;
+            }
+        }
+
+        /// <summary>
+        /// Awaits <see cref="MatSingleFlightSyncAsyncRunner.DisposeAsync"/> then disposes the face identification estimator worker.
+        /// </summary>
+        private async Task DisposeInferenceAsync()
+        {
+            if (_inferenceRunner != null)
+                await _inferenceRunner.DisposeAsync();
+            _inferenceRunner = null;
+
+            _faceIdentificationEstimator?.Dispose();
+            _faceIdentificationEstimator = null;
+        }
+
         /// <summary>
         /// Registers the face that was selected by point selection.
         /// If the selected face already has a registered face ID, it updates the registration only if the current confidence is higher.
@@ -669,6 +663,8 @@ namespace OpenCVForUnityExample
             if (string.IsNullOrEmpty(_faceDetectionModelFilepath) || string.IsNullOrEmpty(_faceRecognitionModelFilepath))
             {
                 Debug.LogError("model files are not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader] to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                if (_fpsMonitor != null)
+                    _fpsMonitor.Toast("model files are not loaded.\nPlease read console message.", 20000);
             }
             else
             {
@@ -679,38 +675,25 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Enqueues an action to be executed on the main thread.
+        /// Registers FpsMonitor keys for dnn backend, target, and async inference display.
+        /// Uses the same key names as <see cref="ImageClassificationPPResnetExample"/> <c>UpdateFpsMonitorInferenceInfo</c>.
         /// </summary>
-        /// <param name="action">The action to execute on the main thread.</param>
-        private void RunOnMainThread(Action action)
+        private static void UpdateFpsMonitorInferenceInfo(FpsMonitor fpsMonitor, FaceIdentificationEstimator faceIdentificationEstimator, bool useAsyncInference)
         {
-            if (action == null) return;
+            if (fpsMonitor == null)
+                return;
 
-            lock (_queueLock)
+            if (faceIdentificationEstimator != null)
             {
-                _mainThreadQueue.Enqueue(action);
+                fpsMonitor.Add("dnnBackend", MultiBackendDnn.GetBackendDisplayString(faceIdentificationEstimator.DnnBackend));
+                fpsMonitor.Add("dnnTarget", MultiBackendDnn.GetTargetDisplayString(faceIdentificationEstimator.DnnTarget));
             }
-        }
-
-        /// <summary>
-        /// Processes all actions queued for execution on the main thread.
-        /// </summary>
-        private void ProcessMainThreadQueue()
-        {
-            while (true)
+            else
             {
-                Action action = null;
-                lock (_queueLock)
-                {
-                    if (_mainThreadQueue.Count == 0)
-                        break;
-
-                    action = _mainThreadQueue.Dequeue();
-                }
-
-                try { action?.Invoke(); }
-                catch (Exception ex) { Debug.LogException(ex); }
+                fpsMonitor.Add("dnnBackend", "-");
+                fpsMonitor.Add("dnnTarget", "-");
             }
+            fpsMonitor.Add("useAsyncInference", useAsyncInference.ToString());
         }
     }
 }
