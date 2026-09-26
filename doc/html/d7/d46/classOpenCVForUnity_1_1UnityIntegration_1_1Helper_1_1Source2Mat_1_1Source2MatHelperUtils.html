@@ -135,11 +135,14 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">OpenCVForUnity.UnityIntegration.Helper.Source2Mat.Source2MatHelperUtils Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Static helpers for color-format conversion and Mat geometric transforms used by <a class="el" href="../../d3/d83/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat.html">Source2Mat</a> helpers.  
+ <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a6ca1f368e0afdc243105d273ca32edcd" id="r_a6ca1f368e0afdc243105d273ca32edcd"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ca1f368e0afdc243105d273ca32edcd">ApplyMatTransformations</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> inputMat, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> rotated90Mat, bool flipVertical, bool flipHorizontal)</td></tr>
-<tr class="memdesc:a6ca1f368e0afdc243105d273ca32edcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply Mat transformations based on <a class="el" href="../../da/ded/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1IMatTransformationProvider.html" title="Interface to define rotation and flip operations for image processing.">IMatTransformationProvider</a> settings.  <br /></td></tr>
+<tr class="memdesc:a6ca1f368e0afdc243105d273ca32edcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies horizontal/vertical flips and an optional 90-degree clockwise rotation to <em>inputMat</em> .  <br /></td></tr>
 <tr class="separator:a6ca1f368e0afdc243105d273ca32edcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a848bc150d98ff5cdc15aeef1483b98d9" id="r_a848bc150d98ff5cdc15aeef1483b98d9"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a848bc150d98ff5cdc15aeef1483b98d9">Channels</a> (<a class="el" href="../../d3/d83/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat.html#a916a66642ef55f6c5d0b39670f08e80b">Source2MatHelperColorFormat</a> type)</td></tr>
 <tr class="memdesc:a848bc150d98ff5cdc15aeef1483b98d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of channels for the specified color format.  <br /></td></tr>
@@ -148,7 +151,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:affe92db4ecc973b8a3f7c3b1ea1a827e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the OpenCV color conversion code needed for converting between two color formats.  <br /></td></tr>
 <tr class="separator:affe92db4ecc973b8a3f7c3b1ea1a827e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Static helpers for color-format conversion and Mat geometric transforms used by <a class="el" href="../../d3/d83/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat.html">Source2Mat</a> helpers. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a6ca1f368e0afdc243105d273ca32edcd" name="a6ca1f368e0afdc243105d273ca32edcd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6ca1f368e0afdc243105d273ca32edcd">&#9670;&#160;</a></span>ApplyMatTransformations()</h2>
 
@@ -186,18 +191,18 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Apply Mat transformations based on <a class="el" href="../../da/ded/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1IMatTransformationProvider.html" title="Interface to define rotation and flip operations for image processing.">IMatTransformationProvider</a> settings. </p>
+<p>Applies horizontal/vertical flips and an optional 90-degree clockwise rotation to <em>inputMat</em> . </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">inputMat</td><td>Input mat to transform.</td></tr>
-    <tr><td class="paramname">rotated90Mat</td><td>The rotated Mat output. If null, no rotation will be performed. If not null, must have the same CVType as inputMat and dimensions swapped (width=height, height=width).</td></tr>
+    <tr><td class="paramname">rotated90Mat</td><td>Pre-allocated output for rotation. When <code>null</code>, rotation is skipped.</td></tr>
     <tr><td class="paramname">flipVertical</td><td>Whether to flip vertically.</td></tr>
     <tr><td class="paramname">flipHorizontal</td><td>Whether to flip horizontally.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Transformed mat.</dd></dl>
-<p>The rotated90Mat parameter must be pre-allocated with the correct dimensions and CVType to prevent any memory allocation during rotation. If rotated90Mat is null, the method will return inputMat without rotation. </p>
+<dl class="section return"><dt>Returns</dt><dd><em>rotated90Mat</em>  when rotation succeeds; otherwise <em>inputMat</em> .</dd></dl>
+<p><em>rotated90Mat</em>  must be pre-allocated with swapped width/height and the same type as <em>inputMat</em> . </p>
 
 </div>
 </div>
@@ -287,7 +292,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/Helper/Source2MatHelper/<a class="el" href="../../d7/d9b/Source2MatHelperUtils_8cs.html">Source2MatHelperUtils.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/Scripts/UnityIntegration/Helper/Source2MatHelper/<a class="el" href="../../d7/d9b/Source2MatHelperUtils_8cs.html">Source2MatHelperUtils.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

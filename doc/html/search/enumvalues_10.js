@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['webcamtexture2matasyncgpuhelper_0',['WebCamTexture2MatAsyncGPUHelper',['../d1/dcd/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1MultiSource2MatHelper.html#a7cdce6296882db0980d9d9a97a0d5c1baf9cd8f828a0c494d728df9dc62f6e79b',1,'OpenCVForUnity::UnityIntegration::Helper::Source2Mat::MultiSource2MatHelper']]],
-  ['webcamtexture2mathelper_1',['WebCamTexture2MatHelper',['../d1/dcd/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1MultiSource2MatHelper.html#a7cdce6296882db0980d9d9a97a0d5c1bab6b69bcc34b8f3bf4e44b91d44bbff46',1,'OpenCVForUnity::UnityIntegration::Helper::Source2Mat::MultiSource2MatHelper']]],
-  ['wrist_2',['Wrist',['../d7/de6/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipe_1_1MediaPipeHandLandmarker.html#ad11fda44be1e6d07c5f455f577b187a5a4596b383ef8a39fa1d316b94cd9eb3fb',1,'OpenCVForUnity::UnityIntegration::Worker::DnnModule::MediaPipe::MediaPipeHandLandmarker']]]
+  ['video_5ffile_5fcant_5fopen_0',['VIDEO_FILE_CANT_OPEN',['../df/d17/namespaceOpenCVForUnity_1_1Extensions_1_1SourceToMat.html#a45be1e14f2d818996179fb617369a60aad8d5ada5d2f2089e77db1083bc74d1fa',1,'OpenCVForUnity::Extensions::SourceToMat']]],
+  ['video_5ffile_5fnot_5fexist_1',['VIDEO_FILE_NOT_EXIST',['../df/d17/namespaceOpenCVForUnity_1_1Extensions_1_1SourceToMat.html#a45be1e14f2d818996179fb617369a60aa1f0cc326c53c5c9f181c02bbc7e35b32',1,'OpenCVForUnity::Extensions::SourceToMat']]],
+  ['videocapture_2',['VideoCapture',['../d9/dd0/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1SourceToMat.html#a6ff9d8ad5f13880dffaf935599520b61a247179669d32f4eed3bda97def5b32cf',1,'OpenCVForUnity::UnityIntegration::Helper::SourceToMat']]],
+  ['vkcom_3',['VkCom',['../dc/d9c/namespaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule.html#a5529e7f2ff81f9d2943d2139e7997537a28ab4cd423a57b6c79740dacfc5245f1',1,'OpenCVForUnity::Extensions::Worker::DnnModule']]],
+  ['vulkan_4',['Vulkan',['../dc/d9c/namespaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule.html#a258ac96ff7ea73960e78e8dd70de4c6da38625270231b647116c80bcbc4f9d1d8',1,'OpenCVForUnity::Extensions::Worker::DnnModule']]]
 ];

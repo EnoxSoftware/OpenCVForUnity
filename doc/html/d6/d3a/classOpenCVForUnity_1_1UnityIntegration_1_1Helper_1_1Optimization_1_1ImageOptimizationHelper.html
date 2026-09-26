@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.3</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.4</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.13.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/5.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -145,9 +145,10 @@ $(function(){ initResizable(false); });
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a165802fb4e9f11c8ef09a3c58a4aa654" id="r_a165802fb4e9f11c8ef09a3c58a4aa654"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a165802fb4e9f11c8ef09a3c58a4aa654">Dispose</a> ()</td></tr>
+<tr class="memdesc:a165802fb4e9f11c8ef09a3c58a4aa654"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disposes cached Mats and resets the frame counter.  <br /></td></tr>
 <tr class="separator:a165802fb4e9f11c8ef09a3c58a4aa654"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a281be35a1b0f2fb8df36132c5f72590e" id="r_a281be35a1b0f2fb8df36132c5f72590e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a281be35a1b0f2fb8df36132c5f72590e">GetDownScaleMat</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> originalMat)</td></tr>
-<tr class="memdesc:a281be35a1b0f2fb8df36132c5f72590e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the mat that downscaled the original mat. if downscaleRatio == 1 , return originalMat.  <br /></td></tr>
+<tr class="memdesc:a281be35a1b0f2fb8df36132c5f72590e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a downscaled copy of <em>originalMat</em>  using <a class="el" href="#a3b3c50e89958a42020472e06c21cae28" title="The downscale ratio.">DownscaleRatio</a>. When <a class="el" href="#a3b3c50e89958a42020472e06c21cae28" title="The downscale ratio.">DownscaleRatio</a> is 1, returns <em>originalMat</em>  unchanged.  <br /></td></tr>
 <tr class="separator:a281be35a1b0f2fb8df36132c5f72590e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace104143d818b90019f3105be2cedc78" id="r_ace104143d818b90019f3105be2cedc78"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace104143d818b90019f3105be2cedc78">IsCurrentFrameSkipped</a> ()</td></tr>
 <tr class="memdesc:ace104143d818b90019f3105be2cedc78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether the current frame is skipped.  <br /></td></tr>
@@ -197,6 +198,9 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
+<tr class="memitem:ac9715c2ab15c6595cb4baa1f6bef8ba8" id="r_ac9715c2ab15c6595cb4baa1f6bef8ba8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9715c2ab15c6595cb4baa1f6bef8ba8">InvalidateFrameSkipCache</a> ()</td></tr>
+<tr class="memdesc:ac9715c2ab15c6595cb4baa1f6bef8ba8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the per-Unity-frame skip cache so the next <a class="el" href="#ace104143d818b90019f3105be2cedc78" title="Indicates whether the current frame is skipped.">IsCurrentFrameSkipped</a> call re-evaluates.  <br /></td></tr>
+<tr class="separator:ac9715c2ab15c6595cb4baa1f6bef8ba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a485e1b9cf4ea6c415c14e4f18ff9bc58" id="r_a485e1b9cf4ea6c415c14e4f18ff9bc58"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a485e1b9cf4ea6c415c14e4f18ff9bc58">OnDestroy</a> ()</td></tr>
 <tr class="separator:a485e1b9cf4ea6c415c14e4f18ff9bc58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab19f48485cee847f2df23597c9b5aed9" id="r_ab19f48485cee847f2df23597c9b5aed9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab19f48485cee847f2df23597c9b5aed9">OnValidate</a> ()</td></tr>
@@ -204,6 +208,12 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr class="memitem:afafa05dbcb9e06d6bff2b27a6f9b8a9f" id="r_afafa05dbcb9e06d6bff2b27a6f9b8a9f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afafa05dbcb9e06d6bff2b27a6f9b8a9f">_cachedSkipResult</a></td></tr>
+<tr class="memdesc:afafa05dbcb9e06d6bff2b27a6f9b8a9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cached skip result for <a class="el" href="#a8914df25ce35eea8c58874ffb97c9a6a" title="Unity frame index for which _cachedSkipResult was last evaluated.">_cachedSkipUnityFrame</a>.  <br /></td></tr>
+<tr class="separator:afafa05dbcb9e06d6bff2b27a6f9b8a9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8914df25ce35eea8c58874ffb97c9a6a" id="r_a8914df25ce35eea8c58874ffb97c9a6a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8914df25ce35eea8c58874ffb97c9a6a">_cachedSkipUnityFrame</a> = -1</td></tr>
+<tr class="memdesc:a8914df25ce35eea8c58874ffb97c9a6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unity frame index for which <a class="el" href="#afafa05dbcb9e06d6bff2b27a6f9b8a9f" title="Cached skip result for _cachedSkipUnityFrame.">_cachedSkipResult</a> was last evaluated.  <br /></td></tr>
+<tr class="separator:a8914df25ce35eea8c58874ffb97c9a6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afdc6fcacc1a9c41c47dbe0fbd7af4792" id="r_afdc6fcacc1a9c41c47dbe0fbd7af4792"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afdc6fcacc1a9c41c47dbe0fbd7af4792">_downScaleFrameMat</a></td></tr>
 <tr class="memdesc:afdc6fcacc1a9c41c47dbe0fbd7af4792"><td class="mdescLeft">&#160;</td><td class="mdescRight">The downscale frame mat.  <br /></td></tr>
 <tr class="separator:afdc6fcacc1a9c41c47dbe0fbd7af4792"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -244,10 +254,10 @@ Skipping frames to optimize processing frequency </li>
 <div class="line">    <span class="comment">// Perform operations on the downscaled image</span></div>
 <div class="line">    <a class="code hl_class" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> optimizedMat = imageHelper.<a class="code hl_function" href="#a281be35a1b0f2fb8df36132c5f72590e">GetDownScaleMat</a>(originalMat);</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassOpenCVForUnity_1_1CoreModule_1_1Mat_html"><div class="ttname"><a href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">OpenCVForUnity.CoreModule.Mat</a></div><div class="ttdoc">n-dimensional dense array class</div><div class="ttdef"><b>Definition</b> Mat_ValueTuple.cs:11</div></div>
+<div class="ttc" id="aclassOpenCVForUnity_1_1CoreModule_1_1Mat_html"><div class="ttname"><a href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">OpenCVForUnity.CoreModule.Mat</a></div><div class="ttdoc">n-dimensional dense array class</div><div class="ttdef"><b>Definition</b> Mat_ValueTuple.cs:10</div></div>
 <div class="ttc" id="aclassOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Optimization_1_1ImageOptimizationHelper_html"><div class="ttname"><a href="../../d6/d3a/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Optimization_1_1ImageOptimizationHelper.html">OpenCVForUnity.UnityIntegration.Helper.Optimization.ImageOptimizationHelper</a></div><div class="ttdoc">A helper component for optimizing image processing in Unity by managing frame skipping and downscalin...</div><div class="ttdef"><b>Definition</b> ImageOptimizationHelper.cs:39</div></div>
-<div class="ttc" id="aclassOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Optimization_1_1ImageOptimizationHelper_html_a281be35a1b0f2fb8df36132c5f72590e"><div class="ttname"><a href="#a281be35a1b0f2fb8df36132c5f72590e">OpenCVForUnity.UnityIntegration.Helper.Optimization.ImageOptimizationHelper.GetDownScaleMat</a></div><div class="ttdeci">virtual Mat GetDownScaleMat(Mat originalMat)</div><div class="ttdoc">Gets the mat that downscaled the original mat. if downscaleRatio == 1 , return originalMat.</div><div class="ttdef"><b>Definition</b> ImageOptimizationHelper.cs:108</div></div>
-<div class="ttc" id="aclassOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Optimization_1_1ImageOptimizationHelper_html_ace104143d818b90019f3105be2cedc78"><div class="ttname"><a href="#ace104143d818b90019f3105be2cedc78">OpenCVForUnity.UnityIntegration.Helper.Optimization.ImageOptimizationHelper.IsCurrentFrameSkipped</a></div><div class="ttdeci">virtual bool IsCurrentFrameSkipped()</div><div class="ttdoc">Indicates whether the current frame is skipped.</div><div class="ttdef"><b>Definition</b> ImageOptimizationHelper.cs:89</div></div>
+<div class="ttc" id="aclassOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Optimization_1_1ImageOptimizationHelper_html_a281be35a1b0f2fb8df36132c5f72590e"><div class="ttname"><a href="#a281be35a1b0f2fb8df36132c5f72590e">OpenCVForUnity.UnityIntegration.Helper.Optimization.ImageOptimizationHelper.GetDownScaleMat</a></div><div class="ttdeci">virtual Mat GetDownScaleMat(Mat originalMat)</div><div class="ttdoc">Returns a downscaled copy of originalMat  using DownscaleRatio. When DownscaleRatio is 1,...</div><div class="ttdef"><b>Definition</b> ImageOptimizationHelper.cs:141</div></div>
+<div class="ttc" id="aclassOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Optimization_1_1ImageOptimizationHelper_html_ace104143d818b90019f3105be2cedc78"><div class="ttname"><a href="#ace104143d818b90019f3105be2cedc78">OpenCVForUnity.UnityIntegration.Helper.Optimization.ImageOptimizationHelper.IsCurrentFrameSkipped</a></div><div class="ttdeci">virtual bool IsCurrentFrameSkipped()</div><div class="ttdoc">Indicates whether the current frame is skipped.</div><div class="ttdef"><b>Definition</b> ImageOptimizationHelper.cs:112</div></div>
 </div><!-- fragment --> </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a165802fb4e9f11c8ef09a3c58a4aa654" name="a165802fb4e9f11c8ef09a3c58a4aa654"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a165802fb4e9f11c8ef09a3c58a4aa654">&#9670;&#160;</a></span>Dispose()</h2>
@@ -271,6 +281,8 @@ Skipping frames to optimize processing frequency </li>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Disposes cached Mats and resets the frame counter. </p>
 
 </div>
 </div>
@@ -297,15 +309,42 @@ Skipping frames to optimize processing frequency </li>
 </table>
 </div><div class="memdoc">
 
-<p>Gets the mat that downscaled the original mat. if downscaleRatio == 1 , return originalMat. </p>
-<p>Please do not dispose of the returned mat as it will be reused. </p>
-<dl class="section return"><dt>Returns</dt><dd>The downscale mat.</dd></dl>
+<p>Returns a downscaled copy of <em>originalMat</em>  using <a class="el" href="#a3b3c50e89958a42020472e06c21cae28" title="The downscale ratio.">DownscaleRatio</a>. When <a class="el" href="#a3b3c50e89958a42020472e06c21cae28" title="The downscale ratio.">DownscaleRatio</a> is 1, returns <em>originalMat</em>  unchanged. </p>
+<p>Do not dispose the returned Mat; it is reused on subsequent calls. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">originalMat</td><td>Original mat.</td></tr>
+    <tr><td class="paramname">originalMat</td><td>Source mat.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>The downscaled mat, or <em>originalMat</em>  when no scaling is applied.</dd></dl>
+
+</div>
+</div>
+<a id="ac9715c2ab15c6595cb4baa1f6bef8ba8" name="ac9715c2ab15c6595cb4baa1f6bef8ba8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9715c2ab15c6595cb4baa1f6bef8ba8">&#9670;&#160;</a></span>InvalidateFrameSkipCache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenCVForUnity.UnityIntegration.Helper.Optimization.ImageOptimizationHelper.InvalidateFrameSkipCache </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clears the per-Unity-frame skip cache so the next <a class="el" href="#ace104143d818b90019f3105be2cedc78" title="Indicates whether the current frame is skipped.">IsCurrentFrameSkipped</a> call re-evaluates. </p>
 
 </div>
 </div>
@@ -333,6 +372,7 @@ Skipping frames to optimize processing frequency </li>
 </div><div class="memdoc">
 
 <p>Indicates whether the current frame is skipped. </p>
+<p>The internal frame counter advances at most once per Unity frame. Multiple calls within the same Time.frameCount return the same result. </p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code>, if the current frame is skipped, <code>false</code> otherwise.</dd></dl>
 
 </div>
@@ -413,7 +453,7 @@ Skipping frames to optimize processing frequency </li>
 <p>Restores the original size of the KeyPoint based on the downscale ratio. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">downscaledPoint</td><td>The detected keyooint in the downscaled image.</td></tr>
+    <tr><td class="paramname">downscaledKeyPoint</td><td>The detected keypoint in the downscaled image.</td></tr>
   </table>
   </dd>
 </dl>
@@ -864,6 +904,54 @@ Skipping frames to optimize processing frequency </li>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="afafa05dbcb9e06d6bff2b27a6f9b8a9f" name="afafa05dbcb9e06d6bff2b27a6f9b8a9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afafa05dbcb9e06d6bff2b27a6f9b8a9f">&#9670;&#160;</a></span>_cachedSkipResult</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityIntegration.Helper.Optimization.ImageOptimizationHelper._cachedSkipResult</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cached skip result for <a class="el" href="#a8914df25ce35eea8c58874ffb97c9a6a" title="Unity frame index for which _cachedSkipResult was last evaluated.">_cachedSkipUnityFrame</a>. </p>
+
+</div>
+</div>
+<a id="a8914df25ce35eea8c58874ffb97c9a6a" name="a8914df25ce35eea8c58874ffb97c9a6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8914df25ce35eea8c58874ffb97c9a6a">&#9670;&#160;</a></span>_cachedSkipUnityFrame</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int OpenCVForUnity.UnityIntegration.Helper.Optimization.ImageOptimizationHelper._cachedSkipUnityFrame = -1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Unity frame index for which <a class="el" href="#afafa05dbcb9e06d6bff2b27a6f9b8a9f" title="Cached skip result for _cachedSkipUnityFrame.">_cachedSkipResult</a> was last evaluated. </p>
+
+</div>
+</div>
 <a id="afdc6fcacc1a9c41c47dbe0fbd7af4792" name="afdc6fcacc1a9c41c47dbe0fbd7af4792"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afdc6fcacc1a9c41c47dbe0fbd7af4792">&#9670;&#160;</a></span>_downScaleFrameMat</h2>
 
@@ -1006,7 +1094,7 @@ Skipping frames to optimize processing frequency </li>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/Helper/<a class="el" href="../../d7/d9c/ImageOptimizationHelper_8cs.html">ImageOptimizationHelper.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/Scripts/UnityIntegration/Helper/Optimization/<a class="el" href="../../d7/d9c/ImageOptimizationHelper_8cs.html">ImageOptimizationHelper.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

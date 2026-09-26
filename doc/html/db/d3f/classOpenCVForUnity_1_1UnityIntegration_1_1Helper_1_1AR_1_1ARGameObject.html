@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.3</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.4</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.13.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/5.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -130,7 +130,6 @@ $(function(){ initResizable(false); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
@@ -140,92 +139,51 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
-<p>Represents an augmented reality (<a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a>) object that integrates with the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a>. This class manages solving Perspective-n-Point (PnP) problems, handling <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> matrix transformations, and detecting whether the object is within the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> camera's viewport.  
+<p>Unity integration layer for an <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> object that works with <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="Manages AR camera calibration parameters and Unity Camera.projectionMatrix for the AR pipeline....">ARCamera</a>. Bridges Inspector settings and <code>Vector2[]</code>/<code>Vector3[]</code> point data to ARPoseEstimator, then applies the returned pose via ConvertPoseDataToMatrix and <a class="el" href="#a4c1a91b254140c471e0f1f59fbde7bdb" title="Update the Transform of UpdateTarget using ARMatrix. This method uses the ARMatrix calculated by the ...">UpdateTransform</a>.  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:ae0abc6fe2886c5007ffd6501e0e72674" id="r_ae0abc6fe2886c5007ffd6501e0e72674"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674">Calib3dSolvePnPFlagsMode</a> { <br />
-&#160;&#160;<a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674ab2774721682de7fd39f689e53fa3a6cb">SOLVEPNP_ITERATIVE</a> = Calib3d.SOLVEPNP_ITERATIVE
-, <br />
-&#160;&#160;<a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674abd03aa46a0f6860116a1730c42c2edc7">SOLVEPNP_EPNP</a> = Calib3d.SOLVEPNP_EPNP
-, <br />
-&#160;&#160;<a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674af8b896ec93f2bfbb805c9ab323cb2f7f">SOLVEPNP_P3P</a> = Calib3d.SOLVEPNP_P3P
-, <br />
-&#160;&#160;<a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674a956f594e76bea55233559b12139c2c09">SOLVEPNP_AP3P</a> = Calib3d.SOLVEPNP_AP3P
-, <br />
-&#160;&#160;<a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674ab59a83284380d9889fe8324c29e7cab4">SOLVEPNP_DLS</a> = Calib3d.SOLVEPNP_DLS
-, <br />
-&#160;&#160;<a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674a99805373cf82029ffd1ed68120ce97da">SOLVEPNP_UPNP</a> = Calib3d.SOLVEPNP_UPNP
-, <br />
-&#160;&#160;<a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674a0fd3c208428da1437063e328415eac13">SOLVEPNP_IPPE</a> = Calib3d.SOLVEPNP_IPPE
-, <br />
-&#160;&#160;<a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674ab1f5d8024e63f0639a89d6527993f1ed">SOLVEPNP_IPPE_SQUARE</a> = Calib3d.SOLVEPNP_IPPE_SQUARE
-, <br />
-&#160;&#160;<a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674a020ead37d3c7f5198abc50ddcb9430c7">SOLVEPNP_SQPNP</a> = Calib3d.SOLVEPNP_SQPNP
-<br />
- }</td></tr>
-<tr class="memdesc:ae0abc6fe2886c5007ffd6501e0e72674"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum to set flags for solvePnP.  <a href="#ae0abc6fe2886c5007ffd6501e0e72674">More...</a><br /></td></tr>
-<tr class="separator:ae0abc6fe2886c5007ffd6501e0e72674"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff423badcb72c92c11a33bc1ee28fc70" id="r_aff423badcb72c92c11a33bc1ee28fc70"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70">SolvePnPRefinementMethod</a> { <br />
-&#160;&#160;<a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70a6adf97f83acf6453d4a6a4b1070f3754">None</a>
-, <br />
-&#160;&#160;<a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70aa1eb8e4086abef7d0f6253724905ec16">solvePnPRefineLM</a>
-, <br />
-&#160;&#160;<a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70af0f8e1649f8b14168f10266bb7d7532a">solvePnPRefineVVS</a>
-<br />
- }</td></tr>
-<tr class="memdesc:aff423badcb72c92c11a33bc1ee28fc70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum to set refinement method for solvePnP optimization.  <a href="#aff423badcb72c92c11a33bc1ee28fc70">More...</a><br /></td></tr>
-<tr class="separator:aff423badcb72c92c11a33bc1ee28fc70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a953a49d3aef51e8c555e7ad9f683d7ac" id="r_a953a49d3aef51e8c555e7ad9f683d7ac"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac">CalculateARMatrix</a> (<a class="el" href="../../d0/dee/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARHelper.html">ARHelper</a> arHelper)</td></tr>
-<tr class="memdesc:a953a49d3aef51e8c555e7ad9f683d7ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the <a class="el" href="#a4c1a91b254140c471e0f1f59fbde7bdb" title="Update the Transform of UpdateTarget using ARMatrix. This method uses the ARMatrix calculated by the ...">UpdateTransform()</a> method. This method should be called before <a class="el" href="#a4c1a91b254140c471e0f1f59fbde7bdb" title="Update the Transform of UpdateTarget using ARMatrix. This method uses the ARMatrix calculated by the ...">UpdateTransform()</a>.  <br /></td></tr>
+<tr class="memdesc:a953a49d3aef51e8c555e7ad9f683d7ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs pose estimation when solvePnP inputs or settings have changed, then updates the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> matrix used by <a class="el" href="#a4c1a91b254140c471e0f1f59fbde7bdb" title="Update the Transform of UpdateTarget using ARMatrix. This method uses the ARMatrix calculated by the ...">UpdateTransform</a>.  <br /></td></tr>
 <tr class="separator:a953a49d3aef51e8c555e7ad9f683d7ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad581e51c798c2d2a23e4446885661ff5" id="r_ad581e51c798c2d2a23e4446885661ff5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad581e51c798c2d2a23e4446885661ff5">Dispose</a> ()</td></tr>
-<tr class="memdesc:ad581e51c798c2d2a23e4446885661ff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disposes resources. This method is called when <a class="el" href="#a8f67d15f263a6342d1f0065feaec3d69" title="Called when the MonoBehaviour will be destroyed. This method is used to release resources and perform...">OnDestroy()</a> is called.  <br /></td></tr>
+<tr class="memdesc:ad581e51c798c2d2a23e4446885661ff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disposes ARPoseEstimator and clears the reference. Called from <a class="el" href="#a8f67d15f263a6342d1f0065feaec3d69">OnDestroy</a>.  <br /></td></tr>
 <tr class="separator:ad581e51c798c2d2a23e4446885661ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9fe4fbc28bbd8ba5dd0e3e1224c0c36" id="r_ae9fe4fbc28bbd8ba5dd0e3e1224c0c36"><td class="memItemLeft" align="right" valign="top">virtual Matrix4x4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9fe4fbc28bbd8ba5dd0e3e1224c0c36">GetARMatrix</a> ()</td></tr>
-<tr class="memdesc:ae9fe4fbc28bbd8ba5dd0e3e1224c0c36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get ARMatrix. This value is updated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method.  <br /></td></tr>
+<tr class="memdesc:ae9fe4fbc28bbd8ba5dd0e3e1224c0c36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> transformation matrix updated by <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix</a>.  <br /></td></tr>
 <tr class="separator:ae9fe4fbc28bbd8ba5dd0e3e1224c0c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a8361ac78885933fb0fe5cb48457e40" id="r_a2a8361ac78885933fb0fe5cb48457e40"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a8361ac78885933fb0fe5cb48457e40">GetRvec</a> ()</td></tr>
-<tr class="memdesc:a2a8361ac78885933fb0fe5cb48457e40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get rvec. This value is updated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method.  <br /></td></tr>
+<tr class="memdesc:a2a8361ac78885933fb0fe5cb48457e40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the rotation vector (<code>rvec</code>) updated by <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix</a>.  <br /></td></tr>
 <tr class="separator:a2a8361ac78885933fb0fe5cb48457e40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b844fc58d667940feed838badbfde9c" id="r_a2b844fc58d667940feed838badbfde9c"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2b844fc58d667940feed838badbfde9c">GetTvec</a> ()</td></tr>
-<tr class="memdesc:a2b844fc58d667940feed838badbfde9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get tvec. This value is updated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method.  <br /></td></tr>
+<tr class="memdesc:a2b844fc58d667940feed838badbfde9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the translation vector (<code>tvec</code>) updated by <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix</a>.  <br /></td></tr>
 <tr class="separator:a2b844fc58d667940feed838badbfde9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0377c719dc01b7d10eaef17059b1f75" id="r_ac0377c719dc01b7d10eaef17059b1f75"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac0377c719dc01b7d10eaef17059b1f75">Initialize</a> ()</td></tr>
-<tr class="memdesc:ac0377c719dc01b7d10eaef17059b1f75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes resources and sets the initial values. This method is called when <a class="el" href="#a92bb967d56a5b68caf8b4ff39f141455" title="Awake is called when the script instance is being loaded.">Awake()</a> is called.  <br /></td></tr>
+<tr class="memdesc:ac0377c719dc01b7d10eaef17059b1f75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes resources, creates ARPoseEstimator, and resets <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> state. Called from <a class="el" href="#a92bb967d56a5b68caf8b4ff39f141455">Awake</a> when needed.  <br /></td></tr>
 <tr class="separator:ac0377c719dc01b7d10eaef17059b1f75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae603836af588107d850a31d9603b0f58" id="r_ae603836af588107d850a31d9603b0f58"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae603836af588107d850a31d9603b0f58">IsARGameObjectInARCameraViewport</a> ()</td></tr>
-<tr class="memdesc:ae603836af588107d850a31d9603b0f58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> in the ARCameraViewport? This flag is updated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method.  <br /></td></tr>
+<tr class="memdesc:ae603836af588107d850a31d9603b0f58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cached viewport flag from the latest <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix</a> / <a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html#a43fecac0e8d3bcf4ffceded52e64e664" title="Estimates pose from 3D–2D correspondences using solvePnP and an NDC viewport gate....">ARPoseEstimator.Estimate</a> result (<code>ARPoseEstimateResult.IsValid</code>). Does not run NDC checks itself.  <br /></td></tr>
 <tr class="separator:ae603836af588107d850a31d9603b0f58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a404887ce2884c7d6a9d395a4be44e862" id="r_a404887ce2884c7d6a9d395a4be44e862"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a404887ce2884c7d6a9d395a4be44e862">ResetImagePointsAndObjectPoints</a> ()</td></tr>
 <tr class="memdesc:a404887ce2884c7d6a9d395a4be44e862"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the imagePoints and objectPoints.  <br /></td></tr>
 <tr class="separator:a404887ce2884c7d6a9d395a4be44e862"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c1a91b254140c471e0f1f59fbde7bdb" id="r_a4c1a91b254140c471e0f1f59fbde7bdb"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c1a91b254140c471e0f1f59fbde7bdb">UpdateTransform</a> (<a class="el" href="../../d0/dee/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARHelper.html">ARHelper</a> arHelper)</td></tr>
-<tr class="memdesc:a4c1a91b254140c471e0f1f59fbde7bdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the Transform of UpdateTarget using ARMatrix. This method uses the ARMatrix calculated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method. This method assumes that the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method has been called before this method.  <br /></td></tr>
+<tr class="memdesc:a4c1a91b254140c471e0f1f59fbde7bdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the Transform of UpdateTarget using ARMatrix. This method uses the ARMatrix calculated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix()</a> method. This method assumes that the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix()</a> method has been called before this method.  <br /></td></tr>
 <tr class="separator:a4c1a91b254140c471e0f1f59fbde7bdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a92bb967d56a5b68caf8b4ff39f141455" id="r_a92bb967d56a5b68caf8b4ff39f141455"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a92bb967d56a5b68caf8b4ff39f141455">Awake</a> ()</td></tr>
-<tr class="memdesc:a92bb967d56a5b68caf8b4ff39f141455"><td class="mdescLeft">&#160;</td><td class="mdescRight">Awake is called when the script instance is being loaded.  <br /></td></tr>
 <tr class="separator:a92bb967d56a5b68caf8b4ff39f141455"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6712c18adda03634869e9725e79bd114" id="r_a6712c18adda03634869e9725e79bd114"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6712c18adda03634869e9725e79bd114">CheckARCameraEvent</a> (bool isInViewport, <a class="el" href="../../d0/dee/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARHelper.html">ARHelper</a> arHelper)</td></tr>
+<tr class="memdesc:a6712c18adda03634869e9725e79bd114"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages events when the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> object enters or exits the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> camera viewport. The event trigger is delayed to prevent unnecessary consecutive event invocations.  <br /></td></tr>
 <tr class="separator:a6712c18adda03634869e9725e79bd114"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6593cdc50f305f3f2d72055cf4c5757b" id="r_a6593cdc50f305f3f2d72055cf4c5757b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6593cdc50f305f3f2d72055cf4c5757b">IsARGameObjectInARCameraViewport</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> tvec, Matrix4x4 projectionMatrix)</td></tr>
-<tr class="memdesc:a6593cdc50f305f3f2d72055cf4c5757b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines whether an <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> game object is within the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> camera's viewport.  <br /></td></tr>
-<tr class="separator:a6593cdc50f305f3f2d72055cf4c5757b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaec3df90ac0f59ac36f86b1b926e2467" id="r_aaec3df90ac0f59ac36f86b1b926e2467"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaec3df90ac0f59ac36f86b1b926e2467">IsValidArgsForCalculateARMatrix</a> ()</td></tr>
+<tr class="memdesc:aaec3df90ac0f59ac36f86b1b926e2467"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates if the input arguments are valid for <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> matrix calculation.  <br /></td></tr>
 <tr class="separator:aaec3df90ac0f59ac36f86b1b926e2467"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f67d15f263a6342d1f0065feaec3d69" id="r_a8f67d15f263a6342d1f0065feaec3d69"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f67d15f263a6342d1f0065feaec3d69">OnDestroy</a> ()</td></tr>
-<tr class="memdesc:a8f67d15f263a6342d1f0065feaec3d69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the <a class="el" href="../../d3/d52/classMonoBehaviour.html">MonoBehaviour</a> will be destroyed. This method is used to release resources and perform cleanup operations.  <br /></td></tr>
 <tr class="separator:a8f67d15f263a6342d1f0065feaec3d69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef69c7dda90a646689628ee74c5dd143" id="r_aef69c7dda90a646689628ee74c5dd143"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef69c7dda90a646689628ee74c5dd143">ShouldRejectPoseAsOutlier</a> (PoseData candidate, PoseData lastAccepted)</td></tr>
-<tr class="memdesc:aef69c7dda90a646689628ee74c5dd143"><td class="mdescLeft">&#160;</td><td class="mdescRight">For outlier rejection (pose hold). Returns true if the current frame estimate should be rejected compared to the previously accepted pose.  <br /></td></tr>
-<tr class="separator:aef69c7dda90a646689628ee74c5dd143"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -235,8 +193,8 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a8959404d032cf5a2b832b277263c33dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9948df456608208fe83c841b8e53ed6" id="r_af9948df456608208fe83c841b8e53ed6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9948df456608208fe83c841b8e53ed6">_applyZaxisInversionToARMatrix</a> = false</td></tr>
 <tr class="separator:af9948df456608208fe83c841b8e53ed6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a124b32bf6e193a09b63e7787e5beefa5" id="r_a124b32bf6e193a09b63e7787e5beefa5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a124b32bf6e193a09b63e7787e5beefa5">_arCameraEventCount</a> = 0</td></tr>
-<tr class="memdesc:a124b32bf6e193a09b63e7787e5beefa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of frames to wait for the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> event to fire.  <br /></td></tr>
+<tr class="memitem:a124b32bf6e193a09b63e7787e5beefa5" id="r_a124b32bf6e193a09b63e7787e5beefa5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a124b32bf6e193a09b63e7787e5beefa5">_arCameraEventCount</a> = -1</td></tr>
+<tr class="memdesc:a124b32bf6e193a09b63e7787e5beefa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of frames to wait for the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="Manages AR camera calibration parameters and Unity Camera.projectionMatrix for the AR pipeline....">ARCamera</a> event to fire.  <br /></td></tr>
 <tr class="separator:a124b32bf6e193a09b63e7787e5beefa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68c2755ea1e4309c4075e34f24b9688a" id="r_a68c2755ea1e4309c4075e34f24b9688a"><td class="memItemLeft" align="right" valign="top">Matrix4x4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68c2755ea1e4309c4075e34f24b9688a">_arMatrix</a></td></tr>
 <tr class="memdesc:a68c2755ea1e4309c4075e34f24b9688a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The transformation matrix for <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a>.  <br /></td></tr>
@@ -257,6 +215,9 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a82f38720918a39ce4aa91997f23a83c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae58206491cc12955564b1272cd1318e7" id="r_ae58206491cc12955564b1272cd1318e7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae58206491cc12955564b1272cd1318e7">_enableDebugOutput</a> = false</td></tr>
 <tr class="separator:ae58206491cc12955564b1272cd1318e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79d5a16ea593aa74afae99b32cfe581e" id="r_a79d5a16ea593aa74afae99b32cfe581e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a79d5a16ea593aa74afae99b32cfe581e">_hasLastFilteredPose</a> = false</td></tr>
+<tr class="memdesc:a79d5a16ea593aa74afae99b32cfe581e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether <a class="el" href="#a9506fba08916c9f5154a1724cffeb623" title="The old pose data from the latest valid estimate (for inspector refresh without re-running solvePnP).">_lastFilteredPose</a> holds a valid filtered pose.  <br /></td></tr>
+<tr class="separator:a79d5a16ea593aa74afae99b32cfe581e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d4e620b9374aeb3288dc92e70e60431" id="r_a3d4e620b9374aeb3288dc92e70e60431"><td class="memItemLeft" align="right" valign="top">Vector2[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3d4e620b9374aeb3288dc92e70e60431">_imagePoints</a> = null</td></tr>
 <tr class="separator:a3d4e620b9374aeb3288dc92e70e60431"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f041226a2a9bac2237f98bf418c4b20" id="r_a6f041226a2a9bac2237f98bf418c4b20"><td class="memItemLeft" align="right" valign="top">Matrix4x4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f041226a2a9bac2237f98bf418c4b20">_invertXMatrix</a> = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3(-1, 1, 1))</td></tr>
@@ -269,13 +230,13 @@ Protected Attributes</h2></td></tr>
 <tr class="memdesc:a323b4d880d5cf48d2c5de47d1f52695f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The matrix that inverts the Z axis.  <br /></td></tr>
 <tr class="separator:a323b4d880d5cf48d2c5de47d1f52695f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5b9dca37611a80be75505ac2723a686" id="r_ac5b9dca37611a80be75505ac2723a686"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5b9dca37611a80be75505ac2723a686">_isARGameObjectInARCameraViewport</a> = false</td></tr>
-<tr class="memdesc:ac5b9dca37611a80be75505ac2723a686"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> in the ARCameraViewport? This flag is updated when <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> is called.  <br /></td></tr>
+<tr class="memdesc:ac5b9dca37611a80be75505ac2723a686"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> in the ARCameraViewport? This flag is updated when <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix()</a> is called.  <br /></td></tr>
 <tr class="separator:ac5b9dca37611a80be75505ac2723a686"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a596e97c70834fbdce3616195cd629e2e" id="r_a596e97c70834fbdce3616195cd629e2e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a596e97c70834fbdce3616195cd629e2e">_isOldPoseDataInitialized</a> = false</td></tr>
-<tr class="memdesc:a596e97c70834fbdce3616195cd629e2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to track if old pose data has been initialized with valid data.  <br /></td></tr>
-<tr class="separator:a596e97c70834fbdce3616195cd629e2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ea7885da361547727978058d8332537" id="r_a4ea7885da361547727978058d8332537"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ea7885da361547727978058d8332537">_iterationsCount</a> = 100</td></tr>
 <tr class="separator:a4ea7885da361547727978058d8332537"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9506fba08916c9f5154a1724cffeb623" id="r_a9506fba08916c9f5154a1724cffeb623"><td class="memItemLeft" align="right" valign="top">PoseData&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9506fba08916c9f5154a1724cffeb623">_lastFilteredPose</a></td></tr>
+<tr class="memdesc:a9506fba08916c9f5154a1724cffeb623"><td class="mdescLeft">&#160;</td><td class="mdescRight">The old pose data from the latest valid estimate (for inspector refresh without re-running solvePnP).  <br /></td></tr>
+<tr class="separator:a9506fba08916c9f5154a1724cffeb623"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae291a5a379a45dc0f704b4bc8a970b23" id="r_ae291a5a379a45dc0f704b4bc8a970b23"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae291a5a379a45dc0f704b4bc8a970b23">_leftHandedCoordinates</a> = false</td></tr>
 <tr class="separator:ae291a5a379a45dc0f704b4bc8a970b23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5fba65d912f242de2b65ab8ebdbcd791" id="r_a5fba65d912f242de2b65ab8ebdbcd791"><td class="memItemLeft" align="right" valign="top">Vector2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5fba65d912f242de2b65ab8ebdbcd791">_ndcXRange</a> = new Vector2(-1.0f, 1.0f)</td></tr>
@@ -286,9 +247,6 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:ab03c085cf4b572c7cc15736836621e27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add72ba8f313f94761a48e8e1d5b132bf" id="r_add72ba8f313f94761a48e8e1d5b132bf"><td class="memItemLeft" align="right" valign="top">Vector3[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#add72ba8f313f94761a48e8e1d5b132bf">_objectPoints</a> = null</td></tr>
 <tr class="separator:add72ba8f313f94761a48e8e1d5b132bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a384083d87056872ab9c94785883b0569" id="r_a384083d87056872ab9c94785883b0569"><td class="memItemLeft" align="right" valign="top">PoseData&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a384083d87056872ab9c94785883b0569">_oldPoseData</a></td></tr>
-<tr class="memdesc:a384083d87056872ab9c94785883b0569"><td class="mdescLeft">&#160;</td><td class="mdescRight">The old pose data.  <br /></td></tr>
-<tr class="separator:a384083d87056872ab9c94785883b0569"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8be29fdc0af2292242581581850d71c9" id="r_a8be29fdc0af2292242581581850d71c9"><td class="memItemLeft" align="right" valign="top">UnityEvent&lt; <a class="el" href="../../d0/dee/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARHelper.html">ARHelper</a>, <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html">ARCamera</a>, <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html">ARGameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8be29fdc0af2292242581581850d71c9">_onEnterARCameraViewport</a></td></tr>
 <tr class="separator:a8be29fdc0af2292242581581850d71c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52bee1db85e12da9c16295f91c563c77" id="r_a52bee1db85e12da9c16295f91c563c77"><td class="memItemLeft" align="right" valign="top">UnityEvent&lt; <a class="el" href="../../d0/dee/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARHelper.html">ARHelper</a>, <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html">ARCamera</a>, <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html">ARGameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a52bee1db85e12da9c16295f91c563c77">_onExitARCameraViewport</a></td></tr>
@@ -297,6 +255,9 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a0955b74d4eabcdb9fedbfd3f611874c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a25e88c8a42989e8413ccbbed25c2b3" id="r_a1a25e88c8a42989e8413ccbbed25c2b3"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1a25e88c8a42989e8413ccbbed25c2b3">_outlierRejectionMaxRotationDeltaDegrees</a> = 55f</td></tr>
 <tr class="separator:a1a25e88c8a42989e8413ccbbed25c2b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24beeac3d9af257a47a793dc09285117" id="r_a24beeac3d9af257a47a793dc09285117"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html">ARPoseEstimator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24beeac3d9af257a47a793dc09285117">_poseEstimator</a></td></tr>
+<tr class="memdesc:a24beeac3d9af257a47a793dc09285117"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shared <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> pose estimation pipeline.  <br /></td></tr>
+<tr class="separator:a24beeac3d9af257a47a793dc09285117"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af236f60d4bd2f958d575d62fd81b57c6" id="r_af236f60d4bd2f958d575d62fd81b57c6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af236f60d4bd2f958d575d62fd81b57c6">_positionLowPassParam</a> = 0.01f</td></tr>
 <tr class="separator:af236f60d4bd2f958d575d62fd81b57c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bd40addf4a2b01086f0fee079f75d61" id="r_a8bd40addf4a2b01086f0fee079f75d61"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8bd40addf4a2b01086f0fee079f75d61">_positionSmoothingFactor</a> = 0.2f</td></tr>
@@ -311,21 +272,15 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:ad54ab1ae64b6880474ce10a4ce29bb36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8491cc35324ec239b852de7af714bd96" id="r_a8491cc35324ec239b852de7af714bd96"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8491cc35324ec239b852de7af714bd96">_rotationSmoothingFactor</a> = 0.3f</td></tr>
 <tr class="separator:a8491cc35324ec239b852de7af714bd96"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9faef47880257aa020e125682ad39d0" id="r_aa9faef47880257aa020e125682ad39d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa9faef47880257aa020e125682ad39d0">_rvec</a></td></tr>
-<tr class="memdesc:aa9faef47880257aa020e125682ad39d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The rvec Mat for <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose  from 3D-2D point correspondences:">Calib3d.solvePnP()</a>.  <br /></td></tr>
-<tr class="separator:aa9faef47880257aa020e125682ad39d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b30c158a94d40e8c4a4c79ce581d1c2" id="r_a2b30c158a94d40e8c4a4c79ce581d1c2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674">Calib3dSolvePnPFlagsMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2b30c158a94d40e8c4a4c79ce581d1c2">_solvePnPFlagsMode</a> = <a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674ab2774721682de7fd39f689e53fa3a6cb">Calib3dSolvePnPFlagsMode.SOLVEPNP_ITERATIVE</a></td></tr>
-<tr class="separator:a2b30c158a94d40e8c4a4c79ce581d1c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbc2ecdce4ad036df46c3ab4211527b7" id="r_adbc2ecdce4ad036df46c3ab4211527b7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70">SolvePnPRefinementMethod</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adbc2ecdce4ad036df46c3ab4211527b7">_solvePnPRefinementMethod</a> = <a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70a6adf97f83acf6453d4a6a4b1070f3754">SolvePnPRefinementMethod.None</a></td></tr>
-<tr class="separator:adbc2ecdce4ad036df46c3ab4211527b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a076c025869e0969809c44def53181118" id="r_a076c025869e0969809c44def53181118"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html#a598b7d2289c00012dc7b150d3b44b8e9">ARPoseEstimator.Calib3dSolvePnPFlagsMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a076c025869e0969809c44def53181118">_solvePnPFlagsMode</a></td></tr>
+<tr class="separator:a076c025869e0969809c44def53181118"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90a194142da87cdd0c1457621c454dcb" id="r_a90a194142da87cdd0c1457621c454dcb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html#aa42e6c8b8ab92d0d2e2660cc89eb4668">ARPoseEstimator.SolvePnPRefinementMethod</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a90a194142da87cdd0c1457621c454dcb">_solvePnPRefinementMethod</a></td></tr>
+<tr class="separator:a90a194142da87cdd0c1457621c454dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2cf0aac7b7f6c271573d52abf671a067" id="r_a2cf0aac7b7f6c271573d52abf671a067"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2cf0aac7b7f6c271573d52abf671a067">_solvePnPRefinementRMSThreshold</a> = 1.0f</td></tr>
 <tr class="separator:a2cf0aac7b7f6c271573d52abf671a067"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a4a5087a992cef625a5e9d72a6a6017" id="r_a2a4a5087a992cef625a5e9d72a6a6017"><td class="memItemLeft" align="right" valign="top">Matrix4x4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a4a5087a992cef625a5e9d72a6a6017">_transformMatrix</a></td></tr>
 <tr class="memdesc:a2a4a5087a992cef625a5e9d72a6a6017"><td class="mdescLeft">&#160;</td><td class="mdescRight">The transformation matrix from poseData.  <br /></td></tr>
 <tr class="separator:a2a4a5087a992cef625a5e9d72a6a6017"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafcfbe71ef52ff94388aaf05d52fe142" id="r_aafcfbe71ef52ff94388aaf05d52fe142"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aafcfbe71ef52ff94388aaf05d52fe142">_tvec</a></td></tr>
-<tr class="memdesc:aafcfbe71ef52ff94388aaf05d52fe142"><td class="mdescLeft">&#160;</td><td class="mdescRight">The tvec Mat for <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose  from 3D-2D point correspondences:">Calib3d.solvePnP()</a>.  <br /></td></tr>
-<tr class="separator:aafcfbe71ef52ff94388aaf05d52fe142"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7760f950b27f2798356edfde2adde4f7" id="r_a7760f950b27f2798356edfde2adde4f7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7760f950b27f2798356edfde2adde4f7">_useLowPassFilter</a> = false</td></tr>
 <tr class="separator:a7760f950b27f2798356edfde2adde4f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f566f66b299ede530cf03d6b6f0222b" id="r_a4f566f66b299ede530cf03d6b6f0222b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4f566f66b299ede530cf03d6b6f0222b">_useOutlierRejectionFilter</a> = false</td></tr>
@@ -352,19 +307,19 @@ Properties</h2></td></tr>
 <tr class="memdesc:ad8093ae414d5ef4b7a9cbec2f8be7ae5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Confidence level for RANSAC.  <br /></td></tr>
 <tr class="separator:ad8093ae414d5ef4b7a9cbec2f8be7ae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abecafbe57156bb4970e9ca1d6d95b73f" id="r_abecafbe57156bb4970e9ca1d6d95b73f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abecafbe57156bb4970e9ca1d6d95b73f">ConvertLeftHandedARMatrix</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:abecafbe57156bb4970e9ca1d6d95b73f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the matrix returned by <a class="el" href="#ae9fe4fbc28bbd8ba5dd0e3e1224c0c36" title="Get ARMatrix. This value is updated by the CalculateARMatrix() method.">GetARMatrix</a> includes conversion from OpenCV right-handed to Unity left-handed coordinates.  <br /></td></tr>
+<tr class="memdesc:abecafbe57156bb4970e9ca1d6d95b73f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the matrix returned by <a class="el" href="#ae9fe4fbc28bbd8ba5dd0e3e1224c0c36" title="Gets the AR transformation matrix updated by CalculateARMatrix.">GetARMatrix</a> includes conversion from OpenCV right-handed to Unity left-handed coordinates (passed to ConvertPoseDataToMatrix as <code>convertToUnityCoordinates</code>).  <br /></td></tr>
 <tr class="separator:abecafbe57156bb4970e9ca1d6d95b73f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d302c289eb26b9463b12ef8cd946ff1" id="r_a1d302c289eb26b9463b12ef8cd946ff1"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d302c289eb26b9463b12ef8cd946ff1">DelayFrameOnEnterARCameraViewportEvent</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a1d302c289eb26b9463b12ef8cd946ff1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invoke UnityEvent onEnterARCameraViewport only when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> is in the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> viewport for the specified number of consecutive frames. Prevents frequent notifications due to noise.  <br /></td></tr>
+<tr class="memdesc:a1d302c289eb26b9463b12ef8cd946ff1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invoke UnityEvent onEnterARCameraViewport only when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> is in the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="Manages AR camera calibration parameters and Unity Camera.projectionMatrix for the AR pipeline....">ARCamera</a> viewport for the specified number of consecutive frames. Prevents frequent notifications due to noise.  <br /></td></tr>
 <tr class="separator:a1d302c289eb26b9463b12ef8cd946ff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8122e48f9e8817d5253c7b4990944eb3" id="r_a8122e48f9e8817d5253c7b4990944eb3"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8122e48f9e8817d5253c7b4990944eb3">DelayFrameOnExitARCameraViewportEvent</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a8122e48f9e8817d5253c7b4990944eb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invoke UnityEvent onExitARCameraViewport only when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> is outside the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> viewport for the specified number of consecutive frames. Prevents frequent notifications due to noise.  <br /></td></tr>
+<tr class="memdesc:a8122e48f9e8817d5253c7b4990944eb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invoke UnityEvent onExitARCameraViewport only when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> is outside the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="Manages AR camera calibration parameters and Unity Camera.projectionMatrix for the AR pipeline....">ARCamera</a> viewport for the specified number of consecutive frames. Prevents frequent notifications due to noise.  <br /></td></tr>
 <tr class="separator:a8122e48f9e8817d5253c7b4990944eb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e2e6518e5f3d6b301234bb6d919c926" id="r_a0e2e6518e5f3d6b301234bb6d919c926"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e2e6518e5f3d6b301234bb6d919c926">EnableDebugOutput</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a0e2e6518e5f3d6b301234bb6d919c926"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable debug output to console.  <br /></td></tr>
 <tr class="separator:a0e2e6518e5f3d6b301234bb6d919c926"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae54b4ade661f7de59cc288a181e31994" id="r_ae54b4ade661f7de59cc288a181e31994"><td class="memItemLeft" align="right" valign="top">virtual Vector2[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae54b4ade661f7de59cc288a181e31994">ImagePoints</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:ae54b4ade661f7de59cc288a181e31994"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify the imagePoints argument to the <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose  from 3D-2D point correspondences:">Calib3d.solvePnP()</a> method.  <br /></td></tr>
+<tr class="memdesc:ae54b4ade661f7de59cc288a181e31994"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify the imagePoints argument to the Calib3d.solvePnP() method.  <br /></td></tr>
 <tr class="separator:ae54b4ade661f7de59cc288a181e31994"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a982b3098a96388a8403643209231517d" id="r_a982b3098a96388a8403643209231517d"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a982b3098a96388a8403643209231517d">IterationsCount</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a982b3098a96388a8403643209231517d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of iterations for RANSAC.  <br /></td></tr>
@@ -373,22 +328,22 @@ Properties</h2></td></tr>
 <tr class="memdesc:a7275320fe10a5a68470f1b24bc7a84ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable this flag if the object point is a left-hand coordinate system (Unity). When converting from a right-hand coordinate system to Unity coordinates (left-hand coordinate system), use the rule of inverting the Y coordinate.  <br /></td></tr>
 <tr class="separator:a7275320fe10a5a68470f1b24bc7a84ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ef544a91a4530eb436fefcf9a9eecf5" id="r_a4ef544a91a4530eb436fefcf9a9eecf5"><td class="memItemLeft" align="right" valign="top">virtual Vector2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ef544a91a4530eb436fefcf9a9eecf5">NdcXRange</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a4ef544a91a4530eb436fefcf9a9eecf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the valid range for the X coordinate in NDC space. Used in IsARGameObjectInARCameraViewport method for viewport visibility checks.  <br /></td></tr>
+<tr class="memdesc:a4ef544a91a4530eb436fefcf9a9eecf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valid NDC X range passed to ARPoseEstimator during <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix</a>. The latest inside/outside state is exposed by <a class="el" href="#ae603836af588107d850a31d9603b0f58" title="Cached viewport flag from the latest CalculateARMatrix / ARPoseEstimator.Estimate result (ARPoseEstim...">IsARGameObjectInARCameraViewport</a>.  <br /></td></tr>
 <tr class="separator:a4ef544a91a4530eb436fefcf9a9eecf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaede56b154dcdc3cad6fe117894c29b4" id="r_aaede56b154dcdc3cad6fe117894c29b4"><td class="memItemLeft" align="right" valign="top">virtual Vector2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaede56b154dcdc3cad6fe117894c29b4">NdcYRange</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:aaede56b154dcdc3cad6fe117894c29b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the valid range for the Y coordinate in NDC space. Used in IsARGameObjectInARCameraViewport method for viewport visibility checks.  <br /></td></tr>
+<tr class="memdesc:aaede56b154dcdc3cad6fe117894c29b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valid NDC Y range passed to ARPoseEstimator during <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix</a>. The latest inside/outside state is exposed by <a class="el" href="#ae603836af588107d850a31d9603b0f58" title="Cached viewport flag from the latest CalculateARMatrix / ARPoseEstimator.Estimate result (ARPoseEstim...">IsARGameObjectInARCameraViewport</a>.  <br /></td></tr>
 <tr class="separator:aaede56b154dcdc3cad6fe117894c29b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5d72b81c418aa1c1e1bff3854514b2f" id="r_ab5d72b81c418aa1c1e1bff3854514b2f"><td class="memItemLeft" align="right" valign="top">virtual Vector2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5d72b81c418aa1c1e1bff3854514b2f">NdcZRange</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:ab5d72b81c418aa1c1e1bff3854514b2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the valid range for the Z coordinate in NDC space. Used in IsARGameObjectInARCameraViewport method for viewport visibility checks.  <br /></td></tr>
+<tr class="memdesc:ab5d72b81c418aa1c1e1bff3854514b2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valid NDC Z range passed to ARPoseEstimator during <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix</a>. The latest inside/outside state is exposed by <a class="el" href="#ae603836af588107d850a31d9603b0f58" title="Cached viewport flag from the latest CalculateARMatrix / ARPoseEstimator.Estimate result (ARPoseEstim...">IsARGameObjectInARCameraViewport</a>.  <br /></td></tr>
 <tr class="separator:ab5d72b81c418aa1c1e1bff3854514b2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98a5cc0c382d9e47f99558306ebcf6ac" id="r_a98a5cc0c382d9e47f99558306ebcf6ac"><td class="memItemLeft" align="right" valign="top">virtual Vector3[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a98a5cc0c382d9e47f99558306ebcf6ac">ObjectPoints</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a98a5cc0c382d9e47f99558306ebcf6ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify the objectPoints argument to the <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose  from 3D-2D point correspondences:">Calib3d.solvePnP()</a> method.  <br /></td></tr>
+<tr class="memdesc:a98a5cc0c382d9e47f99558306ebcf6ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify the objectPoints argument to the Calib3d.solvePnP() method.  <br /></td></tr>
 <tr class="separator:a98a5cc0c382d9e47f99558306ebcf6ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad253bc76b4a3b4df72375e008219cefc" id="r_ad253bc76b4a3b4df72375e008219cefc"><td class="memItemLeft" align="right" valign="top">virtual UnityEvent&lt; <a class="el" href="../../d0/dee/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARHelper.html">ARHelper</a>, <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html">ARCamera</a>, <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html">ARGameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad253bc76b4a3b4df72375e008219cefc">OnEnterARCameraViewport</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:ad253bc76b4a3b4df72375e008219cefc"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent notified when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> enters the viewport of the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a>.  <br /></td></tr>
+<tr class="memdesc:ad253bc76b4a3b4df72375e008219cefc"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent notified when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> enters the viewport of the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="Manages AR camera calibration parameters and Unity Camera.projectionMatrix for the AR pipeline....">ARCamera</a>.  <br /></td></tr>
 <tr class="separator:ad253bc76b4a3b4df72375e008219cefc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b95b56686eae5aaf93187cd89f79dce" id="r_a9b95b56686eae5aaf93187cd89f79dce"><td class="memItemLeft" align="right" valign="top">virtual UnityEvent&lt; <a class="el" href="../../d0/dee/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARHelper.html">ARHelper</a>, <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html">ARCamera</a>, <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html">ARGameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b95b56686eae5aaf93187cd89f79dce">OnExitARCameraViewport</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a9b95b56686eae5aaf93187cd89f79dce"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent notified when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> exits the viewport of the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a>.  <br /></td></tr>
+<tr class="memdesc:a9b95b56686eae5aaf93187cd89f79dce"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent notified when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> exits the viewport of the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="Manages AR camera calibration parameters and Unity Camera.projectionMatrix for the AR pipeline....">ARCamera</a>.  <br /></td></tr>
 <tr class="separator:a9b95b56686eae5aaf93187cd89f79dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86912a3ef7201cca84e72a7e47cd8a99" id="r_a86912a3ef7201cca84e72a7e47cd8a99"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a86912a3ef7201cca84e72a7e47cd8a99">OutlierRejectionMaxPositionDeltaMeters</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a86912a3ef7201cca84e72a7e47cd8a99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position threshold for outlier rejection (meters).  <br /></td></tr>
@@ -402,9 +357,9 @@ Properties</h2></td></tr>
 <tr class="memitem:a11201f0695c2cbfcc28a9f7caecc853c" id="r_a11201f0695c2cbfcc28a9f7caecc853c"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11201f0695c2cbfcc28a9f7caecc853c">PositionSmoothingFactor</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a11201f0695c2cbfcc28a9f7caecc853c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Smoothing factor for position (0.0 = no filtering, 1.0 = maximum filtering). Higher values result in more smoothing and slower response to changes.  <br /></td></tr>
 <tr class="separator:a11201f0695c2cbfcc28a9f7caecc853c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a529484c3de2cdd310eeaf7db485c37b8" id="r_a529484c3de2cdd310eeaf7db485c37b8"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70">SolvePnPRefinementMethod</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a529484c3de2cdd310eeaf7db485c37b8">RefinementMethod</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a529484c3de2cdd310eeaf7db485c37b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select the refinement method for solvePnP optimization.  <br /></td></tr>
-<tr class="separator:a529484c3de2cdd310eeaf7db485c37b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63ad63714375cf4ea5439d87de5d240b" id="r_a63ad63714375cf4ea5439d87de5d240b"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html#aa42e6c8b8ab92d0d2e2660cc89eb4668">ARPoseEstimator.SolvePnPRefinementMethod</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a63ad63714375cf4ea5439d87de5d240b">RefinementMethod</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a63ad63714375cf4ea5439d87de5d240b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Post-solvePnP refinement method mirrored into ARPoseEstimator.ARPoseEstimateSettings before <a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html#a43fecac0e8d3bcf4ffceded52e64e664" title="Estimates pose from 3D–2D correspondences using solvePnP and an NDC viewport gate....">ARPoseEstimator.Estimate</a>.  <br /></td></tr>
+<tr class="separator:a63ad63714375cf4ea5439d87de5d240b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a938ed249ff898d59a5c52639a15f4c1b" id="r_a938ed249ff898d59a5c52639a15f4c1b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a938ed249ff898d59a5c52639a15f4c1b">RejectPoseByReprojectionRms</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a938ed249ff898d59a5c52639a15f4c1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies the RMS-based rejection gate when enabled.  <br /></td></tr>
 <tr class="separator:a938ed249ff898d59a5c52639a15f4c1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -420,9 +375,9 @@ Properties</h2></td></tr>
 <tr class="memitem:a658c1606fce770a459d434e9d849ac5c" id="r_a658c1606fce770a459d434e9d849ac5c"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a658c1606fce770a459d434e9d849ac5c">RotationSmoothingFactor</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a658c1606fce770a459d434e9d849ac5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Smoothing factor for rotation (0.0 = no filtering, 1.0 = maximum filtering). Higher values result in more smoothing and slower response to changes.  <br /></td></tr>
 <tr class="separator:a658c1606fce770a459d434e9d849ac5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7c3dcab52d64d074439ee04e5b9b5c9" id="r_ae7c3dcab52d64d074439ee04e5b9b5c9"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674">Calib3dSolvePnPFlagsMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7c3dcab52d64d074439ee04e5b9b5c9">SolvePnPFlagsMode</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:ae7c3dcab52d64d074439ee04e5b9b5c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify the flags argument to the <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose  from 3D-2D point correspondences:">Calib3d.solvePnP()</a> method.  <br /></td></tr>
-<tr class="separator:ae7c3dcab52d64d074439ee04e5b9b5c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92e6e47e09b48765a5e6300e5c3297e6" id="r_a92e6e47e09b48765a5e6300e5c3297e6"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html#a598b7d2289c00012dc7b150d3b44b8e9">ARPoseEstimator.Calib3dSolvePnPFlagsMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a92e6e47e09b48765a5e6300e5c3297e6">SolvePnPFlagsMode</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a92e6e47e09b48765a5e6300e5c3297e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">solvePnP flags mirrored into ARPoseEstimator.ARPoseEstimateSettings before <a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html#a43fecac0e8d3bcf4ffceded52e64e664" title="Estimates pose from 3D–2D correspondences using solvePnP and an NDC viewport gate....">ARPoseEstimator.Estimate</a>.  <br /></td></tr>
+<tr class="separator:a92e6e47e09b48765a5e6300e5c3297e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63d93b983fede1e17715fb5d26ed5810" id="r_a63d93b983fede1e17715fb5d26ed5810"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a63d93b983fede1e17715fb5d26ed5810">SolvePnPRefinementRMSThreshold</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a63d93b983fede1e17715fb5d26ed5810"><td class="mdescLeft">&#160;</td><td class="mdescRight">If refinement is enabled, the refinement method is called if the reprojection error RMS is greater than the specified threshold.  <br /></td></tr>
 <tr class="separator:a63d93b983fede1e17715fb5d26ed5810"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -436,77 +391,24 @@ Properties</h2></td></tr>
 <tr class="memdesc:ae34e1e234e65d0fbda102d5f660eaadd"><td class="mdescLeft">&#160;</td><td class="mdescRight">When enabled, smoothing filter suppresses noise.  <br /></td></tr>
 <tr class="separator:ae34e1e234e65d0fbda102d5f660eaadd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe4f92ffc2893496bfbe48e2215f0f13" id="r_afe4f92ffc2893496bfbe48e2215f0f13"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe4f92ffc2893496bfbe48e2215f0f13">UseSOLVEPNP_ITERATIVE</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:afe4f92ffc2893496bfbe48e2215f0f13"><td class="mdescLeft">&#160;</td><td class="mdescRight">If this flag is set to true, <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a346b4cf4327a5a3c2348a53becd88d8b" title="C++: enum SolvePnPMethod (cv.SolvePnPMethod)">Calib3d.SOLVEPNP_ITERATIVE</a> is used for solvePnP when the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> object is already detected (not first detection).  <br /></td></tr>
+<tr class="memdesc:afe4f92ffc2893496bfbe48e2215f0f13"><td class="mdescLeft">&#160;</td><td class="mdescRight">If this flag is set to true, Calib3d.SOLVEPNP_ITERATIVE is used for solvePnP when the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> object is already detected (not first detection).  <br /></td></tr>
 <tr class="separator:afe4f92ffc2893496bfbe48e2215f0f13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61c14a9baf784b07dee5667f6d42a1f0" id="r_a61c14a9baf784b07dee5667f6d42a1f0"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61c14a9baf784b07dee5667f6d42a1f0">UseSolvePnPRansac</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a61c14a9baf784b07dee5667f6d42a1f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">If this flag is set to true, <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a8b9bcee299b9af0d716547bf8f7f0ddf" title="Finds an object pose  from 3D-2D point correspondences using the RANSAC scheme to deal with bad match...">Calib3d.solvePnPRansac()</a> is called before <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose  from 3D-2D point correspondences:">Calib3d.solvePnP()</a> to filter out outliers.  <br /></td></tr>
+<tr class="memdesc:a61c14a9baf784b07dee5667f6d42a1f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">If this flag is set to true, Calib3d.solvePnPRansac() is called before Calib3d.solvePnP() to filter out outliers.  <br /></td></tr>
 <tr class="separator:a61c14a9baf784b07dee5667f6d42a1f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents an augmented reality (<a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a>) object that integrates with the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a>. This class manages solving Perspective-n-Point (PnP) problems, handling <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> matrix transformations, and detecting whether the object is within the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> camera's viewport. </p>
+<div class="textblock"><p>Unity integration layer for an <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> object that works with <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="Manages AR camera calibration parameters and Unity Camera.projectionMatrix for the AR pipeline....">ARCamera</a>. Bridges Inspector settings and <code>Vector2[]</code>/<code>Vector3[]</code> point data to ARPoseEstimator, then applies the returned pose via ConvertPoseDataToMatrix and <a class="el" href="#a4c1a91b254140c471e0f1f59fbde7bdb" title="Update the Transform of UpdateTarget using ARMatrix. This method uses the ARMatrix calculated by the ...">UpdateTransform</a>. </p>
 <ul>
-<li>Utilizes OpenCV's solvePnP methods to estimate the object's 3D position from 2D image points.</li>
-<li>Supports multiple solvePnP flags and optional refinement processes using solvePnPRefineLM or solvePnPRefineVVS.</li>
-<li>Provides RANSAC filtering to remove outliers before solvePnP computation.</li>
-<li>Supports coordinate system transformations and noise reduction via low-pass and smoothing filters.</li>
-<li>Optional outlier rejection (hold): if position/rotation jumps exceed thresholds vs. the last accepted pose, the new estimate is discarded and the previous pose is kept.</li>
-<li>Configurable NDC (Normalized Device Coordinates) range settings for viewport detection.</li>
+<li>Pose estimation (solvePnP, RANSAC, refinement, RMS rejection, NDC viewport, outlier hold, low-pass, smoothing) runs in ARPoseEstimator; this class mirrors Inspector values into ARPoseEstimator.ARPoseEstimateSettings before each estimate.</li>
+<li>Converts <a class="el" href="#ae54b4ade661f7de59cc288a181e31994" title="Specify the imagePoints argument to the Calib3d.solvePnP() method.">ImagePoints</a> / <a class="el" href="#a98a5cc0c382d9e47f99558306ebcf6ac" title="Specify the objectPoints argument to the Calib3d.solvePnP() method.">ObjectPoints</a> to <code>Mat</code> and optionally inverts object-point Y for Unity left-handed inputs.</li>
+<li>Configurable NDC ranges are passed to the estimator; the latest inside/outside state is exposed by <a class="el" href="#ae603836af588107d850a31d9603b0f58" title="Cached viewport flag from the latest CalculateARMatrix / ARPoseEstimator.Estimate result (ARPoseEstim...">IsARGameObjectInARCameraViewport</a>.</li>
 <li>Supports axis inversion transformations for <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> matrix adjustments.</li>
 <li>Triggers events when the object enters or exits the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> camera viewport with configurable delay frames.</li>
-<li>Updates the object's transform based on computed <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> matrices.</li>
-<li>OnEnterARCameraViewport and OnExitARCameraViewport fire from within <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix</a> when the viewport inside/outside state changes, after the delay frame counts <a class="el" href="#a1d302c289eb26b9463b12ef8cd946ff1" title="Invoke UnityEvent onEnterARCameraViewport only when the ARGameObject is in the ARCamera viewport for ...">DelayFrameOnEnterARCameraViewportEvent</a> and <a class="el" href="#a8122e48f9e8817d5253c7b4990944eb3" title="Invoke UnityEvent onExitARCameraViewport only when the ARGameObject is outside the ARCamera viewport ...">DelayFrameOnExitARCameraViewportEvent</a>.</li>
-<li>For those events to fire reliably, update ImagePoints and ObjectPoints on every frame where new points are obtained, and call <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix</a> continuously. </li>
+<li><a class="el" href="#ad253bc76b4a3b4df72375e008219cefc" title="UnityEvent notified when the ARGameObject enters the viewport of the ARCamera.">OnEnterARCameraViewport</a> and <a class="el" href="#a9b95b56686eae5aaf93187cd89f79dce" title="UnityEvent notified when the ARGameObject exits the viewport of the ARCamera.">OnExitARCameraViewport</a> fire from within <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix</a> after the delay frame counts <a class="el" href="#a1d302c289eb26b9463b12ef8cd946ff1" title="Invoke UnityEvent onEnterARCameraViewport only when the ARGameObject is in the ARCamera viewport for ...">DelayFrameOnEnterARCameraViewportEvent</a> and <a class="el" href="#a8122e48f9e8817d5253c7b4990944eb3" title="Invoke UnityEvent onExitARCameraViewport only when the ARGameObject is outside the ARCamera viewport ...">DelayFrameOnExitARCameraViewportEvent</a>.</li>
+<li>For those events to fire reliably, update <a class="el" href="#ae54b4ade661f7de59cc288a181e31994" title="Specify the imagePoints argument to the Calib3d.solvePnP() method.">ImagePoints</a> and <a class="el" href="#a98a5cc0c382d9e47f99558306ebcf6ac" title="Specify the objectPoints argument to the Calib3d.solvePnP() method.">ObjectPoints</a> on every frame where new points are obtained (or call <a class="el" href="#a404887ce2884c7d6a9d395a4be44e862" title="Reset the imagePoints and objectPoints.">ResetImagePointsAndObjectPoints</a> when clearing), and invoke <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix</a> via <a class="el" href="../../d0/dee/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARHelper.html" title="The ARHelper class manages ARCamera and ARGameObjects, automating the calculation of ARMatrix and upd...">ARHelper</a> each frame. </li>
 </ul>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="ae0abc6fe2886c5007ffd6501e0e72674" name="ae0abc6fe2886c5007ffd6501e0e72674"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0abc6fe2886c5007ffd6501e0e72674">&#9670;&#160;</a></span>Calib3dSolvePnPFlagsMode</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674">OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.Calib3dSolvePnPFlagsMode</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Enum to set flags for solvePnP. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae0abc6fe2886c5007ffd6501e0e72674ab2774721682de7fd39f689e53fa3a6cb" name="ae0abc6fe2886c5007ffd6501e0e72674ab2774721682de7fd39f689e53fa3a6cb"></a>SOLVEPNP_ITERATIVE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae0abc6fe2886c5007ffd6501e0e72674abd03aa46a0f6860116a1730c42c2edc7" name="ae0abc6fe2886c5007ffd6501e0e72674abd03aa46a0f6860116a1730c42c2edc7"></a>SOLVEPNP_EPNP&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae0abc6fe2886c5007ffd6501e0e72674af8b896ec93f2bfbb805c9ab323cb2f7f" name="ae0abc6fe2886c5007ffd6501e0e72674af8b896ec93f2bfbb805c9ab323cb2f7f"></a>SOLVEPNP_P3P&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae0abc6fe2886c5007ffd6501e0e72674a956f594e76bea55233559b12139c2c09" name="ae0abc6fe2886c5007ffd6501e0e72674a956f594e76bea55233559b12139c2c09"></a>SOLVEPNP_AP3P&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae0abc6fe2886c5007ffd6501e0e72674ab59a83284380d9889fe8324c29e7cab4" name="ae0abc6fe2886c5007ffd6501e0e72674ab59a83284380d9889fe8324c29e7cab4"></a>SOLVEPNP_DLS&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae0abc6fe2886c5007ffd6501e0e72674a99805373cf82029ffd1ed68120ce97da" name="ae0abc6fe2886c5007ffd6501e0e72674a99805373cf82029ffd1ed68120ce97da"></a>SOLVEPNP_UPNP&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae0abc6fe2886c5007ffd6501e0e72674a0fd3c208428da1437063e328415eac13" name="ae0abc6fe2886c5007ffd6501e0e72674a0fd3c208428da1437063e328415eac13"></a>SOLVEPNP_IPPE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae0abc6fe2886c5007ffd6501e0e72674ab1f5d8024e63f0639a89d6527993f1ed" name="ae0abc6fe2886c5007ffd6501e0e72674ab1f5d8024e63f0639a89d6527993f1ed"></a>SOLVEPNP_IPPE_SQUARE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae0abc6fe2886c5007ffd6501e0e72674a020ead37d3c7f5198abc50ddcb9430c7" name="ae0abc6fe2886c5007ffd6501e0e72674a020ead37d3c7f5198abc50ddcb9430c7"></a>SOLVEPNP_SQPNP&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-</div>
-</div>
-<a id="aff423badcb72c92c11a33bc1ee28fc70" name="aff423badcb72c92c11a33bc1ee28fc70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff423badcb72c92c11a33bc1ee28fc70">&#9670;&#160;</a></span>SolvePnPRefinementMethod</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70">OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.SolvePnPRefinementMethod</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Enum to set refinement method for solvePnP optimization. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aff423badcb72c92c11a33bc1ee28fc70a6adf97f83acf6453d4a6a4b1070f3754" name="aff423badcb72c92c11a33bc1ee28fc70a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aff423badcb72c92c11a33bc1ee28fc70aa1eb8e4086abef7d0f6253724905ec16" name="aff423badcb72c92c11a33bc1ee28fc70aa1eb8e4086abef7d0f6253724905ec16"></a>solvePnPRefineLM&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aff423badcb72c92c11a33bc1ee28fc70af0f8e1649f8b14168f10266bb7d7532a" name="aff423badcb72c92c11a33bc1ee28fc70af0f8e1649f8b14168f10266bb7d7532a"></a>solvePnPRefineVVS&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a92bb967d56a5b68caf8b4ff39f141455" name="a92bb967d56a5b68caf8b4ff39f141455"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a92bb967d56a5b68caf8b4ff39f141455">&#9670;&#160;</a></span>Awake()</h2>
 
@@ -529,8 +431,6 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Awake is called when the script instance is being loaded. </p>
 
 </div>
 </div>
@@ -557,7 +457,15 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the <a class="el" href="#a4c1a91b254140c471e0f1f59fbde7bdb" title="Update the Transform of UpdateTarget using ARMatrix. This method uses the ARMatrix calculated by the ...">UpdateTransform()</a> method. This method should be called before <a class="el" href="#a4c1a91b254140c471e0f1f59fbde7bdb" title="Update the Transform of UpdateTarget using ARMatrix. This method uses the ARMatrix calculated by the ...">UpdateTransform()</a>. </p>
+<p>Runs pose estimation when solvePnP inputs or settings have changed, then updates the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> matrix used by <a class="el" href="#a4c1a91b254140c471e0f1f59fbde7bdb" title="Update the Transform of UpdateTarget using ARMatrix. This method uses the ARMatrix calculated by the ...">UpdateTransform</a>. </p>
+<p>Returns immediately when <code>_changedSolvePnPParameters</code> is false (no new image/object points or solvePnP-related setting change since the last call). Otherwise mirrors Inspector settings into ARPoseEstimator, calls <a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html#a43fecac0e8d3bcf4ffceded52e64e664" title="Estimates pose from 3D–2D correspondences using solvePnP and an NDC viewport gate....">ARPoseEstimator.Estimate</a>, and applies ConvertPoseDataToMatrix when the result is valid. </p>
+<p>Call via <a class="el" href="../../d0/dee/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARHelper.html#ad87c79da34515e1be5fa04bd108b395e" title="Calculate ARMatrix for each registered ARGameObject (pose estimation via Extensions....">ARHelper.CalculateARMatrix</a> before <a class="el" href="#a4c1a91b254140c471e0f1f59fbde7bdb" title="Update the Transform of UpdateTarget using ARMatrix. This method uses the ARMatrix calculated by the ...">UpdateTransform</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">arHelper</td><td>Parent <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> helper that supplies <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="Manages AR camera calibration parameters and Unity Camera.projectionMatrix for the AR pipeline....">ARCamera</a> intrinsics and projection.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -588,6 +496,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Manages events when the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> object enters or exits the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> camera viewport. The event trigger is delayed to prevent unnecessary consecutive event invocations. </p>
+
 </div>
 </div>
 <a id="ad581e51c798c2d2a23e4446885661ff5" name="ad581e51c798c2d2a23e4446885661ff5"></a>
@@ -613,7 +523,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Disposes resources. This method is called when <a class="el" href="#a8f67d15f263a6342d1f0065feaec3d69" title="Called when the MonoBehaviour will be destroyed. This method is used to release resources and perform...">OnDestroy()</a> is called. </p>
+<p>Disposes ARPoseEstimator and clears the reference. Called from <a class="el" href="#a8f67d15f263a6342d1f0065feaec3d69">OnDestroy</a>. </p>
 
 </div>
 </div>
@@ -640,8 +550,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get ARMatrix. This value is updated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method. </p>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> Matrix</dd></dl>
+<p>Gets the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> transformation matrix updated by <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> matrix applied in <a class="el" href="#a4c1a91b254140c471e0f1f59fbde7bdb" title="Update the Transform of UpdateTarget using ARMatrix. This method uses the ARMatrix calculated by the ...">UpdateTransform</a>.</dd></dl>
 
 </div>
 </div>
@@ -668,8 +578,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get rvec. This value is updated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method. </p>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<p>Gets the rotation vector (<code>rvec</code>) updated by <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>The rotation vector Mat, or <code>null</code> before initialization.</dd></dl>
 
 </div>
 </div>
@@ -696,8 +606,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get tvec. This value is updated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method. </p>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<p>Gets the translation vector (<code>tvec</code>) updated by <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>The translation vector Mat, or <code>null</code> before initialization.</dd></dl>
 
 </div>
 </div>
@@ -724,12 +634,12 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Initializes resources and sets the initial values. This method is called when <a class="el" href="#a92bb967d56a5b68caf8b4ff39f141455" title="Awake is called when the script instance is being loaded.">Awake()</a> is called. </p>
+<p>Initializes resources, creates ARPoseEstimator, and resets <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> state. Called from <a class="el" href="#a92bb967d56a5b68caf8b4ff39f141455">Awake</a> when needed. </p>
 
 </div>
 </div>
 <a id="ae603836af588107d850a31d9603b0f58" name="ae603836af588107d850a31d9603b0f58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae603836af588107d850a31d9603b0f58">&#9670;&#160;</a></span>IsARGameObjectInARCameraViewport() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae603836af588107d850a31d9603b0f58">&#9670;&#160;</a></span>IsARGameObjectInARCameraViewport()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -751,47 +661,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Is the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> in the ARCameraViewport? This flag is updated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method. </p>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-</div>
-</div>
-<a id="a6593cdc50f305f3f2d72055cf4c5757b" name="a6593cdc50f305f3f2d72055cf4c5757b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6593cdc50f305f3f2d72055cf4c5757b">&#9670;&#160;</a></span>IsARGameObjectInARCameraViewport() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.IsARGameObjectInARCameraViewport </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>tvec</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Matrix4x4</td>          <td class="paramname"><span class="paramname"><em>projectionMatrix</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Determines whether an <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> game object is within the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> camera's viewport. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tvec</td><td>The translation vector (tvec) representing the object's position in the camera coordinate system.</td></tr>
-    <tr><td class="paramname">projectionMatrix</td><td>The projection matrix to transform the position.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the object is in the viewport; otherwise, false.</dd></dl>
+<p>Cached viewport flag from the latest <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix</a> / <a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html#a43fecac0e8d3bcf4ffceded52e64e664" title="Estimates pose from 3D–2D correspondences using solvePnP and an NDC viewport gate....">ARPoseEstimator.Estimate</a> result (<code>ARPoseEstimateResult.IsValid</code>). Does not run NDC checks itself. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> when inside the viewport; otherwise <code>false</code>.</dd></dl>
 
 </div>
 </div>
@@ -818,6 +689,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Validates if the input arguments are valid for <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> matrix calculation. </p>
+
 </div>
 </div>
 <a id="a8f67d15f263a6342d1f0065feaec3d69" name="a8f67d15f263a6342d1f0065feaec3d69"></a>
@@ -842,8 +715,6 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Called when the <a class="el" href="../../d3/d52/classMonoBehaviour.html">MonoBehaviour</a> will be destroyed. This method is used to release resources and perform cleanup operations. </p>
 
 </div>
 </div>
@@ -874,37 +745,6 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="aef69c7dda90a646689628ee74c5dd143" name="aef69c7dda90a646689628ee74c5dd143"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef69c7dda90a646689628ee74c5dd143">&#9670;&#160;</a></span>ShouldRejectPoseAsOutlier()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.ShouldRejectPoseAsOutlier </td>
-          <td>(</td>
-          <td class="paramtype">PoseData</td>          <td class="paramname"><span class="paramname"><em>candidate</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">PoseData</td>          <td class="paramname"><span class="paramname"><em>lastAccepted</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>For outlier rejection (pose hold). Returns true if the current frame estimate should be rejected compared to the previously accepted pose. </p>
-
-</div>
-</div>
 <a id="a4c1a91b254140c471e0f1f59fbde7bdb" name="a4c1a91b254140c471e0f1f59fbde7bdb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4c1a91b254140c471e0f1f59fbde7bdb">&#9670;&#160;</a></span>UpdateTransform()</h2>
 
@@ -928,7 +768,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Update the Transform of UpdateTarget using ARMatrix. This method uses the ARMatrix calculated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method. This method assumes that the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> method has been called before this method. </p>
+<p>Update the Transform of UpdateTarget using ARMatrix. This method uses the ARMatrix calculated by the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix()</a> method. This method assumes that the <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix()</a> method has been called before this method. </p>
 
 </div>
 </div>
@@ -1009,7 +849,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._arCameraEventCount = 0</td>
+          <td class="memname">int OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._arCameraEventCount = -1</td>
         </tr>
       </table>
   </td>
@@ -1019,7 +859,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>The number of frames to wait for the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> event to fire. </p>
+<p>The number of frames to wait for the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="Manages AR camera calibration parameters and Unity Camera.projectionMatrix for the AR pipeline....">ARCamera</a> event to fire. </p>
 
 </div>
 </div>
@@ -1205,6 +1045,30 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="a79d5a16ea593aa74afae99b32cfe581e" name="a79d5a16ea593aa74afae99b32cfe581e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79d5a16ea593aa74afae99b32cfe581e">&#9670;&#160;</a></span>_hasLastFilteredPose</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._hasLastFilteredPose = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Whether <a class="el" href="#a9506fba08916c9f5154a1724cffeb623" title="The old pose data from the latest valid estimate (for inspector refresh without re-running solvePnP).">_lastFilteredPose</a> holds a valid filtered pose. </p>
+
+</div>
+</div>
 <a id="a3d4e620b9374aeb3288dc92e70e60431" name="a3d4e620b9374aeb3288dc92e70e60431"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3d4e620b9374aeb3288dc92e70e60431">&#9670;&#160;</a></span>_imagePoints</h2>
 
@@ -1319,31 +1183,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Is the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> in the ARCameraViewport? This flag is updated when <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Calculate ARMatrix from set parameters. This method updates the ARMatrix that is used by the UpdateTr...">CalculateARMatrix()</a> is called. </p>
-
-</div>
-</div>
-<a id="a596e97c70834fbdce3616195cd629e2e" name="a596e97c70834fbdce3616195cd629e2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a596e97c70834fbdce3616195cd629e2e">&#9670;&#160;</a></span>_isOldPoseDataInitialized</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._isOldPoseDataInitialized = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Flag to track if old pose data has been initialized with valid data. </p>
+<p>Is the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> in the ARCameraViewport? This flag is updated when <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix()</a> is called. </p>
 
 </div>
 </div>
@@ -1366,6 +1206,30 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9506fba08916c9f5154a1724cffeb623" name="a9506fba08916c9f5154a1724cffeb623"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9506fba08916c9f5154a1724cffeb623">&#9670;&#160;</a></span>_lastFilteredPose</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">PoseData OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._lastFilteredPose</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The old pose data from the latest valid estimate (for inspector refresh without re-running solvePnP). </p>
 
 </div>
 </div>
@@ -1479,30 +1343,6 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a384083d87056872ab9c94785883b0569" name="a384083d87056872ab9c94785883b0569"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a384083d87056872ab9c94785883b0569">&#9670;&#160;</a></span>_oldPoseData</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">PoseData OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._oldPoseData</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The old pose data. </p>
-
-</div>
-</div>
 <a id="a8be29fdc0af2292242581581850d71c9" name="a8be29fdc0af2292242581581850d71c9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8be29fdc0af2292242581581850d71c9">&#9670;&#160;</a></span>_onEnterARCameraViewport</h2>
 
@@ -1588,6 +1428,30 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a24beeac3d9af257a47a793dc09285117" name="a24beeac3d9af257a47a793dc09285117"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24beeac3d9af257a47a793dc09285117">&#9670;&#160;</a></span>_poseEstimator</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html">ARPoseEstimator</a> OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._poseEstimator</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Shared <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> pose estimation pipeline. </p>
 
 </div>
 </div>
@@ -1745,8 +1609,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="aa9faef47880257aa020e125682ad39d0" name="aa9faef47880257aa020e125682ad39d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9faef47880257aa020e125682ad39d0">&#9670;&#160;</a></span>_rvec</h2>
+<a id="a076c025869e0969809c44def53181118" name="a076c025869e0969809c44def53181118"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a076c025869e0969809c44def53181118">&#9670;&#160;</a></span>_solvePnPFlagsMode</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1755,7 +1619,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._rvec</td>
+          <td class="memname"><a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html#a598b7d2289c00012dc7b150d3b44b8e9">ARPoseEstimator.Calib3dSolvePnPFlagsMode</a> OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._solvePnPFlagsMode</td>
         </tr>
       </table>
   </td>
@@ -1764,13 +1628,13 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>The rvec Mat for <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose  from 3D-2D point correspondences:">Calib3d.solvePnP()</a>. </p>
-
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">            ARPoseEstimator.Calib3dSolvePnPFlagsMode.SOLVEPNP_ITERATIVE</div>
+</div><!-- fragment -->
 </div>
 </div>
-<a id="a2b30c158a94d40e8c4a4c79ce581d1c2" name="a2b30c158a94d40e8c4a4c79ce581d1c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b30c158a94d40e8c4a4c79ce581d1c2">&#9670;&#160;</a></span>_solvePnPFlagsMode</h2>
+<a id="a90a194142da87cdd0c1457621c454dcb" name="a90a194142da87cdd0c1457621c454dcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90a194142da87cdd0c1457621c454dcb">&#9670;&#160;</a></span>_solvePnPRefinementMethod</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1779,7 +1643,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674">Calib3dSolvePnPFlagsMode</a> OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._solvePnPFlagsMode = <a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674ab2774721682de7fd39f689e53fa3a6cb">Calib3dSolvePnPFlagsMode.SOLVEPNP_ITERATIVE</a></td>
+          <td class="memname"><a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html#aa42e6c8b8ab92d0d2e2660cc89eb4668">ARPoseEstimator.SolvePnPRefinementMethod</a> OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._solvePnPRefinementMethod</td>
         </tr>
       </table>
   </td>
@@ -1788,29 +1652,9 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="adbc2ecdce4ad036df46c3ab4211527b7" name="adbc2ecdce4ad036df46c3ab4211527b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adbc2ecdce4ad036df46c3ab4211527b7">&#9670;&#160;</a></span>_solvePnPRefinementMethod</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70">SolvePnPRefinementMethod</a> OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._solvePnPRefinementMethod = <a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70a6adf97f83acf6453d4a6a4b1070f3754">SolvePnPRefinementMethod.None</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">            ARPoseEstimator.SolvePnPRefinementMethod.None</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a2cf0aac7b7f6c271573d52abf671a067" name="a2cf0aac7b7f6c271573d52abf671a067"></a>
@@ -1856,30 +1700,6 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The transformation matrix from poseData. </p>
-
-</div>
-</div>
-<a id="aafcfbe71ef52ff94388aaf05d52fe142" name="aafcfbe71ef52ff94388aaf05d52fe142"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aafcfbe71ef52ff94388aaf05d52fe142">&#9670;&#160;</a></span>_tvec</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._tvec</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The tvec Mat for <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose  from 3D-2D point correspondences:">Calib3d.solvePnP()</a>. </p>
 
 </div>
 </div>
@@ -2110,7 +1930,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Whether the matrix returned by <a class="el" href="#ae9fe4fbc28bbd8ba5dd0e3e1224c0c36" title="Get ARMatrix. This value is updated by the CalculateARMatrix() method.">GetARMatrix</a> includes conversion from OpenCV right-handed to Unity left-handed coordinates. </p>
+<p>Whether the matrix returned by <a class="el" href="#ae9fe4fbc28bbd8ba5dd0e3e1224c0c36" title="Gets the AR transformation matrix updated by CalculateARMatrix.">GetARMatrix</a> includes conversion from OpenCV right-handed to Unity left-handed coordinates (passed to ConvertPoseDataToMatrix as <code>convertToUnityCoordinates</code>). </p>
 
 </div>
 </div>
@@ -2134,7 +1954,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Invoke UnityEvent onEnterARCameraViewport only when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> is in the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> viewport for the specified number of consecutive frames. Prevents frequent notifications due to noise. </p>
+<p>Invoke UnityEvent onEnterARCameraViewport only when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> is in the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="Manages AR camera calibration parameters and Unity Camera.projectionMatrix for the AR pipeline....">ARCamera</a> viewport for the specified number of consecutive frames. Prevents frequent notifications due to noise. </p>
 
 </div>
 </div>
@@ -2158,7 +1978,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Invoke UnityEvent onExitARCameraViewport only when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> is outside the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> viewport for the specified number of consecutive frames. Prevents frequent notifications due to noise. </p>
+<p>Invoke UnityEvent onExitARCameraViewport only when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> is outside the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="Manages AR camera calibration parameters and Unity Camera.projectionMatrix for the AR pipeline....">ARCamera</a> viewport for the specified number of consecutive frames. Prevents frequent notifications due to noise. </p>
 
 </div>
 </div>
@@ -2206,7 +2026,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Specify the imagePoints argument to the <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose  from 3D-2D point correspondences:">Calib3d.solvePnP()</a> method. </p>
+<p>Specify the imagePoints argument to the Calib3d.solvePnP() method. </p>
 
 </div>
 </div>
@@ -2278,7 +2098,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Defines the valid range for the X coordinate in NDC space. Used in IsARGameObjectInARCameraViewport method for viewport visibility checks. </p>
+<p>Valid NDC X range passed to ARPoseEstimator during <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix</a>. The latest inside/outside state is exposed by <a class="el" href="#ae603836af588107d850a31d9603b0f58" title="Cached viewport flag from the latest CalculateARMatrix / ARPoseEstimator.Estimate result (ARPoseEstim...">IsARGameObjectInARCameraViewport</a>. </p>
 
 </div>
 </div>
@@ -2302,7 +2122,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Defines the valid range for the Y coordinate in NDC space. Used in IsARGameObjectInARCameraViewport method for viewport visibility checks. </p>
+<p>Valid NDC Y range passed to ARPoseEstimator during <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix</a>. The latest inside/outside state is exposed by <a class="el" href="#ae603836af588107d850a31d9603b0f58" title="Cached viewport flag from the latest CalculateARMatrix / ARPoseEstimator.Estimate result (ARPoseEstim...">IsARGameObjectInARCameraViewport</a>. </p>
 
 </div>
 </div>
@@ -2326,7 +2146,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Defines the valid range for the Z coordinate in NDC space. Used in IsARGameObjectInARCameraViewport method for viewport visibility checks. </p>
+<p>Valid NDC Z range passed to ARPoseEstimator during <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix</a>. The latest inside/outside state is exposed by <a class="el" href="#ae603836af588107d850a31d9603b0f58" title="Cached viewport flag from the latest CalculateARMatrix / ARPoseEstimator.Estimate result (ARPoseEstim...">IsARGameObjectInARCameraViewport</a>. </p>
 
 </div>
 </div>
@@ -2350,7 +2170,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Specify the objectPoints argument to the <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose  from 3D-2D point correspondences:">Calib3d.solvePnP()</a> method. </p>
+<p>Specify the objectPoints argument to the Calib3d.solvePnP() method. </p>
 
 </div>
 </div>
@@ -2374,7 +2194,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>UnityEvent notified when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> enters the viewport of the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a>. </p>
+<p>UnityEvent notified when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> enters the viewport of the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="Manages AR camera calibration parameters and Unity Camera.projectionMatrix for the AR pipeline....">ARCamera</a>. </p>
 
 </div>
 </div>
@@ -2398,7 +2218,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>UnityEvent notified when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a> exits the viewport of the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a>. </p>
+<p>UnityEvent notified when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> exits the viewport of the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="Manages AR camera calibration parameters and Unity Camera.projectionMatrix for the AR pipeline....">ARCamera</a>. </p>
 
 </div>
 </div>
@@ -2498,8 +2318,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a529484c3de2cdd310eeaf7db485c37b8" name="a529484c3de2cdd310eeaf7db485c37b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a529484c3de2cdd310eeaf7db485c37b8">&#9670;&#160;</a></span>RefinementMethod</h2>
+<a id="a63ad63714375cf4ea5439d87de5d240b" name="a63ad63714375cf4ea5439d87de5d240b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63ad63714375cf4ea5439d87de5d240b">&#9670;&#160;</a></span>RefinementMethod</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2508,7 +2328,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="#aff423badcb72c92c11a33bc1ee28fc70">SolvePnPRefinementMethod</a> OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.RefinementMethod</td>
+          <td class="memname">virtual <a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html#aa42e6c8b8ab92d0d2e2660cc89eb4668">ARPoseEstimator.SolvePnPRefinementMethod</a> OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.RefinementMethod</td>
         </tr>
       </table>
   </td>
@@ -2518,7 +2338,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Select the refinement method for solvePnP optimization. </p>
+<p>Post-solvePnP refinement method mirrored into ARPoseEstimator.ARPoseEstimateSettings before <a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html#a43fecac0e8d3bcf4ffceded52e64e664" title="Estimates pose from 3D–2D correspondences using solvePnP and an NDC viewport gate....">ARPoseEstimator.Estimate</a>. </p>
 
 </div>
 </div>
@@ -2642,8 +2462,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="ae7c3dcab52d64d074439ee04e5b9b5c9" name="ae7c3dcab52d64d074439ee04e5b9b5c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae7c3dcab52d64d074439ee04e5b9b5c9">&#9670;&#160;</a></span>SolvePnPFlagsMode</h2>
+<a id="a92e6e47e09b48765a5e6300e5c3297e6" name="a92e6e47e09b48765a5e6300e5c3297e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92e6e47e09b48765a5e6300e5c3297e6">&#9670;&#160;</a></span>SolvePnPFlagsMode</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2652,7 +2472,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="#ae0abc6fe2886c5007ffd6501e0e72674">Calib3dSolvePnPFlagsMode</a> OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.SolvePnPFlagsMode</td>
+          <td class="memname">virtual <a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html#a598b7d2289c00012dc7b150d3b44b8e9">ARPoseEstimator.Calib3dSolvePnPFlagsMode</a> OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.SolvePnPFlagsMode</td>
         </tr>
       </table>
   </td>
@@ -2662,7 +2482,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Specify the flags argument to the <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose  from 3D-2D point correspondences:">Calib3d.solvePnP()</a> method. </p>
+<p>solvePnP flags mirrored into ARPoseEstimator.ARPoseEstimateSettings before <a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html#a43fecac0e8d3bcf4ffceded52e64e664" title="Estimates pose from 3D–2D correspondences using solvePnP and an NDC viewport gate....">ARPoseEstimator.Estimate</a>. </p>
 
 </div>
 </div>
@@ -2782,7 +2602,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>If this flag is set to true, <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a346b4cf4327a5a3c2348a53becd88d8b" title="C++: enum SolvePnPMethod (cv.SolvePnPMethod)">Calib3d.SOLVEPNP_ITERATIVE</a> is used for solvePnP when the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> object is already detected (not first detection). </p>
+<p>If this flag is set to true, Calib3d.SOLVEPNP_ITERATIVE is used for solvePnP when the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> object is already detected (not first detection). </p>
 
 </div>
 </div>
@@ -2806,12 +2626,12 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>If this flag is set to true, <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a8b9bcee299b9af0d716547bf8f7f0ddf" title="Finds an object pose  from 3D-2D point correspondences using the RANSAC scheme to deal with bad match...">Calib3d.solvePnPRansac()</a> is called before <a class="el" href="../../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a1866815441c2693f13dd91d69f443fc5" title="Finds an object pose  from 3D-2D point correspondences:">Calib3d.solvePnP()</a> to filter out outliers. </p>
+<p>If this flag is set to true, Calib3d.solvePnPRansac() is called before Calib3d.solvePnP() to filter out outliers. </p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/Helper/ARHelper/<a class="el" href="../../d8/d5e/ARGameObject_8cs.html">ARGameObject.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/Scripts/UnityIntegration/Helper/AR/<a class="el" href="../../d8/d5e/ARGameObject_8cs.html">ARGameObject.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

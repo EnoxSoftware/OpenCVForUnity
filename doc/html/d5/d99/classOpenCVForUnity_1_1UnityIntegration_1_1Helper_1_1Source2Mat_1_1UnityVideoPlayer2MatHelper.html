@@ -223,6 +223,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a56027073e33e3787ce6b762777a3df00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abfa7dabaeaadd180c7ace22659bb0dbc" id="r_abfa7dabaeaadd180c7ace22659bb0dbc"><td class="memItemLeft" align="right" valign="top">virtual IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abfa7dabaeaadd180c7ace22659bb0dbc">_WaitForFrameEndCoroutine</a> ()</td></tr>
 <tr class="separator:abfa7dabaeaadd180c7ace22659bb0dbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a817a25c79549dafe610ba32ab1cebb93" id="r_a817a25c79549dafe610ba32ab1cebb93"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a817a25c79549dafe610ba32ab1cebb93">CancelGetFilePathCoroutine</a> ()</td></tr>
+<tr class="memdesc:a817a25c79549dafe610ba32ab1cebb93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel GetFilePath Coroutine.  <br /></td></tr>
+<tr class="separator:a817a25c79549dafe610ba32ab1cebb93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae80ec7018b00d9c831a85578177a9edf" id="r_ae80ec7018b00d9c831a85578177a9edf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae80ec7018b00d9c831a85578177a9edf">CancelInitCoroutine</a> ()</td></tr>
 <tr class="memdesc:ae80ec7018b00d9c831a85578177a9edf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel Init Coroutine.  <br /></td></tr>
 <tr class="separator:ae80ec7018b00d9c831a85578177a9edf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -233,13 +236,16 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:aee4a6ddb3c19ae9248cc6d8f28bc80b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4ea986a766defe25c1faeb1636e1548" id="r_ad4ea986a766defe25c1faeb1636e1548"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4ea986a766defe25c1faeb1636e1548">FrameReady</a> (VideoPlayer vp, long <a class="el" href="#a366f7436caa485ac5caa32feead29158">frameIndex</a>)</td></tr>
 <tr class="separator:ad4ea986a766defe25c1faeb1636e1548"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed3e91e4bb7548fcfe46c70753ee946d" id="r_aed3e91e4bb7548fcfe46c70753ee946d"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed3e91e4bb7548fcfe46c70753ee946d">HandleGetFirstFrameReadbackError</a> ()</td></tr>
+<tr class="memdesc:aed3e91e4bb7548fcfe46c70753ee946d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles GPU readback error during first frame acquisition.  <br /></td></tr>
+<tr class="separator:aed3e91e4bb7548fcfe46c70753ee946d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5039dc3e9fdc55e8fdc29e3d946ab1b4" id="r_a5039dc3e9fdc55e8fdc29e3d946ab1b4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5039dc3e9fdc55e8fdc29e3d946ab1b4">LoopPointReached</a> (VideoPlayer vp)</td></tr>
 <tr class="separator:a5039dc3e9fdc55e8fdc29e3d946ab1b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3fd0f3f4658ba7c55882e0eee010fd02" id="r_a3fd0f3f4658ba7c55882e0eee010fd02"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3fd0f3f4658ba7c55882e0eee010fd02">OnCompleteReadback</a> (AsyncGPUReadbackRequest request, long <a class="el" href="#a366f7436caa485ac5caa32feead29158">frameIndex</a>)</td></tr>
 <tr class="memdesc:a3fd0f3f4658ba7c55882e0eee010fd02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread-safe callback method for completed AsyncGPUReadbackRequest. This method may be called from a background thread, so it stores the request for direct data access in the main thread.  <br /></td></tr>
 <tr class="separator:a3fd0f3f4658ba7c55882e0eee010fd02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27991c9fa5224e5ae6a06ff6a150497d" id="r_a27991c9fa5224e5ae6a06ff6a150497d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a27991c9fa5224e5ae6a06ff6a150497d">OnDestroy</a> ()</td></tr>
-<tr class="memdesc:a27991c9fa5224e5ae6a06ff6a150497d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raises the destroy event.  <br /></td></tr>
+<tr class="memdesc:a27991c9fa5224e5ae6a06ff6a150497d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disposes resources when the component is destroyed.  <br /></td></tr>
 <tr class="separator:a27991c9fa5224e5ae6a06ff6a150497d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a687a4a51d345eadd18df37627717b4bf" id="r_a687a4a51d345eadd18df37627717b4bf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a687a4a51d345eadd18df37627717b4bf">OnValidate</a> ()</td></tr>
 <tr class="separator:a687a4a51d345eadd18df37627717b4bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -298,6 +304,9 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:ac8f62ce88412ed84ad735daef4e17b27" id="r_ac8f62ce88412ed84ad735daef4e17b27"><td class="memItemLeft" align="right" valign="top">IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac8f62ce88412ed84ad735daef4e17b27">getFilePathCoroutine</a></td></tr>
 <tr class="memdesc:ac8f62ce88412ed84ad735daef4e17b27"><td class="mdescLeft">&#160;</td><td class="mdescRight">The get file path coroutine.  <br /></td></tr>
 <tr class="separator:ac8f62ce88412ed84ad735daef4e17b27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fcb7faeb29cbabed5ed8c57e4c5bca1" id="r_a6fcb7faeb29cbabed5ed8c57e4c5bca1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6fcb7faeb29cbabed5ed8c57e4c5bca1">getFirstFrameReadbackHasError</a></td></tr>
+<tr class="memdesc:a6fcb7faeb29cbabed5ed8c57e4c5bca1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether a GPU readback error occurred while acquiring the first frame.  <br /></td></tr>
+<tr class="separator:a6fcb7faeb29cbabed5ed8c57e4c5bca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d5659a43cf7a11bb505c46b969b9fc3" id="r_a1d5659a43cf7a11bb505c46b969b9fc3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d5659a43cf7a11bb505c46b969b9fc3">hasInitDone</a> = false</td></tr>
 <tr class="memdesc:a1d5659a43cf7a11bb505c46b969b9fc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether this instance has been initialized.  <br /></td></tr>
 <tr class="separator:a1d5659a43cf7a11bb505c46b969b9fc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -347,7 +356,7 @@ Properties</h2></td></tr>
 <tr class="memdesc:a03a75d81a1d43821fd242145d3688811"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is disposed.  <br /></td></tr>
 <tr class="separator:a03a75d81a1d43821fd242145d3688811"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a423a17708797b403375d602fdad5ab1a" id="r_a423a17708797b403375d602fdad5ab1a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d66/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1Source2MatHelperErrorUnityEvent.html">Source2MatHelperErrorUnityEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a423a17708797b403375d602fdad5ab1a">OnErrorOccurred</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a423a17708797b403375d602fdad5ab1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is error Occurred.  <br /></td></tr>
+<tr class="memdesc:a423a17708797b403375d602fdad5ab1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent invoked when an error occurs.  <br /></td></tr>
 <tr class="separator:a423a17708797b403375d602fdad5ab1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30c0ebaee039c27054b31a4c25d75833" id="r_a30c0ebaee039c27054b31a4c25d75833"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a30c0ebaee039c27054b31a4c25d75833">OnInitialized</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a30c0ebaee039c27054b31a4c25d75833"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is initialized.  <br /></td></tr>
@@ -453,6 +462,33 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a817a25c79549dafe610ba32ab1cebb93" name="a817a25c79549dafe610ba32ab1cebb93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a817a25c79549dafe610ba32ab1cebb93">&#9670;&#160;</a></span>CancelGetFilePathCoroutine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenCVForUnity.UnityIntegration.Helper.Source2Mat.UnityVideoPlayer2MatHelper.CancelGetFilePathCoroutine </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cancel GetFilePath Coroutine. </p>
 
 </div>
 </div>
@@ -927,6 +963,34 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="aed3e91e4bb7548fcfe46c70753ee946d" name="aed3e91e4bb7548fcfe46c70753ee946d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed3e91e4bb7548fcfe46c70753ee946d">&#9670;&#160;</a></span>HandleGetFirstFrameReadbackError()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool OpenCVForUnity.UnityIntegration.Helper.Source2Mat.UnityVideoPlayer2MatHelper.HandleGetFirstFrameReadbackError </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Handles GPU readback error during first frame acquisition. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if a readback error occurred and initialization was aborted.</dd></dl>
+
+</div>
+</div>
 <a id="acec5ad6129902144766186d28f65c0f0" name="acec5ad6129902144766186d28f65c0f0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acec5ad6129902144766186d28f65c0f0">&#9670;&#160;</a></span>Initialize() <span class="overload">[1/2]</span></h2>
 
@@ -1176,7 +1240,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Raises the destroy event. </p>
+<p>Disposes resources when the component is destroyed. </p>
 
 </div>
 </div>
@@ -1851,6 +1915,30 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="a6fcb7faeb29cbabed5ed8c57e4c5bca1" name="a6fcb7faeb29cbabed5ed8c57e4c5bca1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fcb7faeb29cbabed5ed8c57e4c5bca1">&#9670;&#160;</a></span>getFirstFrameReadbackHasError</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityIntegration.Helper.Source2Mat.UnityVideoPlayer2MatHelper.getFirstFrameReadbackHasError</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Indicates whether a GPU readback error occurred while acquiring the first frame. </p>
+
+</div>
+</div>
 <a id="a1d5659a43cf7a11bb505c46b969b9fc3" name="a1d5659a43cf7a11bb505c46b969b9fc3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1d5659a43cf7a11bb505c46b969b9fc3">&#9670;&#160;</a></span>hasInitDone</h2>
 
@@ -2240,7 +2328,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>UnityEvent that is triggered when this instance is error Occurred. </p>
+<p>UnityEvent invoked when an error occurs. </p>
 
 <p>Implements <a class="el" href="../../d1/d14/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1ISource2MatHelper.html#ab78ed17062f8c6e38aa8ae5e8279d63d">OpenCVForUnity.UnityIntegration.Helper.Source2Mat.ISource2MatHelper</a>.</p>
 
@@ -2377,7 +2465,7 @@ Properties</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/Helper/Source2MatHelper/<a class="el" href="../../d9/d4a/UnityVideoPlayer2MatHelper_8cs.html">UnityVideoPlayer2MatHelper.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/Scripts/UnityIntegration/Helper/Source2MatHelper/<a class="el" href="../../d9/d4a/UnityVideoPlayer2MatHelper_8cs.html">UnityVideoPlayer2MatHelper.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

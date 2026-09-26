@@ -22,11 +22,15 @@ var searchData=
   ['legacy_5ftrackermil_2ecs_19',['legacy_TrackerMIL.cs',['../da/d35/legacy__TrackerMIL_8cs.html',1,'']]],
   ['legacy_5ftrackermosse_2ecs_20',['legacy_TrackerMOSSE.cs',['../dc/db6/legacy__TrackerMOSSE_8cs.html',1,'']]],
   ['legacy_5ftrackertld_2ecs_21',['legacy_TrackerTLD.cs',['../d1/d4c/legacy__TrackerTLD_8cs.html',1,'']]],
-  ['linesegmentdetector_2ecs_22',['LineSegmentDetector.cs',['../d6/d26/LineSegmentDetector_8cs.html',1,'']]],
-  ['linesegmentdetector_5fstruct_2ecs_23',['LineSegmentDetector_Struct.cs',['../db/d93/LineSegmentDetector__Struct_8cs.html',1,'']]],
-  ['linesegmentdetector_5fvaluetuple_2ecs_24',['LineSegmentDetector_ValueTuple.cs',['../dc/db7/LineSegmentDetector__ValueTuple_8cs.html',1,'']]],
-  ['logisticregression_2ecs_25',['LogisticRegression.cs',['../db/d02/LogisticRegression_8cs.html',1,'']]],
-  ['logisticregression_5fstruct_2ecs_26',['LogisticRegression_Struct.cs',['../d7/d36/LogisticRegression__Struct_8cs.html',1,'']]],
-  ['logisticregression_5fvaluetuple_2ecs_27',['LogisticRegression_ValueTuple.cs',['../d1/d57/LogisticRegression__ValueTuple_8cs.html',1,'']]],
-  ['lucid_2ecs_28',['LUCID.cs',['../d0/d61/LUCID_8cs.html',1,'']]]
+  ['lifecycleeventsinspectorgroup_2ecs_22',['LifecycleEventsInspectorGroup.cs',['../d8/d57/LifecycleEventsInspectorGroup_8cs.html',1,'']]],
+  ['lightgluematcher_2ecs_23',['LightGlueMatcher.cs',['../da/d6b/LightGlueMatcher_8cs.html',1,'']]],
+  ['lightgluematcher_5fstruct_2ecs_24',['LightGlueMatcher_Struct.cs',['../d1/d10/LightGlueMatcher__Struct_8cs.html',1,'']]],
+  ['lightgluematcher_5fvaluetuple_2ecs_25',['LightGlueMatcher_ValueTuple.cs',['../d0/d29/LightGlueMatcher__ValueTuple_8cs.html',1,'']]],
+  ['linesegmentdetector_2ecs_26',['LineSegmentDetector.cs',['../d6/d26/LineSegmentDetector_8cs.html',1,'']]],
+  ['linesegmentdetector_5fstruct_2ecs_27',['LineSegmentDetector_Struct.cs',['../db/d93/LineSegmentDetector__Struct_8cs.html',1,'']]],
+  ['linesegmentdetector_5fvaluetuple_2ecs_28',['LineSegmentDetector_ValueTuple.cs',['../dc/db7/LineSegmentDetector__ValueTuple_8cs.html',1,'']]],
+  ['logisticregression_2ecs_29',['LogisticRegression.cs',['../db/d02/LogisticRegression_8cs.html',1,'']]],
+  ['logisticregression_5fstruct_2ecs_30',['LogisticRegression_Struct.cs',['../d7/d36/LogisticRegression__Struct_8cs.html',1,'']]],
+  ['logisticregression_5fvaluetuple_2ecs_31',['LogisticRegression_ValueTuple.cs',['../d1/d57/LogisticRegression__ValueTuple_8cs.html',1,'']]],
+  ['lucid_2ecs_32',['LUCID.cs',['../d0/d61/LUCID_8cs.html',1,'']]]
 ];

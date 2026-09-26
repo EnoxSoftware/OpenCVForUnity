@@ -13,7 +13,9 @@ var searchData=
   ['legacy_5ftrackermil_10',['legacy_TrackerMIL',['../d7/da3/classOpenCVForUnity_1_1TrackingModule_1_1legacy__TrackerMIL.html',1,'OpenCVForUnity::TrackingModule']]],
   ['legacy_5ftrackermosse_11',['legacy_TrackerMOSSE',['../d3/d29/classOpenCVForUnity_1_1TrackingModule_1_1legacy__TrackerMOSSE.html',1,'OpenCVForUnity::TrackingModule']]],
   ['legacy_5ftrackertld_12',['legacy_TrackerTLD',['../de/dda/classOpenCVForUnity_1_1TrackingModule_1_1legacy__TrackerTLD.html',1,'OpenCVForUnity::TrackingModule']]],
-  ['linesegmentdetector_13',['LineSegmentDetector',['../d9/dcb/classOpenCVForUnity_1_1ImgprocModule_1_1LineSegmentDetector.html',1,'OpenCVForUnity::ImgprocModule']]],
-  ['logisticregression_14',['LogisticRegression',['../df/dcc/classOpenCVForUnity_1_1MlModule_1_1LogisticRegression.html',1,'OpenCVForUnity::MlModule']]],
-  ['lucid_15',['LUCID',['../d7/dbe/classOpenCVForUnity_1_1Xfeatures2dModule_1_1LUCID.html',1,'OpenCVForUnity::Xfeatures2dModule']]]
+  ['lifecycleeventsinspectorgroup_13',['LifecycleEventsInspectorGroup',['../d4/d66/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1SourceToMat_1_1LifecycleEventsInspectorGroup.html',1,'OpenCVForUnity::UnityIntegration::Helper::SourceToMat']]],
+  ['lightgluematcher_14',['LightGlueMatcher',['../d4/d6e/classOpenCVForUnity_1_1FeaturesModule_1_1LightGlueMatcher.html',1,'OpenCVForUnity::FeaturesModule']]],
+  ['linesegmentdetector_15',['LineSegmentDetector',['../d9/dcb/classOpenCVForUnity_1_1ImgprocModule_1_1LineSegmentDetector.html',1,'OpenCVForUnity::ImgprocModule']]],
+  ['logisticregression_16',['LogisticRegression',['../df/dcc/classOpenCVForUnity_1_1MlModule_1_1LogisticRegression.html',1,'OpenCVForUnity::MlModule']]],
+  ['lucid_17',['LUCID',['../d7/dbe/classOpenCVForUnity_1_1Xfeatures2dModule_1_1LUCID.html',1,'OpenCVForUnity::Xfeatures2dModule']]]
 ];

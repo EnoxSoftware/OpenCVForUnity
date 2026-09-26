@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OpenCV for Unity: OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/Worker/Dnn/MultiBackendNet.cs File Reference</title>
+<title>OpenCV for Unity: OpenCVForUnity/Assets/OpenCVForUnity/Scripts/UnityIntegration/Worker/Dnn/MultiBackendNet.cs File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.3</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.4</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.13.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/5.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -124,15 +124,14 @@ $(function(){ initResizable(false); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="../../dir_48500562f6b5eb3de7872e6e1d522c8a.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="../../dir_cca6010afbb3f4074be0ba4cabcf6bcb.html">Assets</a></li><li class="navelem"><a class="el" href="../../dir_46f872a511d31b2c6524749f5207bdea.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="../../dir_8b26e945ae425cc6966ea2933992f4fa.html">org</a></li><li class="navelem"><a class="el" href="../../dir_c28ecd7faefe91b612568986ccb4dda8.html">opencv</a></li><li class="navelem"><a class="el" href="../../dir_8352ae4d137fcd7fcebb19b55c643bc3.html">unity</a></li><li class="navelem"><a class="el" href="../../dir_9989c38a991d6c947c9caf5503df2123.html">Worker</a></li><li class="navelem"><a class="el" href="../../dir_f882771d2f24fd4793365d5bf7f19716.html">Dnn</a></li>  </ul>
+<li class="navelem"><a class="el" href="../../dir_48500562f6b5eb3de7872e6e1d522c8a.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="../../dir_cca6010afbb3f4074be0ba4cabcf6bcb.html">Assets</a></li><li class="navelem"><a class="el" href="../../dir_46f872a511d31b2c6524749f5207bdea.html">OpenCVForUnity</a></li><li class="navelem"><a class="el" href="../../dir_29201946beb3cb182892b6bd153c88a6.html">Scripts</a></li><li class="navelem"><a class="el" href="../../dir_bcb685c71b0b472d854fcd1205e33ebf.html">UnityIntegration</a></li><li class="navelem"><a class="el" href="../../dir_511d5b0ebd98677a2d067aa169708cff.html">Worker</a></li><li class="navelem"><a class="el" href="../../dir_395704a3eb1749c262d0a21ed046281d.html">Dnn</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle"><div class="title">MultiBackendNet.cs File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -140,7 +139,7 @@ $(function(){ initResizable(false); });
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df0/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendNet.html">OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subset of OpenCV Net for inference with either OpenCV DNN or Sentis, with deferred initialization after <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a42b3ce4b252da67ab403d6c451fc5805" title="Factory with the same signature as OpenCVForUnity.DnnModule.Dnn.readNet(string); returns MultiBackend...">MultiBackendDnn.readNet</a>.  <a href="../../dd/df0/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendNet.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closed facade over OpenCV DNN or Sentis inference nets, with deferred initialization after <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a4a96344a0a828cc2a938e5a45e2dd3f7" title="Factory with the same signature as OpenCVForUnity.DnnModule.Dnn.readNet(string); returns MultiBackend...">MultiBackendDnn.ReadNet</a>. Implements IDnnInferenceNamedIONet and, as a type, IDnnAsyncInferenceNet / IDnnAsyncNamedOutputInferenceNet (async methods throw on the OpenCV path).  <a href="../../dd/df0/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendNet.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -153,43 +152,7 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d3b/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule.html">OpenCVForUnity.UnityIntegration.Worker.DnnModule</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a91b3cde1817212bceba30f1f45f3363d" id="r_a91b3cde1817212bceba30f1f45f3363d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91b3cde1817212bceba30f1f45f3363d">SentisModel</a> = Unity.InferenceEngine.Model</td></tr>
-<tr class="separator:a91b3cde1817212bceba30f1f45f3363d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9b883c2ef0c40ce488a60e2da9097cc" id="r_aa9b883c2ef0c40ce488a60e2da9097cc"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa9b883c2ef0c40ce488a60e2da9097cc">SentisWorker</a> = Unity.InferenceEngine.Worker</td></tr>
-<tr class="separator:aa9b883c2ef0c40ce488a60e2da9097cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Typedef Documentation</h2>
-<a id="a91b3cde1817212bceba30f1f45f3363d" name="a91b3cde1817212bceba30f1f45f3363d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91b3cde1817212bceba30f1f45f3363d">&#9670;&#160;</a></span>SentisModel</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#a91b3cde1817212bceba30f1f45f3363d">SentisModel</a> = Unity.InferenceEngine.Model</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa9b883c2ef0c40ce488a60e2da9097cc" name="aa9b883c2ef0c40ce488a60e2da9097cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9b883c2ef0c40ce488a60e2da9097cc">&#9670;&#160;</a></span>SentisWorker</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#aa9b883c2ef0c40ce488a60e2da9097cc">SentisWorker</a> = Unity.InferenceEngine.Worker</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

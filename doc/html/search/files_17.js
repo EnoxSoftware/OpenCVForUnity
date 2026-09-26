@@ -1,5 +1,28 @@
 var searchData=
 [
-  ['yoloxobjectdetector_2ecs_0',['YOLOXObjectDetector.cs',['../de/d46/YOLOXObjectDetector_8cs.html',1,'']]],
-  ['yunetv2facedetector_2ecs_1',['YuNetV2FaceDetector.cs',['../d2/d70/YuNetV2FaceDetector_8cs.html',1,'']]]
+  ['yolov5imageclassifier_2ecs_0',['YOLOv5ImageClassifier.cs',['../d0/db7/Extensions_2Worker_2Dnn_2YOLOv5_2YOLOv5ImageClassifier_8cs.html',1,'(Global Namespace)'],['../de/d68/UnityIntegration_2Worker_2Dnn_2YOLOv5_2YOLOv5ImageClassifier_8cs.html',1,'(Global Namespace)']]],
+  ['yolov5imageclassifierbase_2ecs_1',['YOLOv5ImageClassifierBase.cs',['../d1/d32/YOLOv5ImageClassifierBase_8cs.html',1,'']]],
+  ['yolov5imageclassifiermultibackend_2ecs_2',['YOLOv5ImageClassifierMultiBackend.cs',['../d6/d99/YOLOv5ImageClassifierMultiBackend_8cs.html',1,'']]],
+  ['yolov5instancesegmenter_2ecs_3',['YOLOv5InstanceSegmenter.cs',['../d5/dfe/Extensions_2Worker_2Dnn_2YOLOv5_2YOLOv5InstanceSegmenter_8cs.html',1,'(Global Namespace)'],['../df/da0/UnityIntegration_2Worker_2Dnn_2YOLOv5_2YOLOv5InstanceSegmenter_8cs.html',1,'(Global Namespace)']]],
+  ['yolov5instancesegmenterbase_2ecs_4',['YOLOv5InstanceSegmenterBase.cs',['../d6/d61/YOLOv5InstanceSegmenterBase_8cs.html',1,'']]],
+  ['yolov5instancesegmentermultibackend_2ecs_5',['YOLOv5InstanceSegmenterMultiBackend.cs',['../d2/d43/YOLOv5InstanceSegmenterMultiBackend_8cs.html',1,'']]],
+  ['yolov5objectdetector_2ecs_6',['YOLOv5ObjectDetector.cs',['../d2/dec/Extensions_2Worker_2Dnn_2YOLOv5_2YOLOv5ObjectDetector_8cs.html',1,'(Global Namespace)'],['../d8/da4/UnityIntegration_2Worker_2Dnn_2YOLOv5_2YOLOv5ObjectDetector_8cs.html',1,'(Global Namespace)']]],
+  ['yolov5objectdetectorbase_2ecs_7',['YOLOv5ObjectDetectorBase.cs',['../df/dca/YOLOv5ObjectDetectorBase_8cs.html',1,'']]],
+  ['yolov5objectdetectormultibackend_2ecs_8',['YOLOv5ObjectDetectorMultiBackend.cs',['../db/d21/YOLOv5ObjectDetectorMultiBackend_8cs.html',1,'']]],
+  ['yolov8imageclassifier_2ecs_9',['YOLOv8ImageClassifier.cs',['../de/d07/Extensions_2Worker_2Dnn_2YOLOv8_2YOLOv8ImageClassifier_8cs.html',1,'(Global Namespace)'],['../d7/d04/UnityIntegration_2Worker_2Dnn_2YOLOv8_2YOLOv8ImageClassifier_8cs.html',1,'(Global Namespace)']]],
+  ['yolov8imageclassifierbase_2ecs_10',['YOLOv8ImageClassifierBase.cs',['../d1/d7e/YOLOv8ImageClassifierBase_8cs.html',1,'']]],
+  ['yolov8imageclassifiermultibackend_2ecs_11',['YOLOv8ImageClassifierMultiBackend.cs',['../d3/d51/YOLOv8ImageClassifierMultiBackend_8cs.html',1,'']]],
+  ['yolov8instancesegmenter_2ecs_12',['YOLOv8InstanceSegmenter.cs',['../d7/dab/Extensions_2Worker_2Dnn_2YOLOv8_2YOLOv8InstanceSegmenter_8cs.html',1,'(Global Namespace)'],['../d2/d20/UnityIntegration_2Worker_2Dnn_2YOLOv8_2YOLOv8InstanceSegmenter_8cs.html',1,'(Global Namespace)']]],
+  ['yolov8instancesegmenterbase_2ecs_13',['YOLOv8InstanceSegmenterBase.cs',['../d2/dc5/YOLOv8InstanceSegmenterBase_8cs.html',1,'']]],
+  ['yolov8instancesegmentermultibackend_2ecs_14',['YOLOv8InstanceSegmenterMultiBackend.cs',['../dd/db7/YOLOv8InstanceSegmenterMultiBackend_8cs.html',1,'']]],
+  ['yolov8objectdetector_2ecs_15',['YOLOv8ObjectDetector.cs',['../d3/df3/Extensions_2Worker_2Dnn_2YOLOv8_2YOLOv8ObjectDetector_8cs.html',1,'(Global Namespace)'],['../dd/d4c/UnityIntegration_2Worker_2Dnn_2YOLOv8_2YOLOv8ObjectDetector_8cs.html',1,'(Global Namespace)']]],
+  ['yolov8objectdetectorbase_2ecs_16',['YOLOv8ObjectDetectorBase.cs',['../d7/d90/YOLOv8ObjectDetectorBase_8cs.html',1,'']]],
+  ['yolov8objectdetectormultibackend_2ecs_17',['YOLOv8ObjectDetectorMultiBackend.cs',['../d6/d7a/YOLOv8ObjectDetectorMultiBackend_8cs.html',1,'']]],
+  ['yolov8poseestimater_2ecs_18',['YOLOv8PoseEstimater.cs',['../d4/d90/Extensions_2Worker_2Dnn_2YOLOv8_2YOLOv8PoseEstimater_8cs.html',1,'(Global Namespace)'],['../d6/dd2/UnityIntegration_2Worker_2Dnn_2YOLOv8_2YOLOv8PoseEstimater_8cs.html',1,'(Global Namespace)']]],
+  ['yolov8poseestimaterbase_2ecs_19',['YOLOv8PoseEstimaterBase.cs',['../d8/da8/YOLOv8PoseEstimaterBase_8cs.html',1,'']]],
+  ['yolov8poseestimatermultibackend_2ecs_20',['YOLOv8PoseEstimaterMultiBackend.cs',['../de/d33/YOLOv8PoseEstimaterMultiBackend_8cs.html',1,'']]],
+  ['yoloxobjectdetector_2ecs_21',['YOLOXObjectDetector.cs',['../d3/d75/Extensions_2Worker_2Dnn_2YOLOXObjectDetector_8cs.html',1,'(Global Namespace)'],['../d0/d16/UnityIntegration_2Worker_2Dnn_2YOLOXObjectDetector_8cs.html',1,'(Global Namespace)']]],
+  ['yoloxobjectdetectorbase_2ecs_22',['YOLOXObjectDetectorBase.cs',['../d0/de6/YOLOXObjectDetectorBase_8cs.html',1,'']]],
+  ['yoloxobjectdetectormultibackend_2ecs_23',['YOLOXObjectDetectorMultiBackend.cs',['../d2/d6e/YOLOXObjectDetectorMultiBackend_8cs.html',1,'']]],
+  ['yunetv2facedetector_2ecs_24',['YuNetV2FaceDetector.cs',['../dd/dbc/Extensions_2Worker_2Dnn_2YuNetV2FaceDetector_8cs.html',1,'(Global Namespace)'],['../dd/dbf/UnityIntegration_2Worker_2Dnn_2YuNetV2FaceDetector_8cs.html',1,'(Global Namespace)']]]
 ];

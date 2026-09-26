@@ -222,6 +222,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a5321741d53a239ca15d0d33a1e222eeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ba36c3647812e61e9f77c1488584226" id="r_a5ba36c3647812e61e9f77c1488584226"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ba36c3647812e61e9f77c1488584226">CallReadFrame</a> ()</td></tr>
 <tr class="separator:a5ba36c3647812e61e9f77c1488584226"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7388276f0328b2ac69432c16a6927852" id="r_a7388276f0328b2ac69432c16a6927852"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7388276f0328b2ac69432c16a6927852">CancelGetFilePathCoroutine</a> ()</td></tr>
+<tr class="memdesc:a7388276f0328b2ac69432c16a6927852"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel GetFilePath Coroutine.  <br /></td></tr>
+<tr class="separator:a7388276f0328b2ac69432c16a6927852"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4e00238889ee60f1a19537190f12146" id="r_ad4e00238889ee60f1a19537190f12146"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4e00238889ee60f1a19537190f12146">CancelInitCoroutine</a> ()</td></tr>
 <tr class="memdesc:ad4e00238889ee60f1a19537190f12146"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel Init Coroutine.  <br /></td></tr>
 <tr class="separator:ad4e00238889ee60f1a19537190f12146"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -229,7 +232,7 @@ Protected Member Functions</h2></td></tr>
 <tr class="memdesc:a8cbeb1f9665b3ba2bd11f380dbd3656c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel WaitForEndOfFrame Coroutine.  <br /></td></tr>
 <tr class="separator:a8cbeb1f9665b3ba2bd11f380dbd3656c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae7f5c700d586c43407b95a988d5a7919" id="r_ae7f5c700d586c43407b95a988d5a7919"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7f5c700d586c43407b95a988d5a7919">OnDestroy</a> ()</td></tr>
-<tr class="memdesc:ae7f5c700d586c43407b95a988d5a7919"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raises the destroy event.  <br /></td></tr>
+<tr class="memdesc:ae7f5c700d586c43407b95a988d5a7919"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disposes resources when the component is destroyed.  <br /></td></tr>
 <tr class="separator:ae7f5c700d586c43407b95a988d5a7919"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5283c09cad673a8999a27c6bf8a371bf" id="r_a5283c09cad673a8999a27c6bf8a371bf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5283c09cad673a8999a27c6bf8a371bf">OnValidate</a> ()</td></tr>
 <tr class="separator:a5283c09cad673a8999a27c6bf8a371bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -254,16 +257,16 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a7d7c9910e1ddff5c1274c71733e2acef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76b48fb6c70a3f69f5a3b13861e6a089" id="r_a76b48fb6c70a3f69f5a3b13861e6a089"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a76b48fb6c70a3f69f5a3b13861e6a089">_isPaused</a> = false</td></tr>
 <tr class="separator:a76b48fb6c70a3f69f5a3b13861e6a089"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f5f221765a25d0f52de45c2020b0a75" id="r_a9f5f221765a25d0f52de45c2020b0a75"><td class="memItemLeft" align="right" valign="top">System.Object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f5f221765a25d0f52de45c2020b0a75">_isPausedLockObject</a> = new System.Object()</td></tr>
-<tr class="separator:a9f5f221765a25d0f52de45c2020b0a75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cc8ca447e8e4c98dc4fdb3c0bb6420d" id="r_a6cc8ca447e8e4c98dc4fdb3c0bb6420d"><td class="memItemLeft" align="right" valign="top">object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6cc8ca447e8e4c98dc4fdb3c0bb6420d">_isPausedLockObject</a> = new()</td></tr>
+<tr class="separator:a6cc8ca447e8e4c98dc4fdb3c0bb6420d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf7adc4739d99a8a5c1d92727f9d09ae" id="r_abf7adc4739d99a8a5c1d92727f9d09ae"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf7adc4739d99a8a5c1d92727f9d09ae">_isPlaying</a> = false</td></tr>
 <tr class="separator:abf7adc4739d99a8a5c1d92727f9d09ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44e47a73a6246186c719bb12cec1cd19" id="r_a44e47a73a6246186c719bb12cec1cd19"><td class="memItemLeft" align="right" valign="top">System.Object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a44e47a73a6246186c719bb12cec1cd19">_isPlayingLockObject</a> = new System.Object()</td></tr>
-<tr class="separator:a44e47a73a6246186c719bb12cec1cd19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23b86902da87cf606fa25a2e79ecae48" id="r_a23b86902da87cf606fa25a2e79ecae48"><td class="memItemLeft" align="right" valign="top">object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23b86902da87cf606fa25a2e79ecae48">_isPlayingLockObject</a> = new()</td></tr>
+<tr class="separator:a23b86902da87cf606fa25a2e79ecae48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c197acdf76bfd10200de3b1a88d702c" id="r_a2c197acdf76bfd10200de3b1a88d702c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c197acdf76bfd10200de3b1a88d702c">_loop</a> = true</td></tr>
 <tr class="separator:a2c197acdf76bfd10200de3b1a88d702c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a442b253fe226f8c4e728f84f3168569e" id="r_a442b253fe226f8c4e728f84f3168569e"><td class="memItemLeft" align="right" valign="top">System.Object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a442b253fe226f8c4e728f84f3168569e">_loopLockObject</a> = new System.Object()</td></tr>
-<tr class="separator:a442b253fe226f8c4e728f84f3168569e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87c0a6abb5da2855189ff9dbdee1f6d5" id="r_a87c0a6abb5da2855189ff9dbdee1f6d5"><td class="memItemLeft" align="right" valign="top">object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87c0a6abb5da2855189ff9dbdee1f6d5">_loopLockObject</a> = new()</td></tr>
+<tr class="separator:a87c0a6abb5da2855189ff9dbdee1f6d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf06ac4900a04d55ea6e89513ae0f9ba" id="r_acf06ac4900a04d55ea6e89513ae0f9ba"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acf06ac4900a04d55ea6e89513ae0f9ba">_onDisposed</a></td></tr>
 <tr class="separator:acf06ac4900a04d55ea6e89513ae0f9ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6c83eab361b07906c7fd6ad878e4790" id="r_ae6c83eab361b07906c7fd6ad878e4790"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d66/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1Source2MatHelperErrorUnityEvent.html">Source2MatHelperErrorUnityEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6c83eab361b07906c7fd6ad878e4790">_onErrorOccurred</a></td></tr>
@@ -280,8 +283,8 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:ad240c009239ee63a6969e602d7648c61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25a392fe636b3e2c8d562e392a7725e2" id="r_a25a392fe636b3e2c8d562e392a7725e2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/df8/classOpenCVForUnity_1_1VideoioModule_1_1VideoCapture.html">VideoCapture</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25a392fe636b3e2c8d562e392a7725e2">_videoCapture</a></td></tr>
 <tr class="separator:a25a392fe636b3e2c8d562e392a7725e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a788e7fe84bc9ee4ee3c5199000180017" id="r_a788e7fe84bc9ee4ee3c5199000180017"><td class="memItemLeft" align="right" valign="top">System.Object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a788e7fe84bc9ee4ee3c5199000180017">_videoCaptureLockObject</a> = new System.Object()</td></tr>
-<tr class="separator:a788e7fe84bc9ee4ee3c5199000180017"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4197b26be6db7460b52af6a49cdd92d" id="r_ad4197b26be6db7460b52af6a49cdd92d"><td class="memItemLeft" align="right" valign="top">object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4197b26be6db7460b52af6a49cdd92d">_videoCaptureLockObject</a> = new()</td></tr>
+<tr class="separator:ad4197b26be6db7460b52af6a49cdd92d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada03951c41bea0749bfeadb468add0bd" id="r_ada03951c41bea0749bfeadb468add0bd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada03951c41bea0749bfeadb468add0bd">autoPlayAfterInitialize</a></td></tr>
 <tr class="memdesc:ada03951c41bea0749bfeadb468add0bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">If set to true play after completion of initialization.  <br /></td></tr>
 <tr class="separator:ada03951c41bea0749bfeadb468add0bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -339,7 +342,7 @@ Properties</h2></td></tr>
 <tr class="memdesc:a8d16dee88e6f65c9cd3f8d0cdb439ca2"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is disposed.  <br /></td></tr>
 <tr class="separator:a8d16dee88e6f65c9cd3f8d0cdb439ca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2682e15717f55a1b297325e25d57da0" id="r_aa2682e15717f55a1b297325e25d57da0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d66/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1Source2MatHelperErrorUnityEvent.html">Source2MatHelperErrorUnityEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa2682e15717f55a1b297325e25d57da0">OnErrorOccurred</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:aa2682e15717f55a1b297325e25d57da0"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is error Occurred.  <br /></td></tr>
+<tr class="memdesc:aa2682e15717f55a1b297325e25d57da0"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent invoked when an error occurs.  <br /></td></tr>
 <tr class="separator:aa2682e15717f55a1b297325e25d57da0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aace8109e1b7febc537c46b7a1026c788" id="r_aace8109e1b7febc537c46b7a1026c788"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aace8109e1b7febc537c46b7a1026c788">OnInitialized</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:aace8109e1b7febc537c46b7a1026c788"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is initialized.  <br /></td></tr>
@@ -445,6 +448,33 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7388276f0328b2ac69432c16a6927852" name="a7388276f0328b2ac69432c16a6927852"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7388276f0328b2ac69432c16a6927852">&#9670;&#160;</a></span>CancelGetFilePathCoroutine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenCVForUnity.UnityIntegration.Helper.Source2Mat.VideoCapture2MatHelper.CancelGetFilePathCoroutine </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cancel GetFilePath Coroutine. </p>
 
 </div>
 </div>
@@ -1047,7 +1077,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Raises the destroy event. </p>
+<p>Disposes resources when the component is destroyed. </p>
 
 </div>
 </div>
@@ -1423,8 +1453,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a9f5f221765a25d0f52de45c2020b0a75" name="a9f5f221765a25d0f52de45c2020b0a75"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f5f221765a25d0f52de45c2020b0a75">&#9670;&#160;</a></span>_isPausedLockObject</h2>
+<a id="a6cc8ca447e8e4c98dc4fdb3c0bb6420d" name="a6cc8ca447e8e4c98dc4fdb3c0bb6420d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cc8ca447e8e4c98dc4fdb3c0bb6420d">&#9670;&#160;</a></span>_isPausedLockObject</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1433,7 +1463,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">System.Object OpenCVForUnity.UnityIntegration.Helper.Source2Mat.VideoCapture2MatHelper._isPausedLockObject = new System.Object()</td>
+          <td class="memname">object OpenCVForUnity.UnityIntegration.Helper.Source2Mat.VideoCapture2MatHelper._isPausedLockObject = new()</td>
         </tr>
       </table>
   </td>
@@ -1467,8 +1497,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a44e47a73a6246186c719bb12cec1cd19" name="a44e47a73a6246186c719bb12cec1cd19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44e47a73a6246186c719bb12cec1cd19">&#9670;&#160;</a></span>_isPlayingLockObject</h2>
+<a id="a23b86902da87cf606fa25a2e79ecae48" name="a23b86902da87cf606fa25a2e79ecae48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23b86902da87cf606fa25a2e79ecae48">&#9670;&#160;</a></span>_isPlayingLockObject</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1477,7 +1507,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">System.Object OpenCVForUnity.UnityIntegration.Helper.Source2Mat.VideoCapture2MatHelper._isPlayingLockObject = new System.Object()</td>
+          <td class="memname">object OpenCVForUnity.UnityIntegration.Helper.Source2Mat.VideoCapture2MatHelper._isPlayingLockObject = new()</td>
         </tr>
       </table>
   </td>
@@ -1511,8 +1541,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a442b253fe226f8c4e728f84f3168569e" name="a442b253fe226f8c4e728f84f3168569e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a442b253fe226f8c4e728f84f3168569e">&#9670;&#160;</a></span>_loopLockObject</h2>
+<a id="a87c0a6abb5da2855189ff9dbdee1f6d5" name="a87c0a6abb5da2855189ff9dbdee1f6d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87c0a6abb5da2855189ff9dbdee1f6d5">&#9670;&#160;</a></span>_loopLockObject</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1521,7 +1551,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">System.Object OpenCVForUnity.UnityIntegration.Helper.Source2Mat.VideoCapture2MatHelper._loopLockObject = new System.Object()</td>
+          <td class="memname">object OpenCVForUnity.UnityIntegration.Helper.Source2Mat.VideoCapture2MatHelper._loopLockObject = new()</td>
         </tr>
       </table>
   </td>
@@ -1709,8 +1739,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a788e7fe84bc9ee4ee3c5199000180017" name="a788e7fe84bc9ee4ee3c5199000180017"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a788e7fe84bc9ee4ee3c5199000180017">&#9670;&#160;</a></span>_videoCaptureLockObject</h2>
+<a id="ad4197b26be6db7460b52af6a49cdd92d" name="ad4197b26be6db7460b52af6a49cdd92d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4197b26be6db7460b52af6a49cdd92d">&#9670;&#160;</a></span>_videoCaptureLockObject</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1719,7 +1749,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">System.Object OpenCVForUnity.UnityIntegration.Helper.Source2Mat.VideoCapture2MatHelper._videoCaptureLockObject = new System.Object()</td>
+          <td class="memname">object OpenCVForUnity.UnityIntegration.Helper.Source2Mat.VideoCapture2MatHelper._videoCaptureLockObject = new()</td>
         </tr>
       </table>
   </td>
@@ -2190,7 +2220,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>UnityEvent that is triggered when this instance is error Occurred. </p>
+<p>UnityEvent invoked when an error occurs. </p>
 
 <p>Implements <a class="el" href="../../d1/d14/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1ISource2MatHelper.html#ab78ed17062f8c6e38aa8ae5e8279d63d">OpenCVForUnity.UnityIntegration.Helper.Source2Mat.ISource2MatHelper</a>.</p>
 
@@ -2351,7 +2381,7 @@ Properties</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/Helper/Source2MatHelper/<a class="el" href="../../d5/d93/VideoCapture2MatHelper_8cs.html">VideoCapture2MatHelper.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/Scripts/UnityIntegration/Helper/Source2MatHelper/<a class="el" href="../../d5/d93/VideoCapture2MatHelper_8cs.html">VideoCapture2MatHelper.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

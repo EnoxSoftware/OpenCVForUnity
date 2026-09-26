@@ -204,6 +204,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a839c7d20c2a0cb6228e057bf0589428a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70d2f607e395177d27ddabf0dbeaeb15" id="r_a70d2f607e395177d27ddabf0dbeaeb15"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70d2f607e395177d27ddabf0dbeaeb15">CallReadFrame</a> ()</td></tr>
 <tr class="separator:a70d2f607e395177d27ddabf0dbeaeb15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a76ada632f70b1770eb9296316eefc5" id="r_a7a76ada632f70b1770eb9296316eefc5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7a76ada632f70b1770eb9296316eefc5">CancelGetFilePathCoroutine</a> ()</td></tr>
+<tr class="memdesc:a7a76ada632f70b1770eb9296316eefc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel GetFilePath Coroutine.  <br /></td></tr>
+<tr class="separator:a7a76ada632f70b1770eb9296316eefc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a528066e023fcee66963ceef16e8379d6" id="r_a528066e023fcee66963ceef16e8379d6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a528066e023fcee66963ceef16e8379d6">CancelInitCoroutine</a> ()</td></tr>
 <tr class="memdesc:a528066e023fcee66963ceef16e8379d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel Init Coroutine.  <br /></td></tr>
 <tr class="separator:a528066e023fcee66963ceef16e8379d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -211,7 +214,7 @@ Protected Member Functions</h2></td></tr>
 <tr class="memdesc:ac7151b8462a0ccadc7f8ef2b12f7c6eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel WaitForEndOfFrame Coroutine.  <br /></td></tr>
 <tr class="separator:ac7151b8462a0ccadc7f8ef2b12f7c6eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a453eb953cd3b0033f92fe684937227d1" id="r_a453eb953cd3b0033f92fe684937227d1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a453eb953cd3b0033f92fe684937227d1">OnDestroy</a> ()</td></tr>
-<tr class="memdesc:a453eb953cd3b0033f92fe684937227d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raises the destroy event.  <br /></td></tr>
+<tr class="memdesc:a453eb953cd3b0033f92fe684937227d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disposes resources when the component is destroyed.  <br /></td></tr>
 <tr class="separator:a453eb953cd3b0033f92fe684937227d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad59447388de0803f8bd19fe4776725b5" id="r_ad59447388de0803f8bd19fe4776725b5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad59447388de0803f8bd19fe4776725b5">OnValidate</a> ()</td></tr>
 <tr class="separator:ad59447388de0803f8bd19fe4776725b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -231,8 +234,8 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a3a3dc3e2fee598689be7f4e1ea9b2519"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a129a03e23494039072a12fb51af6e096" id="r_a129a03e23494039072a12fb51af6e096"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a129a03e23494039072a12fb51af6e096">_imageBufferMat</a></td></tr>
 <tr class="separator:a129a03e23494039072a12fb51af6e096"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35262a5eccee772e51975b0b1030016e" id="r_a35262a5eccee772e51975b0b1030016e"><td class="memItemLeft" align="right" valign="top">System.Object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35262a5eccee772e51975b0b1030016e">_imageBufferMatLockObject</a> = new System.Object()</td></tr>
-<tr class="separator:a35262a5eccee772e51975b0b1030016e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50ca36db1b5eeb6ad1ff10bf4e5cd60e" id="r_a50ca36db1b5eeb6ad1ff10bf4e5cd60e"><td class="memItemLeft" align="right" valign="top">object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50ca36db1b5eeb6ad1ff10bf4e5cd60e">_imageBufferMatLockObject</a> = new()</td></tr>
+<tr class="separator:a50ca36db1b5eeb6ad1ff10bf4e5cd60e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7992fd2e3db2b4daf70c09a5ee0fc39" id="r_ad7992fd2e3db2b4daf70c09a5ee0fc39"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad7992fd2e3db2b4daf70c09a5ee0fc39">_onDisposed</a></td></tr>
 <tr class="separator:ad7992fd2e3db2b4daf70c09a5ee0fc39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf1ef80cdf070e586bdbd8e3a6ff2d32" id="r_aaf1ef80cdf070e586bdbd8e3a6ff2d32"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d66/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1Source2MatHelperErrorUnityEvent.html">Source2MatHelperErrorUnityEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaf1ef80cdf070e586bdbd8e3a6ff2d32">_onErrorOccurred</a></td></tr>
@@ -285,7 +288,7 @@ Protected Attributes</h2></td></tr>
 <tr class="memdesc:a3f273dc6fc8e758f62f875de8e007cc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal paused state flag to track image pause status immediately.  <br /></td></tr>
 <tr class="separator:a3f273dc6fc8e758f62f875de8e007cc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a882caa98634ab901962427cb2b6c9dc0" id="r_a882caa98634ab901962427cb2b6c9dc0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a882caa98634ab901962427cb2b6c9dc0">isPlaying</a> = false</td></tr>
-<tr class="memdesc:a882caa98634ab901962427cb2b6c9dc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">isPlaying  <br /></td></tr>
+<tr class="memdesc:a882caa98634ab901962427cb2b6c9dc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal playing state flag.  <br /></td></tr>
 <tr class="separator:a882caa98634ab901962427cb2b6c9dc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab3d2295df8a12b2e99bf0d353c9ddd0a" id="r_ab3d2295df8a12b2e99bf0d353c9ddd0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3d2295df8a12b2e99bf0d353c9ddd0a">rotatedFrameMat</a></td></tr>
 <tr class="memdesc:ab3d2295df8a12b2e99bf0d353c9ddd0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The rotated frame mat.  <br /></td></tr>
@@ -309,7 +312,7 @@ Properties</h2></td></tr>
 <tr class="memdesc:ad2fa46765c6be22d2f18f1f10dde1201"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is disposed.  <br /></td></tr>
 <tr class="separator:ad2fa46765c6be22d2f18f1f10dde1201"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf829b184645406e8d7d63098ad0d77f" id="r_aaf829b184645406e8d7d63098ad0d77f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d66/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1Source2MatHelperErrorUnityEvent.html">Source2MatHelperErrorUnityEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaf829b184645406e8d7d63098ad0d77f">OnErrorOccurred</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:aaf829b184645406e8d7d63098ad0d77f"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is error Occurred.  <br /></td></tr>
+<tr class="memdesc:aaf829b184645406e8d7d63098ad0d77f"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent invoked when an error occurs.  <br /></td></tr>
 <tr class="separator:aaf829b184645406e8d7d63098ad0d77f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fca561e2029967071996456e1ceb4db" id="r_a2fca561e2029967071996456e1ceb4db"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2fca561e2029967071996456e1ceb4db">OnInitialized</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a2fca561e2029967071996456e1ceb4db"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is initialized.  <br /></td></tr>
@@ -418,6 +421,33 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7a76ada632f70b1770eb9296316eefc5" name="a7a76ada632f70b1770eb9296316eefc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a76ada632f70b1770eb9296316eefc5">&#9670;&#160;</a></span>CancelGetFilePathCoroutine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenCVForUnity.UnityIntegration.Helper.Source2Mat.Image2MatHelper.CancelGetFilePathCoroutine </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cancel GetFilePath Coroutine. </p>
 
 </div>
 </div>
@@ -902,7 +932,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Raises the destroy event. </p>
+<p>Disposes resources when the component is destroyed. </p>
 
 </div>
 </div>
@@ -1162,8 +1192,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a35262a5eccee772e51975b0b1030016e" name="a35262a5eccee772e51975b0b1030016e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35262a5eccee772e51975b0b1030016e">&#9670;&#160;</a></span>_imageBufferMatLockObject</h2>
+<a id="a50ca36db1b5eeb6ad1ff10bf4e5cd60e" name="a50ca36db1b5eeb6ad1ff10bf4e5cd60e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50ca36db1b5eeb6ad1ff10bf4e5cd60e">&#9670;&#160;</a></span>_imageBufferMatLockObject</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1172,7 +1202,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">System.Object OpenCVForUnity.UnityIntegration.Helper.Source2Mat.Image2MatHelper._imageBufferMatLockObject = new System.Object()</td>
+          <td class="memname">object OpenCVForUnity.UnityIntegration.Helper.Source2Mat.Image2MatHelper._imageBufferMatLockObject = new()</td>
         </tr>
       </table>
   </td>
@@ -1666,7 +1696,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>isPlaying </p>
+<p>Internal playing state flag. </p>
 
 </div>
 </div>
@@ -1841,7 +1871,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>UnityEvent that is triggered when this instance is error Occurred. </p>
+<p>UnityEvent invoked when an error occurs. </p>
 
 <p>Implements <a class="el" href="../../d1/d14/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1ISource2MatHelper.html#ab78ed17062f8c6e38aa8ae5e8279d63d">OpenCVForUnity.UnityIntegration.Helper.Source2Mat.ISource2MatHelper</a>.</p>
 
@@ -2030,7 +2060,7 @@ Properties</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/Helper/Source2MatHelper/<a class="el" href="../../d1/d5b/Image2MatHelper_8cs.html">Image2MatHelper.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/Scripts/UnityIntegration/Helper/Source2MatHelper/<a class="el" href="../../d1/d5b/Image2MatHelper_8cs.html">Image2MatHelper.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

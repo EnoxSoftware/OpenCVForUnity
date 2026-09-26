@@ -1,14 +1,19 @@
 var searchData=
 [
-  ['edgeawareinterpolator_2ecs_0',['EdgeAwareInterpolator.cs',['../d4/da5/EdgeAwareInterpolator_8cs.html',1,'']]],
-  ['edgeboxes_2ecs_1',['EdgeBoxes.cs',['../dc/d76/EdgeBoxes_8cs.html',1,'']]],
-  ['edgedrawing_2ecs_2',['EdgeDrawing.cs',['../dd/dca/EdgeDrawing_8cs.html',1,'']]],
-  ['edgedrawing_5fparams_2ecs_3',['EdgeDrawing_Params.cs',['../d3/df2/EdgeDrawing__Params_8cs.html',1,'']]],
-  ['eigenfacerecognizer_2ecs_4',['EigenFaceRecognizer.cs',['../df/d2a/EigenFaceRecognizer_8cs.html',1,'']]],
-  ['em_2ecs_5',['EM.cs',['../d7/d36/EM_8cs.html',1,'']]],
-  ['em_5fstruct_2ecs_6',['EM_Struct.cs',['../d4/d95/EM__Struct_8cs.html',1,'']]],
-  ['em_5fvaluetuple_2ecs_7',['EM_ValueTuple.cs',['../d7/d59/EM__ValueTuple_8cs.html',1,'']]],
-  ['erfilter_2ecs_8',['ERFilter.cs',['../dd/da0/ERFilter_8cs.html',1,'']]],
-  ['erfilter_5fcallback_2ecs_9',['ERFilter_Callback.cs',['../d4/d6f/ERFilter__Callback_8cs.html',1,'']]],
-  ['estimateparameters_2ecs_10',['EstimateParameters.cs',['../d8/ddc/EstimateParameters_8cs.html',1,'']]]
+  ['eccparameters_2ecs_0',['ECCParameters.cs',['../de/d60/ECCParameters_8cs.html',1,'']]],
+  ['eccparameters_5fstruct_2ecs_1',['ECCParameters_Struct.cs',['../d4/dbe/ECCParameters__Struct_8cs.html',1,'']]],
+  ['eccparameters_5fvaluetuple_2ecs_2',['ECCParameters_ValueTuple.cs',['../d9/d1a/ECCParameters__ValueTuple_8cs.html',1,'']]],
+  ['edgeawareinterpolator_2ecs_3',['EdgeAwareInterpolator.cs',['../d4/da5/EdgeAwareInterpolator_8cs.html',1,'']]],
+  ['edgeboxes_2ecs_4',['EdgeBoxes.cs',['../dc/d76/EdgeBoxes_8cs.html',1,'']]],
+  ['edgedrawing_2ecs_5',['EdgeDrawing.cs',['../dd/dca/EdgeDrawing_8cs.html',1,'']]],
+  ['edgedrawing_5fparams_2ecs_6',['EdgeDrawing_Params.cs',['../d3/df2/EdgeDrawing__Params_8cs.html',1,'']]],
+  ['eigenfacerecognizer_2ecs_7',['EigenFaceRecognizer.cs',['../df/d2a/EigenFaceRecognizer_8cs.html',1,'']]],
+  ['em_2ecs_8',['EM.cs',['../d7/d36/EM_8cs.html',1,'']]],
+  ['em_5fstruct_2ecs_9',['EM_Struct.cs',['../d4/d95/EM__Struct_8cs.html',1,'']]],
+  ['em_5fvaluetuple_2ecs_10',['EM_ValueTuple.cs',['../d7/d59/EM__ValueTuple_8cs.html',1,'']]],
+  ['enginelog_2ecs_11',['EngineLog.cs',['../db/dc8/EngineLog_8cs.html',1,'']]],
+  ['enginelog_5fintegration_2ecs_12',['EngineLog_Integration.cs',['../d3/d14/EngineLog__Integration_8cs.html',1,'']]],
+  ['erfilter_2ecs_13',['ERFilter.cs',['../dd/da0/ERFilter_8cs.html',1,'']]],
+  ['erfilter_5fcallback_2ecs_14',['ERFilter_Callback.cs',['../d4/d6f/ERFilter__Callback_8cs.html',1,'']]],
+  ['erroreventsinspectorgroup_2ecs_15',['ErrorEventsInspectorGroup.cs',['../dc/d18/ErrorEventsInspectorGroup_8cs.html',1,'']]]
 ];

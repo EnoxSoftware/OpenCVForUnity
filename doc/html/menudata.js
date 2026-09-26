@@ -120,6 +120,7 @@ var menudata={children:[
 {text:"Enumerations",url:"functions_enum.html"},
 {text:"Properties",url:"functions_prop.html",children:[
 {text:"a",url:"functions_prop.html#index_a"},
+{text:"b",url:"functions_prop_b.html#index_b"},
 {text:"c",url:"functions_prop_c.html#index_c"},
 {text:"d",url:"functions_prop_d.html#index_d"},
 {text:"e",url:"functions_prop_e.html#index_e"},
@@ -128,6 +129,7 @@ var menudata={children:[
 {text:"i",url:"functions_prop_i.html#index_i"},
 {text:"k",url:"functions_prop_k.html#index_k"},
 {text:"l",url:"functions_prop_l.html#index_l"},
+{text:"m",url:"functions_prop_m.html#index_m"},
 {text:"n",url:"functions_prop_n.html#index_n"},
 {text:"o",url:"functions_prop_o.html#index_o"},
 {text:"p",url:"functions_prop_p.html#index_p"},
@@ -144,4 +146,5 @@ var menudata={children:[
 {text:"File List",url:"files.html"},
 {text:"File Members",url:"globals.html",children:[
 {text:"All",url:"globals.html"},
-{text:"Typedefs",url:"globals_type.html"}]}]}]}
+{text:"Typedefs",url:"globals_type.html"},
+{text:"Enumerations",url:"globals_enum.html"}]}]}]}

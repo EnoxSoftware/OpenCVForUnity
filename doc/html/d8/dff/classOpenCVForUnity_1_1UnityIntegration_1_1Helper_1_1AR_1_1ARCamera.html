@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.3</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.4</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.13.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/5.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -140,34 +140,34 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
-<p>A class that manages <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> camera parameters and updates the projection matrix. This class utilizes camera calibration data to correct object positioning in <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> space and provides functionalities for integrating with an OpenCV-based <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> system.  
+<p>Manages <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> camera calibration parameters and Unity Camera.projectionMatrix for the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> pipeline. Supplies intrinsics, distortion coefficients, and an OpenCV-space projection matrix to <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> / <a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html" title="Engine-independent AR pose estimation pipeline (solvePnP, NDC viewport, pose filtering)....">Extensions.AR.ARPoseEstimator</a>.  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a102f1843f46d784179ddcfe00dd1e943" id="r_a102f1843f46d784179ddcfe00dd1e943"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a102f1843f46d784179ddcfe00dd1e943">Dispose</a> ()</td></tr>
-<tr class="memdesc:a102f1843f46d784179ddcfe00dd1e943"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disposes resources. This method is called when <a class="el" href="#a94964a2ba57feca72368773ed545fa29" title="Called when the MonoBehaviour will be destroyed. This method is used to release resources and perform...">OnDestroy()</a> is called.  <br /></td></tr>
+<tr class="memdesc:a102f1843f46d784179ddcfe00dd1e943"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disposes resources. This method is called when <a class="el" href="#a94964a2ba57feca72368773ed545fa29">OnDestroy()</a> is called.  <br /></td></tr>
 <tr class="separator:a102f1843f46d784179ddcfe00dd1e943"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1c97837c2a8fdfddea7925dc19bf53d" id="r_ad1c97837c2a8fdfddea7925dc19bf53d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1c97837c2a8fdfddea7925dc19bf53d">GetCamMatrix</a> ()</td></tr>
-<tr class="memdesc:ad1c97837c2a8fdfddea7925dc19bf53d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get camMatrix.  <br /></td></tr>
+<tr class="memdesc:ad1c97837c2a8fdfddea7925dc19bf53d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the OpenCV camera matrix passed to ARPoseEstimator.Estimate via <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a>. May be <code>null</code> in the Editor when not in Play mode.  <br /></td></tr>
 <tr class="separator:ad1c97837c2a8fdfddea7925dc19bf53d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a308e2218fe335810d891106c99ac73fa" id="r_a308e2218fe335810d891106c99ac73fa"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d1/da8/classOpenCVForUnity_1_1CoreModule_1_1MatOfDouble.html">MatOfDouble</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a308e2218fe335810d891106c99ac73fa">GetDistCoeffs</a> ()</td></tr>
-<tr class="memdesc:a308e2218fe335810d891106c99ac73fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get distCoeffs.  <br /></td></tr>
+<tr class="memdesc:a308e2218fe335810d891106c99ac73fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the OpenCV distortion coefficients passed to ARPoseEstimator.Estimate via <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a>. May be <code>null</code> in the Editor when not in Play mode.  <br /></td></tr>
 <tr class="separator:a308e2218fe335810d891106c99ac73fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21b0e94a7de3da8e6a21f2f2378cd262" id="r_a21b0e94a7de3da8e6a21f2f2378cd262"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a21b0e94a7de3da8e6a21f2f2378cd262">Initialize</a> ()</td></tr>
-<tr class="memdesc:a21b0e94a7de3da8e6a21f2f2378cd262"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes resources and sets the initial values. This method is called when <a class="el" href="#ae33dd002e7215d63510147d5891dfc52" title="Awake is called when the script instance is being loaded.">Awake()</a> is called.  <br /></td></tr>
+<tr class="memdesc:a21b0e94a7de3da8e6a21f2f2378cd262"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes resources and sets the initial values. This method is called when <a class="el" href="#ae33dd002e7215d63510147d5891dfc52">Awake()</a> is called.  <br /></td></tr>
 <tr class="separator:a21b0e94a7de3da8e6a21f2f2378cd262"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a493ce0ac09f578bf8f0fc29612771105" id="r_a493ce0ac09f578bf8f0fc29612771105"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a493ce0ac09f578bf8f0fc29612771105">SetARCameraParameters</a> (int screenWidth, int screenHeight, int imageWidth, int imageHeight, Vector2 translation, Vector2 scale, double[] camMatrixValues=null, double[] distCoeffsValues=null)</td></tr>
 <tr class="memdesc:a493ce0ac09f578bf8f0fc29612771105"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> camera parameters and updates the projection matrix.  <br /></td></tr>
 <tr class="separator:a493ce0ac09f578bf8f0fc29612771105"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8d7e0254bb421c78af62afa3d278e90" id="r_aa8d7e0254bb421c78af62afa3d278e90"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8d7e0254bb421c78af62afa3d278e90">SetCamMatrix</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> camMatrix)</td></tr>
-<tr class="memdesc:aa8d7e0254bb421c78af62afa3d278e90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set camMatrix.  <br /></td></tr>
+<tr class="memdesc:aa8d7e0254bb421c78af62afa3d278e90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the given camera matrix into <a class="el" href="#a2fbab14f9679e3e9b601d588eeaa4d4e" title="Initial camera matrix values for calibration. If fewer than 9 elements are provided,...">CamMatrixValues</a> and updates the projection matrix.  <br /></td></tr>
 <tr class="separator:aa8d7e0254bb421c78af62afa3d278e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87d29d9f52dd3f046675c9bacd041c5e" id="r_a87d29d9f52dd3f046675c9bacd041c5e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87d29d9f52dd3f046675c9bacd041c5e">SetCamMatrixValuesFromImageSize</a> ()</td></tr>
-<tr class="memdesc:a87d29d9f52dd3f046675c9bacd041c5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set normalized CamMatrixValues calculated from image size. The calculated values are a simplified camera matrix with a unit aspect ratio and normalized parameters.  <br /></td></tr>
+<tr class="memdesc:a87d29d9f52dd3f046675c9bacd041c5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears <a class="el" href="#a2fbab14f9679e3e9b601d588eeaa4d4e" title="Initial camera matrix values for calibration. If fewer than 9 elements are provided,...">CamMatrixValues</a> so <a class="el" href="#afb2fe0dac63caedbfb3aeeab7c5fbbe6" title="Updates the projection matrix of the AR camera based on the current parameters.">UpdateProjectionMatrix</a> recalculates the camera matrix from the current image width and height.  <br /></td></tr>
 <tr class="separator:a87d29d9f52dd3f046675c9bacd041c5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91ec1df43eef0b06d7c4599cf65976d9" id="r_a91ec1df43eef0b06d7c4599cf65976d9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91ec1df43eef0b06d7c4599cf65976d9">SetDistCoeffs</a> (<a class="el" href="../../d1/da8/classOpenCVForUnity_1_1CoreModule_1_1MatOfDouble.html">MatOfDouble</a> distCoeffs)</td></tr>
-<tr class="memdesc:a91ec1df43eef0b06d7c4599cf65976d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set distCoeffs.  <br /></td></tr>
+<tr class="memdesc:a91ec1df43eef0b06d7c4599cf65976d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the given distortion coefficients into <a class="el" href="#a7fa6e280bcbbfa669d975e55c82bcdea" title="Specifies the initial value of distCoeffs used for camera calibration. If the number of elements in t...">DistCoeffsValues</a> and updates the projection matrix.  <br /></td></tr>
 <tr class="separator:a91ec1df43eef0b06d7c4599cf65976d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb2fe0dac63caedbfb3aeeab7c5fbbe6" id="r_afb2fe0dac63caedbfb3aeeab7c5fbbe6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afb2fe0dac63caedbfb3aeeab7c5fbbe6">UpdateProjectionMatrix</a> ()</td></tr>
 <tr class="memdesc:afb2fe0dac63caedbfb3aeeab7c5fbbe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the projection matrix of the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> camera based on the current parameters.  <br /></td></tr>
@@ -176,20 +176,19 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:ae33dd002e7215d63510147d5891dfc52" id="r_ae33dd002e7215d63510147d5891dfc52"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae33dd002e7215d63510147d5891dfc52">Awake</a> ()</td></tr>
-<tr class="memdesc:ae33dd002e7215d63510147d5891dfc52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Awake is called when the script instance is being loaded.  <br /></td></tr>
 <tr class="separator:ae33dd002e7215d63510147d5891dfc52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7185c2d0bf238351893bc29cca21e635" id="r_a7185c2d0bf238351893bc29cca21e635"><td class="memItemLeft" align="right" valign="top">virtual Matrix4x4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7185c2d0bf238351893bc29cca21e635">CalculateProjectionMatrixFromCameraMatrixValuesWithTranslationAndScale</a> (float fx, float fy, float cx, float cy, float width, float height, float near, float far, Vector2 translation, Vector2 scale, float screenWidth, float screenHeight)</td></tr>
 <tr class="memdesc:a7185c2d0bf238351893bc29cca21e635"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the projection matrix from camera matrix values with additional translation and scaling adjustments. Converts from the OpenCV coordinate system to the OpenGL coordinate system, accounting for aspect ratio differences between the image and the screen, as well as custom translation and scaling.  <br /></td></tr>
 <tr class="separator:a7185c2d0bf238351893bc29cca21e635"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb513bd27aa209c23368374493879112" id="r_abb513bd27aa209c23368374493879112"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abb513bd27aa209c23368374493879112">CopyCamMatrixToCamMatrixValues</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> camMatrix)</td></tr>
+<tr class="memdesc:abb513bd27aa209c23368374493879112"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the camera matrix into <a class="el" href="#a2a901d9e8a81c564726bf7d9378e9ee5">_camMatrixValues</a>.  <br /></td></tr>
 <tr class="separator:abb513bd27aa209c23368374493879112"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a210a38e6dece60392b0ab8ff1adffb2f" id="r_a210a38e6dece60392b0ab8ff1adffb2f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a210a38e6dece60392b0ab8ff1adffb2f">CopyDistCoeffsToDistCoeffsValues</a> (<a class="el" href="../../d1/da8/classOpenCVForUnity_1_1CoreModule_1_1MatOfDouble.html">MatOfDouble</a> distCoeffs)</td></tr>
+<tr class="memdesc:a210a38e6dece60392b0ab8ff1adffb2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies distortion coefficients into <a class="el" href="#aceae1fa5213ad423e1a5f4eed8159fc9">_distCoeffsValues</a>.  <br /></td></tr>
 <tr class="separator:a210a38e6dece60392b0ab8ff1adffb2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94964a2ba57feca72368773ed545fa29" id="r_a94964a2ba57feca72368773ed545fa29"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a94964a2ba57feca72368773ed545fa29">OnDestroy</a> ()</td></tr>
-<tr class="memdesc:a94964a2ba57feca72368773ed545fa29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the <a class="el" href="../../d3/d52/classMonoBehaviour.html">MonoBehaviour</a> will be destroyed. This method is used to release resources and perform cleanup operations.  <br /></td></tr>
 <tr class="separator:a94964a2ba57feca72368773ed545fa29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d19a91b63186eba78855e7a840f8721" id="r_a9d19a91b63186eba78855e7a840f8721"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9d19a91b63186eba78855e7a840f8721">OnValidate</a> ()</td></tr>
-<tr class="memdesc:a9d19a91b63186eba78855e7a840f8721"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the script is loaded or a value is changed in the Inspector. Ensures that the screen and image dimensions are within valid ranges, validates the camera matrix and distortion coefficients arrays, and updates the projection matrix.  <br /></td></tr>
 <tr class="separator:a9d19a91b63186eba78855e7a840f8721"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b390a4aab627b5e6049130dc379bce9" id="r_a5b390a4aab627b5e6049130dc379bce9"><td class="memItemLeft" align="right" valign="top">virtual double[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b390a4aab627b5e6049130dc379bce9">ValidateArraySize</a> (double[] array, int maxSize)</td></tr>
 <tr class="memdesc:a5b390a4aab627b5e6049130dc379bce9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restricts the size of the array.  <br /></td></tr>
@@ -234,7 +233,7 @@ Static Protected Attributes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
 <tr class="memitem:a2fbab14f9679e3e9b601d588eeaa4d4e" id="r_a2fbab14f9679e3e9b601d588eeaa4d4e"><td class="memItemLeft" align="right" valign="top">virtual double[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2fbab14f9679e3e9b601d588eeaa4d4e">CamMatrixValues</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a2fbab14f9679e3e9b601d588eeaa4d4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the initial value of camMatrix used for camera calibration. If the number of elements in this array is less than 9, it is automatically calculated from the Screen's Width and Height and the Image's Width and Height.  <br /></td></tr>
+<tr class="memdesc:a2fbab14f9679e3e9b601d588eeaa4d4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initial camera matrix values for calibration. If fewer than 9 elements are provided, <a class="el" href="#afb2fe0dac63caedbfb3aeeab7c5fbbe6" title="Updates the projection matrix of the AR camera based on the current parameters.">UpdateProjectionMatrix</a> fills defaults from <a class="el" href="#a334072250070157c8c34d8d1ae50915a" title="Set the width of image.">ImageWidth</a> and <a class="el" href="#af74a64adcbb168f28451ac664539fd86" title="Set the height of image.">ImageHeight</a>.  <br /></td></tr>
 <tr class="separator:a2fbab14f9679e3e9b601d588eeaa4d4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fa6e280bcbbfa669d975e55c82bcdea" id="r_a7fa6e280bcbbfa669d975e55c82bcdea"><td class="memItemLeft" align="right" valign="top">virtual double[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7fa6e280bcbbfa669d975e55c82bcdea">DistCoeffsValues</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a7fa6e280bcbbfa669d975e55c82bcdea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the initial value of distCoeffs used for camera calibration. If the number of elements in this array is less than 5, all elements are set to 0.  <br /></td></tr>
@@ -245,6 +244,9 @@ Properties</h2></td></tr>
 <tr class="memitem:a334072250070157c8c34d8d1ae50915a" id="r_a334072250070157c8c34d8d1ae50915a"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a334072250070157c8c34d8d1ae50915a">ImageWidth</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a334072250070157c8c34d8d1ae50915a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the width of image.  <br /></td></tr>
 <tr class="separator:a334072250070157c8c34d8d1ae50915a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4b2230c11abd905623b8393dd7f959a" id="r_ab4b2230c11abd905623b8393dd7f959a"><td class="memItemLeft" align="right" valign="top">virtual Matrix4x4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab4b2230c11abd905623b8393dd7f959a">OpenCvCameraProjectionMatrix</a><code> [get]</code></td></tr>
+<tr class="memdesc:ab4b2230c11abd905623b8393dd7f959a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the OpenCV camera-space projection matrix (OpenGL projection × Z inversion) used by <a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html" title="Engine-independent AR pose estimation pipeline (solvePnP, NDC viewport, pose filtering)....">Extensions.AR.ARPoseEstimator</a> NDC viewport checks.  <br /></td></tr>
+<tr class="separator:ab4b2230c11abd905623b8393dd7f959a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0157432c4b035da3a37cebf5d7c14be5" id="r_a0157432c4b035da3a37cebf5d7c14be5"><td class="memItemLeft" align="right" valign="top">virtual Vector2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0157432c4b035da3a37cebf5d7c14be5">Scale</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a0157432c4b035da3a37cebf5d7c14be5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the scale vector.  <br /></td></tr>
 <tr class="separator:a0157432c4b035da3a37cebf5d7c14be5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -259,13 +261,14 @@ Properties</h2></td></tr>
 <tr class="separator:a37f37c7bafcb15eb6c0a366801df5d9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A class that manages <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> camera parameters and updates the projection matrix. This class utilizes camera calibration data to correct object positioning in <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> space and provides functionalities for integrating with an OpenCV-based <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> system. </p>
+<div class="textblock"><p>Manages <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> camera calibration parameters and Unity Camera.projectionMatrix for the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> pipeline. Supplies intrinsics, distortion coefficients, and an OpenCV-space projection matrix to <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> / <a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html" title="Engine-independent AR pose estimation pipeline (solvePnP, NDC viewport, pose filtering)....">Extensions.AR.ARPoseEstimator</a>. </p>
 <ul>
 <li>Configures screen and image dimensions and calculates the appropriate projection matrix.</li>
-<li>Manages the intrinsic camera parameters (camera matrix) and lens distortion coefficients.</li>
-<li>Supports object position estimation using OpenCV's camera model.</li>
+<li>Manages the intrinsic camera parameters (camera matrix) and lens distortion coefficients as OpenCV <code>Mat</code> values.</li>
+<li>Does not run pose estimation itself; provides camera data consumed by <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">ARGameObject.CalculateARMatrix</a>.</li>
 <li>Updates the camera's projection matrix to apply the correct perspective transformation.</li>
-<li>Works with <code><a class="el" href="../../d0/dee/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARHelper.html" title="The ARHelper class manages ARCamera and ARGameObjects, automating the calculation of ARMatrix and upd...">ARHelper</a></code> to provide data for correcting the position and orientation of <code><a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a></code>. </li>
+<li>Exposes <a class="el" href="#ab4b2230c11abd905623b8393dd7f959a" title="Gets the OpenCV camera-space projection matrix (OpenGL projection × Z inversion) used by Extensions....">OpenCvCameraProjectionMatrix</a> for NDC viewport checks in <a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html" title="Engine-independent AR pose estimation pipeline (solvePnP, NDC viewport, pose filtering)....">Extensions.AR.ARPoseEstimator</a>.</li>
+<li>Works with <a class="el" href="../../d0/dee/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARHelper.html" title="The ARHelper class manages ARCamera and ARGameObjects, automating the calculation of ARMatrix and upd...">ARHelper</a> to correct the position and orientation of <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> instances. </li>
 </ul>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ae33dd002e7215d63510147d5891dfc52" name="ae33dd002e7215d63510147d5891dfc52"></a>
@@ -290,8 +293,6 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Awake is called when the script instance is being loaded. </p>
 
 </div>
 </div>
@@ -417,6 +418,14 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Copies the camera matrix into <a class="el" href="#a2a901d9e8a81c564726bf7d9378e9ee5">_camMatrixValues</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">camMatrix</td><td>Source camera matrix.</td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a210a38e6dece60392b0ab8ff1adffb2f" name="a210a38e6dece60392b0ab8ff1adffb2f"></a>
@@ -441,6 +450,14 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Copies distortion coefficients into <a class="el" href="#aceae1fa5213ad423e1a5f4eed8159fc9">_distCoeffsValues</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">distCoeffs</td><td>Source distortion coefficients.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -467,7 +484,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Disposes resources. This method is called when <a class="el" href="#a94964a2ba57feca72368773ed545fa29" title="Called when the MonoBehaviour will be destroyed. This method is used to release resources and perform...">OnDestroy()</a> is called. </p>
+<p>Disposes resources. This method is called when <a class="el" href="#a94964a2ba57feca72368773ed545fa29">OnDestroy()</a> is called. </p>
 
 </div>
 </div>
@@ -494,8 +511,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get camMatrix. </p>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<p>Gets the OpenCV camera matrix passed to ARPoseEstimator.Estimate via <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a>. May be <code>null</code> in the Editor when not in Play mode. </p>
+<dl class="section return"><dt>Returns</dt><dd>The camera matrix, or <code>null</code> if not yet created.</dd></dl>
 
 </div>
 </div>
@@ -522,8 +539,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get distCoeffs. </p>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<p>Gets the OpenCV distortion coefficients passed to ARPoseEstimator.Estimate via <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a>. May be <code>null</code> in the Editor when not in Play mode. </p>
+<dl class="section return"><dt>Returns</dt><dd>The distortion coefficients, or <code>null</code> if not yet created.</dd></dl>
 
 </div>
 </div>
@@ -550,7 +567,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Initializes resources and sets the initial values. This method is called when <a class="el" href="#ae33dd002e7215d63510147d5891dfc52" title="Awake is called when the script instance is being loaded.">Awake()</a> is called. </p>
+<p>Initializes resources and sets the initial values. This method is called when <a class="el" href="#ae33dd002e7215d63510147d5891dfc52">Awake()</a> is called. </p>
 
 </div>
 </div>
@@ -577,8 +594,6 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Called when the <a class="el" href="../../d3/d52/classMonoBehaviour.html">MonoBehaviour</a> will be destroyed. This method is used to release resources and perform cleanup operations. </p>
-
 </div>
 </div>
 <a id="a9d19a91b63186eba78855e7a840f8721" name="a9d19a91b63186eba78855e7a840f8721"></a>
@@ -603,8 +618,6 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Called when the script is loaded or a value is changed in the Inspector. Ensures that the screen and image dimensions are within valid ranges, validates the camera matrix and distortion coefficients arrays, and updates the projection matrix. </p>
 
 </div>
 </div>
@@ -674,8 +687,8 @@ Properties</h2></td></tr>
     <tr><td class="paramname">imageHeight</td><td>The height of the image.</td></tr>
     <tr><td class="paramname">translation</td><td>The translation vector applied to the projection matrix.</td></tr>
     <tr><td class="paramname">scale</td><td>The scaling factors for the projection matrix.</td></tr>
-    <tr><td class="paramname">camMatrixValues</td><td>Optional initial values for the camera matrix used for calibration. If camMatrixValues.Length is less than CAMMATRIXVALUES_MIN_SIZE then camMatrixValues is calculated and set based on the values of imageWidth and imageWidth.</td></tr>
-    <tr><td class="paramname">distCoeffsValues</td><td>Optional initial values for the distortion coefficients used for calibration. If distCoeffsValues.Length is less than DISTCOEFFSVALUES_MIN_SIZE then distCoeffsValues is calculated and set based on the values of imageWidth and imageWidth.</td></tr>
+    <tr><td class="paramname">camMatrixValues</td><td>Optional camera matrix. When omitted or shorter than <a class="el" href="#ac611c24c515999c83f9fa1c76350e2f9">CAMMATRIXVALUES_MIN_SIZE</a>, defaults are derived from image size in <a class="el" href="#afb2fe0dac63caedbfb3aeeab7c5fbbe6" title="Updates the projection matrix of the AR camera based on the current parameters.">UpdateProjectionMatrix</a>.</td></tr>
+    <tr><td class="paramname">distCoeffsValues</td><td>Optional distortion coefficients. When omitted or shorter than <a class="el" href="#adabea3966e65787ed7e1e01bede476da">DISTCOEFFSVALUES_MIN_SIZE</a>, a zero-filled array is allocated in <a class="el" href="#afb2fe0dac63caedbfb3aeeab7c5fbbe6" title="Updates the projection matrix of the AR camera based on the current parameters.">UpdateProjectionMatrix</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -705,10 +718,10 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Set camMatrix. </p>
+<p>Copies the given camera matrix into <a class="el" href="#a2fbab14f9679e3e9b601d588eeaa4d4e" title="Initial camera matrix values for calibration. If fewer than 9 elements are provided,...">CamMatrixValues</a> and updates the projection matrix. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">camMatrix</td><td></td></tr>
+    <tr><td class="paramname">camMatrix</td><td>Source camera matrix.</td></tr>
   </table>
   </dd>
 </dl>
@@ -738,7 +751,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Set normalized CamMatrixValues calculated from image size. The calculated values are a simplified camera matrix with a unit aspect ratio and normalized parameters. </p>
+<p>Clears <a class="el" href="#a2fbab14f9679e3e9b601d588eeaa4d4e" title="Initial camera matrix values for calibration. If fewer than 9 elements are provided,...">CamMatrixValues</a> so <a class="el" href="#afb2fe0dac63caedbfb3aeeab7c5fbbe6" title="Updates the projection matrix of the AR camera based on the current parameters.">UpdateProjectionMatrix</a> recalculates the camera matrix from the current image width and height. </p>
 
 </div>
 </div>
@@ -765,10 +778,10 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Set distCoeffs. </p>
+<p>Copies the given distortion coefficients into <a class="el" href="#a7fa6e280bcbbfa669d975e55c82bcdea" title="Specifies the initial value of distCoeffs used for camera calibration. If the number of elements in t...">DistCoeffsValues</a> and updates the projection matrix. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">distCoeffs</td><td></td></tr>
+    <tr><td class="paramname">distCoeffs</td><td>Source distortion coefficients.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1193,7 +1206,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Specifies the initial value of camMatrix used for camera calibration. If the number of elements in this array is less than 9, it is automatically calculated from the Screen's Width and Height and the Image's Width and Height. </p>
+<p>Initial camera matrix values for calibration. If fewer than 9 elements are provided, <a class="el" href="#afb2fe0dac63caedbfb3aeeab7c5fbbe6" title="Updates the projection matrix of the AR camera based on the current parameters.">UpdateProjectionMatrix</a> fills defaults from <a class="el" href="#a334072250070157c8c34d8d1ae50915a" title="Set the width of image.">ImageWidth</a> and <a class="el" href="#af74a64adcbb168f28451ac664539fd86" title="Set the height of image.">ImageHeight</a>. </p>
 
 </div>
 </div>
@@ -1266,6 +1279,31 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the width of image. </p>
+
+</div>
+</div>
+<a id="ab4b2230c11abd905623b8393dd7f959a" name="ab4b2230c11abd905623b8393dd7f959a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4b2230c11abd905623b8393dd7f959a">&#9670;&#160;</a></span>OpenCvCameraProjectionMatrix</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual Matrix4x4 OpenCVForUnity.UnityIntegration.Helper.AR.ARCamera.OpenCvCameraProjectionMatrix</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the OpenCV camera-space projection matrix (OpenGL projection × Z inversion) used by <a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html" title="Engine-independent AR pose estimation pipeline (solvePnP, NDC viewport, pose filtering)....">Extensions.AR.ARPoseEstimator</a> NDC viewport checks. </p>
+<dl class="section return"><dt>Returns</dt><dd>OpenCV camera projection matrix.</dd></dl>
 
 </div>
 </div>
@@ -1366,7 +1404,7 @@ Properties</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/Helper/ARHelper/<a class="el" href="../../df/d99/ARCamera_8cs.html">ARCamera.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/Scripts/UnityIntegration/Helper/AR/<a class="el" href="../../df/d99/ARCamera_8cs.html">ARCamera.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

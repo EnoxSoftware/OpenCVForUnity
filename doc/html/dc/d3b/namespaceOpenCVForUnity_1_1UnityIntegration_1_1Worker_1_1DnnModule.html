@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.3</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.4</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.13.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/5.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -131,7 +131,8 @@ $(function(){ initResizable(false); });
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle"><div class="title">OpenCVForUnity.UnityIntegration.Worker.DnnModule Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -140,37 +141,195 @@ $(function(){ initResizable(false); });
 Namespaces</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d61/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipe.html">MediaPipe</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d2b/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YOLOv5.html">YOLOv5</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d50/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YOLOv8.html">YOLOv8</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d0b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1DAMOYOLOObjectDetector.html">DAMOYOLOObjectDetector</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">DAMO-YOLO object detector implementation. This class provides functionality for object detection using the DAMO-YOLO model implemented with OpenCV's DNN module. Referring to: <a href="https://github.com/tinyvision/DAMO-YOLO">https://github.com/tinyvision/DAMO-YOLO</a> <a href="https://github.com/tinyvision/DAMO-YOLO/blob/master/tools/demo.py">https://github.com/tinyvision/DAMO-YOLO/blob/master/tools/demo.py</a>.  <a href="../../dc/d0b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1DAMOYOLOObjectDetector.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obsolete compatibility alias for <a class="el" href="../../dd/d5c/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1DAMOYOLOObjectDetectorMultiBackend.html" title="DAMO-YOLO object detector with Unity multi-backend inference (OpenCV DNN and Sentis).">DAMOYOLOObjectDetectorMultiBackend</a>.  <a href="../../dc/d0b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1DAMOYOLOObjectDetector.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d59/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1DnnInferenceWorkerBase.html">DnnInferenceWorkerBase</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for <a class="el" href="../../d9/d9b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase.html" title="Base class for processing workers that manage input and output Mats.">ProcessingWorkerBase</a> derivatives that record DNN runtime options (<a class="el" href="../../da/d59/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1DnnInferenceWorkerBase.html#a01849418522adbbb4e1853c681f379c4" title="OpenCV DNN DNN_BACKEND_* constant or MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS supplied at constructio...">DnnBackend</a> / <a class="el" href="../../da/d59/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1DnnInferenceWorkerBase.html#a12dc537ae22e8914d0825da2063a718b" title="OpenCV DNN DNN_TARGET_* constant, or when DnnBackend is MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS,...">DnnTarget</a>), support Unity Inference Engine (<code>com.unity.ai.inference</code>) as an alternative to OpenCV DNN, and share the same backend discriminator constants as <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html" title="Subset of OpenCV OpenCVForUnity.DnnModule.Dnn for loading models that may run on either OpenCV DNN or...">MultiBackendDnn</a>.  <a href="../../da/d59/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1DnnInferenceWorkerBase.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d5c/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1DAMOYOLOObjectDetectorMultiBackend.html">DAMOYOLOObjectDetectorMultiBackend</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">DAMO-YOLO object detector with Unity multi-backend inference (OpenCV DNN and Sentis).  <a href="../../dd/d5c/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1DAMOYOLOObjectDetectorMultiBackend.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbe/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1FaceIdentificationEstimator.html">FaceIdentificationEstimator</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Face Identification Estimator with BYTETracker integration for robust face detection, tracking, and recognition in video streams.  <a href="../../d8/dbe/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1FaceIdentificationEstimator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/da9/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1FacialExpressionRecognizer.html">FacialExpressionRecognizer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Facial expression recognizer implementation. This class provides functionality for facial expression recognition using the Facial Expression Recognition model implemented with OpenCV's DNN module. Referring to <a href="https://github.com/opencv/opencv_zoo/tree/main/models/facial_expression_recognition">https://github.com/opencv/opencv_zoo/tree/main/models/facial_expression_recognition</a>.  <a href="../../d0/da9/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1FacialExpressionRecognizer.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obsolete compatibility alias for <a class="el" href="../../d5/d04/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1FacialExpressionRecognizerMultiBackend.html" title="Facial expression recognizer with Unity multi-backend inference (OpenCV DNN and Sentis).">FacialExpressionRecognizerMultiBackend</a>.  <a href="../../d0/da9/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1FacialExpressionRecognizer.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d04/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1FacialExpressionRecognizerMultiBackend.html">FacialExpressionRecognizerMultiBackend</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Facial expression recognizer with Unity multi-backend inference (OpenCV DNN and Sentis).  <a href="../../d5/d04/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1FacialExpressionRecognizerMultiBackend.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d42/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1InferenceFrameworkUtils.html">InferenceFrameworkUtils</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helpers for mapping <a class="el" href="#a6f2f4cf042e347b1bf22ff503d56c5d6" title="UI selection kind for the inference framework (OpenCV DNN versus Unity Sentis).">InferenceFrameworkSelectionKind</a> to <a class="el" href="#a8cf44aedd19023d6487ce403e1b258df" title="Discriminator for which inference framework (wrapper family) is active on MultiBackendNet (OpenCV DNN...">InferenceFrameworkKind</a> and UI labels.  <a href="../../d8/d42/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1InferenceFrameworkUtils.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html">MultiBackendDnn</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subset of OpenCV <a class="el" href="../../dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html">OpenCVForUnity.DnnModule.Dnn</a> for loading models that may run on either OpenCV DNN or Sentis (<code>com.unity.ai.inference</code>).  <a href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df0/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendNet.html">MultiBackendNet</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subset of OpenCV Net for inference with either OpenCV DNN or Sentis, with deferred initialization after <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a42b3ce4b252da67ab403d6c451fc5805" title="Factory with the same signature as OpenCVForUnity.DnnModule.Dnn.readNet(string); returns MultiBackend...">MultiBackendDnn.readNet</a>.  <a href="../../dd/df0/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendNet.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closed facade over OpenCV DNN or Sentis inference nets, with deferred initialization after <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a4a96344a0a828cc2a938e5a45e2dd3f7" title="Factory with the same signature as OpenCVForUnity.DnnModule.Dnn.readNet(string); returns MultiBackend...">MultiBackendDnn.ReadNet</a>. Implements IDnnInferenceNamedIONet and, as a type, IDnnAsyncInferenceNet / IDnnAsyncNamedOutputInferenceNet (async methods throw on the OpenCV path).  <a href="../../dd/df0/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendNet.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d9d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1NanoDetPlusObjectDetector.html">NanoDetPlusObjectDetector</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">NanoDetPlus object detector implementation. This class provides functionality for object detection using the NanoDetPlus model implemented with OpenCV's DNN module. Referring to: <a href="https://github.com/RangiLyu/nanodet">https://github.com/RangiLyu/nanodet</a> <a href="https://github.com/RangiLyu/nanodet/blob/main/nanodet/model/head/nanodet_plus_head.py">https://github.com/RangiLyu/nanodet/blob/main/nanodet/model/head/nanodet_plus_head.py</a> <a href="https://github.com/hpc203/nanodet-plus-opencv">https://github.com/hpc203/nanodet-plus-opencv</a>.  <a href="../../dc/d9d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1NanoDetPlusObjectDetector.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obsolete compatibility alias for <a class="el" href="../../da/d13/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1NanoDetPlusObjectDetectorMultiBackend.html" title="NanoDetPlus object detector with Unity multi-backend inference (OpenCV DNN and Sentis).">NanoDetPlusObjectDetectorMultiBackend</a>.  <a href="../../dc/d9d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1NanoDetPlusObjectDetector.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d13/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1NanoDetPlusObjectDetectorMultiBackend.html">NanoDetPlusObjectDetectorMultiBackend</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">NanoDetPlus object detector with Unity multi-backend inference (OpenCV DNN and Sentis).  <a href="../../da/d13/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1NanoDetPlusObjectDetectorMultiBackend.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><b>SentisCompanionModelPath</b></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Derives companion <code>.sentis</code> model paths from ONNX paths (shared by MultiBackend / Sentis factories). <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d62/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1SentisInferenceDnn.html">SentisInferenceDnn</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factory for Sentis (Unity Inference Engine) inference nets, parallel to OpenCV Dnn.readNet.  <a href="../../db/d62/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1SentisInferenceDnn.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d49/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1SentisInferenceNet.html">SentisInferenceNet</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sentis (Unity Inference Engine) implementation of IDnnInferenceNamedIONet with optional asynchronous forward via IDnnAsyncInferenceNet and IDnnAsyncNamedOutputInferenceNet.  <a href="../../dd/d49/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1SentisInferenceNet.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d7b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1SentisInferenceUtils.html">SentisInferenceUtils</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helpers for mapping <a class="el" href="#a92b031037c9cea1c51828e2b8f0fecf3" title="Sentis inference backend discriminator for MultiBackendNet.SetPreferableBackend.">SentisInferenceBackendKind</a> and <a class="el" href="#abb1efd845e43d4107e6eaf699cb06990" title="Unity Sentis runtime target kind for MultiBackendNet.SetPreferableTarget.">SentisInferenceTargetKind</a> to Sentis runtime ids and UI labels.  <a href="../../d8/d7b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1SentisInferenceUtils.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d9d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YOLOXObjectDetector.html">YOLOXObjectDetector</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">YOLOX object detector implementation. This class provides functionality for object detection using the YOLOX model implemented with OpenCV's DNN module. Referring to: <a href="https://github.com/opencv/opencv_zoo/tree/master/models/object_detection_yolox">https://github.com/opencv/opencv_zoo/tree/master/models/object_detection_yolox</a> <a href="https://github.com/Megvii-BaseDetection/YOLOX">https://github.com/Megvii-BaseDetection/YOLOX</a> <a href="https://github.com/Megvii-BaseDetection/YOLOX/tree/main/demo/ONNXRuntime">https://github.com/Megvii-BaseDetection/YOLOX/tree/main/demo/ONNXRuntime</a>.  <a href="../../d1/d9d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YOLOXObjectDetector.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obsolete compatibility alias for <a class="el" href="../../dc/d7d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YOLOXObjectDetectorMultiBackend.html" title="YOLOX object detector with Unity multi-backend inference (OpenCV DNN and Sentis).">YOLOXObjectDetectorMultiBackend</a>.  <a href="../../d1/d9d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YOLOXObjectDetector.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d7d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YOLOXObjectDetectorMultiBackend.html">YOLOXObjectDetectorMultiBackend</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">YOLOX object detector with Unity multi-backend inference (OpenCV DNN and Sentis).  <a href="../../dc/d7d/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YOLOXObjectDetectorMultiBackend.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d4c/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YuNetV2FaceDetector.html">YuNetV2FaceDetector</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">YuNetV2 face detector implementation. This class provides functionality for face detection using the YuNetV2 model implemented with OpenCV's DNN module. Referring to <a href="https://github.com/opencv/opencv_zoo/tree/main/models/face_detection_yunet">https://github.com/opencv/opencv_zoo/tree/main/models/face_detection_yunet</a>.  <a href="../../db/d4c/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YuNetV2FaceDetector.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obsolete compatibility alias for <a class="el" href="../../df/d8d/classOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1YuNetV2FaceDetector.html" title="YuNetV2 face detector using OpenCV DNN via FaceDetectorYN.">OpenCVForUnity.Extensions.Worker.DnnModule.YuNetV2FaceDetector</a>.  <a href="../../db/d4c/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1YuNetV2FaceDetector.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a8cf44aedd19023d6487ce403e1b258df" id="r_a8cf44aedd19023d6487ce403e1b258df"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8cf44aedd19023d6487ce403e1b258df">InferenceFrameworkKind</a> { <br />
+&#160;&#160;<a class="el" href="#a8cf44aedd19023d6487ce403e1b258dfa88183b946cc5f0e8c96b2e66e1c74a7e">Unknown</a> = 0
+, <br />
+&#160;&#160;<a class="el" href="#a8cf44aedd19023d6487ce403e1b258dfac9569a8e37f35c735bb1bbd4b211c24e">OpenCvDnn</a> = 1
+, <br />
+&#160;&#160;<a class="el" href="#a8cf44aedd19023d6487ce403e1b258dfad1cf1ece944db879f03edfb24802311f">UnitySentis</a> = 2
+<br />
+ }</td></tr>
+<tr class="memdesc:a8cf44aedd19023d6487ce403e1b258df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Discriminator for which inference framework (wrapper family) is active on MultiBackendNet (OpenCV DNN versus Sentis).  <a href="#a8cf44aedd19023d6487ce403e1b258df">More...</a><br /></td></tr>
+<tr class="separator:a8cf44aedd19023d6487ce403e1b258df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f2f4cf042e347b1bf22ff503d56c5d6" id="r_a6f2f4cf042e347b1bf22ff503d56c5d6"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f2f4cf042e347b1bf22ff503d56c5d6">InferenceFrameworkSelectionKind</a> { <br />
+&#160;&#160;<a class="el" href="#a6f2f4cf042e347b1bf22ff503d56c5d6ac9569a8e37f35c735bb1bbd4b211c24e">OpenCvDnn</a> = 0
+, <br />
+&#160;&#160;<a class="el" href="#a6f2f4cf042e347b1bf22ff503d56c5d6ad1cf1ece944db879f03edfb24802311f">UnitySentis</a> = 1
+<br />
+ }</td></tr>
+<tr class="memdesc:a6f2f4cf042e347b1bf22ff503d56c5d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">UI selection kind for the inference framework (OpenCV DNN versus Unity Sentis).  <a href="#a6f2f4cf042e347b1bf22ff503d56c5d6">More...</a><br /></td></tr>
+<tr class="separator:a6f2f4cf042e347b1bf22ff503d56c5d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92b031037c9cea1c51828e2b8f0fecf3" id="r_a92b031037c9cea1c51828e2b8f0fecf3"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a92b031037c9cea1c51828e2b8f0fecf3">SentisInferenceBackendKind</a> { <a class="el" href="#a92b031037c9cea1c51828e2b8f0fecf3ad1cf1ece944db879f03edfb24802311f">UnitySentis</a> = SentisInferenceDnn.DNN_BACKEND_UNITY_SENTIS
+ }</td></tr>
+<tr class="memdesc:a92b031037c9cea1c51828e2b8f0fecf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sentis inference backend discriminator for MultiBackendNet.SetPreferableBackend.  <a href="#a92b031037c9cea1c51828e2b8f0fecf3">More...</a><br /></td></tr>
+<tr class="separator:a92b031037c9cea1c51828e2b8f0fecf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb1efd845e43d4107e6eaf699cb06990" id="r_abb1efd845e43d4107e6eaf699cb06990"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abb1efd845e43d4107e6eaf699cb06990">SentisInferenceTargetKind</a> { <br />
+&#160;&#160;<a class="el" href="#abb1efd845e43d4107e6eaf699cb06990ab25bea97e25e1620af739a16c73f344d">GPUCompute</a> = 0
+, <br />
+&#160;&#160;<a class="el" href="#abb1efd845e43d4107e6eaf699cb06990aba0f18167e859e8b2efac620a0878c99">GPUPixel</a> = 1
+, <br />
+&#160;&#160;<a class="el" href="#abb1efd845e43d4107e6eaf699cb06990a2b55387dd066c5bac646ac61543d152d">CPU</a> = 2
+<br />
+ }</td></tr>
+<tr class="memdesc:abb1efd845e43d4107e6eaf699cb06990"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unity Sentis runtime target kind for MultiBackendNet.SetPreferableTarget.  <a href="#abb1efd845e43d4107e6eaf699cb06990">More...</a><br /></td></tr>
+<tr class="separator:abb1efd845e43d4107e6eaf699cb06990"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a8cf44aedd19023d6487ce403e1b258df" name="a8cf44aedd19023d6487ce403e1b258df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cf44aedd19023d6487ce403e1b258df">&#9670;&#160;</a></span>InferenceFrameworkKind</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a8cf44aedd19023d6487ce403e1b258df">OpenCVForUnity.UnityIntegration.Worker.DnnModule.InferenceFrameworkKind</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Discriminator for which inference framework (wrapper family) is active on <a class="el" href="../../dd/df0/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendNet.html" title="Closed facade over OpenCV DNN or Sentis inference nets, with deferred initialization after MultiBacke...">MultiBackendNet</a> (OpenCV DNN versus Sentis). </p>
+<p>Exposed as <a class="el" href="../../dd/df0/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendNet.html#a34d604c421b57e3eeb462ecb1e0993f2" title="Wrapper family of the active inner net: InferenceFrameworkKind.OpenCvDnn, InferenceFrameworkKind....">MultiBackendNet.ActiveInferenceFramework</a>. This is not an OpenCV internal DNN backend id such as <code>DNN_BACKEND_CUDA</code>. <a class="el" href="../../dd/df0/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendNet.html#a4e94289edc640bd25281450fde749f4c" title="Last SetPreferableBackend argument: an OpenCV DNN_BACKEND_* value, MultiBackendDnn....">MultiBackendNet.PreferredBackend</a> / <a class="el" href="../../dd/df0/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendNet.html#a203fde2b3000b884f02816fb7b555134" title="Last SetPreferableTarget argument: OpenCV DNN_TARGET_* or, for Sentis, an int cast from the Sentis ru...">MultiBackendNet.PreferredTarget</a> remain a separate request axis. </p>
+<p>Single-backend nets (<a class="el" href="../../db/d14/classOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1OpenCVDnnInferenceNet.html" title="Thin wrapper around OpenCV Net that implements IDnnInferenceNet and IDnnInferenceNamedIONet.">OpenCVForUnity.Extensions.Worker.DnnModule.OpenCVDnnInferenceNet</a>, <a class="el" href="../../dd/d49/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1SentisInferenceNet.html" title="Sentis (Unity Inference Engine) implementation of IDnnInferenceNamedIONet with optional asynchronous ...">SentisInferenceNet</a>) do not expose this discriminator; their wrapper family is implied by type. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a8cf44aedd19023d6487ce403e1b258dfa88183b946cc5f0e8c96b2e66e1c74a7e" name="a8cf44aedd19023d6487ce403e1b258dfa88183b946cc5f0e8c96b2e66e1c74a7e"></a>Unknown&#160;</td><td class="fielddoc"><p>Framework has not been selected yet (before <a class="el" href="../../dd/df0/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendNet.html#a9efed31110216840fec4a487ede73bba" title="Commits the DNN backend; creates the OpenCV or Sentis inner net.">MultiBackendNet.SetPreferableBackend</a>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8cf44aedd19023d6487ce403e1b258dfac9569a8e37f35c735bb1bbd4b211c24e" name="a8cf44aedd19023d6487ce403e1b258dfac9569a8e37f35c735bb1bbd4b211c24e"></a>OpenCvDnn&#160;</td><td class="fielddoc"><p>OpenCV DNN path after <a class="el" href="../../dd/df0/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendNet.html#a9efed31110216840fec4a487ede73bba" title="Commits the DNN backend; creates the OpenCV or Sentis inner net.">MultiBackendNet.SetPreferableBackend</a> with an OpenCV <code>DNN_BACKEND_*</code> id (inner <a class="el" href="../../db/d14/classOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1OpenCVDnnInferenceNet.html" title="Thin wrapper around OpenCV Net that implements IDnnInferenceNet and IDnnInferenceNamedIONet.">OpenCVForUnity.Extensions.Worker.DnnModule.OpenCVDnnInferenceNet</a>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8cf44aedd19023d6487ce403e1b258dfad1cf1ece944db879f03edfb24802311f" name="a8cf44aedd19023d6487ce403e1b258dfad1cf1ece944db879f03edfb24802311f"></a>UnitySentis&#160;</td><td class="fielddoc"><p>Sentis path after <a class="el" href="../../dd/df0/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendNet.html#a9efed31110216840fec4a487ede73bba" title="Commits the DNN backend; creates the OpenCV or Sentis inner net.">MultiBackendNet.SetPreferableBackend</a> with <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a1c454cd9b414d8c4394390e8a0e42318" title="Alias of SentisInferenceDnn.DNN_BACKEND_UNITY_SENTIS for MultiBackend API callers....">MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS</a> (or <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#ac8a51f224431da34a696337bac535493" title="Alias of DNN_BACKEND_UNITY_SENTIS for the Sentis path. This is the same discriminator value as DNN_BA...">MultiBackendDnn.DNN_BACKEND_UNITY_INFERENCE_ENGINE</a>; same value) (inner <a class="el" href="../../dd/d49/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1SentisInferenceNet.html" title="Sentis (Unity Inference Engine) implementation of IDnnInferenceNamedIONet with optional asynchronous ...">SentisInferenceNet</a>). </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a6f2f4cf042e347b1bf22ff503d56c5d6" name="a6f2f4cf042e347b1bf22ff503d56c5d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f2f4cf042e347b1bf22ff503d56c5d6">&#9670;&#160;</a></span>InferenceFrameworkSelectionKind</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a6f2f4cf042e347b1bf22ff503d56c5d6">OpenCVForUnity.UnityIntegration.Worker.DnnModule.InferenceFrameworkSelectionKind</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>UI selection kind for the inference framework (OpenCV DNN versus Unity Sentis). </p>
+<p>Intended for Inspector fields and runtime Dropdowns. Does not include <a class="el" href="#a8cf44aedd19023d6487ce403e1b258dfa88183b946cc5f0e8c96b2e66e1c74a7e" title="Framework has not been selected yet (before MultiBackendNet.SetPreferableBackend).">InferenceFrameworkKind.Unknown</a>; an unselected state is not meaningful in UI. Dropdown option order and availability follow <a class="el" href="../../d8/d42/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1InferenceFrameworkUtils.html#a6340d8ee7bf6ef06be260f4f9b4ed491" title="Returns the inference framework selections that are available at runtime, in enum declaration order.">InferenceFrameworkUtils.GetSelectionValuesInEnumOrder</a>. Convert to <a class="el" href="#a8cf44aedd19023d6487ce403e1b258df" title="Discriminator for which inference framework (wrapper family) is active on MultiBackendNet (OpenCV DNN...">InferenceFrameworkKind</a> with <a class="el" href="../../d8/d42/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1InferenceFrameworkUtils.html#ae018a2358417fe39eaaa6dfe6896f44d" title="Converts a UI selection to the corresponding runtime InferenceFrameworkKind.">InferenceFrameworkUtils.ToFrameworkKind</a> rather than casting: <a class="el" href="#a8cf44aedd19023d6487ce403e1b258df" title="Discriminator for which inference framework (wrapper family) is active on MultiBackendNet (OpenCV DNN...">InferenceFrameworkKind</a> reserves 0 for <a class="el" href="#a8cf44aedd19023d6487ce403e1b258dfa88183b946cc5f0e8c96b2e66e1c74a7e" title="Framework has not been selected yet (before MultiBackendNet.SetPreferableBackend).">InferenceFrameworkKind.Unknown</a>. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a6f2f4cf042e347b1bf22ff503d56c5d6ac9569a8e37f35c735bb1bbd4b211c24e" name="a6f2f4cf042e347b1bf22ff503d56c5d6ac9569a8e37f35c735bb1bbd4b211c24e"></a>OpenCvDnn&#160;</td><td class="fielddoc"><p>OpenCV DNN path. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a6f2f4cf042e347b1bf22ff503d56c5d6ad1cf1ece944db879f03edfb24802311f" name="a6f2f4cf042e347b1bf22ff503d56c5d6ad1cf1ece944db879f03edfb24802311f"></a>UnitySentis&#160;</td><td class="fielddoc"><p>Unity Sentis path. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a92b031037c9cea1c51828e2b8f0fecf3" name="a92b031037c9cea1c51828e2b8f0fecf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92b031037c9cea1c51828e2b8f0fecf3">&#9670;&#160;</a></span>SentisInferenceBackendKind</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a92b031037c9cea1c51828e2b8f0fecf3">OpenCVForUnity.UnityIntegration.Worker.DnnModule.SentisInferenceBackendKind</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sentis inference backend discriminator for <a class="el" href="../../dd/df0/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendNet.html#a9efed31110216840fec4a487ede73bba" title="Commits the DNN backend; creates the OpenCV or Sentis inner net.">MultiBackendNet.SetPreferableBackend</a>. </p>
+<p>This is <b>not</b> Sentis <code>BackendType</code> (runtime device selection). Use <a class="el" href="#abb1efd845e43d4107e6eaf699cb06990" title="Unity Sentis runtime target kind for MultiBackendNet.SetPreferableTarget.">SentisInferenceTargetKind</a> with <a class="el" href="../../dd/df0/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendNet.html#a81f86d12e74f0010e6d46dc18cca32c6" title="Commits the DNN target (CPU, GPU, etc.); for Sentis, together with SetPreferableBackend,...">MultiBackendNet.SetPreferableTarget</a> for that. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a92b031037c9cea1c51828e2b8f0fecf3ad1cf1ece944db879f03edfb24802311f" name="a92b031037c9cea1c51828e2b8f0fecf3ad1cf1ece944db879f03edfb24802311f"></a>UnitySentis&#160;</td><td class="fielddoc"><p>Sentis / Unity Inference Engine path. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="abb1efd845e43d4107e6eaf699cb06990" name="abb1efd845e43d4107e6eaf699cb06990"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb1efd845e43d4107e6eaf699cb06990">&#9670;&#160;</a></span>SentisInferenceTargetKind</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#abb1efd845e43d4107e6eaf699cb06990">OpenCVForUnity.UnityIntegration.Worker.DnnModule.SentisInferenceTargetKind</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unity Sentis runtime target kind for <a class="el" href="../../dd/df0/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendNet.html#a81f86d12e74f0010e6d46dc18cca32c6" title="Commits the DNN target (CPU, GPU, etc.); for Sentis, together with SetPreferableBackend,...">MultiBackendNet.SetPreferableTarget</a>. </p>
+<p>Underlying values are aligned with Sentis <code>BackendType</code> on supported runtimes (GPU Compute = 0, GPU Pixel = 1, CPU = 2) so Inspector enum indices match Example Dropdowns. Runtime Dropdown option order follows <a class="el" href="../../d8/d7b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1SentisInferenceUtils.html#a9f2bd82347690e93e0bf7b0147cc97d9" title="Returns Sentis target kinds in the same order as Enum.GetValues(typeof(BackendType)) (numeric underly...">SentisInferenceUtils.GetTargetValuesInEnumOrder</a> (<code>BackendType</code> numeric order). Runtime target ids for <a class="el" href="../../dd/df0/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendNet.html#a81f86d12e74f0010e6d46dc18cca32c6" title="Commits the DNN target (CPU, GPU, etc.); for Sentis, together with SetPreferableBackend,...">MultiBackendNet.SetPreferableTarget</a> are obtained via <a class="el" href="../../d8/d7b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1SentisInferenceUtils.html#a97ee19c5b6862de3158d02b1bba6b52a" title="Converts target  to a Sentis runtime target id for MultiBackendNet.SetPreferableTarget.">SentisInferenceUtils.ToTargetId</a>. Callers outside the main OpenCV for Unity assembly can use this enum without referencing Sentis types. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="abb1efd845e43d4107e6eaf699cb06990ab25bea97e25e1620af739a16c73f344d" name="abb1efd845e43d4107e6eaf699cb06990ab25bea97e25e1620af739a16c73f344d"></a>GPUCompute&#160;</td><td class="fielddoc"><p>GPU compute backend. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="abb1efd845e43d4107e6eaf699cb06990aba0f18167e859e8b2efac620a0878c99" name="abb1efd845e43d4107e6eaf699cb06990aba0f18167e859e8b2efac620a0878c99"></a>GPUPixel&#160;</td><td class="fielddoc"><p>GPU pixel backend. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="abb1efd845e43d4107e6eaf699cb06990a2b55387dd066c5bac646ac61543d152d" name="abb1efd845e43d4107e6eaf699cb06990a2b55387dd066c5bac646ac61543d152d"></a>CPU&#160;</td><td class="fielddoc"><p>CPU backend. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

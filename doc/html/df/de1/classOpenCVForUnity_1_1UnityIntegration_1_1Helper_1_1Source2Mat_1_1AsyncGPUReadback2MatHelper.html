@@ -216,11 +216,14 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a4eb0cf025952b254fb786f8ffeb00c56" id="r_a4eb0cf025952b254fb786f8ffeb00c56"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4eb0cf025952b254fb786f8ffeb00c56">CancelWaitForEndOfFrameCoroutine</a> ()</td></tr>
 <tr class="memdesc:a4eb0cf025952b254fb786f8ffeb00c56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancel WaitForEndOfFrame Coroutine.  <br /></td></tr>
 <tr class="separator:a4eb0cf025952b254fb786f8ffeb00c56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4d2e6c15a1e924a6a5b042d091b11c8" id="r_af4d2e6c15a1e924a6a5b042d091b11c8"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af4d2e6c15a1e924a6a5b042d091b11c8">HandleGetFirstFrameReadbackError</a> ()</td></tr>
+<tr class="memdesc:af4d2e6c15a1e924a6a5b042d091b11c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles GPU readback error during first frame acquisition.  <br /></td></tr>
+<tr class="separator:af4d2e6c15a1e924a6a5b042d091b11c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4c8540c2e8425c8b1243b306b3c0b9f" id="r_aa4c8540c2e8425c8b1243b306b3c0b9f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa4c8540c2e8425c8b1243b306b3c0b9f">OnCompleteReadback</a> (AsyncGPUReadbackRequest request)</td></tr>
 <tr class="memdesc:aa4c8540c2e8425c8b1243b306b3c0b9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread-safe callback method for completed AsyncGPUReadbackRequest. This method may be called from a background thread, so it stores the request for direct data access in the main thread.  <br /></td></tr>
 <tr class="separator:aa4c8540c2e8425c8b1243b306b3c0b9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63681028da45b1655b0ae5c4a4a265a3" id="r_a63681028da45b1655b0ae5c4a4a265a3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a63681028da45b1655b0ae5c4a4a265a3">OnDestroy</a> ()</td></tr>
-<tr class="memdesc:a63681028da45b1655b0ae5c4a4a265a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raises the destroy event.  <br /></td></tr>
+<tr class="memdesc:a63681028da45b1655b0ae5c4a4a265a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disposes resources when the component is destroyed.  <br /></td></tr>
 <tr class="separator:a63681028da45b1655b0ae5c4a4a265a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2326d02c8977b984c740992bbcf259d" id="r_aa2326d02c8977b984c740992bbcf259d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa2326d02c8977b984c740992bbcf259d">OnValidate</a> ()</td></tr>
 <tr class="separator:aa2326d02c8977b984c740992bbcf259d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -265,11 +268,14 @@ Protected Attributes</h2></td></tr>
 <tr class="memdesc:a194a2383f5e53458b9765dd84b4be1ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">The base mat.  <br /></td></tr>
 <tr class="separator:a194a2383f5e53458b9765dd84b4be1ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6ff6defa50ed6ed4f1050bd9bf977ff" id="r_ac6ff6defa50ed6ed4f1050bd9bf977ff"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6ff6defa50ed6ed4f1050bd9bf977ff">didUpdateThisFrame</a> = false</td></tr>
-<tr class="memdesc:ac6ff6defa50ed6ed4f1050bd9bf977ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the mat that can be obtained with the GetMat method has been updated in this frame. This flag is changed after waiting until WaitForEndOfFrame in the coroutine.  <br /></td></tr>
+<tr class="memdesc:ac6ff6defa50ed6ed4f1050bd9bf977ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the mat that can be obtained with the GetMat method has been updated in this frame.  <br /></td></tr>
 <tr class="separator:ac6ff6defa50ed6ed4f1050bd9bf977ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f0d194779d2f2087dc6f7aa591535e7" id="r_a5f0d194779d2f2087dc6f7aa591535e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f0d194779d2f2087dc6f7aa591535e7">frameMat</a></td></tr>
 <tr class="memdesc:a5f0d194779d2f2087dc6f7aa591535e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The frame mat.  <br /></td></tr>
 <tr class="separator:a5f0d194779d2f2087dc6f7aa591535e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeaa53d219dd8cfb22f90278f05b8528f" id="r_aeaa53d219dd8cfb22f90278f05b8528f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeaa53d219dd8cfb22f90278f05b8528f">getFirstFrameReadbackHasError</a></td></tr>
+<tr class="memdesc:aeaa53d219dd8cfb22f90278f05b8528f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether a GPU readback error occurred while acquiring the first frame.  <br /></td></tr>
+<tr class="separator:aeaa53d219dd8cfb22f90278f05b8528f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78246fca9395f06be140434068472f0d" id="r_a78246fca9395f06be140434068472f0d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78246fca9395f06be140434068472f0d">hasInitDone</a> = false</td></tr>
 <tr class="memdesc:a78246fca9395f06be140434068472f0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether this instance has been initialized.  <br /></td></tr>
 <tr class="separator:a78246fca9395f06be140434068472f0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -310,7 +316,7 @@ Properties</h2></td></tr>
 <tr class="memdesc:aa96f8d2302603cb997367136cec171f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is disposed.  <br /></td></tr>
 <tr class="separator:aa96f8d2302603cb997367136cec171f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f0534230755f1261f38ac865371e5e9" id="r_a8f0534230755f1261f38ac865371e5e9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d66/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1Source2MatHelperErrorUnityEvent.html">Source2MatHelperErrorUnityEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f0534230755f1261f38ac865371e5e9">OnErrorOccurred</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a8f0534230755f1261f38ac865371e5e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is error Occurred.  <br /></td></tr>
+<tr class="memdesc:a8f0534230755f1261f38ac865371e5e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent invoked when an error occurs.  <br /></td></tr>
 <tr class="separator:a8f0534230755f1261f38ac865371e5e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc9ea484ebe3f8f4d2b069204f57457e" id="r_afc9ea484ebe3f8f4d2b069204f57457e"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afc9ea484ebe3f8f4d2b069204f57457e">OnInitialized</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:afc9ea484ebe3f8f4d2b069204f57457e"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is initialized.  <br /></td></tr>
@@ -770,6 +776,34 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="af4d2e6c15a1e924a6a5b042d091b11c8" name="af4d2e6c15a1e924a6a5b042d091b11c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4d2e6c15a1e924a6a5b042d091b11c8">&#9670;&#160;</a></span>HandleGetFirstFrameReadbackError()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool OpenCVForUnity.UnityIntegration.Helper.Source2Mat.AsyncGPUReadback2MatHelper.HandleGetFirstFrameReadbackError </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Handles GPU readback error during first frame acquisition. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if a readback error occurred and initialization was aborted.</dd></dl>
+
+</div>
+</div>
 <a id="a384cf3165b47d8e27f3772cd61f4b103" name="a384cf3165b47d8e27f3772cd61f4b103"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a384cf3165b47d8e27f3772cd61f4b103">&#9670;&#160;</a></span>Initialize() <span class="overload">[1/2]</span></h2>
 
@@ -989,7 +1023,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Raises the destroy event. </p>
+<p>Disposes resources when the component is destroyed. </p>
 
 </div>
 </div>
@@ -1494,7 +1528,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Whether the mat that can be obtained with the GetMat method has been updated in this frame. This flag is changed after waiting until WaitForEndOfFrame in the coroutine. </p>
+<p>Whether the mat that can be obtained with the GetMat method has been updated in this frame. </p>
 
 </div>
 </div>
@@ -1519,6 +1553,30 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The frame mat. </p>
+
+</div>
+</div>
+<a id="aeaa53d219dd8cfb22f90278f05b8528f" name="aeaa53d219dd8cfb22f90278f05b8528f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeaa53d219dd8cfb22f90278f05b8528f">&#9670;&#160;</a></span>getFirstFrameReadbackHasError</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityIntegration.Helper.Source2Mat.AsyncGPUReadback2MatHelper.getFirstFrameReadbackHasError</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Indicates whether a GPU readback error occurred while acquiring the first frame. </p>
 
 </div>
 </div>
@@ -1837,7 +1895,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>UnityEvent that is triggered when this instance is error Occurred. </p>
+<p>UnityEvent invoked when an error occurs. </p>
 
 <p>Implements <a class="el" href="../../d1/d14/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1ISource2MatHelper.html#ab78ed17062f8c6e38aa8ae5e8279d63d">OpenCVForUnity.UnityIntegration.Helper.Source2Mat.ISource2MatHelper</a>.</p>
 
@@ -2000,7 +2058,7 @@ Properties</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/Helper/Source2MatHelper/<a class="el" href="../../dc/d17/AsyncGPUReadback2MatHelper_8cs.html">AsyncGPUReadback2MatHelper.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/Scripts/UnityIntegration/Helper/Source2MatHelper/<a class="el" href="../../dc/d17/AsyncGPUReadback2MatHelper_8cs.html">AsyncGPUReadback2MatHelper.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -1,17 +1,23 @@
 var searchData=
 [
   ['objdetect_0',['Objdetect',['../d7/dac/classOpenCVForUnity_1_1ObjdetectModule_1_1Objdetect.html',1,'OpenCVForUnity::ObjdetectModule']]],
-  ['objectdetectiondata_1',['ObjectDetectionData',['../dd/dbd/structOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DataStruct_1_1ObjectDetectionData.html',1,'OpenCVForUnity::UnityIntegration::Worker::DataStruct']]],
+  ['objectdetectiondata_1',['ObjectDetectionData',['../db/de8/structOpenCVForUnity_1_1Extensions_1_1Worker_1_1DataStruct_1_1ObjectDetectionData.html',1,'OpenCVForUnity::Extensions::Worker::DataStruct']]],
   ['objectness_2',['Objectness',['../da/d38/classOpenCVForUnity_1_1SaliencyModule_1_1Objectness.html',1,'OpenCVForUnity::SaliencyModule']]],
   ['objectnessbing_3',['ObjectnessBING',['../d5/dfd/classOpenCVForUnity_1_1SaliencyModule_1_1ObjectnessBING.html',1,'OpenCVForUnity::SaliencyModule']]],
   ['ocrbeamsearchdecoder_4',['OCRBeamSearchDecoder',['../d6/d10/classOpenCVForUnity_1_1TextModule_1_1OCRBeamSearchDecoder.html',1,'OpenCVForUnity::TextModule']]],
   ['ocrbeamsearchdecoder_5fclassifiercallback_5',['OCRBeamSearchDecoder_ClassifierCallback',['../dc/dd7/classOpenCVForUnity_1_1TextModule_1_1OCRBeamSearchDecoder__ClassifierCallback.html',1,'OpenCVForUnity::TextModule']]],
   ['ocrhmmdecoder_6',['OCRHMMDecoder',['../dd/d80/classOpenCVForUnity_1_1TextModule_1_1OCRHMMDecoder.html',1,'OpenCVForUnity::TextModule']]],
   ['ocrhmmdecoder_5fclassifiercallback_7',['OCRHMMDecoder_ClassifierCallback',['../d8/d15/classOpenCVForUnity_1_1TextModule_1_1OCRHMMDecoder__ClassifierCallback.html',1,'OpenCVForUnity::TextModule']]],
-  ['opencvarutils_8',['OpenCVARUtils',['../da/db7/classOpenCVForUnity_1_1UnityIntegration_1_1OpenCVARUtils.html',1,'OpenCVForUnity::UnityIntegration']]],
-  ['opencvdebug_9',['OpenCVDebug',['../de/df5/classOpenCVForUnity_1_1UnityIntegration_1_1OpenCVDebug.html',1,'OpenCVForUnity::UnityIntegration']]],
-  ['opencvenv_10',['OpenCVEnv',['../dd/d9a/classOpenCVForUnity_1_1UnityIntegration_1_1OpenCVEnv.html',1,'OpenCVForUnity::UnityIntegration']]],
-  ['opencvinternalutils_11',['OpenCVInternalUtils',['../d9/d29/classOpenCVForUnity_1_1UnityIntegration_1_1OpenCVInternalUtils.html',1,'OpenCVForUnity::UnityIntegration']]],
-  ['opencvmatutils_12',['OpenCVMatUtils',['../db/daa/classOpenCVForUnity_1_1UnityIntegration_1_1OpenCVMatUtils.html',1,'OpenCVForUnity::UnityIntegration']]],
-  ['orb_13',['ORB',['../d4/dc3/classOpenCVForUnity_1_1Features2dModule_1_1ORB.html',1,'OpenCVForUnity::Features2dModule']]]
+  ['octree_8',['Octree',['../dc/d90/classOpenCVForUnity_1_1PtcloudModule_1_1Octree.html',1,'OpenCVForUnity::PtcloudModule']]],
+  ['odometry_9',['Odometry',['../d9/d36/classOpenCVForUnity_1_1PtcloudModule_1_1Odometry.html',1,'OpenCVForUnity::PtcloudModule']]],
+  ['odometryframe_10',['OdometryFrame',['../d8/da0/classOpenCVForUnity_1_1PtcloudModule_1_1OdometryFrame.html',1,'OpenCVForUnity::PtcloudModule']]],
+  ['odometrysettings_11',['OdometrySettings',['../d2/dea/classOpenCVForUnity_1_1PtcloudModule_1_1OdometrySettings.html',1,'OpenCVForUnity::PtcloudModule']]],
+  ['opencvarutils_12',['OpenCVARUtils',['../df/d05/classOpenCVForUnity_1_1Extensions_1_1OpenCVARUtils.html',1,'OpenCVForUnity::Extensions']]],
+  ['opencvdebug_13',['OpenCVDebug',['../d3/d5c/classOpenCVForUnity_1_1Extensions_1_1OpenCVDebug.html',1,'OpenCVForUnity::Extensions']]],
+  ['opencvdnninferencednn_14',['OpenCVDnnInferenceDnn',['../d3/dbd/classOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1OpenCVDnnInferenceDnn.html',1,'OpenCVForUnity::Extensions::Worker::DnnModule']]],
+  ['opencvdnninferencenet_15',['OpenCVDnnInferenceNet',['../db/d14/classOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1OpenCVDnnInferenceNet.html',1,'OpenCVForUnity::Extensions::Worker::DnnModule']]],
+  ['opencvdnninferenceutils_16',['OpenCVDnnInferenceUtils',['../d3/de2/classOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1OpenCVDnnInferenceUtils.html',1,'OpenCVForUnity::Extensions::Worker::DnnModule']]],
+  ['opencvforunityenv_17',['OpenCVForUnityEnv',['../de/dc0/classOpenCVForUnity_1_1UnityIntegration_1_1OpenCVForUnityEnv.html',1,'OpenCVForUnity::UnityIntegration']]],
+  ['opencvmatunityutils_18',['OpenCVMatUnityUtils',['../d4/db4/classOpenCVForUnity_1_1UnityIntegration_1_1OpenCVMatUnityUtils.html',1,'OpenCVForUnity::UnityIntegration']]],
+  ['orb_19',['ORB',['../d4/df4/classOpenCVForUnity_1_1FeaturesModule_1_1ORB.html',1,'OpenCVForUnity::FeaturesModule']]]
 ];

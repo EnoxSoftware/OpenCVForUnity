@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['solvepnprefinementmethod_0',['SolvePnPRefinementMethod',['../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html#aff423badcb72c92c11a33bc1ee28fc70',1,'OpenCVForUnity::UnityIntegration::Helper::AR::ARGameObject']]],
-  ['source2mathelpercolorformat_1',['Source2MatHelperColorFormat',['../d3/d83/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat.html#a916a66642ef55f6c5d0b39670f08e80b',1,'OpenCVForUnity::UnityIntegration::Helper::Source2Mat']]],
-  ['source2mathelpererrorcode_2',['Source2MatHelperErrorCode',['../d3/d83/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat.html#a7b1dac8a9ec949cb28681bc9dc05f315',1,'OpenCVForUnity::UnityIntegration::Helper::Source2Mat']]]
+  ['opencvdnninferencebackendkind_0',['OpenCVDnnInferenceBackendKind',['../dc/d9c/namespaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule.html#a5529e7f2ff81f9d2943d2139e7997537',1,'OpenCVForUnity::Extensions::Worker::DnnModule']]],
+  ['opencvdnninferenceenginekind_1',['OpenCVDnnInferenceEngineKind',['../dc/d9c/namespaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule.html#a627372b0ac66d21adc7eaade8252a1bd',1,'OpenCVForUnity::Extensions::Worker::DnnModule']]],
+  ['opencvdnninferencetargetkind_2',['OpenCVDnnInferenceTargetKind',['../dc/d9c/namespaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule.html#a258ac96ff7ea73960e78e8dd70de4c6d',1,'OpenCVForUnity::Extensions::Worker::DnnModule']]]
 ];

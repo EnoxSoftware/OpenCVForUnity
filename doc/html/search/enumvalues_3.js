@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['faulted_0',['Faulted',['../d9/d9b/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1ProcessingWorkerBase.html#ada33dc511d99b712a361f8c1c174fca4a2b310d05c23325e2935ec87b25a60b8f',1,'OpenCVForUnity.UnityIntegration.Worker.ProcessingWorkerBase.Faulted'],['../dc/d96/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Runner.html#ade328497f9a2373a098f31ed82be7105a2b310d05c23325e2935ec87b25a60b8f',1,'OpenCVForUnity.UnityIntegration.Runner.Faulted']]]
+  ['default_0',['Default',['../dc/d9c/namespaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule.html#a5529e7f2ff81f9d2943d2139e7997537a7a1920d61156abc05a60135aefe8bc67',1,'OpenCVForUnity::Extensions::Worker::DnnModule']]],
+  ['destroyed_1',['Destroyed',['../df/d17/namespaceOpenCVForUnity_1_1Extensions_1_1SourceToMat.html#a835a52e7decf0000ebb05d3efd14e6eeaaefbd0597f1bc2493bbc18898243513b',1,'OpenCVForUnity::Extensions::SourceToMat']]]
 ];

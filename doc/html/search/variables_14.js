@@ -1,14 +1,20 @@
 var searchData=
 [
   ['uniform_0',['UNIFORM',['../d8/d1b/classOpenCVForUnity_1_1Xfeatures2dModule_1_1PCTSignatures.html#aac9e5a9442674bb7479f19d91db33fc4',1,'OpenCVForUnity::Xfeatures2dModule::PCTSignatures']]],
-  ['update_5fmodel_1',['UPDATE_MODEL',['../d6/d8b/classOpenCVForUnity_1_1MlModule_1_1StatModel.html#aae7ecb0e9dbd94916db12022fb37884f',1,'OpenCVForUnity::MlModule::StatModel']]],
-  ['update_5fweights_2',['UPDATE_WEIGHTS',['../d6/dfe/classOpenCVForUnity_1_1MlModule_1_1ANN__MLP.html#a1a15bf15c1c57a752391ad34785f6962',1,'OpenCVForUnity::MlModule::ANN_MLP']]],
-  ['usac_5faccurate_3',['USAC_ACCURATE',['../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a4277c0a38c9392d3fddd46c87aa9d674',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
-  ['usac_5fdefault_4',['USAC_DEFAULT',['../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#af0a1c71f4c4aca02989cc3c1fb43999a',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
-  ['usac_5ffast_5',['USAC_FAST',['../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#ab67a36f02897bda27873092f4c4f0ed8',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
-  ['usac_5ffm_5f8pts_6',['USAC_FM_8PTS',['../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#ae22e46dd42a6c6ab42c295dfad14573c',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
-  ['usac_5fmagsac_7',['USAC_MAGSAC',['../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a3b9f8d2475ffe784f64e401de6f1a8b2',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
-  ['usac_5fparallel_8',['USAC_PARALLEL',['../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#a854801c44733883803e9c427de4688f9',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
-  ['usac_5fprosac_9',['USAC_PROSAC',['../df/ddc/classOpenCVForUnity_1_1Calib3dModule_1_1Calib3d.html#aedd0f1498b58367150d1b433046355ec',1,'OpenCVForUnity::Calib3dModule::Calib3d']]],
-  ['useasyncgpureadback_10',['useAsyncGPUReadback',['../df/de1/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1AsyncGPUReadback2MatHelper.html#a32b6ad9b5a4be38fa85d69135fb50ae2',1,'OpenCVForUnity.UnityIntegration.Helper.Source2Mat.AsyncGPUReadback2MatHelper.useAsyncGPUReadback'],['../d5/d99/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1UnityVideoPlayer2MatHelper.html#a54519f00cb241992e7ad58e35c254129',1,'OpenCVForUnity.UnityIntegration.Helper.Source2Mat.UnityVideoPlayer2MatHelper.useAsyncGPUReadback']]]
+  ['unityvideoplayer_1',['UnityVideoPlayer',['../de/dfc/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1SourceToMat_1_1MultiSourcePerKindSettings.html#a398854200c046e84d8eb634cc22c37e5',1,'OpenCVForUnity::UnityIntegration::Helper::SourceToMat::MultiSourcePerKindSettings']]],
+  ['update_5fmodel_2',['UPDATE_MODEL',['../d6/d8b/classOpenCVForUnity_1_1MlModule_1_1StatModel.html#aae7ecb0e9dbd94916db12022fb37884f',1,'OpenCVForUnity::MlModule::StatModel']]],
+  ['update_5fweights_3',['UPDATE_WEIGHTS',['../d6/dfe/classOpenCVForUnity_1_1MlModule_1_1ANN__MLP.html#a1a15bf15c1c57a752391ad34785f6962',1,'OpenCVForUnity::MlModule::ANN_MLP']]],
+  ['usac_5faccurate_4',['USAC_ACCURATE',['../d1/d04/classOpenCVForUnity_1_1GeometryModule_1_1Geometry.html#a75a097974383daf0dea6cbac9f922a65',1,'OpenCVForUnity::GeometryModule::Geometry']]],
+  ['usac_5fdefault_5',['USAC_DEFAULT',['../d1/d04/classOpenCVForUnity_1_1GeometryModule_1_1Geometry.html#a531b289985ffe70d3e270fa37cfa07ae',1,'OpenCVForUnity::GeometryModule::Geometry']]],
+  ['usac_5ffast_6',['USAC_FAST',['../d1/d04/classOpenCVForUnity_1_1GeometryModule_1_1Geometry.html#a4235d703c2cff365e059e8c9c0feee13',1,'OpenCVForUnity::GeometryModule::Geometry']]],
+  ['usac_5ffm_5f8pts_7',['USAC_FM_8PTS',['../d1/d04/classOpenCVForUnity_1_1GeometryModule_1_1Geometry.html#a524b88e1086426a9124fce5b071232cc',1,'OpenCVForUnity::GeometryModule::Geometry']]],
+  ['usac_5fmagsac_8',['USAC_MAGSAC',['../d1/d04/classOpenCVForUnity_1_1GeometryModule_1_1Geometry.html#af68af1d8a1dfcfc181ad2b09106d7bb7',1,'OpenCVForUnity::GeometryModule::Geometry']]],
+  ['usac_5fparallel_9',['USAC_PARALLEL',['../d1/d04/classOpenCVForUnity_1_1GeometryModule_1_1Geometry.html#a3bd1668931c7872657edaabc80c00e25',1,'OpenCVForUnity::GeometryModule::Geometry']]],
+  ['usac_5fprosac_10',['USAC_PROSAC',['../d1/d04/classOpenCVForUnity_1_1GeometryModule_1_1Geometry.html#aaacdd13930d8667dc997137b769e5790',1,'OpenCVForUnity::GeometryModule::Geometry']]],
+  ['uselowpassfilter_11',['UseLowPassFilter',['../d5/dea/structOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator_1_1ARPoseEstimateSettings.html#a10429d5ba4ca2f830385b596093caa5e',1,'OpenCVForUnity::Extensions::AR::ARPoseEstimator::ARPoseEstimateSettings']]],
+  ['useoutlierrejectionfilter_12',['UseOutlierRejectionFilter',['../d5/dea/structOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator_1_1ARPoseEstimateSettings.html#a306f558220e1aee10490d82ea9861f9d',1,'OpenCVForUnity::Extensions::AR::ARPoseEstimator::ARPoseEstimateSettings']]],
+  ['usesmoothingfilter_13',['UseSmoothingFilter',['../d5/dea/structOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator_1_1ARPoseEstimateSettings.html#adb33a975d3b06443164993682209957e',1,'OpenCVForUnity::Extensions::AR::ARPoseEstimator::ARPoseEstimateSettings']]],
+  ['usesolvepnp_5fiterative_14',['UseSOLVEPNP_ITERATIVE',['../d5/dea/structOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator_1_1ARPoseEstimateSettings.html#a09ecb07db0b9f9d49d41c7e972626147',1,'OpenCVForUnity::Extensions::AR::ARPoseEstimator::ARPoseEstimateSettings']]],
+  ['usesolvepnpransac_15',['UseSolvePnPRansac',['../d5/dea/structOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator_1_1ARPoseEstimateSettings.html#ab084328e065a3dcc9e3ac157bd4c8d46',1,'OpenCVForUnity::Extensions::AR::ARPoseEstimator::ARPoseEstimateSettings']]],
+  ['usesourceoutputcolorformat_16',['UseSourceOutputColorFormat',['../db/deb/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1SourceToMat_1_1DerivedFrameInspectorSettings.html#ab521ca22bd0ac8a2136138244de59958',1,'OpenCVForUnity::UnityIntegration::Helper::SourceToMat::DerivedFrameInspectorSettings']]]
 ];

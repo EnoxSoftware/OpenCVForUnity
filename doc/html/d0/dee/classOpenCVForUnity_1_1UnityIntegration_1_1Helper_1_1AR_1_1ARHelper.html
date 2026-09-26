@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.3</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.4</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.13.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/5.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -140,7 +140,7 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="../../d0/dee/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARHelper.html" title="The ARHelper class manages ARCamera and ARGameObjects, automating the calculation of ARMatrix and upd...">ARHelper</a> class manages <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> and ARGameObjects, automating the calculation of ARMatrix and updating the Transform of the specified UpdateTarget.  
+<p>The <a class="el" href="../../d0/dee/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARHelper.html" title="The ARHelper class manages ARCamera and ARGameObjects, automating the calculation of ARMatrix and upd...">ARHelper</a> class manages <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="Manages AR camera calibration parameters and Unity Camera.projectionMatrix for the AR pipeline....">ARCamera</a> and ARGameObjects, automating the calculation of ARMatrix and updating the Transform of the specified UpdateTarget.  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
@@ -157,10 +157,10 @@ Public Types</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad87c79da34515e1be5fa04bd108b395e" id="r_ad87c79da34515e1be5fa04bd108b395e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad87c79da34515e1be5fa04bd108b395e">CalculateARMatrix</a> ()</td></tr>
-<tr class="memdesc:ad87c79da34515e1be5fa04bd108b395e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate ARMatrix for ARGameObjects based on the settings of the registered <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> and ARGameObjects. This method updates the ARMatrix that is used by the <a class="el" href="#ad55549f0f24e3b3da3bc024087d0b3d4" title="Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects....">UpdateTransform()</a> method. This method should be called before <a class="el" href="#ad55549f0f24e3b3da3bc024087d0b3d4" title="Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects....">UpdateTransform()</a>.  <br /></td></tr>
+<tr class="memdesc:ad87c79da34515e1be5fa04bd108b395e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate ARMatrix for each registered <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> (pose estimation via <a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html" title="Engine-independent AR pose estimation pipeline (solvePnP, NDC viewport, pose filtering)....">Extensions.AR.ARPoseEstimator</a> inside <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">ARGameObject.CalculateARMatrix</a>). Call before <a class="el" href="#ad55549f0f24e3b3da3bc024087d0b3d4" title="Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects....">UpdateTransform</a>.  <br /></td></tr>
 <tr class="separator:ad87c79da34515e1be5fa04bd108b395e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5e3b4c52cb73f83adf54de4b28eb546" id="r_ae5e3b4c52cb73f83adf54de4b28eb546"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae5e3b4c52cb73f83adf54de4b28eb546">Dispose</a> ()</td></tr>
-<tr class="memdesc:ae5e3b4c52cb73f83adf54de4b28eb546"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disposes the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a>.  <br /></td></tr>
+<tr class="memdesc:ae5e3b4c52cb73f83adf54de4b28eb546"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the initialized state. Does not dispose registered <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> instances.  <br /></td></tr>
 <tr class="separator:ae5e3b4c52cb73f83adf54de4b28eb546"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04a19e854120dd2b526055ca578c0e68" id="r_a04a19e854120dd2b526055ca578c0e68"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a04a19e854120dd2b526055ca578c0e68">Initialize</a> ()</td></tr>
 <tr class="memdesc:a04a19e854120dd2b526055ca578c0e68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes resources and sets the initial values.  <br /></td></tr>
@@ -168,14 +168,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a46ccc90695269a6e33375024a711c4bc" id="r_a46ccc90695269a6e33375024a711c4bc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46ccc90695269a6e33375024a711c4bc">ResetARGameObjectsImagePointsAndObjectPoints</a> ()</td></tr>
 <tr class="memdesc:a46ccc90695269a6e33375024a711c4bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the ImagePoints and ObjectPoints of ARGameObjects.  <br /></td></tr>
 <tr class="separator:a46ccc90695269a6e33375024a711c4bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6bb64a15359f6b063b57d31e40fd1cf" id="r_ac6bb64a15359f6b063b57d31e40fd1cf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6bb64a15359f6b063b57d31e40fd1cf">ResetARGameObjectsTrackingState</a> ()</td></tr>
+<tr class="memdesc:ac6bb64a15359f6b063b57d31e40fd1cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets pose-tracking state for all registered <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> instances.  <br /></td></tr>
+<tr class="separator:ac6bb64a15359f6b063b57d31e40fd1cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad55549f0f24e3b3da3bc024087d0b3d4" id="r_ad55549f0f24e3b3da3bc024087d0b3d4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad55549f0f24e3b3da3bc024087d0b3d4">UpdateTransform</a> ()</td></tr>
-<tr class="memdesc:ad55549f0f24e3b3da3bc024087d0b3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects. This method uses the ARMatrix calculated by the <a class="el" href="#ad87c79da34515e1be5fa04bd108b395e" title="Calculate ARMatrix for ARGameObjects based on the settings of the registered ARCamera and ARGameObjec...">CalculateARMatrix()</a> method. This method assumes that the <a class="el" href="#ad87c79da34515e1be5fa04bd108b395e" title="Calculate ARMatrix for ARGameObjects based on the settings of the registered ARCamera and ARGameObjec...">CalculateARMatrix()</a> method has been called before this method.  <br /></td></tr>
+<tr class="memdesc:ad55549f0f24e3b3da3bc024087d0b3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects. This method uses the ARMatrix calculated by the <a class="el" href="#ad87c79da34515e1be5fa04bd108b395e" title="Calculate ARMatrix for each registered ARGameObject (pose estimation via Extensions....">CalculateARMatrix()</a> method. This method assumes that the <a class="el" href="#ad87c79da34515e1be5fa04bd108b395e" title="Calculate ARMatrix for each registered ARGameObject (pose estimation via Extensions....">CalculateARMatrix()</a> method has been called before this method.  <br /></td></tr>
 <tr class="separator:ad55549f0f24e3b3da3bc024087d0b3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a01b20689bfed88250f370cb59f927114" id="r_a01b20689bfed88250f370cb59f927114"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a01b20689bfed88250f370cb59f927114">LateUpdate</a> ()</td></tr>
-<tr class="memdesc:a01b20689bfed88250f370cb59f927114"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls <a class="el" href="#ad87c79da34515e1be5fa04bd108b395e" title="Calculate ARMatrix for ARGameObjects based on the settings of the registered ARCamera and ARGameObjec...">CalculateARMatrix()</a> and <a class="el" href="#ad55549f0f24e3b3da3bc024087d0b3d4" title="Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects....">UpdateTransform()</a> in <a class="el" href="#a01b20689bfed88250f370cb59f927114" title="Calls CalculateARMatrix() and UpdateTransform() in LateUpdate().">LateUpdate()</a>.  <br /></td></tr>
+<tr class="memdesc:a01b20689bfed88250f370cb59f927114"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls <a class="el" href="#ad87c79da34515e1be5fa04bd108b395e" title="Calculate ARMatrix for each registered ARGameObject (pose estimation via Extensions....">CalculateARMatrix</a> and <a class="el" href="#ad55549f0f24e3b3da3bc024087d0b3d4" title="Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects....">UpdateTransform</a> when the corresponding auto-run flags are enabled.  <br /></td></tr>
 <tr class="separator:a01b20689bfed88250f370cb59f927114"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
@@ -203,21 +206,21 @@ Properties</h2></td></tr>
 <tr class="memdesc:abdf2edacf724eab25ddf118afd1f5d33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registered <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> game objects.  <br /></td></tr>
 <tr class="separator:abdf2edacf724eab25ddf118afd1f5d33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29cb7231af8afc280c5b9de33f079ad4" id="r_a29cb7231af8afc280c5b9de33f079ad4"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a29cb7231af8afc280c5b9de33f079ad4">CalculateARMatrixInLateUpdate</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a29cb7231af8afc280c5b9de33f079ad4"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, the <a class="el" href="#ad87c79da34515e1be5fa04bd108b395e" title="Calculate ARMatrix for ARGameObjects based on the settings of the registered ARCamera and ARGameObjec...">CalculateARMatrix()</a> method is automatically called in <a class="el" href="#a01b20689bfed88250f370cb59f927114" title="Calls CalculateARMatrix() and UpdateTransform() in LateUpdate().">LateUpdate()</a>. If false, it must be called manually.  <br /></td></tr>
+<tr class="memdesc:a29cb7231af8afc280c5b9de33f079ad4"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, the <a class="el" href="#ad87c79da34515e1be5fa04bd108b395e" title="Calculate ARMatrix for each registered ARGameObject (pose estimation via Extensions....">CalculateARMatrix()</a> method is automatically called in <a class="el" href="#a01b20689bfed88250f370cb59f927114" title="Calls CalculateARMatrix and UpdateTransform when the corresponding auto-run flags are enabled.">LateUpdate()</a>. If false, it must be called manually.  <br /></td></tr>
 <tr class="separator:a29cb7231af8afc280c5b9de33f079ad4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9606545377196ca8c0ed48dd97ccc8e1" id="r_a9606545377196ca8c0ed48dd97ccc8e1"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="#a41c0ea8b001667eea2f57a3cd2e3faf0">ARUpdateTarget</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9606545377196ca8c0ed48dd97ccc8e1">UpdateTarget</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a9606545377196ca8c0ed48dd97ccc8e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the GameObject whose Transform will be updated by the <a class="el" href="#ad55549f0f24e3b3da3bc024087d0b3d4" title="Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects....">UpdateTransform()</a> method.  <br /></td></tr>
+<tr class="memdesc:a9606545377196ca8c0ed48dd97ccc8e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies which transform <a class="el" href="#ad55549f0f24e3b3da3bc024087d0b3d4" title="Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects....">UpdateTransform</a> updates (<a class="el" href="#a41c0ea8b001667eea2f57a3cd2e3faf0a7025894eea7d8e7b9f6527aa18fa6fc1">ARUpdateTarget.ARCamera</a> or each <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a>).  <br /></td></tr>
 <tr class="separator:a9606545377196ca8c0ed48dd97ccc8e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf32118b4e937a01ddd1c230137fa2cd" id="r_aaf32118b4e937a01ddd1c230137fa2cd"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaf32118b4e937a01ddd1c230137fa2cd">UpdateTransformInLateUpdate</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:aaf32118b4e937a01ddd1c230137fa2cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, the <a class="el" href="#ad55549f0f24e3b3da3bc024087d0b3d4" title="Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects....">UpdateTransform()</a> method is automatically called in <a class="el" href="#a01b20689bfed88250f370cb59f927114" title="Calls CalculateARMatrix() and UpdateTransform() in LateUpdate().">LateUpdate()</a>. If false, it must be called manually.  <br /></td></tr>
+<tr class="memdesc:aaf32118b4e937a01ddd1c230137fa2cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, the <a class="el" href="#ad55549f0f24e3b3da3bc024087d0b3d4" title="Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects....">UpdateTransform()</a> method is automatically called in <a class="el" href="#a01b20689bfed88250f370cb59f927114" title="Calls CalculateARMatrix and UpdateTransform when the corresponding auto-run flags are enabled.">LateUpdate()</a>. If false, it must be called manually.  <br /></td></tr>
 <tr class="separator:aaf32118b4e937a01ddd1c230137fa2cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="../../d0/dee/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARHelper.html" title="The ARHelper class manages ARCamera and ARGameObjects, automating the calculation of ARMatrix and upd...">ARHelper</a> class manages <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> and ARGameObjects, automating the calculation of ARMatrix and updating the Transform of the specified UpdateTarget. </p>
+<div class="textblock"><p>The <a class="el" href="../../d0/dee/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARHelper.html" title="The ARHelper class manages ARCamera and ARGameObjects, automating the calculation of ARMatrix and upd...">ARHelper</a> class manages <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="Manages AR camera calibration parameters and Unity Camera.projectionMatrix for the AR pipeline....">ARCamera</a> and ARGameObjects, automating the calculation of ARMatrix and updating the Transform of the specified UpdateTarget. </p>
 <ul>
-<li>Calculates the ARMatrix of registered ARGameObjects based on the settings of <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> and ARGameObjects.</li>
-<li>Updates the Transform of the specified UpdateTarget (<a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> or <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a>) using the calculated ARMatrix.</li>
-<li>Allows control over automatic execution in <a class="el" href="#a01b20689bfed88250f370cb59f927114" title="Calls CalculateARMatrix() and UpdateTransform() in LateUpdate().">LateUpdate()</a> via boolean values.</li>
+<li>Calculates the ARMatrix of registered ARGameObjects based on the settings of <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="Manages AR camera calibration parameters and Unity Camera.projectionMatrix for the AR pipeline....">ARCamera</a> and ARGameObjects. Each <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> delegates pose estimation to <a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html" title="Engine-independent AR pose estimation pipeline (solvePnP, NDC viewport, pose filtering)....">Extensions.AR.ARPoseEstimator</a>; <a class="el" href="../../d0/dee/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARHelper.html" title="The ARHelper class manages ARCamera and ARGameObjects, automating the calculation of ARMatrix and upd...">ARHelper</a> only orchestrates the call sequence.</li>
+<li>Updates the Transform of the specified UpdateTarget (<a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="Manages AR camera calibration parameters and Unity Camera.projectionMatrix for the AR pipeline....">ARCamera</a> or <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a>) using the calculated ARMatrix.</li>
+<li>Allows control over automatic execution in <a class="el" href="#a01b20689bfed88250f370cb59f927114" title="Calls CalculateARMatrix and UpdateTransform when the corresponding auto-run flags are enabled.">LateUpdate()</a> via boolean values.</li>
 <li>Provides functionality to reset ImagePoints and ObjectPoints. </li>
 </ul>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
@@ -265,7 +268,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Calculate ARMatrix for ARGameObjects based on the settings of the registered <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="A class that manages AR camera parameters and updates the projection matrix. This class utilizes came...">ARCamera</a> and ARGameObjects. This method updates the ARMatrix that is used by the <a class="el" href="#ad55549f0f24e3b3da3bc024087d0b3d4" title="Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects....">UpdateTransform()</a> method. This method should be called before <a class="el" href="#ad55549f0f24e3b3da3bc024087d0b3d4" title="Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects....">UpdateTransform()</a>. </p>
+<p>Calculate ARMatrix for each registered <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> (pose estimation via <a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html" title="Engine-independent AR pose estimation pipeline (solvePnP, NDC viewport, pose filtering)....">Extensions.AR.ARPoseEstimator</a> inside <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">ARGameObject.CalculateARMatrix</a>). Call before <a class="el" href="#ad55549f0f24e3b3da3bc024087d0b3d4" title="Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects....">UpdateTransform</a>. </p>
 
 </div>
 </div>
@@ -292,7 +295,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Disposes the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Represents an augmented reality (AR) object that integrates with the ARCamera. This class manages sol...">ARGameObject</a>. </p>
+<p>Resets the initialized state. Does not dispose registered <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> instances. </p>
 
 </div>
 </div>
@@ -346,7 +349,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Calls <a class="el" href="#ad87c79da34515e1be5fa04bd108b395e" title="Calculate ARMatrix for ARGameObjects based on the settings of the registered ARCamera and ARGameObjec...">CalculateARMatrix()</a> and <a class="el" href="#ad55549f0f24e3b3da3bc024087d0b3d4" title="Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects....">UpdateTransform()</a> in <a class="el" href="#a01b20689bfed88250f370cb59f927114" title="Calls CalculateARMatrix() and UpdateTransform() in LateUpdate().">LateUpdate()</a>. </p>
+<p>Calls <a class="el" href="#ad87c79da34515e1be5fa04bd108b395e" title="Calculate ARMatrix for each registered ARGameObject (pose estimation via Extensions....">CalculateARMatrix</a> and <a class="el" href="#ad55549f0f24e3b3da3bc024087d0b3d4" title="Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects....">UpdateTransform</a> when the corresponding auto-run flags are enabled. </p>
 
 </div>
 </div>
@@ -377,6 +380,34 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="ac6bb64a15359f6b063b57d31e40fd1cf" name="ac6bb64a15359f6b063b57d31e40fd1cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6bb64a15359f6b063b57d31e40fd1cf">&#9670;&#160;</a></span>ResetARGameObjectsTrackingState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenCVForUnity.UnityIntegration.Helper.AR.ARHelper.ResetARGameObjectsTrackingState </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Resets pose-tracking state for all registered <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> instances. </p>
+<p>Clears solvePnP inputs, re-initializes each <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> (including <a class="el" href="../../dc/de5/classOpenCVForUnity_1_1Extensions_1_1AR_1_1ARPoseEstimator.html" title="Engine-independent AR pose estimation pipeline (solvePnP, NDC viewport, pose filtering)....">Extensions.AR.ARPoseEstimator</a> filters), resets <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> and <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="Manages AR camera calibration parameters and Unity Camera.projectionMatrix for the AR pipeline....">ARCamera</a> transforms, and deactivates <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> game objects so <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html#ad253bc76b4a3b4df72375e008219cefc" title="UnityEvent notified when the ARGameObject enters the viewport of the ARCamera.">ARGameObject.OnEnterARCameraViewport</a> can fire again when tracking resumes. Call when camera intrinsics, image resolution, or correspondence points are no longer valid for the previous tracking session. </p>
+
+</div>
+</div>
 <a id="ad55549f0f24e3b3da3bc024087d0b3d4" name="ad55549f0f24e3b3da3bc024087d0b3d4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad55549f0f24e3b3da3bc024087d0b3d4">&#9670;&#160;</a></span>UpdateTransform()</h2>
 
@@ -400,7 +431,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects. This method uses the ARMatrix calculated by the <a class="el" href="#ad87c79da34515e1be5fa04bd108b395e" title="Calculate ARMatrix for ARGameObjects based on the settings of the registered ARCamera and ARGameObjec...">CalculateARMatrix()</a> method. This method assumes that the <a class="el" href="#ad87c79da34515e1be5fa04bd108b395e" title="Calculate ARMatrix for ARGameObjects based on the settings of the registered ARCamera and ARGameObjec...">CalculateARMatrix()</a> method has been called before this method. </p>
+<p>Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects. This method uses the ARMatrix calculated by the <a class="el" href="#ad87c79da34515e1be5fa04bd108b395e" title="Calculate ARMatrix for each registered ARGameObject (pose estimation via Extensions....">CalculateARMatrix()</a> method. This method assumes that the <a class="el" href="#ad87c79da34515e1be5fa04bd108b395e" title="Calculate ARMatrix for each registered ARGameObject (pose estimation via Extensions....">CalculateARMatrix()</a> method has been called before this method. </p>
 
 </div>
 </div>
@@ -608,7 +639,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>If true, the <a class="el" href="#ad87c79da34515e1be5fa04bd108b395e" title="Calculate ARMatrix for ARGameObjects based on the settings of the registered ARCamera and ARGameObjec...">CalculateARMatrix()</a> method is automatically called in <a class="el" href="#a01b20689bfed88250f370cb59f927114" title="Calls CalculateARMatrix() and UpdateTransform() in LateUpdate().">LateUpdate()</a>. If false, it must be called manually. </p>
+<p>If true, the <a class="el" href="#ad87c79da34515e1be5fa04bd108b395e" title="Calculate ARMatrix for each registered ARGameObject (pose estimation via Extensions....">CalculateARMatrix()</a> method is automatically called in <a class="el" href="#a01b20689bfed88250f370cb59f927114" title="Calls CalculateARMatrix and UpdateTransform when the corresponding auto-run flags are enabled.">LateUpdate()</a>. If false, it must be called manually. </p>
 
 </div>
 </div>
@@ -632,7 +663,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Specifies the GameObject whose Transform will be updated by the <a class="el" href="#ad55549f0f24e3b3da3bc024087d0b3d4" title="Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects....">UpdateTransform()</a> method. </p>
+<p>Specifies which transform <a class="el" href="#ad55549f0f24e3b3da3bc024087d0b3d4" title="Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects....">UpdateTransform</a> updates (<a class="el" href="#a41c0ea8b001667eea2f57a3cd2e3faf0a7025894eea7d8e7b9f6527aa18fa6fc1">ARUpdateTarget.ARCamera</a> or each <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a>). </p>
 
 </div>
 </div>
@@ -656,12 +687,12 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>If true, the <a class="el" href="#ad55549f0f24e3b3da3bc024087d0b3d4" title="Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects....">UpdateTransform()</a> method is automatically called in <a class="el" href="#a01b20689bfed88250f370cb59f927114" title="Calls CalculateARMatrix() and UpdateTransform() in LateUpdate().">LateUpdate()</a>. If false, it must be called manually. </p>
+<p>If true, the <a class="el" href="#ad55549f0f24e3b3da3bc024087d0b3d4" title="Update the Transform of the specified UpdateTarget using the ARMatrix of ARGameObjects....">UpdateTransform()</a> method is automatically called in <a class="el" href="#a01b20689bfed88250f370cb59f927114" title="Calls CalculateARMatrix and UpdateTransform when the corresponding auto-run flags are enabled.">LateUpdate()</a>. If false, it must be called manually. </p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/Helper/ARHelper/<a class="el" href="../../d9/dea/ARHelper_8cs.html">ARHelper.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/Scripts/UnityIntegration/Helper/AR/<a class="el" href="../../d9/dea/ARHelper_8cs.html">ARHelper.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

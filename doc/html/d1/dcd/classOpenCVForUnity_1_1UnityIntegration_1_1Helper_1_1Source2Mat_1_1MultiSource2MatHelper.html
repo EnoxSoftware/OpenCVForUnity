@@ -162,6 +162,7 @@ Public Types</h2></td></tr>
 &#160;&#160;<a class="el" href="#a7cdce6296882db0980d9d9a97a0d5c1ba12f5d13dc33a81af491c7687f0decc8f">CustomSource2MatHelper</a>
 <br />
  }</td></tr>
+<tr class="memdesc:a7cdce6296882db0980d9d9a97a0d5c1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Built-in <a class="el" href="../../d1/d14/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1ISource2MatHelper.html" title="Base interface for converting various sources to Mat.">ISource2MatHelper</a> implementation types that <a class="el" href="../../d1/dcd/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1MultiSource2MatHelper.html" title="A versatile helper component class for obtaining frames as OpenCV Mat objects from multiple sources,...">MultiSource2MatHelper</a> can instantiate.  <a href="#a7cdce6296882db0980d9d9a97a0d5c1b">More...</a><br /></td></tr>
 <tr class="separator:a7cdce6296882db0980d9d9a97a0d5c1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -313,7 +314,7 @@ Properties</h2></td></tr>
 <tr class="memdesc:a3d33c4a0a7b85c0704baf7897f9b3110"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is disposed.  <br /></td></tr>
 <tr class="separator:a3d33c4a0a7b85c0704baf7897f9b3110"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e63281b72f1f78cd45adbc7cf5b6d7b" id="r_a6e63281b72f1f78cd45adbc7cf5b6d7b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d66/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1Source2MatHelperErrorUnityEvent.html">Source2MatHelperErrorUnityEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6e63281b72f1f78cd45adbc7cf5b6d7b">OnErrorOccurred</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a6e63281b72f1f78cd45adbc7cf5b6d7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is error Occurred.  <br /></td></tr>
+<tr class="memdesc:a6e63281b72f1f78cd45adbc7cf5b6d7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent invoked when an error occurs.  <br /></td></tr>
 <tr class="separator:a6e63281b72f1f78cd45adbc7cf5b6d7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5299b1b0b4c3832b39750fc0ac52be53" id="r_a5299b1b0b4c3832b39750fc0ac52be53"><td class="memItemLeft" align="right" valign="top">UnityEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5299b1b0b4c3832b39750fc0ac52be53">OnInitialized</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a5299b1b0b4c3832b39750fc0ac52be53"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent that is triggered when this instance is initialized.  <br /></td></tr>
@@ -355,6 +356,7 @@ Properties</h2></td></tr>
 <tr class="memdesc:a3f1107a82cb760650671b5bd7befad66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether to rotate camera frame 90 degrees. (clockwise)  <br /></td></tr>
 <tr class="separator:a3f1107a82cb760650671b5bd7befad66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46be02c18961040409d071cb80138cb1" id="r_a46be02c18961040409d071cb80138cb1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d14/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1ISource2MatHelper.html">ISource2MatHelper</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46be02c18961040409d071cb80138cb1">Source2MatHelper</a><code> [get]</code></td></tr>
+<tr class="memdesc:a46be02c18961040409d071cb80138cb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the currently active delegated <a class="el" href="../../d1/d14/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1ISource2MatHelper.html" title="Base interface for converting various sources to Mat.">ISource2MatHelper</a> instance.  <br /></td></tr>
 <tr class="separator:a46be02c18961040409d071cb80138cb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad15797655594643cf86979e6cbc7ab19" id="r_ad15797655594643cf86979e6cbc7ab19"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="#abd1948f64bbe2af070d6b1fe41f80559aa3e8ae43188ae76d38f414b2bdb0077b">Texture</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad15797655594643cf86979e6cbc7ab19">SourceTexture</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:ad15797655594643cf86979e6cbc7ab19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the source texture.  <br /></td></tr>
@@ -413,6 +415,8 @@ Properties</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Built-in <a class="el" href="../../d1/d14/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1ISource2MatHelper.html" title="Base interface for converting various sources to Mat.">ISource2MatHelper</a> implementation types that <a class="el" href="../../d1/dcd/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1MultiSource2MatHelper.html" title="A versatile helper component class for obtaining frames as OpenCV Mat objects from multiple sources,...">MultiSource2MatHelper</a> can instantiate. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a7cdce6296882db0980d9d9a97a0d5c1bab6b69bcc34b8f3bf4e44b91d44bbff46" name="a7cdce6296882db0980d9d9a97a0d5c1bab6b69bcc34b8f3bf4e44b91d44bbff46"></a>WebCamTexture2MatHelper&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a7cdce6296882db0980d9d9a97a0d5c1ba112b73301c3c7191ee9431af16939528" name="a7cdce6296882db0980d9d9a97a0d5c1ba112b73301c3c7191ee9431af16939528"></a>VideoCapture2MatHelper&#160;</td><td class="fielddoc"></td></tr>
@@ -1619,7 +1623,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>UnityEvent that is triggered when this instance is error Occurred. </p>
+<p>UnityEvent invoked when an error occurs. </p>
 
 <p>Implements <a class="el" href="../../d1/d14/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1ISource2MatHelper.html#ab78ed17062f8c6e38aa8ae5e8279d63d">OpenCVForUnity.UnityIntegration.Helper.Source2Mat.ISource2MatHelper</a>.</p>
 
@@ -1961,6 +1965,8 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Gets the currently active delegated <a class="el" href="../../d1/d14/interfaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1Source2Mat_1_1ISource2MatHelper.html" title="Base interface for converting various sources to Mat.">ISource2MatHelper</a> instance. </p>
+
 </div>
 </div>
 <a id="ad15797655594643cf86979e6cbc7ab19" name="ad15797655594643cf86979e6cbc7ab19"></a>
@@ -2014,7 +2020,7 @@ Properties</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/Helper/Source2MatHelper/<a class="el" href="../../d8/ddc/MultiSource2MatHelper_8cs.html">MultiSource2MatHelper.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/Scripts/UnityIntegration/Helper/Source2MatHelper/<a class="el" href="../../d8/ddc/MultiSource2MatHelper_8cs.html">MultiSource2MatHelper.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

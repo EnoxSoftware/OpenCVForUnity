@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['keypoint_0',['KeyPoint',['../d7/de6/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipe_1_1MediaPipeHandLandmarker.html#ad11fda44be1e6d07c5f455f577b187a5',1,'OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipe.MediaPipeHandLandmarker.KeyPoint'],['../d3/df7/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MediaPipe_1_1MediaPipePoseLandmarker.html#a5c388eb750e3614c1b1eca944048d6ae',1,'OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipe.MediaPipePoseLandmarker.KeyPoint']]]
+  ['inferenceframeworkkind_0',['InferenceFrameworkKind',['../dc/d3b/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule.html#a8cf44aedd19023d6487ce403e1b258df',1,'OpenCVForUnity::UnityIntegration::Worker::DnnModule']]],
+  ['inferenceframeworkselectionkind_1',['InferenceFrameworkSelectionKind',['../dc/d3b/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule.html#a6f2f4cf042e347b1bf22ff503d56c5d6',1,'OpenCVForUnity::UnityIntegration::Worker::DnnModule']]]
 ];

@@ -65,9 +65,9 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.3</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.4</span>
    </div>
-   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/4.13.0/index.html ) for the details of the argument of the method.</div>
+   <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/5.0/index.html ) for the details of the argument of the method.</div>
   </td>
  </tr>
  </tbody>
@@ -131,62 +131,112 @@ $(function(){ initResizable(false); });
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#properties">Properties</a> &#124;
 <a href="../../dc/d22/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendNet-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet Class Reference<span class="mlabels"><span class="mlabel">sealed</span></span></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Subset of OpenCV Net for inference with either OpenCV DNN or Sentis, with deferred initialization after <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a42b3ce4b252da67ab403d6c451fc5805" title="Factory with the same signature as OpenCVForUnity.DnnModule.Dnn.readNet(string); returns MultiBackend...">MultiBackendDnn.readNet</a>.  
+<p>Closed facade over OpenCV DNN or Sentis inference nets, with deferred initialization after <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a4a96344a0a828cc2a938e5a45e2dd3f7" title="Factory with the same signature as OpenCVForUnity.DnnModule.Dnn.readNet(string); returns MultiBackend...">MultiBackendDnn.ReadNet</a>. Implements IDnnInferenceNamedIONet and, as a type, IDnnAsyncInferenceNet / IDnnAsyncNamedOutputInferenceNet (async methods throw on the OpenCV path).  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a96b20668994abc0358564d998d51eb2f" id="r_a96b20668994abc0358564d998d51eb2f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a96b20668994abc0358564d998d51eb2f">Dispose</a> ()</td></tr>
-<tr class="memdesc:a96b20668994abc0358564d998d51eb2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the OpenCV Net, Sentis resources, and any OpenCV Mat instances owned from the last <a class="el" href="#a17f0af03e4f79a25d592f2d1226423b0" title="Runs a forward pass. outBlobNames  must equal the list from getUnconnectedOutLayersNames in order and...">forward</a> call.  <br /></td></tr>
+<tr class="memdesc:a96b20668994abc0358564d998d51eb2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the inner net and any resources it owns.  <br /></td></tr>
 <tr class="separator:a96b20668994abc0358564d998d51eb2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17f0af03e4f79a25d592f2d1226423b0" id="r_a17f0af03e4f79a25d592f2d1226423b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a17f0af03e4f79a25d592f2d1226423b0">forward</a> (List&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> &gt; outputBlobs, List&lt; string &gt; outBlobNames)</td></tr>
-<tr class="memdesc:a17f0af03e4f79a25d592f2d1226423b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a forward pass. <em>outBlobNames</em>  must equal the list from <a class="el" href="#a313d0040a72f034b496922e9b65aac2f" title="Returns the model’s unconnected output layer (tensor) names, sorted with StringComparer....">getUnconnectedOutLayersNames</a> in order and count.  <br /></td></tr>
-<tr class="separator:a17f0af03e4f79a25d592f2d1226423b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a899646a5d6f6e306c76ba18a0b93206e" id="r_a899646a5d6f6e306c76ba18a0b93206e"><td class="memItemLeft" align="right" valign="top">Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a899646a5d6f6e306c76ba18a0b93206e">forwardAsync</a> (List&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> &gt; outputBlobs, List&lt; string &gt; outBlobNames, CancellationToken cancellationToken=default)</td></tr>
-<tr class="memdesc:a899646a5d6f6e306c76ba18a0b93206e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronous forward pass for the Sentis path only, using <code>ReadbackAndCloneAsync</code> for outputs.  <br /></td></tr>
-<tr class="separator:a899646a5d6f6e306c76ba18a0b93206e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a422e89ed196e8367f61217745792935d" id="r_a422e89ed196e8367f61217745792935d"><td class="memItemLeft" align="right" valign="top">async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a422e89ed196e8367f61217745792935d">forwardTaskAsync</a> (List&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> &gt; outputBlobs, List&lt; string &gt; outBlobNames, CancellationToken cancellationToken=default)</td></tr>
-<tr class="memdesc:a422e89ed196e8367f61217745792935d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronous forward pass for the Sentis path only, using <code>ReadbackAndCloneAsync</code> for outputs.  <br /></td></tr>
-<tr class="separator:a422e89ed196e8367f61217745792935d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a313d0040a72f034b496922e9b65aac2f" id="r_a313d0040a72f034b496922e9b65aac2f"><td class="memItemLeft" align="right" valign="top">List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a313d0040a72f034b496922e9b65aac2f">getUnconnectedOutLayersNames</a> ()</td></tr>
-<tr class="memdesc:a313d0040a72f034b496922e9b65aac2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the model’s unconnected output layer (tensor) names, sorted with StringComparer.Ordinal so OpenCV DNN and Sentis agree on a single order for <a class="el" href="#a17f0af03e4f79a25d592f2d1226423b0" title="Runs a forward pass. outBlobNames  must equal the list from getUnconnectedOutLayersNames in order and...">forward</a>.  <br /></td></tr>
-<tr class="separator:a313d0040a72f034b496922e9b65aac2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90d37af448422a5f2790293a8162ca39" id="r_a90d37af448422a5f2790293a8162ca39"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a90d37af448422a5f2790293a8162ca39">setInput</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> blob)</td></tr>
-<tr class="memdesc:a90d37af448422a5f2790293a8162ca39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the network input. OpenCV: delegates to <a class="el" href="../../d2/d28/classOpenCVForUnity_1_1DnnModule_1_1Net.html#ab720469fb5efb2d4afed3b0816a50ec8" title="Sets the new input value for the network.">Net.setInput(Mat)</a>. Sentis: copies <em>blob</em>  into the preallocated input <code>Tensor&lt;float&gt;</code> (element count must match the model; dynamic shapes are not supported).  <br /></td></tr>
-<tr class="separator:a90d37af448422a5f2790293a8162ca39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a286fda5d70504fc3f88c1db2a8f269c1" id="r_a286fda5d70504fc3f88c1db2a8f269c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a286fda5d70504fc3f88c1db2a8f269c1">setPreferableBackend</a> (int backendId)</td></tr>
-<tr class="memdesc:a286fda5d70504fc3f88c1db2a8f269c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Commits the DNN backend; triggers lazy creation of the OpenCV Net (non-Sentis) or prepares the Sentis path.  <br /></td></tr>
-<tr class="separator:a286fda5d70504fc3f88c1db2a8f269c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35eeea92ee4f8c71659f3db16c4b405a" id="r_a35eeea92ee4f8c71659f3db16c4b405a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35eeea92ee4f8c71659f3db16c4b405a">setPreferableTarget</a> (int targetId)</td></tr>
-<tr class="memdesc:a35eeea92ee4f8c71659f3db16c4b405a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Commits the DNN target (CPU, GPU, etc.); for Sentis, together with <a class="el" href="#a286fda5d70504fc3f88c1db2a8f269c1" title="Commits the DNN backend; triggers lazy creation of the OpenCV Net (non-Sentis) or prepares the Sentis...">setPreferableBackend</a>, finishes lazy allocation of the Sentis <code><a class="el" href="../../dd/d2c/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker.html">Worker</a></code> and I/O buffers.  <br /></td></tr>
-<tr class="separator:a35eeea92ee4f8c71659f3db16c4b405a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08cadf15bdeddd31cee6839714405b81" id="r_a08cadf15bdeddd31cee6839714405b81"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08cadf15bdeddd31cee6839714405b81">Forward</a> (List&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> &gt; outputBlobs, List&lt; string &gt; outBlobNames)</td></tr>
+<tr class="memdesc:a08cadf15bdeddd31cee6839714405b81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a forward pass. <em>outBlobNames</em>  must equal the list from <a class="el" href="#a59ba4706c9e056828b182240a505c58e" title="Returns the model’s unconnected output layer (tensor) names, sorted with DnnInferenceNetUnconnectedOu...">GetUnconnectedOutLayersNames</a> in order and count.  <br /></td></tr>
+<tr class="separator:a08cadf15bdeddd31cee6839714405b81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c452b1a3325bfda631b68ee40b26580" id="r_a7c452b1a3325bfda631b68ee40b26580"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c452b1a3325bfda631b68ee40b26580">Forward</a> (string outputName)</td></tr>
+<tr class="memdesc:a7c452b1a3325bfda631b68ee40b26580"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a forward pass and returns the output Mat for <em>outputName</em> .  <br /></td></tr>
+<tr class="separator:a7c452b1a3325bfda631b68ee40b26580"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06ed0bd3f6d2d9aaa9c12f056f7d581b" id="r_a06ed0bd3f6d2d9aaa9c12f056f7d581b"><td class="memItemLeft" align="right" valign="top">Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a06ed0bd3f6d2d9aaa9c12f056f7d581b">ForwardAsync</a> (List&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> &gt; outputBlobs, List&lt; string &gt; outBlobNames, CancellationToken cancellationToken=default)</td></tr>
+<tr class="memdesc:a06ed0bd3f6d2d9aaa9c12f056f7d581b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronous forward pass when the inner net implements IDnnAsyncInferenceNet (Sentis path).  <br /></td></tr>
+<tr class="separator:a06ed0bd3f6d2d9aaa9c12f056f7d581b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1b4dd2862a5b9fdda9d67ad4a46d4dd" id="r_ac1b4dd2862a5b9fdda9d67ad4a46d4dd"><td class="memItemLeft" align="right" valign="top">Task&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac1b4dd2862a5b9fdda9d67ad4a46d4dd">ForwardAsync</a> (string outputName, CancellationToken cancellationToken=default)</td></tr>
+<tr class="memdesc:ac1b4dd2862a5b9fdda9d67ad4a46d4dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronous forward pass for a single named output when the inner net implements IDnnAsyncNamedOutputInferenceNet (Sentis path).  <br /></td></tr>
+<tr class="separator:ac1b4dd2862a5b9fdda9d67ad4a46d4dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55dafd29ccc22a5024a74e746211f5cf" id="r_a55dafd29ccc22a5024a74e746211f5cf"><td class="memItemLeft" align="right" valign="top">Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a55dafd29ccc22a5024a74e746211f5cf">ForwardTaskAsync</a> (List&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> &gt; outputBlobs, List&lt; string &gt; outBlobNames, CancellationToken cancellationToken=default)</td></tr>
+<tr class="memdesc:a55dafd29ccc22a5024a74e746211f5cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronous forward pass when the inner net implements IDnnAsyncInferenceNet (Sentis path).  <br /></td></tr>
+<tr class="separator:a55dafd29ccc22a5024a74e746211f5cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38de2a911ccd078305d936cbe7e7f84b" id="r_a38de2a911ccd078305d936cbe7e7f84b"><td class="memItemLeft" align="right" valign="top">Task&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a38de2a911ccd078305d936cbe7e7f84b">ForwardTaskAsync</a> (string outputName, CancellationToken cancellationToken=default)</td></tr>
+<tr class="memdesc:a38de2a911ccd078305d936cbe7e7f84b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronous forward pass for a single named output when the inner net implements IDnnAsyncNamedOutputInferenceNet (Sentis path).  <br /></td></tr>
+<tr class="separator:a38de2a911ccd078305d936cbe7e7f84b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59ba4706c9e056828b182240a505c58e" id="r_a59ba4706c9e056828b182240a505c58e"><td class="memItemLeft" align="right" valign="top">List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59ba4706c9e056828b182240a505c58e">GetUnconnectedOutLayersNames</a> ()</td></tr>
+<tr class="memdesc:a59ba4706c9e056828b182240a505c58e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the model’s unconnected output layer (tensor) names, sorted with DnnInferenceNetUnconnectedOutLayersNames.LAYER_NAME_COMPARER so OpenCV DNN and Sentis agree on a single order for <a class="el" href="#a08cadf15bdeddd31cee6839714405b81" title="Runs a forward pass. outBlobNames  must equal the list from GetUnconnectedOutLayersNames in order and...">Forward</a>.  <br /></td></tr>
+<tr class="separator:a59ba4706c9e056828b182240a505c58e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc38f90a64c0d9347ba2ed875260403a" id="r_adc38f90a64c0d9347ba2ed875260403a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc38f90a64c0d9347ba2ed875260403a">SetInput</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> blob)</td></tr>
+<tr class="memdesc:adc38f90a64c0d9347ba2ed875260403a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the network input. Delegates to the active inner net.  <br /></td></tr>
+<tr class="separator:adc38f90a64c0d9347ba2ed875260403a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c69da2fddffdf57be13998894d8e6cb" id="r_a0c69da2fddffdf57be13998894d8e6cb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c69da2fddffdf57be13998894d8e6cb">SetInput</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> blob, string inputName)</td></tr>
+<tr class="memdesc:a0c69da2fddffdf57be13998894d8e6cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the network input for the layer or tensor <em>inputName</em> . Delegates to the active inner net.  <br /></td></tr>
+<tr class="separator:a0c69da2fddffdf57be13998894d8e6cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9efed31110216840fec4a487ede73bba" id="r_a9efed31110216840fec4a487ede73bba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9efed31110216840fec4a487ede73bba">SetPreferableBackend</a> (int backendId)</td></tr>
+<tr class="memdesc:a9efed31110216840fec4a487ede73bba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Commits the DNN backend; creates the OpenCV or Sentis inner net.  <br /></td></tr>
+<tr class="separator:a9efed31110216840fec4a487ede73bba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0af5cad4c650e0da22cc9ad37c10cb5" id="r_af0af5cad4c650e0da22cc9ad37c10cb5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0af5cad4c650e0da22cc9ad37c10cb5">SetPreferableBackend</a> (<a class="el" href="../../dc/d9c/namespaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule.html#a5529e7f2ff81f9d2943d2139e7997537">OpenCVDnnInferenceBackendKind</a> backend)</td></tr>
+<tr class="memdesc:af0af5cad4c650e0da22cc9ad37c10cb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Commits the OpenCV DNN backend on the OpenCV provider path.  <br /></td></tr>
+<tr class="separator:af0af5cad4c650e0da22cc9ad37c10cb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad69d9306dbb4366bd66b38d3750acdfb" id="r_ad69d9306dbb4366bd66b38d3750acdfb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad69d9306dbb4366bd66b38d3750acdfb">SetPreferableBackend</a> (<a class="el" href="../../dc/d3b/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule.html#a92b031037c9cea1c51828e2b8f0fecf3">SentisInferenceBackendKind</a> backend)</td></tr>
+<tr class="memdesc:ad69d9306dbb4366bd66b38d3750acdfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Commits the Sentis backend discriminator on the Sentis provider path.  <br /></td></tr>
+<tr class="separator:ad69d9306dbb4366bd66b38d3750acdfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81f86d12e74f0010e6d46dc18cca32c6" id="r_a81f86d12e74f0010e6d46dc18cca32c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a81f86d12e74f0010e6d46dc18cca32c6">SetPreferableTarget</a> (int targetId)</td></tr>
+<tr class="memdesc:a81f86d12e74f0010e6d46dc18cca32c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Commits the DNN target (CPU, GPU, etc.); for Sentis, together with <a class="el" href="#a9efed31110216840fec4a487ede73bba" title="Commits the DNN backend; creates the OpenCV or Sentis inner net.">SetPreferableBackend</a>, finishes lazy allocation of the Sentis <code><a class="el" href="../../dd/d2c/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker.html">Worker</a></code> and I/O buffers.  <br /></td></tr>
+<tr class="separator:a81f86d12e74f0010e6d46dc18cca32c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a631fc71304544fa0a19a3e7ba5b58d27" id="r_a631fc71304544fa0a19a3e7ba5b58d27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a631fc71304544fa0a19a3e7ba5b58d27">SetPreferableTarget</a> (<a class="el" href="../../dc/d9c/namespaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule.html#a258ac96ff7ea73960e78e8dd70de4c6d">OpenCVDnnInferenceTargetKind</a> target)</td></tr>
+<tr class="memdesc:a631fc71304544fa0a19a3e7ba5b58d27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Commits the OpenCV DNN target on the OpenCV provider path.  <br /></td></tr>
+<tr class="separator:a631fc71304544fa0a19a3e7ba5b58d27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace2b725058a17299e622c42332894b3f" id="r_ace2b725058a17299e622c42332894b3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace2b725058a17299e622c42332894b3f">SetPreferableTarget</a> (<a class="el" href="../../dc/d3b/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule.html#abb1efd845e43d4107e6eaf699cb06990">SentisInferenceTargetKind</a> target)</td></tr>
+<tr class="memdesc:ace2b725058a17299e622c42332894b3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Commits the Sentis runtime target on the Sentis provider path.  <br /></td></tr>
+<tr class="separator:ace2b725058a17299e622c42332894b3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_interfaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1IDnnInferenceNamedIONet"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_interfaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1IDnnInferenceNamedIONet')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d4/dd6/interfaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1IDnnInferenceNamedIONet.html">OpenCVForUnity.Extensions.Worker.DnnModule.IDnnInferenceNamedIONet</a></td></tr>
+<tr class="inherit_header pub_methods_interfaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1IDnnInferenceNet"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_interfaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1IDnnInferenceNet')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../de/d0f/interfaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1IDnnInferenceNet.html">OpenCVForUnity.Extensions.Worker.DnnModule.IDnnInferenceNet</a></td></tr>
+<tr class="inherit_header pub_methods_interfaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1IDnnAsyncInferenceNet"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_interfaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1IDnnAsyncInferenceNet')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d6/d40/interfaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1IDnnAsyncInferenceNet.html">OpenCVForUnity.Extensions.Worker.DnnModule.IDnnAsyncInferenceNet</a></td></tr>
+<tr class="inherit_header pub_methods_interfaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1IDnnAsyncNamedOutputInferenceNet"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_interfaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1IDnnAsyncNamedOutputInferenceNet')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../dd/d0a/interfaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1IDnnAsyncNamedOutputInferenceNet.html">OpenCVForUnity.Extensions.Worker.DnnModule.IDnnAsyncNamedOutputInferenceNet</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a50a18d8047bb2868efa0c4aa3c2ee04d" id="r_a50a18d8047bb2868efa0c4aa3c2ee04d"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50a18d8047bb2868efa0c4aa3c2ee04d">GetBackendDisplayString</a> (int dnnBackend)</td></tr>
+<tr class="memdesc:a50a18d8047bb2868efa0c4aa3c2ee04d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a short human-readable label for a DNN backend id. When <em>dnnBackend</em>  is the Sentis discriminator, delegates to <a class="el" href="../../dd/d49/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1SentisInferenceNet.html#ac77c28ce1f76fc75a598b0d38c1dea0f" title="Returns a short human-readable label for a Sentis-oriented DNN backend id, e.g. for UI overlays or lo...">SentisInferenceNet.GetBackendDisplayString</a>; when it is a known OpenCV <code>DNN_BACKEND_*</code> id, delegates to <a class="el" href="../../db/d14/classOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1OpenCVDnnInferenceNet.html#ae7006e9fd3b35a79672da1e96c14b9d9" title="Returns a short human-readable label for an OpenCV DNN_BACKEND_* id, e.g. for UI overlays or logs.">OpenCVDnnInferenceNet.GetBackendDisplayString</a>; otherwise returns the integer as a string.  <br /></td></tr>
+<tr class="separator:a50a18d8047bb2868efa0c4aa3c2ee04d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affb77ca0b65c631a30054fd46948161a" id="r_affb77ca0b65c631a30054fd46948161a"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#affb77ca0b65c631a30054fd46948161a">GetTargetDisplayString</a> (int dnnTarget)</td></tr>
+<tr class="memdesc:affb77ca0b65c631a30054fd46948161a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a short human-readable label for a target id. When <em>dnnTarget</em>  is a defined Sentis <code>BackendType</code> id, delegates to <a class="el" href="../../dd/d49/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1SentisInferenceNet.html#a537171ad0dadb3d4aa9d2d5a2e2853d4" title="Returns a short human-readable label for a Sentis runtime target id (BackendType as int).">SentisInferenceNet.GetTargetDisplayString</a>; when it is a known OpenCV <code>DNN_TARGET_*</code> id, delegates to <a class="el" href="../../db/d14/classOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1OpenCVDnnInferenceNet.html#a6dc3588e697c2b5fcfec09d2436016f6" title="Returns a short human-readable label for an OpenCV DNN_TARGET_* id, e.g. for UI overlays or logs.">OpenCVDnnInferenceNet.GetTargetDisplayString</a>; otherwise returns the integer as a string.  <br /></td></tr>
+<tr class="separator:affb77ca0b65c631a30054fd46948161a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
+<tr class="memitem:a34d604c421b57e3eeb462ecb1e0993f2" id="r_a34d604c421b57e3eeb462ecb1e0993f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d3b/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule.html#a8cf44aedd19023d6487ce403e1b258df">InferenceFrameworkKind</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a34d604c421b57e3eeb462ecb1e0993f2">ActiveInferenceFramework</a><code> [get]</code></td></tr>
+<tr class="memdesc:a34d604c421b57e3eeb462ecb1e0993f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper family of the active inner net: <a class="el" href="../../dc/d3b/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule.html#a8cf44aedd19023d6487ce403e1b258dfac9569a8e37f35c735bb1bbd4b211c24e" title="OpenCV DNN path after MultiBackendNet.SetPreferableBackend with an OpenCV DNN_BACKEND_* id (inner Ope...">InferenceFrameworkKind.OpenCvDnn</a>, <a class="el" href="../../dc/d3b/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule.html#a8cf44aedd19023d6487ce403e1b258dfad1cf1ece944db879f03edfb24802311f" title="Sentis path after MultiBackendNet.SetPreferableBackend with MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS ...">InferenceFrameworkKind.UnitySentis</a>, or <a class="el" href="../../dc/d3b/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule.html#a8cf44aedd19023d6487ce403e1b258dfa88183b946cc5f0e8c96b2e66e1c74a7e" title="Framework has not been selected yet (before MultiBackendNet.SetPreferableBackend).">InferenceFrameworkKind.Unknown</a> before <a class="el" href="#a9efed31110216840fec4a487ede73bba" title="Commits the DNN backend; creates the OpenCV or Sentis inner net.">SetPreferableBackend</a>.  <br /></td></tr>
+<tr class="separator:a34d604c421b57e3eeb462ecb1e0993f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e94289edc640bd25281450fde749f4c" id="r_a4e94289edc640bd25281450fde749f4c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e94289edc640bd25281450fde749f4c">PreferredBackend</a><code> [get]</code></td></tr>
-<tr class="memdesc:a4e94289edc640bd25281450fde749f4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Last <a class="el" href="#a286fda5d70504fc3f88c1db2a8f269c1" title="Commits the DNN backend; triggers lazy creation of the OpenCV Net (non-Sentis) or prepares the Sentis...">setPreferableBackend</a> argument: an OpenCV <code>DNN_BACKEND_*</code> value, <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a1c454cd9b414d8c4394390e8a0e42318" title="Backend id for Sentis inference. Use with com.unity.ai.inference 2.6.1 or newer and the OPENCV_SENTIS...">MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS</a>, or the equivalent alias <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#ac8a51f224431da34a696337bac535493" title="Alias of DNN_BACKEND_UNITY_SENTIS for the Sentis path. This is the same discriminator value as DNN_BA...">MultiBackendDnn.DNN_BACKEND_UNITY_INFERENCE_ENGINE</a>.  <br /></td></tr>
+<tr class="memdesc:a4e94289edc640bd25281450fde749f4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Last <a class="el" href="#a9efed31110216840fec4a487ede73bba" title="Commits the DNN backend; creates the OpenCV or Sentis inner net.">SetPreferableBackend</a> argument: an OpenCV <code>DNN_BACKEND_*</code> value, <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a1c454cd9b414d8c4394390e8a0e42318" title="Alias of SentisInferenceDnn.DNN_BACKEND_UNITY_SENTIS for MultiBackend API callers....">MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS</a>, or the equivalent alias <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#ac8a51f224431da34a696337bac535493" title="Alias of DNN_BACKEND_UNITY_SENTIS for the Sentis path. This is the same discriminator value as DNN_BA...">MultiBackendDnn.DNN_BACKEND_UNITY_INFERENCE_ENGINE</a>.  <br /></td></tr>
 <tr class="separator:a4e94289edc640bd25281450fde749f4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a203fde2b3000b884f02816fb7b555134" id="r_a203fde2b3000b884f02816fb7b555134"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a203fde2b3000b884f02816fb7b555134">PreferredTarget</a><code> [get]</code></td></tr>
-<tr class="memdesc:a203fde2b3000b884f02816fb7b555134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Last <a class="el" href="#a35eeea92ee4f8c71659f3db16c4b405a" title="Commits the DNN target (CPU, GPU, etc.); for Sentis, together with setPreferableBackend,...">setPreferableTarget</a> argument: OpenCV <code>DNN_TARGET_*</code> or, for Sentis, an int cast from the Sentis runtime <code>BackendType</code> enum (API namespace <code>Unity.InferenceEngine</code>).  <br /></td></tr>
+<tr class="memdesc:a203fde2b3000b884f02816fb7b555134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Last <a class="el" href="#a81f86d12e74f0010e6d46dc18cca32c6" title="Commits the DNN target (CPU, GPU, etc.); for Sentis, together with SetPreferableBackend,...">SetPreferableTarget</a> argument: OpenCV <code>DNN_TARGET_*</code> or, for Sentis, an int cast from the Sentis runtime <code>BackendType</code> enum (API namespace <code>Unity.InferenceEngine</code>). Returns the last value passed to <a class="el" href="#a81f86d12e74f0010e6d46dc18cca32c6" title="Commits the DNN target (CPU, GPU, etc.); for Sentis, together with SetPreferableBackend,...">SetPreferableTarget</a>; on Sentis, after the <code><a class="el" href="../../dd/d2c/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker.html">Worker</a></code> is allocated, this may not match the runtime actually used for inference (see class remarks).  <br /></td></tr>
 <tr class="separator:a203fde2b3000b884f02816fb7b555134"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae305476dfb07336bfc81c446f5d98ce9" id="r_ae305476dfb07336bfc81c446f5d98ce9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae305476dfb07336bfc81c446f5d98ce9">UsesSentis</a><code> [get]</code></td></tr>
-<tr class="memdesc:ae305476dfb07336bfc81c446f5d98ce9"><td class="mdescLeft">&#160;</td><td class="mdescRight">True when <a class="el" href="#a286fda5d70504fc3f88c1db2a8f269c1" title="Commits the DNN backend; triggers lazy creation of the OpenCV Net (non-Sentis) or prepares the Sentis...">setPreferableBackend</a> was called with <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a1c454cd9b414d8c4394390e8a0e42318" title="Backend id for Sentis inference. Use with com.unity.ai.inference 2.6.1 or newer and the OPENCV_SENTIS...">MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS</a> or <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#ac8a51f224431da34a696337bac535493" title="Alias of DNN_BACKEND_UNITY_SENTIS for the Sentis path. This is the same discriminator value as DNN_BA...">MultiBackendDnn.DNN_BACKEND_UNITY_INFERENCE_ENGINE</a> (same value; Sentis path).  <br /></td></tr>
-<tr class="separator:ae305476dfb07336bfc81c446f5d98ce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Subset of OpenCV Net for inference with either OpenCV DNN or Sentis, with deferred initialization after <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a42b3ce4b252da67ab403d6c451fc5805" title="Factory with the same signature as OpenCVForUnity.DnnModule.Dnn.readNet(string); returns MultiBackend...">MultiBackendDnn.readNet</a>. </p>
-<p><b>Initialization order (required):</b> <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a42b3ce4b252da67ab403d6c451fc5805" title="Factory with the same signature as OpenCVForUnity.DnnModule.Dnn.readNet(string); returns MultiBackend...">MultiBackendDnn.readNet</a> → <a class="el" href="#a286fda5d70504fc3f88c1db2a8f269c1" title="Commits the DNN backend; triggers lazy creation of the OpenCV Net (non-Sentis) or prepares the Sentis...">setPreferableBackend</a> → <a class="el" href="#a35eeea92ee4f8c71659f3db16c4b405a" title="Commits the DNN target (CPU, GPU, etc.); for Sentis, together with setPreferableBackend,...">setPreferableTarget</a> → <a class="el" href="#a313d0040a72f034b496922e9b65aac2f" title="Returns the model’s unconnected output layer (tensor) names, sorted with StringComparer....">getUnconnectedOutLayersNames</a> (optional cache) → <a class="el" href="#a90d37af448422a5f2790293a8162ca39" title="Sets the network input. OpenCV: delegates to Net.setInput(Mat). Sentis: copies blob  into the preallo...">setInput</a> / <a class="el" href="#a17f0af03e4f79a25d592f2d1226423b0" title="Runs a forward pass. outBlobNames  must equal the list from getUnconnectedOutLayersNames in order and...">forward</a>. Do not call <a class="el" href="#a313d0040a72f034b496922e9b65aac2f" title="Returns the model’s unconnected output layer (tensor) names, sorted with StringComparer....">getUnconnectedOutLayersNames</a>, <a class="el" href="#a90d37af448422a5f2790293a8162ca39" title="Sets the network input. OpenCV: delegates to Net.setInput(Mat). Sentis: copies blob  into the preallo...">setInput</a>, or <a class="el" href="#a17f0af03e4f79a25d592f2d1226423b0" title="Runs a forward pass. outBlobNames  must equal the list from getUnconnectedOutLayersNames in order and...">forward</a> before both <a class="el" href="#a286fda5d70504fc3f88c1db2a8f269c1" title="Commits the DNN backend; triggers lazy creation of the OpenCV Net (non-Sentis) or prepares the Sentis...">setPreferableBackend</a> and <a class="el" href="#a35eeea92ee4f8c71659f3db16c4b405a" title="Commits the DNN target (CPU, GPU, etc.); for Sentis, together with setPreferableBackend,...">setPreferableTarget</a>; doing so throws. </p>
-<p><b>Deferred loading:</b> the factory does not load OpenCV Net or build a Sentis <code><a class="el" href="../../dd/d2c/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker.html">Worker</a></code> until the backend and target are set. The Sentis path uses the model’s static input <code>TensorShape</code> from <code>ModelLoader</code> metadata (dynamic input shapes are not supported). </p>
-<p><b>Output layer names:</b> <a class="el" href="#a313d0040a72f034b496922e9b65aac2f" title="Returns the model’s unconnected output layer (tensor) names, sorted with StringComparer....">getUnconnectedOutLayersNames</a> returns names sorted with StringComparer.Ordinal so OpenCV DNN and Sentis call sites share one ordering. Pass the same list to <a class="el" href="#a17f0af03e4f79a25d592f2d1226423b0" title="Runs a forward pass. outBlobNames  must equal the list from getUnconnectedOutLayersNames in order and...">forward</a> and <a class="el" href="#a422e89ed196e8367f61217745792935d" title="Asynchronous forward pass for the Sentis path only, using ReadbackAndCloneAsync for outputs.">forwardTaskAsync</a> as <code>outBlobNames</code>. </p>
-<p><b>Backend id:</b> <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a1c454cd9b414d8c4394390e8a0e42318" title="Backend id for Sentis inference. Use with com.unity.ai.inference 2.6.1 or newer and the OPENCV_SENTIS...">MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS</a> and the equivalent alias <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#ac8a51f224431da34a696337bac535493" title="Alias of DNN_BACKEND_UNITY_SENTIS for the Sentis path. This is the same discriminator value as DNN_BA...">MultiBackendDnn.DNN_BACKEND_UNITY_INFERENCE_ENGINE</a> (same integer discriminator) select the Sentis path only. Neither is OpenCV’s Intel backend id (<a class="el" href="../../dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#aec12aa14443c6c0fe5d63dfeb677cfce" title="C++: enum Backend (cv.dnn.Backend)">Dnn.DNN_BACKEND_INFERENCE_ENGINE</a>); those constants differ in value and meaning. </p>
-<p><b>OpenCV mode</b> (<a class="el" href="#a17f0af03e4f79a25d592f2d1226423b0" title="Runs a forward pass. outBlobNames  must equal the list from getUnconnectedOutLayersNames in order and...">forward</a>): the wrapper disposes Mat instances it appended on the previous <a class="el" href="#a17f0af03e4f79a25d592f2d1226423b0" title="Runs a forward pass. outBlobNames  must equal the list from getUnconnectedOutLayersNames in order and...">forward</a> when the next <a class="el" href="#a17f0af03e4f79a25d592f2d1226423b0" title="Runs a forward pass. outBlobNames  must equal the list from getUnconnectedOutLayersNames in order and...">forward</a> runs, and in <a class="el" href="#a96b20668994abc0358564d998d51eb2f" title="Releases the OpenCV Net, Sentis resources, and any OpenCV Mat instances owned from the last forward c...">Dispose</a>. Do not dispose those outputs in application code. Do not pre-fill <code>outputBlobs</code> with foreign Mat and expect the wrapper to own them; only outputs produced by the internal OpenCV <a class="el" href="../../d2/d28/classOpenCVForUnity_1_1DnnModule_1_1Net.html#a297644689bec64faa4fe6a7040672209" title="Runs forward pass to compute output of layer with name outputName.">Net.forward</a> call are managed. </p>
-<p><b>Sentis mode</b>: internal output Mat buffers are reused; the same instances are appended each time to the provided list (after List&lt;T&gt;.Clear inside <a class="el" href="#a17f0af03e4f79a25d592f2d1226423b0" title="Runs a forward pass. outBlobNames  must equal the list from getUnconnectedOutLayersNames in order and...">forward</a> / <a class="el" href="#a422e89ed196e8367f61217745792935d" title="Asynchronous forward pass for the Sentis path only, using ReadbackAndCloneAsync for outputs.">forwardTaskAsync</a>). </p>
+<div class="textblock"><p>Closed facade over OpenCV DNN or Sentis inference nets, with deferred initialization after <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a4a96344a0a828cc2a938e5a45e2dd3f7" title="Factory with the same signature as OpenCVForUnity.DnnModule.Dnn.readNet(string); returns MultiBackend...">MultiBackendDnn.ReadNet</a>. Implements IDnnInferenceNamedIONet and, as a type, IDnnAsyncInferenceNet / IDnnAsyncNamedOutputInferenceNet (async methods throw on the OpenCV path). </p>
+<p><b>Initialization order (required):</b> <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a4a96344a0a828cc2a938e5a45e2dd3f7" title="Factory with the same signature as OpenCVForUnity.DnnModule.Dnn.readNet(string); returns MultiBackend...">MultiBackendDnn.ReadNet</a> → <a class="el" href="#a9efed31110216840fec4a487ede73bba" title="Commits the DNN backend; creates the OpenCV or Sentis inner net.">SetPreferableBackend</a> → <a class="el" href="#a81f86d12e74f0010e6d46dc18cca32c6" title="Commits the DNN target (CPU, GPU, etc.); for Sentis, together with SetPreferableBackend,...">SetPreferableTarget</a> → <a class="el" href="#a59ba4706c9e056828b182240a505c58e" title="Returns the model’s unconnected output layer (tensor) names, sorted with DnnInferenceNetUnconnectedOu...">GetUnconnectedOutLayersNames</a> (optional cache) → <a class="el" href="#adc38f90a64c0d9347ba2ed875260403a" title="Sets the network input. Delegates to the active inner net.">SetInput</a> / <a class="el" href="#a08cadf15bdeddd31cee6839714405b81" title="Runs a forward pass. outBlobNames  must equal the list from GetUnconnectedOutLayersNames in order and...">Forward</a>. Do not call <a class="el" href="#a59ba4706c9e056828b182240a505c58e" title="Returns the model’s unconnected output layer (tensor) names, sorted with DnnInferenceNetUnconnectedOu...">GetUnconnectedOutLayersNames</a>, <a class="el" href="#adc38f90a64c0d9347ba2ed875260403a" title="Sets the network input. Delegates to the active inner net.">SetInput</a>, or <a class="el" href="#a08cadf15bdeddd31cee6839714405b81" title="Runs a forward pass. outBlobNames  must equal the list from GetUnconnectedOutLayersNames in order and...">Forward</a> before both <a class="el" href="#a9efed31110216840fec4a487ede73bba" title="Commits the DNN backend; creates the OpenCV or Sentis inner net.">SetPreferableBackend</a> and <a class="el" href="#a81f86d12e74f0010e6d46dc18cca32c6" title="Commits the DNN target (CPU, GPU, etc.); for Sentis, together with SetPreferableBackend,...">SetPreferableTarget</a>; doing so throws. </p>
+<p><b>Deferred loading:</b> the factory does not create the inner net until <a class="el" href="#a9efed31110216840fec4a487ede73bba" title="Commits the DNN backend; creates the OpenCV or Sentis inner net.">SetPreferableBackend</a>. OpenCV uses <a class="el" href="../../d3/dbd/classOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1OpenCVDnnInferenceDnn.html#a7945f2a56afbc303069e15ead62dd155" title="Loads a model from disk with the given OpenCV DNN engine and returns a wrapped OpenCV Net.">OpenCVDnnInferenceDnn.ReadNet(string, int)</a> with the engine stored from <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a2e9d76e125b04713f9422145b1198280" title="Factory matching ReadNet(string) with an OpenCV DNN engine for the OpenCV path.">MultiBackendDnn.ReadNet(string, int)</a>. Sentis uses <a class="el" href="../../db/d62/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1SentisInferenceDnn.html#af08188827c1e73500a4e6b1263a9d126" title="Loads a Sentis model from model  and returns a SentisInferenceNet without creating a Sentis Worker ye...">SentisInferenceDnn.ReadNet(string)</a> when Sentis integration is available. The engine is ignored on the Sentis path. Inner IDnnInferenceNet.SetPreferableTarget finishes Sentis <code><a class="el" href="../../dd/d2c/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker.html">Worker</a></code> allocation; see <a class="el" href="../../dd/d49/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1SentisInferenceNet.html" title="Sentis (Unity Inference Engine) implementation of IDnnInferenceNamedIONet with optional asynchronous ...">SentisInferenceNet</a> remarks for buffer timing and dynamic shapes. </p>
+<p><b>Output layer names:</b> <a class="el" href="#a59ba4706c9e056828b182240a505c58e" title="Returns the model’s unconnected output layer (tensor) names, sorted with DnnInferenceNetUnconnectedOu...">GetUnconnectedOutLayersNames</a> returns names sorted with DnnInferenceNetUnconnectedOutLayersNames.LAYER_NAME_COMPARER so OpenCV DNN and Sentis call sites share one ordering. Pass the same list to <a class="el" href="#a08cadf15bdeddd31cee6839714405b81" title="Runs a forward pass. outBlobNames  must equal the list from GetUnconnectedOutLayersNames in order and...">Forward</a> and <a class="el" href="#a06ed0bd3f6d2d9aaa9c12f056f7d581b" title="Asynchronous forward pass when the inner net implements IDnnAsyncInferenceNet (Sentis path).">ForwardAsync</a> as <code>outBlobNames</code>. </p>
+<p><b>Backend id:</b> <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a1c454cd9b414d8c4394390e8a0e42318" title="Alias of SentisInferenceDnn.DNN_BACKEND_UNITY_SENTIS for MultiBackend API callers....">MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS</a> and the equivalent alias <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#ac8a51f224431da34a696337bac535493" title="Alias of DNN_BACKEND_UNITY_SENTIS for the Sentis path. This is the same discriminator value as DNN_BA...">MultiBackendDnn.DNN_BACKEND_UNITY_INFERENCE_ENGINE</a> (same integer discriminator) select the Sentis path only. Neither is OpenCV’s Intel backend id (<a class="el" href="../../dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#aec12aa14443c6c0fe5d63dfeb677cfce" title="C++: enum Backend (cv.dnn.Backend)">Dnn.DNN_BACKEND_INFERENCE_ENGINE</a>); those constants differ in value and meaning. </p>
+<p><b><code>SetPreferable*</code> (re-invocation):</b> <a class="el" href="#a9efed31110216840fec4a487ede73bba" title="Commits the DNN backend; creates the OpenCV or Sentis inner net.">SetPreferableBackend</a> and <a class="el" href="#a81f86d12e74f0010e6d46dc18cca32c6" title="Commits the DNN target (CPU, GPU, etc.); for Sentis, together with SetPreferableBackend,...">SetPreferableTarget</a> are intended for one-time setup immediately after <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a4a96344a0a828cc2a938e5a45e2dd3f7" title="Factory with the same signature as OpenCVForUnity.DnnModule.Dnn.readNet(string); returns MultiBackend...">MultiBackendDnn.ReadNet</a> (as used by <code>*MultiBackend</code> workers and sample scenes). </p><ul>
+<li>
+<b>OpenCV path:</b> either method may be called again; each call forwards to the underlying OpenCV Net. </li>
+<li>
+<b>Sentis path:</b> switching between OpenCV DNN and Sentis on the same instance after the first <a class="el" href="#a9efed31110216840fec4a487ede73bba" title="Commits the DNN backend; creates the OpenCV or Sentis inner net.">SetPreferableBackend</a> throws. </li>
+<li>
+<b>Sentis path (target):</b> after the Sentis <code><a class="el" href="../../dd/d2c/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker.html">Worker</a></code> is created, a later <a class="el" href="#a81f86d12e74f0010e6d46dc18cca32c6" title="Commits the DNN target (CPU, GPU, etc.); for Sentis, together with SetPreferableBackend,...">SetPreferableTarget</a> updates <a class="el" href="#a203fde2b3000b884f02816fb7b555134" title="Last SetPreferableTarget argument: OpenCV DNN_TARGET_* or, for Sentis, an int cast from the Sentis ru...">PreferredTarget</a> but does <b>not</b> recreate the <code><a class="el" href="../../dd/d2c/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker.html">Worker</a></code>; inference keeps using the <code>BackendType</code> from the first successful initialization. </li>
+<li>
+To change backend or Sentis runtime target, <a class="el" href="#a96b20668994abc0358564d998d51eb2f" title="Releases the inner net and any resources it owns.">Dispose</a> this instance and create a new one via <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a4a96344a0a828cc2a938e5a45e2dd3f7" title="Factory with the same signature as OpenCVForUnity.DnnModule.Dnn.readNet(string); returns MultiBackend...">MultiBackendDnn.ReadNet</a>. </li>
+</ul>
+<p><a class="el" href="#a4e94289edc640bd25281450fde749f4c" title="Last SetPreferableBackend argument: an OpenCV DNN_BACKEND_* value, MultiBackendDnn....">PreferredBackend</a> and <a class="el" href="#a203fde2b3000b884f02816fb7b555134" title="Last SetPreferableTarget argument: OpenCV DNN_TARGET_* or, for Sentis, an int cast from the Sentis ru...">PreferredTarget</a> return the last values passed to <code>SetPreferable*</code>; on Sentis they do not reflect a live runtime change after the <code><a class="el" href="../../dd/d2c/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker.html">Worker</a></code> has been allocated. <a class="el" href="#a34d604c421b57e3eeb462ecb1e0993f2" title="Wrapper family of the active inner net: InferenceFrameworkKind.OpenCvDnn, InferenceFrameworkKind....">ActiveInferenceFramework</a> reports which wrapper family was selected at <a class="el" href="#a9efed31110216840fec4a487ede73bba" title="Commits the DNN backend; creates the OpenCV or Sentis inner net.">SetPreferableBackend</a> (<a class="el" href="../../dc/d3b/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule.html#a8cf44aedd19023d6487ce403e1b258dfa88183b946cc5f0e8c96b2e66e1c74a7e" title="Framework has not been selected yet (before MultiBackendNet.SetPreferableBackend).">InferenceFrameworkKind.Unknown</a> before that call). </p>
+<p><b>Provider / target consistency:</b> after <a class="el" href="#a9efed31110216840fec4a487ede73bba" title="Commits the DNN backend; creates the OpenCV or Sentis inner net.">SetPreferableBackend</a>, <a class="el" href="#a81f86d12e74f0010e6d46dc18cca32c6" title="Commits the DNN target (CPU, GPU, etc.); for Sentis, together with SetPreferableBackend,...">SetPreferableTarget</a> validates that the target id belongs to the active provider (OpenCV <code>DNN_TARGET_*</code> vs Sentis <code>BackendType</code> runtime ids). Cross-stack ids throw ArgumentOutOfRangeException on the int overload; provider-specific enum overloads also throw <a class="el" href="../../d1/df9/classInvalidOperationException.html">InvalidOperationException</a> when the enum stack does not match <a class="el" href="#a34d604c421b57e3eeb462ecb1e0993f2" title="Wrapper family of the active inner net: InferenceFrameworkKind.OpenCvDnn, InferenceFrameworkKind....">ActiveInferenceFramework</a>. </p>
+<p><b>OpenCV mode</b> (<a class="el" href="#a08cadf15bdeddd31cee6839714405b81" title="Runs a forward pass. outBlobNames  must equal the list from GetUnconnectedOutLayersNames in order and...">Forward</a>): output Mat ownership matches OpenCVDnnInferenceNet. The wrapper disposes instances it appended on the previous <a class="el" href="#a08cadf15bdeddd31cee6839714405b81" title="Runs a forward pass. outBlobNames  must equal the list from GetUnconnectedOutLayersNames in order and...">Forward</a> when the next <a class="el" href="#a08cadf15bdeddd31cee6839714405b81" title="Runs a forward pass. outBlobNames  must equal the list from GetUnconnectedOutLayersNames in order and...">Forward</a> runs, and in <a class="el" href="#a96b20668994abc0358564d998d51eb2f" title="Releases the inner net and any resources it owns.">Dispose</a>. Do not dispose those outputs in application code. Do not pre-fill <code>outputBlobs</code> with foreign Mat and expect the wrapper to own them; only outputs produced by the internal OpenCV <a class="el" href="../../d2/d28/classOpenCVForUnity_1_1DnnModule_1_1Net.html#a297644689bec64faa4fe6a7040672209" title="Runs forward pass to compute output of layer with name outputName.">Net.forward</a> call are managed. </p>
+<p><b>Sentis mode</b>: ownership and buffer reuse match <a class="el" href="../../dd/d49/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1SentisInferenceNet.html" title="Sentis (Unity Inference Engine) implementation of IDnnInferenceNamedIONet with optional asynchronous ...">SentisInferenceNet</a> (inner implementation). </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a96b20668994abc0358564d998d51eb2f" name="a96b20668994abc0358564d998d51eb2f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a96b20668994abc0358564d998d51eb2f">&#9670;&#160;</a></span>Dispose()</h2>
@@ -203,18 +253,18 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Releases the OpenCV Net, Sentis resources, and any OpenCV Mat instances owned from the last <a class="el" href="#a17f0af03e4f79a25d592f2d1226423b0" title="Runs a forward pass. outBlobNames  must equal the list from getUnconnectedOutLayersNames in order and...">forward</a> call. </p>
+<p>Releases the inner net and any resources it owns. </p>
 
 </div>
 </div>
-<a id="a17f0af03e4f79a25d592f2d1226423b0" name="a17f0af03e4f79a25d592f2d1226423b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a17f0af03e4f79a25d592f2d1226423b0">&#9670;&#160;</a></span>forward()</h2>
+<a id="a08cadf15bdeddd31cee6839714405b81" name="a08cadf15bdeddd31cee6839714405b81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08cadf15bdeddd31cee6839714405b81">&#9670;&#160;</a></span>Forward() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.forward </td>
+          <td class="memname">void OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.Forward </td>
           <td>(</td>
           <td class="paramtype">List&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>outputBlobs</em></span>, </td>
         </tr>
@@ -226,88 +276,241 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Runs a forward pass. <em>outBlobNames</em>  must equal the list from <a class="el" href="#a313d0040a72f034b496922e9b65aac2f" title="Returns the model’s unconnected output layer (tensor) names, sorted with StringComparer....">getUnconnectedOutLayersNames</a> in order and count. </p>
+<p>Runs a forward pass. <em>outBlobNames</em>  must equal the list from <a class="el" href="#a59ba4706c9e056828b182240a505c58e" title="Returns the model’s unconnected output layer (tensor) names, sorted with DnnInferenceNetUnconnectedOu...">GetUnconnectedOutLayersNames</a> in order and count. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">outputBlobs</td><td>Cleared and filled with outputs; see class remarks for OpenCV vs Sentis ownership of Mat instances.</td></tr>
-    <tr><td class="paramname">outBlobNames</td><td>Output names in StringComparer.Ordinal order, matching <a class="el" href="#a313d0040a72f034b496922e9b65aac2f" title="Returns the model’s unconnected output layer (tensor) names, sorted with StringComparer....">getUnconnectedOutLayersNames</a>.</td></tr>
+    <tr><td class="paramname">outBlobNames</td><td>Output names in DnnInferenceNetUnconnectedOutLayersNames.LAYER_NAME_COMPARER order, matching <a class="el" href="#a59ba4706c9e056828b182240a505c58e" title="Returns the model’s unconnected output layer (tensor) names, sorted with DnnInferenceNetUnconnectedOu...">GetUnconnectedOutLayersNames</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="../../de/d0f/interfaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1IDnnInferenceNet.html#a477ce964a27c06524e6e5f6134d876a4">OpenCVForUnity.Extensions.Worker.DnnModule.IDnnInferenceNet</a>.</p>
+
+</div>
+</div>
+<a id="a7c452b1a3325bfda631b68ee40b26580" name="a7c452b1a3325bfda631b68ee40b26580"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c452b1a3325bfda631b68ee40b26580">&#9670;&#160;</a></span>Forward() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.Forward </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>outputName</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Runs a forward pass and returns the output Mat for <em>outputName</em> . </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">outputName</td><td>Output layer or tensor name.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The output Mat for <em>outputName</em> ; see class remarks for ownership.</dd></dl>
+
+<p>Implements <a class="el" href="../../d4/dd6/interfaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1IDnnInferenceNamedIONet.html#a551d10c88c0a73eef07ac023c4250e6f">OpenCVForUnity.Extensions.Worker.DnnModule.IDnnInferenceNamedIONet</a>.</p>
+
+</div>
+</div>
+<a id="a06ed0bd3f6d2d9aaa9c12f056f7d581b" name="a06ed0bd3f6d2d9aaa9c12f056f7d581b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06ed0bd3f6d2d9aaa9c12f056f7d581b">&#9670;&#160;</a></span>ForwardAsync() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Task OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.ForwardAsync </td>
+          <td>(</td>
+          <td class="paramtype">List&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>outputBlobs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>outBlobNames</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Asynchronous forward pass when the inner net implements IDnnAsyncInferenceNet (Sentis path). </p>
+<p>Throws <a class="el" href="../../d1/df9/classInvalidOperationException.html">InvalidOperationException</a> on the OpenCV path. <em>outBlobNames</em>  must match <a class="el" href="#a59ba4706c9e056828b182240a505c58e" title="Returns the model’s unconnected output layer (tensor) names, sorted with DnnInferenceNetUnconnectedOu...">GetUnconnectedOutLayersNames</a> (same as <a class="el" href="#a08cadf15bdeddd31cee6839714405b81" title="Runs a forward pass. outBlobNames  must equal the list from GetUnconnectedOutLayersNames in order and...">Forward</a>). </p>
+
+<p>Implements <a class="el" href="../../d6/d40/interfaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1IDnnAsyncInferenceNet.html#ad12ee0061d5c2e6876818398f331a147">OpenCVForUnity.Extensions.Worker.DnnModule.IDnnAsyncInferenceNet</a>.</p>
+
+</div>
+</div>
+<a id="ac1b4dd2862a5b9fdda9d67ad4a46d4dd" name="ac1b4dd2862a5b9fdda9d67ad4a46d4dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1b4dd2862a5b9fdda9d67ad4a46d4dd">&#9670;&#160;</a></span>ForwardAsync() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Task&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> &gt; OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.ForwardAsync </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>outputName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Asynchronous forward pass for a single named output when the inner net implements IDnnAsyncNamedOutputInferenceNet (Sentis path). </p>
+<p>Throws <a class="el" href="../../d1/df9/classInvalidOperationException.html">InvalidOperationException</a> on the OpenCV path. Ownership matches synchronous <a class="el" href="#a7c452b1a3325bfda631b68ee40b26580" title="Runs a forward pass and returns the output Mat for outputName .">Forward(string)</a>.</p>
+
+<p>Implements <a class="el" href="../../dd/d0a/interfaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1IDnnAsyncNamedOutputInferenceNet.html#ace3f1ddced004d366421a56fbaa54a26">OpenCVForUnity.Extensions.Worker.DnnModule.IDnnAsyncNamedOutputInferenceNet</a>.</p>
+
+</div>
+</div>
+<a id="a55dafd29ccc22a5024a74e746211f5cf" name="a55dafd29ccc22a5024a74e746211f5cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55dafd29ccc22a5024a74e746211f5cf">&#9670;&#160;</a></span>ForwardTaskAsync() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Task OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.ForwardTaskAsync </td>
+          <td>(</td>
+          <td class="paramtype">List&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>outputBlobs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>outBlobNames</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Asynchronous forward pass when the inner net implements IDnnAsyncInferenceNet (Sentis path). </p>
+<p><code> </p><dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000041">Deprecated</a></b></dt><dd>Use <a class="el" href="#a06ed0bd3f6d2d9aaa9c12f056f7d581b" title="Asynchronous forward pass when the inner net implements IDnnAsyncInferenceNet (Sentis path).">ForwardAsync(List&lt;Mat&gt;, List&lt;string&gt;, CancellationToken)</a> instead.</dd></dl>
+<p></code></p>
+<p><code> </code></p>
+<p><code>Throws <a class="el" href="../../d1/df9/classInvalidOperationException.html">InvalidOperationException</a> on the OpenCV path. <em>outBlobNames</em>  must match <a class="el" href="#a59ba4706c9e056828b182240a505c58e" title="Returns the model’s unconnected output layer (tensor) names, sorted with DnnInferenceNetUnconnectedOu...">GetUnconnectedOutLayersNames</a> (same as <a class="el" href="#a08cadf15bdeddd31cee6839714405b81" title="Runs a forward pass. outBlobNames  must equal the list from GetUnconnectedOutLayersNames in order and...">Forward</a>).</code></p>
+<p><code> </code></p>
+<p><code> </code></p>
+
+</div>
+</div>
+<a id="a38de2a911ccd078305d936cbe7e7f84b" name="a38de2a911ccd078305d936cbe7e7f84b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38de2a911ccd078305d936cbe7e7f84b">&#9670;&#160;</a></span>ForwardTaskAsync() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Task&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> &gt; OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.ForwardTaskAsync </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>outputName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Asynchronous forward pass for a single named output when the inner net implements IDnnAsyncNamedOutputInferenceNet (Sentis path). </p>
+<p><code> </p><dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000042">Deprecated</a></b></dt><dd>Use <a class="el" href="#ac1b4dd2862a5b9fdda9d67ad4a46d4dd" title="Asynchronous forward pass for a single named output when the inner net implements IDnnAsyncNamedOutpu...">ForwardAsync(string, CancellationToken)</a> instead.</dd></dl>
+<p></code></p>
+<p><code> </code></p>
+<p><code>Throws <a class="el" href="../../d1/df9/classInvalidOperationException.html">InvalidOperationException</a> on the OpenCV path. Ownership matches synchronous <a class="el" href="#a7c452b1a3325bfda631b68ee40b26580" title="Runs a forward pass and returns the output Mat for outputName .">Forward(string)</a>.</code></p>
+<p><code> </code></p>
+<p><code> </code></p>
+
+</div>
+</div>
+<a id="a50a18d8047bb2868efa0c4aa3c2ee04d" name="a50a18d8047bb2868efa0c4aa3c2ee04d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50a18d8047bb2868efa0c4aa3c2ee04d">&#9670;&#160;</a></span>GetBackendDisplayString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static string OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.GetBackendDisplayString </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>dnnBackend</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a short human-readable label for a DNN backend id. When <em>dnnBackend</em>  is the Sentis discriminator, delegates to <a class="el" href="../../dd/d49/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1SentisInferenceNet.html#ac77c28ce1f76fc75a598b0d38c1dea0f" title="Returns a short human-readable label for a Sentis-oriented DNN backend id, e.g. for UI overlays or lo...">SentisInferenceNet.GetBackendDisplayString</a>; when it is a known OpenCV <code>DNN_BACKEND_*</code> id, delegates to <a class="el" href="../../db/d14/classOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1OpenCVDnnInferenceNet.html#ae7006e9fd3b35a79672da1e96c14b9d9" title="Returns a short human-readable label for an OpenCV DNN_BACKEND_* id, e.g. for UI overlays or logs.">OpenCVDnnInferenceNet.GetBackendDisplayString</a>; otherwise returns the integer as a string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dnnBackend</td><td>Value from <a class="el" href="#a4e94289edc640bd25281450fde749f4c" title="Last SetPreferableBackend argument: an OpenCV DNN_BACKEND_* value, MultiBackendDnn....">PreferredBackend</a>, <a class="el" href="../../d9/d25/classOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1DnnInferenceWorkerBase.html#ae3fc843cae791dfb7e70d84cb2308e76" title="OpenCV DNN DNN_BACKEND_* constant supplied at construction.">DnnInferenceWorkerBase.DnnBackend</a>, or equivalent.</td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a899646a5d6f6e306c76ba18a0b93206e" name="a899646a5d6f6e306c76ba18a0b93206e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a899646a5d6f6e306c76ba18a0b93206e">&#9670;&#160;</a></span>forwardAsync()</h2>
+<a id="affb77ca0b65c631a30054fd46948161a" name="affb77ca0b65c631a30054fd46948161a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affb77ca0b65c631a30054fd46948161a">&#9670;&#160;</a></span>GetTargetDisplayString()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Task OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.forwardAsync </td>
+          <td class="memname">static string OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.GetTargetDisplayString </td>
           <td>(</td>
-          <td class="paramtype">List&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>outputBlobs</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>dnnTarget</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">List&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>outBlobNames</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span>&#160;)</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Asynchronous forward pass for the Sentis path only, using <code>ReadbackAndCloneAsync</code> for outputs. </p>
-<p><code> </p><dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000022">Deprecated</a></b></dt><dd>Use <a class="el" href="#a422e89ed196e8367f61217745792935d" title="Asynchronous forward pass for the Sentis path only, using ReadbackAndCloneAsync for outputs.">forwardTaskAsync</a>. In a future version, this member will return Unity <code>Awaitable</code> instead of Task.</dd></dl>
-<p></code></p>
-<p><code> </code></p>
-<p><code>Throws if <a class="el" href="#ae305476dfb07336bfc81c446f5d98ce9" title="True when setPreferableBackend was called with MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS or MultiBacke...">UsesSentis</a> is false. <em>outBlobNames</em>  must match <a class="el" href="#a313d0040a72f034b496922e9b65aac2f" title="Returns the model’s unconnected output layer (tensor) names, sorted with StringComparer....">getUnconnectedOutLayersNames</a> (same as <a class="el" href="#a17f0af03e4f79a25d592f2d1226423b0" title="Runs a forward pass. outBlobNames  must equal the list from getUnconnectedOutLayersNames in order and...">forward</a>).</code></p>
-<p><code> </code></p>
-<p><code> </code></p>
+<p>Returns a short human-readable label for a target id. When <em>dnnTarget</em>  is a defined Sentis <code>BackendType</code> id, delegates to <a class="el" href="../../dd/d49/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1SentisInferenceNet.html#a537171ad0dadb3d4aa9d2d5a2e2853d4" title="Returns a short human-readable label for a Sentis runtime target id (BackendType as int).">SentisInferenceNet.GetTargetDisplayString</a>; when it is a known OpenCV <code>DNN_TARGET_*</code> id, delegates to <a class="el" href="../../db/d14/classOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1OpenCVDnnInferenceNet.html#a6dc3588e697c2b5fcfec09d2436016f6" title="Returns a short human-readable label for an OpenCV DNN_TARGET_* id, e.g. for UI overlays or logs.">OpenCVDnnInferenceNet.GetTargetDisplayString</a>; otherwise returns the integer as a string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dnnTarget</td><td>Value from <a class="el" href="#a203fde2b3000b884f02816fb7b555134" title="Last SetPreferableTarget argument: OpenCV DNN_TARGET_* or, for Sentis, an int cast from the Sentis ru...">PreferredTarget</a>, <a class="el" href="../../d9/d25/classOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1DnnInferenceWorkerBase.html#a18f44d3bcc6f2cfc38e9704bbc674e7d" title="OpenCV DNN DNN_TARGET_* constant supplied at construction.">DnnInferenceWorkerBase.DnnTarget</a>, or equivalent.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
-<a id="a422e89ed196e8367f61217745792935d" name="a422e89ed196e8367f61217745792935d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a422e89ed196e8367f61217745792935d">&#9670;&#160;</a></span>forwardTaskAsync()</h2>
+<a id="a59ba4706c9e056828b182240a505c58e" name="a59ba4706c9e056828b182240a505c58e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59ba4706c9e056828b182240a505c58e">&#9670;&#160;</a></span>GetUnconnectedOutLayersNames()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">async Task OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.forwardTaskAsync </td>
-          <td>(</td>
-          <td class="paramtype">List&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>outputBlobs</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">List&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>outBlobNames</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">CancellationToken</td>          <td class="paramname"><span class="paramname"><em>cancellationToken</em></span><span class="paramdefsep"> = </span><span class="paramdefval">default</span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Asynchronous forward pass for the Sentis path only, using <code>ReadbackAndCloneAsync</code> for outputs. </p>
-<p>Throws if <a class="el" href="#ae305476dfb07336bfc81c446f5d98ce9" title="True when setPreferableBackend was called with MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS or MultiBacke...">UsesSentis</a> is false. <em>outBlobNames</em>  must match <a class="el" href="#a313d0040a72f034b496922e9b65aac2f" title="Returns the model’s unconnected output layer (tensor) names, sorted with StringComparer....">getUnconnectedOutLayersNames</a> (same as <a class="el" href="#a17f0af03e4f79a25d592f2d1226423b0" title="Runs a forward pass. outBlobNames  must equal the list from getUnconnectedOutLayersNames in order and...">forward</a>).</p>
-
-</div>
-</div>
-<a id="a313d0040a72f034b496922e9b65aac2f" name="a313d0040a72f034b496922e9b65aac2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a313d0040a72f034b496922e9b65aac2f">&#9670;&#160;</a></span>getUnconnectedOutLayersNames()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">List&lt; string &gt; OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.getUnconnectedOutLayersNames </td>
+          <td class="memname">List&lt; string &gt; OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.GetUnconnectedOutLayersNames </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -315,18 +518,20 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the model’s unconnected output layer (tensor) names, sorted with StringComparer.Ordinal so OpenCV DNN and Sentis agree on a single order for <a class="el" href="#a17f0af03e4f79a25d592f2d1226423b0" title="Runs a forward pass. outBlobNames  must equal the list from getUnconnectedOutLayersNames in order and...">forward</a>. </p>
+<p>Returns the model’s unconnected output layer (tensor) names, sorted with DnnInferenceNetUnconnectedOutLayersNames.LAYER_NAME_COMPARER so OpenCV DNN and Sentis agree on a single order for <a class="el" href="#a08cadf15bdeddd31cee6839714405b81" title="Runs a forward pass. outBlobNames  must equal the list from GetUnconnectedOutLayersNames in order and...">Forward</a>. </p>
+
+<p>Implements <a class="el" href="../../de/d0f/interfaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1IDnnInferenceNet.html#a26e73dec952448320d362975e88889cc">OpenCVForUnity.Extensions.Worker.DnnModule.IDnnInferenceNet</a>.</p>
 
 </div>
 </div>
-<a id="a90d37af448422a5f2790293a8162ca39" name="a90d37af448422a5f2790293a8162ca39"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90d37af448422a5f2790293a8162ca39">&#9670;&#160;</a></span>setInput()</h2>
+<a id="adc38f90a64c0d9347ba2ed875260403a" name="adc38f90a64c0d9347ba2ed875260403a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc38f90a64c0d9347ba2ed875260403a">&#9670;&#160;</a></span>SetInput() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.setInput </td>
+          <td class="memname">void OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.SetInput </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>blob</em></span></td><td>)</td>
           <td></td>
@@ -334,18 +539,46 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the network input. OpenCV: delegates to <a class="el" href="../../d2/d28/classOpenCVForUnity_1_1DnnModule_1_1Net.html#ab720469fb5efb2d4afed3b0816a50ec8" title="Sets the new input value for the network.">Net.setInput(Mat)</a>. Sentis: copies <em>blob</em>  into the preallocated input <code>Tensor&lt;float&gt;</code> (element count must match the model; dynamic shapes are not supported). </p>
+<p>Sets the network input. Delegates to the active inner net. </p>
+
+<p>Implements <a class="el" href="../../de/d0f/interfaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1IDnnInferenceNet.html#a182a98e95a55d2174164fff80e3d8ff2">OpenCVForUnity.Extensions.Worker.DnnModule.IDnnInferenceNet</a>.</p>
 
 </div>
 </div>
-<a id="a286fda5d70504fc3f88c1db2a8f269c1" name="a286fda5d70504fc3f88c1db2a8f269c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a286fda5d70504fc3f88c1db2a8f269c1">&#9670;&#160;</a></span>setPreferableBackend()</h2>
+<a id="a0c69da2fddffdf57be13998894d8e6cb" name="a0c69da2fddffdf57be13998894d8e6cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c69da2fddffdf57be13998894d8e6cb">&#9670;&#160;</a></span>SetInput() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.setPreferableBackend </td>
+          <td class="memname">void OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.SetInput </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>blob</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>inputName</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the network input for the layer or tensor <em>inputName</em> . Delegates to the active inner net. </p>
+<p>May be called multiple times with the same or different <em>inputName</em>  values before <a class="el" href="#a7c452b1a3325bfda631b68ee40b26580" title="Runs a forward pass and returns the output Mat for outputName .">Forward(string)</a> or Forward(System.Collections.Generic.List&lt;Mat&gt;, System.Collections.Generic.List&lt;string&gt;).</p>
+
+<p>Implements <a class="el" href="../../d4/dd6/interfaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1IDnnInferenceNamedIONet.html#a874fe60b6bbf15f4ae1d7b90f5174473">OpenCVForUnity.Extensions.Worker.DnnModule.IDnnInferenceNamedIONet</a>.</p>
+
+</div>
+</div>
+<a id="a9efed31110216840fec4a487ede73bba" name="a9efed31110216840fec4a487ede73bba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9efed31110216840fec4a487ede73bba">&#9670;&#160;</a></span>SetPreferableBackend() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.SetPreferableBackend </td>
           <td>(</td>
           <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>backendId</em></span></td><td>)</td>
           <td></td>
@@ -353,25 +586,77 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Commits the DNN backend; triggers lazy creation of the OpenCV Net (non-Sentis) or prepares the Sentis path. </p>
-<p>Must be called before <a class="el" href="#a35eeea92ee4f8c71659f3db16c4b405a" title="Commits the DNN target (CPU, GPU, etc.); for Sentis, together with setPreferableBackend,...">setPreferableTarget</a>, <a class="el" href="#a313d0040a72f034b496922e9b65aac2f" title="Returns the model’s unconnected output layer (tensor) names, sorted with StringComparer....">getUnconnectedOutLayersNames</a>, and inference. You cannot switch between OpenCV DNN and Sentis on the same instance after the first call.</p>
+<p>Commits the DNN backend; creates the OpenCV or Sentis inner net. </p>
+<p>Must be called before <a class="el" href="#a81f86d12e74f0010e6d46dc18cca32c6" title="Commits the DNN target (CPU, GPU, etc.); for Sentis, together with SetPreferableBackend,...">SetPreferableTarget</a>, <a class="el" href="#a59ba4706c9e056828b182240a505c58e" title="Returns the model’s unconnected output layer (tensor) names, sorted with DnnInferenceNetUnconnectedOu...">GetUnconnectedOutLayersNames</a>, and inference. You cannot switch between OpenCV DNN and Sentis on the same instance after the first call. On the OpenCV path, re-invocation with another OpenCV <code>DNN_BACKEND_*</code> id updates the underlying Net (see class remarks). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">backendId</td><td>OpenCV <code>DNN_BACKEND_*</code>, <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a1c454cd9b414d8c4394390e8a0e42318" title="Backend id for Sentis inference. Use with com.unity.ai.inference 2.6.1 or newer and the OPENCV_SENTIS...">MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS</a>, or the equivalent alias <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#ac8a51f224431da34a696337bac535493" title="Alias of DNN_BACKEND_UNITY_SENTIS for the Sentis path. This is the same discriminator value as DNN_BA...">MultiBackendDnn.DNN_BACKEND_UNITY_INFERENCE_ENGINE</a> (same value as <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a1c454cd9b414d8c4394390e8a0e42318" title="Backend id for Sentis inference. Use with com.unity.ai.inference 2.6.1 or newer and the OPENCV_SENTIS...">MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS</a>). Sentis is <b>not</b> OpenCV/Intel <a class="el" href="../../dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#aec12aa14443c6c0fe5d63dfeb677cfce" title="C++: enum Backend (cv.dnn.Backend)">Dnn.DNN_BACKEND_INFERENCE_ENGINE</a> (different id).</td></tr>
+    <tr><td class="paramname">backendId</td><td>OpenCV <code>DNN_BACKEND_*</code>, <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a1c454cd9b414d8c4394390e8a0e42318" title="Alias of SentisInferenceDnn.DNN_BACKEND_UNITY_SENTIS for MultiBackend API callers....">MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS</a>, or the equivalent alias <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#ac8a51f224431da34a696337bac535493" title="Alias of DNN_BACKEND_UNITY_SENTIS for the Sentis path. This is the same discriminator value as DNN_BA...">MultiBackendDnn.DNN_BACKEND_UNITY_INFERENCE_ENGINE</a> (same value as <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a1c454cd9b414d8c4394390e8a0e42318" title="Alias of SentisInferenceDnn.DNN_BACKEND_UNITY_SENTIS for MultiBackend API callers....">MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS</a>). Sentis is <b>not</b> OpenCV/Intel <a class="el" href="../../dc/d6a/classOpenCVForUnity_1_1DnnModule_1_1Dnn.html#aec12aa14443c6c0fe5d63dfeb677cfce" title="C++: enum Backend (cv.dnn.Backend)">Dnn.DNN_BACKEND_INFERENCE_ENGINE</a> (different id).</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="../../de/d0f/interfaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1IDnnInferenceNet.html#a85d04f90dcf9fa96bc9f168cebcaca74">OpenCVForUnity.Extensions.Worker.DnnModule.IDnnInferenceNet</a>.</p>
+
+</div>
+</div>
+<a id="af0af5cad4c650e0da22cc9ad37c10cb5" name="af0af5cad4c650e0da22cc9ad37c10cb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0af5cad4c650e0da22cc9ad37c10cb5">&#9670;&#160;</a></span>SetPreferableBackend() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.SetPreferableBackend </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/d9c/namespaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule.html#a5529e7f2ff81f9d2943d2139e7997537">OpenCVDnnInferenceBackendKind</a></td>          <td class="paramname"><span class="paramname"><em>backend</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Commits the OpenCV DNN backend on the OpenCV provider path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">backend</td><td>OpenCV DNN backend kind.</td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a35eeea92ee4f8c71659f3db16c4b405a" name="a35eeea92ee4f8c71659f3db16c4b405a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35eeea92ee4f8c71659f3db16c4b405a">&#9670;&#160;</a></span>setPreferableTarget()</h2>
+<a id="ad69d9306dbb4366bd66b38d3750acdfb" name="ad69d9306dbb4366bd66b38d3750acdfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad69d9306dbb4366bd66b38d3750acdfb">&#9670;&#160;</a></span>SetPreferableBackend() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.setPreferableTarget </td>
+          <td class="memname">void OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.SetPreferableBackend </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/d3b/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule.html#a92b031037c9cea1c51828e2b8f0fecf3">SentisInferenceBackendKind</a></td>          <td class="paramname"><span class="paramname"><em>backend</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Commits the Sentis backend discriminator on the Sentis provider path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">backend</td><td>Sentis backend discriminator.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a81f86d12e74f0010e6d46dc18cca32c6" name="a81f86d12e74f0010e6d46dc18cca32c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81f86d12e74f0010e6d46dc18cca32c6">&#9670;&#160;</a></span>SetPreferableTarget() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.SetPreferableTarget </td>
           <td>(</td>
           <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>targetId</em></span></td><td>)</td>
           <td></td>
@@ -379,11 +664,83 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Commits the DNN target (CPU, GPU, etc.); for Sentis, together with <a class="el" href="#a286fda5d70504fc3f88c1db2a8f269c1" title="Commits the DNN backend; triggers lazy creation of the OpenCV Net (non-Sentis) or prepares the Sentis...">setPreferableBackend</a>, finishes lazy allocation of the Sentis <code><a class="el" href="../../dd/d2c/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker.html">Worker</a></code> and I/O buffers. </p>
-<p>Requires <a class="el" href="#a286fda5d70504fc3f88c1db2a8f269c1" title="Commits the DNN backend; triggers lazy creation of the OpenCV Net (non-Sentis) or prepares the Sentis...">setPreferableBackend</a> to have been called first.</p>
+<p>Commits the DNN target (CPU, GPU, etc.); for Sentis, together with <a class="el" href="#a9efed31110216840fec4a487ede73bba" title="Commits the DNN backend; creates the OpenCV or Sentis inner net.">SetPreferableBackend</a>, finishes lazy allocation of the Sentis <code><a class="el" href="../../dd/d2c/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker.html">Worker</a></code> and I/O buffers. </p>
+<p>Requires <a class="el" href="#a9efed31110216840fec4a487ede73bba" title="Commits the DNN backend; creates the OpenCV or Sentis inner net.">SetPreferableBackend</a> to have been called first. On the OpenCV path, re-invocation updates the underlying Net. On the Sentis path, after the <code><a class="el" href="../../dd/d2c/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker.html">Worker</a></code> exists, re-invocation updates <a class="el" href="#a203fde2b3000b884f02816fb7b555134" title="Last SetPreferableTarget argument: OpenCV DNN_TARGET_* or, for Sentis, an int cast from the Sentis ru...">PreferredTarget</a> only and does not change the allocated <code><a class="el" href="../../dd/d2c/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker.html">Worker</a></code> (see class remarks). <em>targetId</em>  must belong to the active provider: OpenCV <code>DNN_TARGET_*</code> after an OpenCV backend, or a Sentis <code>BackendType</code> runtime id after a Sentis backend. Cross-stack ids throw ArgumentOutOfRangeException; prefer provider-specific enum overloads to catch stack mismatches at compile time where possible. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">targetId</td><td>OpenCV <code>DNN_TARGET_*</code> or a Sentis <code>BackendType</code> value as int.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ArgumentOutOfRangeException</td><td>Thrown when <em>targetId</em>  is not a known target for <a class="el" href="#a34d604c421b57e3eeb462ecb1e0993f2" title="Wrapper family of the active inner net: InferenceFrameworkKind.OpenCvDnn, InferenceFrameworkKind....">ActiveInferenceFramework</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="../../de/d0f/interfaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1IDnnInferenceNet.html#af9f193e5f457c5bba5787060952d163d">OpenCVForUnity.Extensions.Worker.DnnModule.IDnnInferenceNet</a>.</p>
+
+</div>
+</div>
+<a id="a631fc71304544fa0a19a3e7ba5b58d27" name="a631fc71304544fa0a19a3e7ba5b58d27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a631fc71304544fa0a19a3e7ba5b58d27">&#9670;&#160;</a></span>SetPreferableTarget() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.SetPreferableTarget </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/d9c/namespaceOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule.html#a258ac96ff7ea73960e78e8dd70de4c6d">OpenCVDnnInferenceTargetKind</a></td>          <td class="paramname"><span class="paramname"><em>target</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Commits the OpenCV DNN target on the OpenCV provider path. </p>
+<p>Requires an OpenCV backend to have been selected first. Throws <a class="el" href="../../d1/df9/classInvalidOperationException.html">InvalidOperationException</a> when <a class="el" href="#a34d604c421b57e3eeb462ecb1e0993f2" title="Wrapper family of the active inner net: InferenceFrameworkKind.OpenCvDnn, InferenceFrameworkKind....">ActiveInferenceFramework</a> is not <a class="el" href="../../dc/d3b/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule.html#a8cf44aedd19023d6487ce403e1b258dfac9569a8e37f35c735bb1bbd4b211c24e" title="OpenCV DNN path after MultiBackendNet.SetPreferableBackend with an OpenCV DNN_BACKEND_* id (inner Ope...">InferenceFrameworkKind.OpenCvDnn</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">target</td><td>OpenCV DNN target kind.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="../../d1/df9/classInvalidOperationException.html">InvalidOperationException</a></td><td>Thrown when the active provider is not OpenCV DNN. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ace2b725058a17299e622c42332894b3f" name="ace2b725058a17299e622c42332894b3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace2b725058a17299e622c42332894b3f">&#9670;&#160;</a></span>SetPreferableTarget() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.SetPreferableTarget </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/d3b/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule.html#abb1efd845e43d4107e6eaf699cb06990">SentisInferenceTargetKind</a></td>          <td class="paramname"><span class="paramname"><em>target</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Commits the Sentis runtime target on the Sentis provider path. </p>
+<p>Requires a Sentis backend to have been selected first. Throws <a class="el" href="../../d1/df9/classInvalidOperationException.html">InvalidOperationException</a> when <a class="el" href="#a34d604c421b57e3eeb462ecb1e0993f2" title="Wrapper family of the active inner net: InferenceFrameworkKind.OpenCvDnn, InferenceFrameworkKind....">ActiveInferenceFramework</a> is not <a class="el" href="../../dc/d3b/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule.html#a8cf44aedd19023d6487ce403e1b258dfad1cf1ece944db879f03edfb24802311f" title="Sentis path after MultiBackendNet.SetPreferableBackend with MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS ...">InferenceFrameworkKind.UnitySentis</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">target</td><td>Sentis runtime target kind.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="../../d1/df9/classInvalidOperationException.html">InvalidOperationException</a></td><td>Thrown when the active provider is not Unity Sentis. </td></tr>
   </table>
   </dd>
 </dl>
@@ -391,6 +748,31 @@ Properties</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
+<a id="a34d604c421b57e3eeb462ecb1e0993f2" name="a34d604c421b57e3eeb462ecb1e0993f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34d604c421b57e3eeb462ecb1e0993f2">&#9670;&#160;</a></span>ActiveInferenceFramework</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dc/d3b/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule.html#a8cf44aedd19023d6487ce403e1b258df">InferenceFrameworkKind</a> OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.ActiveInferenceFramework</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Wrapper family of the active inner net: <a class="el" href="../../dc/d3b/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule.html#a8cf44aedd19023d6487ce403e1b258dfac9569a8e37f35c735bb1bbd4b211c24e" title="OpenCV DNN path after MultiBackendNet.SetPreferableBackend with an OpenCV DNN_BACKEND_* id (inner Ope...">InferenceFrameworkKind.OpenCvDnn</a>, <a class="el" href="../../dc/d3b/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule.html#a8cf44aedd19023d6487ce403e1b258dfad1cf1ece944db879f03edfb24802311f" title="Sentis path after MultiBackendNet.SetPreferableBackend with MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS ...">InferenceFrameworkKind.UnitySentis</a>, or <a class="el" href="../../dc/d3b/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule.html#a8cf44aedd19023d6487ce403e1b258dfa88183b946cc5f0e8c96b2e66e1c74a7e" title="Framework has not been selected yet (before MultiBackendNet.SetPreferableBackend).">InferenceFrameworkKind.Unknown</a> before <a class="el" href="#a9efed31110216840fec4a487ede73bba" title="Commits the DNN backend; creates the OpenCV or Sentis inner net.">SetPreferableBackend</a>. </p>
+<p>Not an OpenCV internal DNN backend id. Prefer this together with an <code>is</code> check for IDnnAsyncInferenceNet / IDnnAsyncNamedOutputInferenceNet when choosing an async path (this type always implements those interfaces, so <code>is</code> alone is insufficient). </p>
+
+</div>
+</div>
 <a id="a4e94289edc640bd25281450fde749f4c" name="a4e94289edc640bd25281450fde749f4c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4e94289edc640bd25281450fde749f4c">&#9670;&#160;</a></span>PreferredBackend</h2>
 
@@ -411,10 +793,10 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Last <a class="el" href="#a286fda5d70504fc3f88c1db2a8f269c1" title="Commits the DNN backend; triggers lazy creation of the OpenCV Net (non-Sentis) or prepares the Sentis...">setPreferableBackend</a> argument: an OpenCV <code>DNN_BACKEND_*</code> value, <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a1c454cd9b414d8c4394390e8a0e42318" title="Backend id for Sentis inference. Use with com.unity.ai.inference 2.6.1 or newer and the OPENCV_SENTIS...">MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS</a>, or the equivalent alias <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#ac8a51f224431da34a696337bac535493" title="Alias of DNN_BACKEND_UNITY_SENTIS for the Sentis path. This is the same discriminator value as DNN_BA...">MultiBackendDnn.DNN_BACKEND_UNITY_INFERENCE_ENGINE</a>. </p>
+<p>Last <a class="el" href="#a9efed31110216840fec4a487ede73bba" title="Commits the DNN backend; creates the OpenCV or Sentis inner net.">SetPreferableBackend</a> argument: an OpenCV <code>DNN_BACKEND_*</code> value, <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a1c454cd9b414d8c4394390e8a0e42318" title="Alias of SentisInferenceDnn.DNN_BACKEND_UNITY_SENTIS for MultiBackend API callers....">MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS</a>, or the equivalent alias <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#ac8a51f224431da34a696337bac535493" title="Alias of DNN_BACKEND_UNITY_SENTIS for the Sentis path. This is the same discriminator value as DNN_BA...">MultiBackendDnn.DNN_BACKEND_UNITY_INFERENCE_ENGINE</a>. </p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">InvalidOperationException</td><td>If <a class="el" href="#a286fda5d70504fc3f88c1db2a8f269c1" title="Commits the DNN backend; triggers lazy creation of the OpenCV Net (non-Sentis) or prepares the Sentis...">setPreferableBackend</a> has not been called yet.</td></tr>
+    <tr><td class="paramname"><a class="el" href="../../d1/df9/classInvalidOperationException.html">InvalidOperationException</a></td><td>If <a class="el" href="#a9efed31110216840fec4a487ede73bba" title="Commits the DNN backend; creates the OpenCV or Sentis inner net.">SetPreferableBackend</a> has not been called yet.</td></tr>
   </table>
   </dd>
 </dl>
@@ -441,40 +823,10 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Last <a class="el" href="#a35eeea92ee4f8c71659f3db16c4b405a" title="Commits the DNN target (CPU, GPU, etc.); for Sentis, together with setPreferableBackend,...">setPreferableTarget</a> argument: OpenCV <code>DNN_TARGET_*</code> or, for Sentis, an int cast from the Sentis runtime <code>BackendType</code> enum (API namespace <code>Unity.InferenceEngine</code>). </p>
+<p>Last <a class="el" href="#a81f86d12e74f0010e6d46dc18cca32c6" title="Commits the DNN target (CPU, GPU, etc.); for Sentis, together with SetPreferableBackend,...">SetPreferableTarget</a> argument: OpenCV <code>DNN_TARGET_*</code> or, for Sentis, an int cast from the Sentis runtime <code>BackendType</code> enum (API namespace <code>Unity.InferenceEngine</code>). Returns the last value passed to <a class="el" href="#a81f86d12e74f0010e6d46dc18cca32c6" title="Commits the DNN target (CPU, GPU, etc.); for Sentis, together with SetPreferableBackend,...">SetPreferableTarget</a>; on Sentis, after the <code><a class="el" href="../../dd/d2c/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Worker.html">Worker</a></code> is allocated, this may not match the runtime actually used for inference (see class remarks). </p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">InvalidOperationException</td><td>If <a class="el" href="#a35eeea92ee4f8c71659f3db16c4b405a" title="Commits the DNN target (CPU, GPU, etc.); for Sentis, together with setPreferableBackend,...">setPreferableTarget</a> has not been called yet.</td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ae305476dfb07336bfc81c446f5d98ce9" name="ae305476dfb07336bfc81c446f5d98ce9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae305476dfb07336bfc81c446f5d98ce9">&#9670;&#160;</a></span>UsesSentis</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OpenCVForUnity.UnityIntegration.Worker.DnnModule.MultiBackendNet.UsesSentis</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>True when <a class="el" href="#a286fda5d70504fc3f88c1db2a8f269c1" title="Commits the DNN backend; triggers lazy creation of the OpenCV Net (non-Sentis) or prepares the Sentis...">setPreferableBackend</a> was called with <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#a1c454cd9b414d8c4394390e8a0e42318" title="Backend id for Sentis inference. Use with com.unity.ai.inference 2.6.1 or newer and the OPENCV_SENTIS...">MultiBackendDnn.DNN_BACKEND_UNITY_SENTIS</a> or <a class="el" href="../../d6/d91/classOpenCVForUnity_1_1UnityIntegration_1_1Worker_1_1DnnModule_1_1MultiBackendDnn.html#ac8a51f224431da34a696337bac535493" title="Alias of DNN_BACKEND_UNITY_SENTIS for the Sentis path. This is the same discriminator value as DNN_BA...">MultiBackendDnn.DNN_BACKEND_UNITY_INFERENCE_ENGINE</a> (same value; Sentis path). </p>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">InvalidOperationException</td><td>If <a class="el" href="#a286fda5d70504fc3f88c1db2a8f269c1" title="Commits the DNN backend; triggers lazy creation of the OpenCV Net (non-Sentis) or prepares the Sentis...">setPreferableBackend</a> has not been called yet.</td></tr>
+    <tr><td class="paramname"><a class="el" href="../../d1/df9/classInvalidOperationException.html">InvalidOperationException</a></td><td>If <a class="el" href="#a81f86d12e74f0010e6d46dc18cca32c6" title="Commits the DNN target (CPU, GPU, etc.); for Sentis, together with SetPreferableBackend,...">SetPreferableTarget</a> has not been called yet.</td></tr>
   </table>
   </dd>
 </dl>
@@ -482,7 +834,7 @@ Properties</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/Worker/Dnn/<a class="el" href="../../de/de1/MultiBackendNet_8cs.html">MultiBackendNet.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/Scripts/UnityIntegration/Worker/Dnn/<a class="el" href="../../de/de1/MultiBackendNet_8cs.html">MultiBackendNet.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

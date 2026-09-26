@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['workcompleted_0',['WorkCompleted',['../d8/dd0/classOpenCVForUnity_1_1UnityIntegration_1_1Runner_1_1SingleFlightSyncAsyncRunner.html#aa1b4b1b3dd23a4e952e4b601ffc83b9d',1,'OpenCVForUnity::UnityIntegration::Runner::SingleFlightSyncAsyncRunner']]]
+  ['layoutaffectingsettingschanged_0',['LayoutAffectingSettingsChanged',['../d5/d7c/classOpenCVForUnity_1_1Extensions_1_1SourceToMat_1_1DerivedFrame_1_1DerivedFrameCollection.html#a374687df944a4a2185b6f5aad5e92b95',1,'OpenCVForUnity::Extensions::SourceToMat::DerivedFrame::DerivedFrameCollection']]],
+  ['layoutchanged_1',['LayoutChanged',['../d5/d7c/classOpenCVForUnity_1_1Extensions_1_1SourceToMat_1_1DerivedFrame_1_1DerivedFrameCollection.html#a44b425a5214a500ef7baf65728748067',1,'OpenCVForUnity::Extensions::SourceToMat::DerivedFrame::DerivedFrameCollection']]]
 ];

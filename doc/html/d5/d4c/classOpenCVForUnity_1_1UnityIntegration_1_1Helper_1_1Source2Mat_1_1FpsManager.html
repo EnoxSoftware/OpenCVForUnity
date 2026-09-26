@@ -136,6 +136,9 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">OpenCVForUnity.UnityIntegration.Helper.Source2Mat.FpsManager Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Throttles callbacks to a target frame rate, or invokes every frame when the target FPS is zero or negative.  
+ <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -146,7 +149,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a8a51f5050d187a456b42e9c4bdc42db9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the timer.  <br /></td></tr>
 <tr class="separator:a8a51f5050d187a456b42e9c4bdc42db9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79a8f11ea9e44ccb4a550d63ba5ae424" id="r_a79a8f11ea9e44ccb4a550d63ba5ae424"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a79a8f11ea9e44ccb4a550d63ba5ae424">Update</a> (float deltaTime, Action onTick)</td></tr>
-<tr class="memdesc:a79a8f11ea9e44ccb4a550d63ba5ae424"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines whether to execute certain processing at the FPS interval, and executes it if necessary.  <br /></td></tr>
+<tr class="memdesc:a79a8f11ea9e44ccb4a550d63ba5ae424"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances the timer and invokes <em>onTick</em>  when the FPS interval elapses.  <br /></td></tr>
 <tr class="separator:a79a8f11ea9e44ccb4a550d63ba5ae424"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
@@ -155,7 +158,9 @@ Properties</h2></td></tr>
 <tr class="memdesc:a71f15adfd95e38c2750c1d97b89c4375"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets whether the timer is paused.  <br /></td></tr>
 <tr class="separator:a71f15adfd95e38c2750c1d97b89c4375"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Throttles callbacks to a target frame rate, or invokes every frame when the target FPS is zero or negative. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1e3c43daab9607879cb07c5ca0e0cea4" name="a1e3c43daab9607879cb07c5ca0e0cea4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1e3c43daab9607879cb07c5ca0e0cea4">&#9670;&#160;</a></span>FpsManager()</h2>
 
@@ -220,7 +225,7 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Determines whether to execute certain processing at the FPS interval, and executes it if necessary. </p>
+<p>Advances the timer and invokes <em>onTick</em>  when the FPS interval elapses. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">deltaTime</td><td>Elapsed time (usually pass Time.deltaTime).</td></tr>
@@ -228,7 +233,7 @@ Properties</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns true if the callback is invoked, otherwise false.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the callback is invoked; otherwise <code>false</code>.</dd></dl>
 
 </div>
 </div>
@@ -258,7 +263,7 @@ Properties</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>OpenCVForUnity/Assets/OpenCVForUnity/org/opencv/unity/Helper/Source2MatHelper/<a class="el" href="../../d0/d00/FpsManager_8cs.html">FpsManager.cs</a></li>
+<li>OpenCVForUnity/Assets/OpenCVForUnity/Scripts/UnityIntegration/Helper/Source2MatHelper/<a class="el" href="../../d0/d00/FpsManager_8cs.html">FpsManager.cs</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
