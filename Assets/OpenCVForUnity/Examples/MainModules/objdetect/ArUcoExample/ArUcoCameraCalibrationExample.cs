@@ -4,33 +4,50 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
-using OpenCVForUnity.ArucoModule;
-using OpenCVForUnity.Calib3dModule;
+using OpenCVForUnity.CalibModule;
 using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.Extensions.SourceToMat;
+using OpenCVForUnity.GeometryModule;
 using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.ObjdetectModule;
 using OpenCVForUnity.UnityIntegration;
-using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
+using OpenCVForUnity.UnityIntegration.Helper.SourceToMat;
+using OpenCVForUnity.UnityIntegration.Helper.UI;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static OpenCVForUnity.UnityIntegration.Helper.Source2Mat.MultiSource2MatHelper;
+using OpenCVDebug = OpenCVForUnity.Extensions.OpenCVDebug;
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
     /// ArUco Camera Calibration Example
-    /// An example of camera calibration using the objdetect module. (ChessBoard, CirclesGlid, AsymmetricCirclesGlid and ChArUcoBoard)
-    /// Referring to https://docs.opencv.org/master/d4/d94/tutorial_camera_calibration.html
+    /// Interactive camera calibration using chessboard, circle grid, or ChArUco patterns.
+    ///
+    /// Demonstrates:
+    /// - Reading input frames via <see cref="MultiSourceToMatHelper"/> (webcam, video file, image file, or GPU readback)
+    /// - Collecting calibration frames from input sources (webcam or video file)
+    /// - findChessboardCorners, findCirclesGrid, and CharucoDetector corner detection
+    /// - calibrateCamera / calibrateCameraCharuco and saving CameraParameters to XML
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Calib3d"/>: findChessboardCorners, calibrateCamera, projectPoints
+    /// - <see cref="CharucoDetector"/>, <see cref="Aruco"/>, <see cref="Dictionary"/>
+    /// - <see cref="MultiSourceToMatHelper"/>, <see cref="CameraParameters"/>
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Referring to:
+    /// https://docs.opencv.org/master/d4/d94/tutorial_camera_calibration.html
     /// https://github.com/opencv/opencv/blob/master/samples/cpp/tutorial_code/calib3d/camera_calibration/camera_calibration.cpp
     /// https://docs.opencv.org/3.4.0/d7/d21/tutorial_interactive_calibration.html
     /// https://github.com/opencv/opencv/tree/master/apps/interactive-calibration
     /// https://docs.opencv.org/3.2.0/da/d13/tutorial_aruco_calibration.html
     /// https://github.com/opencv/opencv_contrib/blob/master/modules/aruco/samples/calibrate_camera_charuco.cpp
-    /// </summary>
-    [RequireComponent(typeof(MultiSource2MatHelper))]
+    /// </para>
+    /// </remarks>
+    [RequireComponent(typeof(MultiSourceToMatHelper))]
     public class ArUcoCameraCalibrationExample : MonoBehaviour
     {
         // Enums
@@ -133,18 +150,20 @@ namespace OpenCVForUnityExample
         */
 
         private const int FIND_CHESSBOARD_CORNERS_FLAGS =
-            Calib3d.CALIB_CB_ADAPTIVE_THRESH |
-            Calib3d.CALIB_CB_NORMALIZE_IMAGE |
+            Objdetect.CALIB_CB_ADAPTIVE_THRESH |
+            Objdetect.CALIB_CB_NORMALIZE_IMAGE |
             //Calib3d.CALIB_CB_FILTER_QUADS |
-            Calib3d.CALIB_CB_FAST_CHECK |
+
+            Objdetect.CALIB_CB_FAST_CHECK |
             0;
         private const int FIND_CHESSBOARD_CORNERS_SB_FLAGS =
-            Calib3d.CALIB_CB_NORMALIZE_IMAGE |
-            Calib3d.CALIB_CB_EXHAUSTIVE |
-            Calib3d.CALIB_CB_ACCURACY |
+            Objdetect.CALIB_CB_NORMALIZE_IMAGE |
+            Objdetect.CALIB_CB_EXHAUSTIVE |
+            Objdetect.CALIB_CB_ACCURACY |
             0;
         private const int FIND_CIRCLES_GRID_FLAGS =
             //Calib3d.CALIB_CB_CLUSTERING |
+
             0;
         private const int CALIBRATION_FLAGS =
             //Calib3d.CALIB_USE_INTRINSIC_GUESS |
@@ -156,7 +175,8 @@ namespace OpenCVForUnityExample
             //Calib3d.CALIB_FIX_K3 |
             //Calib3d.CALIB_FIX_K4 |
             //Calib3d.CALIB_FIX_K5 |
-            Calib3d.CALIB_USE_LU |
+
+            Calib.CALIB_USE_LU |
             0;
 
         // Public Fields
@@ -173,10 +193,10 @@ namespace OpenCVForUnityExample
         public MarkerType MarkerTypeValue = MarkerType.ChessBoard;
         public Dropdown BoardSizeWDropdown;
         [Tooltip("Number of inner corners per a item column. (square, circle)")]
-        public NumberOfBoardSizeWidth BoardSizeW = NumberOfBoardSizeWidth.W_9;
+        public NumberOfBoardSizeWidth BoardSizeW = NumberOfBoardSizeWidth.W_7;
         public Dropdown BoardSizeHDropdown;
         [Tooltip("Number of inner corners per a item row. (square, circle)")]
-        public NumberOfBoardSizeHeight BoardSizeH = NumberOfBoardSizeHeight.H_6;
+        public NumberOfBoardSizeHeight BoardSizeH = NumberOfBoardSizeHeight.H_5;
         [Header("Normal Calibration Option")]
         public GameObject NormalCalibrationOptionsGroup;
         public InputField SquareSizeInputField;
@@ -199,15 +219,16 @@ namespace OpenCVForUnityExample
         public ArUcoDictionary DictionaryId = ArUcoDictionary.DICT_6X6_250;
         [Tooltip("Determines if refine marker detection. (only valid for ArUco boards)")]
         public bool RefineMarkerDetection = true;
-        [Header("Image Input Option")]
+
+        [Header("[Debug] Image Input Option")]
         [Tooltip("Determines if calibrates camera using the list of calibration images.")]
         public bool IsImagesInputMode = false;
         [Tooltip("Set a relative directory path from the starting point of the \"StreamingAssets\" folder.  e.g. \"OpenCVForUnityExamples/objdetect/calibration_images\"")]
-        public string CalibrationImagesDirectory = "OpenCVForUnityExamples/objdetect/calibration_images";
+        public string CalibrationImagesDirectory = "OpenCVForUnityExamples/objdetect/calibration_images"; // W_9 x H_6
 
         // Private Fields
         private Texture2D _texture;
-        private MultiSource2MatHelper _multiSource2MatHelper;
+        private MultiSourceToMatHelper _multiSourceToMatHelper;
         private Mat _grayMat;
         private Mat _bgrMat;
         private Mat _undistortedBgrMat;
@@ -225,6 +246,8 @@ namespace OpenCVForUnityExample
         private Dictionary _dictionary;
         private List<List<Mat>> _allCorners;
         private List<Mat> _allIds;
+        private FpsMonitor _fpsMonitor;
+        private SourceToMatControlPanel _controlPanel;
 
         // Unity Lifecycle Methods
         private IEnumerator Start()
@@ -232,17 +255,10 @@ namespace OpenCVForUnityExample
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             OpenCVDebug.SetDebugMode(true);
 
+            _fpsMonitor = GetComponent<FpsMonitor>();
 
-            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
-
-            // WebCamTexture2MatHelper does not work on WebGPU, so use WebCamTexture2MatAsyncGPUHelper instead.
-#if UNITY_6000_0_OR_NEWER
-            if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.WebGPU && _multiSource2MatHelper.RequestedSource2MatHelperClassName == MultiSource2MatHelperClassName.WebCamTexture2MatHelper)
-            {
-                _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.WebCamTexture2MatAsyncGPUHelper;
-            }
-#endif
-            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
+            _multiSourceToMatHelper = gameObject.GetComponent<MultiSourceToMatHelper>();
+            _multiSourceToMatHelper.OutputColorFormat = SourceToMatColorFormat.RGBA;
 
             // fix the screen orientation.
             Screen.orientation = ScreenOrientation.LandscapeLeft;
@@ -266,145 +282,283 @@ namespace OpenCVForUnityExample
             NormalCalibrationOptionsGroup.gameObject.SetActive(!arUcoCalibMode);
             ArUcoCalibrationOptionsGroup.gameObject.SetActive(arUcoCalibMode);
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-            IsImagesInputMode = false;
-#endif
             if (IsImagesInputMode)
             {
                 IsImagesInputMode = InitializeImagesInputMode();
             }
 
-            if (!IsImagesInputMode)
-            {
-                _multiSource2MatHelper.Initialize();
-            }
-        }
-
-        private void Update()
-        {
             if (IsImagesInputMode)
-                return;
-
-            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
             {
-
-                Mat rgbaMat = _multiSource2MatHelper.GetMat();
-
-                Imgproc.cvtColor(rgbaMat, _grayMat, Imgproc.COLOR_RGBA2GRAY);
-
-                if (_shouldCaptureFrame)
-                {
-                    _shouldCaptureFrame = false;
-                    Mat frameMat = _grayMat.clone();
-
-                    double e = 0;
-                    if (MarkerTypeValue != MarkerType.ChArUcoBoard)
-                        e = CaptureFrame(frameMat);
-                    // else
-                    //     e = CaptureFrame_Charuco(frameMat);
-
-                    if (e > 0)
-                        _repErr = e;
-                }
-
-                DrawFrame(_grayMat, _bgrMat);
-
-                if (ShowUndistortImage)
-                {
-                    Calib3d.undistort(_bgrMat, _undistortedBgrMat, _camMatrix, _distCoeffs);
-                    DrawCalibrationResult(_undistortedBgrMat);
-                    Imgproc.cvtColor(_undistortedBgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
-                }
-                else
-                {
-                    DrawCalibrationResult(_bgrMat);
-                    Imgproc.cvtColor(_bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
-                }
-
-                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
+                HideSourceToMatControlPanel();
+            }
+            else
+            {
+                WireSourceToMatControlPanelHooks();
+                _multiSourceToMatHelper.Initialize();
             }
         }
 
         private void OnDestroy()
         {
+            UnwireSourceToMatControlPanelHooks();
             if (IsImagesInputMode)
             {
                 DisposeCalibraton();
             }
             else
             {
-                _multiSource2MatHelper.Dispose();
+                _multiSourceToMatHelper.Dispose();
+                _multiSourceToMatHelper = null;
             }
 
             Screen.orientation = ScreenOrientation.AutoRotation;
-
 
             OpenCVDebug.SetDebugMode(false);
         }
 
         // Public Methods
+        /// <summary>
+        /// Raises the helper frame mat updated event.
+        /// Updates the preview texture when a new frame is available during playback.
+        /// </summary>
+        public void OnSourceToMatHelperFrameMatUpdated()
+        {
+            if (IsImagesInputMode)
+            {
+                return;
+            }
+
+            if (!_multiSourceToMatHelper.IsPlaying)
+            {
+                return;
+            }
+
+            Mat rgbaMat = _multiSourceToMatHelper.FrameMat;
+
+            Imgproc.cvtColor(rgbaMat, _grayMat, Imgproc.COLOR_RGBA2GRAY);
+
+            // Capture only on button press; clone keeps the calibration frame independent of live preview.
+            if (_shouldCaptureFrame)
+            {
+                _shouldCaptureFrame = false;
+                Mat frameMat = _grayMat.clone();
+
+                double e = 0;
+                if (MarkerTypeValue != MarkerType.ChArUcoBoard)
+                {
+                    e = CaptureFrame(frameMat);
+                }
+                // else
+                //     e = CaptureFrame_Charuco(frameMat);
+
+                if (e > 0)
+                {
+                    _repErr = e;
+                }
+            }
+
+            DrawFrame(_grayMat, _bgrMat);
+
+            if (ShowUndistortImage)
+            {
+                Imgproc.undistort(_bgrMat, _undistortedBgrMat, _camMatrix, _distCoeffs);
+                DrawCalibrationResult(_undistortedBgrMat);
+                Imgproc.cvtColor(_undistortedBgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
+            }
+            else
+            {
+                DrawCalibrationResult(_bgrMat);
+                Imgproc.cvtColor(_bgrMat, rgbaMat, Imgproc.COLOR_BGR2RGBA);
+            }
+
+            OpenCVMatUnityUtils.MatToTexture2D(rgbaMat, _texture);
+        }
+
+        /// <summary>
+        /// Raises the helper initialized event.
+        /// Recreates the preview texture and starts playback on first initialization.
+        /// Skips Play when re-initialization has already restored Playing or Paused.
+        /// </summary>
         public void OnSourceToMatHelperInitialized()
         {
-            Debug.Log("OnSourceToMatHelperInitialized");
+            Debug.Log("OnSourceToMatHelperInitialized", this);
 
-            Mat rgbaMat = _multiSource2MatHelper.GetMat();
+            Mat rgbaMat = _multiSourceToMatHelper.FrameMat;
 
-            InitializeCalibraton(rgbaMat);
+            RecreatePreviewTexture();
+            CreateOrRecreateProcessingResources(rgbaMat);
 
 #if !OPENCV_DONT_USE_WEBCAMTEXTURE_API
             // If the WebCam is front facing, flip the Mat horizontally. Required for successful detection.
-            if (_multiSource2MatHelper.Source2MatHelper is WebCamTexture2MatHelper webCamHelper)
-                webCamHelper.FlipHorizontal = webCamHelper.IsFrontFacing();
+            if (_multiSourceToMatHelper.ActiveHelper is WebCamTextureToMatHelper webCamHelper)
+            {
+                _multiSourceToMatHelper.FlipHorizontal = webCamHelper.IsFrontFacing;
+            }
 #endif
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Clear();
+                UpdateFpsMonitorPlaybackState();
+                _fpsMonitor.Add("HelperKind", _multiSourceToMatHelper.RequestedHelperKind.ToString());
+                _fpsMonitor.Add("Width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("Height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("Rotate90Degree", _multiSourceToMatHelper.Rotate90Degree.ToString());
+                _fpsMonitor.Add("FlipVertical", _multiSourceToMatHelper.FlipVertical.ToString());
+                _fpsMonitor.Add("FlipHorizontal", _multiSourceToMatHelper.FlipHorizontal.ToString());
+                _fpsMonitor.Add("Orientation", Screen.orientation.ToString());
+            }
+
+            if (!_multiSourceToMatHelper.IsPlaying && !_multiSourceToMatHelper.IsPaused)
+            {
+                _multiSourceToMatHelper.Play();
+                UpdateFpsMonitorPlaybackState();
+            }
         }
 
+        /// <summary>
+        /// Raises the helper frame mat layout changed event.
+        /// Recreates the preview texture when rotation or output size changes.
+        /// </summary>
+        public void OnSourceToMatHelperFrameMatLayoutChanged()
+        {
+            Debug.Log("OnSourceToMatHelperFrameMatLayoutChanged", this);
+
+            RecreatePreviewTexture();
+            CreateOrRecreateProcessingResources(_multiSourceToMatHelper.FrameMat);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("Width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("Height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("Orientation", Screen.orientation.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Raises the helper released event.
+        /// </summary>
+        public void OnSourceToMatHelperReleased()
+        {
+            Debug.Log("OnSourceToMatHelperReleased", this);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Clear();
+            }
+
+            DisposeFrameProcessingResources();
+            CleanupPreviewResources();
+        }
+
+        /// <summary>
+        /// Raises the helper disposed event.
+        /// </summary>
         public void OnSourceToMatHelperDisposed()
         {
-            Debug.Log("OnSourceToMatHelperDisposed");
+            Debug.Log("OnSourceToMatHelperDisposed", this);
 
             DisposeCalibraton();
         }
 
-        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
+        /// <summary>
+        /// Raises the helper error occurred event.
+        /// </summary>
+        /// <param name="errorCode">Error code.</param>
+        /// <param name="message">Message.</param>
+        public void OnSourceToMatHelperErrorOccurred(SourceToMatErrorCode errorCode, string message)
         {
-            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message, this);
         }
 
-        public void OnBackButtonClick()
+        /// <summary>
+        /// Raises the back button click event.
+        /// Stops playback and disposes the helper before scene transition (required on WebGL).
+        /// </summary>
+        public async void OnBackButtonClick()
         {
+            if (_multiSourceToMatHelper.IsPlaying || _multiSourceToMatHelper.IsPaused)
+            {
+                await _multiSourceToMatHelper.StopAsync();
+            }
+
+            await _multiSourceToMatHelper.DisposeAsync();
+
             SceneManager.LoadScene("OpenCVForUnityExample");
         }
 
-        public void OnPlayButtonClick()
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPlay"/>.
+        /// </summary>
+        public void OnControlPanelAfterPlay()
         {
-            if (IsImagesInputMode)
-                return;
-
-            _multiSource2MatHelper.Play();
+            UpdateFpsMonitorPlaybackState();
         }
 
-        public void OnPauseButtonClick()
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPause"/>.
+        /// </summary>
+        public void OnControlPanelAfterPause()
         {
-            if (IsImagesInputMode)
-                return;
-
-            _multiSource2MatHelper.Pause();
+            UpdateFpsMonitorPlaybackState();
         }
 
-        public void OnStopButtonClick()
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterStop"/>.
+        /// </summary>
+        public void OnControlPanelAfterStop()
         {
-            if (IsImagesInputMode)
-                return;
-
-            _multiSource2MatHelper.Stop();
+            UpdateFpsMonitorPlaybackState();
         }
 
-        public void OnChangeCameraButtonClick()
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnRotate90Changed"/>.
+        /// </summary>
+        /// <param name="isOn">New Rotate90Degree value applied by the panel.</param>
+        public void OnControlPanelRotate90Changed(bool isOn)
         {
-            if (IsImagesInputMode)
-                return;
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("Rotate90Degree", isOn.ToString());
+            }
+        }
 
-            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipVerticalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipVertical value applied by the panel.</param>
+        public void OnControlPanelFlipVerticalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipVertical", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipHorizontalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipHorizontal value applied by the panel.</param>
+        public void OnControlPanelFlipHorizontalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipHorizontal", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnHelperKindChanged"/>.
+        /// </summary>
+        /// <param name="kindIndex">Dropdown index matching <see cref="MultiSourceHelperKind"/>.</param>
+        public void OnControlPanelHelperKindChanged(int kindIndex)
+        {
+            if (_fpsMonitor == null || !Enum.IsDefined(typeof(MultiSourceHelperKind), kindIndex))
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("HelperKind", ((MultiSourceHelperKind)kindIndex).ToString());
         }
 
         public void OnMarkerTypeDropdownValueChanged(int result)
@@ -424,8 +578,10 @@ namespace OpenCVForUnityExample
                 }
                 else
                 {
-                    if (_multiSource2MatHelper.IsInitialized())
-                        _multiSource2MatHelper.Initialize();
+                    if (_multiSourceToMatHelper.IsInitialized)
+                    {
+                        _multiSourceToMatHelper.Initialize();
+                    }
                 }
             }
         }
@@ -445,8 +601,10 @@ namespace OpenCVForUnityExample
                 }
                 else
                 {
-                    if (_multiSource2MatHelper.IsInitialized())
-                        _multiSource2MatHelper.Initialize();
+                    if (_multiSourceToMatHelper.IsInitialized)
+                    {
+                        _multiSourceToMatHelper.Initialize();
+                    }
                 }
             }
         }
@@ -463,8 +621,10 @@ namespace OpenCVForUnityExample
                 }
                 else
                 {
-                    if (_multiSource2MatHelper.IsInitialized())
-                        _multiSource2MatHelper.Initialize();
+                    if (_multiSourceToMatHelper.IsInitialized)
+                    {
+                        _multiSourceToMatHelper.Initialize();
+                    }
                 }
             }
         }
@@ -480,10 +640,11 @@ namespace OpenCVForUnityExample
         public void OnSquareSizeInputFieldValueChanged()
         {
             if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.Android)
+            {
                 return;
+            }
 
-            float f;
-            bool result = float.TryParse(SquareSizeInputField.text, out f);
+            bool result = float.TryParse(SquareSizeInputField.text, out float f);
 
             if (result)
             {
@@ -499,8 +660,7 @@ namespace OpenCVForUnityExample
 
         public void OnSquareSizeInputFieldEndEdit()
         {
-            float f;
-            bool result = float.TryParse(SquareSizeInputField.text, out f);
+            bool result = float.TryParse(SquareSizeInputField.text, out float f);
 
             if (result)
             {
@@ -525,10 +685,11 @@ namespace OpenCVForUnityExample
         public void OnGridWidthInputFieldValueChanged()
         {
             if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.Android)
+            {
                 return;
+            }
 
-            float f;
-            bool result = float.TryParse(GridWidthInputField.text, out f);
+            bool result = float.TryParse(GridWidthInputField.text, out float f);
 
             if (result)
             {
@@ -544,8 +705,7 @@ namespace OpenCVForUnityExample
 
         public void OnGridWidthInputFieldEndEdit()
         {
-            float f;
-            bool result = float.TryParse(GridWidthInputField.text, out f);
+            bool result = float.TryParse(GridWidthInputField.text, out float f);
 
             if (result)
             {
@@ -572,8 +732,10 @@ namespace OpenCVForUnityExample
                 }
                 else
                 {
-                    if (_multiSource2MatHelper.IsInitialized())
-                        _multiSource2MatHelper.Initialize();
+                    if (_multiSourceToMatHelper.IsInitialized)
+                    {
+                        _multiSourceToMatHelper.Initialize();
+                    }
                 }
             }
         }
@@ -583,7 +745,10 @@ namespace OpenCVForUnityExample
             if (IsImagesInputMode)
             {
                 if (!_isCalibrating)
+                {
                     InitializeImagesInputMode();
+                }
+
                 StartCoroutine("CalibrateCameraUsingImages");
             }
             else
@@ -597,7 +762,9 @@ namespace OpenCVForUnityExample
             if (IsImagesInputMode)
             {
                 if (!_isCalibrating)
+                {
                     InitializeImagesInputMode();
+                }
             }
             else
             {
@@ -647,32 +814,119 @@ namespace OpenCVForUnityExample
             }
 
             // save the calibration images.
-#if UNITY_WEBGL && !UNITY_EDITOR
-            string format = "jpg";
-            MatOfInt compressionParams = new MatOfInt(Imgcodecs.IMWRITE_JPEG_QUALITY, 100);
-#else
             string format = "png";
             MatOfInt compressionParams = new MatOfInt(Imgcodecs.IMWRITE_PNG_COMPRESSION, 0);
-#endif
             for (int i = 0; i < _allImgs.Count; ++i)
             {
                 Imgcodecs.imwrite(Path.Combine(saveCalibratonFileDirectoryPath, calibratonDirectoryName + "_" + i.ToString("00") + "." + format), _allImgs[i], compressionParams);
             }
 
             SavePathInputField.text = savePath;
-            Debug.Log("Saved the CameraParameters to disk in XML file format.");
-            Debug.Log("savePath: " + savePath);
+            Debug.Log("Saved the CameraParameters to disk in XML file format.", this);
+            Debug.Log("savePath: " + savePath, this);
         }
 
         // Private Methods
-        private void InitializeCalibraton(Mat frameMat)
+        private void RecreatePreviewTexture()
         {
-            _texture = new Texture2D(frameMat.cols(), frameMat.rows(), TextureFormat.RGBA32, false);
-            OpenCVMatUtils.MatToTexture2D(frameMat, _texture);
+            Mat frameMat = _multiSourceToMatHelper.FrameMat;
+            if (frameMat == null)
+            {
+                return;
+            }
 
-            ResultPreview.texture = _texture;
-            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+                _texture = null;
+            }
 
+            bool isRgb = _multiSourceToMatHelper.OutputColorFormat == SourceToMatColorFormat.RGB;
+            _texture = new Texture2D(frameMat.cols(), frameMat.rows(), isRgb ? TextureFormat.RGB24 : TextureFormat.RGBA32, false);
+            OpenCVMatUnityUtils.MatToTexture2D(frameMat, _texture);
+
+            if (ResultPreview != null)
+            {
+                ResultPreview.texture = _texture;
+                AspectRatioFitter aspectRatioFitter = ResultPreview.GetComponent<AspectRatioFitter>();
+                if (aspectRatioFitter != null)
+                {
+                    aspectRatioFitter.aspectRatio = (float)_texture.width / _texture.height;
+                }
+            }
+        }
+
+        private void DisposeFrameProcessingResources()
+        {
+            // ResetCalibration recreates the camera matrix from _bgrMat size; skip until processing Mats exist.
+            if (_bgrMat != null)
+            {
+                ResetCalibration();
+            }
+
+            _grayMat?.Dispose();
+            _grayMat = null;
+            _bgrMat?.Dispose();
+            _bgrMat = null;
+            _undistortedBgrMat?.Dispose();
+            _undistortedBgrMat = null;
+            _rgbaMat?.Dispose();
+            _rgbaMat = null;
+
+            if (_rvecs != null)
+            {
+                foreach (var item in _rvecs)
+                {
+                    item.Dispose();
+                }
+            }
+
+            _rvecs?.Clear();
+            if (_tvecs != null)
+            {
+                foreach (var item in _tvecs)
+                {
+                    item.Dispose();
+                }
+            }
+
+            _tvecs?.Clear();
+
+            /*
+                        // for ChArUcoBoard.
+                        _ids?.Dispose();
+                        _ids = null;
+                        if (_corners != null) foreach (var item in _corners) item.Dispose();
+                        _corners.Clear()
+                        if (_rejectedCorners != null) foreach (var item in _rejectedCorners) item.Dispose();
+                        _rejectedCorners.Clear()
+                        _recoveredIdxs?.Dispose();
+                        _recoveredIdxs = null;
+                        _charucoCorners?.Dispose();
+                        _charucoCorners = null;
+                        _charucoIds?.Dispose();
+                        _charucoIds = null;
+                        _charucoBoard?.Dispose();
+                        _charucoBoard = null;
+                        _arucoDetector?.Dispose();
+                        _arucoDetector = null;
+                        _charucoDetector?.Dispose();
+                        _charucoDetector = null;
+                        _dictionary?.Dispose();
+                        _dictionary = null;
+            */
+
+            _isInitialized = false;
+        }
+
+        private void CreateOrRecreateProcessingResources(Mat frameMat)
+        {
+            if (frameMat == null)
+            {
+                return;
+            }
+
+            DisposeFrameProcessingResources();
 
             float width = frameMat.width();
             float height = frameMat.height();
@@ -686,10 +940,10 @@ namespace OpenCVForUnityExample
 
             // set cameraparam.
             _camMatrix = CreateCameraMatrix(width, height);
-            Debug.Log("camMatrix " + _camMatrix.dump());
+            Debug.Log("camMatrix " + _camMatrix.dump(), this);
 
             _distCoeffs = new MatOfDouble(0, 0, 0, 0, 0);
-            Debug.Log("distCoeffs " + _distCoeffs.dump());
+            Debug.Log("distCoeffs " + _distCoeffs.dump(), this);
 
             // calibration camera.
             Size imageSize = new Size(width * imageSizeScale, height * imageSizeScale);
@@ -701,17 +955,16 @@ namespace OpenCVForUnityExample
             Point principalPoint = new Point(0, 0);
             double[] aspectratio = new double[1];
 
-            Calib3d.calibrationMatrixValues(_camMatrix, imageSize, apertureWidth, apertureHeight, fovx, fovy, focalLength, principalPoint, aspectratio);
+            Geometry.calibrationMatrixValues(_camMatrix, imageSize, apertureWidth, apertureHeight, fovx, fovy, focalLength, principalPoint, aspectratio);
 
-            Debug.Log("imageSize " + imageSize.ToString());
-            Debug.Log("apertureWidth " + apertureWidth);
-            Debug.Log("apertureHeight " + apertureHeight);
-            Debug.Log("fovx " + fovx[0]);
-            Debug.Log("fovy " + fovy[0]);
-            Debug.Log("focalLength " + focalLength[0]);
-            Debug.Log("principalPoint " + principalPoint.ToString());
-            Debug.Log("aspectratio " + aspectratio[0]);
-
+            Debug.Log("imageSize " + imageSize.ToString(), this);
+            Debug.Log("apertureWidth " + apertureWidth, this);
+            Debug.Log("apertureHeight " + apertureHeight, this);
+            Debug.Log("fovx " + fovx[0], this);
+            Debug.Log("fovy " + fovy[0], this);
+            Debug.Log("focalLength " + focalLength[0], this);
+            Debug.Log("principalPoint " + principalPoint.ToString(), this);
+            Debug.Log("aspectratio " + aspectratio[0], this);
 
             _grayMat = new Mat(frameMat.rows(), frameMat.cols(), CvType.CV_8UC1);
             _bgrMat = new Mat(frameMat.rows(), frameMat.cols(), CvType.CV_8UC3);
@@ -759,35 +1012,122 @@ namespace OpenCVForUnityExample
             _isInitialized = true;
         }
 
+        private void CleanupPreviewResources()
+        {
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+                _texture = null;
+            }
+
+            UpdateFpsMonitorPlaybackState();
+        }
+
+        private void UpdateFpsMonitorPlaybackState()
+        {
+            if (_fpsMonitor == null || _multiSourceToMatHelper == null)
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("PlaybackState", GetPlaybackStateText());
+        }
+
+        private string GetPlaybackStateText()
+        {
+            if (!_multiSourceToMatHelper.IsInitialized)
+            {
+                return "Uninitialized";
+            }
+
+            if (_multiSourceToMatHelper.IsPlaying)
+            {
+                return "Playing";
+            }
+
+            if (_multiSourceToMatHelper.IsPaused)
+            {
+                return "Paused";
+            }
+
+            return "Ready";
+        }
+
+        private void WireSourceToMatControlPanelHooks()
+        {
+            _controlPanel = GetComponent<SourceToMatControlPanel>();
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.AddListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.AddListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.AddListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.AddListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.AddListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.AddListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.AddListener(OnControlPanelHelperKindChanged);
+        }
+
+        private void UnwireSourceToMatControlPanelHooks()
+        {
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.RemoveListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.RemoveListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.RemoveListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.RemoveListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.RemoveListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.RemoveListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.RemoveListener(OnControlPanelHelperKindChanged);
+            _controlPanel = null;
+        }
+
+        /// <summary>
+        /// Hides the SourceToMat control panel. Image-list calibration does not use the live helper UI.
+        /// The panel instantiates Canvas <c>SourceToMatControlPanelCanvas</c> in Awake, so disable the component and the canvas.
+        /// </summary>
+        private void HideSourceToMatControlPanel()
+        {
+            SourceToMatControlPanel panel = GetComponent<SourceToMatControlPanel>();
+            if (panel != null)
+            {
+                panel.enabled = false;
+            }
+
+            GameObject canvas = GameObject.Find("SourceToMatControlPanelCanvas");
+            if (canvas != null)
+            {
+                canvas.SetActive(false);
+            }
+        }
+
+        private void InitializeCalibraton(Mat frameMat)
+        {
+            _texture = new Texture2D(frameMat.cols(), frameMat.rows(), TextureFormat.RGBA32, false);
+            OpenCVMatUnityUtils.MatToTexture2D(frameMat, _texture);
+
+            if (ResultPreview != null)
+            {
+                ResultPreview.texture = _texture;
+                AspectRatioFitter aspectRatioFitter = ResultPreview.GetComponent<AspectRatioFitter>();
+                if (aspectRatioFitter != null)
+                {
+                    aspectRatioFitter.aspectRatio = (float)_texture.width / _texture.height;
+                }
+            }
+
+            CreateOrRecreateProcessingResources(frameMat);
+        }
+
         private void DisposeCalibraton()
         {
-            ResetCalibration();
-
-            _grayMat?.Dispose(); _grayMat = null;
-            _bgrMat?.Dispose(); _bgrMat = null;
-            _undistortedBgrMat?.Dispose(); _undistortedBgrMat = null;
-            _rgbaMat?.Dispose(); _rgbaMat = null;
-
-            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
-
-            if (_rvecs != null) foreach (var item in _rvecs) item.Dispose(); _rvecs.Clear();
-            if (_tvecs != null) foreach (var item in _tvecs) item.Dispose(); _tvecs.Clear();
-
-            /*
-                        // for ChArUcoBoard.
-                        _ids?.Dispose(); _ids = null;
-                        if (_corners != null) foreach (var item in _corners) item.Dispose(); _corners.Clear();
-                        if (_rejectedCorners != null) foreach (var item in _rejectedCorners) item.Dispose(); _rejectedCorners.Clear();
-                        _recoveredIdxs?.Dispose(); _recoveredIdxs = null;
-                        _charucoCorners?.Dispose(); _charucoCorners = null;
-                        _charucoIds?.Dispose(); _charucoIds = null;
-                        _charucoBoard?.Dispose(); _charucoBoard = null;
-                        _arucoDetector?.Dispose(); _arucoDetector = null;
-                        _charucoDetector?.Dispose(); _charucoDetector = null;
-                        _dictionary?.Dispose(); _dictionary = null;
-            */
-
-            _isInitialized = false;
+            DisposeFrameProcessingResources();
+            CleanupPreviewResources();
         }
 
         private void DrawFrame(Mat grayMat, Mat bgrMat)
@@ -810,27 +1150,27 @@ namespace OpenCVForUnityExample
                         case MarkerType.ChessBoard:
                             if (UseFindChessboardCornersSBMethod)
                             {
-                                found = Calib3d.findChessboardCornersSB(grayMat, new Size((int)BoardSizeW, (int)BoardSizeH), points, FIND_CHESSBOARD_CORNERS_SB_FLAGS);
+                                found = Objdetect.findChessboardCornersSB(grayMat, new Size((int)BoardSizeW, (int)BoardSizeH), points, FIND_CHESSBOARD_CORNERS_SB_FLAGS);
                             }
                             else
                             {
-                                found = Calib3d.findChessboardCorners(grayMat, new Size((int)BoardSizeW, (int)BoardSizeH), points, FIND_CHESSBOARD_CORNERS_FLAGS);
+                                found = Objdetect.findChessboardCorners(grayMat, new Size((int)BoardSizeW, (int)BoardSizeH), points, FIND_CHESSBOARD_CORNERS_FLAGS);
                             }
                             break;
                         case MarkerType.CirclesGlid:
-                            found = Calib3d.findCirclesGrid(grayMat, new Size((int)BoardSizeW, (int)BoardSizeH), points, FIND_CIRCLES_GRID_FLAGS | Calib3d.CALIB_CB_SYMMETRIC_GRID);
-                            Debug.Log("CirclesGlid found: " + found);
+                            found = Objdetect.findCirclesGrid(grayMat, new Size((int)BoardSizeW, (int)BoardSizeH), points, FIND_CIRCLES_GRID_FLAGS | Objdetect.CALIB_CB_SYMMETRIC_GRID);
+                            Debug.Log("CirclesGlid found: " + found, this);
                             break;
                         case MarkerType.AsymmetricCirclesGlid:
-                            found = Calib3d.findCirclesGrid(grayMat, new Size((int)BoardSizeW, (int)BoardSizeH), points, FIND_CIRCLES_GRID_FLAGS | Calib3d.CALIB_CB_ASYMMETRIC_GRID);
-                            Debug.Log("AsymmetricCirclesGlid found: " + found);
+                            found = Objdetect.findCirclesGrid(grayMat, new Size((int)BoardSizeW, (int)BoardSizeH), points, FIND_CIRCLES_GRID_FLAGS | Objdetect.CALIB_CB_ASYMMETRIC_GRID);
+                            Debug.Log("AsymmetricCirclesGlid found: " + found, this);
                             break;
                     }
 
                     if (found)
                     {
                         // draw markers.
-                        Calib3d.drawChessboardCorners(bgrMat, new Size((int)BoardSizeW, (int)BoardSizeH), points, found);
+                        Objdetect.drawChessboardCorners(bgrMat, new Size((int)BoardSizeW, (int)BoardSizeH), points, found);
                     }
                     break;
                 case MarkerType.ChArUcoBoard:
@@ -901,7 +1241,9 @@ namespace OpenCVForUnityExample
             Imgproc.putText(bgrMat, "AVG_REPROJECTION_ERROR: " + _repErr, new Point(bgrMat.cols() - textLeft, 300), ff, fs, c, t, lt, blo);
 
             if (frameCount == 0)
+            {
                 Imgproc.putText(bgrMat, "Please press the capture button to start!", new Point(5, bgrMat.rows() - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar(255, 255, 255, 255), 1, Imgproc.LINE_AA, false);
+            }
         }
 
         private double CaptureFrame(Mat frameMat)
@@ -918,18 +1260,18 @@ namespace OpenCVForUnityExample
                 case MarkerType.ChessBoard:
                     if (UseFindChessboardCornersSBMethod)
                     {
-                        found = Calib3d.findChessboardCornersSB(frameMat, patternSize, points, FIND_CHESSBOARD_CORNERS_SB_FLAGS);
+                        found = Objdetect.findChessboardCornersSB(frameMat, patternSize, points, FIND_CHESSBOARD_CORNERS_SB_FLAGS);
                     }
                     else
                     {
-                        found = Calib3d.findChessboardCorners(frameMat, patternSize, points, FIND_CHESSBOARD_CORNERS_FLAGS);
+                        found = Objdetect.findChessboardCorners(frameMat, patternSize, points, FIND_CHESSBOARD_CORNERS_FLAGS);
                     }
                     break;
                 case MarkerType.CirclesGlid:
-                    found = Calib3d.findCirclesGrid(frameMat, patternSize, points, FIND_CIRCLES_GRID_FLAGS | Calib3d.CALIB_CB_SYMMETRIC_GRID);
+                    found = Objdetect.findCirclesGrid(frameMat, patternSize, points, FIND_CIRCLES_GRID_FLAGS | Objdetect.CALIB_CB_SYMMETRIC_GRID);
                     break;
                 case MarkerType.AsymmetricCirclesGlid:
-                    found = Calib3d.findCirclesGrid(frameMat, patternSize, points, FIND_CIRCLES_GRID_FLAGS | Calib3d.CALIB_CB_ASYMMETRIC_GRID);
+                    found = Objdetect.findCirclesGrid(frameMat, patternSize, points, FIND_CIRCLES_GRID_FLAGS | Objdetect.CALIB_CB_ASYMMETRIC_GRID);
                     break;
             }
 
@@ -944,11 +1286,11 @@ namespace OpenCVForUnityExample
                 _imagePoints.Add(points);
                 _allImgs.Add(frameMat);
 
-                Debug.Log(_imagePoints.Count + " Frame captured.");
+                Debug.Log(_imagePoints.Count + " Frame captured.", this);
             }
             else
             {
-                Debug.Log("Invalid frame.");
+                Debug.Log("Invalid frame.", this);
 
                 frameMat?.Dispose();
                 points?.Dispose();
@@ -958,12 +1300,13 @@ namespace OpenCVForUnityExample
 
             if (_imagePoints.Count < 1)
             {
-                Debug.Log("Not enough points for calibration.");
+                Debug.Log("Not enough points for calibration.", this);
                 repErr = -1;
             }
             else
             {
-                MatOfPoint3f objectPoint = new MatOfPoint3f(new Mat(_imagePoints[0].rows(), 1, CvType.CV_32FC3));
+                MatOfPoint3f objectPoint = new MatOfPoint3f();
+                objectPoint.alloc((int)_imagePoints[0].total());
                 CalcChessboardCorners(patternSize, SquareSize, objectPoint, MarkerTypeValue);
 
                 // Adjust the grid width based on the calibration method:
@@ -978,12 +1321,10 @@ namespace OpenCVForUnityExample
                     grid_width = GridWidth;
                     release_object = true;
                 }
-                float[] tlPt = new float[3]; // top-left point
-                objectPoint.get(0, 0, tlPt);
-                float[] trPt = new float[3]; // top-right point
-                objectPoint.get((int)patternSize.width - 1, 0, trPt);
-                trPt[0] = tlPt[0] + grid_width;
-                objectPoint.put((int)patternSize.width - 1, 0, trPt);
+                Point3[] objectPointsArray = objectPoint.toArray();
+                int topRightIndex = (int)patternSize.width - 1;
+                objectPointsArray[topRightIndex].x = objectPointsArray[0].x + grid_width;
+                objectPoint.fromArray(objectPointsArray);
 
                 Mat newObjPoints = objectPoint.clone();
 
@@ -995,11 +1336,13 @@ namespace OpenCVForUnityExample
 
                 int iFixedPoint = -1;
                 if (release_object)
+                {
                     iFixedPoint = (int)patternSize.width - 1;
+                }
 
                 try
                 {
-                    repErr = Calib3d.calibrateCameraRO(
+                    repErr = Calib.calibrateCameraRO(
                                 objectPoints,
                                 _imagePoints,
                                 frameMat.size(),
@@ -1014,7 +1357,7 @@ namespace OpenCVForUnityExample
                 }
                 catch (System.Exception e)
                 {
-                    Debug.LogError("Calib3d.calibrateCameraRO: " + e.Message);
+                    Debug.LogError("Calib3d.calibrateCameraRO: " + e.Message, this);
                 }
 
                 //if (release_object)
@@ -1028,12 +1371,20 @@ namespace OpenCVForUnityExample
                 //}
 
                 objectPoint?.Dispose();
-                if (objectPoints != null) foreach (var item in objectPoints) item.Dispose(); objectPoints.Clear();
+                if (objectPoints != null)
+                {
+                    foreach (var item in objectPoints)
+                    {
+                        item.Dispose();
+                    }
+                }
+
+                objectPoints.Clear();
             }
 
-            Debug.Log("repErr: " + repErr);
-            Debug.Log("camMatrix: " + _camMatrix.dump());
-            Debug.Log("distCoeffs: " + _distCoeffs.dump());
+            Debug.Log("repErr: " + repErr, this);
+            Debug.Log("camMatrix: " + _camMatrix.dump(), this);
+            Debug.Log("distCoeffs: " + _distCoeffs.dump(), this);
 
             return repErr;
         }
@@ -1068,7 +1419,8 @@ namespace OpenCVForUnityExample
 
                         frameMat?.Dispose();
                         ids?.Dispose();
-                        if (corners != null) foreach (var item in corners) item.Dispose(); corners.Clear();
+                        if (corners != null) foreach (var item in corners) item.Dispose();
+                        corners.Clear()
 
                         return -1;
                     }
@@ -1130,13 +1482,37 @@ namespace OpenCVForUnityExample
 
         private void ResetCalibration()
         {
-
             _repErr = 0;
-            _camMatrix?.Dispose(); _camMatrix = CreateCameraMatrix(_bgrMat.width(), _bgrMat.height());
-            _distCoeffs?.Dispose(); _distCoeffs = new MatOfDouble(0, 0, 0, 0, 0);
 
-            if (_imagePoints != null) foreach (var item in _imagePoints) item.Dispose(); _imagePoints.Clear();
-            if (_allImgs != null) foreach (var item in _allImgs) item.Dispose(); _allImgs.Clear();
+            if (_bgrMat == null)
+            {
+                return;
+            }
+
+            _camMatrix?.Dispose();
+            _camMatrix = CreateCameraMatrix(_bgrMat.width(), _bgrMat.height());
+            _distCoeffs?.Dispose();
+            _distCoeffs = new MatOfDouble(0, 0, 0, 0, 0);
+
+            if (_imagePoints != null)
+            {
+                foreach (var item in _imagePoints)
+                {
+                    item.Dispose();
+                }
+
+                _imagePoints.Clear();
+            }
+
+            if (_allImgs != null)
+            {
+                foreach (var item in _allImgs)
+                {
+                    item.Dispose();
+                }
+
+                _allImgs.Clear();
+            }
 
             /*
                         // for ChArUcoBoard.
@@ -1144,12 +1520,14 @@ namespace OpenCVForUnityExample
                         {
                             foreach (var corners in _allCorners)
                             {
-                                if (corners != null) foreach (var item in corners) item.Dispose(); corners.Clear();
+                                if (corners != null) foreach (var item in corners) item.Dispose();
+                                corners.Clear()
                             }
                         }
                         _allCorners.Clear();
 
-                        if (_allIds != null) foreach (var item in _allIds) item.Dispose(); _allIds.Clear();
+                        if (_allIds != null) foreach (var item in _allIds) item.Dispose();
+                        _allIds.Clear()
             */
         }
 
@@ -1177,16 +1555,17 @@ namespace OpenCVForUnityExample
 
         private void CalcChessboardCorners(Size patternSize, float squareSize, MatOfPoint3f corners, MarkerType markerType)
         {
-            if ((int)(patternSize.width * patternSize.height) != corners.rows())
+            int expectedCount = (int)(patternSize.width * patternSize.height);
+            if (expectedCount != (int)corners.total())
             {
-                Debug.Log("Invalid corners size.");
-                corners.create((int)(patternSize.width * patternSize.height), 1, CvType.CV_32FC3);
+                Debug.Log("Invalid corners size.", this);
+                corners.alloc(expectedCount);
             }
 
             int width = (int)patternSize.width;
             int height = (int)patternSize.height;
-
-            float[] cornersArray = new float[width * height * 3];
+            int pointCount = width * height;
+            Point3[] cornersArray = new Point3[pointCount];
 
             switch (markerType)
             {
@@ -1197,10 +1576,8 @@ namespace OpenCVForUnityExample
                     {
                         for (int j = 0; j < width; ++j)
                         {
-                            int index = (width * i + j) * 3;
-                            cornersArray[index] = j * squareSize;
-                            cornersArray[index + 1] = i * squareSize;
-                            cornersArray[index + 2] = 0f;
+                            int index = width * i + j;
+                            cornersArray[index] = new Point3(j * squareSize, i * squareSize, 0f);
                         }
                     }
                     break;
@@ -1209,39 +1586,39 @@ namespace OpenCVForUnityExample
                     {
                         for (int j = 0; j < width; ++j)
                         {
-                            int index = (width * i + j) * 3;
-                            cornersArray[index] = (2 * j + i % 2) * squareSize;
-                            cornersArray[index + 1] = i * squareSize;
-                            cornersArray[index + 2] = 0f;
+                            int index = width * i + j;
+                            cornersArray[index] = new Point3((2 * j + i % 2) * squareSize, i * squareSize, 0f);
                         }
                     }
                     break;
             }
 
-            corners.put(0, 0, cornersArray);
+            corners.fromArray(cornersArray);
         }
 
         private bool InitializeImagesInputMode()
         {
             if (_isInitialized)
-                DisposeCalibraton();
-
-            if (String.IsNullOrEmpty(CalibrationImagesDirectory))
             {
-                Debug.LogWarning("When using the images input mode, please set a calibration images directory path.");
+                DisposeCalibraton();
+            }
+
+            if (string.IsNullOrEmpty(CalibrationImagesDirectory))
+            {
+                Debug.LogWarning("When using the images input mode, please set a calibration images directory path.", this);
                 return false;
             }
 
             string dirPath = Path.Combine(Application.streamingAssetsPath, CalibrationImagesDirectory);
             if (!Directory.Exists(dirPath))
             {
-                Debug.LogWarning("The directory does not exist.");
+                Debug.LogWarning("The directory does not exist.", this);
                 return false;
             }
             string[] imageFiles = GetImageFilesInDirectory(dirPath);
             if (imageFiles.Length < 1)
             {
-                Debug.LogWarning("The image file does not exist.");
+                Debug.LogWarning("The image file does not exist.", this);
                 return false;
             }
 
@@ -1249,12 +1626,12 @@ namespace OpenCVForUnityExample
             Uri fullPath = new Uri(imageFiles[0]);
             string relativePath = rootPath.MakeRelativeUri(fullPath).ToString();
 
-            using (Mat gray = Imgcodecs.imread(OpenCVEnv.GetFilePath(relativePath), Imgcodecs.IMREAD_GRAYSCALE))
+            using (Mat gray = Imgcodecs.imread(OpenCVForUnityEnv.GetFilePath(relativePath), Imgcodecs.IMREAD_GRAYSCALE))
             {
 
                 if (gray.total() == 0)
                 {
-                    Debug.LogWarning("Invalid image file.");
+                    Debug.LogWarning("Invalid image file.", this);
                     return false;
                 }
 
@@ -1267,7 +1644,7 @@ namespace OpenCVForUnityExample
                     DrawFrame(gray, bgr);
                     DrawCalibrationResult(bgr);
                     Imgproc.cvtColor(bgr, rgba, Imgproc.COLOR_BGR2RGBA);
-                    OpenCVMatUtils.MatToTexture2D(rgba, _texture);
+                    OpenCVMatUnityUtils.MatToTexture2D(rgba, _texture);
                 }
             }
             return true;
@@ -1278,7 +1655,9 @@ namespace OpenCVForUnityExample
             string dirPath = Path.Combine(Application.streamingAssetsPath, CalibrationImagesDirectory);
             string[] imageFiles = GetImageFilesInDirectory(dirPath);
             if (imageFiles.Length < 1)
+            {
                 yield break;
+            }
 
             _isCalibrating = true;
             MarkerTypeDropdown.interactable = BoardSizeWDropdown.interactable = BoardSizeHDropdown.interactable = false;
@@ -1293,27 +1672,33 @@ namespace OpenCVForUnityExample
                 Uri fullPath = new Uri(path);
                 string relativePath = rootPath.MakeRelativeUri(fullPath).ToString();
 
-                using (Mat gray = Imgcodecs.imread(OpenCVEnv.GetFilePath(relativePath), Imgcodecs.IMREAD_GRAYSCALE))
+                using (Mat gray = Imgcodecs.imread(OpenCVForUnityEnv.GetFilePath(relativePath), Imgcodecs.IMREAD_GRAYSCALE))
                 {
                     if (gray.width() != _bgrMat.width() || gray.height() != _bgrMat.height())
+                    {
                         continue;
+                    }
 
                     Mat frameMat = gray.clone();
 
                     double e = 0;
                     if (MarkerTypeValue != MarkerType.ChArUcoBoard)
+                    {
                         e = CaptureFrame(frameMat);
+                    }
                     // else
                     //     e = CaptureFrame_Charuco(frameMat);
 
                     if (e > 0)
+                    {
                         _repErr = e;
+                    }
 
                     DrawFrame(gray, _bgrMat);
                     DrawCalibrationResult(_bgrMat);
                     Imgproc.cvtColor(_bgrMat, _rgbaMat, Imgproc.COLOR_BGR2RGBA);
 
-                    OpenCVMatUtils.MatToTexture2D(_rgbaMat, _texture);
+                    OpenCVMatUnityUtils.MatToTexture2D(_rgbaMat, _texture);
                 }
                 yield return new WaitForSeconds(0.5f);
             }

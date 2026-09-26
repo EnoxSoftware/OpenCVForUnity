@@ -4,41 +4,55 @@ using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.Extensions.SourceToMat;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.ObjdetectModule;
 using OpenCVForUnity.UnityIntegration;
-using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
+using OpenCVForUnity.UnityIntegration.Helper.SourceToMat;
+using OpenCVForUnity.UnityIntegration.Helper.UI;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static OpenCVForUnity.UnityIntegration.Helper.Source2Mat.MultiSource2MatHelper;
+using OpenCVDebug = OpenCVForUnity.Extensions.OpenCVDebug;
 using Rect = OpenCVForUnity.CoreModule.Rect;
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
     /// FaceDetectorYN Example
-    /// An example of detecting human face using the FaceDetectorYN class.
+    /// Detects faces with 5 landmarks using the YuNet DNN model on each input frame.
+    ///
+    /// Demonstrates:
+    /// - Reading input frames via <see cref="MultiSourceToMatHelper"/> (webcam, video file, image file, or GPU readback)
+    /// - Loading an ONNX face detector and configuring score/NMS thresholds
+    /// - Aspect-ratio-preserving resize before inference and coordinate rescaling afterward
+    /// - Optional face blurring or bounding-box/landmark visualization
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="FaceDetectorYN"/>, <see cref="Mat"/>
+    /// - <see cref="Imgproc"/>: cvtColor, resize, rectangle, circle, GaussianBlur, putText
+    /// - <see cref="MultiSourceToMatHelper"/>, <see cref="OpenCVMatUnityUtils"/>
+    /// </summary>
+    /// <remarks>
+    /// <para>
     /// Referring to:
     /// https://github.com/opencv/opencv/blob/master/samples/dnn/face_detect.cpp
     /// https://docs.opencv.org/4.5.4/d0/dd4/tutorial_dnn_face.html
-    ///
+    /// </para>
+    /// <para>
     /// [Tested Models]
     /// face_detection_yunet_2023mar.onnx https://github.com/opencv/opencv_zoo/blob/main/models/face_detection_yunet/face_detection_yunet_2023mar.onnx
     /// yunet_n_320_320.onnx https://github.com/ShiqiYu/libfacedetection.train/blob/master/onnx/yunet_n_320_320.onnx
     /// yunet_n_640_640.onnx https://github.com/ShiqiYu/libfacedetection.train/blob/master/onnx/yunet_n_640_640.onnx
     /// yunet_s_320_320.onnx https://github.com/ShiqiYu/libfacedetection.train/blob/master/onnx/yunet_s_320_320.onnx
     /// yunet_s_640_640.onnx https://github.com/ShiqiYu/libfacedetection.train/blob/master/onnx/yunet_s_640_640.onnx
-    /// </summary>
-    [RequireComponent(typeof(MultiSource2MatHelper))]
+    /// </para>
+    /// </remarks>
+    [RequireComponent(typeof(MultiSourceToMatHelper))]
     public class FaceDetectorYNExample : MonoBehaviour
     {
         // Constants
-        /// <summary>
-        /// MODEL_FILENAME
-        /// </summary>
-        protected static readonly string MODEL_FILENAME = "OpenCVForUnityExamples/objdetect/face_detection_yunet_2023mar.onnx";
+        private static readonly string MODEL_FILEPATH = "OpenCVForUnityExamples/objdetect/face_detection_yunet_2023mar.onnx";
 
         // Public Fields
         [Header("Output")]
@@ -55,14 +69,7 @@ namespace OpenCVForUnityExample
         public Toggle ApplyFaceBlurringToggle;
 
         // Private Fields
-        /// <summary>
-        /// The FaceDetectorYN.
-        /// </summary>
         private FaceDetectorYN _faceDetector;
-
-        /// <summary>
-        /// The size for the network input.
-        /// </summary>
         private int _inputSizeW = 320;
         private int _inputSizeH = 320;
 
@@ -80,32 +87,12 @@ namespace OpenCVForUnityExample
         /// Keep top_k bounding boxes before NMS.
         /// </summary>
         private int _topK = 5000;
-
-        /// <summary>
-        /// The bgr mat.
-        /// </summary>
         private Mat _bgrMat;
-
-        /// <summary>
-        /// The input mat.
-        /// </summary>
         private Mat _inputMat;
-
-        /// <summary>
-        /// The texture.
-        /// </summary>
         private Texture2D _texture;
-
-        /// <summary>
-        /// The multi source to mat helper.
-        /// </summary>
-        private MultiSource2MatHelper _multiSource2MatHelper;
-
-        /// <summary>
-        /// The FPS monitor.
-        /// </summary>
+        private MultiSourceToMatHelper _multiSourceToMatHelper;
         private FpsMonitor _fpsMonitor;
-
+        private SourceToMatControlPanel _controlPanel;
         private Scalar _bBoxColor = new Scalar(255, 255, 0, 255);
 
         private Scalar[] _keyPointsColors = new Scalar[] {
@@ -116,9 +103,6 @@ namespace OpenCVForUnityExample
             new Scalar(0, 255, 0, 255), // # mouth left
             new Scalar(255, 255, 255, 255) };
 
-        /// <summary>
-        /// The CancellationTokenSource.
-        /// </summary>
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
         // Unity Lifecycle Methods
@@ -126,133 +110,187 @@ namespace OpenCVForUnityExample
         {
             _fpsMonitor = GetComponent<FpsMonitor>();
 
-            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSourceToMatHelper = gameObject.GetComponent<MultiSourceToMatHelper>();
+            _multiSourceToMatHelper.OutputColorFormat = SourceToMatColorFormat.RGBA;
 
-            // WebCamTexture2MatHelper does not work on WebGPU, so use WebCamTexture2MatAsyncGPUHelper instead.
-#if UNITY_6000_0_OR_NEWER
-            if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.WebGPU && _multiSource2MatHelper.RequestedSource2MatHelperClassName == MultiSource2MatHelperClassName.WebCamTexture2MatHelper)
-            {
-                _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.WebCamTexture2MatAsyncGPUHelper;
-            }
-#endif
-            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
+            WireSourceToMatControlPanelHooks();
 
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             OpenCVDebug.SetDebugMode(true);
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
             if (_fpsMonitor != null)
+            {
                 _fpsMonitor.ConsoleText = "Preparing file access...";
+            }
 
-            string fd_modelPath = await OpenCVEnv.GetFilePathTaskAsync(MODEL_FILENAME, cancellationToken: _cts.Token);
+            string fd_modelPath = await OpenCVForUnityEnv.GetFilePathAsync(MODEL_FILEPATH, cancellationToken: _cts.Token);
 
             if (_fpsMonitor != null)
+            {
                 _fpsMonitor.ConsoleText = "";
+            }
 
             if (string.IsNullOrEmpty(fd_modelPath))
             {
-                Debug.LogError(MODEL_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                Debug.LogError(MODEL_FILEPATH + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.", this);
                 if (_fpsMonitor != null)
-                    _fpsMonitor.Toast("model file is not loaded.\nPlease read console message.", 20000);
+                {
+                    _fpsMonitor.ConsoleText = "model file is not loaded.\nPlease read console message.";
+                }
             }
             else
             {
                 _faceDetector = FaceDetectorYN.create(fd_modelPath, "", new Size(_inputSizeW, _inputSizeH), _scoreThreshold, _nmsThreshold, _topK);
             }
 
-            _multiSource2MatHelper.Initialize();
-        }
-
-        private void Update()
-        {
-            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
+            if (_faceDetector == null)
             {
-
-                Mat rgbaMat = _multiSource2MatHelper.GetMat();
-
-                if (_faceDetector != null)
-                {
-                    Imgproc.cvtColor(rgbaMat, _bgrMat, Imgproc.COLOR_RGBA2BGR);
-
-                    FaceDetection5LandmarkData[] detections = Detect(_bgrMat);
-
-                    for (int i = 0; i < detections.Length; i++)
-                    {
-                        ref readonly var d = ref detections[i];
-                        if (ApplyFaceBlurringToggle.isOn)
-                        {
-                            BlurDetection(d, rgbaMat);
-                        }
-                        else
-                        {
-                            DrawDetection(d, rgbaMat);
-                        }
-                    }
-                }
-
-                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
+                return;
             }
+
+            _multiSourceToMatHelper.Initialize();
         }
 
         private void OnDestroy()
         {
-            _multiSource2MatHelper?.Dispose();
+            UnwireSourceToMatControlPanelHooks();
+
+            _cts?.Cancel();
 
             _faceDetector?.Dispose();
+            _faceDetector = null;
 
             OpenCVDebug.SetDebugMode(false);
 
             _cts?.Dispose();
+            _cts = null;
         }
 
         // Public Methods
         /// <summary>
-        /// Raises the source to mat helper initialized event.
+        /// Raises the helper frame mat updated event.
+        /// Updates the preview texture when a new frame is available during playback.
+        /// </summary>
+        public void OnSourceToMatHelperFrameMatUpdated()
+        {
+            if (!_multiSourceToMatHelper.IsPlaying)
+            {
+                return;
+            }
+
+            Mat rgbaMat = _multiSourceToMatHelper.FrameMat;
+
+            if (_faceDetector != null)
+            {
+                // FaceDetectorYN expects BGR input, not RGBA from the camera helper.
+                Imgproc.cvtColor(rgbaMat, _bgrMat, Imgproc.COLOR_RGBA2BGR);
+
+                FaceDetection5LandmarkData[] detections = Detect(_bgrMat);
+
+                for (int i = 0; i < detections.Length; i++)
+                {
+                    ref readonly var d = ref detections[i];
+                    if (ApplyFaceBlurringToggle.isOn)
+                    {
+                        BlurDetection(d, rgbaMat);
+                    }
+                    else
+                    {
+                        DrawDetection(d, rgbaMat);
+                    }
+                }
+            }
+
+            OpenCVMatUnityUtils.MatToTexture2D(rgbaMat, _texture);
+        }
+
+        /// <summary>
+        /// Raises the helper initialized event.
+        /// Recreates the preview texture and starts playback on first initialization.
+        /// Skips Play when re-initialization has already restored Playing or Paused.
         /// </summary>
         public void OnSourceToMatHelperInitialized()
         {
-            Debug.Log("OnSourceToMatHelperInitialized");
+            Debug.Log("OnSourceToMatHelperInitialized", this);
 
-            Mat rgbaMat = _multiSource2MatHelper.GetMat();
-
-            _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
-            OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
-
-            ResultPreview.texture = _texture;
-            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
+            RecreatePreviewTexture();
+            CreateOrRecreateProcessingResources(_multiSourceToMatHelper.FrameMat);
 
             if (_fpsMonitor != null)
             {
-                _fpsMonitor.Add("width", rgbaMat.width().ToString());
-                _fpsMonitor.Add("height", rgbaMat.height().ToString());
-                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                _fpsMonitor.Clear();
+                UpdateFpsMonitorPlaybackState();
+                _fpsMonitor.Add("HelperKind", _multiSourceToMatHelper.RequestedHelperKind.ToString());
+                _fpsMonitor.Add("Width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("Height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("Rotate90Degree", _multiSourceToMatHelper.Rotate90Degree.ToString());
+                _fpsMonitor.Add("FlipVertical", _multiSourceToMatHelper.FlipVertical.ToString());
+                _fpsMonitor.Add("FlipHorizontal", _multiSourceToMatHelper.FlipHorizontal.ToString());
+                _fpsMonitor.Add("Orientation", Screen.orientation.ToString());
             }
 
-            _bgrMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
+            if (!_multiSourceToMatHelper.IsPlaying && !_multiSourceToMatHelper.IsPaused)
+            {
+                _multiSourceToMatHelper.Play();
+                UpdateFpsMonitorPlaybackState();
+            }
         }
 
         /// <summary>
-        /// Raises the source to mat helper disposed event.
+        /// Raises the helper frame mat layout changed event.
+        /// Recreates the preview texture when rotation or output size changes.
+        /// </summary>
+        public void OnSourceToMatHelperFrameMatLayoutChanged()
+        {
+            Debug.Log("OnSourceToMatHelperFrameMatLayoutChanged", this);
+
+            RecreatePreviewTexture();
+            CreateOrRecreateProcessingResources(_multiSourceToMatHelper.FrameMat);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("Width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("Height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("Orientation", Screen.orientation.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Raises the helper released event.
+        /// </summary>
+        public void OnSourceToMatHelperReleased()
+        {
+            Debug.Log("OnSourceToMatHelperReleased", this);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Clear();
+            }
+
+            DisposeFrameProcessingResources();
+            CleanupPreviewResources();
+        }
+
+        /// <summary>
+        /// Raises the helper disposed event.
         /// </summary>
         public void OnSourceToMatHelperDisposed()
         {
-            Debug.Log("OnSourceToMatHelperDisposed");
+            Debug.Log("OnSourceToMatHelperDisposed", this);
 
-            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
-
-            _bgrMat?.Dispose();
-
-            _inputMat?.Dispose();
+            DisposeFrameProcessingResources();
+            CleanupPreviewResources();
         }
 
         /// <summary>
-        /// Raises the source to mat helper error occurred event.
+        /// Raises the helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
         /// <param name="message">Message.</param>
-        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
+        public void OnSourceToMatHelperErrorOccurred(SourceToMatErrorCode errorCode, string message)
         {
-            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message, this);
 
             if (_fpsMonitor != null)
             {
@@ -262,48 +300,223 @@ namespace OpenCVForUnityExample
 
         /// <summary>
         /// Raises the back button click event.
+        /// Stops playback and disposes the helper before scene transition (required on WebGL).
         /// </summary>
-        public void OnBackButtonClick()
+        public async void OnBackButtonClick()
         {
+            if (_multiSourceToMatHelper.IsPlaying || _multiSourceToMatHelper.IsPaused)
+            {
+                await _multiSourceToMatHelper.StopAsync();
+            }
+
+            await _multiSourceToMatHelper.DisposeAsync();
+
             SceneManager.LoadScene("OpenCVForUnityExample");
         }
 
         /// <summary>
-        /// Raises the play button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPlay"/>.
         /// </summary>
-        public void OnPlayButtonClick()
+        public void OnControlPanelAfterPlay()
         {
-            _multiSource2MatHelper.Play();
+            UpdateFpsMonitorPlaybackState();
         }
 
         /// <summary>
-        /// Raises the pause button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPause"/>.
         /// </summary>
-        public void OnPauseButtonClick()
+        public void OnControlPanelAfterPause()
         {
-            _multiSource2MatHelper.Pause();
+            UpdateFpsMonitorPlaybackState();
         }
 
         /// <summary>
-        /// Raises the stop button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterStop"/>.
         /// </summary>
-        public void OnStopButtonClick()
+        public void OnControlPanelAfterStop()
         {
-            _multiSource2MatHelper.Stop();
+            UpdateFpsMonitorPlaybackState();
         }
 
         /// <summary>
-        /// Raises the change camera button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnRotate90Changed"/>.
         /// </summary>
-        public void OnChangeCameraButtonClick()
+        /// <param name="isOn">New Rotate90Degree value applied by the panel.</param>
+        public void OnControlPanelRotate90Changed(bool isOn)
         {
-            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("Rotate90Degree", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipVerticalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipVertical value applied by the panel.</param>
+        public void OnControlPanelFlipVerticalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipVertical", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipHorizontalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipHorizontal value applied by the panel.</param>
+        public void OnControlPanelFlipHorizontalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipHorizontal", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnHelperKindChanged"/>.
+        /// </summary>
+        /// <param name="kindIndex">Dropdown index matching <see cref="MultiSourceHelperKind"/>.</param>
+        public void OnControlPanelHelperKindChanged(int kindIndex)
+        {
+            if (_fpsMonitor == null || !Enum.IsDefined(typeof(MultiSourceHelperKind), kindIndex))
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("HelperKind", ((MultiSourceHelperKind)kindIndex).ToString());
         }
 
         // Private Methods
+        private void RecreatePreviewTexture()
+        {
+            Mat frameMat = _multiSourceToMatHelper.FrameMat;
+            if (frameMat == null)
+            {
+                return;
+            }
+
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+                _texture = null;
+            }
+
+            bool isRgb = _multiSourceToMatHelper.OutputColorFormat == SourceToMatColorFormat.RGB;
+            _texture = new Texture2D(frameMat.cols(), frameMat.rows(), isRgb ? TextureFormat.RGB24 : TextureFormat.RGBA32, false);
+            OpenCVMatUnityUtils.MatToTexture2D(frameMat, _texture);
+
+            if (ResultPreview != null)
+            {
+                ResultPreview.texture = _texture;
+                AspectRatioFitter aspectRatioFitter = ResultPreview.GetComponent<AspectRatioFitter>();
+                if (aspectRatioFitter != null)
+                {
+                    aspectRatioFitter.aspectRatio = (float)_texture.width / _texture.height;
+                }
+            }
+        }
+
+        private void DisposeFrameProcessingResources()
+        {
+            _bgrMat?.Dispose();
+            _bgrMat = null;
+
+            _inputMat?.Dispose();
+            _inputMat = null;
+        }
+
+        private void CreateOrRecreateProcessingResources(Mat frameMat)
+        {
+            if (frameMat == null)
+            {
+                return;
+            }
+
+            DisposeFrameProcessingResources();
+
+            _bgrMat = new Mat(frameMat.rows(), frameMat.cols(), CvType.CV_8UC3);
+        }
+
+        private void CleanupPreviewResources()
+        {
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+                _texture = null;
+            }
+
+            UpdateFpsMonitorPlaybackState();
+        }
+
+        private void UpdateFpsMonitorPlaybackState()
+        {
+            if (_fpsMonitor == null || _multiSourceToMatHelper == null)
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("PlaybackState", GetPlaybackStateText());
+        }
+
+        private string GetPlaybackStateText()
+        {
+            if (!_multiSourceToMatHelper.IsInitialized)
+            {
+                return "Uninitialized";
+            }
+
+            if (_multiSourceToMatHelper.IsPlaying)
+            {
+                return "Playing";
+            }
+
+            if (_multiSourceToMatHelper.IsPaused)
+            {
+                return "Paused";
+            }
+
+            return "Ready";
+        }
+
+        private void WireSourceToMatControlPanelHooks()
+        {
+            _controlPanel = GetComponent<SourceToMatControlPanel>();
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.AddListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.AddListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.AddListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.AddListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.AddListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.AddListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.AddListener(OnControlPanelHelperKindChanged);
+        }
+
+        private void UnwireSourceToMatControlPanelHooks()
+        {
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.RemoveListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.RemoveListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.RemoveListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.RemoveListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.RemoveListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.RemoveListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.RemoveListener(OnControlPanelHelperKindChanged);
+            _controlPanel = null;
+        }
+
         protected virtual FaceDetection5LandmarkData[] Detect(Mat image)
         {
-            // Resize the input image to fit within inputSize dimensions while preserving aspect ratio
+            // Preserve aspect ratio so the network sees undistorted proportions; setInputSize must match _inputMat.
             double aspectRatio = (double)image.width() / image.height();
             int targetWidth, targetHeight;
 
@@ -320,7 +533,11 @@ namespace OpenCVForUnityExample
 
             if (_inputMat == null || _inputMat.width() != targetWidth || _inputMat.height() != targetHeight)
             {
-                if (_inputMat == null) _inputMat = new Mat();
+                if (_inputMat == null)
+                {
+                    _inputMat = new Mat();
+                }
+
                 _inputMat.create(targetHeight, targetWidth, image.type());
                 _faceDetector.setInputSize(new Size(targetWidth, targetHeight));
             }
@@ -345,6 +562,7 @@ namespace OpenCVForUnityExample
                 float original_w = image.width();
                 float original_h = image.height();
 
+                // Each row: x, y, w, h, 5 landmark pairs, score — scale bbox back to original image coordinates.
                 float scaleRatioX = original_w / input_w;
                 float scaleRatioY = original_h / input_h;
 
@@ -439,11 +657,11 @@ namespace OpenCVForUnityExample
             public readonly float Height;
 
             // Key points
-            public readonly Vec2f RightEye;
-            public readonly Vec2f LeftEye;
-            public readonly Vec2f Nose;
-            public readonly Vec2f RightMouth;
-            public readonly Vec2f LeftMouth;
+            public readonly OpenCVForUnity.Extensions.Vec2f RightEye;
+            public readonly OpenCVForUnity.Extensions.Vec2f LeftEye;
+            public readonly OpenCVForUnity.Extensions.Vec2f Nose;
+            public readonly OpenCVForUnity.Extensions.Vec2f RightMouth;
+            public readonly OpenCVForUnity.Extensions.Vec2f LeftMouth;
 
             // Confidence score [0, 1]
             public readonly float Score;
@@ -453,7 +671,7 @@ namespace OpenCVForUnityExample
             public const int ELEMENT_COUNT = 4 + LANDMARK_ELEMENT_COUNT + 1;
             public const int DATA_SIZE = ELEMENT_COUNT * 4;
 
-            public FaceDetection5LandmarkData(float x, float y, float width, float height, Vec2f rightEye, Vec2f leftEye, Vec2f nose, Vec2f rightMouth, Vec2f leftMouth, float score)
+            public FaceDetection5LandmarkData(float x, float y, float width, float height, OpenCVForUnity.Extensions.Vec2f rightEye, OpenCVForUnity.Extensions.Vec2f leftEye, OpenCVForUnity.Extensions.Vec2f nose, OpenCVForUnity.Extensions.Vec2f rightMouth, OpenCVForUnity.Extensions.Vec2f leftMouth, float score)
             {
                 X = x;
                 Y = y;
@@ -467,7 +685,7 @@ namespace OpenCVForUnityExample
                 Score = score;
             }
 
-            public readonly override string ToString()
+            public override readonly string ToString()
             {
                 return $"FaceDetection5LandmarkData(X:{X} Y:{Y} Width:{Width} Height:{Height} RightEye:{RightEye.ToString()} LeftEye:{LeftEye.ToString()} Nose:{Nose.ToString()} RightMouth:{RightMouth.ToString()} LeftMouth:{LeftMouth.ToString()} Score:{Score})";
             }

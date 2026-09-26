@@ -4,52 +4,58 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.Extensions.SourceToMat;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
-using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
+using OpenCVForUnity.UnityIntegration.Helper.SourceToMat;
+using OpenCVForUnity.UnityIntegration.Helper.UI;
 using OpenCVForUnity.Wechat_qrcodeModule;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static OpenCVForUnity.UnityIntegration.Helper.Source2Mat.MultiSource2MatHelper;
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// WeChatQRCode Example
-    /// An example of detecting QRCode using the WeChatQRCode class.
-    /// Referring to https://github.com/opencv/opencv_zoo/tree/main/models/qrcode_wechatqrcode
+    /// WeChat QR Code Detector Example
+    /// Detects and decodes QR codes from input frames using the WeChat QR code model.
     ///
-    /// [Tested Models]
-    /// detect_2021nov.prototxt https://github.com/opencv/opencv_zoo/raw/661ca25ce59ccf7505cc79bf788bfb4a888ff314/models/qrcode_wechatqrcode/detect_2021nov.prototxt
-    /// detect_2021nov.caffemodel https://github.com/opencv/opencv_zoo/raw/661ca25ce59ccf7505cc79bf788bfb4a888ff314/models/qrcode_wechatqrcode/detect_2021nov.caffemodel
-    /// sr_2021nov.prototxt https://github.com/opencv/opencv_zoo/raw/661ca25ce59ccf7505cc79bf788bfb4a888ff314/models/qrcode_wechatqrcode/sr_2021nov.prototxt
-    /// sr_2021nov.caffemodel https://github.com/opencv/opencv_zoo/raw/661ca25ce59ccf7505cc79bf788bfb4a888ff314/models/qrcode_wechatqrcode/sr_2021nov.caffemodel
+    /// Demonstrates:
+    /// - Reading input frames via <see cref="MultiSourceToMatHelper"/> (webcam, video file, image file, or GPU readback)
+    /// - Real-time frame capture via MultiSourceToMatHelper
+    /// - DNN-based vs built-in WeChat QR code detection (toggle in UI)
+    /// - Overlaying decoded text and corner polygons on each frame
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Mat"/>, <see cref="Scalar"/>, <see cref="Point"/>
+    /// - <see cref="WeChatQRCode"/>: detectAndDecode
+    /// - <see cref="Imgproc"/>: cvtColor, line, putText
+    /// - <see cref="MultiSourceToMatHelper"/>, <see cref="OpenCVMatUnityUtils"/>
     /// </summary>
-    [RequireComponent(typeof(MultiSource2MatHelper))]
+    /// <remarks>
+    /// <para>
+    /// Referring to:
+    /// https://huggingface.co/opencv/opencv_contribution/tree/main/wechat_qr
+    /// </para>
+    /// <para>
+    /// [Tested Models]
+    /// detect.onnx https://huggingface.co/opencv/opencv_contribution/resolve/main/wechat_qr/detect_2026april.onnx
+    /// sr.onnx https://huggingface.co/opencv/opencv_contribution/resolve/main/wechat_qr/sr_2026april.onnx
+    /// </para>
+    /// </remarks>
+    [RequireComponent(typeof(MultiSourceToMatHelper))]
     public class WeChatQRCodeDetectorExample : MonoBehaviour
     {
         // Constants
         /// <summary>
-        /// Path to a .prototxt file contains trained detection network.
+        /// Path to an ONNX file for the QR code detector network.
         /// </summary>
-        private static readonly string DETECTPROTOTXT_FILENAME = "OpenCVForUnityExamples/wechat_qrcode/detect_2021nov.prototxt";
+        private static readonly string DETECT_MODEL_FILEPATH = "OpenCVForUnityExamples/wechat_qrcode/detect.onnx";
 
         /// <summary>
-        /// Path to a binary .caffemodel file contains trained detection network.
+        /// Path to an ONNX file for the super resolution network.
         /// </summary>
-        private static readonly string DETECTMODEL_FILENAME = "OpenCVForUnityExamples/wechat_qrcode/detect_2021nov.caffemodel";
-
-        /// <summary>
-        /// Path to a .prototxt file contains trained super resolution network.
-        /// </summary>
-        private static readonly string SRPROTOTXT_FILENAME = "OpenCVForUnityExamples/wechat_qrcode/sr_2021nov.prototxt";
-
-        /// <summary>
-        /// Path to a binary .caffemodel file contains trained super resolution network.
-        /// </summary>
-        private static readonly string SRMODEL_FILENAME = "OpenCVForUnityExamples/wechat_qrcode/sr_2021nov.caffemodel";
+        private static readonly string SR_MODEL_FILEPATH = "OpenCVForUnityExamples/wechat_qrcode/sr.onnx";
 
         // Public Fields
         [Header("Output")]
@@ -63,64 +69,16 @@ namespace OpenCVForUnityExample
         public bool UseDNN = true;
 
         // Private Fields
-        /// <summary>
-        /// The detect prototxt filepath.
-        /// </summary>
-        private string _detectprototxtFilepath;
-
-        /// <summary>
-        /// The detect model filepath.
-        /// </summary>
-        private string _detectmodelFilepath;
-
-        /// <summary>
-        /// The sr prototxt filepath.
-        /// </summary>
-        private string _srprototxtFilepath;
-
-        /// <summary>
-        /// The sr model filepath.
-        /// </summary>
-        private string _srmodelFilepath;
-
-        /// <summary>
-        /// The gray mat.
-        /// </summary>
+        private string _detectModelFilepath;
+        private string _srModelFilepath;
         private Mat _grayMat;
-
-        /// <summary>
-        /// The texture.
-        /// </summary>
         private Texture2D _texture;
-
-        /// <summary>
-        /// The QRCode detector.
-        /// </summary>
         private WeChatQRCode _detector;
-
-        /// <summary>
-        /// The points.
-        /// </summary>
         private List<Mat> _points;
-
-        /// <summary>
-        /// The decoded info
-        /// </summary>
         private List<string> _decodedInfo;
-
-        /// <summary>
-        /// The multi source to mat helper.
-        /// </summary>
-        private MultiSource2MatHelper _multiSource2MatHelper;
-
-        /// <summary>
-        /// The FPS monitor.
-        /// </summary>
+        private MultiSourceToMatHelper _multiSourceToMatHelper;
         private FpsMonitor _fpsMonitor;
-
-        /// <summary>
-        /// The CancellationTokenSource.
-        /// </summary>
+        private SourceToMatControlPanel _controlPanel;
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
         // Unity Lifecycle Methods
@@ -128,170 +86,208 @@ namespace OpenCVForUnityExample
         {
             _fpsMonitor = GetComponent<FpsMonitor>();
 
-            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSourceToMatHelper = gameObject.GetComponent<MultiSourceToMatHelper>();
+            _multiSourceToMatHelper.OutputColorFormat = SourceToMatColorFormat.RGBA;
 
-            // WebCamTexture2MatHelper does not work on WebGPU, so use WebCamTexture2MatAsyncGPUHelper instead.
-#if UNITY_6000_0_OR_NEWER
-            if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.WebGPU && _multiSource2MatHelper.RequestedSource2MatHelperClassName == MultiSource2MatHelperClassName.WebCamTexture2MatHelper)
-            {
-                _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.WebCamTexture2MatAsyncGPUHelper;
-            }
-#endif
-            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
+            WireSourceToMatControlPanelHooks();
 
             // Reflect initial toggle value
             UseDNNToggle.isOn = UseDNN;
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
             if (_fpsMonitor != null)
+            {
                 _fpsMonitor.ConsoleText = "Preparing file access...";
+            }
 
-            _detectmodelFilepath = await OpenCVEnv.GetFilePathTaskAsync(DETECTMODEL_FILENAME, cancellationToken: _cts.Token);
-            _detectprototxtFilepath = await OpenCVEnv.GetFilePathTaskAsync(DETECTPROTOTXT_FILENAME, cancellationToken: _cts.Token);
-            _srmodelFilepath = await OpenCVEnv.GetFilePathTaskAsync(SRMODEL_FILENAME, cancellationToken: _cts.Token);
-            _srprototxtFilepath = await OpenCVEnv.GetFilePathTaskAsync(SRPROTOTXT_FILENAME, cancellationToken: _cts.Token);
-
+            _detectModelFilepath = await OpenCVForUnityEnv.GetFilePathAsync(DETECT_MODEL_FILEPATH, cancellationToken: _cts.Token);
+            _srModelFilepath = await OpenCVForUnityEnv.GetFilePathAsync(SR_MODEL_FILEPATH, cancellationToken: _cts.Token);
 
             if (_fpsMonitor != null)
-                _fpsMonitor.ConsoleText = "";
-
-            Run();
-
-        }
-
-        private void Update()
-        {
-            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
             {
-                Mat rgbaMat = _multiSource2MatHelper.GetMat();
-
-                Imgproc.cvtColor(rgbaMat, _grayMat, Imgproc.COLOR_RGBA2GRAY);
-
-                if (_detector != null)
-                {
-                    _decodedInfo = _detector.detectAndDecode(_grayMat, _points);
-
-                    if (_points.Count > 0)
-                    {
-                        // Debug.Log($"Total points detected: {points.Count}");
-                        for (int i = 0; i < _points.Count; i++)
-                        {
-                            // Get coordinates of each point
-#if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
-                            // draw QRCode contour using non-allocating methods.
-                            ReadOnlySpan<float> qrCodeCorners = _points[i].AsSpan<float>();
-#else
-                            // draw QRCode contour using allocating methods.
-                            float[] qrCodeCorners = new float[8];
-                            _points[i].get(0, 0, qrCodeCorners);
-#endif
-
-                            // Draw QR code bounding box by connecting the 4 corners
-                            for (int j = 0; j < 4; j++)
-                            {
-                                int currentIndex = j * 2;
-                                int nextIndex = ((j + 1) % 4) * 2;
-                                Imgproc.line(rgbaMat,
-                                    new Point(qrCodeCorners[currentIndex], qrCodeCorners[currentIndex + 1]),
-                                    new Point(qrCodeCorners[nextIndex], qrCodeCorners[nextIndex + 1]),
-                                    new Scalar(255, 0, 0, 255), 2);
-                            }
-
-                            // Display decoded information
-                            if (_decodedInfo.Count > i && _decodedInfo[i] != null)
-                            {
-                                Imgproc.putText(rgbaMat, _decodedInfo[i],
-                                    new Point(qrCodeCorners[0], qrCodeCorners[1]),
-                                    Imgproc.FONT_HERSHEY_SIMPLEX, 0.7,
-                                    new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Imgproc.putText(rgbaMat, "Decoding failed.",
-                            new Point(5, rgbaMat.rows() - 10),
-                            Imgproc.FONT_HERSHEY_SIMPLEX, 0.7,
-                            new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                    }
-                }
-
-                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
+                _fpsMonitor.ConsoleText = "";
             }
+
+            RecreateDetector();
+
+            if (_detector == null)
+            {
+                return;
+            }
+
+            _multiSourceToMatHelper.Initialize();
         }
 
         private void OnDestroy()
         {
-            _multiSource2MatHelper?.Dispose();
+            UnwireSourceToMatControlPanelHooks();
+
+            _cts?.Cancel();
 
             _detector?.Dispose();
+            _detector = null;
 
             _cts?.Dispose();
+            _cts = null;
         }
 
         // Public Methods
         /// <summary>
-        /// Raises the source to mat helper initialized event.
+        /// Raises the helper frame mat updated event.
+        /// Updates the preview texture when a new frame is available during playback.
+        /// </summary>
+        public void OnSourceToMatHelperFrameMatUpdated()
+        {
+            if (!_multiSourceToMatHelper.IsPlaying)
+            {
+                return;
+            }
+
+            Mat rgbaMat = _multiSourceToMatHelper.FrameMat;
+
+            // WeChatQRCode expects a single-channel grayscale image.
+            Imgproc.cvtColor(rgbaMat, _grayMat, Imgproc.COLOR_RGBA2GRAY);
+
+            if (_detector != null)
+            {
+                // Reuses _points list; each entry is a Mat of 4 corner (x,y) coordinates.
+                _decodedInfo = _detector.detectAndDecode(_grayMat, _points);
+
+                if (_points.Count > 0)
+                {
+                    // Debug.Log($"Total points detected: {points.Count}");
+                    for (int i = 0; i < _points.Count; i++)
+                    {
+                        // Each corner is stored as (x0,y0,x1,y1,...,x3,y3) — 8 floats total.
+                        ReadOnlySpan<float> qrCodeCorners = _points[i].AsSpan<float>();
+
+                        // Connect the four corners to draw the QR code outline on the color frame.
+                        for (int j = 0; j < 4; j++)
+                        {
+                            int currentIndex = j * 2;
+                            int nextIndex = ((j + 1) % 4) * 2;
+                            Imgproc.line(rgbaMat,
+                                new Point(qrCodeCorners[currentIndex], qrCodeCorners[currentIndex + 1]),
+                                new Point(qrCodeCorners[nextIndex], qrCodeCorners[nextIndex + 1]),
+                                new Scalar(255, 0, 0, 255), 2);
+                        }
+
+                        // Display decoded information
+                        if (_decodedInfo.Count > i && _decodedInfo[i] != null)
+                        {
+                            Imgproc.putText(rgbaMat, _decodedInfo[i],
+                                new Point(qrCodeCorners[0], qrCodeCorners[1]),
+                                Imgproc.FONT_HERSHEY_SIMPLEX, 0.7,
+                                new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                        }
+                    }
+                }
+                else
+                {
+                    Imgproc.putText(rgbaMat, "Decoding failed.",
+                        new Point(5, rgbaMat.rows() - 10),
+                        Imgproc.FONT_HERSHEY_SIMPLEX, 0.7,
+                        new Scalar(255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+                }
+            }
+
+            OpenCVMatUnityUtils.MatToTexture2D(rgbaMat, _texture);
+        }
+
+        /// <summary>
+        /// Raises the helper initialized event.
+        /// Recreates the preview texture and starts playback on first initialization.
+        /// Skips Play when re-initialization has already restored Playing or Paused.
         /// </summary>
         public void OnSourceToMatHelperInitialized()
         {
-            Debug.Log("OnSourceToMatHelperInitialized");
+            Debug.Log("OnSourceToMatHelperInitialized", this);
 
-            Mat rgbaMat = _multiSource2MatHelper.GetMat();
-
-            _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
-            OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
-
-            ResultPreview.texture = _texture;
-            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
-
-            if (_fpsMonitor != null)
-            {
-                _fpsMonitor.Add("width", rgbaMat.width().ToString());
-                _fpsMonitor.Add("height", rgbaMat.height().ToString());
-                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
-            }
-
-            _grayMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC1);
-
-            _points = new List<Mat>();
-            _decodedInfo = new List<string>();
+            RecreatePreviewTexture();
+            CreateOrRecreateProcessingResources(_multiSourceToMatHelper.FrameMat);
 
 #if !OPENCV_DONT_USE_WEBCAMTEXTURE_API
             // If the WebCam is front facing, flip the Mat horizontally. Required for successful detection.
-            if (_multiSource2MatHelper.Source2MatHelper is WebCamTexture2MatHelper webCamHelper)
-                webCamHelper.FlipHorizontal = webCamHelper.IsFrontFacing();
+            if (_multiSourceToMatHelper.ActiveHelper is WebCamTextureToMatHelper webCamHelper)
+            {
+                _multiSourceToMatHelper.FlipHorizontal = webCamHelper.IsFrontFacing;
+            }
 #endif
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Clear();
+                UpdateFpsMonitorPlaybackState();
+                _fpsMonitor.Add("HelperKind", _multiSourceToMatHelper.RequestedHelperKind.ToString());
+                _fpsMonitor.Add("Width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("Height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("Rotate90Degree", _multiSourceToMatHelper.Rotate90Degree.ToString());
+                _fpsMonitor.Add("FlipVertical", _multiSourceToMatHelper.FlipVertical.ToString());
+                _fpsMonitor.Add("FlipHorizontal", _multiSourceToMatHelper.FlipHorizontal.ToString());
+                _fpsMonitor.Add("Orientation", Screen.orientation.ToString());
+            }
+
+            if (!_multiSourceToMatHelper.IsPlaying && !_multiSourceToMatHelper.IsPaused)
+            {
+                _multiSourceToMatHelper.Play();
+                UpdateFpsMonitorPlaybackState();
+            }
         }
 
         /// <summary>
-        /// Raises the source to mat helper disposed event.
+        /// Raises the helper frame mat layout changed event.
+        /// Recreates the preview texture when rotation or output size changes.
+        /// </summary>
+        public void OnSourceToMatHelperFrameMatLayoutChanged()
+        {
+            Debug.Log("OnSourceToMatHelperFrameMatLayoutChanged", this);
+
+            RecreatePreviewTexture();
+            CreateOrRecreateProcessingResources(_multiSourceToMatHelper.FrameMat);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("Width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("Height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("Orientation", Screen.orientation.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Raises the helper released event.
+        /// </summary>
+        public void OnSourceToMatHelperReleased()
+        {
+            Debug.Log("OnSourceToMatHelperReleased", this);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Clear();
+            }
+
+            DisposeFrameProcessingResources();
+            CleanupPreviewResources();
+        }
+
+        /// <summary>
+        /// Raises the helper disposed event.
         /// </summary>
         public void OnSourceToMatHelperDisposed()
         {
-            Debug.Log("OnSourceToMatHelperDisposed");
+            Debug.Log("OnSourceToMatHelperDisposed", this);
 
-            _grayMat?.Dispose();
-
-            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
-
-            foreach (var item in _points)
-            {
-                item?.Dispose();
-            }
-            _points?.Clear();
-
-            _decodedInfo?.Clear();
+            DisposeFrameProcessingResources();
+            CleanupPreviewResources();
         }
 
         /// <summary>
-        /// Raises the source to mat helper error occurred event.
+        /// Raises the helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
         /// <param name="message">Message.</param>
-        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
+        public void OnSourceToMatHelperErrorOccurred(SourceToMatErrorCode errorCode, string message)
         {
-            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message, this);
 
             if (_fpsMonitor != null)
             {
@@ -301,42 +297,92 @@ namespace OpenCVForUnityExample
 
         /// <summary>
         /// Raises the back button click event.
+        /// Stops playback and disposes the helper before scene transition (required on WebGL).
         /// </summary>
-        public void OnBackButtonClick()
+        public async void OnBackButtonClick()
         {
+            if (_multiSourceToMatHelper.IsPlaying || _multiSourceToMatHelper.IsPaused)
+            {
+                await _multiSourceToMatHelper.StopAsync();
+            }
+
+            await _multiSourceToMatHelper.DisposeAsync();
+
             SceneManager.LoadScene("OpenCVForUnityExample");
         }
 
         /// <summary>
-        /// Raises the play button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPlay"/>.
         /// </summary>
-        public void OnPlayButtonClick()
+        public void OnControlPanelAfterPlay()
         {
-            _multiSource2MatHelper.Play();
+            UpdateFpsMonitorPlaybackState();
         }
 
         /// <summary>
-        /// Raises the pause button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPause"/>.
         /// </summary>
-        public void OnPauseButtonClick()
+        public void OnControlPanelAfterPause()
         {
-            _multiSource2MatHelper.Pause();
+            UpdateFpsMonitorPlaybackState();
         }
 
         /// <summary>
-        /// Raises the stop button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterStop"/>.
         /// </summary>
-        public void OnStopButtonClick()
+        public void OnControlPanelAfterStop()
         {
-            _multiSource2MatHelper.Stop();
+            UpdateFpsMonitorPlaybackState();
         }
 
         /// <summary>
-        /// Raises the change camera button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnRotate90Changed"/>.
         /// </summary>
-        public void OnChangeCameraButtonClick()
+        /// <param name="isOn">New Rotate90Degree value applied by the panel.</param>
+        public void OnControlPanelRotate90Changed(bool isOn)
         {
-            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("Rotate90Degree", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipVerticalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipVertical value applied by the panel.</param>
+        public void OnControlPanelFlipVerticalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipVertical", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipHorizontalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipHorizontal value applied by the panel.</param>
+        public void OnControlPanelFlipHorizontalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipHorizontal", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnHelperKindChanged"/>.
+        /// </summary>
+        /// <param name="kindIndex">Dropdown index matching <see cref="MultiSourceHelperKind"/>.</param>
+        public void OnControlPanelHelperKindChanged(int kindIndex)
+        {
+            if (_fpsMonitor == null || !Enum.IsDefined(typeof(MultiSourceHelperKind), kindIndex))
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("HelperKind", ((MultiSourceHelperKind)kindIndex).ToString());
         }
 
         /// <summary>
@@ -347,39 +393,188 @@ namespace OpenCVForUnityExample
             if (UseDNNToggle.isOn != UseDNN)
             {
                 UseDNN = UseDNNToggle.isOn;
-                Run();
+                RecreateDetector();
+                WireSourceToMatControlPanelHooks();
+                if (_detector == null)
+                {
+                    return;
+                }
+
+                _multiSourceToMatHelper.Initialize();
             }
         }
 
         // Private Methods
-        private void Run()
+        private void RecreatePreviewTexture()
         {
-            // Dispose existing detector
+            Mat frameMat = _multiSourceToMatHelper.FrameMat;
+            if (frameMat == null)
+            {
+                return;
+            }
+
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+                _texture = null;
+            }
+
+            bool isRgb = _multiSourceToMatHelper.OutputColorFormat == SourceToMatColorFormat.RGB;
+            _texture = new Texture2D(frameMat.cols(), frameMat.rows(), isRgb ? TextureFormat.RGB24 : TextureFormat.RGBA32, false);
+            OpenCVMatUnityUtils.MatToTexture2D(frameMat, _texture);
+
+            if (ResultPreview != null)
+            {
+                ResultPreview.texture = _texture;
+                AspectRatioFitter aspectRatioFitter = ResultPreview.GetComponent<AspectRatioFitter>();
+                if (aspectRatioFitter != null)
+                {
+                    aspectRatioFitter.aspectRatio = (float)_texture.width / _texture.height;
+                }
+            }
+        }
+
+        private void DisposeFrameProcessingResources()
+        {
+            _grayMat?.Dispose();
+            _grayMat = null;
+
+            if (_points != null)
+            {
+                foreach (Mat item in _points)
+                {
+                    item?.Dispose();
+                }
+
+                _points.Clear();
+            }
+
+            _decodedInfo?.Clear();
+        }
+
+        private void CreateOrRecreateProcessingResources(Mat rgbaMat)
+        {
+            if (rgbaMat == null)
+            {
+                return;
+            }
+
+            DisposeFrameProcessingResources();
+
+            _grayMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC1);
+
+            // Reused each frame by detectAndDecode; do not recreate in Update().
+            _points = new List<Mat>();
+            _decodedInfo = new List<string>();
+        }
+
+        private void CleanupPreviewResources()
+        {
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+                _texture = null;
+            }
+
+            UpdateFpsMonitorPlaybackState();
+        }
+
+        private void UpdateFpsMonitorPlaybackState()
+        {
+            if (_fpsMonitor == null || _multiSourceToMatHelper == null)
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("PlaybackState", GetPlaybackStateText());
+        }
+
+        private string GetPlaybackStateText()
+        {
+            if (!_multiSourceToMatHelper.IsInitialized)
+            {
+                return "Uninitialized";
+            }
+
+            if (_multiSourceToMatHelper.IsPlaying)
+            {
+                return "Playing";
+            }
+
+            if (_multiSourceToMatHelper.IsPaused)
+            {
+                return "Paused";
+            }
+
+            return "Ready";
+        }
+
+        private void WireSourceToMatControlPanelHooks()
+        {
+            _controlPanel = GetComponent<SourceToMatControlPanel>();
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.AddListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.AddListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.AddListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.AddListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.AddListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.AddListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.AddListener(OnControlPanelHelperKindChanged);
+        }
+
+        private void UnwireSourceToMatControlPanelHooks()
+        {
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.RemoveListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.RemoveListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.RemoveListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.RemoveListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.RemoveListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.RemoveListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.RemoveListener(OnControlPanelHelperKindChanged);
+            _controlPanel = null;
+        }
+
+        /// <summary>
+        /// Recreates the WeChat QR detector for the current <see cref="UseDNN"/> setting.
+        /// DNN mode needs two ONNX model files in StreamingAssets; otherwise uses the built-in detector.
+        /// </summary>
+        private void RecreateDetector()
+        {
+            // Recreate detector when DNN toggle changes; must dispose the old instance first.
             _detector?.Dispose();
 
-            // Create new detector
+            // DNN mode needs two ONNX model files in StreamingAssets; otherwise use built-in detector.
             if (UseDNN)
             {
-                if (string.IsNullOrEmpty(_detectprototxtFilepath) || string.IsNullOrEmpty(_detectmodelFilepath) ||
-                    string.IsNullOrEmpty(_srprototxtFilepath) || string.IsNullOrEmpty(_srmodelFilepath))
+                if (string.IsNullOrEmpty(_detectModelFilepath) || string.IsNullOrEmpty(_srModelFilepath))
                 {
-                    Debug.LogError(DETECTPROTOTXT_FILENAME + " or " + DETECTMODEL_FILENAME + " or " +
-                        SRPROTOTXT_FILENAME + " or " + SRMODEL_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                    Debug.LogError(DETECT_MODEL_FILEPATH + " or " + SR_MODEL_FILEPATH +
+                        " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.", this);
                     if (_fpsMonitor != null)
-                        _fpsMonitor.Toast("model file is not loaded.\nPlease read console message.", 20000);
+                    {
+                        _fpsMonitor.ConsoleText = "model file is not loaded.\nPlease read console message.";
+                    }
+
                     _detector = null;
                 }
                 else
                 {
-                    _detector = new WeChatQRCode(_detectprototxtFilepath, _detectmodelFilepath, _srprototxtFilepath, _srmodelFilepath);
+                    _detector = new WeChatQRCode(_detectModelFilepath, _srModelFilepath);
                 }
             }
             else
             {
                 _detector = new WeChatQRCode();
             }
-
-            _multiSource2MatHelper.Initialize();
         }
     }
 }

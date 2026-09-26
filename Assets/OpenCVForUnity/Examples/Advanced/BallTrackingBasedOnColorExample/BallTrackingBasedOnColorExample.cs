@@ -1,32 +1,42 @@
 using System;
 using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.Extensions.SourceToMat;
+using OpenCVForUnity.GeometryModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
-using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
+using OpenCVForUnity.UnityIntegration.Helper.Interaction;
+using OpenCVForUnity.UnityIntegration.Helper.SourceToMat;
+using OpenCVForUnity.UnityIntegration.Helper.UI;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static OpenCVForUnity.UnityIntegration.Helper.Source2Mat.MultiSource2MatHelper;
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Ball Tracking Based on Color Example
+    /// Tracks a colored ball in input frames using HSV segmentation, morphology, and contour analysis.
+    ///
+    /// Demonstrates:
+    /// - Reading input frames via <see cref="MultiSourceToMatHelper"/> (webcam, video file, image file, or GPU readback)
+    /// - RGBA to HSV conversion and Core.inRange color masking
+    /// - Morphological erode/dilate to remove noise from the mask
+    /// - Contour detection with minEnclosingCircle and moments for centroid
+    /// - Tap-to-calibrate HSV range from a screen point
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Mat"/>, <see cref="Scalar"/>, <see cref="Point"/>, <see cref="Size"/>, <see cref="Moments"/>
+    /// - <see cref="Core"/>: inRange, sumElems, meanStdDev
+    /// - <see cref="Imgproc"/>: cvtColor, GaussianBlur, getStructuringElement, erode, dilate, findContours, contourArea, minEnclosingCircle, moments, circle, line, drawContours
+    /// - <see cref="MultiSourceToMatHelper"/>, <see cref="OpenCVMatUnityUtils"/>
     /// </summary>
-    [RequireComponent(typeof(MultiSource2MatHelper))]
+    [RequireComponent(typeof(MultiSourceToMatHelper))]
     public class BallTrackingBasedOnColorExample : MonoBehaviour
     {
         // Constants
-        /// <summary>
-        /// The maximum buffer size for tracking points.
-        /// </summary>
         private const int MAX_BUFFER_SIZE = 64;
 
-        /// <summary>
-        /// The minimum radius for ball detection.
-        /// </summary>
         private const double MIN_RADIUS = 10.0;
 
         // Public Fields
@@ -62,49 +72,15 @@ namespace OpenCVForUnityExample
         public Toggle IsDebugModeToggle;
 
         // Private Fields
-        /// <summary>
-        /// The texture.
-        /// </summary>
         private Texture2D _texture;
-
-        /// <summary>
-        /// The rgb mat.
-        /// </summary>
         private Mat _rgbMat;
-
-        /// <summary>
-        /// The hsv mat.
-        /// </summary>
         private Mat _hsvMat;
-
-        /// <summary>
-        /// The mask mat for color detection.
-        /// </summary>
         private Mat _maskMat;
-
-        /// <summary>
-        /// The list of tracked points for trail drawing.
-        /// </summary>
         private Queue<Point> _trackedPoints;
-
-        /// <summary>
-        /// The last detected ball radius.
-        /// </summary>
         private float _lastDetectedRadius = 0;
-
-        /// <summary>
-        /// The multi source to mat helper.
-        /// </summary>
-        private MultiSource2MatHelper _multiSource2MatHelper;
-
-        /// <summary>
-        /// The FPS monitor.
-        /// </summary>
+        private MultiSourceToMatHelper _multiSourceToMatHelper;
         private FpsMonitor _fpsMonitor;
-
-        /// <summary>
-        /// The flag to request color update from selected point.
-        /// </summary>
+        private SourceToMatControlPanel _controlPanel;
         private bool _shouldUpdateColorFromPoint = false;
 
         // Unity Lifecycle Methods
@@ -117,161 +93,205 @@ namespace OpenCVForUnityExample
                 _fpsMonitor.ConsoleText = "Please touch the screen, and select the color of the ball.";
             }
 
-            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSourceToMatHelper = gameObject.GetComponent<MultiSourceToMatHelper>();
+            _multiSourceToMatHelper.OutputColorFormat = SourceToMatColorFormat.RGBA;
 
-            // WebCamTexture2MatHelper does not work on WebGPU, so use WebCamTexture2MatAsyncGPUHelper instead.
-#if UNITY_6000_0_OR_NEWER
-            if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.WebGPU && _multiSource2MatHelper.RequestedSource2MatHelperClassName == MultiSource2MatHelperClassName.WebCamTexture2MatHelper)
-            {
-                _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.WebCamTexture2MatAsyncGPUHelper;
-            }
-#endif
-            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
-            _multiSource2MatHelper.Initialize();
+            WireSourceToMatControlPanelHooks();
+
+            _multiSourceToMatHelper.Initialize();
         }
-
-        private void Update()
-        {
-            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
-            {
-                Mat rgbaMat = _multiSource2MatHelper.GetMat();
-
-                if (_shouldUpdateColorFromPoint)
-                {
-                    var (gameObject, currentSelectionState, currentSelectionPoints) = TexturePointSelector.GetSelectionStatus();
-                    var p = TextureSelector.ConvertSelectionPointsToOpenCVPoint(currentSelectionPoints);
-                    UpdateColorFromPoint(rgbaMat, p);
-
-                    TexturePointSelector.ResetSelectionStatus();
-
-                    _shouldUpdateColorFromPoint = false;
-                }
-
-                Imgproc.cvtColor(rgbaMat, _rgbMat, Imgproc.COLOR_RGBA2RGB);
-
-                // Convert to HSV color space
-                Imgproc.cvtColor(_rgbMat, _hsvMat, Imgproc.COLOR_RGB2HSV);
-
-                // Apply Gaussian blur to reduce noise
-                Imgproc.GaussianBlur(_hsvMat, _hsvMat, new Size(11, 11), 0);
-
-                // Create mask for target ball color
-                Core.inRange(_hsvMat, BallColorLower, BallColorUpper, _maskMat);
-
-                // Apply morphological operations to remove noise
-                Mat kernel = Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(5, 5));
-                Imgproc.erode(_maskMat, _maskMat, kernel, new Point(-1, -1), 2);
-                Imgproc.dilate(_maskMat, _maskMat, kernel, new Point(-1, -1), 2);
-
-                // Find contours and track the ball
-                Point ballCenter = DetectBall(_maskMat);
-                if (ballCenter.x >= 0 && ballCenter.y >= 0)
-                {
-                    // Add the center point to tracking queue
-                    _trackedPoints.Enqueue(ballCenter);
-                    if (_trackedPoints.Count > MAX_BUFFER_SIZE)
-                    {
-                        _trackedPoints.Dequeue();
-                    }
-
-                    // Draw the ball
-                    DrawBall(_rgbMat, ballCenter);
-                }
-                else
-                {
-                    // Add invalid point to maintain trail length
-                    _trackedPoints.Enqueue(new Point(-1, -1));
-                    if (_trackedPoints.Count > MAX_BUFFER_SIZE)
-                    {
-                        _trackedPoints.Dequeue();
-                    }
-                }
-
-                // Draw the trail
-                DrawTrail(_rgbMat);
-
-                // Draw debug mask contours if debug mode is enabled
-                if (IsDebugModeToggle != null && IsDebugModeToggle.isOn)
-                {
-                    DrawMaskContours(_rgbMat, _maskMat);
-                }
-
-                kernel.Dispose();
-
-                //Imgproc.putText (_rgbMat, "W:" + _rgbMat.width () + " H:" + _rgbMat.height () + " SO:" + Screen.orientation, new Point (5, _rgbMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-
-                Imgproc.cvtColor(_rgbMat, rgbaMat, Imgproc.COLOR_RGB2RGBA);
-
-                // Draw current selection overlay
-                TexturePointSelector.DrawSelection(rgbaMat, true);
-
-                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
-            }
-        }
-
 
         private void OnDestroy()
         {
-            _multiSource2MatHelper?.Dispose();
+            UnwireSourceToMatControlPanelHooks();
         }
 
         // Public Methods
         /// <summary>
-        /// Raises the source to mat helper initialized event.
+        /// Raises the helper frame mat updated event.
+        /// Updates the preview texture when a new frame is available during playback.
+        /// </summary>
+        public void OnSourceToMatHelperFrameMatUpdated()
+        {
+            if (!_multiSourceToMatHelper.IsPlaying)
+            {
+                return;
+            }
+
+            Mat rgbaMat = _multiSourceToMatHelper.FrameMat;
+            if (rgbaMat == null || _texture == null || _rgbMat == null)
+            {
+                return;
+            }
+
+            if (_shouldUpdateColorFromPoint)
+            {
+                var (gameObject, currentSelectionState, currentSelectionPoints) = TexturePointSelector.GetSelectionStatus();
+                var p = TextureSelector.ConvertSelectionPointsToOpenCVPoint(currentSelectionPoints);
+                UpdateColorFromPoint(rgbaMat, p);
+
+                TexturePointSelector.ResetSelectionStatus();
+
+                _shouldUpdateColorFromPoint = false;
+            }
+
+            // MultiSourceToMatHelper provides RGBA; convert to RGB before COLOR_RGB2HSV.
+            Imgproc.cvtColor(rgbaMat, _rgbMat, Imgproc.COLOR_RGBA2RGB);
+
+            // Convert to HSV color space (OpenCV H: 0-180, S/V: 0-255).
+            Imgproc.cvtColor(_rgbMat, _hsvMat, Imgproc.COLOR_RGB2HSV);
+
+            // Apply Gaussian blur to reduce noise
+            Imgproc.GaussianBlur(_hsvMat, _hsvMat, new Size(11, 11), 0);
+
+            // Create mask for target ball color
+            Core.inRange(_hsvMat, BallColorLower, BallColorUpper, _maskMat);
+
+            // Apply morphological operations to remove noise (erode then dilate = opening).
+            Mat kernel = Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(5, 5));
+            Imgproc.erode(_maskMat, _maskMat, kernel, new Point(-1, -1), 2);
+            Imgproc.dilate(_maskMat, _maskMat, kernel, new Point(-1, -1), 2);
+
+            // Find contours and track the ball
+            Point ballCenter = DetectBall(_maskMat);
+            if (ballCenter.x >= 0 && ballCenter.y >= 0)
+            {
+                // Add the center point to tracking queue
+                _trackedPoints.Enqueue(ballCenter);
+                if (_trackedPoints.Count > MAX_BUFFER_SIZE)
+                {
+                    _trackedPoints.Dequeue();
+                }
+
+                // Draw the ball
+                DrawBall(_rgbMat, ballCenter);
+            }
+            else
+            {
+                // Add invalid point to maintain trail length
+                _trackedPoints.Enqueue(new Point(-1, -1));
+                if (_trackedPoints.Count > MAX_BUFFER_SIZE)
+                {
+                    _trackedPoints.Dequeue();
+                }
+            }
+
+            // Draw the trail
+            DrawTrail(_rgbMat);
+
+            // Draw debug mask contours if debug mode is enabled
+            if (IsDebugModeToggle != null && IsDebugModeToggle.isOn)
+            {
+                DrawMaskContours(_rgbMat, _maskMat);
+            }
+
+            kernel.Dispose();
+
+            //Imgproc.putText (_rgbMat, "W:" + _rgbMat.width () + " H:" + _rgbMat.height () + " SO:" + Screen.orientation, new Point (5, _rgbMat.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
+
+            Imgproc.cvtColor(_rgbMat, rgbaMat, Imgproc.COLOR_RGB2RGBA);
+
+            // Draw current selection overlay
+            TexturePointSelector.DrawSelection(rgbaMat, true);
+
+            OpenCVMatUnityUtils.MatToTexture2D(rgbaMat, _texture);
+        }
+
+        /// <summary>
+        /// Raises the helper initialized event.
+        /// Recreates the preview texture and starts playback on first initialization.
+        /// Skips Play when re-initialization has already restored Playing or Paused.
         /// </summary>
         public void OnSourceToMatHelperInitialized()
         {
-            Debug.Log("OnSourceToMatHelperInitialized");
+            Debug.Log("OnSourceToMatHelperInitialized", this);
 
-            Mat rgbaMat = _multiSource2MatHelper.GetMat();
+            RecreatePreviewTexture();
+            CreateOrRecreateProcessingResources(_multiSourceToMatHelper.FrameMat);
 
-            _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
-            OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
-
-            ResultPreview.texture = _texture;
-            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
-
+            _trackedPoints = new Queue<Point>();
 
             if (_fpsMonitor != null)
             {
-                _fpsMonitor.Add("width", rgbaMat.width().ToString());
-                _fpsMonitor.Add("height", rgbaMat.height().ToString());
-                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                _fpsMonitor.Clear();
+                UpdateFpsMonitorPlaybackState();
+                _fpsMonitor.Add("HelperKind", _multiSourceToMatHelper.RequestedHelperKind.ToString());
+                _fpsMonitor.Add("Width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("Height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("Rotate90Degree", _multiSourceToMatHelper.Rotate90Degree.ToString());
+                _fpsMonitor.Add("FlipVertical", _multiSourceToMatHelper.FlipVertical.ToString());
+                _fpsMonitor.Add("FlipHorizontal", _multiSourceToMatHelper.FlipHorizontal.ToString());
+                _fpsMonitor.Add("Orientation", Screen.orientation.ToString());
             }
-
-            _rgbMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
-            _hsvMat = new Mat();
-            _maskMat = new Mat();
-            _trackedPoints = new Queue<Point>();
 
             SetColorRangeFromClickedColor(BallColorLower, BallColorUpper);
 
             // Reset TexturePointSelector state
             TexturePointSelector.ResetSelectionStatus();
+
+            if (!_multiSourceToMatHelper.IsPlaying && !_multiSourceToMatHelper.IsPaused)
+            {
+                _multiSourceToMatHelper.Play();
+                UpdateFpsMonitorPlaybackState();
+            }
         }
 
         /// <summary>
-        /// Raises the source to mat helper disposed event.
+        /// Raises the helper frame mat layout changed event.
+        /// Recreates the preview texture when rotation or output size changes.
+        /// </summary>
+        public void OnSourceToMatHelperFrameMatLayoutChanged()
+        {
+            Debug.Log("OnSourceToMatHelperFrameMatLayoutChanged", this);
+
+            RecreatePreviewTexture();
+            CreateOrRecreateProcessingResources(_multiSourceToMatHelper.FrameMat);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("Width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("Height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("Orientation", Screen.orientation.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Raises the helper released event.
+        /// </summary>
+        public void OnSourceToMatHelperReleased()
+        {
+            Debug.Log("OnSourceToMatHelperReleased", this);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Clear();
+            }
+
+            DisposeFrameProcessingResources();
+            CleanupPreviewResources();
+        }
+
+        /// <summary>
+        /// Raises the helper disposed event.
         /// </summary>
         public void OnSourceToMatHelperDisposed()
         {
-            Debug.Log("OnSourceToMatHelperDisposed");
+            Debug.Log("OnSourceToMatHelperDisposed", this);
 
-            _rgbMat?.Dispose();
-            _hsvMat?.Dispose();
-            _maskMat?.Dispose();
             _trackedPoints?.Clear();
-            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
+
+            DisposeFrameProcessingResources();
+            CleanupPreviewResources();
         }
 
         /// <summary>
-        /// Raises the source to mat helper error occurred event.
+        /// Raises the helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
         /// <param name="message">Message.</param>
-        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
+        public void OnSourceToMatHelperErrorOccurred(SourceToMatErrorCode errorCode, string message)
         {
-            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message, this);
 
             if (_fpsMonitor != null)
             {
@@ -281,42 +301,92 @@ namespace OpenCVForUnityExample
 
         /// <summary>
         /// Raises the back button click event.
+        /// Stops playback and disposes the helper before scene transition (required on WebGL).
         /// </summary>
-        public void OnBackButtonClick()
+        public async void OnBackButtonClick()
         {
+            if (_multiSourceToMatHelper.IsPlaying || _multiSourceToMatHelper.IsPaused)
+            {
+                await _multiSourceToMatHelper.StopAsync();
+            }
+
+            await _multiSourceToMatHelper.DisposeAsync();
+
             SceneManager.LoadScene("OpenCVForUnityExample");
         }
 
         /// <summary>
-        /// Raises the play button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPlay"/>.
         /// </summary>
-        public void OnPlayButtonClick()
+        public void OnControlPanelAfterPlay()
         {
-            _multiSource2MatHelper.Play();
+            UpdateFpsMonitorPlaybackState();
         }
 
         /// <summary>
-        /// Raises the pause button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPause"/>.
         /// </summary>
-        public void OnPauseButtonClick()
+        public void OnControlPanelAfterPause()
         {
-            _multiSource2MatHelper.Pause();
+            UpdateFpsMonitorPlaybackState();
         }
 
         /// <summary>
-        /// Raises the stop button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterStop"/>.
         /// </summary>
-        public void OnStopButtonClick()
+        public void OnControlPanelAfterStop()
         {
-            _multiSource2MatHelper.Stop();
+            UpdateFpsMonitorPlaybackState();
         }
 
         /// <summary>
-        /// Raises the change camera button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnRotate90Changed"/>.
         /// </summary>
-        public void OnChangeCameraButtonClick()
+        /// <param name="isOn">New Rotate90Degree value applied by the panel.</param>
+        public void OnControlPanelRotate90Changed(bool isOn)
         {
-            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("Rotate90Degree", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipVerticalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipVertical value applied by the panel.</param>
+        public void OnControlPanelFlipVerticalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipVertical", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipHorizontalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipHorizontal value applied by the panel.</param>
+        public void OnControlPanelFlipHorizontalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipHorizontal", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnHelperKindChanged"/>.
+        /// </summary>
+        /// <param name="kindIndex">Dropdown index matching <see cref="MultiSourceHelperKind"/>.</param>
+        public void OnControlPanelHelperKindChanged(int kindIndex)
+        {
+            if (_fpsMonitor == null || !Enum.IsDefined(typeof(MultiSourceHelperKind), kindIndex))
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("HelperKind", ((MultiSourceHelperKind)kindIndex).ToString());
         }
 
         /// <summary>
@@ -337,6 +407,134 @@ namespace OpenCVForUnityExample
         }
 
         // Private Methods
+        private void RecreatePreviewTexture()
+        {
+            Mat frameMat = _multiSourceToMatHelper.FrameMat;
+            if (frameMat == null)
+            {
+                return;
+            }
+
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+                _texture = null;
+            }
+
+            bool isRgb = _multiSourceToMatHelper.OutputColorFormat == SourceToMatColorFormat.RGB;
+            _texture = new Texture2D(frameMat.cols(), frameMat.rows(), isRgb ? TextureFormat.RGB24 : TextureFormat.RGBA32, false);
+            OpenCVMatUnityUtils.MatToTexture2D(frameMat, _texture);
+
+            if (ResultPreview != null)
+            {
+                ResultPreview.texture = _texture;
+                AspectRatioFitter aspectRatioFitter = ResultPreview.GetComponent<AspectRatioFitter>();
+                if (aspectRatioFitter != null)
+                {
+                    aspectRatioFitter.aspectRatio = (float)_texture.width / _texture.height;
+                }
+            }
+        }
+
+        private void DisposeFrameProcessingResources()
+        {
+            _rgbMat?.Dispose();
+            _rgbMat = null;
+            _hsvMat?.Dispose();
+            _hsvMat = null;
+            _maskMat?.Dispose();
+            _maskMat = null;
+        }
+
+        private void CreateOrRecreateProcessingResources(Mat rgbaMat)
+        {
+            if (rgbaMat == null)
+            {
+                return;
+            }
+
+            DisposeFrameProcessingResources();
+
+            _rgbMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
+            _hsvMat = new Mat();
+            _maskMat = new Mat();
+        }
+
+        private void CleanupPreviewResources()
+        {
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+                _texture = null;
+            }
+
+            UpdateFpsMonitorPlaybackState();
+        }
+
+        private void UpdateFpsMonitorPlaybackState()
+        {
+            if (_fpsMonitor == null || _multiSourceToMatHelper == null)
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("PlaybackState", GetPlaybackStateText());
+        }
+
+        private string GetPlaybackStateText()
+        {
+            if (!_multiSourceToMatHelper.IsInitialized)
+            {
+                return "Uninitialized";
+            }
+
+            if (_multiSourceToMatHelper.IsPlaying)
+            {
+                return "Playing";
+            }
+
+            if (_multiSourceToMatHelper.IsPaused)
+            {
+                return "Paused";
+            }
+
+            return "Ready";
+        }
+
+        private void WireSourceToMatControlPanelHooks()
+        {
+            _controlPanel = GetComponent<SourceToMatControlPanel>();
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.AddListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.AddListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.AddListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.AddListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.AddListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.AddListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.AddListener(OnControlPanelHelperKindChanged);
+        }
+
+        private void UnwireSourceToMatControlPanelHooks()
+        {
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.RemoveListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.RemoveListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.RemoveListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.RemoveListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.RemoveListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.RemoveListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.RemoveListener(OnControlPanelHelperKindChanged);
+            _controlPanel = null;
+        }
+
         /// <summary>
         /// Updates color range from the selected point.
         /// </summary>
@@ -353,7 +551,9 @@ namespace OpenCVForUnityExample
             //Debug.Log ("Touch image coordinates: (" + x + ", " + y + ")");
 
             if ((x < 0) || (y < 0) || (x > cols) || (y > rows))
+            {
                 return;
+            }
 
             OpenCVForUnity.CoreModule.Rect touchedRect = new OpenCVForUnity.CoreModule.Rect();
 
@@ -374,7 +574,9 @@ namespace OpenCVForUnityExample
                 Scalar averageHsv = Core.sumElems(touchedRegionHsv);
                 int pointCount = touchedRect.width * touchedRect.height;
                 for (int i = 0; i < averageHsv.val.Length; i++)
+                {
                     averageHsv.val[i] /= pointCount;
+                }
 
                 // Get HSV color range with adaptive analysis
                 var colorRange = GetHSVColorRangeAtPoint(touchedRegionHsv, averageHsv);
@@ -396,7 +598,9 @@ namespace OpenCVForUnityExample
         private (Scalar lower, Scalar upper)? GetHSVColorRangeAtPoint(Mat hsvMat, Scalar primaryHsv)
         {
             if (hsvMat == null || hsvMat.empty())
+            {
                 return null;
+            }
 
             double primaryH = primaryHsv.val[0];
             double primaryS = primaryHsv.val[1];
@@ -473,11 +677,11 @@ namespace OpenCVForUnityExample
             {
                 // Find the largest contour
                 MatOfPoint largestContour = contours[0];
-                double maxArea = Imgproc.contourArea(largestContour);
+                double maxArea = Geometry.contourArea(largestContour);
 
                 for (int i = 1; i < contours.Count; i++)
                 {
-                    double area = Imgproc.contourArea(contours[i]);
+                    double area = Geometry.contourArea(contours[i]);
                     if (area > maxArea)
                     {
                         maxArea = area;
@@ -485,17 +689,17 @@ namespace OpenCVForUnityExample
                     }
                 }
 
-                // Calculate the minimum enclosing circle
+                // Calculate the minimum enclosing circle (radius filter) and centroid via moments.
                 Point[] points = largestContour.toArray();
                 Point center = new Point();
                 float[] radius = new float[1];
-                Imgproc.minEnclosingCircle(new MatOfPoint2f(points), center, radius);
+                Geometry.minEnclosingCircle(new MatOfPoint2f(points), center, radius);
 
                 // Only proceed if the radius meets the minimum size
                 if (radius[0] > MIN_RADIUS)
                 {
                     // Calculate the centroid using moments
-                    Moments moments = Imgproc.moments(largestContour);
+                    OpenCVForUnity.GeometryModule.Moments moments = Geometry.moments(largestContour);
                     if (moments.m00 != 0)
                     {
                         Point centroid = new Point(moments.m10 / moments.m00, moments.m01 / moments.m00);
@@ -533,7 +737,9 @@ namespace OpenCVForUnityExample
         private int FindBallRadius(Point center)
         {
             if (_maskMat == null || _maskMat.empty())
+            {
                 return 0;
+            }
 
             int maxRadius = 100; // Maximum expected radius
             int minRadius = 5;   // Minimum expected radius
@@ -620,7 +826,9 @@ namespace OpenCVForUnityExample
         private void DrawTrail(Mat frame)
         {
             if (_trackedPoints == null || _trackedPoints.Count < 2)
+            {
                 return;
+            }
 
             Point[] points = _trackedPoints.ToArray();
 
@@ -647,7 +855,9 @@ namespace OpenCVForUnityExample
         private void DrawMaskContours(Mat rgbMat, Mat maskMat)
         {
             if (rgbMat == null || maskMat == null || rgbMat.empty() || maskMat.empty())
+            {
                 return;
+            }
 
             // Find contours in the mask
             List<MatOfPoint> contours = new List<MatOfPoint>();
@@ -661,7 +871,7 @@ namespace OpenCVForUnityExample
             foreach (var contour in contours)
             {
                 // Only draw contours with sufficient area to avoid noise
-                double area = Imgproc.contourArea(contour);
+                double area = Geometry.contourArea(contour);
                 if (area > 100) // Minimum area threshold
                 {
                     Imgproc.drawContours(rgbMat, new List<MatOfPoint> { contour }, -1, contourColor, thickness);

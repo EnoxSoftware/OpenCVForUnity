@@ -5,8 +5,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.Extensions;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,8 +17,21 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Alpha Blending Example
-    /// An example of alpha blending in multiple ways.
+    /// Benchmarks multiple ways to alpha-composite foreground, background, and alpha Mats on a still image.
     ///
+    /// Demonstrates:
+    /// - Alpha blending formula: dst = fg * alpha + bg * (1 - alpha)
+    /// - Seven implementations: Mat.get/put, Core operations, MatBufferUtils, Marshal, unsafe pointer, Span
+    /// - Image size variants: original, 2x upscale, and ROI crop for performance comparison
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Mat"/>, <see cref="CvType"/>, <see cref="Scalar"/>, <see cref="Size"/>, <see cref="Point"/>, <see cref="Rect"/>
+    /// - <see cref="Core"/>: flip, bitwise_not, split, merge, multiply, add
+    /// - <see cref="Imgproc"/>: warpPolar, resize
+    /// - <see cref="OpenCVMatUnityUtils"/>, <see cref="MatBufferUtils"/>
+    /// </summary>
+    /// <remarks>
+    /// <para>
     /// ### How to speed up pixel array access. (optional) ###
     ///
     /// # IL2CPP Compiler options:
@@ -29,19 +44,18 @@ namespace OpenCVForUnityExample
     ///
     /// To use these options, need to uncomment the code that enables the feature.
     ///
-    ///
     /// # Pointer acccess. (use -unsafe):
     /// (Unity version 2018.1 or later)
     /// Unsafe code may only appear if compiling with /unsafe. Enable "Allow 'unsafe' code" in Player Settings.
     ///
-    /// (older version)
-    /// Unsafe code requires the `unsafe' command-line option to be specified.
-    /// You need to add a file "smcs.rsp" (or "gmcs.rsp") in your "Assets" directory, which contains the line: -unsafe
-    /// https://answers.unity.com/questions/804103/how-to-enable-unsafe-and-use-pointers.html
-    ///
-    ///
     /// ######
-    /// </summary>
+    /// </para>
+    /// <para>
+    /// Referring to:
+    /// https://docs.unity3d.com/Manual/IL2CPP-CompilerOptions.html
+    /// https://answers.unity.com/questions/804103/how-to-enable-unsafe-and-use-pointers.html
+    /// </para>
+    /// </remarks>
     public class AlphaBlendingExample : MonoBehaviour
     {
         // Enums
@@ -122,9 +136,6 @@ namespace OpenCVForUnityExample
         private Mat _currentAlphaMat;
         private Mat _currentDstMat;
 
-        /// <summary>
-        /// The FPS monitor.
-        /// </summary>
         private FpsMonitor _fpsMonitor;
 
         // Unity Lifecycle Methods
@@ -146,20 +157,22 @@ namespace OpenCVForUnityExample
             _dstMat = new Mat(_fgTex.height, _fgTex.width, CvType.CV_8UC3, new Scalar(0, 0, 0));
 
             // Generate fgMat.
-            OpenCVMatUtils.Texture2DToMat(_fgTex, _fgMat);
+            OpenCVMatUnityUtils.Texture2DToMat(_fgTex, _fgMat);
 
             // Generate bgMat.
             Core.flip(_fgMat, _bgMat, 1);
             Core.bitwise_not(_bgMat, _bgMat);
 
-            // Generate alphaMat.
+            // Generate alphaMat (1-channel gradient used as per-pixel alpha weight).
             for (int r = 0; r < _alphaMat.rows(); r++)
             {
                 _alphaMat.row(r).setTo(new Scalar(r / (_alphaMat.rows() / 256)));
             }
-#pragma warning disable 0618
-            Imgproc.linearPolar(_alphaMat, _alphaMat, new Point(_alphaMat.cols() / 2, _alphaMat.rows() / 2), _alphaMat.rows(), Imgproc.INTER_CUBIC | Imgproc.WARP_FILL_OUTLIERS | Imgproc.WARP_INVERSE_MAP);
-#pragma warning restore 0618
+            using (Mat alphaMatTemp = new Mat())
+            {
+                Imgproc.warpPolar(_alphaMat, alphaMatTemp, _alphaMat.size(), new Point(_alphaMat.cols() / 2, _alphaMat.rows() / 2), _alphaMat.rows(), Imgproc.INTER_CUBIC | Imgproc.WARP_FILL_OUTLIERS | Imgproc.WARP_INVERSE_MAP);
+                alphaMatTemp.copyTo(_alphaMat);
+            }
 
             // Generate large size Mat.
             _fgMatLarge = new Mat();
@@ -171,17 +184,17 @@ namespace OpenCVForUnityExample
             Imgproc.resize(_alphaMat, _alphaMatLarge, new Size(), 2, 2, 0);
             Imgproc.resize(_dstMat, _dstMatLarge, new Size(), 2, 2, 0);
 
-            // Generate small size Mat (ROI).
+            // Generate small size Mat (ROI). Mat ROI shares memory with the parent Mat.
             OpenCVForUnity.CoreModule.Rect rect = new OpenCVForUnity.CoreModule.Rect(127, 127, 256, 256);
             _fgMatROI = new Mat(_fgMat, rect);
             _bgMatROI = new Mat(_bgMat, rect);
             _alphaMatROI = new Mat(_alphaMat, rect);
             _dstMatROI = new Mat(_dstMat, rect);
 
-            OpenCVMatUtils.MatToTexture2D(_fgMat, _fgTex);
-            OpenCVMatUtils.MatToTexture2D(_bgMat, _bgTex);
-            OpenCVMatUtils.MatToTexture2D(_alphaMat, _alphaTex);
-            OpenCVMatUtils.MatToTexture2D(_dstMat, _dstTex);
+            OpenCVMatUnityUtils.MatToTexture2D(_fgMat, _fgTex);
+            OpenCVMatUnityUtils.MatToTexture2D(_bgMat, _bgTex);
+            OpenCVMatUnityUtils.MatToTexture2D(_alphaMat, _alphaTex);
+            OpenCVMatUnityUtils.MatToTexture2D(_dstMat, _dstTex);
             FgQuad.GetComponent<Renderer>().material.mainTexture = _fgTex;
             BgQuad.GetComponent<Renderer>().material.mainTexture = _bgTex;
             AlphaQuad.GetComponent<Renderer>().material.mainTexture = _alphaTex;
@@ -192,7 +205,7 @@ namespace OpenCVForUnityExample
         private IEnumerator AlphaBlending(Action action, int count = 100)
         {
             _dstMat.setTo(new Scalar(0, 0, 0));
-            OpenCVMatUtils.MatToTexture2D(_dstMat, _dstTex);
+            OpenCVMatUnityUtils.MatToTexture2D(_dstMat, _dstTex);
 
             yield return null;
 
@@ -222,22 +235,24 @@ namespace OpenCVForUnityExample
             long ms = Time(action, count);
 
             if (ImageSize == ImageSizeType.Large)
+            {
                 Imgproc.resize(_dstMatLarge, _dstMat, new Size(), 1.0 / 2.0, 1.0 / 2.0, 0);
+            }
 
-            OpenCVMatUtils.MatToTexture2D(_dstMat, _dstTex);
+            OpenCVMatUnityUtils.MatToTexture2D(_dstMat, _dstTex);
 
 #if UNITY_WSA && ENABLE_DOTNET
             if (_fpsMonitor != null)
             {
                 _fpsMonitor.ConsoleText = ImageSize + " : " + count + " : " + ms + " ms";
             }
-            Debug.Log(ImageSize + " : " + count + " : " + ms + " ms");
+            Debug.Log(ImageSize + " : " + count + " : " + ms + " ms", this);
 #else
             if (_fpsMonitor != null)
             {
                 _fpsMonitor.ConsoleText = ImageSize + " : " + count + " : " + action.Method.Name + " : " + ms + " ms";
             }
-            Debug.Log(ImageSize + " : " + count + " : " + action.Method.Name + " : " + ms + " ms");
+            Debug.Log(ImageSize + " : " + count + " : " + action.Method.Name + " : " + ms + " ms", this);
 #endif
         }
 
@@ -278,12 +293,16 @@ namespace OpenCVForUnityExample
 
         private long Time(Action action, int count)
         {
+            // GC.Collect before/after timing reduces variance from pending allocations.
             System.GC.Collect();
 
             var tw = new System.Diagnostics.Stopwatch();
             tw.Start();
             for (int i = 0; i < count; i++)
+            {
                 action();
+            }
+
             tw.Stop();
 
             System.GC.Collect();
@@ -311,6 +330,7 @@ namespace OpenCVForUnityExample
             for (int i = 0; i < total; i++)
             {
                 byte a = alpha_byte[i];
+                // Per channel: dst = (fg * alpha + bg * (255 - alpha)) / 255
                 dst_byte[pixel_i] = (byte)((fg_byte[pixel_i] * a + bg_byte[pixel_i] * (255 - a)) >> 8);
                 dst_byte[pixel_i + 1] = (byte)((fg_byte[pixel_i + 1] * a + bg_byte[pixel_i + 1] * (255 - a)) >> 8);
                 dst_byte[pixel_i + 2] = (byte)((fg_byte[pixel_i + 2] * a + bg_byte[pixel_i + 2] * (255 - a)) >> 8);
@@ -325,7 +345,7 @@ namespace OpenCVForUnityExample
         {
             List<Mat> channels = new List<Mat>();
 
-            using (Mat _bg = new Mat())
+            using (Mat tmp_bg = new Mat())
             using (Mat inv_alpha = new Mat(alpha.width(), alpha.height(), alpha.type()))
             {
                 Core.bitwise_not(alpha, inv_alpha);
@@ -334,17 +354,17 @@ namespace OpenCVForUnityExample
                 Core.multiply(inv_alpha, channels[0], channels[0], 1.0 / 255);
                 Core.multiply(inv_alpha, channels[1], channels[1], 1.0 / 255);
                 Core.multiply(inv_alpha, channels[2], channels[2], 1.0 / 255);
-                Core.merge(channels, _bg);
+                Core.merge(channels, tmp_bg);
 
-                using (Mat _fg = new Mat())
+                using (Mat tmp_fg = new Mat())
                 {
                     Core.split(fg, channels);
                     Core.multiply(alpha, channels[0], channels[0], 1.0 / 255);
                     Core.multiply(alpha, channels[1], channels[1], 1.0 / 255);
                     Core.multiply(alpha, channels[2], channels[2], 1.0 / 255);
-                    Core.merge(channels, _fg);
+                    Core.merge(channels, tmp_fg);
 
-                    Core.add(_fg, _bg, dst);
+                    Core.add(tmp_fg, tmp_bg, dst);
                 }
             }
         }
@@ -370,27 +390,27 @@ namespace OpenCVForUnityExample
                 channels.Add(inv_alpha);
                 Core.merge(channels, inv_alpha3c);
 
-                using (Mat _bg = new Mat())
-                using (Mat _fg = new Mat())
+                using (Mat tmp_bg = new Mat())
+                using (Mat tmp_fg = new Mat())
                 {
-                    Core.multiply(inv_alpha3c, bg, _bg, 1.0 / 255);
-                    Core.multiply(alpha3c, fg, _fg, 1.0 / 255);
-                    Core.add(_fg, _bg, dst);
+                    Core.multiply(inv_alpha3c, bg, tmp_bg, 1.0 / 255);
+                    Core.multiply(alpha3c, fg, tmp_fg, 1.0 / 255);
+                    Core.add(tmp_fg, tmp_bg, dst);
                 }
             }
         }
 
-        // OpenCVMatUtils.copyFromMat
+        // MatBufferUtils.CopyFromMat
         //        [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
         //        [Il2CppSetOption(Option.NullChecks, false)]
         private void AlphaBlend_copyFromMat(Mat fg, Mat bg, Mat alpha, Mat dst)
         {
             byte[] fg_byte = new byte[fg.total() * fg.channels()];
-            OpenCVMatUtils.CopyFromMat<byte>(fg, fg_byte);
+            MatBufferUtils.CopyFromMat<byte>(fg, fg_byte);
             byte[] bg_byte = new byte[bg.total() * bg.channels()];
-            OpenCVMatUtils.CopyFromMat<byte>(bg, bg_byte);
+            MatBufferUtils.CopyFromMat<byte>(bg, bg_byte);
             byte[] alpha_byte = new byte[alpha.total() * alpha.channels()];
-            OpenCVMatUtils.CopyFromMat<byte>(alpha, alpha_byte);
+            MatBufferUtils.CopyFromMat<byte>(alpha, alpha_byte);
             byte[] dst_byte = new byte[dst.total() * dst.channels()];
 
             int pixel_i = 0;
@@ -406,7 +426,7 @@ namespace OpenCVForUnityExample
                 pixel_i += channels;
             }
 
-            OpenCVMatUtils.CopyToMat(dst_byte, dst);
+            MatBufferUtils.CopyToMat(dst_byte, dst);
         }
 
         // MarshalMethod
@@ -487,7 +507,6 @@ namespace OpenCVForUnityExample
         //        [Il2CppSetOption(Option.NullChecks, false)]
         private void AlphaBlend_pointerAccess(Mat fg, Mat bg, Mat alpha, Mat dst)
         {
-#if !OPENCV_DONT_USE_UNSAFE_CODE
 
             IntPtr fg_ptr = new IntPtr(fg.dataAddr());
             IntPtr bg_ptr = new IntPtr(bg.dataAddr());
@@ -554,8 +573,6 @@ namespace OpenCVForUnityExample
                     }
                 }
             }
-
-#endif
         }
 
         // AsSpan
@@ -563,14 +580,13 @@ namespace OpenCVForUnityExample
         //        [Il2CppSetOption(Option.NullChecks, false)]
         private void AlphaBlend_AsSpan(Mat fg, Mat bg, Mat alpha, Mat dst)
         {
-#if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
 
             if (fg.isContinuous())
             {
-                ReadOnlySpan<Vec3b> fg_span = fg.AsSpan<Vec3b>();
-                ReadOnlySpan<Vec3b> bg_span = bg.AsSpan<Vec3b>();
+                ReadOnlySpan<OpenCVForUnity.Extensions.Vec3b> fg_span = fg.AsSpan<OpenCVForUnity.Extensions.Vec3b>();
+                ReadOnlySpan<OpenCVForUnity.Extensions.Vec3b> bg_span = bg.AsSpan<OpenCVForUnity.Extensions.Vec3b>();
                 ReadOnlySpan<byte> alpha_span = alpha.AsSpan<byte>();
-                Span<Vec3b> dst_span = dst.AsSpan<Vec3b>();
+                Span<OpenCVForUnity.Extensions.Vec3b> dst_span = dst.AsSpan<OpenCVForUnity.Extensions.Vec3b>();
 
                 int total = (int)bg.total();
 
@@ -592,10 +608,10 @@ namespace OpenCVForUnityExample
 
                 System.Threading.Tasks.Parallel.For(0, h, y =>
                 {
-                    ReadOnlySpan<Vec3b> fg_span = fg.AsSpan<Vec3b>(y);
-                    ReadOnlySpan<Vec3b> bg_span = bg.AsSpan<Vec3b>(y);
+                    ReadOnlySpan<OpenCVForUnity.Extensions.Vec3b> fg_span = fg.AsSpan<OpenCVForUnity.Extensions.Vec3b>(y);
+                    ReadOnlySpan<OpenCVForUnity.Extensions.Vec3b> bg_span = bg.AsSpan<OpenCVForUnity.Extensions.Vec3b>(y);
                     ReadOnlySpan<byte> alpha_span = alpha.AsSpan<byte>(y);
-                    Span<Vec3b> dst_span = dst.AsSpan<Vec3b>(y);
+                    Span<OpenCVForUnity.Extensions.Vec3b> dst_span = dst.AsSpan<OpenCVForUnity.Extensions.Vec3b>(y);
 
                     for (int i = 0; i < w; i++)
                     {
@@ -617,10 +633,10 @@ namespace OpenCVForUnityExample
 
                 for (int y = 0; y < h; y++)
                 {
-                    ReadOnlySpan<Vec3b> fg_span = fg.AsSpan<Vec3b>(y);
-                    ReadOnlySpan<Vec3b> bg_span = bg.AsSpan<Vec3b>(y);
+                    ReadOnlySpan<OpenCVForUnity.Extensions.Vec3b> fg_span = fg.AsSpan<OpenCVForUnity.Extensions.Vec3b>(y);
+                    ReadOnlySpan<OpenCVForUnity.Extensions.Vec3b> bg_span = bg.AsSpan<OpenCVForUnity.Extensions.Vec3b>(y);
                     ReadOnlySpan<byte> alpha_span = alpha.AsSpan<byte>(y);
-                    Span<Vec3b> dst_span = dst.AsSpan<Vec3b>(y);
+                    Span<OpenCVForUnity.Extensions.Vec3b> dst_span = dst.AsSpan<OpenCVForUnity.Extensions.Vec3b>(y);
 
                     for (int x = 0; x < w; x++)
                     {
@@ -641,10 +657,10 @@ namespace OpenCVForUnityExample
 
                 System.Threading.Tasks.Parallel.For(0, h, y =>
                 {
-                    ReadOnlySpan<Vec3b> fg_span = fg.AsSpan<Vec3b>(y);
-                    ReadOnlySpan<Vec3b> bg_span = bg.AsSpan<Vec3b>(y);
+                    ReadOnlySpan<OpenCVForUnity.Extensions.Vec3b> fg_span = fg.AsSpan<OpenCVForUnity.Extensions.Vec3b>(y);
+                    ReadOnlySpan<OpenCVForUnity.Extensions.Vec3b> bg_span = bg.AsSpan<OpenCVForUnity.Extensions.Vec3b>(y);
                     ReadOnlySpan<byte> alpha_span = alpha.AsSpan<byte>(y);
-                    Span<Vec3b> dst_span = dst.AsSpan<Vec3b>(y);
+                    Span<OpenCVForUnity.Extensions.Vec3b> dst_span = dst.AsSpan<OpenCVForUnity.Extensions.Vec3b>(y);
 
                     for (int x = 0; x < w; x++)
                     {
@@ -659,8 +675,6 @@ namespace OpenCVForUnityExample
                 });
                 */
             }
-
-#endif
         }
 
         // Public Methods
@@ -748,12 +762,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnPointerAccessButtonClick()
         {
-#if !OPENCV_DONT_USE_UNSAFE_CODE
             StartCoroutine(AlphaBlending(PointerAccess, Count));
-#else
-            Debug.LogWarning("Error : \"OPENCV_DONT_USE_UNSAFE_CODE\" is enabled. Please switch the UNSAFE setting. [MenuItem]->[Tools]->[OpenCV for Unity]->[Open Setup Tools]->[Enable Use Unsafe Code]");
-            _fpsMonitor.ConsoleText = "Error: \"OPENCV_DONT_USE_UNSAFE_CODE\" is enabled.";
-#endif
         }
 
         /// <summary>
@@ -761,13 +770,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnAsSpanButtonClick()
         {
-#if NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
             StartCoroutine(AlphaBlending(AsSpan, Count));
-#else
-            Debug.LogWarning("Error : \"NET_STANDARD_2_1\" is disabled. Please switch the Api Compatibility Level to \".NET Standard 2.1\". Edit > Project Settings > Player > Other settings");
-            Debug.LogWarning("Error : \"OPENCV_DONT_USE_UNSAFE_CODE\" is enabled. Please switch the UNSAFE setting. [MenuItem]->[Tools]->[OpenCV for Unity]->[Open Setup Tools]->[Enable Use Unsafe Code]");
-            _fpsMonitor.ConsoleText = "Error : \"NET_STANDARD_2_1\" is disabled. \"OPENCV_DONT_USE_UNSAFE_CODE\" is enabled.";
-#endif
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Threading;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.UI;
 using OpenCVForUnity.VideoioModule;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,16 +14,28 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// VideoCapture Example
-    /// An example of playing a video file using the VideoCapture class.
-    /// http://docs.opencv.org/3.2.0/dd/d43/tutorial_py_video_display.html
+    /// Plays a video file from StreamingAssets with seek bar and transport controls.
+    ///
+    /// Demonstrates:
+    /// - VideoCapture.open, grab/retrieve frame pipeline
+    /// - Reading CAP_PROP_* metadata (FPS, frame count, position)
+    /// - Frame pacing with a coroutine timed to the file FPS
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="VideoCapture"/>, <see cref="Videoio"/>
+    /// - <see cref="Imgproc"/>: cvtColor
+    /// - <see cref="OpenCVMatUnityUtils"/>, <see cref="Core"/>: getTickCount
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Referring to:
+    /// http://docs.opencv.org/3.2.0/dd/d43/tutorial_py_video_display.html
+    /// </para>
+    /// </remarks>
     public class VideoCaptureExample : MonoBehaviour
     {
         // Constants
-        /// <summary>
-        /// VIDEO_FILENAME
-        /// </summary>
-        protected static readonly string VIDEO_FILENAME = "OpenCVForUnityExamples/768x576_mjpeg.mjpeg";
+        private static readonly string VIDEO_FILEPATH = "OpenCVForUnityExamples/768x576_mjpeg.mjpeg";
 
         // Public Fields
         [Header("Output")]
@@ -41,19 +54,10 @@ namespace OpenCVForUnityExample
         // Private Fields
         private Slider.SliderEvent _defaultSliderEvent = new Slider.SliderEvent();
 
-        /// <summary>
-        /// The videocapture.
-        /// </summary>
         private VideoCapture _capture;
 
-        /// <summary>
-        /// The rgb mat.
-        /// </summary>
         private Mat _rgbMat;
 
-        /// <summary>
-        /// The texture.
-        /// </summary>
         private Texture2D _texture;
 
         /// <summary>
@@ -66,24 +70,12 @@ namespace OpenCVForUnityExample
         /// </summary>
         private bool _shouldUpdateVideoFrame = false;
 
-        /// <summary>
-        /// The prev frame tick count.
-        /// </summary>
         private long _prevFrameTickCount;
 
-        /// <summary>
-        /// The current frame tick count.
-        /// </summary>
         private long _currentFrameTickCount;
 
-        /// <summary>
-        /// The FPS monitor.
-        /// </summary>
         private FpsMonitor _fpsMonitor;
 
-        /// <summary>
-        /// The CancellationTokenSource.
-        /// </summary>
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
         // Unity Lifecycle Methods
@@ -95,12 +87,16 @@ namespace OpenCVForUnityExample
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
             if (_fpsMonitor != null)
+            {
                 _fpsMonitor.ConsoleText = "Preparing file access...";
+            }
 
-            var video_filepath = await OpenCVEnv.GetFilePathTaskAsync(VIDEO_FILENAME, cancellationToken: _cts.Token);
+            var video_filepath = await OpenCVForUnityEnv.GetFilePathAsync(VIDEO_FILEPATH, cancellationToken: _cts.Token);
 
             if (_fpsMonitor != null)
+            {
                 _fpsMonitor.ConsoleText = "";
+            }
 
             _capture.open(video_filepath);
             Initialize();
@@ -114,8 +110,11 @@ namespace OpenCVForUnityExample
 
                 //Loop play
                 if (_capture.get(Videoio.CAP_PROP_POS_FRAMES) >= _capture.get(Videoio.CAP_PROP_FRAME_COUNT))
+                {
                     _capture.set(Videoio.CAP_PROP_POS_FRAMES, 0);
+                }
 
+                // grab() advances decode; retrieve() fills _rgbMat (BGR from file, converted to RGB for Unity).
                 if (_capture.grab())
                 {
                     _capture.retrieve(_rgbMat);
@@ -133,7 +132,7 @@ namespace OpenCVForUnityExample
                         _fpsMonitor.Add("STATE", msec + "ms (" + fps + "fps)");
                     }
 
-                    OpenCVMatUtils.MatToTexture2D(_rgbMat, _texture);
+                    OpenCVMatUnityUtils.MatToTexture2D(_rgbMat, _texture);
 
                     var tmp = SeekBarSlider.onValueChanged;
                     SeekBarSlider.onValueChanged = _defaultSliderEvent;
@@ -145,13 +144,18 @@ namespace OpenCVForUnityExample
 
         private void OnDestroy()
         {
+            _cts?.Cancel();
+
             StopCoroutine("WaitFrameTime");
 
             _capture?.release();
+            _capture = null;
 
             _rgbMat?.Dispose();
+            _rgbMat = null;
 
             _cts?.Dispose();
+            _cts = null;
         }
 
         // Public Methods
@@ -227,21 +231,23 @@ namespace OpenCVForUnityExample
 
             if (!_capture.isOpened())
             {
-                Debug.LogError(VIDEO_FILENAME + " is not opened. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                Debug.LogError(VIDEO_FILEPATH + " is not opened. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.", this);
                 if (_fpsMonitor != null)
+                {
                     _fpsMonitor.Toast("video file is not opened.\nPlease read console message.", 20000);
+                }
             }
 
-            Debug.Log("CAP_PROP_FORMAT: " + _capture.get(Videoio.CAP_PROP_FORMAT));
-            Debug.Log("CAP_PROP_POS_MSEC: " + _capture.get(Videoio.CAP_PROP_POS_MSEC));
-            Debug.Log("CAP_PROP_POS_FRAMES: " + _capture.get(Videoio.CAP_PROP_POS_FRAMES));
-            Debug.Log("CAP_PROP_POS_AVI_RATIO: " + _capture.get(Videoio.CAP_PROP_POS_AVI_RATIO));
-            Debug.Log("CAP_PROP_FRAME_COUNT: " + _capture.get(Videoio.CAP_PROP_FRAME_COUNT));
-            Debug.Log("CAP_PROP_FPS: " + _capture.get(Videoio.CAP_PROP_FPS));
-            Debug.Log("CAP_PROP_FRAME_WIDTH: " + _capture.get(Videoio.CAP_PROP_FRAME_WIDTH));
-            Debug.Log("CAP_PROP_FRAME_HEIGHT: " + _capture.get(Videoio.CAP_PROP_FRAME_HEIGHT));
+            Debug.Log("CAP_PROP_FORMAT: " + _capture.get(Videoio.CAP_PROP_FORMAT), this);
+            Debug.Log("CAP_PROP_POS_MSEC: " + _capture.get(Videoio.CAP_PROP_POS_MSEC), this);
+            Debug.Log("CAP_PROP_POS_FRAMES: " + _capture.get(Videoio.CAP_PROP_POS_FRAMES), this);
+            Debug.Log("CAP_PROP_POS_AVI_RATIO: " + _capture.get(Videoio.CAP_PROP_POS_AVI_RATIO), this);
+            Debug.Log("CAP_PROP_FRAME_COUNT: " + _capture.get(Videoio.CAP_PROP_FRAME_COUNT), this);
+            Debug.Log("CAP_PROP_FPS: " + _capture.get(Videoio.CAP_PROP_FPS), this);
+            Debug.Log("CAP_PROP_FRAME_WIDTH: " + _capture.get(Videoio.CAP_PROP_FRAME_WIDTH), this);
+            Debug.Log("CAP_PROP_FRAME_HEIGHT: " + _capture.get(Videoio.CAP_PROP_FRAME_HEIGHT), this);
             double ext = _capture.get(Videoio.CAP_PROP_FOURCC);
-            Debug.Log("CAP_PROP_FOURCC: " + (char)((int)ext & 0XFF) + (char)(((int)ext & 0XFF00) >> 8) + (char)(((int)ext & 0XFF0000) >> 16) + (char)(((int)ext & 0XFF000000) >> 24));
+            Debug.Log("CAP_PROP_FOURCC: " + (char)((int)ext & 0XFF) + (char)(((int)ext & 0XFF00) >> 8) + (char)(((int)ext & 0XFF0000) >> 16) + (char)(((int)ext & 0XFF000000) >> 24), this);
 
             if (_fpsMonitor != null)
             {
@@ -281,6 +287,7 @@ namespace OpenCVForUnityExample
 
             _capture.grab();
 
+            // Coroutine paces playback to file FPS; Update performs grab/retrieve when _shouldUpdateVideoFrame is set.
             while (true)
             {
                 if (_isPlaying)

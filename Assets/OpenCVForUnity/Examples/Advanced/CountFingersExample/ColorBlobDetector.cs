@@ -1,12 +1,19 @@
 using System;
 using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.GeometryModule;
 using OpenCVForUnity.ImgprocModule;
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Color Blob Detector for detecting colored regions in images.
+    /// Finds the largest HSV-matched blob using pyramid downscaling for speed.
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Mat"/>, <see cref="Scalar"/>, <see cref="MatOfPoint"/>
+    /// - <see cref="Core"/>: inRange, multiply
+    /// - <see cref="Imgproc"/>: pyrDown, cvtColor, dilate, findContours, contourArea
     /// </summary>
     public class ColorBlobDetector : IDisposable
     {
@@ -15,6 +22,9 @@ namespace OpenCVForUnityExample
         private Scalar _lowerBound = new Scalar(0);
         private Scalar _upperBound = new Scalar(0);
         // Minimum contour area in percent for contours filtering
+#if UNITY_6000_5_OR_NEWER
+        [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
         private static double _minContourArea = 0.1;
         // Color radius for range checking in HSV color space
         private Scalar _colorRadius = new Scalar(25, 50, 50, 0);
@@ -66,6 +76,7 @@ namespace OpenCVForUnityExample
             double minH = (hsvColor.val[0] >= _colorRadius.val[0]) ? hsvColor.val[0] - _colorRadius.val[0] : 0;
             double maxH = (hsvColor.val[0] + _colorRadius.val[0] <= 255) ? hsvColor.val[0] + _colorRadius.val[0] : 255;
 
+            // Build HSV lower/upper bounds from the sampled color and radius.
             _lowerBound.val[0] = minH;
             _upperBound.val[0] = maxH;
 
@@ -120,11 +131,15 @@ namespace OpenCVForUnityExample
         {
             ThrowIfDisposed();
 
-            if (rgbaImage != null) rgbaImage.ThrowIfDisposed();
+            if (rgbaImage != null)
+            {
+                rgbaImage.ThrowIfDisposed();
+            }
 
             Imgproc.pyrDown(rgbaImage, _pyrDownMat);
             Imgproc.pyrDown(_pyrDownMat, _pyrDownMat);
 
+            // Two pyrDown steps = 1/4 size; contour coordinates are scaled back by 4 later.
             Imgproc.cvtColor(_pyrDownMat, _hsvMat, Imgproc.COLOR_RGB2HSV_FULL);
 
             Core.inRange(_hsvMat, _lowerBound, _upperBound, _mask);
@@ -139,9 +154,11 @@ namespace OpenCVForUnityExample
             foreach (MatOfPoint each in contours)
             {
                 MatOfPoint wrapper = each;
-                double area = Imgproc.contourArea(wrapper);
+                double area = Geometry.contourArea(wrapper);
                 if (area > maxArea)
+                {
                     maxArea = area;
+                }
             }
 
             // Filter contours by area and resize to fit the original image size
@@ -149,8 +166,9 @@ namespace OpenCVForUnityExample
             foreach (MatOfPoint each in contours)
             {
                 MatOfPoint contour = each;
-                if (Imgproc.contourArea(contour) > _minContourArea * maxArea)
+                if (Geometry.contourArea(contour) > _minContourArea * maxArea)
                 {
+                    // Scale contour points from 1/4 resolution back to full image coordinates.
                     Core.multiply(contour, new Scalar(4, 4), contour);
                     _contours.Add(contour);
                 }
@@ -180,7 +198,10 @@ namespace OpenCVForUnityExample
         // Private Methods
         private void Dispose(bool disposing)
         {
-            if (_disposed) return;
+            if (_disposed)
+            {
+                return;
+            }
 
             if (disposing)
             {

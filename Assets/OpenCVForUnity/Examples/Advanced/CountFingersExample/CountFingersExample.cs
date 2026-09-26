@@ -1,22 +1,43 @@
+using System;
 using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.Extensions.SourceToMat;
+using OpenCVForUnity.GeometryModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
-using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
+using OpenCVForUnity.UnityIntegration.Helper.Interaction;
+using OpenCVForUnity.UnityIntegration.Helper.SourceToMat;
+using OpenCVForUnity.UnityIntegration.Helper.UI;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static OpenCVForUnity.UnityIntegration.Helper.Source2Mat.MultiSource2MatHelper;
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Count Fingers Example
-    /// The techniques used are color segmentation using HSV color space to find the hand contour, and convex hull and convex defect algorithms to count the number of fingers.
-    /// Referring to https://www.youtube.com/watch?v=KuGpOxOcpds.
+    /// Estimates the number of raised fingers from a hand contour in input frames.
+    ///
+    /// Demonstrates:
+    /// - Reading input frames via <see cref="MultiSourceToMatHelper"/> (webcam, video file, image file, or GPU readback)
+    /// - HSV skin-color segmentation via <see cref="ColorBlobDetector"/>
+    /// - Convex hull and convexity defects to count finger valleys
+    /// - Tap-to-calibrate hand color before detection starts
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Mat"/>, <see cref="Scalar"/>, <see cref="Point"/>, <see cref="RotatedRect"/>, <see cref="Rect"/>
+    /// - <see cref="MatOfPoint"/>, <see cref="MatOfPoint2f"/>, <see cref="MatOfInt"/>, <see cref="MatOfInt4"/>
+    /// - <see cref="Core"/>: sumElems
+    /// - <see cref="Imgproc"/>: GaussianBlur, minAreaRect, boundingRect, approxPolyDP, convexHull, convexityDefects, drawContours, circle, cvtColor
+    /// - <see cref="ColorBlobDetector"/>, <see cref="MultiSourceToMatHelper"/>
     /// </summary>
-    [RequireComponent(typeof(MultiSource2MatHelper))]
+    /// <remarks>
+    /// <para>
+    /// Referring to:
+    /// https://www.youtube.com/watch?v=KuGpOxOcpds
+    /// </para>
+    /// </remarks>
+    [RequireComponent(typeof(MultiSourceToMatHelper))]
     public class CountFingersExample : MonoBehaviour
     {
         // Public Fields
@@ -45,146 +66,104 @@ namespace OpenCVForUnityExample
         public TextureSelector TexturePointSelector;
 
         // Private Fields
-        /// <summary>
-        /// The texture.
-        /// </summary>
         private Texture2D _texture;
-
-        /// <summary>
-        /// The BLOB color hsv.
-        /// </summary>
         private Scalar _blobColorHsv;
 
-        ///// <summary>
-        ///// The BLOB color rgba.
-        ///// </summary>
         //Scalar blobColorRgba;
 
-        /// <summary>
-        /// The detector.
-        /// </summary>
         private ColorBlobDetector _detector;
-
-        /// <summary>
-        /// The spectrum mat.
-        /// </summary>
         private Mat _spectrumMat;
 
         /// <summary>
         /// Indicates whether is color selected.
         /// </summary>
         private bool _isColorSelected = false;
-
-        /// <summary>
-        /// The spectrum size.
-        /// </summary>
         private Size _spectrumSize;
-
-        /// <summary>
-        /// The contour color.
-        /// </summary>
         private Scalar _contourColor;
-
-        /// <summary>
-        /// The contour color white.
-        /// </summary>
         private Scalar _contourColorWhite;
-
-        /// <summary>
-        /// The number of fingers.
-        /// </summary>
         private int _numberOfFingers = 0;
-
-        /// <summary>
-        /// The multi source to mat helper.
-        /// </summary>
-        private MultiSource2MatHelper _multiSource2MatHelper;
-
-        /// <summary>
-        /// The flag to request color update from selected point.
-        /// </summary>
+        private MultiSourceToMatHelper _multiSourceToMatHelper;
         private bool _shouldUpdateColorFromPoint = false;
-
-        /// <summary>
-        /// The FPS monitor.
-        /// </summary>
         private FpsMonitor _fpsMonitor;
+        private SourceToMatControlPanel _controlPanel;
 
         // Unity Lifecycle Methods
         private void Start()
         {
             _fpsMonitor = GetComponent<FpsMonitor>();
 
-            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSourceToMatHelper = gameObject.GetComponent<MultiSourceToMatHelper>();
+            _multiSourceToMatHelper.OutputColorFormat = SourceToMatColorFormat.RGBA;
 
-            // WebCamTexture2MatHelper does not work on WebGPU, so use WebCamTexture2MatAsyncGPUHelper instead.
-#if UNITY_6000_0_OR_NEWER
-            if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.WebGPU && _multiSource2MatHelper.RequestedSource2MatHelperClassName == MultiSource2MatHelperClassName.WebCamTexture2MatHelper)
-            {
-                _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.WebCamTexture2MatAsyncGPUHelper;
-            }
-#endif
-            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
-            _multiSource2MatHelper.Initialize();
-        }
+            WireSourceToMatControlPanelHooks();
 
-        private void Update()
-        {
-            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
-            {
-                Mat rgbaMat = _multiSource2MatHelper.GetMat();
-
-                if (_shouldUpdateColorFromPoint)
-                {
-                    var (gameObject, currentSelectionState, currentSelectionPoints) = TexturePointSelector.GetSelectionStatus();
-                    var p = TextureSelector.ConvertSelectionPointsToOpenCVPoint(currentSelectionPoints);
-                    SelectHandColor(rgbaMat, p);
-
-                    TexturePointSelector.ResetSelectionStatus();
-
-                    _shouldUpdateColorFromPoint = false;
-                }
-
-                HandPoseEstimationProcess(rgbaMat);
-
-                // Draw current selection overlay
-                TexturePointSelector.DrawSelection(rgbaMat, true);
-
-                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
-            }
+            _multiSourceToMatHelper.Initialize();
         }
 
         private void OnDestroy()
         {
-            _multiSource2MatHelper?.Dispose();
+            UnwireSourceToMatControlPanelHooks();
         }
 
         // Public Methods
         /// <summary>
-        /// Raises the source to mat helper initialized event.
+        /// Raises the helper frame mat updated event.
+        /// Updates the preview texture when a new frame is available during playback.
+        /// </summary>
+        public void OnSourceToMatHelperFrameMatUpdated()
+        {
+            if (!_multiSourceToMatHelper.IsPlaying)
+            {
+                return;
+            }
+
+            Mat rgbaMat = _multiSourceToMatHelper.FrameMat;
+
+            if (_shouldUpdateColorFromPoint)
+            {
+                var (gameObject, currentSelectionState, currentSelectionPoints) = TexturePointSelector.GetSelectionStatus();
+                var p = TextureSelector.ConvertSelectionPointsToOpenCVPoint(currentSelectionPoints);
+                SelectHandColor(rgbaMat, p);
+
+                TexturePointSelector.ResetSelectionStatus();
+
+                _shouldUpdateColorFromPoint = false;
+            }
+
+            HandPoseEstimationProcess(rgbaMat);
+
+            // Draw current selection overlay
+            TexturePointSelector.DrawSelection(rgbaMat, true);
+
+            OpenCVMatUnityUtils.MatToTexture2D(rgbaMat, _texture);
+        }
+
+        /// <summary>
+        /// Raises the helper initialized event.
+        /// Recreates the preview texture and starts playback on first initialization.
+        /// Skips Play when re-initialization has already restored Playing or Paused.
         /// </summary>
         public void OnSourceToMatHelperInitialized()
         {
-            Debug.Log("OnSourceToMatHelperInitialized");
+            Debug.Log("OnSourceToMatHelperInitialized", this);
 
-            Mat rgbaMat = _multiSource2MatHelper.GetMat();
-
-            _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
-            OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
-
-            ResultPreview.texture = _texture;
-            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
+            RecreatePreviewTexture();
+            CreateOrRecreateProcessingResources(_multiSourceToMatHelper.FrameMat);
 
             if (_fpsMonitor != null)
             {
-                _fpsMonitor.Add("width", rgbaMat.width().ToString());
-                _fpsMonitor.Add("height", rgbaMat.height().ToString());
-                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                _fpsMonitor.Clear();
+                UpdateFpsMonitorPlaybackState();
+                _fpsMonitor.Add("HelperKind", _multiSourceToMatHelper.RequestedHelperKind.ToString());
+                _fpsMonitor.Add("Width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("Height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("Rotate90Degree", _multiSourceToMatHelper.Rotate90Degree.ToString());
+                _fpsMonitor.Add("FlipVertical", _multiSourceToMatHelper.FlipVertical.ToString());
+                _fpsMonitor.Add("FlipHorizontal", _multiSourceToMatHelper.FlipHorizontal.ToString());
+                _fpsMonitor.Add("Orientation", Screen.orientation.ToString());
                 _fpsMonitor.Toast("Touch the screen to specify the hand color.", 2000);
             }
 
-            _detector = new ColorBlobDetector();
-            _spectrumMat = new Mat();
             _blobColorHsv = new Scalar(255);
             _spectrumSize = new Size(200, 64);
             _contourColor = new Scalar(255, 0, 0, 255);
@@ -196,28 +175,68 @@ namespace OpenCVForUnityExample
 
             // Reset TexturePointSelector state
             TexturePointSelector.ResetSelectionStatus();
+
+            if (!_multiSourceToMatHelper.IsPlaying && !_multiSourceToMatHelper.IsPaused)
+            {
+                _multiSourceToMatHelper.Play();
+                UpdateFpsMonitorPlaybackState();
+            }
         }
 
         /// <summary>
-        /// Raises the source to mat helper disposed event.
+        /// Raises the helper frame mat layout changed event.
+        /// Recreates the preview texture when rotation or output size changes.
+        /// </summary>
+        public void OnSourceToMatHelperFrameMatLayoutChanged()
+        {
+            Debug.Log("OnSourceToMatHelperFrameMatLayoutChanged", this);
+
+            RecreatePreviewTexture();
+            CreateOrRecreateProcessingResources(_multiSourceToMatHelper.FrameMat);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("Width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("Height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("Orientation", Screen.orientation.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Raises the helper released event.
+        /// </summary>
+        public void OnSourceToMatHelperReleased()
+        {
+            Debug.Log("OnSourceToMatHelperReleased", this);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Clear();
+            }
+
+            DisposeFrameProcessingResources();
+            CleanupPreviewResources();
+        }
+
+        /// <summary>
+        /// Raises the helper disposed event.
         /// </summary>
         public void OnSourceToMatHelperDisposed()
         {
-            Debug.Log("OnSourceToMatHelperDisposed");
+            Debug.Log("OnSourceToMatHelperDisposed", this);
 
-            _spectrumMat?.Dispose(); _spectrumMat = null;
-            _detector?.Dispose(); _detector = null;
-            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
+            DisposeFrameProcessingResources();
+            CleanupPreviewResources();
         }
 
         /// <summary>
-        /// Raises the source to mat helper error occurred event.
+        /// Raises the helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
         /// <param name="message">Message.</param>
-        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
+        public void OnSourceToMatHelperErrorOccurred(SourceToMatErrorCode errorCode, string message)
         {
-            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message, this);
 
             if (_fpsMonitor != null)
             {
@@ -227,42 +246,92 @@ namespace OpenCVForUnityExample
 
         /// <summary>
         /// Raises the back button click event.
+        /// Stops playback and disposes the helper before scene transition (required on WebGL).
         /// </summary>
-        public void OnBackButtonClick()
+        public async void OnBackButtonClick()
         {
+            if (_multiSourceToMatHelper.IsPlaying || _multiSourceToMatHelper.IsPaused)
+            {
+                await _multiSourceToMatHelper.StopAsync();
+            }
+
+            await _multiSourceToMatHelper.DisposeAsync();
+
             SceneManager.LoadScene("OpenCVForUnityExample");
         }
 
         /// <summary>
-        /// Raises the play button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPlay"/>.
         /// </summary>
-        public void OnPlayButtonClick()
+        public void OnControlPanelAfterPlay()
         {
-            _multiSource2MatHelper.Play();
+            UpdateFpsMonitorPlaybackState();
         }
 
         /// <summary>
-        /// Raises the pause button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPause"/>.
         /// </summary>
-        public void OnPauseButtonClick()
+        public void OnControlPanelAfterPause()
         {
-            _multiSource2MatHelper.Pause();
+            UpdateFpsMonitorPlaybackState();
         }
 
         /// <summary>
-        /// Raises the stop button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterStop"/>.
         /// </summary>
-        public void OnStopButtonClick()
+        public void OnControlPanelAfterStop()
         {
-            _multiSource2MatHelper.Stop();
+            UpdateFpsMonitorPlaybackState();
         }
 
         /// <summary>
-        /// Raises the change camera button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnRotate90Changed"/>.
         /// </summary>
-        public void OnChangeCameraButtonClick()
+        /// <param name="isOn">New Rotate90Degree value applied by the panel.</param>
+        public void OnControlPanelRotate90Changed(bool isOn)
         {
-            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("Rotate90Degree", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipVerticalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipVertical value applied by the panel.</param>
+        public void OnControlPanelFlipVerticalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipVertical", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipHorizontalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipHorizontal value applied by the panel.</param>
+        public void OnControlPanelFlipHorizontalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipHorizontal", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnHelperKindChanged"/>.
+        /// </summary>
+        /// <param name="kindIndex">Dropdown index matching <see cref="MultiSourceHelperKind"/>.</param>
+        public void OnControlPanelHelperKindChanged(int kindIndex)
+        {
+            if (_fpsMonitor == null || !Enum.IsDefined(typeof(MultiSourceHelperKind), kindIndex))
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("HelperKind", ((MultiSourceHelperKind)kindIndex).ToString());
         }
 
         /// <summary>
@@ -288,6 +357,126 @@ namespace OpenCVForUnityExample
         }
 
         // Private Methods
+        private void RecreatePreviewTexture()
+        {
+            Mat frameMat = _multiSourceToMatHelper.FrameMat;
+            if (frameMat == null)
+            {
+                return;
+            }
+
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+                _texture = null;
+            }
+
+            bool isRgb = _multiSourceToMatHelper.OutputColorFormat == SourceToMatColorFormat.RGB;
+            _texture = new Texture2D(frameMat.cols(), frameMat.rows(), isRgb ? TextureFormat.RGB24 : TextureFormat.RGBA32, false);
+            OpenCVMatUnityUtils.MatToTexture2D(frameMat, _texture);
+
+            if (ResultPreview != null)
+            {
+                ResultPreview.texture = _texture;
+                AspectRatioFitter aspectRatioFitter = ResultPreview.GetComponent<AspectRatioFitter>();
+                if (aspectRatioFitter != null)
+                {
+                    aspectRatioFitter.aspectRatio = (float)_texture.width / _texture.height;
+                }
+            }
+        }
+
+        private void DisposeFrameProcessingResources()
+        {
+            _spectrumMat?.Dispose();
+            _spectrumMat = null;
+            _detector?.Dispose();
+            _detector = null;
+        }
+
+        private void CreateOrRecreateProcessingResources(Mat rgbaMat)
+        {
+            DisposeFrameProcessingResources();
+
+            _detector = new ColorBlobDetector();
+            _spectrumMat = new Mat();
+        }
+
+        private void CleanupPreviewResources()
+        {
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+                _texture = null;
+            }
+
+            UpdateFpsMonitorPlaybackState();
+        }
+
+        private void UpdateFpsMonitorPlaybackState()
+        {
+            if (_fpsMonitor == null || _multiSourceToMatHelper == null)
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("PlaybackState", GetPlaybackStateText());
+        }
+
+        private string GetPlaybackStateText()
+        {
+            if (!_multiSourceToMatHelper.IsInitialized)
+            {
+                return "Uninitialized";
+            }
+
+            if (_multiSourceToMatHelper.IsPlaying)
+            {
+                return "Playing";
+            }
+
+            if (_multiSourceToMatHelper.IsPaused)
+            {
+                return "Paused";
+            }
+
+            return "Ready";
+        }
+
+        private void WireSourceToMatControlPanelHooks()
+        {
+            _controlPanel = GetComponent<SourceToMatControlPanel>();
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.AddListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.AddListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.AddListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.AddListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.AddListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.AddListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.AddListener(OnControlPanelHelperKindChanged);
+        }
+
+        private void UnwireSourceToMatControlPanelHooks()
+        {
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.RemoveListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.RemoveListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.RemoveListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.RemoveListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.RemoveListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.RemoveListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.RemoveListener(OnControlPanelHelperKindChanged);
+            _controlPanel = null;
+        }
+
         private void HandPoseEstimationProcess(Mat rgbaMat)
         {
             //Imgproc.blur(mRgba, mRgba, new Size(5,5));
@@ -295,9 +484,12 @@ namespace OpenCVForUnityExample
             //Imgproc.medianBlur(mRgba, mRgba, 3);
 
             if (!_isColorSelected)
+            {
                 return;
+            }
 
             List<MatOfPoint> contours = _detector.GetContours();
+            // Process() updates contours for the next frame; GetContours() returns the previous result.
             _detector.Process(rgbaMat);
 
             //Debug.Log ("Contours count: " + contours.Count);
@@ -307,7 +499,7 @@ namespace OpenCVForUnityExample
                 return;
             }
 
-            RotatedRect rect = Imgproc.minAreaRect(new MatOfPoint2f(contours[0].toArray()));
+            RotatedRect rect = Geometry.minAreaRect(new MatOfPoint2f(contours[0].toArray()));
 
             double boundWidth = rect.size.width;
             double boundHeight = rect.size.height;
@@ -315,7 +507,7 @@ namespace OpenCVForUnityExample
 
             for (int i = 1; i < contours.Count; i++)
             {
-                rect = Imgproc.minAreaRect(new MatOfPoint2f(contours[i].toArray()));
+                rect = Geometry.minAreaRect(new MatOfPoint2f(contours[i].toArray()));
                 if (rect.size.width * rect.size.height > boundWidth * boundHeight)
                 {
                     boundWidth = rect.size.width;
@@ -326,7 +518,7 @@ namespace OpenCVForUnityExample
 
             MatOfPoint contour = contours[boundPos];
 
-            OpenCVForUnity.CoreModule.Rect boundRect = Imgproc.boundingRect(new MatOfPoint(contour.toArray()));
+            OpenCVForUnity.CoreModule.Rect boundRect = Geometry.boundingRect(new MatOfPoint(contour.toArray()));
             Imgproc.rectangle(rgbaMat, boundRect.tl(), boundRect.br(), _contourColorWhite, 2, 8, 0);
 
             //Debug.Log(
@@ -342,35 +534,38 @@ namespace OpenCVForUnityExample
 
             //Debug.Log (" A [" + a + "] br y - tl y = [" + (boundRect.br ().y - boundRect.tl ().y) + "]");
 
+            // Ignore convex defects below this line (wrist / palm region).
             Imgproc.rectangle(rgbaMat, boundRect.tl(), new Point(boundRect.br().x, a), _contourColor, 2, 8, 0);
 
             MatOfPoint2f pointMat = new MatOfPoint2f();
-            Imgproc.approxPolyDP(new MatOfPoint2f(contour.toArray()), pointMat, 3, true);
+            Geometry.approxPolyDP(new MatOfPoint2f(contour.toArray()), pointMat, 3, true);
             contour = new MatOfPoint(pointMat.toArray());
 
             MatOfInt hull = new MatOfInt();
             MatOfInt4 convexDefect = new MatOfInt4();
-            Imgproc.convexHull(new MatOfPoint(contour.toArray()), hull);
+            Geometry.convexHull(new MatOfPoint(contour.toArray()), hull);
 
             if (hull.toArray().Length < 3)
-                return;
-
-            Imgproc.convexityDefects(new MatOfPoint(contour.toArray()), hull, convexDefect);
-
-            List<MatOfPoint> hullPoints = new List<MatOfPoint>();
-            List<Point> listPo = new List<Point>();
-            for (int j = 0; j < hull.toList().Count; j++)
             {
-                listPo.Add(contour.toList()[hull.toList()[j]]);
+                return;
             }
 
-            MatOfPoint e = new MatOfPoint();
-            e.fromList(listPo);
-            hullPoints.Add(e);
+            Geometry.convexityDefects(new MatOfPoint(contour.toArray()), hull, convexDefect);
+
+            Point[] contourPts = contour.toArray();
+            int[] hullIndices = hull.toArray();
+            Point[] hullPts = new Point[hullIndices.Length];
+            for (int j = 0; j < hullIndices.Length; j++)
+            {
+                hullPts[j] = contourPts[hullIndices[j]];
+            }
+
+            List<MatOfPoint> hullPoints = new List<MatOfPoint>();
+            hullPoints.Add(new MatOfPoint(hullPts));
 
             List<Point> listPoDefect = new List<Point>();
 
-            if (convexDefect.rows() > 0)
+            if (!convexDefect.empty())
             {
                 List<int> convexDefectList = convexDefect.toList();
                 List<Point> contourList = contour.toList();
@@ -378,6 +573,7 @@ namespace OpenCVForUnityExample
                 {
                     Point farPoint = contourList[convexDefectList[j + 2]];
                     int depth = convexDefectList[j + 3];
+                    // depth exceeds slider threshold and point is above wrist line => count as a finger gap.
                     if (depth > ThreasholdSlider.value && farPoint.y < a)
                     {
                         listPoDefect.Add(contourList[convexDefectList[j + 2]]);
@@ -387,7 +583,7 @@ namespace OpenCVForUnityExample
             }
 
             //Debug.Log ("hull: " + hull.toList ());
-            //if (convexDefect.rows () > 0) {
+            //if (convexDefect.empty()) {
             //  Debug.Log ("defects: " + convexDefect.toList ());
             //}
 
@@ -398,7 +594,9 @@ namespace OpenCVForUnityExample
 
             _numberOfFingers = listPoDefect.Count;
             if (_numberOfFingers > 5)
+            {
                 _numberOfFingers = 5;
+            }
 
             //Debug.Log ("numberOfFingers " + numberOfFingers);
 
@@ -422,7 +620,9 @@ namespace OpenCVForUnityExample
             //Debug.Log ("Touch image coordinates: (" + x + ", " + y + ")");
 
             if ((x < 0) || (y < 0) || (x > cols) || (y > rows))
+            {
                 return;
+            }
 
             OpenCVForUnity.CoreModule.Rect touchedRect = new OpenCVForUnity.CoreModule.Rect();
 
@@ -441,7 +641,9 @@ namespace OpenCVForUnityExample
                 _blobColorHsv = Core.sumElems(touchedRegionHsv);
                 int pointCount = touchedRect.width * touchedRect.height;
                 for (int i = 0; i < _blobColorHsv.val.Length; i++)
+                {
                     _blobColorHsv.val[i] /= pointCount;
+                }
 
                 //blobColorRgba = ConverScalarHsv2Rgba (blobColorHsv);
                 //Debug.Log ("Touched rgba color: (" + mBlobColorRgba.val [0] + ", " + mBlobColorRgba.val [1] +

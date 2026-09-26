@@ -8,16 +8,33 @@ using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using OpenCVDebug = OpenCVForUnity.Extensions.OpenCVDebug;
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
     /// ArUco Create Marker Example
-    /// Referring to https://github.com/opencv/opencv_contrib/blob/4.x/modules/aruco/samples/create_marker.cpp
+    /// Generates printable ArUco markers, boards, ChArUco boards, and diamond markers.
+    ///
+    /// Demonstrates:
+    /// - Dictionary selection and marker/board image generation
+    /// - Saving generated marker images with Imgcodecs.imwrite
+    /// - GridBoard, ChArUcoBoard, and ChArUco diamond marker creation APIs
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Aruco"/>, <see cref="Dictionary"/>, <see cref="GridBoard"/>, <see cref="CharucoBoard"/>
+    /// - <see cref="Imgcodecs"/>: imwrite
+    /// - <see cref="Imgproc"/>: resize
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Referring to:
+    /// https://github.com/opencv/opencv_contrib/blob/4.x/modules/aruco/samples/create_marker.cpp
     /// https://github.com/opencv/opencv_contrib/blob/4.x/modules/aruco/samples/create_board.cpp
     /// https://github.com/opencv/opencv_contrib/blob/4.x/modules/aruco/samples/create_board_charuco.cpp
     /// https://github.com/opencv/opencv_contrib/blob/4.x/modules/aruco/samples/create_diamond.cpp
-    /// </summary>
+    /// </para>
+    /// </remarks>
     public class ArUcoCreateMarkerExample : MonoBehaviour
     {
         // Enums
@@ -173,7 +190,12 @@ namespace OpenCVForUnityExample
         private void OnDestroy()
         {
             _markerImg?.Dispose(); _markerImg = null;
-            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+            }
+
+            _texture = null;
 
             OpenCVDebug.SetDebugMode(false);
         }
@@ -256,8 +278,9 @@ namespace OpenCVForUnityExample
             {
                 default:
                 case MarkerType.CanonicalMarker:
+                    // generateImageMarker renders one dictionary ID into a square image with BORDER_BITS quiet zone.
                     Objdetect.generateImageMarker(dictionary, (int)MarkerId, MarkerSize, _markerImg, BORDER_BITS);
-                    Debug.Log("draw CanonicalMarker: " + "dictionaryId " + (int)DictionaryId + " markerId " + (int)MarkerId + " sidePixels " + MarkerSize + " borderBits " + BORDER_BITS);
+                    Debug.Log("draw CanonicalMarker: " + "dictionaryId " + (int)DictionaryId + " markerId " + (int)MarkerId + " sidePixels " + MarkerSize + " borderBits " + BORDER_BITS, this);
                     break;
                 case MarkerType.GridBoard:
 
@@ -303,7 +326,7 @@ namespace OpenCVForUnityExample
                     gridBoard.Dispose();
                     Debug.Log("draw GridBoard: " + "markersX " + GRID_BOARD_MARKERS_X + " markersY " + GRID_BOARD_MARKERS_Y + " markerLength " + GRID_BOARD_MARKER_LENGTH +
                     " markerSeparation " + GRID_BOARD_MARKER_SEPARATION + " dictionaryId " + (int)DictionaryId + " firstMarkerId " + GRID_BOARD_MARKER_FIRST_MARKER +
-                    " outSize " + MarkerSize + " marginSize " + GRID_BOARD_MARGIN_SIZE + " borderBits " + BORDER_BITS);
+                    " outSize " + MarkerSize + " marginSize " + GRID_BOARD_MARGIN_SIZE + " borderBits " + BORDER_BITS, this);
                     break;
                 case MarkerType.ChArUcoBoard:
                     int charucoBoardTotalMarkers = (int)Math.Truncate(CHARUCO_BOARD_MARKERS_X * CHARUCO_BOARD_MARKERS_Y / 2.0);
@@ -316,7 +339,7 @@ namespace OpenCVForUnityExample
                     charucoBoard.Dispose();
                     Debug.Log("draw ChArUcoBoard: " + "markersX " + CHARUCO_BOARD_MARKERS_X + " markersY " + CHARUCO_BOARD_MARKERS_Y + " squareLength " + CHARUCO_BOARD_SQUARE_LENGTH +
                     " markerLength " + CHARUCO_BOARD_MARKER_LENGTH + " dictionaryId " + (int)DictionaryId + " firstMarkerId " + CHARUCO_MARKER_FIRST_MARKER + " outSize " + MarkerSize +
-                    " marginSize " + CHARUCO_BOARD_MARGIN_SIZE + " borderBits " + BORDER_BITS);
+                    " marginSize " + CHARUCO_BOARD_MARGIN_SIZE + " borderBits " + BORDER_BITS, this);
                     break;
                 case MarkerType.ChArUcoDiamondMarker:
                     Mat diamondIds = new Mat(4, 1, CvType.CV_32SC1);
@@ -326,11 +349,11 @@ namespace OpenCVForUnityExample
                     charucoDiamondBoard.Dispose();
                     Debug.Log("draw ChArUcoDiamondMarker: " + "markersX " + DIAMOND_MARKERS_X + " markersY " + DIAMOND_MARKERS_Y + " squareLength " + DIAMOND_SQUARE_LENGTH +
                         " markerLength " + DIAMOND_MARKER_LENGTH + " dictionaryId " + (int)DictionaryId +
-                        " markerIds " + DIAMOND_ID_1 + ", " + DIAMOND_ID_2 + ", " + DIAMOND_ID_3 + ", " + DIAMOND_ID_4 + " outSize " + MarkerSize + " marginSize " + DIAMOND_MARGIN_SIZE + " borderBits " + BORDER_BITS);
+                        " markerIds " + DIAMOND_ID_1 + ", " + DIAMOND_ID_2 + ", " + DIAMOND_ID_3 + ", " + DIAMOND_ID_4 + " outSize " + MarkerSize + " marginSize " + DIAMOND_MARGIN_SIZE + " borderBits " + BORDER_BITS, this);
                     break;
             }
 
-            OpenCVMatUtils.MatToTexture2D(_markerImg, _texture);
+            OpenCVMatUnityUtils.MatToTexture2D(_markerImg, _texture);
         }
 
         private void SaveMarkerImg()
@@ -338,13 +361,8 @@ namespace OpenCVForUnityExample
             // save the markerImg.
             string saveDirectoryPath = Path.Combine(Application.persistentDataPath, "ArUcoCreateMarkerExample");
             string savePath = "";
-#if UNITY_WEBGL && !UNITY_EDITOR
-            string format = "jpg";
-            MatOfInt compressionParams = new MatOfInt(Imgcodecs.IMWRITE_JPEG_QUALITY, 100);
-#else
             string format = "png";
             MatOfInt compressionParams = new MatOfInt(Imgcodecs.IMWRITE_PNG_COMPRESSION, 0);
-#endif
             switch (SelectedMarkerType)
             {
                 default:
@@ -375,7 +393,7 @@ namespace OpenCVForUnityExample
             Imgcodecs.imwrite(savePath, _markerImg, compressionParams);
 
             SavePathInputField.text = savePath;
-            Debug.Log("savePath: " + savePath);
+            Debug.Log("savePath: " + savePath, this);
         }
     }
 }

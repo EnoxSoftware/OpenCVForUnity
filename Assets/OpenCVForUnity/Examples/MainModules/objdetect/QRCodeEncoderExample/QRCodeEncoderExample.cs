@@ -13,9 +13,25 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// QRCode Encoder Example
-    /// An example of QRCode encoding using the QRCodeEncoder class.
-    /// https://docs.opencv.org/4.x/d2/dbb/classcv_1_1QRCodeEncoder.html
+    /// Generates a QR code image from user text and optionally saves it to disk.
+    ///
+    /// Demonstrates:
+    /// - QRCodeEncoder.create and encode to a grayscale Mat
+    /// - Upscaling the binary code to a display-sized RGB Mat
+    /// - Saving the result with Imgcodecs.imwrite
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="QRCodeEncoder"/>, <see cref="Mat"/>
+    /// - <see cref="Imgproc"/>: cvtColor, resize
+    /// - <see cref="Imgcodecs"/>: imwrite
+    /// - <see cref="OpenCVMatUnityUtils"/>
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Referring to:
+    /// https://docs.opencv.org/4.x/d2/dbb/classcv_1_1QRCodeEncoder.html
+    /// </para>
+    /// </remarks>
     public class QRCodeEncoderExample : MonoBehaviour
     {
         // Public Fields
@@ -48,19 +64,10 @@ namespace OpenCVForUnityExample
         public InputField SavePathInputField;
 
         // Private Fields
-        /// <summary>
-        /// The QRcode encoder.
-        /// </summary>
         private QRCodeEncoder _qrCodeEncoder;
 
-        /// <summary>
-        /// The QRCode img mat.
-        /// </summary>
         private Mat _qrCodeImg;
 
-        /// <summary>
-        /// The texture.
-        /// </summary>
         private Texture2D _texture;
 
         // Unity Lifecycle Methods
@@ -138,7 +145,7 @@ namespace OpenCVForUnityExample
                 _qrCodeImg.setTo(Scalar.all(255));
             }
 
-            // Encode QRCode.
+            // encode() writes a small binary QR Mat; resize below expands it to QrCodeSize for display.
             using (Mat qrcodeGRAY = new Mat())
             {
                 _qrCodeEncoder.encode(EncodedInfo, qrcodeGRAY);
@@ -157,7 +164,7 @@ namespace OpenCVForUnityExample
                 }
             }
 
-            OpenCVMatUtils.MatToTexture2D(_qrCodeImg, _texture);
+            OpenCVMatUnityUtils.MatToTexture2D(_qrCodeImg, _texture);
         }
 
         private void SaveQRCodeImg()
@@ -165,13 +172,8 @@ namespace OpenCVForUnityExample
             // save the QRCodeImg.
             string saveDirectoryPath = Path.Combine(Application.persistentDataPath, "QRCodeEncoderExample");
             string savePath = "";
-#if UNITY_WEBGL && !UNITY_EDITOR
-            string format = "jpg";
-            MatOfInt compressionParams = new MatOfInt(Imgcodecs.IMWRITE_JPEG_QUALITY, 100);
-#else
             string format = "png";
             MatOfInt compressionParams = new MatOfInt(Imgcodecs.IMWRITE_PNG_COMPRESSION, 0);
-#endif
 
             savePath = Path.Combine(saveDirectoryPath, Uri.EscapeDataString(EncodedInfo) + "." + format);
 
@@ -183,7 +185,7 @@ namespace OpenCVForUnityExample
             Imgcodecs.imwrite(savePath, _qrCodeImg, compressionParams);
 
             SavePathInputField.text = savePath;
-            Debug.Log("savePath: " + savePath);
+            Debug.Log("savePath: " + savePath, this);
         }
     }
 }

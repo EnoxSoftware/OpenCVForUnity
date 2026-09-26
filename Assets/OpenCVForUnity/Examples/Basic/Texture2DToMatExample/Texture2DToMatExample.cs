@@ -2,41 +2,53 @@ using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using OpenCVDebug = OpenCVForUnity.Extensions.OpenCVDebug;
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Texture2DToMat Example
-    /// An example of converting a Texture2D image to OpenCV's Mat format.
+    /// Loads a Unity <see cref="Texture2D"/> and converts it to and from an OpenCV <see cref="Mat"/>.
+    ///
+    /// Demonstrates:
+    /// - Loading a sample image from <see cref="Resources"/>
+    /// - Creating a Mat with a matching element type (<see cref="CvType.CV_8UC4"/>)
+    /// - Round-trip conversion with <see cref="OpenCVMatUnityUtils.Texture2DToMat"/> and MatToTexture2D
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Mat"/>, <see cref="CvType"/>
+    /// - <see cref="OpenCVMatUnityUtils"/>: Texture2DToMat, MatToTexture2D
+    ///
+    /// Unity integration:
+    /// - <see cref="CvType.CV_8UC4"/> aligns with Unity <see cref="TextureFormat.RGBA32"/> channel layout
+    /// - Enable <see cref="OpenCVDebug.SetDebugMode"/> to surface native OpenCV errors in the Editor console
     /// </summary>
     public class Texture2DToMatExample : MonoBehaviour
     {
         // Unity Lifecycle Methods
         private void Start()
         {
-            // if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
+            //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             OpenCVDebug.SetDebugMode(true);
 
-
-            // Load the image texture from the Resources folder
+            // Load the image texture from the Resources folder (path is relative to any Resources/ folder).
             Texture2D imgTexture = Resources.Load("face") as Texture2D;
 
-            // Create a new Mat object with the same dimensions and color format as the texture
+            // CV_8UC4 = 8-bit unsigned, 4 channels; matches TextureFormat.RGBA32.
             Mat imgMat = new Mat(imgTexture.height, imgTexture.width, CvType.CV_8UC4);
 
-            // Convert the Texture2D image to Mat format
-            OpenCVMatUtils.Texture2DToMat(imgTexture, imgMat);
-            Debug.Log("imgMat.ToString() " + imgMat.ToString());
+            // Copies Texture2D pixel data into the Mat buffer (RGBA layout).
+            OpenCVMatUnityUtils.Texture2DToMat(imgTexture, imgMat);
+            Debug.Log("imgMat.ToString() " + imgMat.ToString(), this);
 
-            // Create a new Texture2D with the same dimensions and color format as the Mat
+            // Create a display Texture2D sized to Mat cols()/rows() (width/height).
             Texture2D texture = new Texture2D(imgMat.cols(), imgMat.rows(), TextureFormat.RGBA32, false);
 
-            // Convert the Mat back to Texture2D format
-            OpenCVMatUtils.MatToTexture2D(imgMat, texture);
+            // Copy processed Mat data back to Unity texture memory for rendering.
+            OpenCVMatUnityUtils.MatToTexture2D(imgMat, texture);
 
             // Assign the created texture to the mainTexture of the game object's material
             gameObject.GetComponent<Renderer>().material.mainTexture = texture;
-
 
             OpenCVDebug.SetDebugMode(false);
         }

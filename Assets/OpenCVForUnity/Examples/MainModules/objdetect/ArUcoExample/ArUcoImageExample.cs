@@ -1,22 +1,40 @@
 using System.Collections.Generic;
-using OpenCVForUnity.Calib3dModule;
 using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.Extensions;
+using OpenCVForUnity.GeometryModule;
+using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.ObjdetectModule;
 using OpenCVForUnity.UnityIntegration;
 using OpenCVForUnity.UnityIntegration.Helper.AR;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using OpenCVDebug = OpenCVForUnity.Extensions.OpenCVDebug;
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
     /// ArUco Image Example
-    /// An example of marker-based AR view and camera pose estimation using the objdetect and aruco module.
-    /// Referring to https://github.com/opencv/opencv_contrib/blob/4.x/modules/aruco/samples/detect_markers.cpp
+    /// Detects ArUco markers in a static image and estimates camera pose for AR overlay.
+    ///
+    /// Demonstrates:
+    /// - Marker detection on a still image loaded from Resources
+    /// - Pose estimation from detected marker corners
+    /// - AR cube placement using estimated camera parameters
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Aruco"/>, <see cref="Dictionary"/>, <see cref="DetectorParameters"/>
+    /// - <see cref="Calib3d"/>: solvePnP, Rodrigues
+    /// - <see cref="OpenCVMatUnityUtils"/>, <see cref="ARHelper"/>
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Referring to:
+    /// https://github.com/opencv/opencv_contrib/blob/4.x/modules/aruco/samples/detect_markers.cpp
     /// http://docs.opencv.org/3.1.0/d5/dae/tutorial_aruco_detection.html
     /// https://github.com/opencv/opencv/blob/4.x/modules/objdetect/test/test_arucodetection.cpp
-    /// </summary>
+    /// </para>
+    /// </remarks>
     public class ArUcoImageExample : MonoBehaviour
     {
         // Enums
@@ -69,7 +87,6 @@ namespace OpenCVForUnityExample
         private Mat _undistortedRgbMat;
         private Texture2D _texture;
 
-
         // Unity Lifecycle Methods
         private void Start()
         {
@@ -95,9 +112,18 @@ namespace OpenCVForUnityExample
             _rgbMat?.Dispose(); _rgbMat = null;
             _undistortedRgbMat?.Dispose(); _undistortedRgbMat = null;
 
-            ArHelper?.Dispose(); ArHelper = null;
+            if (ArHelper != null)
+            {
+                ArHelper.Dispose();
+                ArHelper = null;
+            }
 
-            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+            }
+
+            _texture = null;
         }
 
         // Public Methods
@@ -143,7 +169,7 @@ namespace OpenCVForUnityExample
         /// <param name="arGameObject"></param>
         public void OnEnterARCameraViewport(ARHelper aRHelper, ARCamera arCamera, ARGameObject arGameObject)
         {
-            Debug.Log("OnEnterARCamera arCamera.name " + arCamera.name + " arGameObject.name " + arGameObject.name);
+            Debug.Log("OnEnterARCamera arCamera.name " + arCamera.name + " arGameObject.name " + arGameObject.name, this);
 
             StartCoroutine(arGameObject.GetComponent<ARCube>().EnterAnimation(arGameObject.gameObject, 0f, 1f, 0.5f));
         }
@@ -156,7 +182,7 @@ namespace OpenCVForUnityExample
         /// <param name="arGameObject"></param>
         public void OnExitARCameraViewport(ARHelper aRHelper, ARCamera arCamera, ARGameObject arGameObject)
         {
-            Debug.Log("OnExitARCamera arCamera.name " + arCamera.name + " arGameObject.name " + arGameObject.name);
+            Debug.Log("OnExitARCamera arCamera.name " + arCamera.name + " arGameObject.name " + arGameObject.name, this);
 
             StartCoroutine(arGameObject.GetComponent<ARCube>().ExitAnimation(arGameObject.gameObject, 1f, 0f, 0.2f));
         }
@@ -167,13 +193,13 @@ namespace OpenCVForUnityExample
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             OpenCVDebug.SetDebugMode(true);
 
-            OpenCVMatUtils.Texture2DToMat(ImgTexture, _rgbMat);
-            Debug.Log("imgMat dst ToString " + _rgbMat.ToString());
+            OpenCVMatUnityUtils.Texture2DToMat(ImgTexture, _rgbMat);
+            Debug.Log("imgMat dst ToString " + _rgbMat.ToString(), this);
 
             // Set the Texture2D as the main texture of the Renderer component attached to the game object
             gameObject.GetComponent<Renderer>().material.mainTexture = _texture;
 
-            Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation);
+            Debug.Log("Screen.width " + Screen.width + " Screen.height " + Screen.height + " Screen.orientation " + Screen.orientation, this);
 
             // Set the camera's orthographicSize to half of the texture height
             Camera.main.orthographicSize = _texture.height / 2f;
@@ -199,7 +225,7 @@ namespace OpenCVForUnityExample
                 // Scale so that the texture height fits within the camera height
                 imageSizeScale = 1f; // No scaling needed since height is already fixed
             }
-            Debug.Log("imageSizeScale " + imageSizeScale);
+            Debug.Log("imageSizeScale " + imageSizeScale, this);
 
             // The calculated imageSizeScale is used to set the scale of the game object on which the texture is displayed.
             transform.localScale = new Vector3(_texture.width * imageSizeScale, _texture.height * imageSizeScale, 1);
@@ -220,10 +246,10 @@ namespace OpenCVForUnityExample
             camMatrix.put(2, 0, 0);
             camMatrix.put(2, 1, 0);
             camMatrix.put(2, 2, 1.0f);
-            Debug.Log("camMatrix " + camMatrix.dump());
+            Debug.Log("camMatrix " + camMatrix.dump(), this);
 
             MatOfDouble distCoeffs = new MatOfDouble(0, 0, 0, 0);
-            Debug.Log("distCoeffs " + distCoeffs.dump());
+            Debug.Log("distCoeffs " + distCoeffs.dump(), this);
 
             // Initialize ARHelper.
             ArHelper.Initialize();
@@ -251,12 +277,14 @@ namespace OpenCVForUnityExample
             ArucoDetector arucoDetector = new ArucoDetector(dictionary, detectorParams, refineParameters);
 
             // undistort image.
-            Calib3d.undistort(_rgbMat, _undistortedRgbMat, camMatrix, distCoeffs);
-            // detect markers.
+            Imgproc.undistort(_rgbMat, _undistortedRgbMat, camMatrix, distCoeffs);
+            // detectMarkers returns corner quads in _corners and marker IDs in _ids.
             arucoDetector.detectMarkers(_undistortedRgbMat, corners, ids, rejectedCorners);
 
             if (corners.Count == ids.total() || ids.total() == 0)
+            {
                 Objdetect.drawDetectedMarkers(_undistortedRgbMat, corners, ids, new Scalar(0, 255, 0));
+            }
 
             // Reset ARGameObjects ImagePoints and ObjectPoints.
             ArHelper.ResetARGameObjectsImagePointsAndObjectPoints();
@@ -287,8 +315,8 @@ namespace OpenCVForUnityExample
                             using (Mat rvec = new Mat(3, 1, CvType.CV_64FC1))
                             using (Mat tvec = new Mat(3, 1, CvType.CV_64FC1))
                             {
-                                // Calculate pose
-                                Calib3d.solvePnP(objectPoints, imagePoints, camMatrix, distCoeffs, rvec, tvec);
+                                // solvePnP maps 3D marker corners (objectPoints) to 2D image corners for pose (rvec, tvec).
+                                Geometry.solvePnP(objectPoints, imagePoints, camMatrix, distCoeffs, rvec, tvec);
 
                                 // In this example we are processing with RGB color image, so Axis-color correspondences are X: blue, Y: green, Z: red. (Usually X: red, Y: green, Z: blue)
                                 OpenCVARUtils.SafeDrawFrameAxes(_undistortedRgbMat, camMatrix, distCoeffs, rvec, tvec, MarkerLength * 0.5f);
@@ -299,15 +327,33 @@ namespace OpenCVForUnityExample
             }
 
             if (ShowRejectedCorners && rejectedCorners.Count > 0)
+            {
                 Objdetect.drawDetectedMarkers(_undistortedRgbMat, rejectedCorners, new Mat(), new Scalar(255, 0, 0));
+            }
 
-            OpenCVMatUtils.MatToTexture2D(_undistortedRgbMat, _texture);
+            OpenCVMatUnityUtils.MatToTexture2D(_undistortedRgbMat, _texture);
 
             camMatrix?.Dispose();
             distCoeffs?.Dispose();
             ids?.Dispose();
-            if (rejectedCorners != null) foreach (var item in rejectedCorners) item.Dispose(); rejectedCorners.Clear();
-            if (corners != null) foreach (var item in corners) item.Dispose(); corners.Clear();
+            if (rejectedCorners != null)
+            {
+                foreach (var item in rejectedCorners)
+                {
+                    item.Dispose();
+                }
+            }
+
+            rejectedCorners.Clear();
+            if (corners != null)
+            {
+                foreach (var item in corners)
+                {
+                    item.Dispose();
+                }
+            }
+
+            corners.Clear();
             objectPoints?.Dispose();
             dictionary?.Dispose();
             detectorParams?.Dispose();
@@ -327,7 +373,9 @@ namespace OpenCVForUnityExample
         private string GetArUcoMarkerName(string markerType, string dictionaryId, params int[] markerIds)
         {
             if (markerIds.Length == 0)
+            {
                 return markerType + " " + dictionaryId;
+            }
 
             return markerType + " " + dictionaryId + " " + string.Join(",", markerIds);
         }

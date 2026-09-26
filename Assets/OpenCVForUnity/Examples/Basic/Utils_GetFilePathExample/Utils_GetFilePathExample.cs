@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using OpenCVForUnity.UnityIntegration;
@@ -12,7 +11,20 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Utils_GetFilePath Example
-    /// An example of how to get the readable path of a file in the "StreamingAssets" folder using the OpenCVEnv class.
+    /// Resolves readable file paths for assets stored under StreamingAssets using <see cref="OpenCVForUnityEnv"/>.
+    ///
+    /// Demonstrates:
+    /// - Synchronous, coroutine, async, and Task-based path resolution APIs
+    /// - Resolving single and multiple files with optional refresh and timeout
+    /// - Handling missing files and platform-specific limitations (WebGL)
+    /// - Cancelling long-running coroutine or async operations
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="OpenCVForUnityEnv"/>: GetFilePath, GetMultipleFilePaths, GetFilePathCoroutine, GetFilePathAwaitableAsync, GetFilePathAsync
+    ///
+    /// Unity integration:
+    /// - Paths are relative to <c>Assets/StreamingAssets/OpenCVForUnityExamples/</c>
+    /// - On Android/iOS, files may be copied to persistent storage on first access; use refresh to force re-copy
     /// </summary>
     public class Utils_GetFilePathExample : MonoBehaviour
     {
@@ -61,6 +73,16 @@ namespace OpenCVForUnityExample
         public Button GetMultipleFilePathsCoroutineButton;
 
         /// <summary>
+        /// The get file path awaitable async button.
+        /// </summary>
+        public Button GetFilePathAwaitableAsyncButton;
+
+        /// <summary>
+        /// The get multiple file paths awaitable async button.
+        /// </summary>
+        public Button GetMultipleFilePathsAwaitableAsyncButton;
+
+        /// <summary>
         /// The get file path async button.
         /// </summary>
         public Button GetFilePathAsyncButton;
@@ -69,16 +91,6 @@ namespace OpenCVForUnityExample
         /// The get multiple file paths async button.
         /// </summary>
         public Button GetMultipleFilePathsAsyncButton;
-
-        /// <summary>
-        /// The get file path task async button.
-        /// </summary>
-        public Button GetFilePathTaskAsyncButton;
-
-        /// <summary>
-        /// The get multiple file paths task async button.
-        /// </summary>
-        public Button GetMultipleFilePathsTaskAsyncButton;
 
         /// <summary>
         /// The abort button.
@@ -91,6 +103,7 @@ namespace OpenCVForUnityExample
         public Text FilePathInputField;
 
         // Private Fields
+        // Paths relative to Assets/StreamingAssets/OpenCVForUnityExamples/ (see OpenCVForUnityEnv docs).
         private string[] _filePathPreset = new string[] {
             "OpenCVForUnityExamples/768x576_mjpeg.mjpeg",
             "/OpenCVForUnityExamples/objdetect/lbpcascade_frontalface.xml",
@@ -108,8 +121,8 @@ namespace OpenCVForUnityExample
             AbortButton.interactable = false;
 
 #if !UNITY_2023_1_OR_NEWER
-            GetFilePathAsyncButton.interactable = false;
-            GetMultipleFilePathsAsyncButton.interactable = false;
+            GetFilePathAwaitableAsyncButton.interactable = false;
+            GetMultipleFilePathsAwaitableAsyncButton.interactable = false;
 #endif
         }
 
@@ -193,11 +206,66 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
+        /// Raises the get file path awaitable async button click event.
+        /// </summary>
+        public async void OnGetFilePathAwaitableAsyncButtonClick()
+        {
+#if UNITY_2023_1_OR_NEWER
+            bool refresh = RefreshToggle.isOn;
+            string[] enumNames = Enum.GetNames(typeof(TimeoutPreset));
+            int timeout = (int)System.Enum.Parse(typeof(TimeoutPreset), enumNames[TimeoutDropdown.value], true);
+
+            FilePathInputField.text = "";
+
+            _cancellationTokenSource = new CancellationTokenSource();
+
+            try
+            {
+                await GetFilePathAwaitableAsync(_filePathPreset[FilePathDropdown.value], refresh, timeout, _cancellationTokenSource.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                Debug.Log("# canceled: " + "The task was canceled externally. OperationCanceledException", this);
+                FilePathInputField.text = FilePathInputField.text + "# canceled: " + "The task was canceled externally. OperationCanceledException" + "\n";
+            }
+#else
+            await Task.CompletedTask;
+#endif
+        }
+
+        /// <summary>
+        /// Raises the get multiple file paths awaitable async button click event.
+        /// </summary>
+        public async void OnGetMultipleFilePathsAwaitableAsyncButtonClick()
+        {
+#if UNITY_2023_1_OR_NEWER
+            bool refresh = RefreshToggle.isOn;
+            string[] enumNames = Enum.GetNames(typeof(TimeoutPreset));
+            int timeout = (int)System.Enum.Parse(typeof(TimeoutPreset), enumNames[TimeoutDropdown.value], true);
+
+            FilePathInputField.text = "";
+
+            _cancellationTokenSource = new CancellationTokenSource();
+
+            try
+            {
+                await GetMultipleFilePathsAwaitableAsync(_filePathPreset, refresh, timeout, _cancellationTokenSource.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                Debug.Log("# canceled: " + "The task was canceled externally. OperationCanceledException", this);
+                FilePathInputField.text = FilePathInputField.text + "# canceled: " + "The task was canceled externally. OperationCanceledException" + "\n";
+            }
+#else
+            await Task.CompletedTask;
+#endif
+        }
+
+        /// <summary>
         /// Raises the get file path async button click event.
         /// </summary>
         public async void OnGetFilePathAsyncButtonClick()
         {
-#if UNITY_2023_1_OR_NEWER
             bool refresh = RefreshToggle.isOn;
             string[] enumNames = Enum.GetNames(typeof(TimeoutPreset));
             int timeout = (int)System.Enum.Parse(typeof(TimeoutPreset), enumNames[TimeoutDropdown.value], true);
@@ -212,12 +280,9 @@ namespace OpenCVForUnityExample
             }
             catch (OperationCanceledException)
             {
-                Debug.Log("# canceled: " + "The task was canceled externally. OperationCanceledException");
+                Debug.Log("# canceled: " + "The task was canceled externally. OperationCanceledException", this);
                 FilePathInputField.text = FilePathInputField.text + "# canceled: " + "The task was canceled externally. OperationCanceledException" + "\n";
             }
-#else
-            await Task.CompletedTask;
-#endif
         }
 
         /// <summary>
@@ -225,7 +290,6 @@ namespace OpenCVForUnityExample
         /// </summary>
         public async void OnGetMultipleFilePathsAsyncButtonClick()
         {
-#if UNITY_2023_1_OR_NEWER
             bool refresh = RefreshToggle.isOn;
             string[] enumNames = Enum.GetNames(typeof(TimeoutPreset));
             int timeout = (int)System.Enum.Parse(typeof(TimeoutPreset), enumNames[TimeoutDropdown.value], true);
@@ -240,58 +304,7 @@ namespace OpenCVForUnityExample
             }
             catch (OperationCanceledException)
             {
-                Debug.Log("# canceled: " + "The task was canceled externally. OperationCanceledException");
-                FilePathInputField.text = FilePathInputField.text + "# canceled: " + "The task was canceled externally. OperationCanceledException" + "\n";
-            }
-#else
-            await Task.CompletedTask;
-#endif
-        }
-
-        /// <summary>
-        /// Raises the get file path task async button click event.
-        /// </summary>
-        public async void OnGetFilePathTaskAsyncButtonClick()
-        {
-            bool refresh = RefreshToggle.isOn;
-            string[] enumNames = Enum.GetNames(typeof(TimeoutPreset));
-            int timeout = (int)System.Enum.Parse(typeof(TimeoutPreset), enumNames[TimeoutDropdown.value], true);
-
-            FilePathInputField.text = "";
-
-            _cancellationTokenSource = new CancellationTokenSource();
-
-            try
-            {
-                await GetFilePathTaskAsync(_filePathPreset[FilePathDropdown.value], refresh, timeout, _cancellationTokenSource.Token);
-            }
-            catch (OperationCanceledException)
-            {
-                Debug.Log("# canceled: " + "The task was canceled externally. OperationCanceledException");
-                FilePathInputField.text = FilePathInputField.text + "# canceled: " + "The task was canceled externally. OperationCanceledException" + "\n";
-            }
-        }
-
-        /// <summary>
-        /// Raises the get multiple file paths task async button click event.
-        /// </summary>
-        public async void OnGetMultipleFilePathsTaskAsyncButtonClick()
-        {
-            bool refresh = RefreshToggle.isOn;
-            string[] enumNames = Enum.GetNames(typeof(TimeoutPreset));
-            int timeout = (int)System.Enum.Parse(typeof(TimeoutPreset), enumNames[TimeoutDropdown.value], true);
-
-            FilePathInputField.text = "";
-
-            _cancellationTokenSource = new CancellationTokenSource();
-
-            try
-            {
-                await GetMultipleFilePathsTaskAsync(_filePathPreset, refresh, timeout, _cancellationTokenSource.Token);
-            }
-            catch (OperationCanceledException)
-            {
-                Debug.Log("# canceled: " + "The task was canceled externally. OperationCanceledException");
+                Debug.Log("# canceled: " + "The task was canceled externally. OperationCanceledException", this);
                 FilePathInputField.text = FilePathInputField.text + "# canceled: " + "The task was canceled externally. OperationCanceledException" + "\n";
             }
         }
@@ -306,7 +319,7 @@ namespace OpenCVForUnityExample
                 StopCoroutine(_getFilePathCoroutine);
                 ((IDisposable)_getFilePathCoroutine).Dispose();
 
-                Debug.Log("# canceled: " + "The getFilePath_Coroutine was stoped externally.");
+                Debug.Log("# canceled: " + "The getFilePath_Coroutine was stoped externally.", this);
                 FilePathInputField.text = FilePathInputField.text + "# canceled: " + "The getFilePath_Coroutine was stoped externally." + "\n";
             }
 
@@ -332,25 +345,26 @@ namespace OpenCVForUnityExample
         // Private Methods
         private void GetFilePath(string filePath, bool refresh, int timeout)
         {
-            var readableFilePath = OpenCVEnv.GetFilePath(filePath, refresh, timeout);
+            // Returns a platform-readable path; empty if the file is missing from StreamingAssets.
+            var readableFilePath = OpenCVForUnityEnv.GetFilePath(filePath, refresh, timeout);
 
 #if UNITY_WEBGL
-            Debug.Log("The OpenCVEnv.GetFilePath() method is not supported on WebGL platform.");
-            FilePathInputField.text = FilePathInputField.text + "The OpenCVEnv.GetFilePath() method is not supported on WebGL platform." + "\n";
+            Debug.Log("The OpenCVForUnityEnv.GetFilePath() method is not supported on WebGL platform.", this);
+            FilePathInputField.text = FilePathInputField.text + "The OpenCVForUnityEnv.GetFilePath() method is not supported on WebGL platform." + "\n";
             if (!string.IsNullOrEmpty(readableFilePath))
             {
-                Debug.Log("completed: " + "readableFilePath=" + readableFilePath);
+                Debug.Log("completed: " + "readableFilePath=" + readableFilePath, this);
                 FilePathInputField.text = FilePathInputField.text + "completed: " + "readableFilePath=" + readableFilePath;
             }
 #else
             if (string.IsNullOrEmpty(readableFilePath))
             {
-                Debug.LogWarning("# completed: " + "readableFilePath= " + filePath + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                Debug.LogWarning("# completed: " + "readableFilePath= " + filePath + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.", this);
                 FilePathInputField.text = FilePathInputField.text + "# completed: " + "readableFilePath= " + filePath + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder." + "\n";
             }
             else
             {
-                Debug.Log("# completed: " + "readableFilePath= " + readableFilePath);
+                Debug.Log("# completed: " + "readableFilePath= " + readableFilePath, this);
                 FilePathInputField.text = FilePathInputField.text + "# completed: " + "readableFilePath= " + readableFilePath + "\n";
             }
 #endif
@@ -358,32 +372,33 @@ namespace OpenCVForUnityExample
 
         private void GetMultipleFilePaths(string[] filePaths, bool refresh, int timeout)
         {
-            var readableFilePaths = OpenCVEnv.GetMultipleFilePaths(filePaths, refresh, timeout);
+            // Resolves each path in order; refresh=true forces re-copy from StreamingAssets on supported platforms.
+            var readableFilePaths = OpenCVForUnityEnv.GetMultipleFilePaths(filePaths, refresh, timeout);
 
 #if UNITY_WEBGL
-            Debug.Log("The OpenCVEnv.GetMultipleFilePaths() method is not supported on WebGL platform.");
-            FilePathInputField.text = FilePathInputField.text + "The OpenCVEnv.GetMultipleFilePaths() method is not supported on WebGL platform." + "\n";
+            Debug.Log("The OpenCVForUnityEnv.GetMultipleFilePaths() method is not supported on WebGL platform.", this);
+            FilePathInputField.text = FilePathInputField.text + "The OpenCVForUnityEnv.GetMultipleFilePaths() method is not supported on WebGL platform." + "\n";
             for (int i = 0; i < readableFilePaths.Count; i++)
             {
                 if (!string.IsNullOrEmpty(readableFilePaths[i]))
                 {
-                    Debug.Log("readableFilePath[" + i + "]=" + readableFilePaths[i]);
+                    Debug.Log("readableFilePath[" + i + "]=" + readableFilePaths[i], this);
                     FilePathInputField.text = FilePathInputField.text + "readableFilePath[" + i + "]=" + readableFilePaths[i];
                 }
             }
 #else
-            Debug.Log("### allCompleted:" + "\n");
+            Debug.Log("### allCompleted:" + "\n", this);
             FilePathInputField.text = FilePathInputField.text + "### allCompleted:" + "\n";
             for (int i = 0; i < readableFilePaths.Count; i++)
             {
                 if (string.IsNullOrEmpty(readableFilePaths[i]))
                 {
-                    Debug.LogWarning("readableFilePath[" + i + "]= " + filePaths[i] + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                    Debug.LogWarning("readableFilePath[" + i + "]= " + filePaths[i] + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.", this);
                     FilePathInputField.text = FilePathInputField.text + "readableFilePath[" + i + "]= " + filePaths[i] + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder." + "\n";
                 }
                 else
                 {
-                    Debug.Log("readableFilePath[" + i + "]= " + readableFilePaths[i]);
+                    Debug.Log("readableFilePath[" + i + "]= " + readableFilePaths[i], this);
                     FilePathInputField.text = FilePathInputField.text + "readableFilePath[" + i + "]= " + readableFilePaths[i] + "\n";
                 }
             }
@@ -394,29 +409,29 @@ namespace OpenCVForUnityExample
         {
             HideButton();
 
-            _getFilePathCoroutine = OpenCVEnv.GetFilePathCoroutine(
+            // Coroutine reports progress and errors via callbacks while copying from StreamingAssets.
+            _getFilePathCoroutine = OpenCVForUnityEnv.GetFilePathCoroutine(
                 filePath,
                 (result) =>
                 { // completed callback
                     _getFilePathCoroutine = null;
                     ShowButton();
 
-
                     string readableFilePath = result;
 
                     if (string.IsNullOrEmpty(readableFilePath))
                     {
-                        Debug.LogWarning("# completed: " + "readableFilePath= " + filePath + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                        Debug.LogWarning("# completed: " + "readableFilePath= " + filePath + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.", this);
                         FilePathInputField.text = FilePathInputField.text + "# completed: " + "readableFilePath= " + filePath + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder." + "\n";
                     }
 
-                    Debug.Log("# completed: " + "readableFilePath= " + readableFilePath);
+                    Debug.Log("# completed: " + "readableFilePath= " + readableFilePath, this);
                     FilePathInputField.text = FilePathInputField.text + "# completed: " + "readableFilePath= " + readableFilePath + "\n";
 
                 },
                 (path, progress) =>
                 { // progressChanged callback
-                    Debug.Log("# progressChanged: " + "path= " + path + " progress= " + progress);
+                    Debug.Log("# progressChanged: " + "path= " + path + " progress= " + progress, this);
                     FilePathInputField.text = FilePathInputField.text + "# progressChanged: " + "path= " + path + " progress= " + progress + "\n";
 
                 },
@@ -425,7 +440,7 @@ namespace OpenCVForUnityExample
                     _getFilePathCoroutine = null;
                     ShowButton();
 
-                    Debug.Log("# errorOccurred: " + "path= " + path + " error= " + error + " responseCode= " + responseCode);
+                    Debug.Log("# errorOccurred: " + "path= " + path + " error= " + error + " responseCode= " + responseCode, this);
                     FilePathInputField.text = FilePathInputField.text + "# errorOccurred: " + "path= " + path + " error= " + error + " responseCode= " + responseCode + "\n";
 
                 },
@@ -438,7 +453,7 @@ namespace OpenCVForUnityExample
         {
             HideButton();
 
-            _getFilePathCoroutine = OpenCVEnv.GetMultipleFilePathsCoroutine(
+            _getFilePathCoroutine = OpenCVForUnityEnv.GetMultipleFilePathsCoroutine(
                 filePaths,
                 (result) =>
                 { // allCompleted callback
@@ -447,38 +462,37 @@ namespace OpenCVForUnityExample
 
                     var readableFilePaths = result;
 
-                    Debug.Log("### allCompleted:" + "\n");
+                    Debug.Log("### allCompleted:" + "\n", this);
                     FilePathInputField.text = FilePathInputField.text + "### allCompleted:" + "\n";
                     for (int i = 0; i < readableFilePaths.Count; i++)
                     {
                         if (string.IsNullOrEmpty(readableFilePaths[i]))
                         {
-                            Debug.LogWarning("readableFilePath[" + i + "]= " + filePaths[i] + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                            Debug.LogWarning("readableFilePath[" + i + "]= " + filePaths[i] + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.", this);
                             FilePathInputField.text = FilePathInputField.text + "readableFilePath[" + i + "]= " + filePaths[i] + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder." + "\n";
                         }
                         else
                         {
-                            Debug.Log("readableFilePath[" + i + "]= " + readableFilePaths[i]);
+                            Debug.Log("readableFilePath[" + i + "]= " + readableFilePaths[i], this);
                             FilePathInputField.text = FilePathInputField.text + "readableFilePath[" + i + "]= " + readableFilePaths[i] + "\n";
                         }
                     }
-
                 },
                 (path) =>
                 { // completed callback
-                    Debug.Log("# completed: " + "path= " + path);
+                    Debug.Log("# completed: " + "path= " + path, this);
                     FilePathInputField.text = FilePathInputField.text + "# completed: " + "path= " + path + "\n";
 
                 },
                 (path, progress) =>
                 { // progressChanged callback
-                    Debug.Log("# progressChanged: " + "path= " + path + " progress= " + progress);
+                    Debug.Log("# progressChanged: " + "path= " + path + " progress= " + progress, this);
                     FilePathInputField.text = FilePathInputField.text + "# progressChanged: " + "path= " + path + " progress= " + progress + "\n";
 
                 },
                 (path, error, responseCode) =>
                 { // errorOccurred callback
-                    Debug.Log("# errorOccurred: " + "path= " + path + " error= " + error + " responseCode= " + responseCode);
+                    Debug.Log("# errorOccurred: " + "path= " + path + " error= " + error + " responseCode= " + responseCode, this);
                     FilePathInputField.text = FilePathInputField.text + "# errorOccurred: " + "path= " + path + " error= " + error + " responseCode= " + responseCode + "\n";
 
                 },
@@ -488,15 +502,15 @@ namespace OpenCVForUnityExample
         }
 
 #if UNITY_2023_1_OR_NEWER
-        private async Awaitable GetFilePathAsync(string filePath, bool refresh, int timeout, CancellationToken cancellationToken = default)
+        private async Awaitable GetFilePathAwaitableAsync(string filePath, bool refresh, int timeout, CancellationToken cancellationToken = default)
         {
             HideButton();
 
-            var result = await OpenCVEnv.GetFilePathAsync(
+            var result = await OpenCVForUnityEnv.GetFilePathAwaitableAsync(
                 filePath,
                 (path, progress) =>
                 { // progressChanged callback
-                    Debug.Log("# progressChanged: " + "path= " + path + " progress= " + progress);
+                    Debug.Log("# progressChanged: " + "path= " + path + " progress= " + progress, this);
                     FilePathInputField.text = FilePathInputField.text + "# progressChanged: " + "path= " + path + " progress= " + progress + "\n";
 
                 },
@@ -505,12 +519,11 @@ namespace OpenCVForUnityExample
                     _getFilePathCoroutine = null;
                     ShowButton();
 
-                    Debug.Log("# errorOccurred: " + "path= " + path + " error= " + error + " responseCode= " + responseCode);
+                    Debug.Log("# errorOccurred: " + "path= " + path + " error= " + error + " responseCode= " + responseCode, this);
                     FilePathInputField.text = FilePathInputField.text + "# errorOccurred: " + "path= " + path + " error= " + error + " responseCode= " + responseCode + "\n";
 
                 },
                 refresh, timeout, cancellationToken);
-
 
             ShowButton();
 
@@ -518,72 +531,71 @@ namespace OpenCVForUnityExample
 
             if (string.IsNullOrEmpty(readableFilePath))
             {
-                Debug.LogWarning("# completed: " + "readableFilePath= " + filePath + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                Debug.LogWarning("# completed: " + "readableFilePath= " + filePath + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.", this);
                 FilePathInputField.text = FilePathInputField.text + "# completed: " + "readableFilePath= " + filePath + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder." + "\n";
             }
 
-            Debug.Log("# completed: " + "readableFilePath= " + readableFilePath);
+            Debug.Log("# completed: " + "readableFilePath= " + readableFilePath, this);
             FilePathInputField.text = FilePathInputField.text + "# completed: " + "readableFilePath= " + readableFilePath + "\n";
         }
 
-        private async Awaitable GetMultipleFilePathsAsync(string[] filePaths, bool refresh, int timeout, CancellationToken cancellationToken = default)
+        private async Awaitable GetMultipleFilePathsAwaitableAsync(string[] filePaths, bool refresh, int timeout, CancellationToken cancellationToken = default)
         {
             HideButton();
 
-            var result = await OpenCVEnv.GetMultipleFilePathsAsync(
+            var result = await OpenCVForUnityEnv.GetMultipleFilePathsAwaitableAsync(
                 filePaths,
                 (path) =>
                 { // completed callback
-                    Debug.Log("# completed: " + "path= " + path);
+                    Debug.Log("# completed: " + "path= " + path, this);
                     FilePathInputField.text = FilePathInputField.text + "# completed: " + "path= " + path + "\n";
 
                 },
                 (path, progress) =>
                 { // progressChanged callback
-                    Debug.Log("# progressChanged: " + "path= " + path + " progress= " + progress);
+                    Debug.Log("# progressChanged: " + "path= " + path + " progress= " + progress, this);
                     FilePathInputField.text = FilePathInputField.text + "# progressChanged: " + "path= " + path + " progress= " + progress + "\n";
 
                 },
                 (path, error, responseCode) =>
                 { // errorOccurred callback
-                    Debug.Log("# errorOccurred: " + "path= " + path + " error= " + error + " responseCode= " + responseCode);
+                    Debug.Log("# errorOccurred: " + "path= " + path + " error= " + error + " responseCode= " + responseCode, this);
                     FilePathInputField.text = FilePathInputField.text + "# errorOccurred: " + "path= " + path + " error= " + error + " responseCode= " + responseCode + "\n";
 
                 },
                 refresh, timeout, cancellationToken);
 
-
             ShowButton();
 
             var readableFilePaths = result;
 
-            Debug.Log("### allCompleted:" + "\n");
+            Debug.Log("### allCompleted:" + "\n", this);
             FilePathInputField.text = FilePathInputField.text + "### allCompleted:" + "\n";
             for (int i = 0; i < readableFilePaths.Count; i++)
             {
                 if (string.IsNullOrEmpty(readableFilePaths[i]))
                 {
-                    Debug.LogWarning("readableFilePath[" + i + "]= " + filePaths[i] + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                    Debug.LogWarning("readableFilePath[" + i + "]= " + filePaths[i] + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.", this);
                     FilePathInputField.text = FilePathInputField.text + "readableFilePath[" + i + "]= " + filePaths[i] + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder." + "\n";
                 }
                 else
                 {
-                    Debug.Log("readableFilePath[" + i + "]= " + readableFilePaths[i]);
+                    Debug.Log("readableFilePath[" + i + "]= " + readableFilePaths[i], this);
                     FilePathInputField.text = FilePathInputField.text + "readableFilePath[" + i + "]= " + readableFilePaths[i] + "\n";
                 }
             }
         }
 #endif
 
-        private async Task GetFilePathTaskAsync(string filePath, bool refresh, int timeout, CancellationToken cancellationToken = default)
+        private async Task GetFilePathAsync(string filePath, bool refresh, int timeout, CancellationToken cancellationToken = default)
         {
             HideButton();
 
-            var result = await OpenCVEnv.GetFilePathTaskAsync(
+            var result = await OpenCVForUnityEnv.GetFilePathAsync(
                 filePath,
                 (path, progress) =>
                 { // progressChanged callback
-                    Debug.Log("# progressChanged: " + "path= " + path + " progress= " + progress);
+                    Debug.Log("# progressChanged: " + "path= " + path + " progress= " + progress, this);
                     FilePathInputField.text = FilePathInputField.text + "# progressChanged: " + "path= " + path + " progress= " + progress + "\n";
 
                 },
@@ -592,12 +604,11 @@ namespace OpenCVForUnityExample
                     _getFilePathCoroutine = null;
                     ShowButton();
 
-                    Debug.Log("# errorOccurred: " + "path= " + path + " error= " + error + " responseCode= " + responseCode);
+                    Debug.Log("# errorOccurred: " + "path= " + path + " error= " + error + " responseCode= " + responseCode, this);
                     FilePathInputField.text = FilePathInputField.text + "# errorOccurred: " + "path= " + path + " error= " + error + " responseCode= " + responseCode + "\n";
 
                 },
                 refresh, timeout, cancellationToken);
-
 
             ShowButton();
 
@@ -605,57 +616,56 @@ namespace OpenCVForUnityExample
 
             if (string.IsNullOrEmpty(readableFilePath))
             {
-                Debug.LogWarning("# completed: " + "readableFilePath= " + filePath + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                Debug.LogWarning("# completed: " + "readableFilePath= " + filePath + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.", this);
                 FilePathInputField.text = FilePathInputField.text + "# completed: " + "readableFilePath= " + filePath + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder." + "\n";
             }
 
-            Debug.Log("# completed: " + "readableFilePath= " + readableFilePath);
+            Debug.Log("# completed: " + "readableFilePath= " + readableFilePath, this);
             FilePathInputField.text = FilePathInputField.text + "# completed: " + "readableFilePath= " + readableFilePath + "\n";
         }
 
-        private async Task GetMultipleFilePathsTaskAsync(string[] filePaths, bool refresh, int timeout, CancellationToken cancellationToken = default)
+        private async Task GetMultipleFilePathsAsync(string[] filePaths, bool refresh, int timeout, CancellationToken cancellationToken = default)
         {
             HideButton();
 
-            var result = await OpenCVEnv.GetMultipleFilePathsTaskAsync(
+            var result = await OpenCVForUnityEnv.GetMultipleFilePathsAsync(
                 filePaths,
                 (path) =>
                 { // completed callback
-                    Debug.Log("# completed: " + "path= " + path);
+                    Debug.Log("# completed: " + "path= " + path, this);
                     FilePathInputField.text = FilePathInputField.text + "# completed: " + "path= " + path + "\n";
 
                 },
                 (path, progress) =>
                 { // progressChanged callback
-                    Debug.Log("# progressChanged: " + "path= " + path + " progress= " + progress);
+                    Debug.Log("# progressChanged: " + "path= " + path + " progress= " + progress, this);
                     FilePathInputField.text = FilePathInputField.text + "# progressChanged: " + "path= " + path + " progress= " + progress + "\n";
 
                 },
                 (path, error, responseCode) =>
                 { // errorOccurred callback
-                    Debug.Log("# errorOccurred: " + "path= " + path + " error= " + error + " responseCode= " + responseCode);
+                    Debug.Log("# errorOccurred: " + "path= " + path + " error= " + error + " responseCode= " + responseCode, this);
                     FilePathInputField.text = FilePathInputField.text + "# errorOccurred: " + "path= " + path + " error= " + error + " responseCode= " + responseCode + "\n";
 
                 },
                 refresh, timeout, cancellationToken);
 
-
             ShowButton();
 
             var readableFilePaths = result;
 
-            Debug.Log("### allCompleted:" + "\n");
+            Debug.Log("### allCompleted:" + "\n", this);
             FilePathInputField.text = FilePathInputField.text + "### allCompleted:" + "\n";
             for (int i = 0; i < readableFilePaths.Count; i++)
             {
                 if (string.IsNullOrEmpty(readableFilePaths[i]))
                 {
-                    Debug.LogWarning("readableFilePath[" + i + "]= " + filePaths[i] + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                    Debug.LogWarning("readableFilePath[" + i + "]= " + filePaths[i] + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.", this);
                     FilePathInputField.text = FilePathInputField.text + "readableFilePath[" + i + "]= " + filePaths[i] + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder." + "\n";
                 }
                 else
                 {
-                    Debug.Log("readableFilePath[" + i + "]= " + readableFilePaths[i]);
+                    Debug.Log("readableFilePath[" + i + "]= " + readableFilePaths[i], this);
                     FilePathInputField.text = FilePathInputField.text + "readableFilePath[" + i + "]= " + readableFilePaths[i] + "\n";
                 }
             }
@@ -668,11 +678,11 @@ namespace OpenCVForUnityExample
             GetFilePathCoroutineButton.interactable = true;
             GetMultipleFilePathsCoroutineButton.interactable = true;
 #if UNITY_2023_1_OR_NEWER
+            GetFilePathAwaitableAsyncButton.interactable = true;
+            GetMultipleFilePathsAwaitableAsyncButton.interactable = true;
+#endif
             GetFilePathAsyncButton.interactable = true;
             GetMultipleFilePathsAsyncButton.interactable = true;
-#endif
-            GetFilePathTaskAsyncButton.interactable = true;
-            GetMultipleFilePathsTaskAsyncButton.interactable = true;
             AbortButton.interactable = false;
         }
 
@@ -683,11 +693,11 @@ namespace OpenCVForUnityExample
             GetFilePathCoroutineButton.interactable = false;
             GetMultipleFilePathsCoroutineButton.interactable = false;
 #if UNITY_2023_1_OR_NEWER
+            GetFilePathAwaitableAsyncButton.interactable = false;
+            GetMultipleFilePathsAwaitableAsyncButton.interactable = false;
+#endif
             GetFilePathAsyncButton.interactable = false;
             GetMultipleFilePathsAsyncButton.interactable = false;
-#endif
-            GetFilePathTaskAsyncButton.interactable = false;
-            GetMultipleFilePathsTaskAsyncButton.interactable = false;
             AbortButton.interactable = true;
         }
     }

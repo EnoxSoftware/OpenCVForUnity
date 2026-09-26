@@ -6,15 +6,47 @@ using OpenCVForUnity.ObjdetectModule;
 using OpenCVForUnity.TrackingModule;
 using OpenCVForUnity.UnityIntegration;
 using OpenCVForUnity.VideoioModule;
+using OpenCVForUnity.XobjdetectModule;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using OpenCVDebug = OpenCVForUnity.Extensions.OpenCVDebug;
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Mat DebugMat Example
+    /// DebugMat Example
+    /// An interactive playground for inspecting OpenCV <see cref="Mat"/> data while learning common image-processing workflows.
+    /// Each UI button runs a small demo and shows the corresponding sample code in <see cref="ExampleCodeText"/>.
+    ///
+    /// Demonstrations included in this scene:
+    /// - Face detection on a still image (Haar cascade)
+    /// - Video file playback frame by frame
+    /// - Object tracking on video frames (CSRT tracker)
+    /// - Numeric dump of Mat / Texture2D pixels (debug helper)
+    /// - OpenCV exception handling when Mat element types do not match
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Mat"/>, <see cref="MatOfRect"/>, <see cref="Scalar"/>, <see cref="Core"/>: image buffers, results, and element-wise operations
+    /// - <see cref="ImgprocModule.Imgproc"/>: color conversion, histogram equalization, drawing rectangles
+    /// - <see cref="ObjdetectModule.CascadeClassifier"/>: Haar-cascade face detection
+    /// - <see cref="VideoioModule.VideoCapture"/>, <see cref="VideoioModule.Videoio"/>: read frames from a video file
+    /// - <see cref="TrackingModule.TrackerCSRT"/>: track a rectangle region across frames
+    /// - <see cref="OpenCVDebug"/>, <see cref="DebugMat"/>: visualize Mat contents and OpenCV error messages in the Editor
+    ///
+    /// Unity integration:
+    /// - <see cref="OpenCVMatUnityUtils.Texture2DToMat"/>: copy Unity <see cref="Texture2D"/> pixels into a Mat
+    /// - <see cref="OpenCVForUnityEnv.GetFilePath"/>: resolve StreamingAssets paths at runtime
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Referring to:
+    /// https://docs.opencv.org/4.x/db/d28/tutorial_cascade_classifier.html
+    /// https://github.com/opencv/opencv/tree/4.x/data/haarcascades
+    /// http://docs.opencv.org/3.2.0/dd/d43/tutorial_py_video_display.html
+    /// https://docs.opencv.org/4.x/d5/d07/tutorial_multitracker.html
+    /// </para>
+    /// </remarks>
     public class DebugMatExample : MonoBehaviour
     {
         // Public Fields
@@ -53,6 +85,7 @@ namespace OpenCVForUnityExample
 
         private void DisposeEnumerator()
         {
+            // Stop the currently running demo coroutine before starting another button demo.
             if (_enumerator != null)
             {
                 (_enumerator as IDisposable)?.Dispose();
@@ -79,14 +112,15 @@ namespace OpenCVForUnityExample
 
             DisposeEnumerator();
             DebugMat.clear();
+            // Change how DebugMat arranges multiple preview windows on screen.
             DebugMat.setup((DebugMat.LayoutType)result);
         }
 
         public void OnFaceDetectionExampleButtonClick()
         {
-            //
-            // FaceDetectionExample
-            //
+            // ---------------------------------------------------
+            //  FaceDetectionExample
+            // ---------------------------------------------------
 
             DebugMat.destroyAllWindows();
 
@@ -94,11 +128,12 @@ namespace OpenCVForUnityExample
             StartEnumerator(FaceDetectionExample());
 
             ExampleCodeText.text = @"
-            //
-            // FaceDetectionExample
-            //
+            // ---------------------------------------------------
+            //  FaceDetectionExample
+            // ---------------------------------------------------
+            // Uses CascadeClassifier on a single still image.
 
-            string HAAR_CASCADE_FILENAME = ""OpenCVForUnityExamples/objdetect/haarcascade_frontalface_alt.xml"";
+            string HAAR_CASCADE_FILEPATH = ""OpenCVForUnityExamples/objdetect/haarcascade_frontalface_alt.xml"";
 
             string cascade_filepath = null;
 
@@ -107,14 +142,15 @@ namespace OpenCVForUnityExample
 #endif
 
 #if UNITY_WEBGL
-            getFilePath_Coroutine = OpenCVEnv.GetFilePathCoroutine(HAAR_CASCADE_FILENAME,
+            // WebGL cannot access StreamingAssets synchronously; wait for the async path resolver.
+            getFilePath_Coroutine = OpenCVForUnityEnv.GetFilePathCoroutine(HAAR_CASCADE_FILEPATH,
                 (result) =>
                 {
                     getFilePath_Coroutine = null;
 
                     if (string.IsNullOrEmpty(result))
                     {
-                        Debug.LogError(HAAR_CASCADE_FILENAME + "" is not loaded. Please move from ""OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/"" to ""Assets/StreamingAssets/OpenCVForUnityExamples/"" folder."");
+                        Debug.LogError(HAAR_CASCADE_FILEPATH + "" is not loaded. Please move from ""OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/"" to ""Assets/StreamingAssets/OpenCVForUnityExamples/"" folder."");
                     }
                     else
                     {
@@ -127,20 +163,21 @@ namespace OpenCVForUnityExample
                     });
             yield return StartCoroutine(getFilePath_Coroutine);
 #else
-            cascade_filepath = OpenCVEnv.GetFilePath(HAAR_CASCADE_FILENAME);
+            cascade_filepath = OpenCVForUnityEnv.GetFilePath(HAAR_CASCADE_FILEPATH);
             if (string.IsNullOrEmpty(cascade_filepath))
             {
-                Debug.LogError(HAAR_CASCADE_FILENAME + "" is not loaded. Please move from ""OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/"" to ""Assets/StreamingAssets/OpenCVForUnityExamples/"" folder."");
+                Debug.LogError(HAAR_CASCADE_FILEPATH + "" is not loaded. Please move from ""OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/"" to ""Assets/StreamingAssets/OpenCVForUnityExamples/"" folder."");
             }
 #endif
 
             Texture2D imgTexture = Resources.Load(""face"") as Texture2D;
 
             using (CascadeClassifier cascade = new CascadeClassifier(cascade_filepath))
+            // CV_8UC4 matches Texture2D RGBA32 layout copied by Texture2DToMat.
             using (Mat imgMat = new Mat(imgTexture.height, imgTexture.width, CvType.CV_8UC4))
             {
 
-                OpenCVMatUtils.Texture2DToMat(imgTexture, imgMat);
+                OpenCVMatUnityUtils.Texture2DToMat(imgTexture, imgMat);
 
                 //The specified Mat can be displayed in the debug window. Click to enlarge the image.
                 <color=#ff0000>DebugMat.imshow(""imgMat"", imgMat);</color>
@@ -157,11 +194,14 @@ namespace OpenCVForUnityExample
 
                 using (Mat grayMat = new Mat())
                 {
+                    // CascadeClassifier expects a single-channel grayscale image.
                     Imgproc.cvtColor(imgMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
                     <color=#ff0000>DebugMat.imshow(""grayMat"", grayMat);</color>
+                    // equalizeHist improves contrast and helps detection on uneven lighting.
                     Imgproc.equalizeHist(grayMat, grayMat);
                     <color=#ff0000>DebugMat.imshow(""equalizeHist"", grayMat);</color>
 
+                    // MatOfRect receives output rectangles from detectMultiScale.
                     using (MatOfRect faces = new MatOfRect())
                     {
 
@@ -194,11 +234,12 @@ namespace OpenCVForUnityExample
 
         public IEnumerator FaceDetectionExample()
         {
-            //
-            // FaceDetectionExample
-            //
+            // ---------------------------------------------------
+            //  FaceDetectionExample
+            // ---------------------------------------------------
+            // Uses CascadeClassifier on a single still image.
 
-            string HAAR_CASCADE_FILENAME = "OpenCVForUnityExamples/objdetect/haarcascade_frontalface_alt.xml";
+            const string HAAR_CASCADE_FILEPATH = "OpenCVForUnityExamples/objdetect/haarcascade_frontalface_alt.xml";
 
             string cascade_filepath = null;
 
@@ -207,14 +248,15 @@ namespace OpenCVForUnityExample
 #endif
 
 #if UNITY_WEBGL
-            getFilePath_Coroutine = OpenCVEnv.GetFilePathCoroutine(HAAR_CASCADE_FILENAME,
+            // WebGL cannot access StreamingAssets synchronously; wait for the async path resolver.
+            getFilePath_Coroutine = OpenCVForUnityEnv.GetFilePathCoroutine(HAAR_CASCADE_FILEPATH,
                 (result) =>
                 {
                     getFilePath_Coroutine = null;
 
                     if (string.IsNullOrEmpty(result))
                     {
-                        Debug.LogError(HAAR_CASCADE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                        Debug.LogError(HAAR_CASCADE_FILEPATH + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.", this);
                     }
                     else
                     {
@@ -223,24 +265,25 @@ namespace OpenCVForUnityExample
                 },
                     (result, progress) =>
                     {
-                        Debug.Log("getFilePathAsync() progress : " + result + " " + Mathf.CeilToInt(progress * 100) + "%");
+                        Debug.Log("getFilePathAsync() progress : " + result + " " + Mathf.CeilToInt(progress * 100) + "%", this);
                     });
             yield return StartCoroutine(getFilePath_Coroutine);
 #else
-            cascade_filepath = OpenCVEnv.GetFilePath(HAAR_CASCADE_FILENAME);
+            cascade_filepath = OpenCVForUnityEnv.GetFilePath(HAAR_CASCADE_FILEPATH);
             if (string.IsNullOrEmpty(cascade_filepath))
             {
-                Debug.LogError(HAAR_CASCADE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                Debug.LogError(HAAR_CASCADE_FILEPATH + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.", this);
             }
 #endif
 
             Texture2D imgTexture = Resources.Load("face") as Texture2D;
 
             using (CascadeClassifier cascade = new CascadeClassifier(cascade_filepath))
+            // CV_8UC4 matches Texture2D RGBA32 layout copied by Texture2DToMat.
             using (Mat imgMat = new Mat(imgTexture.height, imgTexture.width, CvType.CV_8UC4))
             {
 
-                OpenCVMatUtils.Texture2DToMat(imgTexture, imgMat);
+                OpenCVMatUnityUtils.Texture2DToMat(imgTexture, imgMat);
 
                 //The specified Mat can be displayed in the debug window. Click to enlarge the image.
                 DebugMat.imshow("imgMat", imgMat);
@@ -257,17 +300,22 @@ namespace OpenCVForUnityExample
 
                 using (Mat grayMat = new Mat())
                 {
+                    // CascadeClassifier expects a single-channel grayscale image.
                     Imgproc.cvtColor(imgMat, grayMat, Imgproc.COLOR_RGBA2GRAY);
                     DebugMat.imshow("grayMat", grayMat);
+                    // equalizeHist improves contrast and helps detection on uneven lighting.
                     Imgproc.equalizeHist(grayMat, grayMat);
                     DebugMat.imshow("equalizeHist", grayMat);
 
+                    // MatOfRect receives output rectangles from detectMultiScale.
                     using (MatOfRect faces = new MatOfRect())
                     {
 
                         if (cascade != null)
-                            cascade.detectMultiScale(grayMat, faces, 1.1, 2, 0 | Objdetect.CASCADE_SCALE_IMAGE,
+                        {
+                            cascade.detectMultiScale(grayMat, faces, 1.1, 2, 0 | Xobjdetect.CASCADE_SCALE_IMAGE,
                                 new Size(30, 30));
+                        }
 
                         //If the dump flag is enabled, the Mat value can be dumped.
                         DebugMat.imshow("faces", faces, true, null);
@@ -291,9 +339,9 @@ namespace OpenCVForUnityExample
 
         public void OnVideoCaptureExampleButtonClick()
         {
-            //
-            // VideoCaptureExample
-            //
+            // ---------------------------------------------------
+            //  VideoCaptureExample
+            // ---------------------------------------------------
 
             DebugMat.destroyAllWindows();
 
@@ -301,11 +349,12 @@ namespace OpenCVForUnityExample
             StartEnumerator(VideoCaptureExample());
 
             ExampleCodeText.text = @"
-            //
-            // VideoCaptureExample
-            //
+            // ---------------------------------------------------
+            //  VideoCaptureExample
+            // ---------------------------------------------------
+            // Reads a video file with grab()/retrieve() and shows each frame in DebugMat.
 
-            string VIDEO_FILENAME = ""OpenCVForUnityExamples/768x576_mjpeg.mjpeg"";
+            const string VIDEO_FILEPATH = ""OpenCVForUnityExamples/768x576_mjpeg.mjpeg"";
 
             string video_filepath = null;
 
@@ -314,7 +363,7 @@ namespace OpenCVForUnityExample
 #endif
 
 #if UNITY_WEBGL
-            getFilePath_Coroutine = OpenCVEnv.GetFilePathAsync(VIDEO_FILENAME, (result) =>
+            getFilePath_Coroutine = OpenCVForUnityEnv.GetFilePathAsync(VIDEO_FILEPATH, (result) =>
             {
                 getFilePath_Coroutine = null;
 
@@ -322,7 +371,7 @@ namespace OpenCVForUnityExample
             });
             yield return StartCoroutine(getFilePath_Coroutine);
 #else
-            video_filepath = OpenCVEnv.GetFilePath(VIDEO_FILENAME);
+            video_filepath = OpenCVForUnityEnv.GetFilePath(VIDEO_FILEPATH);
 #endif
 
             using (VideoCapture capture = new VideoCapture())
@@ -330,17 +379,21 @@ namespace OpenCVForUnityExample
             {
                 capture.open(video_filepath);
 
+                // grab() advances to the next frame; retrieve() decodes it into rgbMat.
                 while (capture.grab())
                 {
 
                     capture.retrieve(rgbMat);
 
                     //It is possible to display Mat updated every frame. If the size of the Mat is the same as the old Mat, there is no new allocation.
+                    // VideoCapture returns BGR byte order by default.
                     <color=#ff0000>DebugMat.imshow(""bgrMat"", rgbMat);</color>
 
+                    // Convert to RGB when you need Unity-friendly channel order for display or Texture2D output.
                     Imgproc.cvtColor(rgbMat, rgbMat, Imgproc.COLOR_BGR2RGB);
                     <color=#ff0000>DebugMat.imshow(""rgbMat"", rgbMat);</color>
 
+                    // Loop the sample clip when the end is reached.
                     if (capture.get(Videoio.CAP_PROP_POS_FRAMES) >= capture.get(Videoio.CAP_PROP_FRAME_COUNT))
                         capture.set(Videoio.CAP_PROP_POS_FRAMES, 0);
 
@@ -356,11 +409,12 @@ namespace OpenCVForUnityExample
 
         public IEnumerator VideoCaptureExample()
         {
-            //
-            // VideoCaptureExample
-            //
+            // ---------------------------------------------------
+            //  VideoCaptureExample
+            // ---------------------------------------------------
+            // Reads a video file with grab()/retrieve() and shows each frame in DebugMat.
 
-            string VIDEO_FILENAME = "OpenCVForUnityExamples/768x576_mjpeg.mjpeg";
+            const string VIDEO_FILEPATH = "OpenCVForUnityExamples/768x576_mjpeg.mjpeg";
 
             string video_filepath = null;
 
@@ -369,7 +423,7 @@ namespace OpenCVForUnityExample
 #endif
 
 #if UNITY_WEBGL
-            getFilePath_Coroutine = OpenCVEnv.GetFilePathCoroutine(VIDEO_FILENAME, (result) =>
+            getFilePath_Coroutine = OpenCVForUnityEnv.GetFilePathCoroutine(VIDEO_FILEPATH, (result) =>
             {
                 getFilePath_Coroutine = null;
 
@@ -377,7 +431,7 @@ namespace OpenCVForUnityExample
             });
             yield return StartCoroutine(getFilePath_Coroutine);
 #else
-            video_filepath = OpenCVEnv.GetFilePath(VIDEO_FILENAME);
+            video_filepath = OpenCVForUnityEnv.GetFilePath(VIDEO_FILEPATH);
 #endif
 
             using (VideoCapture capture = new VideoCapture())
@@ -385,19 +439,25 @@ namespace OpenCVForUnityExample
             {
                 capture.open(video_filepath);
 
+                // grab() advances to the next frame; retrieve() decodes it into rgbMat.
                 while (capture.grab())
                 {
 
                     capture.retrieve(rgbMat);
 
                     //It is possible to display Mat updated every frame. If the size of the Mat is the same as the old Mat, there is no new allocation.
+                    // VideoCapture returns BGR byte order by default.
                     DebugMat.imshow("bgrMat", rgbMat);
 
+                    // Convert to RGB when you need Unity-friendly channel order for display or Texture2D output.
                     Imgproc.cvtColor(rgbMat, rgbMat, Imgproc.COLOR_BGR2RGB);
                     DebugMat.imshow("rgbMat", rgbMat);
 
+                    // Loop the sample clip when the end is reached.
                     if (capture.get(Videoio.CAP_PROP_POS_FRAMES) >= capture.get(Videoio.CAP_PROP_FRAME_COUNT))
+                    {
                         capture.set(Videoio.CAP_PROP_POS_FRAMES, 0);
+                    }
 
                     yield return null;
                 }
@@ -408,9 +468,9 @@ namespace OpenCVForUnityExample
 
         public void OnTrackingExampleButtonClick()
         {
-            //
-            // TrackingExample
-            //
+            // ---------------------------------------------------
+            //  TrackingExample
+            // ---------------------------------------------------
 
             DebugMat.destroyAllWindows();
 
@@ -418,11 +478,12 @@ namespace OpenCVForUnityExample
             StartEnumerator(TrackingExample());
 
             ExampleCodeText.text = @"
-            //
-            // TrackingExample
-            //
+            // ---------------------------------------------------
+            //  TrackingExample
+            // ---------------------------------------------------
+            // Initializes TrackerCSRT on one frame, then updates the rectangle on later frames.
 
-            string VIDEO_FILENAME = ""OpenCVForUnity/768x576_mjpeg.mjpeg"";
+            const string VIDEO_FILEPATH = ""OpenCVForUnity/768x576_mjpeg.mjpeg"";
 
             string video_filepath = null;
 
@@ -431,7 +492,7 @@ namespace OpenCVForUnityExample
 #endif
 
 #if UNITY_WEBGL
-            getFilePath_Coroutine = OpenCVEnv.GetFilePathAsync(VIDEO_FILENAME, (result) =>
+            getFilePath_Coroutine = OpenCVForUnityEnv.GetFilePathAsync(VIDEO_FILEPATH, (result) =>
             {
                 getFilePath_Coroutine = null;
 
@@ -439,7 +500,7 @@ namespace OpenCVForUnityExample
             });
             yield return StartCoroutine(getFilePath_Coroutine);
 #else
-            video_filepath = OpenCVEnv.GetFilePath(VIDEO_FILENAME);
+            video_filepath = OpenCVForUnityEnv.GetFilePath(VIDEO_FILEPATH);
 #endif
 
             using (VideoCapture capture = new VideoCapture())
@@ -449,12 +510,14 @@ namespace OpenCVForUnityExample
 
                 capture.open(video_filepath);
 
+                // Read the first frame and tell the tracker which object region to follow.
                 capture.grab();
                 capture.retrieve(rgbMat);
 
                 OpenCVForUnity.CoreModule.Rect region = new OpenCVForUnity.CoreModule.Rect(610, 235, 90, 110);
                 tracker.init(rgbMat, region);
 
+                // Jump to a later frame so movement is visible in the demo loop.
                 capture.set(Videoio.CAP_PROP_POS_FRAMES, 23);
 
                 while (capture.grab())
@@ -466,6 +529,7 @@ namespace OpenCVForUnityExample
                     Imgproc.cvtColor(rgbMat, rgbMat, Imgproc.COLOR_BGR2RGB);
                     <color=#ff0000>DebugMat.imshow(""rgbMat"", rgbMat);</color>
 
+                    // tracker.update() moves region to the object location in the current frame.
                     tracker.update(rgbMat, region);
                     <color=#ff0000>DebugMat.imshow(""trackedRegion"", rgbMat, false, region);</color>
 
@@ -487,11 +551,12 @@ namespace OpenCVForUnityExample
 
         public IEnumerator TrackingExample()
         {
-            //
-            // TrackingExample
-            //
+            // ---------------------------------------------------
+            //  TrackingExample
+            // ---------------------------------------------------
+            // Initializes TrackerCSRT on one frame, then updates the rectangle on later frames.
 
-            string VIDEO_FILENAME = "OpenCVForUnityExamples/768x576_mjpeg.mjpeg";
+            const string VIDEO_FILEPATH = "OpenCVForUnityExamples/768x576_mjpeg.mjpeg";
 
             string video_filepath = null;
 
@@ -500,7 +565,7 @@ namespace OpenCVForUnityExample
 #endif
 
 #if UNITY_WEBGL
-            getFilePath_Coroutine = OpenCVEnv.GetFilePathCoroutine(VIDEO_FILENAME, (result) =>
+            getFilePath_Coroutine = OpenCVForUnityEnv.GetFilePathCoroutine(VIDEO_FILEPATH, (result) =>
             {
                 getFilePath_Coroutine = null;
 
@@ -508,7 +573,7 @@ namespace OpenCVForUnityExample
             });
             yield return StartCoroutine(getFilePath_Coroutine);
 #else
-            video_filepath = OpenCVEnv.GetFilePath(VIDEO_FILENAME);
+            video_filepath = OpenCVForUnityEnv.GetFilePath(VIDEO_FILEPATH);
 #endif
 
             using (VideoCapture capture = new VideoCapture())
@@ -518,12 +583,14 @@ namespace OpenCVForUnityExample
 
                 capture.open(video_filepath);
 
+                // Read the first frame and tell the tracker which object region to follow.
                 capture.grab();
                 capture.retrieve(rgbMat);
 
                 OpenCVForUnity.CoreModule.Rect region = new OpenCVForUnity.CoreModule.Rect(610, 235, 90, 110);
                 tracker.init(rgbMat, region);
 
+                // Jump to a later frame so movement is visible in the demo loop.
                 capture.set(Videoio.CAP_PROP_POS_FRAMES, 23);
 
                 while (capture.grab())
@@ -535,6 +602,7 @@ namespace OpenCVForUnityExample
                     Imgproc.cvtColor(rgbMat, rgbMat, Imgproc.COLOR_BGR2RGB);
                     DebugMat.imshow("rgbMat", rgbMat);
 
+                    // tracker.update() moves region to the object location in the current frame.
                     tracker.update(rgbMat, region);
                     DebugMat.imshow("trackedRegion", rgbMat, false, region);
 
@@ -542,7 +610,9 @@ namespace OpenCVForUnityExample
                     DebugMat.imshow("result", rgbMat);
 
                     if (capture.get(Videoio.CAP_PROP_POS_FRAMES) >= 360)
+                    {
                         capture.set(Videoio.CAP_PROP_POS_FRAMES, 23);
+                    }
 
                     yield return null;
                 }
@@ -553,9 +623,10 @@ namespace OpenCVForUnityExample
 
         public void OnDumpExampleButtonClick()
         {
-            //
-            // DumpExample
-            //
+            // ---------------------------------------------------
+            //  DumpExample
+            // ---------------------------------------------------
+            // Shows raw pixel / matrix values through DebugMat instead of only an image preview.
 
             DebugMat.destroyAllWindows();
 
@@ -563,15 +634,17 @@ namespace OpenCVForUnityExample
 
             Texture2D imgTexture = Resources.Load("face") as Texture2D;
             DebugMat.imshow("imgTexture_all", imgTexture);
+            // DumpMode prints numeric values; the Rect limits output to a small ROI for readability.
             DebugMat.imshow("imgTexture", imgTexture, true, DebugMat.DumpMode.GetPixels32Mode, new OpenCVForUnity.CoreModule.Rect(180, 230, 20, 20));
 
             Mat imgMat = new Mat(imgTexture.height, imgTexture.width, CvType.CV_8UC4);
-            OpenCVMatUtils.Texture2DToMat(imgTexture, imgMat);
+            OpenCVMatUnityUtils.Texture2DToMat(imgTexture, imgMat);
             DebugMat.imshow("imgMat_all", imgMat);
 
             DebugMat.imshow("imgMat", imgMat, true, new OpenCVForUnity.CoreModule.Rect(180, 230, 20, 20));
 
             Mat imgMat_32F = new Mat();
+            // convertTo changes element type; here 8-bit [0,255] becomes float [0,1].
             imgMat.convertTo(imgMat_32F, CvType.CV_32F, 1.0 / 255.0);
             DebugMat.imshow("imgMat_32F", imgMat_32F, true, new OpenCVForUnity.CoreModule.Rect(180, 230, 20, 20));
 
@@ -583,21 +656,24 @@ namespace OpenCVForUnityExample
             DebugMat.imshow("Core.multiply(imgMat_64F, Scalar.all(0.5), imgMat_64F);", imgMat_64F, true, new OpenCVForUnity.CoreModule.Rect(180, 230, 20, 20));
 
             ExampleCodeText.text = @"
-            //
-            // DumpExample
-            //
+            // ---------------------------------------------------
+            //  DumpExample
+            // ---------------------------------------------------
+            // Shows raw pixel / matrix values through DebugMat instead of only an image preview.
 
             Texture2D imgTexture = Resources.Load(""face"") as Texture2D;
             <color=#ff0000>DebugMat.imshow(""imgTexture"", imgTexture);</color>
+            // DumpMode prints numeric values; the Rect limits output to a small ROI for readability.
             <color=#ff0000>DebugMat.imshow(""imgTexture"", imgTexture, true, DebugMat.DumpMode.GetPixels32Mode, new OpenCVForUnity.CoreModule.Rect(180, 230, 20, 20));</color>
 
             Mat imgMat = new Mat(imgTexture.height, imgTexture.width, CvType.CV_8UC4);
-            OpenCVMatUtils.Texture2DToMat(imgTexture, imgMat);
+            OpenCVMatUnityUtils.Texture2DToMat(imgTexture, imgMat);
             <color=#ff0000>DebugMat.imshow(""imgMat_all"", imgMat);</color>
 
             <color=#ff0000>DebugMat.imshow(""imgMat"", imgMat, true, new OpenCVForUnity.CoreModule.Rect(180, 230, 20, 20));</color>
 
             Mat imgMat_32F = new Mat();
+            // convertTo changes element type; here 8-bit [0,255] becomes float [0,1].
             imgMat.convertTo(imgMat_32F, CvType.CV_32F, 1.0 / 255.0);
             <color=#ff0000>DebugMat.imshow(""imgMat_32F"", imgMat_32F, true, new OpenCVForUnity.CoreModule.Rect(180, 230, 20, 20));</color>
 
@@ -614,9 +690,10 @@ namespace OpenCVForUnityExample
 
         public void OnCVExceptionHandlingExampleButtonClick()
         {
-            //
-            // CVExceptionHandlingExample
-            //
+            // ---------------------------------------------------
+            //  CVExceptionHandlingExample
+            // ---------------------------------------------------
+            // Demonstrates what happens when Mat element types do not match in Core operations.
 
             DebugMat.destroyAllWindows();
 
@@ -640,6 +717,7 @@ namespace OpenCVForUnityExample
             });
 
             Mat m3 = new Mat();
+            // Core.divide requires compatible element types; float Mat / byte Mat triggers CVException.
             Core.divide(m1, m2, m3); // element type is different.
 
             OpenCVDebug.SetDebugMode(false);
@@ -656,14 +734,15 @@ namespace OpenCVForUnityExample
             }
             catch (Exception e)
             {
-                Debug.Log("CVException: " + e);
+                Debug.Log("CVException: " + e, this);
             }
             OpenCVDebug.SetDebugMode(false);
 
             ExampleCodeText.text = @"
-            //
-            // CVExceptionHandlingExample
-            //
+            // ---------------------------------------------------
+            //  CVExceptionHandlingExample
+            // ---------------------------------------------------
+            // Demonstrates what happens when Mat element types do not match in Core operations.
 
             // 32F, channels=1, 3x3
             Mat m1 = new Mat(3, 3, CvType.CV_32FC1);
@@ -683,6 +762,7 @@ namespace OpenCVForUnityExample
             });
 
             Mat m3 = new Mat();
+            // Core.divide requires compatible element types; float Mat / byte Mat triggers CVException.
             Core.divide(m1, m2, m3); // element type is different.
 
             OpenCVDebug.SetDebugMode(false);

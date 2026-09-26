@@ -1,58 +1,84 @@
-#if !UNITY_WSA_10_0 && NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
+#if !UNITY_WSA_10_0
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.DnnModule;
+using OpenCVForUnity.Extensions.Runner;
+using OpenCVForUnity.Extensions.SourceToMat;
+using OpenCVForUnity.GeometryModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
-using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
-using OpenCVForUnity.UnityIntegration.Runner;
-using OpenCVForUnity.UnityIntegration.Worker.DnnModule;
+using OpenCVForUnity.UnityIntegration.Helper.SourceToMat;
+using OpenCVForUnity.UnityIntegration.Helper.UI;
 using OpenCVForUnity.UtilsModule;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static OpenCVForUnity.UnityIntegration.Helper.Source2Mat.MultiSource2MatHelper;
+using OpenCVDebug = OpenCVForUnity.Extensions.OpenCVDebug;
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Text Recognition CRNN Example
-    /// This example demonstrates text detection and recognition model using the TextDetectionMode and TextRecognitionModel class.
+    /// Detects text regions with PPOCR and recognizes strings with CRNN on each input frame.
+    ///
+    /// Demonstrates:
+    /// - Reading input frames via <see cref="MultiSourceToMatHelper"/> (webcam, video file, image file, or GPU readback)
+    /// - Loading PPOCR detection and CRNN recognition models from StreamingAssets
+    /// - Resizing to 736x736, polygon detection, Net-based CTC-greedy recognition, and coordinate restore
+    /// - Optional async inference via MatSingleFlightSyncAsyncRunner
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Mat"/>, <see cref="Size"/>, <see cref="Scalar"/>, <see cref="Point"/>
+    /// - <see cref="TextDetectionModel_DB"/>, <see cref="Net"/>, <see cref="Dnn"/>
+    /// - <see cref="Imgproc"/>: resize, cvtColor, warpPerspective, polylines
+    /// - <see cref="MatSingleFlightSyncAsyncRunner"/>
+    /// - <see cref="MultiSourceToMatHelper"/>, <see cref="OpenCVMatUnityUtils"/>
+    /// </summary>
+    /// <remarks>
+    /// <para>
     /// Referring to:
-    /// https://github.com/opencv/opencv_zoo/tree/master/models/text_detection_db
+    /// https://github.com/opencv/opencv_zoo/tree/master/models/text_detection_ppocr
     /// https://github.com/opencv/opencv_zoo/tree/master/models/text_recognition_crnn
     /// https://docs.opencv.org/4.x/d4/d43/tutorial_dnn_text_spotting.html
-    ///
+    /// </para>
+    /// <para>
     /// [Tested Models]
-    /// https://github.com/opencv/opencv_zoo/raw/6a66e0d6e47a693e6d0dd01bbb18e920f3fbae75/models/text_detection_db/text_detection_DB_IC15_resnet18_2021sep.onnx
+    /// https://huggingface.co/opencv/text_detection_ppocr/resolve/main/text_detection_en_ppocrv3_2023may.onnx
     /// https://github.com/opencv/opencv_zoo/raw/8a42017a12fe9ed80279737c0b903307371b0e3d/models/text_recognition_crnn/text_recognition_CRNN_EN_2021sep.onnx
-    /// https://github.com/opencv/opencv_zoo/raw/8a42017a12fe9ed80279737c0b903307371b0e3d/models/text_recognition_crnn/charset_36_EN.txt
-    /// </summary>
-    [RequireComponent(typeof(MultiSource2MatHelper))]
+    /// </para>
+    /// </remarks>
+    [RequireComponent(typeof(MultiSourceToMatHelper))]
     public class TextRecognitionCRNNExample : MonoBehaviour
     {
         // Constants
-        private const float DETECTION_INPUT_SIZE_W = 320f; // 736f;
-        private const float DETECTION_INPUT_SIZE_H = 320f; // 736f;
-        private const double DETECTION_INPUT_SCALE = 1.0 / 255.0;
+        private const float DETECTION_INPUT_SIZE_W = 736f;
+        private const float DETECTION_INPUT_SIZE_H = 736f;
+#if UNITY_6000_5_OR_NEWER
+        [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
+        private static readonly Scalar DETECTION_INPUT_MEAN = new Scalar(123.675, 116.28, 103.53);
+#if UNITY_6000_5_OR_NEWER
+        [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
+        private static readonly Scalar DETECTION_INPUT_SCALE = new Scalar(
+            1.0 / (255.0 * 0.229),
+            1.0 / (255.0 * 0.224),
+            1.0 / (255.0 * 0.225));
         private const float DETECTION_BINARY_THRESHOLD = 0.3f;
         private const float DETECTION_POLYGON_THRESHOLD = 0.5f;
         private const int DETECTION_MAX_CANDIDATES = 200;
         private const double DETECTION_UNCLIP_RATIO = 2.0;
-        private const float DETECTION_CONFIDENCES_THRESHOLD = 0.7f;
         private const float RECOGNITION_INPUT_SIZE_W = 100f;
         private const float RECOGNITION_INPUT_SIZE_H = 32f;
-        private const double RECOGNITION_INPUT_SCALE = 1.0 / 127.5;
-        private static readonly string DETECTION_MODEL_FILENAME = "OpenCVForUnityExamples/dnn/text_detection_DB_IC15_resnet18_2021sep.onnx";
-        private static readonly string RECOGNITION_MODEL_FILENAME = "OpenCVForUnityExamples/dnn/text_recognition_CRNN_EN_2021sep.onnx";
-        private static readonly string CHARSET_TXT_FILENAME = "OpenCVForUnityExamples/dnn/charset_36_EN.txt";
+        private const string DETECTION_MODEL_FILEPATH = "OpenCVForUnityExamples/dnn/text_detection_en_ppocrv3_2023may.onnx";
+        //private const string DETECTION_MODEL_FILEPATH = "OpenCVForUnityExamples/dnn/text_detection_cn_ppocrv3_2023may.onnx";
+        private const string RECOGNITION_MODEL_FILEPATH = "OpenCVForUnityExamples/dnn/text_recognition_CRNN_EN_2021sep.onnx";
+        //private const string RECOGNITION_MODEL_FILEPATH = "OpenCVForUnityExamples/dnn/text_recognition_CRNN_CN_2021nov.onnx";
 
         // Public Fields
         [Header("Output")]
@@ -68,36 +94,15 @@ namespace OpenCVForUnityExample
         [Space(10)]
 
         // Private Fields
-        private Scalar _detectionInputMean = new Scalar(122.67891434, 116.66876762, 104.00698793);
-        private Scalar _recognitionInputMean = new Scalar(127.5);
-
         private string _detectionModelFilepath;
         private string _recognitionModelFilepath;
-        private string _charsetTxtFilepath;
-
-        private TextDetectionModel_DB _detectionModel;
-        private TextRecognitionModel _recognitionModel;
-
-        /// <summary>
-        /// The texture.
-        /// </summary>
+        private PpOcrTextDetector _detector;
+        private CrnnNetRecognizer _recognizer;
         private Texture2D _texture;
-
-        /// <summary>
-        /// The multi source to mat helper.
-        /// </summary>
-        private MultiSource2MatHelper _multiSource2MatHelper;
-
-        /// <summary>
-        /// The FPS monitor.
-        /// </summary>
+        private MultiSourceToMatHelper _multiSourceToMatHelper;
         private FpsMonitor _fpsMonitor;
-
-        /// <summary>
-        /// The CancellationTokenSource.
-        /// </summary>
+        private SourceToMatControlPanel _controlPanel;
         private CancellationTokenSource _cts = new CancellationTokenSource();
-
         private MatSingleFlightSyncAsyncRunner _inferenceRunner;
 
         // Unity Lifecycle Methods
@@ -105,78 +110,45 @@ namespace OpenCVForUnityExample
         {
             _fpsMonitor = GetComponent<FpsMonitor>();
 
-            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSourceToMatHelper = gameObject.GetComponent<MultiSourceToMatHelper>();
+            _multiSourceToMatHelper.OutputColorFormat = SourceToMatColorFormat.BGR; // PPOCR detection and CRNN recognition models require a 3-channel BGR Mat.
 
-            // WebCamTexture2MatHelper does not work on WebGPU, so use WebCamTexture2MatAsyncGPUHelper instead.
-#if UNITY_6000_0_OR_NEWER
-            if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.WebGPU && _multiSource2MatHelper.RequestedSource2MatHelperClassName == MultiSource2MatHelperClassName.WebCamTexture2MatHelper)
-            {
-                _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.WebCamTexture2MatAsyncGPUHelper;
-            }
-#endif
-            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.BGR;
+            WireSourceToMatControlPanelHooks();
 
             UpdateUseAsyncInference();
             UpdateInferenceModeToggles(inferenceReinitializing: false);
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
             if (_fpsMonitor != null)
+            {
                 _fpsMonitor.ConsoleText = "Preparing file access...";
+            }
 
-            _detectionModelFilepath = await OpenCVEnv.GetFilePathTaskAsync(DETECTION_MODEL_FILENAME, cancellationToken: _cts.Token);
-            _recognitionModelFilepath = await OpenCVEnv.GetFilePathTaskAsync(RECOGNITION_MODEL_FILENAME, cancellationToken: _cts.Token);
-            _charsetTxtFilepath = await OpenCVEnv.GetFilePathTaskAsync(CHARSET_TXT_FILENAME, cancellationToken: _cts.Token);
+            _detectionModelFilepath = await OpenCVForUnityEnv.GetFilePathAsync(DETECTION_MODEL_FILEPATH, cancellationToken: _cts.Token);
+            _recognitionModelFilepath = await OpenCVForUnityEnv.GetFilePathAsync(RECOGNITION_MODEL_FILEPATH, cancellationToken: _cts.Token);
 
             if (_fpsMonitor != null)
-                _fpsMonitor.ConsoleText = "";
-
-            Run();
-        }
-
-        private void Update()
-        {
-            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
             {
-
-                Mat bgrMat = _multiSource2MatHelper.GetMat();
-
-                if (_detectionModel != null && _recognitionModel != null)
-                {
-                    if (_inferenceRunner != null)
-                    {
-                        _inferenceRunner.SubmitWork(
-                            bgrMat,
-                            syncWork: Infer,
-                            asyncWork: async m =>
-                            {
-                                CancellationToken ct = _inferenceRunner.InFlightAsyncWorkCancellationToken;
-                                return await InferAsync(m, ct);
-                            });
-
-                        if (_inferenceRunner.TryGetLatestResult(out Mat[] inferMats))
-                            Visualize(bgrMat, inferMats, printResult: false, isRGB: false);
-                    }
-                    else
-                    {
-                        Mat[] inferMats = Infer(bgrMat);
-                        Visualize(bgrMat, inferMats, printResult: false, isRGB: false);
-                        foreach (Mat m in inferMats)
-                            m.Dispose();
-                    }
-                }
-
-                Imgproc.cvtColor(bgrMat, bgrMat, Imgproc.COLOR_BGR2RGB);
-
-                //Imgproc.putText (bgrMat, "W:" + bgrMat.width () + " H:" + bgrMat.height () + " SO:" + Screen.orientation, new Point (5, img.rows () - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-
-                OpenCVMatUtils.MatToTexture2D(bgrMat, _texture);
+                _fpsMonitor.ConsoleText = "";
             }
+
+            //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
+            OpenCVDebug.SetDebugMode(true);
+
+            // Load PPOCR and CRNN models from StreamingAssets and create inference runner.
+            if (!TryInitializeInference())
+            {
+                return;
+            }
+
+            OpenCVDebug.SetDebugMode(false);
+
+            _multiSourceToMatHelper.Initialize();
         }
 
         private async void OnDestroy()
         {
-            _multiSource2MatHelper?.Dispose();
-            _multiSource2MatHelper = null;
+            UnwireSourceToMatControlPanelHooks();
 
             _cts?.Cancel();
 
@@ -190,59 +162,152 @@ namespace OpenCVForUnityExample
 
         // Public Methods
         /// <summary>
-        /// Raises the source to mat helper initialized event.
+        /// Raises the helper frame mat updated event.
+        /// Updates the preview texture when a new frame is available during playback.
+        /// </summary>
+        public void OnSourceToMatHelperFrameMatUpdated()
+        {
+            if (!_multiSourceToMatHelper.IsPlaying)
+            {
+                return;
+            }
+
+            Mat bgrMat = _multiSourceToMatHelper.FrameMat;
+
+            if (_detector != null && _recognizer != null)
+            {
+                if (_inferenceRunner != null)
+                {
+                    // Submit sync or async PPOCR+CRNN pipeline on the BGR frame.
+                    _inferenceRunner.SubmitWork(
+                        bgrMat,
+                        syncWork: Infer,
+                        asyncWork: async m =>
+                        {
+                            CancellationToken ct = _inferenceRunner.InFlightAsyncWorkCancellationToken;
+                            return await InferAsync(m, ct);
+                        });
+
+                    if (_inferenceRunner.TryGetLatestResult(out Mat[] inferMats))
+                    {
+                        Visualize(bgrMat, inferMats, printResult: false, isRGB: false);
+                    }
+                }
+                else
+                {
+                    Mat[] inferMats = Infer(bgrMat);
+                    Visualize(bgrMat, inferMats, printResult: false, isRGB: false);
+                    foreach (Mat m in inferMats)
+                    {
+                        m.Dispose();
+                    }
+                }
+            }
+
+            // Convert annotated BGR Mat to RGB for Unity texture upload.
+            Imgproc.cvtColor(bgrMat, bgrMat, Imgproc.COLOR_BGR2RGB);
+
+            OpenCVMatUnityUtils.MatToTexture2D(bgrMat, _texture);
+        }
+
+        /// <summary>
+        /// Raises the helper initialized event.
+        /// Recreates the preview texture and starts playback on first initialization.
+        /// Skips Play when re-initialization has already restored Playing or Paused.
         /// </summary>
         public void OnSourceToMatHelperInitialized()
         {
-            Debug.Log("OnSourceToMatHelperInitialized");
+            Debug.Log("OnSourceToMatHelperInitialized", this);
 
-            Mat bgrMat = _multiSource2MatHelper.GetMat();
+            Mat bgrMat = _multiSourceToMatHelper.FrameMat;
 
             // Fill in the image so that the unprocessed image is not displayed.
             bgrMat.setTo(new Scalar(0, 0, 0, 255));
 
-            _texture = new Texture2D(bgrMat.cols(), bgrMat.rows(), TextureFormat.RGB24, false);
-            OpenCVMatUtils.MatToTexture2D(bgrMat, _texture);
-
-            ResultPreview.texture = _texture;
-            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
-
-
-            if (_fpsMonitor != null)
-            {
-                _fpsMonitor.Add("width", _multiSource2MatHelper.GetWidth().ToString());
-                _fpsMonitor.Add("height", _multiSource2MatHelper.GetHeight().ToString());
-                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
-                UpdateFpsMonitorInferenceInfo(_fpsMonitor, _detectionModel, _recognitionModel, UseAsyncInference);
-            }
+            RecreatePreviewTexture();
 
 #if !OPENCV_DONT_USE_WEBCAMTEXTURE_API
             // If the WebCam is front facing, flip the Mat horizontally. Required for successful detection.
-            if (_multiSource2MatHelper.Source2MatHelper is WebCamTexture2MatHelper webCamHelper)
-                webCamHelper.FlipHorizontal = webCamHelper.IsFrontFacing();
+            if (_multiSourceToMatHelper.ActiveHelper is WebCamTextureToMatHelper webCamHelper)
+            {
+                _multiSourceToMatHelper.FlipHorizontal = webCamHelper.IsFrontFacing;
+            }
 #endif
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Clear();
+                UpdateFpsMonitorPlaybackState();
+                _fpsMonitor.Add("HelperKind", _multiSourceToMatHelper.RequestedHelperKind.ToString());
+                _fpsMonitor.Add("Width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("Height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("Rotate90Degree", _multiSourceToMatHelper.Rotate90Degree.ToString());
+                _fpsMonitor.Add("FlipVertical", _multiSourceToMatHelper.FlipVertical.ToString());
+                _fpsMonitor.Add("FlipHorizontal", _multiSourceToMatHelper.FlipHorizontal.ToString());
+                _fpsMonitor.Add("Orientation", Screen.orientation.ToString());
+                UpdateFpsMonitorInferenceInfo(_fpsMonitor, UseAsyncInference);
+            }
+
+            if (!_multiSourceToMatHelper.IsPlaying && !_multiSourceToMatHelper.IsPaused)
+            {
+                _multiSourceToMatHelper.Play();
+                UpdateFpsMonitorPlaybackState();
+            }
         }
 
         /// <summary>
-        /// Raises the source to mat helper disposed event.
+        /// Raises the helper frame mat layout changed event.
+        /// Recreates the preview texture when rotation or output size changes.
+        /// </summary>
+        public void OnSourceToMatHelperFrameMatLayoutChanged()
+        {
+            Debug.Log("OnSourceToMatHelperFrameMatLayoutChanged", this);
+
+            RecreatePreviewTexture();
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("Width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("Height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("Orientation", Screen.orientation.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Raises the helper released event.
+        /// </summary>
+        public void OnSourceToMatHelperReleased()
+        {
+            Debug.Log("OnSourceToMatHelperReleased", this);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Clear();
+            }
+
+            CleanupPreviewResources();
+        }
+
+        /// <summary>
+        /// Raises the helper disposed event.
         /// </summary>
         public void OnSourceToMatHelperDisposed()
         {
-            Debug.Log("OnSourceToMatHelperDisposed");
+            Debug.Log("OnSourceToMatHelperDisposed", this);
 
             _inferenceRunner?.Cancel();
 
-            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
+            CleanupPreviewResources();
         }
 
         /// <summary>
-        /// Raises the source to mat helper error occurred event.
+        /// Raises the helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
         /// <param name="message">Message.</param>
-        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
+        public void OnSourceToMatHelperErrorOccurred(SourceToMatErrorCode errorCode, string message)
         {
-            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message, this);
 
             if (_fpsMonitor != null)
             {
@@ -252,42 +317,92 @@ namespace OpenCVForUnityExample
 
         /// <summary>
         /// Raises the back button click event.
+        /// Stops playback and disposes the helper before scene transition (required on WebGL).
         /// </summary>
-        public void OnBackButtonClick()
+        public async void OnBackButtonClick()
         {
+            if (_multiSourceToMatHelper.IsPlaying || _multiSourceToMatHelper.IsPaused)
+            {
+                await _multiSourceToMatHelper.StopAsync();
+            }
+
+            await _multiSourceToMatHelper.DisposeAsync();
+
             SceneManager.LoadScene("OpenCVForUnityExample");
         }
 
         /// <summary>
-        /// Raises the play button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPlay"/>.
         /// </summary>
-        public void OnPlayButtonClick()
+        public void OnControlPanelAfterPlay()
         {
-            _multiSource2MatHelper.Play();
+            UpdateFpsMonitorPlaybackState();
         }
 
         /// <summary>
-        /// Raises the pause button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPause"/>.
         /// </summary>
-        public void OnPauseButtonClick()
+        public void OnControlPanelAfterPause()
         {
-            _multiSource2MatHelper.Pause();
+            UpdateFpsMonitorPlaybackState();
         }
 
         /// <summary>
-        /// Raises the stop button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterStop"/>.
         /// </summary>
-        public void OnStopButtonClick()
+        public void OnControlPanelAfterStop()
         {
-            _multiSource2MatHelper.Stop();
+            UpdateFpsMonitorPlaybackState();
         }
 
         /// <summary>
-        /// Raises the change camera button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnRotate90Changed"/>.
         /// </summary>
-        public void OnChangeCameraButtonClick()
+        /// <param name="isOn">New Rotate90Degree value applied by the panel.</param>
+        public void OnControlPanelRotate90Changed(bool isOn)
         {
-            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("Rotate90Degree", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipVerticalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipVertical value applied by the panel.</param>
+        public void OnControlPanelFlipVerticalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipVertical", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipHorizontalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipHorizontal value applied by the panel.</param>
+        public void OnControlPanelFlipHorizontalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipHorizontal", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnHelperKindChanged"/>.
+        /// </summary>
+        /// <param name="kindIndex">Dropdown index matching <see cref="MultiSourceHelperKind"/>.</param>
+        public void OnControlPanelHelperKindChanged(int kindIndex)
+        {
+            if (_fpsMonitor == null || !Enum.IsDefined(typeof(MultiSourceHelperKind), kindIndex))
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("HelperKind", ((MultiSourceHelperKind)kindIndex).ToString());
         }
 
         /// <summary>
@@ -298,62 +413,169 @@ namespace OpenCVForUnityExample
             if (UseAsyncInferenceToggle != null && UseAsyncInferenceToggle.isOn != UseAsyncInference)
             {
                 if (_inferenceRunner != null)
+                {
                     _inferenceRunner.UseAsyncWork = UseAsyncInferenceToggle.isOn;
+                }
+
                 UseAsyncInference = UseAsyncInferenceToggle.isOn;
-                UpdateFpsMonitorInferenceInfo(_fpsMonitor, _detectionModel, _recognitionModel, UseAsyncInference);
+                UpdateFpsMonitorInferenceInfo(_fpsMonitor, UseAsyncInference);
             }
         }
 
         // Private Methods
-        private void Run()
+
+        private void RecreatePreviewTexture()
         {
-            //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
-            OpenCVDebug.SetDebugMode(true);
+            Mat frameMat = _multiSourceToMatHelper.FrameMat;
+            if (frameMat == null)
+            {
+                return;
+            }
 
-            InitializeInference();
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+                _texture = null;
+            }
 
-            OpenCVDebug.SetDebugMode(false);
+            _texture = new Texture2D(frameMat.cols(), frameMat.rows(), TextureFormat.RGB24, false);
+            OpenCVMatUnityUtils.MatToTexture2D(frameMat, _texture);
 
-            _multiSource2MatHelper.Initialize();
+            if (ResultPreview != null)
+            {
+                ResultPreview.texture = _texture;
+                AspectRatioFitter aspectRatioFitter = ResultPreview.GetComponent<AspectRatioFitter>();
+                if (aspectRatioFitter != null)
+                {
+                    aspectRatioFitter.aspectRatio = (float)_texture.width / _texture.height;
+                }
+            }
+        }
+
+        private void CleanupPreviewResources()
+        {
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+                _texture = null;
+            }
+
+            UpdateFpsMonitorPlaybackState();
+        }
+
+        private void UpdateFpsMonitorPlaybackState()
+        {
+            if (_fpsMonitor == null || _multiSourceToMatHelper == null)
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("PlaybackState", GetPlaybackStateText());
+        }
+
+        private string GetPlaybackStateText()
+        {
+            if (!_multiSourceToMatHelper.IsInitialized)
+            {
+                return "Uninitialized";
+            }
+
+            if (_multiSourceToMatHelper.IsPlaying)
+            {
+                return "Playing";
+            }
+
+            if (_multiSourceToMatHelper.IsPaused)
+            {
+                return "Paused";
+            }
+
+            return "Ready";
+        }
+
+        private void WireSourceToMatControlPanelHooks()
+        {
+            _controlPanel = GetComponent<SourceToMatControlPanel>();
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.AddListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.AddListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.AddListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.AddListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.AddListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.AddListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.AddListener(OnControlPanelHelperKindChanged);
+        }
+
+        private void UnwireSourceToMatControlPanelHooks()
+        {
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.RemoveListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.RemoveListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.RemoveListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.RemoveListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.RemoveListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.RemoveListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.RemoveListener(OnControlPanelHelperKindChanged);
+            _controlPanel = null;
         }
 
         /// <summary>
         /// Creates text detection / recognition models and <see cref="MatSingleFlightSyncAsyncRunner"/>
         /// (same role as <see cref="FaceDetectionYuNetV2Example.InitializeInference"/>).
         /// </summary>
-        private void InitializeInference()
+        private bool TryInitializeInference()
         {
-            if (string.IsNullOrEmpty(_detectionModelFilepath) || string.IsNullOrEmpty(_recognitionModelFilepath) || string.IsNullOrEmpty(_charsetTxtFilepath))
+            if (string.IsNullOrEmpty(_detectionModelFilepath) || string.IsNullOrEmpty(_recognitionModelFilepath))
             {
-                Debug.LogError(DETECTION_MODEL_FILENAME + " or " + RECOGNITION_MODEL_FILENAME + " or " + CHARSET_TXT_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                Debug.LogError(DETECTION_MODEL_FILEPATH + " or " + RECOGNITION_MODEL_FILEPATH + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.", this);
                 if (_fpsMonitor != null)
                 {
-                    _fpsMonitor.Toast("model file is not loaded.\nPlease read console message.", 20000);
+                    _fpsMonitor.ConsoleText = "model file is not loaded.\nPlease read console message.";
                 }
-                return;
+                return false;
             }
 
             try
             {
-                _detectionModel = new TextDetectionModel_DB(_detectionModelFilepath);
-                _detectionModel.setBinaryThreshold(DETECTION_BINARY_THRESHOLD);
-                _detectionModel.setPolygonThreshold(DETECTION_POLYGON_THRESHOLD);
-                _detectionModel.setUnclipRatio(DETECTION_UNCLIP_RATIO);
-                _detectionModel.setMaxCandidates(DETECTION_MAX_CANDIDATES);
-                _detectionModel.setInputParams(DETECTION_INPUT_SCALE, new Size(DETECTION_INPUT_SIZE_W, DETECTION_INPUT_SIZE_H), _detectionInputMean);
-
-                _recognitionModel = new TextRecognitionModel(_recognitionModelFilepath);
-                _recognitionModel.setDecodeType("CTC-greedy");
-                _recognitionModel.setVocabulary(LoadCharset(_charsetTxtFilepath));
-                _recognitionModel.setInputParams(RECOGNITION_INPUT_SCALE, new Size(RECOGNITION_INPUT_SIZE_W, RECOGNITION_INPUT_SIZE_H), _recognitionInputMean);
+                _detector = new PpOcrTextDetector(_detectionModelFilepath);
+                _recognizer = new CrnnNetRecognizer(_recognitionModelFilepath);
 
                 _inferenceRunner = new MatSingleFlightSyncAsyncRunner(
                     useAsyncWork: UseAsyncInference,
                     asyncWorkCancellationToken: _cts.Token);
+
+                return _detector != null && _recognizer != null && _inferenceRunner != null;
             }
             catch (Exception ex)
             {
-                Debug.LogWarning("TextRecognitionCRNNExample InitializeInference failed: " + ex);
+                Debug.LogError("TextRecognitionCRNNExample TryInitializeInference failed: " + ex, this);
+                if (_fpsMonitor != null)
+                {
+                    _fpsMonitor.ConsoleText = "Failed to initialize inference.\nPlease read console message.";
+                }
+
+                if (_detector != null)
+                {
+                    _detector.Dispose();
+                    _detector = null;
+                }
+
+                if (_recognizer != null)
+                {
+                    _recognizer.Dispose();
+                    _recognizer = null;
+                }
+
+                _inferenceRunner = null;
+                return false;
             }
         }
 
@@ -374,7 +596,10 @@ namespace OpenCVForUnityExample
             if (inferenceReinitializing)
             {
                 if (UseAsyncInferenceToggle != null)
+                {
                     UseAsyncInferenceToggle.interactable = false;
+                }
+
                 return;
             }
 
@@ -390,21 +615,26 @@ namespace OpenCVForUnityExample
         /// </summary>
         private async Task DisposeInferenceAsync()
         {
-            if (_inferenceRunner != null)
-                await _inferenceRunner.DisposeAsync();
+            var runner = _inferenceRunner;
             _inferenceRunner = null;
+            if (runner != null)
+            {
+                await runner.DisposeAsync();
+            }
 
-            _detectionModel?.Dispose();
-            _detectionModel = null;
-            _recognitionModel?.Dispose();
-            _recognitionModel = null;
+            var detector = _detector;
+            _detector = null;
+            var recognizer = _recognizer;
+            _recognizer = null;
+            detector?.Dispose();
+            recognizer?.Dispose();
         }
 
         /// <summary>
         /// Draws text detection and recognition results from a <see cref="Mat"/> array whose layout matches
         /// <see cref="Infer"/>.
-        /// <c>results[0]</c> is detections (<see cref="MatOfRotatedRect"/>), <c>results[1]</c> is confidences
-        /// (<see cref="MatOfFloat"/>), and <c>results[2]</c> is packed recognition strings (UTF-8 with separator).
+        /// <c>results[0]</c> is packed polygon detections (<c>rows x 4</c>, <see cref="CvType.CV_32SC2"/>),
+        /// <c>results[1]</c> is confidences (<see cref="MatOfFloat"/>), and <c>results[2]</c> is packed recognition strings.
         /// </summary>
         /// <param name="image">Destination image for visualization.</param>
         /// <param name="results">Output matrices from <see cref="Infer"/> (length at least 3).</param>
@@ -413,118 +643,126 @@ namespace OpenCVForUnityExample
         private void Visualize(Mat image, Mat[] results, bool printResult = false, bool isRGB = false)
         {
             if (image != null)
+            {
                 image.ThrowIfDisposed();
-            if (results == null || results.Length < 3)
-                return;
+            }
 
-            Mat detectonsMat = results[0];
+            if (results == null || results.Length < 3)
+            {
+                return;
+            }
+
+            Mat detectionsMat = results[0];
             Mat confidencesMat = results[1];
             Mat recognitionsMat = results[2];
 
-            if (detectonsMat == null || detectonsMat.empty()
-                || confidencesMat == null || confidencesMat.empty()
-                || recognitionsMat == null || recognitionsMat.empty())
+            if (detectionsMat == null || detectionsMat.empty() || detectionsMat.rows() == 0
+                || confidencesMat == null || confidencesMat.empty())
+            {
                 return;
+            }
 
-            RotatedRect[] detectons_arr = new MatOfRotatedRect(detectonsMat).toArray();
-            float[] confidences_arr = new MatOfFloat(confidencesMat).toArray();
+            int detectionCount = detectionsMat.rows();
+            float[] confidencesArr = new MatOfFloat(confidencesMat).toArray();
 
             List<string> recognitionList = new List<string>();
-            Converters.Mat_to_vector_string(recognitionsMat, recognitionList);
-            string[] recognition_arr = recognitionList.ToArray();
+            if (recognitionsMat != null && !recognitionsMat.empty())
+            {
+                Converters.Mat_to_vector_string(recognitionsMat, recognitionList);
+            }
 
-            Array.Reverse(detectons_arr);
-            Array.Reverse(confidences_arr);
-            Array.Reverse(recognition_arr);
+            while (recognitionList.Count < detectionCount)
+            {
+                recognitionList.Add(string.Empty);
+            }
+
+            Array.Reverse(confidencesArr);
+            recognitionList.Reverse();
 
             Scalar BgrScalarForImage(Scalar bgr)
             {
                 if (!isRGB)
+                {
                     return bgr;
+                }
+
                 return new Scalar(bgr.val[2], bgr.val[1], bgr.val[0]);
             }
 
             Scalar colorGreen = BgrScalarForImage(new Scalar(0, 255, 0));
-            Scalar colorLowConfidence = BgrScalarForImage(new Scalar(255, 0, 0));
             Scalar colorRed = BgrScalarForImage(new Scalar(0, 0, 255));
 
             StringBuilder sb = new StringBuilder(1024);
-            for (int i = 0; i < detectons_arr.Length; ++i)
+            for (int i = 0; i < detectionCount; ++i)
             {
-                Point[] vertices = new Point[4];
-                detectons_arr[i].points(vertices);
+                int rowIndex = detectionCount - 1 - i;
+                float confidence = rowIndex < confidencesArr.Length ? confidencesArr[rowIndex] : 0f;
 
-                for (int j = 0; j < 4; ++j)
-                    Imgproc.line(image, vertices[j], vertices[(j + 1) % 4], colorGreen, 2);
+                Point[] vertices = GetPolygonVertices(detectionsMat, rowIndex);
+                using MatOfPoint contour = new MatOfPoint(vertices);
+                Imgproc.polylines(image, new List<MatOfPoint> { contour }, true, colorGreen, 2);
 
-                if (confidences_arr[i] < DETECTION_CONFIDENCES_THRESHOLD)
+                string recognitionText = recognitionList[i] ?? string.Empty;
+                if (vertices.Length > 1)
                 {
-                    for (int j = 0; j < 4; ++j)
-                        Imgproc.line(image, vertices[j], vertices[(j + 1) % 4], colorLowConfidence, 2);
+                    Imgproc.putText(image, recognitionText, vertices[1], Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, colorRed, 2, Imgproc.LINE_AA, false);
                 }
 
-                Imgproc.putText(image, recognition_arr[i], vertices[1], Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, colorRed, 2, Imgproc.LINE_AA, false);
-
-                sb.Append("[").Append(recognition_arr[i]).Append("] ").Append(confidences_arr[i]).AppendLine();
+                sb.Append("[").Append(recognitionText).Append("] ").Append(confidence).AppendLine();
             }
 
             if (printResult)
-                Debug.Log(sb.ToString());
+            {
+                Debug.Log(sb.ToString(), this);
+            }
         }
 
         /// <summary>
-        /// Runs text detection and recognition using <see cref="_detectionModel"/> and <see cref="_recognitionModel"/>;
-        /// returns Mats in order: detections, confidences, recognitions.
+        /// Runs text detection and recognition; returns Mats in order: detections, confidences, recognitions.
         /// </summary>
-        /// <returns>Index 0: MatOfRotatedRect (detection order). Index 1: MatOfFloat. Index 2: recognition strings as CV_8UC1 row (UTF-8 with separator).</returns>
+        /// <returns>Index 0: packed polygon detections (rows x 4, CV_32SC2). Index 1: MatOfFloat. Index 2: recognition strings.</returns>
         private Mat[] Infer(Mat img)
         {
-            Mat croppedMat = new Mat(new Size(RECOGNITION_INPUT_SIZE_W, RECOGNITION_INPUT_SIZE_H), CvType.CV_8SC3);
-            Mat croppedGrayMat = new Mat(croppedMat.size(), CvType.CV_8SC1);
+            Mat resizedMat = new Mat();
+            Size detectionInputSize = new Size(DETECTION_INPUT_SIZE_W, DETECTION_INPUT_SIZE_H);
 
             try
             {
-                MatOfRotatedRect detectons = new MatOfRotatedRect();
-                MatOfFloat confidences = new MatOfFloat();
+                double scaleWidth = img.cols() / detectionInputSize.width;
+                double scaleHeight = img.rows() / detectionInputSize.height;
 
-                _detectionModel.detectTextRectangles(img, detectons, confidences);
+                Imgproc.resize(img, resizedMat, detectionInputSize);
 
-                RotatedRect[] detectonsArr = detectons.toArray();
-                float[] confidencesArr = new float[detectonsArr.Length];
-                if (!confidences.empty())
-                    confidencesArr = new MatOfFloat(confidences).toArray();
+                Mat[] detectionResult = _detector.Infer(resizedMat);
+                Mat polygons = detectionResult[0];
+                Mat confidences = detectionResult[1];
 
-                List<string> recognitionStrings = new List<string>(detectonsArr.Length);
-                for (int k = 0; k < detectonsArr.Length; k++)
-                    recognitionStrings.Add(null);
-
-                for (int i = 0; i < detectonsArr.Length; ++i)
+                int detectionCount = polygons.rows();
+                List<string> recognitionStrings = new List<string>(detectionCount);
+                for (int k = 0; k < detectionCount; k++)
                 {
-                    if (confidencesArr[i] < DETECTION_CONFIDENCES_THRESHOLD)
-                        continue;
-
-                    Point[] vertices = new Point[4];
-                    detectonsArr[i].points(vertices);
-
-                    // Create transformed and cropped image.
-                    FourPointsTransform(img, croppedMat, vertices);
-                    Imgproc.cvtColor(croppedMat, croppedGrayMat, Imgproc.COLOR_BGR2GRAY);
-
-                    string recognitionResult = _recognitionModel.recognize(croppedGrayMat);
-
-                    recognitionStrings[i] = recognitionResult;
+                    recognitionStrings.Add(string.Empty);
                 }
+
+                for (int i = 0; i < detectionCount; ++i)
+                {
+                    using Mat boxMat = polygons.row(i).reshape(2, 4);
+
+                    using Mat outputBlob = _recognizer.Infer(resizedMat, boxMat);
+                    recognitionStrings[i] = _recognizer.Decode(outputBlob);
+                }
+
+                ScalePolygonsInPlace(polygons, scaleWidth, scaleHeight);
 
                 Mat recognitionsMat = recognitionStrings.Count > 0
                     ? Converters.vector_string_to_Mat(recognitionStrings)
                     : new Mat(1, 0, CvType.CV_8UC1);
 
-                return new Mat[] { detectons, confidences, recognitionsMat };
+                return new Mat[] { polygons, confidences, recognitionsMat };
             }
             finally
             {
-                croppedMat.Dispose();
-                croppedGrayMat.Dispose();
+                resizedMat.Dispose();
             }
         }
 
@@ -536,7 +774,7 @@ namespace OpenCVForUnityExample
         {
             cancellationToken.ThrowIfCancellationRequested();
 #if UNITY_WEBGL && !UNITY_EDITOR
-            return Infer(img);
+            return await Task.FromResult(Infer(img));
 #else
             return await Task.Run(() =>
             {
@@ -546,46 +784,220 @@ namespace OpenCVForUnityExample
 #endif
         }
 
-        private void FourPointsTransform(Mat src, Mat dst, Point[] vertices)
+        /// <summary>
+        /// Reads four polygon vertices from a packed detections <see cref="Mat"/> row.
+        /// </summary>
+        private static Point[] GetPolygonVertices(Mat packedPolygons, int rowIndex)
         {
-            Size outputSize = dst.size();
+            ReadOnlySpan<int> row = packedPolygons.AsSpan<int>(rowIndex);
+            Point[] vertices = new Point[4];
+            for (int j = 0; j < 4; j++)
+            {
+                int baseIdx = j * 2;
+                vertices[j] = new Point(row[baseIdx], row[baseIdx + 1]);
+            }
 
-            Point[] targetVertices = new Point[] { new Point(0, outputSize.height - 1),
-                new Point(0, 0), new Point(outputSize.width - 1, 0),
-                new Point(outputSize.width - 1, outputSize.height - 1),
-            };
-
-            MatOfPoint2f verticesMat = new MatOfPoint2f(vertices);
-            MatOfPoint2f targetVerticesMat = new MatOfPoint2f(targetVertices);
-            Mat rotationMatrix = Imgproc.getPerspectiveTransform(verticesMat, targetVerticesMat);
-
-            Imgproc.warpPerspective(src, dst, rotationMatrix, outputSize);
+            return vertices;
         }
 
-        private List<string> LoadCharset(string charsetPath)
+        /// <summary>
+        /// Scales packed polygon coordinates in place from detector input space to the original image space.
+        /// </summary>
+        private static void ScalePolygonsInPlace(Mat polygons, double scaleWidth, double scaleHeight)
         {
-            return new List<string>(File.ReadAllLines(charsetPath));
+            if (polygons == null || polygons.empty() || polygons.rows() == 0)
+            {
+                return;
+            }
+
+            Span<int> coords = polygons.AsSpan<int>();
+            for (int i = 0; i < coords.Length; i += 2)
+            {
+                coords[i] = (int)(coords[i] * scaleWidth);
+                coords[i + 1] = (int)(coords[i + 1] * scaleHeight);
+            }
         }
 
-        private static void UpdateFpsMonitorInferenceInfo(FpsMonitor fpsMonitor, TextDetectionModel_DB detectionModel, TextRecognitionModel recognitionModel, bool useAsyncInference)
+        /// <summary>
+        /// Updates <paramref name="fpsMonitor"/> with dnn backend, target, and async mode.
+        /// </summary>
+        private static void UpdateFpsMonitorInferenceInfo(FpsMonitor fpsMonitor, bool useAsyncInference)
         {
             if (fpsMonitor == null)
+            {
                 return;
+            }
 
-            if (detectionModel != null && recognitionModel != null)
-            {
-                // TextDetectionModel_DB / TextRecognitionModel: no PreferredBackend/PreferredTarget getters in the C# binding; show as default OpenCV DNN inference.
-                fpsMonitor.Add("dnnBackend", "OPENCV");
-                fpsMonitor.Add("dnnTarget", "CPU");
-            }
-            else
-            {
-                fpsMonitor.Add("dnnBackend", "-");
-                fpsMonitor.Add("dnnTarget", "-");
-            }
+            fpsMonitor.Add("dnnBackend", "OPENCV");
+            fpsMonitor.Add("dnnTarget", "CPU");
             fpsMonitor.Add("useAsyncInference", useAsyncInference.ToString());
+        }
+
+        /// <summary>
+        /// PPOCR text detector matching opencv_zoo demo.py (<c>ppocr_det.PPOCRDet</c>).
+        /// </summary>
+        private sealed class PpOcrTextDetector : IDisposable
+        {
+            private readonly TextDetectionModel_DB _model;
+            private readonly Size _inputSize;
+
+            public PpOcrTextDetector(string modelPath)
+            {
+                _inputSize = new Size(DETECTION_INPUT_SIZE_W, DETECTION_INPUT_SIZE_H);
+                _model = new TextDetectionModel_DB(modelPath);
+                _model.setBinaryThreshold(DETECTION_BINARY_THRESHOLD);
+                _model.setPolygonThreshold(DETECTION_POLYGON_THRESHOLD);
+                _model.setUnclipRatio(DETECTION_UNCLIP_RATIO);
+                _model.setMaxCandidates(DETECTION_MAX_CANDIDATES);
+                _model.setInputSize(_inputSize);
+                _model.setInputMean(DETECTION_INPUT_MEAN);
+                _model.setInputScale(DETECTION_INPUT_SCALE);
+            }
+
+            public Mat[] Infer(Mat image)
+            {
+                if (image.cols() != _inputSize.width || image.rows() != _inputSize.height)
+                {
+                    throw new ArgumentException("Input image size must match detector input size.");
+                }
+
+                List<MatOfPoint> detections = new List<MatOfPoint>();
+                MatOfFloat confidences = new MatOfFloat();
+                _model.detect(image, detections, confidences);
+
+                return new Mat[] { PackDetectionsToMat(detections), confidences };
+            }
+
+            private static Mat PackDetectionsToMat(List<MatOfPoint> detections)
+            {
+                if (detections == null || detections.Count == 0)
+                {
+                    return new Mat(0, 4, CvType.CV_32SC2);
+                }
+
+                Mat packed = new Mat(detections.Count, 4, CvType.CV_32SC2);
+                for (int i = 0; i < detections.Count; i++)
+                {
+                    Mat detection = detections[i];
+                    int pointCount = Math.Min((int)detection.total(), 4);
+                    ReadOnlySpan<int> src = detection.AsSpan<int>();
+                    Span<int> dstRow = packed.AsSpan<int>(i);
+                    int copyLength = Math.Min(src.Length, pointCount * 2);
+                    src.Slice(0, copyLength).CopyTo(dstRow.Slice(0, copyLength));
+                }
+
+                return packed;
+            }
+
+            public void Dispose()
+            {
+                _model?.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// CRNN recognizer using OpenCV Net and manual CTC-greedy decode (demo.cpp CRNN).
+        /// </summary>
+        private sealed class CrnnNetRecognizer : IDisposable
+        {
+            private readonly Net _net;
+            private readonly IReadOnlyList<string> _charset;
+            private readonly Size _inputSize;
+            private readonly MatOfPoint2f _targetVertices;
+            private readonly bool _useGrayscaleInput;
+
+            public CrnnNetRecognizer(string modelPath)
+            {
+                _inputSize = new Size(RECOGNITION_INPUT_SIZE_W, RECOGNITION_INPUT_SIZE_H);
+                _net = Dnn.readNet(modelPath);
+                _net.setPreferableBackend(Dnn.DNN_BACKEND_OPENCV);
+                _net.setPreferableTarget(Dnn.DNN_TARGET_CPU);
+                _charset = TextRecognitionCrnnCharset.GetCharsetForModel(modelPath);
+                _useGrayscaleInput = modelPath.IndexOf("CN", StringComparison.Ordinal) < 0
+                    && modelPath.IndexOf("CH", StringComparison.Ordinal) < 0;
+
+                _targetVertices = new MatOfPoint2f(new Point[]
+                {
+                    new Point(0, (int)_inputSize.height - 1),
+                    new Point(0, 0),
+                    new Point((int)_inputSize.width - 1, 0),
+                    new Point((int)_inputSize.width - 1, (int)_inputSize.height - 1),
+                });
+            }
+
+            public Mat Infer(Mat image, Mat rbbox)
+            {
+                using Mat inputBlob = Preprocess(image, rbbox);
+                _net.setInput(inputBlob);
+                return _net.forward();
+            }
+
+            public string Decode(Mat outputBlob)
+            {
+                outputBlob?.ThrowIfDisposed();
+
+                using Mat character = outputBlob.reshape(1, outputBlob.size(0));
+                StringBuilder text = new StringBuilder(character.rows());
+                for (int i = 0; i < character.rows(); ++i)
+                {
+                    using Mat row = character.row(i);
+                    Core.MinMaxLocResult minmax = Core.minMaxLoc(row);
+                    if (minmax.maxLoc.x != 0)
+                    {
+                        text.Append(_charset[(int)minmax.maxLoc.x - 1]);
+                    }
+                    else
+                    {
+                        text.Append('-');
+                    }
+                }
+
+                StringBuilder filtered = new StringBuilder(text.Length);
+                for (int i = 0; i < text.Length; ++i)
+                {
+                    char current = text[i];
+                    if (current != '-' && !(i > 0 && current == text[i - 1]))
+                    {
+                        filtered.Append(current);
+                    }
+                }
+
+                return filtered.ToString();
+            }
+
+            private Mat Preprocess(Mat image, Mat rbbox)
+            {
+                using Mat vertices = new Mat();
+                rbbox.reshape(2, 4).convertTo(vertices, CvType.CV_32FC2);
+                using Mat rotationMatrix = Geometry.getPerspectiveTransform(vertices, _targetVertices);
+                using Mat cropped = new Mat();
+                Imgproc.warpPerspective(image, cropped, rotationMatrix, _inputSize);
+
+                Mat processed = cropped;
+                Mat grayMat = null;
+                if (_useGrayscaleInput)
+                {
+                    grayMat = new Mat();
+                    Imgproc.cvtColor(cropped, grayMat, Imgproc.COLOR_BGR2GRAY);
+                    processed = grayMat;
+                }
+
+                try
+                {
+                    return Dnn.blobFromImage(processed, 1.0 / 127.5, _inputSize, new Scalar(127.5));
+                }
+                finally
+                {
+                    grayMat?.Dispose();
+                }
+            }
+
+            public void Dispose()
+            {
+                _net?.Dispose();
+                _targetVertices?.Dispose();
+            }
         }
     }
 }
-
 #endif

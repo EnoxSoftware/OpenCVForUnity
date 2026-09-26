@@ -12,35 +12,41 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// VideoWriter Example
-    /// An example of saving a video file using the VideoWriter class.
-    /// http://docs.opencv.org/3.2.0/dd/d43/tutorial_py_video_display.html
+    /// Records Unity screen content to a video file and plays it back with VideoCapture.
+    ///
+    /// Demonstrates:
+    /// - Screen capture to Mat via Texture2D and OpenCVMatUnityUtils
+    /// - VideoWriter fourcc, FPS, and frame size setup
+    /// - Loop playback of the recorded file with VideoCapture
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="VideoWriter"/>, <see cref="VideoCapture"/>, <see cref="Videoio"/>
+    /// - <see cref="Imgproc"/>: cvtColor, rectangle
+    /// - <see cref="OpenCVMatUnityUtils"/>
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Referring to:
+    /// http://docs.opencv.org/3.2.0/dd/d43/tutorial_py_video_display.html
+    /// </para>
+    /// </remarks>
     public class VideoWriterExample : MonoBehaviour
     {
         // Constants
-        /// <summary>
-        /// The max frame count.
-        /// </summary>
         private const int MAX_FRAME_COUNT = 300;
 
         // Public Fields
-        /// <summary>
-        /// The full screen capture
-        /// </summary>
         [HeaderAttribute("Capture Settings")]
         [TooltipAttribute("When checked, the entire screen screen is captured.")]
         public bool FullScreenCapture = true;
 
-        /// <summary>
-        /// The capture rect
-        /// </summary>
         [TooltipAttribute("The four values indicate which area of the screen screen is to be captured (value 0-1).")]
         public UnityEngine.Rect CaptureRect = new UnityEngine.Rect(0.05f, 0.05f, 0.95f, 0.95f);
 
+        [Space(10)]
         /// <summary>
         /// The cube.
         /// </summary>
-        [Space(10)]
         public GameObject Cube;
 
         /// <summary>
@@ -74,39 +80,18 @@ namespace OpenCVForUnityExample
         public InputField SavePathInputField;
 
         // Private Fields
-        /// <summary>
-        /// The frame count.
-        /// </summary>
         private int _frameCount;
 
-        /// <summary>
-        /// The videowriter.
-        /// </summary>
         private VideoWriter _writer;
 
-        /// <summary>
-        /// The videocapture.
-        /// </summary>
         private VideoCapture _capture;
 
-        /// <summary>
-        /// The screen capture.
-        /// </summary>
         private Texture2D _screenCapture;
 
-        /// <summary>
-        /// The recording frame rgb mat.
-        /// </summary>
         private Mat _recordingFrameRgbMat;
 
-        /// <summary>
-        /// The preview rgb mat.
-        /// </summary>
         private Mat _previewRgbMat;
 
-        /// <summary>
-        /// The preview texture.
-        /// </summary>
         private Texture2D _previewTexture;
 
         /// <summary>
@@ -119,14 +104,8 @@ namespace OpenCVForUnityExample
         /// </summary>
         private bool _isPlaying;
 
-        /// <summary>
-        /// The save path.
-        /// </summary>
         private string _savePath;
 
-        /// <summary>
-        /// The capture rect pixel
-        /// </summary>
         private UnityEngine.Rect _captureRectPixel;
 
 #if UNITY_EDITOR
@@ -148,7 +127,10 @@ namespace OpenCVForUnityExample
         private void OnValidateImpl()
         {
             UnityEditor.EditorApplication.update -= OnValidateImpl;
-            if (this == null) return;
+            if (this == null)
+            {
+                return;
+            }
 
             CaptureRect = new UnityEngine.Rect(Mathf.Clamp(CaptureRect.x, 0, 1), Mathf.Clamp(CaptureRect.y, 0, 1), Mathf.Clamp(CaptureRect.width, 0, 1), Mathf.Clamp(CaptureRect.height, 0, 1));
 
@@ -157,7 +139,10 @@ namespace OpenCVForUnityExample
 
         private void SetCaptureRectPanel()
         {
-            if (_canvasRectTransform == null) _canvasRectTransform = Canvas.GetComponent<RectTransform>();
+            if (_canvasRectTransform == null)
+            {
+                _canvasRectTransform = Canvas.GetComponent<RectTransform>();
+            }
 
             Vector2 uGuiScreenSize = _canvasRectTransform.sizeDelta;
             if (FullScreenCapture)
@@ -209,7 +194,9 @@ namespace OpenCVForUnityExample
             {
                 //Loop play
                 if (_capture.get(Videoio.CAP_PROP_POS_FRAMES) >= _capture.get(Videoio.CAP_PROP_FRAME_COUNT))
+                {
                     _capture.set(Videoio.CAP_PROP_POS_FRAMES, 0);
+                }
 
                 if (_capture.grab())
                 {
@@ -218,7 +205,7 @@ namespace OpenCVForUnityExample
                     Imgproc.rectangle(_previewRgbMat, new Point(0, 0), new Point(_previewRgbMat.cols(), _previewRgbMat.rows()), new Scalar(0, 0, 255), 3);
 
                     Imgproc.cvtColor(_previewRgbMat, _previewRgbMat, Imgproc.COLOR_BGR2RGB);
-                    OpenCVMatUtils.MatToTexture2D(_previewRgbMat, _previewTexture);
+                    OpenCVMatUnityUtils.MatToTexture2D(_previewRgbMat, _previewTexture);
                 }
             }
         }
@@ -235,13 +222,13 @@ namespace OpenCVForUnityExample
             {
                 if (_frameCount >= MAX_FRAME_COUNT)
                 {
-                    Debug.LogError("Recording was stopped because the maxframeCount was exceeded.");
+                    Debug.LogError("Recording was stopped because the maxframeCount was exceeded.", this);
                     OnRecButtonClick();
                     return;
                 }
                 if (_recordingFrameRgbMat.width() > Screen.width || _recordingFrameRgbMat.height() > Screen.height)
                 {
-                    Debug.LogError("Recording was stopped because the screen size was larger than the recording area.");
+                    Debug.LogError("Recording was stopped because the screen size was larger than the recording area.", this);
                     OnRecButtonClick();
                     return;
                 }
@@ -250,13 +237,15 @@ namespace OpenCVForUnityExample
                 _screenCapture.ReadPixels(_captureRectPixel, 0, 0);
                 _screenCapture.Apply();
 
-                OpenCVMatUtils.Texture2DToMat(_screenCapture, _recordingFrameRgbMat);
+                // Unity screen capture is RGB; VideoWriter expects BGR frame order.
+                OpenCVMatUnityUtils.Texture2DToMat(_screenCapture, _recordingFrameRgbMat);
                 Imgproc.cvtColor(_recordingFrameRgbMat, _recordingFrameRgbMat, Imgproc.COLOR_RGB2BGR);
 
                 Imgproc.putText(_recordingFrameRgbMat, _frameCount.ToString(), new Point(_recordingFrameRgbMat.cols() - 70, 30), Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar(255, 255, 255), 2, Imgproc.LINE_AA, false);
                 Imgproc.putText(_recordingFrameRgbMat, "SavePath:", new Point(5, _recordingFrameRgbMat.rows() - 30), Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar(0, 0, 255), 2, Imgproc.LINE_AA, false);
                 Imgproc.putText(_recordingFrameRgbMat, _savePath, new Point(5, _recordingFrameRgbMat.rows() - 8), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar(255, 255, 255), 0, Imgproc.LINE_AA, false);
 
+                // Each OnPostRender call appends one BGR frame; codec/FPS were set when recording started.
                 _writer.write(_recordingFrameRgbMat);
 
                 _frameCount++;
@@ -324,7 +313,9 @@ namespace OpenCVForUnityExample
             else
             {
                 if (string.IsNullOrEmpty(_savePath))
+                {
                     return;
+                }
 
                 PlayVideo(_savePath);
                 PlayButton.GetComponentInChildren<UnityEngine.UI.Text>().text = "Stop";
@@ -341,11 +332,11 @@ namespace OpenCVForUnityExample
 
             Mat imgMat = new Mat(imgTexture.height, imgTexture.width, CvType.CV_8UC4);
 
-            OpenCVMatUtils.Texture2DToMat(imgTexture, imgMat);
+            OpenCVMatUnityUtils.Texture2DToMat(imgTexture, imgMat);
 
             Texture2D texture = new Texture2D(imgMat.cols(), imgMat.rows(), TextureFormat.RGBA32, false);
 
-            OpenCVMatUtils.MatToTexture2D(imgMat, texture);
+            OpenCVMatUnityUtils.MatToTexture2D(imgMat, texture);
 
             Cube.GetComponent<Renderer>().material.mainTexture = texture;
         }
@@ -353,13 +344,15 @@ namespace OpenCVForUnityExample
         private void StartRecording(string savePath)
         {
             if (_isRecording || _isPlaying)
+            {
                 return;
+            }
 
             _savePath = savePath;
 
             if (File.Exists(savePath))
             {
-                Debug.Log("Delete " + savePath);
+                Debug.Log("Delete " + savePath, this);
                 File.Delete(savePath);
             }
 
@@ -373,7 +366,7 @@ namespace OpenCVForUnityExample
 
                 if (_captureRectPixel.x < 0 || _captureRectPixel.y < 0 || _captureRectPixel.width > Screen.width || _captureRectPixel.height > Screen.height || _captureRectPixel.width < 1 || _captureRectPixel.height < 1)
                 {
-                    Debug.LogError("Since the captureRect is larger than the screen size, the value of captureRect is changed to the screen size.");
+                    Debug.LogError("Since the captureRect is larger than the screen size, the value of captureRect is changed to the screen size.", this);
                     _captureRectPixel = new UnityEngine.Rect(0, 0, Screen.width, Screen.height);
                 }
             }
@@ -385,7 +378,7 @@ namespace OpenCVForUnityExample
 
             if (!_writer.isOpened())
             {
-                Debug.LogError("writer.isOpened() false");
+                Debug.LogError("writer.isOpened() false", this);
                 _writer.release();
                 return;
             }
@@ -400,11 +393,18 @@ namespace OpenCVForUnityExample
         private void StopRecording()
         {
             if (!_isRecording || _isPlaying)
+            {
                 return;
+            }
 
             _writer?.release();
 
-            if (_screenCapture != null) Texture2D.Destroy(_screenCapture); _screenCapture = null;
+            if (_screenCapture != null)
+            {
+                Texture2D.Destroy(_screenCapture);
+            }
+
+            _screenCapture = null;
 
             _recordingFrameRgbMat?.Dispose();
 
@@ -416,28 +416,30 @@ namespace OpenCVForUnityExample
         private void PlayVideo(string filePath)
         {
             if (_isPlaying || _isRecording)
+            {
                 return;
+            }
 
             _capture = new VideoCapture();
             _capture.open(filePath, Videoio.CAP_OPENCV_MJPEG);
 
             if (!_capture.isOpened())
             {
-                Debug.LogError("capture.isOpened() is false. ");
+                Debug.LogError("capture.isOpened() is false. ", this);
                 _capture.release();
                 return;
             }
 
-            Debug.Log("CAP_PROP_FORMAT: " + _capture.get(Videoio.CAP_PROP_FORMAT));
-            Debug.Log("CAP_PROP_POS_MSEC: " + _capture.get(Videoio.CAP_PROP_POS_MSEC));
-            Debug.Log("CAP_PROP_POS_FRAMES: " + _capture.get(Videoio.CAP_PROP_POS_FRAMES));
-            Debug.Log("CAP_PROP_POS_AVI_RATIO: " + _capture.get(Videoio.CAP_PROP_POS_AVI_RATIO));
-            Debug.Log("CAP_PROP_FRAME_COUNT: " + _capture.get(Videoio.CAP_PROP_FRAME_COUNT));
-            Debug.Log("CAP_PROP_FPS: " + _capture.get(Videoio.CAP_PROP_FPS));
-            Debug.Log("CAP_PROP_FRAME_WIDTH: " + _capture.get(Videoio.CAP_PROP_FRAME_WIDTH));
-            Debug.Log("CAP_PROP_FRAME_HEIGHT: " + _capture.get(Videoio.CAP_PROP_FRAME_HEIGHT));
+            Debug.Log("CAP_PROP_FORMAT: " + _capture.get(Videoio.CAP_PROP_FORMAT), this);
+            Debug.Log("CAP_PROP_POS_MSEC: " + _capture.get(Videoio.CAP_PROP_POS_MSEC), this);
+            Debug.Log("CAP_PROP_POS_FRAMES: " + _capture.get(Videoio.CAP_PROP_POS_FRAMES), this);
+            Debug.Log("CAP_PROP_POS_AVI_RATIO: " + _capture.get(Videoio.CAP_PROP_POS_AVI_RATIO), this);
+            Debug.Log("CAP_PROP_FRAME_COUNT: " + _capture.get(Videoio.CAP_PROP_FRAME_COUNT), this);
+            Debug.Log("CAP_PROP_FPS: " + _capture.get(Videoio.CAP_PROP_FPS), this);
+            Debug.Log("CAP_PROP_FRAME_WIDTH: " + _capture.get(Videoio.CAP_PROP_FRAME_WIDTH), this);
+            Debug.Log("CAP_PROP_FRAME_HEIGHT: " + _capture.get(Videoio.CAP_PROP_FRAME_HEIGHT), this);
             double ext = _capture.get(Videoio.CAP_PROP_FOURCC);
-            Debug.Log("CAP_PROP_FOURCC: " + (char)((int)ext & 0XFF) + (char)(((int)ext & 0XFF00) >> 8) + (char)(((int)ext & 0XFF0000) >> 16) + (char)(((int)ext & 0XFF000000) >> 24));
+            Debug.Log("CAP_PROP_FOURCC: " + (char)((int)ext & 0XFF) + (char)(((int)ext & 0XFF00) >> 8) + (char)(((int)ext & 0XFF0000) >> 16) + (char)(((int)ext & 0XFF000000) >> 24), this);
 
             _previewRgbMat = new Mat();
             _capture.read(_previewRgbMat);
@@ -457,7 +459,9 @@ namespace OpenCVForUnityExample
         private void StopVideo()
         {
             if (!_isPlaying || _isRecording)
+            {
                 return;
+            }
 
             _capture?.release();
 

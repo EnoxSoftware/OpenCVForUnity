@@ -4,17 +4,28 @@ using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.UI;
 using OpenCVForUnity.VideoioModule;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using OpenCVDebug = OpenCVForUnity.Extensions.OpenCVDebug;
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
     /// VideoCapture Camera Input Example
-    /// An example of input a camera stream using the VideoCapture class.
-    /// Works well on Windows and MacOS platforms.
+    /// Captures live camera frames through OpenCV VideoCapture with configurable format and resolution.
+    ///
+    /// Demonstrates:
+    /// - Opening a camera by device index and setting CAP_PROP_* properties
+    /// - FOURCC and CAP_PROP_CONVERT_RGB handling with manual color conversion
+    /// - Platform-specific camera permission requests and iOS dimension swap
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="VideoCapture"/>, <see cref="VideoWriter"/>: fourcc
+    /// - <see cref="Videoio"/>, <see cref="Imgproc"/>, <see cref="Imgcodecs"/>: imdecode
+    /// - <see cref="OpenCVMatUnityUtils"/>
     /// </summary>
     public class VideoCaptureCameraInputExample : MonoBehaviour
     {
@@ -140,24 +151,12 @@ namespace OpenCVForUnityExample
         public Toggle RequestedCONVERT_RGBToggle;
 
         // Private Fields
-        /// <summary>
-        /// The videocapture.
-        /// </summary>
         private VideoCapture _capture;
 
-        /// <summary>
-        /// The input mat.
-        /// </summary>
         private Mat _inputMat;
 
-        /// <summary>
-        /// The rgb mat.
-        /// </summary>
         private Mat _rgbMat;
 
-        /// <summary>
-        /// The texture.
-        /// </summary>
         private Texture2D _texture;
 
         /// <summary>
@@ -165,29 +164,14 @@ namespace OpenCVForUnityExample
         /// </summary>
         private bool _isPlaying = false;
 
-        /// <summary>
-        /// The requested width.
-        /// </summary>
         private int _requestedWidth = 640;
 
-        /// <summary>
-        /// The requested height.
-        /// </summary>
         private int _requestedHeight = 480;
 
-        /// <summary>
-        /// The prop FOURCC.
-        /// </summary>
         private FOURCCPreset _propFOURCC = FOURCCPreset.None;
 
-        /// <summary>
-        /// The prop ConvertRGB.
-        /// </summary>
         private bool _propConvertRGB = true;
 
-        /// <summary>
-        /// The FPS monitor.
-        /// </summary>
         private FpsMonitor _fpsMonitor;
 
 #if (UNITY_IOS && UNITY_2018_1_OR_NEWER) || (UNITY_ANDROID && UNITY_2018_3_OR_NEWER)
@@ -200,7 +184,7 @@ namespace OpenCVForUnityExample
             _fpsMonitor = GetComponent<FpsMonitor>();
 
             // Tricks for Adding camera permission settings to AndroidManifest.xml.
-            Debug.Log(WebCamTexture.devices.Length);
+            Debug.Log(WebCamTexture.devices.Length, this);
 
             // Checks user camera permission state for Android and iOS.
             yield return RequestUserCameraPermission();
@@ -223,13 +207,14 @@ namespace OpenCVForUnityExample
         {
             if (_isPlaying)
             {
+                // grab/retrieve decouples capture from decode; Mat type depends on FOURCC and CONVERT_RGB.
                 if (_capture.grab())
                 {
                     _capture.retrieve(_inputMat);
 
                     CvtColor(_inputMat, _rgbMat, _propFOURCC, _propConvertRGB);
 
-                    OpenCVMatUtils.MatToTexture2D(_rgbMat, _texture);
+                    OpenCVMatUnityUtils.MatToTexture2D(_rgbMat, _texture);
                 }
             }
         }
@@ -243,7 +228,9 @@ namespace OpenCVForUnityExample
             _rgbMat?.Dispose();
 
             if (_texture != null)
+            {
                 Texture2D.Destroy(_texture);
+            }
         }
 
 #if (UNITY_IOS && UNITY_2018_1_OR_NEWER) || (UNITY_ANDROID && UNITY_2018_3_OR_NEWER)
@@ -271,22 +258,27 @@ namespace OpenCVForUnityExample
         public void OnOpenButtonClick()
         {
             if (_capture.isOpened())
+            {
                 return;
+            }
 
             _capture.open((int)RequestedDeviceId);
 
             if (!_capture.isOpened())
             {
-                Debug.LogError("_capture.isOpened() is false. " + "DeviceId:" + (int)RequestedDeviceId);
+                Debug.LogError("_capture.isOpened() is false. " + "DeviceId:" + (int)RequestedDeviceId, this);
 
                 if (_fpsMonitor != null)
+                {
                     _fpsMonitor.ConsoleText = "_capture.isOpened() is false. " + "DeviceId:" + (int)RequestedDeviceId;
+                }
 
                 _capture.release();
 
                 return;
             }
 
+            // Requested properties are hints; actual values are read back after open via CAP_PROP_* getters.
             _capture.set(Videoio.CAP_PROP_FRAME_WIDTH, _requestedWidth);
             _capture.set(Videoio.CAP_PROP_FRAME_HEIGHT, _requestedHeight);
             _capture.set(Videoio.CAP_PROP_FPS, (int)RequestedFPS);
@@ -340,33 +332,33 @@ namespace OpenCVForUnityExample
                 _capture.set(Videoio.CAP_PROP_CONVERT_RGB, 1);
             }
 
-            Debug.Log("CAP_PROP_FORMAT: " + _capture.get(Videoio.CAP_PROP_FORMAT));
-            Debug.Log("CAP_PROP_FPS: " + _capture.get(Videoio.CAP_PROP_FPS));
-            Debug.Log("CAP_PROP_FRAME_WIDTH: " + _capture.get(Videoio.CAP_PROP_FRAME_WIDTH));
-            Debug.Log("CAP_PROP_FRAME_HEIGHT: " + _capture.get(Videoio.CAP_PROP_FRAME_HEIGHT));
+            Debug.Log("CAP_PROP_FORMAT: " + _capture.get(Videoio.CAP_PROP_FORMAT), this);
+            Debug.Log("CAP_PROP_FPS: " + _capture.get(Videoio.CAP_PROP_FPS), this);
+            Debug.Log("CAP_PROP_FRAME_WIDTH: " + _capture.get(Videoio.CAP_PROP_FRAME_WIDTH), this);
+            Debug.Log("CAP_PROP_FRAME_HEIGHT: " + _capture.get(Videoio.CAP_PROP_FRAME_HEIGHT), this);
             double ext = _capture.get(Videoio.CAP_PROP_FOURCC);
-            Debug.Log("CAP_PROP_FOURCC: " + (char)((int)ext & 0XFF) + (char)(((int)ext & 0XFF00) >> 8) + (char)(((int)ext & 0XFF0000) >> 16) + (char)(((int)ext & 0XFF000000) >> 24));
-            Debug.Log("CAP_PROP_CONVERT_RGB: " + _capture.get(Videoio.CAP_PROP_CONVERT_RGB));
+            Debug.Log("CAP_PROP_FOURCC: " + (char)((int)ext & 0XFF) + (char)(((int)ext & 0XFF00) >> 8) + (char)(((int)ext & 0XFF0000) >> 16) + (char)(((int)ext & 0XFF000000) >> 24), this);
+            Debug.Log("CAP_PROP_CONVERT_RGB: " + _capture.get(Videoio.CAP_PROP_CONVERT_RGB), this);
 
-            Debug.Log("CAP_PROP_MODE: " + _capture.get(Videoio.CAP_PROP_MODE));
-            Debug.Log("CAP_PROP_BRIGHTNESS: " + _capture.get(Videoio.CAP_PROP_BRIGHTNESS));
-            Debug.Log("CAP_PROP_CONTRAST: " + _capture.get(Videoio.CAP_PROP_CONTRAST));
-            Debug.Log("CAP_PROP_SATURATION: " + _capture.get(Videoio.CAP_PROP_SATURATION));
-            Debug.Log("CAP_PROP_HUE: " + _capture.get(Videoio.CAP_PROP_HUE));
-            Debug.Log("CAP_PROP_GAIN: " + _capture.get(Videoio.CAP_PROP_GAIN));
-            Debug.Log("CAP_PROP_EXPOSURE: " + _capture.get(Videoio.CAP_PROP_EXPOSURE));
-            Debug.Log("CAP_PROP_AUTO_EXPOSURE: " + _capture.get(Videoio.CAP_PROP_AUTO_EXPOSURE));
-            Debug.Log("CAP_PROP_GAMMA: " + _capture.get(Videoio.CAP_PROP_GAMMA));
-            Debug.Log("CAP_PROP_ZOOM: " + _capture.get(Videoio.CAP_PROP_ZOOM));
-            Debug.Log("CAP_PROP_FOCUS: " + _capture.get(Videoio.CAP_PROP_FOCUS));
-            Debug.Log("CAP_PROP_AUTOFOCUS: " + _capture.get(Videoio.CAP_PROP_AUTOFOCUS));
-            Debug.Log("CAP_PROP_BUFFERSIZE: " + _capture.get(Videoio.CAP_PROP_BUFFERSIZE));
-            Debug.Log("CAP_PROP_SAR_NUM: " + _capture.get(Videoio.CAP_PROP_SAR_NUM));
-            Debug.Log("CAP_PROP_SAR_DEN: " + _capture.get(Videoio.CAP_PROP_SAR_DEN));
-            Debug.Log("CAP_PROP_BACKEND: " + _capture.get(Videoio.CAP_PROP_BACKEND));
-            Debug.Log("CAP_PROP_AUTO_WB: " + _capture.get(Videoio.CAP_PROP_AUTO_WB));
-            Debug.Log("CAP_PROP_WB_TEMPERATURE: " + _capture.get(Videoio.CAP_PROP_WB_TEMPERATURE));
-            Debug.Log("CAP_PROP_CODEC_PIXEL_FORMAT: " + _capture.get(Videoio.CAP_PROP_CODEC_PIXEL_FORMAT));
+            Debug.Log("CAP_PROP_MODE: " + _capture.get(Videoio.CAP_PROP_MODE), this);
+            Debug.Log("CAP_PROP_BRIGHTNESS: " + _capture.get(Videoio.CAP_PROP_BRIGHTNESS), this);
+            Debug.Log("CAP_PROP_CONTRAST: " + _capture.get(Videoio.CAP_PROP_CONTRAST), this);
+            Debug.Log("CAP_PROP_SATURATION: " + _capture.get(Videoio.CAP_PROP_SATURATION), this);
+            Debug.Log("CAP_PROP_HUE: " + _capture.get(Videoio.CAP_PROP_HUE), this);
+            Debug.Log("CAP_PROP_GAIN: " + _capture.get(Videoio.CAP_PROP_GAIN), this);
+            Debug.Log("CAP_PROP_EXPOSURE: " + _capture.get(Videoio.CAP_PROP_EXPOSURE), this);
+            Debug.Log("CAP_PROP_AUTO_EXPOSURE: " + _capture.get(Videoio.CAP_PROP_AUTO_EXPOSURE), this);
+            Debug.Log("CAP_PROP_GAMMA: " + _capture.get(Videoio.CAP_PROP_GAMMA), this);
+            Debug.Log("CAP_PROP_ZOOM: " + _capture.get(Videoio.CAP_PROP_ZOOM), this);
+            Debug.Log("CAP_PROP_FOCUS: " + _capture.get(Videoio.CAP_PROP_FOCUS), this);
+            Debug.Log("CAP_PROP_AUTOFOCUS: " + _capture.get(Videoio.CAP_PROP_AUTOFOCUS), this);
+            Debug.Log("CAP_PROP_BUFFERSIZE: " + _capture.get(Videoio.CAP_PROP_BUFFERSIZE), this);
+            Debug.Log("CAP_PROP_SAR_NUM: " + _capture.get(Videoio.CAP_PROP_SAR_NUM), this);
+            Debug.Log("CAP_PROP_SAR_DEN: " + _capture.get(Videoio.CAP_PROP_SAR_DEN), this);
+            Debug.Log("CAP_PROP_BACKEND: " + _capture.get(Videoio.CAP_PROP_BACKEND), this);
+            Debug.Log("CAP_PROP_AUTO_WB: " + _capture.get(Videoio.CAP_PROP_AUTO_WB), this);
+            Debug.Log("CAP_PROP_WB_TEMPERATURE: " + _capture.get(Videoio.CAP_PROP_WB_TEMPERATURE), this);
+            Debug.Log("CAP_PROP_CODEC_PIXEL_FORMAT: " + _capture.get(Videoio.CAP_PROP_CODEC_PIXEL_FORMAT), this);
 
             _inputMat = new Mat();
 
@@ -375,10 +367,12 @@ namespace OpenCVForUnityExample
             {
                 if (grabFrameCount > 30)
                 {
-                    Debug.LogError("The grab() and retrieve(() method is not work.");
+                    Debug.LogError("The grab() and retrieve(() method is not work.", this);
 
                     if (_fpsMonitor != null)
+                    {
                         _fpsMonitor.ConsoleText = "The grab() and retrieve(() method is not work.";
+                    }
 
                     _capture.release();
 
@@ -389,10 +383,12 @@ namespace OpenCVForUnityExample
 
             if (_inputMat.width() == 0 && _inputMat.height() == 0)
             {
-                Debug.LogError("The _inputMat size returned was 0x0.");
+                Debug.LogError("The _inputMat size returned was 0x0.", this);
 
                 if (_fpsMonitor != null)
+                {
                     _fpsMonitor.ConsoleText = "The _inputMat size returned was 0x0.";
+                }
 
                 _capture.release();
 
@@ -476,11 +472,12 @@ namespace OpenCVForUnityExample
                 _fpsMonitor.Add("_inputMat", "size:" + _inputMat.width() + "x" + _inputMat.height() + " type:" + CvType.typeToString(_inputMat.type()));
             }
 
+            //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             OpenCVDebug.SetDebugMode(true, true);
             try
             {
                 CvtColor(_inputMat, _rgbMat, _propFOURCC, _propConvertRGB);
-                OpenCVMatUtils.MatToTexture2D(_rgbMat, _texture);
+                OpenCVMatUnityUtils.MatToTexture2D(_rgbMat, _texture);
 
                 OpenButton.interactable =
                 RequestedDeviceIdDropdown.interactable =
@@ -494,7 +491,7 @@ namespace OpenCVForUnityExample
             }
             catch (Exception e)
             {
-                Debug.LogError("CVException: " + e);
+                Debug.LogError("CVException: " + e, this);
 
                 if (_fpsMonitor != null)
                 {
@@ -512,7 +509,9 @@ namespace OpenCVForUnityExample
         public void OnReleaseButtonClick()
         {
             if (!_capture.isOpened())
+            {
                 return;
+            }
 
             _capture.release();
 
@@ -521,7 +520,9 @@ namespace OpenCVForUnityExample
             _rgbMat?.Dispose();
 
             if (_texture != null)
+            {
                 Texture2D.Destroy(_texture);
+            }
 
             OpenButton.interactable =
             RequestedDeviceIdDropdown.interactable =
@@ -676,7 +677,7 @@ namespace OpenCVForUnityExample
 #endif
         }
 
-        protected void CvtColor(Mat src, Mat dst, FOURCCPreset FOURCC, bool convertRGB)
+        protected void CvtColor(Mat src, Mat dst, FOURCCPreset fourcc, bool convertRGB)
         {
             if (convertRGB)
             {
@@ -684,7 +685,7 @@ namespace OpenCVForUnityExample
                 return;
             }
 
-            switch (FOURCC)
+            switch (fourcc)
             {
                 case FOURCCPreset.MJPG:
                     dst = Imgcodecs.imdecode(src, Imgcodecs.IMREAD_COLOR);
@@ -699,23 +700,43 @@ namespace OpenCVForUnityExample
                     Imgproc.cvtColor(src, dst, Imgproc.COLOR_GRAY2RGB);
                     break;
                 case FOURCCPreset.NV21:
-                    if (src.channels() != 1) src = src.reshape(1, dst.rows() + (dst.rows() / 2));
+                    if (src.channels() != 1)
+                    {
+                        src = src.reshape(1, dst.rows() + (dst.rows() / 2));
+                    }
+
                     Imgproc.cvtColor(src, dst, Imgproc.COLOR_YUV2RGB_NV21);
                     break;
                 case FOURCCPreset.YV12:
-                    if (src.channels() != 1) src = src.reshape(1, dst.rows() + (dst.rows() / 2));
+                    if (src.channels() != 1)
+                    {
+                        src = src.reshape(1, dst.rows() + (dst.rows() / 2));
+                    }
+
                     Imgproc.cvtColor(src, dst, Imgproc.COLOR_YUV2RGB_YV12);
                     break;
                 case FOURCCPreset.YUYV:
-                    if (src.channels() != 2) src = src.reshape(2, dst.rows());
+                    if (src.channels() != 2)
+                    {
+                        src = src.reshape(2, dst.rows());
+                    }
+
                     Imgproc.cvtColor(src, dst, Imgproc.COLOR_YUV2RGB_YUYV);
                     break;
                 case FOURCCPreset.YUY2:
-                    if (src.channels() != 2) src = src.reshape(2, dst.rows());
+                    if (src.channels() != 2)
+                    {
+                        src = src.reshape(2, dst.rows());
+                    }
+
                     Imgproc.cvtColor(src, dst, Imgproc.COLOR_YUV2RGB_YUY2);
                     break;
                 case FOURCCPreset.NV12:
-                    if (src.channels() != 1) src = src.reshape(1, dst.rows() + (dst.rows() / 2));
+                    if (src.channels() != 1)
+                    {
+                        src = src.reshape(1, dst.rows() + (dst.rows() / 2));
+                    }
+
                     Imgproc.cvtColor(src, dst, Imgproc.COLOR_YUV2RGB_NV12);
                     break;
                 case FOURCCPreset.H264:
@@ -756,6 +777,5 @@ namespace OpenCVForUnityExample
                     break;
             }
         }
-
     }
 }

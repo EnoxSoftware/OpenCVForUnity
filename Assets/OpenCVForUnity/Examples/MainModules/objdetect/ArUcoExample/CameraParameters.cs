@@ -3,6 +3,17 @@ using OpenCVForUnity.CoreModule;
 
 namespace OpenCVForUnityExample
 {
+    /// <summary>
+    /// CameraParameters
+    /// Serializable camera calibration result saved to and loaded from XML by ArUcoCameraCalibrationExample.
+    ///
+    /// Demonstrates:
+    /// - Storing intrinsics, distortion coefficients, and reprojection error
+    /// - Converting between flat arrays and OpenCV Mat for runtime use
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Mat"/>, <see cref="CvType"/>
+    /// </summary>
     [System.Serializable]
     public struct CameraParameters
     {

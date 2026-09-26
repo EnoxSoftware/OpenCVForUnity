@@ -1,39 +1,59 @@
-#if !UNITY_WSA_10_0 && NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
-
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.DnnModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
-using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
-using OpenCVForUnity.UnityIntegration.Runner;
+using OpenCVForUnity.UnityIntegration.Helper.SourceToMat;
+using OpenCVForUnity.Extensions.Runner;
+using OpenCVForUnity.Extensions.Worker.DnnModule;
 using OpenCVForUnity.UnityIntegration.Worker.DnnModule;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static OpenCVForUnity.UnityIntegration.Helper.Source2Mat.MultiSource2MatHelper;
+using OpenCVDebug = OpenCVForUnity.Extensions.OpenCVDebug;
+using OpenCVForUnity.UnityIntegration.Helper.UI;
+using OpenCVForUnity.Extensions.SourceToMat;
+#if !UNITY_WSA_10_0
+using OpenCVForUnity.DnnModule;
+#endif
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Image Classification MobileNet Example
-    /// An example of using OpenCV dnn module with Image Classification MobileNet model.
-    /// Referring to https://github.com/opencv/opencv_zoo/tree/master/models/image_classification_mobilenet
+    /// Classifies each input frame with a MobileNetV2 ImageNet model using OpenCV DNN or Unity Sentis.
     ///
+    /// Demonstrates:
+    /// - Reading input frames via <see cref="MultiSourceToMatHelper"/> (webcam, video file, image file, or GPU readback)
+    /// - Loading MobileNet ONNX/Sentis model from StreamingAssets and embedded ImageNet labels (<see cref="Imagenet1kLabels"/>)
+    /// - Preprocessing with <see cref="Image2BlobParams"/> and <see cref="Dnn.blobFromImageWithParams"/> (opencv_zoo demo.cpp)
+    /// - Toggling Sentis vs OpenCV DNN inference and optional async classification
+    /// - Converting RGBA frames to RGB and reading top class from output Mat
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Mat"/>, <see cref="Size"/>, <see cref="Scalar"/>, <see cref="Image2BlobParams"/>
+    /// - <see cref="Core"/>: minMaxLoc, subtract, multiply, split, merge
+    /// - <see cref="Imgproc"/>: cvtColor, resize
+    /// - <see cref="MultiBackendNet"/>, <see cref="MatSingleFlightSyncAsyncRunner"/>, <see cref="MultiBackendDnn"/>
+    /// - <see cref="MultiSourceToMatHelper"/>, <see cref="OpenCVMatUnityUtils"/>
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Referring to:
+    /// https://github.com/opencv/opencv_zoo/tree/master/models/image_classification_mobilenet
+    /// </para>
+    /// <para>
     /// [Tested Models]
     /// https://github.com/opencv/opencv_zoo/raw/6c59fd8aaedf1728138e3c982f3351bf9ee3013a/models/image_classification_mobilenet/image_classification_mobilenetv2_2022apr.onnx
-    /// https://raw.githubusercontent.com/opencv/opencv_zoo/326e15b31a70812eb6d616406d6e6a17ceaddb6f/models/image_classification_ppresnet/imagenet_labels.txt
-    /// </summary>
-    [RequireComponent(typeof(MultiSource2MatHelper))]
+    /// </para>
+    /// </remarks>
+    [RequireComponent(typeof(MultiSourceToMatHelper))]
     public class ImageClassificationMobilenetExample : MonoBehaviour
     {
         // Constants
-        protected static readonly string MODEL_FILENAME = "OpenCVForUnityExamples/dnn/image_classification_mobilenetv2_2022apr.onnx";
-        protected static readonly string CLASSES_FILENAME = "OpenCVForUnityExamples/dnn/imagenet_labels.txt";
+        private static readonly string MODEL_FILEPATH = "OpenCVForUnityExamples/dnn/image_classification_mobilenetv2_2022apr.onnx";
 
         // Public Fields
         [Header("Output")]
@@ -42,63 +62,60 @@ namespace OpenCVForUnityExample
         /// </summary>
         public RawImage ResultPreview;
 
-        [Header("UI")]
-        [Tooltip("When on, in-flight single-task async path runs OpenCV DNN on a background thread (Task.Run) via MatSingleFlightSyncAsyncRunner.")]
-        public Toggle UseAsyncInferenceToggle;
-        public bool UseAsyncInference = true;
+        [Header("Inference")]
+        [Tooltip("When on, preprocess with DNN_PMODE_CROP_CENTER (demo.cpp -crop). When off, DNN_PMODE_NULL (demo.cpp default).")]
+        public bool UseCenterCrop = false;
 
         [Space(10)]
 
+        [Header("UI")]
+        [Tooltip("Inference framework selector. Options are built at runtime from InferenceFrameworkUtils.GetSelectionValuesInEnumOrder(). Assign OnInferenceFrameworkDropdownValueChanged to On Value Changed (int).")]
+        public Dropdown InferenceFrameworkDropdown;
+
+        [Tooltip("Sentis inference target selector (GPU Compute / GPU Pixel / CPU). Options are built at runtime from SentisInferenceUtils.GetTargetValuesInEnumOrder(). Assign OnSentisInferenceTargetDropdownValueChanged to On Value Changed (int). Value changes reinitialize inference.")]
+        public Dropdown SentisInferenceTargetDropdown;
+
+        [Tooltip("Selected inference framework (OpenCV DNN or Unity Sentis). When Unity Sentis is selected, Inspector model paths may stay .onnx; at runtime they are rewritten to .sentis and loaded from StreamingAssets (place a matching .sentis beside the onnx file).")]
+        public InferenceFrameworkSelectionKind InferenceFramework = InferenceFrameworkSelectionKind.UnitySentis;
+
+        [Tooltip("When using Sentis: selects the Sentis inference target (GPU Compute / GPU Pixel / CPU).")]
+        public SentisInferenceTargetKind SentisInferenceTarget = SentisInferenceTargetKind.GPUCompute;
+
+        [Tooltip("When enabled, submits inference work asynchronously. Assign OnUseAsyncInferenceToggleValueChanged to On Value Changed.")]
+        public Toggle UseAsyncInferenceToggle;
+
+        public bool UseAsyncInference = true;
+
         // Private Fields
-        /// <summary>
-        /// The texture.
-        /// </summary>
         private Texture2D _texture;
-
-        /// <summary>
-        /// The multi source to mat helper.
-        /// </summary>
-        private MultiSource2MatHelper _multiSource2MatHelper;
-
-        /// <summary>
-        /// The rgb mat.
-        /// </summary>
+        private MultiSourceToMatHelper _multiSourceToMatHelper;
         private Mat _rgbMat;
 
         /// <summary>
-        /// The net.
+        /// The net (<see cref="MultiBackendNet"/>; loaded via <see cref="MultiBackendDnn.ReadNet"/>).
         /// </summary>
-        private Net _net;
+        private MultiBackendNet _net;
 
-        private Size _inputSize = new Size(224, 224);
-        private Scalar _mean = new Scalar(0.485, 0.456, 0.406);
-        private Scalar _std = new Scalar(0.229, 0.224, 0.225);
+#if !UNITY_WSA_10_0
+        private Image2BlobParams _blobParams;
+#endif
 
-        /// <summary>
-        /// The classes.
-        /// </summary>
-        private List<string> _classes;
+        private readonly List<Mat> _forwardOutputBlobs = new List<Mat>();
+        private List<string> _unconnectedOutLayerNames;
+        private bool _inferenceReinitializing;
 
-        /// <summary>
-        /// The FPS monitor.
-        /// </summary>
+        private readonly Size _inputSize = new Size(224, 224);
+        private string[] _classes;
         private FpsMonitor _fpsMonitor;
+        private SourceToMatControlPanel _controlPanel;
 
         /// <summary>
-        /// The model filepath.
+        /// Resolved ONNX model path for <c>MultiBackendDnn.ReadNet</c>.
         /// </summary>
-        private string _modelFilepath;
+        private string _modelFilepathOnnx;
+        private string _modelFilepathSentis;
 
-        /// <summary>
-        /// The classes filepath.
-        /// </summary>
-        private string _classesFilepath;
-
-        /// <summary>
-        /// The CancellationTokenSource.
-        /// </summary>
         private CancellationTokenSource _cts = new CancellationTokenSource();
-
         private MatSingleFlightSyncAsyncRunner _inferenceRunner;
 
         // Unity Lifecycle Methods
@@ -106,89 +123,46 @@ namespace OpenCVForUnityExample
         {
             _fpsMonitor = GetComponent<FpsMonitor>();
 
-            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSourceToMatHelper = gameObject.GetComponent<MultiSourceToMatHelper>();
+            _multiSourceToMatHelper.OutputColorFormat = SourceToMatColorFormat.RGBA;
 
-            // WebCamTexture2MatHelper does not work on WebGPU, so use WebCamTexture2MatAsyncGPUHelper instead.
-#if UNITY_6000_0_OR_NEWER
-            if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.WebGPU && _multiSource2MatHelper.RequestedSource2MatHelperClassName == MultiSource2MatHelperClassName.WebCamTexture2MatHelper)
-            {
-                _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.WebCamTexture2MatAsyncGPUHelper;
-            }
-#endif
-            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
+            WireSourceToMatControlPanelHooks();
 
             UpdateUseAsyncInference();
-            UpdateInferenceModeToggles(inferenceReinitializing: false);
+            SyncInferenceModeUi(inferenceReinitializing: false);
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
             if (_fpsMonitor != null)
+            {
                 _fpsMonitor.ConsoleText = "Preparing file access...";
+            }
 
-            _modelFilepath = await OpenCVEnv.GetFilePathTaskAsync(MODEL_FILENAME, cancellationToken: _cts.Token);
-            _classesFilepath = await OpenCVEnv.GetFilePathTaskAsync(CLASSES_FILENAME, cancellationToken: _cts.Token);
+            _modelFilepathOnnx = await OpenCVForUnityEnv.GetFilePathAsync(MODEL_FILEPATH, cancellationToken: _cts.Token);
+            if (OpenCVForUnityEnv.IsSentisIntegrationAvailable)
+            {
+                // Resolve companion .sentis path when Sentis integration is enabled.
+                _modelFilepathSentis = await OpenCVForUnityEnv.GetFilePathAsync(MultiBackendDnn.ResolveSentisModelPathFromOnnxPath(MODEL_FILEPATH), cancellationToken: _cts.Token);
+            }
 
             if (_fpsMonitor != null)
+            {
                 _fpsMonitor.ConsoleText = "";
+            }
 
-            Run();
-        }
-
-        private void Run()
-        {
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             OpenCVDebug.SetDebugMode(true);
 
-            InitializeInference();
-
-            _multiSource2MatHelper.Initialize();
-        }
-
-        private void Update()
-        {
-            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
+            if (!TryInitializeInference())
             {
-
-                Mat rgbaMat = _multiSource2MatHelper.GetMat();
-
-                if (_net != null && _classes != null)
-                {
-                    if (_inferenceRunner != null)
-                    {
-                        Imgproc.cvtColor(rgbaMat, _rgbMat, Imgproc.COLOR_RGBA2RGB);
-
-                        _inferenceRunner.SubmitWork(
-                            _rgbMat,
-                            syncWork: Infer,
-                            asyncWork: async m =>
-                            {
-                                CancellationToken ct = _inferenceRunner.InFlightAsyncWorkCancellationToken;
-                                return await InferAsync(m, ct);
-                            });
-
-                        if (_inferenceRunner.TryGetLatestResult(out Mat prob1x1))
-                        {
-                            Core.MinMaxLocResult minmax = Core.minMaxLoc(prob1x1);
-                            //Debug.Log ("Best match " + (int)minmax.maxLoc.x);
-                            //Debug.Log ("Best match class " + classes [(int)minmax.maxLoc.x]);
-                            //Debug.Log ("Probability: " + minmax.maxVal * 100 + "%");
-
-                            //Imgproc.putText (rgbaMat, "Best match class " + classes [(int)minmax.maxLoc.x], new Point (5, rgbaMat.rows () - 10), Core.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar (255, 255, 255, 255), 2, Imgproc.LINE_AA, false);
-                            if (_fpsMonitor != null)
-                            {
-                                _fpsMonitor.ConsoleText = "Best match class " + _classes[(int)minmax.maxLoc.x];
-                            }
-                        }
-                    }
-                }
-
-                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
+                return;
             }
+
+            _multiSourceToMatHelper.Initialize();
         }
 
         private async void OnDestroy()
         {
-            _multiSource2MatHelper?.Dispose();
-            _multiSource2MatHelper = null;
+            UnwireSourceToMatControlPanelHooks();
 
             _cts?.Cancel();
 
@@ -201,56 +175,145 @@ namespace OpenCVForUnityExample
         }
 
         // Public Methods
+        /// <summary>
+        /// Raises the helper frame mat updated event.
+        /// Updates the preview texture when a new frame is available during playback.
+        /// </summary>
+        public void OnSourceToMatHelperFrameMatUpdated()
+        {
+            if (_inferenceReinitializing)
+            {
+                return;
+            }
+            if (!_multiSourceToMatHelper.IsPlaying)
+            {
+                return;
+            }
+
+            Mat rgbaMat = _multiSourceToMatHelper.FrameMat;
+
+            if (_net != null && _classes != null)
+            {
+                if (_inferenceRunner != null)
+                {
+                    // Convert RGBA camera frame to RGB for MobileNet blobFromImageWithParams input.
+                    Imgproc.cvtColor(rgbaMat, _rgbMat, Imgproc.COLOR_RGBA2RGB);
+
+                    // Submit sync or async classification; TryGetLatestResult returns the 1x1 probability Mat.
+                    _inferenceRunner.SubmitWork(
+                        _rgbMat,
+                        syncWork: Infer,
+                        asyncWork: async m =>
+                        {
+                            CancellationToken ct = _inferenceRunner.InFlightAsyncWorkCancellationToken;
+                            return await InferAsync(m, ct);
+                        });
+
+                    if (_inferenceRunner.TryGetLatestResult(out Mat prob1x1))
+                    {
+                        Core.MinMaxLocResult minmax = Core.minMaxLoc(prob1x1);
+
+                        if (_fpsMonitor != null)
+                        {
+                            _fpsMonitor.ConsoleText = $"{_classes[(int)minmax.maxLoc.x]}: {minmax.maxVal:F4}";
+                        }
+                    }
+                }
+            }
+
+            // Publish RGBA camera Mat to Unity texture for RawImage preview.
+            OpenCVMatUnityUtils.MatToTexture2D(rgbaMat, _texture);
+        }
 
         /// <summary>
-        /// Raises the source to mat helper initialized event.
+        /// Raises the helper initialized event.
+        /// Recreates the preview texture and starts playback on first initialization.
+        /// Skips Play when re-initialization has already restored Playing or Paused.
         /// </summary>
         public void OnSourceToMatHelperInitialized()
         {
-            Debug.Log("OnSourceToMatHelperInitialized");
+            Debug.Log("OnSourceToMatHelperInitialized", this);
 
-            Mat rgbaMat = _multiSource2MatHelper.GetMat();
-
-            _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
-            OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
-
-            ResultPreview.texture = _texture;
-            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
-
+            RecreatePreviewTexture();
+            CreateOrRecreateProcessingResources(_multiSourceToMatHelper.FrameMat);
 
             if (_fpsMonitor != null)
             {
-                _fpsMonitor.Add("width", rgbaMat.width().ToString());
-                _fpsMonitor.Add("height", rgbaMat.height().ToString());
-                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
-                UpdateFpsMonitorInferenceInfo(_fpsMonitor, _net, UseAsyncInference);
+                _fpsMonitor.Clear();
+                UpdateFpsMonitorPlaybackState();
+                _fpsMonitor.Add("HelperKind", _multiSourceToMatHelper.RequestedHelperKind.ToString());
+                _fpsMonitor.Add("Width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("Height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("Rotate90Degree", _multiSourceToMatHelper.Rotate90Degree.ToString());
+                _fpsMonitor.Add("FlipVertical", _multiSourceToMatHelper.FlipVertical.ToString());
+                _fpsMonitor.Add("FlipHorizontal", _multiSourceToMatHelper.FlipHorizontal.ToString());
+                _fpsMonitor.Add("Orientation", Screen.orientation.ToString());
+                UpdateFpsMonitorInferenceInfo(_fpsMonitor, _net, UseAsyncInference, InferenceFramework);
             }
 
-            _rgbMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
+            if (!_multiSourceToMatHelper.IsPlaying && !_multiSourceToMatHelper.IsPaused)
+            {
+                _multiSourceToMatHelper.Play();
+                UpdateFpsMonitorPlaybackState();
+            }
         }
 
         /// <summary>
-        /// Raises the source to mat helper disposed event.
+        /// Raises the helper frame mat layout changed event.
+        /// Recreates the preview texture when rotation or output size changes.
+        /// </summary>
+        public void OnSourceToMatHelperFrameMatLayoutChanged()
+        {
+            Debug.Log("OnSourceToMatHelperFrameMatLayoutChanged", this);
+
+            RecreatePreviewTexture();
+            CreateOrRecreateProcessingResources(_multiSourceToMatHelper.FrameMat);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("Width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("Height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("Orientation", Screen.orientation.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Raises the helper released event.
+        /// </summary>
+        public void OnSourceToMatHelperReleased()
+        {
+            Debug.Log("OnSourceToMatHelperReleased", this);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Clear();
+            }
+
+            DisposeFrameProcessingResources();
+            CleanupPreviewResources();
+        }
+
+        /// <summary>
+        /// Raises the helper disposed event.
         /// </summary>
         public void OnSourceToMatHelperDisposed()
         {
-            Debug.Log("OnSourceToMatHelperDisposed");
+            Debug.Log("OnSourceToMatHelperDisposed", this);
 
             _inferenceRunner?.Cancel();
 
-            _rgbMat?.Dispose();
-
-            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
+            DisposeFrameProcessingResources();
+            CleanupPreviewResources();
         }
 
         /// <summary>
-        /// Raises the source to mat helper error occurred event.
+        /// Raises the helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
         /// <param name="message">Message.</param>
-        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
+        public void OnSourceToMatHelperErrorOccurred(SourceToMatErrorCode errorCode, string message)
         {
-            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message, this);
 
             if (_fpsMonitor != null)
             {
@@ -260,194 +323,566 @@ namespace OpenCVForUnityExample
 
         /// <summary>
         /// Raises the back button click event.
+        /// Stops playback and disposes the helper before scene transition (required on WebGL).
         /// </summary>
-        public void OnBackButtonClick()
+        public async void OnBackButtonClick()
         {
+            if (_multiSourceToMatHelper.IsPlaying || _multiSourceToMatHelper.IsPaused)
+            {
+                await _multiSourceToMatHelper.StopAsync();
+            }
+
+            await _multiSourceToMatHelper.DisposeAsync();
+
             SceneManager.LoadScene("OpenCVForUnityExample");
         }
 
         /// <summary>
-        /// Raises the play button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPlay"/>.
         /// </summary>
-        public void OnPlayButtonClick()
+        public void OnControlPanelAfterPlay()
         {
-            _multiSource2MatHelper.Play();
+            UpdateFpsMonitorPlaybackState();
         }
 
         /// <summary>
-        /// Raises the pause button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPause"/>.
         /// </summary>
-        public void OnPauseButtonClick()
+        public void OnControlPanelAfterPause()
         {
-            _multiSource2MatHelper.Pause();
+            UpdateFpsMonitorPlaybackState();
         }
 
         /// <summary>
-        /// Raises the stop button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterStop"/>.
         /// </summary>
-        public void OnStopButtonClick()
+        public void OnControlPanelAfterStop()
         {
-            _multiSource2MatHelper.Stop();
+            UpdateFpsMonitorPlaybackState();
         }
 
         /// <summary>
-        /// Raises the change camera button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnRotate90Changed"/>.
         /// </summary>
-        public void OnChangeCameraButtonClick()
+        /// <param name="isOn">New Rotate90Degree value applied by the panel.</param>
+        public void OnControlPanelRotate90Changed(bool isOn)
         {
-            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("Rotate90Degree", isOn.ToString());
+            }
         }
 
         /// <summary>
-        /// Raises the use async inference toggle value changed event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipVerticalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipVertical value applied by the panel.</param>
+        public void OnControlPanelFlipVerticalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipVertical", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipHorizontalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipHorizontal value applied by the panel.</param>
+        public void OnControlPanelFlipHorizontalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipHorizontal", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnHelperKindChanged"/>.
+        /// </summary>
+        /// <param name="kindIndex">Dropdown index matching <see cref="MultiSourceHelperKind"/>.</param>
+        public void OnControlPanelHelperKindChanged(int kindIndex)
+        {
+            if (_fpsMonitor == null || !Enum.IsDefined(typeof(MultiSourceHelperKind), kindIndex))
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("HelperKind", ((MultiSourceHelperKind)kindIndex).ToString());
+        }
+
+        /// <summary>
+        /// Invoke from <c>InferenceFrameworkDropdown</c> On Value Changed. Switches the inference framework.
+        /// </summary>
+        public async void OnInferenceFrameworkDropdownValueChanged(int index)
+        {
+            if (InferenceFrameworkDropdown == null || _inferenceReinitializing)
+            {
+                return;
+            }
+
+            InferenceFrameworkSelectionKind[] kinds =
+                InferenceFrameworkUtils.GetSelectionValuesInEnumOrder();
+            if (kinds.Length == 0)
+            {
+                return;
+            }
+
+            InferenceFrameworkSelectionKind newFramework =
+                kinds[Mathf.Clamp(index, 0, kinds.Length - 1)];
+            if (newFramework == InferenceFramework)
+            {
+                return;
+            }
+
+            await ReinitializeInferenceAsync(() => InferenceFramework = newFramework);
+        }
+
+        /// <summary>
+        /// Invoke from <c>SentisInferenceTargetDropdown</c> On Value Changed.
+        /// Switches Sentis inference target and reinitializes inference.
+        /// </summary>
+        public async void OnSentisInferenceTargetDropdownValueChanged(int index)
+        {
+            if (SentisInferenceTargetDropdown == null || _inferenceReinitializing)
+            {
+                return;
+            }
+
+            SentisInferenceTargetKind[] targetKinds = SentisInferenceUtils.GetTargetValuesInEnumOrder();
+            if (targetKinds.Length == 0)
+            {
+                return;
+            }
+
+            SentisInferenceTargetKind newTarget =
+                targetKinds[Mathf.Clamp(index, 0, targetKinds.Length - 1)];
+            if (newTarget == SentisInferenceTarget)
+            {
+                return;
+            }
+
+            await ReinitializeInferenceAsync(() => SentisInferenceTarget = newTarget);
+        }
+
+        /// <summary>
+        /// Invoke from <c>UseAsyncInferenceToggle</c> On Value Changed.
+        /// Toggles async inference on the active runner without reinitializing the detector.
         /// </summary>
         public void OnUseAsyncInferenceToggleValueChanged()
         {
-            if (UseAsyncInferenceToggle != null && UseAsyncInferenceToggle.isOn != UseAsyncInference)
+            if (_inferenceReinitializing)
+            {
+                return;
+            }
+            if (UseAsyncInferenceToggle == null)
+            {
+                return;
+            }
+
+            if (UseAsyncInferenceToggle.isOn != UseAsyncInference)
             {
                 if (_inferenceRunner != null)
+                {
                     _inferenceRunner.UseAsyncWork = UseAsyncInferenceToggle.isOn;
+                }
+
                 UseAsyncInference = UseAsyncInferenceToggle.isOn;
-                UpdateFpsMonitorInferenceInfo(_fpsMonitor, _net, UseAsyncInference);
+                UpdateFpsMonitorInferenceInfo(_fpsMonitor, _net, UseAsyncInference, InferenceFramework);
             }
         }
 
         // Private Methods
-        /// <summary>
-        /// Loads class labels, OpenCV <see cref="Net"/>, and <see cref="MatSingleFlightSyncAsyncRunner"/>
-        /// (same role as <c>MediaPipeHandLandmarkerExample.InitializeInference</c> / <c>FaceDetectionYuNetV2Example.InitializeInference</c>).
-        /// </summary>
-        private void InitializeInference()
+        private void RecreatePreviewTexture()
         {
-            _classes = ReadClassNames(_classesFilepath);
-            if (_classes == null)
+            Mat frameMat = _multiSourceToMatHelper.FrameMat;
+            if (frameMat == null)
             {
-                Debug.LogError(CLASSES_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
-                if (_fpsMonitor != null)
-                {
-                    _fpsMonitor.Toast("classes file is not loaded.\nPlease read console message.", 20000);
-                }
-            }
-
-            if (string.IsNullOrEmpty(_modelFilepath))
-            {
-                Debug.LogError(MODEL_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
-                if (_fpsMonitor != null)
-                {
-                    _fpsMonitor.Toast("model file is not loaded.\nPlease read console message.", 20000);
-                }
                 return;
             }
 
-            try
+            if (_texture != null)
             {
-                _net = Dnn.readNet(_modelFilepath);
-                _inferenceRunner = new MatSingleFlightSyncAsyncRunner(
-                    useAsyncWork: UseAsyncInference,
-                    asyncWorkCancellationToken: _cts.Token);
+                Texture2D.Destroy(_texture);
+                _texture = null;
             }
-            catch (Exception ex)
+
+            bool isRgb = _multiSourceToMatHelper.OutputColorFormat == SourceToMatColorFormat.RGB;
+            _texture = new Texture2D(frameMat.cols(), frameMat.rows(), isRgb ? TextureFormat.RGB24 : TextureFormat.RGBA32, false);
+            OpenCVMatUnityUtils.MatToTexture2D(frameMat, _texture);
+
+            if (ResultPreview != null)
             {
-                Debug.LogWarning("ImageClassificationMobilenetExample InitializeInference failed: " + ex);
-            }
-        }
-
-        /// <summary>
-        /// Synchronous OpenCV DNN forward: preprocess <paramref name="rgbInput"/> and return
-        /// <c>prob.reshape(1, 1).clone()</c>.
-        /// </summary>
-        private Mat Infer(Mat rgbInput)
-        {
-            Mat blob = Dnn.blobFromImage(rgbInput, 1.0 / 255.0, _inputSize, Scalar.all(0), false, true, CvType.CV_32F); // HWC to NCHW, RGB
-
-            int c = 3;
-            int h = (int)_inputSize.height;
-            int w = (int)_inputSize.width;
-
-            using (Mat blob_CxHxW = blob.reshape(1, new int[] { c, h, w })) // [c, h, w]
-            {
-                for (int i = 0; i < c; ++i)
+                ResultPreview.texture = _texture;
+                AspectRatioFitter aspectRatioFitter = ResultPreview.GetComponent<AspectRatioFitter>();
+                if (aspectRatioFitter != null)
                 {
-                    using (Mat blob_CxHxW_row = blob_CxHxW.row(i))
-                    using (Mat blob_1xHW = blob_CxHxW_row.reshape(1, 1)) // [1, h, w] => [1, h * w]
-                    {
-                        // Subtract blob by mean.
-                        Core.subtract(blob_1xHW, (_mean.val[i], 0, 0, 0), blob_1xHW);
-                        // Divide blob by std.
-                        Core.divide(blob_1xHW, (_std.val[i], 0, 0, 0), blob_1xHW);
-                    }
+                    aspectRatioFitter.aspectRatio = (float)_texture.width / _texture.height;
                 }
             }
+        }
 
-            // How to display the contents of the blob for debugging purposes
-            //DebugMat.imshowDNNBlob("blob", blob);
+        private void DisposeFrameProcessingResources()
+        {
+            _rgbMat?.Dispose();
+            _rgbMat = null;
+        }
 
-            _net.setInput(blob);
+        private void CreateOrRecreateProcessingResources(Mat frameMat)
+        {
+            if (frameMat == null)
+            {
+                return;
+            }
 
-            Mat prob = _net.forward();
-            //Debug.Log("prob.ToString(): " + prob.ToString());
+            DisposeFrameProcessingResources();
 
-            Mat result = prob.reshape(1, 1).clone();
-            prob.Dispose();
-            blob.Dispose();
-            return result;
+            _rgbMat = new Mat(frameMat.rows(), frameMat.cols(), CvType.CV_8UC3);
+        }
+
+        private void CleanupPreviewResources()
+        {
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+                _texture = null;
+            }
+
+            UpdateFpsMonitorPlaybackState();
+        }
+
+        private void UpdateFpsMonitorPlaybackState()
+        {
+            if (_fpsMonitor == null || _multiSourceToMatHelper == null)
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("PlaybackState", GetPlaybackStateText());
+        }
+
+        private string GetPlaybackStateText()
+        {
+            if (!_multiSourceToMatHelper.IsInitialized)
+            {
+                return "Uninitialized";
+            }
+
+            if (_multiSourceToMatHelper.IsPlaying)
+            {
+                return "Playing";
+            }
+
+            if (_multiSourceToMatHelper.IsPaused)
+            {
+                return "Paused";
+            }
+
+            return "Ready";
+        }
+
+        private void WireSourceToMatControlPanelHooks()
+        {
+            _controlPanel = GetComponent<SourceToMatControlPanel>();
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.AddListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.AddListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.AddListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.AddListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.AddListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.AddListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.AddListener(OnControlPanelHelperKindChanged);
+        }
+
+        private void UnwireSourceToMatControlPanelHooks()
+        {
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.RemoveListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.RemoveListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.RemoveListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.RemoveListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.RemoveListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.RemoveListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.RemoveListener(OnControlPanelHelperKindChanged);
+            _controlPanel = null;
         }
 
         /// <summary>
-        /// Offloads <see cref="Infer"/> to a thread-pool task (OpenCV DNN), matching
-        /// <c>RunCoreProcessingTaskAsync</c> fallback in <c>MediaPipeHandLandmarker</c>.
+        /// Updates <paramref name="fpsMonitor"/> with dnn backend, target, and async mode from
+        /// <paramref name="net"/> and <paramref name="useAsyncInference"/> (or "-" when a value is not available).
         /// </summary>
-        private async Task<Mat> InferAsync(Mat rgbInput, CancellationToken cancellationToken)
+        private static void UpdateFpsMonitorInferenceInfo(
+            FpsMonitor fpsMonitor,
+            MultiBackendNet net,
+            bool useAsyncInference,
+            InferenceFrameworkSelectionKind inferenceFramework)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-#if UNITY_WEBGL && !UNITY_EDITOR
-            return Infer(rgbInput);
-#else
-            return await Task.Run(() =>
+            if (fpsMonitor == null)
             {
-                cancellationToken.ThrowIfCancellationRequested();
-                return Infer(rgbInput);
-            }, cancellationToken);
+                return;
+            }
+
+            fpsMonitor.Add(
+                "inferenceFramework",
+                InferenceFrameworkUtils.GetSelectionDisplayName(inferenceFramework));
+
+            if (net != null)
+            {
+                int be;
+                int tgt;
+                try
+                {
+                    be = net.PreferredBackend;
+                    tgt = net.PreferredTarget;
+                }
+                catch (InvalidOperationException)
+                {
+                    fpsMonitor.Add("dnnBackend", "-");
+                    fpsMonitor.Add("dnnTarget", "-");
+                    fpsMonitor.Add("useAsyncInference", useAsyncInference.ToString());
+                    return;
+                }
+                fpsMonitor.Add("dnnBackend", MultiBackendNet.GetBackendDisplayString(be));
+                fpsMonitor.Add("dnnTarget", MultiBackendNet.GetTargetDisplayString(tgt));
+            }
+            else
+            {
+                fpsMonitor.Add("dnnBackend", "-");
+                fpsMonitor.Add("dnnTarget", "-");
+            }
+            fpsMonitor.Add("useAsyncInference", useAsyncInference.ToString());
+        }
+
+        /// <summary>
+        /// demo.cpp preprocessing: <see cref="Image2BlobParams"/> with optional center crop.
+        /// On UWP, uses resize/crop + per-channel mean/scale + NCHW packing without <c>OpenCVForUnity.DnnModule</c>.
+        /// </summary>
+        private Mat CreateBlobFromRgbInput(Mat rgbInput)
+        {
+#if !UNITY_WSA_10_0
+            _blobParams.set_paddingmode(UseCenterCrop
+                ? Dnn.DNN_PMODE_CROP_CENTER
+                : Dnn.DNN_PMODE_NULL);
+
+            return Dnn.blobFromImageWithParams(rgbInput, _blobParams);
+#else
+            return CreateMobilenetBlobFromRgbUwp(rgbInput);
 #endif
         }
 
-        private async Task DisposeInferenceAsync()
+        /// <summary>
+        /// UWP path: mirrors <see cref="Image2BlobParams"/> (NCHW, per-channel mean/scale) without <c>DnnModule</c>.
+        /// </summary>
+        private Mat CreateMobilenetBlobFromRgbUwp(Mat rgbInput)
         {
-            if (_inferenceRunner != null)
-                await _inferenceRunner.DisposeAsync();
-            _inferenceRunner = null;
-
-            _net?.Dispose();
-            _net = null;
-        }
-
-        private List<string> ReadClassNames(string filename)
-        {
-            List<string> classNames = new List<string>();
-
-            System.IO.StreamReader cReader = null;
-            try
+            int h = (int)_inputSize.height;
+            int w = (int)_inputSize.width;
+            int hw = h * w;
+            double[] means = { 123.675, 116.28, 103.53 };
+            double[] scales =
             {
-                cReader = new System.IO.StreamReader(filename, System.Text.Encoding.Default);
+                1.0 / (255.0 * 0.229),
+                1.0 / (255.0 * 0.224),
+                1.0 / (255.0 * 0.225)
+            };
 
-                while (cReader.Peek() >= 0)
+            using (Mat resized8 = new Mat())
+            {
+                if (UseCenterCrop)
                 {
-                    string name = cReader.ReadLine();
-                    classNames.Add(name);
+                    int srcH = rgbInput.rows();
+                    int srcW = rgbInput.cols();
+                    double scale = Math.Max((double)srcW / w, (double)srcH / h);
+                    int newW = Math.Max(1, (int)Math.Round(srcW / scale));
+                    int newH = Math.Max(1, (int)Math.Round(srcH / scale));
+                    using (Mat scaled = new Mat())
+                    {
+                        Imgproc.resize(rgbInput, scaled, new Size(newW, newH));
+                        int x = Math.Max(0, (newW - w) / 2);
+                        int y = Math.Max(0, (newH - h) / 2);
+                        using (Mat crop = new Mat(scaled, new OpenCVForUnity.CoreModule.Rect(x, y, w, h)))
+                        {
+                            crop.copyTo(resized8);
+                        }
+                    }
+                }
+                else
+                {
+                    Imgproc.resize(rgbInput, resized8, _inputSize);
+                }
+
+                using (Mat floatHwc = new Mat(h, w, CvType.CV_32FC3))
+                {
+                    resized8.convertTo(floatHwc, CvType.CV_32F);
+                    var spl = new List<Mat>();
+                    Core.split(floatHwc, spl);
+                    try
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            Core.subtract(spl[i], new Scalar(means[i]), spl[i]);
+                            Core.multiply(spl[i], new Scalar(scales[i]), spl[i]);
+                        }
+
+                        using (Mat blobFlat = new Mat(1, 3 * hw, CvType.CV_32FC1))
+                        {
+                            spl[0].reshape(1, new int[] { 1, hw }).copyTo(blobFlat.colRange(0, hw));
+                            spl[1].reshape(1, new int[] { 1, hw }).copyTo(blobFlat.colRange(hw, 2 * hw));
+                            spl[2].reshape(1, new int[] { 1, hw }).copyTo(blobFlat.colRange(2 * hw, 3 * hw));
+                            using (Mat blobView = blobFlat.reshape(1, new int[] { 1, 3, h, w }))
+                            {
+                                return blobView.clone();
+                            }
+                        }
+                    }
+                    finally
+                    {
+                        for (int i = 0; i < spl.Count; i++)
+                        {
+                            spl[i]?.Dispose();
+                        }
+
+                        spl.Clear();
+                    }
                 }
             }
-            catch (System.Exception ex)
+        }
+
+        // Inference UI
+        /// <summary>
+        /// Locks inference UI during reinitialization, otherwise syncs the async toggle and
+        /// delegates Framework / Target dropdown state to <see cref="UpdateInferenceFramework"/>.
+        /// </summary>
+        private void SyncInferenceModeUi(bool inferenceReinitializing)
+        {
+            if (inferenceReinitializing)
             {
-                Debug.LogError(ex.Message);
-                return null;
-            }
-            finally
-            {
-                if (cReader != null)
-                    cReader.Close();
+                if (InferenceFrameworkDropdown != null)
+                {
+                    InferenceFrameworkDropdown.interactable = false;
+                }
+
+                if (SentisInferenceTargetDropdown != null)
+                {
+                    SentisInferenceTargetDropdown.interactable = false;
+                }
+
+                if (UseAsyncInferenceToggle != null)
+                {
+                    UseAsyncInferenceToggle.interactable = false;
+                }
+
+                return;
             }
 
-            return classNames;
+            if (UseAsyncInferenceToggle != null)
+            {
+                UseAsyncInferenceToggle.SetIsOnWithoutNotify(UseAsyncInference);
+                UseAsyncInferenceToggle.interactable = true;
+            }
+
+            UpdateInferenceFramework();
+        }
+
+        /// <summary>
+        /// Applies framework fallback when Sentis is unavailable, resolves the default Sentis target,
+        /// and populates Framework / Target dropdown options from Utils.
+        /// </summary>
+        private void UpdateInferenceFramework()
+        {
+#if UNITY_WSA_10_0
+            if (OpenCVForUnityEnv.IsSentisIntegrationAvailable)
+            {
+                InferenceFramework = InferenceFrameworkSelectionKind.UnitySentis;
+            }
+#endif
+
+            InferenceFrameworkSelectionKind[] kinds =
+                InferenceFrameworkUtils.GetSelectionValuesInEnumOrder();
+            if (Array.IndexOf(kinds, InferenceFramework) < 0 && kinds.Length > 0)
+            {
+                InferenceFramework = kinds[0];
+            }
+
+            if (OpenCVForUnityEnv.IsSentisIntegrationAvailable)
+            {
+                SentisInferenceTarget =
+                    SentisInferenceUtils.ResolveDefaultTargetForDevice(SentisInferenceTarget);
+            }
+
+            PopulateInferenceFrameworkDropdown();
+            PopulateSentisInferenceTargetDropdown();
+
+            bool useSentis = InferenceFramework == InferenceFrameworkSelectionKind.UnitySentis;
+            if (SentisInferenceTargetDropdown != null)
+            {
+                SentisInferenceTargetDropdown.interactable =
+                    OpenCVForUnityEnv.IsSentisIntegrationAvailable && useSentis;
+            }
+        }
+
+        /// <summary>
+        /// Builds Framework dropdown options from <see cref="InferenceFrameworkUtils.GetSelectionValuesInEnumOrder"/>.
+        /// </summary>
+        private void PopulateInferenceFrameworkDropdown()
+        {
+            if (InferenceFrameworkDropdown == null)
+            {
+                return;
+            }
+
+            InferenceFrameworkSelectionKind[] kinds =
+                InferenceFrameworkUtils.GetSelectionValuesInEnumOrder();
+
+            InferenceFrameworkDropdown.ClearOptions();
+            for (int i = 0; i < kinds.Length; i++)
+            {
+                InferenceFrameworkDropdown.options.Add(new Dropdown.OptionData(
+                    InferenceFrameworkUtils.GetSelectionDisplayName(kinds[i])));
+            }
+
+            int idx = Array.IndexOf(kinds, InferenceFramework);
+            InferenceFrameworkDropdown.SetValueWithoutNotify(Mathf.Max(0, idx));
+            InferenceFrameworkDropdown.RefreshShownValue();
+            InferenceFrameworkDropdown.interactable = kinds.Length > 1;
+        }
+
+        /// <summary>
+        /// Builds Sentis Target dropdown options from <see cref="SentisInferenceUtils.GetTargetValuesInEnumOrder"/>.
+        /// </summary>
+        private void PopulateSentisInferenceTargetDropdown()
+        {
+            if (SentisInferenceTargetDropdown == null)
+            {
+                return;
+            }
+
+            SentisInferenceTargetKind[] targetKinds =
+                SentisInferenceUtils.GetTargetValuesInEnumOrder();
+            SentisInferenceTargetDropdown.ClearOptions();
+            for (int i = 0; i < targetKinds.Length; i++)
+            {
+                SentisInferenceTargetDropdown.options.Add(new Dropdown.OptionData(
+                    SentisInferenceUtils.GetTargetDisplayName(targetKinds[i])));
+            }
+
+            int idx = Array.IndexOf(targetKinds, SentisInferenceTarget);
+            if (idx < 0 && targetKinds.Length > 0)
+            {
+                SentisInferenceTarget = targetKinds[0];
+                idx = 0;
+            }
+
+            SentisInferenceTargetDropdown.SetValueWithoutNotify(Mathf.Max(0, idx));
+            SentisInferenceTargetDropdown.RefreshShownValue();
         }
 
         /// <summary>
@@ -458,48 +893,181 @@ namespace OpenCVForUnityExample
         {
         }
 
-        private void UpdateInferenceModeToggles(bool inferenceReinitializing)
+        private async Task ReinitializeInferenceAsync(Action applySelection)
         {
-            if (inferenceReinitializing)
+            _inferenceReinitializing = true;
+            SyncInferenceModeUi(inferenceReinitializing: true);
+
+            await DisposeInferenceAsync();
+
+            applySelection();
+            UpdateUseAsyncInference();
+            TryInitializeInference();
+            UpdateFpsMonitorInferenceInfo(_fpsMonitor, _net, UseAsyncInference, InferenceFramework);
+
+            _inferenceReinitializing = false;
+            SyncInferenceModeUi(inferenceReinitializing: false);
+        }
+
+        private async Task DisposeInferenceAsync()
+        {
+            var runner = _inferenceRunner;
+            _inferenceRunner = null;
+            if (runner != null)
             {
-                if (UseAsyncInferenceToggle != null)
-                    UseAsyncInferenceToggle.interactable = false;
-                return;
+                await runner.DisposeAsync();
             }
 
-            if (UseAsyncInferenceToggle != null)
+            for (int i = 0; i < _forwardOutputBlobs.Count; i++)
             {
-                UseAsyncInferenceToggle.SetIsOnWithoutNotify(UseAsyncInference);
-                UseAsyncInferenceToggle.interactable = true;
+                _forwardOutputBlobs[i]?.Dispose();
+            }
+            _forwardOutputBlobs.Clear();
+
+#if !UNITY_WSA_10_0
+            _blobParams?.Dispose();
+            _blobParams = null;
+#endif
+
+            _net?.Dispose();
+            _net = null;
+            _unconnectedOutLayerNames = null;
+        }
+
+        /// <summary>
+        /// Initializes inference from the resolved model path and current backend settings.
+        /// Loads embedded ImageNet labels from <see cref="Imagenet1kLabels"/>, constructs <see cref="MultiBackendNet"/>, and creates <see cref="MatSingleFlightSyncAsyncRunner"/>.
+        /// </summary>
+        private bool TryInitializeInference()
+        {
+#if UNITY_WSA_10_0
+            if (!OpenCVForUnityEnv.IsSentisIntegrationAvailable)
+            {
+                const string uwpSentisRequired =
+                    "ImageClassificationMobilenetExample: Universal Windows Platform (UNITY_WSA_10_0) requires Sentis integration.";
+                Debug.LogError(uwpSentisRequired, this);
+                if (_fpsMonitor != null)
+                    _fpsMonitor.ConsoleText = uwpSentisRequired;
+                return false;
+            }
+#endif
+            _classes = Imagenet1kLabels.GetLabelsImagenet1k();
+
+            bool useSentis = InferenceFramework == InferenceFrameworkSelectionKind.UnitySentis && OpenCVForUnityEnv.IsSentisIntegrationAvailable;
+            string modelPath = useSentis ? _modelFilepathSentis : _modelFilepathOnnx;
+
+            if (string.IsNullOrEmpty(modelPath))
+            {
+                Debug.LogError(MODEL_FILEPATH + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.", this);
+                if (_fpsMonitor != null)
+                {
+                    _fpsMonitor.ConsoleText = "model file is not loaded.\nPlease read console message.";
+                }
+                return false;
+            }
+
+            try
+            {
+#if !UNITY_WSA_10_0
+                _blobParams = new Image2BlobParams();
+                _blobParams.set_datalayout(Core.DATA_LAYOUT_NCHW);
+                _blobParams.set_ddepth(CvType.CV_32F);
+                _blobParams.set_mean(new Scalar(123.675, 116.28, 103.53));
+                _blobParams.set_scalefactor(new Scalar(
+                    1.0 / (255.0 * 0.229),
+                    1.0 / (255.0 * 0.224),
+                    1.0 / (255.0 * 0.225)));
+                _blobParams.set_size(_inputSize);
+                _blobParams.set_swapRB(false);
+#endif
+
+                _net = MultiBackendDnn.ReadNet(modelPath);
+                if (useSentis)
+                {
+                    _net.SetPreferableBackend(SentisInferenceBackendKind.UnitySentis);
+                    _net.SetPreferableTarget(SentisInferenceTarget);
+                }
+                else
+                {
+#if !UNITY_WSA_10_0
+                    _net.SetPreferableBackend(OpenCVDnnInferenceBackendKind.OpenCv);
+                    _net.SetPreferableTarget(OpenCVDnnInferenceTargetKind.Cpu);
+#endif
+                }
+                _unconnectedOutLayerNames = _net.GetUnconnectedOutLayersNames();
+
+                _inferenceRunner = new MatSingleFlightSyncAsyncRunner(
+                    useAsyncWork: UseAsyncInference,
+                    asyncWorkCancellationToken: _cts.Token);
+
+                return _net != null && _inferenceRunner != null;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Failed to load model: " + ex.Message, this);
+                if (_fpsMonitor != null)
+                {
+                    _fpsMonitor.ConsoleText = "Failed to initialize inference.\nPlease read console message.";
+                }
+
+                _inferenceRunner = null;
+                if (_net != null)
+                {
+                    _net.Dispose();
+                    _net = null;
+                }
+                _unconnectedOutLayerNames = null;
+                return false;
             }
         }
 
         /// <summary>
-        /// Registers FpsMonitor keys for dnn backend, target, and async inference display.
-        /// This sample uses <see cref="Net"/> (<c>cv::dnn::Net</c>). The C# bindings expose no API to read preferred backend/target at runtime,
-        /// so when <paramref name="net"/> exists the monitor shows fixed labels (same key names as <see cref="ImageClassificationPPResnetExample"/> with <c>MultiBackendNet</c>).
+        /// Synchronous <see cref="MultiBackendNet"/> forward: preprocess <paramref name="rgbInput"/> and return
+        /// <c>prob.reshape(1, 1).clone()</c> from the first unconnected output blob.
         /// </summary>
-        /// <param name="fpsMonitor">FPS display monitor.</param>
-        /// <param name="net">Loaded inference net, or <see langword="null"/> if not loaded.</param>
-        private static void UpdateFpsMonitorInferenceInfo(FpsMonitor fpsMonitor, Net net, bool useAsyncInference)
+        private Mat Infer(Mat rgbInput)
         {
-            if (fpsMonitor == null)
-                return;
+            Mat blob = CreateBlobFromRgbInput(rgbInput);
 
-            if (net != null)
+            _net.SetInput(blob);
+            _net.Forward(_forwardOutputBlobs, _unconnectedOutLayerNames);
+            Mat prob = _forwardOutputBlobs[0];
+
+            Mat result = prob.reshape(1, 1).clone();
+            blob.Dispose();
+            return result;
+        }
+
+        /// <summary>
+        /// Offloads <see cref="Infer"/> to a thread-pool task (OpenCV DNN), matching the OpenCV fallback in
+        /// <c>MediaPipeHandLandmarker.RunCoreProcessingAsync</c>.
+        /// </summary>
+        private async Task<Mat> InferAsync(Mat rgbInput, CancellationToken cancellationToken)
+        {
+            if (_net.ActiveInferenceFramework == InferenceFrameworkKind.UnitySentis
+                && _net is IDnnAsyncInferenceNet)
             {
-                // cv::dnn::Net: No PreferredBackend/PreferredTarget getters in the C# binding; treat as default OpenCV DNN inference.
-                fpsMonitor.Add("dnnBackend", "OPENCV");
-                fpsMonitor.Add("dnnTarget", "CPU");
+                Mat blob = CreateBlobFromRgbInput(rgbInput);
+
+                _net.SetInput(blob);
+                await _net.ForwardAsync(_forwardOutputBlobs, _unconnectedOutLayerNames, cancellationToken);
+                Mat prob = _forwardOutputBlobs[0];
+
+                Mat result = prob.reshape(1, 1).clone();
+                blob.Dispose();
+                return result;
             }
-            else
+
+            cancellationToken.ThrowIfCancellationRequested();
+#if UNITY_WEBGL && !UNITY_EDITOR
+            return await Task.FromResult(Infer(rgbInput));
+#else
+            return await Task.Run(() =>
             {
-                fpsMonitor.Add("dnnBackend", "-");
-                fpsMonitor.Add("dnnTarget", "-");
-            }
-            fpsMonitor.Add("useAsyncInference", useAsyncInference.ToString());
+                cancellationToken.ThrowIfCancellationRequested();
+                return Infer(rgbInput);
+            }, cancellationToken);
+#endif
         }
     }
 }
-
-#endif

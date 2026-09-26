@@ -1,26 +1,47 @@
 #if !UNITY_WSA_10_0
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.DnnModule;
+using OpenCVForUnity.Extensions.SourceToMat;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
-using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
+using OpenCVForUnity.UnityIntegration.Helper.SourceToMat;
+using OpenCVForUnity.UnityIntegration.Helper.UI;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static OpenCVForUnity.UnityIntegration.Helper.Source2Mat.MultiSource2MatHelper;
+using OpenCVDebug = OpenCVForUnity.Extensions.OpenCVDebug;
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Dnn ObjectDetection Example
-    /// Referring to https://github.com/opencv/opencv/blob/master/samples/dnn/object_detection.cpp
+    /// DNN Object Detection Example
+    /// Generic object detection on each input frame using configurable DNN models (Caffe, TensorFlow, Darknet, ONNX, etc.).
+    ///
+    /// Demonstrates:
+    /// - Reading input frames via <see cref="MultiSourceToMatHelper"/> (webcam, video file, image file, or GPU readback)
+    /// - Resolving model, config, and class-name files from StreamingAssets
+    /// - Converting RGBA frames to BGR and building input blobs with blobFromImage
+    /// - Synchronous <see cref="Net"/> inference and multi-format postprocessing (Faster-RCNN, YOLO Region, DetectionOutput)
+    /// - Drawing bounding boxes and class labels on the preview <see cref="Mat"/>
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Mat"/>, <see cref="Net"/>, <see cref="Size"/>, <see cref="Scalar"/>, <see cref="Point"/>, <see cref="Rect2d"/>
+    /// - <see cref="Dnn"/>: readNet, blobFromImage, forward, NMSBoxes
+    /// - <see cref="Imgproc"/>: cvtColor, rectangle, putText
+    /// - <see cref="MultiSourceToMatHelper"/>, <see cref="OpenCVMatUnityUtils"/>
     /// </summary>
-    [RequireComponent(typeof(MultiSource2MatHelper))]
+    /// <remarks>
+    /// <para>
+    /// Referring to:
+    /// https://github.com/opencv/opencv/blob/master/samples/dnn/object_detection.cpp
+    /// </para>
+    /// </remarks>
+    [RequireComponent(typeof(MultiSourceToMatHelper))]
     public class DnnObjectDetectionExample : MonoBehaviour
     {
         // Public Fields
@@ -66,30 +87,17 @@ namespace OpenCVForUnityExample
         public int InpHeight = 320;
 
         // Protected Fields
-        /// <summary>
-        /// The texture.
-        /// </summary>
         protected Texture2D _texture;
 
-        /// <summary>
-        /// The multi source to mat helper.
-        /// </summary>
-        protected MultiSource2MatHelper _multiSource2MatHelper;
+        protected MultiSourceToMatHelper _multiSourceToMatHelper;
 
-        /// <summary>
-        /// The bgr mat.
-        /// </summary>
         protected Mat _bgrMat;
 
-        /// <summary>
-        /// The net.
-        /// </summary>
         protected Net _net;
 
-        /// <summary>
-        /// The FPS monitor.
-        /// </summary>
         protected FpsMonitor _fpsMonitor;
+
+        protected SourceToMatControlPanel _controlPanel;
 
         protected List<string> _classNames;
         protected List<string> _outBlobNames;
@@ -99,166 +107,68 @@ namespace OpenCVForUnityExample
         protected string _configFilepath;
         protected string _modelFilepath;
 
-        /// <summary>
-        /// The CancellationTokenSource.
-        /// </summary>
         protected CancellationTokenSource _cts = new CancellationTokenSource();
 
         /// <summary>
-        /// Resolves <see cref="Model"/> (StreamingAssets-relative) to the path passed to <see cref="OpenCVEnv.GetFilePathTaskAsync"/>.
+        /// Resolves <see cref="Model"/> (StreamingAssets-relative) to the path passed to <see cref="OpenCVForUnityEnv.GetFilePathAsync"/>.
         /// For example, rewrites <c>.onnx</c> to <c>.sentis</c> for Sentis. The default implementation returns <paramref name="modelRelativePath"/> unchanged.
         /// </summary>
         /// <param name="modelRelativePath">Value of the <see cref="Model"/> field (only called when non-null and non-empty).</param>
         /// <returns>String used as the same relative key for display and download-instruction messages.</returns>
-        protected virtual string GetModelFilePathForStreamingAssetsLoad(string modelRelativePath)
-        {
-            return modelRelativePath;
-        }
 
         // Unity Lifecycle Methods
         /// <summary>
-        /// Resolves paths under StreamingAssets asynchronously, then calls <see cref="Run"/>. Override <see cref="GetModelFilePathForStreamingAssetsLoad"/>
+        /// Resolves paths under StreamingAssets asynchronously, then initializes the DNN and helper. Override <see cref="GetModelFilePathForStreamingAssetsLoad"/>
         /// or this method to substitute Sentis model paths, etc.
         /// </summary>
         protected virtual async void Start()
         {
             _fpsMonitor = GetComponent<FpsMonitor>();
 
-            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSourceToMatHelper = GetComponent<MultiSourceToMatHelper>();
 
-            // WebCamTexture2MatHelper does not work on WebGPU, so use WebCamTexture2MatAsyncGPUHelper instead.
-#if UNITY_6000_0_OR_NEWER
-            if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.WebGPU && _multiSource2MatHelper.RequestedSource2MatHelperClassName == MultiSource2MatHelperClassName.WebCamTexture2MatHelper)
-            {
-                _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.WebCamTexture2MatAsyncGPUHelper;
-            }
-#endif
-            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
+            // RGBA matches Unity TextureFormat.RGBA32 used for RawImage preview.
+            _multiSourceToMatHelper.OutputColorFormat = SourceToMatColorFormat.RGBA;
+
+            WireSourceToMatControlPanelHooks();
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
             if (_fpsMonitor != null)
+            {
                 _fpsMonitor.ConsoleText = "Preparing file access...";
+            }
 
             if (!string.IsNullOrEmpty(Classes))
             {
-                _classesFilepath = await OpenCVEnv.GetFilePathTaskAsync(Classes, cancellationToken: _cts.Token);
-                if (string.IsNullOrEmpty(_classesFilepath)) Debug.Log("The file:" + Classes + " did not exist.");
+                _classesFilepath = await OpenCVForUnityEnv.GetFilePathAsync(Classes, cancellationToken: _cts.Token);
+                if (string.IsNullOrEmpty(_classesFilepath))
+                {
+                    Debug.Log("The file:" + Classes + " did not exist.", this);
+                }
             }
             if (!string.IsNullOrEmpty(Config))
             {
-                _configFilepath = await OpenCVEnv.GetFilePathTaskAsync(Config, cancellationToken: _cts.Token);
-                if (string.IsNullOrEmpty(_configFilepath)) Debug.Log("The file:" + Config + " did not exist.");
+                _configFilepath = await OpenCVForUnityEnv.GetFilePathAsync(Config, cancellationToken: _cts.Token);
+                if (string.IsNullOrEmpty(_configFilepath))
+                {
+                    Debug.Log("The file:" + Config + " did not exist.", this);
+                }
             }
             if (!string.IsNullOrEmpty(Model))
             {
                 string modelPathForLoad = GetModelFilePathForStreamingAssetsLoad(Model);
-                _modelFilepath = await OpenCVEnv.GetFilePathTaskAsync(modelPathForLoad, cancellationToken: _cts.Token);
-                if (string.IsNullOrEmpty(_modelFilepath)) Debug.Log("The file:" + modelPathForLoad + " did not exist.");
+                _modelFilepath = await OpenCVForUnityEnv.GetFilePathAsync(modelPathForLoad, cancellationToken: _cts.Token);
+                if (string.IsNullOrEmpty(_modelFilepath))
+                {
+                    Debug.Log("The file:" + modelPathForLoad + " did not exist.", this);
+                }
             }
 
             if (_fpsMonitor != null)
+            {
                 _fpsMonitor.ConsoleText = "";
-
-            Run();
-        }
-
-        // Public Methods
-        /// <summary>
-        /// Raises the back button click event.
-        /// </summary>
-        public virtual void OnBackButtonClick()
-        {
-            SceneManager.LoadScene("OpenCVForUnityExample");
-        }
-
-        /// <summary>
-        /// Raises the play button click event.
-        /// </summary>
-        public virtual void OnPlayButtonClick()
-        {
-            _multiSource2MatHelper.Play();
-        }
-
-        /// <summary>
-        /// Raises the pause button click event.
-        /// </summary>
-        public virtual void OnPauseButtonClick()
-        {
-            _multiSource2MatHelper.Pause();
-        }
-
-        /// <summary>
-        /// Raises the stop button click event.
-        /// </summary>
-        public virtual void OnStopButtonClick()
-        {
-            _multiSource2MatHelper.Stop();
-        }
-
-        /// <summary>
-        /// Raises the change camera button click event.
-        /// </summary>
-        public virtual void OnChangeCameraButtonClick()
-        {
-            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
-        }
-
-        /// <summary>
-        /// Raises the source to mat helper initialized event.
-        /// </summary>
-        public virtual void OnSourceToMatHelperInitialized()
-        {
-            Debug.Log("OnSourceToMatHelperInitialized");
-
-            Mat rgbaMat = _multiSource2MatHelper.GetMat();
-
-            _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
-
-            ResultPreview.texture = _texture;
-            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
-
-
-            if (_fpsMonitor != null)
-            {
-                _fpsMonitor.Add("width", rgbaMat.width().ToString());
-                _fpsMonitor.Add("height", rgbaMat.height().ToString());
-                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
-                UpdateFpsMonitorInferenceInfo(_fpsMonitor, _net);
             }
 
-            _bgrMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
-        }
-
-        /// <summary>
-        /// Raises the source to mat helper disposed event.
-        /// </summary>
-        public virtual void OnSourceToMatHelperDisposed()
-        {
-            Debug.Log("OnSourceToMatHelperDisposed");
-
-            _bgrMat?.Dispose();
-
-            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
-        }
-
-        /// <summary>
-        /// Raises the source to mat helper error occurred event.
-        /// </summary>
-        /// <param name="errorCode">Error code.</param>
-        /// <param name="message">Message.</param>
-        public virtual void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
-        {
-            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
-
-            if (_fpsMonitor != null)
-            {
-                _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
-            }
-        }
-
-        // Protected Methods
-        protected virtual void Run()
-        {
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             OpenCVDebug.SetDebugMode(true);
 
@@ -267,10 +177,10 @@ namespace OpenCVForUnityExample
                 _classNames = ReadClassNames(_classesFilepath);
                 if (_classNames == null)
                 {
-                    Debug.LogError(Classes + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                    Debug.LogError(Classes + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.", this);
                     if (_fpsMonitor != null)
                     {
-                        _fpsMonitor.Toast("classes file is not loaded.\nPlease read console message.", 20000);
+                        _fpsMonitor.ConsoleText = "classes file is not loaded.\nPlease read console message.";
                     }
                 }
             }
@@ -281,14 +191,15 @@ namespace OpenCVForUnityExample
 
             if (string.IsNullOrEmpty(_modelFilepath))
             {
-                Debug.LogError(Model + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                Debug.LogError(Model + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.", this);
                 if (_fpsMonitor != null)
                 {
-                    _fpsMonitor.Toast("model file is not loaded.\nPlease read console message.", 20000);
+                    _fpsMonitor.ConsoleText = "model file is not loaded.\nPlease read console message.";
                 }
             }
             else
             {
+                // Load DNN model from StreamingAssets-resolved paths (weights + optional config).
                 //! [Initialize network]
                 _net = Dnn.readNet(_modelFilepath, _configFilepath);
                 //! [Initialize network]
@@ -306,71 +217,305 @@ namespace OpenCVForUnityExample
                 //}
             }
 
-            _multiSource2MatHelper.Initialize();
-        }
-
-        protected virtual void Update()
-        {
-            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
+            if (_net == null)
             {
-
-                Mat rgbaMat = _multiSource2MatHelper.GetMat();
-
-                if (_net != null)
-                {
-
-                    Imgproc.cvtColor(rgbaMat, _bgrMat, Imgproc.COLOR_RGBA2BGR);
-
-                    // Create a 4D blob from a frame.
-                    Size inpSize = new Size(InpWidth > 0 ? InpWidth : _bgrMat.cols(),
-                                       InpHeight > 0 ? InpHeight : _bgrMat.rows());
-                    Mat blob = Dnn.blobFromImage(_bgrMat, Scale, inpSize, Mean, SwapRB, false);
-
-
-                    // Run a model.
-                    _net.setInput(blob);
-
-                    if (_net.getLayer(0).outputNameToIndex("im_info") != -1)
-                    {  // Faster-RCNN or R-FCN
-                        Imgproc.resize(_bgrMat, _bgrMat, inpSize);
-                        Mat imInfo = new Mat(1, 3, CvType.CV_32FC1);
-                        imInfo.put(0, 0, new float[] {
-                            (float)inpSize.height,
-                            (float)inpSize.width,
-                            1.6f
-                        });
-                        _net.setInput(imInfo, "im_info");
-                    }
-
-                    //TickMeter tm = new TickMeter();
-                    //tm.start();
-
-                    List<Mat> outs = new List<Mat>();
-                    _net.forward(outs, _outBlobNames);
-
-                    //tm.stop();
-                    //Debug.Log("Inference time, ms: " + tm.getTimeMilli());
-
-                    Postprocess(rgbaMat, outs, _net, Dnn.DNN_BACKEND_OPENCV);
-
-                    blob.Dispose();
-                    foreach (var out_mat in outs)
-                        out_mat.Dispose();
-                }
-
-                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
+                return;
             }
+
+            _multiSourceToMatHelper.Initialize();
         }
 
         protected virtual void OnDestroy()
         {
-            _multiSource2MatHelper?.Dispose();
+            UnwireSourceToMatControlPanelHooks();
+
+            _cts?.Cancel();
 
             _net?.Dispose();
+            _net = null;
 
             OpenCVDebug.SetDebugMode(false);
 
             _cts?.Dispose();
+            _cts = null;
+        }
+        // Public Methods
+
+        /// <summary>
+        /// Raises the helper frame mat updated event.
+        /// Runs DNN inference and updates the preview texture when a new frame is available during playback.
+        /// </summary>
+        public virtual void OnSourceToMatHelperFrameMatUpdated()
+        {
+            if (!_multiSourceToMatHelper.IsPlaying)
+            {
+                return;
+            }
+
+            Mat rgbaMat = _multiSourceToMatHelper.FrameMat;
+            if (rgbaMat == null)
+            {
+                return;
+            }
+
+            ProcessFrameMatUpdated(rgbaMat);
+
+            if (_texture != null)
+            {
+                OpenCVMatUnityUtils.MatToTexture2D(rgbaMat, _texture);
+            }
+        }
+
+        /// <summary>
+        /// Raises the source to mat helper initialized event.
+        /// </summary>
+        public virtual void OnSourceToMatHelperInitialized()
+        {
+            Debug.Log("OnSourceToMatHelperInitialized", this);
+
+            RecreatePreviewTexture();
+
+            if (!_multiSourceToMatHelper.IsPlaying && !_multiSourceToMatHelper.IsPaused)
+            {
+                _multiSourceToMatHelper.Play();
+                UpdateFpsMonitorPlaybackState();
+            }
+
+            Mat rgbaMat = _multiSourceToMatHelper.FrameMat;
+            if (rgbaMat != null)
+            {
+                _bgrMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
+            }
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Clear();
+                UpdateFpsMonitorPlaybackState();
+                _fpsMonitor.Add("width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                UpdateFpsMonitorInferenceInfo(_fpsMonitor, _net);
+            }
+        }
+
+        /// <summary>
+        /// Raises the helper frame mat layout changed event.
+        /// Recreates the preview texture when rotation or output size changes.
+        /// </summary>
+        public virtual void OnSourceToMatHelperFrameMatLayoutChanged()
+        {
+            Debug.Log("OnSourceToMatHelperFrameMatLayoutChanged", this);
+
+            RecreatePreviewTexture();
+
+            Mat rgbaMat = _multiSourceToMatHelper.FrameMat;
+            if (rgbaMat != null)
+            {
+                _bgrMat?.Dispose();
+                _bgrMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
+            }
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Raises the helper released event.
+        /// </summary>
+        public virtual void OnSourceToMatHelperReleased()
+        {
+            Debug.Log("OnSourceToMatHelperReleased", this);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Clear();
+            }
+
+            CleanupPreviewResources();
+        }
+
+        /// <summary>
+        /// Raises the source to mat helper disposed event.
+        /// </summary>
+        public virtual void OnSourceToMatHelperDisposed()
+        {
+            Debug.Log("OnSourceToMatHelperDisposed", this);
+
+            _bgrMat?.Dispose();
+            _bgrMat = null;
+
+            CleanupPreviewResources();
+        }
+
+        /// <summary>
+        /// Raises the source to mat helper error occurred event.
+        /// </summary>
+        /// <param name="errorCode">Error code.</param>
+        /// <param name="message">Message.</param>
+        public virtual void OnSourceToMatHelperErrorOccurred(SourceToMatErrorCode errorCode, string message)
+        {
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message, this);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
+            }
+        }
+        /// <summary>
+        /// Raises the back button click event.
+        /// </summary>
+        public virtual async void OnBackButtonClick()
+        {
+            if (_multiSourceToMatHelper.IsPlaying || _multiSourceToMatHelper.IsPaused)
+            {
+                await _multiSourceToMatHelper.StopAsync();
+            }
+
+            await _multiSourceToMatHelper.DisposeAsync();
+
+            SceneManager.LoadScene("OpenCVForUnityExample");
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPlay"/>.
+        /// </summary>
+        public virtual void OnControlPanelAfterPlay()
+        {
+            UpdateFpsMonitorPlaybackState();
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPause"/>.
+        /// </summary>
+        public virtual void OnControlPanelAfterPause()
+        {
+            UpdateFpsMonitorPlaybackState();
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterStop"/>.
+        /// </summary>
+        public virtual void OnControlPanelAfterStop()
+        {
+            UpdateFpsMonitorPlaybackState();
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnRotate90Changed"/>.
+        /// </summary>
+        /// <param name="isOn">New Rotate90Degree value applied by the panel.</param>
+        public virtual void OnControlPanelRotate90Changed(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("Rotate90Degree", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipVerticalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipVertical value applied by the panel.</param>
+        public virtual void OnControlPanelFlipVerticalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipVertical", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipHorizontalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipHorizontal value applied by the panel.</param>
+        public virtual void OnControlPanelFlipHorizontalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipHorizontal", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnHelperKindChanged"/>.
+        /// </summary>
+        /// <param name="kindIndex">Dropdown index matching <see cref="MultiSourceHelperKind"/>.</param>
+        public virtual void OnControlPanelHelperKindChanged(int kindIndex)
+        {
+            if (_fpsMonitor == null || !Enum.IsDefined(typeof(MultiSourceHelperKind), kindIndex))
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("HelperKind", ((MultiSourceHelperKind)kindIndex).ToString());
+        }
+
+        /// <summary>
+        /// Resolves <see cref="Model"/> (StreamingAssets-relative) to the path passed to <see cref="OpenCVForUnityEnv.GetFilePathAsync"/>.
+        /// For example, rewrites <c>.onnx</c> to <c>.sentis</c> for Sentis. The default implementation returns <paramref name="modelRelativePath"/> unchanged.
+        /// </summary>
+        /// <param name="modelRelativePath">Value of the <see cref="Model"/> field (only called when non-null and non-empty).</param>
+        /// <returns>String used as the same relative key for display and download-instruction messages.</returns>
+        protected virtual string GetModelFilePathForStreamingAssetsLoad(string modelRelativePath)
+        {
+            return modelRelativePath;
+        }
+
+        /// <summary>
+        /// Processes the current frame Mat for DNN inference and annotation.
+        /// Override in derived examples that replace the default forward/postprocess path.
+        /// </summary>
+        /// <param name="rgbaMat">Current RGBA frame owned by the helper; do not dispose.</param>
+        protected virtual void ProcessFrameMatUpdated(Mat rgbaMat)
+        {
+            if (_net == null || _bgrMat == null)
+            {
+                return;
+            }
+
+            // Convert RGBA camera frame to BGR for DNN blobFromImage input.
+            Imgproc.cvtColor(rgbaMat, _bgrMat, Imgproc.COLOR_RGBA2BGR);
+
+            // Create a 4D blob from a frame.
+            Size inpSize = new Size(InpWidth > 0 ? InpWidth : _bgrMat.cols(),
+                               InpHeight > 0 ? InpHeight : _bgrMat.rows());
+            Mat blob = Dnn.blobFromImage(_bgrMat, Scale, inpSize, Mean, SwapRB, false);
+
+            // Run a model.
+            _net.setInput(blob);
+
+            if (_net.getLayer(0).outputNameToIndex("im_info") != -1)
+            {  // Faster-RCNN or R-FCN
+                Imgproc.resize(_bgrMat, _bgrMat, inpSize);
+                Mat imInfo = new Mat(1, 3, CvType.CV_32FC1);
+                imInfo.put(0, 0, new float[] {
+                    (float)inpSize.height,
+                    (float)inpSize.width,
+                    1.6f
+                });
+                _net.setInput(imInfo, "im_info");
+            }
+
+            //TickMeter tm = new TickMeter();
+            //tm.start();
+
+            List<Mat> outs = new List<Mat>();
+            _net.forward(outs, _outBlobNames);
+
+            //tm.stop();
+            //Debug.Log("Inference time, ms: " + tm.getTimeMilli());
+
+            Postprocess(rgbaMat, outs, _net, Dnn.DNN_BACKEND_OPENCV);
+
+            blob.Dispose();
+            foreach (var out_mat in outs)
+            {
+                out_mat.Dispose();
+            }
         }
 
         /// <summary>
@@ -395,13 +540,15 @@ namespace OpenCVForUnityExample
             }
             catch (System.Exception ex)
             {
-                Debug.LogError(ex.Message);
+                Debug.LogError(ex.Message, this);
                 return null;
             }
             finally
             {
                 if (cReader != null)
+                {
                     cReader.Close();
+                }
             }
 
             return classNames;
@@ -534,7 +681,7 @@ namespace OpenCVForUnityExample
             }
             else
             {
-                Debug.Log("Unknown output layer type: " + outLayerType);
+                Debug.Log("Unknown output layer type: " + outLayerType, this);
             }
 
             // NMS is used inside Region layer only on DNN_BACKEND_OPENCV for another backends we need NMS in sample
@@ -547,7 +694,9 @@ namespace OpenCVForUnityExample
                     if (confidencesList[i] >= ConfThreshold)
                     {
                         if (!class2indices.ContainsKey(classIdsList[i]))
+                        {
                             class2indices.Add(classIdsList[i], new List<int>());
+                        }
 
                         class2indices[classIdsList[i]].Add(i);
                     }
@@ -572,9 +721,10 @@ namespace OpenCVForUnityExample
                     using (MatOfInt nmsIndices = new MatOfInt())
                     {
                         Dnn.NMSBoxes(localBoxes, localConfidences, ConfThreshold, NmsThreshold, nmsIndices);
-                        for (int i = 0; i < nmsIndices.total(); i++)
+                        ReadOnlySpan<int> nmsIndexSpan = nmsIndices.AsSpan<int>();
+                        for (int i = 0; i < nmsIndexSpan.Length; i++)
                         {
-                            int idx = (int)nmsIndices.get(i, 0)[0];
+                            int idx = nmsIndexSpan[i];
                             nmsBoxesList.Add(localBoxesList[idx]);
                             nmsConfidencesList.Add(localConfidencesList[idx]);
                             nmsClassIdsList.Add(key);
@@ -634,17 +784,7 @@ namespace OpenCVForUnityExample
         /// <param name="net">Net.</param>
         protected virtual List<string> GetOutputsNames(Net net)
         {
-            List<string> names = new List<string>();
-
-
-            MatOfInt outLayers = net.getUnconnectedOutLayers();
-            for (int i = 0; i < outLayers.total(); ++i)
-            {
-                names.Add(net.getLayer((int)outLayers.get(i, 0)[0]).get_name());
-            }
-            outLayers.Dispose();
-
-            return names;
+            return net.getUnconnectedOutLayersNames();
         }
 
         /// <summary>
@@ -656,11 +796,11 @@ namespace OpenCVForUnityExample
         {
             List<string> types = new List<string>();
 
-
             MatOfInt outLayers = net.getUnconnectedOutLayers();
-            for (int i = 0; i < outLayers.total(); ++i)
+            ReadOnlySpan<int> layerIds = outLayers.AsSpan<int>();
+            for (int i = 0; i < layerIds.Length; ++i)
             {
-                types.Add(net.getLayer((int)outLayers.get(i, 0)[0]).get_type());
+                types.Add(net.getLayer(layerIds[i]).get_type());
             }
             outLayers.Dispose();
 
@@ -668,16 +808,15 @@ namespace OpenCVForUnityExample
         }
 
         /// <summary>
-        /// Registers FpsMonitor keys for dnn backend, target, and synchronous-inference display.
-        /// This sample uses <see cref="Net"/> (<c>cv::dnn::Net</c>). The C# bindings expose no API to read preferred backend/target at runtime,
-        /// so when <paramref name="net"/> exists the monitor shows fixed labels (same key names as <see cref="ImageClassificationPPResnetExample"/> with <c>MultiBackendNet</c>).
+        /// Updates <paramref name="fpsMonitor"/> with dnn backend, target, and async mode from
+        /// <paramref name="net"/> (or "-" when a value is not available).
         /// </summary>
-        /// <param name="fpsMonitor">FPS display monitor.</param>
-        /// <param name="net">Loaded inference net, or <see langword="null"/> if not loaded.</param>
         protected static void UpdateFpsMonitorInferenceInfo(FpsMonitor fpsMonitor, Net net)
         {
             if (fpsMonitor == null)
+            {
                 return;
+            }
 
             if (net != null)
             {
@@ -691,6 +830,109 @@ namespace OpenCVForUnityExample
                 fpsMonitor.Add("dnnTarget", "-");
             }
             fpsMonitor.Add("useAsyncInference", "False");
+        }
+        // Private Methods
+
+        protected virtual void RecreatePreviewTexture()
+        {
+            Mat rgbaMat = _multiSourceToMatHelper.FrameMat;
+            if (rgbaMat == null)
+            {
+                return;
+            }
+
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+            }
+
+            _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
+            OpenCVMatUnityUtils.MatToTexture2D(rgbaMat, _texture);
+
+            if (ResultPreview != null)
+            {
+                ResultPreview.texture = _texture;
+                AspectRatioFitter aspectRatioFitter = ResultPreview.GetComponent<AspectRatioFitter>();
+                if (aspectRatioFitter != null)
+                {
+                    aspectRatioFitter.aspectRatio = (float)_texture.width / _texture.height;
+                }
+            }
+        }
+
+        protected virtual void CleanupPreviewResources()
+        {
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+                _texture = null;
+            }
+
+            UpdateFpsMonitorPlaybackState();
+        }
+
+        protected virtual void UpdateFpsMonitorPlaybackState()
+        {
+            if (_fpsMonitor == null || _multiSourceToMatHelper == null)
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("PlaybackState", GetPlaybackStateText());
+        }
+
+        protected virtual string GetPlaybackStateText()
+        {
+            if (!_multiSourceToMatHelper.IsInitialized)
+            {
+                return "Uninitialized";
+            }
+
+            if (_multiSourceToMatHelper.IsPlaying)
+            {
+                return "Playing";
+            }
+
+            if (_multiSourceToMatHelper.IsPaused)
+            {
+                return "Paused";
+            }
+
+            return "Ready";
+        }
+
+        protected virtual void WireSourceToMatControlPanelHooks()
+        {
+            _controlPanel = GetComponent<SourceToMatControlPanel>();
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.AddListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.AddListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.AddListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.AddListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.AddListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.AddListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.AddListener(OnControlPanelHelperKindChanged);
+        }
+
+        protected virtual void UnwireSourceToMatControlPanelHooks()
+        {
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.RemoveListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.RemoveListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.RemoveListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.RemoveListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.RemoveListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.RemoveListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.RemoveListener(OnControlPanelHelperKindChanged);
+            _controlPanel = null;
         }
     }
 }

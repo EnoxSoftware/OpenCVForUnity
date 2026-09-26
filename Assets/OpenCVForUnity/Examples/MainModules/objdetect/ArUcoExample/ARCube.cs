@@ -7,15 +7,19 @@ using UnityEngine;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// A class that manages a 3D cube object displayed in AR space.
-    /// This class provides functionality for generating info plate textures,
-    /// handling show/hide animations, and more.
+    /// ARCube
+    /// Unity helper for the 3D cube placed on detected ArUco markers in AR space.
+    ///
+    /// Demonstrates:
+    /// - Generating an info-plate texture with OpenCV putText
+    /// - Show/hide scale animations when markers enter or leave the view
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Mat"/>, <see cref="Imgproc"/>: putText, rectangle
+    /// - <see cref="OpenCVMatUnityUtils"/>: MatToTexture2D
     /// </summary>
     /// <remarks>
-    /// - Generates and applies an info plate texture based on specified text.
-    /// - Updates the info plate content using the AR marker name.
-    /// - Controls appearance and disappearance animations using coroutines for smooth transitions.
-    /// - Utilizes OpenCV for texture generation, enabling customizable info display.
+    /// Used by ArUcoExample to label each tracked marker with its ID on the cube info plate.
     /// </remarks>
     public class ARCube : MonoBehaviour
     {
@@ -33,21 +37,25 @@ namespace OpenCVForUnityExample
         /// <param name="arUcoMarkerName">The name of the AR marker</param>
         public void SetInfoPlateTexture(string arUcoMarkerName)
         {
-            if (InfoPlate == null) return;
+            if (InfoPlate == null)
+            {
+                return;
+            }
 
+            // Render label texture with OpenCV; Unity material expects RGBA from MatToTexture2D.
             Texture newTexture = ARCube.CreateInfoPlateTexture(arUcoMarkerName, 200, 200);
 
             // Get the Renderer component
             Renderer renderer = InfoPlate.transform.GetComponent<Renderer>();
             if (renderer == null)
             {
-                Debug.LogError("ARCube does not have a Renderer component.");
+                Debug.LogError("ARCube does not have a Renderer component.", this);
                 return;
             }
 
             // Change the texture
             renderer.material.mainTexture = newTexture;
-            Debug.Log("Updated ARCube texture.");
+            Debug.Log("Updated ARCube texture.", this);
         }
 
         /// <summary>
@@ -118,7 +126,7 @@ namespace OpenCVForUnityExample
 
             // Convert Mat to Texture2D
             Texture2D texture = new Texture2D(width, height, TextureFormat.RGBA32, false);
-            OpenCVMatUtils.MatToTexture2D(mat, texture);
+            OpenCVMatUnityUtils.MatToTexture2D(mat, texture);
 
             // Release Mat resources
             mat.Dispose();
@@ -176,10 +184,20 @@ namespace OpenCVForUnityExample
                 _exitAnimationCoroutine = null;
             }
 
+            if (!obj.activeSelf)
+            {
+                obj.SetActive(false);
+                yield break;
+            }
+
             _exitAnimationCoroutine = StartCoroutine(AnimateScale(obj, startScaleZ, endScaleZ, duration));
             yield return _exitAnimationCoroutine;
 
-            if (_exitAnimationCoroutine == null) yield return null;
+            if (_exitAnimationCoroutine == null)
+            {
+                yield return null;
+            }
+
             obj.SetActive(false);
             _exitAnimationCoroutine = null;
         }

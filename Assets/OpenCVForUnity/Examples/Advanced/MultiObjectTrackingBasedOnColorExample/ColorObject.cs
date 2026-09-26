@@ -4,6 +4,11 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Color object for tracking based on HSV color range.
+    /// Holds per-color HSV min/max bounds and BGR draw color for <see cref="MultiObjectTrackingBasedOnColorExample"/>.
+    /// This class stores parameters only; detection runs in the example MonoBehaviour.
+    ///
+    /// OpenCV types used:
+    /// - <see cref="Scalar"/>: HSV bounds and BGR display color
     /// </summary>
     public class ColorObject
     {
@@ -37,9 +42,7 @@ namespace OpenCVForUnityExample
             if (name == "blue")
             {
 
-                //TODO: use "calibration mode" to find HSV min
-                //and HSV max values
-
+                // TODO: use "calibration mode" to find HSV min/max for your lighting (fixed values are environment-dependent).
                 SetHSVmin(new Scalar(92, 0, 0));
                 SetHSVmax(new Scalar(124, 256, 256));
 

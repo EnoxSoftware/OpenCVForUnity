@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.DnnModule;
+using OpenCVForUnity.Extensions;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
 using UnityEngine;
@@ -12,13 +13,47 @@ using Range = OpenCVForUnity.CoreModule.Range;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Face Detection YuNet Example
-    /// (##### The inference model used in this example is an older version. Normally, you should use the example "FaceDetectionYuNetV2Example" which uses a newer model. #####)
-    /// Referring to https://github.com/opencv/opencv/blob/ed6ca0d7fab5381c6aa6062c49c3c99ee828fadb/modules/objdetect/src/face_detect.cpp
+    /// Face Detection YuNet Example (legacy model)
+    /// Real-time face detection with bounding boxes and five facial landmarks using the older YuNet ONNX model.
+    /// Prefer <see cref="FaceDetectionYuNetV2Example"/> for the current YuNet API and models.
     ///
+    /// Demonstrates:
+    /// - Reading input frames via <see cref="MultiSourceToMatHelper"/> (webcam, video file, image file, or GPU readback)
+    /// - Extending <see cref="DnnObjectDetectionExample"/> with YuNet-specific prior-box decoding
+    /// - Converting RGBA frames to BGR and running synchronous <see cref="Net"/> forward (loc/conf/iou outputs)
+    /// - NMS and drawing face boxes plus landmark points on the preview <see cref="Mat"/>
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Mat"/>, <see cref="Net"/>, <see cref="Size"/>, <see cref="Scalar"/>, <see cref="Point"/>
+    /// - <see cref="Dnn"/>: blobFromImage, forward, NMSBoxes
+    /// - <see cref="Imgproc"/>: cvtColor, circle
+    /// - <see cref="MultiSourceToMatHelper"/>, <see cref="OpenCVMatUnityUtils"/>
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Referring to:
+    /// https://github.com/opencv/opencv/blob/ed6ca0d7fab5381c6aa6062c49c3c99ee828fadb/modules/objdetect/src/face_detect.cpp
+    /// </para>
+    /// <para>
     /// [Tested Models]
     /// face_detection_yunet_2022mar.onnx: https://github.com/opencv/opencv_zoo/raw/4563a91ba98172b14d7af8bce621b6d1ae7ae0c6/models/face_detection_yunet/face_detection_yunet_2022mar.onnx
-    /// </summary>
+    /// </para>
+    /// <para>
+    /// <b>Scene Inspector restore reference</b> (FaceDetectionYuNetExample.unity — re-apply on this component if serialized values are lost):
+    /// </para>
+    /// <list type="bullet">
+    /// <item><description>Model: <c>OpenCVForUnityExamples/dnn/face_detection_yunet_2022mar.onnx</c></description></item>
+    /// <item><description>Config / Classes: empty</description></item>
+    /// <item><description>ConfThreshold: <c>0.6</c></description></item>
+    /// <item><description>NmsThreshold: <c>0.3</c></description></item>
+    /// <item><description>Scale: <c>1</c></description></item>
+    /// <item><description>Mean (BGR): <c>(0, 0, 0, 0)</c></description></item>
+    /// <item><description>SwapRB: <c>false</c></description></item>
+    /// <item><description>InpWidth: <c>120</c></description></item>
+    /// <item><description>InpHeight: <c>160</c></description></item>
+    /// <item><description>KeepTopK: <c>5000</c></description></item>
+    /// </list>
+    /// </remarks>
     public class FaceDetectionYuNetExample : DnnObjectDetectionExample
     {
         // Public Fields
@@ -35,13 +70,14 @@ namespace OpenCVForUnityExample
             new Scalar(255, 255, 255, 255) };
 
         protected PriorBox _pb;
-        protected Mat _boxesMC1;
-        protected Mat _boxesMC4;
-        protected Mat _confidencesM;
         protected MatOfRect2d _boxes;
         protected MatOfFloat _confidences;
         protected MatOfInt _indices;
 
+        /// <summary>
+        /// YuNet blob spatial size derived at init from <see cref="DnnObjectDetectionExample.InpWidth"/>,
+        /// <see cref="DnnObjectDetectionExample.InpHeight"/>, and frame aspect ratio.
+        /// </summary>
         protected Size _dnnInputShape;
 
         // Public Methods
@@ -75,59 +111,50 @@ namespace OpenCVForUnityExample
 
             _pb?.Dispose(); _pb = null;
 
-            _boxesMC1?.Dispose();
-            _boxesMC4?.Dispose();
-            _confidencesM?.Dispose();
             _boxes?.Dispose();
             _confidences?.Dispose();
             _indices?.Dispose();
 
-            _boxesMC1 = null;
-            _boxesMC4 = null;
-            _confidencesM = null;
             _boxes = null;
             _confidences = null;
             _indices = null;
         }
 
         // Protected Methods
-        protected override void Update()
+        protected override void ProcessFrameMatUpdated(Mat rgbaMat)
         {
-            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
+            if (_net == null || _bgrMat == null)
             {
+                return;
+            }
 
-                Mat rgbaMat = _multiSource2MatHelper.GetMat();
+            // Convert RGBA camera frame to BGR for YuNet blobFromImage input.
+            Imgproc.cvtColor(rgbaMat, _bgrMat, Imgproc.COLOR_RGBA2BGR);
 
-                if (_net != null)
-                {
-                    Imgproc.cvtColor(rgbaMat, _bgrMat, Imgproc.COLOR_RGBA2BGR);
+            Mat blob = Dnn.blobFromImage(_bgrMat, Scale, _dnnInputShape, Mean, SwapRB, false);
 
-                    Mat blob = Dnn.blobFromImage(_bgrMat, Scale, _dnnInputShape, Mean, SwapRB, false);
+            // Run synchronous YuNet forward (loc, conf, iou output blobs).
+            _net.setInput(blob);
 
-                    // Run a model.
-                    _net.setInput(blob);
+            //TickMeter tm = new TickMeter();
+            //tm.start();
 
-                    //TickMeter tm = new TickMeter();
-                    //tm.start();
+            List<Mat> outs = new List<Mat>();
+            List<string> output_names = new List<string>();
+            output_names.Add("loc");
+            output_names.Add("conf");
+            output_names.Add("iou");
+            _net.forward(outs, output_names);
 
-                    List<Mat> outs = new List<Mat>();
-                    List<string> output_names = new List<string>();
-                    output_names.Add("loc");
-                    output_names.Add("conf");
-                    output_names.Add("iou");
-                    _net.forward(outs, output_names);
+            //tm.stop();
+            //Debug.Log("Inference time, ms: " + tm.getTimeMilli());
 
-                    //tm.stop();
-                    //Debug.Log("Inference time, ms: " + tm.getTimeMilli());
+            Postprocess(rgbaMat, outs, _net, Dnn.DNN_BACKEND_OPENCV);
 
-                    Postprocess(rgbaMat, outs, _net, Dnn.DNN_BACKEND_OPENCV);
-
-                    blob.Dispose();
-                    foreach (var out_mat in outs)
-                        out_mat.Dispose();
-                }
-
-                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
+            blob.Dispose();
+            foreach (var out_mat in outs)
+            {
+                out_mat.Dispose();
             }
         }
 
@@ -137,38 +164,50 @@ namespace OpenCVForUnityExample
             // # Decode bboxes and landmarks
             Mat dets = _pb.Decode(outs[0], outs[1], outs[2]); // "loc", "conf", "iou"
 
-
             // # Ignore low scores + NMS
             int num = dets.rows();
 
-            if (_boxesMC1 == null)
-                _boxesMC1 = new Mat(num, 4, CvType.CV_64FC1);
-            if (_boxesMC4 == null)
-                _boxesMC4 = new Mat(num, 1, CvType.CV_64FC4);
-            if (_confidencesM == null)
-                _confidencesM = new Mat(num, 1, CvType.CV_32FC1);
+            // MatOf types are logical vectors and do not fix a storage shape.
+            // Allocate NMS inputs explicitly as N×1 to match dets.colRange columns so copyTo works as-is.
+            if (_boxes == null || _boxes.rows() != num)
+            {
+                _boxes ??= new MatOfRect2d();
+                _boxes.create(num, 1, CvType.CV_64FC4);
+            }
 
-            if (_boxes == null)
-                _boxes = new MatOfRect2d(_boxesMC4);
-            if (_confidences == null)
-                _confidences = new MatOfFloat(_confidencesM);
+            if (_confidences == null || _confidences.rows() != num)
+            {
+                _confidences ??= new MatOfFloat();
+                _confidences.create(num, 1, CvType.CV_32FC1);
+            }
+
             if (_indices == null)
+            {
                 _indices = new MatOfInt();
+            }
 
             Mat bboxes = dets.colRange(0, 4);
-            bboxes.convertTo(_boxesMC1, CvType.CV_64FC1);
-            OpenCVMatUtils.CopyToMat(new IntPtr(_boxesMC1.dataAddr()), _boxesMC4);
+            // Reshape N×1 CV_64FC4 _boxes to an N×4 CV_64FC1 view and convertTo the bbox column in place.
+            using (Mat boxesMC1View = _boxes.reshape(1, num))
+            {
+                bboxes.convertTo(boxesMC1View, CvType.CV_64FC1);
+            }
 
             Mat scores = dets.colRange(14, 15);
-            scores.copyTo(_confidencesM);
+            scores.copyTo(_confidences);
 
             Dnn.NMSBoxes(_boxes, _confidences, ConfThreshold, NmsThreshold, _indices, 1f, KeepTopK);
 
+            if (_indices.empty())
+            {
+                return;
+            }
 
             // # Draw boudning boxes and landmarks on the original image
-            for (int i = 0; i < _indices.total(); ++i)
+            ReadOnlySpan<int> allIndices = _indices.AsSpan<int>();
+            for (int i = 0; i < allIndices.Length; ++i)
             {
-                int idx = (int)_indices.get(i, 0)[0];
+                int idx = allIndices[i];
 
                 float[] bbox_arr = new float[4];
                 bboxes.get(idx, 0, bbox_arr);
@@ -183,7 +222,6 @@ namespace OpenCVForUnityExample
                     new Point(landmarks_arr[4], landmarks_arr[5]), new Point(landmarks_arr[6], landmarks_arr[7]), new Point(landmarks_arr[8], landmarks_arr[9])};
                 DrawPredPoints(points, frame);
             }
-
         }
 
         protected virtual void DrawPredPoints(Point[] points, Mat frame)
@@ -307,7 +345,6 @@ namespace OpenCVForUnityExample
                     _landmarkScale = _scale.colRange(0, 2);
                 }
 
-
                 Mat loc_0_2 = loc_m.colRange(new Range(0, 2));
                 Mat loc_2_4 = loc_m.colRange(new Range(2, 4));
                 Mat loc_2_3 = loc_m.colRange(new Range(2, 3));
@@ -327,7 +364,6 @@ namespace OpenCVForUnityExample
 
                 // # scale recover
                 Core.multiply(_bboxes, _bboxScale, _bboxes);
-
 
                 Mat loc_4_6 = loc_m.colRange(new Range(4, 6));
                 Mat loc_6_8 = loc_m.colRange(new Range(6, 8));
@@ -354,7 +390,6 @@ namespace OpenCVForUnityExample
                 Core.multiply(_landmarks68, _landmarkScale, _landmarks68);
                 Core.multiply(_landmarks810, _landmarkScale, _landmarks810);
 
-
                 // # get score
                 Mat cls_scores = conf_m.colRange(new Range(1, 2));
                 Mat iou_scores = iou_m;
@@ -380,7 +415,9 @@ namespace OpenCVForUnityExample
             {
                 int priors_size = 0;
                 for (int index = 0; index < _featureMapSizes.Count; index++)
+                {
                     priors_size += (int)(_featureMapSizes[index].width * _featureMapSizes[index].height * _minSizes[index].Length);
+                }
 
                 Mat anchors = new Mat(priors_size, 4, CvType.CV_32FC1);
                 int count = 0;
@@ -389,19 +426,19 @@ namespace OpenCVForUnityExample
                     Size feature_map_size = _featureMapSizes[i];
                     float[] min_size = _minSizes[i];
 
-                    for (int _h = 0; _h < feature_map_size.height; _h++)
+                    for (int h = 0; h < feature_map_size.height; h++)
                     {
-                        for (int _w = 0; _w < feature_map_size.width; _w++)
+                        for (int w = 0; w < feature_map_size.width; w++)
                         {
                             for (int j = 0; j < min_size.Length; j++)
                             {
-                                float s_kx = min_size[j] / _inW;
-                                float s_ky = min_size[j] / _inH;
+                                float kx = min_size[j] / _inW;
+                                float ky = min_size[j] / _inH;
 
-                                float cx = (float)((_w + 0.5) * _steps[i] / _inW);
-                                float cy = (float)((_h + 0.5) * _steps[i] / _inH);
+                                float cx = (float)((w + 0.5) * _steps[i] / _inW);
+                                float cy = (float)((h + 0.5) * _steps[i] / _inH);
 
-                                anchors.put(count, 0, new float[] { cx, cy, s_kx, s_ky });
+                                anchors.put(count, 0, new float[] { cx, cy, kx, ky });
 
                                 count++;
                             }

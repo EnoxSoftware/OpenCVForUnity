@@ -5,52 +5,79 @@ using System.Collections.Generic;
 using System.Threading;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.DnnModule;
+using OpenCVForUnity.Extensions;
+using OpenCVForUnity.Extensions.SourceToMat;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
-using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
+using OpenCVForUnity.UnityIntegration.Helper.Interaction;
+using OpenCVForUnity.UnityIntegration.Helper.SourceToMat;
+using OpenCVForUnity.UnityIntegration.Helper.UI;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static OpenCVForUnity.UnityIntegration.Helper.Source2Mat.MultiSource2MatHelper;
+using OpenCVDebug = OpenCVForUnity.Extensions.OpenCVDebug;
 using Rect = OpenCVForUnity.CoreModule.Rect;
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// Object Tracking DaSiamRPN Example
-    /// (##### Usually use the newly added TrackingAPI TrackerDaSiamRPN class instead of this example. #####)
-    /// An example of single object tracking using the DaSiamRPN algorithm.
-    /// Referring to https://github.com/opencv/opencv/blob/master/samples/dnn/dasiamrpn_tracker.py
+    /// DNN engine selection for <see cref="ObjectTrackingDaSiamRPNExample"/> and <see cref="DaSiamRPNTracker"/>.
+    /// Values match <see cref="Dnn.ENGINE_CLASSIC"/>, <see cref="Dnn.ENGINE_NEW"/>, and <see cref="Dnn.ENGINE_AUTO"/>.
+    /// </summary>
+    public enum DaSiamRpnDnnEngineSelection
+    {
+        Classic = Dnn.ENGINE_CLASSIC,
+        New = Dnn.ENGINE_NEW,
+        Auto = Dnn.ENGINE_AUTO,
+    }
+
+    /// <summary>
+    /// Object Tracking DaSiamRPN Example (legacy)
+    /// Single-object visual tracking with DaSiamRPN after an initial ROI selection.
+    /// Prefer the TrackingAPI TrackerDaSiamRPN class for new projects.
     ///
+    /// Demonstrates:
+    /// - Reading input frames via <see cref="MultiSourceToMatHelper"/> (webcam, video file, image file, or GPU readback)
+    /// - Loading three DaSiamRPN ONNX nets from StreamingAssets
+    /// - Template initialization from a user-selected ROI and per-frame correlation tracking
+    /// - Drawing the tracked bounding box on the RGB preview Mat
+    /// - Low-level <see cref="Net"/> inference with a selectable DNN engine (Inspector: <see cref="DnnEngine"/>)
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Mat"/>, <see cref="Net"/>, <see cref="Size"/>, <see cref="Scalar"/>, <see cref="Point"/>
+    /// - <see cref="Dnn"/>: readNet, blobFromImage, forward
+    /// - <see cref="Imgproc"/>: rectangle
+    /// - <see cref="MultiSourceToMatHelper"/>, <see cref="OpenCVMatUnityUtils"/>
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// This legacy example uses low-level <see cref="Net"/> APIs. The default DNN engine is
+    /// <see cref="DaSiamRpnDnnEngineSelection.Classic"/> (<c>Dnn.ENGINE_CLASSIC</c>, OpenCV 4.x compatible).
+    /// Change <see cref="DnnEngine"/> in the Inspector to <see cref="DaSiamRpnDnnEngineSelection.New"/> to compare
+    /// with the OpenCV 5 graph engine. For native <see cref="TrackerDaSiamRPN"/>, see TrackingExample.
+    /// </para>
+    /// <para>
+    /// Referring to:
+    /// https://github.com/opencv/opencv/blob/4.x/samples/dnn/dasiamrpn_tracker.cpp
+    /// </para>
+    /// <para>
     /// [Tested Models]
     /// https://www.dropbox.com/s/rr1lk9355vzolqv/dasiamrpn_model.onnx?dl=1
     /// https://www.dropbox.com/s/999cqx5zrfi7w4p/dasiamrpn_kernel_r1.onnx?dl=1
     /// https://www.dropbox.com/s/qvmtszx5h339a0w/dasiamrpn_kernel_cls1.onnx?dl=1
-    /// </summary>
-    [RequireComponent(typeof(MultiSource2MatHelper))]
+    /// </para>
+    /// </remarks>
+    [RequireComponent(typeof(MultiSourceToMatHelper))]
     public class ObjectTrackingDaSiamRPNExample : MonoBehaviour
     {
         // Constants
-        /// <summary>
-        /// IMAGE_FILENAME
-        /// </summary>
-        protected static readonly string NET_FILENAME = "OpenCVForUnityExamples/dnn/dasiamrpn_model.onnx";
+        private static readonly string NET_FILEPATH = "OpenCVForUnityExamples/dnn/dasiamrpn_model.onnx";
 
-        /// <summary>
-        /// KERNEL_R1_FILENAME
-        /// </summary>
-        protected static readonly string KERNEL_R1_FILENAME = "OpenCVForUnityExamples/dnn/dasiamrpn_kernel_r1.onnx";
+        private static readonly string KERNEL_R1_FILEPATH = "OpenCVForUnityExamples/dnn/dasiamrpn_kernel_r1.onnx";
 
-        /// <summary>
-        /// KERNEL_CLS1_FILENAME
-        /// </summary>
-        protected static readonly string KERNEL_CLS1_FILENAME = "OpenCVForUnityExamples/dnn/dasiamrpn_kernel_cls1.onnx";
+        private static readonly string KERNEL_CLS1_FILEPATH = "OpenCVForUnityExamples/dnn/dasiamrpn_kernel_cls1.onnx";
 
-        /// <summary>
-        /// VIDEO_FILENAME
-        /// </summary>
-        protected static readonly string VIDEO_FILENAME = "OpenCVForUnityExamples/768x576_mjpeg.mjpeg";
+        private static readonly string VIDEO_FILEPATH = "OpenCVForUnityExamples/768x576_mjpeg.mjpeg";
 
         // Public Fields
         [Header("Output")]
@@ -66,60 +93,27 @@ namespace OpenCVForUnityExample
         /// </summary>
         public TextureSelector TextureRectangleSelector;
 
+        [Space(10)]
+        [Header("DNN")]
+        /// <summary>
+        /// DNN engine for the three ONNX nets. Classic is recommended for this legacy low-level Net example.
+        /// </summary>
+        [Tooltip("Classic: OpenCV 4.x compatible engine (default). New: OpenCV 5 graph engine. Auto: new first, then fallback.")]
+        public DaSiamRpnDnnEngineSelection DnnEngine = DaSiamRpnDnnEngineSelection.Classic;
+
         // Private Fields
-        /// <summary>
-        /// The net filepath.
-        /// </summary>
         private string _netFilepath;
-
-        /// <summary>
-        /// The kernel_r1 filepath.
-        /// </summary>
         private string _kernelR1Filepath;
-
-        /// <summary>
-        /// The kernel_cls1 filepath.
-        /// </summary>
         private string _kernelCls1Filepath;
-
-        /// <summary>
-        /// The texture.
-        /// </summary>
         private Texture2D _texture;
-
-        /// <summary>
-        /// The DaSiamRPNTracker.
-        /// </summary>
+        private Mat _overlayMat;
         private DaSiamRPNTracker _tracker;
-
-        /// <summary>
-        /// The tracking color.
-        /// </summary>
         private Scalar _trackingColor = new Scalar(255, 255, 0);
-
-        /// <summary>
-        /// The flag for requesting tracker initialization after rectangle selection completes.
-        /// </summary>
         private bool _shouldStartTrackerInitialization = false;
-
-        /// <summary>
-        /// The flag indicating that tracking has started.
-        /// </summary>
         private bool _isTrackingStarted = false;
-
-        /// <summary>
-        /// The multi source to mat helper.
-        /// </summary>
-        private MultiSource2MatHelper _multiSource2MatHelper;
-
-        /// <summary>
-        /// The FPS monitor.
-        /// </summary>
+        private MultiSourceToMatHelper _multiSourceToMatHelper;
         private FpsMonitor _fpsMonitor;
-
-        /// <summary>
-        /// The CancellationTokenSource.
-        /// </summary>
+        private SourceToMatControlPanel _controlPanel;
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
         // Unity Lifecycle Methods
@@ -127,107 +121,123 @@ namespace OpenCVForUnityExample
         {
             _fpsMonitor = GetComponent<FpsMonitor>();
 
-            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
-
-            // WebCamTexture2MatHelper does not work on WebGPU, so use WebCamTexture2MatAsyncGPUHelper instead.
-#if UNITY_6000_0_OR_NEWER
-            if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.WebGPU && _multiSource2MatHelper.RequestedSource2MatHelperClassName == MultiSource2MatHelperClassName.WebCamTexture2MatHelper)
-            {
-                _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.WebCamTexture2MatAsyncGPUHelper;
-            }
-#endif
+            _multiSourceToMatHelper = gameObject.GetComponent<MultiSourceToMatHelper>();
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
             if (_fpsMonitor != null)
+            {
                 _fpsMonitor.ConsoleText = "Preparing file access...";
+            }
 
-            _netFilepath = await OpenCVEnv.GetFilePathTaskAsync(NET_FILENAME, cancellationToken: _cts.Token);
-            _kernelR1Filepath = await OpenCVEnv.GetFilePathTaskAsync(KERNEL_R1_FILENAME, cancellationToken: _cts.Token);
-            _kernelCls1Filepath = await OpenCVEnv.GetFilePathTaskAsync(KERNEL_CLS1_FILENAME, cancellationToken: _cts.Token);
+            _netFilepath = await OpenCVForUnityEnv.GetFilePathAsync(NET_FILEPATH, cancellationToken: _cts.Token);
+            _kernelR1Filepath = await OpenCVForUnityEnv.GetFilePathAsync(KERNEL_R1_FILEPATH, cancellationToken: _cts.Token);
+            _kernelCls1Filepath = await OpenCVForUnityEnv.GetFilePathAsync(KERNEL_CLS1_FILEPATH, cancellationToken: _cts.Token);
 
             if (_fpsMonitor != null)
+            {
                 _fpsMonitor.ConsoleText = "";
+            }
 
-            Run();
-        }
-
-        private void Run()
-        {
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             OpenCVDebug.SetDebugMode(true);
 
             if (string.IsNullOrEmpty(_netFilepath) || string.IsNullOrEmpty(_kernelR1Filepath) || string.IsNullOrEmpty(_kernelCls1Filepath))
             {
-                Debug.LogError(NET_FILENAME + " or " + KERNEL_R1_FILENAME + " or " + KERNEL_CLS1_FILENAME + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                Debug.LogError(NET_FILEPATH + " or " + KERNEL_R1_FILEPATH + " or " + KERNEL_CLS1_FILEPATH + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.", this);
                 if (_fpsMonitor != null)
                 {
-                    _fpsMonitor.Toast("model file is not loaded.\nPlease read console message.", 20000);
+                    _fpsMonitor.ConsoleText = "model file is not loaded.\nPlease read console message.";
                 }
             }
             else
             {
-                _tracker = new DaSiamRPNTracker(_netFilepath, _kernelR1Filepath, _kernelCls1Filepath);
+                _tracker = new DaSiamRPNTracker(_netFilepath, _kernelR1Filepath, _kernelCls1Filepath, (int)DnnEngine);
             }
 
-            if (string.IsNullOrEmpty(_multiSource2MatHelper.RequestedVideoFilePath))
-                _multiSource2MatHelper.RequestedVideoFilePath = VIDEO_FILENAME;
-            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGB; // DaSiamRPNTracker API must handle 3 channels Mat image.
-            _multiSource2MatHelper.Initialize();
+            _multiSourceToMatHelper.OutputColorFormat = SourceToMatColorFormat.RGB; // DaSiamRPNTracker API must handle 3 channels Mat image.
+
+            WireSourceToMatControlPanelHooks();
+
+            if (string.IsNullOrEmpty(_multiSourceToMatHelper.PerKindSettings.VideoCapture.RequestedVideoFilePath))
+            {
+                _multiSourceToMatHelper.PerKindSettings.VideoCapture.RequestedVideoFilePath = VIDEO_FILEPATH;
+            }
 
             OpenCVDebug.SetDebugMode(false);
+
+            if (_tracker == null)
+            {
+                return;
+            }
+
+            _multiSourceToMatHelper.Initialize();
         }
 
         private void Update()
         {
-            if (!_multiSource2MatHelper.IsInitialized())
+            if (!_multiSourceToMatHelper.IsInitialized)
+            {
                 return;
+            }
 
             if (_tracker == null)
             {
-                if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
+                if (_multiSourceToMatHelper.IsPlaying && _multiSourceToMatHelper.DidUpdateThisFrame)
                 {
-                    Mat rgbMat = _multiSource2MatHelper.GetMat();
+                    Mat rgbMat = _multiSourceToMatHelper.FrameMat;
 
-                    OpenCVMatUtils.MatToTexture2D(rgbMat, _texture);
+                    OpenCVMatUnityUtils.MatToTexture2D(rgbMat, _texture);
                 }
                 return;
             }
 
             if (!_isTrackingStarted)
             {
-                if (_multiSource2MatHelper.IsPaused())
+                if (_multiSourceToMatHelper.IsPaused)
                 {
-                    Mat rgbMat = _multiSource2MatHelper.GetMat();
+                    Mat sourceMat = _multiSourceToMatHelper.FrameMat;
+                    if (sourceMat == null || _texture == null)
+                    {
+                        return;
+                    }
 
                     if (_shouldStartTrackerInitialization)
                     {
                         var (_, _, currentSelectionPoints) = TextureRectangleSelector.GetSelectionStatus();
                         Rect selectedRegion = TextureSelector.ConvertSelectionPointsToOpenCVRect(currentSelectionPoints);
-                        InitializeTrackerWithRegion(rgbMat, selectedRegion);
+                        InitializeTrackerWithRegion(sourceMat, selectedRegion);
                         if (_isTrackingStarted)
                         {
-                            Debug.Log("Tracker initialization completed");
+                            Debug.Log("Tracker initialization completed", this);
                         }
                     }
 
-                    TextureRectangleSelector.DrawSelection(rgbMat, true);
+                    if (_overlayMat == null)
+                    {
+                        CreateOrRecreateProcessingResources(sourceMat);
+                    }
 
-                    OpenCVMatUtils.MatToTexture2D(rgbMat, _texture);
+                    // FrameMat is not refreshed while paused; copy before drawing the selection overlay.
+                    sourceMat.copyTo(_overlayMat);
+                    TextureRectangleSelector.DrawSelection(_overlayMat, true);
+
+                    OpenCVMatUnityUtils.MatToTexture2D(_overlayMat, _texture);
                 }
-                else if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
+                else if (_multiSourceToMatHelper.IsPlaying && _multiSourceToMatHelper.DidUpdateThisFrame)
                 {
-                    Mat rgbMat = _multiSource2MatHelper.GetMat();
-                    OpenCVMatUtils.MatToTexture2D(rgbMat, _texture);
+                    Mat rgbMat = _multiSourceToMatHelper.FrameMat;
+                    OpenCVMatUnityUtils.MatToTexture2D(rgbMat, _texture);
                 }
             }
             else
             {
-                if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
+                if (_multiSourceToMatHelper.IsPlaying && _multiSourceToMatHelper.DidUpdateThisFrame)
                 {
-                    Mat rgbMat = _multiSource2MatHelper.GetMat();
+                    Mat rgbMat = _multiSourceToMatHelper.FrameMat;
 
                     if (_tracker.IsInitialized)
                     {
+                        // Run DaSiamRPN correlation tracking on the RGB frame Mat.
                         Rect new_region = _tracker.Update(rgbMat);
 
                         if (_tracker.Score > 0.5)
@@ -247,43 +257,52 @@ namespace OpenCVForUnityExample
                         }
                     }
 
-                    OpenCVMatUtils.MatToTexture2D(rgbMat, _texture);
+                    // Publish tracked RGB Mat to Unity texture for RawImage preview.
+                    OpenCVMatUnityUtils.MatToTexture2D(rgbMat, _texture);
                 }
             }
         }
 
         private void OnDestroy()
         {
-            _multiSource2MatHelper?.Dispose();
+            UnwireSourceToMatControlPanelHooks();
 
-            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
+            _cts?.Cancel();
+
+            DisposeFrameProcessingResources();
+            CleanupPreviewResources();
 
             _tracker?.Dispose();
+            _tracker = null;
 
             _cts?.Dispose();
+            _cts = null;
         }
 
         // Public Methods
         /// <summary>
-        /// Raises the source to mat helper initialized event.
+        /// Raises the helper initialized event.
+        /// Recreates the preview texture and starts playback on first initialization.
+        /// Skips Play when re-initialization has already restored Playing or Paused.
         /// </summary>
         public void OnSourceToMatHelperInitialized()
         {
-            Debug.Log("OnSourceToMatHelperInitialized");
+            Debug.Log("OnSourceToMatHelperInitialized", this);
 
-            Mat rgbMat = _multiSource2MatHelper.GetMat();
-
-            _texture = new Texture2D(rgbMat.cols(), rgbMat.rows(), TextureFormat.RGB24, false);
-            OpenCVMatUtils.MatToTexture2D(rgbMat, _texture);
-
-            ResultPreview.texture = _texture;
-            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
+            RecreatePreviewTexture();
+            CreateOrRecreateProcessingResources(_multiSourceToMatHelper.FrameMat);
 
             if (_fpsMonitor != null)
             {
-                _fpsMonitor.Add("width", rgbMat.width().ToString());
-                _fpsMonitor.Add("height", rgbMat.height().ToString());
-                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                _fpsMonitor.Clear();
+                UpdateFpsMonitorPlaybackState();
+                _fpsMonitor.Add("HelperKind", _multiSourceToMatHelper.RequestedHelperKind.ToString());
+                _fpsMonitor.Add("Width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("Height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("Rotate90Degree", _multiSourceToMatHelper.Rotate90Degree.ToString());
+                _fpsMonitor.Add("FlipVertical", _multiSourceToMatHelper.FlipVertical.ToString());
+                _fpsMonitor.Add("FlipHorizontal", _multiSourceToMatHelper.FlipHorizontal.ToString());
+                _fpsMonitor.Add("Orientation", Screen.orientation.ToString());
                 UpdateFpsMonitorInferenceInfo(_fpsMonitor, _tracker);
                 _fpsMonitor.ConsoleText = "Please select a rectangle region to start tracking.";
             }
@@ -293,29 +312,76 @@ namespace OpenCVForUnityExample
 
             TextureRectangleSelector.enabled = true;
             TextureRectangleSelector.ResetSelectionStatus();
+
+            if (!_multiSourceToMatHelper.IsPlaying && !_multiSourceToMatHelper.IsPaused)
+            {
+                _multiSourceToMatHelper.Play();
+                UpdateFpsMonitorPlaybackState();
+            }
         }
 
         /// <summary>
-        /// Raises the source to mat helper disposed event.
+        /// Raises the helper frame mat layout changed event.
+        /// Recreates the preview texture when rotation or output size changes.
+        /// </summary>
+        public void OnSourceToMatHelperFrameMatLayoutChanged()
+        {
+            Debug.Log("OnSourceToMatHelperFrameMatLayoutChanged", this);
+
+            RecreatePreviewTexture();
+            CreateOrRecreateProcessingResources(_multiSourceToMatHelper.FrameMat);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("Width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("Height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("Orientation", Screen.orientation.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Raises the helper released event.
+        /// </summary>
+        public void OnSourceToMatHelperReleased()
+        {
+            Debug.Log("OnSourceToMatHelperReleased", this);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Clear();
+            }
+
+            _tracker?.Reset();
+            _isTrackingStarted = false;
+            _shouldStartTrackerInitialization = false;
+
+            DisposeFrameProcessingResources();
+            CleanupPreviewResources();
+        }
+
+        /// <summary>
+        /// Raises the helper disposed event.
         /// </summary>
         public void OnSourceToMatHelperDisposed()
         {
-            Debug.Log("OnSourceToMatHelperDisposed");
+            Debug.Log("OnSourceToMatHelperDisposed", this);
 
-            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
-
+            _tracker?.Reset();
             _isTrackingStarted = false;
             _shouldStartTrackerInitialization = false;
+
+            DisposeFrameProcessingResources();
+            CleanupPreviewResources();
         }
 
         /// <summary>
-        /// Raises the source to mat helper error occurred event.
+        /// Raises the helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
         /// <param name="message">Message.</param>
-        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
+        public void OnSourceToMatHelperErrorOccurred(SourceToMatErrorCode errorCode, string message)
         {
-            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message, this);
 
             if (_fpsMonitor != null)
             {
@@ -325,10 +391,92 @@ namespace OpenCVForUnityExample
 
         /// <summary>
         /// Raises the back button click event.
+        /// Stops playback and disposes the helper before scene transition (required on WebGL).
         /// </summary>
-        public void OnBackButtonClick()
+        public async void OnBackButtonClick()
         {
+            if (_multiSourceToMatHelper.IsPlaying || _multiSourceToMatHelper.IsPaused)
+            {
+                await _multiSourceToMatHelper.StopAsync();
+            }
+
+            await _multiSourceToMatHelper.DisposeAsync();
+
             SceneManager.LoadScene("OpenCVForUnityExample");
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPlay"/>.
+        /// </summary>
+        public void OnControlPanelAfterPlay()
+        {
+            UpdateFpsMonitorPlaybackState();
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPause"/>.
+        /// </summary>
+        public void OnControlPanelAfterPause()
+        {
+            UpdateFpsMonitorPlaybackState();
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterStop"/>.
+        /// </summary>
+        public void OnControlPanelAfterStop()
+        {
+            UpdateFpsMonitorPlaybackState();
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnRotate90Changed"/>.
+        /// </summary>
+        /// <param name="isOn">New Rotate90Degree value applied by the panel.</param>
+        public void OnControlPanelRotate90Changed(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("Rotate90Degree", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipVerticalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipVertical value applied by the panel.</param>
+        public void OnControlPanelFlipVerticalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipVertical", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipHorizontalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipHorizontal value applied by the panel.</param>
+        public void OnControlPanelFlipHorizontalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipHorizontal", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnHelperKindChanged"/>.
+        /// </summary>
+        /// <param name="kindIndex">Dropdown index matching <see cref="MultiSourceHelperKind"/>.</param>
+        public void OnControlPanelHelperKindChanged(int kindIndex)
+        {
+            if (_fpsMonitor == null || !Enum.IsDefined(typeof(MultiSourceHelperKind), kindIndex))
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("HelperKind", ((MultiSourceHelperKind)kindIndex).ToString());
         }
 
         /// <summary>
@@ -337,7 +485,9 @@ namespace OpenCVForUnityExample
         public void OnResetTrackerButtonClick()
         {
             if (_tracker != null)
+            {
                 _tracker.Reset();
+            }
 
             _isTrackingStarted = false;
             _shouldStartTrackerInitialization = false;
@@ -364,11 +514,11 @@ namespace OpenCVForUnityExample
                 switch (touchState)
                 {
                     case TextureSelector.TextureSelectionState.RECTANGLE_SELECTION_STARTED:
-                        _multiSource2MatHelper.Pause();
+                        _multiSourceToMatHelper.Pause();
                         break;
 
                     case TextureSelector.TextureSelectionState.RECTANGLE_SELECTION_CANCELLED:
-                        _multiSource2MatHelper.Play();
+                        _multiSourceToMatHelper.Play();
                         break;
 
                     case TextureSelector.TextureSelectionState.RECTANGLE_SELECTION_COMPLETED:
@@ -378,9 +528,132 @@ namespace OpenCVForUnityExample
             }
         }
 
+        // Private Methods
+
+        private void RecreatePreviewTexture()
+        {
+            Mat frameMat = _multiSourceToMatHelper.FrameMat;
+            if (frameMat == null)
+            {
+                return;
+            }
+
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+                _texture = null;
+            }
+
+            bool isRgb = _multiSourceToMatHelper.OutputColorFormat == SourceToMatColorFormat.RGB;
+            _texture = new Texture2D(frameMat.cols(), frameMat.rows(), isRgb ? TextureFormat.RGB24 : TextureFormat.RGBA32, false);
+            OpenCVMatUnityUtils.MatToTexture2D(frameMat, _texture);
+
+            if (ResultPreview != null)
+            {
+                ResultPreview.texture = _texture;
+                AspectRatioFitter aspectRatioFitter = ResultPreview.GetComponent<AspectRatioFitter>();
+                if (aspectRatioFitter != null)
+                {
+                    aspectRatioFitter.aspectRatio = (float)_texture.width / _texture.height;
+                }
+            }
+        }
+
+        private void DisposeFrameProcessingResources()
+        {
+            _overlayMat?.Dispose();
+            _overlayMat = null;
+        }
+
+        private void CreateOrRecreateProcessingResources(Mat frameMat)
+        {
+            if (frameMat == null)
+            {
+                return;
+            }
+
+            DisposeFrameProcessingResources();
+            _overlayMat = new Mat(frameMat.rows(), frameMat.cols(), frameMat.type());
+        }
+
+        private void CleanupPreviewResources()
+        {
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+                _texture = null;
+            }
+
+            UpdateFpsMonitorPlaybackState();
+        }
+
+        private void UpdateFpsMonitorPlaybackState()
+        {
+            if (_fpsMonitor == null || _multiSourceToMatHelper == null)
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("PlaybackState", GetPlaybackStateText());
+        }
+
+        private string GetPlaybackStateText()
+        {
+            if (!_multiSourceToMatHelper.IsInitialized)
+            {
+                return "Uninitialized";
+            }
+
+            if (_multiSourceToMatHelper.IsPlaying)
+            {
+                return "Playing";
+            }
+
+            if (_multiSourceToMatHelper.IsPaused)
+            {
+                return "Paused";
+            }
+
+            return "Ready";
+        }
+
+        private void WireSourceToMatControlPanelHooks()
+        {
+            _controlPanel = GetComponent<SourceToMatControlPanel>();
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.AddListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.AddListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.AddListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.AddListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.AddListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.AddListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.AddListener(OnControlPanelHelperKindChanged);
+        }
+
+        private void UnwireSourceToMatControlPanelHooks()
+        {
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.RemoveListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.RemoveListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.RemoveListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.RemoveListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.RemoveListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.RemoveListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.RemoveListener(OnControlPanelHelperKindChanged);
+            _controlPanel = null;
+        }
+
         private void InitializeTrackerWithRegion(Mat rgbMat, Rect region)
         {
-            if (!_multiSource2MatHelper.IsInitialized() || rgbMat == null || _tracker == null)
+            if (!_multiSourceToMatHelper.IsInitialized || rgbMat == null || _tracker == null)
             {
                 _shouldStartTrackerInitialization = false;
                 return;
@@ -391,7 +664,7 @@ namespace OpenCVForUnityExample
                 _tracker.Init(rgbMat, ConvertToCenterRef(region));
                 _isTrackingStarted = true;
                 TextureRectangleSelector.enabled = false;
-                _multiSource2MatHelper.Play();
+                _multiSourceToMatHelper.Play();
 
                 if (_fpsMonitor != null)
                 {
@@ -400,8 +673,8 @@ namespace OpenCVForUnityExample
             }
             catch (Exception e)
             {
-                Debug.Log(e);
-                _multiSource2MatHelper.Play();
+                Debug.Log(e, this);
+                _multiSourceToMatHelper.Play();
                 TextureRectangleSelector.enabled = true;
                 TextureRectangleSelector.ResetSelectionStatus();
                 if (_fpsMonitor != null)
@@ -423,30 +696,44 @@ namespace OpenCVForUnityExample
             return new Rect(r.x - r.width / 2, r.y - r.height / 2, r.width, r.height);
         }
 
+        /// <summary>
+        /// Updates <paramref name="fpsMonitor"/> with dnn backend, target, and async mode from
+        /// <paramref name="tracker"/> (or "-" when a value is not available).
+        /// </summary>
         private static void UpdateFpsMonitorInferenceInfo(FpsMonitor fpsMonitor, DaSiamRPNTracker tracker)
         {
             if (fpsMonitor == null)
+            {
                 return;
+            }
 
             if (tracker != null)
             {
                 // cv::dnn::Net: No PreferredBackend/PreferredTarget getters in the C# binding; treat as default OpenCV DNN inference.
                 fpsMonitor.Add("dnnBackend", "OPENCV");
                 fpsMonitor.Add("dnnTarget", "CPU");
+                fpsMonitor.Add("dnnEngine", tracker.DnnEngineName);
             }
             else
             {
                 fpsMonitor.Add("dnnBackend", "-");
                 fpsMonitor.Add("dnnTarget", "-");
             }
-            fpsMonitor.Add("useAsyncInference", "False");
         }
     }
 
-
+    /// <summary>
+    /// Legacy DaSiamRPN tracker implemented with low-level <see cref="Net"/> APIs.
+    /// </summary>
+    /// <remarks>
+    /// Loads ONNX models with the DNN engine passed to the constructor (see <see cref="DaSiamRpnDnnEngineSelection"/>).
+    /// <see cref="DaSiamRpnDnnEngineSelection.Classic"/> is recommended for this port; setParam uses ONNX tensor names
+    /// and forward outputs are resolved by blob size so Classic and New engines can both be compared.
+    /// </remarks>
     public class DaSiamRPNTracker
     {
         // Private Fields
+        private readonly int _dnnEngine;
         private string _windowing = "cosine";
         private int _exemplarSize = 127;
         private int _instanceSize = 271;
@@ -493,24 +780,58 @@ namespace OpenCVForUnityExample
         protected double _score;
         public double Score
         {
-            get { return _score; }
+            get
+            {
+                return _score;
+            }
         }
 
         protected bool _isInitialized;
         public bool IsInitialized
         {
-            get { return _isInitialized; }
+            get
+            {
+                return _isInitialized;
+            }
         }
 
         protected bool _isDisposed;
         public bool IsDisposed
         {
-            get { return _isDisposed; }
+            get
+            {
+                return _isDisposed;
+            }
+        }
+
+        /// <summary>Selected DNN engine id (<see cref="Dnn.ENGINE_CLASSIC"/> etc.).</summary>
+        public int DnnEngine
+        {
+            get
+            {
+                return _dnnEngine;
+            }
+        }
+
+        /// <summary>Human-readable DNN engine label for UI.</summary>
+        public string DnnEngineName
+        {
+            get
+            {
+                switch (_dnnEngine)
+                {
+                    case Dnn.ENGINE_CLASSIC: return "CLASSIC";
+                    case Dnn.ENGINE_NEW: return "NEW";
+                    case Dnn.ENGINE_AUTO: return "AUTO";
+                    default: return _dnnEngine.ToString();
+                }
+            }
         }
 
         // Constructor
-        public DaSiamRPNTracker(string netFilepath, string kernelR1Filepath, string kernelCls1Filepath)
+        public DaSiamRPNTracker(string netFilepath, string kernelR1Filepath, string kernelCls1Filepath, int dnnEngine = Dnn.ENGINE_CLASSIC)
         {
+            _dnnEngine = dnnEngine;
             _scoreSize = (int)((_instanceSize - _exemplarSize) / _totalStride) + 1;
             _anchorNum = _ratios.Length * _scales.Length;
 
@@ -535,11 +856,10 @@ namespace OpenCVForUnityExample
             _window = new Mat(windowFlatten.rows() * 1, windowFlatten.cols() * _anchorNum, window.type());
             Tile(windowFlatten, 1, _anchorNum, _window);
 
-
-            // # Loading network`s and kernel`s models
-            _net = Dnn.readNet(netFilepath);
-            _kernelR1 = Dnn.readNet(kernelR1Filepath);
-            _kernelCls1 = Dnn.readNet(kernelCls1Filepath);
+            // # Loading network`s and kernel`s models from StreamingAssets-resolved ONNX paths.
+            _net = Dnn.readNet(netFilepath, "", "", _dnnEngine);
+            _kernelR1 = Dnn.readNet(kernelR1Filepath, "", "", _dnnEngine);
+            _kernelCls1 = Dnn.readNet(kernelCls1Filepath, "", "", _dnnEngine);
 
             if (_net.empty())
             {
@@ -559,7 +879,9 @@ namespace OpenCVForUnityExample
         public void Init(Mat im, Rect initBb)
         {
             if (IsDisposed)
+            {
                 throw new ObjectDisposedException(GetType().FullName);
+            }
 
             _imH = im.height();
             _imW = im.width();
@@ -580,8 +902,9 @@ namespace OpenCVForUnityExample
             // # too small bounding boxes - current state of the network can not
             // # work properly with such small bounding boxes
             if (_targetSz.width * _targetSz.height / (float)(_imH * _imW) < 0.004)
+            {
                 throw new Exception("Initializing BB is too small-try to restart tracker with larger BB");
-
+            }
 
             _anchor = GenerateAnchor();
 
@@ -601,8 +924,8 @@ namespace OpenCVForUnityExample
             r1 = r1.reshape(1, new int[] { 20, 256, 4, 4 });
             cls1 = cls1.reshape(1, new int[] { 10, 256, 4, 4 });
 
-            _net.setParam(_net.getLayerId("onnx_node_output_0!65"), 0, r1);
-            _net.setParam(_net.getLayerId("onnx_node_output_0!68"), 0, cls1);
+            _net.setParam("onnx_node_output_0!65", 0, r1);
+            _net.setParam("onnx_node_output_0!68", 0, cls1);
 
             _isInitialized = true;
         }
@@ -610,10 +933,14 @@ namespace OpenCVForUnityExample
         public Rect Update(Mat im)
         {
             if (IsDisposed)
+            {
                 throw new ObjectDisposedException(GetType().FullName);
+            }
 
             if (!IsInitialized)
+            {
                 return new Rect();
+            }
 
             double wcZ = _targetSz.height + _contextAmount * (_targetSz.width + _targetSz.height);
             double hcZ = _targetSz.width + _contextAmount * (_targetSz.width + _targetSz.height);
@@ -641,7 +968,8 @@ namespace OpenCVForUnityExample
         {
             _isInitialized = false;
 
-            _anchor?.Dispose(); _anchor = null;
+            _anchor?.Dispose();
+            _anchor = null;
         }
 
         public void Dispose()
@@ -650,32 +978,45 @@ namespace OpenCVForUnityExample
 
             _isDisposed = true;
 
-            _window?.Dispose(); _window = null;
-            _net?.Dispose(); _net = null;
-            _kernelR1?.Dispose(); _kernelR1 = null;
-            _kernelCls1?.Dispose(); _kernelCls1 = null;
+            _window?.Dispose();
+            _window = null;
+            _net?.Dispose();
+            _net = null;
+            _kernelR1?.Dispose();
+            _kernelR1 = null;
+            _kernelCls1?.Dispose();
+            _kernelCls1 = null;
 
             if (_trackerEvalScoreR1_0 != null)
             {
                 _trackerEvalScoreR1_0.Dispose();
+                _trackerEvalScoreR1_0 = null;
                 _trackerEvalTmpR1_0.Dispose();
+                _trackerEvalTmpR1_0 = null;
                 _trackerEvalTmpR1_1.Dispose();
+                _trackerEvalTmpR1_1 = null;
                 _trackerEvalTmpR1_2.Dispose();
+                _trackerEvalTmpR1_2 = null;
 
                 _trackerEvalFuncTmpR1_0.Dispose();
+                _trackerEvalFuncTmpR1_0 = null;
                 _trackerEvalFuncTmpR1_1.Dispose();
+                _trackerEvalFuncTmpR1_1 = null;
                 _trackerEvalFuncTmpR2_0.Dispose();
+                _trackerEvalFuncTmpR2_0 = null;
                 _trackerEvalFuncTmpR2_1.Dispose();
+                _trackerEvalFuncTmpR2_1 = null;
             }
         }
 
         // Private Methods
+
         private Mat GenerateAnchor()
         {
             Mat anchor;
             int score_sz = (int)_scoreSize;
 
-            using (Mat __anchor = Mat.zeros(_anchorNum, 4, CvType.CV_32FC1))
+            using (Mat tmp_anchor = Mat.zeros(_anchorNum, 4, CvType.CV_32FC1))
             {
                 int size = _totalStride * _totalStride;
                 int count = 0;
@@ -688,48 +1029,48 @@ namespace OpenCVForUnityExample
                     {
                         float wws = ws * scale;
                         float hhs = hs * scale;
-                        __anchor.put(count, 0, new float[] { 0, 0, wws, hhs });
+                        tmp_anchor.put(count, 0, new float[] { 0, 0, wws, hhs });
                         count += 1;
                     }
                 }
 
-                using (Mat __anchor_tile = new Mat(__anchor.rows() * 1, __anchor.cols() * score_sz * score_sz, __anchor.type()))
+                using (Mat tmp_anchor_tile = new Mat(tmp_anchor.rows() * 1, tmp_anchor.cols() * score_sz * score_sz, tmp_anchor.type()))
                 {
-                    Tile(__anchor, 1, score_sz * score_sz, __anchor_tile);
-                    anchor = __anchor_tile.reshape(1, _anchorNum * score_sz * score_sz);
+                    Tile(tmp_anchor, 1, score_sz * score_sz, tmp_anchor_tile);
+                    anchor = tmp_anchor_tile.reshape(1, _anchorNum * score_sz * score_sz);
                 }
             }
 
             float ori = -(score_sz / 2f) * _totalStride;
 
-            float[] _xx_arr = new float[score_sz];
+            float[] xx_arr = new float[score_sz];
             for (int dx = 0; dx < score_sz; dx++)
             {
-                _xx_arr[dx] = ori + _totalStride * dx;
+                xx_arr[dx] = ori + _totalStride * dx;
             }
-            using (Mat _xx = new Mat(1, score_sz, CvType.CV_32FC1))
+            using (Mat tmp_xx = new Mat(1, score_sz, CvType.CV_32FC1))
             {
-                _xx.put(0, 0, _xx_arr);
+                tmp_xx.put(0, 0, xx_arr);
 
-                using (Mat _xx_tile = new Mat(_xx.rows() * _xx.cols(), _xx.cols() * 1, _xx.type()))
+                using (Mat tmp_xx_tile = new Mat(tmp_xx.rows() * tmp_xx.cols(), tmp_xx.cols() * 1, tmp_xx.type()))
                 {
-                    Tile(_xx, _xx.cols(), 1, _xx_tile);
-                    using (Mat _xx_tile_t = _xx_tile.t())
-                    using (Mat __xx = Flatten(_xx_tile))
-                    using (Mat __yy = Flatten(_xx_tile_t))
-                    using (Mat __xx_tile = new Mat(__xx.rows() * _anchorNum, __xx.cols() * 1, __xx.type()))
-                    using (Mat __yy_tile = new Mat(__yy.rows() * _anchorNum, __yy.cols() * 1, __yy.type()))
+                    Tile(tmp_xx, tmp_xx.cols(), 1, tmp_xx_tile);
+                    using (Mat tmp_xx_tile_t = tmp_xx_tile.t())
+                    using (Mat tmp_xx2 = Flatten(tmp_xx_tile))
+                    using (Mat tmp_yy2 = Flatten(tmp_xx_tile_t))
+                    using (Mat tmp_xx_tile2 = new Mat(tmp_xx2.rows() * _anchorNum, tmp_xx2.cols() * 1, tmp_xx2.type()))
+                    using (Mat tmp_yy_tile2 = new Mat(tmp_yy2.rows() * _anchorNum, tmp_yy2.cols() * 1, tmp_yy2.type()))
                     {
-                        Tile(__xx, _anchorNum, 1, __xx_tile);
-                        Tile(__yy, _anchorNum, 1, __yy_tile);
+                        Tile(tmp_xx2, _anchorNum, 1, tmp_xx_tile2);
+                        Tile(tmp_yy2, _anchorNum, 1, tmp_yy_tile2);
 
-                        using (Mat xx = __xx_tile.reshape(1, anchor.rows()))
-                        using (Mat yy = __yy_tile.reshape(1, anchor.rows()))
-                        using (Mat _anchor_roi_c0 = anchor.col(0))
-                        using (Mat _anchor_roi_c1 = anchor.col(1))
+                        using (Mat xx = tmp_xx_tile2.reshape(1, anchor.rows()))
+                        using (Mat yy = tmp_yy_tile2.reshape(1, anchor.rows()))
+                        using (Mat tmp_anchor_roi_c0 = anchor.col(0))
+                        using (Mat tmp_anchor_roi_c1 = anchor.col(1))
                         {
-                            xx.copyTo(_anchor_roi_c0);
-                            yy.copyTo(_anchor_roi_c1);
+                            xx.copyTo(tmp_anchor_roi_c0);
+                            yy.copyTo(tmp_anchor_roi_c1);
                         }
                     }
                 }
@@ -746,21 +1087,39 @@ namespace OpenCVForUnityExample
         private void Change(Mat r, Mat dst)
         {
             if (r == null)
+            {
                 throw new ArgumentNullException("r");
+            }
+
             if (r != null)
+            {
                 r.ThrowIfDisposed();
+            }
+
             if (r.rows() != 1)
+            {
                 throw new ArgumentException("r.rows() != 1");
+            }
 
             if (dst == null)
+            {
                 throw new ArgumentNullException("dst");
-            if (dst != null)
-                dst.ThrowIfDisposed();
-            if (dst.rows() != 1)
-                throw new ArgumentException("dst.rows() != 1");
-            if (dst.cols() != r.cols() || dst.type() != r.type())
-                throw new ArgumentException("dst.cols() != r.cols() || dst.type() != r.type()");
+            }
 
+            if (dst != null)
+            {
+                dst.ThrowIfDisposed();
+            }
+
+            if (dst.rows() != 1)
+            {
+                throw new ArgumentException("dst.rows() != 1");
+            }
+
+            if (dst.cols() != r.cols() || dst.type() != r.type())
+            {
+                throw new ArgumentException("dst.cols() != r.cols() || dst.type() != r.type()");
+            }
 
             // return np.maximum(r, 1./r)
 
@@ -779,31 +1138,59 @@ namespace OpenCVForUnityExample
         private void Sz(Mat w, Mat h, Mat dst)
         {
             if (w == null)
+            {
                 throw new ArgumentNullException("w");
+            }
+
             if (w != null)
+            {
                 w.ThrowIfDisposed();
+            }
+
             if (w.rows() != 1)
+            {
                 throw new ArgumentException("w.rows() != 1");
+            }
 
             if (h == null)
+            {
                 throw new ArgumentNullException("h");
+            }
+
             if (h != null)
+            {
                 h.ThrowIfDisposed();
+            }
+
             if (h.rows() != 1)
+            {
                 throw new ArgumentException("h.rows() != 1");
+            }
 
             if (dst == null)
+            {
                 throw new ArgumentNullException("dst");
+            }
+
             if (dst != null)
+            {
                 dst.ThrowIfDisposed();
+            }
+
             if (dst.rows() != 1)
+            {
                 throw new ArgumentException("dst.rows() != 1");
+            }
 
             if (w.cols() != h.cols() || w.type() != h.type())
+            {
                 throw new ArgumentException(" w.cols() != h.cols() || w.type() != h.type()");
-            if (h.cols() != dst.cols() || h.type() != dst.type())
-                throw new ArgumentException("h.cols() != dst.cols() || h.type() != dst.type()");
+            }
 
+            if (h.cols() != dst.cols() || h.type() != dst.type())
+            {
+                throw new ArgumentException("h.cols() != dst.cols() || h.type() != dst.type()");
+            }
 
             //pad = (w + h) * 0.5
             //sz2 = (w + pad) * (h + pad)
@@ -847,19 +1234,34 @@ namespace OpenCVForUnityExample
         private void Softmax(Mat x, Mat dst)
         {
             if (x == null)
+            {
                 throw new ArgumentNullException("x");
+            }
+
             if (x != null)
+            {
                 x.ThrowIfDisposed();
+            }
+
             if (x.rows() != 2)
+            {
                 throw new ArgumentException("x.rows() != 2");
+            }
 
             if (dst == null)
+            {
                 throw new ArgumentNullException("dst");
-            if (dst != null)
-                dst.ThrowIfDisposed();
-            if (dst.rows() != 1 || dst.cols() != x.cols() || dst.type() != x.type())
-                throw new ArgumentException("dst.rows() != 1 || dst.cols() != x.cols() || dst.type() != x.type()");
+            }
 
+            if (dst != null)
+            {
+                dst.ThrowIfDisposed();
+            }
+
+            if (dst.rows() != 1 || dst.cols() != x.cols() || dst.type() != x.type())
+            {
+                throw new ArgumentException("dst.rows() != 1 || dst.cols() != x.cols() || dst.type() != x.type()");
+            }
 
             //x_max = x.max(0)
             //e_x = np.exp(x - x_max)
@@ -890,11 +1292,11 @@ namespace OpenCVForUnityExample
         private Mat GetSubwindowTracking(Mat im, int model_size, int original_sz)
         {
             Size im_sz = im.size();
-            double _c = (original_sz + 1) / 2.0;
+            double ct = (original_sz + 1) / 2.0;
 
-            int context_xmin = (int)Math.Round(_targetPos.x - _c);
+            int context_xmin = (int)Math.Round(_targetPos.x - ct);
             int context_xmax = context_xmin + original_sz - 1;
-            int context_ymin = (int)Math.Round(_targetPos.y - _c);
+            int context_ymin = (int)Math.Round(_targetPos.y - ct);
             int context_ymax = context_ymin + original_sz - 1;
             int left_pad = (int)Math.Max(0.0, -context_xmin);
             int top_pad = (int)Math.Max(0.0, -context_ymin);
@@ -907,20 +1309,18 @@ namespace OpenCVForUnityExample
             int r = (int)im_sz.height;
             int c = (int)im_sz.width;
 
-
             double wc_z = im.height() + _contextAmount * (im.width() + im.height());
             double hc_z = im.width() + _contextAmount * (im.width() + im.height());
-            double s_z = Math.Sqrt(wc_z * hc_z);
-            double scale_z = _exemplarSize / s_z;
+            double z = Math.Sqrt(wc_z * hc_z);
+            double scale_z = _exemplarSize / z;
             float d_search = (_instanceSize - _exemplarSize) / 2f;
             double pad = d_search / scale_z;
-            int te_im_tmp_sz = (int)Math.Round(s_z + 2.0 * pad);
+            int te_im_tmp_sz = (int)Math.Round(z + 2.0 * pad);
 
             if (_teImTmp == null || _teImTmp.rows() != te_im_tmp_sz || _teImTmp.cols() != te_im_tmp_sz)
             {
                 _teImTmp = new Mat(te_im_tmp_sz, te_im_tmp_sz, im.type());
             }
-
 
             Mat im_patch_original;
 
@@ -993,20 +1393,39 @@ namespace OpenCVForUnityExample
         private Mat Outer(Mat a, Mat b)
         {
             if (a == null)
+            {
                 throw new ArgumentNullException("a");
+            }
+
             if (a != null)
+            {
                 a.ThrowIfDisposed();
+            }
+
             if (b == null)
+            {
                 throw new ArgumentNullException("b");
+            }
+
             if (b != null)
+            {
                 b.ThrowIfDisposed();
+            }
 
             if (a.rows() != 1 || a.channels() != 1)
+            {
                 throw new ArgumentException("a.rows() != 1 || a.channels() != 1");
+            }
+
             if (b.rows() != 1 || b.channels() != 1)
+            {
                 throw new ArgumentException("b.rows() != 1 || b.channels() != 1");
+            }
+
             if (a.type() != b.type())
+            {
                 throw new ArgumentException("a.type() != b.type()");
+            }
 
             int rows = a.cols();
             int cols = b.cols();
@@ -1014,14 +1433,14 @@ namespace OpenCVForUnityExample
 
             Mat dst;
 
-            using (Mat _a = new Mat(cols, rows, type))
-            using (Mat _b = new Mat(rows, cols, type))
+            using (Mat tmp_a = new Mat(cols, rows, type))
+            using (Mat tmp_b = new Mat(rows, cols, type))
             {
-                Core.repeat(a, cols, 1, _a);
-                Core.repeat(b, rows, 1, _b);
-                Core.transpose(_a, _a);
+                Core.repeat(a, cols, 1, tmp_a);
+                Core.repeat(b, rows, 1, tmp_b);
+                Core.transpose(tmp_a, tmp_a);
 
-                dst = _a.mul(_b);
+                dst = tmp_a.mul(tmp_b);
             }
 
             return dst;
@@ -1033,9 +1452,14 @@ namespace OpenCVForUnityExample
         private Mat Flatten(Mat a)
         {
             if (a == null)
+            {
                 throw new ArgumentNullException("a");
+            }
+
             if (a != null)
+            {
                 a.ThrowIfDisposed();
+            }
 
             return a.reshape(1, 1);
         }
@@ -1046,16 +1470,29 @@ namespace OpenCVForUnityExample
         private void Tile(Mat a, int ny, int nx, Mat dst)
         {
             if (a == null)
+            {
                 throw new ArgumentNullException("a");
+            }
+
             if (a != null)
+            {
                 a.ThrowIfDisposed();
+            }
 
             if (dst == null)
+            {
                 throw new ArgumentNullException("dst");
+            }
+
             if (dst != null)
+            {
                 dst.ThrowIfDisposed();
+            }
+
             if (dst.rows() != a.rows() * ny || dst.cols() != a.cols() * nx || dst.type() != a.type())
+            {
                 throw new ArgumentException("dst.rows() != a.rows() * ny || dst.cols() != a.cols() * nx || dst.type() != a.type()");
+            }
 
             Core.repeat(a, ny, nx, dst);
         }
@@ -1068,19 +1505,34 @@ namespace OpenCVForUnityExample
         private void MaxAxis0(Mat a, Mat dst)
         {
             if (a == null)
+            {
                 throw new ArgumentNullException("a");
+            }
+
             if (a != null)
+            {
                 a.ThrowIfDisposed();
+            }
+
             if (a.channels() != 1)
+            {
                 throw new ArgumentException("a.channels() != 1");
+            }
 
             if (dst == null)
+            {
                 throw new ArgumentNullException("dst");
-            if (dst != null)
-                dst.ThrowIfDisposed();
-            if (dst.rows() != 1 || dst.cols() != a.cols() || dst.type() != a.type())
-                throw new ArgumentException("dst.rows() != 1 || dst.cols() != a.cols() || dst.type() != a.type()");
+            }
 
+            if (dst != null)
+            {
+                dst.ThrowIfDisposed();
+            }
+
+            if (dst.rows() != 1 || dst.cols() != a.cols() || dst.type() != a.type())
+            {
+                throw new ArgumentException("dst.rows() != 1 || dst.cols() != a.cols() || dst.type() != a.type()");
+            }
 
             using (Mat a_roi_r0 = a.row(0))
             {
@@ -1105,19 +1557,34 @@ namespace OpenCVForUnityExample
         private void ArgmaxAxis1(Mat a, Mat dst)
         {
             if (a == null)
+            {
                 throw new ArgumentNullException("a");
+            }
+
             if (a != null)
+            {
                 a.ThrowIfDisposed();
+            }
+
             if (a.channels() != 1)
+            {
                 throw new ArgumentException("a.channels() != 1");
+            }
 
             if (dst == null)
+            {
                 throw new ArgumentNullException("dst");
-            if (dst != null)
-                dst.ThrowIfDisposed();
-            if (dst.rows() != a.rows() || dst.cols() != 1 || dst.type() != a.type())
-                throw new ArgumentException("dst.rows() != a.rows() || dst.cols() != 1 || dst.type() != a.type()");
+            }
 
+            if (dst != null)
+            {
+                dst.ThrowIfDisposed();
+            }
+
+            if (dst.rows() != a.rows() || dst.cols() != 1 || dst.type() != a.type())
+            {
+                throw new ArgumentException("dst.rows() != a.rows() || dst.cols() != 1 || dst.type() != a.type()");
+            }
 
             int len = a.rows();
             float[] dstArr = new float[len];
@@ -1129,7 +1596,7 @@ namespace OpenCVForUnityExample
                     dstArr[i] = (float)r.maxLoc.x;
                 }
             }
-            OpenCVMatUtils.CopyToMat(dstArr, dst);
+            MatBufferUtils.CopyToMat(dstArr, dst);
         }
 
         /// <summary>
@@ -1140,19 +1607,34 @@ namespace OpenCVForUnityExample
         private void SumAxis0(Mat a, Mat dst)
         {
             if (a == null)
+            {
                 throw new ArgumentNullException("a");
+            }
+
             if (a != null)
+            {
                 a.ThrowIfDisposed();
+            }
+
             if (a.rows() != 2)
+            {
                 throw new ArgumentException("a.rows() != 2");
+            }
 
             if (dst == null)
+            {
                 throw new ArgumentNullException("dst");
-            if (dst != null)
-                dst.ThrowIfDisposed();
-            if (dst.rows() != 1 || dst.cols() != a.cols() || dst.type() != a.type())
-                throw new ArgumentException("dst.rows() != 1 || dst.cols() != a.cols() || dst.type() != a.type()");
+            }
 
+            if (dst != null)
+            {
+                dst.ThrowIfDisposed();
+            }
+
+            if (dst.rows() != 1 || dst.cols() != a.cols() || dst.type() != a.type())
+            {
+                throw new ArgumentException("dst.rows() != 1 || dst.cols() != a.cols() || dst.type() != a.type()");
+            }
 
             using (Mat a_roi_r0 = a.row(0))
             using (Mat a_roi_r1 = a.row(1))
@@ -1169,57 +1651,85 @@ namespace OpenCVForUnityExample
             if (_outNames == null)
             {
                 _outNames = _net.getUnconnectedOutLayersNames();
-                _outNames[0] = "66";
-                _outNames[1] = "68";
             }
 
             _net.forward(_outBlobs, _outNames);
-            Mat delta = _outBlobs[0];
-            Mat _score = _outBlobs[1];
+            // OpenCV 5 DNN: output order may differ from classic engine (delta=4*A*S*S, score=2*A*S*S).
+            Mat deltaMat;
+            Mat scoreMat;
+            if (_outBlobs[0].total() >= _outBlobs[1].total())
+            {
+                deltaMat = _outBlobs[0];
+                scoreMat = _outBlobs[1];
+            }
+            else
+            {
+                deltaMat = _outBlobs[1];
+                scoreMat = _outBlobs[0];
+            }
 
-            delta = delta.reshape(1, new int[] { 4, (int)delta.total() / 4 });
-            _score = _score.reshape(1, new int[] { 2, (int)_score.total() / 2 });
+            deltaMat = deltaMat.reshape(1, new int[] { 4, (int)deltaMat.total() / 4 });
+            scoreMat = scoreMat.reshape(1, new int[] { 2, (int)scoreMat.total() / 2 });
 
-            int cols = delta.cols();
-            int type = delta.type();
+            int cols = deltaMat.cols();
+            int type = deltaMat.type();
 
             if (_trackerEvalScoreR1_0 == null)
+            {
                 _trackerEvalScoreR1_0 = new Mat(1, cols, type);
+            }
+
             if (_trackerEvalTmpR1_0 == null)
+            {
                 _trackerEvalTmpR1_0 = new Mat(1, cols, type);
+            }
+
             if (_trackerEvalTmpR1_1 == null)
+            {
                 _trackerEvalTmpR1_1 = new Mat(1, cols, type);
+            }
+
             if (_trackerEvalTmpR1_2 == null)
+            {
                 _trackerEvalTmpR1_2 = new Mat(1, cols, type);
+            }
 
             if (_trackerEvalFuncTmpR1_0 == null)
+            {
                 _trackerEvalFuncTmpR1_0 = new Mat(1, cols, type);
-            if (_trackerEvalFuncTmpR1_1 == null)
-                _trackerEvalFuncTmpR1_1 = new Mat(1, cols, type);
-            if (_trackerEvalFuncTmpR2_0 == null)
-                _trackerEvalFuncTmpR2_0 = new Mat(2, cols, type);
-            if (_trackerEvalFuncTmpR2_1 == null)
-                _trackerEvalFuncTmpR2_1 = new Mat(2, cols, type);
+            }
 
+            if (_trackerEvalFuncTmpR1_1 == null)
+            {
+                _trackerEvalFuncTmpR1_1 = new Mat(1, cols, type);
+            }
+
+            if (_trackerEvalFuncTmpR2_0 == null)
+            {
+                _trackerEvalFuncTmpR2_0 = new Mat(2, cols, type);
+            }
+
+            if (_trackerEvalFuncTmpR2_1 == null)
+            {
+                _trackerEvalFuncTmpR2_1 = new Mat(2, cols, type);
+            }
 
             Mat score = _trackerEvalScoreR1_0;
-            Softmax(_score, score);
-
+            Softmax(scoreMat, score);
 
             Mat tmp_r1_0 = _trackerEvalTmpR1_0;
             Mat tmp_r1_1 = _trackerEvalTmpR1_1;
             Mat tmp_r1_2 = _trackerEvalTmpR1_2;
-
 
             //delta[0, :] = delta[0, :] * self.anchor[:, 2] + self.anchor[:, 0]
             //delta[1, :] = delta[1, :] * self.anchor[:, 3] + self.anchor[:, 1]
             //delta[2, :] = np.exp(delta[2, :]) * self.anchor[:, 2]
             //delta[3, :] = np.exp(delta[3, :]) * self.anchor[:, 3]
 
-            using (Mat delta_roi_r0 = delta.row(0))
-            using (Mat delta_roi_r1 = delta.row(1))
-            using (Mat delta_roi_r2 = delta.row(2))
-            using (Mat delta_roi_r3 = delta.row(3))
+            using (Mat delta_roi_r0 = deltaMat.row(0))
+            using (Mat delta_roi_r1 = deltaMat.row(1))
+            using (Mat delta_roi_r2 = deltaMat.row(2))
+            using (Mat delta_roi_r3 = deltaMat.row(3))
             using (Mat anchor_roi_r0 = _anchor.row(0))
             using (Mat anchor_roi_r1 = _anchor.row(1))
             using (Mat anchor_roi_r2 = _anchor.row(2))
@@ -1242,7 +1752,6 @@ namespace OpenCVForUnityExample
                 tmp_r1_0.copyTo(delta_roi_r3);
             }
 
-
             //s_c = __change(__sz(delta[2, :], delta[3, :]) / (__sz_wh(target_size)))
             //r_c = __change((target_size[0] / target_size[1]) / (delta[2, :] / delta[3, :]))
             //penalty = np.exp(-(r_c * s_c - 1.) * self.penalty_k)
@@ -1254,25 +1763,22 @@ namespace OpenCVForUnityExample
             double penalty_best_pscore;
 
             double target_size_sz_wh = SzWh(target_size);
-            using (Mat delta_roi_r2 = delta.row(2))
-            using (Mat delta_roi_r3 = delta.row(3))
+            using (Mat delta_roi_r2 = deltaMat.row(2))
+            using (Mat delta_roi_r3 = deltaMat.row(3))
             {
                 Sz(delta_roi_r2, delta_roi_r3, tmp_r1_0);
                 Core.divide(tmp_r1_0, new Scalar(target_size_sz_wh), tmp_r1_0);
                 Change(tmp_r1_0, tmp_r1_1); // s_c
 
-
                 Core.divide(delta_roi_r2, delta_roi_r3, tmp_r1_0);
                 Core.divide(target_size.width / target_size.height, tmp_r1_0, tmp_r1_0);
                 Change(tmp_r1_0, tmp_r1_2); // r_c
-
 
                 Core.multiply(tmp_r1_2, tmp_r1_1, tmp_r1_2);
                 Core.subtract(tmp_r1_2, new Scalar(1.0), tmp_r1_2);
                 Core.multiply(tmp_r1_2, new Scalar(_penaltyK), tmp_r1_2, -1.0);
                 Core.exp(tmp_r1_2, tmp_r1_2);
                 Mat penalty = tmp_r1_2; // penalty
-
 
                 Core.multiply(penalty, score, tmp_r1_0);
                 Core.multiply(tmp_r1_0, new Scalar(1 - _windowInfluence), tmp_r1_0);
@@ -1290,10 +1796,10 @@ namespace OpenCVForUnityExample
             }
 
             float[] target = new float[4];
-            target[0] = (float)(delta.get(0, best_pscore_id)[0] / scale_z);
-            target[1] = (float)(delta.get(1, best_pscore_id)[0] / scale_z);
-            target[2] = (float)(delta.get(2, best_pscore_id)[0] / scale_z);
-            target[3] = (float)(delta.get(3, best_pscore_id)[0] / scale_z);
+            target[0] = (float)(deltaMat.get(0, best_pscore_id)[0] / scale_z);
+            target[1] = (float)(deltaMat.get(1, best_pscore_id)[0] / scale_z);
+            target[2] = (float)(deltaMat.get(2, best_pscore_id)[0] / scale_z);
+            target[3] = (float)(deltaMat.get(3, best_pscore_id)[0] / scale_z);
 
             target_size /= scale_z;
             double lr = penalty_best_pscore * score.get(0, best_pscore_id)[0] * _lr;
@@ -1308,5 +1814,4 @@ namespace OpenCVForUnityExample
         }
     }
 }
-
 #endif

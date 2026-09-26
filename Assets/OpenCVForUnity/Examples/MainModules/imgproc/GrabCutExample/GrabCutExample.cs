@@ -1,4 +1,3 @@
-using System.Collections;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
@@ -10,9 +9,24 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// GrabCut Example
-    /// An example of background removal using the Imgproc.grabCut function.
-    /// http://docs.opencv.org/3.1.0/d8/d83/tutorial_py_grabcut.html
+    /// Segments foreground from background using an initial trimap mask and GrabCut refinement.
+    ///
+    /// Demonstrates:
+    /// - Converting a grayscale trimap to GrabCut label values
+    /// - Foreground extraction with <see cref="Imgproc.grabCut"/> (GC_INIT_WITH_MASK)
+    /// - Copying foreground pixels via a binary mask
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Mat"/>, <see cref="Scalar"/>, <see cref="OpenCVForUnity.CoreModule.Rect"/>
+    /// - <see cref="Imgproc"/>: grabCut, threshold, GC_BGD, GC_PR_BGD, GC_PR_FGD, GC_FGD
+    /// - <see cref="OpenCVMatUnityUtils"/>
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Referring to:
+    /// http://docs.opencv.org/3.1.0/d8/d83/tutorial_py_grabcut.html
+    /// </para>
+    /// </remarks>
     public class GrabCutExample : MonoBehaviour
     {
         // Public Fields
@@ -29,38 +43,42 @@ namespace OpenCVForUnityExample
 
             Mat image = new Mat(imageTexture.height, imageTexture.width, CvType.CV_8UC3);
 
-            OpenCVMatUtils.Texture2DToMat(imageTexture, image);
-            Debug.Log("image.ToString() " + image.ToString());
+            OpenCVMatUnityUtils.Texture2DToMat(imageTexture, image);
+            Debug.Log("image.ToString() " + image.ToString(), this);
 
             Texture2D maskTexture = Resources.Load("face_grabcut_mask") as Texture2D;
 
             Mat mask = new Mat(imageTexture.height, imageTexture.width, CvType.CV_8UC1);
 
-            OpenCVMatUtils.Texture2DToMat(maskTexture, mask);
-            Debug.Log("mask.ToString() " + mask.ToString());
-
+            OpenCVMatUnityUtils.Texture2DToMat(maskTexture, mask);
+            Debug.Log("mask.ToString() " + mask.ToString(), this);
 
             OpenCVForUnity.CoreModule.Rect rectangle = new OpenCVForUnity.CoreModule.Rect(10, 10, image.cols() - 20, image.rows() - 20);
 
+            // GMM models updated iteratively by GrabCut.
             Mat bgdModel = new Mat(); // extracted features for background
             Mat fgdModel = new Mat(); // extracted features for foreground
 
-            ConvertToGrabCutValues(mask); // from grayscale values to grabcut values
+            // Map grayscale trimap values (0-255) to GrabCut label constants.
+            ConvertToGrabCutValues(mask);
 
             int iterCount = 5;
             //Imgproc.grabCut (image, mask, rectangle, bgdModel, fgdModel, iterCount, Imgproc.GC_INIT_WITH_RECT);
+            // Refine segmentation using the user-provided mask as initialization.
             Imgproc.grabCut(image, mask, rectangle, bgdModel, fgdModel, iterCount, Imgproc.GC_INIT_WITH_MASK);
 
-            ConvertToGrayScaleValues(mask); // back to grayscale values
+            // Convert GrabCut labels back to grayscale for display and masking.
+            ConvertToGrayScaleValues(mask);
+            // Keep only definite/probable foreground (values >= 128).
             Imgproc.threshold(mask, mask, 128, 255, Imgproc.THRESH_TOZERO);
 
+            // Copy source pixels where the foreground mask is non-zero.
             Mat foreground = new Mat(image.size(), CvType.CV_8UC3, new Scalar(0, 0, 0));
             image.copyTo(foreground, mask);
 
-
             Texture2D texture = new Texture2D(image.cols(), image.rows(), TextureFormat.RGBA32, false);
 
-            OpenCVMatUtils.MatToTexture2D(foreground, texture);
+            OpenCVMatUnityUtils.MatToTexture2D(foreground, texture);
 
             ResultPreview.texture = texture;
             ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;
@@ -72,6 +90,9 @@ namespace OpenCVForUnityExample
         }
 
         // Private Methods
+        /// <summary>
+        /// Maps GrabCut label constants back to grayscale visualization values.
+        /// </summary>
         private void ConvertToGrayScaleValues(Mat mask)
         {
             int width = mask.rows();
@@ -105,6 +126,9 @@ namespace OpenCVForUnityExample
             mask.put(0, 0, buffer);
         }
 
+        /// <summary>
+        /// Maps grayscale trimap bands to GrabCut foreground/background labels.
+        /// </summary>
         private void ConvertToGrabCutValues(Mat mask)
         {
             int width = mask.rows();

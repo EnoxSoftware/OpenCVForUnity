@@ -1,20 +1,34 @@
+using System;
 using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.Extensions.SourceToMat;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
-using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
+using OpenCVForUnity.UnityIntegration.Helper.Interaction;
+using OpenCVForUnity.UnityIntegration.Helper.SourceToMat;
+using OpenCVForUnity.UnityIntegration.Helper.UI;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static OpenCVForUnity.UnityIntegration.Helper.Source2Mat.MultiSource2MatHelper;
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Physical Green Screen Example
-    /// An example of creating a chromakey mask and compositing background image. (aka green-screen compositing)
+    /// Composites a background image over a physical green-screen subject using HSV chroma keying.
+    ///
+    /// Demonstrates:
+    /// - Reading input frames via <see cref="MultiSourceToMatHelper"/> (webcam, video file, image file, or GPU readback)
+    /// - HSV_FULL range masking with Core.inRange
+    /// - Tap-to-pick key color and slider-adjusted H/S/V tolerance
+    /// - copyTo with mask to replace keyed pixels with a background Mat
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Mat"/>, <see cref="Scalar"/>, <see cref="Point"/>
+    /// - <see cref="Core"/>: inRange, sumElems
+    /// - <see cref="Imgproc"/>: cvtColor, resize
+    /// - <see cref="MultiSourceToMatHelper"/>, <see cref="OpenCVMatUnityUtils"/>
     /// </summary>
-    [RequireComponent(typeof(MultiSource2MatHelper))]
+    [RequireComponent(typeof(MultiSourceToMatHelper))]
     public class PhysicalGreenScreenExample : MonoBehaviour
     {
         // Public Fields
@@ -50,19 +64,8 @@ namespace OpenCVForUnityExample
         public TextureSelector TexturePointSelector;
 
         // Private Fields
-        /// <summary>
-        /// The hsv mat.
-        /// </summary>
         private Mat _hsvMat;
-
-        /// <summary>
-        /// The chroma key mask mat.
-        /// </summary>
         private Mat _chromaKeyMaskMat;
-
-        /// <summary>
-        /// The background image mat.
-        /// </summary>
         private Mat _backGroundImageMat;
 
         // Lower and Upper bounds for range checking in HSV color space
@@ -71,146 +74,107 @@ namespace OpenCVForUnityExample
 
         // Color radius for range checking in HSV color space
         private Scalar _colorRadiusRange = new Scalar(25, 50, 50, 0);
-
-        /// <summary>
-        /// The BLOB color hsv.
-        /// </summary>
         private Scalar _blobColorHsv = new Scalar(99, 255, 177, 255);
-
-        /// <summary>
-        /// The spectrum mat.
-        /// </summary>
         private Mat _spectrumMat;
-
-        /// <summary>
-        /// The spectrum texture.
-        /// </summary>
         private Texture2D _spectrumTexture;
-
-        /// <summary>
-        /// The texture.
-        /// </summary>
         private Texture2D _texture;
-
-        /// <summary>
-        /// The multi source to mat helper.
-        /// </summary>
-        private MultiSource2MatHelper _multiSource2MatHelper;
-
-        /// <summary>
-        /// The FPS monitor.
-        /// </summary>
+        private MultiSourceToMatHelper _multiSourceToMatHelper;
         private FpsMonitor _fpsMonitor;
-
-        /// <summary>
-        /// The flag to request chromakey update from selected point.
-        /// </summary>
+        private SourceToMatControlPanel _controlPanel;
         private bool _shouldUpdateChromakeyFromPoint = false;
-
-
 
         // Unity Lifecycle Methods
         private void Start()
         {
             _fpsMonitor = GetComponent<FpsMonitor>();
 
-            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSourceToMatHelper = gameObject.GetComponent<MultiSourceToMatHelper>();
 
-            // WebCamTexture2MatHelper does not work on WebGPU, so use WebCamTexture2MatAsyncGPUHelper instead.
-#if UNITY_6000_0_OR_NEWER
-            if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.WebGPU && _multiSource2MatHelper.RequestedSource2MatHelperClassName == MultiSource2MatHelperClassName.WebCamTexture2MatHelper)
-            {
-                _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.WebCamTexture2MatAsyncGPUHelper;
-            }
-#endif
-            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
-            _multiSource2MatHelper.Initialize();
-        }
+            _multiSourceToMatHelper.OutputColorFormat = SourceToMatColorFormat.RGBA;
 
-        private void Update()
-        {
-            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
-            {
-                Mat rgbaMat = _multiSource2MatHelper.GetMat();
+            WireSourceToMatControlPanelHooks();
 
-                if (_shouldUpdateChromakeyFromPoint)
-                {
-
-                    var (gameObject, currentSelectionState, currentSelectionPoints) = TexturePointSelector.GetSelectionStatus();
-                    var p = TextureSelector.ConvertSelectionPointsToOpenCVPoint(currentSelectionPoints);
-                    UpdateChromaKeyFromPoint(rgbaMat, p);
-
-                    TexturePointSelector.ResetSelectionStatus();
-
-                    _shouldUpdateChromakeyFromPoint = false;
-                }
-
-                // Convert the color space from RGBA to HSV_FULL.
-                // HSV_FULL is HSV with H elements scaled from 0 to 255.
-                Imgproc.cvtColor(rgbaMat, _hsvMat, Imgproc.COLOR_RGB2HSV_FULL);
-
-                // Create a chromakey mask from extracting the lower and upper limits range of values in the HSV color space.
-                Core.inRange(_hsvMat, _lowerBound, _upperBound, _chromaKeyMaskMat);
-
-                // Compose the background image.
-                _backGroundImageMat.copyTo(rgbaMat, _chromaKeyMaskMat);
-
-                // Draw current selection overlay
-                TexturePointSelector.DrawSelection(rgbaMat, true);
-
-                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
-            }
+            _multiSourceToMatHelper.Initialize();
         }
 
         private void OnDestroy()
         {
-            _multiSource2MatHelper?.Dispose();
+            UnwireSourceToMatControlPanelHooks();
         }
 
         // Public Methods
         /// <summary>
-        /// Raises the source to mat helper initialized event.
+        /// Raises the helper frame mat updated event.
+        /// Updates the preview texture when a new frame is available during playback.
+        /// </summary>
+        public void OnSourceToMatHelperFrameMatUpdated()
+        {
+            if (!_multiSourceToMatHelper.IsPlaying)
+            {
+                return;
+            }
+
+            Mat rgbaMat = _multiSourceToMatHelper.FrameMat;
+
+            if (_shouldUpdateChromakeyFromPoint)
+            {
+
+                var (gameObject, currentSelectionState, currentSelectionPoints) = TexturePointSelector.GetSelectionStatus();
+                var p = TextureSelector.ConvertSelectionPointsToOpenCVPoint(currentSelectionPoints);
+                UpdateChromaKeyFromPoint(rgbaMat, p);
+
+                TexturePointSelector.ResetSelectionStatus();
+
+                _shouldUpdateChromakeyFromPoint = false;
+            }
+
+            // Convert the color space from RGBA to HSV_FULL.
+            // HSV_FULL is HSV with H elements scaled from 0 to 255.
+            Imgproc.cvtColor(rgbaMat, _hsvMat, Imgproc.COLOR_RGB2HSV_FULL);
+
+            // Create a chromakey mask from extracting the lower and upper limits range of values in the HSV color space.
+            Core.inRange(_hsvMat, _lowerBound, _upperBound, _chromaKeyMaskMat);
+
+            // copyTo with mask: pixels inside the key range are replaced by the background image.
+            _backGroundImageMat.copyTo(rgbaMat, _chromaKeyMaskMat);
+
+            // Draw current selection overlay
+            TexturePointSelector.DrawSelection(rgbaMat, true);
+
+            OpenCVMatUnityUtils.MatToTexture2D(rgbaMat, _texture);
+        }
+
+        /// <summary>
+        /// Raises the helper initialized event.
+        /// Recreates the preview texture and starts playback on first initialization.
+        /// Skips Play when re-initialization has already restored Playing or Paused.
         /// </summary>
         public void OnSourceToMatHelperInitialized()
         {
-            Debug.Log("OnSourceToMatHelperInitialized");
+            Debug.Log("OnSourceToMatHelperInitialized", this);
 
-            Mat rgbaMat = _multiSource2MatHelper.GetMat();
+            RecreatePreviewTexture();
 
-            _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
-            OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
-
-            ResultPreview.texture = _texture;
-            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
-
+            Mat rgbaMat = _multiSourceToMatHelper.FrameMat;
+            CreateOrRecreateProcessingResources(rgbaMat);
 
             if (_fpsMonitor != null)
             {
-                _fpsMonitor.Add("width", rgbaMat.width().ToString());
-                _fpsMonitor.Add("height", rgbaMat.height().ToString());
-                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
+                _fpsMonitor.Clear();
+                UpdateFpsMonitorPlaybackState();
+                _fpsMonitor.Add("HelperKind", _multiSourceToMatHelper.RequestedHelperKind.ToString());
+                _fpsMonitor.Add("Width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("Height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("Rotate90Degree", _multiSourceToMatHelper.Rotate90Degree.ToString());
+                _fpsMonitor.Add("FlipVertical", _multiSourceToMatHelper.FlipVertical.ToString());
+                _fpsMonitor.Add("FlipHorizontal", _multiSourceToMatHelper.FlipHorizontal.ToString());
+                _fpsMonitor.Add("Orientation", Screen.orientation.ToString());
 
                 _fpsMonitor.Add("blobColorHsv", "\n" + _blobColorHsv.ToString());
                 _fpsMonitor.Add("colorRadiusRange", "\n" + _colorRadiusRange.ToString());
 
-                _fpsMonitor.Toast("Touch the screen to specify the chromakey color.", 2000);
+                _fpsMonitor.Toast("Touch the screen to specify the chromakey color.", 4000);
             }
-
-            _hsvMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
-            _chromaKeyMaskMat = new Mat(_hsvMat.size(), CvType.CV_8UC1);
-            _backGroundImageMat = new Mat(_hsvMat.size(), CvType.CV_8UC4, new Scalar(39, 255, 86, 255));
-
-            if (BackGroundImageTexture != null)
-            {
-                using (Mat bgMat = new Mat(BackGroundImageTexture.height, BackGroundImageTexture.width, CvType.CV_8UC4))
-                {
-                    OpenCVMatUtils.Texture2DToMat(BackGroundImageTexture, bgMat);
-                    Imgproc.resize(_backGroundImageMat, _backGroundImageMat, _backGroundImageMat.size());
-                }
-            }
-
-            _spectrumMat = new Mat(100, 100, CvType.CV_8UC4, new Scalar(255, 255, 255, 255));
-            _spectrumTexture = new Texture2D(_spectrumMat.cols(), _spectrumMat.rows(), TextureFormat.RGBA32, false);
 
             // Set default chromakey color.
             _blobColorHsv = new Scalar(99, 255, 177, 255); // = R:39 G:255 B:86 (Green screen)
@@ -221,36 +185,168 @@ namespace OpenCVForUnityExample
             {
                 TexturePointSelector.ResetSelectionStatus();
             }
+
+            if (!_multiSourceToMatHelper.IsPlaying && !_multiSourceToMatHelper.IsPaused)
+            {
+                _multiSourceToMatHelper.Play();
+                UpdateFpsMonitorPlaybackState();
+            }
         }
 
         /// <summary>
-        /// Raises the source to mat helper disposed event.
+        /// Raises the helper frame mat layout changed event.
+        /// Recreates the preview texture when rotation or output size changes.
+        /// </summary>
+        public void OnSourceToMatHelperFrameMatLayoutChanged()
+        {
+            Debug.Log("OnSourceToMatHelperFrameMatLayoutChanged", this);
+
+            RecreatePreviewTexture();
+
+            Mat rgbaMat = _multiSourceToMatHelper.FrameMat;
+            if (rgbaMat != null)
+            {
+                CreateOrRecreateProcessingResources(rgbaMat);
+            }
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("Width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("Height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("Orientation", Screen.orientation.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Raises the helper released event.
+        /// </summary>
+        public void OnSourceToMatHelperReleased()
+        {
+            Debug.Log("OnSourceToMatHelperReleased", this);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Clear();
+            }
+
+            DisposeFrameProcessingResources();
+            CleanupPreviewResources();
+        }
+
+        /// <summary>
+        /// Raises the helper disposed event.
         /// </summary>
         public void OnSourceToMatHelperDisposed()
         {
-            Debug.Log("OnSourceToMatHelperDisposed");
+            Debug.Log("OnSourceToMatHelperDisposed", this);
 
-            _hsvMat?.Dispose(); _hsvMat = null;
-            _chromaKeyMaskMat?.Dispose(); _chromaKeyMaskMat = null;
-            _backGroundImageMat?.Dispose(); _backGroundImageMat = null;
-            _spectrumMat?.Dispose(); _spectrumMat = null;
-            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
-            if (_spectrumTexture != null) Texture2D.Destroy(_spectrumTexture); _spectrumTexture = null;
+            DisposeFrameProcessingResources();
+            CleanupPreviewResources();
         }
 
         /// <summary>
-        /// Raises the source to mat helper error occurred event.
+        /// Raises the helper error occurred event.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
         /// <param name="message">Message.</param>
-        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
+        public void OnSourceToMatHelperErrorOccurred(SourceToMatErrorCode errorCode, string message)
         {
-            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message, this);
 
             if (_fpsMonitor != null)
             {
                 _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
             }
+        }
+
+        /// <summary>
+        /// Raises the back button click event.
+        /// Stops playback and disposes the helper before scene transition (required on WebGL).
+        /// </summary>
+        public async void OnBackButtonClick()
+        {
+            if (_multiSourceToMatHelper.IsPlaying || _multiSourceToMatHelper.IsPaused)
+            {
+                await _multiSourceToMatHelper.StopAsync();
+            }
+
+            await _multiSourceToMatHelper.DisposeAsync();
+
+            SceneManager.LoadScene("OpenCVForUnityExample");
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPlay"/>.
+        /// </summary>
+        public void OnControlPanelAfterPlay()
+        {
+            UpdateFpsMonitorPlaybackState();
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPause"/>.
+        /// </summary>
+        public void OnControlPanelAfterPause()
+        {
+            UpdateFpsMonitorPlaybackState();
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterStop"/>.
+        /// </summary>
+        public void OnControlPanelAfterStop()
+        {
+            UpdateFpsMonitorPlaybackState();
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnRotate90Changed"/>.
+        /// </summary>
+        /// <param name="isOn">New Rotate90Degree value applied by the panel.</param>
+        public void OnControlPanelRotate90Changed(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("Rotate90Degree", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipVerticalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipVertical value applied by the panel.</param>
+        public void OnControlPanelFlipVerticalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipVertical", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipHorizontalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipHorizontal value applied by the panel.</param>
+        public void OnControlPanelFlipHorizontalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipHorizontal", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnHelperKindChanged"/>.
+        /// </summary>
+        /// <param name="kindIndex">Dropdown index matching <see cref="MultiSourceHelperKind"/>.</param>
+        public void OnControlPanelHelperKindChanged(int kindIndex)
+        {
+            if (_fpsMonitor == null || !Enum.IsDefined(typeof(MultiSourceHelperKind), kindIndex))
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("HelperKind", ((MultiSourceHelperKind)kindIndex).ToString());
         }
 
         /// <summary>
@@ -295,7 +391,7 @@ namespace OpenCVForUnityExample
                 Imgproc.cvtColor(spectrumHsv, spectrumRgba, Imgproc.COLOR_HSV2RGB_FULL, 4);
 
                 Imgproc.resize(spectrumRgba, _spectrumMat, _spectrumMat.size());
-                OpenCVMatUtils.MatToTexture2D(_spectrumMat, _spectrumTexture);
+                OpenCVMatUnityUtils.MatToTexture2D(_spectrumMat, _spectrumTexture);
 
                 SpectrumImage.texture = _spectrumTexture;
             }
@@ -310,46 +406,6 @@ namespace OpenCVForUnityExample
             //Debug.Log("lowerBound: " + _lowerBound);
             //Debug.Log("upperBound: " + _upperBound);
             //Debug.Log("blobColorRgba: " + ConverScalarHsv2Rgba(_blobColorHsv));
-        }
-
-        /// <summary>
-        /// Raises the back button click event.
-        /// </summary>
-        public void OnBackButtonClick()
-        {
-            SceneManager.LoadScene("OpenCVForUnityExample");
-        }
-
-        /// <summary>
-        /// Raises the play button click event.
-        /// </summary>
-        public void OnPlayButtonClick()
-        {
-            _multiSource2MatHelper.Play();
-        }
-
-        /// <summary>
-        /// Raises the pause button click event.
-        /// </summary>
-        public void OnPauseButtonClick()
-        {
-            _multiSource2MatHelper.Pause();
-        }
-
-        /// <summary>
-        /// Raises the stop button click event.
-        /// </summary>
-        public void OnStopButtonClick()
-        {
-            _multiSource2MatHelper.Stop();
-        }
-
-        /// <summary>
-        /// Raises the change camera button click event.
-        /// </summary>
-        public void OnChangeCameraButtonClick()
-        {
-            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
         }
 
         /// <summary>
@@ -380,6 +436,154 @@ namespace OpenCVForUnityExample
         }
 
         // Private Methods
+        private void DisposeFrameProcessingResources()
+        {
+            _hsvMat?.Dispose();
+            _hsvMat = null;
+            _chromaKeyMaskMat?.Dispose();
+            _chromaKeyMaskMat = null;
+            _backGroundImageMat?.Dispose();
+            _backGroundImageMat = null;
+            _spectrumMat?.Dispose();
+            _spectrumMat = null;
+
+            if (_spectrumTexture != null)
+            {
+                Texture2D.Destroy(_spectrumTexture);
+                _spectrumTexture = null;
+            }
+        }
+
+        private void CreateOrRecreateProcessingResources(Mat rgbaMat)
+        {
+            if (rgbaMat == null)
+            {
+                return;
+            }
+
+            DisposeFrameProcessingResources();
+
+            _hsvMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
+            _chromaKeyMaskMat = new Mat(_hsvMat.size(), CvType.CV_8UC1);
+            _backGroundImageMat = new Mat(_hsvMat.size(), CvType.CV_8UC4, new Scalar(39, 255, 86, 255));
+
+            if (BackGroundImageTexture != null)
+            {
+                using (Mat bgMat = new Mat(BackGroundImageTexture.height, BackGroundImageTexture.width, CvType.CV_8UC4))
+                {
+                    OpenCVMatUnityUtils.Texture2DToMat(BackGroundImageTexture, bgMat);
+                    Imgproc.resize(bgMat, _backGroundImageMat, _backGroundImageMat.size());
+                }
+            }
+
+            _spectrumMat = new Mat(100, 100, CvType.CV_8UC4, new Scalar(255, 255, 255, 255));
+            _spectrumTexture = new Texture2D(_spectrumMat.cols(), _spectrumMat.rows(), TextureFormat.RGBA32, false);
+        }
+
+        private void RecreatePreviewTexture()
+        {
+            Mat frameMat = _multiSourceToMatHelper.FrameMat;
+            if (frameMat == null)
+            {
+                return;
+            }
+
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+                _texture = null;
+            }
+
+            bool isRgb = _multiSourceToMatHelper.OutputColorFormat == SourceToMatColorFormat.RGB;
+            _texture = new Texture2D(frameMat.cols(), frameMat.rows(), isRgb ? TextureFormat.RGB24 : TextureFormat.RGBA32, false);
+            OpenCVMatUnityUtils.MatToTexture2D(frameMat, _texture);
+
+            if (ResultPreview != null)
+            {
+                ResultPreview.texture = _texture;
+                AspectRatioFitter aspectRatioFitter = ResultPreview.GetComponent<AspectRatioFitter>();
+                if (aspectRatioFitter != null)
+                {
+                    aspectRatioFitter.aspectRatio = (float)_texture.width / _texture.height;
+                }
+            }
+        }
+
+        private void CleanupPreviewResources()
+        {
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+                _texture = null;
+            }
+
+            UpdateFpsMonitorPlaybackState();
+        }
+
+        private void UpdateFpsMonitorPlaybackState()
+        {
+            if (_fpsMonitor == null || _multiSourceToMatHelper == null)
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("PlaybackState", GetPlaybackStateText());
+        }
+
+        private string GetPlaybackStateText()
+        {
+            if (!_multiSourceToMatHelper.IsInitialized)
+            {
+                return "Uninitialized";
+            }
+
+            if (_multiSourceToMatHelper.IsPlaying)
+            {
+                return "Playing";
+            }
+
+            if (_multiSourceToMatHelper.IsPaused)
+            {
+                return "Paused";
+            }
+
+            return "Ready";
+        }
+
+        private void WireSourceToMatControlPanelHooks()
+        {
+            _controlPanel = GetComponent<SourceToMatControlPanel>();
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.AddListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.AddListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.AddListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.AddListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.AddListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.AddListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.AddListener(OnControlPanelHelperKindChanged);
+        }
+
+        private void UnwireSourceToMatControlPanelHooks()
+        {
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.RemoveListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.RemoveListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.RemoveListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.RemoveListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.RemoveListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.RemoveListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.RemoveListener(OnControlPanelHelperKindChanged);
+            _controlPanel = null;
+        }
+
         private void UpdateChromaKeyFromPoint(Mat img, Point touchPoint)
         {
             int cols = img.cols();
@@ -391,7 +595,9 @@ namespace OpenCVForUnityExample
             //Debug.Log ("Touch image coordinates: (" + x + ", " + y + ")");
 
             if ((x < 0) || (y < 0) || (x > cols) || (y > rows))
+            {
                 return;
+            }
 
             OpenCVForUnity.CoreModule.Rect touchedRect = new OpenCVForUnity.CoreModule.Rect();
 
@@ -410,7 +616,9 @@ namespace OpenCVForUnityExample
                 _blobColorHsv = Core.sumElems(touchedRegionHsv);
                 int pointCount = touchedRect.width * touchedRect.height;
                 for (int i = 0; i < _blobColorHsv.val.Length; i++)
+                {
                     _blobColorHsv.val[i] /= pointCount;
+                }
 
                 SetHsvColor(_blobColorHsv);
             }

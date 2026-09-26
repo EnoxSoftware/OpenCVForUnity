@@ -1,4 +1,3 @@
-using System.Collections;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
@@ -10,7 +9,16 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Drawing Example
-    /// An example of drawing to an image using the Imgproc class.
+    /// Demonstrates basic vector drawing primitives and Hershey font variants on an image.
+    ///
+    /// Demonstrates:
+    /// - Drawing lines, rectangles, circles, arrowed lines, and ellipses
+    /// - Rendering text with multiple <see cref="Imgproc"/> font faces and italic flag
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Mat"/>, <see cref="Point"/>, <see cref="Scalar"/>, <see cref="Size"/>
+    /// - <see cref="Imgproc"/>: line, rectangle, circle, arrowedLine, ellipse, putText, FONT_HERSHEY_*, LINE_AA, LINE_8
+    /// - <see cref="OpenCVMatUnityUtils"/>
     /// </summary>
     public class DrawingExample : MonoBehaviour
     {
@@ -28,10 +36,10 @@ namespace OpenCVForUnityExample
 
             Mat imgMat = new Mat(imgTexture.height, imgTexture.width, CvType.CV_8UC3);
 
-            OpenCVMatUtils.Texture2DToMat(imgTexture, imgMat);
-            Debug.Log("imgMat.ToString() " + imgMat.ToString());
+            OpenCVMatUnityUtils.Texture2DToMat(imgTexture, imgMat);
+            Debug.Log("imgMat.ToString() " + imgMat.ToString(), this);
 
-
+            // Basic drawing primitives.
             Imgproc.line(imgMat, new Point(50, 50), new Point(400, 105), new Scalar(0, 0, 200), 3);
 
             Imgproc.rectangle(imgMat, new Point(150, 200), new Point(300, 300), new Scalar(0, 200, 0), 5);
@@ -40,17 +48,16 @@ namespace OpenCVForUnityExample
 
             Imgproc.arrowedLine(imgMat, new Point(100, 500), new Point(550, 350), new Scalar(255, 255, 0), 4, Imgproc.LINE_8, 0, 0.1);
 
-
             double angle = 100;
             Imgproc.ellipse(imgMat, new Point(200, 400), new Size(80, 150), angle, angle - 200, angle + 100, new Scalar(255, 255, 255), -1);
 
-
+            // Hershey font face identifiers for putText samples.
             int[] face = {Imgproc.FONT_HERSHEY_SIMPLEX, Imgproc.FONT_HERSHEY_PLAIN, Imgproc.FONT_HERSHEY_DUPLEX, Imgproc.FONT_HERSHEY_COMPLEX,
                 Imgproc.FONT_HERSHEY_TRIPLEX, Imgproc.FONT_HERSHEY_COMPLEX_SMALL, Imgproc.FONT_HERSHEY_SCRIPT_SIMPLEX,
                 Imgproc.FONT_HERSHEY_SCRIPT_COMPLEX, Imgproc.FONT_ITALIC
             };
 
-
+            // Render each font face (left column) and the italic variant (right column).
             Imgproc.putText(imgMat, "OpenCV", new Point(50, 50), face[0], 1.2, new Scalar(0, 0, 200), 2, Imgproc.LINE_AA, false);
             Imgproc.putText(imgMat, "OpenCV", new Point(50, 100), face[1], 1.2, new Scalar(0, 200, 0), 2, Imgproc.LINE_AA, false);
             Imgproc.putText(imgMat, "OpenCV", new Point(50, 150), face[2], 1.2, new Scalar(200, 0, 0), 2, Imgproc.LINE_AA, false);
@@ -68,9 +75,8 @@ namespace OpenCVForUnityExample
             Imgproc.putText(imgMat, "OpenCV", new Point(300, 350), face[6] | face[8], 1.2, new Scalar(100, 255, 200), 2, Imgproc.LINE_AA, false);
             Imgproc.putText(imgMat, "OpenCV", new Point(300, 400), face[7] | face[8], 1.2, new Scalar(255, 200, 100), 2, Imgproc.LINE_AA, false);
 
-
             Texture2D texture = new Texture2D(imgMat.cols(), imgMat.rows(), TextureFormat.RGBA32, false);
-            OpenCVMatUtils.MatToTexture2D(imgMat, texture);
+            OpenCVMatUnityUtils.MatToTexture2D(imgMat, texture);
 
             ResultPreview.texture = texture;
             ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;

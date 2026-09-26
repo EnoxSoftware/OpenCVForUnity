@@ -1,35 +1,54 @@
-#if !UNITY_WSA_10_0 && NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE
+#if !UNITY_WSA_10_0
 
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.Extensions.Runner;
+using OpenCVForUnity.Extensions.SourceToMat;
+using OpenCVForUnity.Extensions.Worker.DnnModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
-using OpenCVForUnity.UnityIntegration.Helper.Source2Mat;
-using OpenCVForUnity.UnityIntegration.Runner;
-using OpenCVForUnity.UnityIntegration.Worker.DnnModule;
+using OpenCVForUnity.UnityIntegration.Helper.SourceToMat;
+using OpenCVForUnity.UnityIntegration.Helper.UI;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static OpenCVForUnity.UnityIntegration.Helper.Source2Mat.MultiSource2MatHelper;
+using OpenCVDebug = OpenCVForUnity.Extensions.OpenCVDebug;
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Face Detection YuNetV2 Example
-    /// An example of using OpenCV dnn module with Facial Detecton.
-    /// Referring to https://github.com/opencv/opencv_zoo/tree/main/models/face_detection_yunet
+    /// Real-time face detection with bounding boxes and five facial landmarks using YuNetV2FaceDetector.
     ///
+    /// Demonstrates:
+    /// - Reading input frames via <see cref="MultiSourceToMatHelper"/> (webcam, video file, image file, or GPU readback)
+    /// - Loading YuNet ONNX model from StreamingAssets
+    /// - Converting RGBA frames to BGR and optional async inference via MatSingleFlightSyncAsyncRunner
+    /// - Visualizing detection output Mat on the result preview
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Mat"/>, <see cref="Size"/>, <see cref="Scalar"/>, <see cref="Point"/>
+    /// - <see cref="Imgproc"/>: cvtColor
+    /// - <see cref="YuNetV2FaceDetector"/>, <see cref="MatSingleFlightSyncAsyncRunner"/>
+    /// - <see cref="MultiSourceToMatHelper"/>, <see cref="OpenCVMatUnityUtils"/>
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Referring to:
+    /// https://github.com/opencv/opencv_zoo/tree/main/models/face_detection_yunet
+    /// </para>
+    /// <para>
     /// [Tested Models]
     /// face_detection_yunet_2023mar.onnx https://github.com/opencv/opencv_zoo/blob/main/models/face_detection_yunet/face_detection_yunet_2023mar.onnx
     /// yunet_n_320_320.onnx https://github.com/ShiqiYu/libfacedetection.train/blob/master/onnx/yunet_n_320_320.onnx
     /// yunet_n_640_640.onnx https://github.com/ShiqiYu/libfacedetection.train/blob/master/onnx/yunet_n_640_640.onnx
     /// yunet_s_320_320.onnx https://github.com/ShiqiYu/libfacedetection.train/blob/master/onnx/yunet_s_320_320.onnx
     /// yunet_s_640_640.onnx https://github.com/ShiqiYu/libfacedetection.train/blob/master/onnx/yunet_s_640_640.onnx
-    /// </summary>
-    [RequireComponent(typeof(MultiSource2MatHelper))]
+    /// </para>
+    /// </remarks>
+    [RequireComponent(typeof(MultiSourceToMatHelper))]
     public class FaceDetectionYuNetV2Example : MonoBehaviour
     {
         // Public Fields
@@ -65,16 +84,14 @@ namespace OpenCVForUnityExample
 
         // Private Fields
         private Texture2D _texture;
-        private MultiSource2MatHelper _multiSource2MatHelper;
+        private MultiSourceToMatHelper _multiSourceToMatHelper;
         private Mat _bgrMat;
-
         private YuNetV2FaceDetector _faceDetector;
         private string _configFilepath;
         private string _modelFilepath;
-
         private FpsMonitor _fpsMonitor;
+        private SourceToMatControlPanel _controlPanel;
         private CancellationTokenSource _cts = new CancellationTokenSource();
-
         private MatSingleFlightSyncAsyncRunner _inferenceRunner;
 
         // Unity Lifecycle Methods
@@ -82,16 +99,10 @@ namespace OpenCVForUnityExample
         {
             _fpsMonitor = GetComponent<FpsMonitor>();
 
-            _multiSource2MatHelper = gameObject.GetComponent<MultiSource2MatHelper>();
+            _multiSourceToMatHelper = gameObject.GetComponent<MultiSourceToMatHelper>();
+            _multiSourceToMatHelper.OutputColorFormat = SourceToMatColorFormat.RGBA;
 
-            // WebCamTexture2MatHelper does not work on WebGPU, so use WebCamTexture2MatAsyncGPUHelper instead.
-#if UNITY_6000_0_OR_NEWER
-            if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.WebGPU && _multiSource2MatHelper.RequestedSource2MatHelperClassName == MultiSource2MatHelperClassName.WebCamTexture2MatHelper)
-            {
-                _multiSource2MatHelper.RequestedSource2MatHelperClassName = MultiSource2MatHelperClassName.WebCamTexture2MatAsyncGPUHelper;
-            }
-#endif
-            _multiSource2MatHelper.OutputColorFormat = Source2MatHelperColorFormat.RGBA;
+            WireSourceToMatControlPanelHooks();
 
             // Update GUI state
             UpdateUseAsyncInference();
@@ -99,132 +110,42 @@ namespace OpenCVForUnityExample
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
             if (_fpsMonitor != null)
+            {
                 _fpsMonitor.ConsoleText = "Preparing file access...";
+            }
 
             if (!string.IsNullOrEmpty(Config))
             {
-                _configFilepath = await OpenCVEnv.GetFilePathTaskAsync(Config, cancellationToken: _cts.Token);
-                if (string.IsNullOrEmpty(_configFilepath)) Debug.Log("The file:" + Config + " did not exist.");
+                _configFilepath = await OpenCVForUnityEnv.GetFilePathAsync(Config, cancellationToken: _cts.Token);
+                if (string.IsNullOrEmpty(_configFilepath))
+                {
+                    Debug.Log("The file:" + Config + " did not exist.", this);
+                }
             }
             if (!string.IsNullOrEmpty(Model))
             {
-                _modelFilepath = await OpenCVEnv.GetFilePathTaskAsync(Model, cancellationToken: _cts.Token);
-                if (string.IsNullOrEmpty(_modelFilepath)) Debug.Log("The file:" + Model + " did not exist.");
+                _modelFilepath = await OpenCVForUnityEnv.GetFilePathAsync(Model, cancellationToken: _cts.Token);
+                if (string.IsNullOrEmpty(_modelFilepath))
+                {
+                    Debug.Log("The file:" + Model + " did not exist.", this);
+                }
             }
 
             if (_fpsMonitor != null)
+            {
                 _fpsMonitor.ConsoleText = "";
+            }
 
-            Run();
-        }
-
-        private void Run()
-        {
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             OpenCVDebug.SetDebugMode(true);
 
-            InitializeInference();
-
-            _multiSource2MatHelper.Initialize();
-        }
-
-        /// <summary>
-        /// Raises the source to mat helper initialized event.
-        /// </summary>
-        public void OnSourceToMatHelperInitialized()
-        {
-            Debug.Log("OnSourceToMatHelperInitialized");
-
-            Mat rgbaMat = _multiSource2MatHelper.GetMat();
-
-            _texture = new Texture2D(rgbaMat.cols(), rgbaMat.rows(), TextureFormat.RGBA32, false);
-            OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
-
-            ResultPreview.texture = _texture;
-            ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)_texture.width / _texture.height;
-
-            if (_fpsMonitor != null)
+            // Load YuNet model from StreamingAssets and create the face detector.
+            if (!TryInitializeInference())
             {
-                _fpsMonitor.Add("width", rgbaMat.width().ToString());
-                _fpsMonitor.Add("height", rgbaMat.height().ToString());
-                _fpsMonitor.Add("orientation", Screen.orientation.ToString());
-                UpdateFpsMonitorInferenceInfo(_fpsMonitor, _faceDetector, UseAsyncInference);
+                return;
             }
 
-
-            _bgrMat = new Mat(rgbaMat.rows(), rgbaMat.cols(), CvType.CV_8UC3);
-        }
-
-        /// <summary>
-        /// Raises the source to mat helper disposed event.
-        /// </summary>
-        public void OnSourceToMatHelperDisposed()
-        {
-            Debug.Log("OnSourceToMatHelperDisposed");
-
-            try
-            {
-                _faceDetector?.Cancel();
-            }
-            catch (ObjectDisposedException)
-            {
-            }
-
-            _inferenceRunner?.Cancel();
-
-            _bgrMat?.Dispose(); _bgrMat = null;
-
-            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
-        }
-
-        /// <summary>
-        /// Raises the source to mat helper error occurred event.
-        /// </summary>
-        /// <param name="errorCode">Error code.</param>
-        /// <param name="message">Message.</param>
-        public void OnSourceToMatHelperErrorOccurred(Source2MatHelperErrorCode errorCode, string message)
-        {
-            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message);
-
-            if (_fpsMonitor != null)
-            {
-                _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
-            }
-        }
-
-        // Update is called once per frame
-        private void Update()
-        {
-            if (_multiSource2MatHelper.IsPlaying() && _multiSource2MatHelper.DidUpdateThisFrame())
-            {
-
-                Mat rgbaMat = _multiSource2MatHelper.GetMat();
-
-                if (_faceDetector != null)
-                {
-                    if (_inferenceRunner != null)
-                    {
-                        Imgproc.cvtColor(rgbaMat, _bgrMat, Imgproc.COLOR_RGBA2BGR);
-
-                        _inferenceRunner.SubmitWork(
-                            _bgrMat,
-                            syncWork: m => _faceDetector.Detect(m, useCopyOutput: true),
-                            asyncWork: async m =>
-                            {
-                                CancellationToken ct = _inferenceRunner.InFlightAsyncWorkCancellationToken;
-                                return await _faceDetector.DetectTaskAsync(m, ct);
-                            });
-
-                        if (_inferenceRunner.TryGetLatestResult(out Mat faces))
-                        {
-                            _faceDetector.Visualize(rgbaMat, faces, false, true);
-                        }
-                    }
-                }
-
-                OpenCVMatUtils.MatToTexture2D(rgbaMat, _texture);
-            }
-
+            _multiSourceToMatHelper.Initialize();
         }
 
         /// <summary>
@@ -232,8 +153,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         private async void OnDestroy()
         {
-            _multiSource2MatHelper?.Dispose();
-            _multiSource2MatHelper = null;
+            UnwireSourceToMatControlPanelHooks();
 
             _cts?.Cancel();
 
@@ -247,43 +167,232 @@ namespace OpenCVForUnityExample
 
         // Public Methods
         /// <summary>
-        /// Raises the back button click event.
+        /// Raises the helper frame mat updated event.
+        /// Updates the preview texture when a new frame is available during playback.
         /// </summary>
-        public void OnBackButtonClick()
+        public void OnSourceToMatHelperFrameMatUpdated()
         {
+            if (!_multiSourceToMatHelper.IsPlaying)
+            {
+                return;
+            }
+
+            Mat rgbaMat = _multiSourceToMatHelper.FrameMat;
+
+            if (_faceDetector != null)
+            {
+                if (_inferenceRunner != null)
+                {
+                    // Convert RGBA camera frame to BGR for YuNetV2 detector input.
+                    Imgproc.cvtColor(rgbaMat, _bgrMat, Imgproc.COLOR_RGBA2BGR);
+
+                    // Submit sync or async face detection; TryGetLatestResult returns the output Mat when ready.
+                    _inferenceRunner.SubmitWork(
+                        _bgrMat,
+                        syncWork: m => _faceDetector.Detect(m, useCopyOutput: true),
+                        asyncWork: async m =>
+                        {
+                            CancellationToken ct = _inferenceRunner.InFlightAsyncWorkCancellationToken;
+                            return await _faceDetector.DetectAsync(m, ct);
+                        });
+
+                    if (_inferenceRunner.TryGetLatestResult(out Mat faces))
+                    {
+                        _faceDetector.Visualize(rgbaMat, faces, false, true);
+                    }
+                }
+            }
+
+            // Publish annotated RGBA Mat to Unity texture for RawImage preview.
+            OpenCVMatUnityUtils.MatToTexture2D(rgbaMat, _texture);
+        }
+
+        /// <summary>
+        /// Raises the helper initialized event.
+        /// Recreates the preview texture and starts playback on first initialization.
+        /// Skips Play when re-initialization has already restored Playing or Paused.
+        /// </summary>
+        public void OnSourceToMatHelperInitialized()
+        {
+            Debug.Log("OnSourceToMatHelperInitialized", this);
+
+            RecreatePreviewTexture();
+            CreateOrRecreateProcessingResources(_multiSourceToMatHelper.FrameMat);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Clear();
+                UpdateFpsMonitorPlaybackState();
+                _fpsMonitor.Add("HelperKind", _multiSourceToMatHelper.RequestedHelperKind.ToString());
+                _fpsMonitor.Add("Width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("Height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("Rotate90Degree", _multiSourceToMatHelper.Rotate90Degree.ToString());
+                _fpsMonitor.Add("FlipVertical", _multiSourceToMatHelper.FlipVertical.ToString());
+                _fpsMonitor.Add("FlipHorizontal", _multiSourceToMatHelper.FlipHorizontal.ToString());
+                _fpsMonitor.Add("Orientation", Screen.orientation.ToString());
+                UpdateFpsMonitorInferenceInfo(_fpsMonitor, _faceDetector, UseAsyncInference);
+            }
+
+            if (!_multiSourceToMatHelper.IsPlaying && !_multiSourceToMatHelper.IsPaused)
+            {
+                _multiSourceToMatHelper.Play();
+                UpdateFpsMonitorPlaybackState();
+            }
+        }
+
+        /// <summary>
+        /// Raises the helper frame mat layout changed event.
+        /// Recreates the preview texture when rotation or output size changes.
+        /// </summary>
+        public void OnSourceToMatHelperFrameMatLayoutChanged()
+        {
+            Debug.Log("OnSourceToMatHelperFrameMatLayoutChanged", this);
+
+            RecreatePreviewTexture();
+            CreateOrRecreateProcessingResources(_multiSourceToMatHelper.FrameMat);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("Width", _multiSourceToMatHelper.Width.ToString());
+                _fpsMonitor.Add("Height", _multiSourceToMatHelper.Height.ToString());
+                _fpsMonitor.Add("Orientation", Screen.orientation.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Raises the helper released event.
+        /// </summary>
+        public void OnSourceToMatHelperReleased()
+        {
+            Debug.Log("OnSourceToMatHelperReleased", this);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Clear();
+            }
+
+            DisposeFrameProcessingResources();
+            CleanupPreviewResources();
+        }
+
+        /// <summary>
+        /// Raises the helper disposed event.
+        /// </summary>
+        public void OnSourceToMatHelperDisposed()
+        {
+            Debug.Log("OnSourceToMatHelperDisposed", this);
+
+            _faceDetector?.Cancel();
+
+            _inferenceRunner?.Cancel();
+
+            DisposeFrameProcessingResources();
+            CleanupPreviewResources();
+        }
+
+        /// <summary>
+        /// Raises the helper error occurred event.
+        /// </summary>
+        /// <param name="errorCode">Error code.</param>
+        /// <param name="message">Message.</param>
+        public void OnSourceToMatHelperErrorOccurred(SourceToMatErrorCode errorCode, string message)
+        {
+            Debug.Log("OnSourceToMatHelperErrorOccurred " + errorCode + ":" + message, this);
+
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.ConsoleText = "ErrorCode: " + errorCode + ":" + message;
+            }
+        }
+
+        /// <summary>
+        /// Raises the back button click event.
+        /// Stops playback and disposes the helper before scene transition (required on WebGL).
+        /// </summary>
+        public async void OnBackButtonClick()
+        {
+            if (_multiSourceToMatHelper.IsPlaying || _multiSourceToMatHelper.IsPaused)
+            {
+                await _multiSourceToMatHelper.StopAsync();
+            }
+
+            await _multiSourceToMatHelper.DisposeAsync();
+
             SceneManager.LoadScene("OpenCVForUnityExample");
         }
 
         /// <summary>
-        /// Raises the play button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPlay"/>.
         /// </summary>
-        public void OnPlayButtonClick()
+        public void OnControlPanelAfterPlay()
         {
-            _multiSource2MatHelper.Play();
+            UpdateFpsMonitorPlaybackState();
         }
 
         /// <summary>
-        /// Raises the pause button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterPause"/>.
         /// </summary>
-        public void OnPauseButtonClick()
+        public void OnControlPanelAfterPause()
         {
-            _multiSource2MatHelper.Pause();
+            UpdateFpsMonitorPlaybackState();
         }
 
         /// <summary>
-        /// Raises the stop button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnAfterStop"/>.
         /// </summary>
-        public void OnStopButtonClick()
+        public void OnControlPanelAfterStop()
         {
-            _multiSource2MatHelper.Stop();
+            UpdateFpsMonitorPlaybackState();
         }
 
         /// <summary>
-        /// Raises the change camera button click event.
+        /// Invoked by <see cref="SourceToMatControlPanel.OnRotate90Changed"/>.
         /// </summary>
-        public void OnChangeCameraButtonClick()
+        /// <param name="isOn">New Rotate90Degree value applied by the panel.</param>
+        public void OnControlPanelRotate90Changed(bool isOn)
         {
-            _multiSource2MatHelper.RequestedIsFrontFacing = !_multiSource2MatHelper.RequestedIsFrontFacing;
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("Rotate90Degree", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipVerticalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipVertical value applied by the panel.</param>
+        public void OnControlPanelFlipVerticalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipVertical", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnFlipHorizontalChanged"/>.
+        /// </summary>
+        /// <param name="isOn">New FlipHorizontal value applied by the panel.</param>
+        public void OnControlPanelFlipHorizontalChanged(bool isOn)
+        {
+            if (_fpsMonitor != null)
+            {
+                _fpsMonitor.Add("FlipHorizontal", isOn.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Invoked by <see cref="SourceToMatControlPanel.OnHelperKindChanged"/>.
+        /// </summary>
+        /// <param name="kindIndex">Dropdown index matching <see cref="MultiSourceHelperKind"/>.</param>
+        public void OnControlPanelHelperKindChanged(int kindIndex)
+        {
+            if (_fpsMonitor == null || !Enum.IsDefined(typeof(MultiSourceHelperKind), kindIndex))
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("HelperKind", ((MultiSourceHelperKind)kindIndex).ToString());
         }
 
         /// <summary>
@@ -294,45 +403,190 @@ namespace OpenCVForUnityExample
             if (UseAsyncInferenceToggle.isOn != UseAsyncInference)
             {
                 if (_inferenceRunner != null)
+                {
                     _inferenceRunner.UseAsyncWork = UseAsyncInferenceToggle.isOn;
+                }
+
                 UseAsyncInference = UseAsyncInferenceToggle.isOn;
                 UpdateFpsMonitorInferenceInfo(_fpsMonitor, _faceDetector, UseAsyncInference);
             }
         }
 
         // Private Methods
+
+        private void RecreatePreviewTexture()
+        {
+            Mat frameMat = _multiSourceToMatHelper.FrameMat;
+            if (frameMat == null)
+            {
+                return;
+            }
+
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+                _texture = null;
+            }
+
+            bool isRgb = _multiSourceToMatHelper.OutputColorFormat == SourceToMatColorFormat.RGB;
+            _texture = new Texture2D(frameMat.cols(), frameMat.rows(), isRgb ? TextureFormat.RGB24 : TextureFormat.RGBA32, false);
+            OpenCVMatUnityUtils.MatToTexture2D(frameMat, _texture);
+
+            if (ResultPreview != null)
+            {
+                ResultPreview.texture = _texture;
+                AspectRatioFitter aspectRatioFitter = ResultPreview.GetComponent<AspectRatioFitter>();
+                if (aspectRatioFitter != null)
+                {
+                    aspectRatioFitter.aspectRatio = (float)_texture.width / _texture.height;
+                }
+            }
+        }
+
+        private void DisposeFrameProcessingResources()
+        {
+            _bgrMat?.Dispose();
+            _bgrMat = null;
+        }
+
+        private void CreateOrRecreateProcessingResources(Mat frameMat)
+        {
+            if (frameMat == null)
+            {
+                return;
+            }
+
+            DisposeFrameProcessingResources();
+
+            _bgrMat = new Mat(frameMat.rows(), frameMat.cols(), CvType.CV_8UC3);
+        }
+
+        private void CleanupPreviewResources()
+        {
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+                _texture = null;
+            }
+
+            UpdateFpsMonitorPlaybackState();
+        }
+
+        private void UpdateFpsMonitorPlaybackState()
+        {
+            if (_fpsMonitor == null || _multiSourceToMatHelper == null)
+            {
+                return;
+            }
+
+            _fpsMonitor.Add("PlaybackState", GetPlaybackStateText());
+        }
+
+        private string GetPlaybackStateText()
+        {
+            if (!_multiSourceToMatHelper.IsInitialized)
+            {
+                return "Uninitialized";
+            }
+
+            if (_multiSourceToMatHelper.IsPlaying)
+            {
+                return "Playing";
+            }
+
+            if (_multiSourceToMatHelper.IsPaused)
+            {
+                return "Paused";
+            }
+
+            return "Ready";
+        }
+
+        private void WireSourceToMatControlPanelHooks()
+        {
+            _controlPanel = GetComponent<SourceToMatControlPanel>();
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.AddListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.AddListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.AddListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.AddListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.AddListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.AddListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.AddListener(OnControlPanelHelperKindChanged);
+        }
+
+        private void UnwireSourceToMatControlPanelHooks()
+        {
+            if (_controlPanel == null)
+            {
+                return;
+            }
+
+            _controlPanel.OnAfterPlay.RemoveListener(OnControlPanelAfterPlay);
+            _controlPanel.OnAfterPause.RemoveListener(OnControlPanelAfterPause);
+            _controlPanel.OnAfterStop.RemoveListener(OnControlPanelAfterStop);
+            _controlPanel.OnRotate90Changed.RemoveListener(OnControlPanelRotate90Changed);
+            _controlPanel.OnFlipVerticalChanged.RemoveListener(OnControlPanelFlipVerticalChanged);
+            _controlPanel.OnFlipHorizontalChanged.RemoveListener(OnControlPanelFlipHorizontalChanged);
+            _controlPanel.OnHelperKindChanged.RemoveListener(OnControlPanelHelperKindChanged);
+            _controlPanel = null;
+        }
+
         /// <summary>
         /// Creates <see cref="YuNetV2FaceDetector"/> from the resolved StreamingAssets model path and
-        /// <see cref="MatSingleFlightSyncAsyncRunner"/> (same role as
-        /// <c>MediaPipeHandLandmarkerExample.InitializeInference</c>).
+        /// <see cref="MatSingleFlightSyncAsyncRunner"/>.
         /// </summary>
-        private void InitializeInference()
+        /// <returns>
+        /// <see langword="true"/> when inference resources were created; otherwise <see langword="false"/>.
+        /// </returns>
+        private bool TryInitializeInference()
         {
             if (string.IsNullOrEmpty(_modelFilepath))
             {
-                Debug.LogError("model: " + Model + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.");
+                Debug.LogError("model: " + Model + " is not loaded. Please use [Tools] > [OpenCV for Unity] > [Setup Tools] > [Example Assets Downloader]to download the asset files required for this example scene, and then move them to the \"Assets/StreamingAssets\" folder.", this);
                 if (_fpsMonitor != null)
                 {
-                    _fpsMonitor.Toast("model file is not loaded.\nPlease read console message.", 20000);
+                    _fpsMonitor.ConsoleText = "model file is not loaded.\nPlease read console message.";
                 }
-                return;
+
+                return false;
             }
 
             try
             {
                 _faceDetector = new YuNetV2FaceDetector(_modelFilepath, _configFilepath, new Size(InpWidth, InpHeight), ConfThreshold, NmsThreshold, TopK);
 
+                YuNetV2FaceDetector faceDetector = _faceDetector;
                 _inferenceRunner = new MatSingleFlightSyncAsyncRunner(
                     useAsyncWork: UseAsyncInference,
                     asyncWorkCancellationToken: _cts.Token,
                     disposeAsyncAfterWorkTask: async () =>
                     {
-                        await _faceDetector.WaitForCompletionTaskAsync();
+                        await faceDetector.WaitForCompletionAsync();
                     });
+
+                return _faceDetector != null && _inferenceRunner != null;
             }
             catch (Exception ex)
             {
-                Debug.LogWarning("FaceDetectionYuNetV2Example InitializeInference failed: " + ex);
+                Debug.LogError("FaceDetectionYuNetV2Example TryInitializeInference failed: " + ex, this);
+                if (_fpsMonitor != null)
+                {
+                    _fpsMonitor.ConsoleText = "Failed to initialize inference.\nPlease read console message.";
+                }
+
+                if (_faceDetector != null)
+                {
+                    _faceDetector.Dispose();
+                    _faceDetector = null;
+                }
+
+                _inferenceRunner = null;
+                return false;
             }
         }
 
@@ -353,7 +607,10 @@ namespace OpenCVForUnityExample
             if (inferenceReinitializing)
             {
                 if (UseAsyncInferenceToggle != null)
+                {
                     UseAsyncInferenceToggle.interactable = false;
+                }
+
                 return;
             }
 
@@ -369,27 +626,36 @@ namespace OpenCVForUnityExample
         /// </summary>
         private async Task DisposeInferenceAsync()
         {
-            if (_inferenceRunner != null)
-                await _inferenceRunner.DisposeAsync();
+            var runner = _inferenceRunner;
             _inferenceRunner = null;
+            if (runner != null)
+            {
+                await runner.DisposeAsync();
+            }
 
-            _faceDetector?.Dispose();
+            var faceDetector = _faceDetector;
             _faceDetector = null;
+            if (faceDetector != null)
+            {
+                await faceDetector.DisposeAsync();
+            }
         }
 
         /// <summary>
-        /// Registers FpsMonitor keys for dnn backend, target, and async inference display.
-        /// Uses the same key names as <see cref="ImageClassificationPPResnetExample"/> <c>UpdateFpsMonitorInferenceInfo</c>.
+        /// Updates <paramref name="fpsMonitor"/> with dnn backend, target, and async mode from
+        /// <paramref name="faceDetector"/> and <paramref name="useAsyncInference"/> (or "-" when a value is not available).
         /// </summary>
         private static void UpdateFpsMonitorInferenceInfo(FpsMonitor fpsMonitor, YuNetV2FaceDetector faceDetector, bool useAsyncInference)
         {
             if (fpsMonitor == null)
+            {
                 return;
+            }
 
             if (faceDetector != null)
             {
-                fpsMonitor.Add("dnnBackend", MultiBackendDnn.GetBackendDisplayString(faceDetector.DnnBackend));
-                fpsMonitor.Add("dnnTarget", MultiBackendDnn.GetTargetDisplayString(faceDetector.DnnTarget));
+                fpsMonitor.Add("dnnBackend", OpenCVDnnInferenceNet.GetBackendDisplayString(faceDetector.DnnBackend));
+                fpsMonitor.Add("dnnTarget", OpenCVDnnInferenceNet.GetTargetDisplayString(faceDetector.DnnTarget));
             }
             else
             {
@@ -400,5 +666,4 @@ namespace OpenCVForUnityExample
         }
     }
 }
-
 #endif

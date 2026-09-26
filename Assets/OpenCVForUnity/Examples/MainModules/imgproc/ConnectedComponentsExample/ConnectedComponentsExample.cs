@@ -10,9 +10,24 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// ConnectedComponents Example
-    /// An example of Connected-component labeling using the Imgproc.connectedComponentsWithStats function.
-    /// Referring to http://qiita.com/wakaba130/items/9d921b8b3eb812e4f197.
+    /// Labels connected regions in a binary image and visualizes stats, bounding boxes, and centroids.
+    ///
+    /// Demonstrates:
+    /// - Connected-component labeling with <see cref="Imgproc.connectedComponentsWithStats"/>
+    /// - Per-label colorization from the label map
+    /// - Drawing bounding rectangles, centroids, and label indices
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Mat"/>, <see cref="Point"/>, <see cref="Scalar"/>, <see cref="OpenCVForUnity.CoreModule.Rect"/>
+    /// - <see cref="Imgproc"/>: connectedComponentsWithStats, rectangle, circle, putText, CC_STAT_LEFT, CC_STAT_TOP, CC_STAT_WIDTH, CC_STAT_HEIGHT
+    /// - <see cref="OpenCVMatUnityUtils"/>
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Referring to:
+    /// http://qiita.com/wakaba130/items/9d921b8b3eb812e4f197
+    /// </para>
+    /// </remarks>
     public class ConnectedComponentsExample : MonoBehaviour
     {
         // Public Fields
@@ -29,23 +44,23 @@ namespace OpenCVForUnityExample
 
             Mat srcMat = new Mat(imgTexture.height, imgTexture.width, CvType.CV_8UC1);
 
-            OpenCVMatUtils.Texture2DToMat(imgTexture, srcMat);
-            Debug.Log("srcMat.ToString() " + srcMat.ToString());
+            OpenCVMatUnityUtils.Texture2DToMat(imgTexture, srcMat);
+            Debug.Log("srcMat.ToString() " + srcMat.ToString(), this);
 
             Mat dstMat = new Mat(srcMat.size(), CvType.CV_8UC3);
 
-            // labeling
+            // Label each connected component and collect per-label statistics.
             Mat labels = new Mat();
             Mat stats = new Mat();
             Mat centroids = new Mat();
             int total = Imgproc.connectedComponentsWithStats(srcMat, labels, stats, centroids);
 
-            Debug.Log("labels.ToString() " + labels.ToString());
-            Debug.Log("stats.ToString() " + stats.ToString());
-            Debug.Log("centroids.ToString() " + centroids.ToString());
-            Debug.Log("total " + total);
+            Debug.Log("labels.ToString() " + labels.ToString(), this);
+            Debug.Log("stats.ToString() " + stats.ToString(), this);
+            Debug.Log("centroids.ToString() " + centroids.ToString(), this);
+            Debug.Log("total " + total, this);
 
-            // determine drawing color
+            // Assign a random color to each label (background label 0 is black).
             List<Scalar> colors = new List<Scalar>(total);
             colors.Add(new Scalar(0, 0, 0));
             for (int i = 1; i < total; ++i)
@@ -53,7 +68,7 @@ namespace OpenCVForUnityExample
                 colors.Add(new Scalar(Random.Range(0, 255), Random.Range(0, 255), Random.Range(0, 255)));
             }
 
-            // draw labels
+            // Paint each pixel with its label color.
             for (int i = 0; i < dstMat.rows(); ++i)
             {
                 for (int j = 0; j < dstMat.cols(); ++j)
@@ -63,7 +78,7 @@ namespace OpenCVForUnityExample
                 }
             }
 
-            // draw rectangle
+            // Draw a green bounding box per component from CC_STAT_* columns.
             for (int i = 1; i < total; ++i)
             {
 
@@ -77,7 +92,7 @@ namespace OpenCVForUnityExample
                 Imgproc.rectangle(dstMat, rect.tl(), rect.br(), new Scalar(0, 255, 0), 2);
             }
 
-            // draw centroids
+            // Mark each component centroid with a filled circle.
             for (int i = 1; i < total; ++i)
             {
 
@@ -87,7 +102,7 @@ namespace OpenCVForUnityExample
                 Imgproc.circle(dstMat, new Point(x, y), 3, new Scalar(255, 0, 0), -1);
             }
 
-            // draw index of label
+            // Annotate each component with its label index.
             for (int i = 1; i < total; ++i)
             {
 
@@ -97,10 +112,9 @@ namespace OpenCVForUnityExample
                 Imgproc.putText(dstMat, "" + i, new Point(x + 5, y + 15), Imgproc.FONT_HERSHEY_COMPLEX, 0.5, new Scalar(255, 255, 0), 2);
             }
 
-
             Texture2D texture = new Texture2D(dstMat.cols(), dstMat.rows(), TextureFormat.RGBA32, false);
 
-            OpenCVMatUtils.MatToTexture2D(dstMat, texture);
+            OpenCVMatUnityUtils.MatToTexture2D(dstMat, texture);
 
             ResultPreview.texture = texture;
             ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;

@@ -5,6 +5,7 @@ using OpenCVForUnity.FaceModule;
 using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,27 +14,35 @@ using Rect = OpenCVForUnity.CoreModule.Rect;
 namespace OpenCVForUnityExample
 {
     /// <summary>
-    /// FaceRecognizer Example
-    /// An example of human face recognition using the face (Face Recognition) module.
-    /// http://docs.opencv.org/modules/contrib/doc/facerec/facerec_tutorial.html#eigenfaces
+    /// Face Recognizer Example
+    /// Trains a small Eigenfaces model on two labeled faces and predicts identity of a test sample.
+    ///
+    /// Demonstrates:
+    /// - Loading grayscale face images and assigning integer labels
+    /// - Training BasicFaceRecognizer (Eigenfaces) on a tiny dataset
+    /// - Predicting label and confidence, then visualizing the result grid
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Mat"/>, <see cref="Scalar"/>, <see cref="Point"/>, <see cref="Rect"/>
+    /// - <see cref="BasicFaceRecognizer"/>, EigenFaceRecognizer.create, train, predict
+    /// - <see cref="Imgcodecs"/>: imread
+    /// - <see cref="Imgproc"/>: putText, rectangle
+    /// - <see cref="OpenCVMatUnityUtils"/>
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Referring to:
+    /// http://docs.opencv.org/modules/contrib/doc/facerec/facerec_tutorial.html#eigenfaces
+    /// </para>
+    /// </remarks>
     public class FaceRecognizerExample : MonoBehaviour
     {
         // Constants
-        /// <summary>
-        /// IMAGE_0_FILENAME
-        /// </summary>
-        protected static readonly string IMAGE_0_FILENAME = "OpenCVForUnityExamples/face/facerec_0.bmp";
+        private static readonly string IMAGE_0_FILEPATH = "OpenCVForUnityExamples/face/facerec_0.bmp";
 
-        /// <summary>
-        /// IMAGE_1_FILENAME
-        /// </summary>
-        protected static readonly string IMAGE_1_FILENAME = "OpenCVForUnityExamples/face/facerec_1.bmp";
+        private static readonly string IMAGE_1_FILEPATH = "OpenCVForUnityExamples/face/facerec_1.bmp";
 
-        /// <summary>
-        /// SAMPLE_IMAGE_FILENAME
-        /// </summary>
-        protected static readonly string SAMPLE_IMAGE_FILENAME = "OpenCVForUnityExamples/face/facerec_sample.bmp";
+        private static readonly string SAMPLE_IMAGE_FILEPATH = "OpenCVForUnityExamples/face/facerec_sample.bmp";
 
         // Public Fields
         [Header("Output")]
@@ -45,29 +54,14 @@ namespace OpenCVForUnityExample
         [Space(10)]
 
         // Private Fields
-        /// <summary>
-        /// The image 0 filepath.
-        /// </summary>
         private string _image0Filepath;
 
-        /// <summary>
-        /// The image 1 filepath.
-        /// </summary>
         private string _image1Filepath;
 
-        /// <summary>
-        /// The sample image filepath.
-        /// </summary>
         private string _sampleImageFilepath;
 
-        /// <summary>
-        /// The FPS monitor.
-        /// </summary>
         private FpsMonitor _fpsMonitor;
 
-        /// <summary>
-        /// The CancellationTokenSource.
-        /// </summary>
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
         // Unity Lifecycle Methods
@@ -77,14 +71,18 @@ namespace OpenCVForUnityExample
 
             // Asynchronously retrieves the readable file path from the StreamingAssets directory.
             if (_fpsMonitor != null)
+            {
                 _fpsMonitor.ConsoleText = "Preparing file access...";
+            }
 
-            _image0Filepath = await OpenCVEnv.GetFilePathTaskAsync(IMAGE_0_FILENAME, cancellationToken: _cts.Token);
-            _image1Filepath = await OpenCVEnv.GetFilePathTaskAsync(IMAGE_1_FILENAME, cancellationToken: _cts.Token);
-            _sampleImageFilepath = await OpenCVEnv.GetFilePathTaskAsync(SAMPLE_IMAGE_FILENAME, cancellationToken: _cts.Token);
+            _image0Filepath = await OpenCVForUnityEnv.GetFilePathAsync(IMAGE_0_FILEPATH, cancellationToken: _cts.Token);
+            _image1Filepath = await OpenCVForUnityEnv.GetFilePathAsync(IMAGE_1_FILEPATH, cancellationToken: _cts.Token);
+            _sampleImageFilepath = await OpenCVForUnityEnv.GetFilePathAsync(SAMPLE_IMAGE_FILEPATH, cancellationToken: _cts.Token);
 
             if (_fpsMonitor != null)
+            {
                 _fpsMonitor.ConsoleText = "";
+            }
 
             Run();
         }
@@ -96,7 +94,9 @@ namespace OpenCVForUnityExample
 
         private void OnDestroy()
         {
+            _cts?.Cancel();
             _cts?.Dispose();
+            _cts = null;
         }
 
         // Public Methods
@@ -113,21 +113,28 @@ namespace OpenCVForUnityExample
         {
             if (string.IsNullOrEmpty(_image0Filepath) || string.IsNullOrEmpty(_image1Filepath) || string.IsNullOrEmpty(_sampleImageFilepath))
             {
-                Debug.LogError(IMAGE_0_FILENAME + " or " + IMAGE_1_FILENAME + " or " + SAMPLE_IMAGE_FILENAME + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                Debug.LogError(IMAGE_0_FILEPATH + " or " + IMAGE_1_FILEPATH + " or " + SAMPLE_IMAGE_FILEPATH + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.", this);
                 if (_fpsMonitor != null)
+                {
                     _fpsMonitor.Toast("image file is not loaded.\nPlease read console message.", 20000);
+                }
+
                 return;
             }
 
+            // Load training and test images as single-channel (grayscale) Mats.
             Mat image0Mat = Imgcodecs.imread(_image0Filepath, Imgcodecs.IMREAD_GRAYSCALE);
             Mat image1Mat = Imgcodecs.imread(_image1Filepath, Imgcodecs.IMREAD_GRAYSCALE);
             Mat testSampleMat = Imgcodecs.imread(_sampleImageFilepath, Imgcodecs.IMREAD_GRAYSCALE);
 
             if (image0Mat.empty() || image1Mat.empty() || testSampleMat.empty())
             {
-                Debug.LogError(IMAGE_0_FILENAME + " or " + IMAGE_1_FILENAME + " or " + SAMPLE_IMAGE_FILENAME + " could not be read or is empty. Please move valid image files from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.");
+                Debug.LogError(IMAGE_0_FILEPATH + " or " + IMAGE_1_FILEPATH + " or " + SAMPLE_IMAGE_FILEPATH + " could not be read or is empty. Please move valid image files from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.", this);
                 if (_fpsMonitor != null)
+                {
                     _fpsMonitor.Toast("image file is not loaded.\nPlease read console message.", 20000);
+                }
+
                 image0Mat.Dispose();
                 image1Mat.Dispose();
                 testSampleMat.Dispose();
@@ -145,7 +152,6 @@ namespace OpenCVForUnityExample
 
             int testSampleLabel = 0;
 
-
             //foreach (Mat item in images)
             //{
             //    Debug.Log("images.ToString " + item.ToString());
@@ -155,24 +161,24 @@ namespace OpenCVForUnityExample
             //    Debug.Log("labels.ToString " + item.ToString());
             //}
 
-
             int[] predictedLabel = new int[1];
             double[] predictedConfidence = new double[1];
 
+            // Eigenfaces: train on labeled images, then predict nearest class for the test face.
             BasicFaceRecognizer faceRecognizer = EigenFaceRecognizer.create();
 
             faceRecognizer.train(images, labels);
             faceRecognizer.predict(testSampleMat, predictedLabel, predictedConfidence);
 
-            Debug.Log("Predicted class: " + predictedLabel[0] + " / " + "Actual class: " + testSampleLabel);
-            Debug.Log("Confidence: " + predictedConfidence[0]);
-
+            Debug.Log("Predicted class: " + predictedLabel[0] + " / " + "Actual class: " + testSampleLabel, this);
+            Debug.Log("Confidence: " + predictedConfidence[0], this);
 
             int imageSizeW = testSampleMat.cols();
             int imageSizeH = testSampleMat.rows();
             int label = predictedLabel[0];
             double confidence = predictedConfidence[0];
 
+            // Build a 2x2 grid: test sample on top, training images below; highlight predicted match.
             Mat resultMat = new Mat(imageSizeH * 2, imageSizeW * 2, CvType.CV_8UC1, new Scalar(0));
             testSampleMat.copyTo(resultMat.submat(new Rect(imageSizeW / 2, 0, imageSizeW, imageSizeH)));
             images[0].copyTo(resultMat.submat(new Rect(0, imageSizeH, imageSizeW, imageSizeH)));
@@ -186,7 +192,7 @@ namespace OpenCVForUnityExample
 
             Texture2D texture = new Texture2D(resultMat.cols(), resultMat.rows(), TextureFormat.RGBA32, false);
 
-            OpenCVMatUtils.MatToTexture2D(resultMat, texture);
+            OpenCVMatUnityUtils.MatToTexture2D(resultMat, texture);
 
             ResultPreview.texture = texture;
             ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)texture.width / texture.height;

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
+using OpenCVForUnity.UnityIntegration.Helper.Interaction;
 using OpenCVForUnity.VideoModule;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,7 +12,17 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// KalmanFilter Example
-    /// An example of tracking cursor position using the Video.KalmanFilter class.
+    /// Smooths noisy cursor measurements and visualizes predict/correct steps of a Kalman filter.
+    ///
+    /// Demonstrates:
+    /// - 4-state (position + velocity), 2-measurement KalmanFilter setup
+    /// - predict() then correct() cycle with simulated measurement noise
+    /// - Trajectory visualization of raw, predicted, and corrected positions
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="KalmanFilter"/>, <see cref="Mat"/>, <see cref="Core"/>
+    /// - <see cref="Imgproc"/>: rectangle, line, circle, putText
+    /// - <see cref="OpenCVMatUnityUtils"/>, <see cref="TextureSelector"/>
     /// </summary>
     public class KalmanFilterExample : MonoBehaviour
     {
@@ -31,49 +42,22 @@ namespace OpenCVForUnityExample
         public TextureSelector TexturePointSelector;
 
         // Private Fields
-        /// <summary>
-        /// The rgba mat.
-        /// </summary>
         private Mat _rgbaMat;
 
-        /// <summary>
-        /// The colors.
-        /// </summary>
         private Color32[] _colors;
 
-        /// <summary>
-        /// The texture.
-        /// </summary>
         private Texture2D _texture;
 
-        /// <summary>
-        /// The kalman filter.
-        /// </summary>
         private KalmanFilter _kf;
 
-        /// <summary>
-        /// The cursor pos.
-        /// </summary>
         private Point _cursorPos;
 
-        /// <summary>
-        /// The measurement.
-        /// </summary>
         private Mat _measurement;
 
-        /// <summary>
-        /// The predicted trajectory points.
-        /// </summary>
         private List<Point> _predictedTrajectoryPoints = new List<Point>();
 
-        /// <summary>
-        /// The cursor trajectory points.
-        /// </summary>
         private List<Point> _cursorTrajectoryPoints = new List<Point>();
 
-        /// <summary>
-        /// The estimated trajectory points.
-        /// </summary>
         private List<Point> _estimatedTrajectoryPoints = new List<Point>();
 
         // Unity Lifecycle Methods
@@ -90,6 +74,7 @@ namespace OpenCVForUnityExample
             ResultPreview.texture = _texture;
             ResultPreview.GetComponent<AspectRatioFitter>().aspectRatio = (float)frameWidth / frameHeight;
 
+            // State [x, y, dx, dy]; measurement observes [x, y] only.
             _kf = new KalmanFilter(4, 2, 0, CvType.CV_32FC1);
 
             // intialization of KF...
@@ -145,7 +130,7 @@ namespace OpenCVForUnityExample
             Point predictedPt;
             Point estimatedPt;
 
-            // First predict, to update the internal statePre variable.
+            // predict() advances internal state; correct() fuses the noisy measurement.
             using (Mat prediction = _kf.predict())
             {
                 predictedPt = new Point(prediction.get(0, 0)[0], prediction.get(1, 0)[0]);
@@ -188,11 +173,19 @@ namespace OpenCVForUnityExample
             }
 
             if (_predictedTrajectoryPoints.Count > 255)
+            {
                 _predictedTrajectoryPoints.RemoveAt(0);
+            }
+
             if (_cursorTrajectoryPoints.Count > 255)
+            {
                 _cursorTrajectoryPoints.RemoveAt(0);
+            }
+
             if (_estimatedTrajectoryPoints.Count > 255)
+            {
                 _estimatedTrajectoryPoints.RemoveAt(0);
+            }
 
             Imgproc.putText(_rgbaMat, "Kalman predicton", new Point(_rgbaMat.cols() - 170, 20), Imgproc.FONT_HERSHEY_SIMPLEX, 0.4, new Scalar(255, 255, 255, 255), 0, Imgproc.LINE_AA, false);
             Imgproc.putText(_rgbaMat, "measurement (cursor)", new Point(_rgbaMat.cols() - 170, 40), Imgproc.FONT_HERSHEY_SIMPLEX, 0.4, new Scalar(255, 255, 255, 255), 0, Imgproc.LINE_AA, false);
@@ -206,7 +199,7 @@ namespace OpenCVForUnityExample
             // Draw current selection overlay
             // TexturePointSelector.DrawSelection(_rgbaMat, true);
 
-            OpenCVMatUtils.MatToTexture2D(_rgbaMat, _texture, _colors);
+            OpenCVMatUnityUtils.MatToTexture2D(_rgbaMat, _texture, _colors);
         }
 
         private void OnDestroy()
@@ -217,7 +210,12 @@ namespace OpenCVForUnityExample
 
             _kf?.Dispose(); _kf = null;
 
-            if (_texture != null) Texture2D.Destroy(_texture); _texture = null;
+            if (_texture != null)
+            {
+                Texture2D.Destroy(_texture);
+            }
+
+            _texture = null;
         }
 
         // Public Methods

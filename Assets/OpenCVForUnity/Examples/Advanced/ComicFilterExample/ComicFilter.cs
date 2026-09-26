@@ -1,12 +1,22 @@
 using System;
 using OpenCVForUnity.CoreModule;
+using OpenCVForUnity.Extensions;
 using OpenCVForUnity.ImgprocModule;
-using OpenCVForUnity.UnityIntegration;
 
 namespace OpenCVForUnityExample
 {
     /// <summary>
     /// Comic Filter implementation for image processing.
+    /// Converts a color image into a manga-style result using thresholding, screentone, and edge lines.
+    ///
+    /// OpenCV classes and APIs used:
+    /// - <see cref="Mat"/>, <see cref="CvType"/>, <see cref="Scalar"/>, <see cref="Size"/>, <see cref="Point"/>
+    /// - <see cref="Core"/>: LUT, absdiff, bitwise_not
+    /// - <see cref="Imgproc"/>: line, cvtColor, threshold, blur, dilate, erode
+    /// - <see cref="MatBufferUtils"/>
+    ///
+    /// References:
+    /// http://dev.classmethod.jp/smartphone/opencv-manga-2/
     /// </summary>
     public class ComicFilter : IDisposable
     {
@@ -46,9 +56,11 @@ namespace OpenCVForUnityExample
             for (int i = 0; i < lutArray.Length; i++)
             {
                 if (blackThresh <= i && i < grayThresh)
+                {
                     lutArray[i] = 255;
+                }
             }
-            OpenCVMatUtils.CopyToMat(lutArray, _grayLUT);
+            MatBufferUtils.CopyToMat(lutArray, _grayLUT);
 
             if (_drawMainLine)
             {
@@ -67,7 +79,7 @@ namespace OpenCVForUnityExample
                     int a = (int)(i * 1.5f);
                     contrastAdjustmentsLUTArray[i] = (a > byte.MaxValue) ? (byte)255 : (byte)a;
                 }
-                OpenCVMatUtils.CopyToMat(contrastAdjustmentsLUTArray, _contrastAdjustmentsLUT);
+                MatBufferUtils.CopyToMat(contrastAdjustmentsLUTArray, _contrastAdjustmentsLUT);
             }
         }
 
@@ -89,11 +101,19 @@ namespace OpenCVForUnityExample
         {
             ThrowIfDisposed();
 
-            if (src != null) src.ThrowIfDisposed();
-            if (dst != null) dst.ThrowIfDisposed();
+            if (src != null)
+            {
+                src.ThrowIfDisposed();
+            }
+
+            if (dst != null)
+            {
+                dst.ThrowIfDisposed();
+            }
 
             if (_grayMat != null && (_grayMat.width() != src.width() || _grayMat.height() != src.height()))
             {
+                // Recreate internal Mats when input resolution changes.
                 _grayMat.Dispose();
                 _grayMat = null;
                 _maskMat.Dispose();
@@ -130,14 +150,14 @@ namespace OpenCVForUnityExample
                 Imgproc.cvtColor(src, _grayMat, (isBGR) ? Imgproc.COLOR_BGRA2GRAY : Imgproc.COLOR_RGBA2GRAY);
             }
 
-            // binarize.
+            // binarize dark regions (solid black ink).
             Imgproc.threshold(_grayMat, _grayDstMat, _blackThresh, 255.0, Imgproc.THRESH_BINARY);
 
-            // draw striped screentone.
+            // draw striped screentone in mid-tone regions selected by LUT.
             Core.LUT(_grayMat, _grayLUT, _maskMat);
             _screentoneMat.copyTo(_grayDstMat, _maskMat);
 
-            // draw main line.
+            // draw main line (dilate minus original = edge outline).
             if (_drawMainLine)
             {
                 Core.LUT(_grayMat, _contrastAdjustmentsLUT, _maskMat); // = _grayMat.convertTo(_maskMat, -1, 1.5, 0);
@@ -192,12 +212,17 @@ namespace OpenCVForUnityExample
         // Private Methods
         private void Dispose(bool disposing)
         {
-            if (_disposed) return;
+            if (_disposed)
+            {
+                return;
+            }
 
             if (disposing)
             {
                 foreach (var mat in new[] { _grayMat, _maskMat, _screentoneMat, _grayDstMat, _grayLUT, _kernelDilate, _kernelErode, _contrastAdjustmentsLUT })
+                {
                     mat?.Dispose();
+                }
 
                 _grayDstMat =
                 _screentoneMat =

@@ -7,10 +7,18 @@ using UnityEngine.UI;
 
 namespace OpenCVForUnityExample
 {
+    /// <summary>
+    /// OpenCVForUnity Example
+    /// The main menu scene that lists all sample scenes and displays OpenCVForUnity and Unity version information.
+    /// Disables example buttons that are not supported on the current platform or graphics device.
+    /// </summary>
     public class OpenCVForUnityExample : MonoBehaviour
     {
         // Constants
-        private static float VERTICAL_NORMALIZED_POSITION = 1f;
+#if UNITY_6000_5_OR_NEWER
+        [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
+        private static float _verticalNormalizedPosition = 1f;
 
         // Public Fields
         public Text VersionInfo;
@@ -19,7 +27,7 @@ namespace OpenCVForUnityExample
         // Unity Lifecycle Methods
         private void Start()
         {
-            VersionInfo.text = Core.NATIVE_LIBRARY_NAME + " " + OpenCVEnv.GetVersion() + " (" + Core.VERSION + ")";
+            VersionInfo.text = Core.NATIVE_LIBRARY_NAME + " " + OpenCVForUnityEnv.GetVersion() + " (" + Core.VERSION + ")";
             VersionInfo.text += " / UnityEditor " + Application.unityVersion;
             VersionInfo.text += " / ";
 
@@ -51,12 +59,11 @@ namespace OpenCVForUnityExample
             VersionInfo.text += ".NET";
 #endif
 
-            ScrollRect.verticalNormalizedPosition = VERTICAL_NORMALIZED_POSITION;
+            ScrollRect.verticalNormalizedPosition = _verticalNormalizedPosition;
 
 #if UNITY_WSA_10_0
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/AdvancedGroup/MultiObjectTrackingExampleButton").GetComponent<Button>().interactable = false;
 
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/BarcodeDetectorImageExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/BarcodeDetectorExampleButton").GetComponent<Button>().interactable = false;
 
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceDetectorYNExampleButton").GetComponent<Button>().interactable = false;
@@ -74,27 +81,31 @@ namespace OpenCVForUnityExample
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MediaPipePoseLandmarkerExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MediaPipeHolisticLandmarkerExampleButton").GetComponent<Button>().interactable = false;
 
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ImageClassificationMobilenetExampleButton").GetComponent<Button>().interactable = false;
-
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionDAMOYOLOExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionYOLOXExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionNanoDetPlusExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TextRecognitionCRNNImageExampleButton").GetComponent<Button>().interactable = false;
+
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YOLOv5ObjectDetectionExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YOLOv5InstanceSegmentationExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YOLOv5ImageClassificationExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YOLOv8ObjectDetectionExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YOLOv8InstanceSegmentationExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YOLOv8ImageClassificationExampleButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YOLOv8PoseEstimationExampleButton").GetComponent<Button>().interactable = false;
+
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TextRecognitionCRNNExampleButton").GetComponent<Button>().interactable = false;
 
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/TextDetectionExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/TextRecognitionExampleButton").GetComponent<Button>().interactable = false;
 
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/WeChatQRCodeDetectorImageExampleButton").GetComponent<Button>().interactable = false;
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/ContribModulesGroup/WeChatQRCodeDetectorExampleButton").GetComponent<Button>().interactable = false;
 #endif
 
 #if UNITY_6000_0_OR_NEWER
-            // WebCamTextureToMatExample and WebCamTexture2MatHelperExample do not work on WebGPU.
+            // WebCamTextureToMatExample does not work on WebGPU (no helper AutoGPU path).
             if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.WebGPU)
             {
                 GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/BasicGroup/WebCamTextureToMatExampleButton").GetComponent<Button>().interactable = false;
-                GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/BasicGroup/WebCamTexture2MatHelperExampleButton").GetComponent<Button>().interactable = false;
             }
 #endif
 
@@ -102,27 +113,14 @@ namespace OpenCVForUnityExample
             GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/VideoCaptureCameraInputExampleButton").GetComponent<Button>().interactable = false;
 #endif
 
-#if !(NET_STANDARD_2_1 && !OPENCV_DONT_USE_UNSAFE_CODE)
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/AdvancedGroup/MultiObjectTrackingExampleButton").GetComponent<Button>().interactable = false;
-
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceIdentificationEstimatorExampleButton").GetComponent<Button>().interactable = false;
-
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FastNeuralStyleTransferExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FaceDetectionYuNetV2ExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/FacialExpressionRecognitionExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MediaPipeFaceLandmarkerExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MediaPipeHandLandmarkerExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MediaPipePoseLandmarkerExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/MediaPipeHolisticLandmarkerExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/HumanSegmentationPPHumanSegExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ImageClassificationMobilenetExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ImageClassificationPPResnetExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionDAMOYOLOExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionYOLOXExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ObjectDetectionNanoDetPlusExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TextRecognitionCRNNImageExampleButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/TextRecognitionCRNNExampleButton").GetComponent<Button>().interactable = false;
-#endif
+            // for Demo Build
+            // GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YOLOv5ObjectDetectionExampleButton").GetComponent<Button>().interactable = false;
+            // GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YOLOv5InstanceSegmentationExampleButton").GetComponent<Button>().interactable = false;
+            // GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YOLOv5ImageClassificationExampleButton").GetComponent<Button>().interactable = false;
+            // GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YOLOv8ObjectDetectionExampleButton").GetComponent<Button>().interactable = false;
+            // GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YOLOv8InstanceSegmentationExampleButton").GetComponent<Button>().interactable = false;
+            // GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YOLOv8ImageClassificationExampleButton").GetComponent<Button>().interactable = false;
+            // GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/YOLOv8PoseEstimationExampleButton").GetComponent<Button>().interactable = false;
 
             // for WebGL Demo Build
             //GameObject.Find("Canvas/Panel/SceneList/ScrollView/List/MainModulesGroup/ColorizationExampleButton").GetComponent<Button>().interactable = false;
@@ -136,7 +134,7 @@ namespace OpenCVForUnityExample
         // Public Methods
         public void OnScrollRectValueChanged()
         {
-            VERTICAL_NORMALIZED_POSITION = ScrollRect.verticalNormalizedPosition;
+            _verticalNormalizedPosition = ScrollRect.verticalNormalizedPosition;
         }
 
         public void OnShowSystemInfoButtonClick()
@@ -161,14 +159,14 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("WebCamTextureToMatExample");
         }
 
-        public void OnWebCamTexture2MatHelperExampleButtonClick()
+        public void OnWebCamTextureToMatHelperExampleButtonClick()
         {
-            SceneManager.LoadScene("WebCamTexture2MatHelperExample");
+            SceneManager.LoadScene("WebCamTextureToMatHelperExample");
         }
 
-        public void OnMultiSource2MatHelperExampleButtonClick()
+        public void OnMultiSourceToMatHelperExampleButtonClick()
         {
-            SceneManager.LoadScene("MultiSource2MatHelperExample");
+            SceneManager.LoadScene("MultiSourceToMatHelperExample");
         }
 
         public void OnMatBasicProcessingExampleButtonClick()
@@ -275,11 +273,6 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("ConnectedComponentsExample");
         }
 
-        public void OnConvexHullExampleButtonClick()
-        {
-            SceneManager.LoadScene("ConvexHullExample");
-        }
-
         public void OnDrawingExampleButtonClick()
         {
             SceneManager.LoadScene("DrawingExample");
@@ -295,11 +288,6 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("HoughLinesPExample");
         }
 
-        public void OnMatchShapesExampleButtonClick()
-        {
-            SceneManager.LoadScene("MatchShapesExample");
-        }
-
         public void OnMatchTemplateExampleButtonClick()
         {
             SceneManager.LoadScene("MatchTemplateExample");
@@ -313,6 +301,20 @@ namespace OpenCVForUnityExample
         public void OnWrapPerspectiveExampleButtonClick()
         {
             SceneManager.LoadScene("WrapPerspectiveExample");
+        }
+
+        #endregion
+
+        #region geometry
+
+        public void OnConvexHullExampleButtonClick()
+        {
+            SceneManager.LoadScene("ConvexHullExample");
+        }
+
+        public void OnMatchShapesExampleButtonClick()
+        {
+            SceneManager.LoadScene("MatchShapesExample");
         }
 
         #endregion
@@ -365,7 +367,7 @@ namespace OpenCVForUnityExample
 
         #endregion
 
-        #region calib3d
+        #region stereo
 
         public void OnStereoBMExampleButtonClick()
         {
@@ -374,7 +376,7 @@ namespace OpenCVForUnityExample
 
         #endregion
 
-        #region features2d
+        #region features
 
         public void OnFeatureMatchingExampleButtonClick()
         {
@@ -411,7 +413,7 @@ namespace OpenCVForUnityExample
 
         public void OnArUcoImageExampleButtonClick()
         {
-            if (GraphicsSettings.defaultRenderPipeline == null)
+            if (GraphicsSettings.currentRenderPipeline == null)
             {
                 SceneManager.LoadScene("ArUcoImageExample_Built-in");
             }
@@ -423,7 +425,7 @@ namespace OpenCVForUnityExample
 
         public void OnArUcoExampleButtonClick()
         {
-            if (GraphicsSettings.defaultRenderPipeline == null)
+            if (GraphicsSettings.currentRenderPipeline == null)
             {
                 SceneManager.LoadScene("ArUcoExample_Built-in");
             }
@@ -441,11 +443,6 @@ namespace OpenCVForUnityExample
         public void OnArUcoCameraCalibrationExampleButtonClick()
         {
             SceneManager.LoadScene("ArUcoCameraCalibrationExample");
-        }
-
-        public void OnBarcodeDetectorImageExampleButtonClick()
-        {
-            SceneManager.LoadScene("BarcodeDetectorImageExample");
         }
 
         public void OnBarcodeDetectorExampleButtonClick()
@@ -486,11 +483,6 @@ namespace OpenCVForUnityExample
         public void OnHOGDescriptorExampleButtonClick()
         {
             SceneManager.LoadScene("HOGDescriptorExample");
-        }
-
-        public void OnQRCodeDetectorImageExampleButtonClick()
-        {
-            SceneManager.LoadScene("QRCodeDetectorImageExample");
         }
 
         public void OnQRCodeDetectorExampleButtonClick()
@@ -539,7 +531,7 @@ namespace OpenCVForUnityExample
 
         public void OnMediaPipeFaceLandmarkerExampleButtonClick()
         {
-            if (GraphicsSettings.defaultRenderPipeline == null)
+            if (GraphicsSettings.currentRenderPipeline == null)
             {
                 SceneManager.LoadScene("MediaPipeFaceLandmarkerExample_Built-in");
             }
@@ -551,7 +543,7 @@ namespace OpenCVForUnityExample
 
         public void OnMediaPipeHandLandmarkerExampleButtonClick()
         {
-            if (GraphicsSettings.defaultRenderPipeline == null)
+            if (GraphicsSettings.currentRenderPipeline == null)
             {
                 SceneManager.LoadScene("MediaPipeHandLandmarkerExample_Built-in");
             }
@@ -563,7 +555,7 @@ namespace OpenCVForUnityExample
 
         public void OnMediaPipeHolisticLandmarkerExampleButtonClick()
         {
-            if (GraphicsSettings.defaultRenderPipeline == null)
+            if (GraphicsSettings.currentRenderPipeline == null)
             {
                 SceneManager.LoadScene("MediaPipeHolisticLandmarkerExample_Built-in");
             }
@@ -575,7 +567,7 @@ namespace OpenCVForUnityExample
 
         public void OnMediaPipePoseLandmarkerExampleButtonClick()
         {
-            if (GraphicsSettings.defaultRenderPipeline == null)
+            if (GraphicsSettings.currentRenderPipeline == null)
             {
                 SceneManager.LoadScene("MediaPipePoseLandmarkerExample_Built-in");
             }
@@ -615,28 +607,44 @@ namespace OpenCVForUnityExample
             SceneManager.LoadScene("ObjectDetectionNanoDetPlusExample");
         }
 
-        public void OnTextRecognitionCRNNImageExampleButtonClick()
+        public void OnYOLOv5ObjectDetectionExampleButtonClick()
         {
-            SceneManager.LoadScene("TextRecognitionCRNNImageExample");
+            SceneManager.LoadScene("YOLOv5ObjectDetectionExample");
+        }
+
+        public void OnYOLOv5InstanceSegmentationExampleButtonClick()
+        {
+            SceneManager.LoadScene("YOLOv5InstanceSegmentationExample");
+        }
+
+        public void OnYOLOv5ImageClassificationExampleButtonClick()
+        {
+            SceneManager.LoadScene("YOLOv5ImageClassificationExample");
+        }
+
+        public void OnYOLOv8ObjectDetectionExampleButtonClick()
+        {
+            SceneManager.LoadScene("YOLOv8ObjectDetectionExample");
+        }
+
+        public void OnYOLOv8InstanceSegmentationExampleButtonClick()
+        {
+            SceneManager.LoadScene("YOLOv8InstanceSegmentationExample");
+        }
+
+        public void OnYOLOv8ImageClassificationExampleButtonClick()
+        {
+            SceneManager.LoadScene("YOLOv8ImageClassificationExample");
+        }
+
+        public void OnYOLOv8PoseEstimationExampleButtonClick()
+        {
+            SceneManager.LoadScene("YOLOv8PoseEstimationExample");
         }
 
         public void OnTextRecognitionCRNNExampleButtonClick()
         {
             SceneManager.LoadScene("TextRecognitionCRNNExample");
-        }
-
-        #endregion
-
-        #region ml
-
-        public void OnKNNExampleButtonClick()
-        {
-            SceneManager.LoadScene("KNNExample");
-        }
-
-        public void OnSVMExampleButtonClick()
-        {
-            SceneManager.LoadScene("SVMExample");
         }
 
         #endregion
@@ -659,6 +667,20 @@ namespace OpenCVForUnityExample
 
         #region Contrib modules
 
+        #region ml
+
+        public void OnKNNExampleButtonClick()
+        {
+            SceneManager.LoadScene("KNNExample");
+        }
+
+        public void OnSVMExampleButtonClick()
+        {
+            SceneManager.LoadScene("SVMExample");
+        }
+
+        #endregion
+
         #region bgsegm
 
         public void OnBackgroundSubtractorExampleButtonClick()
@@ -670,10 +692,10 @@ namespace OpenCVForUnityExample
 
         #region face
 
-        public void OnFaceMarkExampleButtonClick()
-        {
-            SceneManager.LoadScene("FaceMarkExample");
-        }
+        // public void OnFaceMarkExampleButtonClick()
+        // {
+        //     SceneManager.LoadScene("FaceMarkExample");
+        // }
 
         public void OnFaceRecognizerExampleButtonClick()
         {
@@ -720,11 +742,6 @@ namespace OpenCVForUnityExample
         #endregion
 
         #region wechat_qrcode
-
-        public void OnWeChatQRCodeDetectorImageExampleButtonClick()
-        {
-            SceneManager.LoadScene("WeChatQRCodeDetectorImageExample");
-        }
 
         public void OnWeChatQRCodeDetectorExampleButtonClick()
         {
