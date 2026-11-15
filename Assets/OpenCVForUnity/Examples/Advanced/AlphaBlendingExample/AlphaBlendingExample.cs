@@ -1,8 +1,9 @@
 //using Unity.IL2CPP.CompilerServices;
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.Extensions;
@@ -202,12 +203,12 @@ namespace OpenCVForUnityExample
         }
 
         // Private Methods
-        private IEnumerator AlphaBlending(Action action, int count = 100)
+        private async Task AlphaBlendingAsync(Action action, int count, CancellationToken cancellationToken)
         {
             _dstMat.setTo(new Scalar(0, 0, 0));
             OpenCVMatUnityUtils.MatToTexture2D(_dstMat, _dstTex);
 
-            yield return null;
+            await ExampleMainLoopAwaitUtils.YieldNextFrameAsync(cancellationToken);
 
             switch (ImageSize)
             {
@@ -722,7 +723,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnGetPutButtonClick()
         {
-            StartCoroutine(AlphaBlending(Getput, Count));
+            _ = AlphaBlendingAsync(Getput, Count, destroyCancellationToken);
         }
 
         /// <summary>
@@ -730,7 +731,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnMatOpButtonClick()
         {
-            StartCoroutine(AlphaBlending(MatOp, Count));
+            _ = AlphaBlendingAsync(MatOp, Count, destroyCancellationToken);
         }
 
         /// <summary>
@@ -738,7 +739,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnMatOpAlpha3cButtonClick()
         {
-            StartCoroutine(AlphaBlending(MatOp_alpha3c, Count));
+            _ = AlphaBlendingAsync(MatOp_alpha3c, Count, destroyCancellationToken);
         }
 
         /// <summary>
@@ -746,7 +747,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnCopyFromMatButtonClick()
         {
-            StartCoroutine(AlphaBlending(CopyFromMat, Count));
+            _ = AlphaBlendingAsync(CopyFromMat, Count, destroyCancellationToken);
         }
 
         /// <summary>
@@ -754,7 +755,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnMarshalMethodButtonClick()
         {
-            StartCoroutine(AlphaBlending(MarshalMethod, Count));
+            _ = AlphaBlendingAsync(MarshalMethod, Count, destroyCancellationToken);
         }
 
         /// <summary>
@@ -762,7 +763,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnPointerAccessButtonClick()
         {
-            StartCoroutine(AlphaBlending(PointerAccess, Count));
+            _ = AlphaBlendingAsync(PointerAccess, Count, destroyCancellationToken);
         }
 
         /// <summary>
@@ -770,7 +771,7 @@ namespace OpenCVForUnityExample
         /// </summary>
         public void OnAsSpanButtonClick()
         {
-            StartCoroutine(AlphaBlending(AsSpan, Count));
+            _ = AlphaBlendingAsync(AsSpan, Count, destroyCancellationToken);
         }
     }
 }

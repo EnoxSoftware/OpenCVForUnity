@@ -17,9 +17,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Rect = OpenCVForUnity.CoreModule.Rect;
-#if UNITY_WEBGL
-using System.Collections;
-#endif
 
 namespace OpenCVForUnityExample
 {
@@ -32,7 +29,7 @@ namespace OpenCVForUnityExample
     /// - Background Task-based Haar detection to keep the UI thread responsive
     /// - Fast LBP cascade detection inside tracked regions on the main thread
     /// - BYTETracker multi-object tracking with stable face IDs across frames
-    /// - WebGL fallback using a coroutine instead of multi-threading
+    /// - WebGL fallback using main-loop async polling instead of multi-threading
     ///
     /// OpenCV classes and APIs used:
     /// - <see cref="CascadeClassifier"/>, <see cref="MatOfRect"/>, <see cref="Objdetect"/>
@@ -286,10 +283,9 @@ namespace OpenCVForUnityExample
         }
 
 #if UNITY_WEBGL
-        private void OnDestroy()
+        private async void OnDestroy()
         {
-            // WebGL: Stop coroutine
-            StopCoroutine("WebGLThreadWorker");
+            await StopWebGLDetectionAsync();
 #else
         private async void OnDestroy()
         {
@@ -310,15 +306,6 @@ namespace OpenCVForUnityExample
         }
 
         // Public Methods
-#if UNITY_WEBGL
-        /// <summary>
-        /// Raises the helper initialized event.
-        /// Recreates the preview texture and starts playback on first initialization.
-        /// Skips Play when re-initialization has already restored Playing or Paused.
-        /// </summary>
-        public void OnSourceToMatHelperInitialized()
-        {
-#else
         /// <summary>
         /// Raises the helper initialized event.
         /// Recreates the preview texture and starts playback on first initialization.
@@ -326,8 +313,6 @@ namespace OpenCVForUnityExample
         /// </summary>
         public async void OnSourceToMatHelperInitialized()
         {
-#endif
-
             Debug.Log("OnSourceToMatHelperInitialized", this);
 
             RecreatePreviewTexture();
@@ -347,8 +332,8 @@ namespace OpenCVForUnityExample
             }
 
 #if UNITY_WEBGL
-            // WebGL: Initialize synchronous processing
-            InitWebGLThread();
+            InitWebGLDetectionResources();
+            await RestartWebGLDetectionAsync();
 #else
             await RestartDetectionAsync();
 #endif
@@ -392,7 +377,7 @@ namespace OpenCVForUnityExample
             }
 
 #if UNITY_WEBGL
-            StopCoroutine("WebGLThreadWorker");
+            CancelWebGLDetectionSynchronously();
 #else
             CancelDetectionSynchronously();
 #endif
@@ -401,34 +386,6 @@ namespace OpenCVForUnityExample
             CleanupPreviewResources();
         }
 
-#if UNITY_WEBGL
-        /// <summary>
-        /// Raises the helper disposed event.
-        /// </summary>
-        public void OnSourceToMatHelperDisposed()
-        {
-            Debug.Log("OnSourceToMatHelperDisposed", this);
-
-            // WebGL: Stop coroutine
-            StopCoroutine("WebGLThreadWorker");
-            _grayMat4Thread?.Dispose();
-            _grayMat4Thread = null;
-            _cascade4Thread?.Dispose();
-            _cascade4Thread = null;
-
-            _grayMat?.Dispose();
-            _grayMat = null;
-            _cascade?.Dispose();
-            _cascade = null;
-
-            CleanupPreviewResources();
-
-            _byteTracker?.Dispose();
-            _byteTracker = null;
-            _byteTrackInfoVisualizer?.Dispose();
-            _byteTrackInfoVisualizer = null;
-        }
-#else
         /// <summary>
         /// Raises the helper disposed event.
         /// </summary>
@@ -436,7 +393,15 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnSourceToMatHelperDisposed", this);
 
+#if UNITY_WEBGL
+            await StopWebGLDetectionAsync();
+            _grayMat4Thread?.Dispose();
+            _grayMat4Thread = null;
+            _cascade4Thread?.Dispose();
+            _cascade4Thread = null;
+#else
             await StopDetectionAsync();
+#endif
 
             _grayMat?.Dispose();
             _grayMat = null;
@@ -450,7 +415,6 @@ namespace OpenCVForUnityExample
             _byteTrackInfoVisualizer?.Dispose();
             _byteTrackInfoVisualizer = null;
         }
-#endif
 
         /// <summary>
         /// Raises the helper error occurred event.
@@ -920,9 +884,9 @@ namespace OpenCVForUnityExample
 #else
 
         /// <summary>
-        /// Initialize WebGL thread processing
+        /// Creates WebGL-specific detection resources (main-loop worker; no background thread).
         /// </summary>
-        private void InitWebGLThread()
+        private void InitWebGLDetectionResources()
         {
             _grayMat4Thread = new Mat();
 
@@ -940,25 +904,94 @@ namespace OpenCVForUnityExample
             }
 
             _shouldDetectInMultiThread = false;
-            StartCoroutine("WebGLThreadWorker");
         }
 
         /// <summary>
-        /// WebGL thread worker coroutine
+        /// Requests cancellation of the WebGL detection loop without awaiting completion.
+        /// Used from <see cref="OnSourceToMatHelperReleased"/> before preview resources are torn down.
         /// </summary>
-        private IEnumerator WebGLThreadWorker()
+        private void CancelWebGLDetectionSynchronously()
         {
-            while (true)
+            _shouldDetectInMultiThread = false;
+
+            if (_cts != null && !_cts.IsCancellationRequested)
             {
-                while (!_shouldDetectInMultiThread)
+                _cts.Cancel();
+            }
+        }
+
+        /// <summary>
+        /// Stops any running WebGL detection loop and starts a new one.
+        /// Called from <see cref="OnSourceToMatHelperInitialized"/> after preview resources are recreated.
+        /// </summary>
+        private async Task RestartWebGLDetectionAsync()
+        {
+            await StopWebGLDetectionAsync();
+
+            _cts?.Dispose();
+            _cts = new CancellationTokenSource();
+            _shouldDetectInMultiThread = false;
+            _detectionTask = WebGLDetectionLoopAsync(_cts.Token);
+            Debug.Log("WebGL detection loop started", this);
+        }
+
+        /// <summary>
+        /// Stops the WebGL detection loop asynchronously.
+        /// </summary>
+        private async Task StopWebGLDetectionAsync()
+        {
+            if (_detectionTask == null || _detectionTask.IsCompleted)
+            {
+                return;
+            }
+
+            _cts.Cancel();
+            _shouldDetectInMultiThread = false;
+
+            try
+            {
+                await _detectionTask;
+            }
+            catch (OperationCanceledException)
+            {
+                // Expected when cancellation is requested
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error stopping WebGL detection loop: {ex.Message}", this);
+            }
+
+            Debug.Log("WebGL detection loop stopped", this);
+        }
+
+        /// <summary>
+        /// Main-loop worker for full-frame Haar detection on WebGL (polls <see cref="_shouldDetectInMultiThread"/>).
+        /// </summary>
+        private async Task WebGLDetectionLoopAsync(CancellationToken cancellationToken)
+        {
+            try
+            {
+                while (!cancellationToken.IsCancellationRequested)
                 {
-                    yield return null;
+                    while (!_shouldDetectInMultiThread)
+                    {
+                        cancellationToken.ThrowIfCancellationRequested();
+                        await ExampleMainLoopAwaitUtils.YieldNextFrameAsync(cancellationToken);
+                    }
+
+                    DetectWebGL();
+
+                    _shouldDetectInMultiThread = false;
+                    _didUpdateTheDetectionResult = true;
                 }
-
-                DetectWebGL();
-
-                _shouldDetectInMultiThread = false;
-                _didUpdateTheDetectionResult = true;
+            }
+            catch (OperationCanceledException)
+            {
+                // Expected when cancellation is requested
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Unexpected error in WebGL detection loop: {ex.Message}", this);
             }
         }
 

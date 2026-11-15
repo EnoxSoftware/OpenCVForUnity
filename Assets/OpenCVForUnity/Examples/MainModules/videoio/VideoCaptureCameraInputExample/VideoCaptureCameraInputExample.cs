@@ -1,5 +1,6 @@
 using System;
-using System.Collections;
+using System.Threading;
+using System.Threading.Tasks;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgcodecsModule;
 using OpenCVForUnity.ImgprocModule;
@@ -174,12 +175,8 @@ namespace OpenCVForUnityExample
 
         private FpsMonitor _fpsMonitor;
 
-#if (UNITY_IOS && UNITY_2018_1_OR_NEWER) || (UNITY_ANDROID && UNITY_2018_3_OR_NEWER)
-        private bool _isUserRequestingPermission;
-#endif
-
         // Unity Lifecycle Methods
-        private IEnumerator Start()
+        private async void Start()
         {
             _fpsMonitor = GetComponent<FpsMonitor>();
 
@@ -187,7 +184,13 @@ namespace OpenCVForUnityExample
             Debug.Log(WebCamTexture.devices.Length, this);
 
             // Checks user camera permission state for Android and iOS.
-            yield return RequestUserCameraPermission();
+            if (!await RequestUserCameraPermissionAsync(destroyCancellationToken))
+            {
+                if (_fpsMonitor != null)
+                {
+                    _fpsMonitor.ConsoleText = "Camera permission is denied.";
+                }
+            }
 
             _capture = new VideoCapture();
 
@@ -232,16 +235,6 @@ namespace OpenCVForUnityExample
                 Texture2D.Destroy(_texture);
             }
         }
-
-#if (UNITY_IOS && UNITY_2018_1_OR_NEWER) || (UNITY_ANDROID && UNITY_2018_3_OR_NEWER)
-        private IEnumerator OnApplicationFocus(bool hasFocus)
-        {
-            yield return null;
-
-            if (_isUserRequestingPermission && hasFocus)
-                _isUserRequestingPermission = false;
-        }
-#endif
 
         // Public Methods
         /// <summary>
@@ -612,69 +605,9 @@ namespace OpenCVForUnityExample
         }
 
         // Private Methods
-        protected virtual IEnumerator RequestUserCameraPermission()
+        protected virtual Task<bool> RequestUserCameraPermissionAsync(CancellationToken cancellationToken)
         {
-#if UNITY_IOS && UNITY_2018_1_OR_NEWER
-            UserAuthorization mode = UserAuthorization.WebCam;
-            if (!Application.HasUserAuthorization(mode))
-            {
-                _isUserRequestingPermission = true;
-                yield return Application.RequestUserAuthorization(mode);
-
-                float timeElapsed = 0;
-                while (_isUserRequestingPermission)
-                {
-                    if (timeElapsed > 0.25f)
-                    {
-                        _isUserRequestingPermission = false;
-                        break;
-                    }
-                    timeElapsed += Time.deltaTime;
-
-                    yield return null;
-                }
-            }
-
-            if (!Application.HasUserAuthorization(mode))
-            {
-                if (_fpsMonitor != null)
-                {
-                    _fpsMonitor.ConsoleText = "Camera permission is denied.";
-                }
-                yield break;
-            }
-#elif UNITY_ANDROID && UNITY_2018_3_OR_NEWER
-            string permission = UnityEngine.Android.Permission.Camera;
-            if (!UnityEngine.Android.Permission.HasUserAuthorizedPermission(permission))
-            {
-                _isUserRequestingPermission = true;
-                UnityEngine.Android.Permission.RequestUserPermission(permission);
-
-                float timeElapsed = 0;
-                while (_isUserRequestingPermission)
-                {
-                    if (timeElapsed > 0.25f)
-                    {
-                        _isUserRequestingPermission = false;
-                        break;
-                    }
-                    timeElapsed += Time.deltaTime;
-
-                    yield return null;
-                }
-            }
-
-            if (!UnityEngine.Android.Permission.HasUserAuthorizedPermission(permission))
-            {
-                if (_fpsMonitor != null)
-                {
-                    _fpsMonitor.ConsoleText = "Camera permission is denied.";
-                }
-                yield break;
-            }
-#else
-            yield return true;
-#endif
+            return ExampleCameraPermissionAwaitUtils.WaitForCameraPermissionAsync(cancellationToken);
         }
 
         protected void CvtColor(Mat src, Mat dst, FOURCCPreset fourcc, bool convertRGB)

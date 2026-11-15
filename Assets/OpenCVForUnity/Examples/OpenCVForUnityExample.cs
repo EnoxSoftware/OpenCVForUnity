@@ -692,10 +692,10 @@ namespace OpenCVForUnityExample
 
         #region face
 
-        // public void OnFaceMarkExampleButtonClick()
-        // {
-        //     SceneManager.LoadScene("FaceMarkExample");
-        // }
+        public void OnFaceMarkExampleButtonClick()
+        {
+            SceneManager.LoadScene("FaceMarkExample");
+        }
 
         public void OnFaceRecognizerExampleButtonClick()
         {

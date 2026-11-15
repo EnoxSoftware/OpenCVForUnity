@@ -1,6 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.Extensions;
 using UnityEngine;
@@ -46,17 +47,12 @@ namespace OpenCVForUnityExample
         private readonly System.Text.StringBuilder _resultBuf = new System.Text.StringBuilder();
 
         // Unity Lifecycle Methods
-        private IEnumerator Start()
+        private async void Start()
         {
             // fix the screen orientation.
             Screen.orientation = ScreenOrientation.LandscapeLeft;
             // wait for the screen orientation to change.
-            yield return null;
-        }
-
-        private void Update()
-        {
-
+            await ExampleMainLoopAwaitUtils.YieldNextFrameAsync(destroyCancellationToken);
         }
 
         private void OnDestroy()
@@ -560,9 +556,9 @@ namespace OpenCVForUnityExample
             Log("mop.checkVector(2, CvType.CV_32S) = " + mop.checkVector(2, CvType.CV_32S));
             Log("mop = " + mop.dump());
 
-            // Same pattern as transposeND / mixChannels demos (MatOfInt as int parameter Mat)
+            // Same pattern as the n-dimensional Core.transpose / mixChannels demos (MatOfInt as int parameter Mat)
             MatOfInt order = new MatOfInt(0, 2, 1, 3);
-            Log("order (transposeND-style) = " + order.dump());
+            Log("order (n-D transpose order) = " + order.dump());
 
             EndExample(@"
             // ---------------------------------------------------------------------------------------
@@ -598,7 +594,7 @@ namespace OpenCVForUnityExample
             Log(""mop = "" + mop.dump());
 
             MatOfInt order = new MatOfInt(0, 2, 1, 3);
-            Log(""order (transposeND-style) = "" + order.dump());
+            Log(""order (n-D transpose order) = "" + order.dump());
             ");
         }
 
@@ -1429,7 +1425,7 @@ namespace OpenCVForUnityExample
             // ---------------------------------------------------------------------------------------
             // The Core.transpose function can be used for various image processing tasks such as rotating images by 90 degrees and changing the shape of matrices by swapping rows and columns of Mat.
             // - The Core.transpose function is a function that performs a transposition operation on a two-dimensional matrix.
-            // - The Core.transposeND function is a function that performs a transposition operation on a tensor of arbitrary dimensions.For example, it can be used to swap specific dimensions of a 3D tensor(such as video data).
+            // - The Core.transpose(src, order, dst) overload performs a transposition operation on a tensor of arbitrary dimensions. For example, it can be used to swap specific dimensions of a 3D tensor (such as video data).
             //
 
             // Transposes a matrix.
@@ -1458,13 +1454,13 @@ namespace OpenCVForUnityExample
             // [1x3x4x3] -> [1x4x3x3]
             Mat m2_t = new Mat();
             MatOfInt order = new MatOfInt(0, 2, 1, 3); // See MatOf* example: typed 1D int Mat for permute order
-            Core.transposeND(m2, order, m2_t);
+            Core.transpose(m2, order, m2_t);
             string m2_t_size = "";
             for (int i = 0; i < m2_t.dims(); ++i)
             {
                 m2_t_size += m2_t.size(i) + ", ";
             }
-            Log("Core.transposeND(m2, m2_t) = " + m2_t.reshape(3, new int[] { 4, 3 }).dump());
+            Log("Core.transpose(m2, order, m2_t) = " + m2_t.reshape(3, new int[] { 4, 3 }).dump());
             Log("m2_t size[] = " + m2_t_size);
 
             EndExample(@"
@@ -1473,7 +1469,7 @@ namespace OpenCVForUnityExample
             // ---------------------------------------------------------------------------------------
             // The Core.transpose function can be used for various image processing tasks such as rotating images by 90 degrees and changing the shape of matrices by swapping rows and columns of Mat.
             // - The Core.transpose function is a function that performs a transposition operation on a two-dimensional matrix.
-            // - The Core.transposeND function is a function that performs a transposition operation on a tensor of arbitrary dimensions.For example, it can be used to swap specific dimensions of a 3D tensor(such as video data).
+            // - The Core.transpose(src, order, dst) overload performs a transposition operation on a tensor of arbitrary dimensions. For example, it can be used to swap specific dimensions of a 3D tensor (such as video data).
             //
 
             // Transposes a matrix.
@@ -1502,13 +1498,13 @@ namespace OpenCVForUnityExample
             // [1x3x4x3] -> [1x4x3x3]
             Mat m2_t = new Mat();
             MatOfInt order = new MatOfInt(0, 2, 1, 3); // See MatOf* example: typed 1D int Mat for permute order
-            Core.transposeND(m2, order, m2_t);
+            Core.transpose(m2, order, m2_t);
             string m2_t_size = "";
             for (int i = 0; i < m2_t.dims(); ++i)
             {
                 m2_t_size += m2_t.size(i) + "", "";
             }
-            Log(""Core.transposeND(m2, m2_t) = "" + m2_t.reshape(3, new int[] { 4, 3 }).dump());
+            Log(""Core.transpose(m2, order, m2_t) = "" + m2_t.reshape(3, new int[] { 4, 3 }).dump());
             Log(""m2_t size[] = "" + m2_t_size);
             ");
         }

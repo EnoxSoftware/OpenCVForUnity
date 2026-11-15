@@ -198,7 +198,16 @@ namespace OpenCVForUnityExample
 #endif
 
 #if UNITY_ANDROID && UNITY_6000_0_OR_NEWER
-            AppendAndroidConfiguration(dict, UnityEngine.Android.AndroidApplication.currentConfiguration);
+            UnityEngine.Android.AndroidConfiguration configuration =
+                UnityEngine.Android.AndroidApplication.currentConfiguration;
+            if (configuration != null)
+            {
+                AppendAndroidConfiguration(dict, configuration);
+            }
+            else
+            {
+                dict.Add("AndroidConfiguration", "(unavailable)");
+            }
 #endif
 
 #if UNITY_ANDROID && UNITY_6000_5_OR_NEWER
@@ -348,6 +357,12 @@ namespace OpenCVForUnityExample
         /// <param name="configuration">The current Android device configuration.</param>
         private static void AppendAndroidConfiguration(Dictionary<string, string> dict, UnityEngine.Android.AndroidConfiguration configuration)
         {
+            if (configuration == null)
+            {
+                dict.Add("AndroidConfiguration", "(unavailable)");
+                return;
+            }
+
             dict.Add("AndroidConfiguration.densityDpi", configuration.densityDpi.ToString());
             dict.Add("AndroidConfiguration.orientation", configuration.orientation.ToString());
             dict.Add("AndroidConfiguration.screenWidthDp", configuration.screenWidthDp.ToString());
@@ -373,11 +388,18 @@ namespace OpenCVForUnityExample
             dict.Add("AndroidConfiguration.mobileNetworkCode", configuration.mobileNetworkCode.ToString());
 
             UnityEngine.Android.AndroidLocale[] locales = configuration.locales;
-            dict.Add("AndroidConfiguration.locales.Length", locales.Length.ToString());
-            for (int i = 0; i < locales.Length; i++)
+            if (locales == null)
             {
-                UnityEngine.Android.AndroidLocale locale = locales[i];
-                dict.Add("AndroidConfiguration.locales[" + i + "]", locale.language + "-" + locale.country);
+                dict.Add("AndroidConfiguration.locales.Length", "0");
+            }
+            else
+            {
+                dict.Add("AndroidConfiguration.locales.Length", locales.Length.ToString());
+                for (int i = 0; i < locales.Length; i++)
+                {
+                    UnityEngine.Android.AndroidLocale locale = locales[i];
+                    dict.Add("AndroidConfiguration.locales[" + i + "]", locale.language + "-" + locale.country);
+                }
             }
         }
 #endif

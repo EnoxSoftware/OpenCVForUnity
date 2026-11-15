@@ -1,6 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -248,9 +249,10 @@ namespace OpenCVForUnityExample
         private List<Mat> _allIds;
         private FpsMonitor _fpsMonitor;
         private SourceToMatControlPanel _controlPanel;
+        private CancellationTokenSource _calibrationCts;
 
         // Unity Lifecycle Methods
-        private IEnumerator Start()
+        private async void Start()
         {
             //if true, The error log of the Native side OpenCV will be displayed on the Unity Editor Console.
             OpenCVDebug.SetDebugMode(true);
@@ -263,7 +265,7 @@ namespace OpenCVForUnityExample
             // fix the screen orientation.
             Screen.orientation = ScreenOrientation.LandscapeLeft;
             // wait for the screen orientation to change.
-            yield return null;
+            await ExampleMainLoopAwaitUtils.YieldNextFrameAsync(destroyCancellationToken);
 
             // Update GUI state
             MarkerTypeDropdown.value = (int)MarkerTypeValue;
@@ -300,6 +302,10 @@ namespace OpenCVForUnityExample
 
         private void OnDestroy()
         {
+            _calibrationCts?.Cancel();
+            _calibrationCts?.Dispose();
+            _calibrationCts = null;
+
             UnwireSourceToMatControlPanelHooks();
             if (IsImagesInputMode)
             {
@@ -749,7 +755,10 @@ namespace OpenCVForUnityExample
                     InitializeImagesInputMode();
                 }
 
-                StartCoroutine("CalibrateCameraUsingImages");
+                _calibrationCts?.Cancel();
+                _calibrationCts?.Dispose();
+                _calibrationCts = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken);
+                _ = CalibrateCameraUsingImagesAsync(_calibrationCts.Token);
             }
             else
             {
@@ -1650,13 +1659,13 @@ namespace OpenCVForUnityExample
             return true;
         }
 
-        private IEnumerator CalibrateCameraUsingImages()
+        private async Task CalibrateCameraUsingImagesAsync(CancellationToken cancellationToken)
         {
             string dirPath = Path.Combine(Application.streamingAssetsPath, CalibrationImagesDirectory);
             string[] imageFiles = GetImageFilesInDirectory(dirPath);
             if (imageFiles.Length < 1)
             {
-                yield break;
+                return;
             }
 
             _isCalibrating = true;
@@ -1664,50 +1673,71 @@ namespace OpenCVForUnityExample
             NormalCalibrationOptionsGroup.gameObject.SetActive(false);
             ArUcoCalibrationOptionsGroup.gameObject.SetActive(false);
 
-            Uri rootPath = new Uri(Application.streamingAssetsPath + System.IO.Path.AltDirectorySeparatorChar);
-
-            foreach (var path in imageFiles)
+            try
             {
+                Uri rootPath = new Uri(Application.streamingAssetsPath + System.IO.Path.AltDirectorySeparatorChar);
 
-                Uri fullPath = new Uri(path);
-                string relativePath = rootPath.MakeRelativeUri(fullPath).ToString();
-
-                using (Mat gray = Imgcodecs.imread(OpenCVForUnityEnv.GetFilePath(relativePath), Imgcodecs.IMREAD_GRAYSCALE))
+                foreach (var path in imageFiles)
                 {
-                    if (gray.width() != _bgrMat.width() || gray.height() != _bgrMat.height())
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                    Uri fullPath = new Uri(path);
+                    string relativePath = rootPath.MakeRelativeUri(fullPath).ToString();
+
+                    using (Mat gray = Imgcodecs.imread(OpenCVForUnityEnv.GetFilePath(relativePath), Imgcodecs.IMREAD_GRAYSCALE))
                     {
-                        continue;
+                        if (gray.width() != _bgrMat.width() || gray.height() != _bgrMat.height())
+                        {
+                            continue;
+                        }
+
+                        Mat frameMat = gray.clone();
+
+                        double e = 0;
+                        if (MarkerTypeValue != MarkerType.ChArUcoBoard)
+                        {
+                            e = CaptureFrame(frameMat);
+                        }
+                        // else
+                        //     e = CaptureFrame_Charuco(frameMat);
+
+                        if (e > 0)
+                        {
+                            _repErr = e;
+                        }
+
+                        DrawFrame(gray, _bgrMat);
+                        DrawCalibrationResult(_bgrMat);
+                        Imgproc.cvtColor(_bgrMat, _rgbaMat, Imgproc.COLOR_BGR2RGBA);
+
+                        OpenCVMatUnityUtils.MatToTexture2D(_rgbaMat, _texture);
                     }
 
-                    Mat frameMat = gray.clone();
-
-                    double e = 0;
-                    if (MarkerTypeValue != MarkerType.ChArUcoBoard)
-                    {
-                        e = CaptureFrame(frameMat);
-                    }
-                    // else
-                    //     e = CaptureFrame_Charuco(frameMat);
-
-                    if (e > 0)
-                    {
-                        _repErr = e;
-                    }
-
-                    DrawFrame(gray, _bgrMat);
-                    DrawCalibrationResult(_bgrMat);
-                    Imgproc.cvtColor(_bgrMat, _rgbaMat, Imgproc.COLOR_BGR2RGBA);
-
-                    OpenCVMatUnityUtils.MatToTexture2D(_rgbaMat, _texture);
+                    await WaitRealtimeSecondsAsync(0.5f, cancellationToken);
                 }
-                yield return new WaitForSeconds(0.5f);
             }
+            catch (OperationCanceledException)
+            {
+                // Expected when the component is destroyed or a new calibration run starts.
+            }
+            finally
+            {
+                _isCalibrating = false;
+                MarkerTypeDropdown.interactable = BoardSizeWDropdown.interactable = BoardSizeHDropdown.interactable = true;
+                bool arUcoCalibMode = MarkerTypeValue == MarkerType.ChArUcoBoard;
+                NormalCalibrationOptionsGroup.gameObject.SetActive(!arUcoCalibMode);
+                ArUcoCalibrationOptionsGroup.gameObject.SetActive(arUcoCalibMode);
+            }
+        }
 
-            _isCalibrating = false;
-            MarkerTypeDropdown.interactable = BoardSizeWDropdown.interactable = BoardSizeHDropdown.interactable = true;
-            bool arUcoCalibMode = MarkerTypeValue == MarkerType.ChArUcoBoard;
-            NormalCalibrationOptionsGroup.gameObject.SetActive(!arUcoCalibMode);
-            ArUcoCalibrationOptionsGroup.gameObject.SetActive(arUcoCalibMode);
+        private static async Task WaitRealtimeSecondsAsync(float durationSeconds, CancellationToken cancellationToken)
+        {
+            float targetTime_sec = Time.realtimeSinceStartup + durationSeconds;
+            while (Time.realtimeSinceStartup < targetTime_sec)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                await ExampleMainLoopAwaitUtils.YieldNextFrameAsync(cancellationToken);
+            }
         }
 
         private string[] GetImageFilesInDirectory(string dirPath)

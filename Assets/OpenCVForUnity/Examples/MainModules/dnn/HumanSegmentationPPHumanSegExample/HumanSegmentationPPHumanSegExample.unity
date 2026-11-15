@@ -1601,30 +1601,27 @@ MonoBehaviour:
     Toggling Sentis vs OpenCV DNN inference and optional async segmentation
 
     -
-    OpenCV path uses Dnn.ENGINE_CLASSIC; ENGINE_AUTO (new OpenCV 5 engine) yields
-    incorrect PPHumanSeg masks
-
-    - Converting RGBA frames to BGR, applying segmentation
-    mask Mat, and compositing background
+    Converting RGBA frames to BGR, applying segmentation mask Mat, and compositing
+    background
 
     
 
     OpenCV classes and APIs used:
 
+    - Mat, Size, Scalar
+
     -
-    Mat, Size, Scalar
+    Imgproc: cvtColor, resize, threshold
 
-    - Imgproc: cvtColor, resize, threshold
+    - MultiBackendNet, MatSingleFlightSyncAsyncRunner,
+    MultiBackendDnn
 
-    - MultiBackendNet,
-    MatSingleFlightSyncAsyncRunner, MultiBackendDnn
-
-    - MultiSourceToMatHelper,
-    OpenCVMatUnityUtils
+    - MultiSourceToMatHelper, OpenCVMatUnityUtils
 
     
 
-    Referring to:
+    Referring
+    to:
 
     https://github.com/opencv/opencv_zoo/tree/master/models/human_segmentation_pphumanseg
 

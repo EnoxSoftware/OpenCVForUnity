@@ -29,7 +29,6 @@ namespace OpenCVForUnityExample
     /// - Reading input frames via <see cref="MultiSourceToMatHelper"/> (webcam, video file, image file, or GPU readback)
     /// - Loading PPHumanSeg ONNX/Sentis model from StreamingAssets
     /// - Toggling Sentis vs OpenCV DNN inference and optional async segmentation
-    /// - OpenCV path uses <c>Dnn.ENGINE_CLASSIC</c>; <c>ENGINE_AUTO</c> (new OpenCV 5 engine) yields incorrect PPHumanSeg masks
     /// - Converting RGBA frames to BGR, applying segmentation mask Mat, and compositing background
     ///
     /// OpenCV classes and APIs used:
@@ -55,11 +54,10 @@ namespace OpenCVForUnityExample
         private static readonly string MODEL_FILEPATH = "OpenCVForUnityExamples/dnn/human_segmentation_pphumanseg_2023mar.onnx";
 #if !UNITY_WSA_10_0
         /// <summary>
-        /// OpenCV DNN engine for the OpenCV path. OpenCV 5 <c>ENGINE_AUTO</c> may select the new engine,
-        /// which produces incorrect PPHumanSeg masks; force the classic engine (OpenCV 4.x compatible).
+        /// OpenCV DNN engine for the OpenCV path.
         /// Ignored on the Sentis path.
         /// </summary>
-        private const int OPENCV_DNN_ENGINE = Dnn.ENGINE_CLASSIC;
+        private const int OPENCV_DNN_ENGINE = Dnn.ENGINE_OPENCV;
 #endif
 
         // Public Fields

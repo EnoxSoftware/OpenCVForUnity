@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.IO;
 using System.Xml.Serialization;
 using OpenCVForUnity.CalibModule;
@@ -700,7 +701,12 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnEnterARCamera arCamera.name " + arCamera.name + " arGameObject.name " + arGameObject.name, this);
 
-            StartCoroutine(arGameObject.GetComponent<ARCube>().EnterAnimation(arGameObject.gameObject, 0f, 1f, 0.5f));
+            _ = arGameObject.GetComponent<ARCube>().EnterAnimationAsync(
+                arGameObject.gameObject,
+                0f,
+                1f,
+                0.5f,
+                destroyCancellationToken);
         }
 
         /// <summary>
@@ -713,7 +719,12 @@ namespace OpenCVForUnityExample
         {
             Debug.Log("OnExitARCamera arCamera.name " + arCamera.name + " arGameObject.name " + arGameObject.name, this);
 
-            StartCoroutine(arGameObject.GetComponent<ARCube>().ExitAnimation(arGameObject.gameObject, 1f, 0f, 0.2f));
+            _ = arGameObject.GetComponent<ARCube>().ExitAnimationAsync(
+                arGameObject.gameObject,
+                1f,
+                0f,
+                0.2f,
+                destroyCancellationToken);
         }
 
         // Private Methods

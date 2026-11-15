@@ -1,5 +1,6 @@
 using System;
-using System.Collections;
+using System.Threading;
+using System.Threading.Tasks;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.ObjdetectModule;
@@ -36,7 +37,7 @@ namespace OpenCVForUnityExample
     ///
     /// Unity integration:
     /// - <see cref="OpenCVMatUnityUtils.Texture2DToMat"/>: copy Unity <see cref="Texture2D"/> pixels into a Mat
-    /// - <see cref="OpenCVForUnityEnv.GetFilePath"/>: resolve StreamingAssets paths at runtime
+    /// - <see cref="OpenCVForUnityEnv.GetFilePathAsync"/>: resolve StreamingAssets paths at runtime
     /// </summary>
     /// <remarks>
     /// <para>
@@ -54,15 +55,15 @@ namespace OpenCVForUnityExample
         public UnityEngine.UI.Text ExampleCodeText;
 
         // Private Fields
-        private IEnumerator _enumerator;
+        private CancellationTokenSource _demoCts;
 
         // Unity Lifecycle Methods
-        private IEnumerator Start()
+        private async void Start()
         {
             // fix the screen orientation.
             Screen.orientation = ScreenOrientation.LandscapeLeft;
             // wait for the screen orientation to change.
-            yield return null;
+            await ExampleMainLoopAwaitUtils.YieldNextFrameAsync(destroyCancellationToken);
         }
 
         private void Update()
@@ -74,7 +75,7 @@ namespace OpenCVForUnityExample
         {
             Screen.orientation = ScreenOrientation.AutoRotation;
 
-            DisposeEnumerator();
+            CancelRunningDemo();
         }
 
         // Private Methods
@@ -83,21 +84,30 @@ namespace OpenCVForUnityExample
             ExampleCodeScrollRect.verticalNormalizedPosition = 1f;
         }
 
-        private void DisposeEnumerator()
+        private void CancelRunningDemo()
         {
-            // Stop the currently running demo coroutine before starting another button demo.
-            if (_enumerator != null)
-            {
-                (_enumerator as IDisposable)?.Dispose();
-                StopCoroutine(_enumerator);
-                _enumerator = null;
-            }
+            _demoCts?.Cancel();
+            _demoCts?.Dispose();
+            _demoCts = null;
         }
 
-        private void StartEnumerator(IEnumerator enumerator)
+        private void StartDemoAsync(Func<CancellationToken, Task> demoAsync)
         {
-            _enumerator = enumerator;
-            StartCoroutine(_enumerator);
+            CancelRunningDemo();
+            _demoCts = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken);
+            _ = RunDemoAsync(demoAsync, _demoCts.Token);
+        }
+
+        private static async Task RunDemoAsync(Func<CancellationToken, Task> demoAsync, CancellationToken cancellationToken)
+        {
+            try
+            {
+                await demoAsync(cancellationToken);
+            }
+            catch (OperationCanceledException)
+            {
+                // Demo stopped when switching demos or leaving the scene.
+            }
         }
 
         // Public Methods
@@ -110,7 +120,7 @@ namespace OpenCVForUnityExample
         {
             //Debug.Log("OnLayoutTypeDropdownValueChanged "+ result);
 
-            DisposeEnumerator();
+            CancelRunningDemo();
             DebugMat.clear();
             // Change how DebugMat arranges multiple preview windows on screen.
             DebugMat.setup((DebugMat.LayoutType)result);
@@ -124,8 +134,8 @@ namespace OpenCVForUnityExample
 
             DebugMat.destroyAllWindows();
 
-            DisposeEnumerator();
-            StartEnumerator(FaceDetectionExample());
+            CancelRunningDemo();
+            StartDemoAsync(FaceDetectionExampleAsync);
 
             ExampleCodeText.text = @"
             // ---------------------------------------------------
@@ -135,40 +145,11 @@ namespace OpenCVForUnityExample
 
             string HAAR_CASCADE_FILEPATH = ""OpenCVForUnityExamples/objdetect/haarcascade_frontalface_alt.xml"";
 
-            string cascade_filepath = null;
-
-#if UNITY_WEBGL
-            IEnumerator getFilePath_Coroutine;
-#endif
-
-#if UNITY_WEBGL
-            // WebGL cannot access StreamingAssets synchronously; wait for the async path resolver.
-            getFilePath_Coroutine = OpenCVForUnityEnv.GetFilePathCoroutine(HAAR_CASCADE_FILEPATH,
-                (result) =>
-                {
-                    getFilePath_Coroutine = null;
-
-                    if (string.IsNullOrEmpty(result))
-                    {
-                        Debug.LogError(HAAR_CASCADE_FILEPATH + "" is not loaded. Please move from ""OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/"" to ""Assets/StreamingAssets/OpenCVForUnityExamples/"" folder."");
-                    }
-                    else
-                    {
-                        cascade_filepath = result;
-                    }
-                },
-                    (result, progress) =>
-                    {
-                        Debug.Log(""getFilePathAsync() progress : "" + result + "" "" + Mathf.CeilToInt(progress * 100) + ""%"");
-                    });
-            yield return StartCoroutine(getFilePath_Coroutine);
-#else
-            cascade_filepath = OpenCVForUnityEnv.GetFilePath(HAAR_CASCADE_FILEPATH);
+            string cascade_filepath = await OpenCVForUnityEnv.GetFilePathAsync(HAAR_CASCADE_FILEPATH, cancellationToken: cancellationToken);
             if (string.IsNullOrEmpty(cascade_filepath))
             {
                 Debug.LogError(HAAR_CASCADE_FILEPATH + "" is not loaded. Please move from ""OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/"" to ""Assets/StreamingAssets/OpenCVForUnityExamples/"" folder."");
             }
-#endif
 
             Texture2D imgTexture = Resources.Load(""face"") as Texture2D;
 
@@ -189,7 +170,7 @@ namespace OpenCVForUnityExample
 
                     //If you specify a winname that has already been registered, the window with the same winname will be overwritten.
                     <color=#ff0000>DebugMat.imshow(""imgMat"", imgMat);</color>
-                    yield break;
+                    return;
                 }
 
                 using (Mat grayMat = new Mat())
@@ -225,14 +206,12 @@ namespace OpenCVForUnityExample
 
                 <color=#ff0000>DebugMat.imshow(""result"", imgMat);</color>
             }
-
-            yield break;
             ";
 
             UpdateScrollRect();
         }
 
-        public IEnumerator FaceDetectionExample()
+        private async Task FaceDetectionExampleAsync(CancellationToken cancellationToken)
         {
             // ---------------------------------------------------
             //  FaceDetectionExample
@@ -241,40 +220,11 @@ namespace OpenCVForUnityExample
 
             const string HAAR_CASCADE_FILEPATH = "OpenCVForUnityExamples/objdetect/haarcascade_frontalface_alt.xml";
 
-            string cascade_filepath = null;
-
-#if UNITY_WEBGL
-            IEnumerator getFilePath_Coroutine;
-#endif
-
-#if UNITY_WEBGL
-            // WebGL cannot access StreamingAssets synchronously; wait for the async path resolver.
-            getFilePath_Coroutine = OpenCVForUnityEnv.GetFilePathCoroutine(HAAR_CASCADE_FILEPATH,
-                (result) =>
-                {
-                    getFilePath_Coroutine = null;
-
-                    if (string.IsNullOrEmpty(result))
-                    {
-                        Debug.LogError(HAAR_CASCADE_FILEPATH + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.", this);
-                    }
-                    else
-                    {
-                        cascade_filepath = result;
-                    }
-                },
-                    (result, progress) =>
-                    {
-                        Debug.Log("getFilePathAsync() progress : " + result + " " + Mathf.CeilToInt(progress * 100) + "%", this);
-                    });
-            yield return StartCoroutine(getFilePath_Coroutine);
-#else
-            cascade_filepath = OpenCVForUnityEnv.GetFilePath(HAAR_CASCADE_FILEPATH);
+            string cascade_filepath = await OpenCVForUnityEnv.GetFilePathAsync(HAAR_CASCADE_FILEPATH, cancellationToken: cancellationToken);
             if (string.IsNullOrEmpty(cascade_filepath))
             {
                 Debug.LogError(HAAR_CASCADE_FILEPATH + " is not loaded. Please move from \"OpenCVForUnity/StreamingAssets/OpenCVForUnityExamples/\" to \"Assets/StreamingAssets/OpenCVForUnityExamples/\" folder.", this);
             }
-#endif
 
             Texture2D imgTexture = Resources.Load("face") as Texture2D;
 
@@ -295,7 +245,7 @@ namespace OpenCVForUnityExample
 
                     //If you specify a winname that has already been registered, the window with the same winname will be overwritten.
                     DebugMat.imshow("imgMat", imgMat);
-                    yield break;
+                    return;
                 }
 
                 using (Mat grayMat = new Mat())
@@ -333,8 +283,6 @@ namespace OpenCVForUnityExample
 
                 DebugMat.imshow("result", imgMat);
             }
-
-            yield break;
         }
 
         public void OnVideoCaptureExampleButtonClick()
@@ -345,8 +293,8 @@ namespace OpenCVForUnityExample
 
             DebugMat.destroyAllWindows();
 
-            DisposeEnumerator();
-            StartEnumerator(VideoCaptureExample());
+            CancelRunningDemo();
+            StartDemoAsync(VideoCaptureExampleAsync);
 
             ExampleCodeText.text = @"
             // ---------------------------------------------------
@@ -356,23 +304,7 @@ namespace OpenCVForUnityExample
 
             const string VIDEO_FILEPATH = ""OpenCVForUnityExamples/768x576_mjpeg.mjpeg"";
 
-            string video_filepath = null;
-
-#if UNITY_WEBGL
-            IEnumerator getFilePath_Coroutine;
-#endif
-
-#if UNITY_WEBGL
-            getFilePath_Coroutine = OpenCVForUnityEnv.GetFilePathAsync(VIDEO_FILEPATH, (result) =>
-            {
-                getFilePath_Coroutine = null;
-
-                video_filepath = result;
-            });
-            yield return StartCoroutine(getFilePath_Coroutine);
-#else
-            video_filepath = OpenCVForUnityEnv.GetFilePath(VIDEO_FILEPATH);
-#endif
+            string video_filepath = await OpenCVForUnityEnv.GetFilePathAsync(VIDEO_FILEPATH, cancellationToken: cancellationToken);
 
             using (VideoCapture capture = new VideoCapture())
             using (Mat rgbMat = new Mat())
@@ -397,17 +329,15 @@ namespace OpenCVForUnityExample
                     if (capture.get(Videoio.CAP_PROP_POS_FRAMES) >= capture.get(Videoio.CAP_PROP_FRAME_COUNT))
                         capture.set(Videoio.CAP_PROP_POS_FRAMES, 0);
 
-                    yield return null;
+                    await ExampleMainLoopAwaitUtils.YieldNextFrameAsync(cancellationToken);
                 }
             }
-
-            yield break;
             ";
 
             UpdateScrollRect();
         }
 
-        public IEnumerator VideoCaptureExample()
+        private async Task VideoCaptureExampleAsync(CancellationToken cancellationToken)
         {
             // ---------------------------------------------------
             //  VideoCaptureExample
@@ -416,23 +346,7 @@ namespace OpenCVForUnityExample
 
             const string VIDEO_FILEPATH = "OpenCVForUnityExamples/768x576_mjpeg.mjpeg";
 
-            string video_filepath = null;
-
-#if UNITY_WEBGL
-            IEnumerator getFilePath_Coroutine;
-#endif
-
-#if UNITY_WEBGL
-            getFilePath_Coroutine = OpenCVForUnityEnv.GetFilePathCoroutine(VIDEO_FILEPATH, (result) =>
-            {
-                getFilePath_Coroutine = null;
-
-                video_filepath = result;
-            });
-            yield return StartCoroutine(getFilePath_Coroutine);
-#else
-            video_filepath = OpenCVForUnityEnv.GetFilePath(VIDEO_FILEPATH);
-#endif
+            string video_filepath = await OpenCVForUnityEnv.GetFilePathAsync(VIDEO_FILEPATH, cancellationToken: cancellationToken);
 
             using (VideoCapture capture = new VideoCapture())
             using (Mat rgbMat = new Mat())
@@ -442,6 +356,7 @@ namespace OpenCVForUnityExample
                 // grab() advances to the next frame; retrieve() decodes it into rgbMat.
                 while (capture.grab())
                 {
+                    cancellationToken.ThrowIfCancellationRequested();
 
                     capture.retrieve(rgbMat);
 
@@ -459,11 +374,9 @@ namespace OpenCVForUnityExample
                         capture.set(Videoio.CAP_PROP_POS_FRAMES, 0);
                     }
 
-                    yield return null;
+                    await ExampleMainLoopAwaitUtils.YieldNextFrameAsync(cancellationToken);
                 }
             }
-
-            yield break;
         }
 
         public void OnTrackingExampleButtonClick()
@@ -474,8 +387,8 @@ namespace OpenCVForUnityExample
 
             DebugMat.destroyAllWindows();
 
-            DisposeEnumerator();
-            StartEnumerator(TrackingExample());
+            CancelRunningDemo();
+            StartDemoAsync(TrackingExampleAsync);
 
             ExampleCodeText.text = @"
             // ---------------------------------------------------
@@ -483,25 +396,9 @@ namespace OpenCVForUnityExample
             // ---------------------------------------------------
             // Initializes TrackerCSRT on one frame, then updates the rectangle on later frames.
 
-            const string VIDEO_FILEPATH = ""OpenCVForUnity/768x576_mjpeg.mjpeg"";
+            const string VIDEO_FILEPATH = ""OpenCVForUnityExamples/768x576_mjpeg.mjpeg"";
 
-            string video_filepath = null;
-
-#if UNITY_WEBGL
-            IEnumerator getFilePath_Coroutine;
-#endif
-
-#if UNITY_WEBGL
-            getFilePath_Coroutine = OpenCVForUnityEnv.GetFilePathAsync(VIDEO_FILEPATH, (result) =>
-            {
-                getFilePath_Coroutine = null;
-
-                video_filepath = result;
-            });
-            yield return StartCoroutine(getFilePath_Coroutine);
-#else
-            video_filepath = OpenCVForUnityEnv.GetFilePath(VIDEO_FILEPATH);
-#endif
+            string video_filepath = await OpenCVForUnityEnv.GetFilePathAsync(VIDEO_FILEPATH, cancellationToken: cancellationToken);
 
             using (VideoCapture capture = new VideoCapture())
             using (Mat rgbMat = new Mat())
@@ -539,17 +436,15 @@ namespace OpenCVForUnityExample
                     if (capture.get(Videoio.CAP_PROP_POS_FRAMES) >= 360)
                         capture.set(Videoio.CAP_PROP_POS_FRAMES, 23);
 
-                    yield return null;
+                    await ExampleMainLoopAwaitUtils.YieldNextFrameAsync(cancellationToken);
                 }
             }
-
-            yield break;
             ";
 
             UpdateScrollRect();
         }
 
-        public IEnumerator TrackingExample()
+        private async Task TrackingExampleAsync(CancellationToken cancellationToken)
         {
             // ---------------------------------------------------
             //  TrackingExample
@@ -558,23 +453,7 @@ namespace OpenCVForUnityExample
 
             const string VIDEO_FILEPATH = "OpenCVForUnityExamples/768x576_mjpeg.mjpeg";
 
-            string video_filepath = null;
-
-#if UNITY_WEBGL
-            IEnumerator getFilePath_Coroutine;
-#endif
-
-#if UNITY_WEBGL
-            getFilePath_Coroutine = OpenCVForUnityEnv.GetFilePathCoroutine(VIDEO_FILEPATH, (result) =>
-            {
-                getFilePath_Coroutine = null;
-
-                video_filepath = result;
-            });
-            yield return StartCoroutine(getFilePath_Coroutine);
-#else
-            video_filepath = OpenCVForUnityEnv.GetFilePath(VIDEO_FILEPATH);
-#endif
+            string video_filepath = await OpenCVForUnityEnv.GetFilePathAsync(VIDEO_FILEPATH, cancellationToken: cancellationToken);
 
             using (VideoCapture capture = new VideoCapture())
             using (Mat rgbMat = new Mat())
@@ -595,6 +474,7 @@ namespace OpenCVForUnityExample
 
                 while (capture.grab())
                 {
+                    cancellationToken.ThrowIfCancellationRequested();
 
                     capture.retrieve(rgbMat);
                     DebugMat.imshow("bgrMat", rgbMat);
@@ -614,11 +494,9 @@ namespace OpenCVForUnityExample
                         capture.set(Videoio.CAP_PROP_POS_FRAMES, 23);
                     }
 
-                    yield return null;
+                    await ExampleMainLoopAwaitUtils.YieldNextFrameAsync(cancellationToken);
                 }
             }
-
-            yield break;
         }
 
         public void OnDumpExampleButtonClick()
@@ -630,7 +508,7 @@ namespace OpenCVForUnityExample
 
             DebugMat.destroyAllWindows();
 
-            DisposeEnumerator();
+            CancelRunningDemo();
 
             Texture2D imgTexture = Resources.Load("face") as Texture2D;
             DebugMat.imshow("imgTexture_all", imgTexture);
@@ -697,7 +575,7 @@ namespace OpenCVForUnityExample
 
             DebugMat.destroyAllWindows();
 
-            DisposeEnumerator();
+            CancelRunningDemo();
 
             // 32F, channels=1, 3x3
             Mat m1 = new Mat(3, 3, CvType.CV_32FC1);

@@ -1,6 +1,6 @@
 using System;
-using System.Collections;
 using System.Threading;
+using System.Threading.Tasks;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
@@ -19,7 +19,7 @@ namespace OpenCVForUnityExample
     /// Demonstrates:
     /// - VideoCapture.open, grab/retrieve frame pipeline
     /// - Reading CAP_PROP_* metadata (FPS, frame count, position)
-    /// - Frame pacing with a coroutine timed to the file FPS
+    /// - Frame pacing with an async loop timed to the file FPS
     ///
     /// OpenCV classes and APIs used:
     /// - <see cref="VideoCapture"/>, <see cref="Videoio"/>
@@ -146,8 +146,6 @@ namespace OpenCVForUnityExample
         {
             _cts?.Cancel();
 
-            StopCoroutine("WaitFrameTime");
-
             _capture?.release();
             _capture = null;
 
@@ -273,36 +271,51 @@ namespace OpenCVForUnityExample
 
             _capture.set(Videoio.CAP_PROP_POS_FRAMES, 0);
 
-            StartCoroutine("WaitFrameTime");
+            _ = RunPlaybackPacingAsync(_cts.Token);
 
             _isPlaying = true;
         }
 
-        private IEnumerator WaitFrameTime()
+        /// <summary>
+        /// Paces playback to the file FPS; <see cref="Update"/> performs grab/retrieve when <see cref="_shouldUpdateVideoFrame"/> is set.
+        /// </summary>
+        /// <param name="cancellationToken">Cooperative cancellation token.</param>
+        private async Task RunPlaybackPacingAsync(CancellationToken cancellationToken)
         {
-            double videoFPS = (_capture.get(Videoio.CAP_PROP_FPS) <= 0) ? 10.0 : _capture.get(Videoio.CAP_PROP_FPS);
-            float frameTime_sec = (float)(1000.0 / videoFPS / 1000.0);
-            WaitForSeconds wait = new WaitForSeconds(frameTime_sec);
-            _prevFrameTickCount = _currentFrameTickCount = Core.getTickCount();
-
-            _capture.grab();
-
-            // Coroutine paces playback to file FPS; Update performs grab/retrieve when _shouldUpdateVideoFrame is set.
-            while (true)
+            try
             {
-                if (_isPlaying)
-                {
-                    _shouldUpdateVideoFrame = true;
+                double videoFPS = (_capture.get(Videoio.CAP_PROP_FPS) <= 0) ? 10.0 : _capture.get(Videoio.CAP_PROP_FPS);
+                float frameTime_sec = (float)(1.0 / videoFPS);
+                _prevFrameTickCount = _currentFrameTickCount = Core.getTickCount();
 
-                    _prevFrameTickCount = _currentFrameTickCount;
-                    _currentFrameTickCount = Core.getTickCount();
+                _capture.grab();
 
-                    yield return wait;
-                }
-                else
+                float nextFrameTime_sec = Time.realtimeSinceStartup;
+
+                while (true)
                 {
-                    yield return null;
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                    if (_isPlaying)
+                    {
+                        float now_sec = Time.realtimeSinceStartup;
+                        if (now_sec >= nextFrameTime_sec)
+                        {
+                            _shouldUpdateVideoFrame = true;
+
+                            _prevFrameTickCount = _currentFrameTickCount;
+                            _currentFrameTickCount = Core.getTickCount();
+
+                            nextFrameTime_sec = now_sec + frameTime_sec;
+                        }
+                    }
+
+                    await ExampleMainLoopAwaitUtils.YieldNextFrameAsync(cancellationToken);
                 }
+            }
+            catch (OperationCanceledException)
+            {
+                // Expected when the component is destroyed.
             }
         }
     }

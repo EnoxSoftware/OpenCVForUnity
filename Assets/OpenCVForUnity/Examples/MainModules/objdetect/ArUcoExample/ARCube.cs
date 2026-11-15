@@ -1,4 +1,6 @@
-using System.Collections;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityIntegration;
@@ -27,8 +29,16 @@ namespace OpenCVForUnityExample
         public GameObject InfoPlate;
 
         // Private Fields
-        private Coroutine _enterAnimationCoroutine = null;
-        private Coroutine _exitAnimationCoroutine = null;
+        private CancellationTokenSource _enterAnimationCts;
+        private CancellationTokenSource _exitAnimateCts;
+        private CancellationTokenSource _exitAnimationCts;
+
+        // Unity Lifecycle
+        private void OnDestroy()
+        {
+            CancelEnterAnimation();
+            CancelExitAnimation();
+        }
 
         // Public Methods
         /// <summary>
@@ -142,24 +152,39 @@ namespace OpenCVForUnityExample
         /// <param name="startScaleZ">Initial scale value along the Z-axis</param>
         /// <param name="endScaleZ">Final scale value along the Z-axis</param>
         /// <param name="duration">Duration of the animation in seconds</param>
-        public IEnumerator EnterAnimation(GameObject obj, float startScaleZ, float endScaleZ, float duration)
+        /// <param name="cancellationToken">Cooperative cancellation token</param>
+        public async Task EnterAnimationAsync(
+            GameObject obj,
+            float startScaleZ,
+            float endScaleZ,
+            float duration,
+            CancellationToken cancellationToken)
         {
-            if (_exitAnimationCoroutine != null)
-            {
-                StopCoroutine(_exitAnimationCoroutine);
-                _exitAnimationCoroutine = null;
-            }
+            CancelExitAnimation();
+            CancelEnterAnimation();
 
-            if (_enterAnimationCoroutine != null)
-            {
-                StopCoroutine(_enterAnimationCoroutine);
-                _enterAnimationCoroutine = null;
-            }
+            _enterAnimationCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+            CancellationToken animateToken = _enterAnimationCts.Token;
 
             obj.SetActive(true);
-            _enterAnimationCoroutine = StartCoroutine(AnimateScale(obj, startScaleZ, endScaleZ, duration));
-            yield return _enterAnimationCoroutine;
-            _enterAnimationCoroutine = null;
+
+            try
+            {
+                await AnimateScaleAsync(obj, startScaleZ, endScaleZ, duration, animateToken);
+            }
+            catch (OperationCanceledException)
+            {
+                animateToken.ThrowIfCancellationRequested();
+                throw;
+            }
+            finally
+            {
+                if (_enterAnimationCts != null)
+                {
+                    _enterAnimationCts.Dispose();
+                    _enterAnimationCts = null;
+                }
+            }
         }
 
         /// <summary>
@@ -170,39 +195,93 @@ namespace OpenCVForUnityExample
         /// <param name="startScaleZ">Initial scale value along the Z-axis</param>
         /// <param name="endScaleZ">Final scale value along the Z-axis</param>
         /// <param name="duration">Duration of the animation in seconds</param>
-        public IEnumerator ExitAnimation(GameObject obj, float startScaleZ, float endScaleZ, float duration)
+        /// <param name="cancellationToken">Cooperative cancellation token</param>
+        public async Task ExitAnimationAsync(
+            GameObject obj,
+            float startScaleZ,
+            float endScaleZ,
+            float duration,
+            CancellationToken cancellationToken)
         {
-            if (_enterAnimationCoroutine != null)
-            {
-                StopCoroutine(_enterAnimationCoroutine);
-                _enterAnimationCoroutine = null;
-            }
+            CancelEnterAnimation();
+            CancelExitAnimation();
 
-            if (_exitAnimationCoroutine != null)
-            {
-                StopCoroutine(_exitAnimationCoroutine);
-                _exitAnimationCoroutine = null;
-            }
+            _exitAnimationCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+            CancellationToken animateToken = _exitAnimationCts.Token;
 
             if (!obj.activeSelf)
             {
                 obj.SetActive(false);
-                yield break;
+                DisposeExitAnimationCts();
+                return;
             }
 
-            _exitAnimationCoroutine = StartCoroutine(AnimateScale(obj, startScaleZ, endScaleZ, duration));
-            yield return _exitAnimationCoroutine;
+            bool scaleAnimationPreempted = false;
+            _exitAnimateCts = CancellationTokenSource.CreateLinkedTokenSource(animateToken);
+            CancellationToken scaleToken = _exitAnimateCts.Token;
 
-            if (_exitAnimationCoroutine == null)
+            try
             {
-                yield return null;
+                await AnimateScaleAsync(obj, startScaleZ, endScaleZ, duration, scaleToken);
+            }
+            catch (OperationCanceledException)
+            {
+                scaleAnimationPreempted = true;
+            }
+            finally
+            {
+                if (_exitAnimateCts != null)
+                {
+                    _exitAnimateCts.Dispose();
+                    _exitAnimateCts = null;
+                }
+            }
+
+            if (scaleAnimationPreempted)
+            {
+                await ExampleMainLoopAwaitUtils.YieldNextFrameAsync();
             }
 
             obj.SetActive(false);
-            _exitAnimationCoroutine = null;
+            DisposeExitAnimationCts();
         }
 
         // Private Methods
+        private void CancelEnterAnimation()
+        {
+            if (_enterAnimationCts == null)
+            {
+                return;
+            }
+
+            _enterAnimationCts.Cancel();
+            _enterAnimationCts.Dispose();
+            _enterAnimationCts = null;
+        }
+
+        private void CancelExitAnimation()
+        {
+            if (_exitAnimateCts != null)
+            {
+                _exitAnimateCts.Cancel();
+                _exitAnimateCts.Dispose();
+                _exitAnimateCts = null;
+            }
+
+            DisposeExitAnimationCts();
+        }
+
+        private void DisposeExitAnimationCts()
+        {
+            if (_exitAnimationCts == null)
+            {
+                return;
+            }
+
+            _exitAnimationCts.Dispose();
+            _exitAnimationCts = null;
+        }
+
         /// <summary>
         /// Performs a scaling animation along the Z-axis over a specified duration.
         /// </summary>
@@ -210,7 +289,13 @@ namespace OpenCVForUnityExample
         /// <param name="startScaleZ">Initial scale value along the Z-axis</param>
         /// <param name="endScaleZ">Final scale value along the Z-axis</param>
         /// <param name="duration">Duration of the animation in seconds</param>
-        private IEnumerator AnimateScale(GameObject obj, float startScaleZ, float endScaleZ, float duration)
+        /// <param name="cancellationToken">Cooperative cancellation token</param>
+        private async Task AnimateScaleAsync(
+            GameObject obj,
+            float startScaleZ,
+            float endScaleZ,
+            float duration,
+            CancellationToken cancellationToken)
         {
             float elapsedTime = 0f;
             Vector3 initialScale = obj.transform.localScale;
@@ -218,10 +303,12 @@ namespace OpenCVForUnityExample
 
             while (elapsedTime < duration)
             {
+                cancellationToken.ThrowIfCancellationRequested();
+
                 float t = elapsedTime / duration;
                 obj.transform.localScale = new Vector3(initialScale.x, initialScale.y, Mathf.Lerp(startScaleZ, endScaleZ, t));
                 elapsedTime += Time.deltaTime;
-                yield return null;
+                await ExampleMainLoopAwaitUtils.YieldNextFrameAsync(cancellationToken);
             }
 
             obj.transform.localScale = targetScale;

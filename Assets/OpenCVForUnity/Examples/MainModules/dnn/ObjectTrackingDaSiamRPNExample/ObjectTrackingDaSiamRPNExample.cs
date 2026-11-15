@@ -22,13 +22,12 @@ namespace OpenCVForUnityExample
 {
     /// <summary>
     /// DNN engine selection for <see cref="ObjectTrackingDaSiamRPNExample"/> and <see cref="DaSiamRPNTracker"/>.
-    /// Values match <see cref="Dnn.ENGINE_CLASSIC"/>, <see cref="Dnn.ENGINE_NEW"/>, and <see cref="Dnn.ENGINE_AUTO"/>.
+    /// Values match <see cref="Dnn.ENGINE_AUTO"/> and <see cref="Dnn.ENGINE_OPENCV"/>.
     /// </summary>
     public enum DaSiamRpnDnnEngineSelection
     {
-        Classic = Dnn.ENGINE_CLASSIC,
-        New = Dnn.ENGINE_NEW,
         Auto = Dnn.ENGINE_AUTO,
+        OpenCv = Dnn.ENGINE_OPENCV,
     }
 
     /// <summary>
@@ -52,9 +51,9 @@ namespace OpenCVForUnityExample
     /// <remarks>
     /// <para>
     /// This legacy example uses low-level <see cref="Net"/> APIs. The default DNN engine is
-    /// <see cref="DaSiamRpnDnnEngineSelection.Classic"/> (<c>Dnn.ENGINE_CLASSIC</c>, OpenCV 4.x compatible).
-    /// Change <see cref="DnnEngine"/> in the Inspector to <see cref="DaSiamRpnDnnEngineSelection.New"/> to compare
-    /// with the OpenCV 5 graph engine. For native <see cref="TrackerDaSiamRPN"/>, see TrackingExample.
+    /// <see cref="DaSiamRpnDnnEngineSelection.OpenCv"/> (<c>Dnn.ENGINE_OPENCV</c>).
+    /// <c>ENGINE_AUTO</c> resolves to the same engine.
+    /// For native <see cref="TrackerDaSiamRPN"/>, see TrackingExample.
     /// </para>
     /// <para>
     /// Referring to:
@@ -96,10 +95,10 @@ namespace OpenCVForUnityExample
         [Space(10)]
         [Header("DNN")]
         /// <summary>
-        /// DNN engine for the three ONNX nets. Classic is recommended for this legacy low-level Net example.
+        /// DNN engine for the three ONNX nets. OpenCv is the built-in engine.
         /// </summary>
-        [Tooltip("Classic: OpenCV 4.x compatible engine (default). New: OpenCV 5 graph engine. Auto: new first, then fallback.")]
-        public DaSiamRpnDnnEngineSelection DnnEngine = DaSiamRpnDnnEngineSelection.Classic;
+        [Tooltip("Auto: resolves to OpenCV. OpenCv: built-in engine (CPU backends only).")]
+        public DaSiamRpnDnnEngineSelection DnnEngine = DaSiamRpnDnnEngineSelection.OpenCv;
 
         // Private Fields
         private string _netFilepath;
@@ -727,8 +726,7 @@ namespace OpenCVForUnityExample
     /// </summary>
     /// <remarks>
     /// Loads ONNX models with the DNN engine passed to the constructor (see <see cref="DaSiamRpnDnnEngineSelection"/>).
-    /// <see cref="DaSiamRpnDnnEngineSelection.Classic"/> is recommended for this port; setParam uses ONNX tensor names
-    /// and forward outputs are resolved by blob size so Classic and New engines can both be compared.
+    /// setParam uses ONNX tensor names, and forward outputs are resolved by blob size.
     /// </remarks>
     public class DaSiamRPNTracker
     {
@@ -804,7 +802,7 @@ namespace OpenCVForUnityExample
             }
         }
 
-        /// <summary>Selected DNN engine id (<see cref="Dnn.ENGINE_CLASSIC"/> etc.).</summary>
+        /// <summary>Selected DNN engine id (<see cref="Dnn.ENGINE_OPENCV"/> etc.).</summary>
         public int DnnEngine
         {
             get
@@ -820,16 +818,15 @@ namespace OpenCVForUnityExample
             {
                 switch (_dnnEngine)
                 {
-                    case Dnn.ENGINE_CLASSIC: return "CLASSIC";
-                    case Dnn.ENGINE_NEW: return "NEW";
                     case Dnn.ENGINE_AUTO: return "AUTO";
+                    case Dnn.ENGINE_OPENCV: return "OPENCV";
                     default: return _dnnEngine.ToString();
                 }
             }
         }
 
         // Constructor
-        public DaSiamRPNTracker(string netFilepath, string kernelR1Filepath, string kernelCls1Filepath, int dnnEngine = Dnn.ENGINE_CLASSIC)
+        public DaSiamRPNTracker(string netFilepath, string kernelR1Filepath, string kernelCls1Filepath, int dnnEngine = Dnn.ENGINE_OPENCV)
         {
             _dnnEngine = dnnEngine;
             _scoreSize = (int)((_instanceSize - _exemplarSize) / _totalStride) + 1;
@@ -1654,7 +1651,7 @@ namespace OpenCVForUnityExample
             }
 
             _net.forward(_outBlobs, _outNames);
-            // OpenCV 5 DNN: output order may differ from classic engine (delta=4*A*S*S, score=2*A*S*S).
+            // Output order may differ by engine (delta=4*A*S*S, score=2*A*S*S).
             Mat deltaMat;
             Mat scoreMat;
             if (_outBlobs[0].total() >= _outBlobs[1].total())
