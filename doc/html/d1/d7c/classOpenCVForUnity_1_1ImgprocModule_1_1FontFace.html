@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.4</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.5</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/5.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -173,6 +173,9 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ac289dad70b078aebdeec0225a43e9bb4" id="r_ac289dad70b078aebdeec0225a43e9bb4"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d7c/classOpenCVForUnity_1_1ImgprocModule_1_1FontFace.html">FontFace</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac289dad70b078aebdeec0225a43e9bb4">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:ac289dad70b078aebdeec0225a43e9bb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a866b712a1845adf2f687bfc667f77106" id="r_a866b712a1845adf2f687bfc667f77106"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a866b712a1845adf2f687bfc667f77106">setBuiltinFont</a> (string fontName, string fontPath)</td></tr>
+<tr class="memdesc:a866b712a1845adf2f687bfc667f77106"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides or replaces one of the built-in font slots with an external font file.  <br /></td></tr>
+<tr class="separator:a866b712a1845adf2f687bfc667f77106"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_methods_classOpenCVForUnity_1_1DisposableObject"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_classOpenCVForUnity_1_1DisposableObject')"><img src="../../closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="../../d6/deb/classOpenCVForUnity_1_1DisposableObject.html">OpenCVForUnity.DisposableObject</a></td></tr>
 <tr class="memitem:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_classOpenCVForUnity_1_1DisposableObject" id="r_a4b998ab4293ee3fb7cdc494ed9375fc3"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/deb/classOpenCVForUnity_1_1DisposableObject.html#a4b998ab4293ee3fb7cdc494ed9375fc3">ThrowIfNullIntPtr</a> (IntPtr ptr)</td></tr>
 <tr class="memdesc:a4b998ab4293ee3fb7cdc494ed9375fc3 inherit pub_static_methods_classOpenCVForUnity_1_1DisposableObject"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the native pointer, or throws <a class="el" href="../../dc/dbb/classOpenCVForUnity_1_1CoreModule_1_1CvException.html" title="The exception that is thrown by OpenCVForUntiy.">CoreModule.CvException</a> if it is zero.  <br /></td></tr>
@@ -253,7 +256,12 @@ Additional Inherited Members</h2></td></tr>
 <p>loads font at the specified path or with specified name. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">fontPathOrName</td><td>either path to the custom font or the name of embedded font: "sans", "italic" or "uni". Empty fontPathOrName means the default embedded font. </td></tr>
+    <tr><td class="paramname">fontPathOrName</td><td>either path to a custom font file (.ttf/.otf, optionally gzip-compressed) or the name of one of the built-in font slots:<ul>
+<li>"sans": the default font (Rubik, always compiled in);</li>
+<li>"italic": Rubik Italic, compiled in only if OpenCV was built with WITH_ITALICFONT=ON; otherwise it can be provided with <a class="el" href="#a866b712a1845adf2f687bfc667f77106" title="Provides or replaces one of the built-in font slots with an external font file.">setBuiltinFont()</a>, and if it is not available, "italic" silently resolves to "sans";</li>
+<li>"uni": WenQuanYi Micro Hei (CJK), compiled in only with WITH_UNIFONT=ON; otherwise provide it with <a class="el" href="#a866b712a1845adf2f687bfc667f77106" title="Provides or replaces one of the built-in font slots with an external font file.">setBuiltinFont()</a>, or loading fails. The built-in slots also serve as the fallback chain: characters missing from the user's font are taken from "sans", then "italic", then "uni". Empty fontPathOrName means the default embedded font ("sans"). </li>
+</ul>
+</td></tr>
   </table>
   </dd>
 </dl>
@@ -380,6 +388,46 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>loads new font face </p>
+
+</div>
+</div>
+<a id="a866b712a1845adf2f687bfc667f77106" name="a866b712a1845adf2f687bfc667f77106"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a866b712a1845adf2f687bfc667f77106">&#9670;&#160;</a></span>setBuiltinFont()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool OpenCVForUnity.ImgprocModule.FontFace.setBuiltinFont </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>fontName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>fontPath</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Provides or replaces one of the built-in font slots with an external font file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fontName</td><td>the slot: "sans", "italic" or "uni". </td></tr>
+    <tr><td class="paramname">fontPath</td><td>path to a .ttf/.otf font (optionally gzip-compressed, e.g. <code>.ttf.gz</code>). An empty path restores the compiled-in font of that slot (if any), otherwise the slot becomes empty. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>false if the slot name is unknown or the font file cannot be loaded (the registry is left unchanged). </dd></dl>
+<p>This is the way to get CJK text or a true italic when OpenCV is built without WITH_UNIFONT / WITH_ITALICFONT (the defaults), e.g. <code>cv::FontFace::setBuiltinFont("uni", "/usr/share/fonts/NotoSansCJK-Regular.ttc")</code>. The registered font participates in the automatic fallback chain like the compiled-in one would. The change is global (all threads) and applies to <a class="el" href="../../d1/d7c/classOpenCVForUnity_1_1ImgprocModule_1_1FontFace.html" title="Wrapper on top of a truetype/opentype/etc font, i.e. Freetype&#39;s FT_Face.">FontFace</a> objects created afterwards; existing <a class="el" href="../../d1/d7c/classOpenCVForUnity_1_1ImgprocModule_1_1FontFace.html" title="Wrapper on top of a truetype/opentype/etc font, i.e. Freetype&#39;s FT_Face.">FontFace</a> objects keep the font they were created with. </p>
 
 </div>
 </div>

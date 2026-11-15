@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.4</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.5</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/5.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -163,7 +163,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a52f61c80919756ae1a549d6322257ccd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets bounding box in volume coordinates with given precision: VOLUME_UNIT - up to volume unit VOXEL - up to voxel (currently not supported)  <br /></td></tr>
 <tr class="separator:a52f61c80919756ae1a549d6322257ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af66a160032086da600f93fc6d16ea311" id="r_af66a160032086da600f93fc6d16ea311"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af66a160032086da600f93fc6d16ea311">getEnableGrowth</a> ()</td></tr>
-<tr class="memdesc:af66a160032086da600f93fc6d16ea311"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns if new volume units are allocated during integration or not. Makes sense for HashTSDF only.  <br /></td></tr>
+<tr class="memdesc:af66a160032086da600f93fc6d16ea311"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns if new volume units are allocated during integration or not. Makes sense for HashTSDF and ColorHashTSDF only.  <br /></td></tr>
 <tr class="separator:af66a160032086da600f93fc6d16ea311"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc0c9311116e916f438edd39447c2c87" id="r_afc0c9311116e916f438edd39447c2c87"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afc0c9311116e916f438edd39447c2c87">getNativeObjAddr</a> ()</td></tr>
 <tr class="separator:afc0c9311116e916f438edd39447c2c87"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -198,7 +198,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a22a2f629809ec12cc4b4366203636ad0"><td class="mdescLeft">&#160;</td><td class="mdescRight">clear all data in volume.  <br /></td></tr>
 <tr class="separator:a22a2f629809ec12cc4b4366203636ad0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74a329897825b01e8661b5c02cfe307d" id="r_a74a329897825b01e8661b5c02cfe307d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a74a329897825b01e8661b5c02cfe307d">setEnableGrowth</a> (bool v)</td></tr>
-<tr class="memdesc:a74a329897825b01e8661b5c02cfe307d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables or disables new volume unit allocation during integration. Makes sense for HashTSDF only.  <br /></td></tr>
+<tr class="memdesc:a74a329897825b01e8661b5c02cfe307d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables or disables new volume unit allocation during integration. Makes sense for HashTSDF and ColorHashTSDF only.  <br /></td></tr>
 <tr class="separator:a74a329897825b01e8661b5c02cfe307d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classOpenCVForUnity_1_1DisposableObject"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classOpenCVForUnity_1_1DisposableObject')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d6/deb/classOpenCVForUnity_1_1DisposableObject.html">OpenCVForUnity.DisposableObject</a></td></tr>
 <tr class="memitem:a68dd6362a65b5bf2f2b8828bef0b7dc2 inherit pub_methods_classOpenCVForUnity_1_1DisposableObject" id="r_a68dd6362a65b5bf2f2b8828bef0b7dc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/deb/classOpenCVForUnity_1_1DisposableObject.html#a68dd6362a65b5bf2f2b8828bef0b7dc2">Dispose</a> ()</td></tr>
@@ -283,7 +283,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Constructor of custom volume. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">vtype</td><td>the volume type [TSDF, HashTSDF, ColorTSDF]. </td></tr>
+    <tr><td class="paramname">vtype</td><td>the volume type [TSDF, HashTSDF, ColorTSDF, ColorHashTSDF]. </td></tr>
     <tr><td class="paramname">settings</td><td>the custom settings for volume. </td></tr>
   </table>
   </dd>
@@ -309,7 +309,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Constructor of custom volume. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">vtype</td><td>the volume type [TSDF, HashTSDF, ColorTSDF]. </td></tr>
+    <tr><td class="paramname">vtype</td><td>the volume type [TSDF, HashTSDF, ColorTSDF, ColorHashTSDF]. </td></tr>
     <tr><td class="paramname">settings</td><td>the custom settings for volume. </td></tr>
   </table>
   </dd>
@@ -335,7 +335,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Constructor of custom volume. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">vtype</td><td>the volume type [TSDF, HashTSDF, ColorTSDF]. </td></tr>
+    <tr><td class="paramname">vtype</td><td>the volume type [TSDF, HashTSDF, ColorTSDF, ColorHashTSDF]. </td></tr>
     <tr><td class="paramname">settings</td><td>the custom settings for volume. </td></tr>
   </table>
   </dd>
@@ -485,7 +485,7 @@ Additional Inherited Members</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">points</td><td>the storage of all points. </td></tr>
     <tr><td class="paramname">normals</td><td>the storage of all normals, corresponding to points. </td></tr>
-    <tr><td class="paramname">colors</td><td>the storage of all colors, corresponding to points (only for ColorTSDF). </td></tr>
+    <tr><td class="paramname">colors</td><td>the storage of all colors, corresponding to points (only for ColorTSDF and ColorHashTSDF). </td></tr>
   </table>
   </dd>
 </dl>
@@ -537,7 +537,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns if new volume units are allocated during integration or not. Makes sense for HashTSDF only. </p>
+<p>Returns if new volume units are allocated during integration or not. Makes sense for HashTSDF and ColorHashTSDF only. </p>
 
 </div>
 </div>
@@ -656,7 +656,7 @@ Additional Inherited Members</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">depth</td><td>the depth image. </td></tr>
-    <tr><td class="paramname">image</td><td>the color image (only for ColorTSDF). For color TSDF a depth data should be registered with color data, i.e. have the same intrinsics &amp; camera pose. This can be done using function registerDepth() from 3d module. </td></tr>
+    <tr><td class="paramname">image</td><td>the color image (only for ColorTSDF and ColorHashTSDF). For color TSDF a depth data should be registered with color data, i.e. have the same intrinsics &amp; camera pose. This can be done using function registerDepth() from 3d module. </td></tr>
     <tr><td class="paramname">pose</td><td>the pose of camera in global coordinates. </td></tr>
   </table>
   </dd>
@@ -768,7 +768,7 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">cameraPose</td><td>the pose of camera in global coordinates. </td></tr>
     <tr><td class="paramname">points</td><td>image to store rendered points. </td></tr>
     <tr><td class="paramname">normals</td><td>image to store rendered normals corresponding to points. </td></tr>
-    <tr><td class="paramname">colors</td><td>image to store rendered colors corresponding to points (only for ColorTSDF). </td></tr>
+    <tr><td class="paramname">colors</td><td>image to store rendered colors corresponding to points (only for ColorTSDF and ColorHashTSDF). </td></tr>
   </table>
   </dd>
 </dl>
@@ -884,7 +884,7 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">K</td><td>camera raycast intrinsics </td></tr>
     <tr><td class="paramname">points</td><td>image to store rendered points. </td></tr>
     <tr><td class="paramname">normals</td><td>image to store rendered normals corresponding to points. </td></tr>
-    <tr><td class="paramname">colors</td><td>image to store rendered colors corresponding to points (only for ColorTSDF). </td></tr>
+    <tr><td class="paramname">colors</td><td>image to store rendered colors corresponding to points (only for ColorTSDF and ColorHashTSDF). </td></tr>
   </table>
   </dd>
 </dl>
@@ -925,7 +925,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Enables or disables new volume unit allocation during integration. Makes sense for HashTSDF only. </p>
+<p>Enables or disables new volume unit allocation during integration. Makes sense for HashTSDF and ColorHashTSDF only. </p>
 
 </div>
 </div>

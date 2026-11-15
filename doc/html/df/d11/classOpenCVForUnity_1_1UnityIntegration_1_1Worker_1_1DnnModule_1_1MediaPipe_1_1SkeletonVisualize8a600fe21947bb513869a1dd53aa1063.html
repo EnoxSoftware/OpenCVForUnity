@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.4</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.5</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/5.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -193,8 +193,8 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:abc6ec3ca8bd3b6eeb7579622f114344a" id="r_abc6ec3ca8bd3b6eeb7579622f114344a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc6ec3ca8bd3b6eeb7579622f114344a">_inputCoordinatesAreUnityLeftHanded</a></td></tr>
-<tr class="separator:abc6ec3ca8bd3b6eeb7579622f114344a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7db71f0dd50bcb186658e429f8ab130" id="r_aa7db71f0dd50bcb186658e429f8ab130"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa7db71f0dd50bcb186658e429f8ab130">_inputLandmarksInUnityCoordinates</a></td></tr>
+<tr class="separator:aa7db71f0dd50bcb186658e429f8ab130"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93d387ffad8f35b4c031a43e2a3b65b1" id="r_a93d387ffad8f35b4c031a43e2a3b65b1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a93d387ffad8f35b4c031a43e2a3b65b1">_showSkeleton</a> = true</td></tr>
 <tr class="separator:a93d387ffad8f35b4c031a43e2a3b65b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca72854a2b04d39adf4cebe17594071b" id="r_aca72854a2b04d39adf4cebe17594071b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca72854a2b04d39adf4cebe17594071b">_skeletonEndWidth</a> = 0.005f</td></tr>
@@ -224,9 +224,9 @@ Static Protected Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a5b398784025d7edd39d7f30d02ddc5d9" id="r_a5b398784025d7edd39d7f30d02ddc5d9"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b398784025d7edd39d7f30d02ddc5d9">InputCoordinatesAreUnityLeftHanded</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a5b398784025d7edd39d7f30d02ddc5d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">When true, treats input as Unity left-handed and does not negate Y. When false, converts from MediaPipe-style coordinates to Unity by negating Y.  <br /></td></tr>
-<tr class="separator:a5b398784025d7edd39d7f30d02ddc5d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1056ad8ed52f44918759e078a78c7303" id="r_a1056ad8ed52f44918759e078a78c7303"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1056ad8ed52f44918759e078a78c7303">InputLandmarksInUnityCoordinates</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a1056ad8ed52f44918759e078a78c7303"><td class="mdescLeft">&#160;</td><td class="mdescRight">When enabled, world landmarks are interpreted as Unity (left-handed) coordinates and Y is not negated. When disabled, landmarks are treated as MediaPipe-style right-handed coordinates and Y is negated for Unity display.  <br /></td></tr>
+<tr class="separator:a1056ad8ed52f44918759e078a78c7303"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd1e723deb9fe6b792ee24889552bb17" id="r_abd1e723deb9fe6b792ee24889552bb17"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd1e723deb9fe6b792ee24889552bb17">ShowSkeleton</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:abd1e723deb9fe6b792ee24889552bb17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets whether skeleton lines are drawn.  <br /></td></tr>
 <tr class="separator:abd1e723deb9fe6b792ee24889552bb17"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -684,8 +684,8 @@ Properties</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="abc6ec3ca8bd3b6eeb7579622f114344a" name="abc6ec3ca8bd3b6eeb7579622f114344a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc6ec3ca8bd3b6eeb7579622f114344a">&#9670;&#160;</a></span>_inputCoordinatesAreUnityLeftHanded</h2>
+<a id="aa7db71f0dd50bcb186658e429f8ab130" name="aa7db71f0dd50bcb186658e429f8ab130"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7db71f0dd50bcb186658e429f8ab130">&#9670;&#160;</a></span>_inputLandmarksInUnityCoordinates</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -694,7 +694,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipe.SkeletonVisualizer.MediaPipeSkeletonVisualizerBase._inputCoordinatesAreUnityLeftHanded</td>
+          <td class="memname">bool OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipe.SkeletonVisualizer.MediaPipeSkeletonVisualizerBase._inputLandmarksInUnityCoordinates</td>
         </tr>
       </table>
   </td>
@@ -951,8 +951,8 @@ Properties</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
-<a id="a5b398784025d7edd39d7f30d02ddc5d9" name="a5b398784025d7edd39d7f30d02ddc5d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b398784025d7edd39d7f30d02ddc5d9">&#9670;&#160;</a></span>InputCoordinatesAreUnityLeftHanded</h2>
+<a id="a1056ad8ed52f44918759e078a78c7303" name="a1056ad8ed52f44918759e078a78c7303"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1056ad8ed52f44918759e078a78c7303">&#9670;&#160;</a></span>InputLandmarksInUnityCoordinates</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -961,7 +961,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipe.SkeletonVisualizer.MediaPipeSkeletonVisualizerBase.InputCoordinatesAreUnityLeftHanded</td>
+          <td class="memname">virtual bool OpenCVForUnity.UnityIntegration.Worker.DnnModule.MediaPipe.SkeletonVisualizer.MediaPipeSkeletonVisualizerBase.InputLandmarksInUnityCoordinates</td>
         </tr>
       </table>
   </td>
@@ -971,7 +971,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>When true, treats input as Unity left-handed and does not negate Y. When false, converts from MediaPipe-style coordinates to Unity by negating Y. </p>
+<p>When enabled, world landmarks are interpreted as Unity (left-handed) coordinates and Y is not negated. When disabled, landmarks are treated as MediaPipe-style right-handed coordinates and Y is negated for Unity display. </p>
 
 </div>
 </div>

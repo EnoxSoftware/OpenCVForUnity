@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.4</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.5</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/5.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -286,6 +286,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a70422afef5aa7544fc763683fed285a0" id="r_a70422afef5aa7544fc763683fed285a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70422afef5aa7544fc763683fed285a0">SyncDerivedFramesToMatSource</a> ()</td></tr>
 <tr class="memdesc:a70422afef5aa7544fc763683fed285a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Synchronizes <a class="el" href="#a81ecdbf1a2dd2c03067d13f431540526" title="Gets or sets the derived frame settings synchronized to the wrapped source. An empty array leaves onl...">DerivedFrameSettings</a> to the wrapped IMatSourceDerivedFrames. Disabled entries and empty names are skipped. Removed array entries are unregistered. Existing processors with the same name are updated in place so IDerivedFrame references stay valid. Layout-affecting updates trigger an immediate derived buffer sync on MatSourceBase so <a class="el" href="#ad73f4a8d67fe930590a03f5c8d055841" title="Gets the event invoked when a registered derived frame&#39;s IDerivedFrame.FrameMat layout changes after ...">OnDerivedFrameLayoutChanged</a> can fire without waiting for the next source-frame tick. No-op when <a class="el" href="#a80f61f42cc5f1d8121cd843d06874dc5" title="Gets the wrapped source. This is the primary contract for advanced use and tests. When null,...">MatSource</a> does not implement IMatSourceDerivedFrames.  <br /></td></tr>
 <tr class="separator:a70422afef5aa7544fc763683fed285a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a429d3513b5331989474a9a642b438187" id="r_a429d3513b5331989474a9a642b438187"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a429d3513b5331989474a9a642b438187">SyncUpdateFrameMatOnTickToMatSource</a> (bool updateFrameMatOnTick)</td></tr>
+<tr class="memdesc:a429d3513b5331989474a9a642b438187"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies <em>updateFrameMatOnTick</em>  onto the wrapped MatSourceBase when wired. No-op when <a class="el" href="#a80f61f42cc5f1d8121cd843d06874dc5" title="Gets the wrapped source. This is the primary contract for advanced use and tests. When null,...">MatSource</a> is not a MatSourceBase.  <br /></td></tr>
+<tr class="separator:a429d3513b5331989474a9a642b438187"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88c48ee2bc82386a2ddcdf9749432345" id="r_a88c48ee2bc82386a2ddcdf9749432345"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88c48ee2bc82386a2ddcdf9749432345">Update</a> ()</td></tr>
 <tr class="separator:a88c48ee2bc82386a2ddcdf9749432345"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8b8a51a2d69904d096283f94a33ac98" id="r_ac8b8a51a2d69904d096283f94a33ac98"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac8b8a51a2d69904d096283f94a33ac98">ValidateDerivedFrameInspectorFields</a> ()</td></tr>
@@ -1575,6 +1578,39 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Synchronizes <a class="el" href="#a81ecdbf1a2dd2c03067d13f431540526" title="Gets or sets the derived frame settings synchronized to the wrapped source. An empty array leaves onl...">DerivedFrameSettings</a> to the wrapped IMatSourceDerivedFrames. Disabled entries and empty names are skipped. Removed array entries are unregistered. Existing processors with the same name are updated in place so IDerivedFrame references stay valid. Layout-affecting updates trigger an immediate derived buffer sync on MatSourceBase so <a class="el" href="#ad73f4a8d67fe930590a03f5c8d055841" title="Gets the event invoked when a registered derived frame&#39;s IDerivedFrame.FrameMat layout changes after ...">OnDerivedFrameLayoutChanged</a> can fire without waiting for the next source-frame tick. No-op when <a class="el" href="#a80f61f42cc5f1d8121cd843d06874dc5" title="Gets the wrapped source. This is the primary contract for advanced use and tests. When null,...">MatSource</a> does not implement IMatSourceDerivedFrames. </p>
+
+</div>
+</div>
+<a id="a429d3513b5331989474a9a642b438187" name="a429d3513b5331989474a9a642b438187"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a429d3513b5331989474a9a642b438187">&#9670;&#160;</a></span>SyncUpdateFrameMatOnTickToMatSource()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.UnityIntegration.Helper.SourceToMat.SourceToMatHelperBase.SyncUpdateFrameMatOnTickToMatSource </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>updateFrameMatOnTick</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copies <em>updateFrameMatOnTick</em>  onto the wrapped MatSourceBase when wired. No-op when <a class="el" href="#a80f61f42cc5f1d8121cd843d06874dc5" title="Gets the wrapped source. This is the primary contract for advanced use and tests. When null,...">MatSource</a> is not a MatSourceBase. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">updateFrameMatOnTick</td><td>Whether Playing ticks should copy grabber frames into the owned <a class="el" href="../../da/d78/interfaceOpenCVForUnity_1_1Extensions_1_1SourceToMat_1_1IMatSource.html#a038fe7a1e1606e24f3b90b10d191cc68" title="Gets the owned reusable output buffer. Do not dispose this Mat.">IMatSource.FrameMat</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

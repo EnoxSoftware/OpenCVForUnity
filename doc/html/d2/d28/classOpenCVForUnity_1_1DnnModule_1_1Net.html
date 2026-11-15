@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.4</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.5</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/5.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -168,6 +168,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af449a441fe91e2c7f16c7da5c9aa62ea" id="r_af449a441fe91e2c7f16c7da5c9aa62ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af449a441fe91e2c7f16c7da5c9aa62ea">enableKVCache</a> ()</td></tr>
 <tr class="memdesc:af449a441fe91e2c7f16c7da5c9aa62ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables KV-Cache for all AttentionOnnxI layers.  <br /></td></tr>
 <tr class="separator:af449a441fe91e2c7f16c7da5c9aa62ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac54efbda9af9de28655d4179c2bee120" id="r_ac54efbda9af9de28655d4179c2bee120"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac54efbda9af9de28655d4179c2bee120">enableTF32</a> (bool useTF32)</td></tr>
+<tr class="memdesc:ac54efbda9af9de28655d4179c2bee120"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables or disables TF32 Tensor Core math for FP32 convolutions and GEMMs on DNN_TARGET_CUDA. TF32 is faster on compute capability 8.0 and newer, but rounds the inputs to a 10-bit mantissa.  <br /></td></tr>
+<tr class="separator:ac54efbda9af9de28655d4179c2bee120"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15a0a3712ab1a88b51e4e9be230afcdb" id="r_a15a0a3712ab1a88b51e4e9be230afcdb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a15a0a3712ab1a88b51e4e9be230afcdb">enableWinograd</a> (bool useWinograd)</td></tr>
 <tr class="memdesc:a15a0a3712ab1a88b51e4e9be230afcdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables or disables the Winograd compute branch. The Winograd compute branch can speed up 3x3 Convolution at a small loss of accuracy.  <br /></td></tr>
 <tr class="separator:a15a0a3712ab1a88b51e4e9be230afcdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -248,6 +251,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6af89f9e9151b4cc4784ca7dd0446e67" id="r_a6af89f9e9151b4cc4784ca7dd0446e67"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6af89f9e9151b4cc4784ca7dd0446e67">registerOutput</a> (string outputName, int layerId, int outputPort)</td></tr>
 <tr class="memdesc:a6af89f9e9151b4cc4784ca7dd0446e67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers network output with name.  <br /></td></tr>
 <tr class="separator:a6af89f9e9151b4cc4784ca7dd0446e67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0846a8fbaacc24ef11d8d1f915a752bc" id="r_a0846a8fbaacc24ef11d8d1f915a752bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0846a8fbaacc24ef11d8d1f915a752bc">reserveKVCache</a> (int maxSequenceLength)</td></tr>
+<tr class="memdesc:a0846a8fbaacc24ef11d8d1f915a752bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre-allocates KV-Cache pages for up to <code>maxSequenceLength</code> tokens.  <br /></td></tr>
+<tr class="separator:a0846a8fbaacc24ef11d8d1f915a752bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc7bfcc8fca8878c7ec95e695edc7b60" id="r_adc7bfcc8fca8878c7ec95e695edc7b60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc7bfcc8fca8878c7ec95e695edc7b60">resetKVCache</a> ()</td></tr>
 <tr class="memdesc:adc7bfcc8fca8878c7ec95e695edc7b60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets KV-Cache for all AttentionOnnxI layers.  <br /></td></tr>
 <tr class="separator:adc7bfcc8fca8878c7ec95e695edc7b60"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -427,9 +433,9 @@ Additional Inherited Members</h2></td></tr>
 <div class="line">              is either number of the layer input, either label one.</div>
 <div class="line">              If <span class="keyword">this</span> part is omitted then the first layer input will be used.</div>
 <div class="line"> </div>
-<div class="line">             @see setNetInputs(), Layer::inputNameToIndex(), <a class="code hl_function" href="../../dd/de8/classOpenCVForUnity_1_1DnnModule_1_1Layer.html#a9c6c7878a36666d983ad9fb12fc5ac80">Layer::outputNameToIndex</a>()</div>
+<div class="line">             @see setNetInputs(), Layer::inputNameToIndex(), <a class="code hl_function" href="../../d7/d8e/classOpenCVForUnity_1_1DnnModule_1_1LayerInfo.html#a912f7a00148d4101363db40dc6ff7180">Layer::outputNameToIndex</a>()</div>
 <div class="line">&lt;/remarks&gt; </div>
-<div class="ttc" id="aclassOpenCVForUnity_1_1DnnModule_1_1Layer_html_a9c6c7878a36666d983ad9fb12fc5ac80"><div class="ttname"><a href="../../dd/de8/classOpenCVForUnity_1_1DnnModule_1_1Layer.html#a9c6c7878a36666d983ad9fb12fc5ac80">OpenCVForUnity.DnnModule.Layer.outputNameToIndex</a></div><div class="ttdeci">int outputNameToIndex(string outputName)</div><div class="ttdoc">Returns index of output blob in output array.</div><div class="ttdef"><b>Definition</b> Layer.cs:113</div></div>
+<div class="ttc" id="aclassOpenCVForUnity_1_1DnnModule_1_1LayerInfo_html_a912f7a00148d4101363db40dc6ff7180"><div class="ttname"><a href="../../d7/d8e/classOpenCVForUnity_1_1DnnModule_1_1LayerInfo.html#a912f7a00148d4101363db40dc6ff7180">OpenCVForUnity.DnnModule.LayerInfo.outputNameToIndex</a></div><div class="ttdeci">int outputNameToIndex(string outputName)</div><div class="ttdef"><b>Definition</b> LayerInfo.cs:72</div></div>
 <div class="ttc" id="aclassOpenCVForUnity_1_1DnnModule_1_1Net_html_a2ba1b13b4bfec3dfdad9b2068b62ef74"><div class="ttname"><a href="#a2ba1b13b4bfec3dfdad9b2068b62ef74">OpenCVForUnity.DnnModule.Net.empty</a></div><div class="ttdeci">bool empty()</div><div class="ttdef"><b>Definition</b> Net.cs:132</div></div>
 </div><!-- fragment -->
 </div>
@@ -614,6 +620,31 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="ac54efbda9af9de28655d4179c2bee120" name="ac54efbda9af9de28655d4179c2bee120"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac54efbda9af9de28655d4179c2bee120">&#9670;&#160;</a></span>enableTF32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.DnnModule.Net.enableTF32 </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>useTF32</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables or disables TF32 Tensor Core math for FP32 convolutions and GEMMs on DNN_TARGET_CUDA. TF32 is faster on compute capability 8.0 and newer, but rounds the inputs to a 10-bit mantissa. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">useTF32</td><td>true to allow TF32 math. The default is true; set false for exact FP32 math. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a15a0a3712ab1a88b51e4e9be230afcdb" name="a15a0a3712ab1a88b51e4e9be230afcdb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a15a0a3712ab1a88b51e4e9be230afcdb">&#9670;&#160;</a></span>enableWinograd()</h2>
 
@@ -683,7 +714,8 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><p class="startdd">blob for first output of specified layer.</p>
-<p class="enddd">By default runs forward pass for the whole network. </p>
+<p class="interdd">By default runs forward pass for the whole network. </p>
+<p class="enddd">In Python, CV_16BF / CV_8F_E4M3FN / CV_8F_E4M3FNUZ output blobs are returned as NumPy float32 arrays by default. To preserve their exact dtypes, import the optional ml_dtypes package and call <code>cv.setUseExactNumpyDtypes(True)</code> before <a class="el" href="#a074290460122292e953e561bd2707eed" title="Runs forward pass to compute output of layer with name outputName.">forward()</a>. This process-wide setting affects outputs only; registered bfloat16 / float8 input arrays are accepted regardless of it. It belongs to the application: libraries should not change it. See tutorial_py_bindings_basics for details. </p>
 </dd></dl>
 
 </div>
@@ -711,7 +743,7 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>If <code>outputName</code> is empty, runs forward pass for the whole network. </p>
+<p>If <code>outputName</code> is empty, runs forward pass for the whole network. </p><dl class="section note"><dt>Note</dt><dd>Python output dtype handling is described in forward(const String&amp;). </dd></dl>
 
 </div>
 </div>
@@ -742,6 +774,7 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
+<p>Python output dtype handling is described in forward(const String&amp;). </p>
 
 </div>
 </div>
@@ -772,7 +805,7 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>If <code>outputName</code> is empty, runs forward pass for the whole network. </p>
+<p>If <code>outputName</code> is empty, runs forward pass for the whole network. </p><dl class="section note"><dt>Note</dt><dd>Python output dtype handling is described in forward(const String&amp;). </dd></dl>
 
 </div>
 </div>
@@ -799,7 +832,8 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><p class="startdd">blob for first output of specified layer.</p>
-<p class="enddd">By default runs forward pass for the whole network. </p>
+<p class="interdd">By default runs forward pass for the whole network. </p>
+<p class="enddd">In Python, CV_16BF / CV_8F_E4M3FN / CV_8F_E4M3FNUZ output blobs are returned as NumPy float32 arrays by default. To preserve their exact dtypes, import the optional ml_dtypes package and call <code>cv.setUseExactNumpyDtypes(True)</code> before <a class="el" href="#a074290460122292e953e561bd2707eed" title="Runs forward pass to compute output of layer with name outputName.">forward()</a>. This process-wide setting affects outputs only; registered bfloat16 / float8 input arrays are accepted regardless of it. It belongs to the application: libraries should not change it. See tutorial_py_bindings_basics for details. </p>
 </dd></dl>
 
 </div>
@@ -831,6 +865,7 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
+<p>Python output dtype handling is described in forward(const String&amp;). </p>
 
 </div>
 </div>
@@ -879,7 +914,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p><dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000006">Deprecated</a></b></dt><dd>to be removed </dd></dl>
+<p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p><dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000007">Deprecated</a></b></dt><dd>to be removed </dd></dl>
 
 </div>
 </div>
@@ -916,7 +951,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p><dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000005">Deprecated</a></b></dt><dd>Use int getLayerId(const String &amp;layer) </dd></dl>
+<p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p><dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000006">Deprecated</a></b></dt><dd>Use int getLayerId(const String &amp;layer) </dd></dl>
 
 </div>
 </div>
@@ -1431,6 +1466,27 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a0846a8fbaacc24ef11d8d1f915a752bc" name="a0846a8fbaacc24ef11d8d1f915a752bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0846a8fbaacc24ef11d8d1f915a752bc">&#9670;&#160;</a></span>reserveKVCache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.DnnModule.Net.reserveKVCache </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxSequenceLength</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre-allocates KV-Cache pages for up to <code>maxSequenceLength</code> tokens. </p>
+<p>Call after <a class="el" href="#af449a441fe91e2c7f16c7da5c9aa62ea" title="Enables KV-Cache for all AttentionOnnxI layers.">enableKVCache()</a> and before the prefill forward, so no page allocation happens during generation. A hint, not a limit: going past <code>maxSequenceLength</code> still grows the cache. <a class="el" href="#adc7bfcc8fca8878c7ec95e695edc7b60" title="Resets KV-Cache for all AttentionOnnxI layers.">resetKVCache()</a> drops the reservation.</p>
+<p>Only models whose attention imports as a single fused op (ONNX Attention, com.microsoft MultiHeadAttention / GroupQueryAttention) use the paged cache; otherwise this warns and does nothing. </p>
+
+</div>
+</div>
 <a id="adc7bfcc8fca8878c7ec95e695edc7b60" name="adc7bfcc8fca8878c7ec95e695edc7b60"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adc7bfcc8fca8878c7ec95e695edc7b60">&#9670;&#160;</a></span>resetKVCache()</h2>
 
@@ -1717,6 +1773,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Specify shape of network input. </p>
+<p>Must be called before the first <a class="el" href="#a074290460122292e953e561bd2707eed" title="Runs forward pass to compute output of layer with name outputName.">forward()</a>. With the new engine, shape computations that depend on a pinned input are folded into constants; on the CUDA backend a model left with no dynamic shapes then runs each <a class="el" href="#a074290460122292e953e561bd2707eed" title="Runs forward pass to compute output of layer with name outputName.">forward()</a> as one replayed CUDA Graph instead of one launch per layer. </p>
 
 </div>
 </div>
@@ -1804,7 +1861,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Sets the parameter blob of a layer identified by its name or output tensor name. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">layerName</td><td>layer name (classic engine) or raw ONNX output tensor name (ENGINE_NEW). </td></tr>
+    <tr><td class="paramname">layerName</td><td>raw ONNX output tensor name (ENGINE_OPENCV). </td></tr>
     <tr><td class="paramname">numParam</td><td>index of the constant weight input to update (0 = kernel, 1 = bias, etc.). </td></tr>
     <tr><td class="paramname">blob</td><td>the new parameter value. </td></tr>
   </table>

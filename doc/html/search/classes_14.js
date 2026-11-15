@@ -36,9 +36,11 @@ var searchData=
   ['videocaptureopenoptions_33',['VideoCaptureOpenOptions',['../d8/d31/classOpenCVForUnity_1_1Extensions_1_1SourceToMat_1_1Options_1_1VideoCaptureOpenOptions.html',1,'OpenCVForUnity::Extensions::SourceToMat::Options']]],
   ['videocapturesourceinspectorsettings_34',['VideoCaptureSourceInspectorSettings',['../d2/de5/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1SourceToMat_1_1VideoCaptureSourceInspectorSettings.html',1,'OpenCVForUnity::UnityIntegration::Helper::SourceToMat']]],
   ['videocapturetomathelper_35',['VideoCaptureToMatHelper',['../d3/de1/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1SourceToMat_1_1VideoCaptureToMatHelper.html',1,'OpenCVForUnity::UnityIntegration::Helper::SourceToMat']]],
-  ['videofileopenoptions_36',['VideoFileOpenOptions',['../d9/ddb/classOpenCVForUnity_1_1Extensions_1_1SourceToMat_1_1Options_1_1VideoFileOpenOptions.html',1,'OpenCVForUnity::Extensions::SourceToMat::Options']]],
-  ['videoio_37',['Videoio',['../db/dba/classOpenCVForUnity_1_1VideoioModule_1_1Videoio.html',1,'OpenCVForUnity::VideoioModule']]],
-  ['videowriter_38',['VideoWriter',['../d9/d3c/classOpenCVForUnity_1_1VideoioModule_1_1VideoWriter.html',1,'OpenCVForUnity::VideoioModule']]],
-  ['volume_39',['Volume',['../d7/da9/classOpenCVForUnity_1_1PtcloudModule_1_1Volume.html',1,'OpenCVForUnity::PtcloudModule']]],
-  ['volumesettings_40',['VolumeSettings',['../d4/dba/classOpenCVForUnity_1_1PtcloudModule_1_1VolumeSettings.html',1,'OpenCVForUnity::PtcloudModule']]]
+  ['videodeviceinfo_36',['VideoDeviceInfo',['../de/dd5/classOpenCVForUnity_1_1VideoioModule_1_1VideoDeviceInfo.html',1,'OpenCVForUnity::VideoioModule']]],
+  ['videofileopenoptions_37',['VideoFileOpenOptions',['../d9/ddb/classOpenCVForUnity_1_1Extensions_1_1SourceToMat_1_1Options_1_1VideoFileOpenOptions.html',1,'OpenCVForUnity::Extensions::SourceToMat::Options']]],
+  ['videoio_38',['Videoio',['../db/dba/classOpenCVForUnity_1_1VideoioModule_1_1Videoio.html',1,'OpenCVForUnity::VideoioModule']]],
+  ['videowriter_39',['VideoWriter',['../d9/d3c/classOpenCVForUnity_1_1VideoioModule_1_1VideoWriter.html',1,'OpenCVForUnity::VideoioModule']]],
+  ['visualodometry_40',['VisualOdometry',['../dc/de8/classOpenCVForUnity_1_1PtcloudModule_1_1VisualOdometry.html',1,'OpenCVForUnity::PtcloudModule']]],
+  ['volume_41',['Volume',['../d7/da9/classOpenCVForUnity_1_1PtcloudModule_1_1Volume.html',1,'OpenCVForUnity::PtcloudModule']]],
+  ['volumesettings_42',['VolumeSettings',['../d4/dba/classOpenCVForUnity_1_1PtcloudModule_1_1VolumeSettings.html',1,'OpenCVForUnity::PtcloudModule']]]
 ];

@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.4</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.5</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/5.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -146,6 +146,33 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a962d89714102374c7eea2f8a5fd8afd2" id="r_a962d89714102374c7eea2f8a5fd8afd2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a962d89714102374c7eea2f8a5fd8afd2">clearPairInfo</a> ()</td></tr>
 <tr class="memdesc:a962d89714102374c7eea2f8a5fd8afd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears stored pair context information.  <br /></td></tr>
 <tr class="separator:a962d89714102374c7eea2f8a5fd8afd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a353f673d010f32f9ab18adaa095388" id="r_a5a353f673d010f32f9ab18adaa095388"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a353f673d010f32f9ab18adaa095388">getKeypointNormalization</a> ()</td></tr>
+<tr class="memdesc:a5a353f673d010f32f9ab18adaa095388"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the keypoint normalization, one of LightGlueNormalization.  <br /></td></tr>
+<tr class="separator:a5a353f673d010f32f9ab18adaa095388"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a5e9d52a5ca31770c0d9bd1787f3ac7" id="r_a2a5e9d52a5ca31770c0d9bd1787f3ac7"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a5e9d52a5ca31770c0d9bd1787f3ac7">setImagePairInfo</a> (<a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a> queryKpts, <a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a> trainKpts)</td></tr>
+<tr class="memdesc:a2a5e9d52a5ca31770c0d9bd1787f3ac7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience overload of <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a> taking keypoints directly. Uses the same model-specific normalization and image size convention as <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a>.  <br /></td></tr>
+<tr class="separator:a2a5e9d52a5ca31770c0d9bd1787f3ac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f36d25cda39e0d611aa551ce14c7077" id="r_a1f36d25cda39e0d611aa551ce14c7077"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1f36d25cda39e0d611aa551ce14c7077">setImagePairInfo</a> (<a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a> queryKpts, <a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a> trainKpts, in <a class="el" href="../../de/d63/structOpenCVForUnity_1_1Extensions_1_1Vec2d.html">Vec2d</a> queryImageSize)</td></tr>
+<tr class="memdesc:a1f36d25cda39e0d611aa551ce14c7077"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience overload of <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a> taking keypoints directly. Uses the same model-specific normalization and image size convention as <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a>.  <br /></td></tr>
+<tr class="separator:a1f36d25cda39e0d611aa551ce14c7077"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a560a3f855b100d92dda9e2a47a87dfcb" id="r_a560a3f855b100d92dda9e2a47a87dfcb"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a560a3f855b100d92dda9e2a47a87dfcb">setImagePairInfo</a> (<a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a> queryKpts, <a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a> trainKpts, in <a class="el" href="../../de/d63/structOpenCVForUnity_1_1Extensions_1_1Vec2d.html">Vec2d</a> queryImageSize, in <a class="el" href="../../de/d63/structOpenCVForUnity_1_1Extensions_1_1Vec2d.html">Vec2d</a> trainImageSize)</td></tr>
+<tr class="memdesc:a560a3f855b100d92dda9e2a47a87dfcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience overload of <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a> taking keypoints directly. Uses the same model-specific normalization and image size convention as <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a>.  <br /></td></tr>
+<tr class="separator:a560a3f855b100d92dda9e2a47a87dfcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bd981541ffc11f5dbfc3e0c2ac76094" id="r_a6bd981541ffc11f5dbfc3e0c2ac76094"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6bd981541ffc11f5dbfc3e0c2ac76094">setImagePairInfo</a> (<a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a> queryKpts, <a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a> trainKpts, in(double width, double height) queryImageSize)</td></tr>
+<tr class="memdesc:a6bd981541ffc11f5dbfc3e0c2ac76094"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience overload of <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a> taking keypoints directly. Uses the same model-specific normalization and image size convention as <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a>.  <br /></td></tr>
+<tr class="separator:a6bd981541ffc11f5dbfc3e0c2ac76094"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4aa60ec7963ef08f2047d3cbca25edc0" id="r_a4aa60ec7963ef08f2047d3cbca25edc0"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4aa60ec7963ef08f2047d3cbca25edc0">setImagePairInfo</a> (<a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a> queryKpts, <a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a> trainKpts, in(double width, double height) queryImageSize, in(double width, double height) trainImageSize)</td></tr>
+<tr class="memdesc:a4aa60ec7963ef08f2047d3cbca25edc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience overload of <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a> taking keypoints directly. Uses the same model-specific normalization and image size convention as <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a>.  <br /></td></tr>
+<tr class="separator:a4aa60ec7963ef08f2047d3cbca25edc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a839cf8d1669e7927f60c21c3e6474a" id="r_a9a839cf8d1669e7927f60c21c3e6474a"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a839cf8d1669e7927f60c21c3e6474a">setImagePairInfo</a> (<a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a> queryKpts, <a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a> trainKpts, <a class="el" href="../../d0/d54/classOpenCVForUnity_1_1CoreModule_1_1Size.html">Size</a> queryImageSize)</td></tr>
+<tr class="memdesc:a9a839cf8d1669e7927f60c21c3e6474a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience overload of <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a> taking keypoints directly. Uses the same model-specific normalization and image size convention as <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a>.  <br /></td></tr>
+<tr class="separator:a9a839cf8d1669e7927f60c21c3e6474a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc331c59b76a1475090f7bb144fc472b" id="r_afc331c59b76a1475090f7bb144fc472b"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afc331c59b76a1475090f7bb144fc472b">setImagePairInfo</a> (<a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a> queryKpts, <a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a> trainKpts, <a class="el" href="../../d0/d54/classOpenCVForUnity_1_1CoreModule_1_1Size.html">Size</a> queryImageSize, <a class="el" href="../../d0/d54/classOpenCVForUnity_1_1CoreModule_1_1Size.html">Size</a> trainImageSize)</td></tr>
+<tr class="memdesc:afc331c59b76a1475090f7bb144fc472b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience overload of <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a> taking keypoints directly. Uses the same model-specific normalization and image size convention as <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a>.  <br /></td></tr>
+<tr class="separator:afc331c59b76a1475090f7bb144fc472b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8abe688bc317c3fdfe55adc056734814" id="r_a8abe688bc317c3fdfe55adc056734814"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8abe688bc317c3fdfe55adc056734814">setKeypointNormalization</a> (int normalization)</td></tr>
+<tr class="memdesc:a8abe688bc317c3fdfe55adc056734814"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects how pixel keypoints passed with an image size are normalized.  <br /></td></tr>
+<tr class="separator:a8abe688bc317c3fdfe55adc056734814"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab46952b1f6553d4aa79aff41a8d4d39f" id="r_ab46952b1f6553d4aa79aff41a8d4d39f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab46952b1f6553d4aa79aff41a8d4d39f">setPairInfo</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> queryKpts, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> trainKpts)</td></tr>
 <tr class="memdesc:ab46952b1f6553d4aa79aff41a8d4d39f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the keypoint and image size context for the next <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a> call.  <br /></td></tr>
 <tr class="separator:ab46952b1f6553d4aa79aff41a8d4d39f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -267,6 +294,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a9dcd76183108a7cba8b1e175ff31ca35" id="r_a9dcd76183108a7cba8b1e175ff31ca35"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d4/d6e/classOpenCVForUnity_1_1FeaturesModule_1_1LightGlueMatcher.html">LightGlueMatcher</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9dcd76183108a7cba8b1e175ff31ca35">create</a> (string modelPath, float scoreThreshold, int backend, int target)</td></tr>
 <tr class="memdesc:a9dcd76183108a7cba8b1e175ff31ca35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="../../d4/d6e/classOpenCVForUnity_1_1FeaturesModule_1_1LightGlueMatcher.html" title="LightGlue feature matcher.">LightGlueMatcher</a> from a model file path.  <br /></td></tr>
 <tr class="separator:a9dcd76183108a7cba8b1e175ff31ca35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61c6ac41f82998fb39cba57336270090" id="r_a61c6ac41f82998fb39cba57336270090"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d4/d6e/classOpenCVForUnity_1_1FeaturesModule_1_1LightGlueMatcher.html">LightGlueMatcher</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61c6ac41f82998fb39cba57336270090">create</a> (string modelPath, float scoreThreshold, int backend, int target, int type)</td></tr>
+<tr class="memdesc:a61c6ac41f82998fb39cba57336270090"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="../../d4/d6e/classOpenCVForUnity_1_1FeaturesModule_1_1LightGlueMatcher.html" title="LightGlue feature matcher.">LightGlueMatcher</a> from a model file path.  <br /></td></tr>
+<tr class="separator:a61c6ac41f82998fb39cba57336270090"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94bd746657d3b43fde542d5a1bf0511b" id="r_a94bd746657d3b43fde542d5a1bf0511b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d4/d6e/classOpenCVForUnity_1_1FeaturesModule_1_1LightGlueMatcher.html">LightGlueMatcher</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a94bd746657d3b43fde542d5a1bf0511b">createFromMemory</a> (<a class="el" href="../../d1/ddf/classOpenCVForUnity_1_1CoreModule_1_1MatOfByte.html">MatOfByte</a> modelData)</td></tr>
 <tr class="memdesc:a94bd746657d3b43fde542d5a1bf0511b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="../../d4/d6e/classOpenCVForUnity_1_1FeaturesModule_1_1LightGlueMatcher.html" title="LightGlue feature matcher.">LightGlueMatcher</a> from in-memory model data.  <br /></td></tr>
 <tr class="separator:a94bd746657d3b43fde542d5a1bf0511b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -279,6 +309,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a55d4ece65e5bd78a1b95a16071522f83" id="r_a55d4ece65e5bd78a1b95a16071522f83"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d4/d6e/classOpenCVForUnity_1_1FeaturesModule_1_1LightGlueMatcher.html">LightGlueMatcher</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a55d4ece65e5bd78a1b95a16071522f83">createFromMemory</a> (<a class="el" href="../../d1/ddf/classOpenCVForUnity_1_1CoreModule_1_1MatOfByte.html">MatOfByte</a> modelData, float scoreThreshold, int backend, int target)</td></tr>
 <tr class="memdesc:a55d4ece65e5bd78a1b95a16071522f83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="../../d4/d6e/classOpenCVForUnity_1_1FeaturesModule_1_1LightGlueMatcher.html" title="LightGlue feature matcher.">LightGlueMatcher</a> from in-memory model data.  <br /></td></tr>
 <tr class="separator:a55d4ece65e5bd78a1b95a16071522f83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9371bf6842aa2dac5da3084695905ae7" id="r_a9371bf6842aa2dac5da3084695905ae7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d4/d6e/classOpenCVForUnity_1_1FeaturesModule_1_1LightGlueMatcher.html">LightGlueMatcher</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9371bf6842aa2dac5da3084695905ae7">createFromMemory</a> (<a class="el" href="../../d1/ddf/classOpenCVForUnity_1_1CoreModule_1_1MatOfByte.html">MatOfByte</a> modelData, float scoreThreshold, int backend, int target, int type)</td></tr>
+<tr class="memdesc:a9371bf6842aa2dac5da3084695905ae7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="../../d4/d6e/classOpenCVForUnity_1_1FeaturesModule_1_1LightGlueMatcher.html" title="LightGlue feature matcher.">LightGlueMatcher</a> from in-memory model data.  <br /></td></tr>
+<tr class="separator:a9371bf6842aa2dac5da3084695905ae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_methods_classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher')"><img src="../../closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html">OpenCVForUnity.FeaturesModule.DescriptorMatcher</a></td></tr>
 <tr class="memitem:a8846223fe2fc0dcb42c9a05fb0d1aa28 inherit pub_static_methods_classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher" id="r_a8846223fe2fc0dcb42c9a05fb0d1aa28"><td class="memItemLeft" align="right" valign="top">static new <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html">DescriptorMatcher</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#a8846223fe2fc0dcb42c9a05fb0d1aa28">__fromPtr__</a> (IntPtr addr)</td></tr>
 <tr class="separator:a8846223fe2fc0dcb42c9a05fb0d1aa28 inherit pub_static_methods_classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -354,8 +387,8 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>LightGlue feature matcher. </p>
-<p>LightGlue is a CNN-based feature matcher, as described in <b>[Lindenberger23]</b> . It takes keypoint locations and descriptors from two images and directly predicts match pairs. Unlike traditional matchers that compute descriptor distances, LightGlue uses attention mechanisms to produce confidence scores for each potential match pair.</p>
-<p>The matcher extends <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html" title="Abstract base class for matching keypoint descriptors.">DescriptorMatcher</a> and supports the standard <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a>, <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#a79b10f7fd4175a69001b5eba90c84d62" title="Finds the k best matches for each descriptor from a query set.">knnMatch()</a>, and <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#a049562c0e7c3433511ecefbf5ff248ba" title="For each query descriptor, finds the training descriptors not farther than the specified distance.">radiusMatch()</a> interfaces. Context (keypoints and image sizes) must be provided via <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a> before matching. </p>
+<p>LightGlue is an attention-based feature matcher, as described in <b>[Lindenberger23]</b> . It takes keypoint locations and descriptors from two images and directly predicts match pairs. Unlike traditional matchers that compute descriptor distances, LightGlue produces confidence scores for each potential match pair.</p>
+<p>The matcher extends <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html" title="Abstract base class for matching keypoint descriptors.">DescriptorMatcher</a> and supports <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a> and <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#a79b10f7fd4175a69001b5eba90c84d62" title="Finds the k best matches for each descriptor from a query set.">knnMatch()</a> with k=1. Context (keypoints and image sizes) must be provided via <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a> or <a class="el" href="#afc331c59b76a1475090f7bb144fc472b" title="Convenience overload of setPairInfo() taking keypoints directly. Uses the same model-specific normali...">setImagePairInfo()</a> before matching. <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#a049562c0e7c3433511ecefbf5ff248ba" title="For each query descriptor, finds the training descriptors not farther than the specified distance.">radiusMatch()</a> is not supported. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a1ca45790e967f2996f32f3027592d42a" name="a1ca45790e967f2996f32f3027592d42a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1ca45790e967f2996f32f3027592d42a">&#9670;&#160;</a></span>__fromPtr__()</h2>
@@ -402,7 +435,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <a id="a0d3057143fd071f44415a588f5b14727" name="a0d3057143fd071f44415a588f5b14727"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d3057143fd071f44415a588f5b14727">&#9670;&#160;</a></span>create() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d3057143fd071f44415a588f5b14727">&#9670;&#160;</a></span>create() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -431,6 +464,7 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">scoreThreshold</td><td>Match confidence threshold. </td></tr>
     <tr><td class="paramname">backend</td><td>DNN backend </td></tr>
     <tr><td class="paramname">target</td><td>DNN target </td></tr>
+    <tr><td class="paramname">type</td><td>Model variant: LG_ALIKED (default) or LG_DISK. </td></tr>
   </table>
   </dd>
 </dl>
@@ -438,7 +472,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <a id="a1879c77d071af2ea224c30c72a8ec5e5" name="a1879c77d071af2ea224c30c72a8ec5e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1879c77d071af2ea224c30c72a8ec5e5">&#9670;&#160;</a></span>create() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1879c77d071af2ea224c30c72a8ec5e5">&#9670;&#160;</a></span>create() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -471,6 +505,7 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">scoreThreshold</td><td>Match confidence threshold. </td></tr>
     <tr><td class="paramname">backend</td><td>DNN backend </td></tr>
     <tr><td class="paramname">target</td><td>DNN target </td></tr>
+    <tr><td class="paramname">type</td><td>Model variant: LG_ALIKED (default) or LG_DISK. </td></tr>
   </table>
   </dd>
 </dl>
@@ -478,7 +513,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <a id="a1c8ef746f89e940e8b57d9c3e4a23a27" name="a1c8ef746f89e940e8b57d9c3e4a23a27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c8ef746f89e940e8b57d9c3e4a23a27">&#9670;&#160;</a></span>create() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c8ef746f89e940e8b57d9c3e4a23a27">&#9670;&#160;</a></span>create() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -516,6 +551,7 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">scoreThreshold</td><td>Match confidence threshold. </td></tr>
     <tr><td class="paramname">backend</td><td>DNN backend </td></tr>
     <tr><td class="paramname">target</td><td>DNN target </td></tr>
+    <tr><td class="paramname">type</td><td>Model variant: LG_ALIKED (default) or LG_DISK. </td></tr>
   </table>
   </dd>
 </dl>
@@ -523,7 +559,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <a id="a9dcd76183108a7cba8b1e175ff31ca35" name="a9dcd76183108a7cba8b1e175ff31ca35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9dcd76183108a7cba8b1e175ff31ca35">&#9670;&#160;</a></span>create() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9dcd76183108a7cba8b1e175ff31ca35">&#9670;&#160;</a></span>create() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -566,6 +602,63 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">scoreThreshold</td><td>Match confidence threshold. </td></tr>
     <tr><td class="paramname">backend</td><td>DNN backend </td></tr>
     <tr><td class="paramname">target</td><td>DNN target </td></tr>
+    <tr><td class="paramname">type</td><td>Model variant: LG_ALIKED (default) or LG_DISK. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a61c6ac41f82998fb39cba57336270090" name="a61c6ac41f82998fb39cba57336270090"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61c6ac41f82998fb39cba57336270090">&#9670;&#160;</a></span>create() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="../../d4/d6e/classOpenCVForUnity_1_1FeaturesModule_1_1LightGlueMatcher.html">LightGlueMatcher</a> OpenCVForUnity.FeaturesModule.LightGlueMatcher.create </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>modelPath</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>scoreThreshold</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>backend</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>type</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates <a class="el" href="../../d4/d6e/classOpenCVForUnity_1_1FeaturesModule_1_1LightGlueMatcher.html" title="LightGlue feature matcher.">LightGlueMatcher</a> from a model file path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">modelPath</td><td>Path to the ONNX model file. </td></tr>
+    <tr><td class="paramname">scoreThreshold</td><td>Match confidence threshold. </td></tr>
+    <tr><td class="paramname">backend</td><td>DNN backend </td></tr>
+    <tr><td class="paramname">target</td><td>DNN target </td></tr>
+    <tr><td class="paramname">type</td><td>Model variant: LG_ALIKED (default) or LG_DISK. </td></tr>
   </table>
   </dd>
 </dl>
@@ -573,7 +666,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <a id="a94bd746657d3b43fde542d5a1bf0511b" name="a94bd746657d3b43fde542d5a1bf0511b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94bd746657d3b43fde542d5a1bf0511b">&#9670;&#160;</a></span>createFromMemory() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a94bd746657d3b43fde542d5a1bf0511b">&#9670;&#160;</a></span>createFromMemory() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -602,6 +695,7 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">scoreThreshold</td><td>Match confidence threshold. </td></tr>
     <tr><td class="paramname">backend</td><td>DNN backend </td></tr>
     <tr><td class="paramname">target</td><td>DNN target </td></tr>
+    <tr><td class="paramname">type</td><td>Model variant: LG_ALIKED (default) or LG_DISK. </td></tr>
   </table>
   </dd>
 </dl>
@@ -609,7 +703,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <a id="a04e088750552c976703bb56737133048" name="a04e088750552c976703bb56737133048"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04e088750552c976703bb56737133048">&#9670;&#160;</a></span>createFromMemory() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a04e088750552c976703bb56737133048">&#9670;&#160;</a></span>createFromMemory() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -642,6 +736,7 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">scoreThreshold</td><td>Match confidence threshold. </td></tr>
     <tr><td class="paramname">backend</td><td>DNN backend </td></tr>
     <tr><td class="paramname">target</td><td>DNN target </td></tr>
+    <tr><td class="paramname">type</td><td>Model variant: LG_ALIKED (default) or LG_DISK. </td></tr>
   </table>
   </dd>
 </dl>
@@ -649,7 +744,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <a id="a4ac60e87d744b497b680f109df2531be" name="a4ac60e87d744b497b680f109df2531be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ac60e87d744b497b680f109df2531be">&#9670;&#160;</a></span>createFromMemory() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ac60e87d744b497b680f109df2531be">&#9670;&#160;</a></span>createFromMemory() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -687,6 +782,7 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">scoreThreshold</td><td>Match confidence threshold. </td></tr>
     <tr><td class="paramname">backend</td><td>DNN backend </td></tr>
     <tr><td class="paramname">target</td><td>DNN target </td></tr>
+    <tr><td class="paramname">type</td><td>Model variant: LG_ALIKED (default) or LG_DISK. </td></tr>
   </table>
   </dd>
 </dl>
@@ -694,7 +790,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <a id="a55d4ece65e5bd78a1b95a16071522f83" name="a55d4ece65e5bd78a1b95a16071522f83"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55d4ece65e5bd78a1b95a16071522f83">&#9670;&#160;</a></span>createFromMemory() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a55d4ece65e5bd78a1b95a16071522f83">&#9670;&#160;</a></span>createFromMemory() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -737,6 +833,63 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">scoreThreshold</td><td>Match confidence threshold. </td></tr>
     <tr><td class="paramname">backend</td><td>DNN backend </td></tr>
     <tr><td class="paramname">target</td><td>DNN target </td></tr>
+    <tr><td class="paramname">type</td><td>Model variant: LG_ALIKED (default) or LG_DISK. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9371bf6842aa2dac5da3084695905ae7" name="a9371bf6842aa2dac5da3084695905ae7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9371bf6842aa2dac5da3084695905ae7">&#9670;&#160;</a></span>createFromMemory() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="../../d4/d6e/classOpenCVForUnity_1_1FeaturesModule_1_1LightGlueMatcher.html">LightGlueMatcher</a> OpenCVForUnity.FeaturesModule.LightGlueMatcher.createFromMemory </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d1/ddf/classOpenCVForUnity_1_1CoreModule_1_1MatOfByte.html">MatOfByte</a></td>          <td class="paramname"><span class="paramname"><em>modelData</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>scoreThreshold</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>backend</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>type</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates <a class="el" href="../../d4/d6e/classOpenCVForUnity_1_1FeaturesModule_1_1LightGlueMatcher.html" title="LightGlue feature matcher.">LightGlueMatcher</a> from in-memory model data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">modelData</td><td>Buffer containing the model data. </td></tr>
+    <tr><td class="paramname">scoreThreshold</td><td>Match confidence threshold. </td></tr>
+    <tr><td class="paramname">backend</td><td>DNN backend </td></tr>
+    <tr><td class="paramname">target</td><td>DNN target </td></tr>
+    <tr><td class="paramname">type</td><td>Model variant: LG_ALIKED (default) or LG_DISK. </td></tr>
   </table>
   </dd>
 </dl>
@@ -770,6 +923,328 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a5a353f673d010f32f9ab18adaa095388" name="a5a353f673d010f32f9ab18adaa095388"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a353f673d010f32f9ab18adaa095388">&#9670;&#160;</a></span>getKeypointNormalization()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int OpenCVForUnity.FeaturesModule.LightGlueMatcher.getKeypointNormalization </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the keypoint normalization, one of LightGlueNormalization. </p>
+
+</div>
+</div>
+<a id="a2a5e9d52a5ca31770c0d9bd1787f3ac7" name="a2a5e9d52a5ca31770c0d9bd1787f3ac7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a5e9d52a5ca31770c0d9bd1787f3ac7">&#9670;&#160;</a></span>setImagePairInfo() <span class="overload">[1/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">override void OpenCVForUnity.FeaturesModule.LightGlueMatcher.setImagePairInfo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a></td>          <td class="paramname"><span class="paramname"><em>queryKpts</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a></td>          <td class="paramname"><span class="paramname"><em>trainKpts</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convenience overload of <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a> taking keypoints directly. Uses the same model-specific normalization and image size convention as <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a>. </p>
+
+<p>Reimplemented from <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#add565b9a5e6f0bd650ff20146763e1ad">OpenCVForUnity.FeaturesModule.DescriptorMatcher</a>.</p>
+
+</div>
+</div>
+<a id="a1f36d25cda39e0d611aa551ce14c7077" name="a1f36d25cda39e0d611aa551ce14c7077"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f36d25cda39e0d611aa551ce14c7077">&#9670;&#160;</a></span>setImagePairInfo() <span class="overload">[2/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">override void OpenCVForUnity.FeaturesModule.LightGlueMatcher.setImagePairInfo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a></td>          <td class="paramname"><span class="paramname"><em>queryKpts</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a></td>          <td class="paramname"><span class="paramname"><em>trainKpts</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">in <a class="el" href="../../de/d63/structOpenCVForUnity_1_1Extensions_1_1Vec2d.html">Vec2d</a></td>          <td class="paramname"><span class="paramname"><em>queryImageSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convenience overload of <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a> taking keypoints directly. Uses the same model-specific normalization and image size convention as <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a>. </p>
+
+<p>Reimplemented from <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#a08bccb49d8e149ffbe90fda7982608cb">OpenCVForUnity.FeaturesModule.DescriptorMatcher</a>.</p>
+
+</div>
+</div>
+<a id="a560a3f855b100d92dda9e2a47a87dfcb" name="a560a3f855b100d92dda9e2a47a87dfcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a560a3f855b100d92dda9e2a47a87dfcb">&#9670;&#160;</a></span>setImagePairInfo() <span class="overload">[3/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">override void OpenCVForUnity.FeaturesModule.LightGlueMatcher.setImagePairInfo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a></td>          <td class="paramname"><span class="paramname"><em>queryKpts</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a></td>          <td class="paramname"><span class="paramname"><em>trainKpts</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">in <a class="el" href="../../de/d63/structOpenCVForUnity_1_1Extensions_1_1Vec2d.html">Vec2d</a></td>          <td class="paramname"><span class="paramname"><em>queryImageSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">in <a class="el" href="../../de/d63/structOpenCVForUnity_1_1Extensions_1_1Vec2d.html">Vec2d</a></td>          <td class="paramname"><span class="paramname"><em>trainImageSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convenience overload of <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a> taking keypoints directly. Uses the same model-specific normalization and image size convention as <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a>. </p>
+
+<p>Reimplemented from <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#a42a13642e319fae76e86a2786eadc1a4">OpenCVForUnity.FeaturesModule.DescriptorMatcher</a>.</p>
+
+</div>
+</div>
+<a id="a6bd981541ffc11f5dbfc3e0c2ac76094" name="a6bd981541ffc11f5dbfc3e0c2ac76094"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bd981541ffc11f5dbfc3e0c2ac76094">&#9670;&#160;</a></span>setImagePairInfo() <span class="overload">[4/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">override void OpenCVForUnity.FeaturesModule.LightGlueMatcher.setImagePairInfo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a></td>          <td class="paramname"><span class="paramname"><em>queryKpts</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a></td>          <td class="paramname"><span class="paramname"><em>trainKpts</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">in(double width, double height)</td>          <td class="paramname"><span class="paramname"><em>queryImageSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convenience overload of <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a> taking keypoints directly. Uses the same model-specific normalization and image size convention as <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a>. </p>
+
+<p>Reimplemented from <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#a443521885bc0e14d11a0850813984c6c">OpenCVForUnity.FeaturesModule.DescriptorMatcher</a>.</p>
+
+</div>
+</div>
+<a id="a4aa60ec7963ef08f2047d3cbca25edc0" name="a4aa60ec7963ef08f2047d3cbca25edc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4aa60ec7963ef08f2047d3cbca25edc0">&#9670;&#160;</a></span>setImagePairInfo() <span class="overload">[5/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">override void OpenCVForUnity.FeaturesModule.LightGlueMatcher.setImagePairInfo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a></td>          <td class="paramname"><span class="paramname"><em>queryKpts</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a></td>          <td class="paramname"><span class="paramname"><em>trainKpts</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">in(double width, double height)</td>          <td class="paramname"><span class="paramname"><em>queryImageSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">in(double width, double height)</td>          <td class="paramname"><span class="paramname"><em>trainImageSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convenience overload of <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a> taking keypoints directly. Uses the same model-specific normalization and image size convention as <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a>. </p>
+
+<p>Reimplemented from <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#a04425c0e4272c351107495a0f51951ab">OpenCVForUnity.FeaturesModule.DescriptorMatcher</a>.</p>
+
+</div>
+</div>
+<a id="a9a839cf8d1669e7927f60c21c3e6474a" name="a9a839cf8d1669e7927f60c21c3e6474a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a839cf8d1669e7927f60c21c3e6474a">&#9670;&#160;</a></span>setImagePairInfo() <span class="overload">[6/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">override void OpenCVForUnity.FeaturesModule.LightGlueMatcher.setImagePairInfo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a></td>          <td class="paramname"><span class="paramname"><em>queryKpts</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a></td>          <td class="paramname"><span class="paramname"><em>trainKpts</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d0/d54/classOpenCVForUnity_1_1CoreModule_1_1Size.html">Size</a></td>          <td class="paramname"><span class="paramname"><em>queryImageSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convenience overload of <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a> taking keypoints directly. Uses the same model-specific normalization and image size convention as <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a>. </p>
+
+<p>Reimplemented from <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#a18a5e67d97db2b32ea98ce74deaf9ffd">OpenCVForUnity.FeaturesModule.DescriptorMatcher</a>.</p>
+
+</div>
+</div>
+<a id="afc331c59b76a1475090f7bb144fc472b" name="afc331c59b76a1475090f7bb144fc472b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc331c59b76a1475090f7bb144fc472b">&#9670;&#160;</a></span>setImagePairInfo() <span class="overload">[7/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">override void OpenCVForUnity.FeaturesModule.LightGlueMatcher.setImagePairInfo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a></td>          <td class="paramname"><span class="paramname"><em>queryKpts</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d6/d02/classOpenCVForUnity_1_1CoreModule_1_1MatOfKeyPoint.html">MatOfKeyPoint</a></td>          <td class="paramname"><span class="paramname"><em>trainKpts</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d0/d54/classOpenCVForUnity_1_1CoreModule_1_1Size.html">Size</a></td>          <td class="paramname"><span class="paramname"><em>queryImageSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d0/d54/classOpenCVForUnity_1_1CoreModule_1_1Size.html">Size</a></td>          <td class="paramname"><span class="paramname"><em>trainImageSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convenience overload of <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a> taking keypoints directly. Uses the same model-specific normalization and image size convention as <a class="el" href="#a1783b94edcdb461179a1ad921531d1bb" title="Sets the keypoint and image size context for the next match() call.">setPairInfo()</a>. </p>
+
+<p>Reimplemented from <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abfe59aacd8874883df5c83eb187ddec5">OpenCVForUnity.FeaturesModule.DescriptorMatcher</a>.</p>
+
+</div>
+</div>
+<a id="a8abe688bc317c3fdfe55adc056734814" name="a8abe688bc317c3fdfe55adc056734814"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8abe688bc317c3fdfe55adc056734814">&#9670;&#160;</a></span>setKeypointNormalization()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.FeaturesModule.LightGlueMatcher.setKeypointNormalization </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>normalization</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Selects how pixel keypoints passed with an image size are normalized. </p>
+<p>The default, LG_NORM_MODEL, keeps the per-axis mapping implied by the LightGlueType given at creation. LG_NORM_MAX_SIDE applies the mapping of the LightGlue reference implementation, which shifts by half the image size and divides both axes by half the longer side. Use it for models exported from the reference forward without their own normalization, e.g. <a class="el" href="../../d8/d58/classOpenCVForUnity_1_1FeaturesModule_1_1XFeat.html" title="XFeat feature detector and descriptor, based on a DNN model.">XFeat</a>'s LighterGlue. For square images the two mappings coincide for LG_ALIKED.</p>
+<p>The setting does not affect keypoints passed with an empty image size, and it is kept by <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#acbb9edb097614d3632bbe7f3a6740967" title="Clones the matcher.">clone()</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">normalization</td><td>One of LightGlueNormalization. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ab46952b1f6553d4aa79aff41a8d4d39f" name="ab46952b1f6553d4aa79aff41a8d4d39f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab46952b1f6553d4aa79aff41a8d4d39f">&#9670;&#160;</a></span>setPairInfo() <span class="overload">[1/7]</span></h2>
 
@@ -790,13 +1265,13 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the keypoint and image size context for the next <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a> call. </p>
-<p>This provides the spatial context that LightGlue needs in addition to descriptors. Must be called before <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a>/knnMatch()/radiusMatch() unless using automatic context from in-process <a class="el" href="../../d0/d0f/classOpenCVForUnity_1_1FeaturesModule_1_1ALIKED.html" title="ALIKED feature detector and descriptor extractor.">ALIKED</a> instances. </p>
+<p>This provides the spatial context that LightGlue needs in addition to descriptors. Must be called before <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a>/knnMatch(), or use <a class="el" href="#afc331c59b76a1475090f7bb144fc472b" title="Convenience overload of setPairInfo() taking keypoints directly. Uses the same model-specific normali...">setImagePairInfo()</a>. Pixel coordinates are normalized according to the LightGlueType selected at creation, or as selected by <a class="el" href="#a8abe688bc317c3fdfe55adc056734814" title="Selects how pixel keypoints passed with an image size are normalized.">setKeypointNormalization()</a>. For keypoints already normalized for that model, leave the corresponding image size empty. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">queryKpts</td><td>Query image keypoints (Nx2 float matrix with x,y coordinates). </td></tr>
     <tr><td class="paramname">trainKpts</td><td>Train image keypoints (Nx2 float matrix with x,y coordinates). </td></tr>
-    <tr><td class="paramname">queryImageSize</td><td>Size of the query image (width, height). </td></tr>
-    <tr><td class="paramname">trainImageSize</td><td>Size of the train image (width, height). </td></tr>
+    <tr><td class="paramname">queryImageSize</td><td>Size of the query image, or Size() for normalized query keypoints. </td></tr>
+    <tr><td class="paramname">trainImageSize</td><td>Size of the train image, or Size() for normalized train keypoints. </td></tr>
   </table>
   </dd>
 </dl>
@@ -828,13 +1303,13 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the keypoint and image size context for the next <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a> call. </p>
-<p>This provides the spatial context that LightGlue needs in addition to descriptors. Must be called before <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a>/knnMatch()/radiusMatch() unless using automatic context from in-process <a class="el" href="../../d0/d0f/classOpenCVForUnity_1_1FeaturesModule_1_1ALIKED.html" title="ALIKED feature detector and descriptor extractor.">ALIKED</a> instances. </p>
+<p>This provides the spatial context that LightGlue needs in addition to descriptors. Must be called before <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a>/knnMatch(), or use <a class="el" href="#afc331c59b76a1475090f7bb144fc472b" title="Convenience overload of setPairInfo() taking keypoints directly. Uses the same model-specific normali...">setImagePairInfo()</a>. Pixel coordinates are normalized according to the LightGlueType selected at creation, or as selected by <a class="el" href="#a8abe688bc317c3fdfe55adc056734814" title="Selects how pixel keypoints passed with an image size are normalized.">setKeypointNormalization()</a>. For keypoints already normalized for that model, leave the corresponding image size empty. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">queryKpts</td><td>Query image keypoints (Nx2 float matrix with x,y coordinates). </td></tr>
     <tr><td class="paramname">trainKpts</td><td>Train image keypoints (Nx2 float matrix with x,y coordinates). </td></tr>
-    <tr><td class="paramname">queryImageSize</td><td>Size of the query image (width, height). </td></tr>
-    <tr><td class="paramname">trainImageSize</td><td>Size of the train image (width, height). </td></tr>
+    <tr><td class="paramname">queryImageSize</td><td>Size of the query image, or Size() for normalized query keypoints. </td></tr>
+    <tr><td class="paramname">trainImageSize</td><td>Size of the train image, or Size() for normalized train keypoints. </td></tr>
   </table>
   </dd>
 </dl>
@@ -871,13 +1346,13 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the keypoint and image size context for the next <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a> call. </p>
-<p>This provides the spatial context that LightGlue needs in addition to descriptors. Must be called before <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a>/knnMatch()/radiusMatch() unless using automatic context from in-process <a class="el" href="../../d0/d0f/classOpenCVForUnity_1_1FeaturesModule_1_1ALIKED.html" title="ALIKED feature detector and descriptor extractor.">ALIKED</a> instances. </p>
+<p>This provides the spatial context that LightGlue needs in addition to descriptors. Must be called before <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a>/knnMatch(), or use <a class="el" href="#afc331c59b76a1475090f7bb144fc472b" title="Convenience overload of setPairInfo() taking keypoints directly. Uses the same model-specific normali...">setImagePairInfo()</a>. Pixel coordinates are normalized according to the LightGlueType selected at creation, or as selected by <a class="el" href="#a8abe688bc317c3fdfe55adc056734814" title="Selects how pixel keypoints passed with an image size are normalized.">setKeypointNormalization()</a>. For keypoints already normalized for that model, leave the corresponding image size empty. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">queryKpts</td><td>Query image keypoints (Nx2 float matrix with x,y coordinates). </td></tr>
     <tr><td class="paramname">trainKpts</td><td>Train image keypoints (Nx2 float matrix with x,y coordinates). </td></tr>
-    <tr><td class="paramname">queryImageSize</td><td>Size of the query image (width, height). </td></tr>
-    <tr><td class="paramname">trainImageSize</td><td>Size of the train image (width, height). </td></tr>
+    <tr><td class="paramname">queryImageSize</td><td>Size of the query image, or Size() for normalized query keypoints. </td></tr>
+    <tr><td class="paramname">trainImageSize</td><td>Size of the train image, or Size() for normalized train keypoints. </td></tr>
   </table>
   </dd>
 </dl>
@@ -909,13 +1384,13 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the keypoint and image size context for the next <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a> call. </p>
-<p>This provides the spatial context that LightGlue needs in addition to descriptors. Must be called before <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a>/knnMatch()/radiusMatch() unless using automatic context from in-process <a class="el" href="../../d0/d0f/classOpenCVForUnity_1_1FeaturesModule_1_1ALIKED.html" title="ALIKED feature detector and descriptor extractor.">ALIKED</a> instances. </p>
+<p>This provides the spatial context that LightGlue needs in addition to descriptors. Must be called before <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a>/knnMatch(), or use <a class="el" href="#afc331c59b76a1475090f7bb144fc472b" title="Convenience overload of setPairInfo() taking keypoints directly. Uses the same model-specific normali...">setImagePairInfo()</a>. Pixel coordinates are normalized according to the LightGlueType selected at creation, or as selected by <a class="el" href="#a8abe688bc317c3fdfe55adc056734814" title="Selects how pixel keypoints passed with an image size are normalized.">setKeypointNormalization()</a>. For keypoints already normalized for that model, leave the corresponding image size empty. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">queryKpts</td><td>Query image keypoints (Nx2 float matrix with x,y coordinates). </td></tr>
     <tr><td class="paramname">trainKpts</td><td>Train image keypoints (Nx2 float matrix with x,y coordinates). </td></tr>
-    <tr><td class="paramname">queryImageSize</td><td>Size of the query image (width, height). </td></tr>
-    <tr><td class="paramname">trainImageSize</td><td>Size of the train image (width, height). </td></tr>
+    <tr><td class="paramname">queryImageSize</td><td>Size of the query image, or Size() for normalized query keypoints. </td></tr>
+    <tr><td class="paramname">trainImageSize</td><td>Size of the train image, or Size() for normalized train keypoints. </td></tr>
   </table>
   </dd>
 </dl>
@@ -952,13 +1427,13 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the keypoint and image size context for the next <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a> call. </p>
-<p>This provides the spatial context that LightGlue needs in addition to descriptors. Must be called before <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a>/knnMatch()/radiusMatch() unless using automatic context from in-process <a class="el" href="../../d0/d0f/classOpenCVForUnity_1_1FeaturesModule_1_1ALIKED.html" title="ALIKED feature detector and descriptor extractor.">ALIKED</a> instances. </p>
+<p>This provides the spatial context that LightGlue needs in addition to descriptors. Must be called before <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a>/knnMatch(), or use <a class="el" href="#afc331c59b76a1475090f7bb144fc472b" title="Convenience overload of setPairInfo() taking keypoints directly. Uses the same model-specific normali...">setImagePairInfo()</a>. Pixel coordinates are normalized according to the LightGlueType selected at creation, or as selected by <a class="el" href="#a8abe688bc317c3fdfe55adc056734814" title="Selects how pixel keypoints passed with an image size are normalized.">setKeypointNormalization()</a>. For keypoints already normalized for that model, leave the corresponding image size empty. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">queryKpts</td><td>Query image keypoints (Nx2 float matrix with x,y coordinates). </td></tr>
     <tr><td class="paramname">trainKpts</td><td>Train image keypoints (Nx2 float matrix with x,y coordinates). </td></tr>
-    <tr><td class="paramname">queryImageSize</td><td>Size of the query image (width, height). </td></tr>
-    <tr><td class="paramname">trainImageSize</td><td>Size of the train image (width, height). </td></tr>
+    <tr><td class="paramname">queryImageSize</td><td>Size of the query image, or Size() for normalized query keypoints. </td></tr>
+    <tr><td class="paramname">trainImageSize</td><td>Size of the train image, or Size() for normalized train keypoints. </td></tr>
   </table>
   </dd>
 </dl>
@@ -990,13 +1465,13 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the keypoint and image size context for the next <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a> call. </p>
-<p>This provides the spatial context that LightGlue needs in addition to descriptors. Must be called before <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a>/knnMatch()/radiusMatch() unless using automatic context from in-process <a class="el" href="../../d0/d0f/classOpenCVForUnity_1_1FeaturesModule_1_1ALIKED.html" title="ALIKED feature detector and descriptor extractor.">ALIKED</a> instances. </p>
+<p>This provides the spatial context that LightGlue needs in addition to descriptors. Must be called before <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a>/knnMatch(), or use <a class="el" href="#afc331c59b76a1475090f7bb144fc472b" title="Convenience overload of setPairInfo() taking keypoints directly. Uses the same model-specific normali...">setImagePairInfo()</a>. Pixel coordinates are normalized according to the LightGlueType selected at creation, or as selected by <a class="el" href="#a8abe688bc317c3fdfe55adc056734814" title="Selects how pixel keypoints passed with an image size are normalized.">setKeypointNormalization()</a>. For keypoints already normalized for that model, leave the corresponding image size empty. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">queryKpts</td><td>Query image keypoints (Nx2 float matrix with x,y coordinates). </td></tr>
     <tr><td class="paramname">trainKpts</td><td>Train image keypoints (Nx2 float matrix with x,y coordinates). </td></tr>
-    <tr><td class="paramname">queryImageSize</td><td>Size of the query image (width, height). </td></tr>
-    <tr><td class="paramname">trainImageSize</td><td>Size of the train image (width, height). </td></tr>
+    <tr><td class="paramname">queryImageSize</td><td>Size of the query image, or Size() for normalized query keypoints. </td></tr>
+    <tr><td class="paramname">trainImageSize</td><td>Size of the train image, or Size() for normalized train keypoints. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1033,13 +1508,13 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the keypoint and image size context for the next <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a> call. </p>
-<p>This provides the spatial context that LightGlue needs in addition to descriptors. Must be called before <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a>/knnMatch()/radiusMatch() unless using automatic context from in-process <a class="el" href="../../d0/d0f/classOpenCVForUnity_1_1FeaturesModule_1_1ALIKED.html" title="ALIKED feature detector and descriptor extractor.">ALIKED</a> instances. </p>
+<p>This provides the spatial context that LightGlue needs in addition to descriptors. Must be called before <a class="el" href="../../d4/d54/classOpenCVForUnity_1_1FeaturesModule_1_1DescriptorMatcher.html#abf037f93090d2f2a098dbf149733da90" title="Finds the best match for each descriptor from a query set.">match()</a>/knnMatch(), or use <a class="el" href="#afc331c59b76a1475090f7bb144fc472b" title="Convenience overload of setPairInfo() taking keypoints directly. Uses the same model-specific normali...">setImagePairInfo()</a>. Pixel coordinates are normalized according to the LightGlueType selected at creation, or as selected by <a class="el" href="#a8abe688bc317c3fdfe55adc056734814" title="Selects how pixel keypoints passed with an image size are normalized.">setKeypointNormalization()</a>. For keypoints already normalized for that model, leave the corresponding image size empty. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">queryKpts</td><td>Query image keypoints (Nx2 float matrix with x,y coordinates). </td></tr>
     <tr><td class="paramname">trainKpts</td><td>Train image keypoints (Nx2 float matrix with x,y coordinates). </td></tr>
-    <tr><td class="paramname">queryImageSize</td><td>Size of the query image (width, height). </td></tr>
-    <tr><td class="paramname">trainImageSize</td><td>Size of the train image (width, height). </td></tr>
+    <tr><td class="paramname">queryImageSize</td><td>Size of the query image, or Size() for normalized query keypoints. </td></tr>
+    <tr><td class="paramname">trainImageSize</td><td>Size of the train image, or Size() for normalized train keypoints. </td></tr>
   </table>
   </dd>
 </dl>

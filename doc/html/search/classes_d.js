@@ -11,13 +11,14 @@ var searchData=
   ['octree_8',['Octree',['../dc/d90/classOpenCVForUnity_1_1PtcloudModule_1_1Octree.html',1,'OpenCVForUnity::PtcloudModule']]],
   ['odometry_9',['Odometry',['../d9/d36/classOpenCVForUnity_1_1PtcloudModule_1_1Odometry.html',1,'OpenCVForUnity::PtcloudModule']]],
   ['odometryframe_10',['OdometryFrame',['../d8/da0/classOpenCVForUnity_1_1PtcloudModule_1_1OdometryFrame.html',1,'OpenCVForUnity::PtcloudModule']]],
-  ['odometrysettings_11',['OdometrySettings',['../d2/dea/classOpenCVForUnity_1_1PtcloudModule_1_1OdometrySettings.html',1,'OpenCVForUnity::PtcloudModule']]],
-  ['opencvarutils_12',['OpenCVARUtils',['../df/d05/classOpenCVForUnity_1_1Extensions_1_1OpenCVARUtils.html',1,'OpenCVForUnity::Extensions']]],
-  ['opencvdebug_13',['OpenCVDebug',['../d3/d5c/classOpenCVForUnity_1_1Extensions_1_1OpenCVDebug.html',1,'OpenCVForUnity::Extensions']]],
-  ['opencvdnninferencednn_14',['OpenCVDnnInferenceDnn',['../d3/dbd/classOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1OpenCVDnnInferenceDnn.html',1,'OpenCVForUnity::Extensions::Worker::DnnModule']]],
-  ['opencvdnninferencenet_15',['OpenCVDnnInferenceNet',['../db/d14/classOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1OpenCVDnnInferenceNet.html',1,'OpenCVForUnity::Extensions::Worker::DnnModule']]],
-  ['opencvdnninferenceutils_16',['OpenCVDnnInferenceUtils',['../d3/de2/classOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1OpenCVDnnInferenceUtils.html',1,'OpenCVForUnity::Extensions::Worker::DnnModule']]],
-  ['opencvforunityenv_17',['OpenCVForUnityEnv',['../de/dc0/classOpenCVForUnity_1_1UnityIntegration_1_1OpenCVForUnityEnv.html',1,'OpenCVForUnity::UnityIntegration']]],
-  ['opencvmatunityutils_18',['OpenCVMatUnityUtils',['../d4/db4/classOpenCVForUnity_1_1UnityIntegration_1_1OpenCVMatUnityUtils.html',1,'OpenCVForUnity::UnityIntegration']]],
-  ['orb_19',['ORB',['../d4/df4/classOpenCVForUnity_1_1FeaturesModule_1_1ORB.html',1,'OpenCVForUnity::FeaturesModule']]]
+  ['odometryparams_11',['OdometryParams',['../d3/d41/classOpenCVForUnity_1_1PtcloudModule_1_1OdometryParams.html',1,'OpenCVForUnity::PtcloudModule']]],
+  ['odometrysettings_12',['OdometrySettings',['../d2/dea/classOpenCVForUnity_1_1PtcloudModule_1_1OdometrySettings.html',1,'OpenCVForUnity::PtcloudModule']]],
+  ['opencvarutils_13',['OpenCVARUtils',['../df/d05/classOpenCVForUnity_1_1Extensions_1_1OpenCVARUtils.html',1,'OpenCVForUnity::Extensions']]],
+  ['opencvdebug_14',['OpenCVDebug',['../d3/d5c/classOpenCVForUnity_1_1Extensions_1_1OpenCVDebug.html',1,'OpenCVForUnity::Extensions']]],
+  ['opencvdnninferencednn_15',['OpenCVDnnInferenceDnn',['../d3/dbd/classOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1OpenCVDnnInferenceDnn.html',1,'OpenCVForUnity::Extensions::Worker::DnnModule']]],
+  ['opencvdnninferencenet_16',['OpenCVDnnInferenceNet',['../db/d14/classOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1OpenCVDnnInferenceNet.html',1,'OpenCVForUnity::Extensions::Worker::DnnModule']]],
+  ['opencvdnninferenceutils_17',['OpenCVDnnInferenceUtils',['../d3/de2/classOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1OpenCVDnnInferenceUtils.html',1,'OpenCVForUnity::Extensions::Worker::DnnModule']]],
+  ['opencvforunityenv_18',['OpenCVForUnityEnv',['../de/dc0/classOpenCVForUnity_1_1UnityIntegration_1_1OpenCVForUnityEnv.html',1,'OpenCVForUnity::UnityIntegration']]],
+  ['opencvmatunityutils_19',['OpenCVMatUnityUtils',['../d4/db4/classOpenCVForUnity_1_1UnityIntegration_1_1OpenCVMatUnityUtils.html',1,'OpenCVForUnity::UnityIntegration']]],
+  ['orb_20',['ORB',['../d4/df4/classOpenCVForUnity_1_1FeaturesModule_1_1ORB.html',1,'OpenCVForUnity::FeaturesModule']]]
 ];

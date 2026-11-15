@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.4</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.5</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/5.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -763,6 +763,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a620127bb3dce1d4c27439d5694202f6c" id="r_a620127bb3dce1d4c27439d5694202f6c"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../da/dfa/structOpenCVForUnity_1_1Extensions_1_1Vec10d.html">Vec10d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a620127bb3dce1d4c27439d5694202f6c">momentsAsVec10d</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> array, bool binaryImage)</td></tr>
 <tr class="memdesc:a620127bb3dce1d4c27439d5694202f6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates all of the moments up to the third order of a polygon or rasterized shape.  <br /></td></tr>
 <tr class="separator:a620127bb3dce1d4c27439d5694202f6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e0b1e5aacfa4014c11604387aa98941" id="r_a6e0b1e5aacfa4014c11604387aa98941"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6e0b1e5aacfa4014c11604387aa98941">normalEstimate</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> normals, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> curvatures, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> input_pts, List&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> &gt; nn_idx)</td></tr>
+<tr class="memdesc:a6e0b1e5aacfa4014c11604387aa98941"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estimate the normal and curvature of each point in point cloud from NN results.  <br /></td></tr>
+<tr class="separator:a6e0b1e5aacfa4014c11604387aa98941"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24933b72984779bd9c0dc4ca6e892897" id="r_a24933b72984779bd9c0dc4ca6e892897"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24933b72984779bd9c0dc4ca6e892897">normalEstimate</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> normals, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> curvatures, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> input_pts, List&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> &gt; nn_idx, int max_neighbor_num)</td></tr>
+<tr class="memdesc:a24933b72984779bd9c0dc4ca6e892897"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estimate the normal and curvature of each point in point cloud from NN results.  <br /></td></tr>
+<tr class="separator:a24933b72984779bd9c0dc4ca6e892897"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af59dc73a9f0f1937120be2a93f504a70" id="r_af59dc73a9f0f1937120be2a93f504a70"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af59dc73a9f0f1937120be2a93f504a70">pointPolygonTest</a> (<a class="el" href="../../d4/db0/classOpenCVForUnity_1_1CoreModule_1_1MatOfPoint2f.html">MatOfPoint2f</a> contour, in <a class="el" href="../../de/d63/structOpenCVForUnity_1_1Extensions_1_1Vec2d.html">Vec2d</a> pt, bool measureDist)</td></tr>
 <tr class="memdesc:af59dc73a9f0f1937120be2a93f504a70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a point-in-contour test.  <br /></td></tr>
 <tr class="separator:af59dc73a9f0f1937120be2a93f504a70"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -960,15 +966,15 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:af9dee5d9bd1ae6966caecc80d5a7b635" id="r_af9dee5d9bd1ae6966caecc80d5a7b635"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9dee5d9bd1ae6966caecc80d5a7b635">undistortImagePoints</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> src, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> dst, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> cameraMatrix, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> distCoeffs)</td></tr>
 <tr class="memdesc:af9dee5d9bd1ae6966caecc80d5a7b635"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute undistorted image points position.  <br /></td></tr>
 <tr class="separator:af9dee5d9bd1ae6966caecc80d5a7b635"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf1581f91c238c090dbd73c7d9dc86aa" id="r_adf1581f91c238c090dbd73c7d9dc86aa"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf1581f91c238c090dbd73c7d9dc86aa">undistortImagePoints</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> src, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> dst, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> cameraMatrix, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> distCoeffs, in <a class="el" href="../../d7/d9c/structOpenCVForUnity_1_1Extensions_1_1Vec3d.html">Vec3d</a> arg1)</td></tr>
-<tr class="memdesc:adf1581f91c238c090dbd73c7d9dc86aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute undistorted image points position.  <br /></td></tr>
-<tr class="separator:adf1581f91c238c090dbd73c7d9dc86aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4b699d2d3d5ff7786c4bfdbf62e412b" id="r_ae4b699d2d3d5ff7786c4bfdbf62e412b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae4b699d2d3d5ff7786c4bfdbf62e412b">undistortImagePoints</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> src, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> dst, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> cameraMatrix, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> distCoeffs, in(double type, double maxCount, double epsilon) arg1)</td></tr>
-<tr class="memdesc:ae4b699d2d3d5ff7786c4bfdbf62e412b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute undistorted image points position.  <br /></td></tr>
-<tr class="separator:ae4b699d2d3d5ff7786c4bfdbf62e412b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86f663a65ee637475bea9bf4aa716a0a" id="r_a86f663a65ee637475bea9bf4aa716a0a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a86f663a65ee637475bea9bf4aa716a0a">undistortImagePoints</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> src, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> dst, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> cameraMatrix, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> distCoeffs, <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html">TermCriteria</a> arg1)</td></tr>
-<tr class="memdesc:a86f663a65ee637475bea9bf4aa716a0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute undistorted image points position.  <br /></td></tr>
-<tr class="separator:a86f663a65ee637475bea9bf4aa716a0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9030f4965727ce511595fb65d1313ff7" id="r_a9030f4965727ce511595fb65d1313ff7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9030f4965727ce511595fb65d1313ff7">undistortImagePoints</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> src, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> dst, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> cameraMatrix, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> distCoeffs, in <a class="el" href="../../d7/d9c/structOpenCVForUnity_1_1Extensions_1_1Vec3d.html">Vec3d</a> criteria)</td></tr>
+<tr class="memdesc:a9030f4965727ce511595fb65d1313ff7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute undistorted image points position.  <br /></td></tr>
+<tr class="separator:a9030f4965727ce511595fb65d1313ff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef412e57ee55deef8800a2c235d22074" id="r_aef412e57ee55deef8800a2c235d22074"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef412e57ee55deef8800a2c235d22074">undistortImagePoints</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> src, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> dst, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> cameraMatrix, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> distCoeffs, in(double type, double maxCount, double epsilon) criteria)</td></tr>
+<tr class="memdesc:aef412e57ee55deef8800a2c235d22074"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute undistorted image points position.  <br /></td></tr>
+<tr class="separator:aef412e57ee55deef8800a2c235d22074"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a405a2862839fd2f1a01522f623e9c127" id="r_a405a2862839fd2f1a01522f623e9c127"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a405a2862839fd2f1a01522f623e9c127">undistortImagePoints</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> src, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> dst, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> cameraMatrix, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> distCoeffs, <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html">TermCriteria</a> criteria)</td></tr>
+<tr class="memdesc:a405a2862839fd2f1a01522f623e9c127"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute undistorted image points position.  <br /></td></tr>
+<tr class="separator:a405a2862839fd2f1a01522f623e9c127"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4516aed80c3740dda140ebd7048a2996" id="r_a4516aed80c3740dda140ebd7048a2996"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4516aed80c3740dda140ebd7048a2996">undistortPoints</a> (<a class="el" href="../../d4/db0/classOpenCVForUnity_1_1CoreModule_1_1MatOfPoint2f.html">MatOfPoint2f</a> src, <a class="el" href="../../d4/db0/classOpenCVForUnity_1_1CoreModule_1_1MatOfPoint2f.html">MatOfPoint2f</a> dst, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> cameraMatrix, <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> distCoeffs)</td></tr>
 <tr class="memdesc:a4516aed80c3740dda140ebd7048a2996"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the ideal point coordinates from the observed point coordinates.  <br /></td></tr>
 <tr class="separator:a4516aed80c3740dda140ebd7048a2996"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1499,6 +1505,7 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>Point coordinates that the resulting Rect cannot represent - outside of the int range, or infinite - are saturated to INT_MIN / INT_MAX, and its width and height are clamped to INT_MAX. </dd></dl>
 
 </div>
 </div>
@@ -1558,6 +1565,7 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>Point coordinates that the resulting Rect cannot represent - outside of the int range, or infinite - are saturated to INT_MIN / INT_MAX, and its width and height are clamped to INT_MAX. </dd></dl>
 
 </div>
 </div>
@@ -3473,7 +3481,7 @@ The input rotated rectangle. It may be the output of @ref minAreaRect.
     <tr><td class="paramname">projMatrix</td><td>3x4 input projection matrix P. </td></tr>
     <tr><td class="paramname">cameraMatrix</td><td>Output 3x3 camera intrinsic matrix \(\cameramatrix{A}\). </td></tr>
     <tr><td class="paramname">rotMatrix</td><td>Output 3x3 external rotation matrix R. </td></tr>
-    <tr><td class="paramname">transVect</td><td>Output 4x1 translation vector T. </td></tr>
+    <tr><td class="paramname">transVect</td><td>Output 4x1 vector representing the camera position in homogeneous coordinates. To obtain the translation vector, use t = -rotMatrix * transVect[:3] </td></tr>
     <tr><td class="paramname">rotMatrixX</td><td>Optional 3x3 rotation matrix around x-axis. </td></tr>
     <tr><td class="paramname">rotMatrixY</td><td>Optional 3x3 rotation matrix around y-axis. </td></tr>
     <tr><td class="paramname">rotMatrixZ</td><td>Optional 3x3 rotation matrix around z-axis. </td></tr>
@@ -3535,7 +3543,7 @@ The input rotated rectangle. It may be the output of @ref minAreaRect.
     <tr><td class="paramname">projMatrix</td><td>3x4 input projection matrix P. </td></tr>
     <tr><td class="paramname">cameraMatrix</td><td>Output 3x3 camera intrinsic matrix \(\cameramatrix{A}\). </td></tr>
     <tr><td class="paramname">rotMatrix</td><td>Output 3x3 external rotation matrix R. </td></tr>
-    <tr><td class="paramname">transVect</td><td>Output 4x1 translation vector T. </td></tr>
+    <tr><td class="paramname">transVect</td><td>Output 4x1 vector representing the camera position in homogeneous coordinates. To obtain the translation vector, use t = -rotMatrix * transVect[:3] </td></tr>
     <tr><td class="paramname">rotMatrixX</td><td>Optional 3x3 rotation matrix around x-axis. </td></tr>
     <tr><td class="paramname">rotMatrixY</td><td>Optional 3x3 rotation matrix around y-axis. </td></tr>
     <tr><td class="paramname">rotMatrixZ</td><td>Optional 3x3 rotation matrix around z-axis. </td></tr>
@@ -3602,7 +3610,7 @@ The input rotated rectangle. It may be the output of @ref minAreaRect.
     <tr><td class="paramname">projMatrix</td><td>3x4 input projection matrix P. </td></tr>
     <tr><td class="paramname">cameraMatrix</td><td>Output 3x3 camera intrinsic matrix \(\cameramatrix{A}\). </td></tr>
     <tr><td class="paramname">rotMatrix</td><td>Output 3x3 external rotation matrix R. </td></tr>
-    <tr><td class="paramname">transVect</td><td>Output 4x1 translation vector T. </td></tr>
+    <tr><td class="paramname">transVect</td><td>Output 4x1 vector representing the camera position in homogeneous coordinates. To obtain the translation vector, use t = -rotMatrix * transVect[:3] </td></tr>
     <tr><td class="paramname">rotMatrixX</td><td>Optional 3x3 rotation matrix around x-axis. </td></tr>
     <tr><td class="paramname">rotMatrixY</td><td>Optional 3x3 rotation matrix around y-axis. </td></tr>
     <tr><td class="paramname">rotMatrixZ</td><td>Optional 3x3 rotation matrix around z-axis. </td></tr>
@@ -3674,7 +3682,7 @@ The input rotated rectangle. It may be the output of @ref minAreaRect.
     <tr><td class="paramname">projMatrix</td><td>3x4 input projection matrix P. </td></tr>
     <tr><td class="paramname">cameraMatrix</td><td>Output 3x3 camera intrinsic matrix \(\cameramatrix{A}\). </td></tr>
     <tr><td class="paramname">rotMatrix</td><td>Output 3x3 external rotation matrix R. </td></tr>
-    <tr><td class="paramname">transVect</td><td>Output 4x1 translation vector T. </td></tr>
+    <tr><td class="paramname">transVect</td><td>Output 4x1 vector representing the camera position in homogeneous coordinates. To obtain the translation vector, use t = -rotMatrix * transVect[:3] </td></tr>
     <tr><td class="paramname">rotMatrixX</td><td>Optional 3x3 rotation matrix around x-axis. </td></tr>
     <tr><td class="paramname">rotMatrixY</td><td>Optional 3x3 rotation matrix around y-axis. </td></tr>
     <tr><td class="paramname">rotMatrixZ</td><td>Optional 3x3 rotation matrix around z-axis. </td></tr>
@@ -3751,7 +3759,7 @@ The input rotated rectangle. It may be the output of @ref minAreaRect.
     <tr><td class="paramname">projMatrix</td><td>3x4 input projection matrix P. </td></tr>
     <tr><td class="paramname">cameraMatrix</td><td>Output 3x3 camera intrinsic matrix \(\cameramatrix{A}\). </td></tr>
     <tr><td class="paramname">rotMatrix</td><td>Output 3x3 external rotation matrix R. </td></tr>
-    <tr><td class="paramname">transVect</td><td>Output 4x1 translation vector T. </td></tr>
+    <tr><td class="paramname">transVect</td><td>Output 4x1 vector representing the camera position in homogeneous coordinates. To obtain the translation vector, use t = -rotMatrix * transVect[:3] </td></tr>
     <tr><td class="paramname">rotMatrixX</td><td>Optional 3x3 rotation matrix around x-axis. </td></tr>
     <tr><td class="paramname">rotMatrixY</td><td>Optional 3x3 rotation matrix around y-axis. </td></tr>
     <tr><td class="paramname">rotMatrixZ</td><td>Optional 3x3 rotation matrix around z-axis. </td></tr>
@@ -5530,7 +5538,7 @@ The input rotated rectangle. It may be the output of @ref minAreaRect.
 </p>
  </dd></dl>
 <div class="fragment"><div class="line">cv::Vec2d t = cv::estimateTranslation2D(from, to, inliers);</div>
-<div class="line">cv::Mat T = (cv::Mat_&lt;double&gt;(2,3) &lt;&lt; 1,0,t[0], 0,1,t[1]);</div>
+<div class="line">cv::Mat T = cv::Mat_&lt;double&gt;({2,3}, {1,0,t[0], 0,1,t[1]});</div>
 </div><!-- fragment --> <p>The function estimates a pure 2D translation between two 2D point sets using the selected robust algorithm. Inliers are determined by the reprojection error threshold.</p>
 <dl class="section note"><dt>Note</dt><dd>The RANSAC method can handle practically any ratio of outliers but needs a threshold to distinguish inliers from outliers. The method LMeDS does not need any threshold but works correctly only when there are more than 50% inliers.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#abc73284f6a2db8b256576d55c7ed50ff" title="Computes an optimal affine transformation between two 2D point sets.">estimateAffine2D</a>, <a class="el" href="#a1eb2c124fa687a9076339254c968a456" title="Computes an optimal limited affine transformation with 4 degrees of freedom between two 2D point sets...">estimateAffinePartial2D</a>, <a class="el" href="#a6d6a27557d3b49c35b48cbfe2a71b828">getAffineTransform</a> </dd></dl>
@@ -5620,7 +5628,7 @@ The input rotated rectangle. It may be the output of @ref minAreaRect.
 </p>
  </dd></dl>
 <div class="fragment"><div class="line">cv::Vec2d t = cv::estimateTranslation2D(from, to, inliers);</div>
-<div class="line">cv::Mat T = (cv::Mat_&lt;double&gt;(2,3) &lt;&lt; 1,0,t[0], 0,1,t[1]);</div>
+<div class="line">cv::Mat T = cv::Mat_&lt;double&gt;({2,3}, {1,0,t[0], 0,1,t[1]});</div>
 </div><!-- fragment --> <p>The function estimates a pure 2D translation between two 2D point sets using the selected robust algorithm. Inliers are determined by the reprojection error threshold.</p>
 <dl class="section note"><dt>Note</dt><dd>The RANSAC method can handle practically any ratio of outliers but needs a threshold to distinguish inliers from outliers. The method LMeDS does not need any threshold but works correctly only when there are more than 50% inliers.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#abc73284f6a2db8b256576d55c7ed50ff" title="Computes an optimal affine transformation between two 2D point sets.">estimateAffine2D</a>, <a class="el" href="#a1eb2c124fa687a9076339254c968a456" title="Computes an optimal limited affine transformation with 4 degrees of freedom between two 2D point sets...">estimateAffinePartial2D</a>, <a class="el" href="#a6d6a27557d3b49c35b48cbfe2a71b828">getAffineTransform</a> </dd></dl>
@@ -5715,7 +5723,7 @@ The input rotated rectangle. It may be the output of @ref minAreaRect.
 </p>
  </dd></dl>
 <div class="fragment"><div class="line">cv::Vec2d t = cv::estimateTranslation2D(from, to, inliers);</div>
-<div class="line">cv::Mat T = (cv::Mat_&lt;double&gt;(2,3) &lt;&lt; 1,0,t[0], 0,1,t[1]);</div>
+<div class="line">cv::Mat T = cv::Mat_&lt;double&gt;({2,3}, {1,0,t[0], 0,1,t[1]});</div>
 </div><!-- fragment --> <p>The function estimates a pure 2D translation between two 2D point sets using the selected robust algorithm. Inliers are determined by the reprojection error threshold.</p>
 <dl class="section note"><dt>Note</dt><dd>The RANSAC method can handle practically any ratio of outliers but needs a threshold to distinguish inliers from outliers. The method LMeDS does not need any threshold but works correctly only when there are more than 50% inliers.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#abc73284f6a2db8b256576d55c7ed50ff" title="Computes an optimal affine transformation between two 2D point sets.">estimateAffine2D</a>, <a class="el" href="#a1eb2c124fa687a9076339254c968a456" title="Computes an optimal limited affine transformation with 4 degrees of freedom between two 2D point sets...">estimateAffinePartial2D</a>, <a class="el" href="#a6d6a27557d3b49c35b48cbfe2a71b828">getAffineTransform</a> </dd></dl>
@@ -5815,7 +5823,7 @@ The input rotated rectangle. It may be the output of @ref minAreaRect.
 </p>
  </dd></dl>
 <div class="fragment"><div class="line">cv::Vec2d t = cv::estimateTranslation2D(from, to, inliers);</div>
-<div class="line">cv::Mat T = (cv::Mat_&lt;double&gt;(2,3) &lt;&lt; 1,0,t[0], 0,1,t[1]);</div>
+<div class="line">cv::Mat T = cv::Mat_&lt;double&gt;({2,3}, {1,0,t[0], 0,1,t[1]});</div>
 </div><!-- fragment --> <p>The function estimates a pure 2D translation between two 2D point sets using the selected robust algorithm. Inliers are determined by the reprojection error threshold.</p>
 <dl class="section note"><dt>Note</dt><dd>The RANSAC method can handle practically any ratio of outliers but needs a threshold to distinguish inliers from outliers. The method LMeDS does not need any threshold but works correctly only when there are more than 50% inliers.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#abc73284f6a2db8b256576d55c7ed50ff" title="Computes an optimal affine transformation between two 2D point sets.">estimateAffine2D</a>, <a class="el" href="#a1eb2c124fa687a9076339254c968a456" title="Computes an optimal limited affine transformation with 4 degrees of freedom between two 2D point sets...">estimateAffinePartial2D</a>, <a class="el" href="#a6d6a27557d3b49c35b48cbfe2a71b828">getAffineTransform</a> </dd></dl>
@@ -5920,7 +5928,7 @@ The input rotated rectangle. It may be the output of @ref minAreaRect.
 </p>
  </dd></dl>
 <div class="fragment"><div class="line">cv::Vec2d t = cv::estimateTranslation2D(from, to, inliers);</div>
-<div class="line">cv::Mat T = (cv::Mat_&lt;double&gt;(2,3) &lt;&lt; 1,0,t[0], 0,1,t[1]);</div>
+<div class="line">cv::Mat T = cv::Mat_&lt;double&gt;({2,3}, {1,0,t[0], 0,1,t[1]});</div>
 </div><!-- fragment --> <p>The function estimates a pure 2D translation between two 2D point sets using the selected robust algorithm. Inliers are determined by the reprojection error threshold.</p>
 <dl class="section note"><dt>Note</dt><dd>The RANSAC method can handle practically any ratio of outliers but needs a threshold to distinguish inliers from outliers. The method LMeDS does not need any threshold but works correctly only when there are more than 50% inliers.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#abc73284f6a2db8b256576d55c7ed50ff" title="Computes an optimal affine transformation between two 2D point sets.">estimateAffine2D</a>, <a class="el" href="#a1eb2c124fa687a9076339254c968a456" title="Computes an optimal limited affine transformation with 4 degrees of freedom between two 2D point sets...">estimateAffinePartial2D</a>, <a class="el" href="#a6d6a27557d3b49c35b48cbfe2a71b828">getAffineTransform</a> </dd></dl>
@@ -6030,7 +6038,7 @@ The input rotated rectangle. It may be the output of @ref minAreaRect.
 </p>
  </dd></dl>
 <div class="fragment"><div class="line">cv::Vec2d t = cv::estimateTranslation2D(from, to, inliers);</div>
-<div class="line">cv::Mat T = (cv::Mat_&lt;double&gt;(2,3) &lt;&lt; 1,0,t[0], 0,1,t[1]);</div>
+<div class="line">cv::Mat T = cv::Mat_&lt;double&gt;({2,3}, {1,0,t[0], 0,1,t[1]});</div>
 </div><!-- fragment --> <p>The function estimates a pure 2D translation between two 2D point sets using the selected robust algorithm. Inliers are determined by the reprojection error threshold.</p>
 <dl class="section note"><dt>Note</dt><dd>The RANSAC method can handle practically any ratio of outliers but needs a threshold to distinguish inliers from outliers. The method LMeDS does not need any threshold but works correctly only when there are more than 50% inliers.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#abc73284f6a2db8b256576d55c7ed50ff" title="Computes an optimal affine transformation between two 2D point sets.">estimateAffine2D</a>, <a class="el" href="#a1eb2c124fa687a9076339254c968a456" title="Computes an optimal limited affine transformation with 4 degrees of freedom between two 2D point sets...">estimateAffinePartial2D</a>, <a class="el" href="#a6d6a27557d3b49c35b48cbfe2a71b828">getAffineTransform</a> </dd></dl>
@@ -6145,7 +6153,7 @@ The input rotated rectangle. It may be the output of @ref minAreaRect.
 </p>
  </dd></dl>
 <div class="fragment"><div class="line">cv::Vec2d t = cv::estimateTranslation2D(from, to, inliers);</div>
-<div class="line">cv::Mat T = (cv::Mat_&lt;double&gt;(2,3) &lt;&lt; 1,0,t[0], 0,1,t[1]);</div>
+<div class="line">cv::Mat T = cv::Mat_&lt;double&gt;({2,3}, {1,0,t[0], 0,1,t[1]});</div>
 </div><!-- fragment --> <p>The function estimates a pure 2D translation between two 2D point sets using the selected robust algorithm. Inliers are determined by the reprojection error threshold.</p>
 <dl class="section note"><dt>Note</dt><dd>The RANSAC method can handle practically any ratio of outliers but needs a threshold to distinguish inliers from outliers. The method LMeDS does not need any threshold but works correctly only when there are more than 50% inliers.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#abc73284f6a2db8b256576d55c7ed50ff" title="Computes an optimal affine transformation between two 2D point sets.">estimateAffine2D</a>, <a class="el" href="#a1eb2c124fa687a9076339254c968a456" title="Computes an optimal limited affine transformation with 4 degrees of freedom between two 2D point sets...">estimateAffinePartial2D</a>, <a class="el" href="#a6d6a27557d3b49c35b48cbfe2a71b828">getAffineTransform</a> </dd></dl>
@@ -9235,7 +9243,7 @@ The input rotated rectangle. It may be the output of @ref minAreaRect.
 <div class="line">Mat fundamental_matrix =</div>
 <div class="line"> <a class="code hl_function" href="#a4bb47dbf54963113fbe5dc5fafae6d0d">findFundamentalMat</a>(points1, points2, <a class="code hl_variable" href="#a07857b0a35afd6fb275e2abab1a717a9">FM_RANSAC</a>, 3, 0.99);</div>
 <div class="ttc" id="aclassOpenCVForUnity_1_1GeometryModule_1_1Geometry_html_a07857b0a35afd6fb275e2abab1a717a9"><div class="ttname"><a href="#a07857b0a35afd6fb275e2abab1a717a9">OpenCVForUnity.GeometryModule.Geometry.FM_RANSAC</a></div><div class="ttdeci">const int FM_RANSAC</div><div class="ttdoc">C++: enum &lt;unnamed&gt;</div><div class="ttdef"><b>Definition</b> Geometry.cs:84</div></div>
-<div class="ttc" id="aclassOpenCVForUnity_1_1GeometryModule_1_1Geometry_html_a4bb47dbf54963113fbe5dc5fafae6d0d"><div class="ttname"><a href="#a4bb47dbf54963113fbe5dc5fafae6d0d">OpenCVForUnity.GeometryModule.Geometry.findFundamentalMat</a></div><div class="ttdeci">static Mat findFundamentalMat(MatOfPoint2f points1, MatOfPoint2f points2, int method, double ransacReprojThreshold, double confidence, int maxIters, Mat mask)</div><div class="ttdoc">Calculates a fundamental matrix from the corresponding points in two images.</div><div class="ttdef"><b>Definition</b> Geometry.cs:5927</div></div>
+<div class="ttc" id="aclassOpenCVForUnity_1_1GeometryModule_1_1Geometry_html_a4bb47dbf54963113fbe5dc5fafae6d0d"><div class="ttname"><a href="#a4bb47dbf54963113fbe5dc5fafae6d0d">OpenCVForUnity.GeometryModule.Geometry.findFundamentalMat</a></div><div class="ttdeci">static Mat findFundamentalMat(MatOfPoint2f points1, MatOfPoint2f points2, int method, double ransacReprojThreshold, double confidence, int maxIters, Mat mask)</div><div class="ttdoc">Calculates a fundamental matrix from the corresponding points in two images.</div><div class="ttdef"><b>Definition</b> Geometry.cs:5936</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -15903,6 +15911,135 @@ For contour-based moments, the zeroth-order moment <code>m00</code> represents t
 
 </div>
 </div>
+<a id="a6e0b1e5aacfa4014c11604387aa98941" name="a6e0b1e5aacfa4014c11604387aa98941"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e0b1e5aacfa4014c11604387aa98941">&#9670;&#160;</a></span>normalEstimate() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void OpenCVForUnity.GeometryModule.Geometry.normalEstimate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>normals</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>curvatures</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>input_pts</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>nn_idx</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Estimate the normal and curvature of each point in point cloud from NN results. </p>
+<p>Normal estimation by PCA:</p><ul>
+<li>Input: Nearest neighbor points of a specific point: \( pt\_set \)</li>
+<li>Step:<ol type="1">
+<li>Calculate the \( mean(\bar{x},\bar{y},\bar{z}) \) of \( pt\_set \);</li>
+<li>A 3x3 covariance matrix \( cov \) is obtained by \( mean^T \cdot mean \);</li>
+<li>Calculate the eigenvalues( \( λ_2 \ge λ_1 \ge λ_0 \)) and corresponding eigenvectors( \( v_2, v_1, v_0 \)) of \( cov \);</li>
+<li>\( v0 \) is the normal of the specific point, \( \frac{λ_0}{λ_0 + λ_1 + λ_2} \) is the curvature of the specific point;</li>
+</ol>
+</li>
+<li>Output: Normal and curvature of the specific point. </li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">normals</td><td>Normal of each point, support vector&lt;Point3f&gt; and Mat of size Nx3. </td></tr>
+    <tr><td class="paramname">curvatures</td><td>Curvature of each point, support vector&lt;float&gt; and Mat. </td></tr>
+    <tr><td class="paramname">input_pts</td><td>Original point cloud, support vector&lt;Point3f&gt; and Mat of size Nx3/3xN. </td></tr>
+    <tr><td class="paramname">nn_idx</td><td>Index information of nearest neighbors of all points. The first nearest neighbor of each point is itself. Support vector&lt;vector&lt;int&gt;&gt;, vector&lt;Mat&gt; and Mat of size NxK. If the information in a row is [0, 2, 1, -5, -1, 4, 7 ... negative number], it will use only non-negative indexes until it meets a negative number or bound of this row i.e. [0, 2, 1]. If left empty (noArray()), the neighbors are computed internally with a kd-tree and <code>max_neighbor_num</code> is used as the number of neighbors k (must be &gt;= 2). </td></tr>
+    <tr><td class="paramname">max_neighbor_num</td><td>The maximum number of neighbors want to use including itself. Setting to a non-positive number or default will use the information from nn_idx. When <code>nn_idx</code> is empty this is the number of neighbors k to search for and must be &gt;= 2. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a24933b72984779bd9c0dc4ca6e892897" name="a24933b72984779bd9c0dc4ca6e892897"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24933b72984779bd9c0dc4ca6e892897">&#9670;&#160;</a></span>normalEstimate() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void OpenCVForUnity.GeometryModule.Geometry.normalEstimate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>normals</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>curvatures</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>input_pts</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List&lt; <a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>nn_idx</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>max_neighbor_num</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Estimate the normal and curvature of each point in point cloud from NN results. </p>
+<p>Normal estimation by PCA:</p><ul>
+<li>Input: Nearest neighbor points of a specific point: \( pt\_set \)</li>
+<li>Step:<ol type="1">
+<li>Calculate the \( mean(\bar{x},\bar{y},\bar{z}) \) of \( pt\_set \);</li>
+<li>A 3x3 covariance matrix \( cov \) is obtained by \( mean^T \cdot mean \);</li>
+<li>Calculate the eigenvalues( \( λ_2 \ge λ_1 \ge λ_0 \)) and corresponding eigenvectors( \( v_2, v_1, v_0 \)) of \( cov \);</li>
+<li>\( v0 \) is the normal of the specific point, \( \frac{λ_0}{λ_0 + λ_1 + λ_2} \) is the curvature of the specific point;</li>
+</ol>
+</li>
+<li>Output: Normal and curvature of the specific point. </li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">normals</td><td>Normal of each point, support vector&lt;Point3f&gt; and Mat of size Nx3. </td></tr>
+    <tr><td class="paramname">curvatures</td><td>Curvature of each point, support vector&lt;float&gt; and Mat. </td></tr>
+    <tr><td class="paramname">input_pts</td><td>Original point cloud, support vector&lt;Point3f&gt; and Mat of size Nx3/3xN. </td></tr>
+    <tr><td class="paramname">nn_idx</td><td>Index information of nearest neighbors of all points. The first nearest neighbor of each point is itself. Support vector&lt;vector&lt;int&gt;&gt;, vector&lt;Mat&gt; and Mat of size NxK. If the information in a row is [0, 2, 1, -5, -1, 4, 7 ... negative number], it will use only non-negative indexes until it meets a negative number or bound of this row i.e. [0, 2, 1]. If left empty (noArray()), the neighbors are computed internally with a kd-tree and <code>max_neighbor_num</code> is used as the number of neighbors k (must be &gt;= 2). </td></tr>
+    <tr><td class="paramname">max_neighbor_num</td><td>The maximum number of neighbors want to use including itself. Setting to a non-positive number or default will use the information from nn_idx. When <code>nn_idx</code> is empty this is the number of neighbors k to search for and must be &gt;= 2. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="af59dc73a9f0f1937120be2a93f504a70" name="af59dc73a9f0f1937120be2a93f504a70"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af59dc73a9f0f1937120be2a93f504a70">&#9670;&#160;</a></span>pointPolygonTest() <span class="overload">[1/3]</span></h2>
 
@@ -16792,8 +16929,8 @@ For contour-based moments, the zeroth-order moment <code>m00</code> represents t
 <div class="line">E = <a class="code hl_function" href="#a7ecb2068ce480d0cffb0dc61aacfe504">findEssentialMat</a>(points1, points2, cameraMatrix, <a class="code hl_variable" href="#a6d0c0722ee3788dddc70e80a13afb051">RANSAC</a>, 0.999, 1.0, mask);</div>
 <div class="line"><a class="code hl_function" href="#ad82f8ef9078dacbea25c75294b0aaeb9">recoverPose</a>(E, points1, points2, cameraMatrix, R, t, mask);</div>
 <div class="ttc" id="aclassOpenCVForUnity_1_1GeometryModule_1_1Geometry_html_a6d0c0722ee3788dddc70e80a13afb051"><div class="ttname"><a href="#a6d0c0722ee3788dddc70e80a13afb051">OpenCVForUnity.GeometryModule.Geometry.RANSAC</a></div><div class="ttdeci">const int RANSAC</div><div class="ttdoc">C++: enum &lt;unnamed&gt;</div><div class="ttdef"><b>Definition</b> Geometry.cs:24</div></div>
-<div class="ttc" id="aclassOpenCVForUnity_1_1GeometryModule_1_1Geometry_html_a7ecb2068ce480d0cffb0dc61aacfe504"><div class="ttname"><a href="#a7ecb2068ce480d0cffb0dc61aacfe504">OpenCVForUnity.GeometryModule.Geometry.findEssentialMat</a></div><div class="ttdeci">static Mat findEssentialMat(Mat points1, Mat points2, Mat cameraMatrix, int method, double prob, double threshold, int maxIters, Mat mask)</div><div class="ttdoc">Calculates an essential matrix from the corresponding points in two images.</div><div class="ttdef"><b>Definition</b> Geometry.cs:6157</div></div>
-<div class="ttc" id="aclassOpenCVForUnity_1_1GeometryModule_1_1Geometry_html_ad82f8ef9078dacbea25c75294b0aaeb9"><div class="ttname"><a href="#ad82f8ef9078dacbea25c75294b0aaeb9">OpenCVForUnity.GeometryModule.Geometry.recoverPose</a></div><div class="ttdeci">static int recoverPose(Mat points1, Mat points2, Mat cameraMatrix1, Mat distCoeffs1, Mat cameraMatrix2, Mat distCoeffs2, Mat E, Mat R, Mat t, int method, double prob, double threshold, Mat mask)</div><div class="ttdoc">Recovers the relative camera rotation and the translation from corresponding points in two images fro...</div><div class="ttdef"><b>Definition</b> Geometry.cs:7445</div></div>
+<div class="ttc" id="aclassOpenCVForUnity_1_1GeometryModule_1_1Geometry_html_a7ecb2068ce480d0cffb0dc61aacfe504"><div class="ttname"><a href="#a7ecb2068ce480d0cffb0dc61aacfe504">OpenCVForUnity.GeometryModule.Geometry.findEssentialMat</a></div><div class="ttdeci">static Mat findEssentialMat(Mat points1, Mat points2, Mat cameraMatrix, int method, double prob, double threshold, int maxIters, Mat mask)</div><div class="ttdoc">Calculates an essential matrix from the corresponding points in two images.</div><div class="ttdef"><b>Definition</b> Geometry.cs:6166</div></div>
+<div class="ttc" id="aclassOpenCVForUnity_1_1GeometryModule_1_1Geometry_html_ad82f8ef9078dacbea25c75294b0aaeb9"><div class="ttname"><a href="#ad82f8ef9078dacbea25c75294b0aaeb9">OpenCVForUnity.GeometryModule.Geometry.recoverPose</a></div><div class="ttdeci">static int recoverPose(Mat points1, Mat points2, Mat cameraMatrix1, Mat distCoeffs1, Mat cameraMatrix2, Mat distCoeffs2, Mat E, Mat R, Mat t, int method, double prob, double threshold, Mat mask)</div><div class="ttdoc">Recovers the relative camera rotation and the translation from corresponding points in two images fro...</div><div class="ttdef"><b>Definition</b> Geometry.cs:7454</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -21630,14 +21767,15 @@ If the projection matrices from stereoRectify are used, then the returned points
     <tr><td class="paramname">dst</td><td>Output undistorted points position (1xN/Nx1 2-channel or vector&lt;Point2f&gt; ). </td></tr>
     <tr><td class="paramname">cameraMatrix</td><td>Camera matrix \(\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\) . </td></tr>
     <tr><td class="paramname">distCoeffs</td><td>Distortion coefficients </td></tr>
+    <tr><td class="paramname">criteria</td><td>Termination criteria for the iterative undistortion, as in <a class="el" href="#ab44d819c88f54d036984146316c7ca28" title="Computes the ideal point coordinates from the observed point coordinates.">undistortPoints</a>. The default runs a fixed 5 iterations and ignores epsilon. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="adf1581f91c238c090dbd73c7d9dc86aa" name="adf1581f91c238c090dbd73c7d9dc86aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf1581f91c238c090dbd73c7d9dc86aa">&#9670;&#160;</a></span>undistortImagePoints() <span class="overload">[2/4]</span></h2>
+<a id="a9030f4965727ce511595fb65d1313ff7" name="a9030f4965727ce511595fb65d1313ff7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9030f4965727ce511595fb65d1313ff7">&#9670;&#160;</a></span>undistortImagePoints() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -21668,7 +21806,7 @@ If the projection matrices from stereoRectify are used, then the returned points
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">in <a class="el" href="../../d7/d9c/structOpenCVForUnity_1_1Extensions_1_1Vec3d.html">Vec3d</a></td>          <td class="paramname"><span class="paramname"><em>arg1</em></span>&#160;)</td>
+          <td class="paramtype">in <a class="el" href="../../d7/d9c/structOpenCVForUnity_1_1Extensions_1_1Vec3d.html">Vec3d</a></td>          <td class="paramname"><span class="paramname"><em>criteria</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -21685,14 +21823,15 @@ If the projection matrices from stereoRectify are used, then the returned points
     <tr><td class="paramname">dst</td><td>Output undistorted points position (1xN/Nx1 2-channel or vector&lt;Point2f&gt; ). </td></tr>
     <tr><td class="paramname">cameraMatrix</td><td>Camera matrix \(\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\) . </td></tr>
     <tr><td class="paramname">distCoeffs</td><td>Distortion coefficients </td></tr>
+    <tr><td class="paramname">criteria</td><td>Termination criteria for the iterative undistortion, as in <a class="el" href="#ab44d819c88f54d036984146316c7ca28" title="Computes the ideal point coordinates from the observed point coordinates.">undistortPoints</a>. The default runs a fixed 5 iterations and ignores epsilon. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="ae4b699d2d3d5ff7786c4bfdbf62e412b" name="ae4b699d2d3d5ff7786c4bfdbf62e412b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4b699d2d3d5ff7786c4bfdbf62e412b">&#9670;&#160;</a></span>undistortImagePoints() <span class="overload">[3/4]</span></h2>
+<a id="aef412e57ee55deef8800a2c235d22074" name="aef412e57ee55deef8800a2c235d22074"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef412e57ee55deef8800a2c235d22074">&#9670;&#160;</a></span>undistortImagePoints() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -21723,7 +21862,7 @@ If the projection matrices from stereoRectify are used, then the returned points
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">in(double type, double maxCount, double epsilon)</td>          <td class="paramname"><span class="paramname"><em>arg1</em></span>&#160;)</td>
+          <td class="paramtype">in(double type, double maxCount, double epsilon)</td>          <td class="paramname"><span class="paramname"><em>criteria</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -21740,14 +21879,15 @@ If the projection matrices from stereoRectify are used, then the returned points
     <tr><td class="paramname">dst</td><td>Output undistorted points position (1xN/Nx1 2-channel or vector&lt;Point2f&gt; ). </td></tr>
     <tr><td class="paramname">cameraMatrix</td><td>Camera matrix \(\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\) . </td></tr>
     <tr><td class="paramname">distCoeffs</td><td>Distortion coefficients </td></tr>
+    <tr><td class="paramname">criteria</td><td>Termination criteria for the iterative undistortion, as in <a class="el" href="#ab44d819c88f54d036984146316c7ca28" title="Computes the ideal point coordinates from the observed point coordinates.">undistortPoints</a>. The default runs a fixed 5 iterations and ignores epsilon. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a86f663a65ee637475bea9bf4aa716a0a" name="a86f663a65ee637475bea9bf4aa716a0a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86f663a65ee637475bea9bf4aa716a0a">&#9670;&#160;</a></span>undistortImagePoints() <span class="overload">[4/4]</span></h2>
+<a id="a405a2862839fd2f1a01522f623e9c127" name="a405a2862839fd2f1a01522f623e9c127"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a405a2862839fd2f1a01522f623e9c127">&#9670;&#160;</a></span>undistortImagePoints() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -21778,7 +21918,7 @@ If the projection matrices from stereoRectify are used, then the returned points
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html">TermCriteria</a></td>          <td class="paramname"><span class="paramname"><em>arg1</em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html">TermCriteria</a></td>          <td class="paramname"><span class="paramname"><em>criteria</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -21795,6 +21935,7 @@ If the projection matrices from stereoRectify are used, then the returned points
     <tr><td class="paramname">dst</td><td>Output undistorted points position (1xN/Nx1 2-channel or vector&lt;Point2f&gt; ). </td></tr>
     <tr><td class="paramname">cameraMatrix</td><td>Camera matrix \(\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\) . </td></tr>
     <tr><td class="paramname">distCoeffs</td><td>Distortion coefficients </td></tr>
+    <tr><td class="paramname">criteria</td><td>Termination criteria for the iterative undistortion, as in <a class="el" href="#ab44d819c88f54d036984146316c7ca28" title="Computes the ideal point coordinates from the observed point coordinates.">undistortPoints</a>. The default runs a fixed 5 iterations and ignores epsilon. </td></tr>
   </table>
   </dd>
 </dl>
@@ -21857,7 +21998,9 @@ If the projection matrices from stereoRectify are used, then the returned points
 </p>
 <p>where <em>undistort</em> is an approximate iterative algorithm that estimates the normalized original point coordinates out of the normalized distorted point coordinates ("normalized" means that the coordinates do not depend on the camera matrix).</p>
 <p>The function can be used for both a stereo camera head or a monocular camera (when R is empty).</p>
-<dl class="section note"><dt>Note</dt><dd><b>Coordinate Systems:</b><ul>
+<dl class="section note"><dt>Note</dt><dd>By default the function runs exactly 5 iterations and does not check convergence: the error is computed only when <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a> is set, so the 0.01 in the default criteria is not used. With strong distortion this leaves a visible error towards the image corners. To iterate until convergence, pass for example <code>TermCriteria(<a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#ac43391d42fcd92f9395bf286dbca6f46">TermCriteria.COUNT</a> + <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a>, 20, 1e-6)</code>. #fisheye::undistortPoints uses <code>TermCriteria(<a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a0f373fcb451199cf56a2e08f4f1f1224">TermCriteria.MAX_ITER</a> + <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a>, 10, 1e-8)</code> by default; note that its epsilon is a threshold on the angle \( \theta \) (radians), not a pixel reprojection error like this function's, so the two numbers are not directly comparable.</dd>
+<dd>
+<b>Coordinate Systems:</b><ul>
 <li><b>Input (<code>src</code>)</b>: Points are expected in <b>pixel coordinates</b> of the distorted image, i.e., coordinates \((u, v)\) measured in pixels from the top-left corner of the image.</li>
 <li><b>Output (<code>dst</code>)</b>: The coordinate system of output points depends on parameter <code>P</code>:<ul>
 <li>If <code>P</code> is provided (not empty): Output points are in <b>pixel coordinates</b> of the rectified/undistorted image plane, using the camera matrix <code>P</code>.</li>
@@ -21874,7 +22017,7 @@ If the projection matrices from stereoRectify are used, then the returned points
     <tr><td class="paramname">distCoeffs</td><td>Input vector of distortion coefficients \((k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\) of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed. </td></tr>
     <tr><td class="paramname">R</td><td>Rectification transformation in the object space (3x3 matrix). R1 or R2 computed by #stereoRectify can be passed here. If the matrix is empty, the identity transformation is used. </td></tr>
     <tr><td class="paramname">P</td><td>New camera matrix (3x3) or new projection matrix (3x4) \(\begin{bmatrix} {f&#39;}_x &amp; 0 &amp; {c&#39;}_x &amp; t_x \\ 0 &amp; {f&#39;}_y &amp; {c&#39;}_y &amp; t_y \\ 0 &amp; 0 &amp; 1 &amp; t_z \end{bmatrix}\). P1 or P2 computed by #stereoRectify can be passed here. If the matrix is empty, the identity new camera matrix is used and output will be in normalized coordinates. </td></tr>
-    <tr><td class="paramname">criteria</td><td>termination criteria for the iterative point undistortion algorithm </td></tr>
+    <tr><td class="paramname">criteria</td><td>Termination criteria for the iterative point undistortion algorithm. The default runs a fixed 5 iterations, see the note above. Keep <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#ac43391d42fcd92f9395bf286dbca6f46">TermCriteria.COUNT</a> in the type when using <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a>: with EPS alone there is no iteration limit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -21942,7 +22085,9 @@ If the projection matrices from stereoRectify are used, then the returned points
 </p>
 <p>where <em>undistort</em> is an approximate iterative algorithm that estimates the normalized original point coordinates out of the normalized distorted point coordinates ("normalized" means that the coordinates do not depend on the camera matrix).</p>
 <p>The function can be used for both a stereo camera head or a monocular camera (when R is empty).</p>
-<dl class="section note"><dt>Note</dt><dd><b>Coordinate Systems:</b><ul>
+<dl class="section note"><dt>Note</dt><dd>By default the function runs exactly 5 iterations and does not check convergence: the error is computed only when <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a> is set, so the 0.01 in the default criteria is not used. With strong distortion this leaves a visible error towards the image corners. To iterate until convergence, pass for example <code>TermCriteria(<a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#ac43391d42fcd92f9395bf286dbca6f46">TermCriteria.COUNT</a> + <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a>, 20, 1e-6)</code>. #fisheye::undistortPoints uses <code>TermCriteria(<a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a0f373fcb451199cf56a2e08f4f1f1224">TermCriteria.MAX_ITER</a> + <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a>, 10, 1e-8)</code> by default; note that its epsilon is a threshold on the angle \( \theta \) (radians), not a pixel reprojection error like this function's, so the two numbers are not directly comparable.</dd>
+<dd>
+<b>Coordinate Systems:</b><ul>
 <li><b>Input (<code>src</code>)</b>: Points are expected in <b>pixel coordinates</b> of the distorted image, i.e., coordinates \((u, v)\) measured in pixels from the top-left corner of the image.</li>
 <li><b>Output (<code>dst</code>)</b>: The coordinate system of output points depends on parameter <code>P</code>:<ul>
 <li>If <code>P</code> is provided (not empty): Output points are in <b>pixel coordinates</b> of the rectified/undistorted image plane, using the camera matrix <code>P</code>.</li>
@@ -21959,7 +22104,7 @@ If the projection matrices from stereoRectify are used, then the returned points
     <tr><td class="paramname">distCoeffs</td><td>Input vector of distortion coefficients \((k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\) of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed. </td></tr>
     <tr><td class="paramname">R</td><td>Rectification transformation in the object space (3x3 matrix). R1 or R2 computed by #stereoRectify can be passed here. If the matrix is empty, the identity transformation is used. </td></tr>
     <tr><td class="paramname">P</td><td>New camera matrix (3x3) or new projection matrix (3x4) \(\begin{bmatrix} {f&#39;}_x &amp; 0 &amp; {c&#39;}_x &amp; t_x \\ 0 &amp; {f&#39;}_y &amp; {c&#39;}_y &amp; t_y \\ 0 &amp; 0 &amp; 1 &amp; t_z \end{bmatrix}\). P1 or P2 computed by #stereoRectify can be passed here. If the matrix is empty, the identity new camera matrix is used and output will be in normalized coordinates. </td></tr>
-    <tr><td class="paramname">criteria</td><td>termination criteria for the iterative point undistortion algorithm </td></tr>
+    <tr><td class="paramname">criteria</td><td>Termination criteria for the iterative point undistortion algorithm. The default runs a fixed 5 iterations, see the note above. Keep <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#ac43391d42fcd92f9395bf286dbca6f46">TermCriteria.COUNT</a> in the type when using <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a>: with EPS alone there is no iteration limit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -22032,7 +22177,9 @@ If the projection matrices from stereoRectify are used, then the returned points
 </p>
 <p>where <em>undistort</em> is an approximate iterative algorithm that estimates the normalized original point coordinates out of the normalized distorted point coordinates ("normalized" means that the coordinates do not depend on the camera matrix).</p>
 <p>The function can be used for both a stereo camera head or a monocular camera (when R is empty).</p>
-<dl class="section note"><dt>Note</dt><dd><b>Coordinate Systems:</b><ul>
+<dl class="section note"><dt>Note</dt><dd>By default the function runs exactly 5 iterations and does not check convergence: the error is computed only when <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a> is set, so the 0.01 in the default criteria is not used. With strong distortion this leaves a visible error towards the image corners. To iterate until convergence, pass for example <code>TermCriteria(<a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#ac43391d42fcd92f9395bf286dbca6f46">TermCriteria.COUNT</a> + <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a>, 20, 1e-6)</code>. #fisheye::undistortPoints uses <code>TermCriteria(<a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a0f373fcb451199cf56a2e08f4f1f1224">TermCriteria.MAX_ITER</a> + <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a>, 10, 1e-8)</code> by default; note that its epsilon is a threshold on the angle \( \theta \) (radians), not a pixel reprojection error like this function's, so the two numbers are not directly comparable.</dd>
+<dd>
+<b>Coordinate Systems:</b><ul>
 <li><b>Input (<code>src</code>)</b>: Points are expected in <b>pixel coordinates</b> of the distorted image, i.e., coordinates \((u, v)\) measured in pixels from the top-left corner of the image.</li>
 <li><b>Output (<code>dst</code>)</b>: The coordinate system of output points depends on parameter <code>P</code>:<ul>
 <li>If <code>P</code> is provided (not empty): Output points are in <b>pixel coordinates</b> of the rectified/undistorted image plane, using the camera matrix <code>P</code>.</li>
@@ -22049,7 +22196,7 @@ If the projection matrices from stereoRectify are used, then the returned points
     <tr><td class="paramname">distCoeffs</td><td>Input vector of distortion coefficients \((k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\) of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed. </td></tr>
     <tr><td class="paramname">R</td><td>Rectification transformation in the object space (3x3 matrix). R1 or R2 computed by #stereoRectify can be passed here. If the matrix is empty, the identity transformation is used. </td></tr>
     <tr><td class="paramname">P</td><td>New camera matrix (3x3) or new projection matrix (3x4) \(\begin{bmatrix} {f&#39;}_x &amp; 0 &amp; {c&#39;}_x &amp; t_x \\ 0 &amp; {f&#39;}_y &amp; {c&#39;}_y &amp; t_y \\ 0 &amp; 0 &amp; 1 &amp; t_z \end{bmatrix}\). P1 or P2 computed by #stereoRectify can be passed here. If the matrix is empty, the identity new camera matrix is used and output will be in normalized coordinates. </td></tr>
-    <tr><td class="paramname">criteria</td><td>termination criteria for the iterative point undistortion algorithm </td></tr>
+    <tr><td class="paramname">criteria</td><td>Termination criteria for the iterative point undistortion algorithm. The default runs a fixed 5 iterations, see the note above. Keep <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#ac43391d42fcd92f9395bf286dbca6f46">TermCriteria.COUNT</a> in the type when using <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a>: with EPS alone there is no iteration limit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -22127,7 +22274,9 @@ If the projection matrices from stereoRectify are used, then the returned points
 </p>
 <p>where <em>undistort</em> is an approximate iterative algorithm that estimates the normalized original point coordinates out of the normalized distorted point coordinates ("normalized" means that the coordinates do not depend on the camera matrix).</p>
 <p>The function can be used for both a stereo camera head or a monocular camera (when R is empty).</p>
-<dl class="section note"><dt>Note</dt><dd><b>Coordinate Systems:</b><ul>
+<dl class="section note"><dt>Note</dt><dd>By default the function runs exactly 5 iterations and does not check convergence: the error is computed only when <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a> is set, so the 0.01 in the default criteria is not used. With strong distortion this leaves a visible error towards the image corners. To iterate until convergence, pass for example <code>TermCriteria(<a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#ac43391d42fcd92f9395bf286dbca6f46">TermCriteria.COUNT</a> + <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a>, 20, 1e-6)</code>. #fisheye::undistortPoints uses <code>TermCriteria(<a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a0f373fcb451199cf56a2e08f4f1f1224">TermCriteria.MAX_ITER</a> + <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a>, 10, 1e-8)</code> by default; note that its epsilon is a threshold on the angle \( \theta \) (radians), not a pixel reprojection error like this function's, so the two numbers are not directly comparable.</dd>
+<dd>
+<b>Coordinate Systems:</b><ul>
 <li><b>Input (<code>src</code>)</b>: Points are expected in <b>pixel coordinates</b> of the distorted image, i.e., coordinates \((u, v)\) measured in pixels from the top-left corner of the image.</li>
 <li><b>Output (<code>dst</code>)</b>: The coordinate system of output points depends on parameter <code>P</code>:<ul>
 <li>If <code>P</code> is provided (not empty): Output points are in <b>pixel coordinates</b> of the rectified/undistorted image plane, using the camera matrix <code>P</code>.</li>
@@ -22144,7 +22293,7 @@ If the projection matrices from stereoRectify are used, then the returned points
     <tr><td class="paramname">distCoeffs</td><td>Input vector of distortion coefficients \((k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\) of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed. </td></tr>
     <tr><td class="paramname">R</td><td>Rectification transformation in the object space (3x3 matrix). R1 or R2 computed by #stereoRectify can be passed here. If the matrix is empty, the identity transformation is used. </td></tr>
     <tr><td class="paramname">P</td><td>New camera matrix (3x3) or new projection matrix (3x4) \(\begin{bmatrix} {f&#39;}_x &amp; 0 &amp; {c&#39;}_x &amp; t_x \\ 0 &amp; {f&#39;}_y &amp; {c&#39;}_y &amp; t_y \\ 0 &amp; 0 &amp; 1 &amp; t_z \end{bmatrix}\). P1 or P2 computed by #stereoRectify can be passed here. If the matrix is empty, the identity new camera matrix is used and output will be in normalized coordinates. </td></tr>
-    <tr><td class="paramname">criteria</td><td>termination criteria for the iterative point undistortion algorithm </td></tr>
+    <tr><td class="paramname">criteria</td><td>Termination criteria for the iterative point undistortion algorithm. The default runs a fixed 5 iterations, see the note above. Keep <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#ac43391d42fcd92f9395bf286dbca6f46">TermCriteria.COUNT</a> in the type when using <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a>: with EPS alone there is no iteration limit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -22222,7 +22371,9 @@ If the projection matrices from stereoRectify are used, then the returned points
 </p>
 <p>where <em>undistort</em> is an approximate iterative algorithm that estimates the normalized original point coordinates out of the normalized distorted point coordinates ("normalized" means that the coordinates do not depend on the camera matrix).</p>
 <p>The function can be used for both a stereo camera head or a monocular camera (when R is empty).</p>
-<dl class="section note"><dt>Note</dt><dd><b>Coordinate Systems:</b><ul>
+<dl class="section note"><dt>Note</dt><dd>By default the function runs exactly 5 iterations and does not check convergence: the error is computed only when <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a> is set, so the 0.01 in the default criteria is not used. With strong distortion this leaves a visible error towards the image corners. To iterate until convergence, pass for example <code>TermCriteria(<a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#ac43391d42fcd92f9395bf286dbca6f46">TermCriteria.COUNT</a> + <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a>, 20, 1e-6)</code>. #fisheye::undistortPoints uses <code>TermCriteria(<a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a0f373fcb451199cf56a2e08f4f1f1224">TermCriteria.MAX_ITER</a> + <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a>, 10, 1e-8)</code> by default; note that its epsilon is a threshold on the angle \( \theta \) (radians), not a pixel reprojection error like this function's, so the two numbers are not directly comparable.</dd>
+<dd>
+<b>Coordinate Systems:</b><ul>
 <li><b>Input (<code>src</code>)</b>: Points are expected in <b>pixel coordinates</b> of the distorted image, i.e., coordinates \((u, v)\) measured in pixels from the top-left corner of the image.</li>
 <li><b>Output (<code>dst</code>)</b>: The coordinate system of output points depends on parameter <code>P</code>:<ul>
 <li>If <code>P</code> is provided (not empty): Output points are in <b>pixel coordinates</b> of the rectified/undistorted image plane, using the camera matrix <code>P</code>.</li>
@@ -22239,7 +22390,7 @@ If the projection matrices from stereoRectify are used, then the returned points
     <tr><td class="paramname">distCoeffs</td><td>Input vector of distortion coefficients \((k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\) of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed. </td></tr>
     <tr><td class="paramname">R</td><td>Rectification transformation in the object space (3x3 matrix). R1 or R2 computed by #stereoRectify can be passed here. If the matrix is empty, the identity transformation is used. </td></tr>
     <tr><td class="paramname">P</td><td>New camera matrix (3x3) or new projection matrix (3x4) \(\begin{bmatrix} {f&#39;}_x &amp; 0 &amp; {c&#39;}_x &amp; t_x \\ 0 &amp; {f&#39;}_y &amp; {c&#39;}_y &amp; t_y \\ 0 &amp; 0 &amp; 1 &amp; t_z \end{bmatrix}\). P1 or P2 computed by #stereoRectify can be passed here. If the matrix is empty, the identity new camera matrix is used and output will be in normalized coordinates. </td></tr>
-    <tr><td class="paramname">criteria</td><td>termination criteria for the iterative point undistortion algorithm </td></tr>
+    <tr><td class="paramname">criteria</td><td>Termination criteria for the iterative point undistortion algorithm. The default runs a fixed 5 iterations, see the note above. Keep <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#ac43391d42fcd92f9395bf286dbca6f46">TermCriteria.COUNT</a> in the type when using <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a>: with EPS alone there is no iteration limit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -22317,7 +22468,9 @@ If the projection matrices from stereoRectify are used, then the returned points
 </p>
 <p>where <em>undistort</em> is an approximate iterative algorithm that estimates the normalized original point coordinates out of the normalized distorted point coordinates ("normalized" means that the coordinates do not depend on the camera matrix).</p>
 <p>The function can be used for both a stereo camera head or a monocular camera (when R is empty).</p>
-<dl class="section note"><dt>Note</dt><dd><b>Coordinate Systems:</b><ul>
+<dl class="section note"><dt>Note</dt><dd>By default the function runs exactly 5 iterations and does not check convergence: the error is computed only when <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a> is set, so the 0.01 in the default criteria is not used. With strong distortion this leaves a visible error towards the image corners. To iterate until convergence, pass for example <code>TermCriteria(<a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#ac43391d42fcd92f9395bf286dbca6f46">TermCriteria.COUNT</a> + <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a>, 20, 1e-6)</code>. #fisheye::undistortPoints uses <code>TermCriteria(<a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a0f373fcb451199cf56a2e08f4f1f1224">TermCriteria.MAX_ITER</a> + <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a>, 10, 1e-8)</code> by default; note that its epsilon is a threshold on the angle \( \theta \) (radians), not a pixel reprojection error like this function's, so the two numbers are not directly comparable.</dd>
+<dd>
+<b>Coordinate Systems:</b><ul>
 <li><b>Input (<code>src</code>)</b>: Points are expected in <b>pixel coordinates</b> of the distorted image, i.e., coordinates \((u, v)\) measured in pixels from the top-left corner of the image.</li>
 <li><b>Output (<code>dst</code>)</b>: The coordinate system of output points depends on parameter <code>P</code>:<ul>
 <li>If <code>P</code> is provided (not empty): Output points are in <b>pixel coordinates</b> of the rectified/undistorted image plane, using the camera matrix <code>P</code>.</li>
@@ -22334,7 +22487,7 @@ If the projection matrices from stereoRectify are used, then the returned points
     <tr><td class="paramname">distCoeffs</td><td>Input vector of distortion coefficients \((k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\) of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed. </td></tr>
     <tr><td class="paramname">R</td><td>Rectification transformation in the object space (3x3 matrix). R1 or R2 computed by #stereoRectify can be passed here. If the matrix is empty, the identity transformation is used. </td></tr>
     <tr><td class="paramname">P</td><td>New camera matrix (3x3) or new projection matrix (3x4) \(\begin{bmatrix} {f&#39;}_x &amp; 0 &amp; {c&#39;}_x &amp; t_x \\ 0 &amp; {f&#39;}_y &amp; {c&#39;}_y &amp; t_y \\ 0 &amp; 0 &amp; 1 &amp; t_z \end{bmatrix}\). P1 or P2 computed by #stereoRectify can be passed here. If the matrix is empty, the identity new camera matrix is used and output will be in normalized coordinates. </td></tr>
-    <tr><td class="paramname">criteria</td><td>termination criteria for the iterative point undistortion algorithm </td></tr>
+    <tr><td class="paramname">criteria</td><td>Termination criteria for the iterative point undistortion algorithm. The default runs a fixed 5 iterations, see the note above. Keep <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#ac43391d42fcd92f9395bf286dbca6f46">TermCriteria.COUNT</a> in the type when using <a class="el" href="../../d8/dbf/classOpenCVForUnity_1_1CoreModule_1_1TermCriteria.html#a816ef1e6ee1483353cf634a91564b637">TermCriteria.EPS</a>: with EPS alone there is no iteration limit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -24294,6 +24447,7 @@ For contour-based moments, the zeroth-order moment <code>m00</code> represents t
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>Point coordinates that the resulting Rect cannot represent - outside of the int range, or infinite - are saturated to INT_MIN / INT_MAX, and its width and height are clamped to INT_MAX. </dd></dl>
 
 </div>
 </div>

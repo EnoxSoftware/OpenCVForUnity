@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.4</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.5</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/5.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -207,8 +207,8 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a75488dd667fe958cb1e210ce9c337979"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af88d8c216e1ddd49eb0a86604d15ff0a" id="r_af88d8c216e1ddd49eb0a86604d15ff0a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af88d8c216e1ddd49eb0a86604d15ff0a">_confidence</a> = 0.99f</td></tr>
 <tr class="separator:af88d8c216e1ddd49eb0a86604d15ff0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef0b4a225908647f121eff0da6ba816b" id="r_aef0b4a225908647f121eff0da6ba816b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef0b4a225908647f121eff0da6ba816b">_convertLeftHandedARMatrix</a> = true</td></tr>
-<tr class="separator:aef0b4a225908647f121eff0da6ba816b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58aabcfb3d9229afe52a6a9c89eecbd7" id="r_a58aabcfb3d9229afe52a6a9c89eecbd7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a58aabcfb3d9229afe52a6a9c89eecbd7">_convertToUnityCoordinates</a> = true</td></tr>
+<tr class="separator:a58aabcfb3d9229afe52a6a9c89eecbd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2808d12a205279dbd5163ad4c3bace90" id="r_a2808d12a205279dbd5163ad4c3bace90"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2808d12a205279dbd5163ad4c3bace90">_delayFrameOnEnterARCameraViewportEvent</a> = 0</td></tr>
 <tr class="separator:a2808d12a205279dbd5163ad4c3bace90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82f38720918a39ce4aa91997f23a83c1" id="r_a82f38720918a39ce4aa91997f23a83c1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a82f38720918a39ce4aa91997f23a83c1">_delayFrameOnExitARCameraViewportEvent</a> = 0</td></tr>
@@ -237,8 +237,6 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a9506fba08916c9f5154a1724cffeb623" id="r_a9506fba08916c9f5154a1724cffeb623"><td class="memItemLeft" align="right" valign="top">PoseData&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9506fba08916c9f5154a1724cffeb623">_lastFilteredPose</a></td></tr>
 <tr class="memdesc:a9506fba08916c9f5154a1724cffeb623"><td class="mdescLeft">&#160;</td><td class="mdescRight">The old pose data from the latest valid estimate (for inspector refresh without re-running solvePnP).  <br /></td></tr>
 <tr class="separator:a9506fba08916c9f5154a1724cffeb623"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae291a5a379a45dc0f704b4bc8a970b23" id="r_ae291a5a379a45dc0f704b4bc8a970b23"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae291a5a379a45dc0f704b4bc8a970b23">_leftHandedCoordinates</a> = false</td></tr>
-<tr class="separator:ae291a5a379a45dc0f704b4bc8a970b23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5fba65d912f242de2b65ab8ebdbcd791" id="r_a5fba65d912f242de2b65ab8ebdbcd791"><td class="memItemLeft" align="right" valign="top">Vector2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5fba65d912f242de2b65ab8ebdbcd791">_ndcXRange</a> = new Vector2(-1.0f, 1.0f)</td></tr>
 <tr class="separator:a5fba65d912f242de2b65ab8ebdbcd791"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76c7ad625b7e9cb12c9332f10088c07b" id="r_a76c7ad625b7e9cb12c9332f10088c07b"><td class="memItemLeft" align="right" valign="top">Vector2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a76c7ad625b7e9cb12c9332f10088c07b">_ndcYRange</a> = new Vector2(-1.0f, 1.0f)</td></tr>
@@ -247,6 +245,8 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:ab03c085cf4b572c7cc15736836621e27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add72ba8f313f94761a48e8e1d5b132bf" id="r_add72ba8f313f94761a48e8e1d5b132bf"><td class="memItemLeft" align="right" valign="top">Vector3[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#add72ba8f313f94761a48e8e1d5b132bf">_objectPoints</a> = null</td></tr>
 <tr class="separator:add72ba8f313f94761a48e8e1d5b132bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34f1d35eaca9e666ba90ecede3b686e9" id="r_a34f1d35eaca9e666ba90ecede3b686e9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a34f1d35eaca9e666ba90ecede3b686e9">_objectPointsInUnityCoordinates</a> = false</td></tr>
+<tr class="separator:a34f1d35eaca9e666ba90ecede3b686e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8be29fdc0af2292242581581850d71c9" id="r_a8be29fdc0af2292242581581850d71c9"><td class="memItemLeft" align="right" valign="top">UnityEvent&lt; <a class="el" href="../../d0/dee/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARHelper.html">ARHelper</a>, <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html">ARCamera</a>, <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html">ARGameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8be29fdc0af2292242581581850d71c9">_onEnterARCameraViewport</a></td></tr>
 <tr class="separator:a8be29fdc0af2292242581581850d71c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52bee1db85e12da9c16295f91c563c77" id="r_a52bee1db85e12da9c16295f91c563c77"><td class="memItemLeft" align="right" valign="top">UnityEvent&lt; <a class="el" href="../../d0/dee/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARHelper.html">ARHelper</a>, <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html">ARCamera</a>, <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html">ARGameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a52bee1db85e12da9c16295f91c563c77">_onExitARCameraViewport</a></td></tr>
@@ -306,9 +306,9 @@ Properties</h2></td></tr>
 <tr class="memitem:ad8093ae414d5ef4b7a9cbec2f8be7ae5" id="r_ad8093ae414d5ef4b7a9cbec2f8be7ae5"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad8093ae414d5ef4b7a9cbec2f8be7ae5">Confidence</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:ad8093ae414d5ef4b7a9cbec2f8be7ae5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Confidence level for RANSAC.  <br /></td></tr>
 <tr class="separator:ad8093ae414d5ef4b7a9cbec2f8be7ae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abecafbe57156bb4970e9ca1d6d95b73f" id="r_abecafbe57156bb4970e9ca1d6d95b73f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abecafbe57156bb4970e9ca1d6d95b73f">ConvertLeftHandedARMatrix</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:abecafbe57156bb4970e9ca1d6d95b73f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the matrix returned by <a class="el" href="#ae9fe4fbc28bbd8ba5dd0e3e1224c0c36" title="Gets the AR transformation matrix updated by CalculateARMatrix.">GetARMatrix</a> includes conversion from OpenCV right-handed to Unity left-handed coordinates (passed to ConvertPoseDataToMatrix as <code>convertToUnityCoordinates</code>).  <br /></td></tr>
-<tr class="separator:abecafbe57156bb4970e9ca1d6d95b73f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77b348067b7a7aac5b73c96d6c295e39" id="r_a77b348067b7a7aac5b73c96d6c295e39"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a77b348067b7a7aac5b73c96d6c295e39">ConvertToUnityCoordinates</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a77b348067b7a7aac5b73c96d6c295e39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the matrix returned by <a class="el" href="#ae9fe4fbc28bbd8ba5dd0e3e1224c0c36" title="Gets the AR transformation matrix updated by CalculateARMatrix.">GetARMatrix</a> includes conversion from OpenCV right-handed to Unity left-handed coordinates (passed to ConvertPoseDataToMatrix as <code>convertToUnityCoordinates</code>).  <br /></td></tr>
+<tr class="separator:a77b348067b7a7aac5b73c96d6c295e39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d302c289eb26b9463b12ef8cd946ff1" id="r_a1d302c289eb26b9463b12ef8cd946ff1"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d302c289eb26b9463b12ef8cd946ff1">DelayFrameOnEnterARCameraViewportEvent</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a1d302c289eb26b9463b12ef8cd946ff1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invoke UnityEvent onEnterARCameraViewport only when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> is in the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="Manages AR camera calibration parameters and Unity Camera.projectionMatrix for the AR pipeline....">ARCamera</a> viewport for the specified number of consecutive frames. Prevents frequent notifications due to noise.  <br /></td></tr>
 <tr class="separator:a1d302c289eb26b9463b12ef8cd946ff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -324,9 +324,6 @@ Properties</h2></td></tr>
 <tr class="memitem:a982b3098a96388a8403643209231517d" id="r_a982b3098a96388a8403643209231517d"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a982b3098a96388a8403643209231517d">IterationsCount</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a982b3098a96388a8403643209231517d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of iterations for RANSAC.  <br /></td></tr>
 <tr class="separator:a982b3098a96388a8403643209231517d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7275320fe10a5a68470f1b24bc7a84ca" id="r_a7275320fe10a5a68470f1b24bc7a84ca"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7275320fe10a5a68470f1b24bc7a84ca">LeftHandedCoordinates</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a7275320fe10a5a68470f1b24bc7a84ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable this flag if the object point is a left-hand coordinate system (Unity). When converting from a right-hand coordinate system to Unity coordinates (left-hand coordinate system), use the rule of inverting the Y coordinate.  <br /></td></tr>
-<tr class="separator:a7275320fe10a5a68470f1b24bc7a84ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ef544a91a4530eb436fefcf9a9eecf5" id="r_a4ef544a91a4530eb436fefcf9a9eecf5"><td class="memItemLeft" align="right" valign="top">virtual Vector2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ef544a91a4530eb436fefcf9a9eecf5">NdcXRange</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a4ef544a91a4530eb436fefcf9a9eecf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valid NDC X range passed to ARPoseEstimator during <a class="el" href="#a953a49d3aef51e8c555e7ad9f683d7ac" title="Runs pose estimation when solvePnP inputs or settings have changed, then updates the AR matrix used b...">CalculateARMatrix</a>. The latest inside/outside state is exposed by <a class="el" href="#ae603836af588107d850a31d9603b0f58" title="Cached viewport flag from the latest CalculateARMatrix / ARPoseEstimator.Estimate result (ARPoseEstim...">IsARGameObjectInARCameraViewport</a>.  <br /></td></tr>
 <tr class="separator:a4ef544a91a4530eb436fefcf9a9eecf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -339,6 +336,9 @@ Properties</h2></td></tr>
 <tr class="memitem:a98a5cc0c382d9e47f99558306ebcf6ac" id="r_a98a5cc0c382d9e47f99558306ebcf6ac"><td class="memItemLeft" align="right" valign="top">virtual Vector3[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a98a5cc0c382d9e47f99558306ebcf6ac">ObjectPoints</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a98a5cc0c382d9e47f99558306ebcf6ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify the objectPoints argument to the Calib3d.solvePnP() method.  <br /></td></tr>
 <tr class="separator:a98a5cc0c382d9e47f99558306ebcf6ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6915bc7ff895b94509eab81c8eebcef" id="r_af6915bc7ff895b94509eab81c8eebcef"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6915bc7ff895b94509eab81c8eebcef">ObjectPointsInUnityCoordinates</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:af6915bc7ff895b94509eab81c8eebcef"><td class="mdescLeft">&#160;</td><td class="mdescRight">When enabled, <a class="el" href="#a98a5cc0c382d9e47f99558306ebcf6ac" title="Specify the objectPoints argument to the Calib3d.solvePnP() method.">ObjectPoints</a> are interpreted as Unity (left-handed) coordinates. Y is inverted before solvePnP so points are passed to OpenCV in a right-handed coordinate system. When disabled, <a class="el" href="#a98a5cc0c382d9e47f99558306ebcf6ac" title="Specify the objectPoints argument to the Calib3d.solvePnP() method.">ObjectPoints</a> are already in OpenCV right-handed coordinates.  <br /></td></tr>
+<tr class="separator:af6915bc7ff895b94509eab81c8eebcef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad253bc76b4a3b4df72375e008219cefc" id="r_ad253bc76b4a3b4df72375e008219cefc"><td class="memItemLeft" align="right" valign="top">virtual UnityEvent&lt; <a class="el" href="../../d0/dee/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARHelper.html">ARHelper</a>, <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html">ARCamera</a>, <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html">ARGameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad253bc76b4a3b4df72375e008219cefc">OnEnterARCameraViewport</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:ad253bc76b4a3b4df72375e008219cefc"><td class="mdescLeft">&#160;</td><td class="mdescRight">UnityEvent notified when the <a class="el" href="../../db/d3f/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARGameObject.html" title="Unity integration layer for an AR object that works with ARCamera. Bridges Inspector settings and Vec...">ARGameObject</a> enters the viewport of the <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="Manages AR camera calibration parameters and Unity Camera.projectionMatrix for the AR pipeline....">ARCamera</a>.  <br /></td></tr>
 <tr class="separator:ad253bc76b4a3b4df72375e008219cefc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -401,7 +401,7 @@ Properties</h2></td></tr>
 <div class="textblock"><p>Unity integration layer for an <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> object that works with <a class="el" href="../../d8/dff/classOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR_1_1ARCamera.html" title="Manages AR camera calibration parameters and Unity Camera.projectionMatrix for the AR pipeline....">ARCamera</a>. Bridges Inspector settings and <code>Vector2[]</code>/<code>Vector3[]</code> point data to ARPoseEstimator, then applies the returned pose via ConvertPoseDataToMatrix and <a class="el" href="#a4c1a91b254140c471e0f1f59fbde7bdb" title="Update the Transform of UpdateTarget using ARMatrix. This method uses the ARMatrix calculated by the ...">UpdateTransform</a>. </p>
 <ul>
 <li>Pose estimation (solvePnP, RANSAC, refinement, RMS rejection, NDC viewport, outlier hold, low-pass, smoothing) runs in ARPoseEstimator; this class mirrors Inspector values into ARPoseEstimator.ARPoseEstimateSettings before each estimate.</li>
-<li>Converts <a class="el" href="#ae54b4ade661f7de59cc288a181e31994" title="Specify the imagePoints argument to the Calib3d.solvePnP() method.">ImagePoints</a> / <a class="el" href="#a98a5cc0c382d9e47f99558306ebcf6ac" title="Specify the objectPoints argument to the Calib3d.solvePnP() method.">ObjectPoints</a> to <code>Mat</code> and optionally inverts object-point Y for Unity left-handed inputs.</li>
+<li>Converts <a class="el" href="#ae54b4ade661f7de59cc288a181e31994" title="Specify the imagePoints argument to the Calib3d.solvePnP() method.">ImagePoints</a> / <a class="el" href="#a98a5cc0c382d9e47f99558306ebcf6ac" title="Specify the objectPoints argument to the Calib3d.solvePnP() method.">ObjectPoints</a> to <code>Mat</code> and optionally inverts object-point Y when <a class="el" href="#af6915bc7ff895b94509eab81c8eebcef" title="When enabled, ObjectPoints are interpreted as Unity (left-handed) coordinates. Y is inverted before s...">ObjectPointsInUnityCoordinates</a> is enabled.</li>
 <li>Configurable NDC ranges are passed to the estimator; the latest inside/outside state is exposed by <a class="el" href="#ae603836af588107d850a31d9603b0f58" title="Cached viewport flag from the latest CalculateARMatrix / ARPoseEstimator.Estimate result (ARPoseEstim...">IsARGameObjectInARCameraViewport</a>.</li>
 <li>Supports axis inversion transformations for <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> matrix adjustments.</li>
 <li>Triggers events when the object enters or exits the <a class="el" href="../../d5/d45/namespaceOpenCVForUnity_1_1UnityIntegration_1_1Helper_1_1AR.html">AR</a> camera viewport with configurable delay frames.</li>
@@ -957,8 +957,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="aef0b4a225908647f121eff0da6ba816b" name="aef0b4a225908647f121eff0da6ba816b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef0b4a225908647f121eff0da6ba816b">&#9670;&#160;</a></span>_convertLeftHandedARMatrix</h2>
+<a id="a58aabcfb3d9229afe52a6a9c89eecbd7" name="a58aabcfb3d9229afe52a6a9c89eecbd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58aabcfb3d9229afe52a6a9c89eecbd7">&#9670;&#160;</a></span>_convertToUnityCoordinates</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -967,7 +967,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._convertLeftHandedARMatrix = true</td>
+          <td class="memname">bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._convertToUnityCoordinates = true</td>
         </tr>
       </table>
   </td>
@@ -1233,28 +1233,6 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="ae291a5a379a45dc0f704b4bc8a970b23" name="ae291a5a379a45dc0f704b4bc8a970b23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae291a5a379a45dc0f704b4bc8a970b23">&#9670;&#160;</a></span>_leftHandedCoordinates</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._leftHandedCoordinates = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a5fba65d912f242de2b65ab8ebdbcd791" name="a5fba65d912f242de2b65ab8ebdbcd791"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5fba65d912f242de2b65ab8ebdbcd791">&#9670;&#160;</a></span>_ndcXRange</h2>
 
@@ -1332,6 +1310,28 @@ Properties</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">Vector3 [] OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._objectPoints = null</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a34f1d35eaca9e666ba90ecede3b686e9" name="a34f1d35eaca9e666ba90ecede3b686e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34f1d35eaca9e666ba90ecede3b686e9">&#9670;&#160;</a></span>_objectPointsInUnityCoordinates</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject._objectPointsInUnityCoordinates = false</td>
         </tr>
       </table>
   </td>
@@ -1910,8 +1910,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="abecafbe57156bb4970e9ca1d6d95b73f" name="abecafbe57156bb4970e9ca1d6d95b73f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abecafbe57156bb4970e9ca1d6d95b73f">&#9670;&#160;</a></span>ConvertLeftHandedARMatrix</h2>
+<a id="a77b348067b7a7aac5b73c96d6c295e39" name="a77b348067b7a7aac5b73c96d6c295e39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77b348067b7a7aac5b73c96d6c295e39">&#9670;&#160;</a></span>ConvertToUnityCoordinates</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1920,7 +1920,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.ConvertLeftHandedARMatrix</td>
+          <td class="memname">virtual bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.ConvertToUnityCoordinates</td>
         </tr>
       </table>
   </td>
@@ -2054,30 +2054,6 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a7275320fe10a5a68470f1b24bc7a84ca" name="a7275320fe10a5a68470f1b24bc7a84ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7275320fe10a5a68470f1b24bc7a84ca">&#9670;&#160;</a></span>LeftHandedCoordinates</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.LeftHandedCoordinates</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Enable this flag if the object point is a left-hand coordinate system (Unity). When converting from a right-hand coordinate system to Unity coordinates (left-hand coordinate system), use the rule of inverting the Y coordinate. </p>
-
-</div>
-</div>
 <a id="a4ef544a91a4530eb436fefcf9a9eecf5" name="a4ef544a91a4530eb436fefcf9a9eecf5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4ef544a91a4530eb436fefcf9a9eecf5">&#9670;&#160;</a></span>NdcXRange</h2>
 
@@ -2171,6 +2147,30 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Specify the objectPoints argument to the Calib3d.solvePnP() method. </p>
+
+</div>
+</div>
+<a id="af6915bc7ff895b94509eab81c8eebcef" name="af6915bc7ff895b94509eab81c8eebcef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6915bc7ff895b94509eab81c8eebcef">&#9670;&#160;</a></span>ObjectPointsInUnityCoordinates</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool OpenCVForUnity.UnityIntegration.Helper.AR.ARGameObject.ObjectPointsInUnityCoordinates</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>When enabled, <a class="el" href="#a98a5cc0c382d9e47f99558306ebcf6ac" title="Specify the objectPoints argument to the Calib3d.solvePnP() method.">ObjectPoints</a> are interpreted as Unity (left-handed) coordinates. Y is inverted before solvePnP so points are passed to OpenCV in a right-handed coordinate system. When disabled, <a class="el" href="#a98a5cc0c382d9e47f99558306ebcf6ac" title="Specify the objectPoints argument to the Calib3d.solvePnP() method.">ObjectPoints</a> are already in OpenCV right-handed coordinates. </p>
 
 </div>
 </div>

@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.4</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.5</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/5.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -226,11 +226,9 @@ Enumerations</h2></td></tr>
 <tr class="memdesc:a5529e7f2ff81f9d2943d2139e7997537"><td class="mdescLeft">&#160;</td><td class="mdescRight">OpenCV DNN backend kind for OpenCVDnnInferenceNet.SetPreferableBackend.  <a href="#a5529e7f2ff81f9d2943d2139e7997537">More...</a><br /></td></tr>
 <tr class="separator:a5529e7f2ff81f9d2943d2139e7997537"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a627372b0ac66d21adc7eaade8252a1bd" id="r_a627372b0ac66d21adc7eaade8252a1bd"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a627372b0ac66d21adc7eaade8252a1bd">OpenCVDnnInferenceEngineKind</a> { <br />
-&#160;&#160;<a class="el" href="#a627372b0ac66d21adc7eaade8252a1bdad35b51b639528d580362ca7042de6a0e">Classic</a> = Dnn.ENGINE_CLASSIC
-, <br />
-&#160;&#160;<a class="el" href="#a627372b0ac66d21adc7eaade8252a1bda03c2e7e41ffc181a4e84080b4710e81e">New</a> = Dnn.ENGINE_NEW
-, <br />
 &#160;&#160;<a class="el" href="#a627372b0ac66d21adc7eaade8252a1bda06b9281e396db002010bde1de57262eb">Auto</a> = Dnn.ENGINE_AUTO
+, <br />
+&#160;&#160;<a class="el" href="#a627372b0ac66d21adc7eaade8252a1bdacfaf4de8d6aaa9548c1796afe44c06f8">OpenCv</a> = Dnn.ENGINE_OPENCV
 , <br />
 &#160;&#160;<a class="el" href="#a627372b0ac66d21adc7eaade8252a1bda473390974397014edf78846c8f0e93b3">Ort</a> = Dnn.ENGINE_ORT
 <br />
@@ -307,13 +305,11 @@ Enumerations</h2></td></tr>
 <p>OpenCV DNN engine kind for <a class="el" href="../../d3/dbd/classOpenCVForUnity_1_1Extensions_1_1Worker_1_1DnnModule_1_1OpenCVDnnInferenceDnn.html#a7945f2a56afbc303069e15ead62dd155" title="Loads a model from disk with the given OpenCV DNN engine and returns a wrapped OpenCV Net.">OpenCVDnnInferenceDnn.ReadNet(string, int)</a>. </p>
 <p>Underlying values match OpenCV <code>ENGINE_*</code> constants in Dnn. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a627372b0ac66d21adc7eaade8252a1bdad35b51b639528d580362ca7042de6a0e" name="a627372b0ac66d21adc7eaade8252a1bdad35b51b639528d580362ca7042de6a0e"></a>Classic&#160;</td><td class="fielddoc"><p>Classic OpenCV DNN engine. </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a627372b0ac66d21adc7eaade8252a1bda06b9281e396db002010bde1de57262eb" name="a627372b0ac66d21adc7eaade8252a1bda06b9281e396db002010bde1de57262eb"></a>Auto&#160;</td><td class="fielddoc"><p>Automatic engine selection. Resolves to <a class="el" href="#a5529e7f2ff81f9d2943d2139e7997537acfaf4de8d6aaa9548c1796afe44c06f8" title="OpenCV built-in DNN backend.">OpenCv</a>. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a627372b0ac66d21adc7eaade8252a1bda03c2e7e41ffc181a4e84080b4710e81e" name="a627372b0ac66d21adc7eaade8252a1bda03c2e7e41ffc181a4e84080b4710e81e"></a>New&#160;</td><td class="fielddoc"><p>New OpenCV DNN engine. </p>
+<tr><td class="fieldname"><a id="a627372b0ac66d21adc7eaade8252a1bdacfaf4de8d6aaa9548c1796afe44c06f8" name="a627372b0ac66d21adc7eaade8252a1bdacfaf4de8d6aaa9548c1796afe44c06f8"></a>OpenCv&#160;</td><td class="fielddoc"><p>OpenCV built-in DNN engine. Non-CPU backends are not supported. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a627372b0ac66d21adc7eaade8252a1bda06b9281e396db002010bde1de57262eb" name="a627372b0ac66d21adc7eaade8252a1bda06b9281e396db002010bde1de57262eb"></a>Auto&#160;</td><td class="fielddoc"><p>Automatic engine selection (new first, then classic fallback). </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a627372b0ac66d21adc7eaade8252a1bda473390974397014edf78846c8f0e93b3" name="a627372b0ac66d21adc7eaade8252a1bda473390974397014edf78846c8f0e93b3"></a>Ort&#160;</td><td class="fielddoc"><p>ONNX Runtime engine. </p>
+<tr><td class="fieldname"><a id="a627372b0ac66d21adc7eaade8252a1bda473390974397014edf78846c8f0e93b3" name="a627372b0ac66d21adc7eaade8252a1bda473390974397014edf78846c8f0e93b3"></a>Ort&#160;</td><td class="fielddoc"><p>ONNX Runtime engine. ONNX models only; requires an OpenCV build with ONNX Runtime. </p>
 </td></tr>
 </table>
 

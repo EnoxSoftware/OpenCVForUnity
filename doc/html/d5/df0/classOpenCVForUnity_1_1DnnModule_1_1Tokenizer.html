@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.4</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.5</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/5.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -145,8 +145,11 @@ $(function(){ initResizable(false); });
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a8e3f334e45170c36cfb4a6493b0b4689" id="r_a8e3f334e45170c36cfb4a6493b0b4689"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e3f334e45170c36cfb4a6493b0b4689">decode</a> (<a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a> tokens)</td></tr>
 <tr class="separator:a8e3f334e45170c36cfb4a6493b0b4689"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89c9feb0abf992f289b8dcebe6b57a06" id="r_a89c9feb0abf992f289b8dcebe6b57a06"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89c9feb0abf992f289b8dcebe6b57a06">encode</a> (List&lt; string &gt; textChunks)</td></tr>
+<tr class="memdesc:a89c9feb0abf992f289b8dcebe6b57a06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode several text chunks as one sequence.  <br /></td></tr>
+<tr class="separator:a89c9feb0abf992f289b8dcebe6b57a06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a262dae56af78bc065243b553ad60f5c3" id="r_a262dae56af78bc065243b553ad60f5c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a262dae56af78bc065243b553ad60f5c3">encode</a> (string text)</td></tr>
-<tr class="memdesc:a262dae56af78bc065243b553ad60f5c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode UTF-8 text to token ids (special tokens currently disabled).  <br /></td></tr>
+<tr class="memdesc:a262dae56af78bc065243b553ad60f5c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode UTF-8 text to token ids.  <br /></td></tr>
 <tr class="separator:a262dae56af78bc065243b553ad60f5c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe72ea7123a245441d349261168a1308" id="r_abe72ea7123a245441d349261168a1308"><td class="memItemLeft" align="right" valign="top">IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe72ea7123a245441d349261168a1308">getNativeObjAddr</a> ()</td></tr>
 <tr class="separator:abe72ea7123a245441d349261168a1308"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -212,9 +215,9 @@ Additional Inherited Members</h2></td></tr>
 <div class="line">std::vector&lt;int&gt; ids = tok.<a class="code hl_function" href="#a262dae56af78bc065243b553ad60f5c3">encode</a>(<span class="stringliteral">&quot;hello world&quot;</span>);</div>
 <div class="line">std::string text = tok.<a class="code hl_function" href="#a8e3f334e45170c36cfb4a6493b0b4689">decode</a>(ids);</div>
 <div class="ttc" id="aclassOpenCVForUnity_1_1DnnModule_1_1Tokenizer_html"><div class="ttname"><a href="../../d5/df0/classOpenCVForUnity_1_1DnnModule_1_1Tokenizer.html">OpenCVForUnity.DnnModule.Tokenizer</a></div><div class="ttdoc">High-level tokenizer wrapper for DNN usage.</div><div class="ttdef"><b>Definition</b> Tokenizer.cs:26</div></div>
-<div class="ttc" id="aclassOpenCVForUnity_1_1DnnModule_1_1Tokenizer_html_a262dae56af78bc065243b553ad60f5c3"><div class="ttname"><a href="#a262dae56af78bc065243b553ad60f5c3">OpenCVForUnity.DnnModule.Tokenizer.encode</a></div><div class="ttdeci">MatOfInt encode(string text)</div><div class="ttdoc">Encode UTF-8 text to token ids (special tokens currently disabled).</div><div class="ttdef"><b>Definition</b> Tokenizer.cs:112</div></div>
-<div class="ttc" id="aclassOpenCVForUnity_1_1DnnModule_1_1Tokenizer_html_a4fd3b3f20f04fc5701f26c699f8ed47e"><div class="ttname"><a href="#a4fd3b3f20f04fc5701f26c699f8ed47e">OpenCVForUnity.DnnModule.Tokenizer.load</a></div><div class="ttdeci">static Tokenizer load(string model_config)</div><div class="ttdoc">Load a tokenizer from a model directory.</div><div class="ttdef"><b>Definition</b> Tokenizer.cs:89</div></div>
-<div class="ttc" id="aclassOpenCVForUnity_1_1DnnModule_1_1Tokenizer_html_a8e3f334e45170c36cfb4a6493b0b4689"><div class="ttname"><a href="#a8e3f334e45170c36cfb4a6493b0b4689">OpenCVForUnity.DnnModule.Tokenizer.decode</a></div><div class="ttdeci">string decode(MatOfInt tokens)</div><div class="ttdef"><b>Definition</b> Tokenizer.cs:124</div></div>
+<div class="ttc" id="aclassOpenCVForUnity_1_1DnnModule_1_1Tokenizer_html_a262dae56af78bc065243b553ad60f5c3"><div class="ttname"><a href="#a262dae56af78bc065243b553ad60f5c3">OpenCVForUnity.DnnModule.Tokenizer.encode</a></div><div class="ttdeci">MatOfInt encode(string text)</div><div class="ttdoc">Encode UTF-8 text to token ids.</div><div class="ttdef"><b>Definition</b> Tokenizer.cs:113</div></div>
+<div class="ttc" id="aclassOpenCVForUnity_1_1DnnModule_1_1Tokenizer_html_a4fd3b3f20f04fc5701f26c699f8ed47e"><div class="ttname"><a href="#a4fd3b3f20f04fc5701f26c699f8ed47e">OpenCVForUnity.DnnModule.Tokenizer.load</a></div><div class="ttdeci">static Tokenizer load(string model_config)</div><div class="ttdoc">Load a tokenizer from a model directory.</div><div class="ttdef"><b>Definition</b> Tokenizer.cs:88</div></div>
+<div class="ttc" id="aclassOpenCVForUnity_1_1DnnModule_1_1Tokenizer_html_a8e3f334e45170c36cfb4a6493b0b4689"><div class="ttname"><a href="#a8e3f334e45170c36cfb4a6493b0b4689">OpenCVForUnity.DnnModule.Tokenizer.decode</a></div><div class="ttdeci">string decode(MatOfInt tokens)</div><div class="ttdef"><b>Definition</b> Tokenizer.cs:158</div></div>
 </div><!-- fragment --> </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="af5b38140e1447a459e25fd452b555a10" name="af5b38140e1447a459e25fd452b555a10"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af5b38140e1447a459e25fd452b555a10">&#9670;&#160;</a></span>__fromPtr__()</h2>
@@ -285,8 +288,36 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a89c9feb0abf992f289b8dcebe6b57a06" name="a89c9feb0abf992f289b8dcebe6b57a06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89c9feb0abf992f289b8dcebe6b57a06">&#9670;&#160;</a></span>encode() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../df/dfe/classOpenCVForUnity_1_1CoreModule_1_1MatOfInt.html">MatOfInt</a> OpenCVForUnity.DnnModule.Tokenizer.encode </td>
+          <td>(</td>
+          <td class="paramtype">List&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>textChunks</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Encode several text chunks as one sequence. </p>
+<p>The chunks are laid out the way the model's own post_processor declares a pair of sequences, repeated for as many chunks as are given. For a BERT-family tokenizer that is <code>[CLS] textChunks[0] [SEP] textChunks[1] [SEP] ... textChunks[N-1] [SEP]</code>; for T5 it is <code>textChunks[0] &lt;/s&gt; textChunks[1] &lt;/s&gt; ...</code>. Whatever the template puts between its two sequences is repeated between every neighbouring pair.</p>
+<p>A single chunk is encoded exactly like encode(const std::string&amp;). Two or more require a tokenizer whose <code>post_processor</code> declares a <code>pair</code> template: BERT and ALBERT, T5 and Gemma do; byte-level BPE models such as GPT-2 do not, and throw. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">textChunks</td><td>UTF-8 input chunks; must not be empty. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector of token ids. Throws cv::Exception if <code>textChunks</code> is empty, or if it holds more than one chunk and the loaded tokenizer has no pair template. </dd></dl>
+
+</div>
+</div>
 <a id="a262dae56af78bc065243b553ad60f5c3" name="a262dae56af78bc065243b553ad60f5c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a262dae56af78bc065243b553ad60f5c3">&#9670;&#160;</a></span>encode()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a262dae56af78bc065243b553ad60f5c3">&#9670;&#160;</a></span>encode() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -300,8 +331,8 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Encode UTF-8 text to token ids (special tokens currently disabled). </p>
-<p>Calls the underlying <code>CoreBPE::encode</code> with an empty allowed-special set. </p>
+<p>Encode UTF-8 text to token ids. </p>
+<p>Special-token text in <code>text</code> is recognized and mapped to its own id, and any wrapper the model's post_processor declares (e.g. BERT's <code>[CLS]</code>/<code>[SEP]</code>) is applied. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">text</td><td>UTF-8 input string. </td></tr>
@@ -353,18 +384,17 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Load a tokenizer from a model directory. </p>
-<p>Expects the directory to contain:</p><ul>
-<li><code>config.json</code> with field <code>model_type</code> with value "gpt2" or "gpt4".</li>
-<li><code>tokenizer.json</code> produced by the corresponding model family.</li>
+<p>Accepts either the model directory or the path to its <code>config.json</code>. The directory must contain:</p><ul>
+<li><code>config.json</code>. An optional <code>method</code> field (one of: BPE, Gemma, SentencePiece, Unigram, WordPiece) selects the family; without it the family is detected from <code>tokenizer.json</code>, so a stock Hugging Face config works unmodified.</li>
+<li><code>tokenizer.json</code> produced by the corresponding model family. </li>
 </ul>
-<p>The argument is a path prefix; this function concatenates file names directly (e.g. <code>model_dir</code> + "config.json"), so <code>model_dir</code> must end with an appropriate path separator. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">model_config</td><td>Path to config.json for model. </td></tr>
+    <tr><td class="paramname">model_config</td><td><a class="el" href="../../db/d55/classOpenCVForUnity_1_1DnnModule_1_1Model.html" title="This class is presented high-level API for neural networks.">Model</a> directory, or the path to its config.json. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../d5/df0/classOpenCVForUnity_1_1DnnModule_1_1Tokenizer.html" title="High-level tokenizer wrapper for DNN usage.">Tokenizer</a> ready for use. Throws cv::Exception if files are missing or <code>model_type</code> is unsupported. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../d5/df0/classOpenCVForUnity_1_1DnnModule_1_1Tokenizer.html" title="High-level tokenizer wrapper for DNN usage.">Tokenizer</a> ready for use. Throws cv::Exception if files are missing or <code>method</code> is unsupported. </dd></dl>
 
 </div>
 </div>

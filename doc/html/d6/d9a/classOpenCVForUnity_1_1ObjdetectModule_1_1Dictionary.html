@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.4</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.5</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/5.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -169,6 +169,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae2cfd542ffdac748a05afe2a725add8c" id="r_ae2cfd542ffdac748a05afe2a725add8c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae2cfd542ffdac748a05afe2a725add8c">getDistanceToId</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> bits, int id, bool allRotations)</td></tr>
 <tr class="memdesc:ae2cfd542ffdac748a05afe2a725add8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns Hamming distance of the input bits to the specific id.  <br /></td></tr>
 <tr class="separator:ae2cfd542ffdac748a05afe2a725add8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac08fe5d5a32d036fe41a3f7c793b0dc4" id="r_ac08fe5d5a32d036fe41a3f7c793b0dc4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac08fe5d5a32d036fe41a3f7c793b0dc4">getDistanceToId</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> onlyCellPixelRatio, int id, bool allRotations, float validBitIdThreshold)</td></tr>
+<tr class="memdesc:ac08fe5d5a32d036fe41a3f7c793b0dc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns number of cells that differ from the specific id.  <br /></td></tr>
+<tr class="separator:ac08fe5d5a32d036fe41a3f7c793b0dc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af29cd6a046b3c7bbd32d1292ae93947f" id="r_af29cd6a046b3c7bbd32d1292ae93947f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af29cd6a046b3c7bbd32d1292ae93947f">getMarkerBits</a> (int markerId)</td></tr>
 <tr class="memdesc:af29cd6a046b3c7bbd32d1292ae93947f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get ground truth bits float.  <br /></td></tr>
 <tr class="separator:af29cd6a046b3c7bbd32d1292ae93947f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,7 +184,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a93578415a31a76c553aafffecc7aada3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a matrix of bits. Returns whether if marker is identified or not.  <br /></td></tr>
 <tr class="separator:a93578415a31a76c553aafffecc7aada3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f22989360511c0042e64674ca32f02c" id="r_a5f22989360511c0042e64674ca32f02c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f22989360511c0042e64674ca32f02c">identify</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> onlyCellPixelRatio, int[] idx, int[] rotation, double maxCorrectionRate, float validBitIdThreshold)</td></tr>
-<tr class="memdesc:a5f22989360511c0042e64674ca32f02c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a matrix of pixel ratio raging from 0 to 1. Returns whether if marker is identified or not.  <br /></td></tr>
+<tr class="memdesc:a5f22989360511c0042e64674ca32f02c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a matrix of pixel ratio ranging from 0 to 1. Returns whether the marker is identified or not.  <br /></td></tr>
 <tr class="separator:a5f22989360511c0042e64674ca32f02c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af65b046fc5ed946af0da27a648f93422" id="r_af65b046fc5ed946af0da27a648f93422"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af65b046fc5ed946af0da27a648f93422">set_bytesList</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> bytesList)</td></tr>
 <tr class="separator:af65b046fc5ed946af0da27a648f93422"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -605,7 +608,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <a id="a824afc177d43a382219552db218d2d98" name="a824afc177d43a382219552db218d2d98"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a824afc177d43a382219552db218d2d98">&#9670;&#160;</a></span>getDistanceToId() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a824afc177d43a382219552db218d2d98">&#9670;&#160;</a></span>getDistanceToId() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -629,7 +632,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <a id="ae2cfd542ffdac748a05afe2a725add8c" name="ae2cfd542ffdac748a05afe2a725add8c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2cfd542ffdac748a05afe2a725add8c">&#9670;&#160;</a></span>getDistanceToId() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2cfd542ffdac748a05afe2a725add8c">&#9670;&#160;</a></span>getDistanceToId() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -654,6 +657,49 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Returns Hamming distance of the input bits to the specific id. </p>
 <p>If <code>allRotations</code> flag is set, the four possible marker rotations are considered </p>
+
+</div>
+</div>
+<a id="ac08fe5d5a32d036fe41a3f7c793b0dc4" name="ac08fe5d5a32d036fe41a3f7c793b0dc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac08fe5d5a32d036fe41a3f7c793b0dc4">&#9670;&#160;</a></span>getDistanceToId() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int OpenCVForUnity.ObjdetectModule.Dictionary.getDistanceToId </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a></td>          <td class="paramname"><span class="paramname"><em>onlyCellPixelRatio</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>id</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>allRotations</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>validBitIdThreshold</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns number of cells that differ from the specific id. </p>
+<p>For each cell, the distance is increased when the difference between the detected cell pixel ratio and the dictionary bit value is greater than <code>validBitIdThreshold</code>. If <code>allRotations</code> is set, the four possible marker rotations are considered. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">onlyCellPixelRatio</td><td>markerSize x markerSize matrix (CV_32FC1) holding, for each cell, the ratio of white pixels ranging from 0 to 1 </td></tr>
+    <tr><td class="paramname">id</td><td>marker id in the dictionary to compute the distance to </td></tr>
+    <tr><td class="paramname">allRotations</td><td>if set, the four possible marker rotations are considered and the smallest distance is returned </td></tr>
+    <tr><td class="paramname">validBitIdThreshold</td><td>maximum allowed difference between a cell pixel ratio and the dictionary bit value; cells exceeding it are counted as differing </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -784,7 +830,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Given a matrix of pixel ratio raging from 0 to 1. Returns whether if marker is identified or not. </p>
+<p>Given a matrix of pixel ratio ranging from 0 to 1. Returns whether the marker is identified or not. </p>
 <p>Returns reference to the marker id in the dictionary (if any) and its rotation. </p>
 
 </div>

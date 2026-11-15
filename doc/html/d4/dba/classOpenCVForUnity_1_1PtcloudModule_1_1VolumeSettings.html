@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.4</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.5</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/5.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -155,6 +155,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa2557621c5f70e1148bb97c7a8ec63cc" id="r_aa2557621c5f70e1148bb97c7a8ec63cc"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa2557621c5f70e1148bb97c7a8ec63cc">getDepthFactor</a> ()</td></tr>
 <tr class="memdesc:aa2557621c5f70e1148bb97c7a8ec63cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns depth factor, witch is the number for depth scaling.  <br /></td></tr>
 <tr class="separator:aa2557621c5f70e1148bb97c7a8ec63cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46328e52318c75647ae629198b12c89a" id="r_a46328e52318c75647ae629198b12c89a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46328e52318c75647ae629198b12c89a">getGradientDeltaFactor</a> ()</td></tr>
+<tr class="memdesc:a46328e52318c75647ae629198b12c89a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns gradient delta factor used for normal estimation in TSDF volumes.  <br /></td></tr>
+<tr class="separator:a46328e52318c75647ae629198b12c89a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8cd1e8ed222121a53d3ac0f3e02b5dd" id="r_af8cd1e8ed222121a53d3ac0f3e02b5dd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8cd1e8ed222121a53d3ac0f3e02b5dd">getIntegrateHeight</a> ()</td></tr>
 <tr class="memdesc:af8cd1e8ed222121a53d3ac0f3e02b5dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the height of the image for integration.  <br /></td></tr>
 <tr class="separator:af8cd1e8ed222121a53d3ac0f3e02b5dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -185,11 +188,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ac64d11d0f35cae1f80d36457429cd7b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets volume pose.  <br /></td></tr>
 <tr class="separator:ac64d11d0f35cae1f80d36457429cd7b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ef3e596e6c14d129220f3a52427fa9e" id="r_a1ef3e596e6c14d129220f3a52427fa9e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ef3e596e6c14d129220f3a52427fa9e">getVolumeResolution</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> val)</td></tr>
-<tr class="memdesc:a1ef3e596e6c14d129220f3a52427fa9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolution of voxel space. Number of voxels in each dimension. Applicable only for TSDF <a class="el" href="../../d7/da9/classOpenCVForUnity_1_1PtcloudModule_1_1Volume.html">Volume</a>. HashTSDF volume only supports equal resolution in all three dimensions.  <br /></td></tr>
+<tr class="memdesc:a1ef3e596e6c14d129220f3a52427fa9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolution of voxel space. Number of voxels in each dimension. Applicable only for TSDF and ColorTSDF volumes. HashTSDF and ColorHashTSDF volumes only support equal resolution in all three dimensions.  <br /></td></tr>
 <tr class="separator:a1ef3e596e6c14d129220f3a52427fa9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac4be992848cfada90aae2926730de4a" id="r_aac4be992848cfada90aae2926730de4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac4be992848cfada90aae2926730de4a">getVolumeStrides</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> val)</td></tr>
 <tr class="memdesc:aac4be992848cfada90aae2926730de4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns 3 integers representing strides by x, y and z dimension. Can be used to iterate over raw volume unit data.  <br /></td></tr>
 <tr class="separator:aac4be992848cfada90aae2926730de4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab84bec1d44f22ce7b8ba53b43e8028c0" id="r_ab84bec1d44f22ce7b8ba53b43e8028c0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab84bec1d44f22ce7b8ba53b43e8028c0">getVolumeUnitHideThreshold</a> ()</td></tr>
+<tr class="memdesc:ab84bec1d44f22ce7b8ba53b43e8028c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns threshold for number of frames after which invisible volume units are hidden/removed. For HashTSDF and ColorHashTSDF volumes, units that haven't been visible for this many frames will be removed.  <br /></td></tr>
+<tr class="separator:ab84bec1d44f22ce7b8ba53b43e8028c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9440c3cb098efe69ae4680cc293197be" id="r_a9440c3cb098efe69ae4680cc293197be"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9440c3cb098efe69ae4680cc293197be">getVoxelSize</a> ()</td></tr>
 <tr class="memdesc:a9440c3cb098efe69ae4680cc293197be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of voxel.  <br /></td></tr>
 <tr class="separator:a9440c3cb098efe69ae4680cc293197be"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -202,6 +208,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a41f56b044ee8ee65c312ee8e9227f64f" id="r_a41f56b044ee8ee65c312ee8e9227f64f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a41f56b044ee8ee65c312ee8e9227f64f">setDepthFactor</a> (float val)</td></tr>
 <tr class="memdesc:a41f56b044ee8ee65c312ee8e9227f64f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets depth factor, witch is the number for depth scaling.  <br /></td></tr>
 <tr class="separator:a41f56b044ee8ee65c312ee8e9227f64f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa690c57580196275619d5da7e9fa18a0" id="r_aa690c57580196275619d5da7e9fa18a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa690c57580196275619d5da7e9fa18a0">setGradientDeltaFactor</a> (float val)</td></tr>
+<tr class="memdesc:aa690c57580196275619d5da7e9fa18a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets gradient delta factor used for normal estimation in TSDF volumes.  <br /></td></tr>
+<tr class="separator:aa690c57580196275619d5da7e9fa18a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64d46a373f4a5a60721954e4727a4c64" id="r_a64d46a373f4a5a60721954e4727a4c64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64d46a373f4a5a60721954e4727a4c64">setIntegrateHeight</a> (int val)</td></tr>
 <tr class="memdesc:a64d46a373f4a5a60721954e4727a4c64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the height of the image for integration.  <br /></td></tr>
 <tr class="separator:a64d46a373f4a5a60721954e4727a4c64"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -230,8 +239,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a2065cc087e1b593537cee94d458d71f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets volume pose.  <br /></td></tr>
 <tr class="separator:a2065cc087e1b593537cee94d458d71f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33a541e41c4f934ea1fbeb0004c417bc" id="r_a33a541e41c4f934ea1fbeb0004c417bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a33a541e41c4f934ea1fbeb0004c417bc">setVolumeResolution</a> (<a class="el" href="../../dc/dc6/classOpenCVForUnity_1_1CoreModule_1_1Mat.html">Mat</a> val)</td></tr>
-<tr class="memdesc:a33a541e41c4f934ea1fbeb0004c417bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolution of voxel space. Number of voxels in each dimension. Applicable only for TSDF <a class="el" href="../../d7/da9/classOpenCVForUnity_1_1PtcloudModule_1_1Volume.html">Volume</a>. HashTSDF volume only supports equal resolution in all three dimensions.  <br /></td></tr>
+<tr class="memdesc:a33a541e41c4f934ea1fbeb0004c417bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolution of voxel space. Number of voxels in each dimension. Applicable only for TSDF and ColorTSDF volumes. HashTSDF and ColorHashTSDF volumes only support equal resolution in all three dimensions.  <br /></td></tr>
 <tr class="separator:a33a541e41c4f934ea1fbeb0004c417bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca34ba2d22d13ed4d1253b7e66685b84" id="r_aca34ba2d22d13ed4d1253b7e66685b84"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca34ba2d22d13ed4d1253b7e66685b84">setVolumeUnitHideThreshold</a> (int val)</td></tr>
+<tr class="memdesc:aca34ba2d22d13ed4d1253b7e66685b84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets threshold for number of frames after which invisible volume units are hidden/removed. For HashTSDF and ColorHashTSDF volumes, units that haven't been visible for this many frames will be removed.  <br /></td></tr>
+<tr class="separator:aca34ba2d22d13ed4d1253b7e66685b84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3969a51f7569e6b3e34ec6249985b67" id="r_ac3969a51f7569e6b3e34ec6249985b67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac3969a51f7569e6b3e34ec6249985b67">setVoxelSize</a> (float val)</td></tr>
 <tr class="memdesc:ac3969a51f7569e6b3e34ec6249985b67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the size of voxel.  <br /></td></tr>
 <tr class="separator:ac3969a51f7569e6b3e34ec6249985b67"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -459,6 +471,25 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a46328e52318c75647ae629198b12c89a" name="a46328e52318c75647ae629198b12c89a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46328e52318c75647ae629198b12c89a">&#9670;&#160;</a></span>getGradientDeltaFactor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float OpenCVForUnity.PtcloudModule.VolumeSettings.getGradientDeltaFactor </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns gradient delta factor used for normal estimation in TSDF volumes. </p>
+
+</div>
+</div>
 <a id="af8cd1e8ed222121a53d3ac0f3e02b5dd" name="af8cd1e8ed222121a53d3ac0f3e02b5dd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af8cd1e8ed222121a53d3ac0f3e02b5dd">&#9670;&#160;</a></span>getIntegrateHeight()</h2>
 
@@ -668,7 +699,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Resolution of voxel space. Number of voxels in each dimension. Applicable only for TSDF <a class="el" href="../../d7/da9/classOpenCVForUnity_1_1PtcloudModule_1_1Volume.html">Volume</a>. HashTSDF volume only supports equal resolution in all three dimensions. </p>
+<p>Resolution of voxel space. Number of voxels in each dimension. Applicable only for TSDF and ColorTSDF volumes. HashTSDF and ColorHashTSDF volumes only support equal resolution in all three dimensions. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">val</td><td>output value. </td></tr>
@@ -700,6 +731,25 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ab84bec1d44f22ce7b8ba53b43e8028c0" name="ab84bec1d44f22ce7b8ba53b43e8028c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab84bec1d44f22ce7b8ba53b43e8028c0">&#9670;&#160;</a></span>getVolumeUnitHideThreshold()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int OpenCVForUnity.PtcloudModule.VolumeSettings.getVolumeUnitHideThreshold </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns threshold for number of frames after which invisible volume units are hidden/removed. For HashTSDF and ColorHashTSDF volumes, units that haven't been visible for this many frames will be removed. </p>
 
 </div>
 </div>
@@ -788,6 +838,31 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets depth factor, witch is the number for depth scaling. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">val</td><td>input value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa690c57580196275619d5da7e9fa18a0" name="aa690c57580196275619d5da7e9fa18a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa690c57580196275619d5da7e9fa18a0">&#9670;&#160;</a></span>setGradientDeltaFactor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.PtcloudModule.VolumeSettings.setGradientDeltaFactor </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets gradient delta factor used for normal estimation in TSDF volumes. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">val</td><td>input value. </td></tr>
@@ -1037,7 +1112,32 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Resolution of voxel space. Number of voxels in each dimension. Applicable only for TSDF <a class="el" href="../../d7/da9/classOpenCVForUnity_1_1PtcloudModule_1_1Volume.html">Volume</a>. HashTSDF volume only supports equal resolution in all three dimensions. </p>
+<p>Resolution of voxel space. Number of voxels in each dimension. Applicable only for TSDF and ColorTSDF volumes. HashTSDF and ColorHashTSDF volumes only support equal resolution in all three dimensions. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">val</td><td>input value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aca34ba2d22d13ed4d1253b7e66685b84" name="aca34ba2d22d13ed4d1253b7e66685b84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca34ba2d22d13ed4d1253b7e66685b84">&#9670;&#160;</a></span>setVolumeUnitHideThreshold()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCVForUnity.PtcloudModule.VolumeSettings.setVolumeUnitHideThreshold </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets threshold for number of frames after which invisible volume units are hidden/removed. For HashTSDF and ColorHashTSDF volumes, units that haven't been visible for this many frames will be removed. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">val</td><td>input value. </td></tr>

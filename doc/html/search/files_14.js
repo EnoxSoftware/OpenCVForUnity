@@ -43,12 +43,14 @@ var searchData=
   ['videocaptureopenoptions_2ecs_40',['VideoCaptureOpenOptions.cs',['../df/dbd/VideoCaptureOpenOptions_8cs.html',1,'']]],
   ['videocapturesourceinspectorsettings_2ecs_41',['VideoCaptureSourceInspectorSettings.cs',['../da/d00/VideoCaptureSourceInspectorSettings_8cs.html',1,'']]],
   ['videocapturetomathelper_2ecs_42',['VideoCaptureToMatHelper.cs',['../df/d3f/VideoCaptureToMatHelper_8cs.html',1,'']]],
-  ['videofileopenoptions_2ecs_43',['VideoFileOpenOptions.cs',['../d0/dd2/VideoFileOpenOptions_8cs.html',1,'']]],
-  ['videoio_2ecs_44',['Videoio.cs',['../db/d04/Videoio_8cs.html',1,'']]],
-  ['videoioconverters_2ecs_45',['VideoioConverters.cs',['../d0/d77/VideoioConverters_8cs.html',1,'']]],
-  ['videowriter_2ecs_46',['VideoWriter.cs',['../df/d9b/VideoWriter_8cs.html',1,'']]],
-  ['videowriter_5fstruct_2ecs_47',['VideoWriter_Struct.cs',['../dc/d78/VideoWriter__Struct_8cs.html',1,'']]],
-  ['videowriter_5fvaluetuple_2ecs_48',['VideoWriter_ValueTuple.cs',['../d1/d6f/VideoWriter__ValueTuple_8cs.html',1,'']]],
-  ['volume_2ecs_49',['Volume.cs',['../df/de4/Volume_8cs.html',1,'']]],
-  ['volumesettings_2ecs_50',['VolumeSettings.cs',['../dc/dff/VolumeSettings_8cs.html',1,'']]]
+  ['videodeviceinfo_2ecs_43',['VideoDeviceInfo.cs',['../d1/dad/VideoDeviceInfo_8cs.html',1,'']]],
+  ['videofileopenoptions_2ecs_44',['VideoFileOpenOptions.cs',['../d0/dd2/VideoFileOpenOptions_8cs.html',1,'']]],
+  ['videoio_2ecs_45',['Videoio.cs',['../db/d04/Videoio_8cs.html',1,'']]],
+  ['videoioconverters_2ecs_46',['VideoioConverters.cs',['../d0/d77/VideoioConverters_8cs.html',1,'']]],
+  ['videowriter_2ecs_47',['VideoWriter.cs',['../df/d9b/VideoWriter_8cs.html',1,'']]],
+  ['videowriter_5fstruct_2ecs_48',['VideoWriter_Struct.cs',['../dc/d78/VideoWriter__Struct_8cs.html',1,'']]],
+  ['videowriter_5fvaluetuple_2ecs_49',['VideoWriter_ValueTuple.cs',['../d1/d6f/VideoWriter__ValueTuple_8cs.html',1,'']]],
+  ['visualodometry_2ecs_50',['VisualOdometry.cs',['../d3/d81/VisualOdometry_8cs.html',1,'']]],
+  ['volume_2ecs_51',['Volume.cs',['../df/de4/Volume_8cs.html',1,'']]],
+  ['volumesettings_2ecs_52',['VolumeSettings.cs',['../dc/dff/VolumeSettings_8cs.html',1,'']]]
 ];

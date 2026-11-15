@@ -65,7 +65,7 @@ window.MathJax = {
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.4</span>
+   <div id="projectname">OpenCV for Unity<span id="projectnumber">&#160;3.0.5</span>
    </div>
    <div id="projectbrief">Enox Software / Please refer to OpenCV official document ( http://docs.opencv.org/5.0/index.html ) for the details of the argument of the method.</div>
   </td>
@@ -320,6 +320,9 @@ Static Public Attributes</h2></td></tr>
 <tr class="memitem:abae3b0d3ca4db7491437231d3f0bd570" id="r_abae3b0d3ca4db7491437231d3f0bd570"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abae3b0d3ca4db7491437231d3f0bd570">IMREAD_UNCHANGED</a> = -1</td></tr>
 <tr class="memdesc:abae3b0d3ca4db7491437231d3f0bd570"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++: enum ImreadModes (cv.ImreadModes)  <br /></td></tr>
 <tr class="separator:abae3b0d3ca4db7491437231d3f0bd570"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4a61f6567100afed5231b4046ff7475" id="r_ab4a61f6567100afed5231b4046ff7475"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab4a61f6567100afed5231b4046ff7475">IMWRITE_AVIF_ALPHA_QUALITY</a> = 515</td></tr>
+<tr class="memdesc:ab4a61f6567100afed5231b4046ff7475"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++: enum ImwriteFlags (cv.ImwriteFlags)  <br /></td></tr>
+<tr class="separator:ab4a61f6567100afed5231b4046ff7475"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa51a3f7a5ef8bfa27482751e0c46a97f" id="r_aa51a3f7a5ef8bfa27482751e0c46a97f"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa51a3f7a5ef8bfa27482751e0c46a97f">IMWRITE_AVIF_DEPTH</a> = 513</td></tr>
 <tr class="memdesc:aa51a3f7a5ef8bfa27482751e0c46a97f"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++: enum ImwriteFlags (cv.ImwriteFlags)  <br /></td></tr>
 <tr class="separator:aa51a3f7a5ef8bfa27482751e0c46a97f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -617,6 +620,9 @@ Static Public Attributes</h2></td></tr>
 <tr class="memitem:a47c6c678e4183b66e4caedee4f672a0d" id="r_a47c6c678e4183b66e4caedee4f672a0d"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47c6c678e4183b66e4caedee4f672a0d">IMWRITE_TIFF_COMPRESSION_LERC</a> = 34887</td></tr>
 <tr class="memdesc:a47c6c678e4183b66e4caedee4f672a0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++: enum ImwriteTiffCompressionFlags (cv.ImwriteTiffCompressionFlags)  <br /></td></tr>
 <tr class="separator:a47c6c678e4183b66e4caedee4f672a0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f9c78609e76a6cf74e9832edf600669" id="r_a5f9c78609e76a6cf74e9832edf600669"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f9c78609e76a6cf74e9832edf600669">IMWRITE_TIFF_COMPRESSION_LEVEL</a> = 260</td></tr>
+<tr class="memdesc:a5f9c78609e76a6cf74e9832edf600669"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++: enum ImwriteFlags (cv.ImwriteFlags)  <br /></td></tr>
+<tr class="separator:a5f9c78609e76a6cf74e9832edf600669"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e8784f72ff130cadbeff19914d2bdb4" id="r_a2e8784f72ff130cadbeff19914d2bdb4"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e8784f72ff130cadbeff19914d2bdb4">IMWRITE_TIFF_COMPRESSION_LZMA</a> = 34925</td></tr>
 <tr class="memdesc:a2e8784f72ff130cadbeff19914d2bdb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++: enum ImwriteTiffCompressionFlags (cv.ImwriteTiffCompressionFlags)  <br /></td></tr>
 <tr class="separator:a2e8784f72ff130cadbeff19914d2bdb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2289,8 +2295,8 @@ Static Public Attributes</h2></td></tr>
 </ul>
 </li>
 <li>With AVIF encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.<ul>
-<li>CV_16U images can be saved as only 10-bit or 12-bit (not 16-bit). See IMWRITE_AVIF_DEPTH.</li>
-<li>AVIF images with an alpha channel can be saved using this function. To achieve this, create an 8-bit 4-channel (CV_8UC4) / 16-bit 4-channel (CV_16UC4) BGRA image, ensuring the alpha channel is the last component. Fully transparent pixels should have an alpha value of 0, while fully opaque pixels should have an alpha value of 255 (8-bit) / 1023 (10-bit) / 4095 (12-bit) (see the code sample below).</li>
+<li>CV_16U images can be saved as only 10-bit or 12-bit (and 16-bit with libavif 1.4.0+). See <a class="el" href="#aa51a3f7a5ef8bfa27482751e0c46a97f">IMWRITE_AVIF_DEPTH</a>.</li>
+<li>AVIF images with an alpha channel can be saved using this function. To achieve this, create an 8-bit 4-channel (CV_8UC4) / 16-bit 4-channel (CV_16UC4) BGRA image, ensuring the alpha channel is the last component. Fully transparent pixels should have an alpha value of 0, while fully opaque pixels should have an alpha value of 255 (8-bit) / 1023 (10-bit) / 4095 (12-bit) / 65535 (16-bit) (see the code sample below). Note that if the alpha plane contains only fully opaque pixels, the destination saves only color channels due to a libavif limitation.</li>
 </ul>
 </li>
 </ul>
@@ -2378,8 +2384,8 @@ Static Public Attributes</h2></td></tr>
 </ul>
 </li>
 <li>With AVIF encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.<ul>
-<li>CV_16U images can be saved as only 10-bit or 12-bit (not 16-bit). See IMWRITE_AVIF_DEPTH.</li>
-<li>AVIF images with an alpha channel can be saved using this function. To achieve this, create an 8-bit 4-channel (CV_8UC4) / 16-bit 4-channel (CV_16UC4) BGRA image, ensuring the alpha channel is the last component. Fully transparent pixels should have an alpha value of 0, while fully opaque pixels should have an alpha value of 255 (8-bit) / 1023 (10-bit) / 4095 (12-bit) (see the code sample below).</li>
+<li>CV_16U images can be saved as only 10-bit or 12-bit (and 16-bit with libavif 1.4.0+). See <a class="el" href="#aa51a3f7a5ef8bfa27482751e0c46a97f">IMWRITE_AVIF_DEPTH</a>.</li>
+<li>AVIF images with an alpha channel can be saved using this function. To achieve this, create an 8-bit 4-channel (CV_8UC4) / 16-bit 4-channel (CV_16UC4) BGRA image, ensuring the alpha channel is the last component. Fully transparent pixels should have an alpha value of 0, while fully opaque pixels should have an alpha value of 255 (8-bit) / 1023 (10-bit) / 4095 (12-bit) / 65535 (16-bit) (see the code sample below). Note that if the alpha plane contains only fully opaque pixels, the destination saves only color channels due to a libavif limitation.</li>
 </ul>
 </li>
 </ul>
@@ -3158,6 +3164,30 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>C++: enum ImreadModes (cv.ImreadModes) </p>
+
+</div>
+</div>
+<a id="ab4a61f6567100afed5231b4046ff7475" name="ab4a61f6567100afed5231b4046ff7475"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4a61f6567100afed5231b4046ff7475">&#9670;&#160;</a></span>IMWRITE_AVIF_ALPHA_QUALITY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int OpenCVForUnity.ImgcodecsModule.Imgcodecs.IMWRITE_AVIF_ALPHA_QUALITY = 515</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>C++: enum ImwriteFlags (cv.ImwriteFlags) </p>
 
 </div>
 </div>
@@ -5534,6 +5564,30 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>C++: enum ImwriteTiffCompressionFlags (cv.ImwriteTiffCompressionFlags) </p>
+
+</div>
+</div>
+<a id="a5f9c78609e76a6cf74e9832edf600669" name="a5f9c78609e76a6cf74e9832edf600669"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f9c78609e76a6cf74e9832edf600669">&#9670;&#160;</a></span>IMWRITE_TIFF_COMPRESSION_LEVEL</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int OpenCVForUnity.ImgcodecsModule.Imgcodecs.IMWRITE_TIFF_COMPRESSION_LEVEL = 260</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>C++: enum ImwriteFlags (cv.ImwriteFlags) </p>
 
 </div>
 </div>
